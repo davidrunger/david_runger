@@ -15,6 +15,7 @@ gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth-google-oauth2'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'hamlit'
+gem 'awesome_print'
 
 group :development, :test do
   gem 'pry-byebug'
