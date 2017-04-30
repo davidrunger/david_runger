@@ -6,7 +6,7 @@
     <div v-if='saving'>saving...</div>
     <div v-if='saved'>saved.</div>
     <hr/>
-    <h2>Variables</h2>
+    <h2>Fill in the Blanks</h2>
     <div v-if='variables.length'>
       <div v-for='variable in variables'>
         <label>{{ variable.name }}</label>
@@ -15,13 +15,15 @@
     </div>
     <hr/>
     <h2>Rendered</h2>
-      <p class='rendered'>{{rendered()}}</p>
-    </div>
+    <p class='renderedText'>{{renderedText()}}</p>
+    <button class='copy-to-clipboard' v-on:click='copyToClipboard()'>Copy to Clipboard</button>
+    <span v-if='wasCopiedRecently'>Copied!</span>
   </div>
 </template>
 
 <script>
 import { debounce, find } from 'lodash';
+import Clipboard from 'clipboard';
 
 export default {
   beforeMount() {
@@ -32,6 +34,7 @@ export default {
     return Object.assign({},
       window.davidrunger.bootstrap,
       {
+        wasCopiedRecently: false,
         saved: false,
         saving: false,
         variables: [],
@@ -40,15 +43,27 @@ export default {
   },
 
   methods: {
-    rendered() {
-      let rendered = this.template.body;
+    copyToClipboard() {
+      const clipboard = new Clipboard('.copy-to-clipboard', {
+        text: () => this.renderedText(),
+      });
+      clipboard.on('success', () => {
+        this.wasCopiedRecently = true;
+        setTimeout(() => this.wasCopiedRecently = false, 3000);
+      });
+    },
+
+    renderedText() {
+      console.log('calculating!');
+      let renderedText = this.template.body;
       this.variables.forEach(variable => {
         if (variable.value) {
           const regex = new RegExp(`{{${variable.name}}}`, 'g');
-          rendered = rendered.replace(regex, variable.value);
+          renderedText = renderedText.replace(regex, variable.value);
         }
       });
-      return rendered;
+      this.latestRender = renderedText;
+      return renderedText;
     },
 
     updateServer: debounce(
@@ -100,7 +115,11 @@ textarea {
   height: 100px;
 }
 
-.rendered {
+.renderedText {
   white-space: pre-wrap;
+}
+
+.copy-to-clipboard {
+  font-size: 20px;
 }
 </style>
