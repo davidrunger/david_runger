@@ -12,6 +12,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'webpacker'
 gem 'jbuilder', '~> 2.5'
 gem 'devise', github: 'plataformatec/devise'
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'byebug'
