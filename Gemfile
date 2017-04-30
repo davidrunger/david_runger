@@ -11,6 +11,7 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'webpacker'
 gem 'jbuilder', '~> 2.5'
+gem 'devise'
 
 group :development, :test do
   gem 'byebug'
