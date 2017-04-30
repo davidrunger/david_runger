@@ -3,6 +3,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     user = User.from_omniauth!(request.env["omniauth.auth"])
     sign_in user
-    redirect_to root_path
+    redirect_to templates_path
   end
 end

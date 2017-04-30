@@ -1,8 +1,2 @@
-- if user_signed_in?
-  %h1 Hi, #{current_user.email}! :)
-  = link_to('Templates', templates_path)
-  = link_to('Sign Out', destroy_user_session_path, method: :delete)
-- else
-  = link_to('Sign in with Google', user_google_oauth2_omniauth_authorize_path)
-
-A bunch of other information about me
+%p= link_to('Templates App', templates_path)
+%p All about David Runger.

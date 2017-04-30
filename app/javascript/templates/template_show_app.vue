@@ -16,7 +16,7 @@
     <hr/>
     <h2>Rendered</h2>
     <p class='renderedText'>{{renderedText()}}</p>
-    <button class='copy-to-clipboard' v-on:click='copyToClipboard()'>Copy to Clipboard</button>
+    <button class='copy-to-clipboard'>Copy to Clipboard</button>
     <span v-if='wasCopiedRecently'>Copied!</span>
   </div>
 </template>
@@ -28,6 +28,16 @@ import Clipboard from 'clipboard';
 export default {
   beforeMount() {
     this.updateVariables();
+  },
+
+  mounted() {
+    const clipboard = new Clipboard('.copy-to-clipboard', {
+      text: () => this.renderedText(),
+    });
+    clipboard.on('success', () => {
+      this.wasCopiedRecently = true;
+      setTimeout(() => this.wasCopiedRecently = false, 3000);
+    });
   },
 
   data() {
@@ -43,18 +53,7 @@ export default {
   },
 
   methods: {
-    copyToClipboard() {
-      const clipboard = new Clipboard('.copy-to-clipboard', {
-        text: () => this.renderedText(),
-      });
-      clipboard.on('success', () => {
-        this.wasCopiedRecently = true;
-        setTimeout(() => this.wasCopiedRecently = false, 3000);
-      });
-    },
-
     renderedText() {
-      console.log('calculating!');
       let renderedText = this.template.body;
       this.variables.forEach(variable => {
         if (variable.value) {
