@@ -14,6 +14,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth-google-oauth2'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'hamlit'
 
 group :development, :test do
   gem 'byebug'
