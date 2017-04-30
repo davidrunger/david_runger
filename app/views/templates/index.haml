@@ -1,3 +1,4 @@
 %h1 Your Templates
+= link_to('New template', new_template_path)
 - current_user.templates.each do |template|
   = link_to(template.name, template)
