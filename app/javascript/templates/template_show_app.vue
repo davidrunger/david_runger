@@ -15,9 +15,7 @@
     </div>
     <hr/>
     <h2>Rendered</h2>
-      <p>
-        {{rendered()}}
-      </p>
+      <p class='rendered'>{{rendered()}}</p>
     </div>
   </div>
 </template>
@@ -36,9 +34,7 @@ export default {
       {
         saved: false,
         saving: false,
-        variables: [
-          { name: 'room', value: 'Arguello' }
-        ],
+        variables: [],
       }
     );
   },
@@ -102,5 +98,9 @@ export default {
 textarea {
   width: 100%;
   height: 100px;
+}
+
+.rendered {
+  white-space: pre-wrap;
 }
 </style>
