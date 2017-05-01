@@ -57,7 +57,7 @@ export default {
       let renderedText = this.template.body;
       this.variables.forEach(variable => {
         if (variable.value) {
-          const regex = new RegExp(`{{${variable.name}}}`, 'g');
+          const regex = new RegExp(`{${variable.name}}`, 'g');
           renderedText = renderedText.replace(regex, variable.value);
         }
       });
@@ -81,7 +81,7 @@ export default {
     ),
 
     updateVariables() {
-      const variableRegex = /{{([^{}]*)}}/g;
+      const variableRegex = /{([^{}]*)}/g;
       const newVariables = [];
       let match = variableRegex.exec(this.template.body);
       while (match) {
