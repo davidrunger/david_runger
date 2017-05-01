@@ -1,8 +1,11 @@
 class TemplatesController < ApplicationController
   def index
+    @title = 'Templates'
+    render :index
   end
 
   def new
+    @title = 'New Template'
     @template = Template.new
     render :new
   end
@@ -20,6 +23,7 @@ class TemplatesController < ApplicationController
 
   def show
     @template = current_user.templates.find(params[:id])
+    @title = @template.name
     @bootstrap_data = {template: @template.as_json}
     render :show
   end

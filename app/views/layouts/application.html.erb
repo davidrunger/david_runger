@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DavidRunger</title>
+    <title><%= @title.present? ? "#{@title} - " : '' %>David Runger</title>
     <%= csrf_meta_tags %>
     <%= javascript_pack_tag 'application' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
