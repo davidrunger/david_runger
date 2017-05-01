@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { debounce, find } from 'lodash';
+import { debounce, find, uniqBy } from 'lodash';
 import Clipboard from 'clipboard';
 
 export default {
@@ -93,7 +93,7 @@ export default {
         });
         match = variableRegex.exec(this.template.body);
       }
-      this.variables = newVariables;
+      this.variables = uniqBy(newVariables, variable => variable.name);
     },
   },
 
