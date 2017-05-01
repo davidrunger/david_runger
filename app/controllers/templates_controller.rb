@@ -8,7 +8,7 @@ class TemplatesController < ApplicationController
   end
 
   def create
-    @template = current_user.templates.new(template_params)
+    @template = current_user.templates.new(template_params.merge(body: Template::SAMPLE_BODY))
     if @template.save
       flash[:notice] = 'Template created'
       redirect_to template_path(@template)

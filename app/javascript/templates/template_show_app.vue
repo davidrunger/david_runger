@@ -109,9 +109,17 @@ export default {
 </script>
 
 <style scoped>
+hr {
+  margin: 12px 0;
+}
+
+h2 {
+  text-align: left;
+}
+
 textarea {
   width: 100%;
-  height: 100px;
+  height: 150px;
 }
 
 .renderedText {
