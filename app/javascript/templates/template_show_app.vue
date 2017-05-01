@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>{{ template.name }}</h1>
+    <small><a href='/templates'>&lt; All Templates</a></small>
     <h2>Template</h2>
     <textarea v-model='template.body'></textarea>
     <div v-if='saving'>saving...</div>
@@ -113,8 +114,12 @@ hr {
   margin: 12px 0;
 }
 
-h2 {
+h1, h2 {
   text-align: left;
+}
+
+h1 {
+  margin-bottom: 0;
 }
 
 textarea {
