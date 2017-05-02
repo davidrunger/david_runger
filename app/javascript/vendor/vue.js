@@ -1,9 +1,9 @@
 import Vue from 'vue/dist/vue.esm'
 import axios from 'axios'
-import axiosDefaults from 'axios/lib/defaults'
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-axiosDefaults.headers.common['X-CSRF-Token'] = csrfToken;
+axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
+
 // convenience to access axios via this.$http
 Vue.prototype.$http = axios;
 

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
   resources get: :grocery_list, to: 'grocery_lists#show'
   resources :templates, only: [:index, :new, :create, :show]
-  namespace :api, constraints: {format: :json} do
+  namespace :api, defaults: {format: :json} do
     resources :stores, only: [:create, :index]
     resources :templates, only: [:update]
   end

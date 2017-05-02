@@ -10,6 +10,7 @@ class Api::StoresController < ApplicationController
 
   def index
     @stores = current_user.stores
+    render :index
   end
 
   private

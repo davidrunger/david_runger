@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    h1.regular.center.black-1 Your Stores
+    h1.regular.center.black-1 Grocery List
     div(v-if='loadingStores') Loading...
     div(v-else)
       section.store(v-for='store in this.stores')
