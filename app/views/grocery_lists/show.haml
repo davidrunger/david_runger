@@ -1,0 +1,14 @@
+- if user_signed_in?
+  = javascript_pack_tag('grocery_list_app')
+  %div
+    %strong Hi, #{current_user.email}! :)
+    = link_to('Sign Out', destroy_user_session_path, method: :delete)
+  %div
+    %h1 Your Grocery List
+    -# TODO: replace with vue-rendered view
+    - if current_user.stores.present?
+      %ul
+      - current_user.stores.each do |store|
+        %li= link_to(store.name, store)
+- else
+  = link_to('Sign in with Google', user_google_oauth2_omniauth_authorize_path)

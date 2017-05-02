@@ -26,8 +26,10 @@ ActiveRecord::Schema.define(version: 20170501040005) do
 
   create_table "stores", id: :serial, force: :cascade do |t|
     t.string "name", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -55,5 +57,6 @@ ActiveRecord::Schema.define(version: 20170501040005) do
   end
 
   add_foreign_key "items", "stores"
+  add_foreign_key "stores", "users"
   add_foreign_key "templates", "users"
 end
