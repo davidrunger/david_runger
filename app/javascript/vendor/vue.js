@@ -7,4 +7,6 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
 // convenience to access axios via this.$http
 Vue.prototype.$http = axios;
 
+Vue.prototype.bootstrap = window.davidrunger.bootstrap;
+
 export default Vue;

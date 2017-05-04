@@ -43,7 +43,7 @@ export default {
 
   data() {
     return Object.assign({},
-      window.davidrunger.bootstrap,
+      this.bootstrap,
       {
         wasCopiedRecently: false,
         saved: false,

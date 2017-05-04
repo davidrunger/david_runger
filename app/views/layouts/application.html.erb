@@ -3,12 +3,14 @@
   <head>
     <title><%= @title.present? ? "#{@title} - " : '' %>David Runger</title>
     <%= csrf_meta_tags %>
-    <%= javascript_pack_tag 'application' %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
     <script type="text/javascript">
       window.davidrunger || (window.davidrunger = {})
       window.davidrunger.bootstrap = JSON.parse("<%= raw(escape_javascript((@bootstrap_data || {}).to_json)) %>")
     </script>
+    <%= javascript_pack_tag 'application' %>
+    <%= content_for :extra_javascript %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= content_for :extra_css %>
   </head>
 
   <body>

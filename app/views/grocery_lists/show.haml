@@ -1,7 +1,8 @@
+- content_for(:extra_css) do
+  = stylesheet_link_tag 'grocery_list', media: 'all'
+
 - if user_signed_in?
-  = javascript_pack_tag('grocery_list_app')
-  %div
-    %strong Hi, #{current_user.email}! :)
-    = link_to('Sign Out', destroy_user_session_path, method: :delete)
+  - content_for(:extra_javascript) do
+    = javascript_pack_tag('grocery_list_app')
 - else
   = link_to('Sign in with Google', user_google_oauth2_omniauth_authorize_path)

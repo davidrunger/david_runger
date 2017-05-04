@@ -26,7 +26,7 @@ class TemplatesController < ApplicationController
   def show
     @template = current_user.templates.find(params[:id])
     @title = @template.name
-    @bootstrap_data = {template: @template.as_json}
+    bootstrap(template: @template.as_json)
     render :show
   end
 
