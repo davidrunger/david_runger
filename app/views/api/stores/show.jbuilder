@@ -1,1 +1,1 @@
-json.extract!(@store, :id, :name)
+json.extract!(@store, :id, :name, :items)

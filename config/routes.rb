@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   get 'grocery_list', to: 'grocery_lists#show'
   resources :templates, only: [:index, :new, :create, :show]
   namespace :api, defaults: {format: :json} do
-    resources :stores, only: [:create, :index]
+    resources :stores, only: [:create, :index] do
+      resources :items, only: [:index, :create]
+    end
+    resources :items, only: [:update]
     resources :templates, only: [:update]
   end
 end

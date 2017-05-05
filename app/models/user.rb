@@ -3,6 +3,7 @@ class User < ApplicationRecord
     :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :stores
+  has_many :items, through: :stores
   has_many :templates
 
   def self.from_omniauth!(access_token)

@@ -9,7 +9,7 @@ class Api::StoresController < ApplicationController
   end
 
   def index
-    @stores = current_user.stores
+    @stores = current_user.stores.order('stores.created_at DESC')
     render :index
   end
 

@@ -8,9 +8,6 @@
         h1.regular.center.black-1 Grocery List
         div(v-if='loadingStores') Loading...
         div(v-else)
-          ul
-            li(v-for='store in this.stores')
-              a.js-link(v-on:click='selectStore(store)') {{store.name}}
           a.h3.js-link(v-if='!addingStore' v-on:click='toggleAddingStore') Add a store #[span.bold +]
           form(v-if='addingStore' v-on:submit='postNewStore')
             input#store-name-input.float-left(type='text' ref='storeName' v-model='newStoreName'
@@ -18,6 +15,9 @@
             )
             input#add-store-button.button.button-outline.float-left.ml2(type='submit' value='Add')
             a.h3.js-link(v-on:click='toggleAddingStore') Cancel
+          ul
+            li(v-for='store in this.stores')
+              a.js-link(v-on:click='selectStore(store)') {{store.name}}
       main
         Store(v-if='currentStore' :store='currentStore')
 </template>
@@ -60,7 +60,9 @@ export default {
       this.$http.post('api/stores', payload).then(response => {
         this.newStoreName = '';
         this.$set(this, 'addingStore', false);
-        this.stores.push(payload.store);
+        const newStore = response.data;
+        this.stores.unshift(newStore);
+        this.currentStore = newStore;
       });
     },
 
@@ -88,7 +90,7 @@ header {
   background: pink;
 }
 aside {
-  width: 15vw;
+  width: 20vw;
   min-width: 160px;
   max-width: 300px;
   background: lightgreen;
