@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
-  get 'grocery_list', to: 'grocery_lists#show'
+  get 'groceries', to: 'grocery_lists#show'
   resources :templates, only: [:index, :new, :create, :show]
   namespace :api, defaults: {format: :json} do
     resources :stores, only: [:create, :index] do
