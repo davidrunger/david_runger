@@ -1,6 +1,5 @@
 class User < ApplicationRecord
-  devise :registerable, :rememberable, :trackable,
-    :omniauthable, omniauth_providers: [:google_oauth2]
+  devise :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :stores
   has_many :items, through: :stores
