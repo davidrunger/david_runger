@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507195725) do
+ActiveRecord::Schema.define(version: 20170507201107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20170507195725) do
     t.datetime "updated_at", null: false
     t.boolean "archived", default: false, null: false
     t.index ["store_id"], name: "index_items_on_store_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "url"
+    t.string "handler"
+    t.string "params"
+    t.string "referer"
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "stores", id: :serial, force: :cascade do |t|
@@ -51,6 +60,7 @@ ActiveRecord::Schema.define(version: 20170507195725) do
   end
 
   add_foreign_key "items", "stores"
+  add_foreign_key "requests", "users"
   add_foreign_key "stores", "users"
   add_foreign_key "templates", "users"
 end
