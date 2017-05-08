@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508052933) do
+ActiveRecord::Schema.define(version: 20170508053215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20170508052933) do
 
   create_table "requests", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "url"
-    t.string "handler"
+    t.string "url", null: false
+    t.string "handler", null: false
     t.string "referer"
     t.jsonb "params"
     t.string "method", null: false
