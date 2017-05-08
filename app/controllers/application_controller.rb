@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :store_request_data_in_redis
   before_action :authenticate_user!
+
+  # not worth logging in `Request`s
+  BORING_PARAMS = %w[controller action request_uuid format _method authenticity_token utf8]
+  REQUEST_DATA_TTL = 60 # seconds to store data in Redis for later turning into a Request model
 
   private
 
@@ -19,5 +24,23 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource_or_scope)
     login_path
+  end
+
+  def store_request_data_in_redis
+    current_user&.update!(last_activity_at: Time.current)
+    request_data = {
+      user_id: current_user&.id,
+      url: request.url,
+      method: request.request_method,
+      handler: "#{params['controller']}##{params['action']}",
+      params: filtered_params.except(*BORING_PARAMS),
+      referer: request.referer,
+    }
+    $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
+  end
+
+  def filtered_params
+    filter = ActionDispatch::Http::ParameterFilter.new(Rails.application.config.filter_parameters)
+    filter.filter(params)
   end
 end

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
+  has_many :requests
   has_many :stores
   has_many :items, through: :stores
   has_many :templates

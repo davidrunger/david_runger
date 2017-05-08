@@ -12,6 +12,9 @@ require "action_view/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
+# require_relative is ugly but ~necessary: https://github.com/rails/rails/issues/25525
+require_relative '../app/middleware/request_uuid'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -31,5 +34,7 @@ module DavidRunger
     # Time zone
     config.time_zone = 'America/Los_Angeles'
     config.active_record.default_timezone = :local
+
+    config.middleware.insert_after(Rack::MethodOverride, RequestUuid)
   end
 end
