@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.1.0'
+gem 'dotenv-rails', groups: [:development, :test], require: 'dotenv/rails-now'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
@@ -13,7 +14,6 @@ gem 'webpacker'
 gem 'jbuilder', '~> 2.5'
 gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth-google-oauth2'
-gem 'dotenv-rails', groups: [:development, :test]
 gem 'hamlit'
 gem 'awesome_print'
 
