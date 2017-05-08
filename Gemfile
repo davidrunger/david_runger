@@ -16,6 +16,7 @@ gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth-google-oauth2'
 gem 'hamlit'
 gem 'awesome_print'
+gem 'redis', '~>3.2'
 
 group :development, :test do
   gem 'pry-byebug'
