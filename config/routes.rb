@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
   get 'groceries', to: 'grocery_lists#show'
+  get 'login', to: 'sessions#new'
   resources :templates, only: [:index, :new, :create, :show]
   namespace :api, defaults: {format: :json} do
     resources :stores, only: [:create, :index] do
