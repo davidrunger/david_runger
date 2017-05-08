@@ -27,5 +27,9 @@ module DavidRunger
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Time zone
+    config.time_zone = 'America/Los_Angeles'
+    config.active_record.default_timezone = :local
   end
 end
