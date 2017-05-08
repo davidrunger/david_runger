@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507201107) do
+ActiveRecord::Schema.define(version: 20170508052142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20170507201107) do
     t.bigint "user_id"
     t.string "url"
     t.string "handler"
-    t.string "params"
     t.string "referer"
+    t.jsonb "params"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
