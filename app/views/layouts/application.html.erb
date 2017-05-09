@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <% if Rails.env.production? %>
+      <%= render 'layouts/rollbar' %>
+    <% end %>
     <title><%= @title.present? ? "#{@title} - " : '' %>David Runger</title>
     <%= csrf_meta_tags %>
     <script type="text/javascript">
