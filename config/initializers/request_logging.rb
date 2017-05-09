@@ -14,5 +14,6 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_
     view: payload[:view_runtime],
     db: payload[:db_runtime],
     ip: pre_stashed_data&.dig('ip'),
+    user_agent: pre_stashed_data&.dig('user_agent'),
   )
 end

@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
 
   def store_request_data_in_redis
     current_user&.update!(last_activity_at: Time.current)
+    browser = Browser.new(request.user_agent)
     request_data = {
       user_id: current_user&.id,
       url: request.url,
@@ -36,6 +37,14 @@ class ApplicationController < ActionController::Base
       params: filtered_params.except(*BORING_PARAMS),
       referer: request.referer,
       ip: request.ip,
+      user_agent: <<-USER_AGENT.squish,
+        #{browser.name}
+        #{browser.version}
+        #{browser.platform.name}
+        mobile=#{browser.device.mobile? || false}
+        bot=#{browser.bot? || false}
+        raw=#{request.user_agent}
+      USER_AGENT
     }
     $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
   end
