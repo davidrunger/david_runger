@@ -17,6 +17,7 @@ gem 'omniauth-google-oauth2'
 gem 'hamlit'
 gem 'redis', '~>3.2'
 gem 'browser'
+gem 'rollbar'
 
 group :development, :test do
   gem 'awesome_print'
