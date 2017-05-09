@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
       handler: "#{params['controller']}##{params['action']}",
       params: filtered_params.except(*BORING_PARAMS),
       referer: request.referer,
+      ip: request.ip,
     }
     $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
   end

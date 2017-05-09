@@ -13,5 +13,6 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_
     referer: pre_stashed_data&.dig('referer'),
     view: payload[:view_runtime],
     db: payload[:db_runtime],
+    ip: pre_stashed_data&.dig('ip'),
   )
 end
