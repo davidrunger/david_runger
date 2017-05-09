@@ -18,6 +18,7 @@ gem 'hamlit'
 gem 'redis', '~>3.2'
 gem 'browser'
 gem 'rollbar'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'awesome_print'
