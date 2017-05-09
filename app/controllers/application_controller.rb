@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
   end
 
   def bootstrap(data)
-  	@bootstrap_data ||= {}
-  	@bootstrap_data.merge!(data)
+    @bootstrap_data ||= {}
+    @bootstrap_data.merge!(data)
   end
 
   def after_sign_out_path_for(resource_or_scope)
@@ -45,6 +45,7 @@ class ApplicationController < ActionController::Base
         bot=#{browser.bot? || false}
         raw=#{request.user_agent}
       USER_AGENT
+      requested_at: Time.current,
     }
     $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
   end
