@@ -1,20 +1,21 @@
 ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_name, _started, _finished, _unique_id, payload|
   params = payload[:params]
   request_uuid = params['request_uuid']
-  pre_stashed_data = JSON.parse($redis.get(request_uuid)) if request_uuid.present?
+  stashed_json = request_uuid && $redis.get(request_uuid)
+  stashed_data = stashed_json.present? ? JSON.parse(stashed_json) : {}
   Request.create!(
-    user_id: pre_stashed_data&.dig('user_id'),
-    url: pre_stashed_data&.dig('url'),
+    user_id: stashed_data['user_id'],
+    url: stashed_data['url'],
     format: payload[:format],
-    method: pre_stashed_data&.dig('method'),
+    method: stashed_data['method'],
     status: payload[:status],
-    handler: pre_stashed_data&.dig('handler'),
-    params: pre_stashed_data&.dig('params'),
-    referer: pre_stashed_data&.dig('referer'),
+    handler: stashed_data['handler'],
+    params: stashed_data['params'],
+    referer: stashed_data['referer'],
     view: payload[:view_runtime],
     db: payload[:db_runtime],
-    ip: pre_stashed_data&.dig('ip'),
-    user_agent: pre_stashed_data&.dig('user_agent'),
-    requested_at: pre_stashed_data&.dig('requested_at'),
+    ip: stashed_data['ip'],
+    user_agent: stashed_data['user_agent'],
+    requested_at: stashed_data['requested_at'],
   )
 end
