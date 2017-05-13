@@ -1,7 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
+require 'pry'
+require 'factory_girl_rails'
 require File.expand_path('../../config/environment', __FILE__)
-require Rails.root.join('spec/fixture_builder').to_s
+require Rails.root.join('spec/support/fixture_builder.rb').to_s
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'

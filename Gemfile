@@ -21,12 +21,13 @@ gem 'rollbar'
 gem 'newrelic_rpm'
 
 group :development, :test do
+  gem 'fixture_builder'
   gem 'awesome_print'
+  gem 'pry'
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
-  gem 'fixture_builder'
   gem 'faker'
 end
 

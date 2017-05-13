@@ -292,6 +292,7 @@ DEPENDENCIES
   newrelic_rpm
   omniauth-google-oauth2
   pg (~> 0.18)
+  pry
   pry-byebug
   pry-rails
   puma (~> 3.7)
