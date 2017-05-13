@@ -24,6 +24,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_
     db: payload[:db_runtime],
     ip: stashed_data['ip'],
     user_agent: user_agent,
+    bot: stashed_data['bot'],
     requested_at: stashed_data['requested_at'],
   }
 

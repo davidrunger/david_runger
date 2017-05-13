@@ -42,9 +42,9 @@ class ApplicationController < ActionController::Base
         #{browser.version}
         #{browser.platform.name}
         mobile=#{browser.device.mobile? || false}
-        bot=#{browser.bot? || false}
         raw=#{request.user_agent}
       USER_AGENT
+      bot: (browser.bot? || false),
       requested_at: Time.current,
     }
     $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
