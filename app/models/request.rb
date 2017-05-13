@@ -28,5 +28,7 @@ class Request < ApplicationRecord
   belongs_to :user, optional: true
 
   scope :human, -> { where(bot: false) }
-  scope :recent, -> { where('requests.requested_at > ?', 1.day.ago) }
+  scope :recent, ->(time_period = 1.day) do
+    where('requests.requested_at > ?', time_period.ago)
+  end
 end

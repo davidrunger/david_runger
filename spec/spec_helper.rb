@@ -47,6 +47,8 @@ require 'rspec/rails'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.filter_run_when_matching :focus
+
   config.fixture_path = Rails.root.join('spec/fixtures')
   config.global_fixtures = :all
   config.use_transactional_fixtures
