@@ -10,6 +10,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_
   request_uuid = params['request_uuid']
   stashed_json = request_uuid && $redis.get(request_uuid)
   stashed_data = stashed_json.present? ? JSON.parse(stashed_json) : {}
+  next if stashed_data['admin'] == true
   user_agent = stashed_data['user_agent']
   request_attributes = {
     user_id: stashed_data['user_id'],

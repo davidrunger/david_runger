@@ -19,6 +19,7 @@ gem 'redis', '~>3.2'
 gem 'browser'
 gem 'rollbar'
 gem 'newrelic_rpm'
+gem 'administrate', github: 'tiagoamaro/administrate', branch: 'allow-rails-5-1'
 
 group :development, :test do
   gem 'fixture_builder'
