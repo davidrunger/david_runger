@@ -22,7 +22,6 @@ class User < ApplicationRecord
   has_many :templates
 
   def self.from_omniauth!(access_token)
-    data = access_token.info
-    user = User.find_or_create_by!(email: data['email'])
+    user = User.find_or_create_by!(email: access_token.info['email'])
   end
 end
