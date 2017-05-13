@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509090526) do
+ActiveRecord::Schema.define(version: 20170513120854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170509090526) do
     t.string "ip", null: false
     t.string "user_agent"
     t.datetime "requested_at", null: false
+    t.boolean "bot", default: false, null: false
     t.index ["requested_at"], name: "index_requests_on_requested_at"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
