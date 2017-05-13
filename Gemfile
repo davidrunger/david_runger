@@ -25,14 +25,18 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'guard-espect', github: 'davidrunger/guard-espect'
+  gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
+  gem 'fixture_builder'
+  gem 'faker'
 end
 
 group :development do
-	gem 'better_errors'
-	gem 'binding_of_caller'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
   gem 'pry-rails'
+  gem 'annotate'
 end

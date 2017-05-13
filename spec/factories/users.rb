@@ -13,16 +13,9 @@
 #  index_users_on_email  (email) UNIQUE
 #
 
-class User < ApplicationRecord
-  devise :omniauthable, omniauth_providers: [:google_oauth2]
-
-  has_many :requests
-  has_many :stores
-  has_many :items, through: :stores
-  has_many :templates
-
-  def self.from_omniauth!(access_token)
-    data = access_token.info
-    user = User.find_or_create_by!(email: data['email'])
+FactoryGirl.define do
+  factory :user do
+    email { Faker::Internet.email }
+    last_activity_at { 2.months.ago }
   end
 end
