@@ -40,7 +40,7 @@ describe Request do
   end
 
   describe '::ordered' do
-    subject { Request.order('requests.requested_at') }
+    subject { Request.ordered }
 
     let!(:newer_request) { create(:request, requested_at: 2.hours.ago) }
     let!(:older_request) { create(:request, requested_at: 2.days.ago) }

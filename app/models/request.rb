@@ -31,4 +31,5 @@ class Request < ApplicationRecord
   scope :recent, ->(time_period = 1.day) do
     where('requests.requested_at > ?', time_period.ago)
   end
+  scope :ordered, ->() { order('requests.requested_at') }
 end
