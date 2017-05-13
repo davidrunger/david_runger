@@ -23,6 +23,7 @@ gem 'newrelic_rpm'
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-byebug'
+  gem 'rspec-rails'
 end
 
 group :development do
