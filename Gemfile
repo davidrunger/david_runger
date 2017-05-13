@@ -25,6 +25,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'guard-espect', github: 'davidrunger/guard-espect'
 end
 
 group :development do
