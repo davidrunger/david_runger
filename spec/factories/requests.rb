@@ -8,6 +8,7 @@
 #  handler      :string           not null
 #  id           :integer          not null, primary key
 #  ip           :string           not null
+#  location     :string
 #  method       :string           not null
 #  params       :jsonb
 #  referer      :string
