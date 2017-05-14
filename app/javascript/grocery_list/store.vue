@@ -15,8 +15,9 @@
       li(v-for='item in store.items')
         | {{item.name}}
         | ({{item.needed}})
-        span.increment.h2.js-link(v-on:click='changeNeeded(item, 1)') +
-        span.decrement.h2.pl1.pr1.js-link(v-on:click='changeNeeded(item, -1)') &ndash;
+        span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
+        span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
+        span.purchased.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
 </template>
 
 <script>
@@ -32,9 +33,9 @@ module.exports = {
   },
 
   methods: {
-    changeNeeded(item, changeAmount) {
+    setNeeded(item, needed) {
       this.$set(this, 'itemChangeUnsaved', true);
-      item.needed += changeAmount;
+      item.needed = needed;
       this.debouncedPatchItem(item.id, item.needed);
     },
 
@@ -78,9 +79,9 @@ module.exports = {
 }
 .add-item-button { text-align: text-bottom; }
 .decrement { color: crimson; }
-.increment { color: green; }
+.increment, .purchased { color: green; }
 .store-name { margin-bottom: 0; }
-.decrement, .increment {
+.decrement, .increment, .purchased {
   padding-left: 10px;
   font-weight: bold;
   font-size: 15px;
