@@ -13,8 +13,8 @@
       li(v-for='item in store.items')
         | {{item.name}}
         | ({{item.needed}})
-        span.increment.h2.js-link(v-on:click='changeNeeded(item, 1)') ⋀
-        span.decrement.h2.pl1.pr1.js-link(v-on:click='changeNeeded(item, -1)') ⋁
+        span.increment.h2.js-link(v-on:click='changeNeeded(item, 1)') +
+        span.decrement.h2.pl1.pr1.js-link(v-on:click='changeNeeded(item, -1)') &ndash;
 </template>
 
 <script>
@@ -66,9 +66,12 @@ module.exports = {
 <style scoped>
 .add-item-button { text-align: text-bottom; }
 .decrement { color: crimson; }
-.increment { color: limegreen; }
+.increment { color: green; }
 .store-name { margin-bottom: 0; }
 .decrement, .increment {
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 15px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
