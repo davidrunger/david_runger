@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :items
-    resources :requests
+    resources :requests, only: [:index, :show]
     resources :stores
     resources :templates
 
