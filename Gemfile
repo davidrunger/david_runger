@@ -20,6 +20,7 @@ gem 'browser'
 gem 'rollbar'
 gem 'newrelic_rpm'
 gem 'administrate', github: 'tiagoamaro/administrate', branch: 'allow-rails-5-1'
+gem 'oj'
 
 group :development, :test do
   gem 'fixture_builder'
