@@ -8,6 +8,12 @@ class Api::StoresController < ApplicationController
     end
   end
 
+  def destroy
+    store = current_user.stores.find(params['id'])
+    store.destroy!
+    head 204
+  end
+
   private
 
   def store_params

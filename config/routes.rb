@@ -18,10 +18,10 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   resources :templates, only: [:index, :new, :create, :show]
   namespace :api, defaults: {format: :json} do
-    resources :stores, only: [:create] do
+    resources :stores, only: [:create, :destroy] do
       resources :items, only: [:index, :create]
     end
-    resources :items, only: [:update]
+    resources :items, only: [:update, :destroy]
     resources :templates, only: [:update]
   end
 end

@@ -19,7 +19,8 @@
           | ({{item.needed}})
           span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
           span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
-          span.purchased.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
+          span.purchase.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
+          span.delete.h2.pl1.pr1.js-link(v-on:click='deleteItem(item)') ×
 
     #purchased
       h2.font-size-20 Purchased
@@ -30,11 +31,12 @@
           | ({{item.needed}})
           span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
           span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
-          span.purchased.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
+          span.purchase.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
+          span.delete.h2.pl1.pr1.js-link(v-on:click='deleteItem(item)') ×
 </template>
 
 <script>
-import { debounce, filter, sortBy } from 'lodash';
+import { debounce, sortBy } from 'lodash';
 
 
 export default {
@@ -49,20 +51,25 @@ export default {
   computed: {
     neededItems() {
       let items = this.store.items;
-      items = filter(items, item => item.needed > 0)
+      items = items.filter(item => item.needed > 0)
       items = sortBy(items, item => item.name.toLowerCase());
       return items;
     },
 
     purchasedItems() {
       let items = this.store.items;
-      items = filter(items, item => item.needed === 0)
+      items = items.filter(item => item.needed === 0)
       items = sortBy(items, item => item.name.toLowerCase());
       return items;
     }
   },
 
   methods: {
+    deleteItem(item) {
+      this.$http.delete(`api/items/${item.id}`);
+      this.store.items = this.store.items.filter(otherItem => otherItem.id !== item.id);
+    },
+
     setNeeded(item, needed) {
       this.$set(this, 'itemChangeUnsaved', true);
       item.needed = needed;
@@ -112,10 +119,10 @@ export default {
   width: 14px;
 }
 .add-item-button { text-align: text-bottom; }
-.decrement { color: crimson; }
-.increment, .purchased { color: green; }
+.decrement, .delete { color: crimson; }
+.increment, .purchase { color: green; }
 .store-name { margin-bottom: 0; }
-.decrement, .increment, .purchased {
+.decrement, .increment, .purchase, .delete {
   padding-left: 10px;
   font-weight: bold;
   font-size: 15px;

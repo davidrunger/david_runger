@@ -16,6 +16,7 @@
         ul
           li(v-for='store in this.stores')
             a.js-link(v-on:click='selectStore(store)') {{store.name}}
+            span.delete.h2.pl1.pr1.js-link(v-on:click='deleteStore(store)') ×
       main
         Store(v-if='currentStore' :store='currentStore')
 </template>
@@ -43,6 +44,11 @@ export default {
   },
 
   methods: {
+    deleteStore(store) {
+      this.$http.delete(`api/stores/${store.id}`);
+      this.stores = this.stores.filter(otherStore => otherStore.id !== store.id);
+    },
+
     selectStore(store) {
       this.currentStore = store;
     },
@@ -86,5 +92,12 @@ main {
 #page {
   display: flex;
   height: calc(100vh - #{$header_height});
+}
+
+.delete {
+  color: crimson;
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 15px;
 }
 </style>
