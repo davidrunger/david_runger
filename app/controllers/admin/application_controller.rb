@@ -10,7 +10,10 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
-      redirect_to(login_path) unless current_user&.email == 'davidjrunger@gmail.com'
+      unless current_user&.email == 'davidjrunger@gmail.com'
+        sign_out_all_scopes
+        redirect_to(login_path)
+      end
     end
 
     # Override this value to specify the number of elements to display at a time
