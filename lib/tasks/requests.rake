@@ -15,7 +15,7 @@ namespace :requests do
       ip_address = request.ip
 
       location_data = HTTParty.get("http://ip-api.com/json/#{ip_address}").parsed_response
-      city, country_code = location_data&.slice('city', 'countryCode')
+      city, country_code = location_data&.values_at('city', 'countryCode')
       if city.blank? && country_code.blank?
         puts "Failed to fetch a location for ip #{ip_address}, data=#{location_data.to_json}"
         next
