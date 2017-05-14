@@ -6,18 +6,16 @@
     div#page
       aside
         h1.regular.center.black-1 Grocery List
-        div(v-if='loadingStores') Loading...
-        div(v-else)
-          a.h3.js-link(v-if='!addingStore' v-on:click='toggleAddingStore') Add a store #[span.bold +]
-          form(v-if='addingStore' v-on:submit='postNewStore')
-            input#store-name-input.float-left(type='text' ref='storeName' v-model='newStoreName'
-              placeholder='Enter the store name'
-            )
-            input#add-store-button.button.button-outline.float-left.ml2(type='submit' value='Add')
-            a.h3.js-link(v-on:click='toggleAddingStore') Cancel
-          ul
-            li(v-for='store in this.stores')
-              a.js-link(v-on:click='selectStore(store)') {{store.name}}
+        a.h3.js-link(v-if='!addingStore' v-on:click='toggleAddingStore') Add a store #[span.bold +]
+        form(v-if='addingStore' v-on:submit='postNewStore')
+          input#store-name-input.float-left(type='text' ref='storeName' v-model='newStoreName'
+            placeholder='Enter the store name'
+          )
+          input#add-store-button.button.button-outline.float-left.ml2(type='submit' value='Add')
+          a.h3.js-link(v-on:click='toggleAddingStore') Cancel
+        ul
+          li(v-for='store in this.stores')
+            a.js-link(v-on:click='selectStore(store)') {{store.name}}
       main
         Store(v-if='currentStore' :store='currentStore')
 </template>
@@ -37,10 +35,9 @@ export default {
       this.bootstrap,
       {
         addingStore: false,
-        currentStore: null,
-        loadingStores: false,
+        currentStore: this.bootstrap.stores[0],
         newStoreName: '',
-        stores: [],
+        stores: this.bootstrap.stores,
       },
     )
   },
@@ -70,15 +67,6 @@ export default {
       this.$set(this, 'addingStore', !this.addingStore);
       if (this.addingStore) this.$nextTick(() => this.$refs.storeName.focus());
     },
-  },
-
-  mounted() {
-    this.loadingStores = true;
-    this.$http.get('/api/stores').then(({ data }) => {
-      this.stores = data;
-      this.currentStore = this.currentStore || this.stores[0];
-      this.loadingStores = false;
-    });
   },
 }
 </script>

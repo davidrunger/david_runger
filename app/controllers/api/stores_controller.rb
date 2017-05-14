@@ -8,11 +8,6 @@ class Api::StoresController < ApplicationController
     end
   end
 
-  def index
-    @stores = current_user.stores.order('stores.created_at DESC')
-    render :index
-  end
-
   private
 
   def store_params

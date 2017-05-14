@@ -1,1 +1,0 @@
-json.extract!(@item, :id, :store_id, :name, :needed, :archived)
