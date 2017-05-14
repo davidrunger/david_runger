@@ -64,6 +64,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.8.3)
+      activemodel (>= 3.0)
     activejob (5.1.0)
       activesupport (= 5.1.0)
       globalid (>= 0.3.6)
@@ -327,6 +329,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   administrate!
   annotate
   awesome_print
