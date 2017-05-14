@@ -10,26 +10,56 @@
       )
       input#add-item-button.button.button-outline.float-left.ml2(type='submit' value='Add')
 
-    ul.list-reset.mt0.mb0.pl1
-      li.blue-dark(v-if='postingItem') Saving ...
-      li(v-for='item in store.items')
-        | {{item.name}}
-        | ({{item.needed}})
-        span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
-        span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
-        span.purchased.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
+    #needed
+      h2.font-size-20 Needed
+      ul.list-reset.mt0.mb0.pl1
+        li.blue-dark(v-if='postingItem') Saving ...
+        li(v-for='item in neededItems')
+          | {{item.name}}
+          | ({{item.needed}})
+          span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
+          span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
+          span.purchased.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
+
+    #purchased
+      h2.font-size-20 Purchased
+      ul.list-reset.mt0.mb0.pl1
+        li.blue-dark(v-if='postingItem') Saving ...
+        li(v-for='item in purchasedItems')
+          | {{item.name}}
+          | ({{item.needed}})
+          span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
+          span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
+          span.purchased.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
 </template>
 
 <script>
-const debounce = require('lodash').debounce;
+import { debounce, filter, sortBy } from 'lodash';
 
-module.exports = {
+
+export default {
   data: () => {
     return {
       itemChangeUnsaved: false,
       postingItem: false,
       newItemName: '',
     };
+  },
+
+  computed: {
+    neededItems() {
+      let items = this.store.items;
+      items = filter(items, item => item.needed > 0)
+      items = sortBy(items, item => item.name.toLowerCase());
+      return items;
+    },
+
+    purchasedItems() {
+      let items = this.store.items;
+      items = filter(items, item => item.needed === 0)
+      items = sortBy(items, item => item.name.toLowerCase());
+      return items;
+    }
   },
 
   methods: {
@@ -71,6 +101,10 @@ module.exports = {
 </script>
 
 <style scoped>
+#needed {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .spinner--circle {
   margin-left: 8px;
   display: inline-block;
