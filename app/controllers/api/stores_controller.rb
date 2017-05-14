@@ -2,9 +2,9 @@ class Api::StoresController < ApplicationController
   def create
     @store = current_user.stores.build(store_params)
     if @store.save
-      render :show, formats: :json
+      render json: @store
     else
-      render json: {errors: @store.errors.to_h}
+      render json: {errors: @store.errors.to_h}, status: 422
     end
   end
 
