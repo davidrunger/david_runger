@@ -1,22 +1,21 @@
   <template lang="pug">
   div.mt1.mb2
-    h1.store-name.h2.blue-medium
+    h1.store-name.bold.xs-mb20
       span {{ store.name }}
-      .spinner--circle(v-if='itemChangeUnsaved')
-
-    form(v-on:submit='postNewItem')
-      input#item-name-input.float-left(type='text' ref='itemName' v-model='newItemName'
-        placeholder='Add an item'
-      )
-      input#add-item-button.button.button-outline.float-left.ml2(type='submit' value='Add')
+      .spinner--circle(v-if='waitingOnNetwork')
 
     #needed
       h2.font-size-20
         span Needed
-        button.copy-to-clipboard Copy to clipboard
+        button.copy-to-clipboard Copy list to clipboard
         <span v-if='wasCopiedRecently'>Copied!</span>
-      ul.list-reset.mt0.mb0.pl1
-        li.blue-dark(v-if='postingItem') Saving ...
+      ul.items-list.mt0.mb0.pl1
+        li
+          form(v-on:submit='postNewItem')
+            input#item-name-input.float-left(type='text' ref='itemName' v-model='newItemName'
+              placeholder='Add an item'
+            )
+            input#add-item-button.button.button-outline.float-left.ml2(type='submit' value='Add')
         li(v-for='item in neededItems')
           | {{item.name}}
           | ({{item.needed}})
@@ -25,10 +24,9 @@
           span.purchase.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
           span.delete.h2.pl1.pr1.js-link(v-on:click='deleteItem(item)') ×
 
-    #purchased
+    #purchased(v-if='purchasedItems.length > 0')
       h2.font-size-20 Purchased
-      ul.list-reset.mt0.mb0.pl1
-        li.blue-dark(v-if='postingItem') Saving ...
+      ul.items-list.mt0.mb0.pl1
         li(v-for='item in purchasedItems')
           | {{item.name}}
           | ({{item.needed}})
@@ -45,8 +43,7 @@ import Clipboard from 'clipboard';
 export default {
   data() {
     return {
-      itemChangeUnsaved: false,
-      postingItem: false,
+      waitingOnNetwork: false,
       newItemName: '',
       wasCopiedRecently: false,
     };
@@ -85,7 +82,7 @@ export default {
     },
 
     setNeeded(item, needed) {
-      this.$set(this, 'itemChangeUnsaved', true);
+      this.$set(this, 'waitingOnNetwork', true);
       item.needed = needed;
       this.debouncedPatchItem(item.id, item.needed);
     },
@@ -95,13 +92,13 @@ export default {
         item: { needed: newNeeded},
       };
       this.$http.patch('api/items/' + itemId, payload).then(() => {
-        this.$set(this, 'itemChangeUnsaved', false);
+        this.$set(this, 'waitingOnNetwork', false);
       });
     }, 500),
 
     postNewItem(event) {
       event.preventDefault();
-      this.$set(this, 'postingItem', true);
+      this.$set(this, 'waitingOnNetwork', true);
       const payload = {
         item: {
           name: this.newItemName,
@@ -109,7 +106,7 @@ export default {
       };
       this.$http.post(`api/stores/${this.store.id}/items`, payload).then(response => {
         this.newItemName = '';
-        this.$set(this, 'postingItem', false);
+        this.$set(this, 'waitingOnNetwork', false);
         this.store.items.unshift(response.data);
       });
     },
@@ -122,20 +119,23 @@ export default {
 </script>
 
 <style scoped>
+h1 { font-size: 22px; }
+
 #needed {
-  margin-top: 20px;
   margin-bottom: 20px;
 }
+
 .spinner--circle {
   margin-left: 8px;
   display: inline-block;
   height: 14px;
   width: 14px;
 }
+
 .add-item-button { text-align: text-bottom; }
 .decrement, .delete { color: crimson; }
 .increment, .purchase { color: green; }
-.store-name { margin-bottom: 0; }
+
 .decrement, .increment, .purchase, .delete {
   padding-left: 10px;
   font-weight: bold;
@@ -144,5 +144,30 @@ export default {
   -moz-user-select: none;
   -khtml-user-select: none;
   -ms-user-select: none;
+}
+
+.items-list li {
+  display: flex;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  margin: 5px 10px;
+  padding: 5px 10px;
+  min-height: 27px;
+  line-height: 18px;
+
+  .item-name {
+    flex: 1;
+  }
+
+  .delete {
+    color: crimson;
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    padding: 0;
+  }
 }
 </style>

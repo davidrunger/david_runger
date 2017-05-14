@@ -16,6 +16,8 @@
 @import "utils/reset";
 @import "utils/spinner";
 @import "utils/font_size";
+@import "utils/font_weight";
+@import "utils/margin";
 
 html, body {
   height: 100%;
@@ -28,9 +30,4 @@ html, body {
 
 .js-link {
   cursor: pointer;
-}
-
-// should be moved somewhere else
-h1 {
-  font-size: 20px;
 }
