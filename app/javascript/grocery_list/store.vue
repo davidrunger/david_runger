@@ -11,7 +11,10 @@
       input#add-item-button.button.button-outline.float-left.ml2(type='submit' value='Add')
 
     #needed
-      h2.font-size-20 Needed
+      h2.font-size-20
+        span Needed
+        button.copy-to-clipboard Copy to clipboard
+        <span v-if='wasCopiedRecently'>Copied!</span>
       ul.list-reset.mt0.mb0.pl1
         li.blue-dark(v-if='postingItem') Saving ...
         li(v-for='item in neededItems')
@@ -37,15 +40,26 @@
 
 <script>
 import { debounce, sortBy } from 'lodash';
-
+import Clipboard from 'clipboard';
 
 export default {
-  data: () => {
+  data() {
     return {
       itemChangeUnsaved: false,
       postingItem: false,
       newItemName: '',
+      wasCopiedRecently: false,
     };
+  },
+
+  mounted() {
+    const clipboard = new Clipboard('.copy-to-clipboard', {
+      text: () => this.neededItems.map(item => `${item.name} (${item.needed})`).join('\n')
+    });
+    clipboard.on('success', () => {
+      this.wasCopiedRecently = true;
+      setTimeout(() => this.wasCopiedRecently = false, 3000);
+    });
   },
 
   computed: {
