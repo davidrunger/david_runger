@@ -14,7 +14,7 @@ class Api::ItemsController < ApplicationController
   def update
     @item = current_user.items.find(params['id'])
     @item.update!(item_params)
-    render :show
+    render json: @item
   end
 
   private
