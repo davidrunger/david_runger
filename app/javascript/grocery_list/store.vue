@@ -1,6 +1,8 @@
   <template lang="pug">
   div.mt1.mb2
-    h1.store-name.h2.blue-medium {{ store.name }}
+    h1.store-name.h2.blue-medium
+      span {{ store.name }}
+      .spinner--circle(v-if='itemChangeUnsaved')
 
     form(v-on:submit='postNewItem')
       input#item-name-input.float-left(type='text' ref='itemName' v-model='newItemName'
@@ -23,6 +25,7 @@ const debounce = require('lodash').debounce;
 module.exports = {
   data: () => {
     return {
+      itemChangeUnsaved: false,
       postingItem: false,
       newItemName: '',
     };
@@ -30,6 +33,7 @@ module.exports = {
 
   methods: {
     changeNeeded(item, changeAmount) {
+      this.$set(this, 'itemChangeUnsaved', true);
       item.needed += changeAmount;
       this.debouncedPatchItem(item.id, item.needed);
     },
@@ -38,7 +42,9 @@ module.exports = {
       const payload = {
         item: { needed: newNeeded},
       };
-      this.$http.patch('api/items/' + itemId, payload);
+      this.$http.patch('api/items/' + itemId, payload).then(() => {
+        this.$set(this, 'itemChangeUnsaved', false);
+      });
     }, 500),
 
     postNewItem(event) {
@@ -64,6 +70,12 @@ module.exports = {
 </script>
 
 <style scoped>
+.spinner--circle {
+  margin-left: 8px;
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+}
 .add-item-button { text-align: text-bottom; }
 .decrement { color: crimson; }
 .increment { color: green; }
