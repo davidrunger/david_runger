@@ -51,7 +51,7 @@ class StoreDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how stores are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(store)
-  #   "Store ##{store.id}"
-  # end
+  def display_resource(store)
+    store.name
+  end
 end

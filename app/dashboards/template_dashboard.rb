@@ -51,7 +51,7 @@ class TemplateDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how templates are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(template)
-  #   "Template ##{template.id}"
-  # end
+  def display_resource(template)
+    template.name
+  end
 end
