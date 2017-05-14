@@ -6,13 +6,13 @@
     div#page
       aside
         h1.regular.center.black-1 Grocery List
-        a.h3.js-link(v-if='!addingStore' v-on:click='toggleAddingStore') Add a store #[span.bold +]
-        form(v-if='addingStore' v-on:submit='postNewStore')
-          input#store-name-input.float-left(type='text' ref='storeName' v-model='newStoreName'
-            placeholder='Enter the store name'
+        form(v-on:submit='postNewStore')
+          input.float-left(type='text' ref='storeName' v-model='newStoreName'
+            placeholder='Add a store'
           )
-          input#add-store-button.button.button-outline.float-left.ml2(type='submit' value='Add')
-          a.h3.js-link(v-on:click='toggleAddingStore') Cancel
+          input.button.button-outline.float-left.ml2(
+            type='submit' value='Add' :disabled='postingStore'
+          )
         ul
           li(v-for='store in this.stores')
             a.js-link(v-on:click='selectStore(store)') {{store.name}}
@@ -34,7 +34,7 @@ export default {
     return Object.assign({},
       this.bootstrap,
       {
-        addingStore: false,
+        postingStore: false,
         currentStore: this.bootstrap.stores[0],
         newStoreName: '',
         stores: this.bootstrap.stores,
@@ -49,6 +49,7 @@ export default {
 
     postNewStore(event) {
       event.preventDefault();
+      this.$set(this, 'postingStore', true);
       const payload = {
         store: {
           name: this.newStoreName,
@@ -56,16 +57,11 @@ export default {
       };
       this.$http.post('api/stores', payload).then(response => {
         this.newStoreName = '';
-        this.$set(this, 'addingStore', false);
+        this.$set(this, 'postingStore', false);
         const newStore = response.data;
         this.stores.unshift(newStore);
         this.currentStore = newStore;
       });
-    },
-
-    toggleAddingStore() {
-      this.$set(this, 'addingStore', !this.addingStore);
-      if (this.addingStore) this.$nextTick(() => this.$refs.storeName.focus());
     },
   },
 }
