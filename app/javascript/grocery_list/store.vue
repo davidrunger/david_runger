@@ -31,8 +31,6 @@
           | {{item.name}}
           | ({{item.needed}})
           span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
-          span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
-          span.purchase.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
           span.delete.h2.pl1.pr1.js-link(v-on:click='deleteItem(item)') ×
 </template>
 
