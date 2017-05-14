@@ -23,6 +23,7 @@ class RequestDashboard < Administrate::BaseDashboard
     user_agent: Field::String,
     requested_at: Field::DateTime,
     bot: Field::Boolean,
+    location: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -31,10 +32,12 @@ class RequestDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :id,
     :user,
     :handler,
     :bot,
     :requested_at,
+    :location,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -55,6 +58,7 @@ class RequestDashboard < Administrate::BaseDashboard
     :user_agent,
     :requested_at,
     :bot,
+    :location,
   ].freeze
 
   # FORM_ATTRIBUTES
