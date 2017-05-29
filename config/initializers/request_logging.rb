@@ -1,4 +1,6 @@
 module RequestLogging
+  class CreateRequestError < StandardError ; end
+
   IGNORED_USER_AGENTS = %w[
     NewRelicPinger
   ]
@@ -35,6 +37,19 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_
       Request attributes were #{request_attributes}
     LOG
   else
-    Request.create!(request_attributes)
+    request = Request.new(request_attributes)
+    if !request.save
+      Rails.logger.warn(<<-LOG.squish)
+        Failed to create a Request,
+        errors=#{request.errors.to_h},
+        stashed_json=#{stashed_json.inspect},
+        request_attributes=#{request_attributes.inspect}
+      LOG
+      Rollbar.warning(
+        RequestLogging::CreateRequestError.new('Failed to save a Request'),
+        stashed_json: stashed_json,
+        request_attributes: request_attributes,
+      )
+    end
   end
 end

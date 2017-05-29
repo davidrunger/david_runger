@@ -28,6 +28,9 @@
 class Request < ApplicationRecord
   belongs_to :user, optional: true
 
+  validates :url, :handler, :method, :format, :ip, :requested_at, presence: true
+  validates :bot, inclusion: [true, false]
+
   scope :human, -> { where(bot: false) }
   scope :recent, ->(time_period = 1.day) do
     where('requests.requested_at > ?', time_period.ago)

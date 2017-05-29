@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  class StashRequestError < StandardError ; end
+
   protect_from_forgery with: :exception
   before_action :store_request_data_in_redis
   before_action :authenticate_user!
@@ -47,7 +49,22 @@ class ApplicationController < ActionController::Base
       bot: (browser.bot? || false),
       requested_at: Time.current,
     }
-    $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
+    begin
+      $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
+    rescue => e
+      # wrap the original exception in StashRequestError by raising and immediately rescuing
+      begin
+        raise StashRequestError.new('Failed to store request data in redis')
+      rescue StashRequestError => e
+        Rails.logger.warn(<<-LOG.squish)
+          Failed to store request data in redis,
+          error=#{e.class}: #{e.message},
+          cause=#{e.cause&.class}: #{e.cause&.message},
+          request_data=#{request_data.inspect}
+        LOG
+        Rollbar.warning($!, request_data: request_data)
+      end
+    end
   end
 
   def filtered_params
