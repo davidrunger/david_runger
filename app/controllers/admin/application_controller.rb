@@ -26,7 +26,8 @@ module Admin
       $redis.setex(
         params['request_uuid'],
         ::ApplicationController::REQUEST_DATA_TTL,
-        {admin: true}.to_json)
+        {admin: true}.to_json
+      )
     end
   end
 end
