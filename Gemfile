@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.4'
+ruby '2.4.1'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -20,7 +20,7 @@ gem 'redis', '~>3.2'
 gem 'browser'
 gem 'rollbar'
 gem 'newrelic_rpm'
-gem 'administrate', github: 'tiagoamaro/administrate', branch: 'allow-rails-5-1'
+gem 'administrate', github: 'thoughtbot/administrate' # installed from `master` for Rails 5.1 compat
 gem 'oj'
 gem 'active_model_serializers'
 gem 'httparty'
