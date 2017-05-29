@@ -3,7 +3,7 @@ class GroceryListsController < ApplicationController
 		@title = 'Grocery List'
     bootstrap(
       current_user: current_user&.as_json,
-      stores: ActiveModel::ArraySerializer.new(current_user.stores.includes(:items)),
+      stores: ActiveModel::Serializer::CollectionSerializer.new(current_user.stores.includes(:items)),
     )
 		render :show
 	end
