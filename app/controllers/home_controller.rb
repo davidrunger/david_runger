@@ -4,4 +4,8 @@ class HomeController < ApplicationController
   def index
     render :index
   end
+
+  def new_home
+    render :new_home
+  end
 end
