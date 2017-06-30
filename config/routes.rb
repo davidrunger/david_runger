@@ -1,14 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :users
-    resources :items
-    resources :requests, only: [:index, :show]
-    resources :stores
-    resources :templates
-
-    root to: "users#index"
-  end
-
   root to: 'home#index'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
@@ -23,5 +13,15 @@ Rails.application.routes.draw do
     end
     resources :items, only: [:update, :destroy]
     resources :templates, only: [:update]
+  end
+
+  namespace :admin do
+    resources :users
+    resources :items
+    resources :requests, only: [:index, :show]
+    resources :stores
+    resources :templates
+
+    root to: "users#index"
   end
 end
