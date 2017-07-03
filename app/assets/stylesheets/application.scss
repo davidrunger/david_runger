@@ -14,14 +14,31 @@
  */
 
 @import "utils/reset";
-@import "utils/spinner";
-@import "utils/font_size";
-@import "utils/font_weight";
+
+@import "variables";
+@import "elements";
+@import "animations";
+
+@import "utils/background";
+@import "utils/border";
+@import "utils/flex";
+@import "utils/font";
 @import "utils/margin";
+@import "utils/opacity";
+@import "utils/padding";
+@import "utils/position";
+@import "utils/spinner";
+@import "utils/text_align";
+@import "utils/viewport";
+@import "utils/whitespace";
+@import "utils/width";
+
+@import "pages/new_home";
 
 html, body {
   height: 100%;
   margin: 0;
+  font-family: sans-serif;
 }
 
 * {

@@ -1,0 +1,33 @@
+#header {
+  line-height: 56px;
+
+  #header-name {
+    opacity: 0;
+  }
+
+  &.fixed-top {
+    position: fixed;
+    height: 56px;
+    top: 0;
+
+    #header-name {
+      opacity: 1;
+      animation: delayed-fade-in $transition-medium;
+    }
+
+    #nav {
+      width: 500px;
+      right: 0;
+      transform: translateX(0);
+    }
+  }
+}
+
+#nav {
+  width: 700px;
+  max-width: 100%;
+  transition: all $transition-medium;
+  justify-content: space-around;
+  right: 50%;
+  transform: translateX(50%);
+}
