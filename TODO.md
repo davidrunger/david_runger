@@ -22,6 +22,8 @@
 * install Rollbar Telemetry https://mail.google.com/mail/u/0/#inbox/15df68ae3f235b1d
 * setup encryption
 * resize and image_optim my profile pic
+* add trianglify background for new_home
+* add tests
 
 ### DONE
 * Vue.config.productionTip = false
