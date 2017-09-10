@@ -4,6 +4,7 @@
     <% if Rails.env.production? %>
       <%= render 'layouts/rollbar' %>
     <% end %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= @title.present? ? "#{@title} - " : '' %>David Runger</title>
     <%= csrf_meta_tags %>
     <script type="text/javascript">
@@ -12,8 +13,11 @@
     </script>
     <%= javascript_pack_tag 'application' %>
     <%= content_for :extra_javascript %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= content_for :extra_css %>
+    <% if webpack_dev_server_present? %>
+      <%= javascript_pack_tag 'styles' %>
+    <% else %>
+      <%= stylesheet_link_tag 'application', media: 'all' %>
+    <% end %>
   </head>
 
   <body>

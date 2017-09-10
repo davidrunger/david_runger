@@ -1,2 +1,1 @@
-import '../new_home/position_listener';
-import '../new_home/click_listeners';
+import '../new_home/index';

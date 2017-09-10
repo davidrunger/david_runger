@@ -1,48 +1,96 @@
-.flex.flex-column.relative.vh-100.align-items-center.justify-content-center.background-black.font-white
-  #headline-container.text-center
-    #headline-name.font-size-1.font-blue-medium.pb-5.mb-4.border-b.border-gray.pb-2
-      %span.light David
-      %b Runger
+.flex.flex-column.relative.vh-100.align-items-center.justify-content-center.background-black.font-white-dark
+  #headline-container
+    #headline-name.monospace.font-size-1.font-blue-medium.pb-5.mb-4.border-b-1.border-gray-dark.pb-2
+      %span David Runger
     #headline-subtitle.font-size-3.light.mb-6
-      Full stack
-      %span.font-light-purple.nowrap Ruby on Rails
-      web developer
-  %header#header.flex.background-black.width-100.relative
-    #header-name.font-size-4.font-blue-medium.pl-5.js-link.js-scroll-top
-      %span.light David
-      %b Runger
+      Full stack web developer
+  %header#header.flex.background-black.width-100.relative{'data-scroll-header' => true}
+    #header-name.font-size-4.pl-5.js-link.js-scroll-top
+      %a.monospace.font-blue-medium{href: '#'} David Runger
     %nav#nav.flex.justify-content-space-around.absolute
-      %a.js-link About
-      %a.js-link Skills
-      %a.js-link Projects
-      %a.js-link Resume
-      %a.js-link Contact
+      %a.nav-link{href: '#about'}
+        %span.ptb-1 About
+      %a.nav-link{href: '#skills'}
+        %span.ptb-1 Skills
+      %a.nav-link{href: '#projects'}
+        %span.ptb-1 Projects
+      %a.nav-link{href: '#resume'}
+        %span.ptb-1 Resume
+      %a.nav-link{href: '#contact'}
+        %span.ptb-1 Contact
 
-.vh-100.align-items-center.justify-content-center
-  %p More content down here
-  %p More content down here
-  %p More content down here
-  %p More content down here
-  %p More content down here
-  %p More content down here
-  %p More content down here
-  %p More content down here
-  %p More content down here
-  %p More content down here
-  %p More content down here
-.vh-100.align-items-center.justify-content-center
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
-  %p Annnnnnnd more content down here
+#main
+
+  %hr#about.visibility-hidden
+  %section{'data-section': 'about'}
+    %h2.font-size-3 About me
+    .flex
+      .width-33.pr-5
+        = image_tag('david.jpg', alt: 'A picture of me', class: 'about-image')
+      .about-me.width-66.prl-5
+        %p
+
+          I'm a full stack web developer at #{link_to('Hired.com', 'http://www.hired.com')}.
+
+        %p
+
+          I love the Ruby programming language, the Rails web development framework, and the RSpec
+          testing library. These are well-designed tools (with healthy supporting ecosystems) that
+          allow me to work efficiently and effectively, and to have fun doing it.
+
+        %p
+
+          Previously, I've been a high school math teacher, a long haul truck driver, a public bus
+          driver, and a web development bootcamp teaching assistant at
+          #{link_to('App Academy', 'http://www.appacademy.io')}.
+
+  %hr#skills
+  %section{'data-section': 'skills'}
+    %h2.font-size-3 Skills
+
+    %p
+
+      Of course, I also have a respectable grasp of other common web technologies like CSS
+      (CSS3, SCSS), HTML (HAML), JSON, and HTTP, as well as basic web security practices.
+
+    %p
+
+      On the frontend, in addition to raw JavaScript (ES5, ES6, and CoffeeScript), most of my
+      experience is with React/Redux and jQuery. For JavaScript testing, I have mostly used
+      Jasmine and Karma.
+
+    %p
+
+      I'm also currently building some side projects with Vue.js; it's unfortunate that this
+      library isn't gaining more traction with companies in the United States.
+
+    %p
+
+      Some other tools that I have professional experience with but not a deep mastery of are
+      Elasticsearch,
+
+  %hr#projects
+  %section{'data-section': 'projects'}
+    %h2.font-size-3 Projects
+
+    %p
+
+      These are my projects.
+
+  %hr#resume
+  %section{'data-section': 'resume'}
+    %h2.font-size-3 Resume
+
+    %p
+
+      This is my resume.
+
+  %hr#contact
+  %section{'data-section': 'contact'}
+    %h2.font-size-3 Contact me
+
+    %p
+
+      This is how to contact me.
 
 = javascript_pack_tag 'new_home'

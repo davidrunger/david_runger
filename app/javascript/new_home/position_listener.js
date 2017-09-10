@@ -1,14 +1,52 @@
-let menuFixed = false;
-let originalOffsetTop;
-const header = document.getElementById('header');
+import _ from 'lodash';
+import Gator from 'gator';
 
-function changePositionHandler(event) {
+const header = document.getElementById('header');
+const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+let navlinks = [];
+let navlinkedSections = [];
+let menuFixed = false;
+let forcedActiveLink;
+let originalOffsetTop;
+
+function changePositionHandler() {
+  window.clickedNavLink = null;
+  setHeaderStyle();
+  setActiveNavLink();
+}
+
+const throttledSavePositionHandler = _.throttle(changePositionHandler, 300, { leading: false });
+
+function setHeaderStyle() {
   originalOffsetTop = originalOffsetTop || header.offsetTop;
   if (!menuFixed && isScrolledBelowHeader()) {
     fixHeader();
   } else if (menuFixed && !isScrolledBelowHeader()) {
     unfixHeader();
   }
+}
+
+function setActiveNavLink() {
+  navlinks.forEach(el => el.classList.remove('active'));
+
+  let activeNavlink;
+  if (forcedActiveLink) {
+    activeNavlink = forcedActiveLink;
+  } else {
+    let highestElementInView = null;
+    navlinkedSections.forEach((el) => {
+      if (el.offsetTop < window.scrollY + (viewportHeight * 2 / 3)) {
+        highestElementInView = el;
+      }
+    });
+
+    if (!highestElementInView) return;
+
+    const section = highestElementInView.attributes['data-section'].value;
+    activeNavlink = document.querySelector(`.nav-link[href="#${section}"]`);
+  }
+
+  activeNavlink.classList.add('active');
 }
 
 function isScrolledBelowHeader() {
@@ -25,12 +63,34 @@ function unfixHeader() {
   menuFixed = false;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initNavlinkHighlighting() {
+  navlinks = [].slice.apply(document.querySelectorAll('.nav-link'));
+  navlinkedSections = [].slice.apply(document.querySelectorAll('[data-section]'));
+  navlinkedSections.sort((a, b) => a.offsetTop - b.offsetTop);
+}
+
+function initHeaderStyling() {
   changePositionHandler();
 
   // !!! debounce this with lodash
-  document.addEventListener('scroll', changePositionHandler);
+  document.addEventListener('scroll', throttledSavePositionHandler);
 
   // !!! debounce this with lodash
-  window.addEventListener('resize', changePositionHandler);
+  window.addEventListener('resize', throttledSavePositionHandler);
+}
+
+function initNavlinkClickHandling() {
+  Gator(document).on('click', '.nav-link', function (event) {
+    forcedActiveLink = this;
+    setActiveNavLink();
+    setTimeout(() => {
+      forcedActiveLink = null;
+    }, 1000);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initHeaderStyling();
+  initNavlinkHighlighting();
+  initNavlinkClickHandling();
 });
