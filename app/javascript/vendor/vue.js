@@ -9,4 +9,6 @@ Vue.prototype.$http = axios;
 
 Vue.prototype.bootstrap = window.davidrunger.bootstrap;
 
+Vue.config.productionTip = false;
+
 export default Vue;

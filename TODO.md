@@ -1,6 +1,5 @@
 ### TODO
 * groceries: fix formatting when item list is taller than screen (color stops at the viewport height)
-* Vue.config.productionTip = false
 * to clear the list, maybe popup a modal with a checklist (checkbox inputs) of items that were needed, and "Clear" button or whatever
 * don't actually separate lists (!). yeah, just make un-needed items more transparent!
 * add state to request locations
@@ -25,3 +24,4 @@
 * port home page to vue (so i can develop with total hot-reloading - HTML, JS, and CSS)
 
 ### DONE
+* Vue.config.productionTip = false
