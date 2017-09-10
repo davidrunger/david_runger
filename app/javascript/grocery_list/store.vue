@@ -1,4 +1,4 @@
-  <template lang="pug">
+<template lang="pug">
   div.mt1.mb2
     h1.store-name.bold.xs-mb20
       span {{ store.name }}
