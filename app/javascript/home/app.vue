@@ -20,8 +20,8 @@ div
           span.ptb-1 Resume
         a.nav-link(href='#contact')
           span.ptb-1 Contact
-    .down-arrow-container.flex-grow-0
-      a(href='#about') #[i.fa.fa-angle-double-down(aria-hidden='true')]
+    a.down-arrow-container.flex-grow-0(href='#about')
+      i.fa.fa-angle-double-down(aria-hidden='true')
 
   #main.prl-5
 
