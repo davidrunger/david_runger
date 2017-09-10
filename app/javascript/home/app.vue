@@ -190,6 +190,7 @@ section {
 .down-arrow-container {
   width: 50px;
   height: 50px;
+  color: $black-light;
   background: $gray-light;
   border-radius: 50%;
   text-align: center;
@@ -197,9 +198,5 @@ section {
   font-size: 30px;
   padding: 2px 0 0 2px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
-
-  a {
-    color: black;
-  }
 }
 </style>
