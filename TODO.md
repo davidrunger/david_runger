@@ -25,6 +25,7 @@
 * add trianglify background for new_home
 * add tests
 * fix `warning "ajv-keywords@1.5.1" has incorrect peer dependency "ajv@>=4.10.0".` when deploying
+* don't update the URL when visiting a section in new_home
 
 ### DONE
 * Vue.config.productionTip = false
