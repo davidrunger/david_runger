@@ -21,7 +21,8 @@
 * use batch API http://ip-api.com/docs/api:batch
 * install Rollbar Telemetry https://mail.google.com/mail/u/0/#inbox/15df68ae3f235b1d
 * setup encryption
-* port home page to vue (so i can develop with total hot-reloading - HTML, JS, and CSS)
+* resize and image_optim my profile pic
 
 ### DONE
 * Vue.config.productionTip = false
+* port home page to vue (so i can develop with total hot-reloading - HTML, JS, and CSS)

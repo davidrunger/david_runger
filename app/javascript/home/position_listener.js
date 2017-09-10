@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import Gator from 'gator';
 
-const header = document.getElementById('header');
-const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+let header;
+let viewportHeight;
 let navlinks = [];
 let navlinkedSections = [];
 let menuFixed = false;
@@ -63,6 +63,11 @@ function unfixHeader() {
   menuFixed = false;
 }
 
+function initVariables() {
+  header = document.getElementById('header');
+  viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+}
+
 function initNavlinkHighlighting() {
   navlinks = [].slice.apply(document.querySelectorAll('.nav-link'));
   navlinkedSections = [].slice.apply(document.querySelectorAll('[data-section]'));
@@ -89,8 +94,9 @@ function initNavlinkClickHandling() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+export function init() {
+  initVariables();
   initHeaderStyling();
   initNavlinkHighlighting();
   initNavlinkClickHandling();
-});
+}
