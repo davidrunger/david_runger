@@ -1,12 +1,12 @@
 <template lang='pug'>
 div
   .flex.flex-column.relative.vh-100.align-items-center.justify-content-space-around.background-black.font-white-dark.p-5
-    .spacer
-    #headline-container
+    .spacer.flex-grow-2
+    #headline-container.flex-grow-1
       #headline-name.monospace.font-size-1.font-blue-medium.pb-5.mb-5.border-b-1.border-gray-dark.pb-2
         span David Runger
       #headline-subtitle.font-size-3.light Full stack web developer
-    header#header.flex.background-black.width-100.relative('data-scroll-header'=true)
+    header#header.flex-grow-1.flex.background-black.width-100.relative('data-scroll-header'=true)
       #header-name.font-size-4.pl-5.js-link.js-scroll-top
         a.monospace.font-blue-medium(href='#') David Runger
       nav#nav.flex.justify-content-space-around.absolute
@@ -20,6 +20,8 @@ div
           span.ptb-1 Resume
         a.nav-link(href='#contact')
           span.ptb-1 Contact
+    .down-arrow-container.flex-grow-0
+      a(href='#about') #[i.fa.fa-angle-double-down(aria-hidden='true')]
 
   #main.prl-5
 
@@ -182,6 +184,22 @@ section {
 
   p {
     padding-bottom: 25px;
+  }
+}
+
+.down-arrow-container {
+  width: 50px;
+  height: 50px;
+  background: $gray-light;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 30px;
+  padding: 2px 0 0 2px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
+
+  a {
+    color: black;
   }
 }
 </style>
