@@ -149,7 +149,8 @@ export default {
   width: 700px;
   max-width: 100%;
   transition: all $transition-medium;
-  justify-content: space-around;
+  // center via right and translateX so we can animate from
+  // center-aligned to right-aligned and vice versa
   right: 50%;
   transform: translateX(50%);
 
