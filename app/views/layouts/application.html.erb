@@ -11,13 +11,8 @@
       window.davidrunger || (window.davidrunger = {})
       window.davidrunger.bootstrap = JSON.parse("<%= raw(escape_javascript((@bootstrap_data || {}).to_json)) %>")
     </script>
-    <% if webpack_dev_server_present? %>
-      <%= javascript_pack_tag 'application' %>
-      <%= javascript_pack_tag 'styles' %>
-    <% else %>
-      <%= javascript_include_tag '/packs/application' %>
-      <%= stylesheet_link_tag 'application', media: 'all' %>
-    <% end %>
+    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'styles' %>
     <%= content_for :extra_javascript %>
   </head>
 
