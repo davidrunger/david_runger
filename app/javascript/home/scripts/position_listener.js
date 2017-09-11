@@ -77,10 +77,7 @@ function initNavlinkHighlighting() {
 function initHeaderStyling() {
   changePositionHandler();
 
-  // !!! debounce this with lodash
   document.addEventListener('scroll', throttledSavePositionHandler);
-
-  // !!! debounce this with lodash
   window.addEventListener('resize', throttledSavePositionHandler);
 }
 

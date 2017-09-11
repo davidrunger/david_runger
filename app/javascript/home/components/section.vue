@@ -1,7 +1,7 @@
 <template lang='pug'>
-div
-  hr(:id='section', :class='{"visibility-hidden": hideHr}')
-  section(:data-section='section')
+.section-container.relative.overflow-hidden(ref='root')
+  .background-container(ref='background-container')
+  section(:id='section', :data-section='section')
     h2.font-size-3 {{title}}
     slot
 </template>
@@ -10,12 +10,20 @@ div
 import Trianglify from 'trianglify';
 
 export default {
-  created() {
-    console.log(Trianglify);
+  mounted() {
+    var pattern = Trianglify({
+      x_colors: this.colorPalette,
+      cell_size: 100,
+      variance: .7,
+      height: this.$refs.root.offsetHeight * 1.5,
+      width: window.screen.width * 2,
+    });
+    this.$refs['background-container'].prepend(pattern.canvas());
   },
 
   props: {
-    hideHr: { default: false },
+    backgroundSeed: {},
+    colorPalette: {},
     section: {},
     title: {},
   },
@@ -23,8 +31,22 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.section-container {
+  border-top: 20px solid black;
+}
+
+[data-section=about] {
+  height: 400px;
+}
+
+.about-image {
+  max-height: 250px;
+}
+
 section {
-  padding: 30px 0;
+  padding: 30px;
+  max-width: 850px;
+  margin: 0 auto;
 
   h2 {
     padding-bottom: 30px;
@@ -32,6 +54,13 @@ section {
 
   p {
     padding-bottom: 25px;
+    font-size: 16px;
+    line-height: 24px;
   }
+}
+
+.background-container {
+  position: absolute;
+  z-index: -1;
 }
 </style>

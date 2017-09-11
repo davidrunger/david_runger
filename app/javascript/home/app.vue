@@ -23,82 +23,89 @@ div
     a.down-arrow-container.flex-grow-0(href='#about')
       i.fa.fa-angle-double-down(aria-hidden='true')
 
-  #main.prl-5
+  HomeSection(section='about', title='About me', color-palette='PuBu')
+    .flex
+      .pr-6.text-center
+        img.about-image(src='~img/david.jpg' alt='A picture of me')
+      .about-me.prl-5
+        p.
 
-    HomeSection(section='about', title='About me', :hide-hr='true')
-      .flex
-        .width-33.pr-5
-          img.about-image(src='~img/david.jpg' alt='A picture of me')
-        .width-66.about-me.prl-5
-          p.
-
-            I'm a full stack web developer at #[a(href='http://www.hired.com') Hired.com].
+          I'm a full stack web developer at #[a(href='http://www.hired.com') Hired.com].
 
 
-          p.
+        p.
 
-            I love the Ruby programming language, the Rails web development framework, and the RSpec
-            testing library. These are well-designed tools (with healthy supporting ecosystems) that
-            allow me to work efficiently and effectively, and to have fun doing it.
+          I love the Ruby programming language, the Rails web development framework, and the RSpec
+          testing library. These are well-designed tools (with healthy supporting ecosystems) that
+          allow me to work efficiently and effectively, and to have fun doing it.
 
-          p.
+        p.
 
-            Previously, I've been a high school math teacher, a long haul truck driver, a public bus
-            driver, and a web development bootcamp teaching assistant at
-            #[a(href='http://www.appacademy.io') App Academy].
+          Previously, I've been a high school math teacher, a long haul truck driver, a public bus
+          driver, and a web development bootcamp teaching assistant at
+          #[a(href='http://www.appacademy.io') App Academy].
 
-    HomeSection(section='skills', title='Skills')
-      p.
+  HomeSection(section='skills', title='Skills', color-palette='PuRd')
+    p.
 
-        Of course, I also have a respectable grasp of other common web technologies like CSS
-        (CSS3, SCSS), HTML (HAML), JSON, and HTTP, as well as basic web security practices.
+      Of course, I also have a respectable grasp of other common web technologies like CSS
+      (CSS3, SCSS), HTML (HAML), JSON, and HTTP, as well as basic web security practices.
 
-      p.
+    p.
 
-        On the frontend, in addition to raw JavaScript (ES5, ES6, and CoffeeScript), most of my
-        experience is with React/Redux and jQuery. For JavaScript testing, I have mostly used
-        Jasmine and Karma.
+      On the frontend, in addition to raw JavaScript (ES5, ES6, and CoffeeScript), most of my
+      experience is with React/Redux and jQuery. For JavaScript testing, I have mostly used
+      Jasmine and Karma.
 
-      p.
+    p.
 
-        I'm also currently building some side projects with Vue.js; it's unfortunate that this
-        library isn't gaining more traction with companies in the United States.
+      I'm also currently building some side projects with Vue.js; it's unfortunate that this
+      library isn't gaining more traction with companies in the United States.
 
-      p.
+    p.
 
-        Some other tools that I have professional experience with but not a deep mastery of are
-        Elasticsearch,
+      Some other tools that I have professional experience with but not a deep mastery of are
+      Elasticsearch,
 
-    HomeSection(section='projects', title='Projects')
-      p.
+  HomeSection(section='projects', title='Projects', color-palette='Blues')
+    p.
 
-        These are my projects.
+      These are my projects.
 
-    HomeSection(section='resume', title='Resume')
-      p.
+  HomeSection(section='resume', title='Resume', color-palette='Purples')
+    p.
 
-        This is my resume.
+      This is my resume.
 
-    HomeSection(section='contact', title='Contact me')
-      p.
+  HomeSection(section='contact', title='Contact me', color-palette='GnBu')
+    p.
 
-        This is how to contact me.
+      This is how to contact me.
 </template>
 
 <script>
 import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min.js';
+import _ from 'lodash';
 
 import * as positionListener from './scripts/position_listener';
 import HomeSection from './components/section';
+
+const COLOR_PALETTE_SEEDS = [1, 6, 7, 11, 12, 15];
 
 export default {
   components: {
     'HomeSection': HomeSection,
   },
 
+  data() {
+    return {
+      trianglifySeeds: _.shuffle(COLOR_PALETTE_SEEDS),
+    };
+  },
+
   mounted() {
     positionListener.init();
-    new SmoothScroll('a[href*="#"]', { offset: 54 });
+    new SmoothScroll('a[href*="#"]', { offset: 34 });
   },
 }
 </script>
@@ -108,6 +115,7 @@ export default {
 
 #header {
   line-height: 56px;
+  z-index: 1;
 
   #header-name {
     opacity: 0;
@@ -153,18 +161,8 @@ export default {
   }
 }
 
-#main {
-  max-width: 850px;
-  margin: 0 auto;
-}
-
 .nav-link.active span {
   border-bottom: 4px solid gray;
-}
-
-.about-image {
-  max-width: 100%;
-  height: auto;
 }
 
 .down-arrow-container {
@@ -178,7 +176,7 @@ export default {
   font-size: 30px;
   padding: 2px 0 0 2px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
-  z-index: 0; // to that it doesn't slip beneath the navbar when scrolling down the page
+  z-index: 3; // to that it doesn't slip beneath the navbar when scrolling down the page
   margin-bottom: 30px; // needs to be big enough to psh above header when clicking 1st section
 }
 </style>
