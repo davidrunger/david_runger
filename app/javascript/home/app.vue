@@ -101,7 +101,7 @@ div
 <script>
 import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min.js';
 
-import * as positionListener from './position_listener';
+import * as positionListener from './scripts/position_listener';
 
 export default {
   mounted() {
