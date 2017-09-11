@@ -25,9 +25,7 @@ div
 
   #main.prl-5
 
-    hr#about.visibility-hidden
-    section(data-section='about')
-      h2.font-size-3 About me
+    HomeSection(section='about', title='About me', :hide-hr='true')
       .flex
         .width-33.pr-5
           img.about-image(src='~img/david.jpg' alt='A picture of me')
@@ -35,6 +33,7 @@ div
           p.
 
             I'm a full stack web developer at #[a(href='http://www.hired.com') Hired.com].
+
 
           p.
 
@@ -48,10 +47,7 @@ div
             driver, and a web development bootcamp teaching assistant at
             #[a(href='http://www.appacademy.io') App Academy].
 
-    hr#skills
-    section(data-section='skills')
-      h2.font-size-3 Skills
-
+    HomeSection(section='skills', title='Skills')
       p.
 
         Of course, I also have a respectable grasp of other common web technologies like CSS
@@ -73,26 +69,17 @@ div
         Some other tools that I have professional experience with but not a deep mastery of are
         Elasticsearch,
 
-    hr#projects
-    section(data-section='projects')
-      h2.font-size-3 Projects
-
+    HomeSection(section='projects', title='Projects')
       p.
 
         These are my projects.
 
-    hr#resume
-    section(data-section='resume')
-      h2.font-size-3 Resume
-
+    HomeSection(section='resume', title='Resume')
       p.
 
         This is my resume.
 
-    hr#contact
-    section(data-section='contact')
-      h2.font-size-3 Contact me
-
+    HomeSection(section='contact', title='Contact me')
       p.
 
         This is how to contact me.
@@ -102,8 +89,13 @@ div
 import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min.js';
 
 import * as positionListener from './scripts/position_listener';
+import HomeSection from './components/section';
 
 export default {
+  components: {
+    'HomeSection': HomeSection,
+  },
+
   mounted() {
     positionListener.init();
     new SmoothScroll('a[href*="#"]', { offset: 54 });
@@ -175,18 +167,6 @@ export default {
   height: auto;
 }
 
-section {
-  padding: 30px 0;
-
-  h2 {
-    padding-bottom: 30px;
-  }
-
-  p {
-    padding-bottom: 25px;
-  }
-}
-
 .down-arrow-container {
   width: 50px;
   height: 50px;
@@ -199,5 +179,6 @@ section {
   padding: 2px 0 0 2px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
   z-index: 0; // to that it doesn't slip beneath the navbar when scrolling down the page
+  margin-bottom: 30px; // needs to be big enough to psh above header when clicking 1st section
 }
 </style>
