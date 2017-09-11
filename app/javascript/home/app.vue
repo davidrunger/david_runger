@@ -3,12 +3,12 @@ div
   .flex.flex-column.relative.vh-100.align-items-center.justify-content-space-around.background-black.font-white-dark.p-5
     .spacer.flex-grow-2
     #headline-container.flex-grow-1
-      #headline-name.monospace.font-size-1.font-blue-medium.pb-5.mb-5.border-b-1.border-gray-dark.pb-2
+      #headline-name.monospace.font-size-1.font-blue-light.pb-5.mb-5.border-b-1.border-gray-dark.pb-2
         span David Runger
       #headline-subtitle.font-size-3.light Full stack web developer
     header#header.flex-grow-1.flex.background-black.width-100.relative('data-scroll-header'=true)
       #header-name.font-size-4.pl-5.js-link.js-scroll-top
-        a.monospace.font-blue-medium(href='#') David Runger
+        a.monospace.font-blue-light(href='#') David Runger
       nav#nav.flex.justify-content-space-around.absolute
         a.nav-link(href='#about')
           span.ptb-1 About
