@@ -198,5 +198,6 @@ section {
   font-size: 30px;
   padding: 2px 0 0 2px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
+  z-index: 0; // to that it doesn't slip beneath the navbar when scrolling down the page
 }
 </style>
