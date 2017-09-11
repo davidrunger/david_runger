@@ -122,7 +122,7 @@ export default {
   }
 
   #nav a {
-    color: #cccccc;
+    color: $gray-light;
 
     &:hover {
       color: white;
