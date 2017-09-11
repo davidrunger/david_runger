@@ -176,7 +176,6 @@ export default {
   font-size: 30px;
   padding: 2px 0 0 2px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
-  z-index: 3; // to that it doesn't slip beneath the navbar when scrolling down the page
   margin-bottom: 30px; // needs to be big enough to psh above header when clicking 1st section
 }
 </style>
