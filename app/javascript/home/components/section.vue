@@ -1,7 +1,8 @@
 <template lang='pug'>
 .section-container.relative.overflow-hidden(ref='root')
   .background-container(ref='background-container')
-  section(:id='section', :data-section='section')
+  .anchor-target(:id='section')
+  section(:data-section='section')
     h2.font-size-3 {{title}}
     slot
 </template>
@@ -31,6 +32,12 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+// semi-hacky way to make scroll position account for header space
+.anchor-target {
+  position: relative;
+  bottom: 35px;
+}
+
 .section-container {
   border-top: 20px solid black;
 }

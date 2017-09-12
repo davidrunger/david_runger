@@ -35,7 +35,8 @@ function setActiveNavLink() {
   } else {
     let highestElementInView = null;
     navlinkedSections.forEach((el) => {
-      if (el.offsetTop < window.scrollY + (viewportHeight * 2 / 3)) {
+      const yPosition = el.getBoundingClientRect().y;
+      if (yPosition > 0 && yPosition < viewportHeight * (2 / 3)) {
         highestElementInView = el;
       }
     });
@@ -71,7 +72,7 @@ function initVariables() {
 function initNavlinkHighlighting() {
   navlinks = [].slice.apply(document.querySelectorAll('.nav-link'));
   navlinkedSections = [].slice.apply(document.querySelectorAll('[data-section]'));
-  navlinkedSections.sort((a, b) => a.offsetTop - b.offsetTop);
+  navlinkedSections.sort((a, b) => a.getBoundingClientRect().y - b.getBoundingClientRect().y);
 }
 
 function initHeaderStyling() {
