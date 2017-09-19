@@ -1,9 +1,9 @@
-import Vue from '../vendor/vue'
-import Home from '../home/app.vue'
+import Vue from '../vendor/vue';
+import Home from '../home/app.vue';
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(document.createElement('replacedcontainer'));
-  const app = new Vue({
+  new Vue({ // eslint-disable-line no-new
     el: 'replacedcontainer',
     template: '<Home />',
     components: { Home },

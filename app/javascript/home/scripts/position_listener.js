@@ -83,7 +83,9 @@ function initHeaderStyling() {
 }
 
 function initNavlinkClickHandling() {
-  Gator(document).on('click', '.nav-link', function (event) {
+  // we need `this` to be able to be bound to the correct object in the event handler function
+  // eslint-disable-next-line func-names
+  Gator(document).on('click', '.nav-link', function (_event) {
     forcedActiveLink = this;
     setActiveNavLink();
     setTimeout(() => {
@@ -92,6 +94,8 @@ function initNavlinkClickHandling() {
   });
 }
 
+// The explicitness of being able to call this as `positionListener.init()` is nice here
+// eslint-disable-next-line import/prefer-default-export
 export function init() {
   initVariables();
   initHeaderStyling();

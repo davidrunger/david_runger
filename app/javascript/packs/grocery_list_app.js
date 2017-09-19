@@ -1,11 +1,11 @@
-import Vue from '../vendor/vue'
-import GroceryList from '../grocery_list/app.vue'
+import Vue from '../vendor/vue';
+import GroceryList from '../grocery_list/app.vue';
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.body.appendChild(document.createElement('replacedcontainer'))
-  const app = new Vue({
+  document.body.appendChild(document.createElement('replacedcontainer'));
+  new Vue({ // eslint-disable-line no-new
     el: 'replacedcontainer',
     template: '<GroceryList/>',
-    components: { GroceryList }
-  })
-})
+    components: { GroceryList },
+  });
+});

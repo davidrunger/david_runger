@@ -12,10 +12,10 @@ import Trianglify from 'trianglify';
 
 export default {
   mounted() {
-    var pattern = Trianglify({
+    const pattern = Trianglify({
       x_colors: this.colorPalette,
       cell_size: 100,
-      variance: .7,
+      variance: 0.7,
       height: this.$refs.root.offsetHeight * 1.5,
       width: window.screen.width * 2,
     });

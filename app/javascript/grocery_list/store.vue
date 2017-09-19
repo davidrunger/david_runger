@@ -49,28 +49,28 @@ export default {
 
   mounted() {
     const clipboard = new Clipboard('.copy-to-clipboard', {
-      text: () => this.neededItems.map(item => `${item.name} (${item.needed})`).join('\n')
+      text: () => this.neededItems.map(item => `${item.name} (${item.needed})`).join('\n'),
     });
     clipboard.on('success', () => {
       this.wasCopiedRecently = true;
-      setTimeout(() => this.wasCopiedRecently = false, 3000);
+      setTimeout(() => { this.wasCopiedRecently = false; }, 3000);
     });
   },
 
   computed: {
     neededItems() {
-      let items = this.store.items;
-      items = items.filter(item => item.needed > 0)
+      let { items } = this.store;
+      items = items.filter(item => item.needed > 0);
       items = sortBy(items, item => item.name.toLowerCase());
       return items;
     },
 
     purchasedItems() {
-      let items = this.store.items;
-      items = items.filter(item => item.needed === 0)
+      let { items } = this.store;
+      items = items.filter(item => item.needed === 0);
       items = sortBy(items, item => item.name.toLowerCase());
       return items;
-    }
+    },
   },
 
   methods: {
@@ -85,11 +85,11 @@ export default {
       this.debouncedPatchItem(item.id, item.needed);
     },
 
-    debouncedPatchItem: debounce(function (itemId, newNeeded) {
+    debouncedPatchItem: debounce((itemId, newNeeded) => {
       const payload = {
-        item: { needed: newNeeded},
+        item: { needed: newNeeded },
       };
-      this.$http.patch('api/items/' + itemId, payload).then(() => {
+      this.$http.patch(`api/items/${itemId}`, payload).then(() => {
         this.$set(this, 'waitingOnNetwork', false);
       });
     }, 500),
@@ -111,9 +111,9 @@ export default {
   },
 
   props: [
-    'store'
+    'store',
   ],
-}
+};
 </script>
 
 <style scoped>

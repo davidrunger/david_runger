@@ -22,13 +22,11 @@
 </template>
 
 <script>
-import { find } from 'lodash';
-
 const Store = require('./store.vue');
 
 export default {
   components: {
-    Store
+    Store,
   },
 
   data() {
@@ -40,7 +38,7 @@ export default {
         newStoreName: '',
         stores: this.bootstrap.stores,
       },
-    )
+    );
   },
 
   methods: {
@@ -70,7 +68,7 @@ export default {
       });
     },
   },
-}
+};
 </script>
 
 <style lang='scss' scoped>

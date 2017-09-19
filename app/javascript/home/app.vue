@@ -84,17 +84,17 @@ div
 </template>
 
 <script>
-import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min.js';
+import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min';
 import _ from 'lodash';
 
 import * as positionListener from './scripts/position_listener';
-import HomeSection from './components/section';
+import HomeSection from './components/section.vue';
 
 const COLOR_PALETTE_SEEDS = [1, 6, 7, 11, 12, 15];
 
 export default {
   components: {
-    'HomeSection': HomeSection,
+    HomeSection,
   },
 
   data() {
@@ -105,9 +105,9 @@ export default {
 
   mounted() {
     positionListener.init();
-    new SmoothScroll('a[href*="#"]');
+    new SmoothScroll('a[href*="#"]'); // eslint-disable-line no-new
   },
-}
+};
 </script>
 
 <style lang='scss' scoped>

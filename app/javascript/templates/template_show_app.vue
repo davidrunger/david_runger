@@ -37,7 +37,9 @@ export default {
     });
     clipboard.on('success', () => {
       this.wasCopiedRecently = true;
-      setTimeout(() => this.wasCopiedRecently = false, 3000);
+      setTimeout(() => {
+        this.wasCopiedRecently = false;
+      }, 3000);
     });
   },
 
@@ -49,7 +51,7 @@ export default {
         saved: false,
         saving: false,
         variables: [],
-      }
+      },
     );
   },
 
@@ -67,18 +69,19 @@ export default {
     },
 
     updateServer: debounce(
+      // we need `function` for correct `this`
+      // eslint-disable-next-line func-names
       function () {
         this.$http.patch(`/api/templates/${this.template.id}`, {
           template: {
             body: this.template.body,
           },
-        })
-        .then(() => {
+        }).then(() => {
           this.saving = false;
           this.saved = true;
         });
       },
-      1000
+      1000,
     ),
 
     updateVariables() {
@@ -87,9 +90,9 @@ export default {
       let match = variableRegex.exec(this.template.body);
       while (match) {
         const name = match[1];
-        const existingVariable = find(this.variables, variable => variable.name === name)
+        const existingVariable = find(this.variables, variable => variable.name === name);
         newVariables.push({
-          name: name,
+          name,
           value: existingVariable ? existingVariable.value : '',
         });
         match = variableRegex.exec(this.template.body);
@@ -99,6 +102,8 @@ export default {
   },
 
   watch: {
+    // we need `function` for correct `this`
+    // eslint-disable-next-line func-names
     'template.body': function () {
       this.saving = true;
       this.saved = false;
@@ -106,7 +111,7 @@ export default {
       this.updateVariables();
     },
   },
-}
+};
 </script>
 
 <style scoped>
