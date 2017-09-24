@@ -45,7 +45,7 @@ div
           driver, and a web development bootcamp teaching assistant at
           #[a(href='http://www.appacademy.io') App Academy].
 
-  HomeSection(section='skills', title='Skills', color-palette='PuRd')
+  HomeSection(section='skills', title='Skills', color-palette='Purples')
     p.
 
       Of course, I also have a respectable grasp of other common web technologies like CSS
@@ -72,7 +72,7 @@ div
 
       These are my projects.
 
-  HomeSection(section='resume', title='Resume', color-palette='Purples')
+  HomeSection(section='resume', title='Resume', color-palette='PuRd')
     p.
 
       This is my resume.
