@@ -129,6 +129,14 @@ export default {
     }
   }
 
+  &:not(.fixed-top) {
+    .nav-link.active {
+      span {
+        border-bottom: none;
+      }
+    }
+  }
+
   &.fixed-top {
     position: fixed;
     height: 56px;

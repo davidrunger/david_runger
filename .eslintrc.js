@@ -7,6 +7,7 @@ module.exports = {
   rules: {
     'arrow-parens': 'off',
     'function-paren-newline': 'off',
+    'no-else-return': 'off',
     'no-param-reassign': 'off',
     'no-use-before-define': ['error', { functions: false }],
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],

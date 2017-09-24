@@ -1,23 +1,14 @@
 import _ from 'lodash';
 import Gator from 'gator';
+import 'waypoints/lib/noframework.waypoints'; // adds `Waypoint` to window
+import 'waypoints/lib/shortcuts/inview'; // adds `Inview` to `Waypoint`
 
-let header;
-let viewportHeight;
-let navlinks = [];
-let navlinkedSections = [];
-let menuFixed = false;
-let forcedActiveLink;
 let originalOffsetTop;
-
-function changePositionHandler() {
-  window.clickedNavLink = null;
-  setHeaderStyle();
-  setActiveNavLink();
-}
-
-const throttledSavePositionHandler = _.throttle(changePositionHandler, 300, { leading: false });
+let menuFixed = false;
+const throttledSetHeaderStyle = _.throttle(setHeaderStyle, 300, { leading: false });
 
 function setHeaderStyle() {
+  const header = getHeader();
   originalOffsetTop = originalOffsetTop || header.offsetTop;
   if (!menuFixed && isScrolledBelowHeader()) {
     fixHeader();
@@ -26,79 +17,143 @@ function setHeaderStyle() {
   }
 }
 
-function setActiveNavLink() {
-  navlinks.forEach(el => el.classList.remove('active'));
-
-  let activeNavlink;
-  if (forcedActiveLink) {
-    activeNavlink = forcedActiveLink;
-  } else {
-    let highestElementInView = null;
-    navlinkedSections.forEach((el) => {
-      const yPosition = el.getBoundingClientRect().y;
-      if (yPosition > 0 && yPosition < viewportHeight * (2 / 3)) {
-        highestElementInView = el;
-      }
-    });
-
-    if (!highestElementInView) return;
-
-    const section = highestElementInView.attributes['data-section'].value;
-    activeNavlink = document.querySelector(`.nav-link[href="#${section}"]`);
-  }
-
-  activeNavlink.classList.add('active');
-}
-
 function isScrolledBelowHeader() {
   return window.scrollY >= originalOffsetTop;
 }
 
 function fixHeader() {
-  header.classList.add('fixed-top');
+  getHeader().classList.add('fixed-top');
   menuFixed = true;
 }
 
 function unfixHeader() {
-  header.classList.remove('fixed-top');
+  getHeader().classList.remove('fixed-top');
+  clearNavlinkHighlights();
   menuFixed = false;
 }
 
-function initVariables() {
-  header = document.getElementById('header');
-  viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-}
-
-function initNavlinkHighlighting() {
-  navlinks = [].slice.apply(document.querySelectorAll('.nav-link'));
-  navlinkedSections = [].slice.apply(document.querySelectorAll('[data-section]'));
-  navlinkedSections.sort((a, b) => a.getBoundingClientRect().y - b.getBoundingClientRect().y);
-}
-
 function initHeaderStyling() {
-  changePositionHandler();
+  setHeaderStyle();
 
-  document.addEventListener('scroll', throttledSavePositionHandler);
-  window.addEventListener('resize', throttledSavePositionHandler);
+  document.addEventListener('scroll', throttledSetHeaderStyle);
+  window.addEventListener('resize', throttledSetHeaderStyle);
+}
+
+function getHeader() {
+  return document.getElementById('header');
+}
+
+let forcedActiveNavIdSetAt;
+let forcedActiveNavId;
+
+function clearForcedActiveNavId() {
+  forcedActiveNavId = null;
+}
+
+function forcedNavIdIsCurrent() {
+  return (new Date()).getTime() < (forcedActiveNavIdSetAt + 1000);
+}
+
+const sectionsFullyInView = [];
+const sectionsPartiallyInView = [];
+function getActiveNavlink() {
+  let activeNavId;
+  if (forcedActiveNavId && forcedNavIdIsCurrent()) {
+    activeNavId = forcedActiveNavId;
+  } else {
+    activeNavId = sectionsFullyInView[0] || sectionsPartiallyInView[0];
+  }
+
+  if (activeNavId) {
+    return document.querySelector(`.nav-link[href="${activeNavId}"]`);
+  } else {
+    return null;
+  }
+}
+
+function handleScrollForNavlinkHighlighting() {
+  if (!forcedNavIdIsCurrent) {
+    clearForcedActiveNavId();
+    updateHighlightedNavlink();
+  }
+}
+
+const throttledHandleScrollForNavlinkHighlighting = _.throttle(handleScrollForNavlinkHighlighting);
+
+function initScrollListener() {
+  document.addEventListener('scroll', throttledHandleScrollForNavlinkHighlighting);
+}
+
+function clearNavlinkHighlights() {
+  const navlinks = getNavlinks();
+  navlinks.forEach(el => el.classList.remove('active'));
+}
+
+function highlightActiveNavlink() {
+  const activeNavlink = getActiveNavlink();
+  if (!activeNavlink) return;
+  getActiveNavlink().classList.add('active');
+}
+
+function updateHighlightedNavlink() {
+  clearNavlinkHighlights();
+  highlightActiveNavlink();
 }
 
 function initNavlinkClickHandling() {
   // we need `this` to be able to be bound to the correct object in the event handler function
   // eslint-disable-next-line func-names
   Gator(document).on('click', '.nav-link', function (_event) {
-    forcedActiveLink = this;
-    setActiveNavLink();
-    setTimeout(() => {
-      forcedActiveLink = null;
-    }, 1000);
+    forcedActiveNavIdSetAt = (new Date()).getTime();
+    forcedActiveNavId = this.getAttribute('href');
+    updateHighlightedNavlink();
   });
+}
+
+let navlinks;
+function getNavlinks() {
+  if (!navlinks) {
+    navlinks = [].slice.apply(document.querySelectorAll('.nav-link'));
+  }
+  return navlinks;
+}
+
+let navlinkedSections = null;
+function getNavlinkedSections() {
+  if (!navlinkedSections) {
+    navlinkedSections = [].slice.apply(document.querySelectorAll('[data-section]'));
+  }
+  return navlinkedSections;
 }
 
 // The explicitness of being able to call this as `positionListener.init()` is nice here
 // eslint-disable-next-line import/prefer-default-export
 export function init() {
-  initVariables();
+  const localNavlinkedSections = getNavlinkedSections();
+  localNavlinkedSections.forEach((section) => {
+    const sectionId = section.getAttribute('data-section');
+    const sectionHash = `#${sectionId}`;
+    new Waypoint.Inview({ // eslint-disable-line no-new,no-undef
+      element: section,
+      enter(_direction) {
+        sectionsPartiallyInView.push(sectionHash);
+        updateHighlightedNavlink();
+      },
+      entered(_direction) {
+        sectionsFullyInView.push(sectionHash);
+        updateHighlightedNavlink();
+      },
+      exit(_direction) {
+        _.remove(sectionsFullyInView, hash => hash === sectionHash);
+        updateHighlightedNavlink();
+      },
+      exited(_direction) {
+        _.remove(sectionsPartiallyInView, hash => hash === sectionHash);
+        updateHighlightedNavlink();
+      },
+    });
+  });
   initHeaderStyling();
-  initNavlinkHighlighting();
+  initScrollListener();
   initNavlinkClickHandling();
 }
