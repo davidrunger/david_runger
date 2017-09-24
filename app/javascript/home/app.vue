@@ -30,7 +30,7 @@ div
       .about-me.prl-5
         p.
 
-          I'm a full stack web developer at #[a(href='http://www.hired.com') Hired.com].
+          I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
 
 
         p.
