@@ -3,7 +3,8 @@
   .background-container(ref='background-container')
   .anchor-target(:id='section')
   section(:data-section='section')
-    h2.font-size-3 {{title}}
+    h2.font-size-3
+      span {{title}}
     slot
 </template>
 
@@ -32,6 +33,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+@import '~css/variables';
+
 // semi-hacky way to make scroll position account for header space
 .anchor-target {
   position: relative;
@@ -57,6 +60,11 @@ section {
 
   h2 {
     padding-bottom: 30px;
+
+    span {
+      border-bottom: 2px solid $black-lighter;
+      padding-bottom: 5px;
+    }
   }
 
   p {
