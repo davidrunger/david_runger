@@ -36,27 +36,28 @@ $color-3: #edeafa;
   bottom: 35px;
 }
 
-.section-container {
-  border-top: 20px solid black;
-}
-
 [data-section=about] {
-  height: 400px;
+  height: 500px;
 }
 
 .about-image {
-  max-height: 250px;
+  max-width: 100%;
+  box-shadow: $gray-light 0px 2px 5px;
+  margin-right: 30px;
 }
 
 section {
-  padding: 30px;
+  padding: 40px;
   max-width: 850px;
   margin: 0 auto;
   color: $ivory-black;
 
   h2 {
     padding-bottom: 30px;
+  }
 
+  p, img {
+    margin-left: 30px;
   }
 
   p {
