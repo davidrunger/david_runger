@@ -8,7 +8,7 @@ div
       #headline-name.monospace.font-size-1.font-blue-light.pb-5.mb-5.border-b-1.border-gray-dark.pb-2
         span David Runger
       #headline-subtitle.font-size-3.light Full stack web developer
-    header#header.flex-grow-1.flex.background-black.width-100.relative('data-scroll-header'=true)
+    header#header.fixed-top.flex-grow-1.flex.background-black.width-100.relative
       #header-name.font-size-4.pl-5.js-link.js-scroll-top
         a.monospace.font-blue-light(href='#home') David Runger
       nav#nav.flex.justify-content-space-around.absolute
@@ -116,6 +116,9 @@ export default {
 @import '~css/variables';
 
 #header {
+  position: fixed;
+  height: 56px;
+  top: 0;
   line-height: 56px;
   z-index: 1;
 
@@ -123,36 +126,26 @@ export default {
     opacity: 0;
   }
 
-  #nav a {
-    color: $gray-light;
-
-    &:hover {
-      color: white;
-    }
+  #header-name {
+    opacity: 1;
+    animation: delayed-fade-in $transition-medium;
   }
 
-  &:not(.fixed-top) {
-    .nav-link.active {
-      span {
-        border-bottom: none;
+  #nav {
+    width: 500px;
+    right: 0;
+    transform: translateX(0);
+
+    a.nav-link {
+      color: $gray-light;
+
+      &.active {
+        color: $white-dark;
       }
-    }
-  }
 
-  &.fixed-top {
-    position: fixed;
-    height: 56px;
-    top: 0;
-
-    #header-name {
-      opacity: 1;
-      animation: delayed-fade-in $transition-medium;
-    }
-
-    #nav {
-      width: 500px;
-      right: 0;
-      transform: translateX(0);
+      &:hover {
+        color: white;
+      }
     }
   }
 }

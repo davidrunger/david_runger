@@ -3,46 +3,6 @@ import Gator from 'gator';
 import 'waypoints/lib/noframework.waypoints'; // adds `Waypoint` to window
 import 'waypoints/lib/shortcuts/inview'; // adds `Inview` to `Waypoint`
 
-let originalOffsetTop;
-let menuFixed = false;
-const throttledSetHeaderStyle = _.throttle(setHeaderStyle, 300, { leading: false });
-
-function setHeaderStyle() {
-  const header = getHeader();
-  originalOffsetTop = originalOffsetTop || header.offsetTop;
-  if (!menuFixed && isScrolledBelowHeader()) {
-    fixHeader();
-  } else if (menuFixed && !isScrolledBelowHeader()) {
-    unfixHeader();
-  }
-}
-
-function isScrolledBelowHeader() {
-  return window.scrollY >= originalOffsetTop;
-}
-
-function fixHeader() {
-  getHeader().classList.add('fixed-top');
-  menuFixed = true;
-}
-
-function unfixHeader() {
-  getHeader().classList.remove('fixed-top');
-  clearNavlinkHighlights();
-  menuFixed = false;
-}
-
-function initHeaderStyling() {
-  setHeaderStyle();
-
-  document.addEventListener('scroll', throttledSetHeaderStyle);
-  window.addEventListener('resize', throttledSetHeaderStyle);
-}
-
-function getHeader() {
-  return document.getElementById('header');
-}
-
 let forcedActiveNavIdSetAt;
 let forcedActiveNavId;
 
@@ -153,7 +113,6 @@ export function init() {
       },
     });
   });
-  initHeaderStyling();
   initScrollListener();
   initNavlinkClickHandling();
 }
