@@ -2,7 +2,9 @@
 div
   #home.flex.flex-column.relative.vh-100.align-items-center.justify-content-space-around.background-black.font-white-dark.p-5
     .spacer.flex-grow-2
-    #headline-container.flex-grow-1
+    //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
+    //- the top of the page
+    #headline-container.flex-grow-1(data-section='')
       #headline-name.monospace.font-size-1.font-blue-light.pb-5.mb-5.border-b-1.border-gray-dark.pb-2
         span David Runger
       #headline-subtitle.font-size-3.light Full stack web developer
