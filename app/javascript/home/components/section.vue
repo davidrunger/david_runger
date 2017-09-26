@@ -1,5 +1,5 @@
 <template lang='pug'>
-.section-container.relative.overflow-hidden(ref='root')
+.section-container.relative.overflow-hidden(:class='section', ref='root')
   .anchor-target(:id='section')
   section(:data-section='section')
     h2.font-size-3
@@ -18,6 +18,18 @@ export default {
 
 <style lang='scss' scoped>
 @import '~css/variables';
+
+$ivory-black: #131920;
+
+$color-1: #fcf5f3;
+$color-2: #fbfbfb;
+$color-3: #edeafa;
+
+.about { background: $color-1; }
+.skills { background: $color-2; }
+.projects { background: $color-3; }
+.resume { background: $color-2; }
+.contact { background: $color-1; }
 
 // semi-hacky way to make scroll position account for header space
 .anchor-target {
@@ -41,6 +53,7 @@ section {
   padding: 30px;
   max-width: 850px;
   margin: 0 auto;
+  color: $ivory-black;
 
   h2 {
     padding-bottom: 30px;
