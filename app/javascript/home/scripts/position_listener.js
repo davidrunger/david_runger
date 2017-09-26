@@ -6,10 +6,6 @@ import 'waypoints/lib/shortcuts/inview'; // adds `Inview` to `Waypoint`
 let forcedActiveNavIdSetAt;
 let forcedActiveNavId;
 
-function clearForcedActiveNavId() {
-  forcedActiveNavId = null;
-}
-
 function forcedNavIdIsCurrent() {
   return (new Date()).getTime() < (forcedActiveNavIdSetAt + 1000);
 }
@@ -29,19 +25,6 @@ function getActiveNavlink() {
   } else {
     return null;
   }
-}
-
-function handleScrollForNavlinkHighlighting() {
-  if (!forcedNavIdIsCurrent) {
-    clearForcedActiveNavId();
-    updateHighlightedNavlink();
-  }
-}
-
-const throttledHandleScrollForNavlinkHighlighting = _.throttle(handleScrollForNavlinkHighlighting);
-
-function initScrollListener() {
-  document.addEventListener('scroll', throttledHandleScrollForNavlinkHighlighting);
 }
 
 function clearNavlinkHighlights() {
@@ -113,6 +96,5 @@ export function init() {
       },
     });
   });
-  initScrollListener();
   initNavlinkClickHandling();
 }
