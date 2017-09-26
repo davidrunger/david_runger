@@ -1,6 +1,5 @@
 <template lang='pug'>
 .section-container.relative.overflow-hidden(ref='root')
-  .background-container(ref='background-container')
   .anchor-target(:id='section')
   section(:data-section='section')
     h2.font-size-3
@@ -9,23 +8,8 @@
 </template>
 
 <script>
-import Trianglify from 'trianglify';
-
 export default {
-  mounted() {
-    const pattern = Trianglify({
-      x_colors: this.colorPalette,
-      cell_size: 100,
-      variance: 0.7,
-      height: this.$refs.root.offsetHeight * 1.5,
-      width: window.screen.width * 2,
-    });
-    this.$refs['background-container'].prepend(pattern.canvas());
-  },
-
   props: {
-    backgroundSeed: {},
-    colorPalette: {},
     section: {},
     title: {},
   },
@@ -72,10 +56,5 @@ section {
     font-size: 16px;
     line-height: 24px;
   }
-}
-
-.background-container {
-  position: absolute;
-  z-index: -1;
 }
 </style>
