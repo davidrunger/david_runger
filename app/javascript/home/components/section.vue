@@ -2,8 +2,7 @@
 .section-container.relative.overflow-hidden(:class='section', ref='root')
   .anchor-target(:id='section')
   section(:data-section='section')
-    h2.font-size-3
-      span {{title}}
+    h2.font-size-3 {{title}}
     slot
 </template>
 
@@ -58,10 +57,6 @@ section {
   h2 {
     padding-bottom: 30px;
 
-    span {
-      border-bottom: 2px solid $black-lighter;
-      padding-bottom: 5px;
-    }
   }
 
   p {
