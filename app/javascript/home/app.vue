@@ -25,9 +25,9 @@ div
 
   HomeSection(section='about', title='About me', color-palette='PuBu')
     .flex
-      .pr-6.text-center
+      .pr-6.text-center.flex-1
         img.about-image(src='~img/david.jpg' alt='A picture of me')
-      .about-me.prl-5
+      .about-me.p-rl-5.flex-2
         p.
 
           I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
