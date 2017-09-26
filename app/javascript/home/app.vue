@@ -164,8 +164,20 @@ export default {
   }
 }
 
-.nav-link.active span {
-  border-bottom: 4px solid gray;
+.nav-link {
+  &:not(.active) span {
+    border-bottom-color: rgba($white-dark, 0);
+  }
+
+  &.active span {
+    border-bottom-color: rgba($white-dark, 0.8);
+  }
+
+  span {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    transition: border-bottom-color 1s ease-out;
+  }
 }
 
 .down-arrow-container {
