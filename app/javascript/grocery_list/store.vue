@@ -85,7 +85,9 @@ export default {
       this.debouncedPatchItem(item.id, item.needed);
     },
 
-    debouncedPatchItem: debounce((itemId, newNeeded) => {
+    // we need `function` for correct `this`
+    // eslint-disable-next-line func-names
+    debouncedPatchItem: debounce(function (itemId, newNeeded) {
       const payload = {
         item: { needed: newNeeded },
       };
