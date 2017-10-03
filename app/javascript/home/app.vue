@@ -41,9 +41,10 @@ div
 
         p.
 
-          Previously, I've been a high school math teacher, a long haul truck driver, a public bus
-          driver, and a web development bootcamp teaching assistant at
-          #[a(href='http://www.appacademy.io') App Academy].
+          Previously, I've been a web development bootcamp teaching assistant at
+          #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
+          bus driver, and a long haul truck driver.
+
       .pr-6.text-center.flex-1.flex.align-items-center
         img.about-image(src='~img/david.jpg' alt='A picture of me')
 
