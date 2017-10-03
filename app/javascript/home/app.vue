@@ -167,9 +167,25 @@ div
       a.resume-button(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
   HomeSection(section='contact', title='Contact me', color-palette='GnBu')
-    p.
+    table.pure-table
+      tbody
+        tr.pure-table-odd
+          td Email
+          td.center #[a(href='mailto:davidjrunger@gmail.com') davidjrunger@gmail.com]
 
-      This is how to contact me.
+        tr
+          td LinkedIn
+          td.center #[a(href='https://linkedin.com/in/davidrunger') /in/davidrunger]
+
+        tr.pure-table-odd
+          td GitHub
+          td.center #[a(href='https://github.com/davidrunger') @davidrunger]
+
+        tr
+          td Anonymous Feedback
+          td.center
+            a(href='https://docs.google.com/forms/d/1owogS54t2SBpZDtpS_A0QF6Fw-khaJOtdX6EN8EQd_k/viewform').
+              via Google Forms
 </template>
 
 <script>
@@ -328,6 +344,33 @@ i[class^=devicon-] {
   &:hover {
     background-color: rgba(20,20,20,0.72);
     transition: 0.3s;
+  }
+}
+
+.contact {
+  table {
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: rgba(255,255,255,.6);
+  }
+
+  .pure-table-odd td, tr:nth-child(2n-1) td {
+    background-color: #f2f2f2;
+  }
+
+  .pure-table td {
+    background-color: transparent;
+  }
+
+  .pure-table td, .pure-table th {
+    border-left: 1px solid #cbcbcb;
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0.5em 1em;
   }
 }
 </style>
