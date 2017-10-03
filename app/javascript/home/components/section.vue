@@ -68,11 +68,14 @@ section {
     padding-bottom: 30px;
     font-weight: bold;
   }
+}
+
+.about {
+  line-height: 24px;
 
   p {
     padding-bottom: 25px;
     font-size: 16px;
-    line-height: 24px;
   }
 }
 </style>

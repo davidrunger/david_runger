@@ -158,9 +158,123 @@ div
             development experience.
 
   HomeSection(section='projects', title='Projects', color-palette='Blues')
-    p.
+    p
+      article.project.content
+        h3.title FastFeedback.io
+        h4.technologies Ruby on Rails, Backbone.js
+        h4.subtitle
+          a(href='http://www.fastfeedback.io') Live
+          span #{' - '}
+          a(href='http://github.com/davidrunger/fast_feedback') GitHub
 
-      These are my projects.
+        img(src='~img/fast_feedback.png' alt='FastFeedback.io')
+
+        p.
+
+          Do you need to engage your audience during a presentation? FastFeedback.io can help.
+          Prepare some interesting questions ahead of time, and browse through them as you make your
+          presentation. Your audience can cast votes using either a web interface or text messages.
+          A chart displaying the results dynamically updates in real-time as the votes come in!
+
+        h3 Features
+        ul.features
+          li Entirely single-page app
+          li Rails back end serves a JSON API
+          li Backbone.js on the front end
+          li Integration with Nexmo API for text messages
+          li Highcharts.js library provides dynamic, animated charts
+
+      article.project.content
+        h3.title Rosetta Code Languages Selector
+        h4.technologies Chrome Extension, Capybara integration tests
+        h4.subtitle
+          a(href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg') Live
+          span #{' - '}
+          a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
+
+        img(src='~img/rc-languages-selector.png' alt='Rosetta Code Languages Selector')
+
+        p.
+          #[a(href='http://rosettacode.org/wiki/Rosetta_Code') RosettaCode.org] is a great website
+          for comparing programming languages and/or learning a new language based on others that
+          you already know. However, for each sample programming task, there are so many
+          implementations available in different languages that it can be difficult to find the code
+          samples for the languages that you are focusing on. This extension solves that problem by
+          only showing code samples for languages that you have specifically selected.
+
+
+        h3 Features
+        ul.features
+          li.
+            Comprehensive Capybara integration test suite allows for confident refactoring and
+            feature extension.
+          li.
+            Custom testing solution mimics the Chrome Extension API by monkeypatching the Capybara
+            library to automatically inject the extension's JavaScript and CSS assets into any page
+            visited during an integration test.
+
+      article.project.content
+        h3.title App Academy Picture Flashcard App
+        h4.technologies jQuery, object-oriented JavaScript
+        h4.subtitle
+          a(href='https://davidrunger.github.io/aa-picture-game/') Live
+          span #{' - '}
+          a(href='https://github.com/davidrunger/aa-picture-game') GitHub
+
+        img(src='~img/aa-picture-game.png' alt='App Academy Picture Game')
+
+        p.
+          This is a simple little tool built with jQuery for App Academy that we would always use to
+          help students and staff learn each other's names at the beginning of a new cohort. It's
+          very effective!
+
+        h3 Features
+        ul.features
+
+          li.
+            An awesome loading spinner (built upon the work of
+            #[a(href='http://codepen.io/ZevanRosser/pen/ilfHK') Zevan Rosser]).
+          li Fuzzy string matching, so you get partial credit for a nearly-correct guess.
+
+      article.project.content
+        h3.title Serpent.js
+        h4.technologies jQuery, Object-Oriented JavaScript
+        h4.subtitle
+          a(href='https://davidrunger.github.io/serpent') Live
+          span #{' - '}
+          a(href='http://github.com/davidrunger/serpent') GitHub
+
+        img(src='~img/serpent.jpg' alt='Serpent Game')
+
+        p.
+          Serpent is twice as fun as classic Snake; at least, there are twice as many players. Each
+          snake can easily be toggled between human or AI control, so you can play against the
+          computer or a friend. Or just watch two AIs play each other. Or see whether your right or
+          left hand is smarter. Controls allow for customizing the game speed and board dimensions.
+
+        h3 Features
+        ul.features
+          li.
+            Efficiently manipulates the DOM, allowing for large game boards and unreasonably high
+            game speeds
+          li.
+            Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
+            toward the apple at all times
+
+      article.project.content
+        h3.title Letter Flash Typing Practice
+        h4.technologies jQuery
+        h4.subtitle
+          a(href='https://davidrunger.github.io/letter-flash') Live
+          span #{' - '}
+          a(href='https://github.com/davidrunger/letter-flash') GitHub
+
+        img(src='~img/letter-flash.png' alt='Letter Flash Typing Practice')
+
+        p.
+          This is a simple tool that I built for myself when I was re-learning the QWERTY keyboard
+          layout after years of typing on Dvorak. I do think that it was helpful, and I continue to
+          use it every once in a while.
 
   HomeSection(section='resume', title='Resume', color-palette='PuRd')
     p
@@ -371,6 +485,61 @@ i[class^=devicon-] {
     margin: 0;
     overflow: visible;
     padding: 0.5em 1em;
+  }
+}
+
+.projects {
+  p {
+    margin: 25px 50px 15px;
+  }
+
+  ul {
+    margin: 10px 70px 20px;
+  }
+
+  li, p {
+    line-height: 20px;
+  }
+
+  ul {
+    list-style: initial;
+  }
+
+  img {
+    border: 5px solid #484848;
+    box-shadow: grey 0 0 13px 0;
+    border-radius: 3px;
+    max-height: 300px;
+    max-width: 90%;
+    display: block;
+    margin: 8px auto 0;
+  }
+
+  .technologies {
+    margin: 0 auto;
+    color: #737373;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  h3, h4 {
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 32px;
+  }
+
+  .content {
+    background: rgba(240,240,240,.75);
+    padding: 20px;
+    box-shadow: rgba(101,121,128,.51) 2px 2px 2px;
+    margin-bottom: 30px;
+  }
+
+  .title {
+    margin: 5px auto 0;
   }
 }
 </style>
