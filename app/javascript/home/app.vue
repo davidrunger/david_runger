@@ -163,9 +163,8 @@ div
       These are my projects.
 
   HomeSection(section='resume', title='Resume', color-palette='PuRd')
-    p.
-
-      This is my resume.
+    p
+      a.resume-button(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
   HomeSection(section='contact', title='Contact me', color-palette='GnBu')
     p.
@@ -311,6 +310,24 @@ i[class^=devicon-] {
   td:nth-child(2) {
     font-weight: bold;
     text-align: center;
+  }
+}
+
+.resume-button {
+  display: block;
+  width: 240px;
+  height: 60px;
+  line-height: 56px;
+  text-align: center;
+  background-color: rgba(0,0,0,.72);
+  border: 2px solid #000;
+  border-radius: 3px;
+  box-shadow: #000 0 0 15px -3px;
+  color: gainsboro;
+
+  &:hover {
+    background-color: rgba(20,20,20,0.72);
+    transition: 0.3s;
   }
 }
 </style>
