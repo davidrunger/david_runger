@@ -476,7 +476,7 @@ i[class^=devicon-] {
   }
 
   .pure-table td {
-    background-color: transparent;
+    background-color: white;
   }
 
   .pure-table td, .pure-table th {
