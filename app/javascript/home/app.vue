@@ -426,7 +426,7 @@ i[class^=devicon-] {
 
 .skills table {
   tr:not(:first-child) {
-    border-top: 1px solid $gray-dark;
+    border-top: 1px solid $gray-lighter;
   }
 
   td {
