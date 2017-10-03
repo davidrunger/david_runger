@@ -20,11 +20,29 @@ export default {
 
 $ivory-black: #131920;
 
-$color-1: #fcf5f3;
-$color-2: #fbfbfb;
-$color-3: #edeafa;
+$color-1: #f7e4de;
+$color-2: #eeeeee;
+$color-3: #cddbdb;
 
-.about { background: $color-1; }
+.about {
+  position: relative;
+}
+
+.about:after {
+  content : "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity : 0.4;
+  background-image: url('~img/coastline.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+}
+
 .skills { background: $color-2; }
 .projects { background: $color-3; }
 .resume { background: $color-2; }
@@ -40,12 +58,6 @@ $color-3: #edeafa;
   height: 500px;
 }
 
-.about-image {
-  max-width: 100%;
-  box-shadow: $gray-light 0px 2px 5px;
-  margin-right: 30px;
-}
-
 section {
   padding: 40px;
   max-width: 850px;
@@ -54,10 +66,7 @@ section {
 
   h2 {
     padding-bottom: 30px;
-  }
-
-  p, img {
-    margin-left: 30px;
+    font-weight: bold;
   }
 
   p {

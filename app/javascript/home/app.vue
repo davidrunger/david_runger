@@ -9,7 +9,7 @@ div
         span David Runger
       #headline-subtitle.font-size-3.light Full stack web developer
     header#header.fixed-top.flex-grow-1.flex.background-black.width-100.relative
-      #header-name.font-size-4.pl-5.js-link.js-scroll-top
+      #header-name.font-size-4.p-l-3.js-link.js-scroll-top
         a.monospace.font-blue-light(href='#home') David Runger
       nav#nav.flex.justify-content-space-around.absolute
         a.nav-link(href='#about')
@@ -27,9 +27,7 @@ div
 
   HomeSection(section='about', title='About me', color-palette='PuBu')
     .flex
-      .pr-6.text-center.flex-1
-        img.about-image(src='~img/david.jpg' alt='A picture of me')
-      .about-me.p-rl-5.flex-2
+      .about-me.flex-2.background--translucent-white.m-r-5.p-3
         p.
 
           I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
@@ -46,28 +44,118 @@ div
           Previously, I've been a high school math teacher, a long haul truck driver, a public bus
           driver, and a web development bootcamp teaching assistant at
           #[a(href='http://www.appacademy.io') App Academy].
+      .pr-6.text-center.flex-1.flex.align-items-center
+        img.about-image(src='~img/david.jpg' alt='A picture of me')
 
-  HomeSection(section='skills', title='Skills', color-palette='Purples')
-    p.
+  HomeSection(section='skills', title='Skills / Technologies', color-palette='Purples')
+    table
+      tbody
+        tr
+          td #[i.devicon-babel-plain.colored]
+          td Babel
+          td For all that sweet, sweet ES6 syntax.
+        tr
+          td #[i.devicon-confluence-plain-wordmark.colored]
+          td Confluence / JIRA
+          td A quality tool for organizing an agile team
+        tr
+          td #[i.devicon-css3-plain-wordmark.colored]
+          td CSS3
+          td Because looking good is half the battle! Love that flexbox. :)
+        tr
+          td #[img(src='~img/elasticsearch.svg' alt='Elasticsearch')]
+          td Elasticsearch
+          td A fast, powerful, and flexible search backend.
+        tr
+          td #[i.devicon-git-plain-wordmark.colored]
+          td Git
+          td The standard in version control.
+        tr
+          td #[i.devicon-github-plain-wordmark.colored]
+          td GitHub
+          td I have performed and received many, many code reviews via GitHub.
+        tr
+          td #[i.devicon-heroku-plain-wordmark.colored]
+          td Heroku
+          td Doing (some of) the devops, so you don't have to.
+        tr
+          td #[i.devicon-html5-plain-wordmark.colored]
+          td HTML5
+          td The building block of the Internet!
+        tr
+          td #[i.devicon-jasmine-plain-wordmark.colored]
+          td Jasmine
+          td I love testing, and Jasmine is a great JavaScript testing framework.
+        tr
+          td #[i.devicon-javascript-plain.colored]
+          td JavaScript
+          td.
+            A flexible language, essential for any modern web app. ES6 (plus lodash to fill in some
+            utility functions) makes JavaScript coding pretty enjoyable.
+        tr
+          td #[i.devicon-jquery-plain-wordmark.colored]
+          td jQuery
+          td DOM querying and manipulation made easy, with a huge plugin ecosystem.
+        tr
+          td #[i.devicon-nodejs-plain-wordmark.colored]
+          td NodeJS
+          td.
+            The JavaScript ecosystem is still a bit too "Wild West" for my taste, but Node and its
+            ecosystem are important parts of the modern web stack.
+        tr
+          td #[i.devicon-postgresql-plain-wordmark.colored]
+          td PostgreSQL
+          td A fast, rock-solid, open source SQL database. I am really grateful for this tool.
+        tr
+          td #[i.devicon-react-plain-wordmark.colored]
+          td React
+          td.
+            Declarative rendering, component-based development, and one-way data flow make React a
+            superior alternative to direct DOM manipulation for moderately (or highly) complex
+            client-side apps.
+        tr
+          td #[i.devicon-redis-plain-wordmark.colored]
+          td Redis
+          td.
+            An amazingly fast in-memory database. My main exposure has been via the Sidekiq Ruby
+            job-processing library, and simple set and get commands.
+        tr
+          td #[img(src='~img/rspec.png' alt='Elasticsearch' style='height: 65px')]
+          td RSpec
+          td.
+            I #[i love] testing. (I write more lines of spec code per line of application code than
+            any other developer on the team at Hired.) RSpec makes tests readable and easy to write.
+        tr
+          td #[i.devicon-ruby-plain-wordmark.colored]
+          td Ruby
+          td Ruby prizes developer happiness, and it shows!
+        tr
+          td #[i.devicon-rails-plain-wordmark.colored]
+          td Ruby on Rails
 
-      Of course, I also have a respectable grasp of other common web technologies like CSS
-      (CSS3, SCSS), HTML (HAML), JSON, and HTTP, as well as basic web security practices.
-
-    p.
-
-      On the frontend, in addition to raw JavaScript (ES5, ES6, and CoffeeScript), most of my
-      experience is with React/Redux and jQuery. For JavaScript testing, I have mostly used
-      Jasmine and Karma.
-
-    p.
-
-      I'm also currently building some side projects with Vue.js; it's unfortunate that this
-      library isn't gaining more traction with companies in the United States.
-
-    p.
-
-      Some other tools that I have professional experience with but not a deep mastery of are
-      Elasticsearch,
+          td.
+            I ❤️  Rails. A web-development framework with a great ecosystem that makes development
+            fast and fun. ActiveRecord is a superb ORM.
+        tr
+          td #[i.devicon-sass-plain.colored]
+          td Sass
+          td.
+            It's in the name - syntactically awesome style sheets. Why write CSS when you could
+            write SASS? :)
+        tr
+          td #[i.devicon-vuejs-plain-wordmark.colored]
+          td VueJS
+          td.
+            I think that Vue is one of the best client-side frameworks/libraries out there, and I'm
+            really hoping that its popularity continues to grow. I keep track of my grocery list
+            using #[a(href='/groceries') an app that I built with Vue].
+        tr
+          td #[i.devicon-webpack-plain-wordmark.colored]
+          td Webpack
+          td.
+            A versatile and powerful build tool for all-things client-side.
+            #[span.monospace webpack‑dev‑server] and hot code reloading really enhance the
+            development experience.
 
   HomeSection(section='projects', title='Projects', color-palette='Blues')
     p.
@@ -114,6 +202,10 @@ export default {
 
 <style lang='scss' scoped>
 @import '~css/variables';
+
+i[class^=devicon-] {
+  font-size: 65px;
+}
 
 #header {
   position: fixed;
@@ -180,6 +272,15 @@ export default {
   }
 }
 
+.about-image {
+  max-width: 100%;
+  box-shadow: $gray-light 0px 2px 5px;
+}
+
+.background--translucent-white {
+  background: rgba(255, 255, 255, 0.9);
+}
+
 .down-arrow-container {
   width: 50px;
   height: 50px;
@@ -192,5 +293,24 @@ export default {
   padding: 2px 0 0 2px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
   margin-bottom: 30px; // needs to be big enough to psh above header when clicking 1st section
+}
+
+.skills table {
+  tr:not(:first-child) {
+    border-top: 1px solid $gray-dark;
+  }
+
+  td {
+    margin: 10px 0;
+    padding: 0 10px;
+    height: 75px;
+    vertical-align: middle;
+    line-height: 20px;
+  }
+
+  td:nth-child(2) {
+    font-weight: bold;
+    text-align: center;
+  }
 }
 </style>
