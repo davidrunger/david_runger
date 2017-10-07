@@ -58,7 +58,7 @@ div
         tr
           td #[i.devicon-confluence-plain-wordmark.colored]
           td Confluence / JIRA
-          td A quality tool for organizing an agile team
+          td A quality tool for organizing an agile team.
         tr
           td #[i.devicon-css3-plain-wordmark.colored]
           td CSS3
