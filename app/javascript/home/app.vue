@@ -9,9 +9,9 @@ div
         span David Runger
       #headline-subtitle.font-size-3.light Full stack web developer
     header#header.fixed-top.flex-grow-1.flex.background-black.width-100.relative
-      #header-name.font-size-4.p-l-3.js-link.js-scroll-top
+      #header-name.font-size-4.js-link.js-scroll-top.m-l-3
         a.monospace.font-blue-light(href='#home') David Runger
-      nav#nav.flex.justify-content-space-around.absolute
+      nav#nav.flex.justify-content-space-around.absolute.m-r-4
         a.nav-link(href='#about')
           span.ptb-1 About
         a.nav-link(href='#skills')
