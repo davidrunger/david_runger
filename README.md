@@ -1,24 +1,17 @@
-# README
+# david_runger / davidrunger.com
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Ruby on Rails web app that powers my personal website.
 
-Things you may want to cover:
+The [root page][1] contains some basic information about me and my experience in web development.
+This page is built using Vue.js, which is kind of overkill, but I did it because I like the
+development experience of hot module replacement so much, and that was easy to setup using Rails 5.
+Plus, I wanted to get some more experience with Vue.
 
-* Ruby version
+[1]: http://davidrunger.com
 
-* System dependencies
+I also use this Ruby on Rails app to serve the Vue.js app that I use to keep track of my grocery
+list: [davidrunger.com/groceries][2] (sign in with Google required).
 
-* Configuration
+[2]: http://davidrunger.com/groceries
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The app is hosted by Heroku.
