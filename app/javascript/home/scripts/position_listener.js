@@ -17,7 +17,7 @@ function getActiveNavlink() {
   if (forcedActiveNavId && forcedNavIdIsCurrent()) {
     activeNavId = forcedActiveNavId;
   } else {
-    activeNavId = sectionsFullyInView[0] || sectionsPartiallyInView[0];
+    activeNavId = sectionsFullyInView[0] || sectionsPartiallyInView[0] || null;
   }
 
   if (activeNavId) {
@@ -34,8 +34,7 @@ function clearNavlinkHighlights() {
 
 function highlightActiveNavlink() {
   const activeNavlink = getActiveNavlink();
-  if (!activeNavlink) return;
-  getActiveNavlink().classList.add('active');
+  if (activeNavlink) activeNavlink.classList.add('active');;
 }
 
 function updateHighlightedNavlink() {
@@ -61,40 +60,45 @@ function getNavlinks() {
   return navlinks;
 }
 
-let navlinkedSections = null;
-function getNavlinkedSections() {
-  if (!navlinkedSections) {
-    navlinkedSections = [].slice.apply(document.querySelectorAll('[data-section]'));
-  }
-  return navlinkedSections;
+function getScrollHooks() {
+  return [].slice.apply(document.querySelectorAll(`[data-section] .js-scroll-hook`));
 }
 
 // The explicitness of being able to call this as `positionListener.init()` is nice here
 // eslint-disable-next-line import/prefer-default-export
 export function init() {
-  const localNavlinkedSections = getNavlinkedSections();
-  localNavlinkedSections.forEach((section) => {
-    const sectionId = section.getAttribute('data-section');
-    const sectionHash = `#${sectionId}`;
+  getScrollHooks().forEach((scrollHook) => {
+    const scrollHookId = scrollHook.parentElement.getAttribute('data-section');
+    const scrollHookHash = `#${scrollHookId}`;
     new Waypoint.Inview({ // eslint-disable-line no-new,no-undef
-      element: section,
-      enter(_direction) {
-        sectionsPartiallyInView.push(sectionHash);
+      element: scrollHook,
+      enter(direction) {
+        if (scrollHookHash === '#') return;
+
+        sectionsPartiallyInView.push(scrollHookHash);
         updateHighlightedNavlink();
       },
-      entered(_direction) {
-        sectionsFullyInView.push(sectionHash);
+      entered(direction) {
+        if (scrollHookHash === '#') return;
+
+        sectionsFullyInView.push(scrollHookHash);
         updateHighlightedNavlink();
       },
-      exit(_direction) {
-        _.remove(sectionsFullyInView, hash => hash === sectionHash);
+      exit(direction) {
+        if (scrollHookHash === '#') return;
+
+        _.remove(sectionsFullyInView, hash => hash === scrollHookHash);
         updateHighlightedNavlink();
       },
-      exited(_direction) {
-        _.remove(sectionsPartiallyInView, hash => hash === sectionHash);
+      exited(direction) {
+        if (scrollHookHash === '#') return;
+
+        _.remove(sectionsFullyInView, hash => hash === scrollHookHash);
+        _.remove(sectionsPartiallyInView, hash => hash === scrollHookHash);
         updateHighlightedNavlink();
       },
     });
   });
+
   initNavlinkClickHandling();
 }
