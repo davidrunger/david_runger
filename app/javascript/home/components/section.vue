@@ -2,7 +2,7 @@
 .section-container.relative.overflow-hidden(:class='section', ref='root')
   .anchor-target(:id='section')
   section(:data-section='section')
-    .js-scroll-hook.absolute(style='top: 1px; bottom: 67vh;')
+    .js-scroll-hook.absolute(style='top: 25vh; bottom: 0;')
     h2.font-size-3 {{title}}
     slot
 </template>
