@@ -43,7 +43,7 @@ $color-3: #cddbdb;
   z-index: -1;
 }
 
-.skills { background: $color-2; }
+.skills { background: #ffffff; }
 .projects { background: $color-3; }
 .resume { background: $color-2; }
 .contact { background: $color-1; }
