@@ -118,7 +118,7 @@ div
           td #[i.devicon-redis-plain-wordmark.colored]
           td Redis
           td.
-            An amazingly fast in-memory database. My main exposure has been via the Sidekiq Ruby
+            An amazingly fast in-memory database. My main exposure has been via the Sidekiq
             job-processing library, and simple set and get commands.
         tr
           td #[img(src='~img/rspec.png' alt='Elasticsearch' style='height: 65px')]
