@@ -7,6 +7,10 @@ module.exports = {
   rules: {
     'arrow-parens': 'off',
     'function-paren-newline': 'off',
+    'object-curly-newline': ['error', {
+      consistent: true,
+      minProperties: 99,
+    }],
     'no-else-return': 'off',
     'no-new': 'off',
     'no-param-reassign': 'off',
