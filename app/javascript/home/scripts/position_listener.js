@@ -16,12 +16,10 @@ function getActiveNavlink(scrollDirection) {
   let activeNavId;
   if (forcedActiveNavId && forcedNavIdIsCurrent()) {
     activeNavId = forcedActiveNavId;
+  } else if (scrollDirection === 'up') {
+    activeNavId = sectionsFullyInView[0] || sectionsPartiallyInView[0] || null;
   } else {
-    if (scrollDirection === 'up') {
-      activeNavId = sectionsFullyInView[0] || sectionsPartiallyInView[0] || null;
-    } else {
-      activeNavId = _.last(sectionsFullyInView) || _.last(sectionsPartiallyInView) || null;
-    }
+    activeNavId = _.last(sectionsFullyInView) || _.last(sectionsPartiallyInView) || null;
   }
 
   if (activeNavId) {
@@ -38,7 +36,7 @@ function clearNavlinkHighlights() {
 
 function highlightActiveNavlink(scrollDirection) {
   const activeNavlink = getActiveNavlink(scrollDirection);
-  if (activeNavlink) activeNavlink.classList.add('active');;
+  if (activeNavlink) activeNavlink.classList.add('active');
 }
 
 function updateHighlightedNavlink(scrollDirection) {
@@ -65,7 +63,7 @@ function getNavlinks() {
 }
 
 function getScrollHooks() {
-  return [].slice.apply(document.querySelectorAll(`[data-section] .js-scroll-hook`));
+  return [].slice.apply(document.querySelectorAll('[data-section] .js-scroll-hook'));
 }
 
 // The explicitness of being able to call this as `positionListener.init()` is nice here
