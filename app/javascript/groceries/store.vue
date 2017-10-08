@@ -10,7 +10,7 @@
 
     ul.items-list.mt0.mb0.pl1
       li
-        form(v-on:submit='postNewItem')
+        form(@submit='postNewItem')
           input#item-name-input.float-left(type='text' ref='itemName' v-model='newItemName'
             placeholder='Add an item'
           )

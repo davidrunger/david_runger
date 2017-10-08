@@ -6,7 +6,7 @@
     div#page
       aside
         h1.regular.center.black-1.xs-mb10 Groceries
-        form.add-store(v-on:submit='postNewStore')
+        form.add-store(@submit='postNewStore')
           input.float-left(type='text' ref='storeName' v-model='newStoreName'
             placeholder='Add a store'
           )
@@ -15,8 +15,8 @@
           )
         ul.stores-list
           li.stores-list__item(v-for='store in this.stores')
-            a.js-link.store-name(v-on:click='$store.commit("selectStore", store.id)') {{store.name}}
-            button.js-link.delete(v-on:click='deleteStore(store)') ×
+            a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
+            button.js-link.delete(@click='deleteStore(store)') ×
       main
         Store(v-if='currentStore' :store='currentStore')
 </template>
