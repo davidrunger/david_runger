@@ -4,10 +4,10 @@
     span(v-else) {{item.name}}
     | &nbsp;
     span ({{item.needed}})
-    span.increment.h2.js-link(@click='setNeeded(item, item.needed + 1)') +
-    span.decrement.h2.pl1.pr1.js-link(@click='setNeeded(item, item.needed - 1)') &ndash;
-    span.purchase.h2.pl1.pr1.js-link(@click='setNeeded(item, 0)') ✓
-    span.delete.h2.pl1.pr1.js-link(@click='deleteItem(item)') ×
+    span.increment.h2.js-link(@click='setNeeded(item, item.needed + 1)' title='Increment') +
+    span.decrement.h2.pl1.pr1.js-link(@click='setNeeded(item, item.needed - 1)' title='Decrement') &ndash;
+    span.purchase.h2.pl1.pr1.js-link(@click='setNeeded(item, 0)' title='Mark as purchased') ✓
+    span.delete.h2.pl1.pr1.js-link(@click='deleteItem(item)' title='Delete item') ×
 </template>
 
 <script>
