@@ -22,7 +22,7 @@
 </template>
 
 <script>
-const Store = require('./store.vue');
+import Store from './store.vue';
 
 export default {
   components: {

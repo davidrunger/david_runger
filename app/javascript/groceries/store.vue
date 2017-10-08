@@ -16,29 +16,25 @@
               placeholder='Add an item'
             )
             input#add-item-button.button.button-outline.float-left.ml2(type='submit' value='Add')
-        li(v-for='item in neededItems')
-          | {{item.name}}
-          | ({{item.needed}})
-          span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
-          span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
-          span.purchase.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
-          span.delete.h2.pl1.pr1.js-link(v-on:click='deleteItem(item)') ×
+        Item(v-for='item in neededItems' :item="item" :key="item.id")
 
     #purchased(v-if='purchasedItems.length > 0')
       h2.font-size-20 Purchased
       ul.items-list.mt0.mb0.pl1
-        li(v-for='item in purchasedItems')
-          | {{item.name}}
-          | ({{item.needed}})
-          span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
-          span.delete.h2.pl1.pr1.js-link(v-on:click='deleteItem(item)') ×
+        Item(v-for='item in purchasedItems' :item="item" :key="item.id")
 </template>
 
 <script>
 import { debounce, sortBy } from 'lodash';
 import Clipboard from 'clipboard';
 
+import Item from './item.vue';
+
 export default {
+  components: {
+    Item,
+  },
+
   data() {
     return {
       waitingOnNetwork: false,
@@ -74,6 +70,10 @@ export default {
   },
 
   methods: {
+    logDoubleClick() {
+      console.log('double clicked!');
+    },
+
     deleteItem(item) {
       this.$http.delete(`api/items/${item.id}`);
       this.store.items = this.store.items.filter(otherItem => otherItem.id !== item.id);
@@ -133,41 +133,4 @@ h1 { font-size: 22px; }
 }
 
 .add-item-button { text-align: text-bottom; }
-.decrement, .delete { color: crimson; }
-.increment, .purchase { color: green; }
-
-.decrement, .increment, .purchase, .delete {
-  padding-left: 10px;
-  font-weight: bold;
-  font-size: 15px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -ms-user-select: none;
-}
-
-.items-list li {
-  display: flex;
-  background: rgba(255, 255, 255, 0.5);
-  font-size: 16px;
-  margin: 5px 10px;
-  padding: 5px 10px;
-  min-height: 27px;
-  line-height: 18px;
-
-  .item-name {
-    flex: 1;
-  }
-
-  .delete {
-    color: crimson;
-    height: 20px;
-    width: 20px;
-    margin-left: 10px;
-    font-weight: bold;
-    font-size: 15px;
-    text-align: center;
-    padding: 0;
-  }
-}
 </style>
