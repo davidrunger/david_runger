@@ -22,8 +22,7 @@ export default {
 
   methods: {
     deleteItem(item) {
-      this.$http.delete(`api/items/${item.id}`);
-      this.store.items = this.store.items.filter(otherItem => otherItem.id !== item.id);
+      this.$store.dispatch('deleteItem', item.id);
     },
 
     setNeeded(item, needed) {

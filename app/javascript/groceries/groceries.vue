@@ -15,13 +15,14 @@
           )
         ul.stores-list
           li.stores-list__item(v-for='store in this.stores')
-            a.js-link.store-name(v-on:click='selectStore(store)') {{store.name}}
+            a.js-link.store-name(v-on:click='$store.commit("selectStore", store.id)') {{store.name}}
             button.js-link.delete(v-on:click='deleteStore(store)') ×
       main
         Store(v-if='currentStore' :store='currentStore')
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Store from './store.vue';
 
 export default {
@@ -29,22 +30,22 @@ export default {
     Store,
   },
 
+  computed: mapState([
+    'currentStore',
+    'postingStore',
+    'stores',
+  ]),
+
   data() {
-    return Object.assign({},
-      this.bootstrap,
-      {
-        postingStore: false,
-        currentStore: this.bootstrap.stores[0],
-        newStoreName: '',
-        stores: this.bootstrap.stores,
-      },
-    );
+    return {
+      newStoreName: '',
+    };
   },
 
   methods: {
     deleteStore(store) {
       this.$http.delete(`api/stores/${store.id}`);
-      this.stores = this.stores.filter(otherStore => otherStore.id !== store.id);
+      this.$store.commit('deleteStore', store.id);
     },
 
     selectStore(store) {
@@ -53,7 +54,7 @@ export default {
 
     postNewStore(event) {
       event.preventDefault();
-      this.$set(this, 'postingStore', true);
+      this.$store.state.postingStore = true;
       const payload = {
         store: {
           name: this.newStoreName,
@@ -61,7 +62,7 @@ export default {
       };
       this.$http.post('api/stores', payload).then(response => {
         this.newStoreName = '';
-        this.$set(this, 'postingStore', false);
+        this.$store.state.postingStore = false;
         const newStore = response.data;
         this.stores.unshift(newStore);
         this.currentStore = newStore;
