@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
   get 'login', to: 'sessions#new'
 
-  get 'groceries', to: 'grocery_lists#show'
+  get 'groceries', to: 'groceries#show'
 
   resources :templates, only: [:index, :new, :create, :show]
 

@@ -1,11 +1,11 @@
 <template lang="pug">
-  div#grocery-app
+  div#groceries-app
     header
       span Logged in as {{ bootstrap.current_user.email }}
       a.sign-out(href='/sign_out' data-method='delete' rel='nofollow') Sign Out
     div#page
       aside
-        h1.regular.center.black-1.xs-mb10 Grocery List
+        h1.regular.center.black-1.xs-mb10 Groceries
         form.add-store(v-on:submit='postNewStore')
           input.float-left(type='text' ref='storeName' v-model='newStoreName'
             placeholder='Add a store'
@@ -74,7 +74,7 @@ export default {
 <style lang='scss' scoped>
 $header_height: 20px;
 
-#grocery-app { font-family: "Open Sans", sans-serif; }
+#groceries-app { font-family: "Open Sans", sans-serif; }
 
 header {
   height: $header_height;

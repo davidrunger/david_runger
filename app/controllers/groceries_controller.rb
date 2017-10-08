@@ -1,4 +1,4 @@
-class GroceryListsController < ApplicationController
+class GroceriesController < ApplicationController
 	def show
 		@title = 'Groceries'
     bootstrap(
