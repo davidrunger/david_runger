@@ -84,7 +84,7 @@ header {
 
 #page {
   display: flex;
-  height: calc(100vh - #{$header_height});
+  min-height: calc(100vh - #{$header_height});
 }
 
 aside {
