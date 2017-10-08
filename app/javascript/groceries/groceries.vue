@@ -14,7 +14,10 @@
             type='submit' value='Add' :disabled='postingStore'
           )
         ul.stores-list
-          li.stores-list__item(v-for='store in sortedStores')
+          li.stores-list__item(
+            v-for='store in sortedStores'
+            :class='{selected: store === $store.state.currentStore}'
+          )
             a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
             button.js-link.delete(@click='deleteStore(store)') ×
       main
@@ -132,6 +135,11 @@ form.add-store { text-align: center; }
   font-size: 20px;
   margin: 15px;
   padding: 5px 10px;
+
+  &.selected {
+    background: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+  }
 
   .store-name {
     flex: 1;
