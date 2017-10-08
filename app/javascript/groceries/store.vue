@@ -87,7 +87,7 @@ export default {
       this.$http.post(`api/stores/${this.store.id}/items`, payload).then(response => {
         this.newItemName = '';
         this.$set(this, 'waitingOnNetwork', false);
-        this.store.items.unshift(response.data);
+        this.store.items.unshift({ createdAt: (new Date()).valueOf(), ...response.data });
       });
     },
   },

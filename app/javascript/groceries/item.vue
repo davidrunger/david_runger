@@ -1,5 +1,8 @@
 <template lang='pug'>
-  li(:class='{unneeded: item.needed <= 0}' @dblclick='editingName = true')
+  li(
+    :class='{unneeded: item.needed <= 0, "just-added": isJustAdded(item)}'
+    @dblclick='editingName = true'
+  )
     input(v-if='editingName' type='text' autofocus :value='item.name' @blur='editingName = false;')
     span(v-else) {{item.name}}
     | &nbsp;
@@ -23,6 +26,10 @@ export default {
   methods: {
     deleteItem(item) {
       this.$store.dispatch('deleteItem', item.id);
+    },
+
+    isJustAdded(item) {
+      return !!item.createdAt && item.createdAt > ((new Date()).valueOf() - 1000);
     },
 
     setNeeded(item, needed) {
@@ -58,6 +65,23 @@ export default {
   -moz-user-select: none;
   -khtml-user-select: none;
   -ms-user-select: none;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.just-added {
+  animation-name: appear;
+  animation-duration: 0.7s;
 }
 
 li {
