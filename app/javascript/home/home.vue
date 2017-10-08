@@ -325,7 +325,7 @@ export default {
 
   mounted() {
     positionListener.init();
-    new SmoothScroll('a[href*="#"]'); // eslint-disable-line no-new
+    new SmoothScroll('a[href*="#"]');
   },
 };
 </script>

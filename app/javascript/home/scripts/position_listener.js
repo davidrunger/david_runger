@@ -74,7 +74,7 @@ export function init() {
   getScrollHooks().forEach((scrollHook) => {
     const scrollHookId = scrollHook.parentElement.getAttribute('data-section');
     const scrollHookHash = `#${scrollHookId}`;
-    new Waypoint.Inview({ // eslint-disable-line no-new,no-undef
+    new Waypoint.Inview({ // eslint-disable-line no-undef
       element: scrollHook,
       enter(direction) {
         if (scrollHookHash === '#') return;
