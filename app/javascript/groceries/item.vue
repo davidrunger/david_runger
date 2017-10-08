@@ -1,5 +1,5 @@
 <template lang='pug'>
-  li(@dblclick='editingName = true')
+  li(:class='{unneeded: item.needed <= 0}' @dblclick='editingName = true')
     input(v-if='editingName' type='text' autofocus :value='item.name' @blur='editingName = false;')
     span(v-else) {{item.name}}
     | &nbsp;
@@ -69,6 +69,11 @@ li {
   padding: 5px 10px;
   min-height: 27px;
   line-height: 18px;
+
+  &.unneeded {
+    background: rgba(255, 255, 255, 0.3);
+    color: rgba(0, 0, 0, 0.5);
+  }
 
   .item-name {
     flex: 1;

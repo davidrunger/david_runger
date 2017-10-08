@@ -2,26 +2,20 @@
   div.mt1.mb2
     h1.store-name.bold.xs-mb20
       span {{ store.name }}
+      | &nbsp;
+      button.copy-to-clipboard Copy needed items to clipboard
+      | &nbsp;
+      span(v-if='wasCopiedRecently') Copied!
       .spinner--circle(v-if='waitingOnNetwork')
 
-    #needed
-      h2.font-size-20
-        span Needed
-        button.copy-to-clipboard Copy list to clipboard
-        <span v-if='wasCopiedRecently'>Copied!</span>
-      ul.items-list.mt0.mb0.pl1
-        li
-          form(v-on:submit='postNewItem')
-            input#item-name-input.float-left(type='text' ref='itemName' v-model='newItemName'
-              placeholder='Add an item'
-            )
-            input#add-item-button.button.button-outline.float-left.ml2(type='submit' value='Add')
-        Item(v-for='item in neededItems' :item="item" :key="item.id")
-
-    #purchased(v-if='purchasedItems.length > 0')
-      h2.font-size-20 Purchased
-      ul.items-list.mt0.mb0.pl1
-        Item(v-for='item in purchasedItems' :item="item" :key="item.id")
+    ul.items-list.mt0.mb0.pl1
+      li
+        form(v-on:submit='postNewItem')
+          input#item-name-input.float-left(type='text' ref='itemName' v-model='newItemName'
+            placeholder='Add an item'
+          )
+          input#add-item-button.button.button-outline.float-left.ml2(type='submit' value='Add')
+      Item(v-for='item in sortedItems' :item="item" :key="item.id")
 </template>
 
 <script>
@@ -54,18 +48,8 @@ export default {
   },
 
   computed: {
-    neededItems() {
-      let { items } = this.store;
-      items = items.filter(item => item.needed > 0);
-      items = sortBy(items, item => item.name.toLowerCase());
-      return items;
-    },
-
-    purchasedItems() {
-      let { items } = this.store;
-      items = items.filter(item => item.needed === 0);
-      items = sortBy(items, item => item.name.toLowerCase());
-      return items;
+    sortedItems() {
+      return sortBy(this.store.items, item => item.name.toLowerCase());
     },
   },
 
