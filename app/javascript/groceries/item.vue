@@ -1,7 +1,9 @@
 <template lang='pug'>
-  li
-    | {{item.name}}
-    | ({{item.needed}})
+  li(@dblclick='editingName = true')
+    input(v-if='editingName' type='text' autofocus :value='item.name' @blur='editingName = false;')
+    span(v-else) {{item.name}}
+    | &nbsp;
+    span ({{item.needed}})
     span.increment.h2.js-link(v-on:click='setNeeded(item, item.needed + 1)') +
     span.decrement.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, item.needed - 1)') &ndash;
     span.purchase.h2.pl1.pr1.js-link(v-on:click='setNeeded(item, 0)') ✓
@@ -13,7 +15,9 @@ import { debounce } from 'lodash';
 
 export default {
   data() {
-    return {};
+    return {
+      editingName: false,
+    };
   },
 
   methods: {
