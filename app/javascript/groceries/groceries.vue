@@ -14,7 +14,7 @@
             type='submit' value='Add' :disabled='postingStore'
           )
         ul.stores-list
-          li.stores-list__item(v-for='store in this.stores')
+          li.stores-list__item(v-for='store in sortedStores')
             a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
             button.js-link.delete(@click='deleteStore(store)') ×
       main
@@ -23,6 +23,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { sortBy } from 'lodash';
 import Store from './store.vue';
 
 export default {
@@ -30,11 +31,16 @@ export default {
     Store,
   },
 
-  computed: mapState([
-    'currentStore',
-    'postingStore',
-    'stores',
-  ]),
+  computed: {
+    sortedStores() {
+      return sortBy(this.stores, store => store.name.toLowerCase());
+    },
+    ...mapState([
+      'currentStore',
+      'postingStore',
+      'stores',
+    ]),
+  },
 
   data() {
     return {
