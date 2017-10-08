@@ -13,6 +13,7 @@ module.exports = merge(sharedConfig, {
   stats: 'normal',
 
   plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       sourceMap: true,
