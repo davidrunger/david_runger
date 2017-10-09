@@ -20,6 +20,15 @@ i {
 
 ////////////////////////////
 // sizes
+
+// new
+@for $i from 1 through 6 {
+  .font-size-#{$i} {
+    font-size: 10px * $i;
+  }
+}
+
+// deprecated
 .font-size-1 {
   font-size: 80px;
 

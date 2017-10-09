@@ -1,7 +1,21 @@
 <template lang="pug">
   div.mt1.mb2
-    h1.store-name.bold.xs-mb20
+    h1.store-name.bold.m-b-1
       span {{ store.name }}
+    div.m-b-1
+      button(id="show-modal" @click='initializeTripCheckinModal()').
+        Check In Shopping Trip
+      modal(v-if="showModal")
+        slot
+          h3.bold.fonst-size-2.m-b-1.
+            Uncheck any items you #[i didn't] get.
+          ul
+            li(v-for='(item, index) in neededItems' :key='item.id')
+              input(type='checkbox' v-model='itemsToZero' :value='item' :id='`trip-checkin-item-${item.id}`')
+              label(:for='`trip-checkin-item-${item.id}`') {{item.name}}
+          div.flex.justify-content-space-between
+            button(@click='itemsToZero = []; showModal = false') Cancel
+            button(@click='handleTripCheckinModalSubmit') Set checked items to 0 needed
       | &nbsp;
       button.copy-to-clipboard Copy needed items to clipboard
       | &nbsp;
@@ -31,8 +45,10 @@ export default {
 
   data() {
     return {
-      waitingOnNetwork: false,
+      itemsToZero: [],
       newItemName: '',
+      showModal: false,
+      waitingOnNetwork: false,
       wasCopiedRecently: false,
     };
   },
@@ -48,8 +64,12 @@ export default {
   },
 
   computed: {
+    neededItems() {
+      return this.sortItems(this.store.items.filter(item => item.needed > 0));
+    },
+
     sortedItems() {
-      return sortBy(this.store.items, item => item.name.toLowerCase());
+      return this.sortItems(this.store.items);
     },
   },
 
@@ -57,6 +77,17 @@ export default {
     deleteItem(item) {
       this.$http.delete(`api/items/${item.id}`);
       this.store.items = this.store.items.filter(otherItem => otherItem.id !== item.id);
+    },
+
+    handleTripCheckinModalSubmit() {
+      this.$store.dispatch('zeroItems', this.itemsToZero.slice());
+      this.itemsToZero = [];
+      this.showModal = false;
+    },
+
+    initializeTripCheckinModal() {
+      this.itemsToZero = this.neededItems;
+      this.showModal = true;
     },
 
     setNeeded(item, needed) {
@@ -89,6 +120,10 @@ export default {
         this.$set(this, 'waitingOnNetwork', false);
         this.store.items.unshift({ createdAt: (new Date()).valueOf(), ...response.data });
       });
+    },
+
+    sortItems(items) {
+      return sortBy(items, item => item.name.toLowerCase());
     },
   },
 

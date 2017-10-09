@@ -15,3 +15,12 @@
     margin-left: 10px * $i;
   }
 }
+
+/*
+    bottom
+*/
+@for $i from 0 through 6 {
+  .m-b-#{$i} {
+    margin-bottom: 10px * $i;
+  }
+}

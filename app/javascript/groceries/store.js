@@ -15,6 +15,7 @@ export default new Vuex.Store({
       currentStore: bootstrap.stores[0],
     },
   ),
+
   mutations: {
     deleteItem(state, id) {
       state.currentStore.items = state.currentStore.items.filter(item => item.id !== id);
@@ -23,14 +24,25 @@ export default new Vuex.Store({
     deleteStore(state, id) {
       state.stores = state.stores.filter(store => store.id !== id);
     },
+
     selectStore(state, id) {
       state.currentStore = _.find(state.stores, { id });
     },
   },
+
   actions: {
     deleteItem({ commit }, id) {
       axios.delete(`api/items/${id}`);
       commit('deleteItem', id);
+    },
+
+    zeroItems(context, items) {
+      items.forEach((item) => {
+        item.needed = 0;
+        axios.patch(`api/items/${item.id}`, {
+          item: { needed: 0 },
+        });
+      });
     },
   },
 });
