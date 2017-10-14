@@ -57,6 +57,7 @@ module.exports = {
     alias: {
       img: resolve(__dirname, '../../app/assets/images'),
       css: resolve(__dirname, '../../app/assets/stylesheets'),
+      vendor: resolve(__dirname, '../../app/javascript/vendor'),
     },
     extensions: settings.extensions,
     modules: [
