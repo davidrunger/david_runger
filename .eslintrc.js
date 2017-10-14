@@ -1,3 +1,5 @@
+const { env } = require('process');
+
 module.exports = {
   env: {
     browser: true,
@@ -11,6 +13,7 @@ module.exports = {
       consistent: true,
       minProperties: 99,
     }],
+    'no-debugger': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-else-return': 'off',
     'no-new': 'off',
     'no-param-reassign': 'off',
