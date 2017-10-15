@@ -27,7 +27,11 @@ module.exports = {
   settings: {
     'import/resolver': {
       webpack: {
-        config: 'webpack.config.dev.static.js',
+        config: (
+          (env.NODE_ENV === 'production') ?
+            'webpack.config.js' :
+            'webpack.config.dev.static.js'
+        ),
       },
     },
   },
