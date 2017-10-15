@@ -12,6 +12,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+# used by mocha-webpack
+.tmp/*
 !/log/.keep
 !/tmp/.keep
 

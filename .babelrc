@@ -1,5 +1,6 @@
 {
   "presets": [
+    "es2015",
     ["env", {
       "modules": false,
       "targets": {
@@ -14,5 +15,16 @@
     "syntax-dynamic-import",
     "transform-object-rest-spread",
     ["transform-class-properties", { "spec": true }]
-  ]
+  ],
+
+  "env": {
+    "test": {
+      "presets": [
+        ["env", {
+          "modules": false,
+          "targets": { "node": "current" }
+        }]
+      ]
+    },
+  }
 }

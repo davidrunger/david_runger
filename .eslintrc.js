@@ -5,6 +5,9 @@ module.exports = {
     browser: true,
   },
   extends: 'airbnb-base',
+  globals: {
+    expect: false,
+  },
   plugins: ['vue'],
   rules: {
     'arrow-parens': 'off',
