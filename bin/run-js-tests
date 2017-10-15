@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+echo
+echo 'NOTE: run `NODE_ENV=test bin/webpack-dev-server` (maybe in another tab)'
+echo
+bin/write-js-spec-index
+open -a 'Google Chrome' spec/mocha_runner.html

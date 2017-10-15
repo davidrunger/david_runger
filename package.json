@@ -2,7 +2,7 @@
   "name": "david_runger",
   "private": true,
   "scripts": {
-    "test": "echo 'run NODE_ENV=test bin/webpack-dev-server' && bin/write-js-spec-index && open -a 'Google Chrome' spec/mocha_runner.html",
+    "test": "bin/run-js-tests"
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
