@@ -7,6 +7,7 @@ module.exports = {
   extends: 'airbnb-base',
   globals: {
     expect: false,
+    _: false,
   },
   plugins: ['vue'],
   rules: {
