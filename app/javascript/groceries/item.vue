@@ -1,10 +1,7 @@
 <template lang='pug'>
-  li(
-    :class='{unneeded: item.needed <= 0, "just-added": isJustAdded(item)}'
-    @dblclick='editingName = true'
-  )
+  li(:class='{unneeded: item.needed <= 0, "just-added": isJustAdded(item)}')
     input(v-if='editingName' type='text' autofocus :value='item.name' @blur='editingName = false;')
-    span(v-else) {{item.name}}
+    span(v-else @dblclick='editingName = true') {{item.name}}
     | &nbsp;
     span ({{item.needed}})
     span.increment.h2.js-link(@click='setNeeded(item, item.needed + 1)' title='Increment') +

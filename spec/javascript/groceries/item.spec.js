@@ -25,4 +25,28 @@ describe('Item', () => {
   it('doesnt initially contain a text input', () => {
     expect(wrapper.contains('input[type="text"]')).toBeFalsy();
   });
+
+  describe('editing the item name', () => {
+    describe('when i double click an item name', () => {
+      beforeEach(() => {
+        const itemSpan = _.find(wrapper.findAll('span').wrappers, span => span.text() === 'bananas');
+        itemSpan.trigger('dblclick');
+      });
+
+      it('converts to a text input', () => {
+        expect(wrapper.contains('input[type="text"]')).toBeTruthy();
+      });
+    });
+
+    describe('when i double click the increment button', () => {
+      beforeEach(() => {
+        const incrementButton = wrapper.find('.increment');
+        incrementButton.trigger('dblclick');
+      });
+
+      it('doesnt convert to a text input', () => {
+        expect(wrapper.contains('input[type="text"]')).toBeFalsy();
+      });
+    });
+  });
 });
