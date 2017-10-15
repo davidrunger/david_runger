@@ -29,7 +29,8 @@ describe('Item', () => {
   describe('editing the item name', () => {
     describe('when i double click an item name', () => {
       beforeEach(() => {
-        const itemSpan = _.find(wrapper.findAll('span').wrappers, span => span.text() === 'bananas');
+        const spans = wrapper.findAll('span').wrappers;
+        const itemSpan = _.find(spans, span => span.text() === 'bananas');
         itemSpan.trigger('dblclick');
       });
 
