@@ -2,7 +2,6 @@ const { basename, dirname, join, relative, resolve } = require('path');
 const { sync } = require('glob');
 const extname = require('path-complete-extname');
 const { settings } = require('./configuration.js');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
@@ -31,9 +30,7 @@ module.exports = {
     ],
   },
 
-  plugins: [
-    new StyleLintPlugin(),
-  ],
+  plugins: [],
 
   resolve: {
     alias: {
