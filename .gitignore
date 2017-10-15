@@ -17,6 +17,7 @@
 .byebug_history
 /public/packs
 /public/packs-test
+/spec/javascript/packs
 /node_modules
 /public/assets
 /spec/fixtures
