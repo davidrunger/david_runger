@@ -2,8 +2,8 @@
   "name": "david_runger",
   "private": true,
   "scripts": {
-    "test": "mocha-webpack --webpack-config webpack.config.test.js --require spec/javascript/setup.js spec/javascript/**/*.spec.js",
-    "test-watch": "mocha-webpack --watch --webpack-config webpack.config.test.js --require spec/javascript/setup.js spec/javascript/**/*.spec.js"
+    "test": "mocha-webpack --webpack-config webpack.config.test.js spec/javascript/**/*.spec.js",
+    "test-watch": "mocha-webpack --watch --webpack-config webpack.config.test.js spec/javascript/**/*.spec.js"
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",

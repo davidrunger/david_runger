@@ -38,7 +38,7 @@ module.exports = {
       css: resolve(__dirname, '../../app/assets/stylesheets'),
     },
     extensions: settings.extensions,
-    modules: [],
+    modules: ['spec/javascript'],
   },
 
   resolveLoader: {

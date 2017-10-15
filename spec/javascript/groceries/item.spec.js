@@ -1,5 +1,6 @@
 /* eslint-env mocha */
 
+import 'spec_helper';
 import { mount } from 'vue-test-utils';
 import Item from 'groceries/item.vue';
 
