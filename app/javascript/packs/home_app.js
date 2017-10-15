@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved,import/extensions
-import Vue from 'vendor/customized_vue.js';
+import Vue from 'vendor/customized_vue';
 import Home from '../home/home.vue';
 
 document.addEventListener('DOMContentLoaded', () => {

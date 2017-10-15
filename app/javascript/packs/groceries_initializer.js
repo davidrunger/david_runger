@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved,import/extensions
-import Vue from 'vendor/customized_vue.js';
+import Vue from 'vendor/customized_vue';
 import Groceries from '../groceries/groceries.vue';
 import store from '../groceries/store';
 

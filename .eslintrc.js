@@ -20,4 +20,11 @@ module.exports = {
       minProperties: 99,
     }],
   },
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: 'webpack.config.js',
+      },
+    },
+  },
 };
