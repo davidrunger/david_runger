@@ -1,12 +1,8 @@
-// Note: You must restart bin/webpack-dev-server for changes to take effect
-
-/* eslint global-require: 0 */
-/* eslint import/no-dynamic-require: 0 */
-
 const { basename, dirname, join, relative, resolve } = require('path');
 const { sync } = require('glob');
 const extname = require('path-complete-extname');
 const { settings } = require('./configuration.js');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
@@ -35,7 +31,9 @@ module.exports = {
     ],
   },
 
-  plugins: [],
+  plugins: [
+    new StyleLintPlugin(),
+  ],
 
   resolve: {
     alias: {
