@@ -381,7 +381,7 @@ i[class^=devicon-] {
   right: 50%;
   transform: translateX(50%);
 
-  @media screen and (max-width:600px) {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 }
@@ -404,7 +404,7 @@ i[class^=devicon-] {
 
 .about-image {
   max-width: 100%;
-  box-shadow: $gray-light 0px 2px 5px;
+  box-shadow: $gray-light 0 2px 5px;
 }
 
 .background--translucent-white {
@@ -421,7 +421,7 @@ i[class^=devicon-] {
   line-height: 50px;
   font-size: 30px;
   padding: 2px 0 0 2px;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   margin-bottom: 30px; // needs to be big enough to psh above header when clicking 1st section
 }
 
@@ -450,14 +450,14 @@ i[class^=devicon-] {
   height: 60px;
   line-height: 56px;
   text-align: center;
-  background-color: rgba(0,0,0,.72);
+  background-color: rgba(0, 0, 0, 0.72);
   border: 2px solid #000;
   border-radius: 3px;
   box-shadow: #000 0 0 15px -3px;
   color: gainsboro;
 
   &:hover {
-    background-color: rgba(20,20,20,0.72);
+    background-color: rgba(20, 20, 20, 0.72);
     transition: 0.3s;
   }
 }
@@ -468,10 +468,11 @@ i[class^=devicon-] {
     border: 1px solid #cbcbcb;
     border-collapse: collapse;
     border-spacing: 0;
-    background-color: rgba(255,255,255,.6);
+    background-color: rgba(255, 255, 255, 0.6);
   }
 
-  .pure-table-odd td, tr:nth-child(2n-1) td {
+  .pure-table-odd td,
+  tr:nth-child(2n-1) td {
     background-color: #f2f2f2;
   }
 
@@ -479,7 +480,8 @@ i[class^=devicon-] {
     background-color: white;
   }
 
-  .pure-table td, .pure-table th {
+  .pure-table td,
+  .pure-table th {
     border-left: 1px solid #cbcbcb;
     border-width: 0 0 0 1px;
     font-size: inherit;
@@ -498,7 +500,8 @@ i[class^=devicon-] {
     margin: 10px 70px 20px;
   }
 
-  li, p {
+  li,
+  p {
     line-height: 20px;
   }
 
@@ -524,7 +527,8 @@ i[class^=devicon-] {
     line-height: 24px;
   }
 
-  h3, h4 {
+  h3,
+  h4 {
     text-align: center;
   }
 
@@ -533,9 +537,9 @@ i[class^=devicon-] {
   }
 
   .content {
-    background: rgba(240,240,240,.75);
+    background: rgba(240, 240, 240, 0.75);
     padding: 20px;
-    box-shadow: rgba(101,121,128,.51) 2px 2px 2px;
+    box-shadow: rgba(101, 121, 128, 0.51) 2px 2px 2px;
     margin-bottom: 30px;
   }
 

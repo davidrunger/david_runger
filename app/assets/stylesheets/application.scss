@@ -14,14 +14,12 @@
  */
 
 $fa-font-path: "~font-awesome/fonts";
+
 @import "../../../node_modules/font-awesome/scss/font-awesome";
-
-@import "utils/reset";
-
+@import "vendor/reset";
 @import "variables";
 @import "elements";
 @import "animations";
-
 @import "utils/background";
 @import "utils/border";
 @import "utils/flex";
@@ -38,7 +36,8 @@ $fa-font-path: "~font-awesome/fonts";
 @import "utils/whitespace";
 @import "utils/width";
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   font-family: 'Karla', sans-serif;

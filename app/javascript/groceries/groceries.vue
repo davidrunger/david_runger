@@ -101,7 +101,7 @@ aside {
   padding: 10px;
   background: lightgreen;
 
-  @media screen and (max-width:399px) {
+  @media screen and (max-width: 399px) {
     min-width: 150px;
     width: 45vw;
     max-width: 180px;

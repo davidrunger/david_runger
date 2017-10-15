@@ -54,10 +54,20 @@ export default {
 </script>
 
 <style scoped>
-.decrement, .delete { color: crimson; }
-.increment, .purchase { color: green; }
+.decrement,
+.delete {
+  color: crimson;
+}
 
-.decrement, .increment, .purchase, .delete {
+.increment,
+.purchase {
+  color: green;
+}
+
+.decrement,
+.increment,
+.purchase,
+.delete {
   padding-left: 10px;
   font-weight: bold;
   font-size: 15px;

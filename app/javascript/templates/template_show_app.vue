@@ -119,7 +119,8 @@ hr {
   margin: 12px 0;
 }
 
-h1, h2 {
+h1,
+h2 {
   text-align: left;
 }
 

@@ -22,29 +22,29 @@ export default {
 $ivory-black: #131920;
 
 $color-1: #f7e4de;
-$color-2: #eeeeee;
+$color-2: #eee;
 $color-3: #cddbdb;
 
 .about {
   position: relative;
 }
 
-.about:after {
-  content : "";
+.about::after {
+  content: "";
   display: block;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  opacity : 0.4;
+  opacity: 0.4;
   background-image: url('~img/coastline.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -1;
 }
 
-.skills { background: #ffffff; }
+.skills { background: #fff; }
 .projects { background: $color-3; }
 .resume { background: $color-2; }
 .contact { background: $color-1; }
