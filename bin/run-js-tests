@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 
+echo 'NOTE: To run the mocha test suite in Chrome, you must run'
 echo
-echo 'NOTE: run `NODE_ENV=test bin/webpack-dev-server` (maybe in another tab)'
+echo 'NODE_ENV=test bin/webpack-dev-server'
 echo
+echo '(maybe in another tab), then refresh the runner in the browser'
 bin/write-js-spec-index
-open -a 'Google Chrome' spec/mocha_runner.html
+open -a 'Google Chrome' spec/javascript/mocha_runner.html
