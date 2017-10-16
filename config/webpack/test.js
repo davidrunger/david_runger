@@ -4,9 +4,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
+const extractCSS = new ExtractTextPlugin('[name].css');
+
 environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
-  use: ExtractTextPlugin.extract({
+  use: extractCSS.extract({
     use: [
       { loader: 'css-loader', options: { minimize: false } },
       { loader: 'sass-loader', options: { sourceMap: true } },
@@ -19,9 +21,7 @@ const testConfig = merge(environment.toWebpackConfig(), shared, {
   output: {
     filename: '[name].js',
   },
-  plugins: [
-    new ExtractTextPlugin('[name].css'),
-  ],
+  plugins: [extractCSS],
   resolve: {
     modules: [
       resolve(__dirname, '../../app/javascript'),
