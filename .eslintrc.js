@@ -32,7 +32,7 @@ module.exports = {
         config: (
           (env.NODE_ENV === 'production') ?
             'webpack.config.js' :
-            'webpack.config.dev.static.js'
+            'webpack.config.static.js'
         ),
       },
     },

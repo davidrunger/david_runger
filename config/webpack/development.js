@@ -12,7 +12,7 @@ const developmentConfig = merge(environment.toWebpackConfig(), shared, {
 });
 
 fs.writeFileSync(
-  'webpack.config.dev.static.js',
+  'webpack.config.static.js',
   `module.exports = ${JSON.stringify(developmentConfig)}`,
 );
 

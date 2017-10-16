@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/davidrunger/david_runger.svg?branch=master)](https://travis-ci.org/davidrunger/david_runger)
+
 # david_runger / davidrunger.com
 
 This is a Ruby on Rails web app that powers my personal website.
