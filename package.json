@@ -2,7 +2,8 @@
   "name": "david_runger",
   "private": true,
   "scripts": {
-    "test": "bin/run-js-tests"
+    "test": "bin/setup-mocha-tests && mocha-headless-chrome -f spec/javascript/mocha_runner.html",
+    "test-chrome": "bin/setup-mocha-tests && open -a 'Google Chrome' spec/javascript/mocha_runner.html"
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
