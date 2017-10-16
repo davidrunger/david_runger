@@ -31,6 +31,8 @@ deploy:
   provider: heroku
   api_key:
     secure: faDkASJEzEkL1CAwxxBmjOX7/qIrE4ueNeA2tZSnqIzKhP6+YOioOHJMPZZ43dYwVUxyWe+GeUquMkImLGjl2uV8e+qZJz25tda2gckB+CGzmgDfXQ00kJVzUTCmHf9J6ZeZ1XIKYVUe3E3mDVIogplIukG+ubj+FqfNkBV4LZ5RWEKaeYfcaM8veZqsnkqHkz0H7FXPruDUyrZGpc06+EQQdKkUlLypOssxjXGbhIcJzR99hpdD1u26Jow2kRINjdqCSPi3lf5xKeSQVElOcFuIdkHutbdprwUNhqKryDO7YM95O4WWPlYQ9gJ7QgUAZStsFy2pSRQSHtV2PVLH4k5gdPwgHtr+74MnJWSdBdPtmBPRmjkRWkHrmj2lXlsl0dktWWK6NiXWSzkKTx56kgc/zC2RABu3qKHdK2k9iVYndHPz0sJsN2LAj5SCqV2KGJdNEUaAQGkdoAktmhqxaqvgsTegOyPXV3QAIOBey1V95ubzn99LIkqqTRWRlglbqvXAsf5wVVmoxQ6kLT+lsbpJrWQW33FhGkPcciDllWeTbmeLLE1xIHI0puneYBEXrv5ZLdgXUuA11emQ+YIflb6/h6m8Ze6K+jql5Y1FAwHt/eaPA9eXSMhZh0cfEQBdoYvfKJGmTK0GIrtGQpGJVS1k7GnH4szZK2jszjuKgs0=
+  strategy: git
+  app: davidrunger
   run:
     - "bin/rake db:migrate"
     - restart
