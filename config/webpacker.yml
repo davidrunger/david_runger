@@ -52,8 +52,18 @@ test:
   public_output_path: packs-test
   compile: true
   hmr: false
+  # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
+    https: false
+    host: localhost
+    port: 8080
+    public: localhost:8080
     hmr: false
+    # Inline should be set to true if using HMR
+    inline: false
+    overlay: true
+    disable_host_check: true
+    use_local_ip: false
 
 production:
   <<: *default

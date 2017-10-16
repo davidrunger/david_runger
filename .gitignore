@@ -20,5 +20,5 @@
 /spec/javascript/packs/spec_index.js
 /node_modules
 /public/assets
-/spec/fixtures
-webpack.config.dev.static.js
+spec/fixtures/*.yml
+webpack.config.static.js

@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { resolve } = require('path');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -28,5 +29,10 @@ const testConfig = merge(environment.toWebpackConfig(), shared, {
     ],
   },
 });
+
+fs.writeFileSync(
+  'webpack.config.static.js',
+  `module.exports = ${JSON.stringify(testConfig)}`,
+);
 
 module.exports = testConfig;
