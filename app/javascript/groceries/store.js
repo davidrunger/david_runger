@@ -2,8 +2,11 @@ import axios from 'axios';
 import Vuex from 'vuex';
 import _ from 'lodash';
 
-const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
+const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+if (csrfMetaTag) {
+  const csrfToken = csrfMetaTag.getAttribute('content');
+  axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
+}
 
 const { bootstrap } = window.davidrunger;
 
