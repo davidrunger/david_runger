@@ -4197,11 +4197,11 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
     minimist "0.0.8"
 
 mocha-headless-chrome@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/mocha-headless-chrome/-/mocha-headless-chrome-1.5.2.tgz#80390303b00a88add472617273c5fbd5dff5a78f"
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/mocha-headless-chrome/-/mocha-headless-chrome-1.6.0.tgz#8dacf260b9b53b9c7161d56e37cb973441c1b0f9"
   dependencies:
     args "^3.0.7"
-    puppeteer "^0.11.0"
+    puppeteer "^0.12.0"
 
 mocha-webpack@^0.7.0:
   version "0.7.0"
@@ -5715,9 +5715,9 @@ punycode@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
 
-puppeteer@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-0.11.0.tgz#0a2b856f3c2745a5884c6dde9fb44f96663988ed"
+puppeteer@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-0.12.0.tgz#9c421930851594dfdd479d07646666a74ced7719"
   dependencies:
     debug "^2.6.8"
     extract-zip "^1.6.5"
@@ -6770,7 +6770,7 @@ sugarss@^1.0.0:
   dependencies:
     postcss "^6.0.0"
 
-supports-color@4.4.0, supports-color@^4.0.0, supports-color@^4.2.1, supports-color@^4.4.0:
+supports-color@4.4.0, supports-color@^4.2.1, supports-color@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.4.0.tgz#883f7ddabc165142b2a61427f3352ded195d1a3e"
   dependencies:
@@ -6785,6 +6785,12 @@ supports-color@^3.2.3:
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
   dependencies:
     has-flag "^1.0.0"
+
+supports-color@^4.0.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.5.0.tgz#be7a0de484dec5c5cddf8b3d59125044912f635b"
+  dependencies:
+    has-flag "^2.0.0"
 
 svg-tags@^1.0.0:
   version "1.0.0"
