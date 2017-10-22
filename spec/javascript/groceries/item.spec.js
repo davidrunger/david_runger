@@ -5,32 +5,35 @@ import { mount, createLocalVue } from 'vue-test-utils';
 import { noop } from 'lodash';
 import Vuex from 'vuex';
 import Item from 'groceries/item.vue';
+import { groceryVuexStoreFactory } from 'groceries/store';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Item', () => {
   let item;
-  let store;
   let wrapper;
 
   beforeEach(() => {
     item = { id: 48, name: 'bananas', needed: 0 };
-    store = new Vuex.Store({
-      state: {},
-      actions: {
-        updateItem: noop,
-      },
-    });
-    wrapper = mount(
-      Item,
+    const bootstrap = {
+      stores: [
+        {
+          id: 1,
+          name: 'Costco',
+          items: [item],
+        },
+      ],
+    };
+    wrapper = mount(Item,
       {
         localVue,
         propsData: {
           item,
         },
-        store,
-      });
+        store: groceryVuexStoreFactory(bootstrap),
+      },
+    );
   });
 
   it('is a Vue instance', () => {
