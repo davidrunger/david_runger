@@ -19,6 +19,21 @@ environment.loaders.set('style', {
 
 const testConfig = merge(environment.toWebpackConfig(), shared, {
   devtool: 'inline-cheap-module-source-map',
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+            },
+          },
+        ],
+      },
+    ],
+  },
   output: {
     filename: '[name].js',
   },
