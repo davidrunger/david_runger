@@ -68,12 +68,11 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
 
       describe('when I change the item name and press enter', () => {
         let xhr;
-        let getRequests;
+        let requests = [];
 
-        beforeEach(() => {
+        beforeEach((done) => {
           xhr = sinon.useFakeXMLHttpRequest();
-          const requests = [];
-          getRequests = () => requests;
+          requests = [];
           xhr.onCreate = request => {
             requests.push(request);
           };
@@ -81,38 +80,31 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
           const input = wrapper.find('input[type="text"]');
           item.name = 'organic bananas'; // user types new value; item.name updates via v-model
           input.trigger('keydown.enter');
+
+          // wait a tick for AJAX requests to register
+          setTimeout(done, 0);
         });
 
         afterEach(() => {
           xhr.restore();
         });
 
-        it('removes the text input', (done) => {
-          setTimeout(() => {
-            expect(wrapper.contains('input')).toBe(false);
-            done();
-          });
+        it('removes the text input', () => {
+          expect(wrapper.contains('input')).toBe(false);
         });
 
-        it('updates the item text shown on the client', (done) => {
+        it('updates the item text shown on the client', () => {
           const spans = wrapper.findAll('span').wrappers;
           const itemNameSpan = _.find(spans, span => span.text() === 'organic bananas');
-          setTimeout(() => {
-            expect(itemNameSpan.exists()).toBe(true);
-            done();
-          }, 0);
+          expect(itemNameSpan.exists()).toBe(true);
         });
 
-        it('makes a PATCH request to update the item name', (done) => {
-          setTimeout(() => {
-            const requests = getRequests();
-            expect(requests.length).toEqual(1);
-            const request = requests[0];
-            expect(request.url).toEqual('/api/items/48');
-            expect(request.method).toEqual('PATCH');
-            expect(JSON.parse(request.requestBody)).toEqual({ item: { name: 'organic bananas' } });
-            done();
-          }, 0);
+        it('makes a PATCH request to update the item name', () => {
+          expect(requests.length).toEqual(1);
+          const request = requests[0];
+          expect(request.url).toEqual('/api/items/48');
+          expect(request.method).toEqual('PATCH');
+          expect(JSON.parse(request.requestBody)).toEqual({ item: { name: 'organic bananas' } });
         });
       });
     });
