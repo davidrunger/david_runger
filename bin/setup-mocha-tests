@@ -6,6 +6,9 @@ const fs = require('fs');
 const { sync } = require('glob');
 const { join } = require('path');
 
+const mochaRunner = join(__dirname, '..', 'spec', 'javascript', 'mocha_runner.html')
+  .replace(join(__dirname, '..', 'spec', 'javascript/'), '');
+
 // eslint-disable-next-line global-require, import/no-dynamic-require
 const indexFile = sync(join(__dirname, '..', 'spec', '**', '*spec.js'))
   .map(specPath => {
@@ -14,6 +17,7 @@ const indexFile = sync(join(__dirname, '..', 'spec', '**', '*spec.js'))
     cleanedPath = cleanedPath.replace('.js', '');
     return `import '${cleanedPath}';`;
   })
+  .concat(`import '${mochaRunner}';`)
   .join('\n');
 
 const specIndexPath = join(__dirname, '..', 'spec', 'javascript', 'packs', 'spec_index.js');

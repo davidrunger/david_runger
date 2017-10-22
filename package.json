@@ -2,8 +2,8 @@
   "name": "david_runger",
   "private": true,
   "scripts": {
-    "test": "bin/setup-mocha-tests && mocha-headless-chrome -f spec/javascript/mocha_runner.html",
-    "test-chrome": "bin/setup-mocha-tests && open -a 'Google Chrome' spec/javascript/mocha_runner.html"
+    "test": "bin/setup-mocha-tests && mocha-headless-chrome -f http://localhost:8080/packs-test/mocha_runner.html",
+    "test-chrome": "bin/setup-mocha-tests && open -a 'Google Chrome' http://localhost:8080/packs-test/mocha_runner.html"
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
@@ -70,6 +70,7 @@
     "postcss-html": "^0.9.0",
     "postcss-safe-parser": "^3.0.1",
     "postcss-scss": "^1.0.2",
+    "sinon": "^4.0.1",
     "stylelint": "^8.2.0",
     "stylelint-config-standard": "^17.0.0",
     "stylelint-scss": "^2.1.0",
