@@ -36,6 +36,10 @@ export default new Vuex.Store({
       commit('deleteItem', id);
     },
 
+    updateItem(_context, { id, attributes }) {
+      axios.patch(`api/items/${id}`, { item: attributes });
+    },
+
     zeroItems(context, items) {
       items.forEach((item) => {
         item.needed = 0;

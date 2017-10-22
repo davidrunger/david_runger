@@ -1,6 +1,13 @@
 <template lang='pug'>
   li(:class='{unneeded: item.needed <= 0, "just-added": isJustAdded(item)}')
-    input(v-if='editingName' type='text' autofocus :value='item.name' @blur='editingName = false;')
+    input(
+      v-if='editingName'
+      type='text'
+      autofocus
+      v-model='item.name'
+      @blur='stopEditingAndUpdateItemName()'
+      @keydown.enter='stopEditingAndUpdateItemName()'
+    )
     span(v-else @dblclick='editingName = true') {{item.name}}
     | &nbsp;
     span ({{item.needed}})
@@ -32,6 +39,16 @@ export default {
     setNeeded(item, needed) {
       item.needed = needed;
       this.debouncedPatchItem(item.id, item.needed);
+    },
+
+    stopEditingAndUpdateItemName() {
+      this.editingName = false;
+      this.$store.dispatch('updateItem', {
+        id: this.item.id,
+        attributes: {
+          name: this.item.name,
+        },
+      });
     },
 
     // we need `function` for correct `this`

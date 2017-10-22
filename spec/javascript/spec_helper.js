@@ -1,4 +1,7 @@
 /* eslint-env mocha */
+import Vue from 'vendor/customized_vue';
+
+window.Vue = Vue;
 
 require('jsdom-global')(); // eslint-disable-line import/no-extraneous-dependencies
 global.expect = require('expect'); // eslint-disable-line import/no-extraneous-dependencies
