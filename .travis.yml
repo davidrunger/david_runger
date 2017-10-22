@@ -1,5 +1,8 @@
 language: ruby
-cache: bundler
+cache:
+  directories:
+    - $HOME/.rvm/gems/ruby-2.4.1/gems/
+    - node_modules
 rvm:
   - "2.4.1"
 services:
