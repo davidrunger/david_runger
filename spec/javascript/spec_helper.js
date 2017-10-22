@@ -9,6 +9,9 @@ global._ = require('lodash');
 
 const originalConsoleError = console.error; // eslint-disable-line no-console
 beforeEach(() => {
+  // print test name:
+  // console.log('this.currentTest.fullTitle()', JSON.stringify(this.currentTest.fullTitle()));
+
   console.error = (...args) => { // eslint-disable-line no-console
     originalConsoleError(args);
     throw new Error('console.error was called - throwing error');
