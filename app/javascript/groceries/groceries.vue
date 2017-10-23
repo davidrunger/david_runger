@@ -17,6 +17,8 @@
           li.stores-list__item(
             v-for='store in sortedStores'
             :class='{selected: store === $store.state.currentStore}'
+            @drop="drop(store.id)"
+            @dragover="allowDrop()"
           )
             a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
             button.js-link.delete(@click='deleteStore(store)') ×
@@ -52,6 +54,23 @@ export default {
   },
 
   methods: {
+    allowDrop() {
+      const { event } = window;
+      event.preventDefault();
+    },
+
+    drop(storeId) {
+      const { event } = window;
+      event.preventDefault();
+      const itemId = Number(event.dataTransfer.getData('itemId'));
+      const oldStoreId = Number(event.dataTransfer.getData('storeId'));
+      this.$store.dispatch('moveItem', {
+        itemId,
+        newStoreId: storeId,
+        oldStoreId,
+      });
+    },
+
     deleteStore(store) {
       this.$http.delete(`api/stores/${store.id}`);
       this.$store.commit('deleteStore', store.id);
