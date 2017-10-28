@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= @title.present? ? "#{@title} - " : '' %>David Runger</title>
     <%= csrf_meta_tags %>
+    <%= javascript_include_tag('routes.js') %>
     <script type="text/javascript">
       window.davidrunger || (window.davidrunger = {})
       window.davidrunger.bootstrap = JSON.parse("<%= raw(escape_javascript((@bootstrap_data || {}).to_json)) %>")

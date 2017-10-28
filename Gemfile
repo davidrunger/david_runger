@@ -24,6 +24,7 @@ gem 'administrate', github: 'thoughtbot/administrate' # installed from `master` 
 gem 'oj'
 gem 'active_model_serializers'
 gem 'httparty'
+gem 'js-routes'
 
 group :development, :test do
   gem 'fixture_builder'
