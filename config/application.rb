@@ -38,5 +38,6 @@ module DavidRunger
     config.middleware.insert_after(Rack::MethodOverride, RequestUuid)
 
     config.autoload_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join('lib')
   end
 end
