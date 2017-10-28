@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  get 'new_home', to: 'home#new_home'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
