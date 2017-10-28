@@ -6,6 +6,7 @@
 #  email            :string           not null
 #  id               :integer          not null, primary key
 #  last_activity_at :datetime
+#  phone            :string
 #  updated_at       :datetime         not null
 #
 # Indexes

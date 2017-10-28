@@ -2,7 +2,7 @@
 #
 # Table name: requests
 #
-#  bot          :boolean          default("false"), not null
+#  bot          :boolean          default(FALSE), not null
 #  db           :integer
 #  format       :string           not null
 #  handler      :string           not null

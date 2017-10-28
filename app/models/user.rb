@@ -6,6 +6,7 @@
 #  email            :string           not null
 #  id               :integer          not null, primary key
 #  last_activity_at :datetime
+#  phone            :string
 #  updated_at       :datetime         not null
 #
 # Indexes
@@ -14,6 +15,8 @@
 #
 
 class User < ApplicationRecord
+  ADMIN_EMAILS = %w[davidjrunger@gmail.com].map(&:freeze).freeze
+
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :requests
@@ -23,5 +26,9 @@ class User < ApplicationRecord
 
   def self.from_omniauth!(access_token)
     user = User.find_or_create_by!(email: access_token.info['email'])
+  end
+
+  def admin?
+    email.in?(ADMIN_EMAILS)
   end
 end

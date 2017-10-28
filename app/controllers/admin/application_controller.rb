@@ -10,7 +10,7 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
-      unless current_user&.email == 'davidjrunger@gmail.com'
+      unless current_user&.admin?
         sign_out_all_scopes
         redirect_to(login_path)
       end

@@ -2,11 +2,11 @@
 #
 # Table name: items
 #
-#  archived   :boolean          default("false"), not null
+#  archived   :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  id         :integer          not null, primary key
 #  name       :string           not null
-#  needed     :integer          default("1"), not null
+#  needed     :integer          default(1), not null
 #  store_id   :integer          not null
 #  updated_at :datetime         not null
 #
