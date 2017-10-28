@@ -8,6 +8,7 @@ module.exports = {
   globals: {
     expect: false,
     _: false,
+    Routes: false,
   },
   plugins: ['vue'],
   rules: {

@@ -77,7 +77,7 @@ export default {
 
   methods: {
     createItemsNeededTextMessage() {
-      this.$http.post('/api/text_messages', {
+      this.$http.post(this.$routes.api_text_messages_path(), {
         text_message: {
           message_type: 'grocery_store_items_needed',
           message_params: { store_id: this.store.id },
@@ -86,7 +86,7 @@ export default {
     },
 
     deleteItem(item) {
-      this.$http.delete(`api/items/${item.id}`);
+      this.$http.delete(this.$routes.api_item_path(item.id));
       this.store.items = this.store.items.filter(otherItem => otherItem.id !== item.id);
     },
 
@@ -113,7 +113,7 @@ export default {
       const payload = {
         item: { needed: newNeeded },
       };
-      this.$http.patch(`api/items/${itemId}`, payload).then(() => {
+      this.$http.patch(this.$routes.api_item_path(itemId), payload).then(() => {
         this.$set(this, 'waitingOnNetwork', false);
       });
     }, 500),
@@ -126,7 +126,7 @@ export default {
           name: this.newItemName,
         },
       };
-      this.$http.post(`api/stores/${this.store.id}/items`, payload).then(response => {
+      this.$http.post(this.$routes.api_store_items_path(this.store.id), payload).then(response => {
         this.newItemName = '';
         this.$set(this, 'waitingOnNetwork', false);
         this.store.items.unshift({ createdAt: (new Date()).valueOf(), ...response.data });

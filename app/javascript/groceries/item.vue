@@ -58,7 +58,7 @@ export default {
       const payload = {
         item: { needed: newNeeded },
       };
-      this.$http.patch(`api/items/${itemId}`, payload);
+      this.$http.patch(this.$routes.api_item_path(itemId), payload);
     }, 500),
   },
 

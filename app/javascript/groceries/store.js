@@ -32,23 +32,23 @@ const mutations = {
 
 const actions = {
   deleteItem({ commit }, id) {
-    axios.delete(`api/items/${id}`);
+    axios.delete(Routes.api_item_path(id));
     commit('deleteItem', id);
   },
 
   moveItem({ commit }, { itemId, newStoreId }) {
     commit('moveItem', { itemId, newStoreId });
-    axios.patch(`/api/items/${itemId}`, { item: { store_id: newStoreId } });
+    axios.patch(Routes.api_item_path(itemId), { item: { store_id: newStoreId } });
   },
 
   updateItem(_context, { id, attributes }) {
-    axios.patch(`/api/items/${id}`, { item: attributes });
+    axios.patch(Routes.api_item_path(id), { item: attributes });
   },
 
   zeroItems(context, items) {
     items.forEach((item) => {
       item.needed = 0;
-      axios.patch(`/api/items/${item.id}`, {
+      axios.patch(Routes.api_item_path(item.id), {
         item: { needed: 0 },
       });
     });
