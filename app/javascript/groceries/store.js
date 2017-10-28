@@ -17,6 +17,14 @@ const mutations = {
     state.stores = state.stores.filter(store => store.id !== id);
   },
 
+
+  moveItem(state, { itemId, newStoreId }) {
+    const item = _.remove(state.currentStore.items, { id: itemId })[0];
+    state.currentStore.items = state.currentStore.items.slice(); // use #slice to register? whatevs.
+    const newStore = _.find(state.stores, { id: newStoreId });
+    newStore.items.push(item);
+  },
+
   selectStore(state, id) {
     state.currentStore = _.find(state.stores, { id });
   },
@@ -26,6 +34,11 @@ const actions = {
   deleteItem({ commit }, id) {
     axios.delete(`api/items/${id}`);
     commit('deleteItem', id);
+  },
+
+  moveItem({ commit }, { itemId, newStoreId }) {
+    commit('moveItem', { itemId, newStoreId });
+    axios.patch(`/api/items/${itemId}`, { item: { store_id: newStoreId } });
   },
 
   updateItem(_context, { id, attributes }) {

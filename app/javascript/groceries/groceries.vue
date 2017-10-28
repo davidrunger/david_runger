@@ -18,8 +18,9 @@
             v-for='store in sortedStores'
             :class='{selected: store === $store.state.currentStore}'
           )
-            a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
-            button.js-link.delete(@click='deleteStore(store)') ×
+            drop(@drop='dropItem(store.id, ...arguments)')
+              a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
+              button.js-link.delete(@click='deleteStore(store)') ×
       main
         Store(v-if='currentStore' :store='currentStore')
 </template>
@@ -55,6 +56,16 @@ export default {
     deleteStore(store) {
       this.$http.delete(`api/stores/${store.id}`);
       this.$store.commit('deleteStore', store.id);
+    },
+
+    dropItem(storeId, itemData) {
+      const itemId = itemData.id;
+      const oldStoreId = itemData.store_id;
+      this.$store.dispatch('moveItem', {
+        itemId,
+        newStoreId: storeId,
+        oldStoreId,
+      });
     },
 
     selectStore(store) {

@@ -1,20 +1,21 @@
 <template lang='pug'>
-  li(:class='{unneeded: item.needed <= 0, "just-added": isJustAdded(item)}')
-    input(
-      v-if='editingName'
-      type='text'
-      autofocus
-      v-model='item.name'
-      @blur='stopEditingAndUpdateItemName()'
-      @keydown.enter='stopEditingAndUpdateItemName()'
-    )
-    span(v-else @dblclick='editingName = true') {{item.name}}
-    | &nbsp;
-    span ({{item.needed}})
-    span.increment.h2.js-link(@click='setNeeded(item, item.needed + 1)' title='Increment') +
-    span.decrement.h2.pl1.pr1.js-link(@click='setNeeded(item, item.needed - 1)' title='Decrement') &ndash;
-    span.purchase.h2.pl1.pr1.js-link(@click='setNeeded(item, 0)' title='Mark as purchased') ✓
-    span.delete.h2.pl1.pr1.js-link(@click='deleteItem(item)' title='Delete item') ×
+  drag(:transferData='item')
+    li(:class='{unneeded: item.needed <= 0, "just-added": isJustAdded(item)}')
+      input(
+        v-if='editingName'
+        type='text'
+        autofocus
+        v-model='item.name'
+        @blur='stopEditingAndUpdateItemName()'
+        @keydown.enter='stopEditingAndUpdateItemName()'
+      )
+      span(v-else @dblclick='editingName = true') {{item.name}}
+      | &nbsp;
+      span ({{item.needed}})
+      span.increment.h2.js-link(@click='setNeeded(item, item.needed + 1)' title='Increment') +
+      span.decrement.h2.pl1.pr1.js-link(@click='setNeeded(item, item.needed - 1)' title='Decrement') &ndash;
+      span.purchase.h2.pl1.pr1.js-link(@click='setNeeded(item, 0)' title='Mark as purchased') ✓
+      span.delete.h2.pl1.pr1.js-link(@click='deleteItem(item)' title='Delete item') ×
 </template>
 
 <script>
