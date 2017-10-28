@@ -17,6 +17,7 @@ const mutations = {
     state.stores = state.stores.filter(store => store.id !== id);
   },
 
+
   moveItem(state, { itemId, newStoreId }) {
     const item = _.remove(state.currentStore.items, { id: itemId })[0];
     state.currentStore.items = state.currentStore.items.slice(); // use #slice to register? whatevs.
