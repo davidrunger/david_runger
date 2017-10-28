@@ -36,5 +36,7 @@ module DavidRunger
     config.active_record.default_timezone = :local
 
     config.middleware.insert_after(Rack::MethodOverride, RequestUuid)
+
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

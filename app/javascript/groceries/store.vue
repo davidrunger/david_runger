@@ -17,6 +17,8 @@
             button(@click='itemsToZero = []; showModal = false') Cancel
             button(@click='handleTripCheckinModalSubmit') Set checked items to 0 needed
       | &nbsp;
+      button(@click='createItemsNeededTextMessage') Text needed items to your phone
+      | &nbsp;
       button.copy-to-clipboard Copy needed items to clipboard
       | &nbsp;
       span(v-if='wasCopiedRecently') Copied!
@@ -74,6 +76,15 @@ export default {
   },
 
   methods: {
+    createItemsNeededTextMessage() {
+      this.$http.post('/api/text_messages', {
+        text_message: {
+          message_type: 'grocery_store_items_needed',
+          message_params: { store_id: this.store.id },
+        },
+      });
+    },
+
     deleteItem(item) {
       this.$http.delete(`api/items/${item.id}`);
       this.store.items = this.store.items.filter(otherItem => otherItem.id !== item.id);

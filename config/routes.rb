@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'groceries', to: 'groceries#show'
 
   resources :templates, only: [:index, :new, :create, :show]
+  resources :users, only: [:edit, :update]
 
   namespace :api, defaults: {format: :json} do
     resources :stores, only: [:create, :destroy] do
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
     end
     resources :items, only: [:update, :destroy]
     resources :templates, only: [:update]
+    resources :text_messages, only: [:create]
   end
 
   namespace :admin do

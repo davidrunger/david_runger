@@ -2,7 +2,10 @@
   div#groceries-app
     header
       span Logged in as {{ bootstrap.current_user.email }}
-      a.sign-out(href='/sign_out' data-method='delete' rel='nofollow') Sign Out
+      | &nbsp;
+      a(:href="`/users/${bootstrap.current_user.id}/edit`") Edit Account
+      | &nbsp;
+      button.sign-out(href='/sign_out' data-method='delete' rel='nofollow') Sign Out
     div#page
       aside
         h1.regular.center.black-1.xs-mb10 Groceries
