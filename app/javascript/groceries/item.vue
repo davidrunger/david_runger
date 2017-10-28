@@ -1,11 +1,5 @@
 <template lang='pug'>
-  li(
-    :class='{unneeded: item.needed <= 0, "just-added": isJustAdded(item)}'
-    draggable="true"
-    @dragstart="drag()"
-    :data-id='item.id'
-    :data-store-id='item.store_id'
-  )
+  li(:class='{unneeded: item.needed <= 0, "just-added": isJustAdded(item)}')
     input(
       v-if='editingName'
       type='text'
@@ -36,12 +30,6 @@ export default {
   methods: {
     deleteItem(item) {
       this.$store.dispatch('deleteItem', item.id);
-    },
-
-    drag() {
-      const { event } = window;
-      const itemId = event.target.getAttribute('data-id');
-      event.dataTransfer.setData('itemId', itemId);
     },
 
     isJustAdded(item) {
