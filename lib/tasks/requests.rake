@@ -30,8 +30,3 @@ namespace :requests do
     puts "Done. Updated #{num_updated_requests}."
   end
 end
-
-Rake::Task['assets:precompile'].enhance(%w[
-  assets:clean_yarn_cache
-  assets:rmrf_node_module
-])

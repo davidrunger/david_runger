@@ -21,6 +21,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\/rails_assets\/.*\.js$/,
+        loader: 'script-loader',
+      },
+      {
         test: /\.js$|\.vue$/,
         enforce: 'pre',
         exclude: /node_modules/,
