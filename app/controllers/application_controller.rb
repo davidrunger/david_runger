@@ -1,22 +1,30 @@
 class ApplicationController < ActionController::Base
-  class StashRequestError < StandardError ; end
+  class StashRequestError < StandardError; end
 
   protect_from_forgery with: :exception
   before_action :store_request_data_in_redis
   before_action :authenticate_user!
 
   # not worth logging in `Request`s
-  BORING_PARAMS = %w[controller action request_uuid format _method authenticity_token utf8]
+  BORING_PARAMS = %w[
+    _method
+    action
+    authenticity_token
+    controller
+    format
+    request_uuid
+    utf8
+  ].map(&:freeze).freeze
   REQUEST_DATA_TTL = 60 # seconds to store data in Redis for later turning into a Request model
 
   private
 
   def authenticate_user!
-    if !user_signed_in?
-      flash[:alert] = 'You must sign in first.'
-      session['user_redirect_to'] = request.path
-      redirect_to login_path
-    end
+    return if user_signed_in?
+
+    flash[:alert] = 'You must sign in first.'
+    session['user_redirect_to'] = request.path
+    redirect_to(login_path)
   end
 
   def bootstrap(data)
@@ -24,7 +32,7 @@ class ApplicationController < ActionController::Base
     @bootstrap_data.merge!(data)
   end
 
-  def after_sign_out_path_for(resource_or_scope)
+  def after_sign_out_path_for(_resource_or_scope)
     login_path
   end
 
@@ -51,10 +59,10 @@ class ApplicationController < ActionController::Base
     }
     begin
       $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
-    rescue => e
+    rescue
       # wrap the original exception in StashRequestError by raising and immediately rescuing
       begin
-        raise StashRequestError.new('Failed to store request data in redis')
+        raise(StashRequestError, 'Failed to store request data in redis')
       rescue StashRequestError => e
         Rails.logger.warn(<<-LOG.squish)
           Failed to store request data in redis,
@@ -62,7 +70,7 @@ class ApplicationController < ActionController::Base
           cause=#{e.cause&.class}: #{e.cause&.message},
           request_data=#{request_data.inspect}
         LOG
-        Rollbar.warning($!, request_data: request_data)
+        Rollbar.warning($ERROR_INFO, request_data: request_data)
       end
     end
   end
@@ -73,6 +81,6 @@ class ApplicationController < ActionController::Base
   end
 
   def render_json_error(message = 'There was a problem with your request', status = 400)
-    render json: {error: message}, status: status
+    render(json: { error: message }, status: status)
   end
 end
