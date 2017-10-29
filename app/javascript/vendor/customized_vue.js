@@ -15,6 +15,8 @@ Vue.prototype.$http = axios;
 
 Vue.prototype.bootstrap = window.davidrunger && window.davidrunger.bootstrap;
 
+Vue.prototype.$routes = window.Routes;
+
 Vue.config.productionTip = false;
 
 Vue.use(Vuex);

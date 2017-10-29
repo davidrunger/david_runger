@@ -3,9 +3,13 @@
     header
       span Logged in as {{ bootstrap.current_user.email }}
       | &nbsp;
-      a(:href="`/users/${bootstrap.current_user.id}/edit`") Edit Account
+      a(:href="$routes.edit_user_path(bootstrap.current_user)") Edit Account
       | &nbsp;
-      button.sign-out(href='/sign_out' data-method='delete' rel='nofollow') Sign Out
+      button.sign-out(
+        :href='$routes.destroy_user_session_path()'
+        data-method='delete'
+        rel='nofollow'
+      ) Sign Out
     div#page
       aside
         h1.regular.center.black-1.xs-mb10 Groceries
@@ -57,7 +61,7 @@ export default {
 
   methods: {
     deleteStore(store) {
-      this.$http.delete(`api/stores/${store.id}`);
+      this.$http.delete(this.$routes.api_store_path(store.id));
       this.$store.commit('deleteStore', store.id);
     },
 
@@ -83,7 +87,7 @@ export default {
           name: this.newStoreName,
         },
       };
-      this.$http.post('api/stores', payload).then(response => {
+      this.$http.post(this.$routes.api_stores_path(), payload).then(response => {
         this.newStoreName = '';
         this.$store.state.postingStore = false;
         const newStore = response.data;

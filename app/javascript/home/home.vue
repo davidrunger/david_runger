@@ -149,7 +149,7 @@ div
           td.
             I think that Vue is one of the best client-side frameworks/libraries out there, and I'm
             really hoping that its popularity continues to grow. I keep track of my grocery list
-            using #[a(href='/groceries') an app that I built with Vue].
+            using #[a(:href='$routes.groceries_path()') an app that I built with Vue].
         tr
           td #[i.devicon-webpack-plain-wordmark.colored]
           td Webpack
