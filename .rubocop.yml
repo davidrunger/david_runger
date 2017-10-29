@@ -1,0 +1,15 @@
+AllCops:
+  EnabledByDefault: true
+  TargetRubyVersion: 2.4
+Metrics/LineLength:
+  Max: 100
+Rails:
+  Enabled: true
+Style/Copyright:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/InlineComment:
+  Enabled: false
