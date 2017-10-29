@@ -40,10 +40,8 @@ namespace :spec do
     run_logged_system_command('yarn --version')
     run_logged_system_command('webpack --version')
     run_logged_system_command('bin/setup-mocha-tests')
-    run_logged_system_command(
-      "NODE_ENV=test #{Rails.root.join('bin/webpack-dev-server')}",
-      background: true,
-    )
+    run_dev_server = Rails.root.join('bin', 'webpack-dev-server')
+    run_logged_system_command("NODE_ENV=test #{run_dev_server}", background: true)
     puts 'Waiting for webpack-dev-server to boot up ...'
     120.times do # wait up to 2 minutes for webpack-dev-server to start, checking each second
       sleep(1)

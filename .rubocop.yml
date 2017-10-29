@@ -1,15 +1,24 @@
 AllCops:
   EnabledByDefault: true
   TargetRubyVersion: 2.4
+Lint/RescueWithoutErrorClass:
+  Enabled: false
 Metrics/LineLength:
   Max: 100
+Metrics/MethodLength:
+  Max: 20
 Rails:
   Enabled: true
 Style/Copyright:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/DocumentationMethod:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/InlineComment:
   Enabled: false
+Style/MethodCallWithArgsParentheses:
+  IgnoredMethods:
+    - puts
