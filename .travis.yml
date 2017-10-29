@@ -1,8 +1,8 @@
 language: ruby
 cache:
+  bundler: true
   directories:
     - node_modules
-    - vendor/bundle
 rvm:
   - "2.4.2"
 services:
@@ -17,10 +17,8 @@ before_install:
   - nvm use v8.7.0
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.2.1
   - export PATH="$HOME/.yarn/bin:$PATH"
-install:
-  - bundle install
-  - yarn install
 script:
+  - yarn install
   - bin/rake db:create
   - bin/rake db:schema:load
   - bin/rake spec:fixture_builder:rebuild
