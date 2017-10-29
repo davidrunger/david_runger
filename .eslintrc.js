@@ -15,6 +15,7 @@ module.exports = {
     'arrow-parens': 'off',
     'function-paren-newline': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'import/prefer-default-export': 'off',
     'max-len': ['warn', 100],
     'no-debugger': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-else-return': 'off',

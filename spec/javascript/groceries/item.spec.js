@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import Vuex from 'vuex';
 import Item from 'groceries/item.vue';
 import { groceryVuexStoreFactory } from 'groceries/store';
+import * as tu from 'test_utils';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -45,9 +46,7 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
   });
 
   it('renders item.name in a span', () => {
-    expect(
-      _.some(wrapper.findAll('span').wrappers, span => span.text() === 'bananas'),
-    ).toBeTruthy();
+    expect(tu.find(wrapper, 'span:text(bananas)')).toExist();
   });
 
   it('doesnt initially contain a text input', () => {
