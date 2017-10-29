@@ -17,8 +17,12 @@ Style/DocumentationMethod:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
+Style/GlobalVars:
+  Enabled: false
 Style/InlineComment:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - puts
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
