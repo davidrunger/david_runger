@@ -23,6 +23,7 @@ Style/InlineComment:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - head
     - puts
     - render
 Style/TrailingCommaInArguments:
