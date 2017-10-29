@@ -24,5 +24,8 @@ Style/InlineComment:
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - puts
+    - render
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
