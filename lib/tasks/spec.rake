@@ -39,7 +39,6 @@ namespace :spec do
     run_logged_system_command('node --version')
     run_logged_system_command('yarn --version')
     run_logged_system_command('webpack --version')
-    run_logged_system_command('yarn install')
     run_logged_system_command('bin/setup-mocha-tests')
     run_logged_system_command(
       "NODE_ENV=test #{Rails.root.join('bin/webpack-dev-server')}",
