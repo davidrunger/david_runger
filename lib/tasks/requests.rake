@@ -1,32 +1,38 @@
 namespace :requests do
-  max_locations_to_fetch = 10 # the API we are using limits us to 150 req/min; we'll just do 10
+  # the API we are using limits us to 100 IPs per request (and 150 req/min)
+  MAX_LOCATIONS_TO_FETCH = 100
 
   desc 'Fetch and store locations for requests that lack one'
   task fetch_locations: :environment do
-    num_updated_requests = 0
-    requests = Request.
-      where(location: nil).
-      where.not(ip: nil).
-      ordered.
-      limit(max_locations_to_fetch)
-    puts "About to update #{requests.size} requests with location information."
+    ip_addresses_to_lookup =
+      Request.
+        select('DISTINCT ON (ip) ip').
+        where(location: nil).
+        where.not(ip: nil).
+        limit(MAX_LOCATIONS_TO_FETCH).
+        map(&:ip) # map rather than pluck so as not to override the DISTINCT ON select
 
-    requests.find_each do |request|
-      ip_address = request.ip
+    puts "About to lookup location data for #{ip_addresses_to_lookup.size} IP addresses"
 
-      location_data = HTTParty.get("http://ip-api.com/json/#{ip_address}").parsed_response
-      city, country_code = location_data&.values_at('city', 'countryCode')
-      if city.blank? && country_code.blank?
-        puts "Failed to fetch a location for ip #{ip_address}, data=#{location_data.to_json}"
-        next
+    post_request_body = ip_addresses_to_lookup.map { |ip| { query: ip } }.to_json
+    location_data = HTTParty.post(
+      'http://ip-api.com/batch',
+      body: post_request_body,
+    ).parsed_response
+
+    ip_address_locations = Hash[location_data.map do |location_datum|
+      ip_address, city, state, country =
+        location_datum.values_at(*%w[query city region countryCode])
+      [ip_address, "#{city}, #{state}, #{country}"]
+    end]
+
+    ip_address_locations.each do |ip_address, location|
+      Request.where(ip: ip_address, location: nil).each do |request|
+        request.update!(location: location)
+        puts "Updated Request #{request.id} to have location #{location}"
       end
-
-      location = "#{city}, #{country_code}"
-      request.update!(location: location)
-      num_updated_requests += 1
-      puts "Updated Request #{request.id} (ip #{ip_address}) with location #{location}"
     end
 
-    puts "Done. Updated #{num_updated_requests}."
+    puts 'Done updating IP address locations'
   end
 end

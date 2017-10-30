@@ -1,7 +1,13 @@
 AllCops:
   EnabledByDefault: true
   TargetRubyVersion: 2.4
+Layout/DotPosition:
+  EnforcedStyle: trailing
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
 Lint/RescueWithoutErrorClass:
+  Enabled: false
+Lint/UnneededSplatExpansion:
   Enabled: false
 Metrics/LineLength:
   Max: 100
@@ -26,6 +32,8 @@ Style/MethodCallWithArgsParentheses:
     - head
     - puts
     - render
+Style/MissingElse:
+  Enabled: false
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInLiteral:
