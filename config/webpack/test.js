@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
-const extractCSS = new ExtractTextPlugin('[name]-[contenthash].css');
+const extractCSS = new ExtractTextPlugin('[name].css');
 environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
   use: extractCSS.extract({
@@ -18,7 +18,7 @@ environment.loaders.set('style', {
 
 const testConfig = merge(environment.toWebpackConfig(), shared, {
   entry: {
-    application: resolve(__dirname, '../../app/javascript/packs/application.js'),
+    application: resolve(__dirname, '../../app/javascript/shared/common.js'),
   },
   devtool: 'inline-cheap-module-source-map',
   module: {
