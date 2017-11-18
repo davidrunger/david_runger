@@ -15,7 +15,7 @@
     <%- if Rails.env.development? %>
       <%= javascript_pack_tag 'styles' %>
     <%- else %>
-      <%= stylesheet_pack_tag 'styles' %>
+      <link rel="stylesheet" href="<%= asset_pack_path 'styles.css' %>">
     <%- end%>
     <%= content_for :extra_javascript %>
     <link href="//fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">

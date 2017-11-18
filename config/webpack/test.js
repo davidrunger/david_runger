@@ -5,8 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
-const extractCSS = new ExtractTextPlugin('[name].css');
-
+const extractCSS = new ExtractTextPlugin('[name]-[contenthash].css');
 environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
   use: extractCSS.extract({
