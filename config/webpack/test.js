@@ -17,9 +17,6 @@ environment.loaders.set('style', {
 });
 
 const testConfig = merge(environment.toWebpackConfig(), shared, {
-  entry: {
-    application: resolve(__dirname, '../../app/javascript/shared/common.js'),
-  },
   devtool: 'inline-cheap-module-source-map',
   module: {
     rules: [
