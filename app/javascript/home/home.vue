@@ -141,8 +141,8 @@ div
           td #[i.devicon-sass-plain.colored]
           td Sass
           td.
-            It's in the name - syntactically awesome style sheets. Why write CSS when you could
-            write SASS? :)
+            It's in the name - syntactically awesome style sheets. Why write CSS when you can write
+            Sass? :)
         tr
           td #[i.devicon-vuejs-plain-wordmark.colored]
           td VueJS
