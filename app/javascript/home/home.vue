@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  #home.flex.flex-column.relative.vh-100.align-items-center.justify-content-space-around.background-black.font-white-dark.p-5.hero-blue-topo
+  #home.flex.flex-column.relative.vh-100.items-center.justify-around.background-black.font-white-dark.p-5.hero-blue-topo
     .spacer.flex-grow-1
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
     //- the top of the page
@@ -11,7 +11,7 @@ div
     header#header.fixed-top.flex-grow-1.flex.background-black.width-100.relative
       .font-size-4.js-link.js-scroll-top.m-l-3
         a.monospace.font-blue-light(href='#home') David Runger
-      nav#nav.flex.justify-content-space-around.absolute.m-r-4
+      nav#nav.flex.justify-around.absolute.m-r-4
         a.nav-link(href='#about')
           span.ptb-1 About
         a.nav-link(href='#skills')
@@ -22,7 +22,7 @@ div
           span.ptb-1 Resume
         a.nav-link(href='#contact')
           span.ptb-1 Contact
-    a.down-arrow-container.flex-grow-0(href='#about')
+    a.down-arrow-container(href='#about')
       i.fa.fa-angle-double-down(aria-hidden='true')
 
   HomeSection(section='about', title='About me', color-palette='PuBu')
@@ -45,7 +45,7 @@ div
           #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
           bus driver, and a long haul truck driver.
 
-      .pr-6.text-center.flex-1.flex.align-items-center
+      .pr-6.text-center.flex-1.flex.items-center
         img.about-image(src='~img/david.jpg' alt='A picture of me')
 
   HomeSection(section='skills', title='Skills / Technologies', color-palette='Purples')

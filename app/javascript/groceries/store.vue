@@ -13,7 +13,7 @@
             li(v-for='(item, index) in neededItems' :key='item.id')
               input(type='checkbox' v-model='itemsToZero' :value='item' :id='`trip-checkin-item-${item.id}`')
               label(:for='`trip-checkin-item-${item.id}`') {{item.name}}
-          div.flex.justify-content-space-between
+          div.flex.justify-between
             button(@click='itemsToZero = []; showModal = false') Cancel
             button(@click='handleTripCheckinModalSubmit') Set checked items to 0 needed
       | &nbsp;
