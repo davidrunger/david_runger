@@ -936,6 +936,12 @@ basscss-background-colors@^2.1.0:
   dependencies:
     colors.css "^3.0.0"
 
+basscss-border-colors@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/basscss-border-colors/-/basscss-border-colors-2.1.0.tgz#4abe03915776a2ce857aa1498ec5b2ec6c09d8dc"
+  dependencies:
+    colors.css "^3.0.0"
+
 basscss-border@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/basscss-border/-/basscss-border-4.0.2.tgz#14b4506329b90cb14abe5f4d3473e9fe9202df2e"
