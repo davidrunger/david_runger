@@ -11,16 +11,17 @@
             data-method='delete'
             rel='nofollow'
           ) Sign Out
-        .py2.px1
-          form.add-store.center(@submit='postNewStore')
-            input.float-left(type='text' ref='storeName' v-model='newStoreName'
+        .p2
+          form.add-store.flex(@submit='postNewStore')
+            el-input.flex-1.mr1(
+              type='text'
+              ref='storeName'
+              v-model='newStoreName'
               placeholder='Add a store'
             )
-            input.button.button-outline.float-left.ml2(
-              type='submit' value='Add' :disabled='postingStore'
-            )
+            el-input.flex-0(type='submit' value='Add' :disabled='postingStore')
           ul.stores-list
-            li.js-link.stores-list__item.h3.m2.py1.px2(
+            li.js-link.stores-list__item.h3.my2.py1.px2(
               v-for='store in sortedStores'
               :class='{selected: store === currentStore}'
               @click='$store.commit("selectStore", store.id)'
