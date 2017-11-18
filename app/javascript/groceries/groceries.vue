@@ -75,10 +75,6 @@ export default {
       });
     },
 
-    selectStore(store) {
-      this.currentStore = store;
-    },
-
     postNewStore(event) {
       event.preventDefault();
       this.$store.state.postingStore = true;
@@ -92,7 +88,7 @@ export default {
         this.$store.state.postingStore = false;
         const newStore = response.data;
         this.stores.unshift(newStore);
-        this.currentStore = newStore;
+        this.$store.commit('selectStore', newStore.id);
       });
     },
   },
