@@ -9,7 +9,7 @@ div
         span David Runger
       #headline-subtitle.font-size-3.light Full stack web developer
     header#header.fixed-top.flex-grow-1.flex.background-black.width-100.relative
-      #header-name.font-size-4.js-link.js-scroll-top.m-l-3
+      .font-size-4.js-link.js-scroll-top.m-l-3
         a.monospace.font-blue-light(href='#home') David Runger
       nav#nav.flex.justify-content-space-around.absolute.m-r-4
         a.nav-link(href='#about')
@@ -414,15 +414,6 @@ i[class^=devicon-] {
   top: 0;
   line-height: 56px;
   z-index: 1;
-
-  #header-name {
-    opacity: 0;
-  }
-
-  #header-name {
-    opacity: 1;
-    animation: delayed-fade-in $transition-medium;
-  }
 
   #nav {
     width: 500px;
