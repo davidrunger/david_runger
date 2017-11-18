@@ -15,8 +15,9 @@
 
 $fa-font-path: "~font-awesome/fonts";
 
-@import "../../../node_modules/font-awesome/scss/font-awesome";
 @import "vendor/reset";
+@import "../../../node_modules/font-awesome/scss/font-awesome";
+@import "vendor/hero";
 @import "variables";
 @import "elements";
 @import "animations";
