@@ -18,6 +18,7 @@ environment.loaders.set('style', {
 const productionConfig = merge(environment.toWebpackConfig(), shared, {
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    extractCSS,
   ],
 });
 
