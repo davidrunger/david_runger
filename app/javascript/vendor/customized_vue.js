@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { Drag, Drop } from 'vue-drag-drop';
 import modal from 'components/modal.vue';
+import 'shared/common';
 
 const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
 if (csrfMetaTag) {
