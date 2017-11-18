@@ -17,6 +17,7 @@ $fa-font-path: "~font-awesome/fonts";
 
 @import "vendor/reset";
 @import "../../../node_modules/font-awesome/scss/font-awesome";
+@import '~basscss/css/basscss.css';
 @import "vendor/hero";
 @import "variables";
 @import "elements";
