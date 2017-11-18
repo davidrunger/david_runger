@@ -7,11 +7,11 @@ div
     #headline-container.flex-grow-1(data-section='')
       #headline-name.monospace.font-size-1.font-blue-light.pb-5.mb-5.border-bottom.border-gray.pb-2
         span David Runger
-      #headline-subtitle.font-size-3.light Full stack web developer
+      #headline-subtitle.sans-serif.font-size-3.light Full stack web developer
     header#header.fixed-top.flex-grow-1.flex.bg-black.width-100.relative
       .font-size-4.js-link.js-scroll-top.m-l-3
         a.monospace.font-blue-light(href='#home') David Runger
-      nav#nav.flex.justify-around.absolute.m-r-4
+      nav#nav.sans-serif.flex.justify-around.absolute.m-r-4
         a.nav-link(href='#about')
           span.ptb-1 About
         a.nav-link(href='#skills')
