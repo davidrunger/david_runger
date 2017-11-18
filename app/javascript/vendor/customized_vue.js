@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { Input } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import { Drag, Drop } from 'vue-drag-drop';
 import modal from 'components/modal.vue';
@@ -21,6 +23,7 @@ Vue.prototype.$routes = window.Routes;
 Vue.config.productionTip = false;
 
 Vue.use(Vuex);
+Vue.use(Input);
 
 Vue.component('modal', modal);
 Vue.component('drag', Drag);
