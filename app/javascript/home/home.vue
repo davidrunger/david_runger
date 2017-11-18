@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  #home.flex.flex-column.relative.vh-100.items-center.justify-around.background-black.font-white-dark.p-5.hero-blue-topo
+  #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p-5.hero-blue-topo
     .spacer.flex-grow-1
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
     //- the top of the page
@@ -8,7 +8,7 @@ div
       #headline-name.monospace.font-size-1.font-blue-light.pb-5.mb-5.border-b-1.border-gray-dark.pb-2
         span David Runger
       #headline-subtitle.font-size-3.light Full stack web developer
-    header#header.fixed-top.flex-grow-1.flex.background-black.width-100.relative
+    header#header.fixed-top.flex-grow-1.flex.bg-black.width-100.relative
       .font-size-4.js-link.js-scroll-top.m-l-3
         a.monospace.font-blue-light(href='#home') David Runger
       nav#nav.flex.justify-around.absolute.m-r-4
