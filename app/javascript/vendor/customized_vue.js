@@ -26,3 +26,19 @@ Vue.component('drag', Drag);
 Vue.component('drop', Drop);
 
 export default Vue;
+
+export function renderApp(vueApp, options = {}) {
+  const _renderApp = () => {
+    document.body.appendChild(document.createElement('replaced-container'));
+    new Vue({ render: h => h(vueApp), ...options }).$mount('replaced-container');
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // to prevent FOUC in development, pause briefly (to parse CSS source maps) before rendering
+    if (window.davidrunger.env === 'development') {
+      setTimeout(_renderApp, 150);
+    } else {
+      _renderApp();
+    }
+  });
+}
