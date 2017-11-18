@@ -21,6 +21,7 @@ module.exports = {
     'no-else-return': 'off',
     'no-new': 'off',
     'no-param-reassign': 'off',
+    'no-underscore-dangle': 'off',
     'no-use-before-define': ['error', { functions: false }],
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'object-curly-newline': ['error', {
