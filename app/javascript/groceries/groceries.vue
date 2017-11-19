@@ -1,16 +1,6 @@
 <template lang="pug">
   div#groceries-app
-    header
-      span Logged in as {{ bootstrap.current_user.email }}
-      | &nbsp;
-      a(:href="$routes.edit_user_path(bootstrap.current_user)") Edit Account
-      | &nbsp;
-      button.sign-out(
-        :href='$routes.destroy_user_session_path()'
-        data-method='delete'
-        rel='nofollow'
-      ) Sign Out
-    div#page
+    div#page.flex.vh-100
       aside
         h1.regular.center.black-1.xs-mb10 Groceries
         form.add-store(@submit='postNewStore')
@@ -29,6 +19,15 @@
               a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
               button.js-link.delete(@click='deleteStore(store)') ×
       main
+        div.right.right-align
+          div Logged in as {{ bootstrap.current_user.email }}
+          div
+            a(:href="$routes.edit_user_path(bootstrap.current_user)") Edit Account
+            button.sign-out(
+              :href='$routes.destroy_user_session_path()'
+              data-method='delete'
+              rel='nofollow'
+            ) Sign Out
         Store(v-if='currentStore' :store='currentStore')
 </template>
 
@@ -97,19 +96,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-$header_height: 20px;
-
-#groceries-app { font-family: "Open Sans", sans-serif; }
-
-header {
-  height: $header_height;
-  text-align: center;
-  background: #b8adff;
-}
-
-#page {
-  display: flex;
-  min-height: calc(100vh - #{$header_height});
+#groceries-app {
+  font-family: "Open Sans", sans-serif;
 }
 
 aside {
