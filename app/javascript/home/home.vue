@@ -45,7 +45,7 @@ div
           #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
           bus driver, and a long haul truck driver.
 
-      .pr-6.text-center.flex-1.flex.items-center
+      .pr-6.flex-1.flex.items-center
         img.about-image(src='~img/david.jpg' alt='A picture of me')
 
   HomeSection(section='skills', title='Skills / Technologies', color-palette='Purples')
