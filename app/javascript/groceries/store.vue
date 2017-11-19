@@ -22,7 +22,7 @@
       button.copy-to-clipboard Copy needed items to clipboard
       | &nbsp;
       span(v-if='wasCopiedRecently') Copied!
-      .spinner--circle(v-if='waitingOnNetwork')
+      .spinner--circle(v-if='debouncingOrWaitingOnNetwork')
 
     ul.items-list.mt0.mb0.pl1
       li
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { debounce, sortBy } from 'lodash';
 import Clipboard from 'clipboard';
 
@@ -50,7 +51,6 @@ export default {
       itemsToZero: [],
       newItemName: '',
       showModal: false,
-      waitingOnNetwork: false,
       wasCopiedRecently: false,
     };
   },
@@ -66,6 +66,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'debouncingOrWaitingOnNetwork',
+    ]),
+
     neededItems() {
       return this.sortItems(this.store.items.filter(item => item.needed > 0));
     },
@@ -101,12 +105,6 @@ export default {
       this.showModal = true;
     },
 
-    setNeeded(item, needed) {
-      this.$set(this, 'waitingOnNetwork', true);
-      item.needed = needed;
-      this.debouncedPatchItem(item.id, item.needed);
-    },
-
     // we need `function` for correct `this`
     // eslint-disable-next-line func-names
     debouncedPatchItem: debounce(function (itemId, newNeeded) {
@@ -114,13 +112,13 @@ export default {
         item: { needed: newNeeded },
       };
       this.$http.patch(this.$routes.api_item_path(itemId), payload).then(() => {
-        this.$set(this, 'waitingOnNetwork', false);
+        this.$store.commit('decrementPendingRequests');
       });
     }, 500),
 
     postNewItem(event) {
       event.preventDefault();
-      this.$set(this, 'waitingOnNetwork', true);
+      this.$store.commit('incrementPendingRequests');
       const payload = {
         item: {
           name: this.newItemName,
@@ -128,7 +126,7 @@ export default {
       };
       this.$http.post(this.$routes.api_store_items_path(this.store.id), payload).then(response => {
         this.newItemName = '';
-        this.$set(this, 'waitingOnNetwork', false);
+        this.$store.commit('decrementPendingRequests');
         this.store.items.unshift({ createdAt: (new Date()).valueOf(), ...response.data });
       });
     },

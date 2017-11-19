@@ -23,7 +23,7 @@
         ul.stores-list
           li.stores-list__item(
             v-for='store in sortedStores'
-            :class='{selected: store === $store.state.currentStore}'
+            :class='{selected: store === currentStore}'
           )
             drop(@drop='dropItem(store.id, ...arguments)')
               a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
@@ -43,14 +43,15 @@ export default {
   },
 
   computed: {
-    sortedStores() {
-      return sortBy(this.stores, store => store.name.toLowerCase());
-    },
     ...mapState([
       'currentStore',
       'postingStore',
       'stores',
     ]),
+
+    sortedStores() {
+      return sortBy(this.stores, store => store.name.toLowerCase());
+    },
   },
 
   data() {

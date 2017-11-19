@@ -38,6 +38,7 @@ export default {
     },
 
     setNeeded(item, needed) {
+      this.$store.commit('setCollectingDebounces', true);
       item.needed = needed;
       this.debouncedPatchItem(item.id, item.needed);
     },
@@ -58,7 +59,12 @@ export default {
       const payload = {
         item: { needed: newNeeded },
       };
-      this.$http.patch(this.$routes.api_item_path(itemId), payload);
+      this.$http.patch(this.$routes.api_item_path(itemId), payload).
+        then(() => { this.$store.commit('decrementPendingRequests'); });
+      this.$store.commit('incrementPendingRequests');
+      // set collectingDebounces to false _after_ incrementing pendingRequests so that
+      // debouncingOrWaitingOnNetwork stays consistently true
+      this.$store.commit('setCollectingDebounces', false);
     }, 500),
   },
 
