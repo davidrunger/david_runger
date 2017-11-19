@@ -8,7 +8,7 @@ div
       #headline-name.monospace.font-blue-light.pb-5.mb-5.border-bottom.border-gray.pb-2
         span David Runger
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
-    header#header.fixed-top.flex-grow-1.flex.bg-black.width-100.relative
+    header#header.fixed-top.flex-grow-1.flex.bg-black.col-12.relative
       .font-size-2.js-link.js-scroll-top.ml3
         a.monospace.font-blue-light(href='#home') David Runger
       nav#nav.sans-serif.flex.justify-around.absolute.mr4
