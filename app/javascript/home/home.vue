@@ -5,11 +5,11 @@ div
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
     //- the top of the page
     #headline-container.flex-grow-1(data-section='')
-      #headline-name.monospace.font-size-1.font-blue-light.pb-5.mb-5.border-bottom.border-gray.pb-2
+      #headline-name.monospace.font-blue-light.pb-5.mb-5.border-bottom.border-gray.pb-2
         span David Runger
-      #headline-subtitle.sans-serif.font-size-3.light Full stack web developer
+      #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
     header#header.fixed-top.flex-grow-1.flex.bg-black.width-100.relative
-      .font-size-4.js-link.js-scroll-top.ml3
+      .font-size-2.js-link.js-scroll-top.ml3
         a.monospace.font-blue-light(href='#home') David Runger
       nav#nav.sans-serif.flex.justify-around.absolute.mr4
         a.nav-link(href='#about')
@@ -124,8 +124,9 @@ div
           td #[img(src='~img/rspec.png' alt='Elasticsearch' style='height: 65px')]
           td RSpec
           td.
-            I #[i love] testing. (I write more lines of spec code per line of application code than
-            any other developer on the team at Hired.) RSpec makes tests readable and easy to write.
+            I #[em.italic love] testing. (I write more lines of spec code per line of application
+            code than any other developer on the team at Hired.) RSpec makes tests readable and easy
+            to write.
         tr
           td #[i.devicon-ruby-plain-wordmark.colored]
           td Ruby
@@ -403,6 +404,14 @@ export default {
 
 <style lang='scss' scoped>
 @import '~css/variables';
+
+#headline-name {
+  font-size: 80px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 40px;
+  }
+}
 
 i[class^=devicon-] {
   font-size: 65px;
