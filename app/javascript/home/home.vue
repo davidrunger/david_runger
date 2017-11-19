@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p-5.hero-blue-topo
+  #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.hero-blue-topo
     .spacer.flex-grow-1
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
     //- the top of the page
@@ -27,7 +27,7 @@ div
 
   HomeSection(section='about', title='About me', color-palette='PuBu')
     .flex
-      .about-me.flex-2.background--translucent-white.mr4.p-3
+      .about-me.flex-2.background--translucent-white.mr4.p3
         p.
 
           I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
