@@ -17,6 +17,13 @@ const mutations = {
     state.stores = state.stores.filter(store => store.id !== id);
   },
 
+  decrementPendingRequests(state) {
+    state.pendingRequests -= 1;
+  },
+
+  incrementPendingRequests(state) {
+    state.pendingRequests += 1;
+  },
 
   moveItem(state, { itemId, newStoreId }) {
     const item = _.remove(state.currentStore.items, { id: itemId })[0];
@@ -27,6 +34,10 @@ const mutations = {
 
   selectStore(state, id) {
     state.currentStore = _.find(state.stores, { id });
+  },
+
+  setCollectingDebounces(state, value) {
+    state.collectingDebounces = value;
   },
 };
 
@@ -55,12 +66,20 @@ const actions = {
   },
 };
 
+const getters = {
+  debouncingOrWaitingOnNetwork(state) {
+    return state.collectingDebounces || (state.pendingRequests > 0);
+  },
+};
+
 function initialState(bootstrap) {
   return Object.assign({},
     bootstrap,
     {
-      postingStore: false,
+      collectingDebounces: false,
       currentStore: bootstrap.stores[0],
+      pendingRequests: 0,
+      postingStore: false,
     },
   );
 }
@@ -69,7 +88,8 @@ function initialState(bootstrap) {
 export function groceryVuexStoreFactory(bootstrap) {
   return new Vuex.Store({
     state: initialState(bootstrap),
-    mutations,
     actions,
+    getters,
+    mutations,
   });
 }
