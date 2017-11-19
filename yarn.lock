@@ -936,6 +936,10 @@ basscss-background-colors@^2.1.0:
   dependencies:
     colors.css "^3.0.0"
 
+basscss-background-images@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/basscss-background-images/-/basscss-background-images-0.1.1.tgz#78f54948603c426a2b8da46a33413c74edca3ca9"
+
 basscss-border-colors@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/basscss-border-colors/-/basscss-border-colors-2.1.0.tgz#4abe03915776a2ce857aa1498ec5b2ec6c09d8dc"
@@ -945,6 +949,12 @@ basscss-border-colors@^2.1.0:
 basscss-border@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/basscss-border/-/basscss-border-4.0.2.tgz#14b4506329b90cb14abe5f4d3473e9fe9202df2e"
+
+basscss-colors@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/basscss-colors/-/basscss-colors-2.2.0.tgz#dccb773e272efe45df4a480962c8bd88b6a6b3e1"
+  dependencies:
+    colors.css "^3.0.0"
 
 basscss-flexbox@^1.0.1:
   version "1.0.1"

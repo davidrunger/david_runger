@@ -1,7 +1,8 @@
 <template lang="pug">
   div.mt1.mb2
-    h1.store-name.bold.mb2
+    h2.h2.store-name.bold.my2
       span {{ store.name }}
+      span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
     div.mb2
       button(id="show-modal" @click='initializeTripCheckinModal()').
         Check In Shopping Trip
@@ -22,7 +23,6 @@
       button.copy-to-clipboard Copy needed items to clipboard
       | &nbsp;
       span(v-if='wasCopiedRecently') Copied!
-      .spinner--circle(v-if='debouncingOrWaitingOnNetwork')
 
     ul.items-list.mt0.mb0.pl1
       li
@@ -30,7 +30,7 @@
           input#item-name-input.float-left(type='text' ref='itemName' v-model='newItemName'
             placeholder='Add an item'
           )
-          input#add-item-button.button.button-outline.float-left.ml2(type='submit' value='Add')
+          input#add-item-button.button.button-outline.float-left.ml1(type='submit' value='Add')
       Item(v-for='item in sortedItems' :item="item" :key="item.id")
 </template>
 
@@ -143,18 +143,8 @@ export default {
 </script>
 
 <style scoped>
-h1 { font-size: 22px; }
-
-#needed {
-  margin-bottom: 20px;
-}
-
 .spinner--circle {
-  margin-left: 8px;
-  display: inline-block;
   height: 14px;
   width: 14px;
 }
-
-.add-item-button { text-align: text-bottom; }
 </style>

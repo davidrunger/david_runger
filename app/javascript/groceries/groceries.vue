@@ -1,9 +1,8 @@
 <template lang="pug">
-  div#groceries-app
+  div#groceries-app.sans-serif
     div#page.flex.vh-100
-      aside
-        h1.regular.center.black-1.xs-mb10 Groceries
-        form.add-store(@submit='postNewStore')
+      aside.py2.px1.border-right.border-gray
+        form.add-store.center(@submit='postNewStore')
           input.float-left(type='text' ref='storeName' v-model='newStoreName'
             placeholder='Add a store'
           )
@@ -11,19 +10,20 @@
             type='submit' value='Add' :disabled='postingStore'
           )
         ul.stores-list
-          li.stores-list__item(
+          li.js-link.stores-list__item.h3.m2.py1.px2(
             v-for='store in sortedStores'
             :class='{selected: store === currentStore}'
+            @click='$store.commit("selectStore", store.id)'
           )
             drop(@drop='dropItem(store.id, ...arguments)')
-              a.js-link.store-name(@click='$store.commit("selectStore", store.id)') {{store.name}}
-              button.js-link.delete(@click='deleteStore(store)') ×
-      main
+              a.store-name {{store.name}}
+              a.js-link.right(@click.stop='deleteStore(store)') &times;
+      main.flex-1.bg-cover.pl3.pr1.py1
         div.right.right-align
           div Logged in as {{ bootstrap.current_user.email }}
           div
-            a(:href="$routes.edit_user_path(bootstrap.current_user)") Edit Account
-            button.sign-out(
+            a.mr1(:href="$routes.edit_user_path(bootstrap.current_user)") Edit Account
+            button(
               :href='$routes.destroy_user_session_path()'
               data-method='delete'
               rel='nofollow'
@@ -96,13 +96,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-#groceries-app {
-  font-family: "Open Sans", sans-serif;
-}
-
 aside {
-  padding: 10px;
-  background: lightgreen;
+  background: linear-gradient(to bottom, #458fc0 0%, #a8b2ce 50%, #b6bcd5 100%);
 
   @media screen and (max-width: 399px) {
     min-width: 150px;
@@ -118,45 +113,15 @@ aside {
 }
 
 main {
-  flex: 1;
-  padding: 10px;
-  background: lightblue;
+  background-image: url('~img/beach-background.jpg');
 }
-
-.sign-out { margin-left: 10px; }
-
-h1 {
-  font-size: 25px;
-  text-align: center;
-}
-
-form.add-store { text-align: center; }
 
 .stores-list__item {
-  display: flex;
   background: rgba(255, 255, 255, 0.5);
-  font-size: 20px;
-  margin: 15px;
-  padding: 5px 10px;
 
   &.selected {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.75);
     font-weight: bold;
-  }
-
-  .store-name {
-    flex: 1;
-  }
-
-  .delete {
-    color: crimson;
-    height: 20px;
-    width: 20px;
-    margin-left: 10px;
-    font-weight: bold;
-    font-size: 15px;
-    text-align: center;
-    padding: 0;
   }
 }
 </style>
