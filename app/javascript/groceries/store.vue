@@ -1,13 +1,13 @@
 <template lang="pug">
   div.mt1.mb2
-    h1.store-name.bold.m-b-1
+    h1.store-name.bold.mb2
       span {{ store.name }}
-    div.m-b-1
+    div.mb2
       button(id="show-modal" @click='initializeTripCheckinModal()').
         Check In Shopping Trip
       modal(v-if="showModal")
         slot
-          h3.bold.fonst-size-2.m-b-1.
+          h3.bold.fonst-size-2.mb2.
             Uncheck any items you #[i didn't] get.
           ul
             li(v-for='(item, index) in neededItems' :key='item.id')

@@ -9,9 +9,9 @@ div
         span David Runger
       #headline-subtitle.sans-serif.font-size-3.light Full stack web developer
     header#header.fixed-top.flex-grow-1.flex.bg-black.width-100.relative
-      .font-size-4.js-link.js-scroll-top.m-l-3
+      .font-size-4.js-link.js-scroll-top.ml3
         a.monospace.font-blue-light(href='#home') David Runger
-      nav#nav.sans-serif.flex.justify-around.absolute.m-r-4
+      nav#nav.sans-serif.flex.justify-around.absolute.mr4
         a.nav-link(href='#about')
           span.ptb-1 About
         a.nav-link(href='#skills')
@@ -27,7 +27,7 @@ div
 
   HomeSection(section='about', title='About me', color-palette='PuBu')
     .flex
-      .about-me.flex-2.background--translucent-white.m-r-5.p-3
+      .about-me.flex-2.background--translucent-white.mr4.p-3
         p.
 
           I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
