@@ -972,6 +972,10 @@ basscss-layout@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/basscss-layout/-/basscss-layout-3.1.0.tgz#f9f392e480da66657d9fe5de9ca4c07c579c3a4e"
 
+basscss-lighten@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/basscss-lighten/-/basscss-lighten-1.1.0.tgz#37b59d0d90905045313c963a52d45165d897a6a5"
+
 basscss-margin@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/basscss-margin/-/basscss-margin-1.0.7.tgz#5a92d8cda98ef391c73a15ede97b34b48886417c"
