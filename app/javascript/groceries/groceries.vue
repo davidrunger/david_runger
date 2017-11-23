@@ -1,33 +1,34 @@
 <template lang="pug">
   div#groceries-app.sans-serif
     div#page.flex.vh-100
-      aside.py2.px1.border-right.border-gray
-        form.add-store.center(@submit='postNewStore')
-          input.float-left(type='text' ref='storeName' v-model='newStoreName'
-            placeholder='Add a store'
-          )
-          input.button.button-outline.float-left.ml2(
-            type='submit' value='Add' :disabled='postingStore'
-          )
-        ul.stores-list
-          li.js-link.stores-list__item.h3.m2.py1.px2(
-            v-for='store in sortedStores'
-            :class='{selected: store === currentStore}'
-            @click='$store.commit("selectStore", store.id)'
-          )
-            drop(@drop='dropItem(store.id, ...arguments)')
-              a.store-name {{store.name}}
-              a.js-link.right(@click.stop='deleteStore(store)') &times;
+      aside.border-right.border-gray
+        div.center.bg-white.bg-lighten-4.p1
+          | {{ bootstrap.current_user.email }} #[i.fa.fa-angle-down]
+        div
+          a.mr1(:href="$routes.edit_user_path(bootstrap.current_user)") Edit Account
+          button(
+            :href='$routes.destroy_user_session_path()'
+            data-method='delete'
+            rel='nofollow'
+          ) Sign Out
+        .py2.px1
+          form.add-store.center(@submit='postNewStore')
+            input.float-left(type='text' ref='storeName' v-model='newStoreName'
+              placeholder='Add a store'
+            )
+            input.button.button-outline.float-left.ml2(
+              type='submit' value='Add' :disabled='postingStore'
+            )
+          ul.stores-list
+            li.js-link.stores-list__item.h3.m2.py1.px2(
+              v-for='store in sortedStores'
+              :class='{selected: store === currentStore}'
+              @click='$store.commit("selectStore", store.id)'
+            )
+              drop(@drop='dropItem(store.id, ...arguments)')
+                a.store-name {{store.name}}
+                a.js-link.right(@click.stop='deleteStore(store)') &times;
       main.flex-1.bg-cover.pl3.pr1.py1
-        div.right.right-align
-          div Logged in as {{ bootstrap.current_user.email }}
-          div
-            a.mr1(:href="$routes.edit_user_path(bootstrap.current_user)") Edit Account
-            button(
-              :href='$routes.destroy_user_session_path()'
-              data-method='delete'
-              rel='nofollow'
-            ) Sign Out
         Store(v-if='currentStore' :store='currentStore')
 </template>
 
