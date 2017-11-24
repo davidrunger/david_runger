@@ -1,6 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { Input } from 'element-ui';
+import {
+  Button,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Input,
+} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import { Drag, Drop } from 'vue-drag-drop';
@@ -23,6 +29,11 @@ Vue.prototype.$routes = window.Routes;
 Vue.config.productionTip = false;
 
 Vue.use(Vuex);
+
+Vue.use(Button);
+Vue.use(Dropdown);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 Vue.use(Input);
 
 Vue.component('modal', modal);
