@@ -160,198 +160,194 @@ div
             development experience.
 
   HomeSection(section='projects', title='Projects', color-palette='Blues')
-    p
-      article.project.content
-        h3.title This website!
-        h4.technologies Rails 5, Vue.js, webpack(er)
-        h4.subtitle
-          a(:href='this.$routes.root_path()') Live
-          span #{' - '}
-          a(href='http://github.com/davidrunger/david_runger') GitHub
+    article.project.content
+      h3.title This website!
+      h4.technologies Rails 5, Vue.js, webpack(er)
+      h4.subtitle
+        a(:href='this.$routes.root_path()') Live
+        span #{' - '}
+        a(href='http://github.com/davidrunger/david_runger') GitHub
 
-        img(src='~img/davidrunger-dot-com-headline.png' alt='davidrunger.com')
+      img(src='~img/davidrunger-dot-com-headline.png' alt='davidrunger.com')
 
-        p.
+      p.
 
-          I feel extremely lucky to be the owner of the davidrunger.com domain! :) I use this
-          website to share some basic information about myself, as well as to host various little
-          apps that I build (such as the app that I use to keep track of my grocery list; see
-          below).
+        I feel extremely lucky to be the owner of the davidrunger.com domain! :) I use this
+        website to share some basic information about myself, as well as to host various little
+        apps that I build (such as the app that I use to keep track of my grocery list; see
+        below).
 
-        h3 Features
-        ul.features
-          li.
-            Leverages Rails 5's webpacker gem for Hot Module Replacement of HTML, JavaScript, and
-            CSS, creating a highly efficient development environment.
-          li Continuous integration and continuous deployment with Travis CI.
-          li Hosted by Heroku for simplicity, convenience, and easy deployment.
+      h3 Features
+      ul.features
+        li.
+          Leverages Rails 5's webpacker gem for Hot Module Replacement of HTML, JavaScript, and
+          CSS, creating a highly efficient development environment.
+        li Continuous integration and continuous deployment with Travis CI.
+        li Hosted by Heroku for simplicity, convenience, and easy deployment.
 
-    p
-      article.project.content
-        h3.title Groceries
-        h4.technologies Rails 5, Vue.js, Vuex, vue-test-utils, Mocha, headless Chrome, Nexmo
-        h4.subtitle
-          a(:href='this.$routes.groceries_path()') Live
-          span #{' - '}
-          a(
-            href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
-          ) GitHub
+    article.project.content
+      h3.title Groceries
+      h4.technologies Rails 5, Vue.js, Vuex, vue-test-utils, Mocha, headless Chrome, Nexmo
+      h4.subtitle
+        a(:href='this.$routes.groceries_path()') Live
+        span #{' - '}
+        a(
+          href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
+        ) GitHub
 
-        img(src='~img/groceries.jpg' alt='davidrunger.com groceries app')
+      img(src='~img/groceries.jpg' alt='davidrunger.com groceries app')
 
-        p.
+      p.
 
-          I don't own a smartphone, and I pretty much eat the same thing every day. In light of
-          these relatively unique parameters, I wanted an app that would allow me to efficiently
-          track and purchase groceries. Plus, I wanted to experiment with
-          #[a(href='https://vuejs.org/') Vue.js]. So I built
-          #[a(:href='this.$routes.groceries_path()') davidrunger.com/groceries]. I do actually use
-          this app to keep track of my needed grocery items, and then text the list to myself when
-          it's time for a shopping trip.
+        I don't own a smartphone, and I pretty much eat the same thing every day. In light of
+        these relatively unique parameters, I wanted an app that would allow me to efficiently
+        track and purchase groceries. Plus, I wanted to experiment with
+        #[a(href='https://vuejs.org/') Vue.js]. So I built
+        #[a(:href='this.$routes.groceries_path()') davidrunger.com/groceries]. I do actually use
+        this app to keep track of my needed grocery items, and then text the list to myself when
+        it's time for a shopping trip.
 
-        h3 Features
-        ul.features
-          li Leverages Rails 5 as a backend API to serve a Vue.js frontend application.
-          li Features Google OAuth integration for convenient sign-in.
-          li.
+      h3 Features
+      ul.features
+        li Leverages Rails 5 as a backend API to serve a Vue.js frontend application.
+        li Features Google OAuth integration for convenient sign-in.
+        li.
 
-            Uses Vuex for state management.
+          Uses Vuex for state management.
 
-          li.
+        li.
 
-            Features integration with #[a(href='https://www.nexmo.com/?') Nexmo], allowing users
-            to text themselves a list of currently needed grocery items.
+          Features integration with #[a(href='https://www.nexmo.com/?') Nexmo], allowing users
+          to text themselves a list of currently needed grocery items.
 
-          li.
-            Leverages Rails 5's webpacker gem for Hot Module Replacement of HTML, JavaScript, and
-            CSS, creating a highly efficient development environment.
-          li.
+        li.
+          Leverages Rails 5's webpacker gem for Hot Module Replacement of HTML, JavaScript, and
+          CSS, creating a highly efficient development environment.
+        li.
 
-            Uses the official #[a(href='https://github.com/vuejs/vue-test-utils') vue-test-utils]
-            library for Vue component unit testing. Vue unit tests are run as part of CI/CD via
-            Travis using Mocha and headless Chrome.
+          Uses the official #[a(href='https://github.com/vuejs/vue-test-utils') vue-test-utils]
+          library for Vue component unit testing. Vue unit tests are run as part of CI/CD via
+          Travis using Mocha and headless Chrome.
 
-    p
-      article.project.content
-        h3.title FastFeedback.io
-        h4.technologies Ruby on Rails, Backbone.js
-        h4.subtitle
-          a(href='http://www.fastfeedback.io') Live
-          span #{' - '}
-          a(href='http://github.com/davidrunger/fast_feedback') GitHub
+    article.project.content
+      h3.title FastFeedback.io
+      h4.technologies Ruby on Rails, Backbone.js
+      h4.subtitle
+        a(href='http://www.fastfeedback.io') Live
+        span #{' - '}
+        a(href='http://github.com/davidrunger/fast_feedback') GitHub
 
-        img(src='~img/fast_feedback.png' alt='FastFeedback.io')
+      img(src='~img/fast_feedback.png' alt='FastFeedback.io')
 
-        p.
+      p.
 
-          Do you need to engage your audience during a presentation? FastFeedback.io can help.
-          Prepare some interesting questions ahead of time, and browse through them as you make your
-          presentation. Your audience can cast votes using either a web interface or text messages.
-          A chart displaying the results dynamically updates in real-time as the votes come in!
+        Do you need to engage your audience during a presentation? FastFeedback.io can help.
+        Prepare some interesting questions ahead of time, and browse through them as you make your
+        presentation. Your audience can cast votes using either a web interface or text messages.
+        A chart displaying the results dynamically updates in real-time as the votes come in!
 
-        h3 Features
-        ul.features
-          li Entirely single-page app
-          li Rails back end serves a JSON API
-          li Backbone.js on the front end
-          li Integration with Nexmo API for text messages
-          li Highcharts.js library provides dynamic, animated charts
+      h3 Features
+      ul.features
+        li Entirely single-page app
+        li Rails back end serves a JSON API
+        li Backbone.js on the front end
+        li Integration with Nexmo API for text messages
+        li Highcharts.js library provides dynamic, animated charts
 
-      article.project.content
-        h3.title Rosetta Code Languages Selector
-        h4.technologies Chrome Extension, Capybara integration tests
-        h4.subtitle
-          a(href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg') Live
-          span #{' - '}
-          a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
+    article.project.content
+      h3.title Rosetta Code Languages Selector
+      h4.technologies Chrome Extension, Capybara integration tests
+      h4.subtitle
+        a(href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg') Live
+        span #{' - '}
+        a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
 
-        img(src='~img/rc-languages-selector.png' alt='Rosetta Code Languages Selector')
+      img(src='~img/rc-languages-selector.png' alt='Rosetta Code Languages Selector')
 
-        p.
-          #[a(href='http://rosettacode.org/wiki/Rosetta_Code') RosettaCode.org] is a great website
-          for comparing programming languages and/or learning a new language based on others that
-          you already know. However, for each sample programming task, there are so many
-          implementations available in different languages that it can be difficult to find the code
-          samples for the languages that you are focusing on. This extension solves that problem by
-          only showing code samples for languages that you have specifically selected.
+      p.
+        #[a(href='http://rosettacode.org/wiki/Rosetta_Code') RosettaCode.org] is a great website
+        for comparing programming languages and/or learning a new language based on others that
+        you already know. However, for each sample programming task, there are so many
+        implementations available in different languages that it can be difficult to find the code
+        samples for the languages that you are focusing on. This extension solves that problem by
+        only showing code samples for languages that you have specifically selected.
 
 
-        h3 Features
-        ul.features
-          li.
-            Comprehensive Capybara integration test suite allows for confident refactoring and
-            feature extension.
-          li.
-            Custom testing solution mimics the Chrome Extension API by monkeypatching the Capybara
-            library to automatically inject the extension's JavaScript and CSS assets into any page
-            visited during an integration test.
+      h3 Features
+      ul.features
+        li.
+          Comprehensive Capybara integration test suite allows for confident refactoring and
+          feature extension.
+        li.
+          Custom testing solution mimics the Chrome Extension API by monkeypatching the Capybara
+          library to automatically inject the extension's JavaScript and CSS assets into any page
+          visited during an integration test.
 
-      article.project.content
-        h3.title App Academy Picture Flashcard App
-        h4.technologies jQuery, object-oriented JavaScript
-        h4.subtitle
-          a(href='https://davidrunger.github.io/aa-picture-game/') Live
-          span #{' - '}
-          a(href='https://github.com/davidrunger/aa-picture-game') GitHub
+    article.project.content
+      h3.title App Academy Picture Flashcard App
+      h4.technologies jQuery, object-oriented JavaScript
+      h4.subtitle
+        a(href='https://davidrunger.github.io/aa-picture-game/') Live
+        span #{' - '}
+        a(href='https://github.com/davidrunger/aa-picture-game') GitHub
 
-        img(src='~img/aa-picture-game.png' alt='App Academy Picture Game')
+      img(src='~img/aa-picture-game.png' alt='App Academy Picture Game')
 
-        p.
-          This is a simple little tool built with jQuery for App Academy that we would always use to
-          help students and staff learn each other's names at the beginning of a new cohort. It's
-          very effective!
+      p.
+        This is a simple little tool built with jQuery for App Academy that we would always use to
+        help students and staff learn each other's names at the beginning of a new cohort. It's
+        very effective!
 
-        h3 Features
-        ul.features
+      h3 Features
+      ul.features
 
-          li.
-            An awesome loading spinner (built upon the work of
-            #[a(href='http://codepen.io/ZevanRosser/pen/ilfHK') Zevan Rosser]).
-          li Fuzzy string matching, so you get partial credit for a nearly-correct guess.
+        li.
+          An awesome loading spinner (built upon the work of
+          #[a(href='http://codepen.io/ZevanRosser/pen/ilfHK') Zevan Rosser]).
+        li Fuzzy string matching, so you get partial credit for a nearly-correct guess.
 
-      article.project.content
-        h3.title Serpent.js
-        h4.technologies jQuery, Object-Oriented JavaScript
-        h4.subtitle
-          a(href='https://davidrunger.github.io/serpent') Live
-          span #{' - '}
-          a(href='http://github.com/davidrunger/serpent') GitHub
+    article.project.content
+      h3.title Serpent.js
+      h4.technologies jQuery, Object-Oriented JavaScript
+      h4.subtitle
+        a(href='https://davidrunger.github.io/serpent') Live
+        span #{' - '}
+        a(href='http://github.com/davidrunger/serpent') GitHub
 
-        img(src='~img/serpent.jpg' alt='Serpent Game')
+      img(src='~img/serpent.jpg' alt='Serpent Game')
 
-        p.
-          Serpent is twice as fun as classic Snake; at least, there are twice as many players. Each
-          snake can easily be toggled between human or AI control, so you can play against the
-          computer or a friend. Or just watch two AIs play each other. Or see whether your right or
-          left hand is smarter. Controls allow for customizing the game speed and board dimensions.
+      p.
+        Serpent is twice as fun as classic Snake; at least, there are twice as many players. Each
+        snake can easily be toggled between human or AI control, so you can play against the
+        computer or a friend. Or just watch two AIs play each other. Or see whether your right or
+        left hand is smarter. Controls allow for customizing the game speed and board dimensions.
 
-        h3 Features
-        ul.features
-          li.
-            Efficiently manipulates the DOM, allowing for large game boards and unreasonably high
-            game speeds
-          li.
-            Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
-            toward the apple at all times
+      h3 Features
+      ul.features
+        li.
+          Efficiently manipulates the DOM, allowing for large game boards and unreasonably high
+          game speeds
+        li.
+          Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
+          toward the apple at all times
 
-      article.project.content
-        h3.title Letter Flash Typing Practice
-        h4.technologies jQuery
-        h4.subtitle
-          a(href='https://davidrunger.github.io/letter-flash') Live
-          span #{' - '}
-          a(href='https://github.com/davidrunger/letter-flash') GitHub
+    article.project.content
+      h3.title Letter Flash Typing Practice
+      h4.technologies jQuery
+      h4.subtitle
+        a(href='https://davidrunger.github.io/letter-flash') Live
+        span #{' - '}
+        a(href='https://github.com/davidrunger/letter-flash') GitHub
 
-        img(src='~img/letter-flash.png' alt='Letter Flash Typing Practice')
+      img(src='~img/letter-flash.png' alt='Letter Flash Typing Practice')
 
-        p.
-          This is a simple tool that I built for myself when I was re-learning the QWERTY keyboard
-          layout after years of typing on Dvorak. I do think that it was helpful, and I continue to
-          use it every once in a while.
+      p.
+        This is a simple tool that I built for myself when I was re-learning the QWERTY keyboard
+        layout after years of typing on Dvorak. I do think that it was helpful, and I continue to
+        use it every once in a while.
 
   HomeSection(section='resume', title='Resume', color-palette='PuRd')
-    p
-      a.resume-button(href='/David-Runger-Resume.pdf') Download Resume (pdf)
+    a.resume-button(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
   HomeSection(section='contact', title='Contact me', color-palette='GnBu')
     table.pure-table
