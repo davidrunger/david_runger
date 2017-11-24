@@ -1,10 +1,10 @@
 <template lang="pug">
-  div.mt1.mb2
+  div.mt1.mb2.ml3.mr2
     h2.h2.store-name.bold.my2
       span {{ store.name }}
       span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
     div.mb2
-      button(id="show-modal" @click='initializeTripCheckinModal()').
+      el-button(id="show-modal" @click='initializeTripCheckinModal()' size='mini').
         Check In Shopping Trip
       modal(v-if="showModal")
         slot
@@ -18,19 +18,27 @@
             button(@click='itemsToZero = []; showModal = false') Cancel
             button(@click='handleTripCheckinModalSubmit') Set checked items to 0 needed
       | &nbsp;
-      button(@click='createItemsNeededTextMessage') Text needed items to your phone
+      el-button(@click='createItemsNeededTextMessage' size='mini') Text items to phone
       | &nbsp;
-      button.copy-to-clipboard Copy needed items to clipboard
+      el-button.copy-to-clipboard(size='mini') Copy to clipboard
       | &nbsp;
       span(v-if='wasCopiedRecently') Copied!
 
-    ul.items-list.mt0.mb0.pl1
-      li
-        form(@submit='postNewItem')
-          input#item-name-input.float-left(type='text' ref='itemName' v-model='newItemName'
-            placeholder='Add an item'
-          )
-          input#add-item-button.button.button-outline.float-left.ml1(type='submit' value='Add')
+    form.col-5.flex(@submit='postNewItem')
+      el-input.item-name-input.flex-1.float-left(
+        placeholder='Add an item'
+        type='text'
+        ref='itemName'
+        v-model='newItemName'
+        size='medium'
+      )
+      el-input.flex-0.button.button-outline.float-left.ml1(
+        value='Add'
+        type='submit'
+        size='medium'
+      )
+
+    ul.items-list.mt0.mb0
       Item(v-for='item in sortedItems' :item="item" :key="item.id")
 </template>
 
@@ -143,6 +151,10 @@ export default {
 </script>
 
 <style scoped>
+.item-name-input {
+  max-width: 230px;
+}
+
 .spinner--circle {
   height: 14px;
   width: 14px;

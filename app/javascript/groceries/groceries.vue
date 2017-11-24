@@ -2,15 +2,6 @@
   div#groceries-app.sans-serif
     div#page.flex.vh-100
       aside.border-right.border-gray
-        div.center.bg-white.bg-lighten-4.p1
-          | {{ bootstrap.current_user.email }} #[i.fa.fa-angle-down]
-        div
-          a.mr1(:href="$routes.edit_user_path(bootstrap.current_user)") Edit Account
-          button(
-            :href='$routes.destroy_user_session_path()'
-            data-method='delete'
-            rel='nofollow'
-          ) Sign Out
         .p2
           form.add-store.flex(@submit='postNewStore')
             el-input.flex-1.mr1(
@@ -18,8 +9,14 @@
               ref='storeName'
               v-model='newStoreName'
               placeholder='Add a store'
+              size='medium'
             )
-            el-input.flex-0(type='submit' value='Add' :disabled='postingStore')
+            el-input.flex-0(
+              value='Add'
+              type='submit'
+              :disabled='postingStore'
+              size='medium'
+            )
           ul.stores-list
             li.js-link.stores-list__item.h3.my2.py1.px2(
               v-for='store in sortedStores'
@@ -29,7 +26,15 @@
               drop(@drop='dropItem(store.id, ...arguments)')
                 a.store-name {{store.name}}
                 a.js-link.right(@click.stop='deleteStore(store)') &times;
-      main.flex-1.bg-cover.pl3.pr1.py1
+      main.flex-1.bg-cover
+        el-dropdown.col-12(:hide-timeout=50 :show-timeout=0 placement='bottom-end')
+          div.right-align.bg-white.bg-lighten-4.p1
+            .mr1 {{ bootstrap.current_user.email }} #[i.fa.fa-angle-down]
+          el-dropdown-menu(slot='dropdown')
+            a(:href="$routes.edit_user_path(bootstrap.current_user)")
+              el-dropdown-item Edit Account
+            a.js-link(@click='signOut()')
+              el-dropdown-item(divided :command='signOut') Sign Out
         Store(v-if='currentStore' :store='currentStore')
 </template>
 
@@ -92,6 +97,11 @@ export default {
         this.stores.unshift(newStore);
         this.$store.commit('selectStore', newStore.id);
       });
+    },
+
+    signOut() {
+      this.$http.delete(this.$routes.destroy_user_session_path({ format: 'json' })).
+        then(() => { window.location.assign(this.$routes.login_path()); });
     },
   },
 };
