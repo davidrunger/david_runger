@@ -7,7 +7,6 @@ import {
   DropdownItem,
   Input,
 } from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import { Drag, Drop } from 'vue-drag-drop';
 import modal from 'components/modal.vue';
