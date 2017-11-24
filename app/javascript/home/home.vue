@@ -160,113 +160,78 @@ div
             development experience.
 
   HomeSection(section='projects', title='Projects', color-palette='Blues')
-    p
-      article.project.content
-        h3.title This website!
-        h4.technologies Rails 5, Vue.js, webpack(er)
-        h4.subtitle
-          a(:href='this.$routes.root_path()') Live
-          span #{' - '}
-          a(href='http://github.com/davidrunger/david_runger') GitHub
-
-        img(src='~img/davidrunger-dot-com-headline.png' alt='davidrunger.com')
-
+    Project
+      span(slot='title') My Grocery List
+      span(slot='technologies') Rails 5, Vue.js, Vuex, Nexmo SMS API
+      div(slot='links')
+        a(:href='this.$routes.groceries_path()') Live
+        span #{' - '}
+        a(
+          href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
+        ) GitHub
+      img(slot='image' src='~img/groceries.jpg' alt='davidrunger.com groceries app')
+      div(slot='overview')
+        h3.h3.bold.mb1 Life without a smartphone
         p.
-
-          I feel extremely lucky to be the owner of the davidrunger.com domain! :) I use this
-          website to share some basic information about myself, as well as to host various little
-          apps that I build (such as the app that I use to keep track of my grocery list; see
-          below).
-
-        h3 Features
-        ul.features
-          li.
-            Leverages Rails 5's webpacker gem for Hot Module Replacement of HTML, JavaScript, and
-            CSS, creating a highly efficient development environment.
-          li Continuous integration and continuous deployment with Travis CI.
-          li Hosted by Heroku for simplicity, convenience, and easy deployment.
-
-    p
-      article.project.content
-        h3.title Groceries
-        h4.technologies Rails 5, Vue.js, Vuex, vue-test-utils, Mocha, headless Chrome, Nexmo
-        h4.subtitle
-          a(:href='this.$routes.groceries_path()') Live
-          span #{' - '}
-          a(
-            href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
-          ) GitHub
-
-        img(src='~img/groceries.jpg' alt='davidrunger.com groceries app')
-
+          I choose not to own a smartphone, and I eat the same few things week after week. With this in mind,
+          I wanted an app that would help me to efficiently track and purchase groceries. (Plus, I
+          wanted to experiment with #[a(href='https://vuejs.org/') Vue.js]!). So I built
+          #[a(:href='this.$routes.groceries_path()') davidrunger.com/groceries].
         p.
+          I use this app to keep track of which grocery items I need. Then, when it's time to go
+          shopping, I text the grocery list to myself via the Nexmo SMS API, so that I can easily to
+          refer to it on my "dumb" phone while I'm at the store.
+      ul(slot='tech-list')
+        li A #[b Rails 5] back end serves a #[b Vue.js] front end application
+        li.
+          Rails 5's #[b webpacker] gem provides #[b Hot Module Replacement] for
+          #[i all] aspects of the frontend app (HTML, CSS, and JavaScript). This creates a
+          super efficient and enjoyable development flow! 😄
+        li #[b Google OAuth] provides convenient and secure sign-in
+        li #[b Vuex] manages the application state
+        li.
+          Integrates with the #[b #[a(href='https://www.nexmo.com/?') Nexmo] SMS API], allowing
+          users to text themselves a list of currently needed grocery items
+        li.
+          Uses the official #[b #[a(href='https://github.com/vuejs/vue-test-utils') vue-test-utils]]
+          library for Vue component unit testing. Tests are run using #[b Mocha],
+          #[b headless Chrome], and "regular" (non-headless) Chrome.
+        li.
+          #[b Continuous integration (CI)] via Travis, which also provides
+          #[b continuous deployment (CD)] via #[b Heroku] (which hosts the app)
 
-          I don't own a smartphone, and I pretty much eat the same thing every day. In light of
-          these relatively unique parameters, I wanted an app that would allow me to efficiently
-          track and purchase groceries. Plus, I wanted to experiment with
-          #[a(href='https://vuejs.org/') Vue.js]. So I built
-          #[a(:href='this.$routes.groceries_path()') davidrunger.com/groceries]. I do actually use
-          this app to keep track of my needed grocery items, and then text the list to myself when
-          it's time for a shopping trip.
-
-        h3 Features
-        ul.features
-          li Leverages Rails 5 as a backend API to serve a Vue.js frontend application.
-          li Features Google OAuth integration for convenient sign-in.
-          li.
-
-            Uses Vuex for state management.
-
-          li.
-
-            Features integration with #[a(href='https://www.nexmo.com/?') Nexmo], allowing users
-            to text themselves a list of currently needed grocery items.
-
-          li.
-            Leverages Rails 5's webpacker gem for Hot Module Replacement of HTML, JavaScript, and
-            CSS, creating a highly efficient development environment.
-          li.
-
-            Uses the official #[a(href='https://github.com/vuejs/vue-test-utils') vue-test-utils]
-            library for Vue component unit testing. Vue unit tests are run as part of CI/CD via
-            Travis using Mocha and headless Chrome.
-
-    p
-      article.project.content
-        h3.title FastFeedback.io
-        h4.technologies Ruby on Rails, Backbone.js
-        h4.subtitle
-          a(href='http://www.fastfeedback.io') Live
-          span #{' - '}
-          a(href='http://github.com/davidrunger/fast_feedback') GitHub
-
-        img(src='~img/fast_feedback.png' alt='FastFeedback.io')
-
+    Project
+      span(slot='title') FastFeedback.io
+      span(slot='technologies') Ruby on Rails, Backbone.js, Nexmo SMS API
+      div(slot='links')
+        a(href='http://www.fastfeedback.io') Live
+        span #{' - '}
+        a(href='http://github.com/davidrunger/fast_feedback') GitHub
+      img(slot='image' src='~img/fast_feedback.png' alt='FastFeedback.io')
+      div(slot='overview')
         p.
-
           Do you need to engage your audience during a presentation? FastFeedback.io can help.
           Prepare some interesting questions ahead of time, and browse through them as you make your
           presentation. Your audience can cast votes using either a web interface or text messages.
           A chart displaying the results dynamically updates in real-time as the votes come in!
+      ul(slot='tech-list')
+        li Entirely single-page app
+        li Rails back end serves a JSON API
+        li Backbone.js on the front end
+        li Integration with Nexmo API for text messages
+        li Highcharts.js library provides dynamic, animated charts
 
-        h3 Features
-        ul.features
-          li Entirely single-page app
-          li Rails back end serves a JSON API
-          li Backbone.js on the front end
-          li Integration with Nexmo API for text messages
-          li Highcharts.js library provides dynamic, animated charts
+    Project
+      span(slot='title') Rosetta Code Languages Selector
+      span(slot='technologies') Chrome Extension, Capybara integration tests
+      div(slot='links')
+        a(href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg') Live
+        span #{' - '}
+        a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
 
-      article.project.content
-        h3.title Rosetta Code Languages Selector
-        h4.technologies Chrome Extension, Capybara integration tests
-        h4.subtitle
-          a(href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg') Live
-          span #{' - '}
-          a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
+      img(slot='image' src='~img/rc-languages-selector.png' alt='Rosetta Code Languages Selector')
 
-        img(src='~img/rc-languages-selector.png' alt='Rosetta Code Languages Selector')
-
+      div(slot='overview')
         p.
           #[a(href='http://rosettacode.org/wiki/Rosetta_Code') RosettaCode.org] is a great website
           for comparing programming languages and/or learning a new language based on others that
@@ -275,83 +240,72 @@ div
           samples for the languages that you are focusing on. This extension solves that problem by
           only showing code samples for languages that you have specifically selected.
 
+      ul(slot='tech-list')
+        li.
+          Comprehensive Capybara integration test suite allows for confident refactoring and
+          feature extension.
+        li.
+          Custom testing solution mimics the Chrome Extension API by monkeypatching the Capybara
+          library to automatically inject the extension's JavaScript and CSS assets into any page
+          visited during an integration test.
 
-        h3 Features
-        ul.features
-          li.
-            Comprehensive Capybara integration test suite allows for confident refactoring and
-            feature extension.
-          li.
-            Custom testing solution mimics the Chrome Extension API by monkeypatching the Capybara
-            library to automatically inject the extension's JavaScript and CSS assets into any page
-            visited during an integration test.
-
-      article.project.content
-        h3.title App Academy Picture Flashcard App
-        h4.technologies jQuery, object-oriented JavaScript
-        h4.subtitle
-          a(href='https://davidrunger.github.io/aa-picture-game/') Live
-          span #{' - '}
-          a(href='https://github.com/davidrunger/aa-picture-game') GitHub
-
-        img(src='~img/aa-picture-game.png' alt='App Academy Picture Game')
-
+    Project
+      span(slot='title') App Academy Picture Flashcard App
+      span(slot='technologies') jQuery, object-oriented JavaScript
+      div(slot='links')
+        a(href='https://davidrunger.github.io/aa-picture-game/') Live
+        span #{' - '}
+        a(href='https://github.com/davidrunger/aa-picture-game') GitHub
+      img(slot='image' src='~img/aa-picture-game.png' alt='App Academy Picture Game')
+      div(slot='overview')
         p.
           This is a simple little tool built with jQuery for App Academy that we would always use to
           help students and staff learn each other's names at the beginning of a new cohort. It's
           very effective!
+      ul(slot='tech-list')
+        li.
+          An awesome loading spinner (built upon the work of
+          #[a(href='http://codepen.io/ZevanRosser/pen/ilfHK') Zevan Rosser]).
+        li Fuzzy string matching, so you get partial credit for a nearly-correct guess.
 
-        h3 Features
-        ul.features
-
-          li.
-            An awesome loading spinner (built upon the work of
-            #[a(href='http://codepen.io/ZevanRosser/pen/ilfHK') Zevan Rosser]).
-          li Fuzzy string matching, so you get partial credit for a nearly-correct guess.
-
-      article.project.content
-        h3.title Serpent.js
-        h4.technologies jQuery, Object-Oriented JavaScript
-        h4.subtitle
-          a(href='https://davidrunger.github.io/serpent') Live
-          span #{' - '}
-          a(href='http://github.com/davidrunger/serpent') GitHub
-
-        img(src='~img/serpent.jpg' alt='Serpent Game')
-
+    Project
+      span(slot='title') Serpent.js
+      span(slot='technologies') jQuery, object-oriented JavaScript
+      div(slot='links')
+        a(href='https://davidrunger.github.io/serpent') Live
+        span #{' - '}
+        a(href='http://github.com/davidrunger/serpent') GitHub
+      img(slot='image' src='~img/serpent.jpg' alt='Serpent Game')
+      div(slot='overview')
         p.
           Serpent is twice as fun as classic Snake; at least, there are twice as many players. Each
           snake can easily be toggled between human or AI control, so you can play against the
           computer or a friend. Or just watch two AIs play each other. Or see whether your right or
           left hand is smarter. Controls allow for customizing the game speed and board dimensions.
+      ul(slot='tech-list')
+        li.
+          Efficiently manipulates the DOM, allowing for large game boards and unreasonably high
+          game speeds
+        li.
+          Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
+          toward the apple at all times
 
-        h3 Features
-        ul.features
-          li.
-            Efficiently manipulates the DOM, allowing for large game boards and unreasonably high
-            game speeds
-          li.
-            Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
-            toward the apple at all times
-
-      article.project.content
-        h3.title Letter Flash Typing Practice
-        h4.technologies jQuery
-        h4.subtitle
-          a(href='https://davidrunger.github.io/letter-flash') Live
-          span #{' - '}
-          a(href='https://github.com/davidrunger/letter-flash') GitHub
-
-        img(src='~img/letter-flash.png' alt='Letter Flash Typing Practice')
-
+    Project
+      span(slot='title') Letter Flash Typing Practice
+      span(slot='technologies') jQuery
+      div(slot='links')
+        a(href='https://davidrunger.github.io/letter-flash') Live
+        span #{' - '}
+        a(href='https://github.com/davidrunger/letter-flash') GitHub
+      img(slot='image' src='~img/letter-flash.png' alt='Letter Flash Typing Practice')
+      div(slot='overview')
         p.
           This is a simple tool that I built for myself when I was re-learning the QWERTY keyboard
-          layout after years of typing on Dvorak. I do think that it was helpful, and I continue to
-          use it every once in a while.
+          layout after years of typing with the Dvorak keyboard layout. I do think that it was
+          helpful, and I continue to use it every once in a while.
 
   HomeSection(section='resume', title='Resume', color-palette='PuRd')
-    p
-      a.resume-button(href='/David-Runger-Resume.pdf') Download Resume (pdf)
+    a.resume-button(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
   HomeSection(section='contact', title='Contact me', color-palette='GnBu')
     table.pure-table
@@ -367,12 +321,6 @@ div
         tr.pure-table-odd
           td GitHub
           td.center #[a(href='https://github.com/davidrunger') @davidrunger]
-
-        tr
-          td Anonymous Feedback
-          td.center
-            a(href='https://docs.google.com/forms/d/1owogS54t2SBpZDtpS_A0QF6Fw-khaJOtdX6EN8EQd_k/viewform').
-              via Google Forms
 </template>
 
 <script>
@@ -381,12 +329,14 @@ import _ from 'lodash';
 
 import * as positionListener from './scripts/position_listener';
 import HomeSection from './components/section.vue';
+import Project from './components/project.vue';
 
 const COLOR_PALETTE_SEEDS = [1, 6, 7, 11, 12, 15];
 
 export default {
   components: {
     HomeSection,
+    Project,
   },
 
   data() {
@@ -493,7 +443,7 @@ i[class^=devicon-] {
   font-size: 30px;
   padding: 2px 0 0 2px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-  margin-bottom: 30px; // needs to be big enough to psh above header when clicking 1st section
+  margin-bottom: 30px; // needs to be big enough to push above header when clicking 1st section
 }
 
 .skills table {
@@ -559,63 +509,6 @@ i[class^=devicon-] {
     margin: 0;
     overflow: visible;
     padding: 0.5em 1em;
-  }
-}
-
-.projects {
-  p {
-    margin: 25px 50px 15px;
-  }
-
-  ul {
-    margin: 10px 70px 20px;
-  }
-
-  li,
-  p {
-    line-height: 24px;
-  }
-
-  ul {
-    list-style: initial;
-  }
-
-  img {
-    border: 2px solid #a6a6a6;
-    box-shadow: #a2a2a2 1px 1px 15px 0;
-    border-radius: 3px;
-    max-height: 300px;
-    max-width: 90%;
-    display: block;
-    margin: 8px auto 0;
-  }
-
-  .technologies {
-    margin: 0 auto;
-    color: #737373;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-  }
-
-  h3,
-  h4 {
-    text-align: center;
-  }
-
-  h3 {
-    font-size: 32px;
-  }
-
-  .content {
-    background: rgba(240, 240, 240, 0.75);
-    padding: 20px;
-    box-shadow: rgba(101, 121, 128, 0.51) 2px 2px 2px;
-    margin-bottom: 30px;
-  }
-
-  .title {
-    margin: 5px auto 0;
   }
 }
 </style>

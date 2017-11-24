@@ -3,7 +3,7 @@
   .anchor-target(:id='section')
   section(:data-section='section')
     .js-scroll-hook.absolute(style='top: 25vh; bottom: 0;')
-    h2.font-size-3 {{title}}
+    h2.h1.mb3.bold {{title}}
     slot
 </template>
 
@@ -64,11 +64,6 @@ section {
   max-width: 850px;
   margin: 0 auto;
   color: $ivory-black;
-
-  h2 {
-    padding-bottom: 30px;
-    font-weight: bold;
-  }
 }
 
 .about {
