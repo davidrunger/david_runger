@@ -197,7 +197,7 @@ div
             href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
           ) GitHub
 
-        img(src='~img/groceries.png' alt='davidrunger.com groceries app')
+        img(src='~img/groceries.jpg' alt='davidrunger.com groceries app')
 
         p.
 
