@@ -363,12 +363,6 @@ div
         tr.pure-table-odd
           td GitHub
           td.center #[a(href='https://github.com/davidrunger') @davidrunger]
-
-        tr
-          td Anonymous Feedback
-          td.center
-            a(href='https://docs.google.com/forms/d/1owogS54t2SBpZDtpS_A0QF6Fw-khaJOtdX6EN8EQd_k/viewform').
-              via Google Forms
 </template>
 
 <script>
