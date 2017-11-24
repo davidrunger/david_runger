@@ -161,31 +161,6 @@ div
 
   HomeSection(section='projects', title='Projects', color-palette='Blues')
     article.project.content
-      h3.title This website!
-      h4.technologies Rails 5, Vue.js, webpack(er)
-      h4.subtitle
-        a(:href='this.$routes.root_path()') Live
-        span #{' - '}
-        a(href='http://github.com/davidrunger/david_runger') GitHub
-
-      img(src='~img/davidrunger-dot-com-headline.png' alt='davidrunger.com')
-
-      p.
-
-        I feel extremely lucky to be the owner of the davidrunger.com domain! :) I use this
-        website to share some basic information about myself, as well as to host various little
-        apps that I build (such as the app that I use to keep track of my grocery list; see
-        below).
-
-      h3 Features
-      ul.features
-        li.
-          Leverages Rails 5's webpacker gem for Hot Module Replacement of HTML, JavaScript, and
-          CSS, creating a highly efficient development environment.
-        li Continuous integration and continuous deployment with Travis CI.
-        li Hosted by Heroku for simplicity, convenience, and easy deployment.
-
-    article.project.content
       h3.title Groceries
       h4.technologies Rails 5, Vue.js, Vuex, vue-test-utils, Mocha, headless Chrome, Nexmo
       h4.subtitle
