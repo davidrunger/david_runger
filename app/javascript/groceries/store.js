@@ -57,10 +57,9 @@ const actions = {
     axios.patch(Routes.api_item_path(item.id), { item: { store_id: newStore.id } });
   },
 
-  selectStore({ state }, id) {
-    const store = _.find(state.stores, { id });
+  selectStore(_context, { store }) {
     Vue.set(store, 'viewed_at', (new Date()).toISOString());
-    axios.patch(Routes.api_store_path(id), { store: _.pick(store, ['viewed_at']) });
+    axios.patch(Routes.api_store_path(store.id), { store: _.pick(store, ['viewed_at']) });
   },
 
   updateItem(_context, { id, attributes }) {

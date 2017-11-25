@@ -18,7 +18,7 @@ aside.border-right.border-gray.p2
     li.js-link.stores-list__item.h3.my2.py1.px2(
       v-for='store in sortedStores'
       :class='{selected: store === currentStore}'
-      @click='$store.dispatch("selectStore", store.id)'
+      @click='$store.dispatch("selectStore", { store })'
     )
       drop(@drop='dropItem(store, ...arguments)')
         a.store-name {{store.name}}
