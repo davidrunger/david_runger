@@ -2,7 +2,7 @@
   div#groceries-app.sans-serif
     div#page.flex.vh-100
       Sidebar
-      main.flex-1.bg-cover
+      main.flex-1.bg-cover.overflow-scroll
         LoggedInHeader
         Store(v-if='currentStore' :store='currentStore')
 </template>
