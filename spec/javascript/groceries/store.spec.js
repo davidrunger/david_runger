@@ -22,8 +22,8 @@ describe('Grocery Vuex store', function () { // eslint-disable-line func-names
       expect(state.stores[0].items).toContain(item);
 
       mutations.deleteItem(state, {
-        itemId: item.id,
-        storeId: groceryStore.id,
+        item,
+        store: groceryStore,
       });
 
       expect(state.stores[0].items).not.toContain(item);

@@ -11,9 +11,8 @@ if (csrfMetaTag) {
 
 // export for testing
 export const mutations = {
-  deleteItem(state, { itemId, storeId }) {
-    const store = _.find(state.stores, { id: storeId });
-    store.items = store.items.filter(item => item.id !== itemId);
+  deleteItem(state, { item, store }) {
+    store.items = store.items.filter(storeItem => storeItem !== item);
   },
 
   deleteStore(state, id) {
@@ -45,11 +44,11 @@ export const mutations = {
 };
 
 const actions = {
-  deleteItem({ commit, getters }, id) {
-    axios.delete(Routes.api_item_path(id));
+  deleteItem({ commit, getters }, item) {
+    axios.delete(Routes.api_item_path(item.id));
     commit('deleteItem', {
-      itemId: id,
-      storeId: getters.currentStore.id,
+      item,
+      store: getters.currentStore,
     });
   },
 
