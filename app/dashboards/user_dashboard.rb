@@ -11,7 +11,6 @@ class UserDashboard < Administrate::BaseDashboard
     requests: Field::HasMany,
     stores: Field::HasMany,
     items: Field::HasMany,
-    templates: Field::HasMany,
     id: Field::Number,
     email: Field::String,
     created_at: Field::DateTime,
@@ -30,7 +29,6 @@ class UserDashboard < Administrate::BaseDashboard
     :requests,
     :stores,
     :items,
-    :templates,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -39,7 +37,6 @@ class UserDashboard < Administrate::BaseDashboard
     :requests,
     :stores,
     :items,
-    :templates,
     :id,
     :email,
     :created_at,
@@ -54,7 +51,6 @@ class UserDashboard < Administrate::BaseDashboard
     :requests,
     :stores,
     :items,
-    :templates,
     :email,
     :last_activity_at,
   ].freeze
