@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update]
 
   namespace :api, defaults: {format: :json} do
-    resources :stores, only: [:create, :destroy] do
+    resources :stores, only: [:create, :update, :destroy] do
       resources :items, only: [:index, :create]
     end
     resources :items, only: [:update, :destroy]

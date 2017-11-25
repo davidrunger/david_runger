@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import LoggedInHeader from './components/logged_in_header.vue';
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
@@ -21,7 +21,7 @@ export default {
   },
 
   computed: {
-    ...mapState([
+    ...mapGetters([
       'currentStore',
     ]),
   },

@@ -1,6 +1,6 @@
 <template lang='pug'>
 aside.border-right.border-gray.p2
-  form.add-store.flex(@submit='postNewStore')
+  form.add-store.flex(@submit='createStore')
     el-input.flex-1.mr1(
       type='text'
       ref='storeName'
@@ -18,7 +18,7 @@ aside.border-right.border-gray.p2
     li.js-link.stores-list__item.h3.my2.py1.px2(
       v-for='store in sortedStores'
       :class='{selected: store === currentStore}'
-      @click='$store.commit("selectStore", store.id)'
+      @click='$store.dispatch("selectStore", store.id)'
     )
       drop(@drop='dropItem(store.id, ...arguments)')
         a.store-name {{store.name}}
@@ -26,19 +26,22 @@ aside.border-right.border-gray.p2
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { sortBy } from 'lodash';
+import { mapGetters, mapState } from 'vuex';
+import _ from 'lodash';
 
 export default {
   computed: {
-    ...mapState([
+    ...mapGetters([
       'currentStore',
+    ]),
+
+    ...mapState([
       'postingStore',
       'stores',
     ]),
 
     sortedStores() {
-      return sortBy(this.stores, store => store.name.toLowerCase());
+      return _.sortBy(this.stores, store => store.name.toLowerCase());
     },
   },
 
@@ -64,7 +67,7 @@ export default {
       });
     },
 
-    postNewStore(event) {
+    createStore(event) {
       event.preventDefault();
       this.$store.state.postingStore = true;
       const payload = {
@@ -76,8 +79,8 @@ export default {
         this.newStoreName = '';
         this.$store.state.postingStore = false;
         const newStore = response.data;
+        newStore.viewed_at = Date(newStore.viewed_at);
         this.stores.unshift(newStore);
-        this.$store.commit('selectStore', newStore.id);
       });
     },
   },

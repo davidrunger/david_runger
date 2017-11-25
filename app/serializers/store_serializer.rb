@@ -7,6 +7,7 @@
 #  name       :string           not null
 #  updated_at :datetime         not null
 #  user_id    :integer
+#  viewed_at  :datetime
 #
 # Indexes
 #
@@ -15,6 +16,6 @@
 #
 
 class StoreSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :viewed_at
   has_many :items
 end
