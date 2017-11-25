@@ -66,12 +66,10 @@ const actions = {
     axios.patch(Routes.api_item_path(id), { item: attributes });
   },
 
-  zeroItems(context, items) {
+  zeroItems(_context, { items }) {
     items.forEach((item) => {
       item.needed = 0;
-      axios.patch(Routes.api_item_path(item.id), {
-        item: { needed: 0 },
-      });
+      axios.patch(Routes.api_item_path(item.id), { item: { needed: 0 } });
     });
   },
 };

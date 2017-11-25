@@ -106,7 +106,7 @@ export default {
     },
 
     handleTripCheckinModalSubmit() {
-      this.$store.dispatch('zeroItems', this.itemsToZero.slice());
+      this.$store.dispatch('zeroItems', { items: this.itemsToZero.slice() });
       this.itemsToZero = [];
       this.$store.commit('setShowModal', { value: false });
     },
