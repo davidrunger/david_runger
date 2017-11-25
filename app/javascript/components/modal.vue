@@ -4,7 +4,7 @@
       ref='mask'
       @click='closeModal'
     )
-      div.modal-container.p3.bg-white.rounded
+      div.modal-container.p3.bg-white.rounded(:style='{ width: width, maxWidth: maxWidth }')
         slot
 </template>
 
@@ -32,6 +32,11 @@ export default {
   mounted() {
     window.addEventListener('keydown', this.handleKeydown);
   },
+
+  props: [
+    'width',
+    'maxWidth',
+  ],
 };
 </script>
 
@@ -42,7 +47,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  min-width: 300px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;

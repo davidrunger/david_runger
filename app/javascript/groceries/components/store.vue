@@ -27,17 +27,24 @@ div.mt1.mb2.ml3.mr2
   ul.items-list.mt0.mb0
     Item(v-for='item in sortedItems' :item="item" :key="item.id")
 
-  modal(v-if="showModal")
+  modal(v-if="showModal" width='85%', maxWidth='400px')
     slot
       h3.bold.fonst-size-2.mb2.
-        Uncheck any items you #[i didn't] get.
+        Uncheck any items that you didn't get.
       ul
-        li(v-for='(item, index) in neededItems' :key='item.id')
+        li.flex.items-center.mb1(v-for='(item, index) in neededItems' :key='item.id')
           input(type='checkbox' v-model='itemsToZero' :value='item' :id='`trip-checkin-item-${item.id}`')
-          label(:for='`trip-checkin-item-${item.id}`') {{item.name}}
-      div.flex.justify-between
-        button(@click="$store.commit('setShowModal', false)") Cancel
-        button(@click='handleTripCheckinModalSubmit') Set checked items to 0 needed
+          label.ml1(:for='`trip-checkin-item-${item.id}`') {{item.name}}
+      div.flex.justify-around.mt2
+        el-button(
+          @click='handleTripCheckinModalSubmit'
+          type='primary'
+          plain
+        ) Set checked items to 0 needed
+        el-button(
+          @click="$store.commit('setShowModal', false)"
+          type='text'
+        ) Cancel
 </template>
 
 <script>
