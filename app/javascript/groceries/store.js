@@ -9,9 +9,11 @@ if (csrfMetaTag) {
   axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
 }
 
-const mutations = {
-  deleteItem(state, id) {
-    state.currentStore.items = state.currentStore.items.filter(item => item.id !== id);
+// export for testing
+export const mutations = {
+  deleteItem(state, { itemId, storeId }) {
+    const store = _.find(state.stores, { id: storeId });
+    store.items = store.items.filter(item => item.id !== itemId);
   },
 
   deleteStore(state, id) {
@@ -43,9 +45,12 @@ const mutations = {
 };
 
 const actions = {
-  deleteItem({ commit }, id) {
+  deleteItem({ commit, getters }, id) {
     axios.delete(Routes.api_item_path(id));
-    commit('deleteItem', id);
+    commit('deleteItem', {
+      itemId: id,
+      storeId: getters.currentStore.id,
+    });
   },
 
   moveItem({ commit }, { itemId, newStoreId }) {
@@ -86,7 +91,8 @@ const getters = {
   },
 };
 
-function initialState(bootstrap) {
+// export for testing
+export function initialState(bootstrap) {
   return Object.assign({},
     bootstrap,
     {
