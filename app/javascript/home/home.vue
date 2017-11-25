@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.hero-blue-topo
+  #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.bg-black
     .spacer.flex-grow-1
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
     //- the top of the page
@@ -22,25 +22,22 @@ div
           span.ptb-1 Resume
         a.nav-link(href='#contact')
           span.ptb-1 Contact
-    a.down-arrow-container(href='#about')
+    a.down-arrow-container.center.circle.mb3(href='#about')
       i.fa.fa-angle-double-down(aria-hidden='true')
 
-  HomeSection(section='about', title='About me', color-palette='PuBu')
+  .parallax-outer
+    .parallax-inner.parallax-inner--macbook-1
+
+  HomeSection(section='about', title='About me')
     .flex
-      .about-me.flex-2.background--translucent-white.mr4.p3
+      .about-me.flex-2.mr4.py1.pr2
         p.
-
           I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
-
-
         p.
-
           I love the Ruby programming language, the Rails web development framework, and the RSpec
           testing library. These are well-designed tools (with healthy supporting ecosystems) that
           allow me to work efficiently and effectively, and to have fun doing it.
-
         p.
-
           Previously, I've been a web development bootcamp teaching assistant at
           #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
           bus driver, and a long haul truck driver.
@@ -48,13 +45,16 @@ div
       .pr-6.flex-1.flex.items-center
         img.about-image(src='~img/david.jpg' alt='A picture of me')
 
-  HomeSection(section='skills', title='Skills / Technologies', color-palette='Purples')
+  .parallax-outer
+    .parallax-inner.parallax-inner--macbook-2
+
+  HomeSection(section='skills', title='Skills')
     table
       tbody
         tr
-          td #[i.devicon-babel-plain.colored]
+          td #[i.devicon-babel-plain(style='background: #f5db55')]
           td Babel
-          td For all that sweet, sweet ES6 syntax.
+          td For that sweet, sweet ES6 syntax.
         tr
           td #[i.devicon-confluence-plain-wordmark.colored]
           td Confluence / JIRA
@@ -136,8 +136,8 @@ div
           td Ruby on Rails
 
           td.
-            I ❤️  Rails. A web-development framework with a great ecosystem that makes development
-            fast and fun. ActiveRecord is a superb ORM.
+            I ❤️  &nbsp;Rails: a web-development framework with a great ecosystem that makes
+            development fast and fun. Rails's ActiveRecord ORM is superb.
         tr
           td #[i.devicon-sass-plain.colored]
           td Sass
@@ -159,7 +159,10 @@ div
             #[span.monospace webpack‑dev‑server] and hot code reloading really enhance the
             development experience.
 
-  HomeSection(section='projects', title='Projects', color-palette='Blues')
+  .parallax-outer
+    .parallax-inner.parallax-inner--macbook-1
+
+  HomeSection(section='projects', title='Projects')
     Project
       span(slot='title') My Grocery List
       span(slot='technologies') Rails 5, Vue.js, Vuex, Nexmo SMS API
@@ -171,11 +174,11 @@ div
         ) GitHub
       img(slot='image' src='~img/groceries.jpg' alt='davidrunger.com groceries app')
       div(slot='overview')
-        h3.h3.bold.mb1 Life without a smartphone
         p.
-          I choose not to own a smartphone, and I eat the same few things week after week. With this in mind,
-          I wanted an app that would help me to efficiently track and purchase groceries. (Plus, I
-          wanted to experiment with #[a(href='https://vuejs.org/') Vue.js]!). So I built
+          I choose not to own a smartphone (😱 ), and I eat the same few things week after week.
+          With this in mind, I wanted an app that would help me to efficiently track and purchase
+          groceries. Plus, I wanted an excuse to experiment with
+          #[a(href='https://vuejs.org/') Vue.js]!. So I built
           #[a(:href='this.$routes.groceries_path()') davidrunger.com/groceries].
         p.
           I use this app to keep track of which grocery items I need. Then, when it's time to go
@@ -304,45 +307,32 @@ div
           layout after years of typing with the Dvorak keyboard layout. I do think that it was
           helpful, and I continue to use it every once in a while.
 
-  HomeSection(section='resume', title='Resume', color-palette='PuRd')
-    a.resume-button(href='/David-Runger-Resume.pdf') Download Resume (pdf)
+  .parallax-outer
+    .parallax-inner.parallax-inner--macbook-2
 
-  HomeSection(section='contact', title='Contact me', color-palette='GnBu')
-    table.pure-table
-      tbody
-        tr.pure-table-odd
-          td Email
-          td.center #[a(href='mailto:davidjrunger@gmail.com') davidjrunger@gmail.com]
+  HomeSection(section='resume', title='Resume')
+    a.resume-button.block.center(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
-        tr
-          td LinkedIn
-          td.center #[a(href='https://linkedin.com/in/davidrunger') /in/davidrunger]
+  .parallax-outer
+    .parallax-inner.parallax-inner--macbook-1
 
-        tr.pure-table-odd
-          td GitHub
-          td.center #[a(href='https://github.com/davidrunger') @davidrunger]
+  HomeSection(section='contact', title='Contact me')
+    p #[b Email:] #[a(href='mailto:davidjrunger@gmail.com') davidjrunger@gmail.com]
+    p #[b LinkedIn:] #[a(href='https://linkedin.com/in/davidrunger') /in/davidrunger]
+    p #[b GitHub:] #[a(href='https://github.com/davidrunger') @davidrunger]
 </template>
 
 <script>
 import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min';
-import _ from 'lodash';
 
 import * as positionListener from './scripts/position_listener';
-import HomeSection from './components/section.vue';
+import HomeSection from './components/home_section.vue';
 import Project from './components/project.vue';
-
-const COLOR_PALETTE_SEEDS = [1, 6, 7, 11, 12, 15];
 
 export default {
   components: {
     HomeSection,
     Project,
-  },
-
-  data() {
-    return {
-      trianglifySeeds: _.shuffle(COLOR_PALETTE_SEEDS),
-    };
   },
 
   mounted() {
@@ -354,6 +344,37 @@ export default {
 
 <style lang='scss' scoped>
 @import '~css/variables';
+
+p,
+ul {
+  margin: 15px auto;
+  line-height: 20px;
+}
+
+p:first-of-type {
+  margin-top: 0;
+}
+
+.project {
+  img {
+    box-shadow: #c0c0c0 2px 2px 10px 0;
+    border-radius: 3px;
+    max-height: 300px;
+    max-width: 90%;
+  }
+
+  ul {
+    list-style: initial;
+
+    li {
+      margin: 4px 0 4px 20px;
+    }
+
+    li:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
 
 #headline-name {
   font-size: 80px;
@@ -369,15 +390,20 @@ i[class^=devicon-] {
 
 #header {
   position: fixed;
-  height: 56px;
+  // performance hint to create a new compositor layer, so we don't re-paint on scroll
+  will-change: transform;
   top: 0;
-  line-height: 56px;
   z-index: 1;
+  height: $header-height;
+  line-height: $header-height;
 
   #nav {
     width: 500px;
     right: 0;
-    transform: translateX(0);
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
 
     a.nav-link {
       color: $gray-light;
@@ -389,37 +415,21 @@ i[class^=devicon-] {
       &:hover {
         color: white;
       }
+
+      &:not(.active) span {
+        border-bottom-color: rgba($white-dark, 0);
+      }
+
+      &.active span {
+        border-bottom-color: rgba($white-dark, 0.8);
+      }
+
+      span {
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        transition: border-bottom-color 1s ease-out;
+      }
     }
-  }
-}
-
-#nav {
-  width: 700px;
-  max-width: 100%;
-  transition: all $transition-medium;
-  // center via right and translateX so we can animate from
-  // center-aligned to right-aligned and vice versa
-  right: 50%;
-  transform: translateX(50%);
-
-  @media screen and (max-width: 600px) {
-    display: none;
-  }
-}
-
-.nav-link {
-  &:not(.active) span {
-    border-bottom-color: rgba($white-dark, 0);
-  }
-
-  &.active span {
-    border-bottom-color: rgba($white-dark, 0.8);
-  }
-
-  span {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    transition: border-bottom-color 1s ease-out;
   }
 }
 
@@ -428,22 +438,16 @@ i[class^=devicon-] {
   box-shadow: $gray-light 0 2px 5px;
 }
 
-.background--translucent-white {
-  background: rgba(255, 255, 255, 0.9);
-}
-
 .down-arrow-container {
-  width: 50px;
-  height: 50px;
+  $size: 50px;
+
+  width: $size;
+  height: $size;
+  line-height: $size;
   color: $black-light;
   background: $gray-light;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 50px;
   font-size: 30px;
-  padding: 2px 0 0 2px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-  margin-bottom: 30px; // needs to be big enough to push above header when clicking 1st section
+  padding: 2px 0 0 2px; // nudges the font-awesome icon into the right place
 }
 
 .skills table {
@@ -466,49 +470,19 @@ i[class^=devicon-] {
 }
 
 .resume-button {
-  display: block;
   width: 240px;
   height: 60px;
   line-height: 56px;
-  text-align: center;
   background-color: rgba(0, 0, 0, 0.72);
   border: 2px solid #000;
   border-radius: 3px;
-  box-shadow: #000 0 0 15px -3px;
-  color: gainsboro;
+  box-shadow: #000 0 0 15px -4px;
+  color: #ebebeb;
 
   &:hover {
     background-color: rgba(20, 20, 20, 0.72);
+    color: white;
     transition: 0.3s;
-  }
-}
-
-.contact {
-  table {
-    empty-cells: show;
-    border: 1px solid #cbcbcb;
-    border-collapse: collapse;
-    border-spacing: 0;
-    background-color: rgba(255, 255, 255, 0.6);
-  }
-
-  .pure-table-odd td,
-  tr:nth-child(2n-1) td {
-    background-color: #f2f2f2;
-  }
-
-  .pure-table td {
-    background-color: white;
-  }
-
-  .pure-table td,
-  .pure-table th {
-    border-left: 1px solid #cbcbcb;
-    border-width: 0 0 0 1px;
-    font-size: inherit;
-    margin: 0;
-    overflow: visible;
-    padding: 0.5em 1em;
   }
 }
 </style>

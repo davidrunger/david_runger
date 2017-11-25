@@ -1,5 +1,5 @@
 <template lang="pug">
-.right-align.bg-white.bg-lighten-4.pr2
+.right-align.bg-lighten-4.pr2
   el-dropdown(
     :hide-timeout=50
     :show-timeout=0

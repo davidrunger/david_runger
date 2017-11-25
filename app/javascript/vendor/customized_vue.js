@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import {
   Button,
+  Card,
   Dropdown,
   DropdownMenu,
   DropdownItem,
@@ -30,6 +31,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuex);
 
 Vue.use(Button);
+Vue.use(Card);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
