@@ -39,6 +39,10 @@ const mutations = {
   setCollectingDebounces(state, value) {
     state.collectingDebounces = value;
   },
+
+  setShowModal(state, value) {
+    state.showModal = value;
+  },
 };
 
 const actions = {
@@ -80,6 +84,7 @@ function initialState(bootstrap) {
       currentStore: bootstrap.stores[0],
       pendingRequests: 0,
       postingStore: false,
+      showModal: false,
     },
   );
 }

@@ -15,7 +15,7 @@
               input(type='checkbox' v-model='itemsToZero' :value='item' :id='`trip-checkin-item-${item.id}`')
               label(:for='`trip-checkin-item-${item.id}`') {{item.name}}
           div.flex.justify-between
-            button(@click='itemsToZero = []; showModal = false') Cancel
+            button(@click="$store.commit('setShowModal', false)") Cancel
             button(@click='handleTripCheckinModalSubmit') Set checked items to 0 needed
       | &nbsp;
       el-button(@click='createItemsNeededTextMessage' size='mini') Text items to phone
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import { debounce, sortBy } from 'lodash';
 import Clipboard from 'clipboard';
 
@@ -58,7 +58,6 @@ export default {
     return {
       itemsToZero: [],
       newItemName: '',
-      showModal: false,
       wasCopiedRecently: false,
     };
   },
@@ -76,6 +75,10 @@ export default {
   computed: {
     ...mapGetters([
       'debouncingOrWaitingOnNetwork',
+    ]),
+
+    ...mapState([
+      'showModal',
     ]),
 
     neededItems() {
@@ -105,12 +108,12 @@ export default {
     handleTripCheckinModalSubmit() {
       this.$store.dispatch('zeroItems', this.itemsToZero.slice());
       this.itemsToZero = [];
-      this.showModal = false;
+      this.$store.commit('setShowModal', false);
     },
 
     initializeTripCheckinModal() {
       this.itemsToZero = this.neededItems;
-      this.showModal = true;
+      this.$store.commit('setShowModal', true);
     },
 
     // we need `function` for correct `this`

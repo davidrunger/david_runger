@@ -36,6 +36,7 @@
     "gator": "^1.2.4",
     "glob": "^7.1.2",
     "js-yaml": "^3.8.4",
+    "keycode": "^2.1.9",
     "lodash": "^4.17.4",
     "node-pre-gyp": "0.6.38",
     "node-sass": "^4.0.0",

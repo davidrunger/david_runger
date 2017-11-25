@@ -5,6 +5,26 @@
         slot
 </template>
 
+<script>
+import keycode from 'keycode';
+
+export default {
+  methods: {
+    handleKeydown(e) {
+      if (e.which === keycode('escape')) this.$store.commit('setShowModal', false);
+    },
+  },
+
+  destroyed() {
+    window.removeEventListener('keydown', this.handleKeydown);
+  },
+
+  mounted() {
+    window.addEventListener('keydown', this.handleKeydown);
+  },
+};
+</script>
+
 <style lang='scss' scoped>
 .modal-mask {
   background-color: rgba(0, 0, 0, 0.5);
