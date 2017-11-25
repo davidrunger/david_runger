@@ -1,45 +1,43 @@
 <template lang="pug">
-  div.mt1.mb2.ml3.mr2
-    h2.h2.store-name.bold.my2
-      span {{ store.name }}
-      span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
-    div.mb2
-      el-button(id="show-modal" @click='initializeTripCheckinModal()' size='mini').
-        Check In Shopping Trip
-      modal(v-if="showModal")
-        slot
-          h3.bold.fonst-size-2.mb2.
-            Uncheck any items you #[i didn't] get.
-          ul
-            li(v-for='(item, index) in neededItems' :key='item.id')
-              input(type='checkbox' v-model='itemsToZero' :value='item' :id='`trip-checkin-item-${item.id}`')
-              label(:for='`trip-checkin-item-${item.id}`') {{item.name}}
-          div.flex.justify-between
-            button(@click="$store.commit('setShowModal', false)") Cancel
-            button(@click='handleTripCheckinModalSubmit') Set checked items to 0 needed
-      | &nbsp;
-      el-button(@click='createItemsNeededTextMessage' size='mini') Text items to phone
-      | &nbsp;
-      el-button.copy-to-clipboard(size='mini') Copy to clipboard
-      | &nbsp;
-      span(v-if='wasCopiedRecently') Copied!
+div.mt1.mb2.ml3.mr2
+  h2.h2.store-name.bold.my2
+    span {{ store.name }}
+    span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
+  div.mb2
+    el-button(id="show-modal" @click='initializeTripCheckinModal()' size='mini').
+      Check In Shopping Trip
+    el-button(@click='createItemsNeededTextMessage' size='mini') Text items to phone
+    el-button.copy-to-clipboard(size='mini') Copy to clipboard
+    span(v-if='wasCopiedRecently') Copied!
 
-    form.col-5.flex(@submit='postNewItem')
-      el-input.item-name-input.flex-1.float-left(
-        placeholder='Add an item'
-        type='text'
-        ref='itemName'
-        v-model='newItemName'
-        size='medium'
-      )
-      el-input.flex-0.button.button-outline.float-left.ml1(
-        value='Add'
-        type='submit'
-        size='medium'
-      )
+  form.col-5.flex(@submit='postNewItem')
+    el-input.item-name-input.flex-1.float-left(
+      placeholder='Add an item'
+      type='text'
+      ref='itemName'
+      v-model='newItemName'
+      size='medium'
+    )
+    el-input.flex-0.button.button-outline.float-left.ml1(
+      value='Add'
+      type='submit'
+      size='medium'
+    )
 
-    ul.items-list.mt0.mb0
-      Item(v-for='item in sortedItems' :item="item" :key="item.id")
+  ul.items-list.mt0.mb0
+    Item(v-for='item in sortedItems' :item="item" :key="item.id")
+
+  modal(v-if="showModal")
+    slot
+      h3.bold.fonst-size-2.mb2.
+        Uncheck any items you #[i didn't] get.
+      ul
+        li(v-for='(item, index) in neededItems' :key='item.id')
+          input(type='checkbox' v-model='itemsToZero' :value='item' :id='`trip-checkin-item-${item.id}`')
+          label(:for='`trip-checkin-item-${item.id}`') {{item.name}}
+      div.flex.justify-between
+        button(@click="$store.commit('setShowModal', false)") Cancel
+        button(@click='handleTripCheckinModalSubmit') Set checked items to 0 needed
 </template>
 
 <script>
