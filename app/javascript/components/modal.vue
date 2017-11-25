@@ -1,6 +1,9 @@
 <template lang='pug'>
   transition(name='modal')
-    div.modal-mask.fixed.flex.items-center.justify-center.col-12.top-0.left-0.vh-100.z1
+    div.modal-mask.fixed.flex.items-center.justify-center.col-12.top-0.left-0.vh-100.z1(
+      ref='mask'
+      @click='closeModal'
+    )
       div.modal-container.p3.bg-white.rounded
         slot
 </template>
@@ -10,6 +13,13 @@ import keycode from 'keycode';
 
 export default {
   methods: {
+    closeModal(e) {
+      // make sure we don't close the modal when clicks within the modal propagate up
+      if (e.target === this.$refs.mask) {
+        this.$store.commit('setShowModal', false);
+      }
+    },
+
     handleKeydown(e) {
       if (e.which === keycode('escape')) this.$store.commit('setShowModal', false);
     },
