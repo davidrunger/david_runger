@@ -26,7 +26,6 @@
     "basscss-lighten": "^1.1.0",
     "caniuse-lite": "^1.0.30000697",
     "clipboard": "^1.6.1",
-    "coffeescript": "~2",
     "compression-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.3",
     "element-ui": "^2.0.5",
