@@ -1,0 +1,26 @@
+!!! 5
+%html
+  %head
+    - if Rails.env.production?
+      = render 'layouts/rollbar'
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    %title #{@title.present? ? "#{@title} - " : ''} David Runger
+    = csrf_meta_tags
+    %script{type: "text/javascript"}
+      window.davidrunger = {env: '<%= Rails.env %>'};
+      window.davidrunger.bootstrap = JSON.parse("#{raw(escape_javascript((@bootstrap_data || {}).to_json))}")
+
+    - if Rails.env.development?
+      = javascript_pack_tag('styles')
+    - else
+      %link{rel: "stylesheet", href: asset_pack_path('styles.css')}
+    = content_for(:extra_javascript)
+    %link{rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Karla:400,700'}
+    %link{rel: 'stylesheet', href: '//cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css'}
+
+  %body
+    - if notice.present?
+      %p.notice= notice
+    - if alert.present?
+      %p.alert= alert
+    = yield
