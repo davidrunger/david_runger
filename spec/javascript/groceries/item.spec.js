@@ -4,7 +4,7 @@ import 'spec_helper';
 import { mount, createLocalVue } from 'vue-test-utils';
 import sinon from 'sinon';
 import Vuex from 'vuex';
-import Item from 'groceries/item.vue';
+import Item from 'groceries/components/item.vue';
 import { groceryVuexStoreFactory } from 'groceries/store';
 import * as tu from 'test_utils';
 
