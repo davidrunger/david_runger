@@ -5,6 +5,8 @@ Layout/DotPosition:
   EnforcedStyle: trailing
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 Lint/RescueWithoutErrorClass:
   Enabled: false
 Lint/UnneededSplatExpansion:
@@ -15,6 +17,8 @@ Metrics/MethodLength:
   Max: 20
 Rails:
   Enabled: true
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
 Style/Copyright:
   Enabled: false
 Style/Documentation:

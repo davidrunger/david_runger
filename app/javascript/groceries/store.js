@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vue from 'vendor/customized_vue';
 import Vuex from 'vuex';
 import _ from 'lodash';
 
@@ -32,10 +33,6 @@ const mutations = {
     newStore.items.push(item);
   },
 
-  selectStore(state, id) {
-    state.currentStore = _.find(state.stores, { id });
-  },
-
   setCollectingDebounces(state, value) {
     state.collectingDebounces = value;
   },
@@ -56,6 +53,12 @@ const actions = {
     axios.patch(Routes.api_item_path(itemId), { item: { store_id: newStoreId } });
   },
 
+  selectStore({ state }, id) {
+    const store = _.find(state.stores, { id });
+    Vue.set(store, 'viewed_at', Date());
+    axios.patch(Routes.api_store_path(id), { store: _.pick(store, ['viewed_at']) });
+  },
+
   updateItem(_context, { id, attributes }) {
     axios.patch(Routes.api_item_path(id), { item: attributes });
   },
@@ -71,6 +74,13 @@ const actions = {
 };
 
 const getters = {
+  currentStore(state) {
+    return (
+      _(state.stores).filter('viewed_at').sortBy(['viewed_at']).last() ||
+      state.stores[0]
+    );
+  },
+
   debouncingOrWaitingOnNetwork(state) {
     return state.collectingDebounces || (state.pendingRequests > 0);
   },
@@ -81,7 +91,7 @@ function initialState(bootstrap) {
     bootstrap,
     {
       collectingDebounces: false,
-      currentStore: bootstrap.stores[0],
+      stores: bootstrap.stores,
       pendingRequests: 0,
       postingStore: false,
       showModal: false,

@@ -7,6 +7,7 @@
 #  name       :string           not null
 #  updated_at :datetime         not null
 #  user_id    :integer
+#  viewed_at  :datetime
 #
 # Indexes
 #

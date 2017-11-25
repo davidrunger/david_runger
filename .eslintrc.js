@@ -18,6 +18,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
     'max-len': ['warn', 100],
+    'newline-per-chained-call': 'off',
     'no-debugger': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-else-return': 'off',
     'no-multiple-empty-lines': ['error', { max: 1 }],
