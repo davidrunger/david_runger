@@ -22,7 +22,7 @@ aside.border-right.border-gray.p2
     )
       drop(@drop='dropItem(store.id, ...arguments)')
         a.store-name {{store.name}}
-        a.js-link.right(@click.stop='deleteStore(store)') &times;
+        a.js-link.right(@click.stop="$store.dispatch('deleteStore', { store })") &times;
 </template>
 
 <script>
@@ -52,11 +52,6 @@ export default {
   },
 
   methods: {
-    deleteStore(store) {
-      this.$http.delete(this.$routes.api_store_path(store.id));
-      this.$store.commit('deleteStore', store.id);
-    },
-
     dropItem(storeId, itemData) {
       const itemId = itemData.id;
       const oldStoreId = itemData.store_id;

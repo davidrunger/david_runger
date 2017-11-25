@@ -29,4 +29,14 @@ describe('Grocery Vuex store', function () { // eslint-disable-line func-names
       expect(state.stores[0].items).not.toContain(item);
     });
   });
+
+  describe('#deleteStore', () => {
+    it("removes the deleted store from the state's stores", () => {
+      expect(state.stores).toContain(groceryStore);
+
+      mutations.deleteStore(state, { store: groceryStore });
+
+      expect(state.stores).not.toContain(groceryStore);
+    });
+  });
 });

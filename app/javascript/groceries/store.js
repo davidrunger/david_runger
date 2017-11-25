@@ -15,8 +15,8 @@ export const mutations = {
     store.items = store.items.filter(storeItem => storeItem !== item);
   },
 
-  deleteStore(state, id) {
-    state.stores = state.stores.filter(store => store.id !== id);
+  deleteStore(state, { store: deletedStore }) {
+    state.stores = state.stores.filter(store => store !== deletedStore);
   },
 
   decrementPendingRequests(state) {
@@ -50,6 +50,11 @@ const actions = {
       item,
       store: getters.currentStore,
     });
+  },
+
+  deleteStore({ commit }, { store }) {
+    axios.delete(Routes.api_store_path(store.id));
+    commit('deleteStore', { store });
   },
 
   moveItem({ commit }, { itemId, newStoreId }) {
