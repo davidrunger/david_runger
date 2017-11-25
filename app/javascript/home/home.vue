@@ -98,6 +98,12 @@ div
           td jQuery
           td DOM querying and manipulation made easy, with a huge plugin ecosystem.
         tr
+          td #[img(src='~img/lodash.svg' alt='Lodash')]
+          td Lodash
+          td.
+            I adore Lodash. It brings a lot of the concision and clarity that I love about Ruby to
+            the front end.
+        tr
           td #[i.devicon-nodejs-plain-wordmark.colored]
           td NodeJS
           td.
