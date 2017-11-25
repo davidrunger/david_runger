@@ -27,10 +27,8 @@ export const mutations = {
     state.pendingRequests += 1;
   },
 
-  moveItem(state, { itemId, newStoreId }) {
-    const item = _.remove(state.currentStore.items, { id: itemId })[0];
-    state.currentStore.items = state.currentStore.items.slice(); // use #slice to register? whatevs.
-    const newStore = _.find(state.stores, { id: newStoreId });
+  moveItem(state, { item, newStore, oldStore }) {
+    oldStore.items = _.reject(oldStore.items, { id: item.id });
     newStore.items.push(item);
   },
 
@@ -57,9 +55,9 @@ const actions = {
     commit('deleteStore', { store });
   },
 
-  moveItem({ commit }, { itemId, newStoreId }) {
-    commit('moveItem', { itemId, newStoreId });
-    axios.patch(Routes.api_item_path(itemId), { item: { store_id: newStoreId } });
+  moveItem({ commit, getters }, { item, newStore }) {
+    commit('moveItem', { item, newStore, oldStore: getters.currentStore });
+    axios.patch(Routes.api_item_path(item.id), { item: { store_id: newStore.id } });
   },
 
   selectStore({ state }, id) {
