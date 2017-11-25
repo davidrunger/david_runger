@@ -42,12 +42,9 @@ export const mutations = {
 };
 
 const actions = {
-  deleteItem({ commit, getters }, item) {
+  deleteItem({ commit, getters }, { item }) {
     axios.delete(Routes.api_item_path(item.id));
-    commit('deleteItem', {
-      item,
-      store: getters.currentStore,
-    });
+    commit('deleteItem', { item, store: getters.currentStore });
   },
 
   deleteStore({ commit }, { store }) {

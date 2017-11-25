@@ -15,7 +15,7 @@
       | &nbsp;
       span ({{item.needed}})
       .delete.h2.pl1.pr1.js-link.right.red(
-        @click="$store.dispatch('deleteItem', item)"
+        @click="$store.dispatch('deleteItem', { item })"
         title='Delete item'
       ) ×
 </template>
