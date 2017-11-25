@@ -14,7 +14,10 @@
       span(v-else @dblclick='editingName = true') {{item.name}}
       | &nbsp;
       span ({{item.needed}})
-      .delete.h2.pl1.pr1.js-link.right.red(@click='deleteItem(item)' title='Delete item') ×
+      .delete.h2.pl1.pr1.js-link.right.red(
+        @click="$store.dispatch('deleteItem', item.id)"
+        title='Delete item'
+      ) ×
 </template>
 
 <script>
@@ -28,10 +31,6 @@ export default {
   },
 
   methods: {
-    deleteItem(item) {
-      this.$store.dispatch('deleteItem', item.id);
-    },
-
     isJustAdded(item) {
       return !!item.createdAt && item.createdAt > ((new Date()).valueOf() - 1000);
     },

@@ -105,11 +105,6 @@ export default {
       });
     },
 
-    deleteItem(item) {
-      this.$http.delete(this.$routes.api_item_path(item.id));
-      this.store.items = this.store.items.filter(otherItem => otherItem.id !== item.id);
-    },
-
     handleTripCheckinModalSubmit() {
       this.$store.dispatch('zeroItems', this.itemsToZero.slice());
       this.itemsToZero = [];
