@@ -64,7 +64,7 @@ const actions = {
 
   selectStore({ state }, id) {
     const store = _.find(state.stores, { id });
-    Vue.set(store, 'viewed_at', Date());
+    Vue.set(store, 'viewed_at', (new Date()).toISOString());
     axios.patch(Routes.api_store_path(id), { store: _.pick(store, ['viewed_at']) });
   },
 
