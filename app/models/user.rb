@@ -22,7 +22,6 @@ class User < ApplicationRecord
   has_many :requests
   has_many :stores
   has_many :items, through: :stores
-  has_many :templates
 
   def self.from_omniauth!(access_token)
     user = User.find_or_create_by!(email: access_token.info['email'])

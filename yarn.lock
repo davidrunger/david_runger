@@ -5891,10 +5891,6 @@ rails-erb-loader@^5.0.1, rails-erb-loader@^5.2.1:
     loader-utils "^1.1.0"
     lodash.defaults "^4.2.0"
 
-rails-ujs@^5.1.0:
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/rails-ujs/-/rails-ujs-5.1.4.tgz#e2e9f7bcbfe51ee69c5f72f4beb0d88ab81a638e"
-
 ramda@^0.24.1:
   version "0.24.1"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.24.1.tgz#c3b7755197f35b8dc3502228262c4c91ddb6b857"
