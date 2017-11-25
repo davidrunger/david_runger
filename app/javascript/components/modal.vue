@@ -1,6 +1,6 @@
 <template lang='pug'>
   transition(name='modal')
-    div.modal-mask.fixed.flex.items-center.justify-center.col-12.top-0.left-0.vh-100.z1(
+    div.modal-mask.fixed.flex.flex-column.items-center.justify-center.col-12.top-0.left-0.vh-100.z1(
       ref='mask'
       @click='closeModal'
     )
@@ -44,6 +44,18 @@ export default {
 .modal-mask {
   background-color: rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s ease;
+
+  // use pseudo elements to have 1/3 space above the modal and 2/3 space below the modal. so sort of
+  // centered, but nudged up.
+  &::before {
+    content: '';
+    flex-grow: 1;
+  }
+
+  &::after {
+    content: '';
+    flex-grow: 2;
+  }
 }
 
 .modal-container {
