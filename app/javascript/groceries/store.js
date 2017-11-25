@@ -32,11 +32,11 @@ export const mutations = {
     newStore.items.push(item);
   },
 
-  setCollectingDebounces(state, value) {
+  setCollectingDebounces(state, { value }) {
     state.collectingDebounces = value;
   },
 
-  setShowModal(state, value) {
+  setShowModal(state, { value }) {
     state.showModal = value;
   },
 };

@@ -16,12 +16,12 @@ export default {
     closeModal(e) {
       // make sure we don't close the modal when clicks within the modal propagate up
       if (e.target === this.$refs.mask) {
-        this.$store.commit('setShowModal', false);
+        this.$store.commit('setShowModal', { value: false });
       }
     },
 
     handleKeydown(e) {
-      if (e.which === keycode('escape')) this.$store.commit('setShowModal', false);
+      if (e.which === keycode('escape')) this.$store.commit('setShowModal', { value: false });
     },
   },
 

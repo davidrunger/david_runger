@@ -42,7 +42,7 @@ div.mt1.mb2.ml3.mr2
           plain
         ) Set checked items to 0 needed
         el-button(
-          @click="$store.commit('setShowModal', false)"
+          @click="$store.commit('setShowModal', { value: false })"
           type='text'
         ) Cancel
 </template>
@@ -108,12 +108,12 @@ export default {
     handleTripCheckinModalSubmit() {
       this.$store.dispatch('zeroItems', this.itemsToZero.slice());
       this.itemsToZero = [];
-      this.$store.commit('setShowModal', false);
+      this.$store.commit('setShowModal', { value: false });
     },
 
     initializeTripCheckinModal() {
       this.itemsToZero = this.neededItems;
-      this.$store.commit('setShowModal', true);
+      this.$store.commit('setShowModal', { value: true });
     },
 
     // we need `function` for correct `this`
