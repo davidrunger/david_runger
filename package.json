@@ -46,7 +46,6 @@
     "precss": "^1.4.0",
     "pug": "^2.0.0-rc.1",
     "rails-erb-loader": "^5.0.1",
-    "rails-ujs": "^5.1.0",
     "resolve-url-loader": "^2.0.2",
     "rollbar-browser": "^1.9.4",
     "sass-loader": "^6.0.5",
