@@ -185,7 +185,11 @@ div
           shopping, I text the grocery list to myself via the Nexmo SMS API, so that I can easily to
           refer to it on my "dumb" phone while I'm at the store.
       ul(slot='tech-list')
-        li A #[b Rails 5] back end serves a #[b Vue.js] front end application
+        li.
+          A #[b Rails 5] back end serves a #[b Vue.js] front end application that's built with
+          #[b #[a(href='https://pugjs.org') pug]] templates, ES6 (via
+          #[b #[a(href='https://babeljs.io/') babel]]), and
+          #[b #[a(href='http://sass-lang.com/') Sass]].
         li.
           Rails 5's #[b webpacker] gem provides #[b Hot Module Replacement] for
           #[i all] aspects of the frontend app (HTML, CSS, and JavaScript). This creates a
@@ -196,12 +200,28 @@ div
           Integrates with the #[b #[a(href='https://www.nexmo.com/?') Nexmo] SMS API], allowing
           users to text themselves a list of currently needed grocery items
         li.
-          Uses the official #[b #[a(href='https://github.com/vuejs/vue-test-utils') vue-test-utils]]
-          library for Vue component unit testing. Tests are run using #[b Mocha],
+          The excellent
+          #[b #[a(href='https://github.com/cameronhimself/vue-drag-drop') vue-drag-drop]] library
+          allows dragging an item from one store to another.
+        li.
+          The excellent #[b #[a(href='https://github.com/railsware/js-routes') js-routes]]
+          library allows the use of Rails named routes / path helpers on the client-side, too! :)
+        li.
+          #[b #[a(href='http://element.eleme.io/#/en-US') Element]] provides pretty and ready-to-use
+          Vue UI components.
+        li.
+          #[b #[a(href='http://basscss.com/') Basscss]] provides CSS utility classes, so that a lot
+          of styling can be done in the markup itself.
+        li.
+          The official #[b #[a(href='https://github.com/vuejs/vue-test-utils') vue-test-utils]]
+          library facilitates Vue component unit testing. Tests are run using #[b Mocha],
           #[b headless Chrome], and "regular" (non-headless) Chrome.
         li.
           #[b Continuous integration (CI)] via Travis, which also provides
           #[b continuous deployment (CD)] via #[b Heroku] (which hosts the app)
+        li.
+          Ruby code is linted by #[b RuboCop], JavaScript by #[b ESLint], and stylesheets by
+          #[b Stylelint].
 
     Project
       span(slot='title') FastFeedback.io
