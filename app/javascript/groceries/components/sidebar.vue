@@ -74,7 +74,7 @@ export default {
         this.newStoreName = '';
         this.$store.state.postingStore = false;
         const newStore = response.data;
-        newStore.viewed_at = Date(newStore.viewed_at);
+        newStore.viewed_at = (new Date(newStore.viewed_at)).toISOString();
         this.stores.unshift(newStore);
       });
     },
