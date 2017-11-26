@@ -7,6 +7,7 @@
 #  id               :integer          not null, primary key
 #  last_activity_at :datetime
 #  phone            :string
+#  sms_allowance    :float            default(1.0), not null
 #  updated_at       :datetime         not null
 #
 # Indexes
