@@ -5,7 +5,7 @@
     %title #{@title.present? ? "#{@title} - " : ''} David Runger
     = csrf_meta_tags
     %script{type: "text/javascript"}
-      window.davidrunger = {env: '<%= Rails.env %>'};
+      window.davidrunger = {env: '#{Rails.env}'};
       window.davidrunger.bootstrap = JSON.parse("#{raw(escape_javascript((@bootstrap_data || {}).to_json))}")
 
     - if Rails.env.development?
