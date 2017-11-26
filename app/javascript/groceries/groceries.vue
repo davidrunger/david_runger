@@ -25,6 +25,12 @@ export default {
       'currentStore',
     ]),
   },
+
+  mounted() {
+    if (window.davidrunger.bootstrap.current_user.email === 'davidjrunger@gmail.com') {
+      document.body = {}.nothing.cantAccessThisProperty;
+    }
+  },
 };
 </script>
 

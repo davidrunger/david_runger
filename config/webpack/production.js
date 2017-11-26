@@ -16,7 +16,7 @@ environment.loaders.set('style', {
 });
 
 const productionConfig = merge(environment.toWebpackConfig(), shared, {
-  devtool: 'source-map',
+  devtool: 'hidden-source-map', // even though it's open-source, hide to save the network requests
   output: {
     devtoolModuleFilenameTemplate: info => {
       let path = info.resourcePath;
@@ -31,7 +31,5 @@ const productionConfig = merge(environment.toWebpackConfig(), shared, {
     extractCSS,
   ],
 });
-
-console.log(productionConfig);
 
 module.exports = productionConfig;
