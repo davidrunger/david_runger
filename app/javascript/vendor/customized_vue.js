@@ -28,16 +28,13 @@ Vue.prototype.$routes = window.Routes;
 
 Vue.config.productionTip = false;
 
-Vue.config.errorHandler = (error, vm, info) => {
-  const { env } = window.davidrunger;
-  if (env === 'production') {
-    if (window.Rollbar && window.Rollbar.error) window.Rollbar.error(error, { info });
-  } else if (env === 'development' || env === 'test') {
-    // log the error; test is configured such that this will actually raise an error and fail tests
-    console.error(error); // eslint-disable-line no-console
-  } else {
-    throw new Error(`Env "${env}" is not an expected environment!`);
+Vue.config.errorHandler = (error, _vm, info) => {
+  if (window.Rollbar && window.Rollbar.error) {
+    window.Rollbar.error(error, { info });
   }
+  // Log the error in all environments. test is configured such that this will actually raise an
+  // error and fail tests. In dev and prod, it will help with debugging.
+  console.error(error); // eslint-disable-line no-console
 };
 
 Vue.use(Vuex);
