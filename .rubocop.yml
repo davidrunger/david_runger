@@ -46,6 +46,7 @@ Style/MethodCallWithArgsParentheses:
     - puts
     - render
     - require
+    - to
 Style/MissingElse:
   Enabled: false
 Style/SignalException:

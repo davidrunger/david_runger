@@ -34,7 +34,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'fixture_builder'
-  gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   gem 'pry'
   gem 'pry-byebug'
   gem 'rspec-rails'
@@ -52,5 +51,6 @@ group :development do
 end
 
 group :test do
+  gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   gem 'shoulda-matchers', '~> 3.1'
 end

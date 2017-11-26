@@ -32,4 +32,12 @@ class User < ApplicationRecord
   def admin?
     email.in?(ADMIN_EMAILS)
   end
+
+  def may_send_sms?
+    sms_cost_accrued < sms_allowance
+  end
+
+  def sms_cost_accrued
+    sms_records.sum(:cost)
+  end
 end
