@@ -15,7 +15,7 @@
       | &nbsp;
       span ({{item.needed}})
       .delete.h2.pl1.pr1.js-link.right.red(
-        @click="$store.dispatch('deleteItem', item)"
+        @click="$store.dispatch('deleteItem', { item })"
         title='Delete item'
       ) ×
 </template>
@@ -36,7 +36,7 @@ export default {
     },
 
     setNeeded(item, needed) {
-      this.$store.commit('setCollectingDebounces', true);
+      this.$store.commit('setCollectingDebounces', { value: true });
       item.needed = needed;
       this.debouncedPatchItem(item.id, item.needed);
     },
@@ -62,7 +62,7 @@ export default {
       this.$store.commit('incrementPendingRequests');
       // set collectingDebounces to false _after_ incrementing pendingRequests so that
       // debouncingOrWaitingOnNetwork stays consistently true
-      this.$store.commit('setCollectingDebounces', false);
+      this.$store.commit('setCollectingDebounces', { value: false });
     }, 500),
   },
 

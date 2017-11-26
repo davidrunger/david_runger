@@ -18,9 +18,9 @@ aside.border-right.border-gray.p2
     li.js-link.stores-list__item.h3.my2.py1.px2(
       v-for='store in sortedStores'
       :class='{selected: store === currentStore}'
-      @click='$store.dispatch("selectStore", store.id)'
+      @click='$store.dispatch("selectStore", { store })'
     )
-      drop(@drop='dropItem(store.id, ...arguments)')
+      drop(@drop='dropItem(store, ...arguments)')
         a.store-name {{store.name}}
         a.js-link.right(@click.stop="$store.dispatch('deleteStore', { store })") &times;
 </template>
@@ -52,14 +52,8 @@ export default {
   },
 
   methods: {
-    dropItem(storeId, itemData) {
-      const itemId = itemData.id;
-      const oldStoreId = itemData.store_id;
-      this.$store.dispatch('moveItem', {
-        itemId,
-        newStoreId: storeId,
-        oldStoreId,
-      });
+    dropItem(store, item) {
+      this.$store.dispatch('moveItem', { item, newStore: store });
     },
 
     createStore(event) {

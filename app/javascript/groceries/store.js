@@ -27,29 +27,24 @@ export const mutations = {
     state.pendingRequests += 1;
   },
 
-  moveItem(state, { itemId, newStoreId }) {
-    const item = _.remove(state.currentStore.items, { id: itemId })[0];
-    state.currentStore.items = state.currentStore.items.slice(); // use #slice to register? whatevs.
-    const newStore = _.find(state.stores, { id: newStoreId });
+  moveItem(state, { item, newStore, oldStore }) {
+    oldStore.items = _.reject(oldStore.items, { id: item.id });
     newStore.items.push(item);
   },
 
-  setCollectingDebounces(state, value) {
+  setCollectingDebounces(state, { value }) {
     state.collectingDebounces = value;
   },
 
-  setShowModal(state, value) {
+  setShowModal(state, { value }) {
     state.showModal = value;
   },
 };
 
 const actions = {
-  deleteItem({ commit, getters }, item) {
+  deleteItem({ commit, getters }, { item }) {
     axios.delete(Routes.api_item_path(item.id));
-    commit('deleteItem', {
-      item,
-      store: getters.currentStore,
-    });
+    commit('deleteItem', { item, store: getters.currentStore });
   },
 
   deleteStore({ commit }, { store }) {
@@ -57,27 +52,24 @@ const actions = {
     commit('deleteStore', { store });
   },
 
-  moveItem({ commit }, { itemId, newStoreId }) {
-    commit('moveItem', { itemId, newStoreId });
-    axios.patch(Routes.api_item_path(itemId), { item: { store_id: newStoreId } });
+  moveItem({ commit, getters }, { item, newStore }) {
+    commit('moveItem', { item, newStore, oldStore: getters.currentStore });
+    axios.patch(Routes.api_item_path(item.id), { item: { store_id: newStore.id } });
   },
 
-  selectStore({ state }, id) {
-    const store = _.find(state.stores, { id });
+  selectStore(_context, { store }) {
     Vue.set(store, 'viewed_at', (new Date()).toISOString());
-    axios.patch(Routes.api_store_path(id), { store: _.pick(store, ['viewed_at']) });
+    axios.patch(Routes.api_store_path(store.id), { store: _.pick(store, ['viewed_at']) });
   },
 
   updateItem(_context, { id, attributes }) {
     axios.patch(Routes.api_item_path(id), { item: attributes });
   },
 
-  zeroItems(context, items) {
+  zeroItems(_context, { items }) {
     items.forEach((item) => {
       item.needed = 0;
-      axios.patch(Routes.api_item_path(item.id), {
-        item: { needed: 0 },
-      });
+      axios.patch(Routes.api_item_path(item.id), { item: { needed: 0 } });
     });
   },
 };
