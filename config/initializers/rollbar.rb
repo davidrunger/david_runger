@@ -1,5 +1,8 @@
 Rollbar.configure do |config|
+  code_version = ENV['SOURCE_VERSION'] || File.read('SOURCE_VERSION') rescue nil
+
   config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
+  config.code_version = code_version
 
   # Without configuration, Rollbar is enabled in all environments.
   # To disable in specific environments, set config.enabled=false.
@@ -61,6 +64,16 @@ Rollbar.configure do |config|
     captureUnhandledRejections: true,
     payload: {
       environment: Rails.env,
+      client: {
+        javascript: {
+          source_map_enabled: true,
+          code_version: code_version,
+          guess_uncaught_frames: true,
+        },
+      },
+      server: {
+        root: '/app',
+      },
     },
   }
 end
