@@ -20,7 +20,6 @@ namespace :assets do
 
   desc 'Uploads source maps to rollbar'
   task :upload_source_maps do
-    require 'pry'
     SourceMapHelper.require_heroku!
     SourceMapHelper.upload_source_maps!
   end
@@ -79,7 +78,6 @@ module SourceMapHelper
         minified_url: source_url,
         source_map: source_map_file,
       )
-      binding.pry unless $skip_at.present? && $skip_at > (Time.current - 2.seconds)
       puts <<~LOG
         Posted source map #{source_map_path} for #{source_url}.
         Response code: #{response.code}
