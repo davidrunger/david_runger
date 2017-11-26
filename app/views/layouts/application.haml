@@ -1,8 +1,6 @@
 !!! 5
 %html
   %head
-    - if Rails.env.production?
-      = render 'layouts/rollbar'
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
     %title #{@title.present? ? "#{@title} - " : ''} David Runger
     = csrf_meta_tags
