@@ -3,13 +3,21 @@ AllCops:
   TargetRubyVersion: 2.4
 Layout/DotPosition:
   EnforcedStyle: trailing
+Layout/IndentArray:
+  EnforcedStyle: consistent
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
+Layout/SpaceBeforeSemicolon:
+  Enabled: false
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 Lint/RescueWithoutErrorClass:
   Enabled: false
 Lint/UnneededSplatExpansion:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
   Enabled: false
 Metrics/LineLength:
   Max: 100
@@ -37,6 +45,8 @@ Style/MethodCallWithArgsParentheses:
     - puts
     - render
 Style/MissingElse:
+  Enabled: false
+Style/SignalException:
   Enabled: false
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
