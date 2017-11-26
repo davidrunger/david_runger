@@ -1,6 +1,6 @@
 <template lang='pug'>
-  drag(:transferData='item')
-    li.my1.p1(:class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}')
+  li.my1.p1(:class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}')
+    drag(:transferData='item')
       span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
       span.decrement.h2.pl1.pr1.js-link.red(@click='setNeeded(item, item.needed - 1)' title='Decrement') &ndash;
       input(
