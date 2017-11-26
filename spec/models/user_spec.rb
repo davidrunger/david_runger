@@ -33,8 +33,8 @@ RSpec.describe User do
     end
   end
 
-  describe 'sms_cost_accrued' do
-    subject(:sms_cost_accrued) { user.sms_cost_accrued }
+  describe 'sms_usage' do
+    subject(:sms_usage) { user.sms_usage }
 
     let(:sms_cost_1) { 0.006 }
     let(:sms_cost_2) { 0.008 }
@@ -46,7 +46,7 @@ RSpec.describe User do
     end
 
     it "returns the total cost of the user's sms_records" do
-      expect(sms_cost_accrued).to eq(sms_cost_1 + sms_cost_2)
+      expect(sms_usage).to eq(sms_cost_1 + sms_cost_2)
     end
   end
 end

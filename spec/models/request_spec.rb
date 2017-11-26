@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Request do
+RSpec.describe Request do
   describe '::human' do
     subject { Request.human }
 

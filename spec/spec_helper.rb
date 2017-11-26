@@ -2,12 +2,17 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'pry'
 require 'factory_girl_rails'
+require 'webmock'
+require 'webmock/rspec'
 require File.expand_path('../../config/environment', __FILE__)
-require Rails.root.join('spec/support/fixture_builder.rb').to_s
+require Rails.root.join('spec', 'support', 'fixture_builder.rb').to_s
+Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
-# Add additional requires below this line. Rails is not loaded until this point!
+
+WebMock.enable!
+WebMock.disable_net_connect!(allow_localhost: true)
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -47,18 +52,23 @@ require 'rspec/rails'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.filter_run_when_matching :focus
+  config.filter_run_when_matching(:focus)
 
-  config.fixture_path = Rails.root.join('spec/fixtures')
+  config.fixture_path = Rails.root.join('spec', 'fixtures')
   config.global_fixtures = :all
   config.use_transactional_fixtures
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include(FactoryGirl::Syntax::Methods)
+  config.include(Devise::Test::ControllerHelpers, type: :controller)
+
+  config.after(:each, type: :controller) do
+    Devise.sign_out_all_scopes
+  end
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
-  config.expect_with :rspec do |expectations|
+  config.expect_with(:rspec) do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
     # defined using `chain`, e.g.:
@@ -71,7 +81,7 @@ RSpec.configure do |config|
 
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
-  config.mock_with :rspec do |mocks|
+  config.mock_with(:rspec) do |mocks|
     # Prevents you from mocking or stubbing a method that does not exist on
     # a real object. This is generally recommended, and will default to
     # `true` in RSpec 4.
@@ -85,20 +95,17 @@ RSpec.configure do |config|
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
-# The settings below are suggested to provide a good initial experience
-# with RSpec, but feel free to customize to your heart's content.
-=begin
   # This allows you to limit a spec run to individual examples or groups
   # you care about by tagging them with `:focus` metadata. When nothing
   # is tagged with `:focus`, all examples get run. RSpec also provides
   # aliases for `it`, `describe`, and `context` that include `:focus`
   # metadata: `fit`, `fdescribe` and `fcontext`, respectively.
-  config.filter_run_when_matching :focus
+  config.filter_run_when_matching(:focus)
 
   # Allows RSpec to persist some state between runs in order to support
   # the `--only-failures` and `--next-failure` CLI options. We recommend
   # you configure your source control system to ignore this file.
-  config.example_status_persistence_file_path = "spec/examples.txt"
+  # config.example_status_persistence_file_path = 'spec/examples.txt'
 
   # Limits the available syntax to the non-monkey patched syntax that is
   # recommended. For more details, see:
@@ -120,7 +127,7 @@ RSpec.configure do |config|
   # Print the 10 slowest examples and example groups at the
   # end of the spec run, to help surface which specs are running
   # particularly slow.
-  config.profile_examples = 10
+  # config.profile_examples = 10
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
@@ -132,8 +139,7 @@ RSpec.configure do |config|
   # Setting this allows you to use `--seed` to deterministically reproduce
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
-  Kernel.srand config.seed
-=end
+  Kernel.srand(config.seed)
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -169,4 +175,8 @@ Shoulda::Matchers.configure do |config|
     with.test_framework(:rspec)
     with.library(:rails)
   end
+end
+
+def verify(&blk)
+  before(&blk)
 end

@@ -34,10 +34,10 @@ class User < ApplicationRecord
   end
 
   def may_send_sms?
-    sms_cost_accrued < sms_allowance
+    sms_usage < sms_allowance
   end
 
-  def sms_cost_accrued
+  def sms_usage
     sms_records.sum(:cost)
   end
 end
