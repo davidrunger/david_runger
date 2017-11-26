@@ -25,6 +25,8 @@ Metrics/MethodLength:
   Max: 20
 Rails:
   Enabled: true
+Style/BlockDelimiters:
+  Enabled: false
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
 Style/Copyright:
@@ -37,19 +39,27 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/GlobalVars:
   Enabled: false
+Style/GuardClause:
+  Enabled: false
 Style/InlineComment:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - describe
     - head
+    - include
+    - not_to
     - puts
     - render
     - require
     - to
 Style/MissingElse:
   Enabled: false
+Style/NegatedIf:
+  Enabled: false
 Style/SignalException:
+  Enabled: false
+Style/SpaceBeforeBlockBraces:
   Enabled: false
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma

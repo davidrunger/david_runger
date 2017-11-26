@@ -31,7 +31,7 @@ end
 namespace :spec do
   desc 'Run Ruby specs'
   task :rb do
-    Rake::Task['spec'].invoke
+    run_logged_system_command('bin/rspec --format documentation')
   end
 
   desc 'Run JavaScript specs'
