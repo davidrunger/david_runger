@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126142601) do
+ActiveRecord::Schema.define(version: 20171126145028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(version: 20171126142601) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
+  create_table "sms_records", force: :cascade, comment: "Records of SMS messages sent via Nexmo" do |t|
+    t.string "nexmo_id", null: false, comment: "The message id provided by Nexmo"
+    t.string "status", null: false, comment: "The status code provided by Nexmo"
+    t.string "error", comment: "Error description, provided by Nexmo, if present"
+    t.string "to", null: false, comment: "The phone number to which the message was sent"
+    t.float "cost", comment: "Cost of the message in EUR; may be NULL if send failed"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_sms_records_on_user_id"
+  end
+
   create_table "stores", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "user_id"
@@ -68,5 +78,6 @@ ActiveRecord::Schema.define(version: 20171126142601) do
 
   add_foreign_key "items", "stores"
   add_foreign_key "requests", "users"
+  add_foreign_key "sms_records", "users"
   add_foreign_key "stores", "users"
 end

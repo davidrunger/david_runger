@@ -20,12 +20,13 @@ class User < ApplicationRecord
 
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
-  has_many :requests
-  has_many :stores
+  has_many :requests, dependent: :destroy
+  has_many :stores, dependent: :destroy
   has_many :items, through: :stores
+  has_many :sms_records, dependent: :destroy
 
   def self.from_omniauth!(access_token)
-    user = User.find_or_create_by!(email: access_token.info['email'])
+    User.find_or_create_by!(email: access_token.info['email'])
   end
 
   def admin?

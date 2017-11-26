@@ -41,9 +41,11 @@ Style/InlineComment:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - describe
     - head
     - puts
     - render
+    - require
 Style/MissingElse:
   Enabled: false
 Style/SignalException:
