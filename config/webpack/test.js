@@ -11,6 +11,7 @@ environment.loaders.set('style', {
   use: extractCSS.extract({
     use: [
       { loader: 'css-loader', options: { minimize: false } },
+      'postcss-loader',
       { loader: 'sass-loader', options: { sourceMap: true } },
     ],
   }),
