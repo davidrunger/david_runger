@@ -9,8 +9,7 @@ def run_logged_system_command(command, background: false)
       puts '... success.'
       true
     else
-      puts '... failed.'
-      false
+      abort("System command `#{command}` exited with a non-zero status.")
     end
   end
 end
@@ -48,6 +47,6 @@ namespace :spec do
       break if webpack_dev_server_running?
     end
 
-    exit(1) unless run_logged_system_command('yarn run test')
+    run_logged_system_command('yarn run test')
   end
 end
