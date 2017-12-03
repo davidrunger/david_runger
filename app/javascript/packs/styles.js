@@ -2,4 +2,3 @@
 // here, we'll just ignore the issue rather than solving it more systemically.
 // eslint-disable-next-line import/no-unresolved,import/no-extraneous-dependencies
 import 'css/styles.scss';
-import 'element-ui/lib/theme-chalk/index.css';
