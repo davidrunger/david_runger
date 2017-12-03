@@ -5,7 +5,7 @@
     :show-timeout=0
     placement='bottom-end'
   )
-    .user-email {{ bootstrap.current_user.email }} #[i.fa.fa-angle-down]
+    .user-email {{ bootstrap.current_user.email }} #[el-icon(name='arrow-down')]
     el-dropdown-menu(slot='dropdown')
       a(:href="$routes.edit_user_path(bootstrap.current_user)")
         el-dropdown-item Edit Account

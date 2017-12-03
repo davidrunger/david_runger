@@ -23,7 +23,7 @@ div
         a.nav-link(href='#contact')
           span.ptb-1 Contact
     a.down-arrow-container.center.circle.mb3(href='#about')
-      i.fa.fa-angle-double-down(aria-hidden='true')
+      el-icon(name='arrow-down')
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-1
@@ -473,7 +473,7 @@ i[class^=devicon-] {
   color: $black-light;
   background: $gray-light;
   font-size: 30px;
-  padding: 2px 0 0 2px; // nudges the font-awesome icon into the right place
+  padding: 2px 0 0 2px; // nudges the arrow icon into the right place
 }
 
 .skills table {
