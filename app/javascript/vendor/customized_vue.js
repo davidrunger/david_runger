@@ -6,6 +6,7 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
+  Icon,
   Input,
 } from 'element-ui';
 import axios from 'axios';
@@ -44,6 +45,7 @@ Vue.use(Card);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
+Vue.use(Icon);
 Vue.use(Input);
 
 Vue.component('modal', modal);
