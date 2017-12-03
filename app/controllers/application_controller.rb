@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   class StashRequestError < StandardError; end
 
-  force_ssl subdomain: 'www', unless: -> { Rails.env.development? }
+  force_ssl subdomain: 'www', unless: -> { Rails.env.development? || Rails.env.test? }
   protect_from_forgery with: :exception
   before_action :store_request_data_in_redis
   before_action :authenticate_user!
