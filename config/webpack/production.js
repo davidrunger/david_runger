@@ -10,6 +10,7 @@ environment.loaders.set('style', {
   use: extractCSS.extract({
     use: [
       { loader: 'css-loader', options: { minimize: true } },
+      'postcss-loader',
       { loader: 'sass-loader', options: { sourceMap: false } },
     ],
   }),

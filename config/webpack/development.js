@@ -17,6 +17,7 @@ environment.loaders.set('style', {
         convertToAbsoluteUrls: true,
       },
     },
+    'postcss-loader',
     {
       loader: 'sass-loader',
       options: {
