@@ -27,4 +27,8 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
+
+  get 'google83c07e1014ea4a70', to: ->(env) {
+    [200, {}, ['google-site-verification: google83c07e1014ea4a70.html']]
+  }
 end
