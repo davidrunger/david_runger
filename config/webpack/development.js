@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const fs = require('fs');
 const merge = require('webpack-merge');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
