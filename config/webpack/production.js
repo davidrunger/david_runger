@@ -9,15 +9,17 @@ environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
   use: extractCSS.extract({
     use: [
-      { loader: 'css-loader', options: { minimize: true } },
-      'postcss-loader',
+      { loader: 'css-loader', options: { minimize: true, sourceMap: false } },
+      { loader: 'postcss-loader', options: { sourceMap: false } },
       { loader: 'sass-loader', options: { sourceMap: false } },
     ],
   }),
 });
 
-const productionConfig = merge(environment.toWebpackConfig(), shared, {
-  devtool: 'hidden-source-map', // even though it's open-source, hide to save the network requests
+const environmentConfig = environment.toWebpackConfig();
+delete environmentConfig.devtool; // added by webpacker, but we want to use SourceMapDevToolPlugin
+
+const productionConfig = merge(environmentConfig, shared, {
   output: {
     devtoolModuleFilenameTemplate: info => {
       let path = info.resourcePath;
@@ -33,7 +35,18 @@ const productionConfig = merge(environment.toWebpackConfig(), shared, {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          extractCSS: true,
+          cssSourceMap: false,
+          extractCSS: ExtractTextPlugin.extract({
+            use: [
+              { loader: 'css-loader', options: { minimize: true, sourceMap: false } },
+              { loader: 'postcss-loader', options: { sourceMap: false } },
+              { loader: 'sass-loader', options: { sourceMap: false } },
+            ],
+          }),
+          loaders: {
+            js: 'babel-loader',
+            file: 'file-loader',
+          },
         },
       },
     ],
@@ -45,6 +58,15 @@ const productionConfig = merge(environment.toWebpackConfig(), shared, {
       name: 'commons',
       filename: 'commons-[hash].js',
       minChunks: 2,
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      test: /\.(js|vue)/,
+      filename: '[file].map[query]',
+      append: false,
+      module: true,
+      columns: false,
+      lineToLine: false,
+      noSources: false,
     }),
   ],
 });

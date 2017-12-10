@@ -9,7 +9,7 @@
       window.davidrunger.bootstrap = JSON.parse("#{raw(escape_javascript((@bootstrap_data || {}).to_json))}")
 
     = javascript_pack_tag('commons')
-    - if Rails.env.development?
+    - if Rails.env.development? && !ENV['PRODUCTION_ASSET_CONFIG'].present?
       = javascript_pack_tag('styles')
     - else
       %link{rel: "stylesheet", href: asset_pack_path('styles.css')}
