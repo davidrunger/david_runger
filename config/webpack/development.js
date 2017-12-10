@@ -12,8 +12,16 @@ environment.loaders.set('vue', {
     loaders: {
       js: 'babel-loader',
       file: 'file-loader',
-      scss: 'vue-style-loader!css-loader!postcss-loader!sass-loader',
-      sass: 'vue-style-loader!css-loader!postcss-loader!sass-loader?indentedSyntax',
+      scss:
+        'vue-style-loader?sourceMap' +
+        '!css-loader?sourceMap' +
+        '!postcss-loader' +
+        '!sass-loader',
+      sass:
+        'vue-style-loader?sourceMap' +
+        '!css-loader?sourceMap' +
+        '!postcss-loader' +
+        '!sass-loader?indentedSyntax',
     },
   },
 });
@@ -21,7 +29,12 @@ environment.loaders.set('vue', {
 environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
   use: [
-    'style-loader',
+    {
+      loader: 'style-loader',
+      options: {
+        sourceMap: true,
+      },
+    },
     {
       loader: 'css-loader',
       options: {
@@ -31,7 +44,12 @@ environment.loaders.set('style', {
         convertToAbsoluteUrls: true,
       },
     },
-    'postcss-loader',
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
+      },
+    },
     {
       loader: 'sass-loader',
       options: {
