@@ -27,9 +27,23 @@ const productionConfig = merge(environment.toWebpackConfig(), shared, {
       return path.replace(/^\/app\/node_modules/, '/vendor/node_modules');
     },
   },
+  rules: [
+    {
+      test: /\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        extractCSS: true,
+      },
+    },
+  ],
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     extractCSS,
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'commons',
+      filename: 'commons-[hash].js',
+      minChunks: 2,
+    }),
   ],
 });
 

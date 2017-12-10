@@ -5,6 +5,19 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
+environment.loaders.set('vue', {
+  test: /.vue$/,
+  loader: 'vue-loader',
+  options: {
+    loaders: {
+      js: 'babel-loader',
+      file: 'file-loader',
+      scss: 'vue-style-loader!css-loader!postcss-loader!sass-loader',
+      sass: 'vue-style-loader!css-loader!postcss-loader!sass-loader?indentedSyntax',
+    },
+  },
+});
+
 const extractCSS = new ExtractTextPlugin('[name].css');
 environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
