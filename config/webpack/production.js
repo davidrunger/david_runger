@@ -27,15 +27,17 @@ const productionConfig = merge(environment.toWebpackConfig(), shared, {
       return path.replace(/^\/app\/node_modules/, '/vendor/node_modules');
     },
   },
-  rules: [
-    {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-      options: {
-        extractCSS: true,
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          extractCSS: true,
+        },
       },
-    },
-  ],
+    ],
+  },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     extractCSS,
