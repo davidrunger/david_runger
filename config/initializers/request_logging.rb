@@ -49,6 +49,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_
         RequestLogging::CreateRequestError.new('Failed to save a Request'),
         stashed_json: stashed_json,
         request_attributes: request_attributes,
+        errors: request.errors.to_h,
       )
     end
   end
