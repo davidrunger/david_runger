@@ -5212,9 +5212,9 @@ postcss-font-variant@^3.0.0:
   dependencies:
     postcss "^6.0.1"
 
-postcss-html@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.9.0.tgz#9e1f1c64e1015cfe70f4cf6e391c01520c6cab58"
+postcss-html@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.11.0.tgz#03a3ff3116f8a0fe0d46316ea21893d4db4b63af"
   dependencies:
     htmlparser2 "^3.9.2"
     remark "^8.0.0"
