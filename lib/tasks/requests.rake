@@ -20,7 +20,7 @@ namespace :requests do
         'http://ip-api.com/batch',
         body: post_request_body,
       ).parsed_response
-    rescue Net::OpenTimeout => e # timeouts seem to happen often; rescue and log as info, not error
+    rescue Net::OpenTimeout, Errno::ECONNRESET => e # log connection issues as info, not error
       Rollbar.info(e)
     end
 
