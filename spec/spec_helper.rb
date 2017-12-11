@@ -52,6 +52,8 @@ WebMock.disable_net_connect!(allow_localhost: true)
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.fail_if_no_examples = true
+
   config.filter_run_when_matching(:focus)
 
   config.fixture_path = Rails.root.join('spec', 'fixtures')
