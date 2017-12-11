@@ -145,7 +145,7 @@ GEM
       shellany (~> 0.0)
       thor (>= 0.18.1)
     guard-compat (1.2.1)
-    hamlit (2.8.1)
+    hamlit (2.8.5)
       temple (>= 0.8.0)
       thor
       tilt
@@ -350,7 +350,7 @@ GEM
     temple (0.8.0)
     thor (0.20.0)
     thread_safe (0.3.6)
-    tilt (2.0.7)
+    tilt (2.0.8)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     unf (0.1.4)
