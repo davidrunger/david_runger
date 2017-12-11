@@ -60,6 +60,8 @@ class ApplicationController < ActionController::Base
     }
     begin
       $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
+    rescue Encoding::UndefinedConversionError => e
+      Rollbar.info(e)
     rescue
       # wrap the original exception in StashRequestError by raising and immediately rescuing
       begin
