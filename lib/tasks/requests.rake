@@ -14,11 +14,15 @@ namespace :requests do
 
     puts "About to lookup location data for #{ip_addresses_to_lookup.size} IP addresses"
 
-    post_request_body = ip_addresses_to_lookup.map { |ip| { query: ip } }.to_json
-    location_data = HTTParty.post(
-      'http://ip-api.com/batch',
-      body: post_request_body,
-    ).parsed_response
+    post_request_body = ip_addresses_to_lookup.map { |ip| {query: ip} }.to_json
+    begin
+      location_data = HTTParty.post(
+        'http://ip-api.com/batch',
+        body: post_request_body,
+      ).parsed_response
+    rescue Net::OpenTimeout => e # timeouts seem to happen often; rescue and log as info, not error
+      Rollbar.info(e)
+    end
 
     ip_address_locations = Hash[location_data.map do |location_datum|
       ip_address, city, state, country =
