@@ -53,7 +53,7 @@ module SourceMapHelper
       %w[styles] # Don't need CSS source maps. Also, styles are built into a CSS file on prod
   ).freeze
   ROLLBAR_SOURCE_MAP_URI = 'https://api.rollbar.com/api/1/sourcemap/'.freeze
-  APP_URL_BASE = 'http://davidrunger.com'.freeze
+  APP_URL_BASE = 'https://www.davidrunger.com'.freeze
 
   def self.on_heroku?
     ENV['HEROKU'].present?
