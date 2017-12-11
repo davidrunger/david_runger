@@ -23,9 +23,27 @@ environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
   use: extractCSS.extract({
     use: [
-      { loader: 'css-loader', options: { minimize: false } },
-      'postcss-loader',
-      { loader: 'sass-loader', options: { sourceMap: true } },
+      {
+        loader: 'css-loader',
+        options: {
+          hmr: true,
+          minimize: false,
+          sourceMap: true,
+          convertToAbsoluteUrls: true,
+        },
+      },
+      {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+        },
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          sourceMap: true,
+        },
+      },
     ],
   }),
 });
