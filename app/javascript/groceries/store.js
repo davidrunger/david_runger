@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Vue from 'vendor/customized_vue';
+import Vue from 'shared/customized_vue';
 import Vuex from 'vuex';
 import _ from 'lodash';
 

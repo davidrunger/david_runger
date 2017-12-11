@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-import Vue from 'vendor/customized_vue';
+import Vue from 'shared/customized_vue';
 import _ from 'lodash';
 
 window.Vue = Vue;
