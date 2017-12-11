@@ -63,10 +63,6 @@ const productionConfig = merge(environmentConfig, shared, {
       test: /\.(js|vue)/,
       filename: '[file].map[query]',
       append: false,
-      module: true,
-      columns: false,
-      lineToLine: false,
-      noSources: false,
     }),
   ],
 });
