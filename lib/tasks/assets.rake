@@ -111,6 +111,7 @@ module SourceMapHelper
             map_path: map_path,
             source_url: source_url,
             full_local_map_path: full_local_map_path,
+            response_to_s: e.cause&.response.to_s,
           )
         end
       end
