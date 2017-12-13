@@ -12,7 +12,7 @@ namespace :requests do
         limit(MAX_LOCATIONS_TO_FETCH).
         map(&:ip) # map rather than pluck so as not to override the DISTINCT ON select
 
-    break if ip_addresses_to_lookup.blank?
+    next if ip_addresses_to_lookup.blank?
 
     puts "About to lookup location data for #{ip_addresses_to_lookup.size} IP addresses"
     begin
@@ -24,7 +24,7 @@ namespace :requests do
       Rollbar.info(e)
     end
 
-    break if location_data.blank?
+    next if location_data.blank?
 
     ip_address_locations = Hash[location_data.map do |location_datum|
       ip_address, city, state, country =
