@@ -12,17 +12,19 @@ namespace :requests do
         limit(MAX_LOCATIONS_TO_FETCH).
         map(&:ip) # map rather than pluck so as not to override the DISTINCT ON select
 
-    puts "About to lookup location data for #{ip_addresses_to_lookup.size} IP addresses"
+    break if ip_addresses_to_lookup.blank?
 
-    post_request_body = ip_addresses_to_lookup.map { |ip| {query: ip} }.to_json
+    puts "About to lookup location data for #{ip_addresses_to_lookup.size} IP addresses"
     begin
       location_data = HTTParty.post(
         'http://ip-api.com/batch',
-        body: post_request_body,
+        body: ip_addresses_to_lookup.map { |ip| {query: ip} }.to_json,
       ).parsed_response
     rescue Net::OpenTimeout, Errno::ECONNRESET => e # log connection issues as info, not error
       Rollbar.info(e)
     end
+
+    break if location_data.blank?
 
     ip_address_locations = Hash[location_data.map do |location_datum|
       ip_address, city, state, country =
