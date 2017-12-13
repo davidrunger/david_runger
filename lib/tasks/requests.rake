@@ -24,6 +24,8 @@ namespace :requests do
       Rollbar.info(e)
     end
 
+    break if location_data.blank?
+
     ip_address_locations = Hash[location_data.map do |location_datum|
       ip_address, city, state, country =
         location_datum.values_at(*%w[query city region countryCode])
