@@ -48,6 +48,8 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.log_level = ENV['RAILS_LOG_LEVEL'] || :debug
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
