@@ -3,15 +3,16 @@ module RequestLogging
 
   IGNORED_USER_AGENTS = %w[
     NewRelicPinger
-  ]
+  ].map(&:freeze).freeze
   IGNORED_USER_AGENTS_REGEX = Regexp.new(IGNORED_USER_AGENTS.join('|'))
 end
 
-ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_name, _started, _finished, _unique_id, payload|
+ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*args|
+  payload = args.extract_options!
   params = payload[:params]
   request_uuid = params['request_uuid']
 
-  next unless request_uuid.present?
+  next if request_uuid.blank?
 
   stashed_json = $redis.get(request_uuid)
   stashed_data = stashed_json.present? ? JSON.parse(stashed_json) : {}
@@ -36,14 +37,15 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |_
     requested_at: stashed_data['requested_at'],
   }
 
-  if user_agent =~ RequestLogging::IGNORED_USER_AGENTS_REGEX
+  if user_agent.match?(RequestLogging::IGNORED_USER_AGENTS_REGEX)
     Rails.logger.info(<<-LOG.squish)
       Skipping creation of a Request because user_agent #{user_agent} is in IGNORED_USER_AGENTS.
       Request attributes were #{request_attributes}
     LOG
   else
     request = Request.new(request_attributes)
-    if !request.save
+    saved_successfully = request.save
+    if !saved_successfully
       Rails.logger.warn(<<-LOG.squish)
         Failed to create a Request,
         errors=#{request.errors.to_h},
