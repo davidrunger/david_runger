@@ -20,6 +20,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # add user_id to event payload so that we can include it in logs
+  def append_info_to_payload(payload)
+    super(payload)
+    payload[:user_id] = current_user.id if current_user.present?
+  end
+
   def authenticate_user!
     return if user_signed_in?
 
