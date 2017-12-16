@@ -26,14 +26,17 @@
 #
 
 class Request < ApplicationRecord
+  # error class for Rollbar logging
+  class CreateRequestError < StandardError ; end
+
   belongs_to :user, optional: true
 
   validates :url, :handler, :method, :format, :ip, :requested_at, presence: true
   validates :bot, inclusion: [true, false]
 
   scope :human, -> { where(bot: false) }
-  scope :recent, ->(time_period = 1.day) do
+  scope :recent, (lambda do |time_period = 1.day|
     where('requests.requested_at > ?', time_period.ago)
-  end
+  end)
   scope :ordered, ->() { order('requests.requested_at') }
 end
