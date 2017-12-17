@@ -56,6 +56,7 @@
     "sass-loader": "^6.0.5",
     "script-loader": "^0.7.2",
     "smooth-scroll": "^12.1.5",
+    "statsd": "https://github.com/etsy/statsd.git",
     "style-loader": "^0.18.1",
     "stylelint-webpack-plugin": "^0.9.0",
     "vue": "^2.3.0",
