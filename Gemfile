@@ -28,6 +28,7 @@ gem 'rest-client'
 gem 'rollbar'
 gem 'rubocop'
 gem 'sass-rails', '~> 5.0'
+gem 'statsd-instrument'
 gem 'webpacker'
 
 group :development, :test do
