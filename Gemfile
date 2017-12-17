@@ -12,6 +12,7 @@ gem 'administrate', github: 'thoughtbot/administrate' # installed from `master` 
 gem 'browser'
 gem 'devise', github: 'plataformatec/devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
+gem 'foreman', require: false
 gem 'hamlit'
 gem 'httparty'
 gem 'jbuilder', '~> 2.7'
