@@ -1,1 +1,1 @@
-web: foreman start -f Procfile.multi
+web: bundle exec foreman start -f Procfile.multi
