@@ -6,4 +6,4 @@
   %link{rel: 'stylesheet', href: '//cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css'}
 
 - content_for(:extra_javascript) do
-  = javascript_pack_tag('home_app')
+  = javascript_pack_tag('home_app', defer: true)
