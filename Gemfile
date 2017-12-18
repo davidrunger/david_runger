@@ -15,8 +15,7 @@ gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'foreman', require: false
 gem 'hamlit'
 gem 'httparty'
-gem 'jbuilder', '~> 2.7'
-gem 'js-routes'
+gem 'js-routes', require: false
 gem 'lograge'
 gem 'newrelic_rpm'
 gem 'oj'
@@ -27,7 +26,7 @@ gem 'rails', '~> 5.1.0'
 gem 'redis', '~>4.0'
 gem 'rest-client'
 gem 'rollbar'
-gem 'rubocop'
+gem 'rubocop', require: false
 gem 'sass-rails', '~> 5.0'
 gem 'statsd-instrument'
 gem 'webpacker'
@@ -39,6 +38,7 @@ group :development, :test do
   gem 'fixture_builder'
   gem 'pry'
   gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'rspec-rails'
 end
 
@@ -47,7 +47,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'pry-rails'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
