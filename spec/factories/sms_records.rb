@@ -15,7 +15,7 @@
 #  index_sms_records_on_user_id  (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :sms_record do
     error nil
     sequence(:nexmo_id) { |n| n.to_s.rjust(8, '0') }

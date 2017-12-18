@@ -33,7 +33,7 @@ gem 'webpacker'
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'fixture_builder'
   gem 'pry'

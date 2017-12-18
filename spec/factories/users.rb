@@ -15,7 +15,7 @@
 #  index_users_on_email  (email) UNIQUE
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     last_activity_at { 2.months.ago }
