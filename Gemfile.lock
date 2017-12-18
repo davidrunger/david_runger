@@ -20,9 +20,9 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: a34ee154d9b7af1a6fe29ce14671f6c66398210c
+  revision: 6661889711edd688c8768e48602fa4a25b82d7bf
   specs:
-    administrate (0.7.0)
+    administrate (0.8.1)
       actionpack (>= 4.2, < 5.2)
       actionview (>= 4.2, < 5.2)
       activerecord (>= 4.2, < 5.2)
@@ -86,7 +86,7 @@ GEM
       rake (>= 10.4, < 12.0)
     arel (8.0.0)
     ast (2.3.0)
-    autoprefixer-rails (7.1.1)
+    autoprefixer-rails (7.2.3)
       execjs
     awesome_print (1.7.0)
     bcrypt (3.1.11)
@@ -168,18 +168,18 @@ GEM
       sprockets-rails
     jsonapi-renderer (0.1.2)
     jwt (1.5.6)
-    kaminari (1.0.1)
+    kaminari (1.1.1)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.0.1)
-      kaminari-activerecord (= 1.0.1)
-      kaminari-core (= 1.0.1)
-    kaminari-actionview (1.0.1)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
       actionview
-      kaminari-core (= 1.0.1)
-    kaminari-activerecord (1.0.1)
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
       activerecord
-      kaminari-core (= 1.0.1)
-    kaminari-core (1.0.1)
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -326,14 +326,18 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     safe_yaml (1.0.4)
-    sass (3.4.24)
-    sass-rails (5.0.6)
+    sass (3.5.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+    sass-rails (5.0.7)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selectize-rails (0.12.4)
+    selectize-rails (0.12.4.1)
     shellany (0.0.1)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
