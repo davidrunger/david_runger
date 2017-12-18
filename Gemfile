@@ -27,7 +27,7 @@ gem 'rails', '~> 5.1.0'
 gem 'redis', '~>4.0'
 gem 'rest-client'
 gem 'rollbar'
-gem 'rubocop'
+gem 'rubocop', require: false
 gem 'sass-rails', '~> 5.0'
 gem 'statsd-instrument'
 gem 'webpacker'
