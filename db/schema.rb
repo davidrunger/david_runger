@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20171126145028) do
     t.datetime "updated_at", null: false
     t.datetime "last_activity_at"
     t.string "phone"
-    t.float "sms_allowance", default: 1.0, null: false, comment: "Total cost of text messages in EUR that the user is allowed to accrue."
+    t.float "sms_allowance", default: 1.0, null: false, comment: "Total cost in EUR of text messages that the user is allowed to accrue."
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
