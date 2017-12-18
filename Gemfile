@@ -16,7 +16,7 @@ gem 'foreman', require: false
 gem 'hamlit'
 gem 'httparty'
 gem 'jbuilder', '~> 2.7'
-gem 'js-routes'
+gem 'js-routes', require: false
 gem 'lograge'
 gem 'newrelic_rpm'
 gem 'oj'

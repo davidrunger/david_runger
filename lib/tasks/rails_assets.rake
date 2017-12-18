@@ -1,5 +1,7 @@
 desc 'Build named-routes JavaScript helper script'
 file 'app/javascript/rails_assets/routes.js' => [:environment, 'config/routes.rb'] do
+  require 'js-routes'
+
   puts 'Clearing Rails tmp cache ...'
   Rake::Task['tmp:cache:clear'].invoke
 
