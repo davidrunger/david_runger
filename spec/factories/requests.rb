@@ -25,7 +25,7 @@
 #  index_requests_on_user_id       (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   bot_user_agent = <<-BOT.squish
     Generic Browser 0 Other mobile=false raw=Mozilla/5.0 (compatible; Googlebot/2.1;
     +http://www.google.com/bot.html)

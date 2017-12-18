@@ -15,7 +15,7 @@
 #  index_stores_on_user_id     (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :store do
     name { Faker::Company.name }
     association :user

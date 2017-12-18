@@ -1,4 +1,4 @@
-include FactoryGirl::Syntax::Methods
+include FactoryBot::Syntax::Methods
 
 FixtureBuilder.configure do |fbuilder|
   # rebuild fixtures automatically when these files change:

@@ -1,7 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require 'pry'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'webmock'
 require 'webmock/rspec'
 require File.expand_path('../../config/environment', __FILE__)
@@ -60,7 +60,7 @@ RSpec.configure do |config|
   config.global_fixtures = :all
   config.use_transactional_fixtures
 
-  config.include(FactoryGirl::Syntax::Methods)
+  config.include(FactoryBot::Syntax::Methods)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
 
   config.after(:each, type: :controller) do
