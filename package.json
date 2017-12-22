@@ -46,7 +46,7 @@
     "keycode": "^2.1.9",
     "lodash": "^4.17.4",
     "node-pre-gyp": "0.6.38",
-    "node-sass": "^4.0.0",
+    "node-sass": "^4.7.2",
     "path-complete-extname": "^0.1.0",
     "postcss-loader": "^2.0.5",
     "postcss-smart-import": "^0.7.4",
