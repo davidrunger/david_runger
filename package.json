@@ -74,7 +74,7 @@
     "jsdom": "^11.3.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^4.0.1",
-    "mocha-headless-chrome": "^1.5.2",
+    "mocha-headless-chrome": "^1.7.1",
     "mocha-webpack": "^0.7.0",
     "postcss": "^6.0.14",
     "postcss-html": "^0.11.0",
