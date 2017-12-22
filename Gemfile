@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_model_serializers'
-gem 'administrate', github: 'thoughtbot/administrate' # installed from `master` for Rails 5.1 compat
+gem 'administrate', '~> 0.8.1'
 gem 'browser'
 gem 'devise', github: 'plataformatec/devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
