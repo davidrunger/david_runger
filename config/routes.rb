@@ -27,4 +27,8 @@ Rails.application.routes.draw do
 
     root to: 'users#index'
   end
+
+  authenticate :user, -> (user) { user.admin? } do
+    mount PgHero::Engine, at: 'pghero'
+  end
 end

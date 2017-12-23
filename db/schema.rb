@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126145028) do
+ActiveRecord::Schema.define(version: 20171223054515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "items", id: :serial, force: :cascade do |t|
     t.integer "store_id", null: false
@@ -24,6 +25,26 @@ ActiveRecord::Schema.define(version: 20171126145028) do
     t.boolean "archived", default: false, null: false
     t.index ["created_at"], name: "index_items_on_created_at"
     t.index ["store_id"], name: "index_items_on_store_id"
+  end
+
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "user"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.bigint "calls"
+    t.datetime "captured_at"
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
+  end
+
+  create_table "pghero_space_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "schema"
+    t.text "relation"
+    t.bigint "size"
+    t.datetime "captured_at"
+    t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
   end
 
   create_table "requests", force: :cascade do |t|
