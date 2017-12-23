@@ -1,17 +1,19 @@
 <template lang='pug'>
 aside.border-right.border-gray.p2
-  form.add-store.flex(@submit='createStore')
-    el-input.flex-1.mr1(
-      type='text'
-      ref='storeName'
-      v-model='newStoreName'
-      placeholder='Add a store'
-      size='medium'
-    )
+  vue-form.add-store.flex(@submit.prevent='createStore' :state='formstate')
+    validate.flex-1.mr1
+      el-input(
+        type='text'
+        v-model='newStoreName'
+        name='newStoreName'
+        required
+        placeholder='Add a store'
+        size='medium'
+      )
     el-input.flex-0(
       value='Add'
       type='submit'
-      :disabled='postingStore'
+      :disabled='postingStore || formstate.$invalid'
       size='medium'
     )
   ul.stores-list
@@ -47,6 +49,7 @@ export default {
 
   data() {
     return {
+      formstate: {},
       newStoreName: '',
     };
   },
@@ -56,8 +59,9 @@ export default {
       this.$store.dispatch('moveItem', { item, newStore: store });
     },
 
-    createStore(event) {
-      event.preventDefault();
+    createStore() {
+      if (this.formstate.$invalid) return;
+
       this.$store.state.postingStore = true;
       const payload = {
         store: {
