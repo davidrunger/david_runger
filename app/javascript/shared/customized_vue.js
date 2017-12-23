@@ -28,6 +28,7 @@ Vue.prototype.bootstrap = window.davidrunger && window.davidrunger.bootstrap;
 Vue.prototype.$routes = window.Routes;
 
 Vue.config.productionTip = false;
+Vue.config.devtools = false;
 
 Vue.config.errorHandler = (error, _vm, info) => {
   if (window.Rollbar && window.Rollbar.error) {

@@ -4,9 +4,9 @@ def run_logged_system_command(command, background: false)
     system("#{command} &")
     true
   else
-    puts "Running system command '#{command}' ..."
+    print "Running system command '#{command}' ... "
+
     if system(command)
-      puts '... success.'
       true
     else
       abort("System command `#{command}` exited with a non-zero status.")
@@ -20,7 +20,6 @@ def webpack_dev_server_running?
   Net::HTTP.get(URI('http://localhost:8080/packs-test/mocha.css'))
   Net::HTTP.get(URI('http://localhost:8080/packs-test/spec_index.js'))
 rescue
-  puts 'webpack-dev-server is not ready yet ...'
   false
 else
   puts 'webpack-dev-server is ready!'
@@ -38,13 +37,18 @@ namespace :spec do
     run_logged_system_command('node --version')
     run_logged_system_command('yarn --version')
     run_logged_system_command('webpack --version')
-    run_logged_system_command('bin/setup-mocha-tests')
-    run_dev_server = Rails.root.join('bin', 'webpack-dev-server')
-    run_logged_system_command("NODE_ENV=test #{run_dev_server}", background: true)
-    puts 'Waiting for webpack-dev-server to boot up ...'
+    run_logged_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
+    print "\n"
+    dev_server = Rails.root.join('bin', 'webpack-dev-server')
+    run_logged_system_command("NODE_ENV=test #{dev_server} >/dev/null 2>&1", background: true)
+    print 'Waiting for webpack-dev-server to boot up '
     120.times do # wait up to 2 minutes for webpack-dev-server to start, checking each second
       sleep(1)
-      break if webpack_dev_server_running?
+      if webpack_dev_server_running?
+        break
+      else
+        print '.'
+      end
     end
 
     run_logged_system_command('yarn run test')
