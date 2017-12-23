@@ -10,18 +10,21 @@ div.mt1.mb2.ml3.mr2
     el-button.copy-to-clipboard(size='mini') Copy to clipboard
     span(v-if='wasCopiedRecently') Copied!
 
-  form.col-5.flex(@submit='postNewItem')
-    el-input.item-name-input.flex-1.float-left(
-      placeholder='Add an item'
-      type='text'
-      ref='itemName'
-      v-model='newItemName'
-      size='medium'
-    )
+  vue-form.col-5.flex(@submit.prevent='postNewItem' :state='formstate')
+    validate.flex-1.float-left
+      el-input.item-name-input(
+        placeholder='Add an item'
+        type='text'
+        v-model='newItemName'
+        name='newItemName'
+        required
+        size='medium'
+      )
     el-input.flex-0.button.button-outline.float-left.ml1(
       value='Add'
       type='submit'
       size='medium'
+      :disabled='formstate.$invalid'
     )
 
   ul.items-list.mt0.mb0
@@ -61,6 +64,7 @@ export default {
 
   data() {
     return {
+      formstate: {},
       itemsToZero: [],
       newItemName: '',
       wasCopiedRecently: false,
@@ -127,8 +131,9 @@ export default {
       });
     }, 500),
 
-    postNewItem(event) {
-      event.preventDefault();
+    postNewItem() {
+      if (this.formstate.$invalid) return;
+
       this.$store.commit('incrementPendingRequests');
       const payload = {
         item: {
