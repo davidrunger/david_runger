@@ -12,8 +12,7 @@
 #
 # Indexes
 #
-#  index_items_on_created_at  (created_at)
-#  index_items_on_store_id    (store_id)
+#  index_items_on_store_id  (store_id)
 #
 
 class Item < ApplicationRecord
