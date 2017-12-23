@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import axios from 'axios';
 import {
   Button,
   Card,
@@ -9,8 +8,11 @@ import {
   Icon,
   Input,
 } from 'element-ui';
-import axios from 'axios';
+import Vue from 'vue';
 import { Drag, Drop } from 'vue-drag-drop';
+import VueForm from 'vue-form';
+import Vuex from 'vuex';
+
 import modal from 'components/modal.vue';
 import 'shared/common';
 
@@ -40,6 +42,8 @@ Vue.config.errorHandler = (error, _vm, info) => {
 };
 
 Vue.use(Vuex);
+
+Vue.use(VueForm);
 
 Vue.use(Button);
 Vue.use(Card);

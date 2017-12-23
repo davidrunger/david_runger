@@ -2618,7 +2618,7 @@ express@^4.16.2:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-extend@^3.0.0, extend@~3.0.0, extend@~3.0.1:
+extend@3.0.1, extend@^3.0.0, extend@~3.0.0, extend@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
 
@@ -6508,6 +6508,10 @@ schema-utils@^0.3.0:
   dependencies:
     ajv "^5.0.0"
 
+scope-eval@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/scope-eval/-/scope-eval-1.0.0.tgz#e182db1a1ef26f3e79d4bf48423b25e22839f0ff"
+
 script-loader@^0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/script-loader/-/script-loader-0.7.2.tgz#2016db6f86f25f5cf56da38915d83378bb166ba7"
@@ -7483,6 +7487,13 @@ vue-drag-drop@^0.2.2:
   resolved "https://registry.yarnpkg.com/vue-drag-drop/-/vue-drag-drop-0.2.2.tgz#ec58be20826701c593aecdb26754ee8a8bdf1158"
   dependencies:
     uniqid "^4.1.1"
+
+vue-form@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/vue-form/-/vue-form-4.7.0.tgz#5a9fa790247ff797cb890d203b0bc63a75e13c26"
+  dependencies:
+    extend "3.0.1"
+    scope-eval "1.0.0"
 
 vue-hot-reload-api@^2.2.0:
   version "2.2.0"
