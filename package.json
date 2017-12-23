@@ -62,7 +62,7 @@
     "vue": "^2.3.0",
     "vue-drag-drop": "^0.2.2",
     "vue-form": "^4.7.0",
-    "vue-loader": "^13.0.5",
+    "vue-loader": "^13.6.1",
     "vue-template-compiler": "^2.3.0",
     "vuex": "^3.0.1",
     "waypoints": "^4.0.1",
