@@ -11,8 +11,7 @@
 #
 # Indexes
 #
-#  index_stores_on_created_at  (created_at)
-#  index_stores_on_user_id     (user_id)
+#  index_stores_on_user_id  (user_id)
 #
 
 class StoreSerializer < ActiveModel::Serializer
