@@ -4,14 +4,14 @@
       span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
       span.decrement.h2.pl1.pr1.js-link.red(@click='setNeeded(item, item.needed - 1)' title='Decrement') &ndash;
       input(
-        v-if='editingName'
+        v-show='editingName'
         type='text'
-        autofocus
         v-model='item.name'
         @blur='stopEditingAndUpdateItemName()'
         @keydown.enter='stopEditingAndUpdateItemName()'
+        ref='item-name-input'
       )
-      span(v-else @dblclick='editingName = true') {{item.name}}
+      span(v-show='!editingName' @dblclick='editItemName') {{item.name}}
       | &nbsp;
       span ({{item.needed}})
       .delete.h2.pl1.pr1.js-link.right.red(
@@ -31,6 +31,12 @@ export default {
   },
 
   methods: {
+    editItemName() {
+      this.editingName = true;
+      // wait a tick for input to render, then focus it
+      setTimeout(() => { this.$refs['item-name-input'].focus(); });
+    },
+
     isJustAdded(item) {
       return !!item.createdAt && item.createdAt > ((new Date()).valueOf() - 1000);
     },
