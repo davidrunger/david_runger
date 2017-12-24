@@ -14,7 +14,6 @@ class ItemDashboard < Administrate::BaseDashboard
     needed: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    archived: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -38,7 +37,6 @@ class ItemDashboard < Administrate::BaseDashboard
     :needed,
     :created_at,
     :updated_at,
-    :archived,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -48,7 +46,6 @@ class ItemDashboard < Administrate::BaseDashboard
     :store,
     :name,
     :needed,
-    :archived,
   ].freeze
 
   # Overwrite this method to customize how items are displayed
