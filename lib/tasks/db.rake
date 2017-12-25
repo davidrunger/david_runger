@@ -1,35 +1,63 @@
+module DavidRunger::TruncateTables
+  ROW_COUNT_SQL = <<~SQL.freeze
+    SELECT relname, n_live_tup
+    FROM pg_stat_user_tables
+    ORDER BY n_live_tup DESC;
+  SQL
+
+  def self.max_allowed_rows
+    Integer(ENV['MAX_TABLE_ROWS']) || 2_500
+  end
+
+  def self.print_row_counts
+    ApplicationRecord.connection.execute('ANALYZE')
+    ApplicationRecord.connection.execute(ROW_COUNT_SQL).to_a.each do |row|
+      puts "#{row['n_live_tup']} rows - #{row['relname']}"
+    end
+  end
+
+  # rubocop:disable Metrics/MethodLength
+  def self.truncate(table:, timestamp:)
+    num_rows =
+      ApplicationRecord.connection.execute("SELECT count(*) FROM #{table}").to_a.first['count']
+    puts "Rows in `#{table}` prior to truncation: #{num_rows}"
+
+    min_surviving_timestamp_sql = <<~SQL
+      SELECT #{timestamp}
+      FROM #{table}
+      ORDER BY #{timestamp} DESC
+      LIMIT #{max_allowed_rows}
+    SQL
+
+    min_surviving_timestamp =
+      ApplicationRecord.connection.execute(min_surviving_timestamp_sql).to_a.last[timestamp]
+    delete_old_rows_sql = <<~SQL
+      DELETE
+      FROM #{table}
+      WHERE #{timestamp} < '#{min_surviving_timestamp}'
+    SQL
+    ApplicationRecord.connection.execute(delete_old_rows_sql)
+    puts "Deleted rows older than #{min_surviving_timestamp} (database time, probably UTC)"
+    num_rows =
+      ApplicationRecord.connection.execute("SELECT count(*) FROM #{table}").to_a.first['count']
+    puts "Rows in `#{table}` after truncation: #{num_rows}"
+    puts
+  end
+  # rubocop:enable Metrics/MethodLength
+end
+
 namespace :db do
   desc 'Delete all but the most recent rows in the `requests` table'
-  task truncate_old_requests: :environment do
-    puts "(Possibly) truncating the requests table..."
+  task truncate_tables: :environment do
+    puts "About to truncate database tables; max is #{DavidRunger::TruncateTables.max_allowed_rows}"
 
-    num_requests = Request.count
-    puts "number of `requests` prior truncation: #{num_requests}"
+    puts 'Approximate row counts prior to deletion:'
+    DavidRunger::TruncateTables.print_row_counts
+    puts
 
-    max_allowed_rows = Integer(ENV['REQUESTS_MAX_ROWS']) || 4_000
-    puts "max allowed rows: #{max_allowed_rows}"
+    DavidRunger::TruncateTables.truncate(table: 'requests', timestamp: 'requested_at')
+    DavidRunger::TruncateTables.truncate(table: 'pghero_query_stats', timestamp: 'captured_at')
 
-    min_surviving_requested_at =
-      case
-      when max_allowed_rows > 0
-        Request.order(requested_at: :desc).limit(max_allowed_rows).last.requested_at
-      else
-        Request.maximum(:requested_at) + 1.second
-      end
-    requests_to_destroy = Request.where('requests.requested_at < ?', min_surviving_requested_at)
-    puts <<-LOG.squish
-      destroying `requests` requested prior to #{min_surviving_requested_at.utc.iso8601}
-      (#{requests_to_destroy.count} such requests)
-    LOG
-    requests_to_destroy.delete_all
-
-    puts "number of `requests` after truncation: #{Request.count}"
+    puts 'Done truncating tables'
   end
-
-  desc "Clean old logs"
-  task :logs => :environment do
-    Log.cleanup!
-  end
-
-  task :all => [:clicks, :logs]
 end

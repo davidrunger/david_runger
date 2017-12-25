@@ -11,8 +11,6 @@ Layout/SpaceBeforeSemicolon:
   Enabled: false
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
-Lint/RescueWithoutErrorClass:
-  Enabled: false
 Lint/UnneededSplatExpansion:
   Enabled: false
 Metrics/AbcSize:
@@ -35,6 +33,8 @@ Style/Documentation:
   Enabled: false
 Style/DocumentationMethod:
   Enabled: false
+Style/EmptyCaseCondition:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/GlobalVars:
@@ -49,6 +49,7 @@ Style/MethodCallWithArgsParentheses:
     - head
     - include
     - not_to
+    - p
     - puts
     - render
     - require
@@ -56,6 +57,10 @@ Style/MethodCallWithArgsParentheses:
 Style/MissingElse:
   Enabled: false
 Style/NegatedIf:
+  Enabled: false
+Style/NumericPredicate:
+  Enabled: false
+Style/RescueStandardError:
   Enabled: false
 Style/SignalException:
   Enabled: false
