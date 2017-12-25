@@ -2,7 +2,6 @@
 #
 # Table name: items
 #
-#  archived   :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  id         :integer          not null, primary key
 #  name       :string           not null
@@ -19,6 +18,4 @@ class Item < ApplicationRecord
   belongs_to :store
 
   validates :name, presence: true
-
-  scope :not_archived, -> { where.not(archived: true) }
 end

@@ -2,7 +2,6 @@
 #
 # Table name: items
 #
-#  archived   :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  id         :integer          not null, primary key
 #  name       :string           not null
