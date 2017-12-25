@@ -85,7 +85,7 @@
     "stylelint": "^8.2.0",
     "stylelint-config-standard": "^17.0.0",
     "stylelint-scss": "^2.1.0",
-    "vue-test-utils": "^1.0.0-beta.2",
+    "vue-test-utils": "vuejs/vue-test-utils#dev",
     "webpack-dev-server": "^2.9.7",
     "webpack-node-externals": "^1.6.0"
   }

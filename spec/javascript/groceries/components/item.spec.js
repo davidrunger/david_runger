@@ -49,8 +49,8 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
     expect(util.findAll(wrapper, 'span:text(bananas)')).toExist();
   });
 
-  it('doesnt initially contain a text input', () => {
-    expect(wrapper.contains('input[type="text"]')).toBeFalsy();
+  it('doesnt initially show a text input', () => {
+    expect(wrapper.find('input[type=text]').attributes().style).toMatch(/display: none/);
   });
 
   describe('editing the item name', () => {
@@ -88,8 +88,8 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
           xhr.restore();
         });
 
-        it('removes the text input', () => {
-          expect(wrapper.contains('input')).toBe(false);
+        it('hides the text input', () => {
+          expect(wrapper.find('input[type=text]').attributes().style).toMatch(/display: none/);
         });
 
         it('updates the item text shown on the client', () => {
@@ -115,7 +115,7 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
       });
 
       it('doesnt convert to a text input', () => {
-        expect(wrapper.contains('input[type="text"]')).toBeFalsy();
+        expect(wrapper.find('input[type=text]').attributes().style).toMatch(/display: none/);
       });
     });
   });
