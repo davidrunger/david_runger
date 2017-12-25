@@ -33,7 +33,7 @@ div.mt1.mb2.ml3.mr2
   modal(v-if="showModal" width='85%', maxWidth='400px')
     slot
       h3.bold.fonst-size-2.mb2.
-        Uncheck any items that you didn't get.
+        What did you get?
       ul
         li.flex.items-center.mb1(v-for='(item, index) in neededItems' :key='item.id')
           input(type='checkbox' v-model='itemsToZero' :value='item' :id='`trip-checkin-item-${item.id}`')
