@@ -10,7 +10,7 @@ end
 gem 'active_model_serializers'
 gem 'administrate', '~> 0.8.1'
 gem 'browser'
-gem 'devise', github: 'plataformatec/devise'
+gem 'devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'foreman', require: false
 gem 'hamlit'
