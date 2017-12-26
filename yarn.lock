@@ -2143,6 +2143,12 @@ domutils@^1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
+dot-prop@^4.1.1:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
+  dependencies:
+    is-obj "^1.0.0"
+
 ecc-jsbn@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
@@ -3592,6 +3598,10 @@ is-number@^3.0.0:
   dependencies:
     kind-of "^3.0.2"
 
+is-obj@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
+
 is-path-cwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-path-cwd/-/is-path-cwd-1.0.0.tgz#d225ec23132e89edd38fda767472e62e65f1106d"
@@ -4180,7 +4190,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.11.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.3.0, lodash@~4.17.4:
+"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.3.0, lodash@~4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -5640,6 +5650,14 @@ postcss-selector-parser@^2.0.0, postcss-selector-parser@^2.2.2, postcss-selector
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
+postcss-selector-parser@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-3.1.1.tgz#4f875f4afb0c96573d5cf4d74011aee250a7e865"
+  dependencies:
+    dot-prop "^4.1.1"
+    indexes-of "^1.0.1"
+    uniq "^1.0.1"
+
 postcss-simple-vars@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/postcss-simple-vars/-/postcss-simple-vars-4.1.0.tgz#043248cfef8d3f51b3486a28c09f8375dbf1b2f9"
@@ -6975,14 +6993,14 @@ stylelint-config-standard@^17.0.0:
   dependencies:
     stylelint-config-recommended "^1.0.0"
 
-stylelint-scss@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-2.1.0.tgz#e3fe24262bcb09cf70d859b80b17099d511094de"
+stylelint-scss@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-2.2.0.tgz#3e324bf13346db7af21cd24ad57fe3202f7c3823"
   dependencies:
-    lodash "^4.11.1"
+    lodash "^4.17.4"
     postcss-media-query-parser "^0.2.3"
     postcss-resolve-nested-selector "^0.1.1"
-    postcss-selector-parser "^2.0.0"
+    postcss-selector-parser "^3.1.1"
     postcss-value-parser "^3.3.0"
 
 stylelint-webpack-plugin@^0.9.0:
