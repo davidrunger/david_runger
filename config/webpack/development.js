@@ -26,8 +26,8 @@ environment.loaders.set('vue', {
   },
 });
 
-environment.loaders.set('style', {
-  test: /\.(scss|sass|css)$/,
+environment.loaders.set('sass', {
+  test: /\.(scss|sass)$/,
   use: [
     {
       loader: 'style-loader',
