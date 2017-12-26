@@ -1,6 +1,15 @@
 AllCops:
   EnabledByDefault: true
   TargetRubyVersion: 2.4
+Layout/ClassStructure:
+  ExpectedOrder:
+      - module_inclusion
+      - constants
+      - public_class_methods
+      - initializer
+      - public_methods
+      - protected_methods
+      - private_methods
 Layout/DotPosition:
   EnforcedStyle: trailing
 Layout/IndentArray:
