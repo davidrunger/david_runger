@@ -54,7 +54,9 @@ Style/InlineComment:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - desc
     - describe
+    - file
     - head
     - include
     - not_to
