@@ -5471,14 +5471,6 @@ postcss-font-variant@^3.0.0:
   dependencies:
     postcss "^6.0.1"
 
-postcss-html@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.11.0.tgz#03a3ff3116f8a0fe0d46316ea21893d4db4b63af"
-  dependencies:
-    htmlparser2 "^3.9.2"
-    remark "^8.0.0"
-    unist-util-find-all-after "^1.0.1"
-
 postcss-html@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.12.0.tgz#39b6adb4005dfc5464df7999c0f81c95bced7e50"
