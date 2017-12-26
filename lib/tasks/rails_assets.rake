@@ -1,5 +1,5 @@
 desc 'Build named-routes JavaScript helper script'
-file 'app/javascript/rails_assets/routes.js' => [:environment, 'config/routes.rb'] do
+task build_js_routes: :environment do
   require 'js-routes'
 
   puts 'Clearing Rails tmp cache ...'
@@ -7,8 +7,13 @@ file 'app/javascript/rails_assets/routes.js' => [:environment, 'config/routes.rb
 
   puts 'Writing app/javascript/rails_assets/routes.js ...'
   rails_assets_directory_name = 'app/javascript/rails_assets'
-  FileUtils.mkdir(rails_assets_directory_name) unless File.exists?(rails_assets_directory_name)
+  FileUtils.mkdir(rails_assets_directory_name) unless File.exist?(rails_assets_directory_name)
   JsRoutes.generate!('app/javascript/rails_assets/routes.js', exclude: /admin/)
 
   puts 'Done writing named routes JavaScript helpers to file.'
+end
+
+desc 'Check for changes to routes.rb & recompile JS routes if needed'
+file 'app/javascript/rails_assets/routes.js' => [:environment, 'config/routes.rb'] do
+  Rake::Task['build_js_routes'].invoke
 end
