@@ -31,7 +31,7 @@
     "clipboard": "^1.6.1",
     "compression-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.3",
-    "element-ui": "^2.0.5",
+    "element-ui": "^2.0.9",
     "eslint": "^4.6.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-import-resolver-webpack": "^0.8.3",
