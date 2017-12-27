@@ -48,7 +48,7 @@
     "node-pre-gyp": "0.6.39",
     "node-sass": "^4.7.2",
     "path-complete-extname": "^0.1.0",
-    "postcss-loader": "^2.0.5",
+    "postcss-loader": "^2.0.9",
     "precss": "^2.0.0",
     "pug": "^2.0.0-rc.1",
     "resolve-url-loader": "^2.2.1",
