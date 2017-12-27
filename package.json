@@ -11,7 +11,7 @@
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
     "autoprefixer": "^7.2.3",
-    "axios": "^0.16.1",
+    "axios": "^0.17.1",
     "babel-core": "^6.24.1",
     "babel-loader": "7.x",
     "babel-plugin-component": "^1.0.0",
