@@ -82,7 +82,7 @@
     "postcss-scss": "^1.0.2",
     "sinon": "^4.1.3",
     "stylelint": "^8.4.0",
-    "stylelint-config-standard": "^17.0.0",
+    "stylelint-config-standard": "^18.0.0",
     "stylelint-scss": "^2.2.0",
     "vue-test-utils": "vuejs/vue-test-utils#dev",
     "webpack-dev-server": "^2.9.7",
