@@ -4,16 +4,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
-const extractCSS = new ExtractTextPlugin('[name]-[contenthash].css');
+const cssExtractOptions = ExtractTextPlugin.extract({
+  use: [
+    { loader: 'css-loader', options: { minimize: true, sourceMap: false } },
+    { loader: 'postcss-loader', options: { sourceMap: false } },
+    { loader: 'sass-loader', options: { sourceMap: false } },
+  ],
+})
+
 environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
-  use: extractCSS.extract({
-    use: [
-      { loader: 'css-loader', options: { minimize: true, sourceMap: false } },
-      { loader: 'postcss-loader', options: { sourceMap: false } },
-      { loader: 'sass-loader', options: { sourceMap: false } },
-    ],
-  }),
+  use: cssExtractOptions,
 });
 
 const environmentConfig = environment.toWebpackConfig();
@@ -36,13 +37,7 @@ const productionConfig = merge(environmentConfig, shared, {
         loader: 'vue-loader',
         options: {
           cssSourceMap: false,
-          extractCSS: ExtractTextPlugin.extract({
-            use: [
-              { loader: 'css-loader', options: { minimize: true, sourceMap: false } },
-              { loader: 'postcss-loader', options: { sourceMap: false } },
-              { loader: 'sass-loader', options: { sourceMap: false } },
-            ],
-          }),
+          extractCSS: cssExtractOptions,
           loaders: {
             js: 'babel-loader',
             file: 'file-loader',
@@ -53,11 +48,14 @@ const productionConfig = merge(environmentConfig, shared, {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    extractCSS,
     new webpack.optimize.CommonsChunkPlugin({
       name: 'commons',
       filename: 'commons-[hash].js',
       minChunks: 2,
+    }),
+    new ExtractTextPlugin({
+      filename: '[name]-[contenthash].css',
+      allChunks: true,
     }),
     new webpack.SourceMapDevToolPlugin({
       test: /\.(js|vue)/,
