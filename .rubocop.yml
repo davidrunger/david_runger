@@ -63,6 +63,7 @@ Style/MethodCallWithArgsParentheses:
     - include
     - not_to
     - p
+    - print
     - puts
     - render
     - require
