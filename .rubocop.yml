@@ -66,6 +66,7 @@ Style/MethodCallWithArgsParentheses:
     - puts
     - render
     - require
+    - require_relative
     - ruby
     - source
     - to
