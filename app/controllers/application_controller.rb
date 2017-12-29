@@ -1,11 +1,16 @@
 class ApplicationController < ActionController::Base
   class StashRequestError < StandardError; end
 
+  include Pundit
+
   protect_from_forgery with: :exception
+
   before_action :store_request_data_in_redis
   before_action :authenticate_user!
 
-  # not worth logging in `Request`s
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  # params not worth logging in `Request`s
   BORING_PARAMS = %w[
     _method
     action
@@ -89,6 +94,14 @@ class ApplicationController < ActionController::Base
   end
 
   def render_json_error(message = 'There was a problem with your request', status = 400)
-    render json: { error: message }, status: status
+    render json: {error: message}, status: status
+  end
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    respond_to do |format|
+      format.html { redirect_to(request.referer || root_path) }
+      format.json { render_json_error('You are not authorized.', 403) }
+    end
   end
 end

@@ -2,7 +2,7 @@ RSpec.describe Api::TextMessagesController do
   before { sign_in(user) }
   let(:user) { users(:user) }
 
-  describe '#ensure_user_may_send_sms!' do
+  describe '#create' do
     before { NexmoTestApi.stub_post_success }
 
     let(:params) do
@@ -16,23 +16,30 @@ RSpec.describe Api::TextMessagesController do
       }
     end
 
-    describe 'when the user may send SMS messages' do
-      verify { expect(user.may_send_sms?).to eq(true) }
+    describe 'authorization' do
+      describe 'when the user may send SMS messages' do
+        verify { expect(user.may_send_sms?).to eq(true) }
 
-      it 'attempts to send a text message' do
-        expect(NexmoClient).to receive(:send_text!).and_call_original
-        post(:create, params: params)
+        it 'attempts to send a text message' do
+          expect(NexmoClient).to receive(:send_text!).and_call_original
+          post(:create, params: params)
+        end
       end
-    end
 
-    describe 'when the user may not send SMS messages' do
-      before { user.update!(sms_allowance: 0) }
+      describe 'when the user may not send SMS messages' do
+        before { user.update!(sms_allowance: 0) }
 
-      verify { expect(user.may_send_sms?).to eq(false) }
+        verify { expect(user.may_send_sms?).to eq(false) }
 
-      it 'does not attempt to send a text message' do
-        expect(NexmoClient).not_to receive(:send_text!)
-        post(:create, params: params)
+        it 'does not attempt to send a text message' do
+          expect(NexmoClient).not_to receive(:send_text!)
+          post(:create, params: params)
+        end
+
+        it 'returns a 403 status code' do
+          post(:create, params: params)
+          expect(response.status).to eq(403)
+        end
       end
     end
   end

@@ -1,4 +1,3 @@
-# rubocop:disable Style/MethodCallWithArgsParentheses
 source 'https://rubygems.org'
 ruby '2.4.2'
 
@@ -21,9 +20,10 @@ gem 'newrelic_rpm'
 gem 'oj'
 gem 'omniauth-google-oauth2'
 gem 'pg', '~> 0.21'
-gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
+gem 'pghero'
 gem 'puma', '~> 3.11'
+gem 'pundit'
 gem 'rails', '~> 5.1.4'
 gem 'redis', '~>4.0'
 gem 'rest-client'

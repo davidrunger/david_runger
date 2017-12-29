@@ -5,11 +5,11 @@ RSpec.describe SmsRecord do
 
   it { should belong_to(:user) }
 
-  describe '::create_records_from_httparty_response!' do
+  describe '::create_records_from_httparty_response' do
     let(:user) { users(:user) }
 
-    subject(:create_records_from_httparty_response!) do
-      SmsRecord.create_records_from_httparty_response!(response: response, user: user)
+    subject(:create_records_from_httparty_response) do
+      SmsRecord.create_records_from_httparty_response(response: response, user: user)
     end
 
     let(:response) { instance_double('HTTParty::Response') }
@@ -23,7 +23,7 @@ RSpec.describe SmsRecord do
 
       it 'creates one SmsRecord belonging to the user' do
         expect{
-          create_records_from_httparty_response!
+          create_records_from_httparty_response
         }.to change{
           user.sms_records.count
         }.by(1)
@@ -32,7 +32,7 @@ RSpec.describe SmsRecord do
       describe 'the created SmsRecord' do
         subject(:sms_record) do
           user.sms_records.destroy_all
-          create_records_from_httparty_response!
+          create_records_from_httparty_response
           user.sms_records.last
         end
 
