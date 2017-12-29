@@ -1,0 +1,65 @@
+class SmsMessage
+  class InvalidMessageTypeError < StandardError ; end
+  class SaveSmsRecordError < StandardError ; end
+
+  include ActiveModel::Model
+
+  MESSAGE_TYPES = %w[
+    grocery_store_items_needed
+  ].map(&:freeze).freeze
+
+  validates :message_type, inclusion: MESSAGE_TYPES
+  validates :user_phone, presence: true
+
+  delegate :phone, to: :user, prefix: true
+
+  attr_reader :message_type, :user
+
+  def initialize(user:, message_type:, message_params:)
+    @user = user
+    @message_type = message_type
+    @message_params = message_params
+  end
+
+  def send!
+    nexmo_response = NexmoClient.send_text!(number: @user.phone, message: message_body)
+    if nexmo_response.success?
+      save_sms_record(nexmo_response)
+      true
+    else
+      false
+    end
+  end
+
+  private
+
+  def message_body
+    case @message_type
+    when 'grocery_store_items_needed' then grocery_store_items_needed_message_body
+    else fail InvalidMessageTypeError, "`#{@message_type}` is not a valid message type"
+    end
+  end
+
+  def save_sms_record(nexmo_response)
+    if SmsRecord.create_records_from_httparty_response(response: nexmo_response, user: @user)
+      true
+    else
+      Rollbar.error(
+        SaveSmsRecordError.new,
+        user: @user&.id,
+        message_type: @message_type,
+        message_params: @message_params,
+      )
+      false
+    end
+  end
+
+  def grocery_store_items_needed_message_body
+    store = @user.stores.find(@message_params['store_id'])
+    store.items.
+      where('items.needed > 0').
+      sort_by { |item| item.name.downcase }.
+      map { |item| "#{item.name} (#{item.needed})" }.
+      join("\n")
+  end
+end
