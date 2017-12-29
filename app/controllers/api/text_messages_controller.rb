@@ -9,6 +9,7 @@ class Api::TextMessagesController < ApplicationController
     message_type = text_message_params['message_type']
     message_params = text_message_params['message_params']
     message = __send__("#{message_type}_message", message_params)
+    authorize(SmsRecord)
 
     sms_response = NexmoClient.send_text!(number: current_user.phone, message: message)
     if sms_response.success?
