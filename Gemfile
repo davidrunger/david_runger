@@ -1,4 +1,3 @@
-# rubocop:disable Style/MethodCallWithArgsParentheses
 source 'https://rubygems.org'
 ruby '2.4.2'
 
