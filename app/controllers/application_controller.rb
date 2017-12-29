@@ -1,26 +1,12 @@
 class ApplicationController < ActionController::Base
-  class StashRequestError < StandardError; end
-
   include Pundit
+  include RequestRecordable
 
   protect_from_forgery with: :exception
 
-  before_action :store_request_data_in_redis
-  before_action :authenticate_user!
+  before_action :authenticate_user
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
-  # params not worth logging in `Request`s
-  BORING_PARAMS = %w[
-    _method
-    action
-    authenticity_token
-    controller
-    format
-    request_uuid
-    utf8
-  ].map(&:freeze).freeze
-  REQUEST_DATA_TTL = 60 # seconds to store data in Redis for later turning into a Request model
 
   private
 
@@ -30,7 +16,7 @@ class ApplicationController < ActionController::Base
     payload[:user_id] = current_user.id if current_user.present?
   end
 
-  def authenticate_user!
+  def authenticate_user
     return if user_signed_in?
 
     flash[:alert] = 'You must sign in first.'
@@ -45,47 +31,6 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(_resource_or_scope)
     login_path
-  end
-
-  def store_request_data_in_redis
-    current_user&.update!(last_activity_at: Time.current)
-    browser = Browser.new(request.user_agent)
-    request_data = {
-      user_id: current_user&.id,
-      url: request.url,
-      method: request.request_method,
-      handler: "#{params['controller']}##{params['action']}",
-      params: filtered_params.except(*BORING_PARAMS),
-      referer: request.referer,
-      ip: request.ip,
-      user_agent: <<-USER_AGENT.squish,
-        #{browser.name}
-        #{browser.version}
-        #{browser.platform.name}
-        mobile=#{browser.device.mobile? || false}
-        raw=#{request.user_agent}
-      USER_AGENT
-      bot: (browser.bot? || false),
-      requested_at: Time.current,
-    }
-    begin
-      $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
-    rescue Encoding::UndefinedConversionError => e
-      Rollbar.info(e)
-    rescue
-      # wrap the original exception in StashRequestError by raising and immediately rescuing
-      begin
-        raise(StashRequestError, 'Failed to store request data in redis')
-      rescue StashRequestError => e
-        Rails.logger.warn(<<-LOG.squish)
-          Failed to store request data in redis,
-          error=#{e.class}: #{e.message},
-          cause=#{e.cause&.class}: #{e.cause&.message},
-          request_data=#{request_data.inspect}
-        LOG
-        Rollbar.warning($ERROR_INFO, request_data: request_data)
-      end
-    end
   end
 
   def filtered_params
