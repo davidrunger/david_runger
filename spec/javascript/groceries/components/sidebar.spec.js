@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-
 import 'spec_helper';
 import { mount, createLocalVue } from 'vue-test-utils';
 import sinon from 'sinon';
