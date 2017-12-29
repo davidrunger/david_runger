@@ -34,8 +34,6 @@ namespace :spec do
 
   desc 'Run JavaScript specs'
   task js: :environment do
-    run_logged_system_command('node --version')
-    run_logged_system_command('webpack --version')
     run_logged_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
     print "\n"
     dev_server = Rails.root.join('bin', 'webpack-dev-server')
