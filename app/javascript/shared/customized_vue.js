@@ -1,4 +1,11 @@
 import axios from 'axios';
+// don't (explicitly) load  element-ui button.css, because it's included in dropdown.css
+import 'element-ui/lib/theme-chalk/card.css';
+import 'element-ui/lib/theme-chalk/dropdown.css';
+import 'element-ui/lib/theme-chalk/dropdown-menu.css';
+import 'element-ui/lib/theme-chalk/dropdown-item.css';
+import 'element-ui/lib/theme-chalk/icon.css';
+import 'element-ui/lib/theme-chalk/input.css';
 import {
   Button,
   Card,
