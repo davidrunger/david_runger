@@ -5,6 +5,9 @@
     "test": "mocha-headless-chrome -f http://localhost:8080/packs-test/mocha_runner.html",
     "test-chrome": "bin/setup-mocha-tests && open -a 'Google Chrome' http://localhost:8080/packs-test/mocha_runner.html"
   },
+  "engines": {
+    "yarn": "1.3.2"
+  },
   "browserslist": [
     ">10%"
   ],
