@@ -33,10 +33,16 @@ export default {
     window.addEventListener('keydown', this.handleKeydown);
   },
 
-  props: [
-    'width',
-    'maxWidth',
-  ],
+  props: {
+    width: {
+      type: String,
+      required: true,
+    },
+    maxWidth: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>
 

@@ -21,6 +21,8 @@ export default {
         then(() => { window.location.assign(this.$routes.login_path()); });
     },
   },
+
+  props: {},
 };
 </script>
 

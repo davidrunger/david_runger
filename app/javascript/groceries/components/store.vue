@@ -30,7 +30,7 @@ div.mt1.mb2.ml3.mr2
   ul.items-list.mt0.mb0
     Item(v-for='item in sortedItems' :item="item" :key="item.id")
 
-  modal(v-if="showModal" width='85%', maxWidth='400px')
+  Modal(v-if="showModal" width='85%', maxWidth='400px')
     slot
       h3.bold.fonst-size-2.mb2.
         What did you get?
@@ -152,9 +152,12 @@ export default {
     },
   },
 
-  props: [
-    'store',
-  ],
+  props: {
+    store: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 
