@@ -44,3 +44,21 @@
     background-image: url('~img/macbook-2.jpg');
   }
 }
+
+html.webp {
+  .parallax-inner--macbook-1 {
+    &::before {
+      @extend %parallax-pseudo;
+
+      background-image: url('~img/macbook-1.webp');
+    }
+  }
+
+  .parallax-inner--macbook-2 {
+    &::before {
+      @extend %parallax-pseudo;
+
+      background-image: url('~img/macbook-2.webp');
+    }
+  }
+}
