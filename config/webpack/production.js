@@ -10,7 +10,7 @@ const cssExtractOptions = ExtractTextPlugin.extract({
     { loader: 'postcss-loader', options: { sourceMap: false } },
     { loader: 'sass-loader', options: { sourceMap: false } },
   ],
-})
+});
 
 environment.loaders.set('style', {
   test: /\.(scss|sass|css)$/,
@@ -40,7 +40,6 @@ const productionConfig = merge(environmentConfig, shared, {
           extractCSS: cssExtractOptions,
           loaders: {
             js: 'babel-loader',
-            file: 'file-loader',
           },
         },
       },

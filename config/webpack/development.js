@@ -11,7 +11,6 @@ environment.loaders.set('vue', {
   options: {
     loaders: {
       js: 'babel-loader',
-      file: 'file-loader',
       scss:
         'vue-style-loader?sourceMap' +
         '!css-loader?sourceMap' +
