@@ -20,7 +20,7 @@ import { Drag, Drop } from 'vue-drag-drop';
 import VueForm from 'vue-form';
 import Vuex from 'vuex';
 
-import modal from 'components/modal.vue';
+import Modal from 'components/modal.vue';
 import 'shared/common';
 
 const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
@@ -60,9 +60,9 @@ Vue.use(DropdownItem);
 Vue.use(Icon);
 Vue.use(Input);
 
-Vue.component('modal', modal);
-Vue.component('drag', Drag);
-Vue.component('drop', Drop);
+Vue.component('Modal', Modal);
+Vue.component('Drag', Drag);
+Vue.component('Drop', Drop);
 
 export default Vue;
 

@@ -22,7 +22,7 @@ aside.border-right.border-gray.p2
       :class='{selected: store === currentStore}'
       @click='$store.dispatch("selectStore", { store })'
     )
-      drop(@drop='dropItem(store, ...arguments)')
+      Drop(@drop='dropItem(store, ...arguments)')
         a.store-name {{store.name}}
         a.js-link.right(@click.stop="$store.dispatch('deleteStore', { store })") &times;
 </template>
@@ -77,6 +77,8 @@ export default {
       });
     },
   },
+
+  props: {},
 };
 </script>
 

@@ -10,8 +10,14 @@
 <script>
 export default {
   props: {
-    section: {},
-    title: {},
+    section: {
+      type: String,
+      required: false,
+    },
+    title: {
+      type: String,
+      required: false,
+    },
   },
 };
 </script>

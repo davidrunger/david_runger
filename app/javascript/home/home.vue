@@ -365,6 +365,8 @@ export default {
     positionListener.init();
     new SmoothScroll('a[href*="#"]');
   },
+
+  props: {},
 };
 </script>
 
