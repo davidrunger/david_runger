@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-
 import 'spec_helper';
 import { initialState, mutations } from 'groceries/store';
 

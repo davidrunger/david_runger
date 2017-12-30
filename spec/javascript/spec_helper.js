@@ -1,4 +1,3 @@
-/* eslint-env mocha */
 import Vue from 'shared/customized_vue';
 import _ from 'lodash';
 
