@@ -19,6 +19,7 @@ import Vue from 'vue';
 import { Drag, Drop } from 'vue-drag-drop';
 import VueForm from 'vue-form';
 import Vuex from 'vuex';
+import whenDomReady from 'when-dom-ready';
 
 import Modal from 'components/modal.vue';
 import 'shared/common';
@@ -72,7 +73,7 @@ export function renderApp(vueApp, options = {}) {
     new Vue({ render: h => h(vueApp), ...options }).$mount('replaced-container');
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
+  whenDomReady(() => {
     // to prevent FOUC in development, pause briefly (to parse CSS source maps) before rendering
     if (window.davidrunger.env === 'development') {
       setTimeout(_renderApp, 150);
