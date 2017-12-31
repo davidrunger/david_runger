@@ -34,4 +34,10 @@ export default {
 main {
   background-image: url('~img/beach-background.jpg');
 }
+
+html.webp {
+  main {
+    background-image: url('~img/beach-background.webp');
+  }
+}
 </style>
