@@ -38,8 +38,10 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
 
   next if params['new_relic_ping'].present? && ENV['LOG_NEW_RELIC_PINGS'].blank?
 
+  user_id = stashed_data['user_id']
+  requested_at = stashed_data['requested_at']
   request_attributes = {
-    user_id: stashed_data['user_id'],
+    user_id: user_id,
     url: stashed_data['url'],
     format: payload[:format],
     method: stashed_data['method'],
@@ -52,8 +54,13 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
     ip: stashed_data['ip'],
     user_agent: stashed_data['user_agent'],
     bot: stashed_data['bot'],
-    requested_at: stashed_data['requested_at'],
+    requested_at: requested_at,
   }
+
+  if user_id.present?
+    user = User.find_by(id: user_id)
+    user&.update!(last_activity_at: requested_at)
+  end
 
   request = Request.new(request_attributes)
   saved_successfully = request.save
