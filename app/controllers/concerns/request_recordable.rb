@@ -6,12 +6,7 @@ module RequestRecordable
   REQUEST_DATA_TTL = 60 # seconds to store data in Redis for later turning into a Request model
 
   included do
-    before_action :update_user_last_activity_at, if: -> { current_user.present? }
     before_action :store_request_data_in_redis
-  end
-
-  def update_user_last_activity_at
-    current_user.update!(last_activity_at: request_time)
   end
 
   def store_request_data_in_redis
