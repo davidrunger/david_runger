@@ -43,7 +43,7 @@ div
           bus driver, and a long haul truck driver.
 
       .pr-6.flex-1.flex.items-center
-        PerformantImage(imageClass='about-image' alt='A picture of me')
+        PerformantImage(imageClass='about-image' alt='A picture of me' lazy=true)
           source(type='jpg' src='~img/david.jpg')
           source(type='webp' src='~img/david.webp')
 
@@ -129,7 +129,9 @@ div
             An amazingly fast in-memory database. My main exposure has been via the Sidekiq
             job-processing library, and simple set and get commands.
         tr
-          td #[img(src='~img/rspec.png' alt='Elasticsearch' style='height: 65px')]
+          td
+            PerformantImage(alt='Elasticsearch' imageStyle='height: 65px' lazy=true)
+              source(type='png' src='~img/rspec.png')
           td RSpec
           td.
             I #[em.italic love] testing. (I write more lines of spec code per line of application
@@ -180,7 +182,7 @@ div
         a(
           href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
         ) GitHub
-      PerformantImage(slot='image' alt='Groceries app')
+      PerformantImage(slot='image' alt='Groceries app' lazy=true)
         source(type='jpg' src='~img/groceries.jpg')
         source(type='webp' src='~img/groceries.webp')
       div(slot='overview')
@@ -240,7 +242,7 @@ div
         a(href='http://www.fastfeedback.io') Live
         span #{' - '}
         a(href='http://github.com/davidrunger/fast_feedback') GitHub
-      PerformantImage(slot='image' alt='FastFeedback.io')
+      PerformantImage(slot='image' alt='FastFeedback.io' lazy=true)
         source(type='png' src='~img/fast_feedback.png')
         source(type='webp' src='~img/fast_feedback.webp')
       div(slot='overview')
@@ -264,7 +266,7 @@ div
         span #{' - '}
         a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
 
-      PerformantImage(slot='image' alt='Rosetta Code Languages Selector')
+      PerformantImage(slot='image' alt='Rosetta Code Languages Selector' lazy=true)
         source(type='png' src='~img/rc-languages-selector.png')
         source(type='webp' src='~img/rc-languages-selector.webp')
 
@@ -293,7 +295,7 @@ div
         a(href='https://davidrunger.github.io/aa-picture-game/') Live
         span #{' - '}
         a(href='https://github.com/davidrunger/aa-picture-game') GitHub
-      PerformantImage(slot='image' alt='App Academy Picture Game')
+      PerformantImage(slot='image' alt='App Academy Picture Game' lazy=true)
         source(type='png' src='~img/aa-picture-game.png')
         source(type='webp' src='~img/aa-picture-game.webp')
       div(slot='overview')
@@ -314,7 +316,7 @@ div
         a(href='https://davidrunger.github.io/serpent') Live
         span #{' - '}
         a(href='http://github.com/davidrunger/serpent') GitHub
-      PerformantImage(slot='image' alt='Serpent Game')
+      PerformantImage(slot='image' alt='Serpent Game' lazy=true)
         source(type='jpg' src='~img/serpent.jpg')
         source(type='webp' src='~img/serpent.webp')
       div(slot='overview')
@@ -338,7 +340,7 @@ div
         a(href='https://davidrunger.github.io/letter-flash') Live
         span #{' - '}
         a(href='https://github.com/davidrunger/letter-flash') GitHub
-      PerformantImage(slot='image' alt='Letter Flash Typing Practice')
+      PerformantImage(slot='image' alt='Letter Flash Typing Practice' lazy=true)
         source(type='png' src='~img/letter-flash.png')
         source(type='webp' src='~img/letter-flash.webp')
       div(slot='overview')
