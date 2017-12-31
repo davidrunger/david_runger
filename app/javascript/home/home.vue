@@ -43,7 +43,9 @@ div
           bus driver, and a long haul truck driver.
 
       .pr-6.flex-1.flex.items-center
-        img.about-image(src='~img/david.jpg' alt='A picture of me')
+        PerformantImage(imageClass='about-image' alt='A picture of me')
+          source(type='jpg' src='~img/david.jpg')
+          source(type='webp' src='~img/david.webp')
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-2
@@ -178,7 +180,9 @@ div
         a(
           href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
         ) GitHub
-      img(slot='image' src='~img/groceries.jpg' alt='davidrunger.com groceries app')
+      PerformantImage(slot='image' alt='Groceries app')
+        source(type='jpg' src='~img/groceries.jpg')
+        source(type='webp' src='~img/groceries.webp')
       div(slot='overview')
         p.
           I choose not to own a smartphone (😱 ), and I eat the same few things week after week.
@@ -236,7 +240,9 @@ div
         a(href='http://www.fastfeedback.io') Live
         span #{' - '}
         a(href='http://github.com/davidrunger/fast_feedback') GitHub
-      img(slot='image' src='~img/fast_feedback.png' alt='FastFeedback.io')
+      PerformantImage(slot='image' alt='FastFeedback.io')
+        source(type='png' src='~img/fast_feedback.png')
+        source(type='webp' src='~img/fast_feedback.webp')
       div(slot='overview')
         p.
           Do you need to engage your audience during a presentation? FastFeedback.io can help.
@@ -258,7 +264,9 @@ div
         span #{' - '}
         a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
 
-      img(slot='image' src='~img/rc-languages-selector.png' alt='Rosetta Code Languages Selector')
+      PerformantImage(slot='image' alt='Rosetta Code Languages Selector')
+        source(type='png' src='~img/rc-languages-selector.png')
+        source(type='webp' src='~img/rc-languages-selector.webp')
 
       div(slot='overview')
         p.
@@ -285,7 +293,9 @@ div
         a(href='https://davidrunger.github.io/aa-picture-game/') Live
         span #{' - '}
         a(href='https://github.com/davidrunger/aa-picture-game') GitHub
-      img(slot='image' src='~img/aa-picture-game.png' alt='App Academy Picture Game')
+      PerformantImage(slot='image' alt='App Academy Picture Game')
+        source(type='png' src='~img/aa-picture-game.png')
+        source(type='webp' src='~img/aa-picture-game.webp')
       div(slot='overview')
         p.
           This is a simple little tool built with jQuery for App Academy that we would always use to
@@ -304,7 +314,9 @@ div
         a(href='https://davidrunger.github.io/serpent') Live
         span #{' - '}
         a(href='http://github.com/davidrunger/serpent') GitHub
-      img(slot='image' src='~img/serpent.jpg' alt='Serpent Game')
+      PerformantImage(slot='image' alt='Serpent Game')
+        source(type='jpg' src='~img/serpent.jpg')
+        source(type='webp' src='~img/serpent.webp')
       div(slot='overview')
         p.
           Serpent is twice as fun as classic Snake; at least, there are twice as many players. Each
@@ -326,7 +338,9 @@ div
         a(href='https://davidrunger.github.io/letter-flash') Live
         span #{' - '}
         a(href='https://github.com/davidrunger/letter-flash') GitHub
-      img(slot='image' src='~img/letter-flash.png' alt='Letter Flash Typing Practice')
+      PerformantImage(slot='image' alt='Letter Flash Typing Practice')
+        source(type='png' src='~img/letter-flash.png')
+        source(type='webp' src='~img/letter-flash.webp')
       div(slot='overview')
         p.
           This is a simple tool that I built for myself when I was re-learning the QWERTY keyboard
@@ -350,6 +364,7 @@ div
 
 <script>
 import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min';
+import PerformantImage from 'components/performant_image.vue';
 
 import * as positionListener from './scripts/position_listener';
 import HomeSection from './components/home_section.vue';
@@ -358,6 +373,7 @@ import Project from './components/project.vue';
 export default {
   components: {
     HomeSection,
+    PerformantImage,
     Project,
   },
 
@@ -384,7 +400,7 @@ p:first-of-type {
 }
 
 .project {
-  img {
+  /deep/ img {
     box-shadow: #c0c0c0 2px 2px 10px 0;
     border-radius: 3px;
     max-height: 300px;
@@ -461,7 +477,7 @@ i[class^=devicon-] {
   }
 }
 
-.about-image {
+/deep/ .about-image {
   max-width: 100%;
   box-shadow: $gray-light 0 2px 5px;
 }
