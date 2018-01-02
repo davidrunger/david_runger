@@ -40,7 +40,7 @@
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-vue": "^2.1.0",
+    "eslint-plugin-vue": "^4.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "gator": "^1.2.4",
