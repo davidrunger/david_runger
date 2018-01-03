@@ -4,7 +4,10 @@ module.exports = {
   env: {
     browser: true,
   },
-  extends: 'airbnb-base',
+  extends: [
+    'airbnb-base',
+    'plugin:vue/essential',
+  ],
   globals: {
     expect: false,
     _: false,
@@ -25,7 +28,7 @@ module.exports = {
     'function-paren-newline': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
-    'max-len': ['warn', 100],
+    'max-len': ['warn', { code: 100, ignoreUrls: true }],
     'newline-per-chained-call': 'off',
     'no-debugger': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-else-return': 'off',

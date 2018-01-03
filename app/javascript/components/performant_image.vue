@@ -10,58 +10,58 @@
 </template>
 
 <script>
-  import whenDomReady from 'when-dom-ready';
+import whenDomReady from 'when-dom-ready';
 
-  import checkWebpSupport from 'lib/check_webp_support';
+import checkWebpSupport from 'lib/check_webp_support';
 
-  export default {
-    mounted() {
-      const nonWebpSource = this.$slots.default.find(slot => (
-        slot.data.attrs.type !== 'webp'
-      ));
-      this.originalImageUrl = nonWebpSource.data.attrs.src;
+export default {
+  mounted() {
+    const nonWebpSource = this.$slots.default.find(slot => (
+      slot.data.attrs.type !== 'webp'
+    ));
+    this.originalImageUrl = nonWebpSource.data.attrs.src;
 
-      const webpSource = this.$slots.default.find(slot => (
-        slot.data.attrs.type === 'webp'
-      ));
-      this.webpImageUrl = webpSource ? webpSource.data.attrs.src : null;
+    const webpSource = this.$slots.default.find(slot => (
+      slot.data.attrs.type === 'webp'
+    ));
+    this.webpImageUrl = webpSource ? webpSource.data.attrs.src : null;
 
-      checkWebpSupport().then(webpIsSupported => { this.canUseWebp = webpIsSupported; });
-      whenDomReady().then(() => {
-        // An additional timeout seems to be required in order pass the Chrome Lighthouse "Audit"
-        setTimeout(() => {
-          this.mayRenderLazyImages = true;
-        }, 3000);
-      });
+    checkWebpSupport().then(webpIsSupported => { this.canUseWebp = webpIsSupported; });
+    whenDomReady().then(() => {
+      // An additional timeout seems to be required in order pass the Chrome Lighthouse "Audit"
+      setTimeout(() => {
+        this.mayRenderLazyImages = true;
+      }, 3000);
+    });
+  },
+
+  data() {
+    return {
+      canUseWebp: null,
+      mayRenderLazyImages: false,
+      originalImageUrl: null,
+      webpImageUrl: null,
+    };
+  },
+
+  props: {
+    alt: {
+      type: String,
+      required: true,
     },
-
-    data() {
-      return {
-        canUseWebp: null,
-        mayRenderLazyImages: false,
-        originalImageUrl: null,
-        webpImageUrl: null,
-      };
+    imageClass: {
+      type: String,
+      required: false,
     },
-
-    props: {
-      alt: {
-        type: String,
-        required: true,
-      },
-      imageClass: {
-        type: String,
-        required: false,
-      },
-      imageStyle: {
-        type: String,
-        required: false,
-      },
-      lazy: {
-        type: Boolean,
-        required: false,
-        default: false,
-      },
+    imageStyle: {
+      type: String,
+      required: false,
     },
-  };
+    lazy: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+};
 </script>

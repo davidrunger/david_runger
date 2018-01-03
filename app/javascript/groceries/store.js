@@ -89,16 +89,14 @@ const getters = {
 
 // export for testing
 export function initialState(bootstrap) {
-  return Object.assign({},
-    bootstrap,
-    {
-      collectingDebounces: false,
-      stores: bootstrap.stores,
-      pendingRequests: 0,
-      postingStore: false,
-      showModal: false,
-    },
-  );
+  return {
+    ...bootstrap,
+    collectingDebounces: false,
+    stores: bootstrap.stores,
+    pendingRequests: 0,
+    postingStore: false,
+    showModal: false,
+  };
 }
 
 // eslint-disable-next-line import/prefer-default-export

@@ -28,15 +28,15 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
         },
       ],
     };
-    wrapper = mount(Item,
+    wrapper = mount(
+      Item,
       {
         localVue,
         propsData: {
           item,
         },
         store: groceryVuexStoreFactory(bootstrap),
-      },
-    );
+      });
   });
 
   it('is a Vue instance', () => {

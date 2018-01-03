@@ -262,7 +262,9 @@ div
       span(slot='title') Rosetta Code Languages Selector
       span(slot='technologies') Chrome Extension, Capybara integration tests
       div(slot='links')
-        a(href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg') Live
+        a(
+          href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg'
+        ) Live
         span #{' - '}
         a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
 
