@@ -36,7 +36,12 @@ div.mt1.mb2.ml3.mr2
         What did you get?
       ul
         li.flex.items-center.mb1(v-for='(item, index) in neededItems' :key='item.id')
-          input(type='checkbox' v-model='itemsToZero' :value='item' :id='`trip-checkin-item-${item.id}`')
+          input(
+            type='checkbox'
+            v-model='itemsToZero'
+            :value='item'
+            :id='`trip-checkin-item-${item.id}`'
+          )
           label.ml1(:for='`trip-checkin-item-${item.id}`') {{item.name}}
       div.flex.justify-around.mt2
         el-button(
