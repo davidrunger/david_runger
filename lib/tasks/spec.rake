@@ -48,6 +48,6 @@ namespace :spec do
       end
     end
 
-    run_logged_system_command('yarn run test')
+    run_logged_system_command("yarn run test#{ENV.key?('TRAVIS') ? '-no-sandbox' : ''}")
   end
 end
