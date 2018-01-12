@@ -21,11 +21,11 @@ script:
   - "[ \"$(node --version)\" == 'v8.9.3' ]"
   - "[ \"$(yarn --version)\" == '1.3.2' ]"
   - yarn install
-  - bin/rails db:create
-  - bin/rails db:schema:load
-  - bin/rails spec:fixture_builder:rebuild
-  - bin/rails spec:rb
-  - bin/rails spec:js
+  - bundle exec rails db:create
+  - bundle exec rails db:schema:load
+  - bundle exec rails spec:fixture_builder:rebuild
+  - bundle exec rails spec:rb
+  - bundle exec rails spec:js
 notifications:
   email:
     on_success: never
