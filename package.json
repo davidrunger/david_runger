@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "test": "mocha-headless-chrome -f http://localhost:8080/packs-test/mocha_runner.html",
+    "test-no-sandbox": "mocha-headless-chrome -f http://localhost:8080/packs-test/mocha_runner.html -a no-sandbox -a disable-setuid-sandbox",
     "test-chrome": "bin/setup-mocha-tests && open -a 'Google Chrome' http://localhost:8080/packs-test/mocha_runner.html"
   },
   "engines": {
