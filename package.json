@@ -75,7 +75,7 @@
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
-    "expect": "^22.0.6",
+    "expect": "^22.1.0",
     "jsdom": "^11.5.1",
     "jsdom-global": "^3.0.2",
     "mocha": "^4.1.0",
