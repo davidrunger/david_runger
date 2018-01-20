@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171224193631) do
+ActiveRecord::Schema.define(version: 2017_12_24_193631) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
+  enable_extension "plpgsql"
 
   create_table "items", id: :serial, force: :cascade do |t|
     t.integer "store_id", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20171224193631) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
-  create_table "sms_records", force: :cascade, comment: "Records of SMS messages sent via Nexmo" do |t|
+  create_table "sms_records", comment: "Records of SMS messages sent via Nexmo", force: :cascade do |t|
     t.string "nexmo_id", null: false, comment: "The message id provided by Nexmo"
     t.string "status", null: false, comment: "The status code provided by Nexmo"
     t.string "error", comment: "Error description, provided by Nexmo, if present"
