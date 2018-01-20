@@ -4862,9 +4862,9 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-mocha-headless-chrome@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/mocha-headless-chrome/-/mocha-headless-chrome-1.8.1.tgz#a7aef3fab655db756debb8c5858f5bc450704c22"
+mocha-headless-chrome@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/mocha-headless-chrome/-/mocha-headless-chrome-1.8.2.tgz#33311c39502eaa656729894984dfe20cc1feaf08"
   dependencies:
     args "^3.0.7"
     puppeteer "^1.0.0"
