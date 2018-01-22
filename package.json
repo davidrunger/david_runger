@@ -14,7 +14,7 @@
     ">10%"
   ],
   "dependencies": {
-    "@rails/webpacker": "^3.0.2",
+    "@rails/webpacker": "^3.2.1",
     "autoprefixer": "^7.2.5",
     "axios": "^0.17.1",
     "babel-core": "^6.24.1",
