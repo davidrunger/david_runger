@@ -63,7 +63,7 @@
     "style-loader": "^0.19.1",
     "stylelint-webpack-plugin": "^0.10.1",
     "vue": "^2.5.13",
-    "vue-drag-drop": "^0.2.2",
+    "vue-drag-drop": "^0.2.3",
     "vue-form": "^4.7.1",
     "vue-loader": "^13.7.0",
     "vue-template-compiler": "^2.3.0",
