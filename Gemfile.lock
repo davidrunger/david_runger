@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 8baca31dbe522cb407f0b3b8c8d3d4a6804e5aed
+  revision: 7ae26885d96daee3809d0bd50b1a440c2f5ffb69
   specs:
     actioncable (5.2.0.beta2)
       actionpack (= 5.2.0.beta2)
@@ -222,7 +222,7 @@ GEM
     mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.11.2)
+    minitest (5.11.3)
     momentjs-rails (2.17.1)
       railties (>= 3.1)
     multi_json (1.13.1)
@@ -232,7 +232,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (4.7.1.340)
     nio4r (2.2.0)
-    nokogiri (1.8.1)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
