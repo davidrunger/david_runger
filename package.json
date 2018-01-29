@@ -60,7 +60,7 @@
     "script-loader": "^0.7.2",
     "smooth-scroll": "^12.1.5",
     "statsd": "https://github.com/etsy/statsd.git",
-    "style-loader": "^0.19.1",
+    "style-loader": "^0.20.1",
     "stylelint-webpack-plugin": "^0.10.1",
     "vue": "^2.5.13",
     "vue-drag-drop": "^0.2.3",
