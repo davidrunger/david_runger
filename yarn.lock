@@ -6127,6 +6127,14 @@ postcss@^6.0.15:
     source-map "^0.6.1"
     supports-color "^5.1.0"
 
+postcss@^6.0.17:
+  version "6.0.17"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.17.tgz#e259a051ca513f81e9afd0c21f7f82eda50c65c5"
+  dependencies:
+    chalk "^2.3.0"
+    source-map "^0.6.1"
+    supports-color "^5.1.0"
+
 precss@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/precss/-/precss-3.1.0.tgz#d9698550d2f763c52b800bfa1c6ba54fb023313c"
