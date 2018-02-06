@@ -1389,6 +1389,10 @@ caniuse-lite@^1.0.30000791:
   version "1.0.30000791"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000791.tgz#8e35745efd483a3e23bb7d350990326d2319fc16"
 
+caniuse-lite@^1.0.30000803:
+  version "1.0.30000803"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000803.tgz#9939c37149d38d5f4540430490d240c03106a0f5"
+
 case-sensitive-paths-webpack-plugin@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.1.1.tgz#3d29ced8c1f124bf6f53846fb3f5894731fdc909"
