@@ -8111,9 +8111,9 @@ void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-drag-drop@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/vue-drag-drop/-/vue-drag-drop-0.2.3.tgz#249c5cbb3f85a025203fed0387733d3e1b994d1a"
+vue-drag-drop@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/vue-drag-drop/-/vue-drag-drop-0.2.4.tgz#a50450bbb35db677131fb103b6eb417342864a90"
   dependencies:
     core-js "^2.5.3"
     uniqid "^4.1.1"
