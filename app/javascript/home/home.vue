@@ -190,7 +190,7 @@ div
           I choose not to own a smartphone (😱 ), and I eat the same few things week after week.
           With this in mind, I wanted an app that would help me to efficiently track and purchase
           groceries. Plus, I wanted an excuse to experiment with
-          #[a(href='https://vuejs.org/') Vue.js]!. So I built
+          #[a(href='https://vuejs.org/') Vue.js]! So I built
           #[a(:href='this.$routes.groceries_path()') davidrunger.com/groceries].
         p.
           I use this app to keep track of which grocery items I need. Then, when it's time to go
