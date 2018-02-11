@@ -21,6 +21,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.webp$/,
+        loader: 'file-loader',
+      },
+      {
         test: /\/rails_assets\/.*\.js$/,
         loader: 'script-loader',
       },
