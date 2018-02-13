@@ -335,22 +335,6 @@ div
           Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
           toward the apple at all times
 
-    Project
-      span(slot='title') Letter Flash Typing Practice
-      span(slot='technologies') jQuery
-      div(slot='links')
-        a(href='https://davidrunger.github.io/letter-flash') Live
-        span #{' - '}
-        a(href='https://github.com/davidrunger/letter-flash') GitHub
-      PerformantImage(slot='image' alt='Letter Flash Typing Practice' lazy=true)
-        source(type='png' src='~img/letter-flash.png')
-        source(type='webp' src='~img/letter-flash.webp')
-      div(slot='overview')
-        p.
-          This is a simple tool that I built for myself when I was re-learning the QWERTY keyboard
-          layout after years of typing with the Dvorak keyboard layout. I do think that it was
-          helpful, and I continue to use it every once in a while.
-
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-2
 
