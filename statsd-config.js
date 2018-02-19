@@ -12,8 +12,11 @@
 
 {
   graphite: {
-    globalPrefix: process.env.HOSTEDGRAPHITE_APIKEY,
+    globalPrefix: process.env.GRAPHITE_SECRET,
     legacyNamespace: false, // required for globalPrefix to be applied
   },
-  graphiteHost: process.env.HOSTEDGRAPHITE_HOST,
+  deleteCounters: true,
+  deleteTimers: true,
+  graphitePort: 2023, // using non-default (which would be 2003) bc. sending to aggregator instead
+  graphiteHost: process.env.GRAPHITE_HOST,
 }
