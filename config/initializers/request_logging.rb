@@ -36,7 +36,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
 
   params = stashed_data['params']
 
-  next if params['new_relic_ping'].present? && ENV['LOG_NEW_RELIC_PINGS'].blank?
+  next if DavidRunger::LogSkip.should_skip?(params: params)
 
   user_id = stashed_data['user_id']
   requested_at = stashed_data['requested_at']
