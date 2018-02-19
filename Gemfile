@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_model_serializers'
-gem 'administrate', '~> 0.8.1'
+gem 'administrate', '~> 0.9.0'
 gem 'browser'
 gem 'devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
