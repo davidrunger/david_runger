@@ -35,7 +35,8 @@ class ApplicationController < ActionController::Base
   end
 
   def count_request
-    StatsD.increment('requests')
+    StatsD.increment("requests_by_action.#{params['controller']}-#{params['action']}")
+    StatsD.increment("requests_by_user.#{current_user&.id || 0}")
   end
 
   def filtered_params
