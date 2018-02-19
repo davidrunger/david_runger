@@ -8,8 +8,9 @@ class DavidRunger::LogBuilder
 
   def extra_logged_data
     {
-      params: params_log,
       exception: exception_log,
+      params: params_log,
+      status: status_code_log,
       user_id: user_id_log,
     }.compact
   end
@@ -20,9 +21,11 @@ class DavidRunger::LogBuilder
     @event.payload
   end
 
-  def exception_log
-    exception = payload[:exception]
+  def exception
+    payload[:exception]
+  end
 
+  def exception_log
     if exception.present?
       exception_class, exception_message = exception
       "#{exception_class}[#{exception_message}]"
@@ -31,6 +34,11 @@ class DavidRunger::LogBuilder
 
   def params_log
     payload[:params].except(*OMITTED_PARAMS)
+  end
+
+  def status_code_log
+    # Devise annoyingly sets payload[:status] to 401 sometimes even when an exception has occurred
+    exception.present? ? 500 : payload[:status]
   end
 
   def user_id_log
