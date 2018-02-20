@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+bin/rails db:migrate
+bin/publish-graphite-release
