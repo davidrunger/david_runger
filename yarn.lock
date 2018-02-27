@@ -18,9 +18,9 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@csstools/sass-import-resolve/-/sass-import-resolve-1.0.0.tgz#32c3cdb2f7af3cd8f0dca357b592e7271f3831b5"
 
-"@rails/webpacker@^3.2.2":
+"@rails/webpacker@https://github.com/davidrunger/webpacker.git#9f38c2c":
   version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-3.2.2.tgz#6d60e1cf729dc2ccc52053c9b6b8d30c9a48a297"
+  resolved "https://github.com/davidrunger/webpacker.git#9f38c2cce35636fc81858ae6c7a42813519293fb"
   dependencies:
     babel-core "^6.26.0"
     babel-loader "^7.1.2"
@@ -32,7 +32,7 @@
     case-sensitive-paths-webpack-plugin "^2.1.1"
     compression-webpack-plugin "^1.1.6"
     css-loader "^0.28.9"
-    extract-text-webpack-plugin "^3.0.2"
+    extract-text-webpack-plugin "^4.0.0-alpha.0"
     file-loader "^1.1.6"
     glob "^7.1.2"
     js-yaml "^3.10.0"
@@ -133,7 +133,7 @@ ajv@^4.9.1:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
-ajv@^5.0.0, ajv@^5.1.0, ajv@^5.2.3, ajv@^5.3.0:
+ajv@^5.1.0, ajv@^5.2.3, ajv@^5.3.0:
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
   dependencies:
@@ -3102,15 +3102,6 @@ extglob@^2.0.4:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
-
-extract-text-webpack-plugin@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/extract-text-webpack-plugin/-/extract-text-webpack-plugin-3.0.2.tgz#5f043eaa02f9750a9258b78c0a6e0dc1408fb2f7"
-  dependencies:
-    async "^2.4.1"
-    loader-utils "^1.1.0"
-    schema-utils "^0.3.0"
-    webpack-sources "^1.0.1"
 
 extract-text-webpack-plugin@^4.0.0-alpha.0:
   version "4.0.0-alpha.0"
@@ -7715,12 +7706,6 @@ sass-loader@^6.0.5, sass-loader@^6.0.6:
 sax@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
-
-schema-utils@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
-  dependencies:
-    ajv "^5.0.0"
 
 schema-utils@^0.4.0, schema-utils@^0.4.2, schema-utils@^0.4.3, schema-utils@^0.4.5:
   version "0.4.5"
