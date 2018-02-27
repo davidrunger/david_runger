@@ -58,6 +58,7 @@ environment.loaders.set('style', {
 });
 
 const developmentConfig = merge(environment.toWebpackConfig(), shared, {
+  mode: 'development',
   devtool: 'inline-cheap-module-source-map',
   plugins: [],
 });

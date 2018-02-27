@@ -21,6 +21,7 @@ const environmentConfig = environment.toWebpackConfig();
 delete environmentConfig.devtool; // added by webpacker, but we want to use SourceMapDevToolPlugin
 
 const productionConfig = merge(environmentConfig, shared, {
+  mode: 'production',
   output: {
     devtoolModuleFilenameTemplate: info => {
       let path = info.resourcePath;
