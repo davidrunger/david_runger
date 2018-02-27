@@ -6,7 +6,7 @@ module DavidRunger::TruncateTables
   SQL
 
   def self.max_allowed_rows
-    Integer(ENV['MAX_TABLE_ROWS']) || 2_500
+    Integer(ENV['MAX_TABLE_ROWS']) || 2_000
   end
 
   def self.print_row_counts
@@ -47,7 +47,7 @@ module DavidRunger::TruncateTables
 end
 
 namespace :db do
-  desc 'Delete all but the most recent rows in the `requests` table'
+  desc 'Delete all but the most recent rows in our larger tables'
   task truncate_tables: :environment do
     puts "About to truncate database tables; max is #{DavidRunger::TruncateTables.max_allowed_rows}"
 
@@ -57,6 +57,7 @@ namespace :db do
 
     DavidRunger::TruncateTables.truncate(table: 'requests', timestamp: 'requested_at')
     DavidRunger::TruncateTables.truncate(table: 'pghero_query_stats', timestamp: 'captured_at')
+    DavidRunger::TruncateTables.truncate(table: 'pghero_space_stats', timestamp: 'captured_at')
 
     puts 'Done truncating tables'
   end
