@@ -21,6 +21,7 @@ const environmentConfig = environment.toWebpackConfig();
 delete environmentConfig.devtool; // added by webpacker, but we want to use SourceMapDevToolPlugin
 
 const productionConfig = merge(environmentConfig, shared, {
+  mode: 'production',
   output: {
     devtoolModuleFilenameTemplate: info => {
       let path = info.resourcePath;
@@ -47,11 +48,6 @@ const productionConfig = merge(environmentConfig, shared, {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'commons',
-      filename: 'commons-[hash].js',
-      minChunks: 2,
-    }),
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',
       allChunks: true,
