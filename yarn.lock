@@ -18,9 +18,9 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@csstools/sass-import-resolve/-/sass-import-resolve-1.0.0.tgz#32c3cdb2f7af3cd8f0dca357b592e7271f3831b5"
 
-"@rails/webpacker@https://github.com/davidrunger/webpacker.git#b6e5204":
+"@rails/webpacker@https://github.com/davidrunger/webpacker.git#201e99c":
   version "3.2.2"
-  resolved "https://github.com/davidrunger/webpacker.git#b6e52043d5e7f1a516adca9352f60babaeb378fc"
+  resolved "https://github.com/davidrunger/webpacker.git#201e99c0fd9840a7e8dc5fb358daa7b3dce3a3ed"
   dependencies:
     babel-core "^6.26.0"
     babel-loader "^7.1.2"
@@ -45,7 +45,7 @@
     style-loader "^0.20.1"
     uglifyjs-webpack-plugin "^1.1.8"
     webpack "^4.0.0"
-    webpack-manifest-plugin "^1.3.2"
+    webpack-manifest-plugin "https://github.com/danethurber/webpack-manifest-plugin.git#661af13"
 
 "@sinonjs/formatio@^2.0.0":
   version "2.0.0"
@@ -5387,6 +5387,10 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
+mutexify@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/mutexify/-/mutexify-1.0.1.tgz#9880206795d89e75efc1bcb4b4f52ebbd796e5e7"
+
 nan@^2.0.5, nan@^2.3.2:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
@@ -9138,12 +9142,13 @@ webpack-log@^1.0.1:
     loglevelnext "^1.0.1"
     uuid "^3.1.0"
 
-webpack-manifest-plugin@^1.1.0, webpack-manifest-plugin@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/webpack-manifest-plugin/-/webpack-manifest-plugin-1.3.2.tgz#5ea8ee5756359ddc1d98814324fe43496349a7d4"
+"webpack-manifest-plugin@https://github.com/danethurber/webpack-manifest-plugin.git#661af13":
+  version "2.0.0-rc.1"
+  resolved "https://github.com/danethurber/webpack-manifest-plugin.git#661af133c04df17cac77641356e4bff3a949b71c"
   dependencies:
     fs-extra "^0.30.0"
     lodash ">=3.5 <5"
+    mutexify "1.0.1"
 
 webpack-merge@^4.1.2:
   version "4.1.2"

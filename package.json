@@ -14,7 +14,7 @@
     ">10%"
   ],
   "dependencies": {
-    "@rails/webpacker": "https://github.com/davidrunger/webpacker.git#b6e5204",
+    "@rails/webpacker": "https://github.com/davidrunger/webpacker.git#201e99c",
     "autoprefixer": "^8.0.0",
     "axios": "^0.18.0",
     "babel-core": "^6.24.1",
@@ -69,7 +69,6 @@
     "vuex": "^3.0.1",
     "waypoints": "^4.0.1",
     "webpack": "^4.0.1",
-    "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^4.1.2",
     "when-dom-ready": "^1.2.12"
   },
