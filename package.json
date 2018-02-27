@@ -14,7 +14,7 @@
     ">10%"
   ],
   "dependencies": {
-    "@rails/webpacker": "https://github.com/davidrunger/webpacker.git#9f38c2c",
+    "@rails/webpacker": "https://github.com/davidrunger/webpacker.git#b6e5204",
     "autoprefixer": "^8.0.0",
     "axios": "^0.18.0",
     "babel-core": "^6.24.1",
