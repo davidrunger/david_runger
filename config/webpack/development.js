@@ -62,11 +62,6 @@ const developmentConfig = merge(environment.toWebpackConfig(), shared, {
   devtool: 'inline-cheap-module-source-map',
   plugins: [
     new StyleLintPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'commons',
-      filename: 'commons-[hash].js',
-      minChunks: 2,
-    }),
   ],
 });
 

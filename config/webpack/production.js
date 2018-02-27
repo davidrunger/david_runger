@@ -47,11 +47,6 @@ const productionConfig = merge(environmentConfig, shared, {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'commons',
-      filename: 'commons-[hash].js',
-      minChunks: 2,
-    }),
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',
       allChunks: true,
