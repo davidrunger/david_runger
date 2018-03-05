@@ -43,7 +43,7 @@
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-vue": "^4.3.0",
     "extract-text-webpack-plugin": "^4.0.0-alpha.0",
-    "file-loader": "^1.1.10",
+    "file-loader": "^1.1.11",
     "gator": "^1.2.4",
     "glob": "^7.1.2",
     "js-yaml": "^3.8.4",
