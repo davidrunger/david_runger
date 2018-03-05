@@ -58,7 +58,7 @@ div.mt1.mb2.ml3.mr2
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { debounce, sortBy } from 'lodash';
-import Clipboard from 'clipboard';
+import ClipboardJS from 'clipboard';
 
 import Item from './item.vue';
 
@@ -77,7 +77,7 @@ export default {
   },
 
   mounted() {
-    const clipboard = new Clipboard('.copy-to-clipboard', {
+    const clipboard = new ClipboardJS('.copy-to-clipboard', {
       text: () => this.neededItems.map(item => `${item.name} (${item.needed})`).join('\n'),
     });
     clipboard.on('success', () => {
