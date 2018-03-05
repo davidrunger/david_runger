@@ -9130,9 +9130,9 @@ webpack@^4.0.0:
     watchpack "^1.4.0"
     webpack-sources "^1.0.1"
 
-"webpack@https://github.com/webpack/webpack":
+"webpack@https://github.com/webpack/webpack.git":
   version "4.1.0"
-  resolved "https://github.com/webpack/webpack#6970103b7907be08d5cd37dd03d7687bcc609233"
+  resolved "https://github.com/webpack/webpack.git#ae2ae4e50401671e0a7b36bb0f35f44a831c5af3"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^3.0.0"
