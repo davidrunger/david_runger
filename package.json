@@ -32,7 +32,7 @@
     "basscss-colors": "^2.2.0",
     "basscss-lighten": "^1.1.0",
     "caniuse-lite": "^1.0.30000809",
-    "clipboard": "^1.6.1",
+    "clipboard": "^2.0.0",
     "compression-webpack-plugin": "^1.1.9",
     "css-loader": "^0.28.10",
     "element-ui": "^2.2.0",
