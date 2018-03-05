@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "@rails/webpacker": "https://github.com/davidrunger/webpacker.git#201e99c",
-    "autoprefixer": "^8.0.0",
+    "autoprefixer": "^8.1.0",
     "axios": "^0.18.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.1.3",
