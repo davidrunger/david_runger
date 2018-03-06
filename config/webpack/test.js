@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
-environment.loaders.set('vue', {
+environment.loaders.append('vue', {
   test: /.vue$/,
   loader: 'vue-loader',
   options: {
@@ -18,7 +18,7 @@ environment.loaders.set('vue', {
 });
 
 const extractCSS = new ExtractTextPlugin('[name].css');
-environment.loaders.set('style', {
+environment.loaders.append('style', {
   test: /\.(scss|sass|css)$/,
   use: extractCSS.extract({
     use: [
