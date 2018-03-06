@@ -9130,7 +9130,7 @@ webpack@^4.0.0:
     watchpack "^1.4.0"
     webpack-sources "^1.0.1"
 
-"webpack@https://github.com/webpack/webpack.git":
+"webpack@https://github.com/webpack/webpack.git#ae2ae4e":
   version "4.1.0"
   resolved "https://github.com/webpack/webpack.git#ae2ae4e50401671e0a7b36bb0f35f44a831c5af3"
   dependencies:
