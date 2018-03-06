@@ -12,7 +12,7 @@ const cssExtractOptions = ExtractTextPlugin.extract({
   ],
 });
 
-environment.loaders.set('style', {
+environment.loaders.append('style', {
   test: /\.(scss|sass|css)$/,
   use: cssExtractOptions,
 });

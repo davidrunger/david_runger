@@ -4,7 +4,7 @@ const merge = require('webpack-merge');
 const environment = require('./environment');
 const shared = require('./shared');
 
-environment.loaders.set('vue', {
+environment.loaders.append('vue', {
   test: /.vue$/,
   loader: 'vue-loader',
   options: {
@@ -24,7 +24,7 @@ environment.loaders.set('vue', {
   },
 });
 
-environment.loaders.set('style', {
+environment.loaders.append('style', {
   test: /\.(scss|sass|css)$/,
   use: [
     {
