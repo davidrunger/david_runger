@@ -60,7 +60,7 @@
     "script-loader": "^0.7.2",
     "smooth-scroll": "^12.1.5",
     "statsd": "https://github.com/etsy/statsd.git",
-    "style-loader": "^0.20.2",
+    "style-loader": "^0.20.3",
     "vue": "^2.5.15",
     "vue-drag-drop": "^0.2.4",
     "vue-form": "^4.7.1",
