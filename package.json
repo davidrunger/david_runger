@@ -50,7 +50,7 @@
     "keycode": "^2.1.9",
     "lodash": "^4.17.5",
     "node-pre-gyp": "^0.6.39",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.8.1",
     "path-complete-extname": "^0.1.0",
     "postcss-loader": "^2.1.1",
     "precss": "^3.1.2",
