@@ -33,7 +33,7 @@
     "basscss-lighten": "^1.1.0",
     "caniuse-lite": "^1.0.30000809",
     "clipboard": "^2.0.0",
-    "compression-webpack-plugin": "^1.1.9",
+    "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^0.28.10",
     "element-ui": "^2.2.1",
     "eslint": "^4.18.2",
