@@ -36,7 +36,7 @@ class Request < ApplicationRecord
 
   scope :human, -> { where(bot: false) }
   scope :recent, (lambda do |time_period = 1.day|
-    where('requests.requested_at > ?', time_period.ago)
+    where('requests.requested_at > ?', Time.current - time_period.to_i) # use #to_i bc of DST stuff
   end)
   scope :ordered, ->() { order('requests.requested_at') }
 end
