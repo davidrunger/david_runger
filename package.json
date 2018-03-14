@@ -82,7 +82,7 @@
     "postcss-html": "^0.14.0",
     "postcss-safe-parser": "^3.0.1",
     "postcss-scss": "^1.0.4",
-    "sinon": "^4.4.4",
+    "sinon": "^4.4.5",
     "stylelint": "^9.1.2",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-scss": "^2.5.0",
