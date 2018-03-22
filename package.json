@@ -31,7 +31,7 @@
     "basscss-border-colors": "^2.1.0",
     "basscss-colors": "^2.2.0",
     "basscss-lighten": "^1.1.0",
-    "caniuse-lite": "^1.0.30000815",
+    "caniuse-lite": "^1.0.30000817",
     "clipboard": "^2.0.0",
     "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^0.28.11",
