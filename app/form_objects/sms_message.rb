@@ -44,6 +44,10 @@ class SmsMessage
     if SmsRecord.create_records_from_httparty_response(response: nexmo_response, user: @user)
       true
     else
+      Rails.logger.error(<<~LOG.squish)
+        Failed to create SmsRecord(s),
+        user=#{@user&.id}, message_type=#{@message_type}, message_params=#{@message_params}
+      LOG
       Rollbar.error(
         SaveSmsRecordError.new,
         user: @user&.id,

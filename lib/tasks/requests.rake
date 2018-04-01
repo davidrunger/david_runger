@@ -21,6 +21,7 @@ namespace :requests do
         body: ip_addresses_to_lookup.map { |ip| {query: ip} }.to_json,
       ).parsed_response
     rescue Net::OpenTimeout, Errno::ECONNRESET => e # log connection issues as info, not error
+      Rails.logger.info("Error fetching IP data, error=#{e.inspect}")
       Rollbar.info(e)
     end
 
