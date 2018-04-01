@@ -29,9 +29,9 @@ expect.extend({
 
 const originalConsoleError = console.error; // eslint-disable-line no-console
 beforeEach(() => {
-  console.error = (...args) => { // eslint-disable-line no-console
-    originalConsoleError(args);
-    throw new Error(JSON.stringify(args));
+  console.error = (error) => { // eslint-disable-line no-console
+    originalConsoleError(error);
+    throw new Error(JSON.stringify(error));
   };
 });
 afterEach(() => {
