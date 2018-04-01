@@ -1,19 +1,22 @@
 import axios from 'axios';
 // don't (explicitly) load  element-ui button.css, because it's included in dropdown.css
+import 'element-ui/lib/theme-chalk/base.css';
+import 'element-ui/lib/theme-chalk/button.css';
 import 'element-ui/lib/theme-chalk/card.css';
-import 'element-ui/lib/theme-chalk/dropdown.css';
-import 'element-ui/lib/theme-chalk/dropdown-menu.css';
 import 'element-ui/lib/theme-chalk/dropdown-item.css';
 import 'element-ui/lib/theme-chalk/icon.css';
 import 'element-ui/lib/theme-chalk/input.css';
+import 'element-ui/lib/theme-chalk/menu.css';
+import 'element-ui/lib/theme-chalk/menu-item.css';
+import 'element-ui/lib/theme-chalk/submenu.css';
 import {
   Button,
   Card,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
   Icon,
   Input,
+  Menu,
+  MenuItem,
+  Submenu,
 } from 'element-ui';
 import Vue from 'vue';
 import { Drag, Drop } from 'vue-drag-drop';
@@ -55,11 +58,11 @@ Vue.use(VueForm);
 
 Vue.use(Button);
 Vue.use(Card);
-Vue.use(Dropdown);
-Vue.use(DropdownMenu);
-Vue.use(DropdownItem);
 Vue.use(Icon);
 Vue.use(Input);
+Vue.use(Menu);
+Vue.use(MenuItem);
+Vue.use(Submenu);
 
 Vue.component('Modal', Modal);
 Vue.component('Drag', Drag);

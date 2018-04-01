@@ -1,16 +1,11 @@
 <template lang="pug">
-.right-align.bg-lighten-4.pr2
-  el-dropdown(
-    :hide-timeout=50
-    :show-timeout=0
-    placement='bottom-end'
-  )
-    .user-email {{ bootstrap.current_user.email }} #[el-icon(name='arrow-down')]
-    el-dropdown-menu(slot='dropdown')
-      a(:href="$routes.edit_user_path(bootstrap.current_user)")
-        el-dropdown-item Edit Account
-      a.js-link(@click='signOut()')
-        el-dropdown-item(divided :command='signOut') Sign Out
+el-menu.center
+  el-submenu(index='1')
+    template(slot='title') {{ bootstrap.current_user.email }}
+    a(:href="$routes.edit_user_path(bootstrap.current_user)")
+      el-menu-item(index='1-1') Account Settings
+    a.js-link(@click='signOut()')
+      el-menu-item(index='1-2') Sign Out
 </template>
 
 <script>
@@ -29,5 +24,23 @@ export default {
 <style lang='scss' scoped>
 .user-email {
   line-height: 30px;
+}
+
+.el-menu {
+  background-color: #e1eeff;
+  border: none;
+}
+
+/deep/ .el-submenu.is-opened .el-submenu__title {
+  background-color: #d1e7ff;
+}
+
+/deep/ .el-menu,
+/deep/ .el-submenu__title i {
+  color: #111;
+}
+
+/deep/ .el-menu--inline {
+  background-color: rgba(255, 255, 255, 0.9);
 }
 </style>
