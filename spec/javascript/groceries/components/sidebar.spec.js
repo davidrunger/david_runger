@@ -22,9 +22,12 @@ describe('Sidebar', function () { // eslint-disable-line func-names
   beforeEach(() => {
     item = { id: 48, name: 'bananas', needed: 0 };
     groceryStore = { id: 23, name: 'Costco', items: [item] };
-    bootstrap = { stores: [groceryStore] };
+    bootstrap = {
+      stores: [groceryStore],
+      current_user: { id: 1, email: 'davidjrunger@gmail.com' },
+    };
     vuexStore = groceryVuexStoreFactory(bootstrap);
-    wrapper = mount(Sidebar, { localVue, store: vuexStore });
+    wrapper = mount(Sidebar, { localVue, store: vuexStore, mocks: { bootstrap } });
   });
 
   it('is a Vue instance', () => {

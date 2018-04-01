@@ -1,37 +1,45 @@
 <template lang='pug'>
-aside.border-right.border-gray.p2
-  vue-form.add-store.flex(@submit.prevent='createStore' :state='formstate')
-    validate.flex-1.mr1
-      el-input(
-        type='text'
-        v-model='newStoreName'
-        name='newStoreName'
-        required
-        placeholder='Add a store'
+aside.border-right.border-gray
+  LoggedInHeader.mb2
+  .p2
+    vue-form.add-store.flex(@submit.prevent='createStore' :state='formstate')
+      validate.flex-1.mr1
+        el-input(
+          type='text'
+          v-model='newStoreName'
+          name='newStoreName'
+          required
+          placeholder='Add a store'
+          size='medium'
+        )
+      el-input.flex-0(
+        value='Add'
+        type='submit'
+        :disabled='postingStore || formstate.$invalid'
         size='medium'
       )
-    el-input.flex-0(
-      value='Add'
-      type='submit'
-      :disabled='postingStore || formstate.$invalid'
-      size='medium'
-    )
-  ul.stores-list
-    li.js-link.stores-list__item.h3.my2.py1.px2(
-      v-for='store in sortedStores'
-      :class='{selected: store === currentStore}'
-      @click='$store.dispatch("selectStore", { store })'
-    )
-      Drop(@drop='dropItem(store, ...arguments)')
-        a.store-name {{store.name}}
-        a.js-link.right(@click.stop="$store.dispatch('deleteStore', { store })") &times;
+    ul.stores-list
+      li.js-link.stores-list__item.h3.my2.py1.px2(
+        v-for='store in sortedStores'
+        :class='{selected: store === currentStore}'
+        @click='$store.dispatch("selectStore", { store })'
+      )
+        Drop(@drop='dropItem(store, ...arguments)')
+          a.store-name {{store.name}}
+          a.js-link.right(@click.stop="$store.dispatch('deleteStore', { store })") &times;
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex';
 import _ from 'lodash';
 
+import LoggedInHeader from './logged_in_header.vue';
+
 export default {
+  components: {
+    LoggedInHeader,
+  },
+
   computed: {
     ...mapGetters([
       'currentStore',
