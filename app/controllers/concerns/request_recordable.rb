@@ -12,6 +12,7 @@ module RequestRecordable
   def store_request_data_in_redis
     $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
   rescue Encoding::UndefinedConversionError => error
+    Rails.logger.info("Error storing request data in Redis, error=#{error.inspect}")
     Rollbar.info(error)
   rescue
     # wrap the original exception in StashRequestError by raising and immediately rescuing

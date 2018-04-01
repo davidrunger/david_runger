@@ -100,7 +100,8 @@ module SourceMapHelper
 
       begin
         post_to_rollbar!(source_url: source_url, source_map_path: full_local_map_path)
-      rescue
+      rescue => error
+        Rails.logger.error("Error posting source maps to Rollbar, error=#{error.inspect}")
         # wrap the original exception by raising and immediately rescuing
         begin
           raise(SourceMapUploadError, 'Failed to upload a source map')
