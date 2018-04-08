@@ -2,13 +2,15 @@
 #
 # Table name: sms_records
 #
-#  cost     :float
-#  error    :string
-#  id       :integer          not null, primary key
-#  nexmo_id :string           not null
-#  status   :string           not null
-#  to       :string           not null
-#  user_id  :integer
+#  cost       :float
+#  created_at :datetime         not null
+#  error      :string
+#  id         :integer          not null, primary key
+#  nexmo_id   :string           not null
+#  status     :string           not null
+#  to         :string           not null
+#  updated_at :datetime         not null
+#  user_id    :integer
 #
 # Indexes
 #
