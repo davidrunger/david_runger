@@ -6524,13 +6524,11 @@ postcss-html@^0.18.0:
     remark "^9.0.0"
     unist-util-find-all-after "^1.0.1"
 
-postcss-html@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.19.0.tgz#f44abe8897d9b46032b2a29e7d43c217f4771fd7"
+postcss-html@^0.20.1:
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.20.1.tgz#45a4ebdca5f7c5b074a5b3a38838c75537efc82b"
   dependencies:
     htmlparser2 "^3.9.2"
-    remark "^9.0.0"
-    unist-util-find-all-after "^1.0.1"
 
 postcss-image-set-polyfill@^0.3.5:
   version "0.3.5"
