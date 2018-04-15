@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const fs = require('fs');
 const merge = require('webpack-merge');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
+
 const environment = require('./environment');
 const shared = require('./shared');
 
@@ -60,7 +62,11 @@ environment.loaders.append('style', {
 const developmentConfig = merge(environment.toWebpackConfig(), shared, {
   mode: 'development',
   devtool: 'inline-cheap-module-source-map',
-  plugins: [],
+  plugins: [
+    new StyleLintPlugin({
+      files: ['**/*.vue', '**/*.css', '**/*.scss'],
+    }),
+  ],
 });
 
 fs.writeFileSync(

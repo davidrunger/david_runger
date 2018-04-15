@@ -448,18 +448,18 @@ i[class^=devicon-] {
         color: white;
       }
 
-      &:not(.active) span {
-        border-bottom-color: rgba($white-dark, 0);
+      span {
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        transition: border-bottom-color 1s ease-out;
       }
 
       &.active span {
         border-bottom-color: rgba($white-dark, 0.8);
       }
 
-      span {
-        border-bottom-width: 2px;
-        border-bottom-style: solid;
-        transition: border-bottom-color 1s ease-out;
+      &:not(.active) span {
+        border-bottom-color: rgba($white-dark, 0);
       }
     }
   }
