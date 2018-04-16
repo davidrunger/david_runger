@@ -6525,11 +6525,12 @@ postcss-html@^0.18.0:
     remark "^9.0.0"
     unist-util-find-all-after "^1.0.1"
 
-postcss-html@^0.20.1:
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.20.1.tgz#45a4ebdca5f7c5b074a5b3a38838c75537efc82b"
+postcss-html@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.21.0.tgz#eda7c4b343557810996983a6f2b7af7617091dca"
   dependencies:
     htmlparser2 "^3.9.2"
+    postcss-syntax "*"
 
 postcss-image-set-polyfill@^0.3.5:
   version "0.3.5"
@@ -6887,6 +6888,10 @@ postcss-svgo@^2.1.1:
     postcss "^5.0.14"
     postcss-value-parser "^3.2.3"
     svgo "^0.7.0"
+
+postcss-syntax@*:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-syntax/-/postcss-syntax-0.1.0.tgz#f57dca90bf20af99b545ae970ac694c8e3b50a7b"
 
 postcss-unique-selectors@^2.0.2:
   version "2.0.2"
