@@ -50,6 +50,9 @@ environment.loaders.append('style', {
 const testConfig = merge(environment.toWebpackConfig(), shared, {
   mode: 'development',
   devtool: 'inline-cheap-module-source-map',
+  devServer: {
+    stats: 'minimal',
+  },
   module: {
     rules: [
       {
@@ -68,7 +71,18 @@ const testConfig = merge(environment.toWebpackConfig(), shared, {
   output: {
     filename: '[name].js',
   },
-  plugins: [extractCSS],
+  plugins: [
+    extractCSS,
+    // from https://github.com/webpack/webpack/issues/708#issuecomment-70869174
+    function () {
+      this.plugin('done', stats => {
+        if (stats.compilation.errors && stats.compilation.errors.length && process.env.TRAVIS) {
+          console.error(stats.compilation.errors);
+          process.exit(1);
+        }
+      });
+    },
+  ],
   resolve: {
     modules: [
       resolve(__dirname, '../../app/javascript'),

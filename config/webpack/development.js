@@ -61,6 +61,9 @@ environment.loaders.append('style', {
 
 const developmentConfig = merge(environment.toWebpackConfig(), shared, {
   mode: 'development',
+  devServer: {
+    stats: 'minimal',
+  },
   devtool: 'inline-cheap-module-source-map',
   plugins: [
     new StyleLintPlugin({

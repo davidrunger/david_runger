@@ -1,29 +1,11 @@
-def run_logged_system_command(command, background: false)
-  if background
-    puts "Backgrounding command '#{command}' ..."
-    system("#{command} &")
+def run_logged_system_command(command)
+  puts "Running system command '#{command}' ... "
+
+  if system(command)
     true
   else
-    print "Running system command '#{command}' ... "
-
-    if system(command)
-      true
-    else
-      abort("System command `#{command}` exited with a non-zero status.")
-    end
+    abort("System command `#{command}` exited with a non-zero status.")
   end
-end
-
-def webpack_dev_server_running?
-  Net::HTTP.get(URI('http://localhost:8080/packs-test/manifest.json'))
-  Net::HTTP.get(URI('http://localhost:8080/packs-test/mocha.js'))
-  Net::HTTP.get(URI('http://localhost:8080/packs-test/mocha.css'))
-  Net::HTTP.get(URI('http://localhost:8080/packs-test/spec_index.js'))
-rescue
-  false
-else
-  puts 'webpack-dev-server is ready!'
-  true
 end
 
 namespace :spec do
@@ -34,20 +16,16 @@ namespace :spec do
 
   desc 'Run JavaScript specs'
   task js: :environment do
-    run_logged_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
-    print "\n"
-    dev_server = Rails.root.join('bin', 'webpack-dev-server')
-    run_logged_system_command("NODE_ENV=test #{dev_server} >/dev/null 2>&1", background: true)
-    print 'Waiting for webpack-dev-server to boot up '
-    120.times do # wait up to 2 minutes for webpack-dev-server to start, checking each second
-      sleep(1)
-      if webpack_dev_server_running?
-        break
-      else
-        print '.'
-      end
-    end
+    # boot test server first, so that it will definitely be launched by the time that we need it
+    run_logged_system_command('ruby -run -ehttpd public -p8080 &> /dev/null &')
 
+    # JavaScript setup
+    run_logged_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
+    bin_webpack = Rails.root.join('bin', 'webpack')
+    # run_logged_system_command("NODE_ENV=test #{dev_server} > personal/stdout 2> personal/stderr", background: true)
+    run_logged_system_command("NODE_ENV=test #{bin_webpack} > /dev/null")
+
+    # run tests
     run_logged_system_command("yarn run test#{ENV.key?('TRAVIS') ? '-no-sandbox' : ''}")
   end
 end
