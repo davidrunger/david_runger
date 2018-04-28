@@ -6,22 +6,20 @@ const fs = require('fs');
 const { sync } = require('glob');
 const { join } = require('path');
 
-const mochaRunner = join(__dirname, '..', 'spec', 'javascript', 'mocha_runner.html')
-  .replace(join(__dirname, '..', 'spec', 'javascript/'), '');
-
 // eslint-disable-next-line global-require, import/no-dynamic-require
-const indexFile = sync(join(__dirname, '..', 'spec', '**', '*spec.js'))
-  .map(specPath => {
-    let cleanedPath = specPath;
-    cleanedPath = cleanedPath.replace(join(__dirname, '..', 'spec', 'javascript/'), '');
-    cleanedPath = cleanedPath.replace('.js', '');
-    return `import '${cleanedPath}';`;
-  })
-  .concat(`import '${mochaRunner}';`)
-  .join('\n');
+const indexFileContents =
+  sync(join(__dirname, '..', 'spec', '**', '*spec.js')).
+    map(specPath => {
+      let cleanedPath = specPath;
+      cleanedPath = cleanedPath.replace(join(__dirname, '..', 'spec', 'javascript/'), '');
+      cleanedPath = cleanedPath.replace('.js', '');
+      return `import '${cleanedPath}';`;
+    }).
+    concat("import 'mocha_runner.html';").
+    join('\n');
 
 const specIndexPath = join(__dirname, '..', 'spec', 'javascript', 'packs', 'spec_index.js');
-fs.writeFileSync(specIndexPath, `${indexFile}\n`);
+fs.writeFileSync(specIndexPath, `${indexFileContents}\n`);
 
 console.log('NOTE: For the tests to work, you must first run');
 console.log('NODE_ENV=test bin/webpack-dev-server');

@@ -2,6 +2,7 @@ const { basename, dirname, join, relative, resolve } = require('path');
 const { sync } = require('glob');
 const extname = require('path-complete-extname');
 const { settings } = require('./configuration.js');
+const { VueLoaderPlugin } = require('vue-loader');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
@@ -35,10 +36,20 @@ module.exports = {
         loader: 'eslint-loader',
         options: {},
       },
+      {
+        test: /\.pug$/,
+        loader: 'pug-plain-loader',
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
     ],
   },
 
-  plugins: [],
+  plugins: [
+    new VueLoaderPlugin(),
+  ],
 
   resolve: {
     alias: {

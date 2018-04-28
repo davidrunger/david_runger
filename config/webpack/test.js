@@ -1,55 +1,44 @@
 const fs = require('fs');
 const { resolve } = require('path');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
-environment.loaders.append('vue', {
-  test: /.vue$/,
-  loader: 'vue-loader',
-  options: {
-    loaders: {
-      js: 'babel-loader',
-      scss: 'vue-style-loader!css-loader!postcss-loader!sass-loader',
-      sass: 'vue-style-loader!css-loader!postcss-loader!sass-loader?indentedSyntax',
-    },
-  },
-});
-
-const extractCSS = new ExtractTextPlugin('[name].css');
 environment.loaders.append('style', {
   test: /\.(scss|sass|css)$/,
-  use: extractCSS.extract({
-    use: [
-      {
-        loader: 'css-loader',
-        options: {
-          hmr: true,
-          minimize: false,
-          sourceMap: true,
-          convertToAbsoluteUrls: true,
-        },
+  use: [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: {
+        hmr: true,
+        minimize: false,
+        sourceMap: true,
+        convertToAbsoluteUrls: true,
       },
-      {
-        loader: 'postcss-loader',
-        options: {
-          sourceMap: true,
-        },
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
       },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true,
-        },
+    },
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: true,
       },
-    ],
-  }),
+    },
+  ]
 });
 
 const testConfig = merge(environment.toWebpackConfig(), shared, {
   mode: 'development',
   devtool: 'inline-cheap-module-source-map',
+  devServer: {
+    stats: 'minimal',
+  },
   module: {
     rules: [
       {
@@ -68,7 +57,20 @@ const testConfig = merge(environment.toWebpackConfig(), shared, {
   output: {
     filename: '[name].js',
   },
-  plugins: [extractCSS],
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
+    // from https://github.com/webpack/webpack/issues/708#issuecomment-70869174
+    function () {
+      this.plugin('done', stats => {
+        if (stats.compilation.errors && stats.compilation.errors.length && process.env.TRAVIS) {
+          console.error(stats.compilation.errors);
+          process.exit(1);
+        }
+      });
+    },
+  ],
   resolve: {
     modules: [
       resolve(__dirname, '../../app/javascript'),

@@ -6,26 +6,6 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
-environment.loaders.append('vue', {
-  test: /.vue$/,
-  loader: 'vue-loader',
-  options: {
-    loaders: {
-      js: 'babel-loader',
-      scss:
-        'vue-style-loader?sourceMap' +
-        '!css-loader?sourceMap' +
-        '!postcss-loader' +
-        '!sass-loader',
-      sass:
-        'vue-style-loader?sourceMap' +
-        '!css-loader?sourceMap' +
-        '!postcss-loader' +
-        '!sass-loader?indentedSyntax',
-    },
-  },
-});
-
 environment.loaders.append('style', {
   test: /\.(scss|sass|css)$/,
   use: [
@@ -61,6 +41,9 @@ environment.loaders.append('style', {
 
 const developmentConfig = merge(environment.toWebpackConfig(), shared, {
   mode: 'development',
+  devServer: {
+    stats: 'minimal',
+  },
   devtool: 'inline-cheap-module-source-map',
   plugins: [
     new StyleLintPlugin({

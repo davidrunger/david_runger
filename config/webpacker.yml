@@ -31,6 +31,7 @@ development:
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
+    pretty: false
     https: false
     host: localhost
     port: 3035
@@ -51,6 +52,7 @@ test:
   hmr: false
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
+    pretty: false
     https: false
     host: localhost
     port: 8080
