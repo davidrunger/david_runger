@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { resolve } = require('path');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const environment = require('./environment');
 const shared = require('./shared');
 
@@ -10,34 +10,32 @@ environment.loaders.append('vue', {
   loader: 'vue-loader',
 });
 
-const extractCSS = new ExtractTextPlugin('[name].css');
 environment.loaders.append('style', {
   test: /\.(scss|sass|css)$/,
-  use: extractCSS.extract({
-    use: [
-      {
-        loader: 'css-loader',
-        options: {
-          hmr: true,
-          minimize: false,
-          sourceMap: true,
-          convertToAbsoluteUrls: true,
-        },
+  use: [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: {
+        hmr: true,
+        minimize: false,
+        sourceMap: true,
+        convertToAbsoluteUrls: true,
       },
-      {
-        loader: 'postcss-loader',
-        options: {
-          sourceMap: true,
-        },
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
       },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true,
-        },
+    },
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: true,
       },
-    ],
-  }),
+    },
+  ]
 });
 
 const testConfig = merge(environment.toWebpackConfig(), shared, {
@@ -65,7 +63,9 @@ const testConfig = merge(environment.toWebpackConfig(), shared, {
     filename: '[name].js',
   },
   plugins: [
-    extractCSS,
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
     // from https://github.com/webpack/webpack/issues/708#issuecomment-70869174
     function () {
       this.plugin('done', stats => {
