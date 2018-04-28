@@ -6,11 +6,6 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
-environment.loaders.append('vue', {
-  test: /.vue$/,
-  loader: 'vue-loader',
-});
-
 environment.loaders.append('style', {
   test: /\.(scss|sass|css)$/,
   use: [

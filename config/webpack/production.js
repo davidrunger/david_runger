@@ -31,18 +31,6 @@ const productionConfig = merge(environmentConfig, shared, {
       return path.replace(/^\/app\/node_modules/, '/vendor/node_modules');
     },
   },
-  module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          cssSourceMap: false,
-          extractCSS: cssExtractOptions,
-        },
-      },
-    ],
-  },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
