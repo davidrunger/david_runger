@@ -70,7 +70,7 @@
     "vue-template-compiler": "^2.5.16",
     "vuex": "^3.0.1",
     "waypoints": "^4.0.1",
-    "webpack": "https://github.com/webpack/webpack.git#c54df36",
+    "webpack": "4.4.x",
     "webpack-cli": "^2.0.15",
     "webpack-merge": "^4.1.2",
     "when-dom-ready": "^1.2.12"
