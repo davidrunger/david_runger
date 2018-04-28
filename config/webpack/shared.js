@@ -35,6 +35,10 @@ module.exports = {
         loader: 'eslint-loader',
         options: {},
       },
+      {
+        test: /\.pug$/,
+        loader: 'pug-plain-loader',
+      },
     ],
   },
 

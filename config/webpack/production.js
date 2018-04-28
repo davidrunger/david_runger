@@ -39,9 +39,6 @@ const productionConfig = merge(environmentConfig, shared, {
         options: {
           cssSourceMap: false,
           extractCSS: cssExtractOptions,
-          loaders: {
-            js: 'babel-loader',
-          },
         },
       },
     ],

@@ -8,13 +8,6 @@ const shared = require('./shared');
 environment.loaders.append('vue', {
   test: /.vue$/,
   loader: 'vue-loader',
-  options: {
-    loaders: {
-      js: 'babel-loader',
-      scss: 'vue-style-loader!css-loader!postcss-loader!sass-loader',
-      sass: 'vue-style-loader!css-loader!postcss-loader!sass-loader?indentedSyntax',
-    },
-  },
 });
 
 const extractCSS = new ExtractTextPlugin('[name].css');

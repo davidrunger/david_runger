@@ -9,21 +9,6 @@ const shared = require('./shared');
 environment.loaders.append('vue', {
   test: /.vue$/,
   loader: 'vue-loader',
-  options: {
-    loaders: {
-      js: 'babel-loader',
-      scss:
-        'vue-style-loader?sourceMap' +
-        '!css-loader?sourceMap' +
-        '!postcss-loader' +
-        '!sass-loader',
-      sass:
-        'vue-style-loader?sourceMap' +
-        '!css-loader?sourceMap' +
-        '!postcss-loader' +
-        '!sass-loader?indentedSyntax',
-    },
-  },
 });
 
 environment.loaders.append('style', {
