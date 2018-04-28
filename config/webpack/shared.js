@@ -2,6 +2,7 @@ const { basename, dirname, join, relative, resolve } = require('path');
 const { sync } = require('glob');
 const extname = require('path-complete-extname');
 const { settings } = require('./configuration.js');
+const { VueLoaderPlugin } = require('vue-loader');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
@@ -42,7 +43,9 @@ module.exports = {
     ],
   },
 
-  plugins: [],
+  plugins: [
+    new VueLoaderPlugin(),
+  ],
 
   resolve: {
     alias: {
