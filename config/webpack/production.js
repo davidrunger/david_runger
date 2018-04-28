@@ -1,20 +1,17 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
-const cssExtractOptions = ExtractTextPlugin.extract({
+environment.loaders.append('style', {
+  test: /\.(scss|sass|css)$/,
   use: [
+    MiniCssExtractPlugin.loader,
     { loader: 'css-loader', options: { minimize: true, sourceMap: false } },
     { loader: 'postcss-loader', options: { sourceMap: false } },
     { loader: 'sass-loader', options: { sourceMap: false } },
   ],
-});
-
-environment.loaders.append('style', {
-  test: /\.(scss|sass|css)$/,
-  use: cssExtractOptions,
 });
 
 const environmentConfig = environment.toWebpackConfig();
@@ -33,8 +30,8 @@ const productionConfig = merge(environmentConfig, shared, {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin({
-      filename: '[name]-[contenthash].css',
+    new MiniCssExtractPlugin({
+      filename: '[name]-[hash].css',
       allChunks: true,
     }),
     new webpack.SourceMapDevToolPlugin({

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { resolve } = require('path');
 const merge = require('webpack-merge');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
