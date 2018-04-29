@@ -27,12 +27,7 @@ export default {
     this.webpImageUrl = webpSource ? webpSource.data.attrs.src : null;
 
     checkWebpSupport().then(webpIsSupported => { this.canUseWebp = webpIsSupported; });
-    whenDomReady().then(() => {
-      // An additional timeout seems to be required in order pass the Chrome Lighthouse "Audit"
-      setTimeout(() => {
-        this.mayRenderLazyImages = true;
-      }, 3000);
-    });
+    whenDomReady().then(() => this.mayRenderLazyImages = true);
   },
 
   data() {
