@@ -53,118 +53,134 @@ div
   HomeSection(section='skills', title='Skills')
     table
       tbody
-        tr
-          td #[i.devicon-babel-plain(style='background: #f5db55')]
-          td Babel
-          td For that sweet, sweet ES6 syntax.
-        tr
-          td #[i.devicon-confluence-plain-wordmark.colored]
-          td Confluence / JIRA
-          td A quality tool for organizing an agile team.
-        tr
-          td #[i.devicon-css3-plain-wordmark.colored]
-          td CSS3
-          td Because looking good is half the battle! Love that flexbox. :)
-        tr
-          td #[img(src='~img/elasticsearch.svg' alt='Elasticsearch')]
-          td Elasticsearch
-          td A fast, powerful, and flexible search backend.
-        tr
-          td #[i.devicon-git-plain-wordmark.colored]
-          td Git
-          td The standard in version control.
-        tr
-          td #[i.devicon-github-plain-wordmark.colored]
-          td GitHub
-          td I have performed and received many, many code reviews via GitHub.
-        tr
-          td #[i.devicon-heroku-plain-wordmark.colored]
-          td Heroku
-          td Doing (some of) the devops, so you don't have to.
-        tr
-          td #[i.devicon-html5-plain-wordmark.colored]
-          td HTML5
-          td The building block of the Internet!
-        tr
-          td #[i.devicon-jasmine-plain-wordmark.colored]
-          td Jasmine
-          td I love testing, and Jasmine is a great JavaScript testing framework.
-        tr
-          td #[i.devicon-javascript-plain.colored]
-          td JavaScript
-          td.
+        SkillRow(
+          name='Babel'
+          details='For that sweet, sweet ES6 syntax.'
+          devIconStyle='background: #f5db55'
+          :wordmarkedIcon='false'
+          :coloredIcon='false'
+        )
+        SkillRow(
+          name='Confluence / JIRA'
+          details='A quality tool for organizing an agile team.'
+          iconIdentifier='confluence'
+        )
+        SkillRow(
+          name='CSS3'
+          details='Because looking good is half the battle! Love that flexbox. :)'
+        )
+        SkillRow(
+          name='Elasticsearch'
+          details='A fast, powerful, and flexible search backend.'
+        )
+          img(slot='image' src='~img/elasticsearch.svg' alt='Elasticsearch')
+        SkillRow(
+          name='Git'
+          details='The standard in version control.'
+        )
+        SkillRow(
+          name='GitHub'
+          details='I have performed and received many, many code reviews via GitHub.'
+        )
+        SkillRow(
+          name='Heroku'
+          details="Doing (some of) the devops, so you don't have to."
+        )
+        SkillRow(
+          name='HTML5'
+          details='The building block of the Internet!'
+        )
+        SkillRow(
+          name='Jasmine'
+          details='I love testing, and Jasmine is a great JavaScript testing framework.'
+        )
+        SkillRow(
+          name='JavaScript'
+          details=`
             A flexible language, essential for any modern web app. ES6 (plus lodash to fill in some
             utility functions) makes JavaScript coding pretty enjoyable.
-        tr
-          td #[i.devicon-jquery-plain-wordmark.colored]
-          td jQuery
-          td DOM querying and manipulation made easy, with a huge plugin ecosystem.
-        tr
-          td #[img(src='~img/lodash.svg' alt='Lodash')]
-          td Lodash
-          td.
+          `
+          :wordmarkedIcon='false'
+        )
+        SkillRow(
+          name='jQuery'
+          details='DOM querying and manipulation made easy, with a huge plugin ecosystem.'
+        )
+        SkillRow(
+          name='Lodash'
+          details=`
             I adore Lodash. It brings a lot of the concision and clarity that I love about Ruby to
             the front end.
-        tr
-          td #[i.devicon-nodejs-plain-wordmark.colored]
-          td NodeJS
-          td.
+          `
+        )
+          img(slot='image' src='~img/lodash.svg' alt='Lodash')
+        SkillRow(
+          name='NodeJS'
+          details=`
             The JavaScript ecosystem is still a bit too "Wild West" for my taste, but Node and its
             ecosystem are important parts of the modern web stack.
-        tr
-          td #[i.devicon-postgresql-plain-wordmark.colored]
-          td PostgreSQL
-          td A fast, rock-solid, open source SQL database. I am really grateful for this tool.
-        tr
-          td #[i.devicon-react-plain-wordmark.colored]
-          td React
-          td.
+          `
+        )
+        SkillRow(
+          name='PostgreSQL'
+          details=`
+            A fast, rock-solid, open source SQL database. I am really grateful for this tool.
+          `
+        )
+        SkillRow(
+          name='React'
+          details=`
             Declarative rendering, component-based development, and one-way data flow make React a
             superior alternative to direct DOM manipulation for moderately (or highly) complex
             client-side apps.
-        tr
-          td #[i.devicon-redis-plain-wordmark.colored]
-          td Redis
-          td.
+          `
+        )
+        SkillRow(
+          name='Redis'
+          details=`
             An amazingly fast in-memory database. My main exposure has been via the Sidekiq
             job-processing library, and simple set and get commands.
-        tr
-          td
-            PerformantImage(alt='Elasticsearch' imageStyle='height: 65px' lazy=true)
-              source(type='png' src='~img/rspec.png')
-          td RSpec
-          td.
+          `
+        )
+        SkillRow(
+          name='RSpec'
+        )
+          span(slot='details').
             I #[em.italic love] testing. (I write more lines of spec code per line of application
             code than any other developer on the team at Hired.) RSpec makes tests readable and easy
             to write.
-        tr
-          td #[i.devicon-ruby-plain-wordmark.colored]
-          td Ruby
-          td Ruby prizes developer happiness, and it shows!
-        tr
-          td #[i.devicon-rails-plain-wordmark.colored]
-          td Ruby on Rails
-
-          td.
+          PerformantImage(slot='image' alt='RSpec' imageStyle='height: 65px' lazy=true)
+            source(type='png' src='~img/rspec.png')
+        SkillRow(
+          name='Ruby'
+          details='Ruby prizes developer happiness, and it shows!'
+        )
+        SkillRow(
+          name='Ruby on Rails'
+          iconIdentifier='rails'
+        )
+          span(slot='details').
             I ❤️  &nbsp;Rails: a web-development framework with a great ecosystem that makes
             development fast and fun. Rails's ActiveRecord ORM is superb.
-        tr
-          td #[i.devicon-sass-plain.colored]
-          td Sass
-          td.
+        SkillRow(
+          name='Sass'
+          details=`
             It's in the name - syntactically awesome style sheets. Why write CSS when you can write
             Sass? :)
-        tr
-          td #[i.devicon-vuejs-plain-wordmark.colored]
-          td VueJS
-          td.
+          `
+          :wordmarkedIcon='false'
+        )
+        SkillRow(
+          name='VueJS'
+        )
+          span(slot='details').
             I think that Vue is one of the best client-side frameworks/libraries out there, and I'm
             really hoping that its popularity continues to grow. I keep track of my grocery list
             using #[a(:href='$routes.groceries_path()') an app that I built with Vue].
-        tr
-          td #[i.devicon-webpack-plain-wordmark.colored]
-          td Webpack
-          td.
+        SkillRow(
+          name='Webpack'
+        )
+          span(slot='details').
             A versatile and powerful build tool for all-things client-side.
             #[span.monospace webpack‑dev‑server] and hot code reloading really enhance the
             development experience.
@@ -357,12 +373,14 @@ import PerformantImage from 'components/performant_image.vue';
 import * as positionListener from './scripts/position_listener';
 import HomeSection from './components/home_section.vue';
 import Project from './components/project.vue';
+import SkillRow from './components/skill_row.vue';
 
 export default {
   components: {
     HomeSection,
     PerformantImage,
     Project,
+    SkillRow,
   },
 
   mounted() {
@@ -414,10 +432,6 @@ p:first-of-type {
   @media screen and (max-width: 600px) {
     font-size: 40px;
   }
-}
-
-i[class^=devicon-] {
-  font-size: 65px;
 }
 
 #header {
@@ -480,25 +494,6 @@ i[class^=devicon-] {
   background: $gray-light;
   font-size: 30px;
   padding: 2px 0 0 2px; // nudges the arrow icon into the right place
-}
-
-.skills table {
-  tr:not(:first-child) {
-    border-top: 1px solid $gray-lighter;
-  }
-
-  td {
-    margin: 10px 0;
-    padding: 0 10px;
-    height: 75px;
-    vertical-align: middle;
-    line-height: 20px;
-  }
-
-  td:nth-child(2) {
-    font-weight: bold;
-    text-align: center;
-  }
 }
 
 .resume-button {
