@@ -6,6 +6,7 @@
       :class='imageClass'
       :style='imageStyle'
       :alt='alt'
+      @load='emitGlobalLoadEvent'
     )
 </template>
 
@@ -13,6 +14,7 @@
 import whenDomReady from 'when-dom-ready';
 
 import checkWebpSupport from 'lib/check_webp_support';
+import { emit } from 'lib/event_bus';
 
 export default {
   mounted() {
@@ -56,6 +58,12 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+  },
+
+  methods: {
+    emitGlobalLoadEvent() {
+      emit('performant-image:image-loaded');
     },
   },
 };
