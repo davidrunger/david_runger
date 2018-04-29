@@ -28,7 +28,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@7.0.0-beta.46":
+"@babel/generator@7.0.0-beta.46", "@babel/generator@^7.0.0-beta.46":
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.46.tgz#6f57159bcc28bf8c3ed6b549789355cebfa3faa7"
   dependencies:
@@ -83,7 +83,7 @@
     babylon "7.0.0-beta.46"
     lodash "^4.2.0"
 
-"@babel/traverse@7.0.0-beta.46", "@babel/traverse@^7.0.0-beta.42":
+"@babel/traverse@7.0.0-beta.46", "@babel/traverse@^7.0.0-beta.42", "@babel/traverse@^7.0.0-beta.46":
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.0.0-beta.46.tgz#29a0c0395b3642f0297e6f8e475bde89f9343755"
   dependencies:
@@ -98,7 +98,7 @@
     invariant "^2.2.0"
     lodash "^4.2.0"
 
-"@babel/types@7.0.0-beta.46":
+"@babel/types@7.0.0-beta.46", "@babel/types@^7.0.0-beta.46":
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.46.tgz#eb84399a699af9fcb244440cce78e1acbeb40e0c"
   dependencies:
@@ -1213,7 +1213,7 @@ babel-types@^6.19.0, babel-types@^6.24.1, babel-types@^6.26.0:
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
 
-babylon@7.0.0-beta.46, babylon@^7.0.0-beta.30, babylon@^7.0.0-beta.42:
+babylon@7.0.0-beta.46, babylon@^7.0.0-beta.30, babylon@^7.0.0-beta.42, babylon@^7.0.0-beta.46:
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.46.tgz#b6ddaba81bbb130313932757ff9c195d527088b6"
 
@@ -6624,7 +6624,7 @@ postcss-html@^0.18.0:
     remark "^9.0.0"
     unist-util-find-all-after "^1.0.1"
 
-postcss-html@^0.22.0:
+postcss-html@^0.22.0, postcss-html@^v0.22.0:
   version "0.22.0"
   resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.22.0.tgz#bb3a5495adbdfb435fc531dd0438f7e03f0642b9"
   dependencies:
@@ -6652,6 +6652,15 @@ postcss-initial@^2.0.0:
   dependencies:
     lodash.template "^4.2.4"
     postcss "^6.0.1"
+
+postcss-jsx@^v0.0.1-beta.1:
+  version "0.0.1-beta.1"
+  resolved "https://registry.yarnpkg.com/postcss-jsx/-/postcss-jsx-0.0.1-beta.1.tgz#1293c53f0988259f96c91c0c11f0516f7403be4a"
+  dependencies:
+    "@babel/generator" "^7.0.0-beta.46"
+    "@babel/traverse" "^7.0.0-beta.46"
+    "@babel/types" "^7.0.0-beta.46"
+    babylon "^7.0.0-beta.46"
 
 postcss-less@^1.1.5:
   version "1.1.5"
@@ -6696,6 +6705,13 @@ postcss-logical@^1.1.1:
   resolved "https://registry.yarnpkg.com/postcss-logical/-/postcss-logical-1.1.1.tgz#bcabf0638d8aa747743b32bc52f9d90d4a3313d2"
   dependencies:
     postcss "^6.0.20"
+
+postcss-markdown@^v0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/postcss-markdown/-/postcss-markdown-0.22.0.tgz#70850f39abdf12eb62f01a8a7da5f925ff089d49"
+  dependencies:
+    remark "^9.0.0"
+    unist-util-find-all-after "^1.0.1"
 
 postcss-media-minmax@^3.0.0:
   version "3.0.0"
@@ -6994,6 +7010,19 @@ postcss-svgo@^2.1.1:
     postcss "^5.0.14"
     postcss-value-parser "^3.2.3"
     svgo "^0.7.0"
+
+postcss-syntax@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/postcss-syntax/-/postcss-syntax-0.2.0.tgz#d28a3524b4eb3bd7daf2b222d8fb063230894c0f"
+  optionalDependencies:
+    postcss-html "^v0.22.0"
+    postcss-jsx "^v0.0.1-beta.1"
+    postcss-less "^1.1.5"
+    postcss-markdown "^v0.22.0"
+    postcss-safe-parser "^3.0.1"
+    postcss-sass "^0.3.0"
+    postcss-scss "^1.0.5"
+    sugarss "^1.0.1"
 
 postcss-unique-selectors@^2.0.2:
   version "2.0.2"
@@ -8623,7 +8652,7 @@ stylelint@^9.2.0:
     svg-tags "^1.0.0"
     table "^4.0.1"
 
-sugarss@^1.0.0:
+sugarss@^1.0.0, sugarss@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sugarss/-/sugarss-1.0.1.tgz#be826d9003e0f247735f92365dc3fd7f1bae9e44"
   dependencies:
