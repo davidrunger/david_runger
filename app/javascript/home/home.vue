@@ -28,24 +28,27 @@ div.font-nunito
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-1
 
-  HomeSection(section='about', title='About me')
-    .flex
-      .about-me.flex-2.mr4.py1.pr2
-        p.
-          I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
-        p.
-          I love the Ruby programming language, the Rails web development framework, and the RSpec
-          testing library. These are well-designed tools (with healthy supporting ecosystems) that
-          allow me to work efficiently and effectively, and to have fun doing it.
-        p.
-          Previously, I've been a web development bootcamp teaching assistant at
-          #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
-          bus driver, and a long haul truck driver.
+  HomeSection(section='about', title='About me', :renderHeadingManually='true')
+    template(slot-scope='slotProps')
+      .flex
+        .flex-2.mr4.py1.pr2
+          HomeSectionHeader(:title='slotProps.title')
 
-      .pr-6.flex-1.flex.items-center
-        PerformantImage(imageClass='about-image' alt='A picture of me' lazy=true)
-          source(type='jpg' src='~img/david.jpg')
-          source(type='webp' src='~img/david.webp')
+          p.
+            I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
+          p.
+            I love the Ruby programming language, the Rails web development framework, and the RSpec
+            testing library. These are well-designed tools (with healthy supporting ecosystems) that
+            allow me to work efficiently and effectively, and to have fun doing it.
+          p.
+            Previously, I've been a web development bootcamp teaching assistant at
+            #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
+            bus driver, and a long haul truck driver.
+
+        .flex-1.flex.items-center
+          PerformantImage(imageClass='about-image' alt='A picture of me' lazy=true)
+            source(type='jpg' src='~img/david.jpg')
+            source(type='webp' src='~img/david.webp')
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-2
@@ -371,13 +374,14 @@ import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min';
 import PerformantImage from 'components/performant_image.vue';
 
 import * as positionListener from './scripts/position_listener';
-import HomeSection from './components/home_section.vue';
+import HomeSection, { Header as HomeSectionHeader } from './components/home_section.vue';
 import Project from './components/project.vue';
 import SkillRow from './components/skill_row.vue';
 
 export default {
   components: {
     HomeSection,
+    HomeSectionHeader,
     PerformantImage,
     Project,
     SkillRow,

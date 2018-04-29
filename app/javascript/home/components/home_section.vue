@@ -3,13 +3,26 @@
   .anchor-target(:id='section')
   section.p3(:data-section='section')
     .js-scroll-hook.absolute(style='top: 25vh; bottom: 0;')
-    h2.h1.bold.mb2 {{title}}
-    slot
+    Header(v-if='!renderHeadingManually' :title='title')
+    slot(:title='title')
 </template>
 
 <script>
+export const Header = {
+  functional: true,
+  render (h, context) {
+    return (
+      <h1 class='h1 bold mb2'>{context.props.title}</h1>
+    );
+  },
+};
+
 export default {
   props: {
+    renderHeadingManually: {
+      type: Boolean,
+      default: false,
+    },
     section: {
       type: String,
       required: false,
@@ -18,6 +31,10 @@ export default {
       type: String,
       required: false,
     },
+  },
+
+  components: {
+    Header,
   },
 };
 </script>
