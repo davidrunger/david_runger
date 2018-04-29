@@ -32,6 +32,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'max-len': ['warn', { code: 100, ignoreUrls: true }],
     'newline-per-chained-call': 'off',
+    'no-console': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-debugger': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-else-return': 'off',
     'no-multiple-empty-lines': ['error', { max: 1 }],
