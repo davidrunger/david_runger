@@ -330,30 +330,6 @@ div.font-nunito
           #[a(href='http://codepen.io/ZevanRosser/pen/ilfHK') Zevan Rosser]).
         li Fuzzy string matching, so you get partial credit for a nearly-correct guess.
 
-    Project
-      span(slot='title') Serpent.js
-      span(slot='technologies') jQuery, object-oriented JavaScript
-      div(slot='links')
-        a(href='https://davidrunger.github.io/serpent') Live
-        span #{' - '}
-        a(href='http://github.com/davidrunger/serpent') GitHub
-      PerformantImage(slot='image' alt='Serpent Game' lazy=true)
-        source(type='jpg' src='~img/serpent.jpg')
-        source(type='webp' src='~img/serpent.webp')
-      div(slot='overview')
-        p.
-          Serpent is twice as fun as classic Snake; at least, there are twice as many players. Each
-          snake can easily be toggled between human or AI control, so you can play against the
-          computer or a friend. Or just watch two AIs play each other. Or see whether your right or
-          left hand is smarter. Controls allow for customizing the game speed and board dimensions.
-      ul(slot='tech-list')
-        li.
-          Efficiently manipulates the DOM, allowing for large game boards and unreasonably high
-          game speeds
-        li.
-          Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
-          toward the apple at all times
-
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-2
 
