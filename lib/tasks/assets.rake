@@ -37,19 +37,6 @@ namespace :assets do
   end
 end
 
-if Rails.env.production? && SourceMapHelper.on_heroku?
-  Rake::Task['assets:precompile'].enhance(%w[
-    assets:clean_yarn_cache
-    assets:rmrf_node_module
-    build_js_routes
-  ]) do
-    Rake::Task['assets:upload_source_maps'].invoke
-    Rake::Task['assets:save_source_version'].invoke
-  end
-end
-
-####################################################################################################
-
 module SourceMapHelper
   class NotOnHerokuError < StandardError ; end
   class NoSourceMapError < StandardError ; end
@@ -125,5 +112,16 @@ module SourceMapHelper
         end
       end
     end
+  end
+end
+
+if Rails.env.production? && SourceMapHelper.on_heroku?
+  Rake::Task['assets:precompile'].enhance(%w[
+    assets:clean_yarn_cache
+    assets:rmrf_node_module
+    build_js_routes
+  ]) do
+    Rake::Task['assets:upload_source_maps'].invoke
+    Rake::Task['assets:save_source_version'].invoke
   end
 end
