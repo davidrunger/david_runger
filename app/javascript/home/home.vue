@@ -1,5 +1,5 @@
 <template lang='pug'>
-div
+div.font-nunito
   #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.bg-black
     .spacer.flex-grow-1
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
@@ -375,7 +375,12 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 @import '~css/variables';
+
+.font-nunito {
+  font-family: 'Nunito', sans-serif;
+}
 
 p,
 ul {
