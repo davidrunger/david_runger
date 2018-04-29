@@ -28,17 +28,24 @@ namespace :assets do
   # This task writes ENV['SOURCE_VERSION'] to a file so that it will be available in Heroku's slugs.
   desc 'Writes the git sha currently being deployed to a file'
   task :save_source_version do
-    File.write('SOURCE_VERSION', ENV['SOURCE_VERSION'])
+    if ENV['SOURCE_VERSION'].present?
+      File.write('SOURCE_VERSION', ENV['SOURCE_VERSION'])
+    else
+      puts "ENV['SOURCE_VERSION'] was not present!"
+      abort
+    end
   end
 end
 
-Rake::Task['assets:precompile'].enhance(%w[
-  assets:clean_yarn_cache
-  assets:rmrf_node_module
-  build_js_routes
-]) do
-  Rake::Task['assets:upload_source_maps'].invoke if SourceMapHelper.on_heroku?
-  Rake::Task['assets:save_source_version'].invoke if ENV['SOURCE_VERSION'].present?
+if Rails.env.production? && SourceMapHelper.on_heroku?
+  Rake::Task['assets:precompile'].enhance(%w[
+    assets:clean_yarn_cache
+    assets:rmrf_node_module
+    build_js_routes
+  ]) do
+    Rake::Task['assets:upload_source_maps'].invoke
+    Rake::Task['assets:save_source_version'].invoke
+  end
 end
 
 ####################################################################################################
