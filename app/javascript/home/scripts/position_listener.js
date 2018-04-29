@@ -3,6 +3,8 @@ import Gator from 'gator';
 import 'waypoints/lib/noframework.waypoints'; // adds `Waypoint` to window
 import 'waypoints/lib/shortcuts/inview'; // adds `Inview` to `Waypoint`
 
+import { on } from 'lib/event_bus';
+
 let forcedActiveNavIdSetAt;
 let forcedActiveNavId;
 
@@ -66,6 +68,16 @@ function getScrollHooks() {
   return [].slice.apply(document.querySelectorAll('[data-section] .js-scroll-hook'));
 }
 
+// Image loading can alter page layout (increasing height), so refresh waypoints when that happens.
+function initImageLoadedRefreshing() {
+  const throttledRefreshAll = _.throttle(refreshAll, 1000, { leading: false });
+  on('performant-image:image-loaded', throttledRefreshAll);
+}
+
+function refreshAll() {
+  window.requestAnimationFrame(() => window.Waypoint.refreshAll());
+}
+
 // The explicitness of being able to call this as `positionListener.init()` is nice here
 // eslint-disable-next-line import/prefer-default-export
 export function init() {
@@ -103,4 +115,5 @@ export function init() {
   });
 
   initNavlinkClickHandling();
+  initImageLoadedRefreshing();
 }
