@@ -68,7 +68,7 @@
     "style-loader": "^0.21.0",
     "vue": "^2.5.16",
     "vue-drag-drop": "^0.2.4",
-    "vue-form": "^4.8.1",
+    "vue-form": "^4.9.0",
     "vue-loader": "https://github.com/davidrunger/vue-loader.git",
     "vue-template-compiler": "^2.5.16",
     "vuex": "^3.0.1",
