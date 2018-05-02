@@ -9221,9 +9221,9 @@ vue-eslint-parser@^2.0.3:
     esquery "^1.0.0"
     lodash "^4.17.4"
 
-vue-form@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/vue-form/-/vue-form-4.8.1.tgz#395d7715b1f3415ea221f7af77a62e0a76f1a0d6"
+vue-form@^4.9.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/vue-form/-/vue-form-4.9.0.tgz#cfb0f75f6c1b387a6b830084fb12ec9cbde8d260"
   dependencies:
     extend "3.0.1"
     scope-eval "1.0.0"
