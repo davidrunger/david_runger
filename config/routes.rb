@@ -31,4 +31,9 @@ Rails.application.routes.draw do
   authenticate :user, -> (user) { user.admin? } do
     mount PgHero::Engine, at: 'pghero'
   end
+
+  # Google periodically re-verifies this route, so we need to leave it here indefinitely
+  get 'google83c07e1014ea4a70', to: ->(env) {
+    [200, {}, ['google-site-verification: google83c07e1014ea4a70.html']]
+  }
 end
