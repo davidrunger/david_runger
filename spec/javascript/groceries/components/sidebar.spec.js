@@ -1,5 +1,5 @@
 import 'spec_helper';
-import { mount, createLocalVue } from 'vue-test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
 import sinon from 'sinon';
 import Vuex from 'vuex';
 import Sidebar from 'groceries/components/sidebar.vue';
