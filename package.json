@@ -13,6 +13,13 @@
   "browserslist": [
     ">10%"
   ],
+  "resolutions": {
+    "webpack-cli/**/jscodeshift": "facebook/jscodeshift#247/head",
+    "@rails/webpacker/**/jscodeshift": "facebook/jscodeshift#247/head",
+    "jscodeshift/**/nomnom": "gerhobbelt/nomnom#master",
+    "@rails/webpacker/**/nomnom": "gerhobbelt/nomnom#master",
+    "facebook/jscodeshift#247/head**/nomnom": "gerhobbelt/nomnom#master"
+  },
   "dependencies": {
     "@rails/webpacker": "https://github.com/rails/webpacker.git",
     "autoprefixer": "^8.4.1",
@@ -78,6 +85,7 @@
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.15",
     "expect": "^22.4.3",
     "mocha": "^5.1.1",
     "mocha-headless-chrome": "^2.0.0",
@@ -87,13 +95,13 @@
     "postcss-safe-parser": "^3.0.1",
     "postcss-scss": "^1.0.5",
     "postcss-syntax": "^0.6.0",
-    "sinon": "^5.0.3",
-    "stylelint": "^9.2.0",
+    "sinon": "^5.0.4",
+    "stylelint": "^8.0.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-scss": "^3.1.0",
     "stylelint-webpack-plugin": "^0.10.4",
-    "vue-test-utils": "^1.0.0-beta.11",
     "webpack-dev-server": "^3.1.4",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "webpack-sources": "^1.0"
   }
 }
