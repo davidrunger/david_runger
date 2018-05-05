@@ -245,8 +245,8 @@ div.font-nunito
           of styling can be done in the markup itself.
         li.
           The official #[b #[a(href='https://vue-test-utils.vuejs.org/en/') vue-test-utils]] library
-          facilitates Vue component unit testing. Tests are run using #[b Mocha], #[b headless
-          Chrome], and "regular" (non-headless) Chrome.
+          facilitates Vue component unit testing. Tests are run using #[b Mocha],
+          #[b headless Chrome], and "regular" (non-headless) Chrome.
         li.
           #[b Continuous integration (CI)] via Travis, which also provides
           #[b continuous deployment (CD)] via #[b Heroku] (which hosts the app)
