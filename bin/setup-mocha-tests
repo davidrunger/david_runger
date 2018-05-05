@@ -22,5 +22,5 @@ const specIndexPath = join(__dirname, '..', 'spec', 'javascript', 'packs', 'spec
 fs.writeFileSync(specIndexPath, `${indexFileContents}\n`);
 
 console.log('NOTE: For the tests to work, you must first run');
-console.log('NODE_ENV=test bin/webpack-dev-server');
+console.log('RAILS_ENV=test NODE_ENV=test bin/webpack-dev-server');
 console.log('(maybe in another tab).');
