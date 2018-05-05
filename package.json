@@ -13,6 +13,11 @@
   "browserslist": [
     ">10%"
   ],
+  "resolutions": {
+    "webpack-cli/**/jscodeshift": "facebook/jscodeshift#247/head",
+    "jscodeshift/**/nomnom": "gerhobbelt/nomnom#master",
+    "@rails/webpacker/**/nomnom": "gerhobbelt/nomnom#master"
+  },
   "dependencies": {
     "@rails/webpacker": "https://github.com/rails/webpacker.git",
     "autoprefixer": "^8.4.1",
