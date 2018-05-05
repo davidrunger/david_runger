@@ -15,8 +15,10 @@
   ],
   "resolutions": {
     "webpack-cli/**/jscodeshift": "facebook/jscodeshift#247/head",
+    "@rails/webpacker/**/jscodeshift": "facebook/jscodeshift#247/head",
     "jscodeshift/**/nomnom": "gerhobbelt/nomnom#master",
-    "@rails/webpacker/**/nomnom": "gerhobbelt/nomnom#master"
+    "@rails/webpacker/**/nomnom": "gerhobbelt/nomnom#master",
+    "facebook/jscodeshift#247/head**/nomnom": "gerhobbelt/nomnom#master"
   },
   "dependencies": {
     "@gerhobbelt/nomnom": "gerhobbelt/nomnom#master",
