@@ -4673,7 +4673,6 @@ jsbn@~0.1.0:
 
 jscodeshift@^0.4.0, jscodeshift@^0.5.0, jscodeshift@facebook/jscodeshift#247/head:
   version "0.5.0"
-  uid "4881b75ea1fd215c7bdef9fab5812b8d5caa8ac1"
   resolved "https://codeload.github.com/facebook/jscodeshift/tar.gz/4881b75ea1fd215c7bdef9fab5812b8d5caa8ac1"
   dependencies:
     babel-plugin-transform-flow-strip-types "^6.8.0"
