@@ -19,6 +19,7 @@
     "@rails/webpacker/**/nomnom": "gerhobbelt/nomnom#master"
   },
   "dependencies": {
+    "@gerhobbelt/nomnom": "gerhobbelt/nomnom#master",
     "@rails/webpacker": "https://github.com/rails/webpacker.git",
     "autoprefixer": "^8.4.1",
     "axios": "^0.18.0",
@@ -54,6 +55,7 @@
     "gator": "^1.2.4",
     "glob": "^7.1.2",
     "js-yaml": "^3.8.4",
+    "jscodeshift": "facebook/jscodeshift#247/head",
     "keycode": "^2.2.0",
     "lodash": "^4.17.10",
     "mini-css-extract-plugin": "^0.4.0",
@@ -92,8 +94,8 @@
     "postcss-safe-parser": "^3.0.1",
     "postcss-scss": "^1.0.5",
     "postcss-syntax": "^0.6.0",
-    "sinon": "^5.0.3",
-    "stylelint": "^8.0.0",
+    "sinon": "^5.0.4",
+    "stylelint": "^9.2.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-scss": "^3.1.0",
     "stylelint-webpack-plugin": "^0.10.4",
