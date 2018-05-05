@@ -97,14 +97,6 @@
   version "0.2.2-3"
   resolved "https://registry.yarnpkg.com/@gerhobbelt/linewrap/-/linewrap-0.2.2-3.tgz#49d5667922ad02bd0a37084fb8f31309a382f829"
 
-"@gerhobbelt/nomnom@gerhobbelt/nomnom#master", nomnom@^1.8.1, nomnom@gerhobbelt/nomnom#master:
-  version "1.8.4-25"
-  resolved "https://codeload.github.com/gerhobbelt/nomnom/tar.gz/9074c749ba7926f31a73494ba884c6a05b2b5e19"
-  dependencies:
-    "@gerhobbelt/linewrap" "0.2.2-3"
-    chalk "2.1.0"
-    exit "0.1.2"
-
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -5710,6 +5702,14 @@ node-sass@^4.9.0:
 nodent-runtime@^3.0.3:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/nodent-runtime/-/nodent-runtime-3.2.1.tgz#9e2755d85e39f764288f0d4752ebcfe3e541e00e"
+
+nomnom@^1.8.1, nomnom@gerhobbelt/nomnom#master:
+  version "1.8.4-25"
+  resolved "https://codeload.github.com/gerhobbelt/nomnom/tar.gz/9074c749ba7926f31a73494ba884c6a05b2b5e19"
+  dependencies:
+    "@gerhobbelt/linewrap" "0.2.2-3"
+    chalk "2.1.0"
+    exit "0.1.2"
 
 "nopt@2 || 3":
   version "3.0.6"

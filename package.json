@@ -21,7 +21,6 @@
     "facebook/jscodeshift#247/head**/nomnom": "gerhobbelt/nomnom#master"
   },
   "dependencies": {
-    "@gerhobbelt/nomnom": "gerhobbelt/nomnom#master",
     "@rails/webpacker": "https://github.com/rails/webpacker.git",
     "autoprefixer": "^8.4.1",
     "axios": "^0.18.0",
