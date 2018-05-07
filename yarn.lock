@@ -9223,8 +9223,8 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
 
 "vue-loader@https://github.com/davidrunger/vue-loader.git":
-  version "15.0.5"
-  resolved "https://github.com/davidrunger/vue-loader.git#cff7b25f58c72cc974eb88fa9a2bbe2ac54fbe84"
+  version "15.0.9"
+  resolved "https://github.com/davidrunger/vue-loader.git#f95fdfbe9da679c0be2f94bd320ad912526be772"
   dependencies:
     "@vue/component-compiler-utils" "^1.2.1"
     hash-sum "^1.0.2"
