@@ -15,15 +15,6 @@ GIT
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
 
-GIT
-  remote: https://github.com/rails/webpacker.git
-  revision: 90373c21b1987bed4f8e040bccb7e5e33cac9a71
-  specs:
-    webpacker (4.0.0.pre.pre.2)
-      activesupport (>= 4.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -387,6 +378,10 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    webpacker (4.0.0.pre.pre.2)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -438,7 +433,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.2)!
   statsd-instrument
   webmock
-  webpacker!
+  webpacker (>= 4.0.0.pre.pre.2)
 
 RUBY VERSION
    ruby 2.4.2p198

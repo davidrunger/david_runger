@@ -31,7 +31,7 @@ gem 'rollbar'
 gem 'rubocop', require: false
 gem 'sass-rails', '~> 5.0'
 gem 'statsd-instrument'
-gem 'webpacker', github: 'rails/webpacker'
+gem 'webpacker', '>= 4.0.0.pre.pre.2'
 
 group :development, :test do
   gem 'awesome_print'
