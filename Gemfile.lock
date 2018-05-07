@@ -8,6 +8,14 @@ GIT
       rspec (>= 2.99.0, < 4.0)
 
 GIT
+  remote: https://github.com/davidrunger/spring-watcher-listen.git
+  revision: 2af02a92bef8a2e51d6601e40270228a3b3b9967
+  specs:
+    spring-watcher-listen (2.0.2)
+      listen (>= 2.7, < 4.0)
+      spring (>= 1.2, < 3.0)
+
+GIT
   remote: https://github.com/rails/webpacker.git
   revision: 1f6cd9a0860a7953659334b3ebba4258f68a523c
   specs:
@@ -355,9 +363,6 @@ GEM
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
-    spring-watcher-listen (2.0.1)
-      listen (>= 2.7, < 4.0)
-      spring (>= 1.2, < 3.0)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -430,7 +435,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   spring
   spring-commands-rspec
-  spring-watcher-listen (~> 2.0.0)
+  spring-watcher-listen (~> 2.0.2)!
   statsd-instrument
   webmock
   webpacker!
