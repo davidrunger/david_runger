@@ -7,8 +7,8 @@
     "test-chrome": "bin/setup-mocha-tests && open -a 'Google Chrome' http://localhost:8080/packs-test/mocha_runner.html"
   },
   "engines": {
-    "node": "8.9.3",
-    "yarn": "1.5.1"
+    "node": "10.0.0",
+    "yarn": "1.6.0"
   },
   "browserslist": [
     ">10%"
