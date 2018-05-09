@@ -6574,9 +6574,9 @@ postcss-html@^0.12.0:
     remark "^8.0.0"
     unist-util-find-all-after "^1.0.1"
 
-postcss-html@^0.23.4:
-  version "0.23.4"
-  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.23.4.tgz#9937d81d40d90da48d4d60cd44beed741ab7a1d8"
+postcss-html@^0.23.6:
+  version "0.23.6"
+  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.23.6.tgz#ac97c792257cff04f7fde54578bec7221a79b809"
   dependencies:
     htmlparser2 "^3.9.2"
 
