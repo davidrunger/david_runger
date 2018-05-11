@@ -8911,7 +8911,7 @@ uniq@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/uniq/-/uniq-1.0.1.tgz#b31c5ae8254844a3a8281541ce2b04b865a734ff"
 
-uniqid@^4.0.0, uniqid@^4.1.1:
+uniqid@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/uniqid/-/uniqid-4.1.1.tgz#89220ddf6b751ae52b5f72484863528596bb84c1"
   dependencies:
@@ -9156,12 +9156,11 @@ void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-drag-drop@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/vue-drag-drop/-/vue-drag-drop-0.2.4.tgz#a50450bbb35db677131fb103b6eb417342864a90"
+vue-drag-drop@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-drag-drop/-/vue-drag-drop-1.0.0.tgz#40cf7854315b9e582c6901faab76c74ca8d9e94e"
   dependencies:
     core-js "^2.5.3"
-    uniqid "^4.1.1"
 
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
