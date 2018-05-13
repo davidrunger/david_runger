@@ -24,6 +24,7 @@ class User < ApplicationRecord
   has_many :stores, dependent: :destroy
   has_many :items, through: :stores
   has_many :sms_records, dependent: :destroy
+  has_many :weight_logs, dependent: :destroy
 
   def self.from_omniauth!(access_token)
     User.find_or_create_by!(email: access_token.info['email'])
