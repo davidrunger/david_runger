@@ -4,6 +4,7 @@ RSpec.describe User do
   subject(:user) { create(:user) }
 
   it { should have_many(:sms_records) }
+  it { should have_many(:weight_logs) }
 
   describe '#may_send_sms?' do
     subject(:may_send_sms?) { user.may_send_sms? }

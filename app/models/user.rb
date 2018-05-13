@@ -4,7 +4,7 @@
 #
 #  created_at       :datetime         not null
 #  email            :string           not null
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  last_activity_at :datetime
 #  phone            :string
 #  sms_allowance    :float            default(1.0), not null
@@ -24,6 +24,7 @@ class User < ApplicationRecord
   has_many :stores, dependent: :destroy
   has_many :items, through: :stores
   has_many :sms_records, dependent: :destroy
+  has_many :weight_logs, dependent: :destroy
 
   def self.from_omniauth!(access_token)
     User.find_or_create_by!(email: access_token.info['email'])

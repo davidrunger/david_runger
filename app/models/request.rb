@@ -6,7 +6,7 @@
 #  db           :integer
 #  format       :string           not null
 #  handler      :string           not null
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  ip           :string           not null
 #  location     :string
 #  method       :string           not null
@@ -16,7 +16,7 @@
 #  status       :integer
 #  url          :string           not null
 #  user_agent   :string
-#  user_id      :integer
+#  user_id      :bigint(8)
 #  view         :integer
 #
 # Indexes

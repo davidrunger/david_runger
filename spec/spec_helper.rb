@@ -183,3 +183,7 @@ end
 def verify(&blk)
   before(&blk)
 end
+
+def json_response
+  JSON(response.body)
+end

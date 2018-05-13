@@ -26,6 +26,7 @@ module.exports = {
   plugins: ['vue'],
   rules: {
     'arrow-parens': 'off',
+    'comma-dangle': ['warn', 'always-multiline'],
     'dot-location': ['error', 'object'],
     'function-paren-newline': 'off',
     'import/no-extraneous-dependencies': 'off',
@@ -45,6 +46,7 @@ module.exports = {
       consistent: true,
       minProperties: 99,
     }],
+    'quotes': ['warn', 'single'],
     'react/no-unknown-property': 'off',
     'react/react-in-jsx-scope': 'off',
   },
