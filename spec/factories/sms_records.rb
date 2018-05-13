@@ -5,12 +5,12 @@
 #  cost       :float
 #  created_at :datetime         not null
 #  error      :string
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  nexmo_id   :string           not null
 #  status     :string           not null
 #  to         :string           not null
 #  updated_at :datetime         not null
-#  user_id    :integer
+#  user_id    :bigint(8)
 #
 # Indexes
 #

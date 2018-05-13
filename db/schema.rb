@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_08_235000) do
+ActiveRecord::Schema.define(version: 2018_05_13_103147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -96,8 +96,18 @@ ActiveRecord::Schema.define(version: 2018_04_08_235000) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "weight_logs", force: :cascade do |t|
+    t.float "weight", null: false
+    t.string "note"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "created_at"], name: "index_weight_logs_on_user_id_and_created_at"
+  end
+
   add_foreign_key "items", "stores"
   add_foreign_key "requests", "users"
   add_foreign_key "sms_records", "users"
   add_foreign_key "stores", "users"
+  add_foreign_key "weight_logs", "users"
 end
