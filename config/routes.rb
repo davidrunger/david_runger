@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'groceries', to: 'groceries#show'
 
+  get 'log', to: 'logs#index'
+
   resources :users, only: %i[edit update]
 
   namespace :api, defaults: {format: :json} do
