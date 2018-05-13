@@ -30,7 +30,7 @@ RSpec.describe Api::WeightLogsController do
 
         expected_attributes = %w[created_at id note weight]
         expect(json_response).
-          to eq(WeightLog.order(:created_at).last.attributes.slice(*expected_attributes).as_json)
+          to eq(JSON(WeightLogSerializer.new(WeightLog.order(:created_at).last).to_json))
       end
     end
   end

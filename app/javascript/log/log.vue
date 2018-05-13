@@ -1,6 +1,7 @@
 <template lang='pug'>
 div
   div {{bootstrap.current_user.email}}
+  weight-chart(:data='weightChartMetadata')
   vue-form(@submit.prevent='postWeightLog' :state='formstate')
     validate
       el-input(
@@ -18,7 +19,40 @@ div
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
+import WeightChart from './components/weight_chart.vue';
+
 export default {
+  components: {
+    WeightChart,
+  },
+
+  computed: {
+    ...mapState([
+      'weightLogs',
+    ]),
+
+    weightLogsToChartData() {
+      return this.weightLogs.map(weightLog => {
+        return {
+          t: weightLog.created_at,
+          y: weightLog.weight,
+        };
+      })
+    },
+
+    weightChartMetadata() {
+      return {
+        datasets: [{
+          label: 'Weight',
+          fill: false,
+          data: this.weightLogsToChartData,
+        }],
+      };
+    },
+  },
+
   data() {
     return {
       formstate: {},
