@@ -21,6 +21,7 @@
     "facebook/jscodeshift#247/head**/nomnom": "gerhobbelt/nomnom#master"
   },
   "dependencies": {
+    "@gerhobbelt/nomnom": "gerhobbelt/nomnom#master",
     "@rails/webpacker": "^4.0.0-pre.2",
     "autoprefixer": "^8.5.0",
     "axios": "^0.18.0",
@@ -57,6 +58,7 @@
     "gator": "^1.2.4",
     "glob": "^7.1.2",
     "js-yaml": "^3.8.4",
+    "jscodeshift": "facebook/jscodeshift#247/head",
     "keycode": "^2.2.0",
     "lodash": "^4.17.10",
     "mini-css-extract-plugin": "^0.4.0",
