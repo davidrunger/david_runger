@@ -13,8 +13,7 @@ addons:
 env:
   - RAILS_ENV=test NODE_ENV=test SECRET_KEY_BASE=0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b
 before_install:
-  - gem update --system
-  - gem install bundler -v 1.16.1
+  - gem install bundler
   - . $HOME/.nvm/nvm.sh
   - nvm install 10.0.0
   - nvm use 10.0.0
@@ -22,6 +21,7 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
   - "[ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.5.1p' ]"
+  - "[ \"$(bundler --version)\" == 'Bundler version 1.16.2' ]"
   - "[ \"$(node --version)\" == 'v10.0.0' ]"
   - "[ \"$(yarn --version)\" == '1.6.0' ]"
   - yarn install
