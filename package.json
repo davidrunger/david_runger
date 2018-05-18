@@ -65,7 +65,7 @@
     "resolve-url-loader": "^2.3.0",
     "sass-loader": "^7.0.1",
     "script-loader": "^0.7.2",
-    "smooth-scroll": "^12.1.5",
+    "smooth-scroll": "^14.0.0",
     "statsd": "https://github.com/davidrunger/statsd.git",
     "style-loader": "^0.21.0",
     "vue": "^2.5.16",

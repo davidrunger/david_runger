@@ -8175,9 +8175,9 @@ slide@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
 
-smooth-scroll@^12.1.5:
-  version "12.1.5"
-  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-12.1.5.tgz#b6d8deca371a9edd5ea3ad291ef0fb7e741ed41e"
+smooth-scroll@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-14.0.0.tgz#c8a77ac7ff3fdb7d05e9fa825db88edc2839e9c9"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
