@@ -346,7 +346,7 @@ div.font-nunito
 </template>
 
 <script>
-import SmoothScroll from 'smooth-scroll/dist/js/smooth-scroll.min';
+import SmoothScroll from 'smooth-scroll/dist/smooth-scroll.min';
 import PerformantImage from 'components/performant_image.vue';
 
 import * as positionListener from './scripts/position_listener';
