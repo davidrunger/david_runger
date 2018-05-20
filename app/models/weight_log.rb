@@ -15,8 +15,8 @@
 #
 
 class WeightLog < ApplicationRecord
+  belongs_to :user, optional: true # not actually optional, but this saves an unnecessary DB query
+
   validates :user_id, presence: true
   validates :weight, presence: true
-
-  belongs_to :user, optional: true # not actually optional, but this saves an unnecessary DB query
 end
