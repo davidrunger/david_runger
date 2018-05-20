@@ -4,15 +4,14 @@ div
   weight-chart(:data='weightChartMetadata')
   div(style='width: 400px')
     vue-form.flex.px1(@submit.prevent='postWeightLog' :state='formstate')
-      el-form-item.flex-1.mr1(label='Weight')
-        validate
-          el-input(
-            placeholder='Weight'
-            type='number'
-            v-model='newWeightLogWeight'
-            name='newWeightLogWeight'
-            required
-          )
+      validate.flex-1.mr1
+        el-input(
+          placeholder='Weight'
+          type='number'
+          v-model='newWeightLogWeight'
+          name='newWeightLogWeight'
+          required
+        )
       el-button.flex-0(:disabled='formstate.$invalid') Add
 </template>
 
