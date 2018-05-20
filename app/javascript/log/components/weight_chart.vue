@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .chart-container {
   margin: 0 auto; /* flex centering doesn't seem to work for some reason */
   width: 600px;
