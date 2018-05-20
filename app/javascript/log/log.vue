@@ -1,7 +1,6 @@
 <template lang='pug'>
 div
   div {{bootstrap.current_user.email}}
-  weight-chart(:data='weightChartMetadata')
   div(style='width: 400px')
     vue-form.flex.px1(@submit.prevent='postWeightLog' :state='formstate')
       validate.flex-1.mr1
@@ -13,6 +12,7 @@ div
           required
         )
       el-button.flex-0(:disabled='formstate.$invalid') Add
+  weight-chart(:data='weightChartMetadata')
 </template>
 
 <script>
