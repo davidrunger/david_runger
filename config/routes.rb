@@ -14,10 +14,11 @@ Rails.application.routes.draw do
   resources :users, only: %i[edit update]
 
   namespace :api, defaults: {format: :json} do
+    resources :exercise_count_logs, only: %i[create]
+    resources :items, only: %i[update destroy]
     resources :stores, only: %i[create update destroy] do
       resources :items, only: %i[create]
     end
-    resources :items, only: %i[update destroy]
     resources :text_messages, only: %i[create]
     resources :weight_logs, only: %i[create]
   end
