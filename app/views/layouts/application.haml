@@ -19,7 +19,7 @@
     = content_for(:extra_css)
     = content_for(:extra_javascript)
 
-  %body
+  %body{class: @body_class}
     - if notice.present?
       %p.notice= notice
     - if alert.present?
