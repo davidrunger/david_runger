@@ -1,20 +1,22 @@
 <template lang='pug'>
 div
-  .center.my1 {{bootstrap.current_user.email}}
-  hr
-  div(style='width: 400px')
-    vue-form.flex.px1(@submit.prevent='postWeightLog' :state='formstate')
-      validate.flex-1.mr1
-        el-input(
-          placeholder='Weight'
-          type='number'
-          v-model='newWeightLogWeight'
-          name='newWeightLogWeight'
-          required
-        )
-      el-button.flex-0(:disabled='formstate.$invalid') Add
-  hr
-  weight-chart(:data='weightChartMetadata')
+  .center.mb1
+    .my1 {{bootstrap.current_user.email}}
+    hr
+    .h2.my2 Weight
+    .flex.justify-center.mb1
+      div(style='width: 400px')
+        vue-form.flex.px1(@submit.prevent='postWeightLog' :state='formstate')
+          validate.flex-1.mr1
+            el-input(
+              placeholder='Weight'
+              type='number'
+              v-model='newWeightLogWeight'
+              name='newWeightLogWeight'
+              required
+            )
+          el-button.flex-0(:disabled='formstate.$invalid') Add
+    weight-chart(:data='weightChartMetadata')
 </template>
 
 <script>

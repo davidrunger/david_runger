@@ -1,10 +1,10 @@
 <template lang='pug'>
-line-chart(
-  :chart-data='data'
-  :options='CHART_OPTIONS'
-  :height='200'
-  :width='400'
-)
+.chart-container
+  line-chart(
+    :chart-data='data'
+    :height='300'
+    :options='CHART_OPTIONS'
+  )
 </template>
 
 <script>
@@ -17,14 +17,11 @@ export default {
 
   created() {
     this.CHART_OPTIONS = {
-      responsive: false,
       legend: {
         display: false,
       },
-      title: {
-        display: true,
-        text: 'Weight',
-      },
+      maintainAspectRatio: false,
+      responsive: true,
       scales: {
         xAxes: [{
           type: 'time',
@@ -52,3 +49,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.chart-container {
+  margin: 0 auto; /* flex centering doesn't seem to work for some reason */
+  width: 600px;
+}
+</style>
