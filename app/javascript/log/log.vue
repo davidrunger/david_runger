@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  div {{bootstrap.current_user.email}}
+  .center.my1 {{bootstrap.current_user.email}}
   div(style='width: 400px')
     vue-form.flex.px1(@submit.prevent='postWeightLog' :state='formstate')
       validate.flex-1.mr1
