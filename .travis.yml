@@ -21,7 +21,7 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
   - "[ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.5.1p' ]"
-  - "[ \"$(bundler --version)\" == 'Bundler version 1.16.2' ]"
+  - "[ \"$(bundle --version)\" == 'Bundler version 1.16.2' ]"
   - "[ \"$(node --version)\" == 'v10.0.0' ]"
   - "[ \"$(yarn --version)\" == '1.6.0' ]"
   - yarn install
