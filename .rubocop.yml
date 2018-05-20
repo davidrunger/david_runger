@@ -56,6 +56,8 @@ Style/InlineComment:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - add_index
+    - datetime
     - desc
     - describe
     - gem
@@ -63,14 +65,17 @@ Style/MethodCallWithArgsParentheses:
     - file
     - head
     - include
+    - integer
     - not_to
     - p
     - print
     - puts
+    - references
     - render
     - require
     - require_relative
     - ruby
+    - string
     - source
     - to
 Style/MissingElse:
