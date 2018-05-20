@@ -26,6 +26,8 @@ div
             required
           )
         el-input.flex-0(type='submit' value='Log' :disabled='formstate.$invalid')
+      .h3.mt3.mb1 Today's Exercise
+      div {{JSON.stringify(bootstrap.exercise_counts_today || 'No exercises have been done today')}}
 </template>
 
 <script>
