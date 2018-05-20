@@ -10,11 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_13_103147) do
+ActiveRecord::Schema.define(version: 2018_05_20_102111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
+
+  create_table "exercise_count_logs", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.integer "count", null: false
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_exercise_count_logs_on_created_at"
+    t.index ["exercise_id"], name: "index_exercise_count_logs_on_exercise_id"
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_exercises_on_user_id"
+  end
 
   create_table "items", id: :serial, force: :cascade do |t|
     t.integer "store_id", null: false
@@ -105,6 +123,8 @@ ActiveRecord::Schema.define(version: 2018_05_13_103147) do
     t.index ["user_id", "created_at"], name: "index_weight_logs_on_user_id_and_created_at"
   end
 
+  add_foreign_key "exercise_count_logs", "exercises"
+  add_foreign_key "exercises", "users"
   add_foreign_key "items", "stores"
   add_foreign_key "requests", "users"
   add_foreign_key "sms_records", "users"

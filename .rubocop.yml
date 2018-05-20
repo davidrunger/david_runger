@@ -1,5 +1,7 @@
 AllCops:
   EnabledByDefault: true
+  Exclude:
+    - 'db/schema.rb'
   TargetRubyVersion: 2.4
 Layout/ClassStructure:
   ExpectedOrder:
@@ -56,21 +58,28 @@ Style/InlineComment:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
+    - add_foreign_key
+    - add_index
+    - datetime
     - desc
     - describe
     - gem
     - fail
     - file
+    - float
     - head
     - include
+    - integer
     - not_to
     - p
     - print
     - puts
+    - references
     - render
     - require
     - require_relative
     - ruby
+    - string
     - source
     - to
 Style/MissingElse:
