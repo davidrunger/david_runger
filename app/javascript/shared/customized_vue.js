@@ -8,6 +8,8 @@ import 'element-ui/lib/theme-chalk/icon.css';
 import 'element-ui/lib/theme-chalk/input.css';
 import 'element-ui/lib/theme-chalk/menu.css';
 import 'element-ui/lib/theme-chalk/menu-item.css';
+import 'element-ui/lib/theme-chalk/option.css';
+import 'element-ui/lib/theme-chalk/select.css';
 import 'element-ui/lib/theme-chalk/submenu.css';
 import {
   Button,
@@ -16,6 +18,8 @@ import {
   Input,
   Menu,
   MenuItem,
+  Option,
+  Select,
   Submenu,
 } from 'element-ui';
 import Vue from 'vue';
@@ -62,6 +66,8 @@ Vue.use(Icon);
 Vue.use(Input);
 Vue.use(Menu);
 Vue.use(MenuItem);
+Vue.use(Option);
+Vue.use(Select);
 Vue.use(Submenu);
 
 Vue.component('Modal', Modal);

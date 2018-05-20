@@ -15,6 +15,7 @@
 
 class Exercise < ApplicationRecord
   belongs_to :user, optional: true # not actually optional, but this saves an unnecessary DB query
+  has_many :exercise_count_logs, dependent: :destroy
 
   validates :name, presence: true
   validates :user_id, presence: true
