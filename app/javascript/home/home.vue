@@ -45,7 +45,7 @@ div.font-nunito
             #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
             bus driver, and a long haul truck driver.
 
-        .flex-1.flex.items-center
+        .flex-1
           PerformantImage(imageClass='about-image' alt='A picture of me' lazy=true)
             source(type='jpg' src='~img/david.jpg')
             source(type='webp' src='~img/david.webp')
