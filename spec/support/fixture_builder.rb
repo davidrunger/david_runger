@@ -1,4 +1,6 @@
+# rubocop:disable Style/MixinUsage
 include FactoryBot::Syntax::Methods
+# rubocop:enable Style/MixinUsage
 
 FixtureBuilder.configure do |fbuilder|
   # rebuild fixtures automatically when these files change:
@@ -12,5 +14,7 @@ FixtureBuilder.configure do |fbuilder|
     user = name(:user, create(:user)).first
     create(:store, user: user)
     name(:weight_log, create(:weight_log, user: user))
+    chin_ups = name(:chin_ups, create(:exercise, user: user)).first
+    name(:chin_ups_count_log, create(:exercise_count_log, exercise: chin_ups))
   end
 end
