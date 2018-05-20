@@ -4,6 +4,7 @@ div
     .pt1 {{bootstrap.current_user.email}}
     hr
     weight-section
+    hr
     resistance-section
 </template>
 
