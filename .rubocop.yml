@@ -1,5 +1,7 @@
 AllCops:
   EnabledByDefault: true
+  Exclude:
+    - 'db/schema.rb'
   TargetRubyVersion: 2.4
 Layout/ClassStructure:
   ExpectedOrder:
