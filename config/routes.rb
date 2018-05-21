@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     resources :exercise_count_logs, only: %i[create]
+    resources :exercises, only: %i[create]
     resources :items, only: %i[update destroy]
     resources :stores, only: %i[create update destroy] do
       resources :items, only: %i[create]

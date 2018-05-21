@@ -3,7 +3,8 @@ div
   .h2.my2 Resistance
   .flex.justify-center.mb1
     div(style='max-width: 600px')
-      vue-form.flex.px1(@submit.prevent='postResistanceLog' :state='formstate')
+      .h3.mt3.mb1 Log a set
+      vue-form.flex.px1(@submit.prevent='postResistanceLog' :state='resistanceLogFormstate')
         validate.flex-1.mr1
           el-select(
             v-model='newResistanceLog.exerciseId'
@@ -25,26 +26,52 @@ div
             name='newResistanceLog.count'
             required
           )
-        el-input.flex-0(type='submit' value='Log' :disabled='formstate.$invalid')
+        el-input.flex-0(type='submit' value='Log' :disabled='resistanceLogFormstate.$invalid')
       .h3.mt3.mb1 Today's Exercise
       div {{JSON.stringify(bootstrap.exercise_counts_today || 'No exercises have been done today')}}
+      .h3.mt3.mb1 Add a new exercise
+      vue-form.flex.px1(@submit.prevent='postNewExercise' :state='newExerciseFormstate')
+        validate.flex-1.mr1
+          el-input(
+            placeholder='Exercise name'
+            type='input'
+            v-model='newExercise.name'
+            name='newExercise.name'
+            required
+          )
+        el-input.flex-0(type='submit' value='Submit' :disabled='newExerciseFormstate.$invalid')
 </template>
 
 <script>
 export default {
   data() {
     return {
-      formstate: {},
+      newExercise: {},
+      newExerciseFormstate: {},
       newResistanceLog: {
         exerciseId: null,
         count: null,
       },
+      resistanceLogFormstate: {},
     };
   },
 
   methods: {
+    postNewExercise() {
+      if (this.newExerciseFormstate.$invalid) return;
+
+      const payload = {
+        exercise: {
+          name: this.newExercise.name,
+        },
+      };
+      this.$http.post(this.$routes.api_exercises_path(), payload).then(() => {
+        this.newExercise = {};
+      });
+    },
+
     postResistanceLog() {
-      if (this.formstate.$invalid) return;
+      if (this.resistanceLogFormstate.$invalid) return;
 
       const payload = {
         exercise_count_log: {
