@@ -90,7 +90,13 @@ Style/NumericPredicate:
   Enabled: false
 Style/RescueStandardError:
   Enabled: false
+Style/ReturnNil:
+  Enabled: false
+Style/Semicolon:
+  Enabled: false
 Style/SignalException:
+  Enabled: false
+Style/TernaryParentheses:
   Enabled: false
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
