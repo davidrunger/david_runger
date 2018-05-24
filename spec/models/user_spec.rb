@@ -1,10 +1,20 @@
 require 'spec_helper'
 
 RSpec.describe User do
-  subject(:user) { create(:user) }
+  subject(:user) { users(:user) }
 
   it { should have_many(:sms_records) }
+  it { should have_many(:items) }
   it { should have_many(:weight_logs) }
+
+  describe '#items' do
+    subject(:items) { user.items }
+
+    it 'returns a relation that allows a specific item to be found by `id`' do
+      item_id = user.items.first!.id
+      expect(user.items.find(item_id)).to eq(Item.find(item_id))
+    end
+  end
 
   describe '#may_send_sms?' do
     subject(:may_send_sms?) { user.may_send_sms? }
