@@ -21,10 +21,10 @@ class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :exercises, dependent: :destroy
-  has_many :items, through: :stores
   has_many :requests, dependent: :destroy
   has_many :sms_records, dependent: :destroy
   has_many :stores, dependent: :destroy
+  has_many :items, through: :stores # must come after has_many :stores declaration
   has_many :weight_logs, dependent: :destroy
 
   def self.from_omniauth!(access_token)
