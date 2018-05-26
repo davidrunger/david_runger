@@ -26,7 +26,11 @@ div
             name='newResistanceLog.count'
             required
           )
-        el-input.flex-0(type='submit' value='Log' :disabled='resistanceLogFormstate.$invalid')
+        el-input.flex-0(
+          type='submit'
+          value='Log'
+          :disabled='postingResistanceLog || resistanceLogFormstate.$invalid'
+        )
       .h3.mt3.mb1 Today's Exercise
       div {{JSON.stringify(bootstrap.exercise_counts_today || 'No exercises have been done today')}}
       .h3.mt3.mb1 Add a new exercise
@@ -39,7 +43,11 @@ div
             name='newExercise.name'
             required
           )
-        el-input.flex-0(type='submit' value='Submit' :disabled='newExerciseFormstate.$invalid')
+        el-input.flex-0(
+          type='submit'
+          value='Submit'
+          :disabled='postingExercise || newExerciseFormstate.$invalid'
+        )
 </template>
 
 <script>
@@ -52,6 +60,8 @@ export default {
         exerciseId: null,
         count: null,
       },
+      postingExercise: false,
+      postingResistanceLog: false,
       resistanceLogFormstate: {},
     };
   },
@@ -59,6 +69,8 @@ export default {
   methods: {
     postNewExercise() {
       if (this.newExerciseFormstate.$invalid) return;
+
+      this.postingExercise = true;
 
       const payload = {
         exercise: {
@@ -73,6 +85,8 @@ export default {
 
     postResistanceLog() {
       if (this.resistanceLogFormstate.$invalid) return;
+
+      this.postingResistanceLog = true;
 
       const payload = {
         exercise_count_log: {
