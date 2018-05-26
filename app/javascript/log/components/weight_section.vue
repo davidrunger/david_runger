@@ -69,6 +69,7 @@ export default {
       };
       this.$http.post(this.$routes.api_weight_logs_path(), payload).then(() => {
         this.newWeightLogWeight = '';
+        window.location.reload();
       });
     },
   },
