@@ -12,7 +12,11 @@ div
             name='newWeightLogWeight'
             required
           )
-        el-button.flex-0(:disabled='formstate.$invalid') Add
+        el-input.flex-0(
+          type='submit'
+          value='Add'
+          :disabled='postingWeightLog || formstate.$invalid'
+        )
   weight-chart(:data='weightChartMetadata')
 </template>
 
@@ -55,12 +59,15 @@ export default {
     return {
       formstate: {},
       newWeightLogWeight: '',
+      postingWeightLog: false,
     };
   },
 
   methods: {
     postWeightLog() {
       if (this.formstate.$invalid) return;
+
+      this.postingWeightLog = true;
 
       const payload = {
         weight_log: {
