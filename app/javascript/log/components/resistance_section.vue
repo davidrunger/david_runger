@@ -67,6 +67,7 @@ export default {
       };
       this.$http.post(this.$routes.api_exercises_path(), payload).then(() => {
         this.newExercise = {};
+        window.location.reload();
       });
     },
 
@@ -81,6 +82,7 @@ export default {
       };
       this.$http.post(this.$routes.api_exercise_count_logs_path(), payload).then(() => {
         this.newResistanceLog = {};
+        window.location.reload();
       });
     },
   },
