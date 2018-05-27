@@ -118,7 +118,7 @@ export default {
 
 <style>
 .el-table__body {
-  table-layout: initial;
+  table-layout: auto;
 }
 
 .el-table__empty-block {
