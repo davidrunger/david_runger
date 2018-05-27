@@ -3,7 +3,7 @@ div
   .h2.my2 Resistance
   .flex.justify-center.mb1
     div(style='max-width: 600px')
-      .h3.mt3.mb1 Log a set
+      .h3.my1 Log a set
       vue-form.flex.px1(@submit.prevent='postResistanceLog' :state='resistanceLogFormstate')
         validate.flex-1.mr1
           el-select(
@@ -32,7 +32,7 @@ div
           :disabled='postingResistanceLog || resistanceLogFormstate.$invalid'
         )
       .h3.mt3.mb1 Today's Exercise
-      div {{JSON.stringify(bootstrap.exercise_counts_today || 'No exercises have been done today')}}
+      div {{JSON.stringify(bootstrap.exercise_counts_today)}}
       .h3.mt3.mb1 Add a new exercise
       vue-form.flex.px1(@submit.prevent='postNewExercise' :state='newExerciseFormstate')
         validate.flex-1.mr1
