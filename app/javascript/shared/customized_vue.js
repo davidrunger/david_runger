@@ -11,6 +11,8 @@ import 'element-ui/lib/theme-chalk/menu-item.css';
 import 'element-ui/lib/theme-chalk/option.css';
 import 'element-ui/lib/theme-chalk/select.css';
 import 'element-ui/lib/theme-chalk/submenu.css';
+import 'element-ui/lib/theme-chalk/table.css';
+import 'element-ui/lib/theme-chalk/table-column.css';
 import {
   Button,
   Card,
@@ -21,6 +23,8 @@ import {
   Option,
   Select,
   Submenu,
+  Table,
+  TableColumn,
 } from 'element-ui';
 import Vue from 'vue';
 import { Drag, Drop } from 'vue-drag-drop';
@@ -69,6 +73,8 @@ Vue.use(MenuItem);
 Vue.use(Option);
 Vue.use(Select);
 Vue.use(Submenu);
+Vue.use(Table);
+Vue.use(TableColumn);
 
 Vue.component('Modal', Modal);
 Vue.component('Drag', Drag);

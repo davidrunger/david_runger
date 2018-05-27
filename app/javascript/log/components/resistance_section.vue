@@ -32,7 +32,20 @@ div
           :disabled='postingResistanceLog || resistanceLogFormstate.$invalid'
         )
       .h3.mt3.mb1 Today's Exercise
-      div {{JSON.stringify(bootstrap.exercise_counts_today)}}
+      el-table.flex.justify-center(
+        :data='bootstrap.exercise_counts_today'
+        :show-header='false'
+        :fit='false'
+      )
+        el-table-column(
+          prop='name'
+          align='center'
+        )
+        el-table-column(
+          prop='count'
+          align='center'
+          min-width='50'
+        )
       .h3.mt3.mb1 Add a new exercise
       vue-form.flex.px1(@submit.prevent='postNewExercise' :state='newExerciseFormstate')
         validate.flex-1.mr1
@@ -102,3 +115,30 @@ export default {
   },
 };
 </script>
+
+<style>
+.el-table__body {
+  table-layout: initial;
+}
+
+.el-table__empty-block {
+  min-height: 30px;
+}
+
+.el-table__body-wrapper {
+  width: initial;
+}
+
+.el-table::before {
+  display: none;
+}
+
+tr:last-of-type td {
+  border-bottom: none;
+}
+
+.el-table .cell {
+  word-break: initial;
+  white-space: nowrap;
+}
+</style>

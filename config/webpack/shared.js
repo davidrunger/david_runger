@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const { basename, dirname, join, relative, resolve } = require('path');
 const { sync } = require('glob');
 const extname = require('path-complete-extname');
@@ -49,6 +50,11 @@ module.exports = {
 
   plugins: [
     new VueLoaderPlugin(),
+    // use en locale (rather than zh-CN) for element-ui
+    new webpack.NormalModuleReplacementPlugin(
+      /element-ui[/\\]lib[/\\]locale[/\\]lang[/\\]zh-CN/,
+      'element-ui/lib/locale/lang/en'
+    ),
   ],
 
   resolve: {
