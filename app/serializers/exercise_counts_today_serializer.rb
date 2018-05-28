@@ -15,7 +15,7 @@
 
 class ExerciseCountsTodaySerializer < ActiveModel::Serializer
   def as_json(*_args)
-    user.exercises.left_joins(:exercise_count_logs).
+    user.exercises.joins(:exercise_count_logs).
       where('exercise_count_logs.created_at > ?', Time.current.beginning_of_day).
       group('exercises.name').
       select(['exercises.name', 'SUM(exercise_count_logs.count) AS count']).
