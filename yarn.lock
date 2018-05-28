@@ -7036,9 +7036,9 @@ postcss-svgo@^2.1.1:
     postcss-value-parser "^3.2.3"
     svgo "^0.7.0"
 
-postcss-syntax@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/postcss-syntax/-/postcss-syntax-0.24.0.tgz#e5e8055763b01baa344b1e39fef4cce3617f18da"
+postcss-syntax@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/postcss-syntax/-/postcss-syntax-0.25.0.tgz#5a77d170dbbf3ac53202287d557b0bb823a72405"
 
 postcss-unique-selectors@^2.0.2:
   version "2.0.2"
