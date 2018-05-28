@@ -4,7 +4,10 @@ div
   .flex.justify-center.mb1
     div(style='max-width: 600px')
       .h3.my1 Log a set
-      vue-form.flex.px1(@submit.prevent='postResistanceLog' :state='resistanceLogFormstate')
+      vue-form.flex.px1.mb1(
+        @submit.prevent='submitResistanceLogForm'
+        :state='resistanceLogFormstate'
+      )
         validate.flex-1.mr1
           el-select(
             v-model='newResistanceLog.exerciseId'
@@ -31,6 +34,12 @@ div
           value='Log'
           :disabled='postingResistanceLog || resistanceLogFormstate.$invalid'
         )
+      .mb1(v-for='set in bootstrap.latest_sets')
+        el-button.flex-0(
+          @click='postResistanceLog({ exerciseId: set.exercise_id, count: set.count })'
+          :disabled='postingResistanceLog'
+          size='small'
+        ) {{set.exercise_name}} &times; {{set.count}}
       .h3.mt3.mb1 Today's Exercise
       el-table.flex.justify-center(
         :data='bootstrap.exercise_counts_today'
@@ -96,21 +105,31 @@ export default {
       });
     },
 
-    postResistanceLog() {
-      if (this.resistanceLogFormstate.$invalid) return;
+    postResistanceLog(resistanceLogData) {
+      if (this.postingResistanceLog) return;
 
       this.postingResistanceLog = true;
 
       const payload = {
         exercise_count_log: {
-          exercise_id: this.newResistanceLog.exerciseId,
-          count: this.newResistanceLog.count,
+          exercise_id: resistanceLogData.exerciseId,
+          count: resistanceLogData.count,
         },
       };
       this.$http.post(this.$routes.api_exercise_count_logs_path(), payload).then(() => {
-        this.newResistanceLog = {};
         window.location.reload();
       });
+    },
+
+    submitResistanceLogForm() {
+      if (this.resistanceLogFormstate.$invalid) return;
+
+      this.postResistanceLog({
+        exerciseId: this.newResistanceLog.exerciseId,
+        count: this.newResistanceLog.count,
+      });
+
+      this.newResistanceLog = {};
     },
   },
 };

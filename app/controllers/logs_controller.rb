@@ -7,6 +7,7 @@ class LogsController < ApplicationController
       current_user: current_user.as_json,
       exercise_counts_today: ExerciseCountsTodaySerializer.new(current_user),
       exercises: ActiveModel::Serializer::CollectionSerializer.new(current_user.exercises),
+      latest_sets: LatestSetsSerializer.new(current_user),
       weight_logs: ActiveModel::Serializer::CollectionSerializer.new(current_user.weight_logs),
     )
     render :index
