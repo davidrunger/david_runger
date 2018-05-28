@@ -40,6 +40,7 @@ module.exports = {
     'no-new': 'off',
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
+    'no-unreachable': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-use-before-define': ['error', { functions: false }],
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'object-curly-newline': ['error', {
