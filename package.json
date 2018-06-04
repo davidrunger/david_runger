@@ -50,7 +50,7 @@
     "file-loader": "^1.1.11",
     "gator": "^1.2.4",
     "glob": "^7.1.2",
-    "js-yaml": "^3.8.4",
+    "js-yaml": "^3.12.0",
     "jscodeshift": "facebook/jscodeshift#247/head",
     "keycode": "^2.2.0",
     "lodash": "^4.17.10",
