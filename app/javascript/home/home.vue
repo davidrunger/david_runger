@@ -35,7 +35,9 @@ div.font-nunito
           HomeSectionHeader(:title='slotProps.title')
 
           p.
-            I'm a full stack web developer at #[a(href='http://www.hired.com') Hired].
+            I'm a full stack web developer working remotely for
+            #[a(href='https://hired.com') Hired] from beautiful, sunny San Diego, CA! 😄
+
           p.
             I love the Ruby programming language, the Rails web development framework, and the RSpec
             testing library. These are well-designed tools (with healthy supporting ecosystems) that
