@@ -63,7 +63,7 @@
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "resolve-url-loader": "^2.3.0",
-    "sass-loader": "^7.0.2",
+    "sass-loader": "^7.0.3",
     "script-loader": "^0.7.2",
     "smooth-scroll": "^14.2.0",
     "statsd": "https://github.com/davidrunger/statsd.git",
