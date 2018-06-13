@@ -9322,9 +9322,9 @@ vue-chartjs@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.3.1.tgz#fb08dc244da316e385910401daf16874f52ac1fc"
 
-vue-drag-drop@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-drag-drop/-/vue-drag-drop-1.1.0.tgz#460e0a34f17e8b0d30de733bf6fde1a7b452dded"
+vue-drag-drop@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-drag-drop/-/vue-drag-drop-1.1.1.tgz#8950b9a25ec00b05027138230921a03e42a4db7d"
   dependencies:
     core-js "^2.5.3"
 
