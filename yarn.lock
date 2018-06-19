@@ -9314,9 +9314,9 @@ void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-chartjs@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.3.1.tgz#fb08dc244da316e385910401daf16874f52ac1fc"
+vue-chartjs@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.3.2.tgz#1bdbf859d0f5df6cac75d8510e51aee5865638ab"
 
 vue-drag-drop@^1.1.1:
   version "1.1.1"
