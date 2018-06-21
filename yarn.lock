@@ -6730,6 +6730,12 @@ postcss-html@^0.28.0:
   dependencies:
     htmlparser2 "^3.9.2"
 
+postcss-html@^0.30.0:
+  version "0.30.0"
+  resolved "https://registry.yarnpkg.com/postcss-html/-/postcss-html-0.30.0.tgz#15bf32da9eed1f56c76ef0d61da6df00f8a5eed7"
+  dependencies:
+    htmlparser2 "^3.9.2"
+
 postcss-image-set-polyfill@^0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/postcss-image-set-polyfill/-/postcss-image-set-polyfill-0.3.5.tgz#0f193413700cf1f82bd39066ef016d65a4a18181"
