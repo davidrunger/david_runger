@@ -87,7 +87,7 @@
     "mocha": "^5.2.0",
     "mocha-headless-chrome": "^2.0.0",
     "mocha-webpack": "2.0.0-beta.0",
-    "postcss": "^6.0.22",
+    "postcss": "^6.0.23",
     "postcss-html": "^0.30.0",
     "postcss-safe-parser": "^3.0.1",
     "postcss-scss": "^1.0.5",
