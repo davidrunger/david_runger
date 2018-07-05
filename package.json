@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.20",
-    "expect": "^23.2.0",
+    "expect": "^23.3.0",
     "mocha": "^5.2.0",
     "mocha-headless-chrome": "^2.0.0",
     "mocha-webpack": "2.0.0-beta.0",
