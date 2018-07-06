@@ -56,7 +56,7 @@
     "lodash": "^4.17.10",
     "mini-css-extract-plugin": "^0.4.1",
     "node-pre-gyp": "^0.10.2",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.9.1",
     "path-complete-extname": "^1.0.0",
     "postcss-loader": "^2.1.5",
     "precss": "^3.1.2",
