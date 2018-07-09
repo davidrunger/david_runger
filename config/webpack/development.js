@@ -19,7 +19,6 @@ environment.loaders.append('style', {
       loader: 'css-loader',
       options: {
         hmr: true,
-        minimize: false,
         sourceMap: true,
         convertToAbsoluteUrls: true,
       },

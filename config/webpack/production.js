@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const environment = require('./environment');
 const shared = require('./shared');
 
@@ -8,7 +10,7 @@ environment.loaders.append('style', {
   test: /\.(scss|sass|css)$/,
   use: [
     MiniCssExtractPlugin.loader,
-    { loader: 'css-loader', options: { minimize: true, sourceMap: false } },
+    { loader: 'css-loader', options: { sourceMap: false } },
     { loader: 'postcss-loader', options: { sourceMap: false } },
     { loader: 'sass-loader', options: { sourceMap: false } },
   ],
@@ -19,6 +21,16 @@ delete environmentConfig.devtool; // added by webpacker, but we want to use Sour
 
 const productionConfig = merge(environmentConfig, shared, {
   mode: 'production',
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true,
+      }),
+      new OptimizeCSSAssetsPlugin({}),
+    ],
+  },
   output: {
     devtoolModuleFilenameTemplate: info => {
       let path = info.resourcePath;
