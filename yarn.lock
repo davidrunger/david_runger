@@ -7431,11 +7431,17 @@ postcss-sass@^0.3.0:
     gonzales-pe "4.2.3"
     postcss "6.0.22"
 
-postcss-scss@^1.0.2, postcss-scss@^1.0.6:
+postcss-scss@^1.0.2:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-1.0.6.tgz#ab903f3bb20161bc177896462293a53d4bff5f7a"
   dependencies:
     postcss "^6.0.23"
+
+postcss-scss@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-2.0.0.tgz#248b0a28af77ea7b32b1011aba0f738bda27dea1"
+  dependencies:
+    postcss "^7.0.0"
 
 postcss-selector-matches@^3.0.0, postcss-selector-matches@^3.0.1:
   version "3.0.1"
