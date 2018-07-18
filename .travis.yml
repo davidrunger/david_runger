@@ -20,10 +20,10 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.6.0
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
-  - "[ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.5.1p' ]"
-  - "[ \"$(bundle --version)\" == 'Bundler version 1.16.2' ]"
-  - "[ \"$(node --version)\" == 'v10.0.0' ]"
-  - "[ \"$(yarn --version)\" == '1.6.0' ]"
+  - "ruby --version && [ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.5.1p' ]"
+  - "bundle --version && [ \"$(bundle --version)\" == 'Bundler version 1.16.3' ]"
+  - "node --version && [ \"$(node --version)\" == 'v10.0.0' ]"
+  - "yarn --version && [ \"$(yarn --version)\" == '1.6.0' ]"
   - yarn install
   - bundle exec rails db:create
   - bundle exec rails db:schema:load
