@@ -70,7 +70,7 @@
     "statsd": "https://github.com/davidrunger/statsd.git",
     "style-loader": "^0.21.0",
     "vue": "^2.5.17",
-    "vue-chartjs": "^3.3.2",
+    "vue-chartjs": "^3.4.0",
     "vue-drag-drop": "^1.1.4",
     "vue-form": "^4.9.0",
     "vue-loader": "https://github.com/davidrunger/vue-loader.git",
