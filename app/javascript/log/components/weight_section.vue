@@ -10,6 +10,7 @@ div
             type='number'
             v-model='newWeightLogWeight'
             name='newWeightLogWeight'
+            autofocus
             required
           )
         el-input.flex-0(
