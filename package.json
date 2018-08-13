@@ -96,7 +96,7 @@
     "sinon": "^6.1.5",
     "stylelint": "~9",
     "stylelint-config-standard": "^18.2.0",
-    "stylelint-scss": "^3.2.0",
+    "stylelint-scss": "^3.3.0",
     "stylelint-webpack-plugin": "^0.10.5",
     "webpack-dev-server": "^3.1.5",
     "webpack-node-externals": "^1.7.2",
