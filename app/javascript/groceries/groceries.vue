@@ -28,6 +28,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+#groceries-app {
+  font-size: 0.95rem;
+}
+
 main {
   background-image: url('~img/beach-background.jpg');
 }

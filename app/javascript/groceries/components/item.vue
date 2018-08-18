@@ -1,5 +1,5 @@
 <template lang='pug'>
-  li.my1.p1(:class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}')
+  li.grocery-item(:class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}')
     Drag(:transferData='item')
       span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
       span.decrement.h2.pl1.pr1.js-link.red(
@@ -95,8 +95,10 @@ export default {
   -ms-user-select: none;
 }
 
-li {
+li.grocery-item {
   background: rgba(255, 255, 255, 0.5);
+  margin: 5px 0;
+  padding: 6px;
 
   &.unneeded {
     background: rgba(255, 255, 255, 0.3);
