@@ -11,9 +11,9 @@
   ],
 
   "plugins": [
-    "syntax-dynamic-import",
-    "transform-object-rest-spread",
-    ["transform-class-properties", { "spec": true }],
+    "@babel/syntax-dynamic-import",
+    "@babel/proposal-object-rest-spread",
+    ["@babel/proposal-class-properties", { "spec": true }],
     "transform-vue-jsx",
   ],
 
