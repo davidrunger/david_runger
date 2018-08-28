@@ -14,6 +14,7 @@
     ">10%"
   ],
   "dependencies": {
+    "@babel/preset-env": "^7.0.0",
     "@gerhobbelt/nomnom": "gerhobbelt/nomnom#master",
     "@rails/webpacker": "^4.0.0-pre.2",
     "autoprefixer": "^9.1.3",
@@ -27,7 +28,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-polyfill": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
     "basscss": "^8.0.4",
     "basscss-background-colors": "^2.1.0",
     "basscss-background-images": "^0.1.1",
