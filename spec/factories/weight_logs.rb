@@ -16,7 +16,7 @@
 
 FactoryBot.define do
   factory :weight_log do
-    weight 167.0
-    note 'Finally, I achieved my goal weight!'
+    weight { 167.0 }
+    note { 'Finally, I achieved my goal weight!' }
   end
 end

@@ -16,6 +16,6 @@
 FactoryBot.define do
   factory :exercise do
     user { User.first! }
-    name 'Chin-ups'
+    name { 'Chin-ups' }
   end
 end

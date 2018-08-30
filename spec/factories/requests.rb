@@ -37,29 +37,29 @@ FactoryBot.define do
   CHROME
 
   factory :request do
-    user_id nil
-    url 'http://davidrunger.com'
-    handler 'home#index'
-    referer nil
-    params Hash.new
+    user_id { nil }
+    url { 'http://davidrunger.com' }
+    handler { 'home#index' }
+    referer { nil }
+    params { Hash.new }
     add_attribute(:method) { 'GET' }
-    format 'html'
-    status 200
-    view 12
-    db 8
-    ip '77.88.47.71'
-    user_agent chrome_user_agent
+    format { 'html' }
+    status { 200 }
+    view { 12 }
+    db { 8 }
+    ip { '77.88.47.71' }
+    user_agent { chrome_user_agent }
     requested_at { 1.week.ago }
-    bot false
+    bot { false }
   end
 
   trait :bot do
-    user_agent bot_user_agent
-    bot true
+    user_agent { bot_user_agent }
+    bot { true }
   end
 
   trait :chrome do
-    user_agent chrome_user_agent
-    bot false
+    user_agent { chrome_user_agent }
+    bot { false }
   end
 end

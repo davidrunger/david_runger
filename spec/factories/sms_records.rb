@@ -19,11 +19,11 @@
 
 FactoryBot.define do
   factory :sms_record do
-    error nil
+    error { nil }
     sequence(:nexmo_id) { |n| n.to_s.rjust(8, '0') }
     cost { [0.005, 0.006, 0.007].sample }
-    status '0'
-    to '16303906690'
+    status { '0' }
+    to { '16303906690' }
     association :user
   end
 end

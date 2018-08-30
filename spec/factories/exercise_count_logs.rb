@@ -18,7 +18,7 @@
 FactoryBot.define do
   factory :exercise_count_log do
     exercise { Exercise.first! }
-    count 5
-    note 'This set was really hard, but I did it!'
+    count { 5 }
+    note { 'This set was really hard, but I did it!' }
   end
 end
