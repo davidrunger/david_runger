@@ -16,7 +16,7 @@
 
 FactoryBot.define do
   factory :item do
-    name 'milk'
-    needed 1
+    name { 'milk' }
+    needed { 1 }
   end
 end

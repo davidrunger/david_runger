@@ -19,6 +19,6 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     last_activity_at { 2.months.ago }
-    phone '16303906690'
+    phone { '16303906690' }
   end
 end
