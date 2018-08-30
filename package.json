@@ -100,6 +100,6 @@
     "stylelint-webpack-plugin": "^0.10.5",
     "webpack-dev-server": "^3.1.6",
     "webpack-node-externals": "^1.7.2",
-    "webpack-sources": "^1.0"
+    "webpack-sources": "^1.2"
   }
 }
