@@ -61,5 +61,8 @@ module.exports = {
         ),
       },
     },
+    react: {
+      version: '16.4.2',
+    },
   },
 };
