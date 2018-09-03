@@ -19,7 +19,7 @@ class RequestDashboard < Administrate::BaseDashboard
     status: Field::Number,
     view: Field::Number,
     db: Field::Number,
-    ip: Field::String,
+    ip: IpAddressField,
     user_agent: Field::String,
     requested_at: Field::DateTime,
     bot: Field::Boolean,
@@ -38,6 +38,7 @@ class RequestDashboard < Administrate::BaseDashboard
     :bot,
     :requested_at,
     :location,
+    :ip,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
