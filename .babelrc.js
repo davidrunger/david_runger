@@ -4,8 +4,8 @@ module.exports = {
       modules: false,
       targets: {
         browsers: '> 1%',
-        uglify: true
       },
+      forceAllTransforms: (process.env.NODE_ENV === 'production'),
       useBuiltIns: 'entry'
     }]
   ],
