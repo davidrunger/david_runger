@@ -24,6 +24,7 @@ class RequestDashboard < Administrate::BaseDashboard
     requested_at: BriefTimeField,
     bot: Field::Boolean,
     location: Field::String,
+    isp: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -39,6 +40,7 @@ class RequestDashboard < Administrate::BaseDashboard
     :requested_at,
     :location,
     :ip,
+    :isp,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -56,6 +58,7 @@ class RequestDashboard < Administrate::BaseDashboard
     :view,
     :db,
     :ip,
+    :isp,
     :user_agent,
     :requested_at,
     :bot,
