@@ -21,7 +21,7 @@ class RequestDashboard < Administrate::BaseDashboard
     db: Field::Number,
     ip: IpAddressField,
     user_agent: Field::String,
-    requested_at: Field::DateTime,
+    requested_at: BriefTimeField,
     bot: Field::Boolean,
     location: Field::String,
   }.freeze
