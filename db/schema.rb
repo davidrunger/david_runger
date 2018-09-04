@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_20_102111) do
+ActiveRecord::Schema.define(version: 2018_09_04_012233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2018_05_20_102111) do
     t.datetime "requested_at", null: false
     t.boolean "bot", default: false, null: false
     t.string "location"
+    t.string "isp"
     t.index ["requested_at"], name: "index_requests_on_requested_at"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
