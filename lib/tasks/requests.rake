@@ -33,7 +33,7 @@ namespace :requests do
       [
         ip_address,
         {
-          location: "#{city}, #{state}, #{country}",
+          location: [city, state, country].reject(&:blank?).join(', '),
           isp: isp,
         },
       ]
