@@ -28,15 +28,21 @@ namespace :requests do
     next if location_data.blank?
 
     ip_address_locations = Hash[location_data.map do |location_datum|
-      ip_address, city, state, country =
-        location_datum.values_at(*%w[query city region countryCode])
-      [ip_address, "#{city}, #{state}, #{country}"]
+      ip_address, isp, city, state, country =
+        location_datum.values_at(*%w[query isp city region countryCode])
+      [
+        ip_address,
+        {
+          location: "#{city}, #{state}, #{country}",
+          isp: isp,
+        },
+      ]
     end]
 
-    ip_address_locations.each do |ip_address, location|
+    ip_address_locations.each do |ip_address, ip_data|
       Request.where(ip: ip_address, location: nil).each do |request|
-        request.update!(location: location)
-        puts "Updated Request #{request.id} to have location #{location}"
+        request.update!(ip_data)
+        puts "Updated Request #{request.id} with data #{ip_data}"
       end
     end
 
