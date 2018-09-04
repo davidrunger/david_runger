@@ -29,13 +29,7 @@ class RequestDataBuilder
       params: @filtered_params.except(*BORING_PARAMS),
       referer: @request.referer,
       ip: @request.ip,
-      user_agent: <<-USER_AGENT.squish,
-        #{browser.name}
-        #{browser.version}
-        #{browser.platform.name}
-        mobile=#{browser.device.mobile? || false}
-        raw=#{raw_user_agent}
-      USER_AGENT
+      user_agent: raw_user_agent,
       bot: (browser.bot? || false),
       requested_at: @request_time,
     }
