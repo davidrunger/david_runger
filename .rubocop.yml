@@ -56,6 +56,8 @@ Style/GuardClause:
   Enabled: false
 Style/InlineComment:
   Enabled: false
+Style/Lambda:
+  Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - add_foreign_key
