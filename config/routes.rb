@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   resources :users, only: %i[edit update]
 
   namespace :api, defaults: {format: :json} do
-    resources :exercise_count_logs, only: %i[create]
-    resources :exercises, only: %i[create]
     resources :items, only: %i[update destroy]
     resources :stores, only: %i[create update destroy] do
       resources :items, only: %i[create]
@@ -33,12 +31,12 @@ Rails.application.routes.draw do
     root to: 'users#index'
   end
 
-  authenticate :user, -> (user) { user.admin? } do
+  authenticate :user, ->(user) { user.admin? } do
     mount PgHero::Engine, at: 'pghero'
   end
 
   # Google periodically re-verifies this route, so we need to leave it here indefinitely
-  get 'google83c07e1014ea4a70', to: ->(env) {
+  get 'google83c07e1014ea4a70', to: ->(_env) {
     [200, {}, ['google-site-verification: google83c07e1014ea4a70.html']]
   }
 end

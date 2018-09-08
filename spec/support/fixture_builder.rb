@@ -15,7 +15,5 @@ FixtureBuilder.configure do |fbuilder|
     store = name(:store, create(:store, user: user)).first
     create(:item, store: store)
     name(:weight_log, create(:weight_log, user: user))
-    chin_ups = name(:chin_ups, create(:exercise, user: user)).first
-    name(:chin_ups_count_log, create(:exercise_count_log, exercise: chin_ups))
   end
 end
