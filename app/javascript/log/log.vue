@@ -1,8 +1,7 @@
 <template lang='pug'>
 div
   .center.mb1
-    .pt1 {{bootstrap.current_user.email}}
-    hr
+    .h5.gray.pt1 {{bootstrap.current_user.email}}
     weight-section
 </template>
 
