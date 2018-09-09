@@ -14,8 +14,12 @@
 #
 
 class Log < ApplicationRecord
+  validates :name, presence: true, uniqueness: {scope: :user_id}
+
   belongs_to :user
+
   has_many :log_entries, dependent: :destroy
   has_many :log_inputs, dependent: :destroy
-  validates :name, presence: true, uniqueness: {scope: :user_id}
+
+  accepts_nested_attributes_for :log_inputs
 end

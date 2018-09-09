@@ -16,8 +16,22 @@
 #
 
 class LogInput < ApplicationRecord
+  PUBLIC_TYPE_TO_TYPE_MAPPING = {
+    integer: LogInputs::IntegerLogInput.name,
+  }.with_indifferent_access.freeze
+
+  TYPE_TO_PUBLIC_TYPE_MAPPING = PUBLIC_TYPE_TO_TYPE_MAPPING.invert.freeze
+
   belongs_to :log
   validates :label, presence: true
   validates :type, presence: true
   validates :index, presence: true, uniqueness: {scope: :log_id}
+
+  def public_type
+    TYPE_TO_PUBLIC_TYPE_MAPPING[type]
+  end
+
+  def public_type=(public_type)
+    self.type = PUBLIC_TYPE_TO_TYPE_MAPPING.fetch(public_type)
+  end
 end

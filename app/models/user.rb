@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
-  has_many :exercises, dependent: :destroy
+  has_many :logs, dependent: :destroy
   has_many :requests, dependent: :destroy
   has_many :sms_records, dependent: :destroy
   has_many :stores, dependent: :destroy

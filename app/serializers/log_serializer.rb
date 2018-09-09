@@ -13,17 +13,23 @@
 #  index_logs_on_user_id_and_name  (user_id,name) UNIQUE
 #
 
-class WeightLogSerializer < ActiveModel::Serializer
-  attributes :created_at, :id, :note, :weight
+class LogSerializer < ActiveModel::Serializer
+  attributes :id, :name
 
-  def created_at
-    decimal_precision = 0
-    weight_log.created_at.iso8601(decimal_precision)
-  end
+  has_many :log_entries
+  has_many :log_inputs
+
+  # def log_entries
+  #   ActiveModel::Serializer::CollectionSerializer.new(log.log_entries)
+  # end
+
+  # def log_
+  #   ActiveModel::Serializer::CollectionSerializer.new(log.log_entries)
+  # end
 
   private
 
-  def weight_log
+  def log
     object
   end
 end
