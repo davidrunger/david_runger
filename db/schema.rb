@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_08_181820) do
+ActiveRecord::Schema.define(version: 2018_09_09_180038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -23,6 +23,32 @@ ActiveRecord::Schema.define(version: 2018_09_08_181820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_items_on_store_id"
+  end
+
+  create_table "log_entries", force: :cascade do |t|
+    t.bigint "log_id", null: false
+    t.jsonb "data", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["log_id"], name: "index_log_entries_on_log_id"
+  end
+
+  create_table "log_inputs", force: :cascade do |t|
+    t.bigint "log_id", null: false
+    t.string "type", null: false
+    t.string "label", null: false
+    t.integer "index", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["log_id", "index"], name: "index_log_inputs_on_log_id_and_index", unique: true
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
   end
 
   create_table "pghero_query_stats", force: :cascade do |t|
@@ -97,18 +123,11 @@ ActiveRecord::Schema.define(version: 2018_09_08_181820) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  create_table "weight_logs", force: :cascade do |t|
-    t.float "weight", null: false
-    t.string "note"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "created_at"], name: "index_weight_logs_on_user_id_and_created_at"
-  end
-
   add_foreign_key "items", "stores"
+  add_foreign_key "log_entries", "logs"
+  add_foreign_key "log_inputs", "logs"
+  add_foreign_key "logs", "users"
   add_foreign_key "requests", "users"
   add_foreign_key "sms_records", "users"
   add_foreign_key "stores", "users"
-  add_foreign_key "weight_logs", "users"
 end
