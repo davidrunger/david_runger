@@ -19,7 +19,6 @@ Rails.application.routes.draw do
       resources :items, only: %i[create]
     end
     resources :text_messages, only: %i[create]
-    resources :weight_logs, only: %i[create]
   end
 
   namespace :admin do

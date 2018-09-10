@@ -5,7 +5,6 @@ RSpec.describe User do
 
   it { should have_many(:sms_records) }
   it { should have_many(:items) }
-  it { should have_many(:weight_logs) }
 
   describe '#items' do
     subject(:items) { user.items }
