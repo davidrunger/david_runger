@@ -9,7 +9,6 @@ export function logVuexStoreFactory(bootstrap) {
   return new Vuex.Store({
     state: {
       currentUser: bootstrap.current_user,
-      weightLogs: bootstrap.weight_logs,
     },
     actions,
     getters,

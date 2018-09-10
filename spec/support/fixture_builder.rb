@@ -14,6 +14,5 @@ FixtureBuilder.configure do |fbuilder|
     user = name(:user, create(:user)).first
     store = name(:store, create(:store, user: user)).first
     create(:item, store: store)
-    name(:weight_log, create(:weight_log, user: user))
   end
 end

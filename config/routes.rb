@@ -9,17 +9,18 @@ Rails.application.routes.draw do
 
   get 'groceries', to: 'groceries#show'
 
-  get 'log', to: 'logs#index'
+  get 'logs', to: 'logs#index'
 
   resources :users, only: %i[edit update]
 
   namespace :api, defaults: {format: :json} do
     resources :items, only: %i[update destroy]
+    resources :log_entries, only: %i[create]
+    resources :logs, only: %i[create]
     resources :stores, only: %i[create update destroy] do
       resources :items, only: %i[create]
     end
     resources :text_messages, only: %i[create]
-    resources :weight_logs, only: %i[create]
   end
 
   namespace :admin do

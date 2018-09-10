@@ -1,7 +1,7 @@
 <template lang='pug'>
 .chart-container
   line-chart(
-    :chart-data='data'
+    :chart-data='chartMetadata'
     :height='300'
     :options='CHART_OPTIONS'
   )
@@ -13,6 +13,25 @@ import LineChart from 'components/charts/line_chart';
 export default {
   components: {
     LineChart,
+  },
+
+  computed: {
+    chartMetadata() {
+      return {
+        datasets: [{
+          label: this.data_label,
+          fill: false,
+          data: this.logEntriesToChartData,
+        }],
+      };
+    },
+
+    logEntriesToChartData() {
+      return this.log_entries.map(logEntry => ({
+        t: logEntry.created_at,
+        y: logEntry.data[this.data_label],
+      }))
+    },
   },
 
   created() {
@@ -42,17 +61,14 @@ export default {
   },
 
   props: {
-    data: {
-      type: Object,
+    data_label: {
+      type: String,
+      required: true,
+    },
+    log_entries: {
+      type: Array,
       required: true,
     },
   },
 };
 </script>
-
-<style scoped>
-.chart-container {
-  margin: 0 auto; /* flex centering doesn't seem to work for some reason */
-  width: 600px;
-}
-</style>
