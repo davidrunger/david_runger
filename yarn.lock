@@ -4006,11 +4006,7 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
 
-extend@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
-
-extend@^3.0.0, extend@~3.0.1, extend@~3.0.2:
+extend@3.0.2, extend@^3.0.0, extend@~3.0.1, extend@~3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
 
@@ -10514,11 +10510,11 @@ vue-eslint-parser@^2.0.3:
     esquery "^1.0.0"
     lodash "^4.17.4"
 
-vue-form@^4.9.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/vue-form/-/vue-form-4.9.0.tgz#cfb0f75f6c1b387a6b830084fb12ec9cbde8d260"
+vue-form@^4.10.1:
+  version "4.10.1"
+  resolved "https://registry.yarnpkg.com/vue-form/-/vue-form-4.10.1.tgz#062a9655d7004361f3122341509e3105f8a7f0e8"
   dependencies:
-    extend "3.0.1"
+    extend "3.0.2"
     scope-eval "1.0.0"
 
 vue-hot-reload-api@^2.3.0:
