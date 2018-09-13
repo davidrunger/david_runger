@@ -53,7 +53,7 @@
     "js-yaml": "^3.12.0",
     "jscodeshift": "facebook/jscodeshift#247/head",
     "keycode": "^2.2.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "mini-css-extract-plugin": "^0.4.2",
     "node-pre-gyp": "^0.11.0",
     "node-sass": "^4.9.3",
