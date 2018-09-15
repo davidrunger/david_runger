@@ -17,6 +17,7 @@ class LogsController < ApplicationController
     [
       {public_type: 'duration', label: 'Duration'},
       {public_type: 'integer', label: 'Integer'},
+      {public_type: 'text', label: 'Text'},
     ].select { |input_type| input_type[:public_type].in?(available_input_types) }
   end
 end
