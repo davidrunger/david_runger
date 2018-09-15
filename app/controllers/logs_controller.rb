@@ -15,6 +15,7 @@ class LogsController < ApplicationController
   def log_input_types
     available_input_types = LogInput::PUBLIC_TYPE_TO_TYPE_MAPPING.keys.map(&:to_s)
     [
+      {public_type: 'duration', label: 'Duration'},
       {public_type: 'integer', label: 'Integer'},
     ].select { |input_type| input_type[:public_type].in?(available_input_types) }
   end
