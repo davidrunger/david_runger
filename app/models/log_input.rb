@@ -18,6 +18,7 @@
 class LogInput < ApplicationRecord
   PUBLIC_TYPE_TO_TYPE_MAPPING = {
     integer: LogInputs::IntegerLogInput.name,
+    duration: LogInputs::DurationLogInput.name,
   }.with_indifferent_access.freeze
 
   TYPE_TO_PUBLIC_TYPE_MAPPING = PUBLIC_TYPE_TO_TYPE_MAPPING.invert.freeze
