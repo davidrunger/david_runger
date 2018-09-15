@@ -8,11 +8,13 @@ div
 <script>
 import DurationTimeseries from './data_renderers/duration_timeseries.vue'
 import IntegerTimeseries from './data_renderers/integer_timeseries.vue'
+import TextLog from './data_renderers/text_log.vue'
 import NewLogEntryForm from './new_log_entry_form.vue'
 
 const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
   duration: DurationTimeseries,
   integer: IntegerTimeseries,
+  text: TextLog,
 };
 
 const LogDataDisplay = {
