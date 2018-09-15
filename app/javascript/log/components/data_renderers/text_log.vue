@@ -43,3 +43,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.el-table .cell {
+  word-break: initial;
+}
+</style>
