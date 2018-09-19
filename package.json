@@ -90,7 +90,7 @@
     "mocha-headless-chrome": "^2.0.1",
     "mocha-webpack": "2.0.0-beta.0",
     "postcss": "^7.0.1",
-    "postcss-html": "^0.33.0",
+    "postcss-html": "^0.34.0",
     "postcss-safe-parser": "^4.0.1",
     "postcss-scss": "^2.0.0",
     "postcss-syntax": "^0.33.0",
