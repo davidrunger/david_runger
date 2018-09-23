@@ -26,15 +26,4 @@ RSpec.describe Request do
       end
     end
   end
-
-  describe '::ordered' do
-    subject { Request.ordered }
-
-    let!(:newer_request) { create(:request, requested_at: 2.hours.ago) }
-    let!(:older_request) { create(:request, requested_at: 2.days.ago) }
-
-    it 'orders the requests by requested_at' do
-      expect(subject).to eq([older_request, newer_request])
-    end
-  end
 end
