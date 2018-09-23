@@ -2,7 +2,6 @@
 #
 # Table name: requests
 #
-#  bot          :boolean          default(FALSE), not null
 #  db           :integer
 #  format       :string           not null
 #  handler      :string           not null
@@ -33,9 +32,7 @@ class Request < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :url, :handler, :method, :format, :ip, :requested_at, presence: true
-  validates :bot, inclusion: [true, false]
 
-  scope :human, -> { where(bot: false) }
   scope :recent, (lambda do |time_period = 1.day|
     where('requests.requested_at > ?', Time.current - time_period.to_i) # use #to_i bc of DST stuff
   end)

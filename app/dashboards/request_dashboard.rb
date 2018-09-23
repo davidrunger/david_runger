@@ -22,7 +22,6 @@ class RequestDashboard < Administrate::BaseDashboard
     ip: IpAddressField,
     user_agent: UserAgentField,
     requested_at: BriefTimeField,
-    bot: Field::Boolean,
     location: Field::String,
     isp: Field::String,
   }.freeze
@@ -36,7 +35,6 @@ class RequestDashboard < Administrate::BaseDashboard
     :id,
     :user,
     :handler,
-    :bot,
     :requested_at,
     :location,
     :ip,
@@ -62,7 +60,6 @@ class RequestDashboard < Administrate::BaseDashboard
     :isp,
     :user_agent,
     :requested_at,
-    :bot,
     :location,
   ].freeze
 
@@ -83,7 +80,6 @@ class RequestDashboard < Administrate::BaseDashboard
     :ip,
     :user_agent,
     :requested_at,
-    :bot,
   ].freeze
 
   # Overwrite this method to customize how requests are displayed
