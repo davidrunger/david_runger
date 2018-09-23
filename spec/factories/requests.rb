@@ -2,7 +2,6 @@
 #
 # Table name: requests
 #
-#  bot          :boolean          default(FALSE), not null
 #  db           :integer
 #  format       :string           not null
 #  handler      :string           not null
@@ -27,11 +26,6 @@
 #
 
 FactoryBot.define do
-  bot_user_agent = <<-BOT.squish
-    Generic Browser 0 Other mobile=false raw=Mozilla/5.0 (compatible; Googlebot/2.1;
-    +http://www.google.com/bot.html)
-  BOT
-
   chrome_user_agent = <<-CHROME.squish
     Chrome 57 Macintosh mobile=false raw=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4)
     AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36
@@ -51,16 +45,9 @@ FactoryBot.define do
     ip { '77.88.47.71' }
     user_agent { chrome_user_agent }
     requested_at { 1.week.ago }
-    bot { false }
-  end
-
-  trait :bot do
-    user_agent { bot_user_agent }
-    bot { true }
   end
 
   trait :chrome do
     user_agent { chrome_user_agent }
-    bot { false }
   end
 end

@@ -30,7 +30,6 @@ class RequestDataBuilder
       referer: @request.referer,
       ip: @request.ip,
       user_agent: raw_user_agent,
-      bot: (browser.bot? || false),
       requested_at: @request_time,
     }
   end

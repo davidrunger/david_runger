@@ -1,18 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Request do
-  describe '::human' do
-    subject { Request.human }
-
-    let!(:human_request) { create(:request, :chrome) }
-    let!(:bot_request) { create(:request, :bot) }
-
-    it 'includes only human requests' do
-      expect(subject).to include(human_request)
-      expect(subject).not_to include(bot_request)
-    end
-  end
-
   describe '::recent' do
     context 'called without an argument' do
       subject { Request.recent }
