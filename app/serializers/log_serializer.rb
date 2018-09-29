@@ -16,7 +16,14 @@
 class LogSerializer < ActiveModel::Serializer
   attributes :id, :name
 
-  has_many :log_entries
+  has_many :log_entries do
+    ordered_entries = object.log_entries.order(:created_at)
+    if object.log_inputs.pluck(:type).include?('LogInputs::TextLogInput')
+      ordered_entries.last(3)
+    else
+      ordered_entries
+    end
+  end
   has_many :log_inputs
 
   # def log_entries
