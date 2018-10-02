@@ -115,13 +115,15 @@ module SourceMapHelper
   end
 end
 
-if Rails.env.production? && SourceMapHelper.on_heroku?
+if Rails.env.production?
   Rake::Task['assets:precompile'].enhance(%w[
     assets:clean_yarn_cache
     assets:rmrf_node_module
     build_js_routes
   ]) do
-    Rake::Task['assets:upload_source_maps'].invoke
-    Rake::Task['assets:save_source_version'].invoke
+    if SourceMapHelper.on_heroku?
+      Rake::Task['assets:upload_source_maps'].invoke
+      Rake::Task['assets:save_source_version'].invoke
+    end
   end
 end
