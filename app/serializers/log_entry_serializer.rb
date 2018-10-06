@@ -14,7 +14,7 @@
 #
 
 class LogEntrySerializer < ActiveModel::Serializer
-  attributes :created_at, :data
+  attributes :id, :created_at, :data
 
   def created_at
     decimal_precision = 0
