@@ -10,4 +10,10 @@ class Api::LogEntriesController < ApplicationController
       render json: {errors: @log_entry.errors.to_h}, status: :unprecessable_entity
     end
   end
+
+  def destroy
+    log_entry = LogEntry.find(params['id'])
+    log_entry.destroy!
+    render json: log_entry
+  end
 end
