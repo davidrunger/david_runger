@@ -54,7 +54,7 @@
     "jscodeshift": "facebook/jscodeshift#247/head",
     "keycode": "^2.2.0",
     "lodash": "^4.17.11",
-    "mini-css-extract-plugin": "^0.4.3",
+    "mini-css-extract-plugin": "^0.4.4",
     "node-pre-gyp": "^0.11.0",
     "node-sass": "^4.9.3",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
