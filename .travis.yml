@@ -17,13 +17,13 @@ before_install:
   - . $HOME/.nvm/nvm.sh
   - nvm install 10.0.0
   - nvm use 10.0.0
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.9.4
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.0
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
   - "ruby --version && [ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.5.1p' ]"
   - "bundle --version && [ \"$(bundle --version)\" == 'Bundler version 1.16.6' ]"
   - "node --version && [ \"$(node --version)\" == 'v10.0.0' ]"
-  - "yarn --version && [ \"$(yarn --version)\" == '1.9.4' ]"
+  - "yarn --version && [ \"$(yarn --version)\" == '1.12.0' ]"
   - yarn install
   - bundle exec rails db:create
   - bundle exec rails db:schema:load
