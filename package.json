@@ -51,7 +51,6 @@
     "gator": "^1.2.4",
     "glob": "^7.1.3",
     "js-yaml": "^3.12.0",
-    "jscodeshift": "facebook/jscodeshift#247/head",
     "keycode": "^2.2.0",
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "^0.4.4",
