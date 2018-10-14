@@ -6,7 +6,7 @@ class GroceriesController < ApplicationController
       or need
     DESCRIPION
     bootstrap(
-      current_user: current_user&.as_json,
+      current_user: UserSerializer.new(current_user),
       stores:
         ActiveModel::Serializer::CollectionSerializer.new(current_user.stores.includes(:items)),
     )
