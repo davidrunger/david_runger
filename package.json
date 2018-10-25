@@ -20,7 +20,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@rails/webpacker": "^4.0.0-pre.3",
-    "autoprefixer": "^9.3.0",
+    "autoprefixer": "^9.3.1",
     "axios": "^0.18.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.4",
