@@ -96,13 +96,21 @@ export default {
 }
 
 li.grocery-item {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.6);
   margin: 5px 0;
   padding: 6px;
+
+  &:not(.unneeded):hover {
+    background: rgba(255, 255, 255, 0.8);
+  }
 
   &.unneeded {
     background: rgba(255, 255, 255, 0.3);
     color: rgba(0, 0, 0, 0.55);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
   }
 }
 </style>
