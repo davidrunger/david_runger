@@ -2771,9 +2771,9 @@ electron-to-chromium@^1.3.81:
   version "1.3.82"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.82.tgz#7d13ae4437d2a783de3f4efba96b186c540b67b1"
 
-element-ui@^2.4.10:
-  version "2.4.10"
-  resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-2.4.10.tgz#941eb68af70383920628a6d5abe95a1cb264f5d7"
+element-ui@^2.4.11:
+  version "2.4.11"
+  resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-2.4.11.tgz#db6a2d37001b8fe5fff9f176fb58bb3908cfa9c9"
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"
