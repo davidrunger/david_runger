@@ -1,11 +1,11 @@
 <template lang='pug'>
-  transition(name='modal')
-    div.modal-mask.fixed.flex.flex-column.items-center.justify-center.col-12.top-0.left-0.vh-100.z1(
-      ref='mask'
-      @click='closeModal'
-    )
-      div.modal-container.p3.bg-white.rounded(:style='{ width: width, maxWidth: maxWidth }')
-        slot
+transition(name='modal')
+  div.modal-mask.fixed.flex.flex-column.items-center.justify-center.col-12.top-0.left-0.vh-100.z1(
+    ref='mask'
+    @click='closeModal'
+  )
+    div.modal-container.p3.bg-white.rounded(:style='{ width: width, maxWidth: maxWidth }')
+      slot
 </template>
 
 <script>
