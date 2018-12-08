@@ -2524,6 +2524,7 @@ date-now@^0.1.4:
 de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
+  integrity sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=
 
 debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -3888,9 +3889,14 @@ hashring@3.2.0:
     connection-parse "0.0.x"
     simple-lru-cache "0.0.x"
 
-he@1.1.1, he@^1.1.0:
+he@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
+
+he@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
+  integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
@@ -9010,9 +9016,10 @@ vue-style-loader@^4.1.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.17:
-  version "2.5.17"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.17.tgz#52a4a078c327deb937482a509ae85c06f346c3cb"
+vue-template-compiler@^2.1.18:
+  version "2.5.18"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.18.tgz#8a346e477c5ada6efc890a2db4857090a2c54a05"
+  integrity sha512-WG2G+r5YxqkbTyJnbpkJuISTVI9MvYNGAZVKnmn8S4AoP0R0OufIKrHEV+GKwilLa+p3t/Plo8FzJXdhL9m4Sw==
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -9021,9 +9028,10 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue@^2.5.17:
-  version "2.5.17"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
+vue@^2.1.18:
+  version "2.5.18"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.18.tgz#885586eda5c8efc77140a497500b73620e53c1dd"
+  integrity sha512-j4oT4jQdhBf3dUxzu1ogjkhzMU44AtwqtLz7oq/u7340/lmUUogTG6/D6P4/J2cCosoM21MqMIUsQchPKS4elg==
 
 vuex@^3.0.1:
   version "3.0.1"
