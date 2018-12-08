@@ -1,26 +1,26 @@
 <template lang='pug'>
-  li.grocery-item(:class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}')
-    Drag(:transferData='item')
-      span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
-      span.decrement.h2.pl1.pr1.js-link.red(
-        @click='setNeeded(item, item.needed - 1)'
-        title='Decrement'
-      ) &ndash;
-      input(
-        v-show='editingName'
-        type='text'
-        v-model='item.name'
-        @blur='stopEditingAndUpdateItemName()'
-        @keydown.enter='stopEditingAndUpdateItemName()'
-        ref='item-name-input'
-      )
-      span(v-show='!editingName' @dblclick='editItemName') {{item.name}}
-      | &nbsp;
-      span ({{item.needed}})
-      .delete.h2.pl1.pr1.js-link.right.red(
-        @click="$store.dispatch('deleteItem', { item })"
-        title='Delete item'
-      ) ×
+li.grocery-item(:class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}')
+  Drag(:transferData='item')
+    span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
+    span.decrement.h2.pl1.pr1.js-link.red(
+      @click='setNeeded(item, item.needed - 1)'
+      title='Decrement'
+    ) &ndash;
+    input(
+      v-show='editingName'
+      type='text'
+      v-model='item.name'
+      @blur='stopEditingAndUpdateItemName()'
+      @keydown.enter='stopEditingAndUpdateItemName()'
+      ref='item-name-input'
+    )
+    span(v-show='!editingName' @dblclick='editItemName') {{item.name}}
+    | &nbsp;
+    span ({{item.needed}})
+    .delete.h2.pl1.pr1.js-link.right.red(
+      @click="$store.dispatch('deleteItem', { item })"
+      title='Delete item'
+    ) ×
 </template>
 
 <script>

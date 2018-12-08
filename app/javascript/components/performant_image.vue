@@ -1,13 +1,13 @@
 <template lang='pug'>
-  div
-    slot(v-if='(canUseWebp === null) || (lazy && !mayRenderLazyImages)')
-    img(v-else
-      :src='(canUseWebp && webpImageUrl) ? webpImageUrl : originalImageUrl'
-      :class='imageClass'
-      :style='imageStyle'
-      :alt='alt'
-      @load='emitGlobalLoadEvent'
-    )
+div
+  slot(v-if='(canUseWebp === null) || (lazy && !mayRenderLazyImages)')
+  img(v-else
+    :src='(canUseWebp && webpImageUrl) ? webpImageUrl : originalImageUrl'
+    :class='imageClass'
+    :style='imageStyle'
+    :alt='alt'
+    @load='emitGlobalLoadEvent'
+  )
 </template>
 
 <script>

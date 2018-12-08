@@ -47,7 +47,7 @@ module.exports = {
       consistent: true,
       minProperties: 99,
     }],
-    'quotes': ['warn', 'single'],
+    'quotes': ['warn', 'single', { avoidEscape: true }],
     'react/no-unknown-property': 'off',
     'react/react-in-jsx-scope': 'off',
   },
