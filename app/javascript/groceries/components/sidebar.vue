@@ -36,6 +36,8 @@ import _ from 'lodash';
 import LoggedInHeader from './logged_in_header.vue';
 
 export default {
+  name: 'Sidebar',
+
   components: {
     LoggedInHeader,
   },
