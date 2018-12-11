@@ -68,7 +68,7 @@
     "statsd": "https://github.com/davidrunger/statsd.git",
     "strftime": "^0.10.0",
     "style-loader": "^0.23.1",
-    "vue": "^2.1.18",
+    "vue": "^2.5.20",
     "vue-chartjs": "^3.4.0",
     "vue-drag-drop": "^1.1.4",
     "vue-form": "^4.10.1",
