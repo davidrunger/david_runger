@@ -25,7 +25,7 @@ gem 'pghero'
 gem 'puma', '~> 3.12'
 gem 'pundit'
 gem 'rails', '>= 5.2.0.rc1'
-gem 'redis', '~>4.0'
+gem 'redis', '~>4.1'
 gem 'rest-client'
 gem 'rollbar'
 gem 'rubocop', require: false
