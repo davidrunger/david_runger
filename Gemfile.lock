@@ -133,6 +133,7 @@ GEM
     fixture_builder (0.5.1)
       activerecord (>= 2)
       activesupport (>= 2)
+    flamegraph (0.9.5)
     foreman (0.85.0)
       thor (~> 0.19.1)
     formatador (0.2.5)
@@ -261,6 +262,8 @@ GEM
     pundit (2.0.0)
       activesupport (>= 3.0.0)
     rack (2.0.6)
+    rack-mini-profiler (1.0.1)
+      rack (>= 1.2.0)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -364,6 +367,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stackprof (0.2.12)
     statsd-instrument (2.3.2)
     temple (0.8.0)
     thor (0.19.4)
@@ -405,6 +409,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fixture_builder
+  flamegraph
   foreman
   guard-espect!
   hamlit
@@ -423,6 +428,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.12)
   pundit
+  rack-mini-profiler
   rails (>= 5.2.0.rc1)
   redis (~> 4.1)
   rest-client
@@ -434,6 +440,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.2)!
+  stackprof
   statsd-instrument
   webmock
   webpacker (>= 4.0.0.pre.pre.2)
@@ -442,4 +449,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.17.2
