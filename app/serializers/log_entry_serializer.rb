@@ -17,8 +17,7 @@ class LogEntrySerializer < ActiveModel::Serializer
   attributes :id, :created_at, :data
 
   def created_at
-    decimal_precision = 0
-    log_entry.created_at.iso8601(decimal_precision)
+    "#{log_entry.read_attribute_before_type_cast('created_at')}Z"
   end
 
   private

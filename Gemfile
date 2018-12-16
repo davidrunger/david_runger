@@ -48,10 +48,17 @@ group :development do
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
+  # Provides flamegraphs for rack-mini-profiler.
+  gem 'flamegraph'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database performance
+  # analysis.
+  gem 'rack-mini-profiler'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.2', github: 'davidrunger/spring-watcher-listen'
+  # Provides stack traces for flamegraph for rack-mini-profiler.
+  gem 'stackprof'
 end
 
 group :test do

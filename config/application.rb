@@ -30,7 +30,7 @@ class DavidRunger::Application < Rails::Application
 
   # Time zone
   config.time_zone = 'America/Los_Angeles'
-  config.active_record.default_timezone = :local
+  config.active_record.default_timezone = :utc
 
   config.middleware.insert_after(Rack::MethodOverride, RequestUuid)
 
