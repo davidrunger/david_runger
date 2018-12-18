@@ -30,9 +30,12 @@ const LogDataDisplay = {
       const dataLabel = logInput.label;
       const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[publicType];
 
-      return (
-        <DataRenderer log_entries={context.props.log_entries} data_label={dataLabel} />
-      );
+      return h(DataRenderer, {
+        props: {
+          log_entries: context.props.log_entries,
+          data_label: dataLabel,
+        },
+      });
     }
   },
 }

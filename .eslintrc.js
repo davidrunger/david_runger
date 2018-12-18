@@ -8,7 +8,6 @@ module.exports = {
     'airbnb-base',
     'plugin:vue/essential',
     'eslint:recommended',
-    'plugin:react/recommended',
   ],
   globals: {
     expect: false,
@@ -48,8 +47,6 @@ module.exports = {
       minProperties: 99,
     }],
     'quotes': ['warn', 'single', { avoidEscape: true }],
-    'react/no-unknown-property': 'off',
-    'react/react-in-jsx-scope': 'off',
   },
   settings: {
     'import/resolver': {

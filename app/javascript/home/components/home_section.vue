@@ -11,9 +11,7 @@
 export const Header = {
   functional: true,
   render (h, context) {
-    return (
-      <h1 class='h1 bold mb2'>{context.props.title}</h1>
-    );
+    return h('h1', { class: 'h1 bold mb2' }, context.props.title);
   },
 };
 

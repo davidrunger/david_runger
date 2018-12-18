@@ -31,13 +31,6 @@ module.exports = {
         loader: 'script-loader',
       },
       {
-        test: /\.js$|\.vue$/,
-        enforce: 'pre',
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {},
-      },
-      {
         test: /\.pug$/,
         loader: 'pug-plain-loader',
       },

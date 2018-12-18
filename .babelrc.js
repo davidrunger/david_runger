@@ -14,7 +14,6 @@ module.exports = {
     '@babel/syntax-dynamic-import',
     '@babel/proposal-object-rest-spread',
     ['@babel/proposal-class-properties', { spec: true }],
-    'transform-vue-jsx',
   ],
 
   env: {
