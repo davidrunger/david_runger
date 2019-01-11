@@ -72,7 +72,7 @@
     "vue-template-compiler": "^2.1.21",
     "vuex": "^3.0.1",
     "waypoints": "^4.0.1",
-    "webpack": "^4.28.3",
+    "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
     "webpack-merge": "^4.2.1",
     "when-dom-ready": "^1.2.12"
