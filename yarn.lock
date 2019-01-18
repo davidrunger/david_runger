@@ -792,10 +792,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@rails/webpacker@^4.0.0-rc.2":
-  version "4.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-4.0.0-rc.2.tgz#dd8f26f755a31b31162ddc5e045e337aafe78022"
-  integrity sha512-OiTepphCcTg2DE68o4CBMhCeAQ7qmVNSQMfGW3Qslez7GrVypZPUIoJ0o9Bx/VhkO42Sf1pvuQemYPaxn0wVmQ==
+"@rails/webpacker@^4.0.0-rc.3":
+  version "4.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-4.0.0-rc.3.tgz#e63993759d738781cc8e905b012c98651d8877f8"
+  integrity sha512-Hlw8nyYqKPWaR8SYa19UFvkN4eDIj/NwQNrY7FBc1QhppnnXWhjfmuJOw8xV13K805qM0PX49xAorsYqMiimkw==
   dependencies:
     "@babel/core" "^7.2.0"
     "@babel/plugin-proposal-class-properties" "^7.2.1"
@@ -814,6 +814,7 @@
     compression-webpack-plugin "^2.0.0"
     css-loader "^2.0.1"
     file-loader "^2.0.0"
+    flatted "^2.0.0"
     glob "^7.1.3"
     js-yaml "^3.12.0"
     mini-css-extract-plugin "^0.5.0"
@@ -1345,7 +1346,7 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
 
-autoprefixer@^9.0.0, autoprefixer@^9.3.1, autoprefixer@^9.4.2, autoprefixer@^9.4.5:
+autoprefixer@^9.0.0, autoprefixer@^9.4.2, autoprefixer@^9.4.5:
   version "9.4.5"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.4.5.tgz#a13ccb001e4bc8837f71c3354005b42f02cc03d7"
   integrity sha512-M602C0ZxzFpJKqD4V6eq2j+K5CkzlhekCrcQupJmAOrPEZjWJyj/wSeo6qRSNoN6M3/9mtLPQqTTrABfReytQg==
@@ -1865,7 +1866,7 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000905, caniuse-lite@^1.0.30000918, caniuse-lite@^1.0.30000928, caniuse-lite@^1.0.30000929:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000918, caniuse-lite@^1.0.30000928, caniuse-lite@^1.0.30000929:
   version "1.0.30000929"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000929.tgz#7b391b781a9c3097ecc39ea053301aea8ea16317"
   integrity sha512-n2w1gPQSsYyorSVYqPMqbSaz1w7o9ZC8VhOEGI9T5MfGDzp7sbopQxG6GaQmYsaq13Xfx/mkxJUWC1Dz3oZfzw==
@@ -2459,7 +2460,7 @@ css-loader@^2.0.1:
     postcss-value-parser "^3.3.0"
     schema-utils "^1.0.0"
 
-css-prefers-color-scheme@^3.0.0, css-prefers-color-scheme@^3.1.1:
+css-prefers-color-scheme@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/css-prefers-color-scheme/-/css-prefers-color-scheme-3.1.1.tgz#6f830a2714199d4f0d0d0bb8a27916ed65cff1f4"
   dependencies:
@@ -2520,10 +2521,6 @@ css@^2.0.0:
     source-map "^0.1.38"
     source-map-resolve "^0.5.1"
     urix "^0.1.0"
-
-cssdb@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/cssdb/-/cssdb-4.2.0.tgz#89623ec696121d0688080ccdcd4627c7e6c6ee0d"
 
 cssdb@^4.3.0:
   version "4.3.0"
@@ -3609,6 +3606,11 @@ flat-cache@^1.2.1:
     del "^2.0.2"
     graceful-fs "^4.1.2"
     write "^0.2.1"
+
+flatted@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.0.tgz#55122b6536ea496b4b44893ee2608141d10d9916"
+  integrity sha512-R+H8IZclI8AAkSBRQJLVOsxwAoHd6WC40b4QTNWIjzAa6BXOBfQcM587MXDTVPeYaopFNWHUFLx7eNmHDSxMWg==
 
 flatten@^1.0.2:
   version "1.0.2"
@@ -6754,47 +6756,7 @@ postcss-place@^4.0.1:
     postcss "^7.0.2"
     postcss-values-parser "^2.0.0"
 
-postcss-preset-env@^6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/postcss-preset-env/-/postcss-preset-env-6.4.0.tgz#f5466550b177454fc98ca5054b4478e8e5caa714"
-  dependencies:
-    autoprefixer "^9.3.1"
-    browserslist "^4.3.4"
-    caniuse-lite "^1.0.30000905"
-    css-prefers-color-scheme "^3.0.0"
-    cssdb "^4.2.0"
-    postcss "^7.0.5"
-    postcss-attribute-case-insensitive "^4.0.0"
-    postcss-color-functional-notation "^2.0.1"
-    postcss-color-gray "^5.0.0"
-    postcss-color-hex-alpha "^5.0.2"
-    postcss-color-mod-function "^3.0.3"
-    postcss-color-rebeccapurple "^4.0.1"
-    postcss-custom-media "^7.0.7"
-    postcss-custom-properties "^8.0.9"
-    postcss-custom-selectors "^5.1.2"
-    postcss-dir-pseudo-class "^5.0.0"
-    postcss-double-position-gradients "^1.0.0"
-    postcss-env-function "^2.0.2"
-    postcss-focus-visible "^4.0.0"
-    postcss-focus-within "^3.0.0"
-    postcss-font-variant "^4.0.0"
-    postcss-gap-properties "^2.0.0"
-    postcss-image-set-function "^3.0.1"
-    postcss-initial "^3.0.0"
-    postcss-lab-function "^2.0.1"
-    postcss-logical "^3.0.0"
-    postcss-media-minmax "^4.0.0"
-    postcss-nesting "^7.0.0"
-    postcss-overflow-shorthand "^2.0.0"
-    postcss-page-break "^2.0.0"
-    postcss-place "^4.0.1"
-    postcss-pseudo-class-any-link "^6.0.0"
-    postcss-replace-overflow-wrap "^3.0.0"
-    postcss-selector-matches "^4.0.0"
-    postcss-selector-not "^4.0.0"
-
-postcss-preset-env@^6.5.0:
+postcss-preset-env@^6.4.0, postcss-preset-env@^6.5.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/postcss-preset-env/-/postcss-preset-env-6.5.0.tgz#a14b8f6e748b2a3a4a02a56f36c390f30073b9e1"
   integrity sha512-RdsIrYJd9p9AouQoJ8dFP5ksBJEIegA4q4WzJDih8nevz3cZyIP/q1Eaw3pTVpUAu3n7Y32YmvAW3X07mSRGkw==
