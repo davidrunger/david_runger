@@ -5,7 +5,7 @@ div.mt1.mb2.ml3.mr2
     span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
   div.mb2
     el-button(id="show-modal" @click='initializeTripCheckinModal()' size='mini').
-      Check In Shopping Trip
+      Check in shopping trip
     el-button(@click='createItemsNeededTextMessage' size='mini') Text items to phone
     el-button.copy-to-clipboard(size='mini') Copy to clipboard
     span(v-if='wasCopiedRecently') Copied!
