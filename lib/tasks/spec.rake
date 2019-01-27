@@ -26,6 +26,6 @@ namespace :spec do
     run_logged_system_command("NODE_ENV=test #{bin_webpack} > /dev/null")
 
     # run tests
-    run_logged_system_command("yarn run test#{ENV.key?('TRAVIS') ? '-no-sandbox' : ''}")
+    run_logged_system_command('yarn run test')
   end
 end
