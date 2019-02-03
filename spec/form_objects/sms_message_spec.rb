@@ -11,7 +11,8 @@ RSpec.describe SmsMessage do
   end
   let(:user) { users(:user) }
   let(:message_type) { 'grocery_store_items_needed' }
-  let(:message_params) { {store_id: user.stores.first!.id} }
+  let(:store) { user.stores.first! }
+  let(:message_params) { {'store_id' => store.id} }
 
   describe 'validations' do
     subject(:error_messages) do
@@ -40,6 +41,25 @@ RSpec.describe SmsMessage do
           expect(error_messages).to include(missing_phone_error)
         end
       end
+    end
+  end
+
+  describe '#grocery_store_items_needed_message_body' do
+    subject(:grocery_store_items_needed_message_body) do
+      sms_message.send(:grocery_store_items_needed_message_body)
+    end
+
+    it 'includes the store name and items needed (name & quantity)' do
+      needed_items_list =
+        store.items.needed.
+          sort_by { |item| item.name.downcase }.
+          map { |item| "- #{item.name} (#{item.needed})" }
+      expected_message = <<~EXPECTED_MESSAGE.rstrip
+        == #{store.name}
+        #{needed_items_list.join("\n")}
+      EXPECTED_MESSAGE
+
+      expect(grocery_store_items_needed_message_body).to eq(expected_message)
     end
   end
 end

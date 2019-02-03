@@ -13,6 +13,6 @@ FixtureBuilder.configure do |fbuilder|
   fbuilder.factory do
     user = name(:user, create(:user)).first
     store = name(:store, create(:store, user: user)).first
-    create(:item, store: store)
+    name(:item, create(:item, store: store))
   end
 end

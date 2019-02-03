@@ -60,10 +60,10 @@ class SmsMessage
 
   def grocery_store_items_needed_message_body
     store = @user.stores.find(@message_params['store_id'])
-    store.items.
-      where('items.needed > 0').
-      sort_by { |item| item.name.downcase }.
-      map { |item| "#{item.name} (#{item.needed})" }.
-      join("\n")
+    ApplicationController.render(
+      'sms_messages/grocery_list',
+      layout: nil,
+      locals: {store: store},
+    ).rstrip
   end
 end
