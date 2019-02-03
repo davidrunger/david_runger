@@ -18,4 +18,6 @@ class Item < ApplicationRecord
   belongs_to :store
 
   validates :name, presence: true
+
+  scope :needed, -> { where('items.needed > 0') }
 end
