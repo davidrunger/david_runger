@@ -63,6 +63,6 @@ end
 
 group :test do
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 4.0'
   gem 'webmock'
 end
