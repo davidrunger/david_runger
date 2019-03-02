@@ -6,7 +6,7 @@ class Api::LogsController < ApplicationController
       render json: @log
     else
       StatsD.increment('logs.create.failure')
-      render json: {errors: @log.errors.to_h}, status: :unprecessable_entity
+      render json: {errors: @log.errors.to_h}, status: :unprocessable_entity
     end
   end
 
