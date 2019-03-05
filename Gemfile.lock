@@ -160,7 +160,7 @@ GEM
     httparty (0.16.4)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    i18n (1.5.3)
+    i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.2)
     jquery-rails (4.3.3)
@@ -387,7 +387,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    webpacker (4.0.0.rc.7)
+    webpacker (4.0.1)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
