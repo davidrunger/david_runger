@@ -144,7 +144,7 @@ div.font-nunito
           name='Redis'
           details=`
             An amazingly fast in-memory database. My main exposure has been via the Sidekiq
-            job-processing library, and simple set and get commands.
+            job-processing library.
           `
         )
         SkillRow(
