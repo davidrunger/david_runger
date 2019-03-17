@@ -20,9 +20,16 @@ RSpec.describe Api::TextMessagesController do
       describe 'when the user may send SMS messages' do
         verify { expect(user.may_send_sms?).to eq(true) }
 
-        it 'attempts to send a text message' do
-          expect(NexmoClient).to receive(:send_text!).and_call_original
-          post(:create, params: params)
+        context 'when NEXMO_API_KEY is set in ENV' do
+          before do
+            expect(ENV).to receive(:[]).with('NEXMO_API_KEY').and_return('DEFabc123')
+            allow(ENV).to receive(:[]).and_call_original # pass other calls through
+          end
+
+          it 'attempts to send a text message' do
+            expect(NexmoClient).to receive(:send_text!).and_call_original
+            post(:create, params: params)
+          end
         end
       end
 

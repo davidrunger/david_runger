@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :count_request, unless: -> { DavidRunger::LogSkip.should_skip?(params: params) }
   before_action :check_for_supported_browser!
   before_action :authenticate_user
+  before_action :store_redirect_location
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -24,6 +25,12 @@ class ApplicationController < ActionController::Base
     flash[:alert] = 'You must sign in first.'
     session['user_redirect_to'] = request.path
     redirect_to(login_path)
+  end
+
+  def store_redirect_location
+    if params['redirect_to'].present?
+      session['redirect_to'] = params['redirect_to']
+    end
   end
 
   def bootstrap(data)

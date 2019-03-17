@@ -36,6 +36,7 @@ class DavidRunger::Application < Rails::Application
 
   extra_load_paths = [
     Rails.root.join('lib'),
+    Rails.root.join(*%w[lib refinements]),
     Rails.root.join(*%w[app controllers lib]),
   ]
   config.autoload_paths.concat(extra_load_paths)

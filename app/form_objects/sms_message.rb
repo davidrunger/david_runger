@@ -22,6 +22,8 @@ class SmsMessage
   end
 
   def send!
+    return false if ENV['NEXMO_API_KEY'].blank?
+
     nexmo_response = NexmoClient.send_text!(number: @user.phone, message: message_body)
     if nexmo_response.success?
       save_sms_record(nexmo_response)
