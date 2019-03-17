@@ -2,7 +2,7 @@
 transition(name='modal')
   div.modal-mask.fixed.flex.flex-column.items-center.justify-center.col-12.top-0.left-0.vh-100.z1(
     ref='mask'
-    @click='closeModal'
+    @click='handleClickMask'
   )
     div.modal-container.p3.bg-white.rounded(:style='{ width: width, maxWidth: maxWidth }')
       slot
@@ -13,15 +13,22 @@ import keycode from 'keycode';
 
 export default {
   methods: {
-    closeModal(e) {
+    closeModal() {
+      this.$store.commit('setShowModal', { value: false });
+      this.$store.commit('setShowNeedPhoneNumberModal', { value: false });
+    },
+
+    handleClickMask(event) {
       // make sure we don't close the modal when clicks within the modal propagate up
-      if (e.target === this.$refs.mask) {
-        this.$store.commit('setShowModal', { value: false });
+      if (event.target === this.$refs.mask) {
+        this.closeModal();
       }
     },
 
     handleKeydown(e) {
-      if (e.which === keycode('escape')) this.$store.commit('setShowModal', { value: false });
+      if (e.which === keycode('escape')) {
+        this.closeModal();
+      }
     },
   },
 

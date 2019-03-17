@@ -6,7 +6,7 @@ div.mt1.mb2.ml3.mr2
   div.mb2
     el-button(id="show-modal" @click='initializeTripCheckinModal()' size='mini').
       Check in shopping trip
-    el-button(@click='createItemsNeededTextMessage' size='mini') Text items to phone
+    el-button(@click='handleTextItemsToPhoneClick' size='mini') Text items to phone
     el-button.copy-to-clipboard(size='mini') Copy to clipboard
     span(v-if='wasCopiedRecently') Copied!
 
@@ -53,18 +53,22 @@ div.mt1.mb2.ml3.mr2
           @click="$store.commit('setShowModal', { value: false })"
           type='text'
         ) Cancel
+
+  NeedPhoneNumberModal
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { debounce, sortBy } from 'lodash';
+import { debounce, isEmpty, sortBy } from 'lodash';
 import ClipboardJS from 'clipboard';
 
 import Item from './item.vue';
+import NeedPhoneNumberModal from './need_phone_number_modal.vue';
 
 export default {
   components: {
     Item,
+    NeedPhoneNumberModal,
   },
 
   data() {
@@ -92,6 +96,7 @@ export default {
     ]),
 
     ...mapState([
+      'current_user',
       'showModal',
     ]),
 
@@ -118,6 +123,15 @@ export default {
       this.$store.dispatch('zeroItems', { items: this.itemsToZero.slice() });
       this.itemsToZero = [];
       this.$store.commit('setShowModal', { value: false });
+    },
+
+    handleTextItemsToPhoneClick() {
+      const currentUserPhone = this.current_user.phone;
+      if (isEmpty(currentUserPhone)) {
+        this.$store.commit('setShowNeedPhoneNumberModal', { value: true });
+      } else {
+        this.createItemsNeededTextMessage();
+      }
     },
 
     initializeTripCheckinModal() {

@@ -39,6 +39,10 @@ export const mutations = {
   setShowModal(state, { value }) {
     state.showModal = value;
   },
+
+  setShowNeedPhoneNumberModal(state, { value }) {
+    state.showNeedPhoneNumberModal = value;
+  },
 };
 
 const actions = {
@@ -92,10 +96,12 @@ export function initialState(bootstrap) {
   return {
     ...bootstrap,
     collectingDebounces: false,
+    current_user: bootstrap.current_user,
     stores: bootstrap.stores,
     pendingRequests: 0,
     postingStore: false,
     showModal: false,
+    showNeedPhoneNumberModal: false,
   };
 }
 
