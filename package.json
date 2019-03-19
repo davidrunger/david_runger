@@ -64,7 +64,7 @@
     "strftime": "^0.10.0",
     "style-loader": "^0.23.1",
     "vue": "^2.6.9",
-    "vue-chartjs": "^3.4.0",
+    "vue-chartjs": "^3.4.2",
     "vue-drag-drop": "^1.1.4",
     "vue-form": "^4.10.1",
     "vue-loader": "https://github.com/davidrunger/vue-loader.git",
