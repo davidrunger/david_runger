@@ -37,9 +37,9 @@ class RequestDashboard < Administrate::BaseDashboard
     :handler,
     :requested_at,
     :location,
-    :ip,
     :isp,
     :user_agent,
+    :ip,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
