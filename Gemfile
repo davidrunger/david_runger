@@ -56,6 +56,8 @@ group :development do
   gem 'rack-mini-profiler'
   gem 'spring'
   gem 'spring-commands-rspec'
+  # We can go back to the offical spring-watcher-listen after upgrading to Rails 6.
+  # See https://bit.ly/2Frtra3 (bug) and https://bit.ly/2Fpd50n (fix).
   gem 'spring-watcher-listen', '~> 2.0.2', github: 'davidrunger/spring-watcher-listen'
   # Provides stack traces for flamegraph for rack-mini-profiler.
   gem 'stackprof'
