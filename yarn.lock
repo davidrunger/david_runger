@@ -7744,10 +7744,10 @@ slice-ansi@^2.1.0:
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
 
-smooth-scroll@^16.0.2:
-  version "16.0.2"
-  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-16.0.2.tgz#68e2fa5bcd85f796fd36bf68a1ce636eb9f645cc"
-  integrity sha512-osDceV7aSXJdlQReSU843Yy985TTAokXdBBbumd99H0aPK9uIL22ysB/SPzZTCq3e1mvq7z3FixpaQ/5iqxt6A==
+smooth-scroll@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-16.0.3.tgz#5914e0e4050a5313102d734140ddee0267526fd7"
+  integrity sha512-Wnhk3tWeqVJRrSUxeLQ4r7MNQvc9MNlswyWfKqAQ9cc37D8VqTco/CicWcdHzSFEC4/9/kPPK3uY6oyY+mdRYg==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
