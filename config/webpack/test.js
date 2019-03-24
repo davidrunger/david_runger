@@ -77,9 +77,13 @@ const testConfig = merge(environment.toWebpackConfig(), shared, {
   },
 });
 
+const testConfigForStaticFile = Object.assign({}, testConfig);
+// don't try to write unserializable plugin; causes eslint-plugin-import resolving to fail
+testConfigForStaticFile.resolve.plugins = [];
+
 fs.writeFileSync(
   'webpack.config.static.js',
-  `module.exports = ${JSON.stringify(testConfig)}`,
+  `module.exports = ${JSON.stringify(testConfigForStaticFile)}`,
 );
 
 module.exports = testConfig;

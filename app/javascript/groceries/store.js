@@ -70,6 +70,10 @@ const actions = {
     axios.patch(Routes.api_item_path(id), { item: attributes });
   },
 
+  updateStore(_context, { id, attributes }) {
+    axios.patch(Routes.api_store_path(id), { store: attributes });
+  },
+
   zeroItems(_context, { items }) {
     items.forEach((item) => {
       item.needed = 0;
