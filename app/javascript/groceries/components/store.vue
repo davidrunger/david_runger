@@ -1,7 +1,17 @@
 <template lang="pug">
 div.mt1.mb2.ml3.mr2
   h2.h2.store-name.bold.my2
-    span {{ store.name }}
+    input(
+      v-if='editingName'
+      type='text'
+      v-model='store.name'
+      @blur='stopEditingAndUpdateStoreName()'
+      @keydown.enter='stopEditingAndUpdateStoreName()'
+      ref='store-name-input'
+    )
+    span(v-if='!editingName') {{ store.name }}
+    a.edit-store.js-link.gray.ml1(@click='editStoreName')
+      i.el-icon-edit-outline.font-size-2
     span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
   div.mb2
     el-button(id="show-modal" @click='initializeTripCheckinModal()' size='mini').
@@ -73,6 +83,7 @@ export default {
 
   data() {
     return {
+      editingName: false,
       formstate: {},
       itemsToZero: [],
       newItemName: '',
@@ -117,6 +128,24 @@ export default {
           message_params: { store_id: this.store.id },
         },
       });
+    },
+
+    editStoreName() {
+      this.editingName = true;
+      // wait a tick for input to render, then focus it
+      setTimeout(this.focusStoreNameInput);
+    },
+
+    focusStoreNameInput(callsAlready = 0) {
+      if (!this.editingName) return;
+
+      const storeNameInput = this.$refs['store-name-input'];
+      if (storeNameInput) {
+        storeNameInput.focus();
+      } else if (callsAlready < 20) {
+        // the storeNameInput hasn't had time to render yet; retry later
+        setTimeout(() => { this.focusStoreNameInput(callsAlready + 1) }, 50);
+      }
     },
 
     handleTripCheckinModalSubmit() {
@@ -169,6 +198,16 @@ export default {
     sortItems(items) {
       return sortBy(items, item => item.name.toLowerCase());
     },
+
+    stopEditingAndUpdateStoreName() {
+      this.editingName = false;
+      this.$store.dispatch('updateStore', {
+        id: this.store.id,
+        attributes: {
+          name: this.store.name,
+        },
+      });
+    },
   },
 
   props: {
@@ -180,7 +219,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 .item-name-input {
   max-width: 230px;
 }
@@ -188,5 +227,11 @@ export default {
 .spinner--circle {
   height: 14px;
   width: 14px;
+}
+
+.edit-store {
+  &:hover {
+    color: black;
+  }
 }
 </style>
