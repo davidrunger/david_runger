@@ -24,6 +24,7 @@ describe('Store', function () { // eslint-disable-line func-names, prefer-arrow-
       items: [{ id: 23, name: 'humus', needed: 2 }],
     };
     const bootstrap = {
+      current_user: { id: 2 },
       stores: [store],
     };
     wrapper = mount(

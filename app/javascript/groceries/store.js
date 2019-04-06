@@ -23,6 +23,14 @@ export const mutations = {
     state.pendingRequests -= 1;
   },
 
+  hideModal(state, { modalName }) {
+    state.modalsShowing = state.modalsShowing.filter(showingModal => showingModal !== modalName);
+  },
+
+  hideTopModal(state) {
+    state.modalsShowing = state.modalsShowing.slice(0, -1); // all but the last element
+  },
+
   incrementPendingRequests(state) {
     state.pendingRequests += 1;
   },
@@ -36,12 +44,10 @@ export const mutations = {
     state.collectingDebounces = value;
   },
 
-  setShowModal(state, { value }) {
-    state.showModal = value;
-  },
-
-  setShowNeedPhoneNumberModal(state, { value }) {
-    state.showNeedPhoneNumberModal = value;
+  showModal(state, { modalName }) {
+    if (state.modalsShowing.indexOf(modalName) === -1) {
+      state.modalsShowing.push(modalName);
+    }
   },
 };
 
@@ -93,6 +99,12 @@ const getters = {
   debouncingOrWaitingOnNetwork(state) {
     return state.collectingDebounces || (state.pendingRequests > 0);
   },
+
+  showingModal(state) {
+    return ({ modalName }) => {
+      return state.modalsShowing.indexOf(modalName) !== -1;
+    };
+  },
 };
 
 // export for testing
@@ -104,8 +116,7 @@ export function initialState(bootstrap) {
     stores: bootstrap.stores,
     pendingRequests: 0,
     postingStore: false,
-    showModal: false,
-    showNeedPhoneNumberModal: false,
+    modalsShowing: [],
   };
 }
 

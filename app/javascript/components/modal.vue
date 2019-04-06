@@ -1,5 +1,5 @@
 <template lang='pug'>
-transition(name='modal')
+transition(name='modal' v-if="showingModal({ modalName: name })")
   div.modal-mask.fixed.flex.flex-column.items-center.justify-center.col-12.top-0.left-0.vh-100.z1(
     ref='mask'
     @click='handleClickMask'
@@ -9,25 +9,27 @@ transition(name='modal')
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import keycode from 'keycode';
 
 export default {
-  methods: {
-    closeModal() {
-      this.$store.commit('setShowModal', { value: false });
-      this.$store.commit('setShowNeedPhoneNumberModal', { value: false });
-    },
+  computed: {
+    ...mapGetters([
+      'showingModal',
+    ]),
+  },
 
+  methods: {
     handleClickMask(event) {
       // make sure we don't close the modal when clicks within the modal propagate up
       if (event.target === this.$refs.mask) {
-        this.closeModal();
+        this.$store.commit('hideModal', { modalName: this.name });
       }
     },
 
     handleKeydown(e) {
       if (e.which === keycode('escape')) {
-        this.closeModal();
+        this.$store.commit('hideTopModal');
       }
     },
   },
@@ -36,11 +38,19 @@ export default {
     window.removeEventListener('keydown', this.handleKeydown);
   },
 
-  mounted() {
-    window.addEventListener('keydown', this.handleKeydown);
+  created() {
+    // since there might be multiple modals, ensure we only register the keydown listener once
+    if (!window.davidrunger.modalKeydownListenerRegistered) {
+      window.addEventListener('keydown', this.handleKeydown);
+      window.davidrunger.modalKeydownListenerRegistered = true;
+    }
   },
 
   props: {
+    name: {
+      type: String,
+      required: true,
+    },
     width: {
       type: String,
       required: true,
