@@ -3,12 +3,6 @@ import Vue from 'shared/customized_vue';
 import Vuex from 'vuex';
 import _ from 'lodash';
 
-const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
-if (csrfMetaTag) {
-  const csrfToken = csrfMetaTag.getAttribute('content');
-  axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
-}
-
 // export for testing
 export const mutations = {
   deleteItem(state, { item, store }) {
