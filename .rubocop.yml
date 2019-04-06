@@ -3,6 +3,8 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
   TargetRubyVersion: 2.4
+Bundler/GemComment:
+  Enabled: false
 Layout/ClassStructure:
   ExpectedOrder:
       - module_inclusion

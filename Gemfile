@@ -29,6 +29,7 @@ gem 'redis', '~>4.1'
 gem 'rest-client'
 gem 'rollbar'
 gem 'rubocop', require: false
+gem 'rubocop-performance', require: false
 gem 'sass-rails', '~> 5.0'
 gem 'statsd-instrument'
 gem 'webpacker', '>= 4.0.0.pre.pre.2'
@@ -51,8 +52,8 @@ group :development do
   # Provides flamegraphs for rack-mini-profiler.
   gem 'flamegraph'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database performance
-  # analysis.
+  # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database
+  # performance analysis.
   gem 'rack-mini-profiler'
   gem 'spring'
   gem 'spring-commands-rspec'
