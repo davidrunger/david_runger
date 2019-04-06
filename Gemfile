@@ -29,6 +29,7 @@ gem 'redis', '~>4.1'
 gem 'rest-client'
 gem 'rollbar'
 gem 'rubocop', require: false
+gem 'rubocop-performance', require: false
 gem 'sass-rails', '~> 5.0'
 gem 'statsd-instrument'
 gem 'webpacker', '>= 4.0.0.pre.pre.2'
