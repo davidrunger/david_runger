@@ -1,11 +1,11 @@
 <template lang="pug">
-Modal(v-if="showNeedPhoneNumberModal" width='85%', maxWidth='400px')
+Modal(name='set-phone-number' width='85%', maxWidth='400px')
   slot
     h2.bold.fonst-size-1.mb2 We need your phone number, first
     p Click #[a(:href='editUserPath') here] to enter your phone number.
     div.flex.justify-around.mt2
       el-button(
-        @click="$store.commit('setShowNeedPhoneNumberModal', { value: false })"
+        @click="$store.commit('hideModal', { modalName: 'set-phone-number' })"
         type='text'
       ) Cancel
 </template>

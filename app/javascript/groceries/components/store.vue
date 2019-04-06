@@ -40,7 +40,7 @@ div.mt1.mb2.ml3.mr2
   ul.items-list.mt0.mb0
     Item(v-for='item in sortedItems' :item="item" :key="item.id")
 
-  Modal(v-if="showModal" width='85%', maxWidth='400px')
+  Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
     slot
       h3.bold.fonst-size-2.mb2.
         What did you get?
@@ -60,7 +60,7 @@ div.mt1.mb2.ml3.mr2
           plain
         ) Set checked items to 0 needed
         el-button(
-          @click="$store.commit('setShowModal', { value: false })"
+          @click="$store.commit('hideModal', { modalName: 'check-in-shopping-trip' })"
           type='text'
         ) Cancel
 
@@ -108,7 +108,6 @@ export default {
 
     ...mapState([
       'current_user',
-      'showModal',
     ]),
 
     neededItems() {
@@ -151,13 +150,13 @@ export default {
     handleTripCheckinModalSubmit() {
       this.$store.dispatch('zeroItems', { items: this.itemsToZero.slice() });
       this.itemsToZero = [];
-      this.$store.commit('setShowModal', { value: false });
+      this.$store.commit('hideModal', { modalName: 'check-in-shopping-trip' });
     },
 
     handleTextItemsToPhoneClick() {
       const currentUserPhone = this.current_user.phone;
       if (isEmpty(currentUserPhone)) {
-        this.$store.commit('setShowNeedPhoneNumberModal', { value: true });
+        this.$store.commit('showModal', { modalName: 'set-phone-number' });
       } else {
         this.createItemsNeededTextMessage();
       }
@@ -165,7 +164,7 @@ export default {
 
     initializeTripCheckinModal() {
       this.itemsToZero = this.neededItems;
-      this.$store.commit('setShowModal', { value: true });
+      this.$store.commit('showModal', { modalName: 'check-in-shopping-trip' });
     },
 
     // we need `function` for correct `this`
