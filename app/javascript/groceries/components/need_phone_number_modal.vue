@@ -17,7 +17,6 @@ export default {
   computed: {
     ...mapState([
       'current_user',
-      'showNeedPhoneNumberModal',
     ]),
 
     editUserPath() {
