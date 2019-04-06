@@ -10,6 +10,7 @@ div
         v-model='newLogEntryData[log_input.label]'
         name='log_input.label'
         required
+        ref='log-input'
       )
     el-input(
       type='submit'
@@ -46,6 +47,12 @@ export default {
         window.location.reload();
       });
     },
+  },
+
+  mounted() {
+    setTimeout(() => {
+      this.$refs['log-input'][0].focus();
+    });
   },
 
   props: {

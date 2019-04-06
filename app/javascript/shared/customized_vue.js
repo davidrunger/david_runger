@@ -16,6 +16,8 @@ import 'element-ui/lib/theme-chalk/table-column.css';
 import {
   Button,
   Card,
+  Collapse,
+  CollapseItem,
   Icon,
   Input,
   Menu,
@@ -66,6 +68,8 @@ Vue.use(VueForm);
 
 Vue.use(Button);
 Vue.use(Card);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
 Vue.use(Icon);
 Vue.use(Input);
 Vue.use(Menu);
