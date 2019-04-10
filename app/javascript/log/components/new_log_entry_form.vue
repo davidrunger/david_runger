@@ -15,7 +15,7 @@ div
     el-input(
       type='submit'
       value='Add'
-      :disabled='postingLogEntry || formstate.$invalid'
+      :disabled='formstate.$invalid'
     )
 </template>
 
@@ -25,7 +25,6 @@ export default {
     return {
       formstate: {},
       newLogEntryData: {},
-      postingLogEntry: false,
     };
   },
 
@@ -33,19 +32,14 @@ export default {
     postNewLogEntry() {
       if (this.formstate.$invalid) return;
 
-      this.postingLogEntry = true;
-
-      const payload = {
-        log_entry: {
-          data: this.newLogEntryData,
-          log_id: this.log_id,
+      this.$store.dispatch(
+        'addLogEntry',
+        {
+          logId: this.log_id,
+          newLogEntryData: this.newLogEntryData,
         },
-      };
-      this.$http.post(this.$routes.api_log_entries_path(), payload).then(() => {
-        this.newLogEntryData = {};
-        this.postingLogEntry = false;
-        window.location.reload();
-      });
+      );
+      this.newLogEntryData = {};
     },
   },
 
