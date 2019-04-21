@@ -11,6 +11,11 @@ div
       :log_inputs='selectedLog.log_inputs'
       :log_entries='selectedLog.log_entries'
     )
+    section(v-if='!selectedLog')
+      hr.silver.mt2.mb3.mx3
+      ul
+        li.m1.h2(v-for='log in logs')
+          a.js-link(@click="$store.dispatch('selectLog', { logName: log.name })") {{log.name}}
     hr.silver.m3
     el-collapse(v-model='expandedPanelNames')
       el-collapse-item(title = 'Create new log' name='new-log-form')
@@ -37,6 +42,7 @@ export default {
     ]),
 
     ...mapState([
+      'logs',
       'selectedLogName',
     ]),
   },
