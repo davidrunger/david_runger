@@ -2,11 +2,12 @@
 #
 # Table name: logs
 #
-#  created_at :datetime         not null
-#  id         :bigint(8)        not null, primary key
-#  name       :string           not null
-#  updated_at :datetime         not null
-#  user_id    :bigint(8)        not null
+#  created_at  :datetime         not null
+#  description :string
+#  id          :bigint(8)        not null, primary key
+#  name        :string           not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint(8)        not null
 #
 # Indexes
 #
@@ -14,7 +15,7 @@
 #
 
 class LogSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :description, :id, :name
 
   has_many :log_entries do
     ordered_entries = object.log_entries_ordered

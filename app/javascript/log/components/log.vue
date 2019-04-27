@@ -1,6 +1,7 @@
 <template lang='pug'>
 div
-  .h2.my2 {{name}}
+  h1.h2.mt3.mb1 {{name}}
+  p.h5.mb2.description {{description}}
   log-data-display(:log_inputs='log_inputs', :log_entries='log_entries')
   new-log-entry-form(:log_id='log_id' :log_inputs='log_inputs')
   .mt1
@@ -73,6 +74,10 @@ export default {
       type: Array,
       required: true,
     },
+    description: {
+      type: String,
+      required: false,
+    },
     name: {
       type: String,
       required: true,
@@ -80,3 +85,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.description {
+  font-weight: 200;
+}
+</style>
