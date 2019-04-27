@@ -15,7 +15,7 @@
 #
 
 class LogSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :description, :id, :name
 
   has_many :log_entries do
     ordered_entries = object.log_entries_ordered

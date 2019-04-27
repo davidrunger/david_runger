@@ -11,6 +11,12 @@ div
             name='newLogName'
             required
           )
+        el-input.mb1(
+          type='textarea'
+          placeholder='Details/Description'
+          v-model='newLogDescription'
+          name='newLogDescription'
+        )
         validate.mb1(
           v-for='(logInput, index) in newLogInputs'
           :key='index'
@@ -45,6 +51,7 @@ export default {
   data() {
     return {
       formstate: {},
+      newLogDescription: '',
       newLogName: '',
       newLogInputs: [{}],
       postingLog: false,
@@ -59,6 +66,7 @@ export default {
 
       const payload = {
         log: {
+          description: this.newLogDescription,
           name: this.newLogName,
           log_inputs_attributes: this.newLogInputs.map((input, i) => {
             input.index = i;
