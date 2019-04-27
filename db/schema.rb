@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_23_163411) do
+ActiveRecord::Schema.define(version: 2019_04_27_223736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2018_09_23_163411) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
   end
 
