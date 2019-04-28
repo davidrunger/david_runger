@@ -17,7 +17,7 @@
 class LogSerializer < ActiveModel::Serializer
   attributes :description, :id, :name
 
-  has_many :log_entries do
+  has_many :log_entries, unless: -> { instance_options[:format] == :brief } do
     ordered_entries = object.log_entries_ordered
     is_text_log = object.log_inputs.any? { |input| input.type == 'LogInputs::TextLogInput' }
     is_text_log ? ordered_entries.last(3) : ordered_entries
