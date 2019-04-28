@@ -6,7 +6,6 @@ class LogsController < ApplicationController
       current_user: UserSerializer.new(current_user),
       logs: ActiveModel::Serializer::CollectionSerializer.new(
         current_user.logs.includes(:log_inputs),
-        format: :brief,
       ),
       log_input_types: log_input_types,
     )

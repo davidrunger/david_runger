@@ -18,4 +18,14 @@ class Api::LogEntriesController < ApplicationController
     log_entry.destroy!
     render json: log_entry
   end
+
+  def index
+    log_id = params['log_id']
+
+    if log_id.present?
+      render json: current_user.logs.find(log_id).log_entries_ordered
+    else
+      render json: {error: 'log_id param is required'}, status: :bad_request
+    end
+  end
 end

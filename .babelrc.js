@@ -11,6 +11,7 @@ module.exports = {
   ],
 
   plugins: [
+    '@znck/prop-types/remove',
     '@babel/syntax-dynamic-import',
     '@babel/proposal-object-rest-spread',
     ['@babel/proposal-class-properties', { spec: true }],
