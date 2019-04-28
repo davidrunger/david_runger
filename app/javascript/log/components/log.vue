@@ -1,14 +1,22 @@
 <template lang='pug'>
 div
-  h1.h2.mt3.mb1 {{name}}
-  p.h5.mb2.description {{description}}
-  log-data-display(:log_inputs='log_inputs', :log_entries='log_entries')
-  new-log-entry-form(:log_id='log_id' :log_inputs='log_inputs')
+  h1.h2.mt3.mb1 {{log.name}}
+  p.h5.mb2.description {{log.description}}
+  div.mb2(v-if='log.log_entries === undefined').
+    Loading...
+  log-data-display(
+    v-else-if='log.log_entries.length'
+    :log_inputs='log.log_inputs'
+    :log_entries='log.log_entries'
+  )
+  div.mb2(v-else) There are no log entries for this log.
+  new-log-entry-form(:log_id='log.id' :log_inputs='log.log_inputs')
   .mt1
     el-button(@click='destroyLastEntry') Delete last entry
 </template>
 
 <script>
+import PropTypes from '@znck/prop-types';
 import _ from 'lodash';
 
 import DurationTimeseries from './data_renderers/duration_timeseries.vue'
@@ -47,6 +55,12 @@ export default {
     NewLogEntryForm,
   },
 
+  created() {
+    if (!this.log.log_entries) {
+      this.$store.dispatch('fetchLogEntries', { logId: this.log.id });
+    }
+  },
+
   methods: {
     destroyLastEntry() {
       var confirmation = confirm(
@@ -62,26 +76,13 @@ export default {
   },
 
   props: {
-    log_entries: {
-      type: Array,
-      required: true,
-    },
-    log_id: {
-      type: Number,
-      required: true,
-    },
-    log_inputs: {
-      type: Array,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: false,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
+    log: PropTypes.shape({
+      log_entries: PropTypes.array, // not required because we want to be able to lazy-load
+      id: PropTypes.number.isRequired,
+      log_inputs: PropTypes.array.isRequired,
+      description: PropTypes.string,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
   },
 };
 </script>

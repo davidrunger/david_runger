@@ -5,12 +5,8 @@ div
     log-selector
     log(
       v-if='selectedLog'
-      :key='selectedLog.name'
-      :description='selectedLog.description'
-      :name='selectedLog.name'
-      :log_id='selectedLog.id'
-      :log_inputs='selectedLog.log_inputs'
-      :log_entries='selectedLog.log_entries'
+      :key='selectedLog.id'
+      :log='selectedLog'
     )
     section(v-if='!selectedLog')
       hr.silver.mt2.mb3.mx3

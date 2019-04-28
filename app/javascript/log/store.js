@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vue from 'vue';
 import Vuex from 'vuex';
 
 import * as ModalVuex from 'shared/modal_store';
@@ -12,6 +13,10 @@ const mutations = {
 
   selectLog(state, { logName }) {
     state.selectedLogName = logName;
+  },
+
+  setLogEntries(state, { log, logEntries }) {
+    Vue.set(log, 'log_entries', logEntries);
   },
 };
 
@@ -28,6 +33,20 @@ const actions = {
       const log = getters.logById({ logId });
       commit('addLogEntry', { log, logEntry: data });
     });
+  },
+
+  fetchLogEntries({ commit, getters }, { logId }) {
+    axios.
+      get(Routes.api_log_entries_path({ log_id: logId })).
+      then(({ data }) => {
+        commit(
+          'setLogEntries',
+          {
+            log: getters.logById({ logId }),
+            logEntries: data,
+          },
+        );
+      });
   },
 
   selectLog({ commit }, { logName }) {
