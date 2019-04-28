@@ -35,6 +35,22 @@ const actions = {
     });
   },
 
+  fetchAllLogEntries({ commit, getters }) {
+    axios.
+      get(Routes.api_log_entries_path()).
+      then(({ data }) => {
+        data.forEach(({ log_id, log_entries }) => {
+          commit(
+            'setLogEntries',
+            {
+              log: getters.logById({ logId: log_id }),
+              logEntries: log_entries,
+            },
+          );
+        });
+      });
+  },
+
   fetchLogEntries({ commit, getters }, { logId }) {
     axios.
       get(Routes.api_log_entries_path({ log_id: logId })).
