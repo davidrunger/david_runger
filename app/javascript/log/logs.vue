@@ -50,6 +50,8 @@ export default {
         this.$store.commit('showModal', { modalName: 'log-selector' });
       }
     })
+
+    this.$store.dispatch('fetchAllLogEntries');
   },
 
   data() {

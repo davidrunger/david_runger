@@ -25,7 +25,14 @@ class Api::LogEntriesController < ApplicationController
     if log_id.present?
       render json: current_user.logs.find(log_id).log_entries_ordered
     else
-      render json: {error: 'log_id param is required'}, status: :bad_request
+      all_log_entries =
+        current_user.logs.includes(:log_entries_ordered).map do |log|
+          {
+            log_id: log.id,
+            log_entries: ActiveModel::Serializer::CollectionSerializer.new(log.log_entries_ordered),
+          }
+        end
+      render json: all_log_entries
     end
   end
 end
