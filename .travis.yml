@@ -30,6 +30,7 @@ script:
   - bundle exec rails db:schema:load
   - bundle exec rails spec:fixture_builder:rebuild
   - bundle exec rails spec:rb
+  - bundle exec rails spec:poll_js
   - bundle exec rails spec:run_js
 notifications:
   email:
