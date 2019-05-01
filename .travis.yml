@@ -16,7 +16,6 @@ before_install:
   - gem install bundler -v '1.17.3' --no-document
   - . $HOME/.nvm/nvm.sh
   - nvm install 10.15.3
-  - nvm use 10.15.3
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.0
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
