@@ -17,7 +17,7 @@ namespace :spec do
   desc 'Set up JavaScript specs'
   task :setup_js do
     # boot test server
-    run_logged_system_command('ruby -run -ehttpd public -p8080 &> /dev/null &')
+    run_logged_system_command('ruby -run -ehttpd public -p8080 > /dev/null 2>&1 &')
 
     # setup tests
     run_logged_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
