@@ -5,7 +5,7 @@ cache:
   directories:
     - node_modules
 rvm:
-  - "2.6.2"
+  - "2.6.3"
 services:
   - postgresql
 addons:
@@ -19,7 +19,7 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
-  - "ruby --version && [ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.6.2p' ]"
+  - "ruby --version && [ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.6.3p' ]"
   - "bundle --version && [ \"$(bundle --version)\" == 'Bundler version 1.17.3' ]"
   - "node --version && [ \"$(node --version)\" == 'v10.15.3' ]"
   - "yarn --version && [ \"$(yarn --version)\" == '1.15.2' ]"
