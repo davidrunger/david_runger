@@ -16,13 +16,13 @@ before_install:
   - gem install bundler -v '1.17.3' --no-document
   - . $HOME/.nvm/nvm.sh
   - nvm install 10.15.3
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.0
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
   - "ruby --version && [ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.6.2p' ]"
   - "bundle --version && [ \"$(bundle --version)\" == 'Bundler version 1.17.3' ]"
   - "node --version && [ \"$(node --version)\" == 'v10.15.3' ]"
-  - "yarn --version && [ \"$(yarn --version)\" == '1.12.0' ]"
+  - "yarn --version && [ \"$(yarn --version)\" == '1.15.2' ]"
   - yarn install
   - bin/rails spec:setup_js &
   - bin/rails db:create
