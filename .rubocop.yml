@@ -1,3 +1,4 @@
+require: rubocop-performance
 AllCops:
   EnabledByDefault: true
   Exclude:
@@ -16,7 +17,7 @@ Layout/ClassStructure:
       - private_methods
 Layout/DotPosition:
   EnforcedStyle: trailing
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
