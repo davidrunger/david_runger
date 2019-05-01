@@ -25,13 +25,13 @@ script:
   - "node --version && [ \"$(node --version)\" == 'v10.0.0' ]"
   - "yarn --version && [ \"$(yarn --version)\" == '1.12.0' ]"
   - yarn install
-  - bundle exec rails spec:setup_js &
-  - bundle exec rails db:create
-  - bundle exec rails db:schema:load
-  - bundle exec rails spec:fixture_builder:rebuild
-  - bundle exec rails spec:rb
-  - bundle exec rails spec:poll_js
-  - bundle exec rails spec:run_js
+  - bin/rails spec:setup_js &
+  - bin/rails db:create
+  - bin/rails db:schema:load
+  - bin/rails spec:fixture_builder:rebuild
+  - bin/rails spec:rb
+  - bin/rails spec:poll_js
+  - bin/rails spec:run_js
 notifications:
   email:
     on_success: never
