@@ -14,18 +14,26 @@ namespace :spec do
     run_logged_system_command('bin/rspec --format documentation')
   end
 
-  desc 'Run JavaScript specs'
-  task js: :environment do
-    # boot test server first, so that it will definitely be launched by the time that we need it
+  desc 'Set up JavaScript specs'
+  task :setup_js do
+    # boot test server
     run_logged_system_command('ruby -run -ehttpd public -p8080 &> /dev/null &')
 
-    # JavaScript setup
+    # setup tests
     run_logged_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
-    bin_webpack = Rails.root.join('bin', 'webpack')
-    # run_logged_system_command("NODE_ENV=test #{dev_server} > personal/stdout 2> personal/stderr", background: true)
-    run_logged_system_command("NODE_ENV=test #{bin_webpack} > /dev/null")
 
-    # run tests
+    # compile
+    run_logged_system_command("NODE_ENV=test #{Rails.root.join('bin', 'webpack')} > /dev/null")
+  end
+
+  desc 'Run JavaScript tests (after setting up already)'
+  task :run_js do
     run_logged_system_command('yarn run test')
+  end
+
+  desc 'Run JavaScript specs'
+  task js: :environment do
+    Rake::Task['spec:setup_js'].invoke
+    Rake::Task['spec:run_js'].invoke
   end
 end
