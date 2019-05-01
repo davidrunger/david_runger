@@ -5,7 +5,7 @@ cache:
   directories:
     - node_modules
 rvm:
-  - "2.6.2"
+  - "2.6.3"
 services:
   - postgresql
 addons:
@@ -13,23 +13,24 @@ addons:
 env:
   - RAILS_ENV=test NODE_ENV=test SECRET_KEY_BASE=0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b
 before_install:
-  - gem install bundler -v '1.17.3'
+  - gem install bundler -v '1.17.3' --no-document
   - . $HOME/.nvm/nvm.sh
-  - nvm install 10.0.0
-  - nvm use 10.0.0
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.0
+  - nvm install 10.15.3
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
-  - "ruby --version && [ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.6.2p' ]"
+  - "ruby --version && [ \"$(ruby --version | cut -c1-11)\" == 'ruby 2.6.3p' ]"
   - "bundle --version && [ \"$(bundle --version)\" == 'Bundler version 1.17.3' ]"
-  - "node --version && [ \"$(node --version)\" == 'v10.0.0' ]"
-  - "yarn --version && [ \"$(yarn --version)\" == '1.12.0' ]"
+  - "node --version && [ \"$(node --version)\" == 'v10.15.3' ]"
+  - "yarn --version && [ \"$(yarn --version)\" == '1.15.2' ]"
   - yarn install
-  - bundle exec rails db:create
-  - bundle exec rails db:schema:load
-  - bundle exec rails spec:fixture_builder:rebuild
-  - bundle exec rails spec:rb
-  - bundle exec rails spec:js
+  - bin/rails spec:setup_js &
+  - bin/rails db:create
+  - bin/rails db:schema:load
+  - bin/rails spec:fixture_builder:rebuild
+  - bin/rails spec:rb
+  - bin/rails spec:poll_js
+  - bin/rails spec:run_js
 notifications:
   email:
     on_success: never
