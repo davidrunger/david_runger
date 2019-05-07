@@ -6,6 +6,8 @@ AllCops:
   TargetRubyVersion: 2.4
 Bundler/GemComment:
   Enabled: false
+Layout/AlignArguments:
+  EnforcedStyle: with_fixed_indentation
 Layout/ClassStructure:
   ExpectedOrder:
       - module_inclusion
