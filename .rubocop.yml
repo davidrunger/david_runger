@@ -66,7 +66,9 @@ Style/Lambda:
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - add_foreign_key
+    - add_column
     - add_index
+    - change_column_null
     - datetime
     - desc
     - describe
