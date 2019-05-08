@@ -5,6 +5,6 @@ class AddSlugToLogs < ActiveRecord::Migration[5.2]
     add_column :logs, :slug, :string
     populate_log_slugs
     change_column_null :logs, :slug, false
-    add_index :logs, :slug, unique: true
+    add_index :logs, %i[user_id slug], unique: true
   end
 end

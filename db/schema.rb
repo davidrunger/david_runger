@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 2019_05_07_145454) do
     t.datetime "updated_at", null: false
     t.string "description"
     t.string "slug", null: false
-    t.index ["slug"], name: "index_logs_on_slug", unique: true
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
+    t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
   end
 
   create_table "pghero_query_stats", force: :cascade do |t|

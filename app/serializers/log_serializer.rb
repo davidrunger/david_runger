@@ -12,18 +12,12 @@
 #
 # Indexes
 #
-#  index_logs_on_slug              (slug) UNIQUE
 #  index_logs_on_user_id_and_name  (user_id,name) UNIQUE
+#  index_logs_on_user_id_and_slug  (user_id,slug) UNIQUE
 #
 
 class LogSerializer < ActiveModel::Serializer
-  attributes :description, :id, :name
+  attributes :description, :id, :name, :slug
 
   has_many :log_inputs
-
-  private
-
-  def log
-    object
-  end
 end

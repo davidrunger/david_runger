@@ -31,6 +31,7 @@ import {
 import Vue from 'vue';
 import { Drag, Drop } from 'vue-drag-drop';
 import VueForm from 'vue-form';
+import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import whenDomReady from 'when-dom-ready';
 
@@ -65,6 +66,9 @@ Vue.config.errorHandler = (error, _vm, info) => {
 Vue.use(Vuex);
 
 Vue.use(VueForm);
+if (!process || (process.env.NODE_ENV !== 'test')) {
+  Vue.use(VueRouter);
+}
 
 Vue.use(Button);
 Vue.use(Card);

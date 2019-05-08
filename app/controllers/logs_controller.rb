@@ -5,7 +5,7 @@ class LogsController < ApplicationController
     bootstrap(
       current_user: UserSerializer.new(current_user),
       logs: ActiveModel::Serializer::CollectionSerializer.new(
-        current_user.logs.includes(:log_inputs),
+        current_user.logs.order(:created_at).includes(:log_inputs),
       ),
       log_input_types: log_input_types,
     )

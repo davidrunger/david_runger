@@ -3,16 +3,7 @@ div
   .center.mb1
     .h5.gray.pt1 {{bootstrap.current_user.email}}
     log-selector
-    log(
-      v-if='selectedLog'
-      :key='selectedLog.id'
-      :log='selectedLog'
-    )
-    section(v-if='!selectedLog')
-      hr.silver.mt2.mb3.mx3
-      ul
-        li.m1.h2(v-for='log in logs')
-          a.js-link(@click="$store.dispatch('selectLog', { logName: log.name })") {{log.name}}
+    router-view.mt3.mx3
     hr.silver.m3
     el-collapse(v-model='expandedPanelNames')
       el-collapse-item(title = 'Create new log' name='new-log-form')
@@ -23,12 +14,10 @@ div
 import { mapGetters, mapState } from 'vuex';
 
 import NewLogForm from './components/new_log_form.vue';
-import Log from './components/log.vue';
 import LogSelector from './components/log_selector.vue';
 
 export default {
   components: {
-    Log,
     LogSelector,
     NewLogForm,
   },
@@ -45,13 +34,19 @@ export default {
   },
 
   created() {
+    // If we are viewing a specific log, we want to ensure that the log entries for that log are
+    // fetched first, so delay 10ms.
+    // Otherwise (i.e. if viewing index), fetch all entries immediately.
+    const delayBeforeFetchingAllLogs = this.selectedLog ? 10 : 0;
+    setTimeout(() => {
+      this.$store.dispatch('fetchAllLogEntries');
+    }, delayBeforeFetchingAllLogs);
+
     document.addEventListener('keydown', (event) => {
       if ((event.key === 'k') && (event.metaKey == true)) {
         this.$store.commit('showModal', { modalName: 'log-selector' });
       }
     })
-
-    this.$store.dispatch('fetchAllLogEntries');
   },
 
   data() {

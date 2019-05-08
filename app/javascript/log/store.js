@@ -11,10 +11,6 @@ const mutations = {
     log.log_entries.push(logEntry);
   },
 
-  selectLog(state, { logName }) {
-    state.selectedLogName = logName;
-  },
-
   setLogEntries(state, { log, logEntries }) {
     Vue.set(log, 'log_entries', logEntries);
   },
@@ -64,11 +60,6 @@ const actions = {
         );
       });
   },
-
-  selectLog({ commit }, { logName }) {
-    commit('selectLog', { logName });
-    commit('hideModal', { modalName: 'log-selector' });
-  },
 };
 
 const getters = {
@@ -80,8 +71,15 @@ const getters = {
     };
   },
 
+  logByName(state) {
+    return ({ logName }) => {
+      return state.logs.find(log => log.name === logName);
+    };
+  },
+
   selectedLog(state) {
-    return state.logs.find(log => log.name === state.selectedLogName);
+    const slug = state.route.params.slug;
+    return state.logs.find(log => log.slug === slug);
   },
 };
 

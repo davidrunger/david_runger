@@ -12,8 +12,8 @@
 #
 # Indexes
 #
-#  index_logs_on_slug              (slug) UNIQUE
 #  index_logs_on_user_id_and_name  (user_id,name) UNIQUE
+#  index_logs_on_user_id_and_slug  (user_id,slug) UNIQUE
 #
 
 class Log < ApplicationRecord
