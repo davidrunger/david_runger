@@ -4,7 +4,7 @@
 #
 #  created_at       :datetime         not null
 #  email            :string           not null
-#  id               :bigint(8)        not null, primary key
+#  id               :bigint           not null, primary key
 #  last_activity_at :datetime
 #  phone            :string
 #  sms_allowance    :float            default(1.0), not null
