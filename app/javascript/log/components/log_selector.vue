@@ -17,11 +17,17 @@ Modal(name='log-selector' width='85%', maxWidth='400px')
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import FuzzySet from 'fuzzyset.js';
+
+const ALL_LOGS = 'All logs';
 
 export default {
   computed: {
+    ...mapGetters([
+      'logByName',
+    ]),
+
     ...mapState([
       'logs',
     ]),
@@ -32,7 +38,7 @@ export default {
 
     orderedMatches() {
       if (!this.searchString) {
-        return this.logNames;
+        return [ALL_LOGS].concat(this.logNames);
       }
 
       const matches = this.fuzzySet.get(this.searchString, '', 0) || [];
@@ -72,14 +78,22 @@ export default {
     },
 
     selectHighlightedLog() {
-      const highlightedLogNate = this.orderedMatches[this.highlightedLogIndex];
-      if (highlightedLogNate) {
-        this.selectLog(highlightedLogNate);
+      const highlightedLogName = this.orderedMatches[this.highlightedLogIndex];
+      if (highlightedLogName) {
+        this.selectLog(highlightedLogName);
       }
     },
 
     selectLog(logName) {
-      this.$store.dispatch('selectLog', { logName });
+      if (logName === ALL_LOGS) {
+        this.$router.push({ name: 'logs-index' });
+      } else {
+        const log = this.logByName({ logName });
+        if (log) {
+          this.$router.push({ name: 'log', params: { slug: log.slug }});
+        }
+      }
+      this.$store.commit('hideModal', { modalName: 'log-selector' });
       this.highlightedLogIndex = 0;
       this.searchString = '';
     },

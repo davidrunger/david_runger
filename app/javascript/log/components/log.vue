@@ -16,7 +16,7 @@ div
 </template>
 
 <script>
-import PropTypes from '@znck/prop-types';
+import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
 import DurationTimeseries from './data_renderers/duration_timeseries.vue'
@@ -55,10 +55,14 @@ export default {
     NewLogEntryForm,
   },
 
+  computed: {
+    ...mapGetters({
+      log: 'selectedLog',
+    }),
+  },
+
   created() {
-    if (!this.log.log_entries) {
-      this.$store.dispatch('fetchLogEntries', { logId: this.log.id });
-    }
+    this.ensureLogEntriesHaveBeenFetched();
   },
 
   methods: {
@@ -73,16 +77,18 @@ export default {
           then(() => window.location.reload());
       }
     },
+
+    ensureLogEntriesHaveBeenFetched() {
+      if (!this.log.log_entries) {
+        this.$store.dispatch('fetchLogEntries', { logId: this.log.id });
+      }
+    },
   },
 
-  props: {
-    log: PropTypes.shape({
-      log_entries: PropTypes.array, // not required because we want to be able to lazy-load
-      id: PropTypes.number.isRequired,
-      log_inputs: PropTypes.array.isRequired,
-      description: PropTypes.string,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
+  watch: {
+    log() {
+      this.ensureLogEntriesHaveBeenFetched();
+    },
   },
 };
 </script>

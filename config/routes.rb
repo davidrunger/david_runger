@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'groceries', to: 'groceries#show'
 
   get 'logs', to: 'logs#index'
+  get 'logs/:slug', to: 'logs#index' # routing to specific log will be done by Vue Router
 
   resources :users, only: %i[edit update]
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_27_223736) do
+ActiveRecord::Schema.define(version: 2019_05_07_145454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -49,7 +49,9 @@ ActiveRecord::Schema.define(version: 2019_04_27_223736) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
+    t.string "slug", null: false
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
+    t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
   end
 
   create_table "pghero_query_stats", force: :cascade do |t|

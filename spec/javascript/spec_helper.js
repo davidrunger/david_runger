@@ -1,7 +1,4 @@
-import Vue from 'shared/customized_vue';
 import _ from 'lodash';
-
-window.Vue = Vue;
 
 global.expect = require('expect'); // eslint-disable-line import/no-extraneous-dependencies
 global._ = require('lodash');

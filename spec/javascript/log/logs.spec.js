@@ -1,8 +1,13 @@
-import 'spec_helper';
-import { mount, createLocalVue } from '@vue/test-utils';
+import { mount, createLocalVue, RouterLinkStub } from '@vue/test-utils';
 import Vuex from 'vuex';
+import { sync } from 'vuex-router-sync';
+import sinon from 'sinon';
+
+import 'spec_helper';
 import Logs from 'log/logs.vue';
+import LogsIndex from 'log/components/logs_index.vue';
 import { logVuexStoreFactory } from 'log/store';
+import router from 'log/router';
 import * as util from 'test_utils';
 
 const localVue = createLocalVue();
@@ -12,6 +17,7 @@ describe('Logs', function () { // eslint-disable-line func-names
   let bootstrap;
   let vuexStore;
   let wrapper;
+  let xhr;
 
   const userId = 1;
   const userEmail = 'davidjrunger@gmail.com';
@@ -19,7 +25,10 @@ describe('Logs', function () { // eslint-disable-line func-names
   const heightLogName = 'Height';
   const weightLogName = 'Weight';
 
-  beforeEach(() => {
+  beforeEach((done) => {
+    xhr = sinon.useFakeXMLHttpRequest();
+    setTimeout(done, 0); // it seems to take a moment for useFakeXMLHttpRequest to kick in...
+
     bootstrap = {
       current_user: {
         id: userId,
@@ -46,19 +55,32 @@ describe('Logs', function () { // eslint-disable-line func-names
       ],
     };
     vuexStore = logVuexStoreFactory(bootstrap);
+    sync(vuexStore, router);
     wrapper = mount(
       Logs,
       {
         localVue,
-        mocks: { bootstrap },
+        mocks: {
+          '$route': { path: '/logs' },
+          bootstrap,
+        },
+        router,
         store: vuexStore,
         stubs: {
+          'router-link': RouterLinkStub,
+          'router-view': {
+            render: h => h(LogsIndex),
+          },
           // Needed for some reason to render el-select/el-option in new_log_form.vue.
           // https://github.com/vuejs/vue-test-utils/issues/958#issuecomment-441421427
           transition: false,
         },
       },
     );
+  });
+
+  afterEach(() => {
+    xhr.restore();
   });
 
   it('is a Vue instance', () => {
@@ -71,7 +93,7 @@ describe('Logs', function () { // eslint-disable-line func-names
 
   it('links to each log', () => {
     [heightLogName, weightLogName].forEach(logName => {
-      expect(util.findAll(wrapper, `a.js-link:text(${logName})`)).toExist();
+      expect(util.findAll(wrapper, `a:text(${logName})`)).toExist();
     });
   });
 });

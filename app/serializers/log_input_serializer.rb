@@ -3,10 +3,10 @@
 # Table name: log_inputs
 #
 #  created_at :datetime         not null
-#  id         :bigint(8)        not null, primary key
+#  id         :bigint           not null, primary key
 #  index      :integer          default(0), not null
 #  label      :string           not null
-#  log_id     :bigint(8)        not null
+#  log_id     :bigint           not null
 #  type       :string           not null
 #  updated_at :datetime         not null
 #
