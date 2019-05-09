@@ -23,7 +23,7 @@
     "axios": "^0.18.0",
     "babel-loader": "^8.0.5",
     "babel-polyfill": "^6.23.0",
-    "basscss": "^8.0.4",
+    "basscss": "^8.1.0",
     "basscss-background-colors": "^2.1.0",
     "basscss-background-images": "^0.1.1",
     "basscss-border-colors": "^2.1.0",
