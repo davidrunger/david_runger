@@ -3,7 +3,7 @@ def backfill_requests_bot_column
     user_agent = request.user_agent
     puts "Updating request #{request.id}. user_agent: #{user_agent}"
     bot_request =
-      if user_agent =~ /bot=true/
+      if /bot=true/.match?(user_agent)
         true
       else
         false
