@@ -23,7 +23,8 @@ namespace :spec do
     run_logged_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
 
     # compile
-    run_logged_system_command("NODE_ENV=test #{Rails.root.join('bin', 'webpack')} > /dev/null")
+    bin_webpack_path = Rails.root.join('bin', 'webpack')
+    run_logged_system_command("NODE_ENV=test #{bin_webpack_path} > /dev/null")
   end
 
   desc 'Poll until JavaScript test server bootup is confirmed'
