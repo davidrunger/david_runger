@@ -34,6 +34,7 @@ class Request < ApplicationRecord
   validates :url, :handler, :method, :format, :ip, :requested_at, presence: true
 
   scope :recent, (lambda do |time_period = 1.day|
-    where('requests.requested_at > ?', Time.current - Integer(time_period)) # use #to_i bc of DST stuff
+    # convert time_period to integer to avoid DST issues
+    where('requests.requested_at > ?', Time.current - Integer(time_period))
   end)
 end
