@@ -41,7 +41,7 @@ namespace :spec do
         break
       end
 
-      if (poll_attempt == max_polls)
+      if poll_attempt == max_polls
         seconds_of_polling = (max_polls - 1) * sleep_interval
         abort(<<~ABORT_MSG.squish)
           Didn't get a 200 response
