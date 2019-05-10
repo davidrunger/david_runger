@@ -16,7 +16,7 @@ def backfill_requests_bot_column
     puts
   end
 
-  puts "Done."
+  puts 'Done.'
   puts "Total bot requests: #{Request.where(bot: true).count}"
   puts "Total non-bot requests: #{Request.where(bot: false).count}"
 end
