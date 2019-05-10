@@ -26,6 +26,7 @@ script:
   - yarn install
   - bin/rails spec:setup_js > /dev/null 2>&1 &
   - bundle exec rubocop `git ls-tree -r HEAD --name-only` --force-exclusion --format clang
+  - ./node_modules/.bin/stylelint app/**/*.{css,scss,vue} --max-warnings 0
   - bin/rails db:create
   - bin/rails db:schema:load
   - bin/rails spec:fixture_builder:rebuild

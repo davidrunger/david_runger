@@ -6,7 +6,6 @@ module.exports = {
         browsers: '> 1%',
       },
       forceAllTransforms: (process.env.NODE_ENV === 'production'),
-      useBuiltIns: 'entry'
     }]
   ],
 
