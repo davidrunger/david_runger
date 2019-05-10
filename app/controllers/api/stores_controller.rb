@@ -6,7 +6,7 @@ class Api::StoresController < ApplicationController
       render json: @store
     else
       StatsD.increment('stores.create.failure')
-      render json: {errors: @store.errors.to_h}, status: 422
+      render json: {errors: @store.errors.to_h}, status: :unprocessable_entity
     end
   end
 
@@ -15,7 +15,7 @@ class Api::StoresController < ApplicationController
     if @store.update(store_params)
       render json: @store
     else
-      render json: {errors: @store.errors.to_h}, status: 422
+      render json: {errors: @store.errors.to_h}, status: :unprocessable_entity
     end
   end
 
