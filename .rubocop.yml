@@ -2,7 +2,9 @@ require: rubocop-performance
 AllCops:
   EnabledByDefault: true
   Exclude:
-    - 'db/schema.rb'
+    - !ruby/regexp /\/db\/migrate/201[1-8].*\.rb\z/
+    - db/schema.rb
+    - lib/tasks/auto_annotate_models.rake
   TargetRubyVersion: 2.4
 Bundler/GemComment:
   Enabled: false
@@ -38,9 +40,13 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 100
 Metrics/MethodLength:
-  Max: 20
+  Max: 30
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
 Rails:
   Enabled: true
+Rails/Output:
+  Enabled: false
 Style/BlockDelimiters:
   Enabled: false
 Style/ClassAndModuleChildren:
@@ -59,6 +65,8 @@ Style/GlobalVars:
   Enabled: false
 Style/GuardClause:
   Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/InlineComment:
   Enabled: false
 Style/Lambda:
@@ -69,6 +77,7 @@ Style/MethodCallWithArgsParentheses:
     - add_column
     - add_index
     - change_column_null
+    - create_table
     - datetime
     - desc
     - describe
@@ -81,23 +90,30 @@ Style/MethodCallWithArgsParentheses:
     - include
     - integer
     - jsonb
+    - load
     - not_to
     - p
     - print
     - puts
     - references
+    - remove_column
     - render
     - require
     - require_relative
     - ruby
+    - run
     - string
     - source
+    - text
+    - timestamp
     - to
 Style/MissingElse:
   Enabled: false
 Style/NegatedIf:
   Enabled: false
 Style/NumericPredicate:
+  Enabled: false
+Style/RescueModifier:
   Enabled: false
 Style/RescueStandardError:
   Enabled: false
@@ -106,6 +122,10 @@ Style/ReturnNil:
 Style/Semicolon:
   Enabled: false
 Style/SignalException:
+  Enabled: false
+Style/StderrPuts:
+  Enabled: false
+Style/StringHashKeys:
   Enabled: false
 Style/TernaryParentheses:
   Enabled: false
