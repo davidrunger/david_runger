@@ -5,7 +5,7 @@ require 'factory_bot_rails'
 require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require Rails.root.join('spec', 'support', 'fixture_builder.rb').to_s
 Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 # Prevent database truncation if the environment is production
