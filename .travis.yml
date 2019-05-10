@@ -24,7 +24,8 @@ script:
   - "node --version && [ \"$(node --version)\" == 'v10.15.3' ]"
   - "yarn --version && [ \"$(yarn --version)\" == '1.15.2' ]"
   - yarn install
-  - bin/rails spec:setup_js &
+  - bin/rails spec:setup_js > /dev/null 2>&1 &
+  - bundle exec rubocop `git ls-tree -r HEAD --name-only` --force-exclusion --format clang
   - bin/rails db:create
   - bin/rails db:schema:load
   - bin/rails spec:fixture_builder:rebuild
