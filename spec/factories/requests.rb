@@ -36,7 +36,7 @@ FactoryBot.define do
     url { 'http://davidrunger.com' }
     handler { 'home#index' }
     referer { nil }
-    params { Hash.new }
+    params { {} }
     add_attribute(:method) { 'GET' }
     format { 'html' }
     status { 200 }
