@@ -3,7 +3,7 @@ module BlankParamsAsNil
     def blank_params_as_nil(params)
       params.each do |param|
         value = self[param]
-        if value && value.blank?
+        if value&.blank?
           self[param] = nil
         end
       end

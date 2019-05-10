@@ -1,0 +1,6 @@
+inherit_from:
+  - ../.rubocop.yml
+Style/IpAddresses:
+  Enabled: false
+Style/Send:
+  Enabled: false

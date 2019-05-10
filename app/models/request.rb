@@ -33,7 +33,10 @@ class Request < ApplicationRecord
 
   validates :url, :handler, :method, :format, :ip, :requested_at, presence: true
 
-  scope :recent, (lambda do |time_period = 1.day|
-    where('requests.requested_at > ?', Time.current - time_period.to_i) # use #to_i bc of DST stuff
-  end)
+  # rubocop:disable Layout/MultilineMethodArgumentLineBreaks
+  scope :recent, ->(time_period = 1.day) {
+    # convert time_period to integer to avoid DST issues
+    where('requests.requested_at > ?', Time.current - Integer(time_period))
+  }
+  # rubocop:enable Layout/MultilineMethodArgumentLineBreaks
 end

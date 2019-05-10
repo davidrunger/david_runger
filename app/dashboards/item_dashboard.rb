@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ItemDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -21,31 +21,31 @@ class ItemDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :store,
-    :id,
-    :name,
-    :needed,
+  COLLECTION_ATTRIBUTES = %i[
+    store
+    id
+    name
+    needed
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :store,
-    :id,
-    :name,
-    :needed,
-    :created_at,
-    :updated_at,
+  SHOW_PAGE_ATTRIBUTES = %i[
+    store
+    id
+    name
+    needed
+    created_at
+    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :store,
-    :name,
-    :needed,
+  FORM_ATTRIBUTES = %i[
+    store
+    name
+    needed
   ].freeze
 
   # Overwrite this method to customize how items are displayed

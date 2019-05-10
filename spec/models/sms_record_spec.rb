@@ -69,7 +69,7 @@ RSpec.describe SmsRecord do
 
       it 'maps the Nexmo json to attributes of the SmsRecord model' do
         expect(nexmo_message_hash_to_attributes).to eq(
-          cost: message_hash['message-price'].to_f,
+          cost: Float(message_hash['message-price']),
           error: nil,
           nexmo_id: message_hash['message-id'],
           status: message_hash['status'],

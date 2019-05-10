@@ -16,7 +16,6 @@ module DavidRunger::TruncateTables
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def self.truncate(table:, timestamp:)
     num_rows =
       ApplicationRecord.connection.execute("SELECT count(*) FROM #{table}").to_a.first['count']
@@ -43,7 +42,6 @@ module DavidRunger::TruncateTables
     puts "Rows in `#{table}` after truncation: #{num_rows}"
     puts
   end
-  # rubocop:enable Metrics/MethodLength
 end
 
 namespace :db do

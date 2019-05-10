@@ -6,7 +6,9 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
+  # rubocop:disable Metrics/LineLength
   # config.secret_key = 'c6c04e70cbae96857368f659652a3a191466b9848f20923b5b8e65ac9c5eebd45b2d5e646cc071dd9ae87ad17e156117538c214cfdc272e837cbc5afffa799af'
+  # rubocop:enable Metrics/LineLength
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -108,7 +110,9 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
+  # rubocop:disable Metrics/LineLength
   # config.pepper = 'ea809e8704a59a18f9eb88acb2ee49b4d84731671eded028d00d17b13ca7088f08013c5626674f9093b5f6b538523425bd8fb6758ae89578829d0215d7fad6f0'
+  # rubocop:enable Metrics/LineLength
 
   # Send a notification to the original email when the user's email is changed.
   config.send_email_changed_notification = true
@@ -250,7 +254,12 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET'], scope: 'email'
+  config.omniauth(
+    :google_oauth2,
+    ENV['GOOGLE_OAUTH_CLIENT_ID'],
+    ENV['GOOGLE_OAUTH_CLIENT_SECRET'],
+    scope: 'email',
+  )
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

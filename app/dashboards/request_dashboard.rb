@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class RequestDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -31,55 +31,55 @@ class RequestDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :id,
-    :user,
-    :handler,
-    :requested_at,
-    :location,
-    :isp,
-    :user_agent,
-    :ip,
+  COLLECTION_ATTRIBUTES = %i[
+    id
+    user
+    handler
+    requested_at
+    location
+    isp
+    user_agent
+    ip
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :user,
-    :id,
-    :url,
-    :handler,
-    :referer,
-    :params,
-    :method,
-    :format,
-    :status,
-    :view,
-    :db,
-    :ip,
-    :isp,
-    :user_agent,
-    :requested_at,
-    :location,
+  SHOW_PAGE_ATTRIBUTES = %i[
+    user
+    id
+    url
+    handler
+    referer
+    params
+    method
+    format
+    status
+    view
+    db
+    ip
+    isp
+    user_agent
+    requested_at
+    location
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :user,
-    :url,
-    :handler,
-    :referer,
-    :params,
-    :method,
-    :format,
-    :status,
-    :view,
-    :db,
-    :ip,
-    :user_agent,
-    :requested_at,
+  FORM_ATTRIBUTES = %i[
+    user
+    url
+    handler
+    referer
+    params
+    method
+    format
+    status
+    view
+    db
+    ip
+    user_agent
+    requested_at
   ].freeze
 
   # Overwrite this method to customize how requests are displayed

@@ -34,6 +34,6 @@ class Log < ApplicationRecord
   before_save :set_slug, if: -> { name_changed? }
 
   def set_slug
-    self.slug = name.downcase.gsub(/\s+|\.+|\\|\//, '-').gsub(/[^[:alnum:]\-_]/, '')
+    self.slug = name.downcase.gsub(%r{\s+|\.+|\\|/}, '-').gsub(/[^[:alnum:]\-_]/, '')
   end
 end
