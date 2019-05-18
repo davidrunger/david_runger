@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const { runner } = require('mocha-headless-chrome');
 
 runner({ file: 'http://localhost:8080/packs-test/mocha_runner.html' }).
