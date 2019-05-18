@@ -10,8 +10,6 @@ module.exports = {
     'eslint:recommended',
   ],
   globals: {
-    expect: false,
-    _: false,
     Routes: false,
   },
   overrides: [
