@@ -33,7 +33,7 @@ script:
   - bin/rails spec:rb
   - bin/rails spec:poll_js
   - bin/rails spec:run_js
-  - ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/
+  - ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/ spec/javascript/
 notifications:
   email:
     on_success: never

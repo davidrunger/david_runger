@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import _ from 'lodash';
 
 import * as ModalVuex from 'shared/modal_store';
 
@@ -9,6 +10,10 @@ const mutations = {
 
   addLogEntry(_state, { log, logEntry }) {
     log.log_entries.push(logEntry);
+  },
+
+  deleteLogEntry(_state, { log, logEntry: logEntryToDelete }) {
+    log.log_entries = log.log_entries.filter(logEntry => logEntry !== logEntryToDelete);
   },
 
   setLogEntries(state, { log, logEntries }) {
@@ -29,6 +34,13 @@ const actions = {
       const log = getters.logById({ logId });
       commit('addLogEntry', { log, logEntry: data });
     });
+  },
+
+  deleteLastLogEntry({ commit }, { log }) {
+    const lastLogEntry = _(log.log_entries).sortBy('created_at').last();
+    axios.
+      delete(Routes.api_log_entry_path({ id: lastLogEntry.id })).
+      then(() => { commit('deleteLogEntry', { log, logEntry: lastLogEntry }); });
   },
 
   fetchAllLogEntries({ commit, getters }) {

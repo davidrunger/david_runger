@@ -69,5 +69,31 @@ describe('Log', function () { // eslint-disable-line func-names
 
       confirmMock.verify();
     });
+
+    describe('when the user confirms that they want to delete the log entry', () => {
+      let dispatchMock;
+
+      beforeEach(() => {
+        confirmMock = confirmMock.returns(true);
+        dispatchMock =
+          sinon.mock(wrapper.vm.$store).
+            expects('dispatch').
+            withExactArgs(
+              'deleteLastLogEntry',
+              { log: wrapper.vm.log },
+            );
+      });
+
+      afterEach(() => {
+        wrapper.vm.$store.dispatch.restore();
+      });
+
+      it('dispatches a deleteLastLogEntry action', () => {
+        wrapper.vm.destroyLastEntry();
+
+        confirmMock.verify();
+        dispatchMock.verify();
+      });
+    });
   });
 });
