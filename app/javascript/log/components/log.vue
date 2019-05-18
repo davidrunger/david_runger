@@ -86,7 +86,7 @@ export default {
   },
 
   watch: {
-    log() {
+    $route() {
       this.ensureLogEntriesHaveBeenFetched();
     },
   },

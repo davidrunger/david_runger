@@ -29,6 +29,12 @@ export default {
   },
 
   methods: {
+    focusLogEntryInput() {
+      setTimeout(() => {
+        this.$refs['log-input'][0].focus();
+      });
+    },
+
     postNewLogEntry() {
       if (this.formstate.$invalid) return;
 
@@ -44,9 +50,7 @@ export default {
   },
 
   mounted() {
-    setTimeout(() => {
-      this.$refs['log-input'][0].focus();
-    });
+    this.focusLogEntryInput();
   },
 
   props: {
@@ -57,6 +61,12 @@ export default {
     log_inputs: {
       type: Array,
       required: true,
+    },
+  },
+
+  watch: {
+    $route() {
+      this.focusLogEntryInput();
     },
   },
 };
