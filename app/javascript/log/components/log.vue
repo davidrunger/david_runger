@@ -17,7 +17,6 @@ div
 
 <script>
 import { mapGetters } from 'vuex';
-import _ from 'lodash';
 
 import DurationTimeseries from './data_renderers/duration_timeseries.vue'
 import IntegerTimeseries from './data_renderers/integer_timeseries.vue'
@@ -70,11 +69,9 @@ export default {
       var confirmation = confirm(
         `Are you sure that you want to delete the last entry from the ${this.log.name} log?`
       );
+
       if (confirmation === true) {
-        const logEntryToDestroy = _(this.log_entries).sortBy('created_at').last();
-        this.$http.
-          delete(this.$routes.api_log_entry_path({ id: logEntryToDestroy.id })).
-          then(() => window.location.reload());
+        this.$store.dispatch('deleteLastLogEntry', { log: this.log });
       }
     },
 
