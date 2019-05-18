@@ -1,0 +1,73 @@
+import { mount, createLocalVue } from '@vue/test-utils';
+import Vuex from 'vuex';
+import { sync } from 'vuex-router-sync';
+import sinon from 'sinon';
+
+import 'spec_helper';
+import Log from 'log/components/log.vue';
+import { logVuexStoreFactory } from 'log/store';
+import router from 'log/router';
+
+const localVue = createLocalVue();
+localVue.use(Vuex);
+
+describe('Log', function () { // eslint-disable-line func-names
+  let bootstrap;
+  let vuexStore;
+  let wrapper;
+
+  const weightLogName = 'Weight';
+
+  beforeEach(() => {
+    bootstrap = {
+      logs: [
+        {
+          id: 1,
+          log_entries: [],
+          log_inputs: [{ label: 'Weight (in lbs)', public_type: 'integer' }],
+          name: weightLogName,
+        },
+      ],
+    };
+    vuexStore = logVuexStoreFactory(bootstrap);
+    sync(vuexStore, router);
+    wrapper = mount(
+      Log,
+      {
+        localVue,
+        mocks: {
+          bootstrap,
+        },
+        router,
+        store: vuexStore,
+      },
+    );
+  });
+
+  it('is a Vue instance', () => {
+    expect(wrapper.isVueInstance()).toBeTruthy();
+  });
+
+  describe('#destroyLastEntry', () => {
+    let confirmMock;
+
+    beforeEach(() => {
+      confirmMock = sinon.mock(window).expects('confirm')
+    });
+
+    afterEach(() => {
+      window.confirm.restore();
+    });
+
+    it('shows a confirmation message that mentions the log name', () => {
+      confirmMock =
+        confirmMock.withExactArgs(
+          sinon.match(new RegExp(`delete the last entry from the ${weightLogName} log?`)),
+        );
+
+      wrapper.vm.destroyLastEntry();
+
+      confirmMock.verify();
+    });
+  });
+});
