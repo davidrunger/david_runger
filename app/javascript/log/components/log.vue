@@ -68,7 +68,7 @@ export default {
   methods: {
     destroyLastEntry() {
       var confirmation = confirm(
-        `Are you sure that you want to delete the last entry from the ${this.name} log?`
+        `Are you sure that you want to delete the last entry from the ${this.log.name} log?`
       );
       if (confirmation === true) {
         const logEntryToDestroy = _(this.log_entries).sortBy('created_at').last();
