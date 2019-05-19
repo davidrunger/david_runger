@@ -68,12 +68,18 @@ export default {
     decrementHighlightedLogIndex() {
       if (this.highlightedLogIndex > 0) {
         this.highlightedLogIndex--;
+      } else {
+        // wrap around from the top of the list to the bottom
+        this.highlightedLogIndex = this.orderedMatches.length - 1;
       }
     },
 
     incrementHighlightedLogIndex() {
-      if (this.highlightedLogIndex < this.orderedMatches.length) {
+      if (this.highlightedLogIndex < this.orderedMatches.length - 1) {
         this.highlightedLogIndex++;
+      } else {
+        // wrap back around to the top of the list
+        this.highlightedLogIndex = 0;
       }
     },
 
