@@ -40,15 +40,6 @@ class Log < ApplicationRecord
 
   belongs_to :user
 
-  has_many :log_entries,
-    dependent: :destroy,
-    inverse_of: :log
-  has_many :log_entries_ordered,
-    -> { order(:created_at) },
-    class_name: 'LogEntry',
-    dependent: :destroy,
-    inverse_of: :log
-
   has_many :number_log_entries,
     class_name: 'LogEntries::NumberLogEntry',
     dependent: :destroy,
@@ -76,19 +67,11 @@ class Log < ApplicationRecord
   before_save :set_slug, if: -> { name_changed? }
 
   def log_entries
-    if respond_to?(:data_type)
-      public_send(DATA_TYPES[data_type][:association])
-    else
-      super
-    end
+    public_send(DATA_TYPES[data_type][:association])
   end
 
   def log_entries_ordered
-    if respond_to?(:data_type)
-      public_send(DATA_TYPES[data_type][:ordered_association])
-    else
-      super
-    end
+    public_send(DATA_TYPES[data_type][:ordered_association])
   end
 
   def set_slug
