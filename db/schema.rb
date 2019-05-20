@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_07_145454) do
+ActiveRecord::Schema.define(version: 2019_05_19_214027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -25,24 +25,6 @@ ActiveRecord::Schema.define(version: 2019_05_07_145454) do
     t.index ["store_id"], name: "index_items_on_store_id"
   end
 
-  create_table "log_entries", force: :cascade do |t|
-    t.bigint "log_id", null: false
-    t.jsonb "data", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["log_id"], name: "index_log_entries_on_log_id"
-  end
-
-  create_table "log_inputs", force: :cascade do |t|
-    t.bigint "log_id", null: false
-    t.string "type", null: false
-    t.string "label", null: false
-    t.integer "index", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["log_id", "index"], name: "index_log_inputs_on_log_id_and_index", unique: true
-  end
-
   create_table "logs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -50,8 +32,18 @@ ActiveRecord::Schema.define(version: 2019_05_07_145454) do
     t.datetime "updated_at", null: false
     t.string "description"
     t.string "slug", null: false
+    t.string "data_label", null: false
+    t.string "data_type", null: false
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
     t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
+  end
+
+  create_table "number_log_entries", force: :cascade do |t|
+    t.bigint "log_id", null: false
+    t.float "data", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["log_id"], name: "index_number_log_entries_on_log_id"
   end
 
   create_table "pghero_query_stats", force: :cascade do |t|
@@ -115,6 +107,14 @@ ActiveRecord::Schema.define(version: 2019_05_07_145454) do
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
+  create_table "text_log_entries", force: :cascade do |t|
+    t.bigint "log_id", null: false
+    t.text "data", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["log_id"], name: "index_text_log_entries_on_log_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.datetime "created_at", null: false
@@ -126,10 +126,10 @@ ActiveRecord::Schema.define(version: 2019_05_07_145454) do
   end
 
   add_foreign_key "items", "stores"
-  add_foreign_key "log_entries", "logs"
-  add_foreign_key "log_inputs", "logs"
   add_foreign_key "logs", "users"
+  add_foreign_key "number_log_entries", "logs"
   add_foreign_key "requests", "users"
   add_foreign_key "sms_records", "users"
   add_foreign_key "stores", "users"
+  add_foreign_key "text_log_entries", "logs"
 end

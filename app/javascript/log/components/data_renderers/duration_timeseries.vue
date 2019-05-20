@@ -54,7 +54,7 @@ export default {
     logEntriesToChartData() {
       return this.log_entries.map(logEntry => ({
         t: logEntry.created_at,
-        y: new Date(`1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data[this.data_label])}Z`),
+        y: new Date(`1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data)}Z`),
       }))
     },
   },

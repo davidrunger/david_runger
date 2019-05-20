@@ -26,7 +26,7 @@ export default {
     formattedLogEntries() {
       return this.log_entries.map(logEntry => ({
         createdAt: strftime('%b %-d %-l:%M%P', new Date(logEntry.created_at)),
-        text: logEntry.data[this.data_label],
+        text: logEntry.data,
       }))
     },
   },

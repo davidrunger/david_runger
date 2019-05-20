@@ -6,11 +6,12 @@ div
     Loading...
   log-data-display(
     v-else-if='log.log_entries.length'
-    :log_inputs='log.log_inputs'
+    :data_label='log.data_label'
+    :data_type='log.data_type'
     :log_entries='log.log_entries'
   )
   div.mb2(v-else) There are no log entries for this log.
-  new-log-entry-form(:log_id='log.id' :log_inputs='log.log_inputs')
+  new-log-entry-form(:log='log')
   .mt1
     el-button(@click='destroyLastEntry') Delete last entry
 </template>
@@ -25,26 +26,21 @@ import NewLogEntryForm from './new_log_entry_form.vue'
 
 const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
   duration: DurationTimeseries,
-  integer: IntegerTimeseries,
+  number: IntegerTimeseries,
   text: TextLog,
 };
 
 const LogDataDisplay = {
   functional: true,
   render (h, context) {
-    if (context.props.log_inputs.length === 1) {
-      const logInput = context.props.log_inputs[0];
-      const publicType = logInput.public_type;
-      const dataLabel = logInput.label;
-      const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[publicType];
+    const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[context.props.data_type];
 
-      return h(DataRenderer, {
-        props: {
-          log_entries: context.props.log_entries,
-          data_label: dataLabel,
-        },
-      });
-    }
+    return h(DataRenderer, {
+      props: {
+        log_entries: context.props.log_entries,
+        data_label: context.props.data_label,
+      },
+    });
   },
 }
 

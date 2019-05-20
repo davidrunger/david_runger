@@ -76,6 +76,7 @@ Style/MethodCallWithArgsParentheses:
     - add_foreign_key
     - add_column
     - add_index
+    - change
     - change_column_null
     - create_table
     - datetime

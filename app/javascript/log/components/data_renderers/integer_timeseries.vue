@@ -29,7 +29,7 @@ export default {
     logEntriesToChartData() {
       return this.log_entries.map(logEntry => ({
         t: logEntry.created_at,
-        y: logEntry.data[this.data_label],
+        y: logEntry.data,
       }))
     },
   },
