@@ -13,7 +13,7 @@ RSpec.describe Api::LogsController do
 
         expect(Rails.logger).
           to have_received(:info).
-          with(/Failed to create log. errors={:name=>"can't be blank"} log={.*"name"=>"".*}/)
+          with(/Failed to create log. errors={.*:name=>"can't be blank".*} log={.*"name"=>"".*}/)
       end
 
       it 'returns a 422 status code' do

@@ -3,6 +3,8 @@
 # Table name: logs
 #
 #  created_at  :datetime         not null
+#  data_label  :string           not null
+#  data_type   :string           not null
 #  description :string
 #  id          :bigint           not null, primary key
 #  name        :string           not null
@@ -17,7 +19,5 @@
 #
 
 class LogSerializer < ActiveModel::Serializer
-  attributes :description, :id, :name, :slug
-
-  has_many :log_inputs
+  attributes :data_label, :data_type, :description, :id, :name, :slug
 end

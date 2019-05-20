@@ -39,7 +39,11 @@ const actions = {
   deleteLastLogEntry({ commit }, { log }) {
     const lastLogEntry = _(log.log_entries).sortBy('created_at').last();
     axios.
-      delete(Routes.api_log_entry_path({ id: lastLogEntry.id })).
+      delete(Routes.api_log_entry_path({
+        id: lastLogEntry.id,
+        log_id: log.id,
+        _options: {}, // providing `_options` seems to be necessary to put query params in the path
+      })).
       then(() => { commit('deleteLogEntry', { log, logEntry: lastLogEntry }); });
   },
 

@@ -7,37 +7,34 @@ div
         validate.mb1
           el-input(
             placeholder='Name'
-            v-model='newLogName'
-            name='newLogName'
+            v-model='newLog.name'
+            name='newLog.name'
             required
           )
         el-input.mb1(
           type='textarea'
           placeholder='Details/Description'
-          v-model='newLogDescription'
-          name='newLogDescription'
+          v-model='newLog.description'
+          name='newLog.description'
         )
-        validate.mb1(
-          v-for='(logInput, index) in newLogInputs'
-          :key='index'
-        )
+        validate.mb1
           el-input.mb1(
             placeholder='Label'
-            v-model='logInput.label'
-            name='logInput.log_input_id'
+            v-model='newLog.data_label'
+            name='newLog.data_label'
             required
           )
           el-select(
             placeholder='Type'
-            v-model='logInput.public_type'
-            name='logInput.public_type'
+            v-model='newLog.data_type'
+            name='newLog.data_type'
             required
           )
             el-option(
-              v-for='inputType in bootstrap.log_input_types'
-              :key='inputType.public_type'
-              :label='inputType.label'
-              :value='inputType.public_type'
+              v-for='dataType in bootstrap.log_input_types'
+              :key='dataType.data_type'
+              :label='dataType.label'
+              :value='dataType.data_type'
             )
         el-input(
           type='submit'
@@ -51,9 +48,12 @@ export default {
   data() {
     return {
       formstate: {},
-      newLogDescription: '',
-      newLogName: '',
-      newLogInputs: [{}],
+      newLog: {
+        data_label: '',
+        data_type: '',
+        description: '',
+        name: '',
+      },
       postingLog: false,
     };
   },
@@ -64,18 +64,8 @@ export default {
 
       this.postingLog = true;
 
-      const payload = {
-        log: {
-          description: this.newLogDescription,
-          name: this.newLogName,
-          log_inputs_attributes: this.newLogInputs.map((input, i) => {
-            input.index = i;
-            return input;
-          }),
-        },
-      };
-      this.$http.post(this.$routes.api_logs_path(), payload).then(() => {
-        this.newLogName = '';
+      this.$http.post(this.$routes.api_logs_path(), { log: this.newLog }).then(() => {
+        this.newLog = {};
         this.postingLog = false;
         window.location.reload();
       });

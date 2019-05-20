@@ -1,14 +1,11 @@
 <template lang='pug'>
 div
   vue-form.px1(@submit.prevent='postNewLogEntry' :state='formstate')
-    validate.mb1(
-      v-for='log_input in log_inputs'
-      :key='log_input.label'
-    )
+    validate.mb1
       el-input(
-        :placeholder='log_input.label'
-        v-model='newLogEntryData[log_input.label]'
-        name='log_input.label'
+        :placeholder='log.data_label'
+        v-model='newLogEntryData'
+        name='log.data_label'
         required
         ref='log-input'
       )
@@ -24,14 +21,14 @@ export default {
   data() {
     return {
       formstate: {},
-      newLogEntryData: {},
+      newLogEntryData: null,
     };
   },
 
   methods: {
     focusLogEntryInput() {
       setTimeout(() => {
-        this.$refs['log-input'][0].focus();
+        this.$refs['log-input'].focus();
       });
     },
 
@@ -41,11 +38,11 @@ export default {
       this.$store.dispatch(
         'addLogEntry',
         {
-          logId: this.log_id,
+          logId: this.log.id,
           newLogEntryData: this.newLogEntryData,
         },
       );
-      this.newLogEntryData = {};
+      this.newLogEntryData = null;
     },
   },
 
@@ -54,12 +51,8 @@ export default {
   },
 
   props: {
-    log_id: {
-      type: Number,
-      required: true,
-    },
-    log_inputs: {
-      type: Array,
+    log: {
+      type: Object,
       required: true,
     },
   },

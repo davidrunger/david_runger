@@ -15,9 +15,10 @@ class Api::LogsController < ApplicationController
 
   def log_params
     params.require(:log).permit(
-      :name,
+      :data_label,
+      :data_type,
       :description,
-      log_inputs_attributes: %i[index label public_type],
+      :name,
     )
   end
 end
