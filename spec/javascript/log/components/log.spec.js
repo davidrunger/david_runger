@@ -52,7 +52,7 @@ describe('Log', function () { // eslint-disable-line func-names
     let confirmMock;
 
     beforeEach(() => {
-      confirmMock = sinon.mock(window).expects('confirm')
+      confirmMock = sinon.mock(window).expects('confirm');
     });
 
     afterEach(() => {

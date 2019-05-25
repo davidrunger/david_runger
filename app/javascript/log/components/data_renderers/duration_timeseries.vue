@@ -16,7 +16,7 @@ function epochMsToHhMmSs(epochMs) {
     substr(11, 8).
     replace(/^00:/, '').
     replace(/^0+/, '').
-    replace(/^:00$/, '0')
+    replace(/^:00$/, '0');
 }
 
 function shortTimeStringToHhMmSsString(timeString) {
@@ -55,7 +55,7 @@ export default {
       return this.log_entries.map(logEntry => ({
         t: logEntry.created_at,
         y: new Date(`1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data)}Z`),
-      }))
+      }));
     },
   },
 
@@ -76,7 +76,7 @@ export default {
         }],
         yAxes: [{
           ticks: {
-            userCallback: function(v) { return epochMsToHhMmSs(v) },
+            userCallback: function(v) { return epochMsToHhMmSs(v); },
           },
         }],
       },

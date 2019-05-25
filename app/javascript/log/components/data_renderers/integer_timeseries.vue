@@ -30,7 +30,7 @@ export default {
       return this.log_entries.map(logEntry => ({
         t: logEntry.created_at,
         y: logEntry.data,
-      }))
+      }));
     },
   },
 
