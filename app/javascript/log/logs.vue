@@ -46,7 +46,7 @@ export default {
       if ((event.key === 'k') && (event.metaKey == true)) {
         this.$store.commit('showModal', { modalName: 'log-selector' });
       }
-    })
+    });
   },
 
   data() {

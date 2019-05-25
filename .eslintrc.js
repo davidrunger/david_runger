@@ -45,6 +45,7 @@ module.exports = {
       minProperties: 99,
     }],
     'quotes': ['warn', 'single', { avoidEscape: true }],
+    'semi': ['warn', 'always'],
   },
   settings: {
     'import/resolver': {

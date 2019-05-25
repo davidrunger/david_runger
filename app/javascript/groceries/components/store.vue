@@ -143,7 +143,7 @@ export default {
         storeNameInput.focus();
       } else if (callsAlready < 20) {
         // the storeNameInput hasn't had time to render yet; retry later
-        setTimeout(() => { this.focusStoreNameInput(callsAlready + 1) }, 50);
+        setTimeout(() => { this.focusStoreNameInput(callsAlready + 1); }, 50);
       }
     },
 

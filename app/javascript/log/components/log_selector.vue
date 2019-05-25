@@ -116,7 +116,7 @@ export default {
       setTimeout(() => {
         const logSearchInput = this.$refs['log-search-input'];
         if (logSearchInput) {
-          logSearchInput.focus()
+          logSearchInput.focus();
         }
       });
     },
