@@ -4,9 +4,9 @@ import { sync } from 'vuex-router-sync';
 import sinon from 'sinon';
 
 import 'spec_helper';
-import Log from 'log/components/log.vue';
-import { logVuexStoreFactory } from 'log/store';
-import router from 'log/router';
+import Log from 'logs/components/log.vue';
+import { logVuexStoreFactory } from 'logs/store';
+import router from 'logs/router';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);

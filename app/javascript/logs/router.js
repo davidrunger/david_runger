@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router';
 
-import Log from 'log/components/log.vue';
-import LogsIndex from 'log/components/logs_index.vue';
+import Log from 'logs/components/log.vue';
+import LogsIndex from 'logs/components/logs_index.vue';
 
 const routes = [
   { path: '/logs',  name: 'logs-index', component: LogsIndex },
