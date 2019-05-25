@@ -1,9 +1,9 @@
 import { sync } from 'vuex-router-sync';
 
 import { renderApp } from 'shared/customized_vue';
-import LogApp from 'log/logs.vue';
-import { logVuexStoreFactory } from 'log/store';
-import router from 'log/router';
+import LogApp from 'logs/logs.vue';
+import { logVuexStoreFactory } from 'logs/store';
+import router from 'logs/router';
 
 const store = logVuexStoreFactory(window.davidrunger.bootstrap);
 sync(store, router);

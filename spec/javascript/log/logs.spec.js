@@ -4,10 +4,10 @@ import { sync } from 'vuex-router-sync';
 import sinon from 'sinon';
 
 import 'spec_helper';
-import Logs from 'log/logs.vue';
-import LogsIndex from 'log/components/logs_index.vue';
-import { logVuexStoreFactory } from 'log/store';
-import router from 'log/router';
+import Logs from 'logs/logs.vue';
+import LogsIndex from 'logs/components/logs_index.vue';
+import { logVuexStoreFactory } from 'logs/store';
+import router from 'logs/router';
 import * as util from 'test_utils';
 
 const localVue = createLocalVue();
