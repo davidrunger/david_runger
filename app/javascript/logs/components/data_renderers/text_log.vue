@@ -62,5 +62,6 @@ export default {
 <style>
 .el-table .cell {
   word-break: initial;
+  white-space: pre;
 }
 </style>

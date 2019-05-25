@@ -8,6 +8,7 @@ div
         name='log.data_label'
         required
         ref='log-input'
+        :type='inputType'
       )
     el-input(
       type='submit'
@@ -18,6 +19,18 @@ div
 
 <script>
 export default {
+  computed: {
+    inputType() {
+      if (['text'].indexOf(this.log.data_type) >= 0) {
+        return 'textarea';
+      } else if (['number'].indexOf(this.log.data_type) >= 0) {
+        return 'number';
+      } else {
+        return 'text';
+      }
+    },
+  },
+
   data() {
     return {
       formstate: {},
@@ -64,3 +77,9 @@ export default {
   },
 };
 </script>
+
+<style>
+textarea {
+  font-family: sans-serif;
+}
+</style>
