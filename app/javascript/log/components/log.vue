@@ -2,6 +2,7 @@
 div
   h1.h2.mt3.mb1 {{log.name}}
   p.h5.mb2.description {{log.description}}
+  new-log-entry-form(v-if='renderInputAtTop' :log='log')
   div.mb2(v-if='log.log_entries === undefined').
     Loading...
   log-data-display(
@@ -11,7 +12,7 @@ div
     :log_entries='log.log_entries'
   )
   div.mb2(v-else) There are no log entries for this log.
-  new-log-entry-form(:log='log')
+  new-log-entry-form(v-if='!renderInputAtTop' :log='log')
   .mt1
     el-button(@click='destroyLastEntry') Delete last entry
 </template>
@@ -54,6 +55,10 @@ export default {
     ...mapGetters({
       log: 'selectedLog',
     }),
+
+    renderInputAtTop() {
+      return ['text'].indexOf(this.log.data_type) >= 0;
+    },
   },
 
   created() {
