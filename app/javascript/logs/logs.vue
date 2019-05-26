@@ -3,7 +3,7 @@ div
   .center.mb1
     .h5.gray.pt1 {{bootstrap.current_user.email}}
     log-selector
-    router-view.mt3.mx3
+    router-view(:key='$route.fullPath').mt3.mx3
     hr.silver.m3
     el-collapse(v-model='expandedPanelNames')
       el-collapse-item(title = 'Create new log' name='new-log-form')

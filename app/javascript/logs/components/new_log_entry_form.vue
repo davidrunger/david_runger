@@ -69,12 +69,6 @@ export default {
       required: true,
     },
   },
-
-  watch: {
-    $route() {
-      this.focusLogEntryInput();
-    },
-  },
 };
 </script>
 
