@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # https://developer.nexmo.com/api/sms
 
 module NexmoTestApi

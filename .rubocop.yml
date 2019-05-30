@@ -60,7 +60,7 @@ Style/DocumentationMethod:
 Style/EmptyCaseCondition:
   Enabled: false
 Style/FrozenStringLiteralComment:
-  Enabled: false
+  Enabled: true
 Style/GlobalVars:
   Enabled: false
 Style/GuardClause:

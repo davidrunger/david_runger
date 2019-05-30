@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :requests do
   # the API we are using limits us to 100 IPs per request (and 150 req/min)
   MAX_LOCATIONS_TO_FETCH = 100

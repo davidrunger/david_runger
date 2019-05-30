@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::LogsController < ApplicationController
   def create
     @log = current_user.logs.build(log_params)

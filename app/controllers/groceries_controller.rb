@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroceriesController < ApplicationController
   def show
     @title = 'Groceries'

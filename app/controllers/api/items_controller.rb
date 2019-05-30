@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::ItemsController < ApplicationController
   def create
     store = current_user.stores.find(params[:store_id])

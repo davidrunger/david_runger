@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def copy_log_entries_to_type_specific_tables!
   # iterate by log so that we know the type of log input
   Log.find_each do |log|

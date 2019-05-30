@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def run_logged_system_command(command)
   puts "Running system command '#{command}' ... "
 

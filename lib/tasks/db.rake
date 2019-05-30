@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DavidRunger::TruncateTables
   ROW_COUNT_SQL = <<~SQL.freeze
     SELECT relname, n_live_tup

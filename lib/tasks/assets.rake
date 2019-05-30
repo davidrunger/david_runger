@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :assets do
   def run_logged_system_command(command)
     puts "Running system command '#{command}' ..."

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ::Guard::TARGET_SPEC_FILE ||= ENV['GUARDED_FILE']
 
 guard :espect, cmd: 'spring rspec', all_on_start: true do
