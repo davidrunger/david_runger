@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BlankParamsAsNil
   refine ActionController::Parameters do
     def blank_params_as_nil(params)

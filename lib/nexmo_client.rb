@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module NexmoClient
-  NEXMO_SMS_API_URL = 'https://rest.nexmo.com/sms/json'.freeze
+  NEXMO_SMS_API_URL = 'https://rest.nexmo.com/sms/json'
 
   def self.send_text!(number:, message:)
     HTTParty.post(

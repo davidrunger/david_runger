@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rollbar.configure do |config|
   code_version = ENV['SOURCE_VERSION'] || File.read('SOURCE_VERSION') rescue nil
 

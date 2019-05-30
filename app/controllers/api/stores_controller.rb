@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::StoresController < ApplicationController
   def create
     @store = current_user.stores.build(store_params.merge(viewed_at: Time.current))

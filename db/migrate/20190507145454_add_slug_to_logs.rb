@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require Rails.root.join('db', 'datamigrate', 'populate_log_slugs.rb')
 
 class AddSlugToLogs < ActiveRecord::Migration[5.2]

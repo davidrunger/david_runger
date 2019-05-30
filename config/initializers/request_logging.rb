@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*args|
   payload = args.extract_options!
   params = payload[:params]

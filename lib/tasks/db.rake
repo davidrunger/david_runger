@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module DavidRunger::TruncateTables
-  ROW_COUNT_SQL = <<~SQL.freeze
+  ROW_COUNT_SQL = <<~SQL
     SELECT relname, n_live_tup
     FROM pg_stat_user_tables
     ORDER BY n_live_tup DESC;

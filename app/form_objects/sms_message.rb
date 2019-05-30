@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SmsMessage
   class InvalidMessageTypeError < StandardError ; end
   class SaveSmsRecordError < StandardError ; end

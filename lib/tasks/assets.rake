@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :assets do
   def run_logged_system_command(command)
     puts "Running system command '#{command}' ..."
@@ -46,8 +48,8 @@ module SourceMapHelper
     Dir['app/javascript/packs/**/*.js'].map { |path| path.match(%r{/([^/]+).js})[1] } +
       %w[styles] # Don't need CSS source maps. Also, styles are built into a CSS file on prod
   ).freeze
-  ROLLBAR_SOURCE_MAP_URI = 'https://api.rollbar.com/api/1/sourcemap/'.freeze
-  APP_URL_BASE = 'https://www.davidrunger.com'.freeze
+  ROLLBAR_SOURCE_MAP_URI = 'https://api.rollbar.com/api/1/sourcemap/'
+  APP_URL_BASE = 'https://www.davidrunger.com'
 
   def self.on_heroku?
     ENV['HEROKU'].present?

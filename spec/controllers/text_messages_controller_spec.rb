@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Api::TextMessagesController do
   before { sign_in(user) }
   let(:user) { users(:user) }

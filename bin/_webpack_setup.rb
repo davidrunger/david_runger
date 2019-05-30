@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 puts 'Ensuring that compiled routes are up-to-date ...'
 if File.exist?('app/javascript/rails_assets/routes.js')
   system('bin/rails app/javascript/rails_assets/routes.js')

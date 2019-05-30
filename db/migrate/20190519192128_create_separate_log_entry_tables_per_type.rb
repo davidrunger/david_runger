@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require Rails.root.join('db', 'datamigrate', 'copy_log_entries_to_type_specific_tables.rb')
 
 class CreateSeparateLogEntryTablesPerType < ActiveRecord::Migration[5.2]

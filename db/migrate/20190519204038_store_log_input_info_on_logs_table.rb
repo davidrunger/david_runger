@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StoreLogInputInfoOnLogsTable < ActiveRecord::Migration[5.2]
   def change
     change_table :logs, bulk: true do |t|

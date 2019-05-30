@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_action :authenticate_user, only: [:google_oauth2]
 

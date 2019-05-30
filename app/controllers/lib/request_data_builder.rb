@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RequestDataBuilder
   # params not worth logging in `Request`s
   BORING_PARAMS = %w[

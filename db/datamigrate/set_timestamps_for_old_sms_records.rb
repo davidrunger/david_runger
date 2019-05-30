@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def set_timestamps_for_old_sms_records
   current_time = Time.current
   SmsRecord.find_each do |sms_record|

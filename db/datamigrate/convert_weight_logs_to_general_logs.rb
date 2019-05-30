@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def convert_weight_logs_to_general_logs
   users_with_weight_logs = User.joins(:weight_logs).distinct
   users_with_weight_logs.find_each do |user|

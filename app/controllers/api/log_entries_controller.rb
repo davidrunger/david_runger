@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::LogEntriesController < ApplicationController
   def create
     log = current_user.logs.find(params.dig(:log_entry, :log_id))
