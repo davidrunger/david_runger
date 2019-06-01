@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroceriesController < ApplicationController
-  def show
+  def index
     @title = 'Groceries'
     bootstrap(
       current_user: UserSerializer.new(current_user),
