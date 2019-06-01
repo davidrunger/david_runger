@@ -40,6 +40,7 @@ class DavidRunger::Application < Rails::Application
   ]
   config.autoload_paths.concat(extra_load_paths)
   config.eager_load_paths.concat(extra_load_paths)
+  config.add_autoload_paths_to_load_path = false
 
   ENV['FIXTURES_PATH'] = 'spec/fixtures'
 end
