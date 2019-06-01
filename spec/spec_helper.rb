@@ -76,6 +76,7 @@ RSpec.configure do |config|
 
   config.include(FactoryBot::Syntax::Methods)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
+  config.include(Devise::Test::IntegrationHelpers, type: :feature)
 
   config.after(:each, type: :controller) do
     Devise.sign_out_all_scopes
