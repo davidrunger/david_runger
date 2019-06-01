@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
   get 'login', to: 'sessions#new'
 
-  get 'groceries', to: 'groceries#show'
+  get 'groceries', to: 'groceries#index'
 
   get 'logs', to: 'logs#index'
   get 'logs/:slug', to: 'logs#index' # routing to specific log will be done by Vue Router
