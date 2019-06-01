@@ -6,8 +6,6 @@ class Api::LogEntriesController < ApplicationController
     log_entry_params = params.require(:log_entry).permit(:log_id, :data)
     @log_entry = log.log_entries.build(log_entry_params)
     if @log_entry.save
-      # TODO: remove #reload; needed to work w/ #read_attribute_before_type_cast call in serializer
-      @log_entry.reload
       render json: @log_entry
     else
       render json: {errors: @log_entry.errors.to_h}, status: :unprecessable_entity
