@@ -8,8 +8,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'active_model_serializers'
-gem 'administrate', '~> 0.11.0'
+# source from fork for now for Rails 6 compatibility
+# PR: https://github.com/rails-api/active_model_serializers/pull/2334
+gem 'active_model_serializers',
+  github: 'sikachu/active_model_serializers',
+  branch: '0-10-stable-relax-rails-version'
+gem 'administrate', github: 'thoughtbot/administrate' # source from master for Rails 6 compatibility
 gem 'browser'
 gem 'devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
@@ -26,14 +30,13 @@ gem 'pg_query', '>= 0.9.0'
 gem 'pghero'
 gem 'puma', '~> 3.12'
 gem 'pundit'
-gem 'rails', '>= 5.2.0.rc1'
+gem 'rails', '>= 6.0.0.rc1'
 gem 'redis', '~>4.1'
 gem 'rest-client'
 gem 'rollbar'
 gem 'rubocop', require: false
 gem 'rubocop-performance', require: false
 gem 'rubocop-rails', require: false
-gem 'sass-rails', '~> 5.0'
 gem 'statsd-instrument'
 gem 'webpacker', '>= 4.0.0.pre.pre.2'
 
@@ -52,8 +55,7 @@ group :development do
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
-  # Provides flamegraphs for rack-mini-profiler.
-  gem 'flamegraph'
+  gem 'flamegraph' # Provides flamegraphs for rack-mini-profiler.
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database
   # performance analysis.
@@ -63,8 +65,7 @@ group :development do
   # We can go back to the offical spring-watcher-listen after upgrading to Rails 6.
   # See https://bit.ly/2Frtra3 (bug) and https://bit.ly/2Fpd50n (fix).
   gem 'spring-watcher-listen', '~> 2.0.2', github: 'davidrunger/spring-watcher-listen'
-  # Provides stack traces for flamegraph for rack-mini-profiler.
-  gem 'stackprof'
+  gem 'stackprof' # Provides stack traces for flamegraph for rack-mini-profiler.
 end
 
 group :test do
