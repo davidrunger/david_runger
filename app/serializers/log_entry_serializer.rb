@@ -19,8 +19,7 @@ class LogEntrySerializer < ActiveModel::Serializer
   attributes :id, :created_at, :data
 
   def created_at
-    # TODO: change this so it doesn't necessitate a #reload in Api::LogEntriesController#create
-    "#{log_entry.read_attribute_before_type_cast('created_at')}Z"
+    log_entry.created_at.utc.iso8601
   end
 
   private
