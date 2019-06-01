@@ -8,6 +8,6 @@ class GroceriesController < ApplicationController
       stores:
         ActiveModel::Serializer::CollectionSerializer.new(current_user.stores.includes(:items)),
     )
-    render :show
+    render :index
   end
 end

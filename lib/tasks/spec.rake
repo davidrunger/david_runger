@@ -13,11 +13,14 @@ end
 namespace :spec do
   desc 'Run Ruby specs'
   task :rb do
-    Rake::Task['spec:copy_production_webpacker_settings_to_test'].
-      invoke('cache_manifest compile extract_css source_path')
-    run_logged_system_command('bin/webpack --silent')
-    run_logged_system_command('bin/rspec --format documentation')
-    run_logged_system_command('git checkout config/webpacker.yml')
+    begin
+      Rake::Task['spec:copy_production_webpacker_settings_to_test'].
+        invoke('cache_manifest compile extract_css source_path')
+      run_logged_system_command('RAILS_ENV=test NODE_ENV=test bin/webpack --silent')
+      run_logged_system_command('bin/rspec --format documentation')
+    ensure
+      run_logged_system_command('git checkout config/webpacker.yml')
+    end
   end
 
   desc 'Set up JavaScript specs'
