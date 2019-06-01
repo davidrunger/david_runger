@@ -67,7 +67,10 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
+  gem 'launchy' # for save_and_open_page in feature specs
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'webmock'
 end

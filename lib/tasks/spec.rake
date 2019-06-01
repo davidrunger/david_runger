@@ -13,7 +13,11 @@ end
 namespace :spec do
   desc 'Run Ruby specs'
   task :rb do
+    Rake::Task['spec:copy_production_webpacker_settings_to_test'].
+      invoke('cache_manifest compile extract_css source_path')
+    run_logged_system_command('bin/webpack --silent')
     run_logged_system_command('bin/rspec --format documentation')
+    run_logged_system_command('git checkout config/webpacker.yml')
   end
 
   desc 'Set up JavaScript specs'
@@ -31,7 +35,7 @@ namespace :spec do
 
   desc 'Poll until JavaScript test server bootup is confirmed'
   task :poll_js do
-    max_polls = 201
+    max_polls = 401
     sleep_interval = 0.2
     poll_target = 'http://localhost:8080/packs-test/mocha_runner.html'
 
@@ -58,7 +62,13 @@ namespace :spec do
 
   desc 'Run JavaScript tests (after setting up already)'
   task :run_js do
+    # run the tests
     run_logged_system_command('yarn run test')
+
+    # kill JS unit test server (if running)
+    run_logged_system_command(
+      "ps -ax | egrep 'ruby.*httpd' | egrep -v egrep | awk '{print $1}' | xargs kill",
+    )
   end
 
   desc 'Run JavaScript specs'
@@ -66,5 +76,23 @@ namespace :spec do
     Rake::Task['spec:setup_js'].invoke
     Rake::Task['spec:poll_js'].invoke
     Rake::Task['spec:run_js'].invoke
+  end
+
+  desc <<~DESCRIPTION
+    Copy specified production webpacker configuration settings to the test webpacker settings
+    Example:
+    $ bin/rails spec:copy_production_webpacker_settings_to_test["compile extract_css source_path"]
+  DESCRIPTION
+  task :copy_production_webpacker_settings_to_test, [:settings_to_copy] do |_task, args|
+    webpacker_config_path = 'config/webpacker.yml'
+    # rubocop:disable Security/YAMLLoad (this is trusted YAML; we don't need to load it "safely")
+    webpacker_config = YAML.load(File.read(webpacker_config_path))
+    # rubocop:enable Security/YAMLLoad
+    production_config = webpacker_config['production']
+    settings_to_copy = args[:settings_to_copy].split(/\s+/)
+    File.write(
+      webpacker_config_path,
+      YAML.dump(webpacker_config.deep_merge('test' => production_config.slice(*settings_to_copy))),
+    )
   end
 end

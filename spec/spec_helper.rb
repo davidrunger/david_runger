@@ -13,9 +13,20 @@ Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/rails'
+require 'capybara/rspec'
 
 WebMock.enable!
 WebMock.disable_net_connect!(allow_localhost: true)
+
+Capybara.register_driver(:chrome_headless) do |app|
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+Capybara.default_driver = :chrome_headless
+# allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
+Capybara.asset_host = 'http://localhost:3000'
+Capybara.server = :puma, {Silent: true}
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
