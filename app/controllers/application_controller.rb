@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   end
 
   def filtered_params
-    filter = ActionDispatch::Http::ParameterFilter.new(Rails.application.config.filter_parameters)
+    filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
     filter.filter(params)
   end
 
