@@ -70,7 +70,6 @@ li.log-link-container {
 a.log-link {
   color: #e0e0e0;
   font-size: 100%;
-  position: relative;
   transition: 0.2s;
 
   &:hover {
