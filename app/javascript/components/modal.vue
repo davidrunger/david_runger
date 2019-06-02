@@ -4,7 +4,10 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
     ref='mask'
     @click='handleClickMask'
   )
-    div.modal-container.p3.bg-white.rounded(:style='{ width: width, maxWidth: maxWidth }')
+    div.modal-container.p3.rounded(
+      :style='{ width: width, maxWidth: maxWidth }'
+      :class='this.backgroundClass || ".bg-white"'
+    )
       slot
 </template>
 
@@ -47,6 +50,10 @@ export default {
   },
 
   props: {
+    backgroundClass: {
+      type: String,
+      required: false,
+    },
     name: {
       type: String,
       required: true,

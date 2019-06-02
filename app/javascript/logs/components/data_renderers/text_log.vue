@@ -1,10 +1,10 @@
 <template lang='pug'>
 div
-  el-table.mb2(
-    :data='formattedLogEntries'
-    :show-header='true'
-    :fit='true'
+  el-table.my3(
     style='width: 100%'
+    :data='formattedLogEntries'
+    :show-header='false'
+    :fit='true'
   )
     el-table-column(
       prop='createdAt'
@@ -60,8 +60,24 @@ export default {
 </script>
 
 <style>
+.el-table {
+  color: #aaa;
+}
+
 .el-table .cell {
   word-break: initial;
   white-space: pre;
+}
+
+.el-table tr {
+  background: black;
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover > td {
+  background: #333;
+}
+
+.el-table tr:last-child td {
+  border-bottom: none;
 }
 </style>

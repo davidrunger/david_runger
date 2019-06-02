@@ -11,7 +11,7 @@ div
     :data_type='log.data_type'
     :log_entries='log.log_entries'
   )
-  div.mb2(v-else) There are no log entries for this log.
+  div.my2(v-else) There are no log entries for this log.
   new-log-entry-form(v-if='!renderInputAtTop' :log='log')
   .mt1
     el-button(@click='destroyLastEntry') Delete last entry

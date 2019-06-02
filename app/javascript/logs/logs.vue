@@ -3,8 +3,7 @@ div
   .center.mb1
     .h5.gray.pt1 {{bootstrap.current_user.email}}
     log-selector
-    router-view(:key='$route.fullPath').mt3.mx3
-    hr.silver.m3
+    router-view(:key='$route.fullPath').m3
     el-collapse(v-model='expandedPanelNames')
       el-collapse-item(title = 'Create new log' name='new-log-form')
         new-log-form
@@ -57,11 +56,60 @@ export default {
 };
 </script>
 
-<style scoped>
-/deep/ .el-collapse-item {
+<style lang='scss'>
+body {
+  background: black;
+  color: #e0e0e0;
+}
+
+li.log-link-container {
+  // specify the height so that changing the font on hover size doesn't push other links up/down
+  height: 26px;
+}
+
+a.log-link {
+  color: #e0e0e0;
+  font-size: 100%;
+  position: relative;
+  transition: 0.2s;
+
+  &:hover {
+    font-size: 110%;
+  }
+}
+
+.el-collapse-item {
   [role='tab']:focus,
   [role='button']:focus {
     outline: none;
   }
+}
+
+.el-button {
+  background: black;
+
+  &:focus,
+  &:hover {
+    background: black;
+  }
+}
+
+input[type=text],
+textarea.el-textarea__inner,
+.el-input input.el-input__inner,
+.el-input.is-disabled input.el-input__inner {
+  background: black;
+}
+
+textarea.el-textarea__inner {
+  color: #eee;
+}
+
+.el-input.is-disabled input.el-input__inner {
+  color: gray;
+}
+
+.el-input input.el-input__inner {
+  color: white;
 }
 </style>
