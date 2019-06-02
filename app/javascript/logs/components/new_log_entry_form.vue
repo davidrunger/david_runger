@@ -2,7 +2,7 @@
 div
   vue-form.px1(@submit.prevent='postNewLogEntry' :state='formstate')
     validate.mb1
-      el-input(
+      el-input.new-log-input(
         :placeholder='log.data_label'
         v-model='newLogEntryData'
         name='log.data_label'
@@ -72,8 +72,10 @@ export default {
 };
 </script>
 
-<style>
-textarea {
-  font-family: sans-serif;
+<style lang='scss' scoped>
+/deep/ .new-log-input {
+  textarea {
+    height: 5rem;
+  }
 }
 </style>
