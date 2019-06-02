@@ -6,7 +6,7 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
   )
     div.modal-container.p3.rounded(
       :style='{ width: width, maxWidth: maxWidth }'
-      :class='this.backgroundClass || ".bg-white"'
+      :class='this.backgroundClass'
     )
       slot
 </template>
@@ -53,6 +53,7 @@ export default {
     backgroundClass: {
       type: String,
       required: false,
+      default: 'bg-white',
     },
     name: {
       type: String,
