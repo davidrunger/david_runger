@@ -45,7 +45,6 @@ export default {
     chartMetadata() {
       return {
         datasets: [{
-          fill: false,
           data: this.logEntriesToChartData,
         }],
       };
@@ -61,11 +60,6 @@ export default {
 
   created() {
     this.CHART_OPTIONS = {
-      legend: {
-        display: false,
-      },
-      maintainAspectRatio: false,
-      responsive: true,
       scales: {
         xAxes: [{
           type: 'time',

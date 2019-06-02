@@ -1,5 +1,10 @@
 <template lang='pug'>
-Modal(name='log-selector' width='85%', maxWidth='400px')
+Modal(
+  name='log-selector'
+  width='85%'
+  maxWidth='400px'
+  backgroundClass='bg-black'
+)
   slot
     input.mb2(
       type='text'
@@ -9,11 +14,12 @@ Modal(name='log-selector' width='85%', maxWidth='400px')
       @keydown.down='incrementHighlightedLogIndex'
       ref='log-search-input'
     )
-    div.log-link-container(v-for='(logName, index) in orderedMatches')
-      a.log-link.js-link(
-        @click='selectLog(logName)'
-        :class='{bold: (index === highlightedLogIndex)}'
-      ) {{logName}}
+    ul
+      li.log-link-container(v-for='(logName, index) in orderedMatches')
+        a.log-link.js-link(
+          @click='selectLog(logName)'
+          :class='{bold: (index === highlightedLogIndex)}'
+        ) {{logName}}
 </template>
 
 <script>
@@ -125,17 +131,18 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-div.log-link-container {
-  // specify the height so that changing the font on hover size doesn't push other links up/down
-  height: 26px;
-}
-
-a.log-link {
-  transition: font-size 0.2s;
-  font-size: 100%;
-
-  &:hover {
-    font-size: 115%;
-  }
+/deep/ input[type=text] {
+  max-width: 60%;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  box-sizing: border-box;
+  color: #eee;
+  display: inline-block;
+  font-size: inherit;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  padding: 0 15px;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 </style>

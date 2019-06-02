@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  vue-form.px1(@submit.prevent='postNewLogEntry' :state='formstate')
+  vue-form.px1(@submit.prevent='postNewLogEntry' :state='formstate' :class='log.data_type')
     validate.mb1
       el-input.new-log-input(
         :placeholder='log.data_label'
@@ -21,13 +21,25 @@ div
 export default {
   computed: {
     inputType() {
-      if (['text'].indexOf(this.log.data_type) >= 0) {
+      if (this.isText) {
         return 'textarea';
-      } else if (['number'].indexOf(this.log.data_type) >= 0) {
+      } else if (this.isNumber) {
         return 'number';
       } else {
         return 'text';
       }
+    },
+
+    isDuration() {
+      return this.log.data_type === 'duration';
+    },
+
+    isNumber() {
+      return this.log.data_type === 'number';
+    },
+
+    isText() {
+      return this.log.data_type === 'text';
     },
   },
 
@@ -77,5 +89,11 @@ export default {
   textarea {
     height: 5rem;
   }
+}
+
+/deep/ form.number,
+form.duration {
+  margin: 0 auto;
+  max-width: 200px;
 }
 </style>
