@@ -18,7 +18,7 @@ Bundler.require(*Rails.groups)
 module DavidRunger ; end
 class DavidRunger::Application < Rails::Application
   # Initialize configuration defaults for originally generated Rails version.
-  config.load_defaults(5.1)
+  config.load_defaults('6.0')
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -44,3 +44,14 @@ class DavidRunger::Application < Rails::Application
 
   ENV['FIXTURES_PATH'] = 'spec/fixtures'
 end
+
+# necessary to avoid an error that otherwise occurs when Zeitwerk eager-loads the application. The
+# error (e.g. "expected file
+# /home/travis/build/davidrunger/david_runger/vendor/bundle/ruby/2.6.0/gems/devise-4.6.2/app/mailers/devise/mailer.rb
+# to define constant Devise::Mailer, but didn't") is caused by the fact that we aren't using
+# ActionMailer, and Devise only defines `Devise::Mailer` `if defined?(ActionMailer)` (see
+# https://github.com/plataformatec/devise/blob/v4.6.2/app/mailers/devise/mailer.rb#L3).
+absolute_devise_gem_path = Gem.loaded_specs['devise'].full_gem_path
+absolute_devise_mailer_path =
+  File.join(absolute_devise_gem_path, 'app', 'mailers', 'devise', 'mailer.rb')
+Rails.autoloaders.main.do_not_eager_load(absolute_devise_mailer_path)
