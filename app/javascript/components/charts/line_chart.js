@@ -3,8 +3,12 @@ import _ from 'lodash';
 
 export const datasetDefaults = {
   datasets: [{
-    borderColor: '#8dc5f7',
+    borderColor: '#1c76c4',
+    borderWidth: 2,
     fill: false,
+    pointBackgroundColor: 'rgba(90, 168, 237, 0.65)',
+    pointBorderColor: 'rgba(90, 168, 237, 0.65)',
+    pointRadius: 2,
   }],
 };
 
