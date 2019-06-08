@@ -8,11 +8,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# source from fork for now for Rails 6 compatibility
-# PR: https://github.com/rails-api/active_model_serializers/pull/2334
-gem 'active_model_serializers',
-  github: 'sikachu/active_model_serializers',
-  branch: '0-10-stable-relax-rails-version'
+gem 'active_model_serializers'
 gem 'administrate', github: 'thoughtbot/administrate' # source from master for Rails 6 compatibility
 gem 'browser'
 gem 'devise'
