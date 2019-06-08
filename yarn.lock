@@ -8304,8 +8304,8 @@ static-extend@^0.1.1:
     object-copy "^0.1.0"
 
 "statsd@https://github.com/davidrunger/statsd.git":
-  version "0.10.0"
-  resolved "https://github.com/davidrunger/statsd.git#d9d8419467e56734e3d2ea3e701586090a01ab31"
+  version "0.8.2"
+  resolved "https://github.com/davidrunger/statsd.git#c81322cf0efd60e1d5b7813ef0c531a37b5a3cae"
   dependencies:
     generic-pool "2.2.0"
   optionalDependencies:
