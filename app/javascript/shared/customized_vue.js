@@ -37,6 +37,7 @@ import whenDomReady from 'when-dom-ready';
 
 import Modal from 'components/modal.vue';
 import 'shared/common';
+import titleMixin from 'lib/mixins/title_mixin';
 
 const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
 if (csrfMetaTag) {
@@ -69,6 +70,8 @@ Vue.use(VueForm);
 if (!process || (process.env.NODE_ENV !== 'test')) {
   Vue.use(VueRouter);
 }
+
+Vue.mixin(titleMixin);
 
 Vue.use(Button);
 Vue.use(Card);
