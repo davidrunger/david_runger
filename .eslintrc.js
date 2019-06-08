@@ -46,6 +46,11 @@ module.exports = {
     }],
     'quotes': ['warn', 'single', { avoidEscape: true }],
     'semi': ['warn', 'always'],
+    'space-before-function-paren': ['warn', {
+      anonymous: 'always',
+      named: 'never',
+      asyncArrow: 'always',
+    }],
   },
   settings: {
     'import/resolver': {
