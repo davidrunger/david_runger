@@ -70,13 +70,15 @@ export default {
         }],
         yAxes: [{
           ticks: {
-            userCallback: function(v) { return epochMsToHhMmSs(v); },
+            userCallback(v) {
+              return epochMsToHhMmSs(v);
+            },
           },
         }],
       },
       tooltips: {
         callbacks: {
-          label: function(tooltipItem, _data) {
+          label(tooltipItem, _data) {
             return epochMsToHhMmSs(tooltipItem.yLabel);
           },
         },

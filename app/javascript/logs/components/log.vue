@@ -33,7 +33,7 @@ const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
 
 const LogDataDisplay = {
   functional: true,
-  render (h, context) {
+  render(h, context) {
     const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[context.props.data_type];
 
     return h(DataRenderer, {
