@@ -14,5 +14,9 @@ export default {
       'logs',
     ]),
   },
+
+  title() {
+    return 'Logs - David Runger';
+  },
 };
 </script>

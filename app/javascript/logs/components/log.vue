@@ -82,6 +82,10 @@ export default {
       }
     },
   },
+
+  title() {
+    return `${this.log.name} - Logs - David Runger`;
+  },
 };
 </script>
 
