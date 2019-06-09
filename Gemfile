@@ -69,6 +69,8 @@ end
 group :test do
   gem 'capybara'
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
+  # TEMP: list hashdiff explicitly in Gemfile to force 1.0.0.beta1; remove once 1.0.0 is released
+  gem 'hashdiff', '1.0.0.beta1'
   gem 'launchy' # for save_and_open_page in feature specs
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 4.0'

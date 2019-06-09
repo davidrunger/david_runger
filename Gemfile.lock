@@ -189,7 +189,7 @@ GEM
       temple (>= 0.8.0)
       thor
       tilt
-    hashdiff (0.4.0)
+    hashdiff (1.0.0.beta1)
     hashie (3.6.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -463,6 +463,7 @@ DEPENDENCIES
   foreman (~> 0.63.0)
   guard-espect!
   hamlit
+  hashdiff (= 1.0.0.beta1)
   httparty
   js-routes
   launchy
