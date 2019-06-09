@@ -16,6 +16,17 @@ GIT
       spring (>= 1.2, < 3.0)
 
 GIT
+  remote: https://github.com/rails-api/active_model_serializers.git
+  revision: 339f99fccc8221ef3338e6e9681fdda2771ba95f
+  branch: 0-10-stable
+  specs:
+    active_model_serializers (0.10.9)
+      actionpack (>= 4.1, < 6.1)
+      activemodel (>= 4.1, < 6.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
+
+GIT
   remote: https://github.com/thoughtbot/administrate.git
   revision: 1b3b33c82b06c16eff934e3f55f3b405ecd47256
   specs:
@@ -71,11 +82,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_model_serializers (0.10.9)
-      actionpack (>= 4.1, < 6)
-      activemodel (>= 4.1, < 6)
-      case_transform (>= 0.2)
-      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (6.0.0.rc1)
       activesupport (= 6.0.0.rc1)
       globalid (>= 0.3.6)
@@ -440,7 +446,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers!
   administrate!
   annotate
   awesome_print

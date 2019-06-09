@@ -8,7 +8,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'active_model_serializers'
+# source from 0-10-stable branch for Rails 6 compatibility (avoids deprecation warnings)
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-10-stable'
 gem 'administrate', github: 'thoughtbot/administrate' # source from master for Rails 6 compatibility
 gem 'browser'
 gem 'devise'
