@@ -73,6 +73,6 @@ group :test do
   gem 'hashdiff', '1.0.0.beta1'
   gem 'launchy' # for save_and_open_page in feature specs
   gem 'selenium-webdriver'
-  gem 'shoulda-matchers', '~> 4.0'
+  gem 'shoulda-matchers', '~> 4.1'
   gem 'webmock'
 end
