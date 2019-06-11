@@ -51,8 +51,14 @@ namespace :assets do
     # rubocop:enable Security/YAMLLoad
 
     settings_to_copy = args[:settings_to_copy].split(/\s+/)
-    from_config = webpacker_config[args[:from_env]]
-    old_to_config = webpacker_config[args[:to_env]]
+    from_env = args[:from_env]
+    to_env = args[:to_env]
+    puts <<~LOG
+      Copying webpacker settings for #{settings_to_copy} from "#{from_env}" to "#{to_env}" ...
+    LOG
+
+    from_config = webpacker_config[from_env]
+    old_to_config = webpacker_config[to_env]
 
     new_to_config = old_to_config.deep_dup
     settings_to_copy.each do |setting|
@@ -63,7 +69,7 @@ namespace :assets do
       end
     end
 
-    webpacker_config[args[:to_env]] = new_to_config
+    webpacker_config[to_env] = new_to_config
 
     File.write(webpacker_config_path, YAML.dump(webpacker_config))
   end
