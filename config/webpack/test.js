@@ -12,9 +12,7 @@ environment.loaders.append('style', {
     {
       loader: 'css-loader',
       options: {
-        hmr: true,
         sourceMap: true,
-        convertToAbsoluteUrls: true,
       },
     },
     {
