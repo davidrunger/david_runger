@@ -73,7 +73,7 @@ namespace :spec do
 
     # kill JS unit test server (if running)
     run_logged_system_command(
-      "ps -ax | egrep 'ruby.*httpd' | egrep -v egrep | awk '{print $1}' | xargs kill",
+      "ps -ax | egrep 'ruby.*httpd' | egrep -v grep | awk '{print $1}' | xargs kill",
     )
   end
 
