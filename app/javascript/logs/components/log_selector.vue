@@ -15,18 +15,17 @@ Modal(
       ref='log-search-input'
     )
     ul
-      li.log-link-container(v-for='(logName, index) in orderedMatches')
-        a.log-link.js-link(
-          @click='selectLog(logName)'
+      li.log-link-container(v-for='(log, index) in orderedMatches')
+        router-link.log-link(
+          :to='{ name: "log", params: { slug: log.slug }}'
           :class='{bold: (index === highlightedLogIndex)}'
-        ) {{logName}}
+          @click.native='resetQuickSelector'
+        ) {{log.name}}
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex';
 import FuzzySet from 'fuzzyset.js';
-
-const ALL_LOGS = 'All logs';
 
 export default {
   computed: {
@@ -44,11 +43,13 @@ export default {
 
     orderedMatches() {
       if (!this.searchString) {
-        return [ALL_LOGS].concat(this.logNames);
+        return this.logs;
       }
 
       const matches = this.fuzzySet.get(this.searchString, '', 0) || [];
-      return matches.map(([_score, string]) => string);
+      return matches.map(([_score, string]) => {
+        return this.logs.find(log => log.name === string);
+      });
     },
 
     showingLogSelector() {
@@ -90,24 +91,19 @@ export default {
     },
 
     selectHighlightedLog() {
-      const highlightedLogName = this.orderedMatches[this.highlightedLogIndex];
-      if (highlightedLogName) {
-        this.selectLog(highlightedLogName);
-      }
+      const highlightedLog = this.orderedMatches[this.highlightedLogIndex];
+      this.selectLog(highlightedLog);
     },
 
-    selectLog(logName) {
-      if (logName === ALL_LOGS) {
-        this.$router.push({ name: 'logs-index' });
-      } else {
-        const log = this.logByName({ logName });
-        if (log) {
-          this.$router.push({ name: 'log', params: { slug: log.slug }});
-        }
-      }
+    resetQuickSelector() {
       this.$store.commit('hideModal', { modalName: 'log-selector' });
       this.highlightedLogIndex = 0;
       this.searchString = '';
+    },
+
+    selectLog(log) {
+      this.$router.push({ name: 'log', params: { slug: log.slug }});
+      this.resetQuickSelector();
     },
   },
 
