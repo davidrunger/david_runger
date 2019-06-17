@@ -54,6 +54,7 @@ export default {
       return this.log_entries.map(logEntry => ({
         t: logEntry.created_at,
         y: new Date(`1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data)}Z`),
+        note: logEntry.note,
       }));
     },
   },

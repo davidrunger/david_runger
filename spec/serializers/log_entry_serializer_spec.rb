@@ -15,16 +15,12 @@
 #  index_log_entries_on_log_id  (log_id)
 #
 
-class LogEntrySerializer < ActiveModel::Serializer
-  attributes :id, :created_at, :data, :note
+RSpec.describe LogEntrySerializer do
+  let(:log_entry) { LogEntries::NumberLogEntry.first! }
 
-  def created_at
-    log_entry.created_at.utc.iso8601
-  end
-
-  private
-
-  def log_entry
-    object
+  specify do
+    expect(
+      LogEntrySerializer.new(log_entry).to_json,
+    ).to match_schema('spec/support/schemas/log_entries/show.json')
   end
 end

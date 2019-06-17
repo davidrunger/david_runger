@@ -8,6 +8,7 @@
 #  data       :float            not null
 #  id         :bigint           not null, primary key
 #  log_id     :bigint           not null
+#  note       :string
 #  updated_at :datetime         not null
 #
 # Indexes

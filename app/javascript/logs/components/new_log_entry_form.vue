@@ -1,8 +1,8 @@
 <template lang='pug'>
 div
   vue-form.px1(@submit.prevent='postNewLogEntry' :state='formstate' :class='log.data_type')
-    validate.mb1
-      el-input.new-log-input(
+    validate
+      el-input.new-log-input.mb1(
         :placeholder='log.data_label'
         v-model='newLogEntryData'
         name='log.data_label'
@@ -10,6 +10,12 @@ div
         ref='log-input'
         :type='inputType'
       )
+    el-input.new-log-input.mb1(
+      v-if='isDuration || isNumber'
+      placeholder='Note (optional)'
+      v-model='newLogEntryNote'
+      type='text'
+    )
     el-input(
       type='submit'
       value='Add'
@@ -47,6 +53,7 @@ export default {
     return {
       formstate: {},
       newLogEntryData: null,
+      newLogEntryNote: null,
     };
   },
 
@@ -65,9 +72,11 @@ export default {
         {
           logId: this.log.id,
           newLogEntryData: this.newLogEntryData,
+          newLogEntryNote: this.newLogEntryNote,
         },
       );
       this.newLogEntryData = null;
+      this.newLogEntryNote = null;
     },
   },
 
