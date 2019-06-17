@@ -1,7 +1,12 @@
 <template lang='pug'>
 div
-  .center.mb1
-    .h5.gray.pt1 {{bootstrap.current_user.email}}
+  header.flex.justify-between.p1
+    div {{bootstrap.current_user.email}}
+    .dropdown
+      i.el-icon-more.dropbtn
+      ul.dropdown-content.bg-black.gray
+        li.p1(@click='signOut') Sign out
+  .center
     log-selector
     router-view(:key='$route.fullPath').m3
     el-collapse(v-model='expandedPanelNames')
@@ -12,6 +17,7 @@ div
 <script>
 import { mapGetters, mapState } from 'vuex';
 
+import signOutMixin from 'lib/mixins/sign_out_mixin';
 import NewLogForm from './components/new_log_form.vue';
 import LogSelector from './components/log_selector.vue';
 
@@ -53,12 +59,14 @@ export default {
       expandedPanelNames: [],
     };
   },
+
+  mixins: [signOutMixin],
 };
 </script>
 
 <style lang='scss'>
 body {
-  background: black;
+  background: #111;
   color: #e0e0e0;
 }
 
@@ -85,11 +93,11 @@ a.log-link {
 }
 
 .el-button {
-  background: black;
+  background: #111;
 
   &:focus,
   &:hover {
-    background: black;
+    background: #111;
   }
 }
 
@@ -97,7 +105,7 @@ input[type=text],
 textarea.el-textarea__inner,
 .el-input input.el-input__inner,
 .el-input.is-disabled input.el-input__inner {
-  background: black;
+  background: #111;
 }
 
 textarea.el-textarea__inner {
@@ -110,5 +118,32 @@ textarea.el-textarea__inner {
 
 .el-input input.el-input__inner {
   color: white;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+ul.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  min-width: 120px;
+  box-shadow: 0 8px 16px 0 rgba(200, 200, 200, 0.2);
+  text-align: right;
+  z-index: 1;
+}
+
+ul.dropdown-content li {
+  cursor: pointer;
+}
+
+ul.dropdown-content li:hover {
+  background-color: white;
+}
+
+.dropdown:hover ul.dropdown-content {
+  display: block;
 }
 </style>
