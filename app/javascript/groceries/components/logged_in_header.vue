@@ -9,6 +9,8 @@ el-menu.center
 </template>
 
 <script>
+import signOutMixin from 'lib/mixins/sign_out_mixin';
+
 export default {
   methods: {
     signOut() {
@@ -16,6 +18,8 @@ export default {
         then(() => { window.location.assign(this.$routes.login_path()); });
     },
   },
+
+  mixins: [signOutMixin],
 
   props: {},
 };
