@@ -31,6 +31,13 @@ export const optionsDefaults = {
     xAxes: [axisOptions],
     yAxes: [axisOptions],
   },
+  tooltips: {
+    callbacks: {
+      afterBody(tooltipItems, data) {
+        return data.datasets[0].data[tooltipItems[0].index].note;
+      },
+    },
+  },
 };
 
 export default {

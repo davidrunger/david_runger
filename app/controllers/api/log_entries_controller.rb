@@ -3,12 +3,12 @@
 class Api::LogEntriesController < ApplicationController
   def create
     log = current_user.logs.find(params.dig(:log_entry, :log_id))
-    log_entry_params = params.require(:log_entry).permit(:log_id, :data)
+    log_entry_params = params.require(:log_entry).permit(:data, :log_id, :note)
     @log_entry = log.log_entries.build(log_entry_params)
     if @log_entry.save
-      render json: @log_entry
+      render json: @log_entry, status: :created
     else
-      render json: {errors: @log_entry.errors.to_h}, status: :unprecessable_entity
+      render json: {errors: @log_entry.errors.to_h}, status: :unprocessable_entity
     end
   end
 

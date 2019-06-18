@@ -22,11 +22,12 @@ const mutations = {
 };
 
 const actions = {
-  addLogEntry({ commit, getters }, { logId, newLogEntryData }) {
+  addLogEntry({ commit, getters }, { logId, newLogEntryData, newLogEntryNote }) {
     const payload = {
       log_entry: {
         data: newLogEntryData,
         log_id: logId,
+        note: newLogEntryNote,
       },
     };
 

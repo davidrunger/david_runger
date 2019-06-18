@@ -13,8 +13,15 @@ FixtureBuilder.configure do |fbuilder|
   ]
 
   fbuilder.factory do
+    # user
     user = name(:user, create(:user)).first
+
+    # groceries
     store = name(:store, create(:store, user: user)).first
     name(:item, create(:item, store: store))
+
+    # logs
+    log = name(:log, create(:log, user: user)).first
+    log.log_entries.create!(data: 102, note: 'I am glad it is an even number')
   end
 end
