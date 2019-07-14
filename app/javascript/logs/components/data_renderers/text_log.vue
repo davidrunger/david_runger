@@ -105,7 +105,7 @@ ol {
 }
 
 .el-table tr {
-  background: black;
+  background: var(--main-bg-color);
 }
 
 .el-table--enable-row-hover .el-table__body tr:hover > td {

@@ -65,8 +65,12 @@ export default {
 </script>
 
 <style lang='scss'>
+:root {
+  --main-bg-color: #111;
+}
+
 body {
-  background: #111;
+  background: var(--main-bg-color);
   color: #e0e0e0;
 }
 
