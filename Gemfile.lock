@@ -280,6 +280,9 @@ GEM
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
+    omniauth-rails_csrf_protection (0.1.2)
+      actionpack (>= 4.2)
+      omniauth (>= 1.3.1)
     orm_adapter (0.5.0)
     parallel (1.17.0)
     parser (2.6.3.0)
@@ -474,6 +477,7 @@ DEPENDENCIES
   newrelic_rpm
   oj
   omniauth-google-oauth2
+  omniauth-rails_csrf_protection
   pg (~> 1.1)
   pg_query (>= 0.9.0)
   pghero

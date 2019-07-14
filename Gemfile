@@ -23,6 +23,8 @@ gem 'lograge'
 gem 'newrelic_rpm'
 gem 'oj'
 gem 'omniauth-google-oauth2'
+# remove once https://github.com/omniauth/omniauth/pull/809 is resolved
+gem 'omniauth-rails_csrf_protection'
 gem 'pg', '~> 1.1'
 gem 'pg_query', '>= 0.9.0'
 gem 'pghero'
