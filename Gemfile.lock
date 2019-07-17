@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: 7ed5b0792b7dc0b622de83256a22fcaa1d7db54b
+  revision: 30d0e4df7b6cf88137bd4657d2b7a68777cb56bd
   specs:
     administrate (0.11.0)
       actionpack (>= 4.2)
@@ -444,7 +444,7 @@ GEM
     websocket-extensions (0.1.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.1.8)
+    zeitwerk (2.1.9)
 
 PLATFORMS
   ruby
