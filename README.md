@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/davidrunger/david_runger.svg?branch=master)](https://travis-ci.org/davidrunger/david_runger)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=davidrunger/david_runger)](https://dependabot.com)
 
 # david_runger / davidrunger.com
 
