@@ -71,7 +71,7 @@ if (window.davidrunger.env !== 'test') {
 Vue.use(Vuex);
 
 Vue.use(VueForm);
-if (!process || (process.env.NODE_ENV !== 'test')) {
+if (window.davidrunger.env !== 'test') {
   Vue.use(VueRouter);
 }
 
