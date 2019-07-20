@@ -6,11 +6,13 @@
 </head>
 <body>
   <div id="mocha"></div>
+  <script>
+    window.davidrunger = { env: 'test' };
+  </script>
   <script src="http://localhost:8080/packs-test/mocha.js"></script>
   <script>mocha.setup('bdd')</script>
   <script src="http://localhost:8080/packs-test/spec_index.js"></script>
   <script>
-    window.davidrunger = { env: 'test' };
     mocha.checkLeaks();
     mocha.run();
   </script>
