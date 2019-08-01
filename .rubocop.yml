@@ -57,6 +57,8 @@ Style/BlockDelimiters:
   Enabled: false
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+Style/ConstantVisibility:
+  Enabled: false
 Style/Copyright:
   Enabled: false
 Style/Documentation:
