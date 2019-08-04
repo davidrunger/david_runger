@@ -3,7 +3,7 @@ li.grocery-item(:class='{unneeded: item.needed <= 0, "appear-vertically": isJust
   Drag(:transferData='item')
     span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
     span.decrement.h2.pl1.pr1.js-link.red(
-      @click='setNeeded(item, item.needed - 1)'
+      @click='decrement(item)'
       title='Decrement'
     ) &ndash;
     input(
@@ -34,6 +34,13 @@ export default {
   },
 
   methods: {
+    decrement(item) {
+      const newNeededCount = item.needed - 1;
+      if (newNeededCount >= 0) {
+        this.setNeeded(item, newNeededCount);
+      }
+    },
+
     editItemName() {
       this.editingName = true;
       // wait a tick for input to render, then focus it

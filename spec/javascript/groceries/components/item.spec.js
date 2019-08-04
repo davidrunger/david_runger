@@ -39,10 +39,6 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
       });
   });
 
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-
   it('renders item.name in a span', () => {
     expect(util.findAll(wrapper, 'span:text(bananas)')).toExist();
   });
@@ -114,6 +110,70 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
 
       it('doesnt convert to a text input', () => {
         expect(wrapper.find('input[type=text]').attributes().style).toMatch(/display: none/);
+      });
+    });
+  });
+
+  describe('decrementing the needed count of an item', () => {
+    let xhr;
+    let requests;
+    const debounceTimeout = 500; // ms
+
+    beforeEach(() => {
+      xhr = sinon.useFakeXMLHttpRequest();
+      requests = [];
+      xhr.onCreate = function (request) {
+        requests.push(request);
+      };
+    });
+
+    afterEach(() => {
+      xhr.restore();
+    });
+
+    describe('when the count of items needed is already 0', () => {
+      beforeEach(() => {
+        expect(item.needed).toEqual(0);
+        expect(wrapper.text()).toMatch(RegExp(`${item.name}\\s\\(0\\)`));
+      });
+
+      describe('when I click the decrement button', () => {
+        beforeEach((done) => {
+          const decrementButton = wrapper.find('.decrement');
+          decrementButton.trigger('click');
+          setTimeout(done, debounceTimeout);
+        });
+
+        it('does not decrement the item count to a negative number (it remains 0)', () => {
+          expect(wrapper.text()).toMatch(RegExp(`${item.name}\\s\\(0\\)`));
+        });
+
+        it('does not make an HTTP request', () => {
+          expect(requests.length).toEqual(0);
+        });
+      });
+    });
+
+    describe('when the count of items needed is positive', () => {
+      beforeEach(() => {
+        item.needed = 22;
+        expect(wrapper.text()).toMatch(RegExp(`${item.name}\\s\\(22\\)`));
+      });
+
+      describe('when I click the decrement button', () => {
+        beforeEach((done) => {
+          const decrementButton = wrapper.find('.decrement');
+          decrementButton.trigger('click');
+          setTimeout(done, debounceTimeout);
+        });
+
+        it('decrements the item count by 1', () => {
+          expect(wrapper.text()).toMatch(RegExp(`${item.name}\\s\\(21\\)`));
+        });
+
+        it('makes an HTTP request', () => {
+          expect(requests.length).toEqual(1);
+        });
       });
     });
   });
