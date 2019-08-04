@@ -39,10 +39,6 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
       });
   });
 
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-
   it('renders item.name in a span', () => {
     expect(util.findAll(wrapper, 'span:text(bananas)')).toExist();
   });
