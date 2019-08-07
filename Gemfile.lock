@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: f17793a731818eba0b3357d71f0f1ae55ddcce13
+  revision: 8e13a25ef2ef53132cfff368aa8c2652469251b8
   specs:
     administrate (0.11.0)
       actionpack (>= 4.2)
@@ -329,7 +329,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.0.4)
+    rails-html-sanitizer (1.1.0)
       loofah (~> 2.2, >= 2.2.2)
     railties (6.0.0.rc2)
       actionpack (= 6.0.0.rc2)
