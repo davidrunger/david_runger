@@ -10,11 +10,11 @@
     window.davidrunger = { env: 'test' };
   </script>
   <script src="http://localhost:8080/packs-test/mocha.js"></script>
-  <script>mocha.setup('bdd')</script>
+  <script>window.mocha.setup('bdd');</script>
   <script src="http://localhost:8080/packs-test/spec_index.js"></script>
   <script>
-    mocha.checkLeaks();
-    mocha.run();
+    window.mocha.checkLeaks();
+    window.mocha.run();
   </script>
 </body>
 </html>
