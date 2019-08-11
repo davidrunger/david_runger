@@ -19,13 +19,14 @@ Modal(
         router-link.log-link(
           :to='{ name: "log", params: { slug: log.slug }}'
           :class='{bold: (index === highlightedLogIndex)}'
-          @click.native='resetQuickSelector'
         ) {{log.name}}
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex';
 import FuzzySet from 'fuzzyset.js';
+
+import { on } from 'lib/event_bus';
 
 export default {
   computed: {
@@ -62,6 +63,11 @@ export default {
     this.logNames.forEach(logName => {
       this.fuzzySet.add(logName);
     });
+    this.unsubscribeFromRouteChanges = on('groceries:route-changed', this.resetQuickSelector);
+  },
+
+  destroyed() {
+    this.unsubscribeFromRouteChanges();
   },
 
   data() {
@@ -103,7 +109,6 @@ export default {
 
     selectLog(log) {
       this.$router.push({ name: 'log', params: { slug: log.slug }});
-      this.resetQuickSelector();
     },
   },
 
