@@ -111,3 +111,5 @@ export function groceryVuexStoreFactory(bootstrap) {
     mutations,
   });
 }
+
+export default groceryVuexStoreFactory(window.davidrunger.bootstrap);
