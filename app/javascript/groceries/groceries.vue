@@ -20,7 +20,23 @@ export default {
   computed: {
     ...mapGetters([
       'currentStore',
+      'debouncingOrWaitingOnNetwork',
     ]),
+  },
+
+  created() {
+    window.addEventListener('beforeunload', this.warnIfRequestPending);
+  },
+
+  methods: {
+    warnIfRequestPending(event) {
+      if (this.debouncingOrWaitingOnNetwork) {
+        event.preventDefault();
+        // Chrome requires returnValue to be set
+        // https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
+        event.returnValue = '';
+      }
+    },
   },
 
   props: {},
