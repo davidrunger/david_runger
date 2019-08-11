@@ -11,9 +11,6 @@ environment.loaders.append('style', {
   use: [
     {
       loader: 'style-loader',
-      options: {
-        sourceMap: true,
-      },
     },
     {
       loader: 'css-loader',
