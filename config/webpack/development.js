@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const fs = require('fs');
 const merge = require('webpack-merge');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
@@ -11,9 +10,6 @@ environment.loaders.append('style', {
   use: [
     {
       loader: 'style-loader',
-      options: {
-        sourceMap: true,
-      },
     },
     {
       loader: 'css-loader',
