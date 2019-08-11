@@ -76,6 +76,8 @@ const getters = {
   ...ModalVuex.getters,
 
   currentStore(state) {
+    if (!state.stores) return null;
+
     return (
       _(state.stores).filter('viewed_at').sortBy(['viewed_at']).last() ||
       state.stores[0]
