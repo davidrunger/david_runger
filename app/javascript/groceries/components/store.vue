@@ -72,6 +72,7 @@ import { mapGetters, mapState } from 'vuex';
 import { debounce, isEmpty, sortBy } from 'lodash';
 import ClipboardJS from 'clipboard';
 
+import { DEBOUNCE_TIME } from 'groceries/constants';
 import Item from './item.vue';
 import NeedPhoneNumberModal from './need_phone_number_modal.vue';
 
@@ -176,7 +177,7 @@ export default {
       this.$http.patch(this.$routes.api_item_path(itemId), payload).then(() => {
         this.$store.commit('decrementPendingRequests');
       });
-    }, 500),
+    }, DEBOUNCE_TIME),
 
     postNewItem() {
       if (this.formstate.$invalid) return;

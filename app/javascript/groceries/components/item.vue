@@ -26,6 +26,8 @@ li.grocery-item(:class='{unneeded: item.needed <= 0, "appear-vertically": isJust
 <script>
 import { debounce } from 'lodash';
 
+import { DEBOUNCE_TIME } from 'groceries/constants';
+
 export default {
   data() {
     return {
@@ -79,7 +81,7 @@ export default {
       // set collectingDebounces to false _after_ incrementing pendingRequests so that
       // debouncingOrWaitingOnNetwork stays consistently true
       this.$store.commit('setCollectingDebounces', { value: false });
-    }, 500),
+    }, DEBOUNCE_TIME),
   },
 
   props: {
