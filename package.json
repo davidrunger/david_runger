@@ -76,7 +76,7 @@
     "vuex-router-sync": "^5.0.0",
     "waypoints": "^4.0.1",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.6",
+    "webpack-cli": "^3.3.7",
     "webpack-merge": "^4.2.1",
     "when-dom-ready": "^1.2.12"
   },
