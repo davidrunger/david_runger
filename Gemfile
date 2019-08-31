@@ -14,8 +14,6 @@ gem 'administrate', github: 'thoughtbot/administrate' # source from master for R
 gem 'browser'
 gem 'devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
-# foreman >= 0.64.0 has stricter version locks for its `dotenv` and `thor` dependencies
-gem 'foreman', '~> 0.63.0', require: false
 gem 'hamlit'
 gem 'httparty'
 gem 'js-routes', require: false
