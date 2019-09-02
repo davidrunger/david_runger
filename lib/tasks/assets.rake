@@ -121,13 +121,15 @@ module SourceMapHelper
     require('net/http/post/multipart')
 
     File.open(source_map_path) do |source_map_file|
-      response = RestClient.post(
+      response = HTTParty.post(
         ROLLBAR_SOURCE_MAP_URI,
-        access_token: ENV['ROLLBAR_ACCESS_TOKEN'],
-        environment: Rails.env,
-        version: ENV['SOURCE_VERSION'],
-        minified_url: source_url,
-        source_map: source_map_file,
+        body: {
+          access_token: ENV['ROLLBAR_ACCESS_TOKEN'],
+          environment: Rails.env,
+          version: ENV['SOURCE_VERSION'],
+          minified_url: source_url,
+          source_map: source_map_file,
+        },
       )
       puts <<~LOG
         Posted source map #{source_map_path} for #{source_url}.
