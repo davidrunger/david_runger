@@ -30,7 +30,6 @@ gem 'puma', '~> 4.1'
 gem 'pundit'
 gem 'rails', '>= 6.0.0'
 gem 'redis', '~>4.1'
-gem 'rest-client'
 gem 'rollbar'
 gem 'rubocop', require: false
 gem 'rubocop-performance', require: false
