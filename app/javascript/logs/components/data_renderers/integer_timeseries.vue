@@ -44,13 +44,6 @@ export default {
             source: 'auto',
           },
         }],
-        yAxes: [
-          {
-            ticks: {
-              suggestedMin: 167,
-            },
-          },
-        ],
       },
     };
   },
