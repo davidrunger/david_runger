@@ -107,7 +107,6 @@ export function logVuexStoreFactory(bootstrap) {
       ...ModalVuex.state,
       currentUser: bootstrap.current_user,
       logs: bootstrap.logs,
-      selectedLogName: null,
     },
     actions,
     getters,
