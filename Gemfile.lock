@@ -28,12 +28,11 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: b53e6911375c62c6c17248331aefcc1df6102822
+  revision: f4e12bc17a5d554191660c67cac002f551a7bda1
   specs:
-    administrate (0.11.0)
+    administrate (0.12.0)
       actionpack (>= 4.2)
       actionview (>= 4.2)
-      activejob (>= 4.2)
       activerecord (>= 4.2)
       autoprefixer-rails (>= 6.0)
       datetime_picker_rails (~> 0.0.7)
