@@ -405,7 +405,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stackprof (0.2.12)
-    statsd-instrument (2.3.4)
+    statsd-instrument (2.3.5)
     temple (0.8.2)
     thor (0.20.3)
     thread_safe (0.3.6)
