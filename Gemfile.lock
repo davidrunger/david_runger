@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: 81f6ba83ecd23b205c45b56070d7207f87805b5f
+  revision: 8150e08c9bcf398b8adc9373af1a7ebb5afbeb70
   specs:
     administrate (0.12.0)
       actionpack (>= 4.2)
@@ -379,7 +379,7 @@ GEM
     ruby_dep (1.5.0)
     rubyzip (1.2.3)
     safe_yaml (1.0.5)
-    sassc (2.2.0)
+    sassc (2.2.1)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
