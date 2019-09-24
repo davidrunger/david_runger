@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: 8150e08c9bcf398b8adc9373af1a7ebb5afbeb70
+  revision: 430f326ddbafcb75b9cb0d67272994a3e6bfc3fe
   specs:
     administrate (0.12.0)
       actionpack (>= 4.2)
@@ -241,7 +241,7 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.11.3)
+    minitest (5.12.0)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.13.1)
@@ -409,7 +409,7 @@ GEM
     temple (0.8.2)
     thor (0.20.3)
     thread_safe (0.3.6)
-    tilt (2.0.9)
+    tilt (2.0.10)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
