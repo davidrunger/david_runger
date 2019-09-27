@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: 145be53831692ee3df19811b40606fa17d9ce0b5
+  revision: 88e07c1b4021c6ac01950aff9b491a2cee77233a
   specs:
     administrate (0.12.0)
       actionpack (>= 4.2)
@@ -150,7 +150,7 @@ GEM
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
       railties (>= 3.2, < 6.1)
-    erubi (1.8.0)
+    erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (5.1.0)
       activesupport (>= 4.2.0)
