@@ -21,13 +21,15 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
   - export PATH="$HOME/.yarn/bin:$PATH"
   # To get a different version of chromedriver, see http://chromedriver.chromium.org/downloads
-  - curl -o tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/76.0.3809.68/chromedriver_linux64.zip
+  - CHROMEDRIVER_VERSION=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+  - curl -o tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
   - unzip -d "$HOME/bin/" tmp/chromedriver.zip
 script:
   - ruby --version && [ "$(ruby --version | cut -c1-11)" == 'ruby 2.6.3p' ]
   - bundle --version && [ "$(bundle --version)" == 'Bundler version 1.17.2' ]
   - node --version && [ "$(node --version)" == 'v10.15.3' ]
   - yarn --version && [ "$(yarn --version)" == '1.15.2' ]
+  - chromedriver --version # print chromedriver version, but don't check it, because it changes
   - yarn install
   - bin/rails spec:setup_js > /dev/null 2>&1 &
   - bundle exec rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang
