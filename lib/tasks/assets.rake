@@ -46,7 +46,7 @@ namespace :assets do
   desc 'Copy webpacker configuration settings from one env to another env'
   task :copy_webpacker_settings, [:from_env, :to_env, :settings_to_copy] do |_task, args|
     webpacker_config_path = 'config/webpacker.yml'
-    # rubocop:disable Security/YAMLLoad (this is trusted YAML; we don't need to load it "safely")
+    # rubocop:disable Security/YAMLLoad (this is trusted yaml; we don't need to load it "safely")
     webpacker_config = YAML.load(File.read(webpacker_config_path))
     # rubocop:enable Security/YAMLLoad
 
