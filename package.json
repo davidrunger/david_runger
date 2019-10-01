@@ -94,7 +94,7 @@
     "stylelint": "~11",
     "stylelint-config-standard": "^19.0.0",
     "stylelint-scss": "^3.11.1",
-    "stylelint-webpack-plugin": "^0.10.5",
+    "stylelint-webpack-plugin": "^1.0.1",
     "webpack-dev-server": "^3.8.1",
     "webpack-node-externals": "^1.7.2",
     "webpack-sources": "^1.4"
