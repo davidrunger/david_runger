@@ -53,7 +53,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'flamegraph' # Provides flamegraphs for rack-mini-profiler.
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '>= 3.0.5', '< 3.3'
   # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database
   # performance analysis.
   gem 'rack-mini-profiler'
