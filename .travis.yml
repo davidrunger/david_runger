@@ -5,7 +5,7 @@ cache:
   directories:
     - node_modules
 rvm:
-  - "2.6.3"
+  - "2.6.5"
 services:
   - postgresql
   - redis-server
@@ -25,7 +25,7 @@ before_install:
   - curl -o tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
   - unzip -d "$HOME/bin/" tmp/chromedriver.zip
 script:
-  - ruby --version && [ "$(ruby --version | cut -c1-11)" == 'ruby 2.6.3p' ]
+  - ruby --version && [ "$(ruby --version | cut -c1-11)" == 'ruby 2.6.5p' ]
   - bundle --version && [ "$(bundle --version)" == 'Bundler version 1.17.2' ]
   - node --version && [ "$(node --version)" == 'v10.15.3' ]
   - yarn --version && [ "$(yarn --version)" == '1.15.2' ]
