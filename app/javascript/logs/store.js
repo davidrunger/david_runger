@@ -19,6 +19,17 @@ const mutations = {
   setLogEntries(state, { log, logEntries }) {
     Vue.set(log, 'log_entries', logEntries);
   },
+
+  updateLogEntry(_state, { log, logEntryId, updatedLogEntryData }) {
+    log.log_entries =
+      log.log_entries.map(logEntry => {
+        if (logEntry.id === logEntryId) {
+          return updatedLogEntryData;
+        } else {
+          return logEntry;
+        }
+      });
+  },
 };
 
 const actions = {
@@ -76,6 +87,25 @@ const actions = {
           },
         );
       });
+  },
+
+  updateLogEntry({ commit, getters }, { logEntryId, updatedLogEntryParams }) {
+    const payload = {
+      log_entry: updatedLogEntryParams,
+    };
+
+    return (
+      axios.
+        patch(Routes.api_log_entry_path(logEntryId), payload).
+        then(({ data }) => {
+          const logId = data.log_id;
+          const log = getters.logById({ logId });
+          commit(
+            'updateLogEntry',
+            { log, logEntryId, updatedLogEntryData: data },
+          );
+        })
+    );
   },
 };
 

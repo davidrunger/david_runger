@@ -1,31 +1,26 @@
 <template lang='pug'>
 div
-  el-table.my3(
-    style='width: 100%'
-    :data='formattedLogEntries'
-    :show-header='false'
-    :fit='true'
-  )
-    el-table-column(
-      prop='createdAt'
-      align='center'
-      width='140'
+  table
+    EditableTextLogRow(
+      v-for='logEntry in formattedLogEntries'
+      :key='logEntry.id'
+      :logEntry='logEntry'
     )
-    el-table-column(
-      align='left'
-      min-width='500'
-    )
-      template(slot-scope='scope')
-        div(v-html='formattedLogEntries[scope.$index].html')
   el-button(v-if='!showAllEntries' @click='showAllEntries = true').
     Show all entries
 </template>
 
 <script>
+import EditableTextLogRow from 'logs/components/editable_text_log_row.vue';
+
 import marked from 'marked';
 import strftime from 'strftime';
 
 export default {
+  components: {
+    EditableTextLogRow,
+  },
+
   computed: {
     formattedLogEntries() {
       let logEntriesToShow;
@@ -37,7 +32,9 @@ export default {
 
       const sortedAndFormattedEntries =
         logEntriesToShow.map(logEntry => ({
+          id: logEntry.id,
           createdAt: strftime('%b %-d %-l:%M%P', new Date(logEntry.created_at)),
+          plaintext: logEntry.data,
           html: marked(logEntry.data, { sanitize: true }),
         })).reverse();
 
@@ -94,25 +91,34 @@ ol {
   }
 }
 
-.el-table {
+table {
   color: #aaa;
-}
+  font-size: 14px;
 
-.el-table .cell {
-  word-break: initial;
-  white-space: pre-wrap;
-  line-height: 1.13rem;
-}
+  tr {
+    border-bottom: 1px solid #999;
+  }
 
-.el-table tr {
-  background: var(--main-bg-color);
-}
+  td {
+    padding: 10px 0;
+    word-break: initial;
+    white-space: pre-wrap;
+    line-height: 1.13rem;
+    text-align: center;
+    vertical-align: middle;
+    min-width: 140px;
 
-.el-table--enable-row-hover .el-table__body tr:hover > td {
-  background: #333;
-}
+    &.left-align {
+      text-align: left;
+    }
 
-.el-table tr:last-child td {
-  border-bottom: none;
+    p {
+      display: inline-block;
+
+      &:not(:first-of-type) {
+        margin-top: 10px;
+      }
+    }
+  }
 }
 </style>

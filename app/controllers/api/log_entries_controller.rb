@@ -12,6 +12,14 @@ class Api::LogEntriesController < ApplicationController
     end
   end
 
+  # currently only works for `TextLogEntry`s
+  def update
+    @log_entry = current_user.text_log_entries.find(params['id'])
+    log_entry_params = params.require(:log_entry).permit(:data)
+    @log_entry.update!(log_entry_params)
+    render json: @log_entry, status: :ok
+  end
+
   def destroy
     log_entry = Log.find(params['log_id']).log_entries.find(params['id'])
     log_entry.destroy!

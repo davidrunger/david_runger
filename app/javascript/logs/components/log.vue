@@ -93,8 +93,4 @@ export default {
 .description {
   font-weight: 200;
 }
-
-/deep/ .el-table::before {
-  display: none;
-}
 </style>
