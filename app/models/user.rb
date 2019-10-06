@@ -29,6 +29,7 @@ class User < ApplicationRecord
   has_many :sms_records, dependent: :destroy
   has_many :stores, dependent: :destroy
   has_many :items, through: :stores # must come after has_many :stores declaration
+  has_many :text_log_entries, through: :logs
 
   def self.from_omniauth!(access_token)
     User.find_or_create_by!(email: access_token.info['email'])

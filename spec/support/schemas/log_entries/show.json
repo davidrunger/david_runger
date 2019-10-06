@@ -4,6 +4,7 @@
     "created_at": { "type": "string" },
     "data": { "type": ["number", "string"] },
     "id": { "type": "integer" },
+    "log_id": { "type": "integer" },
     "note": { "type": ["string", "null"] }
   }
 }

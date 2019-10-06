@@ -16,7 +16,7 @@
 #
 
 class LogEntrySerializer < ActiveModel::Serializer
-  attributes :id, :created_at, :data, :note
+  attributes :id, :created_at, :data, :log_id, :note
 
   def created_at
     log_entry.created_at.utc.iso8601
