@@ -92,11 +92,16 @@ ol {
 }
 
 table {
+  margin: 15px 0;
   color: #aaa;
   font-size: 14px;
 
   tr {
     border-bottom: 1px solid #999;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
   }
 
   td {
