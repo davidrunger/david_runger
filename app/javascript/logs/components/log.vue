@@ -1,21 +1,20 @@
 <template lang='pug'>
-.flex.justify-center
-  .container
-    h1.h2.mt3.mb1 {{log.name}}
-    p.h5.mb2.description {{log.description}}
-    new-log-entry-form(v-if='renderInputAtTop' :log='log')
-    div.mb2(v-if='log.log_entries === undefined').
-      Loading...
-    log-data-display(
-      v-else-if='log.log_entries.length'
-      :data_label='log.data_label'
-      :data_type='log.data_type'
-      :log_entries='log.log_entries'
-    )
-    div.my2(v-else) There are no log entries for this log.
-    new-log-entry-form(v-if='!renderInputAtTop' :log='log')
-    .mt1
-      el-button(@click='destroyLastEntry') Delete last entry
+div
+  h1.h2.mt3.mb1 {{log.name}}
+  p.h5.mb2.description {{log.description}}
+  div.mb2(v-if='log.log_entries === undefined').
+    Loading...
+  log-data-display(
+    v-else-if='log.log_entries.length'
+    :data_label='log.data_label'
+    :data_type='log.data_type'
+    :log='log'
+    :log_entries='log.log_entries'
+  )
+  div.my2(v-else) There are no log entries for this log.
+  new-log-entry-form(v-if='!renderInputAtTop' :log='log')
+  .mt1
+    el-button(@click='destroyLastEntry') Delete last entry
 </template>
 
 <script>
@@ -39,6 +38,7 @@ const LogDataDisplay = {
 
     return h(DataRenderer, {
       props: {
+        log: context.props.log,
         log_entries: context.props.log_entries,
         data_label: context.props.data_label,
       },
@@ -91,10 +91,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  max-width: 1000px;
-}
-
 .description {
   font-weight: 200;
 }
