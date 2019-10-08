@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: 8bf2d89fb0066fdf550d6b42f4b3a33011bb6853
+  revision: 9bc3aed3aa9e71c3877ece519f681e807c5a84ed
   specs:
     administrate (0.12.0)
       actionpack (>= 4.2)
@@ -106,7 +106,7 @@ GEM
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 13.0)
     ast (2.4.0)
-    autoprefixer-rails (9.6.1.1)
+    autoprefixer-rails (9.6.4)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.13)
@@ -319,8 +319,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.2.0)
-      loofah (~> 2.2, >= 2.2.2)
+    rails-html-sanitizer (1.3.0)
+      loofah (~> 2.3)
     railties (6.0.0)
       actionpack (= 6.0.0)
       activesupport (= 6.0.0)
