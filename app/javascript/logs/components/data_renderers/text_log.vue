@@ -1,17 +1,20 @@
 <template lang='pug'>
-div
-  table
-    EditableTextLogRow(
-      v-for='logEntry in formattedLogEntries'
-      :key='logEntry.id'
-      :logEntry='logEntry'
-    )
-  el-button(v-if='!showAllEntries' @click='showAllEntries = true').
-    Show all entries
+.flex.justify-center
+  .container
+    new-log-entry-form(:log='log')
+    table
+      EditableTextLogRow(
+        v-for='logEntry in formattedLogEntries'
+        :key='logEntry.id'
+        :logEntry='logEntry'
+      )
+    el-button(v-if='!showAllEntries' @click='showAllEntries = true').
+      Show all entries
 </template>
 
 <script>
 import EditableTextLogRow from 'logs/components/editable_text_log_row.vue';
+import NewLogEntryForm from 'logs/components/new_log_entry_form.vue';
 
 import marked from 'marked';
 import strftime from 'strftime';
@@ -19,6 +22,7 @@ import strftime from 'strftime';
 export default {
   components: {
     EditableTextLogRow,
+    NewLogEntryForm,
   },
 
   computed: {
@@ -51,6 +55,10 @@ export default {
   props: {
     data_label: {
       type: String,
+      required: true,
+    },
+    log: {
+      type: Object,
       required: true,
     },
     log_entries: {
@@ -89,6 +97,10 @@ ol {
       position: absolute;
     }
   }
+}
+
+.container {
+  max-width: 1000px;
 }
 
 table {
