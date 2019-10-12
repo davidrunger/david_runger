@@ -3,7 +3,7 @@ tr
   td {{logEntry.createdAt}}
 
   td(v-if='editing')
-    textarea(v-model='newPlaintext')
+    el-input(v-model='newPlaintext' type='textarea')
   td.left-align(v-else v-html='logEntry.html')
 
   td(v-if='editing').
@@ -46,9 +46,10 @@ export default {
 };
 </script>
 
-<style>
-textarea {
+<style scoped>
+/deep/ textarea.el-textarea__inner {
   width: 100%;
   resize: vertical;
+  height: 12rem;
 }
 </style>

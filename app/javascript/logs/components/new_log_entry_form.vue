@@ -94,12 +94,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-/deep/ .new-log-input {
-  textarea {
-    height: 5rem;
-  }
-}
-
 /deep/ form.number,
 form.duration {
   margin: 0 auto;
