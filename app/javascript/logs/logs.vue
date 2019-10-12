@@ -113,6 +113,7 @@ textarea.el-textarea__inner,
 
 textarea.el-textarea__inner {
   color: #eee;
+  height: 7.5rem;
 }
 
 .el-input.is-disabled input.el-input__inner {
