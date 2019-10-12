@@ -30,10 +30,6 @@ describe('Sidebar', function () { // eslint-disable-line func-names
     wrapper = mount(Sidebar, { localVue, store: vuexStore, mocks: { bootstrap } });
   });
 
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-
   it('renders the store name', () => {
     expect(util.findAll(wrapper, 'a:text(Costco)')).toExist();
   });

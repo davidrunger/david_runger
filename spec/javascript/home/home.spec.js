@@ -11,10 +11,6 @@ describe('Home', function () { // eslint-disable-line func-names, prefer-arrow-c
     home = mount(Home, { localVue });
   });
 
-  it('is a Vue instance', () => {
-    expect(home.isVueInstance()).toBeTruthy();
-  });
-
   it('renders a basic headline', () => {
     expect(home.text()).toContain('David Runger');
     expect(home.text()).toContain('Full stack web developer');

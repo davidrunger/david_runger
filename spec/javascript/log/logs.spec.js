@@ -83,10 +83,6 @@ describe('Logs', function () { // eslint-disable-line func-names
     xhr.restore();
   });
 
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-
   it("shows the current user's email", () => {
     expect(wrapper.text()).toMatch(userEmail);
   });

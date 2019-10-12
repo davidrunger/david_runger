@@ -44,10 +44,6 @@ describe('Log', function () { // eslint-disable-line func-names
     );
   });
 
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-
   describe('#destroyLastEntry', () => {
     let confirmMock;
 
