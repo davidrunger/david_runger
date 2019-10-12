@@ -22,10 +22,6 @@ describe('Groceries', function () { // eslint-disable-line func-names
     wrapper = mount(Groceries, { localVue, store: vuexStore, mocks: { bootstrap } });
   });
 
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-
    it("renders the user's email", () => {
      expect(wrapper.text()).toMatch(userEmail);
    });
