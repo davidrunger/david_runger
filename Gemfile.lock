@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/rails-api/active_model_serializers.git
-  revision: ab47e983f587e93ece7ab2552537d1475a5eb234
+  revision: 5ce94fda60b2e1389114ea0a91cd811a8203104e
   branch: 0-10-stable
   specs:
     active_model_serializers (0.10.10)
@@ -425,7 +425,7 @@ GEM
     websocket-extensions (0.1.4)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.1.10)
+    zeitwerk (2.2.0)
 
 PLATFORMS
   ruby
