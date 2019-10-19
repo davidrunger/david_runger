@@ -97,4 +97,10 @@ Rails.application.configure do
   # rubocop:disable Metrics/LineLength
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   # rubocop:enable Metrics/LineLength
+
+  # Email
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  ActionMailer::Base.add_delivery_method(:mailgun_via_httparty, Mail::MailgunViaHttparty)
+  config.action_mailer.delivery_method = :mailgun_via_httparty
 end
