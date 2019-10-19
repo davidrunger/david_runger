@@ -31,6 +31,7 @@ class DavidRunger::Application < Rails::Application
   config.time_zone = 'America/Los_Angeles'
   config.active_record.default_timezone = :utc
 
+  config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
   config.middleware.insert_after(Rack::MethodOverride, RequestUuid)
 
   extra_load_paths = [
