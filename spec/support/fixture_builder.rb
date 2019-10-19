@@ -18,7 +18,10 @@ FixtureBuilder.configure do |fbuilder|
 
     # groceries
     store = name(:store, create(:store, user: user)).first
+    # rubocop:disable FactoryBot/AttributeDefinedStatically
+    # (I think that this is a false positive?)
     name(:item, create(:item, store: store))
+    # rubocop:enable FactoryBot/AttributeDefinedStatically
 
     # logs
     log = name(:log, create(:log, user: user)).first

@@ -5,8 +5,8 @@ require 'spec_helper'
 RSpec.describe User do
   subject(:user) { users(:user) }
 
-  it { should have_many(:sms_records) }
-  it { should have_many(:items) }
+  it { is_expected.to have_many(:sms_records) }
+  it { is_expected.to have_many(:items) }
 
   describe '#items' do
     subject(:items) { user.items }
@@ -51,7 +51,7 @@ RSpec.describe User do
     let(:sms_cost_1) { 0.006 }
     let(:sms_cost_2) { 0.008 }
 
-    before(:each) do
+    before do
       user.sms_records.destroy_all
       create(:sms_record, user: user, cost: sms_cost_1)
       create(:sms_record, user: user, cost: sms_cost_2)

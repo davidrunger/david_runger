@@ -4,6 +4,7 @@ require 'spec_helper'
 
 RSpec.describe SmsMessage do
   subject(:sms_message) { SmsMessage.new(sms_message_params) }
+
   let(:sms_message_params) do
     {
       user: user,
@@ -28,7 +29,7 @@ RSpec.describe SmsMessage do
       context 'when the user has a phone number' do
         before { expect(user.phone).to be_present }
 
-        it 'should not have a validation error about a missing phone number' do
+        it 'does not have a validation error about a missing phone number' do
           expect(error_messages).not_to include(missing_phone_error)
         end
       end
@@ -39,7 +40,7 @@ RSpec.describe SmsMessage do
           expect(user.phone).to be_blank
         end
 
-        it 'should have a validation error about a missing phone number' do
+        it 'has a validation error about a missing phone number' do
           expect(error_messages).to include(missing_phone_error)
         end
       end
@@ -51,6 +52,7 @@ RSpec.describe SmsMessage do
       sms_message.send(:grocery_store_items_needed_message_body)
     end
 
+    # rubocop:disable RSpec/ExampleLength
     it 'includes the store name and items needed (name & quantity)' do
       needed_items_list =
         store.items.needed.
@@ -63,5 +65,6 @@ RSpec.describe SmsMessage do
 
       expect(grocery_store_items_needed_message_body).to eq(expected_message)
     end
+    # rubocop:enable RSpec/ExampleLength
   end
 end

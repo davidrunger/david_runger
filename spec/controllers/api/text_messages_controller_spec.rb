@@ -2,6 +2,7 @@
 
 RSpec.describe Api::TextMessagesController do
   before { sign_in(user) }
+
   let(:user) { users(:user) }
 
   describe '#create' do

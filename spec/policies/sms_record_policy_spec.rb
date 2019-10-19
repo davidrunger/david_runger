@@ -3,8 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe SmsRecordPolicy do
-  subject { described_class }
-
   let(:user) { users(:user) }
 
   permissions :create? do
@@ -12,7 +10,7 @@ RSpec.describe SmsRecordPolicy do
       before { expect(user.may_send_sms?).to be(true) }
 
       it 'permits sending a text message' do
-        expect(subject).to permit(user)
+        expect(SmsRecordPolicy).to permit(user)
       end
     end
 
@@ -23,7 +21,7 @@ RSpec.describe SmsRecordPolicy do
       end
 
       it 'does not permit sending a text message' do
-        expect(subject).not_to permit(user)
+        expect(SmsRecordPolicy).not_to permit(user)
       end
     end
   end
