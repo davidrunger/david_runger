@@ -2,6 +2,7 @@
 
 RSpec.describe Api::LogEntriesController do
   before { sign_in(user) }
+
   let(:user) { users(:user) }
   let(:log) { user.logs.first! }
 

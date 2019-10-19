@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe Item do
   subject(:item) { items(:item) }
 
-  it { should belong_to(:store) }
+  it { is_expected.to belong_to(:store) }
 
   describe '::needed' do
     context 'when `needed` is greater than 0' do

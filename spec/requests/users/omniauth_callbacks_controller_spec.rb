@@ -13,13 +13,13 @@ RSpec.describe Users::OmniauthCallbacksController do
     end
 
     describe 'POST /users/auth/:provider without CSRF token' do
-      before do
-        @original_allow_forgery_protection = ActionController::Base.allow_forgery_protection
+      around do |spec|
+        original_allow_forgery_protection = ActionController::Base.allow_forgery_protection
         ActionController::Base.allow_forgery_protection = true
-      end
 
-      after do
-        ActionController::Base.allow_forgery_protection = @original_allow_forgery_protection
+        spec.run
+
+        ActionController::Base.allow_forgery_protection = original_allow_forgery_protection
       end
 
       specify do
