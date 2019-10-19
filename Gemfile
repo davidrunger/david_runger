@@ -56,7 +56,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.3'
   # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database
   # performance analysis.
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', require: false
   gem 'spring'
   gem 'spring-commands-rspec'
   # We can go back to the offical spring-watcher-listen after upgrading to Rails 6.
