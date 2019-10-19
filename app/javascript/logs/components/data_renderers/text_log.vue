@@ -16,8 +16,11 @@
 import EditableTextLogRow from 'logs/components/editable_text_log_row.vue';
 import NewLogEntryForm from 'logs/components/new_log_entry_form.vue';
 
+import createDOMPurify from 'dompurify';
 import marked from 'marked';
 import strftime from 'strftime';
+
+const DOMPurify = createDOMPurify(window);
 
 export default {
   components: {
@@ -39,7 +42,7 @@ export default {
           id: logEntry.id,
           createdAt: strftime('%b %-d %-l:%M%P', new Date(logEntry.created_at)),
           plaintext: logEntry.data,
-          html: marked(logEntry.data, { sanitize: true }),
+          html: DOMPurify.sanitize(marked(logEntry.data)),
         })).reverse();
 
       return sortedAndFormattedEntries;
