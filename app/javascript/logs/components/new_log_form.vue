@@ -24,6 +24,7 @@ div
             name='newLog.data_label'
             required
           )
+        validate.mb1
           el-select(
             placeholder='Type'
             v-model='newLog.data_type'
