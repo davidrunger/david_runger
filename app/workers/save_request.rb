@@ -79,12 +79,12 @@ class SaveRequest
 
   def warn_about_missing_initial_stashed_json
     logger.warn(<<-LOG.squish)
-      Stashed JSON for request logging was blank.
+      Initial stashed JSON for request logging was blank.
       initial_stashed_json=#{initial_stashed_json.inspect}
       request_uuid=#{@request_uuid.inspect}
     LOG
     Rollbar.warn(
-      Request::CreateRequestError.new('Stashed JSON for request logging was blank'),
+      Request::CreateRequestError.new('Initial stashed JSON for request logging was blank'),
       initial_stashed_json: initial_stashed_json,
       request_uuid: @request_uuid,
     )
@@ -92,12 +92,12 @@ class SaveRequest
 
   def warn_about_missing_final_stashed_json
     logger.warn(<<-LOG.squish)
-      Stashed JSON for request logging was blank.
+      Final stashed JSON for request logging was blank.
       final_stashed_json=#{final_stashed_json.inspect}
       request_uuid=#{@request_uuid.inspect}
     LOG
     Rollbar.warn(
-      Request::CreateRequestError.new('Stashed JSON for request logging was blank'),
+      Request::CreateRequestError.new('Final stashed JSON for request logging was blank'),
       final_stashed_json: final_stashed_json,
       request_uuid: @request_uuid,
     )
