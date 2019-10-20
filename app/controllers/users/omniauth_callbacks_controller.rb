@@ -7,6 +7,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = User.from_omniauth!(request.env['omniauth.auth'])
     sign_in(user)
     NewUserMailer.user_created(user.id).deliver_later
-    redirect_to(session.delete('user_return_to') || groceries_path)
+    redirect_to(session.delete('user_return_to') || root_path)
   end
 end
