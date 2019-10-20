@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Mail::MailgunViaHttparty
+class Email::MailgunViaHttparty
   attr_accessor :message
 
   def initialize(_mail) ; end
