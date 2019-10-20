@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   root to: 'home#index'
 
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
 
   authenticate :user, ->(user) { user.admin? } do
     mount PgHero::Engine, at: 'pghero'
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   # Google periodically re-verifies this route, so we need to leave it here indefinitely
