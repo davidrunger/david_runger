@@ -62,10 +62,6 @@ class Log < ApplicationRecord
     dependent: :destroy,
     inverse_of: :log
 
-  has_many :log_inputs, dependent: :destroy
-
-  accepts_nested_attributes_for :log_inputs
-
   before_save :set_slug, if: -> { name_changed? }
 
   def log_entries
