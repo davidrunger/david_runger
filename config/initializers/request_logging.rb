@@ -29,7 +29,12 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
     final_request_data.to_json,
   )
 
-  unless payload[:controller].constantize.ancestors.include?(Admin::ApplicationController)
+  controller_name = payload[:controller]
+  controller = controller_name.constantize
+  is_admin_controller = controller.ancestors.include?(Admin::ApplicationController)
+  is_pghero_controller = controller_name.start_with?('PgHero::')
+
+  unless is_admin_controller || is_pghero_controller
     SaveRequest.perform_async(params['request_uuid'])
   end
 
