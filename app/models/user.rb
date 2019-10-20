@@ -31,10 +31,6 @@ class User < ApplicationRecord
   has_many :items, through: :stores # must come after has_many :stores declaration
   has_many :text_log_entries, through: :logs
 
-  def self.from_omniauth!(access_token)
-    User.find_or_create_by!(email: access_token.info['email'])
-  end
-
   def admin?
     email.in?(ADMIN_EMAILS)
   end
