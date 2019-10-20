@@ -17,7 +17,7 @@ class Admin::ApplicationController < Administrate::ApplicationController
       redirect_to(root_path)
     else
       flash[:alert] = 'You must sign in first.'
-      session['user_redirect_to'] = request.path
+      session['user_return_to'] = request.path
       redirect_to(login_path)
     end
   end
