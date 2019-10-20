@@ -29,7 +29,9 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
     final_request_data.to_json,
   )
 
-  SaveRequest.perform_async(params['request_uuid'])
+  unless payload[:controller].constantize.ancestors.include?(Admin::ApplicationController)
+    SaveRequest.perform_async(params['request_uuid'])
+  end
 
   nil
 end
