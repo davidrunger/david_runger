@@ -14,6 +14,7 @@ class DavidRunger::LogBuilder
       params: params_log,
       status: status_code_log,
       user_id: user_id_log,
+      request_uuid: request_uuid_log,
     }.compact
   end
 
@@ -34,8 +35,12 @@ class DavidRunger::LogBuilder
     end
   end
 
+  def params
+    payload[:params]
+  end
+
   def params_log
-    payload[:params].except(*OMITTED_PARAMS)
+    params.except(*OMITTED_PARAMS)
   end
 
   def status_code_log
@@ -45,5 +50,9 @@ class DavidRunger::LogBuilder
 
   def user_id_log
     payload[:user_id] # comes from ApplicationController#append_info_to_payload
+  end
+
+  def request_uuid_log
+    params['request_uuid']
   end
 end
