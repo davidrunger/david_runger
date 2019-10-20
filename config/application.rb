@@ -3,11 +3,12 @@
 require_relative 'boot'
 
 require 'rails'
-require 'active_model/railtie'
-require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'action_view/railtie'
+require 'active_job/railtie'
+require 'active_model/railtie'
+require 'active_record/railtie'
 
 # require_relative is ugly but ~necessary: https://github.com/rails/rails/issues/25525
 require_relative '../app/middleware/request_uuid'
@@ -20,6 +21,9 @@ module DavidRunger ; end
 class DavidRunger::Application < Rails::Application
   # Initialize configuration defaults for originally generated Rails version.
   config.load_defaults('6.0')
+
+  # ActiveJob/Sidekiq
+  config.active_job.queue_adapter = :sidekiq
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

@@ -6,7 +6,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     user = User.from_omniauth!(request.env['omniauth.auth'])
     sign_in(user)
-    NewUserMailer.with(user: user).user_created.deliver_now
+    NewUserMailer.user_created(user.id).deliver_later
     redirect_to(session.delete('user_redirect_to') || groceries_path)
   end
 end

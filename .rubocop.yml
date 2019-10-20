@@ -6,6 +6,8 @@ AllCops:
   EnabledByDefault: true
   Exclude:
     - !ruby/regexp /\/db\/migrate/201[1-8].*\.rb\z/
+    - bin/bundle # auto-generated; best to leave as-is
+    - bin/sidekiq # auto-generated; best to leave as-is
     - db/schema.rb
     - lib/tasks/auto_annotate_models.rake
     - node_modules/**/*
