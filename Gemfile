@@ -18,6 +18,7 @@ gem 'hamlit'
 gem 'httparty'
 gem 'js-routes', require: false
 gem 'lograge'
+gem 'memoist'
 gem 'newrelic_rpm'
 gem 'oj'
 gem 'omniauth-google-oauth2'

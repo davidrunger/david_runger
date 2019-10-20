@@ -27,6 +27,8 @@ Layout/ClassStructure:
       - private_methods
 Layout/DotPosition:
   EnforcedStyle: trailing
+Layout/IndentFirstArgument:
+  Enabled: false # this rule doesn't play nicely with the way that I like to use `memoize`
 Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
 Layout/MultilineMethodCallIndentation:
@@ -42,6 +44,8 @@ Lint/UnneededSplatExpansion:
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
   Enabled: false
 Metrics/LineLength:
   IgnoredPatterns:

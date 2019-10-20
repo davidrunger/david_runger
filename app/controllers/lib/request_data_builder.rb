@@ -32,7 +32,8 @@ class RequestDataBuilder
       referer: @request.referer,
       ip: @request.ip,
       user_agent: raw_user_agent,
-      requested_at: @request_time,
+      requested_at_as_float: Float(@request_time),
+      format: @request.format.symbol,
     }
   end
 

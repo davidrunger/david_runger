@@ -7,7 +7,6 @@
 # If you want to add pagination or other controller-level concerns,
 # you're free to overwrite the RESTful controller actions.
 class Admin::ApplicationController < Administrate::ApplicationController
-  before_action :store_request_data_in_redis
   before_action :authenticate_admin
 
   def authenticate_admin
@@ -27,12 +26,4 @@ class Admin::ApplicationController < Administrate::ApplicationController
   # def records_per_page
   #   params[:per_page] || 20
   # end
-
-  def store_request_data_in_redis
-    $redis.setex(
-      params['request_uuid'],
-      ::ApplicationController::REQUEST_DATA_TTL,
-      {admin: true}.to_json,
-    )
-  end
 end
