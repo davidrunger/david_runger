@@ -78,7 +78,7 @@ class SaveRequest
   end
 
   def warn_about_missing_initial_stashed_json
-    Rails.logger.warn(<<-LOG.squish)
+    logger.warn(<<-LOG.squish)
       Stashed JSON for request logging was blank.
       initial_stashed_json=#{initial_stashed_json.inspect}
       request_uuid=#{@request_uuid.inspect}
@@ -91,7 +91,7 @@ class SaveRequest
   end
 
   def warn_about_missing_final_stashed_json
-    Rails.logger.warn(<<-LOG.squish)
+    logger.warn(<<-LOG.squish)
       Stashed JSON for request logging was blank.
       final_stashed_json=#{final_stashed_json.inspect}
       request_uuid=#{@request_uuid.inspect}
