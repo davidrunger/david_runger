@@ -10,10 +10,15 @@ class ApplicationController < ActionController::Base
   before_action :check_for_supported_browser!
   before_action :authenticate_user
   before_action :store_redirect_location
+  before_action :enqueue_touch_activity_at_worker, if: -> { current_user.present? }
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+
+  def enqueue_touch_activity_at_worker
+    TouchActivityAt.perform_async(current_user.id, Float(@request_time))
+  end
 
   # add user_id to event payload so that we can include it in logs
   def append_info_to_payload(payload)

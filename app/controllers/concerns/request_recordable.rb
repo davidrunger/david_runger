@@ -5,14 +5,26 @@ module RequestRecordable
 
   extend ActiveSupport::Concern
 
-  REQUEST_DATA_TTL = 60 # seconds to store data in Redis for later turning into a Request model
+  module Helpers
+    def initial_request_data_redis_key(request_uuid: nil)
+      "request_data:#{request_uuid || params['request_uuid']}:initial"
+    end
+  end
+  include Helpers
+
+  REQUEST_DATA_TTL = Integer(1.hour) # seconds to store data in Redis to later turn into a `Request`
 
   included do
-    before_action :store_request_data_in_redis
+    prepend_before_action :set_request_time
+    before_action :store_initial_request_data_in_redis
   end
 
-  def store_request_data_in_redis
-    $redis.setex(params['request_uuid'], REQUEST_DATA_TTL, request_data.to_json)
+  def store_initial_request_data_in_redis
+    $redis.setex(
+      initial_request_data_redis_key,
+      REQUEST_DATA_TTL,
+      request_data.to_json,
+    )
   rescue Encoding::UndefinedConversionError => error
     Rails.logger.info("Error storing request data in Redis, error=#{error.inspect}")
     Rollbar.info(error)
@@ -40,11 +52,11 @@ module RequestRecordable
       params: params,
       filtered_params: filtered_params,
       user: current_user,
-      request_time: request_time,
+      request_time: @request_time,
     ).request_data
   end
 
-  def request_time
-    @request_time ||= Time.current
+  def set_request_time
+    @request_time = Time.current
   end
 end

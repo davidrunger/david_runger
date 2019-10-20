@@ -33,7 +33,9 @@ class Request < ApplicationRecord
 
   belongs_to :user, optional: true
 
-  validates :url, :handler, :method, :format, :ip, :requested_at, presence: true
+  validates :url, :handler, :method, :format, :ip, :requested_at, :db, :status, presence: true
+  # view is (sometimes?) not available for some requests (e.g. redirects and 500s)
+  validates :view, presence: true, unless: -> { (status / 100).in?([3, 4, 5]) }
 
   # rubocop:disable Layout/MultilineMethodArgumentLineBreaks
   scope :recent, ->(time_period = 1.day) {
