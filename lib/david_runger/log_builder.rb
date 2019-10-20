@@ -2,7 +2,7 @@
 
 class DavidRunger::LogBuilder
   # these params are logged already or unimportant
-  OMITTED_PARAMS = %w[controller action format id request_uuid].map(&:freeze).freeze
+  OMITTED_PARAMS = %w[controller action format request_uuid].map(&:freeze).freeze
 
   def initialize(event)
     @event = event
