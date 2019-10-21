@@ -1,0 +1,3 @@
+:schedule:
+  Stats:
+    cron: '0 * * * * *'  # once per minute

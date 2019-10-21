@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sidekiq-scheduler' if Sidekiq.server?
+
 sidekiq_redis_options = {
   db: 1,
 }

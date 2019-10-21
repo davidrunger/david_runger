@@ -37,6 +37,7 @@ gem 'rubocop-performance', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
 gem 'sidekiq'
+gem 'sidekiq-scheduler', require: false # required manually in config/initializers/sidekiq.rb
 gem 'statsd-instrument'
 gem 'webpacker', '>= 4.0.0.pre.pre.2'
 
