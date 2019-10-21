@@ -33,7 +33,7 @@ class Request < ApplicationRecord
 
   belongs_to :user, optional: true
 
-  validates :url, :handler, :method, :format, :ip, :requested_at, :db, :status, presence: true
+  validates :url, :handler, :method, :format, :ip, :requested_at, :status, presence: true
 
   # rubocop:disable Layout/MultilineMethodArgumentLineBreaks
   scope :recent, ->(time_period = 1.day) {
