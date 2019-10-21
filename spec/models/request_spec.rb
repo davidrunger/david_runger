@@ -3,6 +3,11 @@
 require 'spec_helper'
 
 RSpec.describe Request do
+  describe 'validations' do
+    it { is_expected.not_to validate_presence_of(:db) }
+    it { is_expected.not_to validate_presence_of(:view) }
+  end
+
   describe '::recent' do
     # rubocop:disable RSpec/MultipleExpectations
     context 'when called without an argument' do
