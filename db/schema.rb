@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_17_084423) do
+ActiveRecord::Schema.define(version: 2019_10_21_155831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2019_06_17_084423) do
     t.string "referer"
     t.jsonb "params"
     t.string "method", null: false
-    t.string "format", null: false
+    t.string "format"
     t.integer "status"
     t.integer "view"
     t.integer "db"
