@@ -9,6 +9,12 @@
 //   dumpMessages: true,
 //   backends: ['./backends/console'],
 // }
+//
+// NOTE NOTE NOTE NOTE NOTE NOTE
+//   The `process.env.XYZ` stuff does not work solely based off of a `.env` file.
+//   Export those variables into the local environment or temporarily copy them into this file.
+// NOTE NOTE NOTE NOTE NOTE NOTE
+//
 
 {
   graphite: {
