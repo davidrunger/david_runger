@@ -23,9 +23,20 @@ class SaveRequest
       return
     end
 
-    saved_successfully = request.save
-    if !saved_successfully
-      warn_about_failure_to_save_request
+    begin
+      request.save!
+    rescue => error
+      logger.warn(<<~LOG.squish)
+        Failed to store request data in redis.
+        error_class=#{error.class}
+        error_message=#{error.message}
+        cause_error_class=#{cause_error&.class}
+        cause_error_message=#{cause_error&.message}
+        request_attributes=#{request_attributes.inspect}
+      LOG
+
+      # wrap the original exception in Request::CreateRequestError by re-raising
+      raise(Request::CreateRequestError, 'Failed to store request data in redis')
     end
   end
 
@@ -100,23 +111,6 @@ class SaveRequest
       Request::CreateRequestError.new('Final stashed JSON for request logging was blank'),
       final_stashed_json: final_stashed_json,
       request_uuid: @request_uuid,
-    )
-  end
-
-  def warn_about_failure_to_save_request
-    logger.error(<<-LOG.squish)
-      Failed to create a Request,
-      errors=#{request.errors.to_h},
-      initial_stashed_json=#{initial_stashed_json.inspect},
-      final_stashed_json=#{final_stashed_json.inspect},
-      request_attributes=#{request_attributes.inspect}
-    LOG
-    Rollbar.error(
-      Request::CreateRequestError.new('Failed to save a Request'),
-      initial_stashed_json: initial_stashed_json,
-      final_stashed_json: final_stashed_json,
-      request_attributes: request_attributes,
-      errors: request.errors.to_h,
     )
   end
 end
