@@ -75,6 +75,7 @@ class SaveRequest
   memoize \
   def request_attributes
     {
+      request_id: @request_id,
       user_id: stashed_data['user_id'],
       url: stashed_data['url'],
       format: stashed_data['format'],
