@@ -26,13 +26,10 @@ class SaveRequest
     begin
       request.save!
     rescue => error
-      cause_error = error.cause
       logger.warn(<<~LOG.squish)
         Failed to store request data in redis.
         error_class=#{error.class}
         error_message=#{error.message}
-        cause_error_class=#{cause_error&.class}
-        cause_error_message=#{cause_error&.message}
         request_attributes=#{request_attributes.inspect}
       LOG
 
