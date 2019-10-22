@@ -5,7 +5,7 @@
 # Table name: requests
 #
 #  db           :integer
-#  format       :string           not null
+#  format       :string
 #  handler      :string           not null
 #  id           :bigint           not null, primary key
 #  ip           :string           not null
@@ -14,6 +14,7 @@
 #  method       :string           not null
 #  params       :jsonb
 #  referer      :string
+#  request_id   :string
 #  requested_at :datetime         not null
 #  status       :integer
 #  url          :string           not null
@@ -23,6 +24,7 @@
 #
 # Indexes
 #
+#  index_requests_on_request_id    (request_id) UNIQUE
 #  index_requests_on_requested_at  (requested_at)
 #  index_requests_on_user_id       (user_id)
 #
@@ -34,6 +36,8 @@ class Request < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :url, :handler, :method, :ip, :requested_at, :status, presence: true
+  # TODO: validate request_id always, after old requests without one no longer exist
+  validates :request_id, presence: true, on: [:create]
 
   # rubocop:disable Layout/MultilineMethodArgumentLineBreaks
   scope :recent, ->(time_period = 1.day) {
