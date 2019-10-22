@@ -2,7 +2,7 @@
 
 class DavidRunger::LogBuilder
   # these params are logged already or unimportant
-  OMITTED_PARAMS = %w[controller action format request_uuid].map(&:freeze).freeze
+  OMITTED_PARAMS = %w[controller action format].map(&:freeze).freeze
 
   def initialize(event)
     @event = event
@@ -14,7 +14,6 @@ class DavidRunger::LogBuilder
       params: params_log,
       status: status_code_log,
       user_id: user_id_log,
-      request_uuid: request_uuid_log,
     }.compact
   end
 
@@ -50,9 +49,5 @@ class DavidRunger::LogBuilder
 
   def user_id_log
     payload[:user_id] # comes from ApplicationController#append_info_to_payload
-  end
-
-  def request_uuid_log
-    params['request_uuid']
   end
 end

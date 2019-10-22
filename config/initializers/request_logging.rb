@@ -2,17 +2,16 @@
 
 ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*args|
   payload = args.extract_options!
-  params = payload[:params]
-  request_uuid = params['request_uuid']
+  request_id = payload[:headers]['action_dispatch.request_id']
 
-  if request_uuid.blank?
+  if request_id.blank?
     Rails.logger.warn(<<-LOG.squish)
       Request UUID for request logging was blank.
-      request_uuid=#{request_uuid.inspect}
+      request_id=#{request_id.inspect}
     LOG
     Rollbar.warn(
       Request::CreateRequestError.new('Request UUID for request logging was blank'),
-      request_uuid: request_uuid,
+      request_id: request_id,
     )
     next
   end
@@ -24,7 +23,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
   }
 
   $redis.setex(
-    "request_data:#{params['request_uuid']}:final",
+    "request_data:#{request_id}:final",
     ::RequestRecordable::REQUEST_DATA_TTL,
     final_request_data.to_json,
   )
@@ -35,7 +34,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
   is_pghero_controller = controller_name.start_with?('PgHero::')
 
   unless is_admin_controller || is_pghero_controller
-    SaveRequest.perform_async(params['request_uuid'])
+    SaveRequest.perform_async(request_id)
   end
 
   nil

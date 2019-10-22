@@ -8,7 +8,6 @@ class RequestDataBuilder
     authenticity_token
     controller
     format
-    request_uuid
     utf8
   ].map(&:freeze).freeze
 

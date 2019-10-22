@@ -6,8 +6,8 @@ module RequestRecordable
   extend ActiveSupport::Concern
 
   module Helpers
-    def initial_request_data_redis_key(request_uuid: nil)
-      "request_data:#{request_uuid || params['request_uuid']}:initial"
+    def initial_request_data_redis_key(request_id: nil)
+      "request_data:#{request_id || request.request_id || fail('No request_id')}:initial"
     end
   end
   include Helpers

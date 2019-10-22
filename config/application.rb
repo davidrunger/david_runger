@@ -10,9 +10,6 @@ require 'active_job/railtie'
 require 'active_model/railtie'
 require 'active_record/railtie'
 
-# require_relative is ugly but ~necessary: https://github.com/rails/rails/issues/25525
-require_relative '../app/middleware/request_uuid'
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -37,7 +34,6 @@ class DavidRunger::Application < Rails::Application
   config.active_record.default_timezone = :utc
 
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
-  config.middleware.insert_after(Rack::MethodOverride, RequestUuid)
 
   extra_load_paths = [
     Rails.root.join('lib'),
