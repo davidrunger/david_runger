@@ -47,8 +47,8 @@ class RequestDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    user
     id
+    user
     url
     handler
     referer
@@ -62,6 +62,7 @@ class RequestDashboard < Administrate::BaseDashboard
     isp
     user_agent
     requested_at
+    request_id
     location
   ].freeze
 
