@@ -1,3 +1,5 @@
 :schedule:
-  Stats:
-    cron: '0 * * * * *'  # once per minute
+  AppStats:
+    cron: '0/10 * * * * *'  # once every 10 minutes
+  RedisStats:
+    cron: '0 * * * * *'  # once every minute

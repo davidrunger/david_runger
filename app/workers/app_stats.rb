@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Stats
+class AppStats
   include Sidekiq::Worker
 
   def perform
