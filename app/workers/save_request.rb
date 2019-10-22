@@ -4,22 +4,24 @@ class SaveRequest
   extend Memoist
 
   include Sidekiq::Worker
-  include RequestRecordable::Helpers
 
   def perform(request_id)
     @request_id = request_id
 
     if initial_stashed_json.blank?
+      delete_request_data # delete the final stashed data, if it's there
       warn_about_missing_initial_stashed_json
       return
     end
 
     if final_stashed_json.blank?
+      delete_request_data # delete the initial stashed data, if it's there
       warn_about_missing_final_stashed_json
       return
     end
 
     if DavidRunger::LogSkip.should_skip?(params: stashed_data['params'])
+      delete_request_data
       return
     end
 
@@ -37,14 +39,18 @@ class SaveRequest
       raise(Request::CreateRequestError, 'Failed to store request data in redis')
     else
       # we no longer need the data, so delete it now (rather than waiting for REQUEST_DATA_TTL)
-      $redis.del(
-        initial_request_data_redis_key(request_id: @request_id),
-        final_request_data_redis_key,
-      )
+      delete_request_data
     end
   end
 
   private
+
+  def delete_request_data
+    $redis.del(
+      initial_request_data_redis_key,
+      final_request_data_redis_key,
+    )
+  end
 
   memoize \
   def request
@@ -52,8 +58,13 @@ class SaveRequest
   end
 
   memoize \
+  def initial_request_data_redis_key
+    "request_data:#{@request_id}:initial"
+  end
+
+  memoize \
   def initial_stashed_json
-    $redis.get(initial_request_data_redis_key(request_id: @request_id))
+    $redis.get(initial_request_data_redis_key)
   end
 
   memoize \
@@ -63,6 +74,7 @@ class SaveRequest
     initial_stashed_data.merge(final_stashed_data)
   end
 
+  memoize \
   def final_request_data_redis_key
     "request_data:#{@request_id}:final"
   end
