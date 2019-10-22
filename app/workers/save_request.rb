@@ -6,8 +6,8 @@ class SaveRequest
   include Sidekiq::Worker
   include RequestRecordable::Helpers
 
-  def perform(request_uuid)
-    @request_uuid = request_uuid
+  def perform(request_id)
+    @request_id = request_id
 
     if initial_stashed_json.blank?
       warn_about_missing_initial_stashed_json
@@ -38,7 +38,7 @@ class SaveRequest
     else
       # we no longer need the data, so delete it now (rather than waiting for REQUEST_DATA_TTL)
       $redis.del(
-        initial_request_data_redis_key(request_uuid: @request_uuid),
+        initial_request_data_redis_key(request_id: @request_id),
         final_request_data_redis_key,
       )
     end
@@ -53,7 +53,7 @@ class SaveRequest
 
   memoize \
   def initial_stashed_json
-    $redis.get(initial_request_data_redis_key(request_uuid: @request_uuid))
+    $redis.get(initial_request_data_redis_key(request_id: @request_id))
   end
 
   memoize \
@@ -64,7 +64,7 @@ class SaveRequest
   end
 
   def final_request_data_redis_key
-    "request_data:#{@request_uuid}:final"
+    "request_data:#{@request_id}:final"
   end
 
   memoize \
@@ -100,12 +100,12 @@ class SaveRequest
     logger.warn(<<-LOG.squish)
       Initial stashed JSON for request logging was blank.
       initial_stashed_json=#{initial_stashed_json.inspect}
-      request_uuid=#{@request_uuid.inspect}
+      request_id=#{@request_id.inspect}
     LOG
     Rollbar.warn(
       Request::CreateRequestError.new('Initial stashed JSON for request logging was blank'),
       initial_stashed_json: initial_stashed_json,
-      request_uuid: @request_uuid,
+      request_id: @request_id,
     )
   end
 
@@ -113,12 +113,12 @@ class SaveRequest
     logger.warn(<<-LOG.squish)
       Final stashed JSON for request logging was blank.
       final_stashed_json=#{final_stashed_json.inspect}
-      request_uuid=#{@request_uuid.inspect}
+      request_id=#{@request_id.inspect}
     LOG
     Rollbar.warn(
       Request::CreateRequestError.new('Final stashed JSON for request logging was blank'),
       final_stashed_json: final_stashed_json,
-      request_uuid: @request_uuid,
+      request_id: @request_id,
     )
   end
 end

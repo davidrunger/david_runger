@@ -156,6 +156,8 @@ Style/MissingElse:
   Enabled: false
 Style/NegatedIf:
   Enabled: false
+Style/ImplicitRuntimeError:
+  Enabled: false
 Style/NumericPredicate:
   Enabled: false
 Style/RescueModifier:
