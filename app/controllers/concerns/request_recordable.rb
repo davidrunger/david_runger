@@ -5,13 +5,6 @@ module RequestRecordable
 
   extend ActiveSupport::Concern
 
-  module Helpers
-    def initial_request_data_redis_key(request_id: nil)
-      "request_data:#{request_id || request.request_id || fail('No request_id')}:initial"
-    end
-  end
-  include Helpers
-
   # The number of seconds to store request data in Redis (to later turn into a `Request`). Set to
   # 21.days because that's ~ how long Sidekiq (which processes this data) will attempt retries for.
   REQUEST_DATA_TTL = Integer(21.days)
@@ -47,6 +40,10 @@ module RequestRecordable
   end
 
   private
+
+  def initial_request_data_redis_key
+    "request_data:#{request.request_id || fail('No request_id')}:initial"
+  end
 
   def request_data
     @request_data ||= RequestDataBuilder.new(
