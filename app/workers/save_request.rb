@@ -26,18 +26,21 @@ class SaveRequest
     begin
       request.save!
     rescue => error
-      cause_error = error.cause
       logger.warn(<<~LOG.squish)
         Failed to store request data in redis.
         error_class=#{error.class}
         error_message=#{error.message}
-        cause_error_class=#{cause_error&.class}
-        cause_error_message=#{cause_error&.message}
         request_attributes=#{request_attributes.inspect}
       LOG
 
       # wrap the original exception in Request::CreateRequestError by re-raising
       raise(Request::CreateRequestError, 'Failed to store request data in redis')
+    else
+      # we no longer need the data, so delete it now (rather than waiting for REQUEST_DATA_TTL)
+      $redis.del(
+        initial_request_data_redis_key(request_uuid: @request_uuid),
+        final_request_data_redis_key,
+      )
     end
   end
 
@@ -60,9 +63,13 @@ class SaveRequest
     initial_stashed_data.merge(final_stashed_data)
   end
 
+  def final_request_data_redis_key
+    "request_data:#{@request_uuid}:final"
+  end
+
   memoize \
   def final_stashed_json
-    $redis.get("request_data:#{@request_uuid}:final")
+    $redis.get(final_request_data_redis_key)
   end
 
   memoize \

@@ -12,7 +12,9 @@ module RequestRecordable
   end
   include Helpers
 
-  REQUEST_DATA_TTL = Integer(1.hour) # seconds to store data in Redis to later turn into a `Request`
+  # The number of seconds to store request data in Redis (to later turn into a `Request`). Set to
+  # 21.days because that's ~ how long Sidekiq (which processes this data) will attempt retries for.
+  REQUEST_DATA_TTL = Integer(21.days)
 
   included do
     prepend_before_action :set_request_time
