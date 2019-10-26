@@ -3,6 +3,8 @@
 class RedisStats
   include Sidekiq::Worker
 
+  sidekiq_options(queue: :essential)
+
   FLOAT_METRIC_NAMES = %w[
     instantaneous_input_kbps
     instantaneous_output_kbps
