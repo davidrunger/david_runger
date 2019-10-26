@@ -1,3 +1,7 @@
+:concurrency: 1 # I like to just use 1 thread in development so that the logs don't get intermixed
+production:
+  :concurrency: 2
+
 :schedule:
   AppStats:
     cron: '0/10 * * * * *'  # once every 10 minutes
