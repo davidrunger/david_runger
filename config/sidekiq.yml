@@ -2,8 +2,15 @@
 production:
   :concurrency: 2
 
+:queues:
+  - ['essential', 12] # ideally we'd run this queue on a separate process, but that'd cost money :(
+  - ['default', 3]
+  - ['mailers', 1]
+
 :schedule:
   AppStats:
     cron: '0/10 * * * * *'  # once every 10 minutes
   RedisStats:
+    cron: '0 * * * * *'  # once every minute
+  SidekiqStats:
     cron: '0 * * * * *'  # once every minute
