@@ -22,11 +22,13 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
     db: payload[:db_runtime],
   }
 
-  $redis.setex(
-    "request_data:#{request_id}:final",
-    ::RequestRecordable::REQUEST_DATA_TTL,
-    final_request_data.to_json,
-  )
+  $redis_pool.with do |conn|
+    conn.setex(
+      "request_data:#{request_id}:final",
+      ::RequestRecordable::REQUEST_DATA_TTL,
+      final_request_data.to_json,
+    )
+  end
 
   controller_name = payload[:controller]
   controller = controller_name.constantize
