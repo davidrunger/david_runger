@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-rails_max_threads = Integer(ENV.fetch('RAILS_MAX_THREADS') { 5 })
-$redis_pool = ConnectionPool.new(size: rails_max_threads, timeout: 1) { Redis.new }
+# See comments in config/initializers/sidekiq.rb for rationale re: pool size of 2.
+$redis_pool = ConnectionPool.new(size: 2, timeout: 1) { Redis.new }
