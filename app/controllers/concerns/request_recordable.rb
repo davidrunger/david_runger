@@ -15,11 +15,13 @@ module RequestRecordable
   end
 
   def store_initial_request_data_in_redis
-    $redis.setex(
-      initial_request_data_redis_key,
-      REQUEST_DATA_TTL,
-      request_data.to_json,
-    )
+    $redis_pool.with do |conn|
+      conn.setex(
+        initial_request_data_redis_key,
+        REQUEST_DATA_TTL,
+        request_data.to_json,
+      )
+    end
   rescue Encoding::UndefinedConversionError => error
     Rails.logger.info("Error storing request data in Redis, error=#{error.inspect}")
     Rollbar.info(error)

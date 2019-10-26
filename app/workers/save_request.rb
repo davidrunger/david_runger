@@ -46,10 +46,12 @@ class SaveRequest
   private
 
   def delete_request_data
-    $redis.del(
-      initial_request_data_redis_key,
-      final_request_data_redis_key,
-    )
+    $redis_pool.with do |conn|
+      conn.del(
+        initial_request_data_redis_key,
+        final_request_data_redis_key,
+      )
+    end
   end
 
   memoize \
@@ -64,7 +66,7 @@ class SaveRequest
 
   memoize \
   def initial_stashed_json
-    $redis.get(initial_request_data_redis_key)
+    $redis_pool.with { |conn| conn.get(initial_request_data_redis_key) }
   end
 
   memoize \
@@ -81,7 +83,7 @@ class SaveRequest
 
   memoize \
   def final_stashed_json
-    $redis.get(final_request_data_redis_key)
+    $redis_pool.with { |conn| conn.get(final_request_data_redis_key) }
   end
 
   memoize \

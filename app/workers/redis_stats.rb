@@ -55,11 +55,12 @@ class RedisStats
   ].freeze
 
   def perform
-    @info_hash = $redis.info
+    @info_hash = $redis_pool.with(&:info)
 
     track_integers
     track_floats
     track_databases
+    track_connection_pool
   end
 
   private
@@ -92,6 +93,11 @@ class RedisStats
         track("#{database}.#{metric}", Integer(value))
       end
     end
+  end
+
+  def track_connection_pool
+    track('connection_pool.size', $redis_pool.size)
+    track('connection_pool.available', $redis_pool.available)
   end
 
   def database_keys

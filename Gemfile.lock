@@ -465,6 +465,7 @@ DEPENDENCIES
   binding_of_caller
   browser
   capybara
+  connection_pool
   devise
   dotenv-rails
   factory_bot_rails

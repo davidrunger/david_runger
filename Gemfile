@@ -12,6 +12,7 @@ end
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-10-stable'
 gem 'administrate', github: 'thoughtbot/administrate' # source from master for Rails 6 compatibility
 gem 'browser'
+gem 'connection_pool'
 gem 'devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'hamlit'
