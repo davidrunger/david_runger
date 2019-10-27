@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+class DavidRunger::LogFormatter < Lograge::Formatters::KeyValue
+  def initialize(data)
+    controller = data.delete(:controller) # e.g. 'Api::LogEntriesController'
+    action = data[:action] # e.g. 'index'
+
+    # convert to 'api/log_entries#index'
+    data[:action] = "#{controller.sub(/Controller\z/, '').underscore}##{action}"
+
+    @data = data
+  end
+
+  def call
+    super(@data) # use the Lograge::Formatters::KeyValue#call method
+  end
+end
