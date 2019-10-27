@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RedisStats
+  extend Memoist
   include Sidekiq::Worker
 
   sidekiq_options(queue: :essential)
@@ -57,15 +58,18 @@ class RedisStats
   ].freeze
 
   def perform
-    @info_hash = $redis_pool.with(&:info)
-
     track_integers
     track_floats
     track_databases
     track_connection_pool
   end
 
-  private
+  private unless Rails.env.test?
+
+  memoize \
+  def info_hash
+    $redis_pool.with(&:info)
+  end
 
   def track(metric_name, value)
     StatsD.gauge("redis.#{metric_name}", value)
@@ -73,13 +77,13 @@ class RedisStats
 
   def track_integers
     INTEGER_METRIC_NAMES.each do |metric_name|
-      track(metric_name, Integer(@info_hash[metric_name]))
+      track(metric_name, Integer(info_hash[metric_name]))
     end
   end
 
   def track_floats
     FLOAT_METRIC_NAMES.each do |metric_name|
-      track(metric_name, Float(@info_hash[metric_name]))
+      track(metric_name, Float(info_hash[metric_name]))
     end
   end
 
@@ -90,9 +94,19 @@ class RedisStats
     #   "db1"=>"keys=10,expires=3,avg_ttl=106149604570"
     # }
     database_keys.each do |database|
-      @info_hash[database].split(',').map do |key_value_pair|
-        metric, value = key_value_pair.split('=').map(&:strip)
-        track("#{database}.#{metric}", Integer(value))
+      database_stats_string = info_hash[database] || ''
+
+      database_stats_hash =
+        database_stats_string.split(',').
+          map { |key_value_pair| key_value_pair.split('=').map(&:strip) }.
+          to_h.
+          transform_values { |value| Integer(value) }
+
+      database_stats_hash['keys'] ||= 0
+      database_stats_hash['expires'] ||= 0
+
+      database_stats_hash.each do |metric, value|
+        track("#{database}.#{metric}", value)
       end
     end
   end
@@ -102,9 +116,14 @@ class RedisStats
     track('connection_pool.available', $redis_pool.available)
   end
 
+  memoize \
   def database_keys
-    @info_hash.keys.select do |key|
-      key.match?(/\Adb\d{1,2}\z/) # values like 'db0', 'db1', ..., 'db16'
-    end
+    minimum_databases_to_track = %w[db0 db1]
+    keys_from_info =
+      info_hash.keys.select do |key|
+        key.match?(/\Adb\d{1,2}\z/) # values like 'db0', 'db1', ..., 'db16'
+      end
+
+    (minimum_databases_to_track + keys_from_info).uniq
   end
 end
