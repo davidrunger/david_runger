@@ -20,8 +20,7 @@ class Middleware::SidekiqDevLogging
     # the extra newline at the beginning of this string has a purpose, to left-align the
     # worker class name in the terminal, rather than having it to the right of the tagged
     # logging output
-    logger.info(<<~START_LOG.rstrip.freeze)
-
+    puts(<<~START_LOG.rstrip.freeze)
       [#{queue.blue}] [#{worker.class.name.green}] [#{item['jid'].cyan}] [#{item['args'].to_s.yellow}]:
     START_LOG
     yield
