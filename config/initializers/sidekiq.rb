@@ -27,4 +27,11 @@ Sidekiq.configure_server do |config|
   # For concurrency (2), see config/sidekiq.yml.
   # For why we are adding 5, see https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control
   config.redis = ConnectionPool.new(size: 7, &build_sidekiq_redis_connection)
+
+  if Rails.env.development?
+    config.server_middleware do |chain|
+      require_relative '../../lib/middleware/set_config_sidekiq_middleware'
+      chain.add(Middleware::SetConfigSidekiqMiddleware)
+    end
+  end
 end
