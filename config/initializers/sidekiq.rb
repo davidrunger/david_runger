@@ -32,6 +32,15 @@ Sidekiq.configure_server do |config|
     config.server_middleware do |chain|
       require_relative '../../lib/middleware/set_config_sidekiq_middleware'
       chain.add(Middleware::SetConfigSidekiqMiddleware)
+
+      require_relative '../../lib/middleware/sidekiq_dev_logging'
+      chain.add(Middleware::SidekiqDevLogging)
+      # silence the default Sidekiq logger
+      class ::Sidekiq::JobLogger
+        def call(*_args)
+          yield
+        end
+      end
     end
   end
 end
