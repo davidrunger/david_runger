@@ -20,9 +20,10 @@ class ApplicationController < ActionController::Base
     TouchActivityAt.perform_async(current_user.id, Float(@request_time))
   end
 
-  # add user_id to event payload so that we can include it in logs
+  # add additional data here for inclusion in logs
   def append_info_to_payload(payload)
     super(payload)
+    payload[:ip] = request.remote_ip
     payload[:user_id] = current_user.id if current_user.present?
   end
 
