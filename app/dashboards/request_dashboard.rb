@@ -24,7 +24,7 @@ class RequestDashboard < Administrate::BaseDashboard
     ip: IpAddressField,
     user_agent: UserAgentField,
     requested_at: BriefTimeField,
-    request_id: Field::String,
+    request_id: PapertrailSearchField,
     location: Field::String,
     isp: Field::String,
   }.freeze
