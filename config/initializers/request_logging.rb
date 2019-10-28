@@ -2,8 +2,13 @@
 
 ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*args|
   payload = args.extract_options!
-  request_id = payload[:headers]['action_dispatch.request_id']
 
+  controller_name = payload[:controller]
+  controller = controller_name.constantize
+  # We don't want to log requests to admin controllers or to pghero, for example.
+  next unless controller.ancestors.include?(ApplicationController)
+
+  request_id = payload[:headers]['action_dispatch.request_id']
   if request_id.blank?
     Rails.logger.warn(<<-LOG.squish)
       Request UUID for request logging was blank.
@@ -30,14 +35,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
     )
   end
 
-  controller_name = payload[:controller]
-  controller = controller_name.constantize
-  is_admin_controller = controller.ancestors.include?(Admin::ApplicationController)
-  is_pghero_controller = controller_name.start_with?('PgHero::')
-
-  unless is_admin_controller || is_pghero_controller
-    SaveRequest.perform_async(request_id)
-  end
+  SaveRequest.perform_async(request_id)
 
   nil
 end
