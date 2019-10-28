@@ -11,7 +11,7 @@ module RequestRecordable
 
   included do
     prepend_before_action :set_request_time
-    before_action :store_initial_request_data_in_redis, if: :inherits_from_application_controller?
+    before_action :store_initial_request_data_in_redis
   end
 
   def store_initial_request_data_in_redis
@@ -42,11 +42,6 @@ module RequestRecordable
   end
 
   private
-
-  def inherits_from_application_controller?
-    # We don't want to log requests to admin controllers or to pghero, for example.
-    self.class.ancestors.include?(ApplicationController)
-  end
 
   def initial_request_data_redis_key
     "request_data:#{request.request_id || fail('No request_id')}:initial"
