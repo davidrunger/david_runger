@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def update
     if current_user.update(user_params)
+      flash[:notice] = 'Updated successfully!'
       redirect_location = session.delete('redirect_to') || edit_user_path(current_user)
       redirect_to(redirect_location)
     else
