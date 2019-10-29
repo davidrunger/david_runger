@@ -39,7 +39,7 @@ Layout/SpaceBeforeSemicolon:
   Enabled: false
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
-Lint/UnneededSplatExpansion:
+Lint/RedundantSplatExpansion:
   Enabled: false
 Metrics/AbcSize:
   Enabled: false
