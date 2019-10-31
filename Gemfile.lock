@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: 5d8f33d2a71521ad9c429ec47038ce57d96df02a
+  revision: 0e3966d979d9f7190c19f0bc2b0222dcb410d331
   specs:
     administrate (0.12.0)
       actionpack (>= 4.2)
@@ -248,7 +248,7 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.12.2)
+    minitest (5.13.0)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.13.1)
