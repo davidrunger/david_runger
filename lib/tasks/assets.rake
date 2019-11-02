@@ -10,19 +10,9 @@ namespace :assets do
     end
   end
 
-  desc 'clean yarn cache'
-  task :clean_yarn_cache do
-    run_logged_system_command('yarn cache clean')
-  end
-
-  desc 'delete the node_modules directory'
-  task :rmrf_node_module do
-    run_logged_system_command('rm -rf node_modules')
-  end
-
   desc 'Uploads source maps to rollbar'
   task :upload_source_maps do
-    SourceMapHelper.require_heroku!
+    DeployAssetsHelper.require_heroku!
     SourceMapHelper.upload_source_maps!
   end
 
@@ -93,8 +83,19 @@ namespace :assets do
   end
 end
 
-module SourceMapHelper
+module DeployAssetsHelper
   class NotOnHerokuError < StandardError ; end
+
+  def self.on_heroku?
+    ENV['HEROKU'].present?
+  end
+
+  def self.require_heroku!
+    fail(NotOnHerokuError, 'Must be on Heroku!') unless on_heroku?
+  end
+end
+
+module SourceMapHelper
   class NoSourceMapError < StandardError ; end
   class SourceMapUploadError < StandardError ; end
 
@@ -104,14 +105,6 @@ module SourceMapHelper
   ).freeze
   ROLLBAR_SOURCE_MAP_URI = 'https://api.rollbar.com/api/1/sourcemap/'
   APP_URL_BASE = 'https://www.davidrunger.com'
-
-  def self.on_heroku?
-    ENV['HEROKU'].present?
-  end
-
-  def self.require_heroku!
-    fail(NotOnHerokuError, 'Must be on Heroku!') unless on_heroku?
-  end
 
   def self.manifest
     @manifest ||= JSON.parse(File.read('public/packs/manifest.json'))
@@ -174,12 +167,16 @@ module SourceMapHelper
 end
 
 if Rails.env.production?
-  Rake::Task['assets:precompile'].enhance(%w[
-    assets:clean_yarn_cache
-    assets:rmrf_node_module
-    build_js_routes
-  ]) do
-    if SourceMapHelper.on_heroku?
+  if DeployAssetsHelper.on_heroku?
+    # https://github.com/heroku/heroku-buildpack-ruby/pull/892#issuecomment-548897899
+    assets_precompile_task = Rake.application.tasks.find { |task| task.name == 'assets:precompile' }
+    if assets_precompile_task.present?
+      assets_precompile_task.prerequisites.delete('yarn:install')
+    end
+  end
+
+  Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
+    if DeployAssetsHelper.on_heroku?
       Rake::Task['assets:upload_source_maps'].invoke
       Rake::Task['assets:save_source_version'].invoke
     end
