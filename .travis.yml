@@ -16,8 +16,8 @@ env:
   - RAILS_ENV=test NODE_ENV=test SECRET_KEY_BASE=0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b
 before_install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install 10.15.3
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
+  - nvm install 12.13.0
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.19.1
   - export PATH="$HOME/.yarn/bin:$PATH"
   # To get a different version of chromedriver, see http://chromedriver.chromium.org/downloads
   - CHROMEDRIVER_VERSION=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
@@ -26,8 +26,8 @@ before_install:
 script:
   - ruby --version && [ "$(ruby --version | cut -c1-11)" == 'ruby 2.6.5p' ]
   - bundle --version && [ "$(bundle --version)" == 'Bundler version 1.17.3' ]
-  - node --version && [ "$(node --version)" == 'v10.15.3' ]
-  - yarn --version && [ "$(yarn --version)" == '1.15.2' ]
+  - node --version && [ "$(node --version)" == 'v12.13.0' ]
+  - yarn --version && [ "$(yarn --version)" == '1.19.1' ]
   - chromedriver --version # print chromedriver version, but don't check it, because it changes
   - yarn install
   - bin/rails spec:setup_js > /dev/null 2>&1 &
