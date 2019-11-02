@@ -167,14 +167,6 @@ module SourceMapHelper
 end
 
 if Rails.env.production?
-  if DeployAssetsHelper.on_heroku?
-    # https://github.com/heroku/heroku-buildpack-ruby/pull/892#issuecomment-548897899
-    assets_precompile_task = Rake.application.tasks.find { |task| task.name == 'assets:precompile' }
-    if assets_precompile_task.present?
-      assets_precompile_task.prerequisites.delete('yarn:install')
-    end
-  end
-
   Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
     if DeployAssetsHelper.on_heroku?
       Rake::Task['assets:upload_source_maps'].invoke
