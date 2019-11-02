@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: 0e3966d979d9f7190c19f0bc2b0222dcb410d331
+  revision: dc856a917aa67e998860bb42664b5da94eb0e682
   specs:
     administrate (0.12.0)
       actionpack (>= 4.2)
@@ -106,7 +106,7 @@ GEM
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 13.0)
     ast (2.4.0)
-    autoprefixer-rails (9.7.0)
+    autoprefixer-rails (9.7.1)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.13)
@@ -257,7 +257,7 @@ GEM
     nenv (0.3.0)
     newrelic_rpm (6.7.0.359)
     nio4r (2.5.2)
-    nokogiri (1.10.4)
+    nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -451,7 +451,7 @@ GEM
     websocket-extensions (0.1.4)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.2.0)
+    zeitwerk (2.2.1)
 
 PLATFORMS
   ruby
