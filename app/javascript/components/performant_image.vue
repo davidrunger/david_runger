@@ -29,7 +29,7 @@ export default {
     this.webpImageUrl = webpSource ? webpSource.data.attrs.src : null;
 
     checkWebpSupport().then(webpIsSupported => { this.canUseWebp = webpIsSupported; });
-    whenDomReady().then(() => this.mayRenderLazyImages = true);
+    whenDomReady().then(() => { this.mayRenderLazyImages = true; });
   },
 
   data() {

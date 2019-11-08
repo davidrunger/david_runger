@@ -68,8 +68,8 @@ export default {
 
   methods: {
     destroyLastEntry() {
-      var confirmation = confirm(
-        `Are you sure that you want to delete the last entry from the ${this.log.name} log?`
+      const confirmation = window.confirm(
+        `Are you sure that you want to delete the last entry from the ${this.log.name} log?`,
       );
 
       if (confirmation === true) {

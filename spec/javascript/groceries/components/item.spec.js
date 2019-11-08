@@ -122,7 +122,7 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
     beforeEach(() => {
       xhr = sinon.useFakeXMLHttpRequest();
       requests = [];
-      xhr.onCreate = function (request) {
+      xhr.onCreate = (request) => {
         requests.push(request);
       };
     });

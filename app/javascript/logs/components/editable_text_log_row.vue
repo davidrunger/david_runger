@@ -33,7 +33,7 @@ export default {
         logEntryId: this.logEntry.id,
         updatedLogEntryParams,
       }).
-      then(() => { this.editing = false; });
+        then(() => { this.editing = false; });
     },
   },
 

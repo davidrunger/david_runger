@@ -13,7 +13,7 @@ import * as util from 'test_utils';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('Logs', function () { // eslint-disable-line func-names
+describe('Logs', function () { // eslint-disable-line func-names, prefer-arrow-callback
   let bootstrap;
   let vuexStore;
   let wrapper;
@@ -61,7 +61,7 @@ describe('Logs', function () { // eslint-disable-line func-names
       {
         localVue,
         mocks: {
-          '$route': { path: '/logs' },
+          $route: { path: '/logs' },
           bootstrap,
         },
         router,

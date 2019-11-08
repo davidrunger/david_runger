@@ -48,9 +48,7 @@ export default {
       }
 
       const matches = this.fuzzySet.get(this.searchString, '', 0) || [];
-      return matches.map(([_score, string]) => {
-        return this.logs.find(log => log.name === string);
-      });
+      return matches.map(([_score, string]) => this.logs.find(log => log.name === string));
     },
 
     showingLogSelector() {
@@ -108,7 +106,7 @@ export default {
     },
 
     selectLog(log) {
-      this.$router.push({ name: 'log', params: { slug: log.slug }});
+      this.$router.push({ name: 'log', params: { slug: log.slug } });
     },
   },
 
