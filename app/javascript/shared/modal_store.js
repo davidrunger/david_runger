@@ -16,9 +16,7 @@ export const mutations = {
 
 export const getters = {
   showingModal(state) {
-    return ({ modalName }) => {
-      return state.modalsShowing.indexOf(modalName) !== -1;
-    };
+    return ({ modalName }) => state.modalsShowing.indexOf(modalName) !== -1;
   },
 };
 

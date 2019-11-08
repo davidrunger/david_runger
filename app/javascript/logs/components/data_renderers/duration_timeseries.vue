@@ -20,7 +20,7 @@ function epochMsToHhMmSs(epochMs) {
 }
 
 function shortTimeStringToHhMmSsString(timeString) {
-  switch(timeString.length) {
+  switch (timeString.length) {
     case 1:
       return `00:00:0${timeString}`;
     case 2:

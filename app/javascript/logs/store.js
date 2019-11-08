@@ -63,7 +63,7 @@ const actions = {
     axios.
       get(Routes.api_log_entries_path()).
       then(({ data }) => {
-        data.forEach(({ log_id, log_entries }) => {
+        data.forEach(({ log_id, log_entries }) => { // eslint-disable-line camelcase
           commit(
             'setLogEntries',
             {
@@ -113,19 +113,15 @@ const getters = {
   ...ModalVuex.getters,
 
   logById(state) {
-    return ({ logId }) => {
-      return state.logs.find(log => log.id === logId);
-    };
+    return ({ logId }) => state.logs.find(log => log.id === logId);
   },
 
   logByName(state) {
-    return ({ logName }) => {
-      return state.logs.find(log => log.name === logName);
-    };
+    return ({ logName }) => state.logs.find(log => log.name === logName);
   },
 
   selectedLog(state) {
-    const slug = state.route.params.slug;
+    const { slug } = state.route.params;
     return state.logs.find(log => log.slug === slug);
   },
 };

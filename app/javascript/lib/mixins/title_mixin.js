@@ -4,6 +4,8 @@ function getTitle(vm) {
     return (typeof title === 'function') ?
       title.call(vm) :
       title;
+  } else {
+    return null;
   }
 }
 

@@ -47,7 +47,7 @@ export default {
     }, delayBeforeFetchingAllLogs);
 
     document.addEventListener('keydown', (event) => {
-      if ((event.key === 'k') && (event.metaKey == true)) {
+      if ((event.key === 'k') && (event.metaKey === true)) {
         this.$store.commit('showModal', { modalName: 'log-selector' });
       }
     });

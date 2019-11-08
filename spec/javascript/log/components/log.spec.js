@@ -11,7 +11,7 @@ import router from 'logs/router';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('Log', function () { // eslint-disable-line func-names
+describe('Log', function () { // eslint-disable-line func-names, prefer-arrow-callback
   let bootstrap;
   let vuexStore;
   let wrapper;

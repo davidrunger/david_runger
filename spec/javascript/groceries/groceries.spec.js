@@ -8,7 +8,7 @@ import * as util from 'test_utils';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('Groceries', function () { // eslint-disable-line func-names
+describe('Groceries', function () { // eslint-disable-line func-names, prefer-arrow-callback
   let bootstrap;
   let vuexStore;
   let wrapper;
@@ -22,20 +22,20 @@ describe('Groceries', function () { // eslint-disable-line func-names
     wrapper = mount(Groceries, { localVue, store: vuexStore, mocks: { bootstrap } });
   });
 
-   it("renders the user's email", () => {
-     expect(wrapper.text()).toMatch(userEmail);
-   });
+  it("renders the user's email", () => {
+    expect(wrapper.text()).toMatch(userEmail);
+  });
 
-   it('renders a link to the account settings page', () => {
-     expect(util.findAll(wrapper, `a[href="/users/${userId}/edit"]:text(Account Settings)`)).
-       toExist();
-   });
+  it('renders a link to the account settings page', () => {
+    expect(util.findAll(wrapper, `a[href="/users/${userId}/edit"]:text(Account Settings)`)).
+      toExist();
+  });
 
-   it('renders a link to sign out', () => {
-     expect(util.findAll(wrapper, 'a.js-link:text(Sign Out)')).toExist();
-   });
+  it('renders a link to sign out', () => {
+    expect(util.findAll(wrapper, 'a.js-link:text(Sign Out)')).toExist();
+  });
 
-   it('renders the sidebar', () => {
-     expect(wrapper.findAll({ name: 'Sidebar' }).length).toEqual(1);
-   });
+  it('renders the sidebar', () => {
+    expect(wrapper.findAll({ name: 'Sidebar' }).length).toEqual(1);
+  });
 });

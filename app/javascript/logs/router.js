@@ -5,7 +5,7 @@ import LogsIndex from 'logs/components/logs_index.vue';
 import { emit } from 'lib/event_bus';
 
 const routes = [
-  { path: '/logs',  name: 'logs-index', component: LogsIndex },
+  { path: '/logs', name: 'logs-index', component: LogsIndex },
   { path: '/logs/:slug', name: 'log', component: Log },
 ];
 
