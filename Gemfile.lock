@@ -125,6 +125,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.5)
+    dalli (2.7.10)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
     debug_inspector (0.0.3)
@@ -455,6 +456,7 @@ DEPENDENCIES
   browser
   capybara
   connection_pool
+  dalli
   devise
   dotenv-rails
   factory_bot_rails
