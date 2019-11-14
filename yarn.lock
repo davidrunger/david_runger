@@ -9402,14 +9402,14 @@ stylelint-scss@^3.12.1:
     postcss-selector-parser "^6.0.2"
     postcss-value-parser "^4.0.2"
 
-stylelint-webpack-plugin@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/stylelint-webpack-plugin/-/stylelint-webpack-plugin-1.0.2.tgz#51d106bc789d41dbe111d8d28def5c4826a05ef2"
-  integrity sha512-mlpjaHZxTGOvEqeKEIlAJex84KxtQJTNZcVp9lvhTltC2MBqzXxeuqRLqVWTM8bAKSt50GxLpUFsutAoQMffIA==
+stylelint-webpack-plugin@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/stylelint-webpack-plugin/-/stylelint-webpack-plugin-1.0.4.tgz#3fe696aa38f6e105f5a2ac56f49d17949800c630"
+  integrity sha512-klDJLPDGX4kbXcya4CSK0Bvot2isVx1+mCKGM8WYVhFBTqHhvTOMxoz1JJnLaDwfMzdXJh7bA/REPCgipfp6WQ==
   dependencies:
     arrify "^2.0.1"
     micromatch "^4.0.2"
-    schema-utils "^2.2.0"
+    schema-utils "^2.5.0"
 
 stylelint@~11:
   version "11.1.1"
