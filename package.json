@@ -29,7 +29,7 @@
     "basscss-border-colors": "^2.1.0",
     "basscss-colors": "^2.2.0",
     "basscss-lighten": "^1.1.0",
-    "caniuse-lite": "^1.0.30001008",
+    "caniuse-lite": "^1.0.30001009",
     "chart.js": "^2.9.2",
     "clipboard": "^2.0.4",
     "compression-webpack-plugin": "^3.0.0",
