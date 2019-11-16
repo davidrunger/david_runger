@@ -3,7 +3,7 @@ tr
   td {{logEntry.createdAt}}
 
   td(v-if='editing')
-    el-input(v-model='newPlaintext' type='textarea')
+    el-input(v-model='newPlaintext' type='textarea' ref='textInput')
   td.left-align(v-else v-html='logEntry.html')
 
   td(v-if='editing').
@@ -41,6 +41,17 @@ export default {
     logEntry: {
       type: Object,
       required: true,
+    },
+  },
+
+  watch: {
+    editing() {
+      const self = this;
+      setTimeout(() => {
+        if (self.editing) {
+          self.$refs.textInput.$el.children[0].focus();
+        }
+      }, 0);
     },
   },
 };
