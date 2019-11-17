@@ -289,29 +289,6 @@ div.font-nunito
           visited during an integration test.
 
     Project
-      span(slot='title') FastFeedback.io
-      span(slot='technologies') Ruby on Rails, Backbone.js, Nexmo SMS API
-      div(slot='links')
-        a(href='http://www.fastfeedback.io') Live
-        span #{' - '}
-        a(href='http://github.com/davidrunger/fast_feedback') GitHub
-      PerformantImage(slot='image' alt='FastFeedback.io' lazy=true)
-        source(type='png' src='~img/fast_feedback.png')
-        source(type='webp' src='~img/fast_feedback.webp')
-      div(slot='overview')
-        p.
-          Do you need to engage your audience during a presentation? FastFeedback.io can help.
-          Prepare some interesting questions ahead of time, and browse through them as you make your
-          presentation. Your audience can cast votes using either a web interface or text messages.
-          A chart displaying the results dynamically updates in real-time as the votes come in!
-      ul(slot='tech-list')
-        li Entirely single-page app
-        li Rails back end serves a JSON API
-        li Backbone.js on the front end
-        li Integration with Nexmo API for text messages
-        li Highcharts.js library provides dynamic, animated charts
-
-    Project
       span(slot='title') App Academy Picture Flashcard App
       span(slot='technologies') jQuery, object-oriented JavaScript
       div(slot='links')
