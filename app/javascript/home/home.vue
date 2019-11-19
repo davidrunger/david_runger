@@ -288,27 +288,6 @@ div.font-nunito
           library to automatically inject the extension's JavaScript and CSS assets into any page
           visited during an integration test.
 
-    Project
-      span(slot='title') App Academy Picture Flashcard App
-      span(slot='technologies') jQuery, object-oriented JavaScript
-      div(slot='links')
-        a(href='https://davidrunger.github.io/aa-picture-game/') Live
-        span #{' - '}
-        a(href='https://github.com/davidrunger/aa-picture-game') GitHub
-      PerformantImage(slot='image' alt='App Academy Picture Game' lazy=true)
-        source(type='png' src='~img/aa-picture-game.png')
-        source(type='webp' src='~img/aa-picture-game.webp')
-      div(slot='overview')
-        p.
-          This is a simple little tool built with jQuery for App Academy that we would always use to
-          help students and staff learn each other's names at the beginning of a new cohort. It's
-          very effective!
-      ul(slot='tech-list')
-        li.
-          An awesome loading spinner (built upon the work of
-          #[a(href='http://codepen.io/ZevanRosser/pen/ilfHK') Zevan Rosser]).
-        li Fuzzy string matching, so you get partial credit for a nearly-correct guess.
-
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-2
 
