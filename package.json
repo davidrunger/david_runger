@@ -92,7 +92,7 @@
     "postcss-scss": "^2.0.0",
     "postcss-syntax": "^0.36.2",
     "sinon": "^7.5.0",
-    "stylelint": "~11",
+    "stylelint": "~12",
     "stylelint-config-standard": "^19.0.0",
     "stylelint-scss": "^3.13.0",
     "stylelint-webpack-plugin": "^1.1.0",
