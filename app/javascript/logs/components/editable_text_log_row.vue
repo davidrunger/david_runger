@@ -6,8 +6,9 @@ tr
     el-input(v-model='newPlaintext' type='textarea' ref='textInput')
   td.left-align(v-else v-html='logEntry.html')
 
-  td(v-if='editing').
-    #[a.js-link(@click='updateLogEntry') Save] #[a.js-link(@click='cancelEditing') Cancel]
+  td(v-if='editing')
+    el-button(@click='updateLogEntry' size='mini') Save
+    el-button(@click='cancelEditing' size='mini') Cancel
   td(v-else)
     a.js-link(@click='editing = true') Edit
 </template>

@@ -106,6 +106,14 @@ ol {
   max-width: 1000px;
 }
 
+.el-button--mini {
+  padding: 6px 10px;
+}
+
+.el-button + .el-button {
+  margin-left: 5px;
+}
+
 table {
   margin: 15px 0;
   color: #aaa;
