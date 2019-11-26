@@ -25,6 +25,9 @@ module.exports = {
       {
         test: /\.webp$/,
         loader: 'file-loader',
+        options: {
+          esModule: false,
+        },
       },
       {
         test: /\/rails_assets\/.*\.js$/,
