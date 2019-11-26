@@ -23,7 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.webp$/,
+        test: /\.(gif|jpg|png|svg|ttf|webp|woff)$/,
         loader: 'file-loader',
         options: {
           esModule: false,
