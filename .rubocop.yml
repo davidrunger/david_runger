@@ -14,7 +14,7 @@ AllCops:
   TargetRubyVersion: 2.4
 Bundler/GemComment:
   Enabled: false
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
 Layout/ClassStructure:
   ExpectedOrder:
@@ -27,9 +27,9 @@ Layout/ClassStructure:
       - private_methods
 Layout/DotPosition:
   EnforcedStyle: trailing
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   Enabled: false # this rule doesn't play nicely with the way that I like to use `memoize`
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
