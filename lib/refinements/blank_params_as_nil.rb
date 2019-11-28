@@ -5,7 +5,7 @@ module BlankParamsAsNil
     def blank_params_as_nil(params)
       params.each do |param|
         value = self[param]
-        if value&.blank?
+        if !value.nil? && value.blank?
           self[param] = nil
         end
       end
