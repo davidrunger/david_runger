@@ -8,7 +8,7 @@ require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
 require File.expand_path('../config/environment', __dir__)
-require Rails.root.join('spec', 'support', 'fixture_builder.rb').to_s
+require Rails.root.join('spec/support/fixture_builder.rb').to_s
 Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
@@ -70,7 +70,7 @@ RSpec.configure do |config|
 
   config.filter_run_when_matching(:focus)
 
-  config.fixture_path = Rails.root.join('spec', 'fixtures')
+  config.fixture_path = Rails.root.join('spec/fixtures')
   config.global_fixtures = :all
   config.use_transactional_fixtures
 

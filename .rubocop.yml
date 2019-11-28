@@ -61,6 +61,8 @@ Rails:
   Enabled: true
 Rails/Output:
   Enabled: false
+Rails/RakeEnvironment:
+  Enabled: false
 RSpec/AlignLeftLetBrace:
   Enabled: false
 RSpec/AlignRightLetBrace:

@@ -35,7 +35,7 @@ namespace :spec do
     run_logged_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
 
     # compile
-    bin_webpack_path = Rails.root.join('bin', 'webpack')
+    bin_webpack_path = Rails.root.join('bin/webpack')
     run_logged_system_command("NODE_ENV=test #{bin_webpack_path} > /dev/null")
   end
 
