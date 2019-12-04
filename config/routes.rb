@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   get 'login', to: 'sessions#new'
+  # https://stackoverflow.com/a/46218826/4009384
+  Rails.application.routes.named_routes.tap do |named_routes|
+    named_routes['new_session'] = named_routes['login']
+    named_routes['new_user_session'] = named_routes['login']
+  end
 
   get 'groceries', to: 'groceries#index'
 
