@@ -6,7 +6,9 @@ class DavidRunger::LogFormatter < Lograge::Formatters::KeyValue
     action = data[:action] # e.g. 'index'
 
     # convert to 'api/log_entries#index'
-    data[:action] = "#{controller.sub(/Controller\z/, '').underscore}##{action}"
+    if controller && action
+      data[:action] = "#{controller.sub(/Controller\z/, '').underscore}##{action}"
+    end
 
     @data = data
   end

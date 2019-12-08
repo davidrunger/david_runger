@@ -7,8 +7,8 @@ module DavidRunger::DebugExceptionsPatch
     exception = wrapper.exception
     if exception.is_a?(ActionController::RoutingError)
       data = {
-        method: env['REQUEST_METHOD'],
-        path: env['REQUEST_PATH'],
+        method: env.method,
+        path: env.path,
         status: wrapper.status_code,
         exception: "#{exception.class.name}[#{exception.message}]",
       }
