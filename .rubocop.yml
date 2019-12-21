@@ -31,6 +31,12 @@ Layout/FirstArgumentIndentation:
   Enabled: false # this rule doesn't play nicely with the way that I like to use `memoize`
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
+Layout/LineLength:
+  IgnoredPatterns:
+    # ignore line length if the line is a comment without any spaces; it's probably not something we
+    # can fix (e.g. a long file path)
+    - !ruby/regexp /^ *#? [\S]+$/
+  Max: 100
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 Layout/SpaceBeforeBlockBraces:
@@ -47,12 +53,6 @@ Metrics/BlockLength:
   Enabled: false
 Metrics/ClassLength:
   Enabled: false
-Metrics/LineLength:
-  IgnoredPatterns:
-    # ignore line length if the line is a comment without any spaces; it's probably not something we
-    # can fix (e.g. a long file path)
-    - !ruby/regexp /^ *#? [\S]+$/
-  Max: 100
 Metrics/MethodLength:
   Max: 30
 Naming/RescuedExceptionsVariableName:
