@@ -9,8 +9,8 @@ production:
 
 :schedule:
   AppStats:
-    cron: '0/10 * * * * *'  # once every 10 minutes
+    cron: '*/10 * * * *'  # once every 10 minutes
   RedisStats:
-    cron: '0 * * * * *'  # once every minute
+    cron: '* * * * *'  # once every minute
   SidekiqStats:
-    cron: '0 * * * * *'  # once every minute
+    cron: '* * * * *'  # once every minute
