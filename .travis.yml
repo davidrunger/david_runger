@@ -24,7 +24,7 @@ before_install:
   - unzip -d "$HOME/bin/" tmp/chromedriver.zip
 script:
   - ruby --version && [ "$(ruby --version | cut -c1-11)" == 'ruby 2.6.5p' ]
-  - bundle --version && [ "$(bundle --version)" == 'Bundler version 1.17.3' ]
+  - bundle --version && [ "$(bundle --version)" == 'Bundler version 2.1.2' ]
   - node --version && [ "$(node --version)" == 'v12.13.0' ]
   - yarn --version && [ "$(yarn --version)" == '1.19.1' ]
   - chromedriver --version # print chromedriver version, but don't check it, because it changes
