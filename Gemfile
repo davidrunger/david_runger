@@ -14,7 +14,6 @@ gem 'browser'
 gem 'connection_pool'
 gem 'dalli'
 gem 'devise'
-gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'hamlit'
 gem 'httparty'
 gem 'js-routes', require: false
@@ -33,10 +32,6 @@ gem 'pundit'
 gem 'rails', '>= 6.0.0'
 gem 'redis', '~>4.1'
 gem 'rollbar'
-gem 'rubocop', require: false
-gem 'rubocop-performance', require: false
-gem 'rubocop-rails', require: false
-gem 'rubocop-rspec', require: false
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false # required manually in config/initializers/sidekiq.rb
 gem 'statsd-instrument'
@@ -44,6 +39,7 @@ gem 'webpacker', '>= 4.0.0.pre.pre.2'
 
 group :development, :test do
   gem 'awesome_print'
+  gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'fixture_builder'
@@ -51,6 +47,10 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :development do
