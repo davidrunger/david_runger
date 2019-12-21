@@ -9,8 +9,16 @@ production:
 
 :schedule:
   AppStats:
-    cron: '*/10 * * * *'  # once every 10 minutes
+    cron: '*/10 * * * *'  # every 10 minutes
+  FetchLocations:
+    cron: '*/10 * * * *'  # every 10 minutes
+  PostgresQueryStats:
+    cron: '26 * * * *'  # hourly at 26 minutes after
+  PostgresSpaceStats:
+    cron: '47 22 * * * America/Los_Angeles'  # daily at 10:47pm PT
   RedisStats:
-    cron: '* * * * *'  # once every minute
+    cron: '* * * * *'  # every minute
   SidekiqStats:
-    cron: '* * * * *'  # once every minute
+    cron: '* * * * *'  # every minute
+  TruncateTables:
+    cron: '33 * * * *'  # hourly at 33 minutes after

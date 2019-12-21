@@ -8,7 +8,7 @@ module DavidRunger::TruncateTables
   SQL
 
   def self.max_allowed_rows
-    Integer(ENV['MAX_TABLE_ROWS']) || 2_000
+    Integer(ENV.fetch('MAX_TABLE_ROWS') { 2_000 })
   end
 
   def self.print_row_counts
