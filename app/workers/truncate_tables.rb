@@ -4,6 +4,6 @@ class TruncateTables
   include Sidekiq::Worker
 
   def perform
-    system('bin/rails db:truncate_tables') || fail('db:truncate_tables failed')
+    Rake::Task['db:truncate_tables'].invoke
   end
 end

@@ -4,6 +4,6 @@ class FetchLocations
   include Sidekiq::Worker
 
   def perform
-    system('bin/rails requests:fetch_locations') || fail('requests:fetch_locations failed')
+    Rake::Task['requests:fetch_locations'].invoke
   end
 end

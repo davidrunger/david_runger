@@ -4,6 +4,6 @@ class PostgresQueryStats
   include Sidekiq::Worker
 
   def perform
-    system('bin/rails pghero:capture_query_stats') || fail('pghero:capture_query_stats failed')
+    Rake::Task['pghero:capture_query_stats'].invoke
   end
 end

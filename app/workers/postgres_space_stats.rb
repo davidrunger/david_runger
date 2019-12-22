@@ -4,6 +4,6 @@ class PostgresSpaceStats
   include Sidekiq::Worker
 
   def perform
-    system('bin/rails pghero:capture_space_stats') || fail('pghero:capture_space_stats failed')
+    Rake::Task['pghero:capture_space_stats'].invoke
   end
 end
