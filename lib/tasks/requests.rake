@@ -82,7 +82,7 @@ class RequestIpLookup
   end
 
   def requests_needing_ip_info
-    Request.where.not(ip: nil).where(location: nil, isp: nil).order(:id)
+    Request.where.not(ip: nil).where(location: nil, isp: nil)
   end
 end
 
