@@ -52,7 +52,6 @@ RSpec.describe SmsMessage do
       sms_message.send(:grocery_store_items_needed_message_body)
     end
 
-    # rubocop:disable RSpec/ExampleLength
     it 'includes the store name and items needed (name & quantity)' do
       needed_items_list =
         store.items.needed.
@@ -65,6 +64,5 @@ RSpec.describe SmsMessage do
 
       expect(grocery_store_items_needed_message_body).to eq(expected_message)
     end
-    # rubocop:enable RSpec/ExampleLength
   end
 end

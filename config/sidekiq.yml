@@ -10,8 +10,6 @@ production:
 :schedule:
   AppStats:
     cron: '*/10 * * * *' # every 10 minutes
-  FetchLocations:
-    cron: '* * * * *' # every minute
   PostgresQueryStats:
     cron: '26 * * * *' # hourly at 26 minutes after
   PostgresSpaceStats:

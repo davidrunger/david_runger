@@ -68,7 +68,6 @@ RSpec.describe SmsRecord do
     context 'when there is no error' do
       let(:message_hash) { NexmoTestApi.single_message_response['messages'].first }
 
-      # rubocop:disable RSpec/ExampleLength
       it 'maps the Nexmo json to attributes of the SmsRecord model' do
         expect(nexmo_message_hash_to_attributes).to eq(
           cost: Float(message_hash['message-price']),
@@ -78,7 +77,6 @@ RSpec.describe SmsRecord do
           to: message_hash['to'],
         )
       end
-      # rubocop:enable RSpec/ExampleLength
     end
   end
 end

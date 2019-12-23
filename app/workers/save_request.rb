@@ -27,6 +27,7 @@ class SaveRequest
 
     begin
       request.save!
+      FetchIpInfoForRequest.perform_async(request.id)
     rescue => error
       logger.warn(<<~LOG.squish)
         Failed to store request data in redis.
