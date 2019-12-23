@@ -15,6 +15,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'active_support/cache/dalli_store'
 
 WebMock.enable!
 WebMock.disable_net_connect!(allow_localhost: true)
@@ -77,6 +78,10 @@ RSpec.configure do |config|
   config.include(FactoryBot::Syntax::Methods)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
+
+  config.before(:each, :cache) do
+    allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::DalliStore.new)
+  end
 
   config.after(:each, type: :controller) do
     Devise.sign_out_all_scopes
