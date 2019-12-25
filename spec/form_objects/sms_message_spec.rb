@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe SmsMessage do
-  subject(:sms_message) { SmsMessage.new(sms_message_params) }
+  subject(:sms_message) { SmsMessage.new(**sms_message_params) }
 
   let(:sms_message_params) do
     {
