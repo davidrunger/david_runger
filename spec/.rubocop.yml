@@ -1,5 +1,7 @@
 inherit_from:
   - ../.rubocop.yml
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
 Style/IpAddresses:
   Enabled: false
 Style/MethodCallWithArgsParentheses:

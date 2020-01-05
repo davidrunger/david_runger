@@ -36,4 +36,39 @@ RSpec.describe Api::StoresController do
       end
     end
   end
+
+  describe '#update' do
+    subject(:patch_update) { patch(:update, params: params) }
+
+    let(:store) { stores(:store) }
+    let(:base_params) { {id: store.id} }
+
+    context 'when the store is being updated with invalid params' do
+      let(:invalid_params) { {store: {name: ''}} }
+      let(:params) { base_params.merge(invalid_params) }
+
+      it 'does not update the store' do
+        expect { patch_update }.not_to change { store.reload.attributes }
+      end
+
+      it 'returns a 422 status code' do
+        patch_update
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'when the store is being updated with valid params' do
+      let(:valid_params) { {store: {name: store.name + ' Changed'}} }
+      let(:params) { base_params.merge(valid_params) }
+
+      it 'updates the store' do
+        expect { patch_update }.to change { store.reload.name }
+      end
+
+      it 'returns a 200 status code' do
+        patch_update
+        expect(response.status).to eq(200)
+      end
+    end
+  end
 end
