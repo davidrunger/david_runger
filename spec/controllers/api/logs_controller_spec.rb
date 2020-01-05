@@ -25,7 +25,7 @@ RSpec.describe Api::LogsController do
         expect(response.status).to eq(201)
       end
 
-      # rubocop:disable Rspec/ExampleLength
+      # rubocop:disable RSpec/ExampleLength
       it 'responds with the log as JSON' do
         post_create
         expect(response.parsed_body).to include(
@@ -37,7 +37,7 @@ RSpec.describe Api::LogsController do
           'slug' => 'resting-heart-rate',
         )
       end
-      # rubocop:enable Rspec/ExampleLength
+      # rubocop:enable RSpec/ExampleLength
     end
 
     context 'when the log being created is invalid' do

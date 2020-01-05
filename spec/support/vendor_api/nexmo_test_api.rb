@@ -13,6 +13,7 @@ module NexmoTestApi
   end
 
   def self.stub_post_failure
+    # Note: I don't know if this is an accurate representation of what a failure response looks like
     WebMock.stub_request(:post, 'https://rest.nexmo.com/sms/json').
       to_return(
         status: 400,
