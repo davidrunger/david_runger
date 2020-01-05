@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::StoresController < ApplicationController
+  before_action :set_store, only: %i[destroy update]
+
   def create
     @store = current_user.stores.build(store_params.merge(viewed_at: Time.current))
     if @store.save
@@ -13,9 +15,6 @@ class Api::StoresController < ApplicationController
   end
 
   def update
-    @store = current_user.stores.find_by(id: params['id'])
-    head(404) && return if @store.nil?
-
     if @store.update(store_params)
       render json: @store
     else
@@ -24,12 +23,16 @@ class Api::StoresController < ApplicationController
   end
 
   def destroy
-    store = current_user.stores.find(params['id'])
-    store.destroy!
-    head 204
+    @store.destroy!
+    head(204)
   end
 
   private
+
+  def set_store
+    @store = current_user.stores.find_by(id: params['id'])
+    head(404) if @store.nil?
+  end
 
   def store_params
     params.require(:store).permit(:name, :viewed_at)

@@ -86,4 +86,37 @@ RSpec.describe Api::StoresController do
       end
     end
   end
+
+  describe '#destroy' do
+    subject(:delete_destroy) { delete(:destroy, params: {id: store.id}) }
+
+    let(:store) { stores(:store) }
+
+    context 'when attempting to destroy the store of another user' do
+      let(:owning_user) { store.user }
+      let(:user) { User.where.not(id: owning_user).first! }
+
+      it 'does not destroy the store' do
+        expect { delete_destroy }.not_to change { store.reload.persisted? }
+      end
+
+      it 'returns a 404 status code' do
+        delete_destroy
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context "when attempting to destroy one's own store" do
+      let(:user) { store.user }
+
+      it 'destroys the store' do
+        expect { delete_destroy }.to change { Store.find_by(id: store.id) }.from(Store).to(nil)
+      end
+
+      it 'returns a 204 status code' do
+        delete_destroy
+        expect(response.status).to eq(204)
+      end
+    end
+  end
 end
