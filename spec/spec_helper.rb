@@ -7,11 +7,15 @@ require 'factory_bot_rails'
 require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
-if ENV['CI'].present?
+if ENV['CI'] == 'true'
   # https://docs.coveralls.io/ruby-on-rails
   require 'simplecov'
+  require 'codecov'
   require 'coveralls'
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::Codecov,
+    Coveralls::SimpleCov::Formatter,
+  ])
   SimpleCov.start do
     add_filter(%r{^/spec/})
   end

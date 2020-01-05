@@ -73,6 +73,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'codecov', require: false
   gem 'coveralls', require: false
   # note: to use guard-espect from command line, it will also have to be installed "globally"
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
