@@ -20,8 +20,6 @@ class CreateSeparateLogEntryTablesPerType < ActiveRecord::Migration[5.2]
 
     copy_log_entries_to_type_specific_tables!
 
-    # rubocop:disable Rails/ReversibleMigration
     drop_table :log_entries
-    # rubocop:enable Rails/ReversibleMigration
   end
 end
