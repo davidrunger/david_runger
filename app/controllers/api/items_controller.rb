@@ -4,7 +4,7 @@ class Api::ItemsController < ApplicationController
   def create
     store = current_user.stores.find(params[:store_id])
     @item = store.items.create!(item_params)
-    render json: @item
+    render json: @item, status: :created
   end
 
   def update
