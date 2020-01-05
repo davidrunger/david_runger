@@ -8,8 +8,13 @@ require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
 if ENV['CI'].present?
+  # https://docs.coveralls.io/ruby-on-rails
+  require 'simplecov'
   require 'coveralls'
-  Coveralls.wear!
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  SimpleCov.start do
+    add_filter(%r{^/spec/})
+  end
 end
 require File.expand_path('../config/environment', __dir__)
 require Rails.root.join('spec/support/fixture_builder.rb').to_s
