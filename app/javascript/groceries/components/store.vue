@@ -21,7 +21,7 @@ div.mt1.mb2.ml3.mr2
     span(v-if='wasCopiedRecently') Copied!
 
   vue-form.col-5.flex(@submit.prevent='postNewItem' :state='formstate')
-    validate.flex-1.float-left
+    validate.float-left
       el-input.item-name-input(
         placeholder='Add an item'
         type='text'
