@@ -36,8 +36,7 @@ class Request < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :url, :handler, :method, :ip, :requested_at, :status, presence: true
-  # TODO: validate request_id always, after old requests without one no longer exist
-  validates :request_id, presence: true, on: [:create]
+  validates :request_id, presence: true
 
   # rubocop:disable Layout/MultilineMethodArgumentLineBreaks
   scope :recent, ->(time_period = 1.day) {
