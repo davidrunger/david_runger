@@ -29,11 +29,8 @@ class Api::TextMessagesController < ApplicationController
   end
 
   def user_not_authorized
-    case params['action']
-    when 'create'
+    if params['action'] == 'create'
       render_json_error('You are not authorized to send text messages', 403)
-    else
-      super
     end
   end
 end
