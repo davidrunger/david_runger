@@ -5,7 +5,7 @@ class Api::LogsController < ApplicationController
     @log = current_user.logs.build(log_params)
     if @log.save
       StatsD.increment('logs.create.success')
-      render json: @log
+      render json: @log, status: :created
     else
       StatsD.increment('logs.create.failure')
       Rails.logger.info("Failed to create log. errors=#{@log.errors.to_h} log=#{@log.attributes}")
