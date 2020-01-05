@@ -12,6 +12,15 @@ module NexmoTestApi
       )
   end
 
+  def self.stub_post_failure
+    WebMock.stub_request(:post, 'https://rest.nexmo.com/sms/json').
+      to_return(
+        status: 400,
+        headers: {'Content-Type' => 'application/json'},
+        body: JSON.dump('errors' => ['something went wrong']),
+      )
+  end
+
   def self.single_message_response
     {
       'message-count' => '1',
