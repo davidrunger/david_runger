@@ -2,5 +2,13 @@ inherit_from:
   - ../.rubocop.yml
 Style/IpAddresses:
   Enabled: false
+Style/MethodCallWithArgsParentheses:
+  IgnoredMethods:
+    - describe
+    - include
+    - not_to
+    - require
+    - require_relative
+    - to
 Style/Send:
   Enabled: false

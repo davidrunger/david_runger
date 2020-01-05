@@ -1,0 +1,41 @@
+inherit_from:
+  - ../../.rubocop.yml
+Style/MethodCallWithArgsParentheses:
+  IgnoredMethods:
+    - add_foreign_key
+    - add_column
+    - add_index
+    - change
+    - change_column_null
+    - create_table
+    - datetime
+    - desc
+    - describe
+    - drop_table
+    - gem
+    - fail
+    - file
+    - float
+    - head
+    - include
+    - integer
+    - jsonb
+    - load
+    - not_to
+    - p
+    - print
+    - puts
+    - references
+    - remove_column
+    - remove_index
+    - render
+    - require
+    - ruby
+    - run
+    - string
+    - source
+    - text
+    - timestamp
+    - to
+Style/StringLiterals:
+  Enabled: false

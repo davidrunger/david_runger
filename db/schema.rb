@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_16_132514) do
+ActiveRecord::Schema.define(version: 2020_01_05_174953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 2019_11_16_132514) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "note"
-    t.index ["log_id"], name: "index_number_log_entries_on_log_id"
   end
 
   create_table "pghero_query_stats", force: :cascade do |t|
@@ -99,7 +98,6 @@ ActiveRecord::Schema.define(version: 2019_11_16_132514) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_sms_records_on_user_id"
   end
 
   create_table "stores", id: :serial, force: :cascade do |t|
@@ -108,7 +106,6 @@ ActiveRecord::Schema.define(version: 2019_11_16_132514) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "viewed_at"
-    t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
   create_table "text_log_entries", force: :cascade do |t|
@@ -117,7 +114,6 @@ ActiveRecord::Schema.define(version: 2019_11_16_132514) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "note"
-    t.index ["log_id"], name: "index_text_log_entries_on_log_id"
   end
 
   create_table "users", force: :cascade do |t|
