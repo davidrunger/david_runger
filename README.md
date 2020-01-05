@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/davidrunger/david_runger/badge.svg?branch=master)](https://coveralls.io/github/davidrunger/david_runger?branch=master)
 [![Build Status](https://travis-ci.org/davidrunger/david_runger.svg?branch=master)](https://travis-ci.org/davidrunger/david_runger)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=davidrunger/david_runger)](https://dependabot.com)
 
