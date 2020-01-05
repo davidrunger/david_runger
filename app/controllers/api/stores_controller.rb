@@ -13,7 +13,9 @@ class Api::StoresController < ApplicationController
   end
 
   def update
-    @store = Store.find(params['id'])
+    @store = current_user.stores.find_by(id: params['id'])
+    head(404) && return if @store.nil?
+
     if @store.update(store_params)
       render json: @store
     else
