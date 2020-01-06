@@ -14,16 +14,26 @@ class Api::LogEntriesController < ApplicationController
 
   # currently only works for `TextLogEntry`s
   def update
-    @log_entry = current_user.text_log_entries.find(params['id'])
+    @log_entry ||= current_user.text_log_entries.find_by(id: params['id'])
+    head(404) && return if @log_entry.nil?
+
     log_entry_params = params.require(:log_entry).permit(:data)
-    @log_entry.update!(log_entry_params)
-    render json: @log_entry, status: :ok
+    if @log_entry.update(log_entry_params)
+      render json: @log_entry, status: :ok
+    else
+      render json: {errors: @log_entry.errors.to_h}, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    log_entry = Log.find(params['log_id']).log_entries.find(params['id'])
-    log_entry.destroy!
-    render json: log_entry
+    @log_entry =
+      current_user.
+        logs.find_by(id: params['log_id'])&.
+        log_entries&.find_by(id: params['id'])
+    head(404) && return if @log_entry.nil?
+
+    @log_entry.destroy!
+    head(204)
   end
 
   def index
