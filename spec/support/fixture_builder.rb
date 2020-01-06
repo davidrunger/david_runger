@@ -21,10 +21,21 @@ FixtureBuilder.configure do |fbuilder|
     store = name(:store, create(:store, user: user)).first
     name(:item, create(:item, store: store))
 
-    # logs
-    log = name(:log, create(:log, user: user)).first
-    log.log_entries.create!(data: 102, note: 'I am glad it is an even number')
+    # number logs
+    number_log = name(:number_log, create(:log, user: user, data_type: 'number')).first
+    number_log.log_entries.create!(
+      log: number_log,
+      data: 102,
+      note: 'I am glad it is an even number',
+    )
+    # text logs
+    text_log = name(
+      :text_log,
+      create(:log, user: user, name: 'Dream Journal', data_type: 'text'),
+    ).first
+    text_log.log_entries.create!(log: text_log, data: 'Had a cool dream!')
 
+    # requests
     name(:request, create(:request))
   end
 end
