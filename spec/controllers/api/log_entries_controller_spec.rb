@@ -137,4 +137,46 @@ RSpec.describe Api::LogEntriesController do
       end
     end
   end
+
+  describe '#index' do
+    subject(:get_index) { get(:index, params: params) }
+
+    context 'when a log_id param is provided' do
+      let(:params) { {log_id: log.id} }
+
+      it 'returns data only about that particular log' do
+        get_index
+
+        returned_log_entry_ids = response.parsed_body.map { |log_entry| log_entry['id'] }
+        log_entry_ids = log.log_entries.pluck(:id)
+        expect(returned_log_entry_ids).to match_array(log_entry_ids)
+      end
+    end
+
+    context 'when a log_id param is not provided' do
+      let(:params) { {} }
+
+      # rubocop:disable RSpec/ExampleLength
+      it 'returns data about all log entries of the current_user' do
+        get_index
+
+        simplified_response_data =
+          response.parsed_body.map do |hash|
+            hash.transform_values do |value|
+              if value.is_a?(Array)
+                value.map { |log_entry| log_entry.slice('log_id') }.uniq
+              else
+                value
+              end
+            end
+          end
+        expected_simplified_response_data =
+          user.logs.map do |log|
+            {'log_id' => log.id, 'log_entries' => ['log_id' => log.id]}
+          end
+        expect(simplified_response_data).to eq(expected_simplified_response_data)
+      end
+      # rubocop:enable RSpec/ExampleLength
+    end
+  end
 end
