@@ -133,16 +133,18 @@ export default {
         if (response.status === 201) {
           Toastify({
             text: 'Message sent!',
-            duration: 2000,
             className: 'success',
+            position: 'center',
+            duration: 2500,
           }).showToast();
         }
       }).catch((error) => {
         const errorMessage = get(error, 'response.data.error', 'Something went wrong');
         Toastify({
           text: errorMessage,
-          duration: 2000,
           className: 'error',
+          position: 'center',
+          duration: 2500,
         }).showToast();
       });
     },
@@ -262,5 +264,12 @@ export default {
   &.success {
     background: #219b21;
   }
+}
+
+// double the `.toastify-center` class to ensure it has higher precedence than the library's CSS
+.toastify-center.toastify-center {
+  left: inherit;
+  right: 50%;
+  transform: translateX(50%);
 }
 </style>
