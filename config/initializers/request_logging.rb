@@ -4,6 +4,8 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
   payload = args.extract_options!
 
   controller_name = payload[:controller]
+  next if Rails.env.test? && controller_name == 'AnonymousController'
+
   controller = controller_name.constantize
   # We don't want to log requests to admin controllers or to pghero, for example.
   next unless controller.ancestors.include?(ApplicationController)
