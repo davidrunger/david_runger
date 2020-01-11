@@ -6,7 +6,7 @@ RSpec.describe 'Groceries app' do
   context 'when user is signed in' do
     before { sign_in(user) }
 
-    it 'renders expected content' do
+    it 'renders expected content', :js do
       visit groceries_path
 
       expect(page).to have_text(user.email)
