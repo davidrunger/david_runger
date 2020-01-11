@@ -19,7 +19,7 @@
     = content_for(:extra_css)
     = content_for(:extra_javascript)
 
-  %body{class: @body_class}
+  %body{class: [@body_class, 'sans-serif'].map(&:presence).compact.join(' ')}
     - if notice.present?
       %p.notice= notice
     - if alert.present?

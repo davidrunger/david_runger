@@ -1,5 +1,5 @@
 <template lang="pug">
-div#groceries-app.sans-serif
+div#groceries-app
   div#page.flex.vh-100
     Sidebar
     main.flex-1.bg-cover.overflow-auto

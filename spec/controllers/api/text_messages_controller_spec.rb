@@ -71,7 +71,7 @@ RSpec.describe Api::TextMessagesController do
             it 'responds with error JSON' do
               post_create
               expect(response.parsed_body).to include(
-                'error' => 'We were unable to send the requested text message',
+                'error' => 'An error occurred when sending the text message',
               )
             end
 
