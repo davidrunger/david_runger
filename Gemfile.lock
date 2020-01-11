@@ -435,7 +435,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stackprof (0.2.15)
-    statsd-instrument (2.9.2)
+    statsd-instrument (3.0.0)
     temple (0.8.2)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
