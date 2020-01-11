@@ -12,9 +12,9 @@ class Api::TextMessagesController < ApplicationController
       message_params: text_message_params['message_params'],
     )
     if !sms_message.valid?
-      render_json_error(sms_message.errors.to_h)
+      render_json_error(sms_message.errors.full_messages.join(', '))
     elsif !sms_message.send!
-      render_json_error('We were unable to send the requested text message')
+      render_json_error('An error occurred when sending the text message')
     else
       head :created
     end

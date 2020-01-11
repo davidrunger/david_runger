@@ -69,8 +69,10 @@ div.mt1.mb2.ml3.mr2
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { debounce, isEmpty, sortBy } from 'lodash';
+import { debounce, get, isEmpty, sortBy } from 'lodash';
 import ClipboardJS from 'clipboard';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 import { DEBOUNCE_TIME } from 'groceries/constants';
 import Item from './item.vue';
@@ -127,6 +129,21 @@ export default {
           message_type: 'grocery_store_items_needed',
           message_params: { store_id: this.store.id },
         },
+      }).then((response) => {
+        if (response.status === 201) {
+          Toastify({
+            text: 'Message sent!',
+            duration: 2000,
+            className: 'success',
+          }).showToast();
+        }
+      }).catch((error) => {
+        const errorMessage = get(error, 'response.data.error', 'Something went wrong');
+        Toastify({
+          text: errorMessage,
+          duration: 2000,
+          className: 'error',
+        }).showToast();
       });
     },
 
@@ -232,6 +249,18 @@ export default {
 .edit-store {
   &:hover {
     color: black;
+  }
+}
+</style>
+
+<style lang='scss'>
+.toastify {
+  &.error {
+    background: #d42b2b;
+  }
+
+  &.success {
+    background: #219b21;
   }
 }
 </style>
