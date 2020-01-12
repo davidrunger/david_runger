@@ -52,6 +52,7 @@ const actions = {
   },
 
   selectStore(_context, { store }) {
+    // update the store's viewed_at time, bc. this is actually how we determine the selected store
     Vue.set(store, 'viewed_at', (new Date()).toISOString());
     axios.patch(Routes.api_store_path(store.id), { store: _.pick(store, ['viewed_at']) });
   },
