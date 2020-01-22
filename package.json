@@ -43,7 +43,7 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-vue": "^6.1.2",
     "file-loader": "^5.0.2",
-    "fuzzyset.js": "^0.0.8",
+    "fuzzyset.js": "^0.0.91",
     "gator": "^1.2.4",
     "glob": "^7.1.6",
     "js-yaml": "^3.13.1",
