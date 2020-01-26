@@ -1,0 +1,4 @@
+speedups:
+
+exclude_paths:
+  - 'vendor/**/*.rb'

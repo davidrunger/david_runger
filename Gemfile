@@ -43,6 +43,7 @@ group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'fasterer'
   gem 'fixture_builder'
   gem 'pry'
   gem 'pry-byebug'
