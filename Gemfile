@@ -39,6 +39,7 @@ gem 'webpacker', '>= 4.0.0.pre.pre.2'
 
 group :development, :test do
   gem 'awesome_print'
+  gem 'brakeman'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
   gem 'faker'
