@@ -38,10 +38,6 @@ class RequestDataBuilder
 
   private
 
-  def browser
-    Browser.new(raw_user_agent)
-  end
-
   def raw_user_agent
     @raw_user_agent ||= @request.user_agent
   end
