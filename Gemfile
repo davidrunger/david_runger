@@ -76,7 +76,6 @@ end
 group :test do
   gem 'capybara'
   gem 'codecov', require: false
-  gem 'coveralls', require: false
   # note: to use guard-espect from command line, it will also have to be installed "globally"
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   # TEMP: list hashdiff explicitly in Gemfile to force 1.0.0.beta1; remove once 1.0.0 is released
