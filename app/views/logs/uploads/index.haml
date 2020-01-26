@@ -1,0 +1,22 @@
+%div.mb2
+  Recommended CSV columns:
+  %ul
+    %li
+      %code.monospace created_at
+      (ISO-8601 time or date)
+    %li
+      %code.monospace data
+    %li
+      %code.monospace note
+      (optional)
+
+= form_with(action: logs_uploads_path, method: :post, multipart: true) do
+  = hidden_field_tag(:authenticity_token, form_authenticity_token)
+  %div
+    %label{for: 'log_id'} Log
+    = select_tag 'log_id', options_from_collection_for_select(current_user.logs, 'id', 'name')
+  %div
+    %label{for: 'csv'} CSV
+    = file_field_tag('csv')
+  %div
+    %input{type: 'submit', value: 'Submit'}
