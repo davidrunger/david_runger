@@ -1,140 +1,96 @@
 # frozen_string_literal: true
 
+# This Sidekiq worker class converts data that has been stashed in Redis at two stages in the
+# request lifecycle into `Request` records saved to the Postgres database.
 class SaveRequest
-  extend Memoist
-
   include Sidekiq::Worker
+
+  delegate(
+    :delete_request_data,
+    :initial_stashed_json,
+    :final_stashed_json,
+    :stashed_data,
+    to: :@stashed_data_manager,
+  )
 
   def perform(request_id)
     @request_id = request_id
+    @stashed_data_manager = SaveRequest::StashedDataManager.new(@request_id)
 
-    if initial_stashed_json.blank?
-      delete_request_data # delete the final stashed data, if it's there
-      warn_about_missing_initial_stashed_json
-      return
-    end
-
-    if final_stashed_json.blank?
-      delete_request_data # delete the initial stashed data, if it's there
-      warn_about_missing_final_stashed_json
-      return
-    end
-
-    if DavidRunger::LogSkip.should_skip?(params: stashed_data['params'])
-      delete_request_data
-      return
-    end
-
-    begin
-      request.save!
-      FetchIpInfoForRequest.perform_async(request.id)
-    rescue => error
-      logger.warn(<<~LOG.squish)
-        Failed to store request data in redis.
-        error_class=#{error.class}
-        error_message=#{error.message}
-        request_attributes=#{request_attributes.inspect}
-      LOG
-
-      # wrap the original exception in Request::CreateRequestError by re-raising
-      raise(Request::CreateRequestError, 'Failed to store request data in redis')
+    if should_save_request?
+      save_request
     else
-      # we no longer need the data, so delete it now (rather than waiting for REQUEST_DATA_TTL)
+      log_unexpected_reasons_not_to_save_request
       delete_request_data
     end
   end
 
   private
 
-  def delete_request_data
-    $redis_pool.with do |conn|
-      conn.del(
-        initial_request_data_redis_key,
-        final_request_data_redis_key,
+  def should_save_request?
+    return false if DavidRunger::LogSkip.should_skip?(params: stashed_data['params'])
+
+    unexpected_reasons_not_to_save_request.blank?
+  end
+
+  def save_request
+    request = Request.new(request_attributes)
+    request.save!
+  rescue => error
+    handle_error_saving_request(error)
+  else
+    FetchIpInfoForRequest.perform_async(request.id)
+    delete_request_data
+  end
+
+  def unexpected_reasons_not_to_save_request
+    [
+      ('Initial stashed JSON for request logging was blank' if initial_stashed_json.blank?),
+      ('Final stashed JSON for request logging was blank' if final_stashed_json.blank?),
+    ].compact
+  end
+
+  def log_unexpected_reasons_not_to_save_request
+    unexpected_reasons_not_to_save_request.each do |error_message|
+      ErrorLogger.warn(
+        message: error_message,
+        error_klass: Request::CreateRequestError,
+        data: {
+          initial_stashed_json: initial_stashed_json,
+          final_stashed_json: final_stashed_json,
+          request_id: @request_id,
+        },
       )
     end
   end
 
-  memoize \
-  def request
-    Request.new(request_attributes)
+  def handle_error_saving_request(error)
+    logger.warn("Failed to save Request; error=#{error} request_attributes=#{request_attributes}")
+    # wrap the original exception in Request::CreateRequestError by re-raising
+    raise(Request::CreateRequestError, 'Failed to store request data in redis')
   end
 
-  memoize \
-  def initial_request_data_redis_key
-    "request_data:#{@request_id}:initial"
-  end
-
-  memoize \
-  def initial_stashed_json
-    $redis_pool.with { |conn| conn.get(initial_request_data_redis_key) }
-  end
-
-  memoize \
-  def stashed_data
-    initial_stashed_data = JSON.parse(initial_stashed_json)
-    final_stashed_data = JSON.parse(final_stashed_json)
-    initial_stashed_data.merge(final_stashed_data)
-  end
-
-  memoize \
-  def final_request_data_redis_key
-    "request_data:#{@request_id}:final"
-  end
-
-  memoize \
-  def final_stashed_json
-    $redis_pool.with { |conn| conn.get(final_request_data_redis_key) }
-  end
-
-  memoize \
   def request_attributes
-    {
+    stashed_data.slice(*%w[
+      db
+      format
+      handler
+      ip
+      method
+      params
+      referer
+      status
+      url
+      user_agent
+      user_id
+      view
+    ]).merge(
       request_id: @request_id,
-      user_id: stashed_data['user_id'],
-      url: stashed_data['url'],
-      format: stashed_data['format'],
-      method: stashed_data['method'],
-      status: stashed_data['status'],
-      handler: stashed_data['handler'],
-      params: stashed_data['params'],
-      referer: stashed_data['referer'],
-      view: stashed_data['view'],
-      db: stashed_data['db'],
-      ip: stashed_data['ip'],
-      user_agent: stashed_data['user_agent'],
       requested_at: requested_at,
-    }
+    )
   end
 
-  memoize \
   def requested_at
     Time.zone.at(stashed_data['requested_at_as_float'])
-  end
-
-  def warn_about_missing_initial_stashed_json
-    logger.warn(<<-LOG.squish)
-      Initial stashed JSON for request logging was blank.
-      initial_stashed_json=#{initial_stashed_json.inspect}
-      request_id=#{@request_id.inspect}
-    LOG
-    Rollbar.warn(
-      Request::CreateRequestError.new('Initial stashed JSON for request logging was blank'),
-      initial_stashed_json: initial_stashed_json,
-      request_id: @request_id,
-    )
-  end
-
-  def warn_about_missing_final_stashed_json
-    logger.warn(<<-LOG.squish)
-      Final stashed JSON for request logging was blank.
-      final_stashed_json=#{final_stashed_json.inspect}
-      request_id=#{@request_id.inspect}
-    LOG
-    Rollbar.warn(
-      Request::CreateRequestError.new('Final stashed JSON for request logging was blank'),
-      final_stashed_json: final_stashed_json,
-      request_id: @request_id,
-    )
   end
 end
