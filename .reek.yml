@@ -1,0 +1,6 @@
+---
+directories:
+  "app/workers":
+    # Sidekiq workers sometimes need to set an instance variable in #perform rather than #initialize
+    InstanceVariableAssumption:
+      enabled: false
