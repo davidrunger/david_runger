@@ -15,22 +15,6 @@ GIT
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
 
-GIT
-  remote: https://github.com/whitesmith/rubycritic.git
-  revision: 4b2b88b660f38c21e908096a5710bb982c963ed7
-  specs:
-    rubycritic (4.3.2)
-      flay (~> 2.8)
-      flog (~> 4.4)
-      launchy (= 2.4.3)
-      parser (>= 2.6.0)
-      rainbow (~> 3.0)
-      reek (~> 5.0, < 6.0)
-      ruby_parser (~> 3.8)
-      simplecov (~> 0.17.0)
-      tty-which (~> 0.4.0)
-      virtus (~> 1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -438,6 +422,17 @@ GEM
     ruby-progressbar (1.10.1)
     ruby_parser (3.14.1)
       sexp_processor (~> 4.9)
+    rubycritic (4.3.2)
+      flay (~> 2.8)
+      flog (~> 4.4)
+      launchy (= 2.4.3)
+      parser (>= 2.6.0)
+      rainbow (~> 3.0)
+      reek (~> 5.0, < 6.0)
+      ruby_parser (~> 3.8)
+      simplecov (~> 0.17.0)
+      tty-which (~> 0.4.0)
+      virtus (~> 1.0)
     rubyzip (2.0.0)
     rufus-scheduler (3.6.0)
       fugit (~> 1.1, >= 1.1.6)
@@ -571,7 +566,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
-  rubycritic!
+  rubycritic
   selenium-webdriver
   shoulda-matchers (~> 4.2)
   sidekiq
