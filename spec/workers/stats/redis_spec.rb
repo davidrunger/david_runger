@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe RedisStats do
-  subject(:worker) { RedisStats.new }
+RSpec.describe Stats::Redis do
+  subject(:worker) { Stats::Redis.new }
 
   # spy on and stub StatsD::gauge
   before { allow(StatsD).to receive(:gauge) }
