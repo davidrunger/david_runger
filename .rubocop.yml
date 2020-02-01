@@ -147,6 +147,8 @@ Style/NegatedIf:
   Enabled: false
 Style/ImplicitRuntimeError:
   Enabled: false
+Style/MethodCalledOnDoEndBlock:
+  Enabled: false
 Style/NumericPredicate:
   Enabled: false
 Style/RescueModifier:

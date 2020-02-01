@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-class RedisStats
-  extend Memoist
-  include Sidekiq::Worker
-
-  sidekiq_options(queue: :essential)
+# This worker gathers and sends to StatsD info about the app's Redis usage.
+class Stats::Redis < Stats::Base
+  METRIC_NAMESPACE = 'redis'
 
   FLOAT_METRIC_NAMES = %w[
     instantaneous_input_kbps
@@ -71,10 +69,6 @@ class RedisStats
     $redis_pool.with(&:info)
   end
 
-  def track(metric_name, value)
-    StatsD.gauge("redis.#{metric_name}", value)
-  end
-
   def track_integers
     INTEGER_METRIC_NAMES.each do |metric_name|
       track(metric_name, Integer(info_hash[metric_name]))
@@ -91,22 +85,13 @@ class RedisStats
     # The relevant data in the hash looks like:
     # {
     #   "db0"=>"keys=18,expires=18,avg_ttl=1789848282",
-    #   "db1"=>"keys=10,expires=3,avg_ttl=106149604570"
+    #   "db1"=>"keys=10,expires=3,avg_ttl=106149604570",
+    #   ...
     # }
-    database_keys.each do |database|
-      database_stats_string = info_hash[database] || ''
-
-      database_stats_hash =
-        database_stats_string.split(',').
-          map { |key_value_pair| key_value_pair.split('=').map(&:strip) }.
-          to_h.
-          transform_values { |value| Integer(value) }
-
-      database_stats_hash['keys'] ||= 0
-      database_stats_hash['expires'] ||= 0
-
-      database_stats_hash.each do |metric, value|
-        track("#{database}.#{metric}", value)
+    db_info_parser = Stats::Redis::DatabaseInfoParser.new(info_hash)
+    db_info_parser.parsed_database_info.each do |db_name, db_stats_hash|
+      db_stats_hash.each do |metric, value|
+        track("#{db_name}.#{metric}", value)
       end
     end
   end
@@ -114,16 +99,5 @@ class RedisStats
   def track_connection_pool
     track('connection_pool.size', $redis_pool.size)
     track('connection_pool.available', $redis_pool.available)
-  end
-
-  memoize \
-  def database_keys
-    minimum_databases_to_track = %w[db0 db1]
-    keys_from_info =
-      info_hash.keys.select do |key|
-        key.match?(/\Adb\d{1,2}\z/) # values like 'db0', 'db1', ..., 'db16'
-      end
-
-    (minimum_databases_to_track + keys_from_info).uniq
   end
 end
