@@ -1,23 +1,22 @@
 # frozen_string_literal: true
 
+# Per Rails convention, this is the base class from which (almost?) all of our controllers inherit.
+# We are getting some ignorable warnings about :reek:InstanceVariableAssumption
 class ApplicationController < ActionController::Base
+  include ActivityTrackable
+  include Bootstrappable
   include Pundit
+  include Redirectable
   include RequestRecordable
+  include StatsDLoggable
 
   protect_from_forgery with: :exception
 
-  before_action :count_request, unless: -> { DavidRunger::LogSkip.should_skip?(params: params) }
   before_action :authenticate_user
-  before_action :store_redirect_location
-  before_action :enqueue_touch_activity_at_worker, if: -> { current_user.present? }
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
-
-  def enqueue_touch_activity_at_worker
-    TouchActivityAt.perform_async(current_user.id, Float(@request_time))
-  end
 
   # add additional data here for inclusion in logs
   def append_info_to_payload(payload)
@@ -34,24 +33,8 @@ class ApplicationController < ActionController::Base
     redirect_to(login_path)
   end
 
-  def store_redirect_location
-    if params['redirect_to'].present?
-      session['redirect_to'] = params['redirect_to']
-    end
-  end
-
-  def bootstrap(data)
-    @bootstrap_data ||= {}
-    @bootstrap_data.merge!(data)
-  end
-
   def after_sign_out_path_for(_resource_or_scope)
     login_path
-  end
-
-  def count_request
-    StatsD.increment("requests_by_action.#{params['controller']}-#{params['action']}")
-    StatsD.increment("requests_by_user.#{current_user&.id || 0}")
   end
 
   def filtered_params
@@ -64,10 +47,14 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    flash[:alert] = 'You are not authorized to perform this action.'
     respond_to do |format|
-      format.html { redirect_to(request.referer || root_path) }
-      format.json { render_json_error('You are not authorized.', 403) }
+      format.html do
+        flash[:alert] = 'You are not authorized to perform this action.'
+        redirect_to(request.referer || root_path)
+      end
+      format.json do
+        render_json_error('You are not authorized.', 403)
+      end
     end
   end
 end

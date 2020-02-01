@@ -1,4 +1,10 @@
 ---
+detectors:
+  TooManyStatements:
+    enabled: true
+    exclude:
+    - initialize
+    max_statements: 6 # default is 5
 directories:
   "app/workers":
     # Sidekiq workers sometimes need to set an instance variable in #perform rather than #initialize
