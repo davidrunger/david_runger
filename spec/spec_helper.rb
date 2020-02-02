@@ -24,6 +24,7 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'active_support/cache/dalli_store'
+require 'sidekiq/testing'
 
 WebMock.enable!
 WebMock.disable_net_connect!(allow_localhost: true)

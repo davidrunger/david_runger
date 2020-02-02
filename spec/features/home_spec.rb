@@ -1,12 +1,74 @@
 # frozen_string_literal: true
 
 RSpec.describe 'Home page' do
-  it 'says "David Runger / Full stack web developer"', :js do
-    visit root_path
+  let!(:ip_info_request_stub) do
+    stub_request(:get, 'http://ip-api.com/json/127.0.0.1').
+      with(
+        headers: {
+          'Accept' => '*/*',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent' => 'Ruby',
+        },
+      ).
+      to_return(
+        status: 200,
+        body: {
+          'status' => 'success',
+          'country' => 'United States',
+          'countryCode' => 'US',
+          'region' => 'CA',
+          'regionName' => 'California',
+          'city' => 'San Diego',
+          'zip' => '92123',
+          'lat' => 32.7967,
+          'lon' => -117.1367,
+          'timezone' => 'America/Los_Angeles',
+          'isp' => 'Spectrum',
+          'org' => 'Charter Communications',
+          'as' => 'AS20001 Charter Communications Inc',
+          'query' => '76.167.213.95',
+        }.to_json,
+        headers: {'content-type' => 'application/json; charset=utf-8'},
+      )
+  end
+
+  it 'says "David Runger / Full stack web developer", creates `Request`, fetches IP info', :js do
+    spec_start_time = Time.current
+
+    expect {
+      Sidekiq::Testing.inline! do
+        visit root_path
+      end
+    }.to change {
+      Request.where('requests.requested_at > ?', spec_start_time).map(&:attributes)
+    }.from([]).to([
+      {
+        'id' => Integer,
+        'user_id' => nil,
+        'url' => %r{http://127.0.0.1:\d+/},
+        'handler' => 'home#index',
+        'referer' => nil,
+        'params' => {},
+        'method' => 'GET',
+        'format' => 'html',
+        'status' => 200,
+        'view' => Integer,
+        'db' => Integer,
+        'ip' => '127.0.0.1',
+        'user_agent' => /HeadlessChrome/,
+        'requested_at' => Time,
+        'location' => 'San Diego, CA, US',
+        'isp' => 'Spectrum',
+        'request_id' => String,
+      },
+    ])
+
     expect(page).to have_text(<<~HEADLINE)
       David Runger
       Full stack web developer
     HEADLINE
+
+    expect(ip_info_request_stub).to have_been_requested
   end
 
   context 'when using an unsupported browser' do
