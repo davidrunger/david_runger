@@ -7,7 +7,7 @@ class TouchActivityAt
     user = User.find_by(id: user_id)
 
     if user.blank?
-      logger.info("User #{user_id} was not found to update last_activity_at")
+      Rails.logger.info("User #{user_id} was not found to update last_activity_at")
       return
     end
 
