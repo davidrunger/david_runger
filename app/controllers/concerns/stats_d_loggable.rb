@@ -9,7 +9,6 @@ module StatsDLoggable
 
   private
 
-  # I am not concerned about this :reek:NilCheck
   def log_request_to_statsd
     StatsD.increment("requests_by_action.#{params['controller']}-#{params['action']}")
     StatsD.increment("requests_by_user.#{current_user&.id || 0}")

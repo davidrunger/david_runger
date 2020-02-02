@@ -3,7 +3,6 @@
 class Api::LogEntriesController < ApplicationController
   def create
     log = current_user.logs.find(params.dig(:log_entry, :log_id))
-    log_entry_params = params.require(:log_entry).permit(:data, :log_id, :note)
     @log_entry = log.log_entries.build(log_entry_params)
     if @log_entry.save
       render json: @log_entry, status: :created
@@ -17,7 +16,6 @@ class Api::LogEntriesController < ApplicationController
     @log_entry ||= current_user.text_log_entries.find_by(id: params['id'])
     head(404) && return if @log_entry.nil?
 
-    log_entry_params = params.require(:log_entry).permit(:data)
     if @log_entry.update(log_entry_params)
       render json: @log_entry, status: :ok
     else
@@ -62,5 +60,11 @@ class Api::LogEntriesController < ApplicationController
       # see https://github.com/rails-api/active_model_serializers/issues/2024
       render json: all_log_entries.to_json
     end
+  end
+
+  private
+
+  def log_entry_params
+    params.require(:log_entry).permit(:data, :note)
   end
 end
