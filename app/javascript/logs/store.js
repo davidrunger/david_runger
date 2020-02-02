@@ -63,12 +63,20 @@ const actions = {
     axios.
       get(Routes.api_log_entries_path()).
       then(({ data }) => {
-        data.forEach(({ log_id, log_entries }) => { // eslint-disable-line camelcase
+        const entriesByLogId = {};
+        data.forEach(logEntry => {
+          const { log_id: logId } = logEntry;
+          entriesByLogId[logId] = entriesByLogId[logId] || [];
+          entriesByLogId[logId].push(logEntry);
+        });
+
+        Object.keys(entriesByLogId).forEach(logId => {
+          const logEntries = entriesByLogId[logId];
           commit(
             'setLogEntries',
             {
-              log: getters.logById({ logId: log_id }),
-              logEntries: log_entries,
+              log: getters.logById({ logId: parseInt(logId, 10) }),
+              logEntries,
             },
           );
         });
