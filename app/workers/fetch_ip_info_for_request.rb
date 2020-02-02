@@ -29,7 +29,7 @@ class FetchIpInfoForRequest
 
   memoize \
   def ip_info_from_api(ip)
-    logger.info("Querying ip-api.com for info about IP address '#{ip}'")
+    Rails.logger.info("Querying ip-api.com for info about IP address '#{ip}'")
     raw_ip_info_from_api = HTTParty.get("http://ip-api.com/json/#{ip}").parsed_response
     isp, city, state, country = raw_ip_info_from_api.values_at(*%w[isp city region countryCode])
 
