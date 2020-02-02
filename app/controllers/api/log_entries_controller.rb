@@ -37,29 +37,22 @@ class Api::LogEntriesController < ApplicationController
   def index
     log_id = params['log_id']
 
-    if log_id.present?
-      render json: ActiveModel::Serializer::CollectionSerializer.new(
-        current_user.logs.find(log_id).log_entries_ordered,
-        each_serializer: LogEntrySerializer,
-      )
-    else
-      all_log_entries =
-        current_user.logs.
-          includes(:number_log_entries_ordered, :text_log_entries_ordered).
-          map do |log|
-            {
-              log_id: log.id,
-              log_entries:
-                ActiveModel::Serializer::CollectionSerializer.new(
-                  log.log_entries_ordered,
-                  each_serializer: LogEntrySerializer,
-                ).to_a,
-            }
-          end
-      # `to_json` is necessary to avoid warning in logs.
-      # see https://github.com/rails-api/active_model_serializers/issues/2024
-      render json: all_log_entries.to_json
-    end
+    log_entries =
+      if log_id.present?
+        current_user.logs.find(log_id).log_entries_ordered
+      else
+        logs =
+          current_user.logs.
+            includes(:number_log_entries_ordered, :text_log_entries_ordered).
+            to_a
+        logs.map!(&:log_entries_ordered).flatten!
+        logs
+      end
+
+    render json: ActiveModel::Serializer::CollectionSerializer.new(
+      log_entries,
+      each_serializer: LogEntrySerializer,
+    )
   end
 
   private

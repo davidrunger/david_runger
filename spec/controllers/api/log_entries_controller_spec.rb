@@ -156,27 +156,18 @@ RSpec.describe Api::LogEntriesController do
     context 'when a log_id param is not provided' do
       let(:params) { {} }
 
-      # rubocop:disable RSpec/ExampleLength
-      it 'returns data about all log entries of the current_user' do
+      it 'returns all log entries of the current_user' do
         get_index
 
         simplified_response_data =
-          response.parsed_body.map do |hash|
-            hash.transform_values do |value|
-              if value.is_a?(Array)
-                value.map { |log_entry| log_entry.slice('log_id') }.uniq
-              else
-                value
-              end
-            end
+          response.parsed_body.map do |log_entry|
+            log_entry.slice('id')
           end
         expected_simplified_response_data =
-          user.logs.map do |log|
-            {'log_id' => log.id, 'log_entries' => ['log_id' => log.id]}
-          end
-        expect(simplified_response_data).to eq(expected_simplified_response_data)
+          user.logs.map(&:log_entries).flatten.map { |log_entry| {'id' => log_entry.id} }
+
+        expect(simplified_response_data).to match_array(expected_simplified_response_data)
       end
-      # rubocop:enable RSpec/ExampleLength
     end
   end
 end
