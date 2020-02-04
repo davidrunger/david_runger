@@ -157,6 +157,7 @@ GEM
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
       railties (>= 3.2, < 6.1)
+    e2mmap (0.1.0)
     equalizer (0.0.11)
     erubi (1.9.0)
     erubis (2.7.0)
@@ -333,7 +334,7 @@ GEM
     rack (2.1.2)
     rack-mini-profiler (1.1.6)
       rack (>= 1.2.0)
-    rack-protection (2.0.7)
+    rack-protection (2.0.8.1)
       rack
     rack-proxy (0.6.5)
       rack
@@ -458,10 +459,12 @@ GEM
       rack (>= 2.0.0)
       rack-protection (>= 2.0.0)
       redis (>= 4.1.0)
-    sidekiq-scheduler (3.0.0)
+    sidekiq-scheduler (3.0.1)
+      e2mmap
       redis (>= 3, < 5)
       rufus-scheduler (~> 3.2)
       sidekiq (>= 3)
+      thwait
       tilt (>= 1.4.0)
     simplecov (0.18.1)
       docile (~> 1.1)
@@ -482,6 +485,7 @@ GEM
     temple (0.8.2)
     thor (1.0.1)
     thread_safe (0.3.6)
+    thwait (0.1.0)
     tilt (2.0.10)
     tty-which (0.4.2)
     tzinfo (1.2.6)
