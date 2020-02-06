@@ -173,7 +173,7 @@ GEM
       i18n (>= 1.6, < 2)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
-    fasterer (0.8.1)
+    fasterer (0.8.2)
       colorize (~> 0.7)
       ruby_parser (>= 3.14.1)
     ffi (1.11.3)
