@@ -37,5 +37,8 @@ FixtureBuilder.configure do |fbuilder|
 
     # requests
     name(:request, create(:request))
+
+    # sms records
+    create(:sms_record)
   end
 end

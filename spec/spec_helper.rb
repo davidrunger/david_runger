@@ -91,6 +91,19 @@ RSpec.configure do |config|
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
 
+  config.before(:suite) do
+    # Reset FactoryBot sequences to an arbitrarily high number to avoid collisions with
+    # fixture_builder-built fixtures.
+    FactoryBot.configuration.sequences.each do |sequence|
+      sequence.instance_variable_set(:@value, FactoryBot::Sequence::EnumeratorAdapter.new(10_000))
+    end
+    # It seems naughty to be reaching in to FactoryBot `Internal`s here, but I (Runger) think it's
+    # better than the alternative of not using inline sequences.
+    FactoryBot::Internal.inline_sequences.each do |sequence|
+      sequence.instance_variable_set(:@value, FactoryBot::Sequence::EnumeratorAdapter.new(10_000))
+    end
+  end
+
   config.before(:each, :cache) do
     allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::DalliStore.new)
   end
