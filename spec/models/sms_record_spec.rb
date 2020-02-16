@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe SmsRecord do
-  subject(:sms_record) { create(:sms_record) }
+  subject(:sms_record) { sms_records(:sms_record) }
 
   it { is_expected.to belong_to(:user) }
 
