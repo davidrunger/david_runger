@@ -84,6 +84,6 @@ group :test do
   gem 'json-schema'
   gem 'launchy' # for save_and_open_page in feature specs
   gem 'selenium-webdriver'
-  gem 'shoulda-matchers', '~> 4.2'
+  gem 'shoulda-matchers', '~> 4.3'
   gem 'webmock'
 end
