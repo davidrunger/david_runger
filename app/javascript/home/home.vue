@@ -10,7 +10,10 @@ div.font-nunito
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
     header#header.fixed-top.flex-grow-1.flex.bg-black.col-12.relative
       .font-size-2.js-link.js-scroll-top.ml3
-        a.monospace.font-blue-light(href='#home') David Runger
+        a#logo.monospace.font-blue-light.opacity-animated.opacity-0(
+          href='#home',
+          style='display: none;'
+        ) David Runger
       nav#nav.sans-serif.flex.justify-around.absolute.mr4
         a.nav-link(href='#about')
           span.ptb-1 About
@@ -324,6 +327,27 @@ export default {
   mounted() {
     positionListener.init();
     new SmoothScroll('a[href*="#"]');
+
+    const logo = document.getElementById('logo');
+    logo.addEventListener('transitionend', () => {
+      if (window.getComputedStyle(logo).opacity === '0') {
+        logo.style.display = 'none';
+      }
+    });
+    new Waypoint.Inview({ // eslint-disable-line no-undef
+      element: document.getElementById('home'),
+      enter() {
+        logo.classList.add('opacity-0');
+        logo.classList.remove('opacity-1');
+      },
+      exited() {
+        logo.style.display = 'inline';
+        setTimeout(() => {
+          logo.classList.add('opacity-1');
+          logo.classList.remove('opacity-0');
+        }, 0);
+      },
+    });
   },
 
   props: {},
