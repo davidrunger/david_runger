@@ -190,7 +190,7 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
-    hashdiff (1.0.0)
+    hashdiff (1.0.1)
     hashie (3.6.0)
     httparty (0.18.0)
       mime-types (~> 3.0)
@@ -497,7 +497,7 @@ DEPENDENCIES
   flamegraph
   guard-espect!
   hamlit
-  hashdiff (= 1.0.0)
+  hashdiff (= 1.0.1)
   httparty
   js-routes
   json-schema
