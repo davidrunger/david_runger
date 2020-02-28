@@ -80,7 +80,7 @@ group :test do
   # note: to use guard-espect from command line, it will also have to be installed "globally"
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   # TEMP: list hashdiff explicitly in Gemfile to force 1.0.0.beta1; remove once 1.0.0 is released
-  gem 'hashdiff', '1.0.0'
+  gem 'hashdiff', '1.0.1'
   # for testing ActiveModelSerializers
   gem 'json-schema'
   gem 'launchy' # for save_and_open_page in feature specs
