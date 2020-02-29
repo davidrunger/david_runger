@@ -44,15 +44,21 @@ RSpec.describe Api::LogsController do
       let(:invalid_params) { {log: {name: ''}} }
       let(:params) { invalid_params }
 
+      # rubocop:disable RSpec/MultipleExpectations
       it 'logs info about the log and why it is invalid' do
         allow(Rails.logger).to receive(:info).and_call_original
 
         post_create
 
-        expect(Rails.logger).
-          to have_received(:info).
-          with(/Failed to create log. errors={.*:name=>"can't be blank".*} log={.*"name"=>"".*}/)
+        expect(Rails.logger).to have_received(:info) do |logged_string|
+          break if logged_string.include?('method=POST path=/api/logs')
+
+          expect(logged_string).to match(/Failed to create log\./)
+          expect(logged_string).to match(/errors={.*:name=>\["can't be blank"\].*}/)
+          expect(logged_string).to match(/attributes={.*"name"=>"".*}/)
+        end
       end
+      # rubocop:enable RSpec/MultipleExpectations
 
       it 'returns a 422 status code' do
         post_create

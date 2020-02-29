@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '2.6.5'
+ruby '2.7.0'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
@@ -29,7 +29,7 @@ gem 'pg_query', '>= 0.9.0'
 gem 'pghero'
 gem 'puma', '~> 4.3'
 gem 'pundit'
-gem 'rails', '>= 6.0.0'
+gem 'rails', '>= 6.0.2.1', github: 'rails/rails'
 gem 'redis', '~>4.1'
 gem 'rollbar'
 gem 'sidekiq'
@@ -44,7 +44,6 @@ group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'fasterer', require: false
   gem 'fixture_builder'
   gem 'pry'
   gem 'pry-byebug'

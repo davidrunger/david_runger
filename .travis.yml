@@ -5,7 +5,7 @@ cache:
   directories:
     - node_modules
 rvm:
-  - "2.6.5"
+  - "2.7.0"
 services:
   - memcached
   - postgresql
@@ -24,7 +24,7 @@ before_install:
   - curl -o tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
   - unzip -d "$HOME/bin/" tmp/chromedriver.zip
 script:
-  - ruby --version && [ "$(ruby --version | cut -c1-11)" == 'ruby 2.6.5p' ]
+  - ruby --version && [ "$(ruby --version | cut -c1-11)" == 'ruby 2.7.0p' ]
   - bundle --version && [ "$(bundle --version | cut -c1-20)" == 'Bundler version 2.1.' ]
   - node --version && [ "$(node --version)" == 'v12.13.0' ]
   - yarn --version && [ "$(yarn --version)" == '1.19.1' ]
@@ -33,7 +33,6 @@ script:
   - bin/rails spec:setup_js > /dev/null 2>&1 &
   - bundle exec rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang
   - bundle exec brakeman --quiet
-  - bundle exec fasterer
   - ./node_modules/.bin/stylelint app/**/*.{css,scss,vue} --max-warnings 0
   - bin/rails db:create
   - bin/rails db:schema:load

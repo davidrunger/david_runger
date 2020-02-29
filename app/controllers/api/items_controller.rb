@@ -13,7 +13,7 @@ class Api::ItemsController < ApplicationController
     if @item.update(item_params)
       render json: @item
     else
-      render json: {errors: @item.errors.to_h}, status: :unprocessable_entity
+      render json: {errors: @item.errors.to_hash}, status: :unprocessable_entity
     end
   end
 
