@@ -107,5 +107,6 @@ Rails.application.configure do
   # Email
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+  require_relative('../../lib/email/mailgun_via_httparty.rb')
   config.action_mailer.delivery_method = Email::MailgunViaHttparty
 end
