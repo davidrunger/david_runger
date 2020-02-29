@@ -5,8 +5,7 @@
 STDOUT.sync = true
 
 Rails.application.configure do
-  config.lograge.enabled = (Rails.env.production? || ENV['LOGRAGE_ENABLED'].present?)
-
+  config.lograge.enabled = true
   config.lograge.custom_options = ->(event) { DavidRunger::LogBuilder.new(event).extra_logged_data }
   config.lograge.formatter = ->(data) { DavidRunger::LogFormatter.new(data).call }
 end

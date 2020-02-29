@@ -8,8 +8,12 @@ class Api::LogsController < ApplicationController
       render json: @log, status: :created
     else
       StatsD.increment('logs.create.failure')
-      Rails.logger.info("Failed to create log. errors=#{@log.errors.to_h} log=#{@log.attributes}")
-      render json: {errors: @log.errors.to_h}, status: :unprocessable_entity
+      Rails.logger.info(<<~LOG.squish)
+        Failed to create log.
+        errors=#{@log.errors.to_hash}
+        attributes=#{@log.attributes}
+      LOG
+      render json: {errors: @log.errors.to_hash}, status: :unprocessable_entity
     end
   end
 
