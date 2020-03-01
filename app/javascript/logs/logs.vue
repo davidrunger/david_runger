@@ -16,6 +16,7 @@ div
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+import 'toastify-js/src/toastify.css';
 
 import signOutMixin from 'lib/mixins/sign_out_mixin';
 import NewLogForm from './components/new_log_form.vue';

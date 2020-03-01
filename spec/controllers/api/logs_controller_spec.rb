@@ -66,4 +66,37 @@ RSpec.describe Api::LogsController do
       end
     end
   end
+
+  describe '#destroy' do
+    subject(:delete_destroy) { delete(:destroy, params: {id: log.id}) }
+
+    let(:log) { logs(:number_log) }
+
+    context 'when attempting to destroy the log of another user' do
+      let(:owning_user) { log.user }
+      let(:user) { User.where.not(id: owning_user).first! }
+
+      it 'does not destroy the log' do
+        expect { delete_destroy }.not_to change { log.reload.persisted? }
+      end
+
+      it 'returns a 404 status code' do
+        delete_destroy
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context "when attempting to destroy one's own log" do
+      let(:user) { log.user }
+
+      it 'destroys the log' do
+        expect { delete_destroy }.to change { Log.find_by(id: log.id) }.from(Log).to(nil)
+      end
+
+      it 'returns a 204 status code' do
+        delete_destroy
+        expect(response.status).to eq(204)
+      end
+    end
+  end
 end

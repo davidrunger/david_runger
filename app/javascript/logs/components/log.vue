@@ -15,6 +15,8 @@ div
   new-log-entry-form(v-if='!renderInputAtTop' :log='log')
   .mt1
     el-button(@click='destroyLastEntry') Delete last entry
+  .mt1
+    el-button(@click='destroyLog') Delete log
 </template>
 
 <script>
@@ -74,6 +76,16 @@ export default {
 
       if (confirmation === true) {
         this.$store.dispatch('deleteLastLogEntry', { log: this.log });
+      }
+    },
+
+    destroyLog() {
+      const confirmation = window.confirm(
+        `Are you sure that you want to delete the ${this.log.name} log and all of its log entries?`,
+      );
+
+      if (confirmation === true) {
+        this.$store.dispatch('deleteLog', { log: this.log });
       }
     },
 
