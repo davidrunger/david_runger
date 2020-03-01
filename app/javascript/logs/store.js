@@ -2,14 +2,27 @@ import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import _ from 'lodash';
+import Toastify from 'toastify-js';
 
 import * as ModalVuex from 'shared/modal_store';
+import router from 'logs/router';
 
 const mutations = {
   ...ModalVuex.mutations,
 
   addLogEntry(_state, { log, logEntry }) {
     log.log_entries.push(logEntry);
+  },
+
+  deleteLog(state, { log: logToDelete }) {
+    state.logs = state.logs.filter(log => log.id !== logToDelete.id);
+    Toastify({
+      text: `Deleted "${logToDelete.name}" log.`,
+      className: 'success',
+      position: 'center',
+      duration: 1800,
+    }).showToast();
+    router.push({ name: 'logs-index' });
   },
 
   deleteLogEntry(_state, { log, logEntry: logEntryToDelete }) {
@@ -57,6 +70,11 @@ const actions = {
         _options: {}, // providing `_options` seems to be necessary to put query params in the path
       })).
       then(() => { commit('deleteLogEntry', { log, logEntry: lastLogEntry }); });
+  },
+
+  deleteLog({ commit }, { log }) {
+    axios.delete(Routes.api_log_path({ id: log.id })).
+      then(() => { commit('deleteLog', { log }); });
   },
 
   fetchAllLogEntries({ commit, getters }) {
