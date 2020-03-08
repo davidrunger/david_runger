@@ -2,7 +2,7 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 module Email
-  class MailgunViaHttparty
+  class MailgunViaHttp
     attr_accessor :message
 
     def initialize(_mail) ; end
