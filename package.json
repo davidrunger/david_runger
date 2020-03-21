@@ -21,7 +21,7 @@
     "@rails/webpacker": "^4.2.2",
     "autoprefixer": "^9.7.4",
     "axios": "^0.19.2",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.1.0",
     "babel-polyfill": "^6.23.0",
     "basscss": "^8.1.0",
     "basscss-background-colors": "^2.1.0",
