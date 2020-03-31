@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 86eac9b2b489a48bf54930fbe1cf008ef26048b7
+  revision: 1239b22e2250a40ac88709d1bacc904d0f47fafb
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -75,7 +75,7 @@ GIT
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (~> 5.1)
-      tzinfo (~> 1.1)
+      tzinfo (~> 2.0)
       zeitwerk (~> 2.2, >= 2.2.2)
     rails (6.1.0.alpha)
       actioncable (= 6.1.0.alpha)
@@ -451,11 +451,10 @@ GEM
     statsd-instrument (3.0.0)
     temple (0.8.2)
     thor (1.0.1)
-    thread_safe (0.3.6)
     thwait (0.1.0)
     tilt (2.0.10)
-    tzinfo (1.2.6)
-      thread_safe (~> 0.1)
+    tzinfo (2.0.1)
+      concurrent-ruby (~> 1.0)
     unicode-display_width (1.6.1)
     url (0.3.2)
     warden (1.2.8)
