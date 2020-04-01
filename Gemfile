@@ -36,6 +36,7 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false # required manually in config/initializers/sidekiq.rb
 gem 'skylight'
 gem 'statsd-instrument'
+gem 'thread_safe'
 gem 'webpacker', '>= 4.0.0.pre.pre.2'
 
 group :development, :test do

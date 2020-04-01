@@ -451,6 +451,7 @@ GEM
     statsd-instrument (3.0.0)
     temple (0.8.2)
     thor (1.0.1)
+    thread_safe (0.3.6)
     thwait (0.1.0)
     tilt (2.0.10)
     tzinfo (2.0.1)
@@ -539,6 +540,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.2)!
   stackprof
   statsd-instrument
+  thread_safe
   webmock
   webpacker (>= 4.0.0.pre.pre.2)
 
