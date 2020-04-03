@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 1239b22e2250a40ac88709d1bacc904d0f47fafb
+  revision: 4bbb1d4e0043b9bd44249161883099ce25bd96cc
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -454,7 +454,7 @@ GEM
     thread_safe (0.3.6)
     thwait (0.1.0)
     tilt (2.0.10)
-    tzinfo (2.0.1)
+    tzinfo (2.0.2)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
     url (0.3.2)
