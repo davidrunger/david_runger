@@ -22,6 +22,10 @@
 
 class Log < ApplicationRecord
   DATA_TYPES = {
+    'counter' => {
+      association: :number_log_entries,
+      ordered_association: :number_log_entries_ordered,
+    },
     'duration' => {
       association: :text_log_entries,
       ordered_association: :text_log_entries_ordered,
