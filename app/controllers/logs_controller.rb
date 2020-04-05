@@ -18,6 +18,7 @@ class LogsController < ApplicationController
 
   def log_input_types
     [
+      {data_type: 'counter', label: 'Counter'},
       {data_type: 'duration', label: 'Duration'},
       {data_type: 'number', label: 'Number'},
       {data_type: 'text', label: 'Text'},
