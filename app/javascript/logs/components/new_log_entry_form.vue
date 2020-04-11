@@ -1,6 +1,16 @@
 <template lang='pug'>
 div
-  vue-form.px1(@submit.prevent='postNewLogEntry' :state='formstate' :class='log.data_type')
+  vue-form.px1(
+    @submit.prevent='postNewLogEntry(newLogEntryData)'
+    :state='formstate'
+    :class='log.data_type'
+  )
+    .mb1(v-if='isCounter')
+      el-button(
+        v-for='logEntryValue in mostRecentLogEntryValues'
+        :key='logEntryValue'
+        @click='postNewLogEntry(logEntryValue)'
+      ) {{logEntryValue}}
     validate
       el-input.new-log-input.mb1(
         :placeholder='log.data_label'
@@ -11,7 +21,7 @@ div
         :type='inputType'
       )
     el-input.new-log-input.mb1(
-      v-if='isDuration || isNumber'
+      v-if='isCounter || isDuration || isNumber'
       placeholder='Note (optional)'
       v-model='newLogEntryNote'
       type='text'
@@ -24,6 +34,8 @@ div
 </template>
 
 <script>
+const MAX_RECENT_LOG_ENTRY_VALUES = 5;
+
 export default {
   computed: {
     inputType() {
@@ -36,6 +48,10 @@ export default {
       }
     },
 
+    isCounter() {
+      return this.log.data_type === 'counter';
+    },
+
     isDuration() {
       return this.log.data_type === 'duration';
     },
@@ -46,6 +62,24 @@ export default {
 
     isText() {
       return this.log.data_type === 'text';
+    },
+
+    mostRecentLogEntryValues() {
+      if (!this.log.log_entries) return [];
+
+      const mostRecentLogEntryValues = [];
+
+      this.log.log_entries.slice().reverse().forEach((logEntry) => {
+        if (mostRecentLogEntryValues.length >= MAX_RECENT_LOG_ENTRY_VALUES) return;
+
+        const value = logEntry.data;
+        const isAlreadyInList = mostRecentLogEntryValues.indexOf(value) !== -1;
+        if (!isAlreadyInList) {
+          mostRecentLogEntryValues.push(value);
+        }
+      });
+
+      return mostRecentLogEntryValues.sort((a, b) => a - b);
     },
   },
 
@@ -64,14 +98,14 @@ export default {
       });
     },
 
-    postNewLogEntry() {
-      if (this.formstate.$invalid) return;
+    postNewLogEntry(newLogEntryData) {
+      if (this.formstate.$invalid && !newLogEntryData) return;
 
       this.$store.dispatch(
         'addLogEntry',
         {
           logId: this.log.id,
-          newLogEntryData: this.newLogEntryData,
+          newLogEntryData,
           newLogEntryNote: this.newLogEntryNote,
         },
       );
