@@ -103,6 +103,8 @@ Style/ConstantVisibility:
   Enabled: false
 Style/Copyright:
   Enabled: false
+Style/DisableCopsWithinSourceCodeDirective:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/DocumentationMethod:
