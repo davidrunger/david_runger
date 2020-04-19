@@ -7,6 +7,8 @@ RSpec.describe User do
 
   it { is_expected.to have_many(:sms_records) }
   it { is_expected.to have_many(:items) }
+  it { is_expected.to have_many(:logs) }
+  it { is_expected.to have_many(:log_shares) }
 
   describe '#items' do
     subject(:items) { user.items }

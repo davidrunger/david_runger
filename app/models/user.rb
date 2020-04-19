@@ -25,6 +25,7 @@ class User < ApplicationRecord
   validates :phone, format: {with: /\A[0-9\-.+()]+\z/}, allow_nil: true
 
   has_many :logs, dependent: :destroy
+  has_many :log_shares, through: :logs
   has_many :requests, dependent: :destroy
   has_many :sms_records, dependent: :destroy
   has_many :stores, dependent: :destroy

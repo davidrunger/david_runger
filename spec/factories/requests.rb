@@ -24,6 +24,7 @@
 #
 # Indexes
 #
+#  index_requests_on_isp           (isp)
 #  index_requests_on_request_id    (request_id) UNIQUE
 #  index_requests_on_requested_at  (requested_at)
 #  index_requests_on_user_id       (user_id)

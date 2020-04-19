@@ -11,10 +11,6 @@
 #  user_id    :integer
 #  viewed_at  :datetime
 #
-# Indexes
-#
-#  index_stores_on_user_id  (user_id)
-#
 
 FactoryBot.define do
   factory :store do
