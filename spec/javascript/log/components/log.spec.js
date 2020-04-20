@@ -17,20 +17,24 @@ describe('Log', function () { // eslint-disable-line func-names, prefer-arrow-ca
   let wrapper;
 
   const weightLogName = 'Weight';
+  const weightLogSlug = 'weight';
 
   beforeEach(() => {
-    bootstrap = {
-      logs: [
-        {
-          id: 1,
-          log_entries: [],
-          log_shares: [],
-          log_inputs: [{ label: 'Weight (in lbs)', public_type: 'integer' }],
-          name: weightLogName,
-        },
-      ],
+    const log = {
+      id: 1,
+      log_entries: [],
+      log_shares: [],
+      log_inputs: [{ label: 'Weight (in lbs)', public_type: 'integer' }],
+      name: weightLogName,
+      slug: weightLogSlug,
     };
-    vuexStore = logVuexStoreFactory(bootstrap);
+    bootstrap = {
+      current_user: {
+        id: 2,
+      },
+      logs: [log],
+    };
+    vuexStore = logVuexStoreFactory(bootstrap, { mockedGetters: { selectedLog: () => log } });
     sync(vuexStore, router);
     wrapper = mount(
       Log,
