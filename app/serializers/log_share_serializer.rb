@@ -2,16 +2,18 @@
 
 # == Schema Information
 #
-# Table name: number_log_entries
+# Table name: log_shares
 #
 #  created_at :datetime         not null
-#  data       :float            not null
+#  email      :text             not null
 #  id         :bigint           not null, primary key
 #  log_id     :bigint           not null
-#  note       :string
 #  updated_at :datetime         not null
 #
-
-class LogEntries::NumberLogEntry < LogEntry
-  self.table_name = 'number_log_entries'
+# Indexes
+#
+#  index_log_shares_on_log_id_and_email  (log_id,email) UNIQUE
+#
+class LogShareSerializer < ActiveModel::Serializer
+  attributes :email, :id
 end

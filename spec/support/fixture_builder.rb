@@ -35,6 +35,9 @@ FixtureBuilder.configure do |fbuilder|
     ).first
     text_log.log_entries.create!(log: text_log, data: 'Had a cool dream!')
 
+    # log shares
+    name(:log_share, create(:log_share, log: number_log))
+
     # requests
     name(:request, create(:request))
 

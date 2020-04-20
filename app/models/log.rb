@@ -66,6 +66,8 @@ class Log < ApplicationRecord
     dependent: :destroy,
     inverse_of: :log
 
+  has_many :log_shares, dependent: :destroy
+
   before_save :set_slug, if: -> { name_changed? }
 
   def log_entries

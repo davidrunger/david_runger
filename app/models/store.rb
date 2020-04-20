@@ -11,10 +11,6 @@
 #  user_id    :integer
 #  viewed_at  :datetime
 #
-# Indexes
-#
-#  index_stores_on_user_id  (user_id)
-#
 
 class Store < ApplicationRecord
   belongs_to :user

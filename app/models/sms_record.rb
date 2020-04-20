@@ -16,7 +16,7 @@
 #
 # Indexes
 #
-#  index_sms_records_on_user_id  (user_id)
+#  index_sms_records_on_nexmo_id  (nexmo_id) UNIQUE
 #
 
 class SmsRecord < ApplicationRecord

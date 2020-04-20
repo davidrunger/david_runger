@@ -39,7 +39,12 @@ class Api::LogEntriesController < ApplicationController
 
     log_entries =
       if log_id.present?
-        current_user.logs.find(log_id).log_entries_ordered
+        log =
+          current_user.logs.find_by(id: log_id) ||
+          Log.joins(:log_shares).
+            where(log_shares: {email: current_user.email, log_id: log_id}).
+            first!
+        log.log_entries_ordered
       else
         logs =
           current_user.logs.

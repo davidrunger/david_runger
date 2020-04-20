@@ -15,11 +15,46 @@ div
   new-log-entry-form(v-if='!renderInputAtTop' :log='log')
   .mt1
     el-button(@click='destroyLastEntry') Delete last entry
+  a.js-link(
+    @click="$store.commit('showModal', { modalName: 'edit-log-shared-emails' })"
+  ) Shared with {{log.log_shares.length}} emails
   .mt1
     el-button(@click='destroyLog') Delete log
+
+  Modal(name='edit-log-shared-emails' width='85%' maxWidth='600px')
+    slot
+      h3.bold.fonst-size-2.mb2.
+        Email addresses authorized to view this log
+      el-tag(
+        :key='logShare.email'
+        v-for='logShare in logSharesSortedByLowercasedEmail'
+        closable
+        :disable-transitions='false'
+        @close='handleLogShareDeletion(logShare)'
+      ) {{logShare.email}}
+      el-input(
+        class='input-new-tag'
+        v-if='inputVisible'
+        v-model='inputValue'
+        ref='saveTagInput'
+        size='mini'
+        @keyup.enter.native='handleLogShareCreation'
+        @blur='handleLogShareCreation'
+      )
+      el-button(v-else class='button-new-tag' size='small' @click='showInput') + Add email
+      div.mt1
+        | Shareable link: {{shareableUrl}}
+        el-button.copy-to-clipboard(size='mini') Copy to clipboard
+        span(v-if='wasCopiedRecently') Copied!
+      div.mt1
+        el-button(
+          @click="$store.commit('hideModal', { modalName: 'edit-log-shared-emails' })"
+          type='text'
+        ) Close
 </template>
 
 <script>
+import ClipboardJS from 'clipboard';
 import { mapGetters } from 'vuex';
 
 import CounterBarGraph from './data_renderers/counter_bar_graph.vue';
@@ -61,13 +96,33 @@ export default {
       log: 'selectedLog',
     }),
 
+    logSharesSortedByLowercasedEmail() {
+      return this.log.log_shares.slice().
+        sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()));
+    },
+
     renderInputAtTop() {
       return ['text'].indexOf(this.log.data_type) >= 0;
+    },
+
+    shareableUrl() {
+      return window.location.origin + Routes.user_shared_log_path({
+        user_id: this.bootstrap.current_user.id,
+        slug: this.log.slug,
+      });
     },
   },
 
   created() {
     this.ensureLogEntriesHaveBeenFetched();
+  },
+
+  data() {
+    return {
+      inputVisible: false,
+      inputValue: '',
+      wasCopiedRecently: false,
+    };
   },
 
   methods: {
@@ -96,6 +151,42 @@ export default {
         this.$store.dispatch('fetchLogEntries', { logId: this.log.id });
       }
     },
+
+    handleLogShareDeletion(logShare) {
+      this.$store.dispatch('deleteLogShare', {
+        log: this.log,
+        logShareId: logShare.id,
+      });
+    },
+
+    handleLogShareCreation() {
+      const { inputValue } = this;
+      if (inputValue) {
+        this.$store.dispatch('addLogShare', {
+          logId: this.log.id,
+          newLogShareEmail: inputValue,
+        });
+      }
+      this.inputVisible = false;
+      this.inputValue = '';
+    },
+
+    showInput() {
+      this.inputVisible = true;
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+  },
+
+  mounted() {
+    const clipboard = new ClipboardJS('.copy-to-clipboard', {
+      text: () => this.shareableUrl,
+    });
+    clipboard.on('success', () => {
+      this.wasCopiedRecently = true;
+      setTimeout(() => { this.wasCopiedRecently = false; }, 3000);
+    });
   },
 
   title() {
@@ -107,5 +198,15 @@ export default {
 <style scoped>
 .description {
   font-weight: 200;
+}
+
+.el-tag:not(:first-of-type),
+.button-new-tag {
+  margin-top: 10px;
+}
+
+.el-tag + .el-tag,
+.el-tag + .button-new-tag {
+  margin-left: 10px;
 }
 </style>
