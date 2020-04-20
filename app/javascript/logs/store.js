@@ -14,6 +14,10 @@ const mutations = {
     log.log_entries.push(logEntry);
   },
 
+  addLogShare(_state, { log, logShare }) {
+    log.log_shares.push(logShare);
+  },
+
   deleteLog(state, { log: logToDelete }) {
     state.logs = state.logs.filter(log => log.id !== logToDelete.id);
     Toastify({
@@ -27,6 +31,10 @@ const mutations = {
 
   deleteLogEntry(_state, { log, logEntry: logEntryToDelete }) {
     log.log_entries = log.log_entries.filter(logEntry => logEntry !== logEntryToDelete);
+  },
+
+  deleteLogShare(_state, { log, logShareId }) {
+    log.log_shares = log.log_shares.filter(logShare => logShare.id !== logShareId);
   },
 
   setLogEntries(state, { log, logEntries }) {
@@ -61,6 +69,20 @@ const actions = {
     });
   },
 
+  addLogShare({ commit, getters }, { logId, newLogShareEmail }) {
+    const payload = {
+      log_share: {
+        log_id: logId,
+        email: newLogShareEmail,
+      },
+    };
+
+    axios.post(Routes.api_log_shares_path(), payload).then(({ data }) => {
+      const log = getters.logById({ logId });
+      commit('addLogShare', { log, logShare: data });
+    });
+  },
+
   deleteLastLogEntry({ commit }, { log }) {
     const lastLogEntry = _(log.log_entries).sortBy('created_at').last();
     axios.
@@ -75,6 +97,11 @@ const actions = {
   deleteLog({ commit }, { log }) {
     axios.delete(Routes.api_log_path({ id: log.id })).
       then(() => { commit('deleteLog', { log }); });
+  },
+
+  deleteLogShare({ commit }, { log, logShareId }) {
+    axios.delete(Routes.api_log_share_path({ id: logShareId })).
+      then(() => { commit('deleteLogShare', { log, logShareId }); });
   },
 
   fetchAllLogEntries({ commit, getters }) {

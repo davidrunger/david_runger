@@ -24,6 +24,7 @@ describe('Log', function () { // eslint-disable-line func-names, prefer-arrow-ca
         {
           id: 1,
           log_entries: [],
+          log_shares: [],
           log_inputs: [{ label: 'Weight (in lbs)', public_type: 'integer' }],
           name: weightLogName,
         },

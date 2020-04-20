@@ -23,6 +23,7 @@ import {
   Option,
   Select,
   Submenu,
+  Tag,
 } from 'element-ui';
 import Vue from 'vue';
 import { Drag, Drop } from 'vue-drag-drop';
@@ -84,6 +85,7 @@ Vue.use(MenuItem);
 Vue.use(Option);
 Vue.use(Select);
 Vue.use(Submenu);
+Vue.use(Tag);
 
 Vue.component('Modal', Modal);
 Vue.component('Drag', Drag);
