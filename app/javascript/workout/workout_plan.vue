@@ -60,16 +60,16 @@ export default {
     },
 
     tableRowClass(index) {
-      const secondsUntilSegmentStart = Math.floor(this.intervalInMinutes * index * 60);
-      const secondsUntilNextSegmentStart = Math.floor(this.intervalInMinutes * (index + 1) * 60);
-      if (secondsUntilSegmentStart <= this.secondsElapsed) {
-        if (this.secondsElapsed < secondsUntilNextSegmentStart) {
-          return 'bg-blue'; // active segment
+      const secondsUntilRoundStart = Math.floor(this.intervalInMinutes * index * 60);
+      const secondsUntilNextRoundStart = Math.floor(this.intervalInMinutes * (index + 1) * 60);
+      if (secondsUntilRoundStart <= this.secondsElapsed) {
+        if (this.secondsElapsed < secondsUntilNextRoundStart) {
+          return 'bg-blue'; // active round
         } else {
-          return 'bg-green'; // past segment
+          return 'bg-green'; // past round
         }
       } else {
-        return 'bg-white'; // future segment
+        return 'bg-white'; // future round
       }
     },
   },
