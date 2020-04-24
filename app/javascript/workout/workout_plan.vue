@@ -1,7 +1,7 @@
 <template lang='pug'>
   div
     .my2
-      .h1(v-if='timer') Time Elapsed: {{timeElapsed}}
+      .h1(v-if='timer') Time Elapsed: {{timeElapsedString}}
       div(v-else)
         button(
           @click='startWorkout'
@@ -11,9 +11,12 @@
         th Set
         th Time
         th(v-for='exercise in exercises') {{exercise.name}}
-      tr(v-for='(set, index) in sets')
+      tr(
+        v-for='(set, index) in sets'
+        :class='tableRowClass(index)'
+      )
         td {{set}}
-        td {{interval * (set - 1) | minutesAsTime}}
+        td {{intervalInMinutes * (set - 1) | minutesAsTime}}
         th(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
 </template>
 
@@ -22,14 +25,15 @@ import { Timer } from 'easytimer.js';
 
 export default {
   computed: {
-    interval() {
+    intervalInMinutes() {
       return this.minutes / (this.sets - 1);
     },
   },
 
   data() {
     return {
-      timeElapsed: null,
+      timeElapsedString: null,
+      secondsElapsed: 0,
       timer: null,
     };
   },
@@ -46,12 +50,27 @@ export default {
   methods: {
     startWorkout() {
       this.timer = new Timer();
-      this.timeElapsed = '00:00:00';
+      this.timeElapsedString = '00:00:00';
 
       this.timer.start();
       this.timer.addEventListener('secondsUpdated', () => {
-        this.timeElapsed = this.timer.getTimeValues().toString();
+        this.timeElapsedString = this.timer.getTimeValues().toString();
+        this.secondsElapsed = this.timer.getTotalTimeValues().seconds;
       });
+    },
+
+    tableRowClass(index) {
+      const secondsUntilSegmentStart = Math.floor(this.intervalInMinutes * index * 60);
+      const secondsUntilNextSegmentStart = Math.floor(this.intervalInMinutes * (index + 1) * 60);
+      if (secondsUntilSegmentStart <= this.secondsElapsed) {
+        if (this.secondsElapsed < secondsUntilNextSegmentStart) {
+          return 'bg-blue'; // active segment
+        } else {
+          return 'bg-green'; // past segment
+        }
+      } else {
+        return 'bg-white'; // future segment
+      }
     },
   },
 
