@@ -11,13 +11,15 @@
         th Set
         th Time
         th(v-for='exercise in exercises') {{exercise.name}}
+        th
       tr(
         v-for='(set, index) in sets'
         :class='tableRowClass(index)'
       )
         td {{set}}
         td {{intervalInMinutes * (set - 1) | minutesAsTime}}
-        th(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
+        td(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
+        td(v-show='index === currentRoundIndex + 1') Starts in {{timeUntilNextRoundString}}
 </template>
 
 <script>
@@ -28,11 +30,36 @@ export default {
     intervalInMinutes() {
       return this.minutes / (this.sets - 1);
     },
+
+    intervalInSeconds() {
+      return this.intervalInMinutes * 60;
+    },
+
+    nextRoundStartAtSeconds() {
+      return Math.floor((this.currentRoundIndex + 1) * this.intervalInSeconds);
+    },
+
+    secondsUntilNextRound() {
+      return this.nextRoundStartAtSeconds - this.secondsElapsed;
+    },
+  },
+
+  created() {
+    this.nextRoundStartTimer = new Timer();
+    this.nextRoundStartTimer.start({
+      countdown: true,
+      startValues: {
+        seconds: this.secondsUntilNextRound,
+      },
+    });
+    this.timeUntilNextRoundString = this.nextRoundStartTimer.getTimeValues().toString();
   },
 
   data() {
     return {
+      currentRoundIndex: 0,
       timeElapsedString: null,
+      timeUntilNextRoundString: null,
       secondsElapsed: 0,
       timer: null,
     };
@@ -51,11 +78,30 @@ export default {
     startWorkout() {
       this.timer = new Timer();
       this.timeElapsedString = '00:00:00';
+      this.currentRoundIndex = 0;
 
       this.timer.start();
+      this.nextRoundStartTimer.reset();
       this.timer.addEventListener('secondsUpdated', () => {
         this.timeElapsedString = this.timer.getTimeValues().toString();
         this.secondsElapsed = this.timer.getTotalTimeValues().seconds;
+
+        if (this.secondsElapsed === this.nextRoundStartAtSeconds) {
+          this.currentRoundIndex++;
+          this.nextRoundStartTimer = new Timer();
+          this.nextRoundStartTimer.start({
+            countdown: true,
+            startValues: {
+              seconds: this.secondsUntilNextRound,
+            },
+          });
+          this.nextRoundStartTimer.addEventListener('secondsUpdated', () => {
+            this.timeUntilNextRoundString = this.nextRoundStartTimer.getTimeValues().toString();
+          });
+        }
+      });
+      this.nextRoundStartTimer.addEventListener('secondsUpdated', () => {
+        this.timeUntilNextRoundString = this.nextRoundStartTimer.getTimeValues().toString();
       });
     },
 
