@@ -20,8 +20,7 @@
         td {{intervalInMinutes * (set - 1) | minutesAsTime}}
         td(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
         td(v-show='index === currentRoundIndex + 1')
-            | Starts
-            | in #[span(:class='{red: (secondsUntilNextRound <= 10)}') {{timeUntilNextRoundString}}]
+            | Starts in #[span(:class='nextRoundCountdownClass') {{timeUntilNextRoundString}}]
 </template>
 
 <script>
@@ -35,6 +34,16 @@ export default {
 
     intervalInSeconds() {
       return this.intervalInMinutes * 60;
+    },
+
+    nextRoundCountdownClass() {
+      if (this.secondsUntilNextRound <= 10) {
+        return ['red', 'bold'];
+      } else if (this.secondsUntilNextRound <= 30) {
+        return 'orange';
+      } else {
+        return '';
+      }
     },
 
     nextRoundStartAtSeconds() {
