@@ -12,5 +12,10 @@ RSpec.describe WorkoutsController do
       get_index
       expect(response.status).to eq(200)
     end
+
+    it 'has a title including "Workout"' do
+      get_index
+      expect(response.body).to have_title(/\AWorkout - David Runger\z/)
+    end
   end
 end
