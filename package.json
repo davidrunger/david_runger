@@ -87,7 +87,7 @@
     "@vue/test-utils": "1.0.0-beta.28",
     "expect": "^25.5.0",
     "mocha": "^5.2.0",
-    "mocha-headless-chrome": "^2.0.3",
+    "mocha-headless-chrome": "^3.0.0",
     "mocha-webpack": "2.0.0-beta.0",
     "postcss": "^7.0.27",
     "postcss-safe-parser": "^4.0.2",
