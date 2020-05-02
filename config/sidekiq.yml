@@ -11,10 +11,6 @@ production:
 :schedule:
   AppStats:
     cron: '*/10 * * * *' # every 10 minutes
-  PostgresQueryStats:
-    cron: '26 * * * *' # hourly at 26 minutes after
-  PostgresSpaceStats:
-    cron: '47 22 * * * America/Los_Angeles' # daily at 10:47pm PT
   Stats::Redis:
     cron: '* * * * *' # every minute
   SidekiqStats:
