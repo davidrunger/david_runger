@@ -1,4 +1,0 @@
-short_sha=`cat SOURCE_VERSION | cut -c1-7`
-curl -X POST "$GRAPHITE_HTTP_USERNAME:$GRAPHITE_HTTP_PASSWORD@$GRAPHITE_HOST:8000/events/" \
-  -H "Content-Type: application/json" \
-  -d "{ \"what\": \"Deploy $short_sha\", \"tags\": \"deploy\", \"when\": `date +%s` }"
