@@ -44,6 +44,12 @@ module.exports = {
     ],
   },
 
+  node: {
+    // required because `stack-utils` depends on the node module called ... `module`
+    // https://github.com/evanw/node-source-map-support/issues/ 155#issuecomment-358482159
+    module: 'empty',
+  },
+
   plugins: [
     new VueLoaderPlugin(),
     // use en locale (rather than zh-CN) for element-ui
