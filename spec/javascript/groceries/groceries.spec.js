@@ -36,6 +36,6 @@ describe('Groceries', function () { // eslint-disable-line func-names, prefer-ar
   });
 
   it('renders the sidebar', () => {
-    expect(wrapper.findAll({ name: 'Sidebar' }).length).toEqual(1);
+    expect(wrapper.findAllComponents({ name: 'Sidebar' }).length).toEqual(1);
   });
 });
