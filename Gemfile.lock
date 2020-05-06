@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 7669dc219675e81d38736c3cf0b0e8cef699a37c
+  revision: f4538aa5865da5f16b707d34aa733a5e2353f2fd
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -76,7 +76,7 @@ GIT
       i18n (>= 1.6, < 2)
       minitest (~> 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.2, >= 2.2.2)
+      zeitwerk (~> 2.3)
     rails (6.1.0.alpha)
       actioncable (= 6.1.0.alpha)
       actionmailbox (= 6.1.0.alpha)
@@ -272,7 +272,7 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
-    mimemagic (0.3.4)
+    mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
