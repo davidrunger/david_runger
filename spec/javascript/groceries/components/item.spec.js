@@ -56,7 +56,7 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
       });
 
       it('converts to a text input', () => {
-        expect(wrapper.contains('input[type="text"]')).toBeTruthy();
+        expect(wrapper.find('input[type="text"]').exists()).toBeTruthy();
       });
 
       describe('when I change the item name and press enter', () => {
@@ -155,9 +155,12 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
     });
 
     describe('when the count of items needed is positive', () => {
-      beforeEach(() => {
+      beforeEach((done) => {
         item.needed = 22;
-        expect(wrapper.text()).toMatch(RegExp(`${item.name}\\s\\(22\\)`));
+        wrapper.vm.$nextTick(() => {
+          expect(wrapper.text()).toMatch(RegExp(`${item.name}\\s\\(22\\)`));
+          done();
+        });
       });
 
       describe('when I click the decrement button', () => {
