@@ -84,7 +84,7 @@
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
-    "@vue/test-utils": "1.0.0",
+    "@vue/test-utils": "1.0.2",
     "expect": "^26.0.1",
     "mocha": "^5.2.0",
     "mocha-headless-chrome": "^3.0.0",
