@@ -20,6 +20,7 @@ describe('Log', function () { // eslint-disable-line func-names, prefer-arrow-ca
   const weightLogSlug = 'weight';
 
   beforeEach(() => {
+    const currentUserId = 2;
     const log = {
       id: 1,
       log_entries: [],
@@ -27,10 +28,15 @@ describe('Log', function () { // eslint-disable-line func-names, prefer-arrow-ca
       log_inputs: [{ label: 'Weight (in lbs)', public_type: 'integer' }],
       name: weightLogName,
       slug: weightLogSlug,
+      user: {
+        email: 'a@b.c',
+        id: currentUserId,
+        phone: '123-123-1234',
+      },
     };
     bootstrap = {
       current_user: {
-        id: 2,
+        id: currentUserId,
       },
       logs: [log],
     };
