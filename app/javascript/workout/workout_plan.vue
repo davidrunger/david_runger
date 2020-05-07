@@ -121,7 +121,7 @@ export default {
       const secondsUntilNextRoundStart = Math.floor(this.intervalInMinutes * (index + 1) * 60);
       if (secondsUntilRoundStart <= this.secondsElapsed) {
         if (this.secondsElapsed < secondsUntilNextRoundStart) {
-          return 'bg-blue'; // active round
+          return 'bg-aqua'; // active round
         } else {
           return 'bg-green'; // past round
         }
