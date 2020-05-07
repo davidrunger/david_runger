@@ -23,5 +23,6 @@
 class LogSerializer < ActiveModel::Serializer
   attributes :data_label, :data_type, :description, :id, :name, :slug
 
+  belongs_to :user
   has_many :log_shares
 end

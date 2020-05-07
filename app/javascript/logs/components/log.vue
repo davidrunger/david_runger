@@ -1,6 +1,7 @@
 <template lang='pug'>
 div
   h1.h2.mt3.mb1 {{log.name}}
+  h2.h5.gray(v-if='!isOwnLog') shared by {{log.user.email}}
   p.h5.mb2.description {{log.description}}
   div.mb2(v-if='log.log_entries === undefined').
     Loading...
@@ -12,14 +13,15 @@ div
     :log_entries='log.log_entries'
   )
   div.my2(v-else) There are no log entries for this log.
-  new-log-entry-form(v-if='!renderInputAtTop' :log='log')
-  .mt1
-    el-button(@click='destroyLastEntry') Delete last entry
-  a.js-link(
-    @click="$store.commit('showModal', { modalName: 'edit-log-shared-emails' })"
-  ) Shared with {{log.log_shares.length}} emails
-  .mt1
-    el-button(@click='destroyLog') Delete log
+  .controls(v-if='isOwnLog')
+    new-log-entry-form(v-if='!renderInputAtTop' :log='log')
+    .mt1
+      el-button(@click='destroyLastEntry') Delete last entry
+    a.js-link(
+      @click="$store.commit('showModal', { modalName: 'edit-log-shared-emails' })"
+    ) Shared with {{log.log_shares.length}} emails
+    .mt1
+      el-button(@click='destroyLog') Delete log
 
   Modal(name='edit-log-shared-emails' width='85%' maxWidth='600px')
     slot
@@ -95,6 +97,10 @@ export default {
     ...mapGetters({
       log: 'selectedLog',
     }),
+
+    isOwnLog() {
+      return this.log.user.id === this.bootstrap.current_user.id;
+    },
 
     logSharesSortedByLowercasedEmail() {
       return this.log.log_shares.slice().
