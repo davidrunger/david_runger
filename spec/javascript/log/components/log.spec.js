@@ -31,7 +31,6 @@ describe('Log', function () { // eslint-disable-line func-names, prefer-arrow-ca
       user: {
         email: 'a@b.c',
         id: currentUserId,
-        phone: '123-123-1234',
       },
     };
     bootstrap = {
