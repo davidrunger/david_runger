@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
       flash[:notice] = 'You are already logged in.'
       redirect_to(root_path)
     else
-      render :new, layout: false
+      @title = 'Log in'
+      render :new
     end
   end
 end

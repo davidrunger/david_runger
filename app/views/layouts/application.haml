@@ -21,7 +21,7 @@
 
   %body{class: [@body_class, 'sans-serif'].map(&:presence).compact.join(' ')}
     - if notice.present?
-      %p.notice= notice
+      %p.p2.notice= notice
     - if alert.present?
-      %p.alert= alert
+      %p.p2.alert= alert
     = yield
