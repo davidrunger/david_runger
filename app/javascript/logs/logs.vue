@@ -30,6 +30,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      'isOwnLog',
       'selectedLog',
     ]),
 
@@ -39,13 +40,18 @@ export default {
   },
 
   created() {
-    // If we are viewing a specific log, we want to ensure that the log entries for that log are
-    // fetched first, so delay 10ms.
-    // Otherwise (i.e. if viewing index), fetch all entries immediately.
-    const delayBeforeFetchingAllLogs = this.selectedLog ? 10 : 0;
-    setTimeout(() => {
-      this.$store.dispatch('fetchAllLogEntries');
-    }, delayBeforeFetchingAllLogs);
+    const viewingLogsIndex = !this.selectedLog;
+    const viewingOwnLog = this.isOwnLog;
+    const viewingSharedLog = !viewingLogsIndex && !viewingOwnLog;
+    if (!viewingSharedLog) {
+      // If we are viewing a specific log, we want to ensure that the log entries for that log are
+      // fetched first, so delay 10ms.
+      // Otherwise (i.e. if viewing index), fetch all entries immediately.
+      const delayBeforeFetchingAllLogs = this.selectedLog ? 10 : 0;
+      setTimeout(() => {
+        this.$store.dispatch('fetchAllLogEntries');
+      }, delayBeforeFetchingAllLogs);
+    }
 
     document.addEventListener('keydown', (event) => {
       if ((event.key === 'k') && (event.metaKey === true)) {

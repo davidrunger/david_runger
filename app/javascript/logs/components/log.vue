@@ -95,12 +95,9 @@ export default {
 
   computed: {
     ...mapGetters({
+      isOwnLog: 'isOwnLog',
       log: 'selectedLog',
     }),
-
-    isOwnLog() {
-      return this.log.user.id === this.bootstrap.current_user.id;
-    },
 
     logSharesSortedByLowercasedEmail() {
       return this.log.log_shares.slice().

@@ -165,6 +165,13 @@ const actions = {
 const getters = {
   ...ModalVuex.getters,
 
+  // eslint-disable-next-line no-shadow
+  isOwnLog(state, getters) {
+    if (!getters.selectedLog) return false;
+
+    return getters.selectedLog.user.id === state.currentUser.id;
+  },
+
   logById(state) {
     return ({ logId }) => state.logs.find(log => log.id === logId);
   },
