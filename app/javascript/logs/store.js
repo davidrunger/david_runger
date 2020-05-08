@@ -172,6 +172,13 @@ const getters = {
     return getters.selectedLog.user.id === state.currentUser.id;
   },
 
+  // eslint-disable-next-line no-shadow
+  isSharedLog(state, getters) {
+    const logIsPresent = !!getters.selectedLog;
+    const isNotOwnLog = !getters.isOwnLog;
+    return logIsPresent && isNotOwnLog;
+  },
+
   logById(state) {
     return ({ logId }) => state.logs.find(log => log.id === logId);
   },

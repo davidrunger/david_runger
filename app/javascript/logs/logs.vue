@@ -9,7 +9,7 @@ div
   .center
     log-selector
     router-view(:key='$route.fullPath').m3
-    el-collapse(v-model='expandedPanelNames')
+    el-collapse(v-if='!isSharedLog' v-model='expandedPanelNames')
       el-collapse-item(title = 'Create new log' name='new-log-form')
         new-log-form
 </template>
@@ -30,7 +30,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'isOwnLog',
+      'isSharedLog',
       'selectedLog',
     ]),
 
@@ -40,10 +40,7 @@ export default {
   },
 
   created() {
-    const viewingLogsIndex = !this.selectedLog;
-    const viewingOwnLog = this.isOwnLog;
-    const viewingSharedLog = !viewingLogsIndex && !viewingOwnLog;
-    if (!viewingSharedLog) {
+    if (!this.isSharedLog) {
       // If we are viewing a specific log, we want to ensure that the log entries for that log are
       // fetched first, so delay 10ms.
       // Otherwise (i.e. if viewing index), fetch all entries immediately.
