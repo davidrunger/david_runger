@@ -21,6 +21,10 @@ describe('Logs', function () { // eslint-disable-line func-names, prefer-arrow-c
 
   const userId = 1;
   const userEmail = 'davidjrunger@gmail.com';
+  const logOwner = {
+    id: userId,
+    email: userEmail,
+  };
 
   const heightLogName = 'Height';
   const weightLogName = 'Weight';
@@ -30,10 +34,7 @@ describe('Logs', function () { // eslint-disable-line func-names, prefer-arrow-c
     setTimeout(done, 0); // it seems to take a moment for useFakeXMLHttpRequest to kick in...
 
     bootstrap = {
-      current_user: {
-        id: userId,
-        email: userEmail,
-      },
+      current_user: { ...logOwner, phone: '123-123-1234' },
       log_input_types: [
         { public_type: 'duration', label: 'Duration' },
         { public_type: 'integer', label: 'Integer' },
@@ -45,12 +46,14 @@ describe('Logs', function () { // eslint-disable-line func-names, prefer-arrow-c
           log_entries: [],
           log_inputs: [{ label: 'Weight (in lbs)', public_type: 'integer' }],
           name: weightLogName,
+          user: logOwner,
         },
         {
           id: 2,
           log_entries: [],
           log_inputs: [{ label: 'Height (in inches)', public_type: 'integer' }],
           name: heightLogName,
+          user: logOwner,
         },
       ],
     };
