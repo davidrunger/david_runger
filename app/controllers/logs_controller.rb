@@ -2,10 +2,12 @@
 
 class LogsController < ApplicationController
   def index
-    if params[:user_id] && params[:slug]
-      log = Log.find_by!(slug: params[:slug])
-      authorize(log, :show?)
-      logs = Log.where(id: log)
+    user_id_param = params[:user_id]
+    if user_id_param && params[:slug]
+      sharing_user = User.find(user_id_param)
+      shared_log = sharing_user.logs.find_by!(slug: params[:slug])
+      authorize(shared_log, :show?)
+      logs = Log.where(id: shared_log)
     elsif current_user.present?
       logs = current_user.logs.order(:created_at)
     else
