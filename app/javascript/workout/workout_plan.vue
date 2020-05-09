@@ -97,7 +97,7 @@ export default {
         this.timeElapsedString = this.timer.getTimeValues().toString();
         this.secondsElapsed = this.timer.getTotalTimeValues().seconds;
 
-        if (this.secondsElapsed === this.nextRoundStartAtSeconds) {
+        if (this.secondsElapsed >= this.nextRoundStartAtSeconds) {
           this.currentRoundIndex++;
           this.nextRoundStartTimer = new Timer();
           this.nextRoundStartTimer.start({
