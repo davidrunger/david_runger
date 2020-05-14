@@ -19,6 +19,12 @@ class Api::LogsController < ApplicationController
     end
   end
 
+  def update
+    @log = current_user.logs.find(params[:id])
+    @log.update!(log_params)
+    render json: @log
+  end
+
   def destroy
     @log = current_user.logs.find(params[:id])
     @log.destroy!
@@ -33,6 +39,7 @@ class Api::LogsController < ApplicationController
       :data_type,
       :description,
       :name,
+      :publicly_viewable,
     )
   end
 

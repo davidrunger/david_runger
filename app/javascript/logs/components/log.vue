@@ -19,7 +19,9 @@ div
       el-button(@click='destroyLastEntry') Delete last entry
     a.js-link(
       @click="$store.commit('showModal', { modalName: 'edit-log-shared-emails' })"
-    ) Shared with {{log.log_shares.length}} emails
+    )
+      span(v-if='publiclyViewable') Viewable by any user
+      span(v-else) Shared with {{log.log_shares.length}} emails
     .mt1
       el-button(@click='destroyLog') Delete log
 
@@ -27,23 +29,29 @@ div
     slot
       h3.bold.fonst-size-2.mb2.
         Email addresses authorized to view this log
-      el-tag(
-        :key='logShare.email'
-        v-for='logShare in logSharesSortedByLowercasedEmail'
-        closable
-        :disable-transitions='false'
-        @close='handleLogShareDeletion(logShare)'
-      ) {{logShare.email}}
-      el-input(
-        class='input-new-tag'
-        v-if='inputVisible'
-        v-model='inputValue'
-        ref='saveTagInput'
-        size='mini'
-        @keyup.enter.native='handleLogShareCreation'
-        @blur='handleLogShareCreation'
-      )
-      el-button(v-else class='button-new-tag' size='small' @click='showInput') + Add email
+      div
+        el-checkbox(
+          v-model='publiclyViewable'
+          @change='savePubliclyViewableChange'
+        ) Publicly viewable
+      div(v-if='!publiclyViewable')
+        el-tag(
+          :key='logShare.email'
+          v-for='logShare in logSharesSortedByLowercasedEmail'
+          closable
+          :disable-transitions='false'
+          @close='handleLogShareDeletion(logShare)'
+        ) {{logShare.email}}
+        el-input(
+          class='input-new-tag'
+          v-if='inputVisible'
+          v-model='inputValue'
+          ref='saveTagInput'
+          size='mini'
+          @keyup.enter.native='handleLogShareCreation'
+          @blur='handleLogShareCreation'
+        )
+        el-button(v-else class='button-new-tag' size='small' @click='showInput') + Add email
       div.mt1
         | Shareable link: {{shareableUrl}}
         el-button.copy-to-clipboard(size='mini') Copy to clipboard
@@ -118,6 +126,7 @@ export default {
 
   created() {
     this.ensureLogEntriesHaveBeenFetched();
+    this.publiclyViewable = this.log.publicly_viewable;
   },
 
   data() {
@@ -125,6 +134,7 @@ export default {
       inputVisible: false,
       inputValue: '',
       wasCopiedRecently: false,
+      publiclyViewable: false,
     };
   },
 
@@ -172,6 +182,13 @@ export default {
       }
       this.inputVisible = false;
       this.inputValue = '';
+    },
+
+    savePubliclyViewableChange(newPubliclyViewableState) {
+      this.$store.dispatch('updateLog', {
+        logId: this.log.id,
+        updatedLogParams: { publicly_viewable: newPubliclyViewableState },
+      });
     },
 
     showInput() {
