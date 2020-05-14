@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'element-ui/lib/theme-chalk/base.css';
 import 'element-ui/lib/theme-chalk/button.css';
 import 'element-ui/lib/theme-chalk/card.css';
+import 'element-ui/lib/theme-chalk/checkbox.css';
 import 'element-ui/lib/theme-chalk/dropdown-item.css';
 import 'element-ui/lib/theme-chalk/icon.css';
 import 'element-ui/lib/theme-chalk/input.css';
@@ -14,6 +15,7 @@ import 'element-ui/lib/theme-chalk/submenu.css';
 import {
   Button,
   Card,
+  Checkbox,
   Collapse,
   CollapseItem,
   Icon,
@@ -76,6 +78,7 @@ Vue.mixin(titleMixin);
 
 Vue.use(Button);
 Vue.use(Card);
+Vue.use(Checkbox);
 Vue.use(Collapse);
 Vue.use(CollapseItem);
 Vue.use(Icon);
