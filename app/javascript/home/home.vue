@@ -37,16 +37,15 @@ div.font-nunito
         .flex-2.mr4.py1.pr2
           HomeSectionHeader(:title='slotProps.title')
 
-          p.
-            I'm a full stack web developer working remotely for
-            #[a(href='https://hired.com') Hired] from beautiful, sunny San Diego, CA! 😄
+          p I'm a full stack web developer.
 
           p.
             I love the Ruby programming language, the Rails web development framework, and the RSpec
             testing library. These are well-designed tools (with healthy supporting ecosystems) that
-            allow me to work efficiently and effectively, and to have fun doing it.
+            allow me to work efficiently and to have fun doing it.
           p.
-            Previously, I've been a web development bootcamp teaching assistant at
+            Previously, I've been a software engineer and support engineer at
+            #[a(href='https://hired.com') Hired], a web development bootcamp teaching assistant at
             #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
             bus driver, and a long haul truck driver.
 
@@ -199,7 +198,7 @@ div.font-nunito
   HomeSection(section='projects', title='Projects')
     Project
       span(slot='title') My Grocery List
-      span(slot='technologies') Rails 5, Vue.js, Vuex, Nexmo SMS API
+      span(slot='technologies') Rails 6, Vue.js, Vuex, Nexmo SMS API
       div(slot='links')
         a(:href='this.$routes.groceries_path()') Live
         span #{' - '}
@@ -211,7 +210,7 @@ div.font-nunito
         source(type='webp' src='~img/groceries.webp')
       div(slot='overview')
         p.
-          I choose not to own a smartphone (😱 ), and I eat the same few things week after week.
+          I choose not to own a smartphone (😱), and I eat the same few things week after week.
           With this in mind, I wanted an app that would help me to efficiently track and purchase
           groceries. Plus, I wanted an excuse to experiment with
           #[a(href='https://vuejs.org/') Vue.js]! So I built
@@ -222,12 +221,12 @@ div.font-nunito
           refer to it on my "dumb" phone while I'm at the store.
       ul(slot='tech-list')
         li.
-          A #[b Rails 5] back end serves a #[b Vue.js] front end application that's built with
+          A #[b Rails 6] back end serves a #[b Vue.js] front end application that's built with
           #[b #[a(href='https://pugjs.org') pug]] templates, ES6 (via
           #[b #[a(href='https://babeljs.io/') babel]]), and
           #[b #[a(href='http://sass-lang.com/') Sass]].
         li.
-          Rails 5's #[b webpacker] gem provides #[b Hot Module Replacement] for
+          Rails's #[b webpacker] gem provides #[b Hot Module Replacement] for
           #[i all] aspects of the frontend app (HTML, CSS, and JavaScript). This creates a
           super efficient and enjoyable development flow! 😄
         li #[b Google OAuth] provides convenient and secure sign-in
