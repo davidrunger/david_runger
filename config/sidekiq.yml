@@ -9,11 +9,5 @@ production:
   - ['mailers', 1]
 
 :schedule:
-  AppStats:
-    cron: '*/10 * * * *' # every 10 minutes
-  Stats::Redis:
-    cron: '* * * * *' # every minute
-  SidekiqStats:
-    cron: '* * * * *' # every minute
   TruncateTables:
     cron: '33 * * * *' # hourly at 33 minutes after
