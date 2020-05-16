@@ -153,21 +153,19 @@ div.font-nunito
           name='RSpec'
         )
           span(slot='details').
-            I #[em.italic love] testing. (I write more lines of spec code per line of application
-            code than any other developer on the team at Hired.) RSpec makes tests readable and easy
-            to write.
+            I #[em.italic love] testing. RSpec makes tests readable and easy to write.
           PerformantImage(slot='image' alt='RSpec' imageStyle='height: 65px' lazy=true)
             source(type='png' src='~img/rspec.png')
         SkillRow(
           name='Ruby'
-          details='Ruby prizes developer happiness, and it shows!'
+          details='Ruby was designed for developer happiness, and it shows!'
         )
         SkillRow(
           name='Ruby on Rails'
           iconIdentifier='rails'
         )
           span(slot='details').
-            I ❤️  &nbsp;Rails: a web-development framework with a great ecosystem that makes
+            I ❤️&nbsp;Rails: a web-development framework with a great ecosystem that makes
             development fast and fun. Rails's ActiveRecord ORM is superb.
         SkillRow(
           name='Sass'
@@ -181,9 +179,9 @@ div.font-nunito
           name='VueJS'
         )
           span(slot='details').
-            I think that Vue is one of the best client-side frameworks/libraries out there, and I'm
-            really hoping that its popularity continues to grow. I keep track of my grocery list
-            using #[a(:href='$routes.groceries_path()') an app that I built with Vue].
+            I think that Vue is one of the best client-side frameworks/libraries out there, and I
+            hope that its popularity continues to grow. I keep track of my grocery list using
+            #[a(:href='$routes.groceries_path()') an app that I built with Vue].
         SkillRow(
           name='Webpack'
         )
