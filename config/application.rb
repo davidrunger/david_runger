@@ -56,7 +56,6 @@ class DavidRunger::Application < Rails::Application
   # now being respected.
   $LOAD_PATH << File.join(Gem.loaded_specs['administrate'].full_gem_path, 'app', 'helpers').to_s
   $LOAD_PATH << File.join(Gem.loaded_specs['devise'].full_gem_path, 'app', 'helpers').to_s
-  $LOAD_PATH << File.join(Gem.loaded_specs['pghero'].full_gem_path, 'app', 'helpers').to_s
 
   ENV['FIXTURES_PATH'] = 'spec/fixtures'
 end

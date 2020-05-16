@@ -61,8 +61,6 @@ class TruncateTables
     Rails.logger.info
 
     self.class.truncate(table: 'requests', timestamp: 'requested_at')
-    self.class.truncate(table: 'pghero_query_stats', timestamp: 'captured_at')
-    self.class.truncate(table: 'pghero_space_stats', timestamp: 'captured_at')
 
     Rails.logger.info('Done truncating tables')
   end

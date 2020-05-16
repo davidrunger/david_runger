@@ -50,7 +50,6 @@ Rails.application.routes.draw do
   end
 
   authenticate :user, ->(user) { user.admin? } do
-    mount PgHero::Engine, at: 'pghero'
     mount Sidekiq::Web => '/sidekiq'
   end
 
