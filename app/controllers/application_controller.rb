@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   include Pundit
   include Redirectable
   include RequestRecordable
-  include StatsDLoggable
 
   protect_from_forgery with: :exception
 
