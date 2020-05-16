@@ -34,6 +34,7 @@ RSpec.describe Api::LogsController do
           'description' => nil,
           'id' => Integer,
           'name' => 'Resting Heart Rate',
+          'publicly_viewable' => false,
           'slug' => 'resting-heart-rate',
         )
       end
@@ -63,6 +64,42 @@ RSpec.describe Api::LogsController do
       it 'returns a 422 status code' do
         post_create
         expect(response.status).to eq(422)
+      end
+    end
+  end
+
+  describe '#update' do
+    subject(:patch_update) { patch(:update, params: params) }
+
+    context 'when a log has `publicly_viewable: false`' do
+      before { expect(log.publicly_viewable?).to eq(false) }
+
+      let(:log) { logs(:number_log) }
+
+      context 'when the params have `publicly_viewable: true`' do
+        let(:params) { {id: log.id, log: {publicly_viewable: true}} }
+
+        it 'changes the log to `publicly_viewable: true`' do
+          expect { patch_update }.
+            to change { log.reload.publicly_viewable }.
+            from(false).
+            to(true)
+        end
+
+        # rubocop:disable RSpec/ExampleLength
+        it 'responds with the log as JSON' do
+          patch_update
+          expect(response.parsed_body).to include(
+            'data_label' => log.data_label,
+            'data_type' => 'number',
+            'description' => log.description,
+            'id' => Integer,
+            'name' => log.name,
+            'publicly_viewable' => log.reload.publicly_viewable,
+            'slug' => log.slug,
+          )
+        end
+        # rubocop:enable RSpec/ExampleLength
       end
     end
   end
