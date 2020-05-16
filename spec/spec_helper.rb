@@ -82,11 +82,7 @@ RSpec.configure do |config|
 
   config.fail_if_no_examples = true
 
-  config.filter_run_when_matching(:focus)
-
-  config.fixture_path = Rails.root.join('spec/fixtures')
   config.global_fixtures = :all
-  config.use_transactional_fixtures
 
   config.include(FactoryBot::Syntax::Methods)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
