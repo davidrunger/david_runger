@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 RSpec.describe TouchActivityAt do
   subject(:worker) { TouchActivityAt.new }
 

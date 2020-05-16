@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 RSpec.describe Request do
   describe 'validations' do
     it { is_expected.not_to validate_presence_of(:format) }
