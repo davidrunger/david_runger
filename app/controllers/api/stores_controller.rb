@@ -6,10 +6,8 @@ class Api::StoresController < ApplicationController
   def create
     @store = current_user.stores.build(store_params.merge(viewed_at: Time.current))
     if @store.save
-      StatsD.increment('stores.create.success')
       render json: @store, status: :created
     else
-      StatsD.increment('stores.create.failure')
       render json: {errors: @store.errors.to_hash}, status: :unprocessable_entity
     end
   end

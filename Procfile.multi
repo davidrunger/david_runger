@@ -1,3 +1,2 @@
 web: bin/rails server -p $PORT -e $RAILS_ENV
 sidekiq: bin/sidekiq --config config/sidekiq.yml
-statsd: node_modules/.bin/statsd statsd-config.js
