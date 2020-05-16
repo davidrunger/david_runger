@@ -28,9 +28,6 @@ Sidekiq.configure_server do |config|
   # For why we are adding 5, see https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control
   config.redis = ConnectionPool.new(size: 7, &build_sidekiq_redis_connection)
 
-  # Allow executing rake tasks via Sidekiq workers
-  Rails.application.load_tasks
-
   if Rails.env.development?
     config.server_middleware do |chain|
       require_relative '../../lib/middleware/set_config_sidekiq_middleware'
