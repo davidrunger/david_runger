@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 RSpec.describe Email::MailgunViaHttp do
   subject(:mailgun_via_http) { Email::MailgunViaHttp.new({}) }
 

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 RSpec.describe SmsMessage do
   subject(:sms_message) { SmsMessage.new(**sms_message_params) }
 

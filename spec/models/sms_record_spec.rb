@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 RSpec.describe SmsRecord do
   subject(:sms_record) { sms_records(:sms_record) }
 

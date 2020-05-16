@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 # rubocop:disable RSpec/DescribeClass
 RSpec.describe 'Sidekiq scheduled jobs' do
   # rubocop:enable RSpec/DescribeClass

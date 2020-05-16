@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 RSpec.describe UserAgentField do
   subject(:field) { UserAgentField.new(:user_agent, raw_user_agent, page) }
 

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 RSpec.describe SmsRecordPolicy do
   let(:user) { users(:user) }
 
