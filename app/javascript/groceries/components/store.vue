@@ -42,7 +42,7 @@ div.mt1.mb2.ml3.mr2
 
   Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
     slot
-      h3.bold.fonst-size-2.mb2.
+      h3.bold.mb2.
         What did you get?
       ul
         li.flex.items-center.mb1(v-for='(item, index) in neededItems' :key='item.id')

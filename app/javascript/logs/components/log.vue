@@ -25,10 +25,9 @@ div
     .mt1
       el-button(@click='destroyLog') Delete log
 
-  Modal(name='edit-log-shared-emails' width='85%' maxWidth='600px')
+  Modal(name='edit-log-shared-emails' width='85%' maxWidth='600px' backgroundClass='bg-black')
     slot
-      h3.bold.fonst-size-2.mb2.
-        Email addresses authorized to view this log
+      h3.bold.mb2 Sharing
       div
         el-checkbox(
           v-model='publiclyViewable'
@@ -51,11 +50,12 @@ div
           @keyup.enter.native='handleLogShareCreation'
           @blur='handleLogShareCreation'
         )
-        el-button(v-else class='button-new-tag' size='small' @click='showInput') + Add email
-      div.mt1
-        | Shareable link: {{shareableUrl}}
-        el-button.copy-to-clipboard(size='mini') Copy to clipboard
-        span(v-if='wasCopiedRecently') Copied!
+        el-button(v-else class='button-new-tag' size='small' @click='showInput') + Share with email
+      div.mt1 Shareable link: {{shareableUrl}}
+      div
+        el-button.copy-to-clipboard(size='mini')
+          span(v-if='wasCopiedRecently') Copied!
+          span(v-else) Copy to clipboard
       div.mt1
         el-button(
           @click="$store.commit('hideModal', { modalName: 'edit-log-shared-emails' })"
@@ -205,7 +205,7 @@ export default {
     });
     clipboard.on('success', () => {
       this.wasCopiedRecently = true;
-      setTimeout(() => { this.wasCopiedRecently = false; }, 3000);
+      setTimeout(() => { this.wasCopiedRecently = false; }, 1800);
     });
   },
 
