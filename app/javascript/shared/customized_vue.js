@@ -12,6 +12,7 @@ import 'element-ui/lib/theme-chalk/menu-item.css';
 import 'element-ui/lib/theme-chalk/option.css';
 import 'element-ui/lib/theme-chalk/select.css';
 import 'element-ui/lib/theme-chalk/submenu.css';
+import 'element-ui/lib/theme-chalk/switch.css';
 import 'element-ui/lib/theme-chalk/tag.css';
 import {
   Button,
@@ -26,6 +27,7 @@ import {
   Option,
   Select,
   Submenu,
+  Switch,
   Tag,
 } from 'element-ui';
 import Vue from 'vue';
@@ -89,6 +91,7 @@ Vue.use(MenuItem);
 Vue.use(Option);
 Vue.use(Select);
 Vue.use(Submenu);
+Vue.use(Switch);
 Vue.use(Tag);
 
 Vue.component('Modal', Modal);
