@@ -6,21 +6,41 @@
         button(
           @click='startWorkout'
         ) Start timer
-    table
-      tr
-        th Set
-        th Time
-        th(v-for='exercise in exercises') {{exercise.name}}
-        th
-      tr(
-        v-for='(set, index) in sets'
-        :class='tableRowClass(index)'
+      el-switch(
+        v-model='editMode'
+        active-text='Edit mode'
       )
-        td {{set}}
-        td {{intervalInMinutes * (set - 1) | minutesAsTime}}
-        td(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
-        td(v-show='index === currentRoundIndex + 1')
-            | Starts in #[span(:class='nextRoundCountdownClass') {{timeUntilNextRoundString}}]
+    table
+      thead
+        tr
+          th Set
+          th(v-if='editMode') Base Time
+          th(v-if='editMode') Time Adjustment
+          th #[span(v-if='editMode') Final] Time
+          th(v-for='exercise in exercises') {{exercise.name}}
+          th
+      tbody
+        tr(
+          v-for='(set, index) in sets'
+          :class='tableRowClass(index)'
+        )
+          td {{set}}
+          td(v-if='editMode') {{intervalInSeconds * (set - 1) | secondsAsTime}}
+          td(v-if='editMode')
+            input(
+              type='text'
+              v-model.number='setsArray[index].timeAdjustment'
+              :disabled='index <= currentRoundIndex'
+            )
+          td.
+            {{
+              intervalInSeconds * (set - 1) +
+                cumulativeTimeAdjustment(index, timeAdjustments) | secondsAsTime
+            }}
+          td(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
+          td(v-show='index === currentRoundIndex + 1').
+            Starts in
+            #[span(:class='nextRoundCountdownClass') {{secondsUntilNextRound | secondsAsTime}}]
 </template>
 
 <script>
@@ -28,6 +48,16 @@ import { Timer } from 'easytimer.js';
 
 export default {
   computed: {
+    cumulativeTimeAdjustment() {
+      return (index, timeAdjustments) => {
+        let cumulativeTotal = 0;
+        for (let i = 0; i <= index; i++) {
+          cumulativeTotal += timeAdjustments[i];
+        }
+        return cumulativeTotal;
+      };
+    },
+
     intervalInMinutes() {
       return this.minutes / (this.sets - 1);
     },
@@ -47,86 +77,71 @@ export default {
     },
 
     nextRoundStartAtSeconds() {
-      return Math.floor((this.currentRoundIndex + 1) * this.intervalInSeconds);
+      return (
+        Math.floor((this.currentRoundIndex + 1) * this.intervalInSeconds) +
+          this.cumulativeTimeAdjustment(this.currentRoundIndex + 1, this.timeAdjustments)
+      );
     },
 
     secondsUntilNextRound() {
       return this.nextRoundStartAtSeconds - this.secondsElapsed;
     },
-  },
 
-  created() {
-    this.nextRoundStartTimer = new Timer();
-    this.nextRoundStartTimer.start({
-      countdown: true,
-      startValues: {
-        seconds: this.secondsUntilNextRound,
-      },
-    });
-    this.timeUntilNextRoundString = this.nextRoundStartTimer.getTimeValues().toString();
+    timeAdjustments() {
+      return this.setsArray.map(set => set.timeAdjustment);
+    },
   },
 
   data() {
     return {
       currentRoundIndex: 0,
+      editMode: false,
       timeElapsedString: null,
-      timeUntilNextRoundString: null,
       secondsElapsed: 0,
+      setsArray: this.initialSetsArray(),
       timer: null,
     };
   },
 
   filters: {
-    minutesAsTime(minutesAsDecimalNumber) {
-      const wholeMinutes = Math.floor(minutesAsDecimalNumber);
-      const seconds = Math.floor(60 * (minutesAsDecimalNumber - wholeMinutes));
-      const paddedSeconds = (seconds < 10) ? `0${seconds}` : `${seconds}`;
+    secondsAsTime(seconds) {
+      const minutesAsDecimal = seconds / 60;
+      const wholeMinutes = Math.floor(minutesAsDecimal);
+      const secondsRemainder = Math.floor(seconds - (60 * wholeMinutes));
+      const paddedSeconds =
+        (secondsRemainder < 10) ? `0${secondsRemainder}` : `${secondsRemainder}`;
       return `${wholeMinutes}:${paddedSeconds}`;
     },
   },
 
   methods: {
+    initialSetsArray() {
+      return Array(...Array(this.sets)).map(_ => ({ timeAdjustment: 0 }));
+    },
+
     startWorkout() {
       this.timer = new Timer();
       this.timeElapsedString = '00:00:00';
       this.currentRoundIndex = 0;
 
       this.timer.start();
-      this.nextRoundStartTimer.reset();
       this.timer.addEventListener('secondsUpdated', () => {
         this.timeElapsedString = this.timer.getTimeValues().toString();
         this.secondsElapsed = this.timer.getTotalTimeValues().seconds;
 
         if (this.secondsElapsed >= this.nextRoundStartAtSeconds) {
           this.currentRoundIndex++;
-          this.nextRoundStartTimer = new Timer();
-          this.nextRoundStartTimer.start({
-            countdown: true,
-            startValues: {
-              seconds: this.secondsUntilNextRound,
-            },
-          });
-          this.nextRoundStartTimer.addEventListener('secondsUpdated', () => {
-            this.timeUntilNextRoundString = this.nextRoundStartTimer.getTimeValues().toString();
-          });
         }
-      });
-      this.nextRoundStartTimer.addEventListener('secondsUpdated', () => {
-        this.timeUntilNextRoundString = this.nextRoundStartTimer.getTimeValues().toString();
       });
     },
 
     tableRowClass(index) {
-      const secondsUntilRoundStart = Math.floor(this.intervalInMinutes * index * 60);
-      const secondsUntilNextRoundStart = Math.floor(this.intervalInMinutes * (index + 1) * 60);
-      if (secondsUntilRoundStart <= this.secondsElapsed) {
-        if (this.secondsElapsed < secondsUntilNextRoundStart) {
-          return 'bg-aqua'; // active round
-        } else {
-          return 'bg-green'; // past round
-        }
+      if (index < this.currentRoundIndex) {
+        return 'bg-green'; // past round
+      } else if (index === this.currentRoundIndex) {
+        return 'bg-aqua'; // active round
       } else {
-        return 'bg-white'; // future round
+        return ''; // future round
       }
     },
   },
