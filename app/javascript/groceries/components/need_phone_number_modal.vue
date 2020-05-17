@@ -1,7 +1,7 @@
 <template lang="pug">
 Modal(name='set-phone-number' width='85%', maxWidth='400px')
   slot
-    h2.bold.fonst-size-1.mb2 We need your phone number, first
+    h2.bold.mb2 We need your phone number, first
     p Click #[a(:href='editUserPath') here] to enter your phone number.
     div.flex.justify-around.mt2
       el-button(
