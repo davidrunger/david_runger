@@ -12,6 +12,7 @@ import 'element-ui/lib/theme-chalk/menu-item.css';
 import 'element-ui/lib/theme-chalk/option.css';
 import 'element-ui/lib/theme-chalk/select.css';
 import 'element-ui/lib/theme-chalk/submenu.css';
+import 'element-ui/lib/theme-chalk/tag.css';
 import {
   Button,
   Card,
