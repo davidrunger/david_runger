@@ -14,9 +14,9 @@
 #  method       :string           not null
 #  params       :jsonb
 #  referer      :string
-#  request_id   :string
+#  request_id   :string           not null
 #  requested_at :datetime         not null
-#  status       :integer
+#  status       :integer          not null
 #  url          :string           not null
 #  user_agent   :string
 #  user_id      :bigint

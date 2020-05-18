@@ -4,15 +4,16 @@
 #
 # Table name: logs
 #
-#  created_at  :datetime         not null
-#  data_label  :string           not null
-#  data_type   :string           not null
-#  description :string
-#  id          :bigint           not null, primary key
-#  name        :string           not null
-#  slug        :string           not null
-#  updated_at  :datetime         not null
-#  user_id     :bigint           not null
+#  created_at        :datetime         not null
+#  data_label        :string           not null
+#  data_type         :string           not null
+#  description       :string
+#  id                :bigint           not null, primary key
+#  name              :string           not null
+#  publicly_viewable :boolean          default(FALSE), not null
+#  slug              :string           not null
+#  updated_at        :datetime         not null
+#  user_id           :bigint           not null
 #
 # Indexes
 #

@@ -17,6 +17,7 @@
 # Indexes
 #
 #  index_sms_records_on_nexmo_id  (nexmo_id) UNIQUE
+#  index_sms_records_on_user_id   (user_id)
 #
 
 FactoryBot.define do

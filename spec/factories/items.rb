@@ -5,10 +5,10 @@
 # Table name: items
 #
 #  created_at :datetime         not null
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string           not null
 #  needed     :integer          default(1), not null
-#  store_id   :integer          not null
+#  store_id   :bigint           not null
 #  updated_at :datetime         not null
 #
 # Indexes

@@ -31,11 +31,12 @@ script:
   - chromedriver --version # print chromedriver version, but don't check it, because it changes
   - yarn install
   - bin/rails spec:setup_js > /dev/null 2>&1 &
-  - bundle exec rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang
-  - bundle exec brakeman --quiet
+  - bin/rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang
+  - bin/brakeman --quiet
   - ./node_modules/.bin/stylelint app/**/*.{css,scss,vue} --max-warnings 0
   - bin/rails db:create
   - bin/rails db:schema:load
+  - bin/database_consistency # needs to come after creating the DB & loading the schema
   - bin/rails spec:fixture_builder:rebuild
   - bin/rails spec:poll_js
   - ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/ spec/javascript/

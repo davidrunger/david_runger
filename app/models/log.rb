@@ -4,15 +4,16 @@
 #
 # Table name: logs
 #
-#  created_at  :datetime         not null
-#  data_label  :string           not null
-#  data_type   :string           not null
-#  description :string
-#  id          :bigint           not null, primary key
-#  name        :string           not null
-#  slug        :string           not null
-#  updated_at  :datetime         not null
-#  user_id     :bigint           not null
+#  created_at        :datetime         not null
+#  data_label        :string           not null
+#  data_type         :string           not null
+#  description       :string
+#  id                :bigint           not null, primary key
+#  name              :string           not null
+#  publicly_viewable :boolean          default(FALSE), not null
+#  slug              :string           not null
+#  updated_at        :datetime         not null
+#  user_id           :bigint           not null
 #
 # Indexes
 #
@@ -43,6 +44,7 @@ class Log < ApplicationRecord
   validates :data_label, presence: true
   validates :data_type, presence: true, inclusion: DATA_TYPES.keys
   validates :name, presence: true, uniqueness: {scope: :user_id}
+  validates :slug, presence: true
 
   belongs_to :user
 
@@ -68,7 +70,7 @@ class Log < ApplicationRecord
 
   has_many :log_shares, dependent: :destroy
 
-  before_save :set_slug, if: -> { name_changed? }
+  before_validation :set_slug, if: -> { name_changed? }
 
   def log_entries
     public_send(DATA_TYPES[data_type][:association])

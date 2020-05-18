@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_16_091729) do
+ActiveRecord::Schema.define(version: 2020_05_18_112031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "items", id: :serial, force: :cascade do |t|
-    t.integer "store_id", null: false
+  create_table "items", force: :cascade do |t|
+    t.bigint "store_id", null: false
     t.string "name", null: false
     t.integer "needed", default: 1, null: false
     t.datetime "created_at", null: false
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_05_16_091729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "note"
+    t.index ["log_id"], name: "index_number_log_entries_on_log_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -62,7 +63,7 @@ ActiveRecord::Schema.define(version: 2020_05_16_091729) do
     t.jsonb "params"
     t.string "method", null: false
     t.string "format"
-    t.integer "status"
+    t.integer "status", null: false
     t.integer "view"
     t.integer "db"
     t.string "ip", null: false
@@ -70,7 +71,7 @@ ActiveRecord::Schema.define(version: 2020_05_16_091729) do
     t.datetime "requested_at", null: false
     t.string "location"
     t.string "isp"
-    t.string "request_id"
+    t.string "request_id", null: false
     t.index ["isp"], name: "index_requests_on_isp"
     t.index ["request_id"], name: "index_requests_on_request_id", unique: true
     t.index ["requested_at"], name: "index_requests_on_requested_at"
@@ -87,14 +88,16 @@ ActiveRecord::Schema.define(version: 2020_05_16_091729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["nexmo_id"], name: "index_sms_records_on_nexmo_id", unique: true
+    t.index ["user_id"], name: "index_sms_records_on_user_id"
   end
 
-  create_table "stores", id: :serial, force: :cascade do |t|
+  create_table "stores", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "viewed_at"
+    t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
   create_table "text_log_entries", force: :cascade do |t|
@@ -103,6 +106,7 @@ ActiveRecord::Schema.define(version: 2020_05_16_091729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "note"
+    t.index ["log_id"], name: "index_text_log_entries_on_log_id"
   end
 
   create_table "users", force: :cascade do |t|
