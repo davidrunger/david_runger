@@ -120,7 +120,7 @@ export default {
 
   methods: {
     confirmUnloadWorkoutInProgress(event) {
-      if (this.currentRoundIndex < (this.sets - 1)) {
+      if ((this.secondsElapsed > 0) && (this.currentRoundIndex < (this.sets - 1))) {
         // ask the user to confirm that they want to leave the page
         event.preventDefault();
         event.returnValue = '';
