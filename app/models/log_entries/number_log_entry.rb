@@ -11,6 +11,10 @@
 #  note       :string
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_number_log_entries_on_log_id  (log_id)
+#
 
 class LogEntries::NumberLogEntry < LogEntry
   self.table_name = 'number_log_entries'

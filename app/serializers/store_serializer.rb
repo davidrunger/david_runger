@@ -5,11 +5,15 @@
 # Table name: stores
 #
 #  created_at :datetime         not null
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string           not null
 #  updated_at :datetime         not null
-#  user_id    :integer
+#  user_id    :bigint
 #  viewed_at  :datetime
+#
+# Indexes
+#
+#  index_stores_on_user_id  (user_id)
 #
 
 class StoreSerializer < ActiveModel::Serializer

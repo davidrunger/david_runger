@@ -38,6 +38,7 @@ gem 'webpacker', '>= 4.0.0.pre.pre.2'
 group :development, :test do
   gem 'amazing_print'
   gem 'brakeman', require: false
+  gem 'database_consistency', require: false
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
   gem 'faker'
