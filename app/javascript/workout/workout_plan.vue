@@ -92,6 +92,10 @@ export default {
     },
   },
 
+  created() {
+    window.addEventListener('beforeunload', this.confirmUnloadWorkoutInProgress);
+  },
+
   data() {
     return {
       currentRoundIndex: 0,
@@ -115,6 +119,18 @@ export default {
   },
 
   methods: {
+    confirmUnloadWorkoutInProgress(event) {
+      if (this.currentRoundIndex < (this.sets - 1)) {
+        // ask the user to confirm that they want to leave the page
+        event.preventDefault();
+        event.returnValue = '';
+        return '';
+      } else {
+        // allow the user to leave without confirming
+        return undefined;
+      }
+    },
+
     initialSetsArray() {
       return Array(...Array(this.sets)).map(_ => ({ timeAdjustment: 0 }));
     },
