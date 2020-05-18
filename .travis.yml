@@ -37,6 +37,7 @@ script:
   - bin/rails db:create
   - bin/rails db:schema:load
   - bin/database_consistency # needs to come after creating the DB & loading the schema
+  - bin/annotate --models --show-indexes --sort --exclude tests && git diff --exit-code
   - bin/rails spec:fixture_builder:rebuild
   - bin/rails spec:poll_js
   - ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/ spec/javascript/

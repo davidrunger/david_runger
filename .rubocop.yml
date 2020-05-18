@@ -7,7 +7,7 @@ AllCops:
   Exclude:
     - !ruby/regexp /\/db\/migrate/201[1-8].*\.rb\z/
     # auto-generated files; best to leave as-is
-    - bin/{brakeman,bundle,database_consistency,rubocop,sidekiq}
+    - bin/{annotate,brakeman,bundle,database_consistency,rubocop,sidekiq}
     - db/schema.rb
     - lib/tasks/auto_annotate_models.rake
     - node_modules/**/*
