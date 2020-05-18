@@ -1,4 +1,5 @@
 # frozen_string_literal: true
 
 require 'amazing_print'
-AmazingPrint.pry!
+# similar to `AmazingPrint.pry!`, but with `=> ` at the beginning
+Pry.print = proc { |output, value| output.puts("=> #{value.ai}") }
