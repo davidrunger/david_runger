@@ -120,13 +120,13 @@ GEM
       momentjs-rails (~> 2.8)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
+    amazing_print (1.1.0)
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.0)
     autoprefixer-rails (9.7.6)
       execjs
-    awesome_print (1.8.0)
     bcrypt (3.1.13)
     better_errors (2.7.1)
       coderay (>= 1.0.0)
@@ -472,8 +472,8 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.10)
   administrate
+  amazing_print
   annotate
-  awesome_print
   better_errors
   binding_of_caller
   brakeman

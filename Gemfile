@@ -36,7 +36,7 @@ gem 'thread_safe'
 gem 'webpacker', '>= 4.0.0.pre.pre.2'
 
 group :development, :test do
-  gem 'awesome_print'
+  gem 'amazing_print'
   gem 'brakeman', require: false
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
