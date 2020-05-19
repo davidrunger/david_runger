@@ -23,7 +23,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'active_support/cache/dalli_store'
+require 'active_support/cache/mem_cache_store'
 require 'sidekiq/testing'
 require 'mail'
 
@@ -109,7 +109,7 @@ RSpec.configure do |config|
   # rubocop:enable RSpec/HookArgument
 
   config.before(:each, :cache) do
-    allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::DalliStore.new)
+    allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::MemCacheStore.new)
   end
 
   config.after(:each, type: :controller) do
