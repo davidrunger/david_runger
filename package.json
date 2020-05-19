@@ -19,7 +19,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-env": "^7.9.6",
     "@rails/webpacker": "^5.1.1",
-    "autoprefixer": "^9.7.6",
+    "autoprefixer": "^9.8.0",
     "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
     "babel-polyfill": "^6.23.0",
