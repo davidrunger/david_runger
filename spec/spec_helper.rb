@@ -102,6 +102,12 @@ RSpec.configure do |config|
     end
   end
 
+  # rubocop:disable RSpec/HookArgument
+  config.before(:each) do
+    Rack::Attack.reset!
+  end
+  # rubocop:enable RSpec/HookArgument
+
   config.before(:each, :cache) do
     allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::DalliStore.new)
   end
