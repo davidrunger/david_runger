@@ -25,7 +25,7 @@ gem 'omniauth-google-oauth2'
 # remove once https://github.com/omniauth/omniauth/pull/809 is resolved
 gem 'omniauth-rails_csrf_protection'
 gem 'pg', '~> 1.2'
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 5.0.0.beta1'
 gem 'pundit'
 gem 'rails', '>= 6.0.2.1', github: 'rails/rails'
 gem 'redis', '~>4.1'
