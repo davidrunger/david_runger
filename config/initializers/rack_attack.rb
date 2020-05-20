@@ -17,9 +17,6 @@ class Rack::Attack
     wp1
     wp2
   ].map(&:freeze)).freeze
-  BLOCKED_IPS = Set.new(
-    (IpBlock.select(:id, :ip).find_each.map { |ip_block| ip_block.ip.freeze } rescue []),
-  ).freeze
 
   # Limit all IPs to 60 requests per clock minute
   # rubocop:disable Style/SymbolProc
@@ -27,6 +24,16 @@ class Rack::Attack
     req.ip
   end
   # rubocop:enable Style/SymbolProc
+
+  class << self
+    attr_reader :blocked_ips
+
+    def cache_blocked_ips_in_memory
+      @blocked_ips = Set.new(
+        (IpBlock.select(:id, :ip).find_each.map { |ip_block| ip_block.ip.freeze } rescue []),
+      ).freeze
+    end
+  end
 end
 
 # Block IPs requesting Wordpress paths etc.
@@ -48,6 +55,7 @@ Rack::Attack.blocklist('fail2ban pentesters') do |req|
   end
 end
 
+Rack::Attack.cache_blocked_ips_in_memory
 Rack::Attack.blocklist('blocked IPs') do |req|
-  req.ip.in?(Rack::Attack::BLOCKED_IPS)
+  req.ip.in?(Rack::Attack.blocked_ips)
 end
