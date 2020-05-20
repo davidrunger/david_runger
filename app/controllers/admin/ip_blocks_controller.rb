@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Admin::IpBlocksController < Admin::ApplicationController
+  # rubocop:disable Rails/LexicallyScopedActionFilter
+  after_action :refresh_blocked_ips_list_in_memory, only: %i[create destroy update]
+  # rubocop:enable Rails/LexicallyScopedActionFilter
+
   def create
     IpBlock.create!(resource_params)
     redirect_to(admin_ip_blocks_path)
@@ -48,4 +52,10 @@ class Admin::IpBlocksController < Admin::ApplicationController
 
   # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
   # for more information
+
+  private
+
+  def refresh_blocked_ips_list_in_memory
+    Rack::Attack.cache_blocked_ips_in_memory
+  end
 end
