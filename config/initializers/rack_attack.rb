@@ -16,7 +16,10 @@ class Rack::Attack
     wp-login
     wp1
     wp2
-  ])
+  ].map(&:freeze)).freeze
+  BLOCKED_IPS = Set.new(
+    (IpBlock.select(:id, :ip).find_each.map { |ip_block| ip_block.ip.freeze } rescue []),
+  ).freeze
 
   # Limit all IPs to 60 requests per clock minute
   # rubocop:disable Style/SymbolProc
@@ -43,4 +46,8 @@ Rack::Attack.blocklist('fail2ban pentesters') do |req|
       fragment.downcase.in?(Rack::Attack::BANNED_PATH_FRAGMENTS)
     end
   end
+end
+
+Rack::Attack.blocklist('blocked IPs') do |req|
+  req.ip.in?(Rack::Attack::BLOCKED_IPS)
 end
