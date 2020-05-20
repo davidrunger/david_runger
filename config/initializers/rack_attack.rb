@@ -27,7 +27,7 @@ class Rack::Attack
 end
 
 # Block IPs requesting Wordpress paths etc.
-# After 2 blocked requests in a day, block all requests from that IP for 1 year.
+# After 2 blocked requests in 1 day, block all requests from that IP for 4 weeks.
 Rack::Attack.blocklist('fail2ban pentesters') do |req|
   # `filter` returns truthy value if request fails the checks or if it's from a previously banned IP
   Rack::Attack::Fail2Ban.filter(
