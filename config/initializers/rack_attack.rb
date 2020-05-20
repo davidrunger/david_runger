@@ -13,6 +13,7 @@ class Rack::Attack
     wordpress
     wp
     wp-admin
+    wp-includes
     wp-login
     wp1
     wp2
