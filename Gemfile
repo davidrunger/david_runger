@@ -82,6 +82,7 @@ group :test do
   # for testing ActiveModelSerializers
   gem 'json-schema'
   gem 'launchy' # for save_and_open_page in feature specs
+  gem 'percy-capybara'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 4.3'
   gem 'webmock'

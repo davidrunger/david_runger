@@ -26,6 +26,7 @@ require 'capybara/rspec'
 require 'active_support/cache/mem_cache_store'
 require 'sidekiq/testing'
 require 'mail'
+require 'percy'
 
 WebMock.enable!
 WebMock.disable_net_connect!(allow_localhost: true)
