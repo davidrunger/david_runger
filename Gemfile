@@ -61,7 +61,6 @@ group :development do
   # performance analysis.
   gem 'rack-mini-profiler', require: false
   gem 'spring'
-  gem 'spring-commands-rspec'
   # We can go back to the offical spring-watcher-listen after upgrading to Rails 6.
   # See https://bit.ly/2Frtra3 (bug) and https://bit.ly/2Fpd50n (fix).
   gem 'spring-watcher-listen', '~> 2.0.2', github: 'davidrunger/spring-watcher-listen'
