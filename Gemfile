@@ -29,7 +29,7 @@ gem 'puma', '~> 5.0.0.beta1'
 gem 'pundit'
 gem 'rack-attack'
 gem 'rails', '>= 6.0.2.1', github: 'rails/rails'
-gem 'redis', '~>4.1'
+gem 'redis'
 gem 'rollbar'
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false # required manually in config/initializers/sidekiq.rb
