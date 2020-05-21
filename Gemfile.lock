@@ -473,7 +473,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (~> 0.10.10)
+  active_model_serializers
   administrate
   amazing_print
   annotate
@@ -494,13 +494,13 @@ DEPENDENCIES
   flamegraph
   guard-espect!
   hamlit
-  hashdiff (= 1.0.1)
+  hashdiff
   httparty
   js-routes
   json-schema
   launchy
   letter_opener
-  listen (>= 3.0.5, < 3.3)
+  listen
   lograge
   memoist
   newrelic_rpm
@@ -508,7 +508,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   percy-capybara
-  pg (~> 1.2)
+  pg
   pry
   pry-byebug
   pry-rails
@@ -516,7 +516,7 @@ DEPENDENCIES
   pundit
   rack-attack
   rack-mini-profiler
-  rails (>= 6.0.2.1)!
+  rails!
   redis
   rollbar
   rspec-rails
@@ -525,15 +525,15 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
-  shoulda-matchers (~> 4.3)
+  shoulda-matchers
   sidekiq
   sidekiq-scheduler
   spring
-  spring-watcher-listen (~> 2.0.2)!
+  spring-watcher-listen!
   stackprof
   thread_safe
   webmock
-  webpacker (>= 4.0.0.pre.pre.2)
+  webpacker
 
 RUBY VERSION
    ruby 2.7.1p83
