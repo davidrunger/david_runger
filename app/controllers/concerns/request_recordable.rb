@@ -44,7 +44,7 @@ module RequestRecordable
   private
 
   def initial_request_data_redis_key
-    "request_data:#{request.request_id || fail('No request_id')}:initial"
+    "request_data:#{request.request_id.presence!('No request_id')}:initial"
   end
 
   def request_data
