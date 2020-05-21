@@ -9,5 +9,7 @@ production:
   - ['mailers', 1]
 
 :schedule:
+  InvalidRecordsChecker:
+    cron: '55 16 * * *' # daily at 4:55pm PT
   TruncateTables:
     cron: '33 * * * *' # hourly at 33 minutes after
