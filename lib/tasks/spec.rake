@@ -20,7 +20,10 @@ namespace :spec do
         'cache_manifest compile extract_css source_path',
       )
       run_logged_system_command('RAILS_ENV=test NODE_ENV=test bin/webpack --silent')
-      run_logged_system_command('bin/rspec --format documentation')
+      run_logged_system_command(<<~COMMAND.squish)
+        #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
+        bin/rspec --format documentation
+      COMMAND
     ensure
       run_logged_system_command('git checkout config/webpacker.yml')
     end

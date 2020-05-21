@@ -61,6 +61,8 @@ RSpec.describe 'Home page' do
       Full stack web developer
     HEADLINE
 
+    Percy.snapshot(page, {name: 'Homepage'})
+
     expect(ip_info_request_stub).to have_been_requested
   end
 

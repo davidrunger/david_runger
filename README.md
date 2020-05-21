@@ -1,6 +1,7 @@
 [![codecov](https://codecov.io/gh/davidrunger/david_runger/branch/master/graph/badge.svg)](https://codecov.io/gh/davidrunger/david_runger)
 [![Build Status](https://travis-ci.org/davidrunger/david_runger.svg?branch=master)](https://travis-ci.org/davidrunger/david_runger)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=davidrunger/david_runger)](https://dependabot.com)
+[![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/David-Runger/david_runger)
 
 # david_runger / davidrunger.com
 

@@ -83,6 +83,7 @@
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
+    "@percy/agent": "^0.26.6",
     "@vue/test-utils": "1.0.3",
     "expect": "^26.0.1",
     "mocha": "^5.2.0",
