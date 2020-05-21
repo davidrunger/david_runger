@@ -38,16 +38,13 @@ gem 'webpacker', '>= 4.0.0.pre.pre.2'
 
 group :development, :test do
   gem 'amazing_print'
-  gem 'brakeman', require: false
-  gem 'database_consistency', require: false
+  gem 'annotate'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'fixture_builder'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
@@ -55,7 +52,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'flamegraph' # Provides flamegraphs for rack-mini-profiler.
@@ -73,8 +69,11 @@ group :development do
 end
 
 group :test do
+  gem 'brakeman', require: false
   gem 'capybara'
   gem 'codecov', require: false
+  gem 'database_consistency', require: false
+  gem 'fixture_builder'
   # note: to use guard-espect from command line, it will also have to be installed "globally"
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   # TEMP: list hashdiff explicitly in Gemfile to force 1.0.0.beta1; remove once 1.0.0 is released
@@ -83,6 +82,7 @@ group :test do
   gem 'json-schema'
   gem 'launchy' # for save_and_open_page in feature specs
   gem 'percy-capybara'
+  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 4.3'
   gem 'webmock'
