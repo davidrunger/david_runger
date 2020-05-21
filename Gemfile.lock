@@ -517,7 +517,7 @@ DEPENDENCIES
   rack-attack
   rack-mini-profiler
   rails (>= 6.0.2.1)!
-  redis (~> 4.1)
+  redis
   rollbar
   rspec-rails
   rubocop
