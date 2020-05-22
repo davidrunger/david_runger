@@ -18,9 +18,6 @@ class Rack::Attack
     wp1
     wp2
   ].map(&:freeze)).freeze
-  BLOCKED_IPS = Set.new(
-    (IpBlock.select(:id, :ip).find_each.map { |ip_block| ip_block.ip.freeze } rescue []),
-  ).freeze
 
   # Limit all IPs to 60 requests per clock minute
   # rubocop:disable Style/SymbolProc
@@ -28,6 +25,22 @@ class Rack::Attack
     req.ip
   end
   # rubocop:enable Style/SymbolProc
+
+  class << self
+    extend Memoist
+
+    memoize \
+    def blocked_ips
+      # rescue because sometimes the database might not even exist yet, e.g. during tests
+      Set.new((IpBlock.pluck(:ip) rescue []).map(&:freeze)).freeze
+    end
+  end
+end
+
+Rails.application.reloader.to_prepare do
+  # Trigger memoization during bootup (rather than waiting until first request is made).
+  # Do it within a `reloader.to_prepare` block to avoid warning about autoloading constants.
+  Rack::Attack.blocked_ips
 end
 
 # Block IPs requesting Wordpress paths etc.
@@ -50,5 +63,5 @@ Rack::Attack.blocklist('fail2ban pentesters') do |req|
 end
 
 Rack::Attack.blocklist('blocked IPs') do |req|
-  req.ip.in?(Rack::Attack::BLOCKED_IPS)
+  req.ip.in?(Rack::Attack.blocked_ips)
 end
