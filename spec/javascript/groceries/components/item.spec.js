@@ -36,7 +36,8 @@ describe('Item', function () { // eslint-disable-line func-names, prefer-arrow-c
           item,
         },
         store: groceryVuexStoreFactory(bootstrap),
-      });
+      },
+    );
   });
 
   it('renders item.name in a span', () => {
