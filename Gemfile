@@ -14,6 +14,7 @@ gem 'browser'
 gem 'connection_pool'
 gem 'dalli'
 gem 'devise'
+gem 'flamegraph' # Provides flamegraphs for rack-mini-profiler.
 gem 'hamlit'
 gem 'httparty'
 gem 'js-routes', require: false
@@ -28,11 +29,13 @@ gem 'pg'
 gem 'puma', '~> 5.0.0.beta1'
 gem 'pundit'
 gem 'rack-attack'
+gem 'rack-mini-profiler', require: false
 gem 'rails', github: 'rails/rails'
 gem 'redis'
 gem 'rollbar'
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false # required manually in config/initializers/sidekiq.rb
+gem 'stackprof' # Provides stack traces for flamegraph for rack-mini-profiler.
 gem 'thread_safe'
 gem 'webpacker'
 
@@ -55,17 +58,14 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'flamegraph' # Provides flamegraphs for rack-mini-profiler.
   gem 'letter_opener'
   gem 'listen'
   # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database
   # performance analysis.
-  gem 'rack-mini-profiler', require: false
   gem 'spring'
   # We can go back to the offical spring-watcher-listen after upgrading to Rails 6.
   # See https://bit.ly/2Frtra3 (bug) and https://bit.ly/2Fpd50n (fix).
   gem 'spring-watcher-listen', github: 'davidrunger/spring-watcher-listen'
-  gem 'stackprof' # Provides stack traces for flamegraph for rack-mini-profiler.
 end
 
 group :test do

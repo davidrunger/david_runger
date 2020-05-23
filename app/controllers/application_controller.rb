@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user
+  before_action :enable_rack_mini_profiler_if_admin
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -34,6 +35,12 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(_resource_or_scope)
     login_path
+  end
+
+  def enable_rack_mini_profiler_if_admin
+    if current_user&.admin?
+      Rack::MiniProfiler.authorize_request
+    end
   end
 
   def filtered_params
