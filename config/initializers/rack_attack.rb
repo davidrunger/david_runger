@@ -18,6 +18,7 @@ class Rack::Attack
     wp1
     wp2
   ].map(&:freeze)).freeze
+  PENTESTERS_PREFIX = 'pentesters-'
 
   # Limit all IPs to 60 requests per clock minute
   # rubocop:disable Style/SymbolProc
@@ -48,10 +49,10 @@ end
 Rack::Attack.blocklist('fail2ban pentesters') do |req|
   # `filter` returns truthy value if request fails the checks or if it's from a previously banned IP
   Rack::Attack::Fail2Ban.filter(
-    "pentesters-#{req.ip}",
+    "#{Rack::Attack::PENTESTERS_PREFIX}#{req.ip}",
     maxretry: 2,
     findtime: 1.day,
-    bantime: 4.weeks, # memcached struggles to handle values much longer than this
+    bantime: 1.week, # this is just until next dyno restart, when `IpBlock` we create will permaban
   ) do
     fragments = req.path.split(%r{/|\.|\?})
     fragments.map!(&:presence)
@@ -64,4 +65,12 @@ end
 
 Rack::Attack.blocklist('blocked IPs') do |req|
   req.ip.in?(Rack::Attack.blocked_ips)
+end
+
+# this notification gets triggered via `InstrumentFail2BanEvent` monkeypatch
+ActiveSupport::Notifications.subscribe(
+  'fail2banned.rack_attack',
+) do |_name, _start, _finish, _request_id, payload|
+  ip = payload[:discriminator].sub(Rack::Attack::PENTESTERS_PREFIX, '')
+  IpBlock.find_or_create_by!(ip: ip)
 end
