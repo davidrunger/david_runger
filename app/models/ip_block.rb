@@ -10,6 +10,14 @@
 #  reason     :text
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_ip_blocks_on_ip  (ip) UNIQUE
+#
 class IpBlock < ApplicationRecord
-  validates :ip, presence: true, length: {maximum: 15}, format: {with: /\A([0-9]{1,3}\.?){4}\z/}
+  validates :ip,
+    presence: true,
+    length: {maximum: 15},
+    format: {with: /\A([0-9]{1,3}\.?){4}\z/},
+    uniqueness: true
 end
