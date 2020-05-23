@@ -59,7 +59,12 @@ Rack::Attack.blocklist('fail2ban pentesters') do |req|
     fragments.compact!
     fragments.any? do |fragment|
       fragment.downcase.in?(Rack::Attack::BANNED_PATH_FRAGMENTS)
-    end
+    end && !Rails.application.routes.recognize_path_with_request(
+      ActionDispatch::Request.new(req.env),
+      req.path,
+      {},
+      raise_on_missing: false,
+    )
   end
 end
 
