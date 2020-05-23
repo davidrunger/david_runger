@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
-if Rails.env.development? && ENV['ENABLE_PROFILER'].present?
+if (Rails.env.development? && ENV['ENABLE_PROFILER'].present?) || Rails.env.production?
   require 'rack-mini-profiler'
 
-  # initialization is skipped so trigger it
   Rack::MiniProfilerRails.initialize!(Rails.application)
+
+  Rails.configuration.middleware.move_after(Rack::Deflater, Rack::MiniProfiler)
+
+  Rack::MiniProfiler.config.storage_options = {url: ENV['REDIS_URL']}
+  Rack::MiniProfiler.config.storage = Rack::MiniProfiler::RedisStore
+
+  Rack::MiniProfiler.config.authorization_mode = :whitelist
 end
