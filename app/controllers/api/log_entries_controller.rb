@@ -53,7 +53,7 @@ class Api::LogEntriesController < ApplicationController
 
     render json: ActiveModel::Serializer::CollectionSerializer.new(
       log_entries,
-      each_serializer: LogEntrySerializer,
+      serializer: LogEntrySerializer,
     )
   end
 
