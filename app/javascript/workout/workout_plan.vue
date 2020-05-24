@@ -152,29 +152,43 @@ export default {
         repTotals[name] = reps * (this.currentRoundIndex + 1);
       });
 
-      this.$http.post(this.$routes.api_workouts_path(), {
-        workout: {
-          time_in_seconds: this.secondsElapsed,
-          rep_totals: repTotals,
-        },
-      }).then((response) => {
-        if (response.status === 201) {
+      const repTotalsConfirmed = window.confirm(
+        `Please confirm that you completed this workout.
+        Minutes: ${(this.secondsElapsed / 60).toFixed(1)}
+        Reps: ${JSON.stringify(repTotals)}`.replace(/\n +/g, '\n'),
+      );
+      if (repTotalsConfirmed) {
+        this.$http.post(this.$routes.api_workouts_path(), {
+          workout: {
+            time_in_seconds: this.secondsElapsed,
+            rep_totals: repTotals,
+          },
+        }).then((response) => {
+          if (response.status === 201) {
+            Toastify({
+              text: 'Workout completion logged successfully!',
+              className: 'success',
+              position: 'center',
+              duration: 2500,
+            }).showToast();
+          }
+        }).catch((error) => {
+          const errorMessage = get(error, 'response.data.error', 'Something went wrong');
           Toastify({
-            text: 'Workout completion logged successfully!',
-            className: 'success',
+            text: errorMessage,
+            className: 'error',
             position: 'center',
             duration: 2500,
           }).showToast();
-        }
-      }).catch((error) => {
-        const errorMessage = get(error, 'response.data.error', 'Something went wrong');
+        });
+      } else {
         Toastify({
-          text: errorMessage,
+          text: 'Workout was not saved (because you cancelled it).',
           className: 'error',
           position: 'center',
           duration: 2500,
         }).showToast();
-      });
+      }
     },
 
     startWorkout() {
