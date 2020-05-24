@@ -5,6 +5,7 @@ RSpec.describe Api::LogEntriesController do
 
   let(:user) { users(:user) }
   let(:log) { user.logs.first! }
+  let(:iso8601_z_regex) { /\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\z/ }
 
   describe '#create' do
     subject(:post_create) { post(:create, params: params) }
@@ -27,6 +28,12 @@ RSpec.describe Api::LogEntriesController do
       it 'returns a 201 status code' do
         post_create
         expect(response.status).to eq(201)
+      end
+
+      it 'returns the serialized newly created log entry with a created_at ISO-8601 Z timestamp' do
+        post_create
+
+        expect(response.parsed_body['created_at']).to match(iso8601_z_regex)
       end
 
       context 'when there is a note in the log entry params' do
@@ -86,6 +93,12 @@ RSpec.describe Api::LogEntriesController do
 
       it 'updates the log_entry' do
         expect { patch_update }.to change { log_entry.reload.data }
+      end
+
+      it 'returns the serialized, updated log entry with a created_at ISO-8601 Z timestamp' do
+        patch_update
+
+        expect(response.parsed_body['created_at']).to match(iso8601_z_regex)
       end
 
       it 'returns a 200 status code' do
@@ -150,6 +163,12 @@ RSpec.describe Api::LogEntriesController do
         returned_log_entry_ids = response.parsed_body.map { |log_entry| log_entry['id'] }
         log_entry_ids = log.log_entries.pluck(:id)
         expect(returned_log_entry_ids).to match_array(log_entry_ids)
+      end
+
+      it 'formats the created_at timestamps as an ISO-8601 time with "Z" timezone' do
+        get_index
+
+        expect(response.parsed_body.map { _1['created_at'] }).to all(match(iso8601_z_regex))
       end
     end
 
