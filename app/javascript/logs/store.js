@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import _ from 'lodash';
+import _, { sortBy } from 'lodash';
 import Toastify from 'toastify-js';
 
 import * as ModalVuex from 'shared/modal_store';
@@ -38,7 +38,7 @@ const mutations = {
   },
 
   setLogEntries(state, { log, logEntries }) {
-    Vue.set(log, 'log_entries', logEntries);
+    Vue.set(log, 'log_entries', sortBy(logEntries, 'created_at'));
   },
 
   updateLog(_state, { log, updatedLogData }) {
