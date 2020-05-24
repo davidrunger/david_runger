@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def enable_rack_mini_profiler_if_admin
-    if current_user&.admin?
+    if Rails.configuration.rack_mini_profiler_enabled && current_user&.admin?
       Rack::MiniProfiler.authorize_request
     end
   end
