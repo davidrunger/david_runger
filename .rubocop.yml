@@ -99,6 +99,8 @@ Style/BlockDelimiters:
   Enabled: false
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+Style/CollectionMethods:
+  Enabled: false
 Style/ConstantVisibility:
   Enabled: false
 Style/Copyright:
