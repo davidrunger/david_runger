@@ -41,13 +41,13 @@ class Api::LogEntriesController < ApplicationController
       if log_id.present?
         log = Log.find(log_id)
         authorize(log, :show?)
-        log.log_entries_ordered
+        log.log_entries
       else
         logs =
           current_user.logs.
-            includes(:number_log_entries_ordered, :text_log_entries_ordered).
+            includes(:number_log_entries, :text_log_entries).
             to_a
-        logs.map!(&:log_entries_ordered).flatten!
+        logs.map!(&:log_entries).flatten!
         logs
       end
 
