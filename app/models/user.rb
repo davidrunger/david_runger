@@ -32,6 +32,7 @@ class User < ApplicationRecord
   has_many :stores, dependent: :destroy
   has_many :items, through: :stores # must come after has_many :stores declaration
   has_many :text_log_entries, through: :logs
+  has_many :workouts, dependent: :destroy
 
   def admin?
     email.in?(ADMIN_EMAILS)

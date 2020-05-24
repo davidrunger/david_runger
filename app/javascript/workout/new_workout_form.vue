@@ -1,6 +1,7 @@
 <template lang='pug'>
-  div
-    vue-form(:state='formstate')
+  div.m2
+    vue-form.mt3(:state='formstate')
+      h2.h2 New Workout
       .my1
         label
           | Minutes
@@ -52,9 +53,25 @@
           :disabled='formstate.$invalid'
           @click='initializeWorkout()'
         ) Initialize Workout!
+    div.my2
+      h2.h2 Previous workouts
+      table(v-if='bootstrap.workouts.length')
+        thead
+          tr
+            th Completed
+            th Time (minutes)
+            th Rep totals
+        tbody
+          tr(v-for='workout in bootstrap.workouts')
+            td {{workout.created_at | prettyTime}}
+            td {{(workout.time_in_seconds / 60).toFixed(1)}}
+            td {{workout.rep_totals}}
+      div(v-else) None
 </template>
 
 <script>
+import strftime from 'strftime';
+
 export default {
   data() {
     return {
@@ -63,6 +80,12 @@ export default {
       sets: null,
       exercises: [{}],
     };
+  },
+
+  filters: {
+    prettyTime(timeString) {
+      return strftime('%b %-d, %Y at %-l:%M%P', new Date(timeString));
+    },
   },
 
   methods: {
@@ -76,3 +99,18 @@ export default {
   },
 };
 </script>
+
+<style>
+th {
+  font-weight: bold;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+ol {
+  list-style-type: decimal;
+}
+</style>

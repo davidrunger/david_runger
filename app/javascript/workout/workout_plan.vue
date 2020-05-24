@@ -10,7 +10,7 @@
         v-model='editMode'
         active-text='Edit mode'
       )
-    table
+    table.my2
       thead
         tr
           th Set
@@ -41,10 +41,15 @@
           td(v-show='index === currentRoundIndex + 1').
             Starts in
             #[span(:class='nextRoundCountdownClass') {{secondsUntilNextRound | secondsAsTime}}]
+    .my2
+      button(@click='saveWorkout') Mark workout as complete!
 </template>
 
 <script>
 import { Timer } from 'easytimer.js';
+import { get } from 'lodash';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 export default {
   computed: {
@@ -120,7 +125,11 @@ export default {
 
   methods: {
     confirmUnloadWorkoutInProgress(event) {
-      if ((this.secondsElapsed > 0) && (this.currentRoundIndex < (this.sets - 1))) {
+      if (
+        (this.secondsElapsed > 0) &&
+          (this.currentRoundIndex < (this.sets - 1)) &&
+          this.timer.isRunning()
+      ) {
         // ask the user to confirm that they want to leave the page
         event.preventDefault();
         event.returnValue = '';
@@ -133,6 +142,39 @@ export default {
 
     initialSetsArray() {
       return Array(...Array(this.sets)).map(_ => ({ timeAdjustment: 0 }));
+    },
+
+    saveWorkout() {
+      this.timer.stop();
+
+      const repTotals = {};
+      this.exercises.forEach(({ name, reps }) => {
+        repTotals[name] = reps * (this.currentRoundIndex + 1);
+      });
+
+      this.$http.post(this.$routes.api_workouts_path(), {
+        workout: {
+          time_in_seconds: this.secondsElapsed,
+          rep_totals: repTotals,
+        },
+      }).then((response) => {
+        if (response.status === 201) {
+          Toastify({
+            text: 'Workout completion logged successfully!',
+            className: 'success',
+            position: 'center',
+            duration: 2500,
+          }).showToast();
+        }
+      }).catch((error) => {
+        const errorMessage = get(error, 'response.data.error', 'Something went wrong');
+        Toastify({
+          text: errorMessage,
+          className: 'error',
+          position: 'center',
+          duration: 2500,
+        }).showToast();
+      });
     },
 
     startWorkout() {
