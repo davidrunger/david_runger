@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if (Rails.env.development? && ENV['ENABLE_PROFILER'].present?) || Rails.env.production?
+if Rails.configuration.rack_mini_profiler_enabled
   require 'rack-mini-profiler'
 
   Rack::MiniProfilerRails.initialize!(Rails.application)

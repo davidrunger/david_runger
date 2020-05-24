@@ -25,19 +25,15 @@ class Log < ApplicationRecord
   DATA_TYPES = {
     'counter' => {
       association: :number_log_entries,
-      ordered_association: :number_log_entries_ordered,
     },
     'duration' => {
       association: :text_log_entries,
-      ordered_association: :text_log_entries_ordered,
     },
     'number' => {
       association: :number_log_entries,
-      ordered_association: :number_log_entries_ordered,
     },
     'text' => {
       association: :text_log_entries,
-      ordered_association: :text_log_entries_ordered,
     },
   }.transform_keys(&:freeze).transform_values(&:freeze).freeze
 
@@ -52,18 +48,8 @@ class Log < ApplicationRecord
     class_name: 'LogEntries::NumberLogEntry',
     dependent: :destroy,
     inverse_of: :log
-  has_many :number_log_entries_ordered,
-    -> { order(:created_at) },
-    class_name: 'LogEntries::NumberLogEntry',
-    dependent: :destroy,
-    inverse_of: :log
 
   has_many :text_log_entries,
-    class_name: 'LogEntries::TextLogEntry',
-    dependent: :destroy,
-    inverse_of: :log
-  has_many :text_log_entries_ordered,
-    -> { order(:created_at) },
     class_name: 'LogEntries::TextLogEntry',
     dependent: :destroy,
     inverse_of: :log
@@ -74,10 +60,6 @@ class Log < ApplicationRecord
 
   def log_entries
     public_send(DATA_TYPES[data_type][:association])
-  end
-
-  def log_entries_ordered
-    public_send(DATA_TYPES[data_type][:ordered_association])
   end
 
   def set_slug

@@ -58,4 +58,6 @@ class DavidRunger::Application < Rails::Application
   $LOAD_PATH << File.join(Gem.loaded_specs['devise'].full_gem_path, 'app', 'helpers').to_s
 
   ENV['FIXTURES_PATH'] = 'spec/fixtures'
+
+  config.rack_mini_profiler_enabled = (ENV['ENABLE_PROFILER'] == 'true')
 end
