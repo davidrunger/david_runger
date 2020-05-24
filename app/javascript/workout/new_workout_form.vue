@@ -65,7 +65,7 @@
           tr(v-for='workout in bootstrap.workouts')
             td {{workout.created_at | prettyTime}}
             td {{(workout.time_in_seconds / 60).toFixed(1)}}
-            td {{workout.rep_totals}}
+            td {{JSON.stringify(workout.rep_totals).replace(/{|}|"/g, '').replace(/,/g, ', ')}}
       div(v-else) None
 </template>
 
