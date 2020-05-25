@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       resources :items, only: %i[create]
     end
     resources :text_messages, only: %i[create]
-    resources :workouts, only: %i[create]
+    resources :workouts, only: %i[create update]
   end
 
   namespace :admin do

@@ -4,12 +4,13 @@
 #
 # Table name: workouts
 #
-#  created_at      :datetime         not null
-#  id              :bigint           not null, primary key
-#  rep_totals      :jsonb            not null
-#  time_in_seconds :integer          not null
-#  updated_at      :datetime         not null
-#  user_id         :bigint           not null
+#  created_at        :datetime         not null
+#  id                :bigint           not null, primary key
+#  publicly_viewable :boolean          default(FALSE), not null
+#  rep_totals        :jsonb            not null
+#  time_in_seconds   :integer          not null
+#  updated_at        :datetime         not null
+#  user_id           :bigint           not null
 #
 # Indexes
 #
@@ -20,5 +21,6 @@ FactoryBot.define do
     association :user
     time_in_seconds { Integer(45.minutes) }
     rep_totals { {chinups: 100, pushups: 300} }
+    publicly_viewable { false }
   end
 end

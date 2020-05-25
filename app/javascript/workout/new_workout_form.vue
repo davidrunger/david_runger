@@ -61,18 +61,33 @@
             th Completed
             th Time (minutes)
             th Rep totals
+            th Public
         tbody
-          tr(v-for='workout in bootstrap.workouts')
+          tr(v-for='workout in workoutsSortedByCreatedAtDesc')
             td {{workout.created_at | prettyTime}}
             td {{(workout.time_in_seconds / 60).toFixed(1)}}
             td {{JSON.stringify(workout.rep_totals).replace(/{|}|"/g, '').replace(/,/g, ', ')}}
+            td
+              el-checkbox(
+                v-model='workout.publicly_viewable'
+                @change='savePubliclyViewableChange(workout.id, workout.publicly_viewable)'
+              )
       div(v-else) None
 </template>
 
 <script>
+import { sortBy } from 'lodash';
 import strftime from 'strftime';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 export default {
+  computed: {
+    workoutsSortedByCreatedAtDesc() {
+      return sortBy(this.bootstrap.workouts, 'created_at').reverse();
+    },
+  },
+
   data() {
     return {
       formstate: {},
@@ -95,6 +110,26 @@ export default {
         sets: this.sets,
         exercises: this.exercises,
       });
+    },
+
+    savePubliclyViewableChange(workoutId, newPubliclyViewableValue) {
+      const payload = { workout: { publicly_viewable: newPubliclyViewableValue } };
+
+      this.$http.
+        patch(Routes.api_workout_path(workoutId), payload).
+        then((response) => {
+          if (response.status === 200) {
+            const message = response.data.publicly_viewable ?
+              'Workout is now publicly viewable.' :
+              'Workout is now private.';
+            Toastify({
+              text: message,
+              className: 'success',
+              position: 'center',
+              duration: 1800,
+            }).showToast();
+          }
+        });
     },
   },
 };

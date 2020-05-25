@@ -7,6 +7,10 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
       div(v-for='(count, exercise) in repTotals')
         span {{exercise}}:
         input(v-model.number='repTotals[exercise]')
+    div
+      el-checkbox(
+        v-model='publiclyViewable'
+      ) Publicly viewable
     div.flex.justify-around.mt2
       el-button(
         @click="$store.commit('hideModal', { modalName })"
@@ -27,6 +31,7 @@ export default {
   data() {
     return {
       modalName: 'confirm-workout',
+      publiclyViewable: false,
     };
   },
 
@@ -34,8 +39,9 @@ export default {
     saveWorkout() {
       this.$http.post(this.$routes.api_workouts_path(), {
         workout: {
-          time_in_seconds: this.timeInSeconds,
+          publicly_viewable: this.publiclyViewable,
           rep_totals: this.repTotals,
+          time_in_seconds: this.timeInSeconds,
         },
       }).then((response) => {
         if (response.status === 201) {
