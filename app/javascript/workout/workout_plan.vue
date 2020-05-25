@@ -1,57 +1,65 @@
 <template lang='pug'>
-  div
-    .my2
-      .h1(v-if='timer') Time Elapsed: {{timeElapsedString}}
-      div(v-else)
-        button(
-          @click='startWorkout'
-        ) Start timer
-      el-switch(
-        v-model='editMode'
-        active-text='Edit mode'
+div
+  .my2
+    .h1(v-if='timer') Time Elapsed: {{timeElapsedString}}
+    div(v-else)
+      button(
+        @click='startWorkout'
+      ) Start timer
+    el-switch(
+      v-model='editMode'
+      active-text='Edit mode'
+    )
+  table.my2
+    thead
+      tr
+        th Set
+        th(v-if='editMode') Base Time
+        th(v-if='editMode') Time Adjustment
+        th #[span(v-if='editMode') Final] Time
+        th(v-for='exercise in exercises') {{exercise.name}}
+        th
+    tbody
+      tr(
+        v-for='(set, index) in sets'
+        :class='tableRowClass(index)'
       )
-    table.my2
-      thead
-        tr
-          th Set
-          th(v-if='editMode') Base Time
-          th(v-if='editMode') Time Adjustment
-          th #[span(v-if='editMode') Final] Time
-          th(v-for='exercise in exercises') {{exercise.name}}
-          th
-      tbody
-        tr(
-          v-for='(set, index) in sets'
-          :class='tableRowClass(index)'
-        )
-          td {{set}}
-          td(v-if='editMode') {{intervalInSeconds * (set - 1) | secondsAsTime}}
-          td(v-if='editMode')
-            input(
-              type='text'
-              v-model.number='setsArray[index].timeAdjustment'
-              :disabled='index <= currentRoundIndex'
-            )
-          td.
-            {{
-              intervalInSeconds * (set - 1) +
-                cumulativeTimeAdjustment(index, timeAdjustments) | secondsAsTime
-            }}
-          td(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
-          td(v-show='index === currentRoundIndex + 1').
-            Starts in
-            #[span(:class='nextRoundCountdownClass') {{secondsUntilNextRound | secondsAsTime}}]
-    .my2
-      button(@click='saveWorkout') Mark workout as complete!
+        td {{set}}
+        td(v-if='editMode') {{intervalInSeconds * (set - 1) | secondsAsTime}}
+        td(v-if='editMode')
+          input(
+            type='text'
+            v-model.number='setsArray[index].timeAdjustment'
+            :disabled='index <= currentRoundIndex'
+          )
+        td.
+          {{
+            intervalInSeconds * (set - 1) +
+              cumulativeTimeAdjustment(index, timeAdjustments) | secondsAsTime
+          }}
+        td(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
+        td(v-show='index === currentRoundIndex + 1').
+          Starts in
+          #[span(:class='nextRoundCountdownClass') {{secondsUntilNextRound | secondsAsTime}}]
+  .my2
+    button(@click='saveWorkout') Mark workout as complete!
+
+  ConfirmWorkoutModal(
+    :timeInSeconds='secondsElapsed'
+    :repTotals='repTotals'
+  )
 </template>
 
 <script>
 import { Timer } from 'easytimer.js';
-import { get } from 'lodash';
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
+
+import ConfirmWorkoutModal from './confirm_workout_modal.vue';
 
 export default {
+  components: {
+    ConfirmWorkoutModal,
+  },
+
   computed: {
     cumulativeTimeAdjustment() {
       return (index, timeAdjustments) => {
@@ -86,6 +94,14 @@ export default {
         Math.floor((this.currentRoundIndex + 1) * this.intervalInSeconds) +
           this.cumulativeTimeAdjustment(this.currentRoundIndex + 1, this.timeAdjustments)
       );
+    },
+
+    repTotals() {
+      const repTotals = {};
+      this.exercises.forEach(({ name, reps }) => {
+        repTotals[name] = reps * (this.currentRoundIndex + 1);
+      });
+      return repTotals;
     },
 
     secondsUntilNextRound() {
@@ -146,49 +162,7 @@ export default {
 
     saveWorkout() {
       this.timer.stop();
-
-      const repTotals = {};
-      this.exercises.forEach(({ name, reps }) => {
-        repTotals[name] = reps * (this.currentRoundIndex + 1);
-      });
-
-      const repTotalsConfirmed = window.confirm(
-        `Please confirm that you completed this workout.
-        Minutes: ${(this.secondsElapsed / 60).toFixed(1)}
-        Reps: ${JSON.stringify(repTotals)}`.replace(/\n +/g, '\n'),
-      );
-      if (repTotalsConfirmed) {
-        this.$http.post(this.$routes.api_workouts_path(), {
-          workout: {
-            time_in_seconds: this.secondsElapsed,
-            rep_totals: repTotals,
-          },
-        }).then((response) => {
-          if (response.status === 201) {
-            Toastify({
-              text: 'Workout completion logged successfully!',
-              className: 'success',
-              position: 'center',
-              duration: 2500,
-            }).showToast();
-          }
-        }).catch((error) => {
-          const errorMessage = get(error, 'response.data.error', 'Something went wrong');
-          Toastify({
-            text: errorMessage,
-            className: 'error',
-            position: 'center',
-            duration: 2500,
-          }).showToast();
-        });
-      } else {
-        Toastify({
-          text: 'Workout was not saved (because you cancelled it).',
-          className: 'error',
-          position: 'center',
-          duration: 2500,
-        }).showToast();
-      }
+      this.$store.commit('showModal', { modalName: 'confirm-workout' });
     },
 
     startWorkout() {
