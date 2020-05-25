@@ -4,12 +4,13 @@
 #
 # Table name: workouts
 #
-#  created_at      :datetime         not null
-#  id              :bigint           not null, primary key
-#  rep_totals      :jsonb            not null
-#  time_in_seconds :integer          not null
-#  updated_at      :datetime         not null
-#  user_id         :bigint           not null
+#  created_at        :datetime         not null
+#  id                :bigint           not null, primary key
+#  publicly_viewable :boolean          default(FALSE), not null
+#  rep_totals        :jsonb            not null
+#  time_in_seconds   :integer          not null
+#  updated_at        :datetime         not null
+#  user_id           :bigint           not null
 #
 # Indexes
 #
@@ -18,6 +19,7 @@
 class Workout < ApplicationRecord
   belongs_to :user
 
-  validates :time_in_seconds, presence: true, numericality: {greater_than: 0}
+  validates :publicly_viewable, inclusion: {in: [false, true]}
   validates :rep_totals, presence: true
+  validates :time_in_seconds, presence: true, numericality: {greater_than: 0}
 end
