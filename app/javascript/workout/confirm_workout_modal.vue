@@ -1,9 +1,12 @@
 <template lang="pug">
 Modal(:name='modalName' width='85%', maxWidth='400px')
   slot
-    h2.bold.mb2 Confirm workout
     div #[b Minutes:] {{(timeInSeconds / 60).toFixed(1)}}
-    div #[b Rep totals:] {{JSON.stringify(repTotals)}}
+    div.my2
+      h3.h3 Rep totals
+      div(v-for='(count, exercise) in repTotals')
+        span {{exercise}}:
+        input(v-model.number='repTotals[exercise]')
     div.flex.justify-around.mt2
       el-button(
         @click="$store.commit('hideModal', { modalName })"
