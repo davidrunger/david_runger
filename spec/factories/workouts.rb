@@ -14,7 +14,8 @@
 #
 # Indexes
 #
-#  index_workouts_on_user_id  (user_id)
+#  index_workouts_on_created_at  (created_at)
+#  index_workouts_on_user_id     (user_id)
 #
 FactoryBot.define do
   factory :workout do

@@ -7,7 +7,11 @@ class Api::WorkoutsController < ApplicationController
   end
 
   def index
-    @workouts = WorkoutScope.resolve(policy_scope(Workout), params).includes(:user)
+    @workouts =
+      WorkoutScope.resolve(policy_scope(Workout), params).
+        order(created_at: :desc).
+        limit(15).
+        includes(:user)
     render json: @workouts
   end
 

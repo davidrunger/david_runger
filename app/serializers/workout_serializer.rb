@@ -14,7 +14,8 @@
 #
 # Indexes
 #
-#  index_workouts_on_user_id  (user_id)
+#  index_workouts_on_created_at  (created_at)
+#  index_workouts_on_user_id     (user_id)
 #
 class WorkoutSerializer < ActiveModel::Serializer
   attributes :created_at, :id, :publicly_viewable, :rep_totals, :time_in_seconds, :username
