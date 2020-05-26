@@ -6,6 +6,11 @@ class Api::WorkoutsController < ApplicationController
     render json: @workout, status: :created
   end
 
+  def index
+    @workouts = WorkoutScope.resolve(policy_scope(Workout), params).includes(:user)
+    render json: @workouts
+  end
+
   def update
     @workout = current_user.workouts.find(params[:id])
     @workout.update!(workout_params)

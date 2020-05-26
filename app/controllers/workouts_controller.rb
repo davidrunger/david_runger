@@ -5,6 +5,7 @@ class WorkoutsController < ApplicationController
     @title = 'Workout'
     @description = 'Plan and execute a timed workout'
     bootstrap(
+      current_user: UserSerializer.new(current_user),
       workouts:
         ActiveModel::Serializer::CollectionSerializer.new(current_user.workouts),
     )

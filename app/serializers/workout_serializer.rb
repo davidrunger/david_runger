@@ -17,11 +17,23 @@
 #  index_workouts_on_user_id  (user_id)
 #
 class WorkoutSerializer < ActiveModel::Serializer
-  attributes :created_at, :id, :publicly_viewable, :rep_totals, :time_in_seconds
+  attributes :created_at, :id, :publicly_viewable, :rep_totals, :time_in_seconds, :username
 
   def rep_totals
     # alphabetize keys (workout names)
     workout.rep_totals.sort.to_h
+  end
+
+  def username
+    user = workout.user
+    email_username, email_domain = user.email.split('@')
+
+    if email_username.length >= 8
+      partially_anonymized_email_username = "#{email_username[0..2]}...#{email_username[-3..-1]}"
+      [partially_anonymized_email_username, email_domain].join('@')
+    else
+      "User #{user.id}"
+    end
   end
 
   private
