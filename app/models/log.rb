@@ -39,7 +39,7 @@ class Log < ApplicationRecord
 
   validates :data_label, presence: true
   validates :data_type, presence: true, inclusion: DATA_TYPES.keys
-  validates :name, presence: true, uniqueness: {scope: :user_id}
+  validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :slug, presence: true
 
   belongs_to :user

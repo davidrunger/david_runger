@@ -6,10 +6,10 @@ RSpec.describe UsersController do
   let(:user) { users(:user) }
 
   describe '#update' do
-    subject(:patch_update_user) { patch(:update, params: {id: user.id, user: user_params}) }
+    subject(:patch_update_user) { patch(:update, params: { id: user.id, user: user_params }) }
 
     let(:new_phone_number) { "1555#{rand(10_000_000)}" }
-    let(:user_params) { {phone: new_phone_number} }
+    let(:user_params) { { phone: new_phone_number } }
 
     before { user.update!(phone: '11231231234') }
 

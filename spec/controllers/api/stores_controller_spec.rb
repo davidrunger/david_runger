@@ -9,7 +9,7 @@ RSpec.describe Api::StoresController do
     subject(:post_create) { post(:create, params: params) }
 
     context 'when the store being created is invalid' do
-      let(:invalid_params) { {store: {name: ''}} }
+      let(:invalid_params) { { store: { name: '' } } }
       let(:params) { invalid_params }
 
       it 'does not create a store' do
@@ -23,7 +23,7 @@ RSpec.describe Api::StoresController do
     end
 
     context 'when the store being created is valid' do
-      let(:valid_params) { {store: {name: 'Walmart'}} }
+      let(:valid_params) { { store: { name: 'Walmart' } } }
       let(:params) { valid_params }
 
       it 'creates a store' do
@@ -41,12 +41,12 @@ RSpec.describe Api::StoresController do
     subject(:patch_update) { patch(:update, params: params) }
 
     let(:store) { stores(:store) }
-    let(:base_params) { {id: store.id} }
+    let(:base_params) { { id: store.id } }
 
     context 'when attempting to update the store of another user' do
       let(:owning_user) { store.user }
       let(:user) { User.where.not(id: owning_user).first! }
-      let(:params) { base_params.merge(store: {name: store.name + ' Changed'}) }
+      let(:params) { base_params.merge(store: { name: store.name + ' Changed' }) }
 
       it 'does not update the store' do
         expect { patch_update }.not_to change { store.reload.attributes }
@@ -59,7 +59,7 @@ RSpec.describe Api::StoresController do
     end
 
     context 'when the store is being updated with invalid params' do
-      let(:invalid_params) { {store: {name: ''}} }
+      let(:invalid_params) { { store: { name: '' } } }
       let(:params) { base_params.merge(invalid_params) }
 
       it 'does not update the store' do
@@ -73,7 +73,7 @@ RSpec.describe Api::StoresController do
     end
 
     context 'when the store is being updated with valid params' do
-      let(:valid_params) { {store: {name: store.name + ' Changed'}} }
+      let(:valid_params) { { store: { name: store.name + ' Changed' } } }
       let(:params) { base_params.merge(valid_params) }
 
       it 'updates the store' do
@@ -88,7 +88,7 @@ RSpec.describe Api::StoresController do
   end
 
   describe '#destroy' do
-    subject(:delete_destroy) { delete(:destroy, params: {id: store.id}) }
+    subject(:delete_destroy) { delete(:destroy, params: { id: store.id }) }
 
     let(:store) { stores(:store) }
 

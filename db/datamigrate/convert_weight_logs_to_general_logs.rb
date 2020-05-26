@@ -8,7 +8,7 @@ def convert_weight_logs_to_general_logs
     user.weight_logs.find_each do |weight_log_entry|
       weight_log.log_entries.create!(
         created_at: weight_log_entry.created_at,
-        data: {Weight: weight_log_entry.weight},
+        data: { Weight: weight_log_entry.weight },
       )
     end
   end

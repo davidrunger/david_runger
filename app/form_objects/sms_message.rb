@@ -67,7 +67,7 @@ class SmsMessage
     ApplicationController.render(
       'sms_messages/grocery_list',
       layout: nil,
-      locals: {store: store},
+      locals: { store: store },
     ).rstrip
   end
 end

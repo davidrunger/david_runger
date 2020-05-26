@@ -17,7 +17,7 @@
 class IpBlock < ApplicationRecord
   validates :ip,
     presence: true,
-    length: {maximum: 15},
-    format: {with: /\A([0-9]{1,3}\.?){4}\z/},
+    length: { maximum: 15 },
+    format: { with: /\A([0-9]{1,3}\.?){4}\z/ },
     uniqueness: true
 end

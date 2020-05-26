@@ -24,7 +24,7 @@ RSpec.describe ErrorLogger do
 
     it 'calls Rollbar.warn with the expected arguments' do
       expect(Rollbar).to receive(:warn).
-        with(StandardError, {user_id: 123}).
+        with(StandardError, { user_id: 123 }).
         and_call_original
 
       warn

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get 'upgrade_browser', to: 'home#upgrade_browser'
 
-  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     get 'logs/:slug', to: 'logs#index', as: :shared_log
   end
 
-  namespace :api, defaults: {format: :json} do
+  namespace :api, defaults: { format: :json } do
     resources :items, only: %i[update destroy]
     resources :log_entries, only: %i[create destroy index update]
     resources :log_shares, only: %i[create destroy]

@@ -8,7 +8,7 @@ class Api::LogSharesController < ApplicationController
     if @log_share.save
       render json: @log_share, status: :created
     else
-      render json: {errors: @log_share.errors.to_hash}, status: :unprocessable_entity
+      render json: { errors: @log_share.errors.to_hash }, status: :unprocessable_entity
     end
   end
 
