@@ -55,37 +55,22 @@
         ) Initialize Workout!
     div.my2
       h2.h2 Previous workouts
-      table(v-if='bootstrap.workouts.length')
-        thead
-          tr
-            th Completed
-            th Time (minutes)
-            th Rep totals
-            th Public
-        tbody
-          tr(v-for='workout in workoutsSortedByCreatedAtDesc')
-            td {{workout.created_at | prettyTime}}
-            td {{(workout.time_in_seconds / 60).toFixed(1)}}
-            td {{JSON.stringify(workout.rep_totals).replace(/{|}|"/g, '').replace(/,/g, ', ')}}
-            td
-              el-checkbox(
-                v-model='workout.publicly_viewable'
-                @change='savePubliclyViewableChange(workout.id, workout.publicly_viewable)'
-              )
-      div(v-else) None
+      workouts-table(
+        :isOwnWorkouts='true'
+        :workouts='bootstrap.workouts'
+      )
+    div.my2
+      publicly-shared-workouts
 </template>
 
 <script>
-import { sortBy } from 'lodash';
-import strftime from 'strftime';
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
+import PubliclySharedWorkouts from 'workout/publicly_shared_workouts.vue';
+import WorkoutsTable from 'workout/workouts_table.vue';
 
 export default {
-  computed: {
-    workoutsSortedByCreatedAtDesc() {
-      return sortBy(this.bootstrap.workouts, 'created_at').reverse();
-    },
+  components: {
+    PubliclySharedWorkouts,
+    WorkoutsTable,
   },
 
   data() {
@@ -97,12 +82,6 @@ export default {
     };
   },
 
-  filters: {
-    prettyTime(timeString) {
-      return strftime('%b %-d, %Y at %-l:%M%P', new Date(timeString));
-    },
-  },
-
   methods: {
     initializeWorkout() {
       this.$emit('workout-initialized', {
@@ -110,26 +89,6 @@ export default {
         sets: this.sets,
         exercises: this.exercises,
       });
-    },
-
-    savePubliclyViewableChange(workoutId, newPubliclyViewableValue) {
-      const payload = { workout: { publicly_viewable: newPubliclyViewableValue } };
-
-      this.$http.
-        patch(Routes.api_workout_path(workoutId), payload).
-        then((response) => {
-          if (response.status === 200) {
-            const message = response.data.publicly_viewable ?
-              'Workout is now publicly viewable.' :
-              'Workout is now private.';
-            Toastify({
-              text: message,
-              className: 'success',
-              position: 'center',
-              duration: 1800,
-            }).showToast();
-          }
-        });
     },
   },
 };
