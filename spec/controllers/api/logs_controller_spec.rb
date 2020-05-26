@@ -42,7 +42,7 @@ RSpec.describe Api::LogsController do
     end
 
     context 'when the log being created is invalid' do
-      let(:invalid_params) { {log: {name: ''}} }
+      let(:invalid_params) { { log: { name: '' } } }
       let(:params) { invalid_params }
 
       # rubocop:disable RSpec/MultipleExpectations
@@ -77,7 +77,7 @@ RSpec.describe Api::LogsController do
       let(:log) { logs(:number_log) }
 
       context 'when the params have `publicly_viewable: true`' do
-        let(:params) { {id: log.id, log: {publicly_viewable: true}} }
+        let(:params) { { id: log.id, log: { publicly_viewable: true } } }
 
         it 'changes the log to `publicly_viewable: true`' do
           expect { patch_update }.
@@ -105,7 +105,7 @@ RSpec.describe Api::LogsController do
   end
 
   describe '#destroy' do
-    subject(:delete_destroy) { delete(:destroy, params: {id: log.id}) }
+    subject(:delete_destroy) { delete(:destroy, params: { id: log.id }) }
 
     let(:log) { logs(:number_log) }
 

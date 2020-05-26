@@ -11,7 +11,7 @@ RSpec.describe Api::LogEntriesController do
     subject(:post_create) { post(:create, params: params) }
 
     context 'when the log entry params are invalid' do
-      let(:invalid_params) { {log_entry: {data: nil, log_id: log.id}} }
+      let(:invalid_params) { { log_entry: { data: nil, log_id: log.id } } }
       let(:params) { invalid_params }
 
       it 'returns a 422 status code' do
@@ -22,7 +22,7 @@ RSpec.describe Api::LogEntriesController do
 
     context 'when the log entry params are valid' do
       let(:log) { user.logs.where(data_type: 'number').first! }
-      let(:valid_params) { {log_entry: {data: 122, log_id: log.id}} }
+      let(:valid_params) { { log_entry: { data: 122, log_id: log.id } } }
       let(:params) { valid_params }
 
       it 'returns a 201 status code' do
@@ -38,7 +38,7 @@ RSpec.describe Api::LogEntriesController do
 
       context 'when there is a note in the log entry params' do
         let(:params_with_note) do
-          valid_params.deep_merge(log_entry: {note: 'Had a lot of salt yesterday'})
+          valid_params.deep_merge(log_entry: { note: 'Had a lot of salt yesterday' })
         end
 
         it 'creates a log entry with a note' do
@@ -56,12 +56,12 @@ RSpec.describe Api::LogEntriesController do
     subject(:patch_update) { patch(:update, params: params) }
 
     let(:log_entry) { logs(:text_log).log_entries.first! }
-    let(:base_params) { {id: log_entry.id} }
+    let(:base_params) { { id: log_entry.id } }
 
     context 'when attempting to update the log entry of another user' do
       let(:owning_user) { log_entry.log.user }
       let(:user) { User.where.not(id: owning_user).first! }
-      let(:params) { base_params.merge(log_entry: {data: log_entry.data + ' ...changed.'}) }
+      let(:params) { base_params.merge(log_entry: { data: log_entry.data + ' ...changed.' }) }
 
       it 'does not update the log_entry' do
         expect { patch_update }.not_to change { log_entry.reload.attributes }
@@ -74,7 +74,7 @@ RSpec.describe Api::LogEntriesController do
     end
 
     context 'when the log entry is being updated with invalid params' do
-      let(:invalid_params) { {log_entry: {data: ''}} }
+      let(:invalid_params) { { log_entry: { data: '' } } }
       let(:params) { base_params.merge(invalid_params) }
 
       it 'does not update the log_entry' do
@@ -88,7 +88,7 @@ RSpec.describe Api::LogEntriesController do
     end
 
     context 'when the log entry is being updated with valid params' do
-      let(:valid_params) { {log_entry: {data: log_entry.data + ' ...changed.'}} }
+      let(:valid_params) { { log_entry: { data: log_entry.data + ' ...changed.' } } }
       let(:params) { base_params.merge(valid_params) }
 
       it 'updates the log_entry' do
@@ -155,7 +155,7 @@ RSpec.describe Api::LogEntriesController do
     subject(:get_index) { get(:index, params: params) }
 
     context 'when a log_id param is provided' do
-      let(:params) { {log_id: log.id} }
+      let(:params) { { log_id: log.id } }
 
       it 'returns data only about that particular log' do
         get_index
@@ -183,7 +183,7 @@ RSpec.describe Api::LogEntriesController do
             log_entry.slice('id')
           end
         expected_simplified_response_data =
-          user.logs.map(&:log_entries).flatten.map { |log_entry| {'id' => log_entry.id} }
+          user.logs.map(&:log_entries).flatten.map { |log_entry| { 'id' => log_entry.id } }
 
         expect(simplified_response_data).to match_array(expected_simplified_response_data)
       end

@@ -10,7 +10,7 @@ RSpec.describe Api::LogSharesController do
     subject(:post_create) { post(:create, params: params) }
 
     context 'when the log share params are invalid' do
-      let(:invalid_params) { {log_share: {email: nil, log_id: log.id}} }
+      let(:invalid_params) { { log_share: { email: nil, log_id: log.id } } }
       let(:params) { invalid_params }
 
       it 'returns a 422 status code' do
@@ -20,7 +20,7 @@ RSpec.describe Api::LogSharesController do
     end
 
     context 'when the log share params are valid' do
-      let(:valid_params) { {log_share: {email: Faker::Internet.email, log_id: log.id}} }
+      let(:valid_params) { { log_share: { email: Faker::Internet.email, log_id: log.id } } }
       let(:params) { valid_params }
 
       it 'returns a 201 status code' do
@@ -35,7 +35,7 @@ RSpec.describe Api::LogSharesController do
   end
 
   describe '#destroy' do
-    subject(:delete_destroy) { delete(:destroy, params: {id: log_share.id}) }
+    subject(:delete_destroy) { delete(:destroy, params: { id: log_share.id }) }
 
     let(:log_share) { log_shares(:log_share) }
 

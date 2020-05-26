@@ -17,7 +17,7 @@ RSpec.describe ApplicationController do
 
       context 'when a request is made with a redirect_to param' do
         let(:redirect_to_path) { '/runger' }
-        let(:params) { {redirect_to: redirect_to_path} }
+        let(:params) { { redirect_to: redirect_to_path } }
 
         it "stores the value of the redirect_to param in the user's session" do
           expect { get_index }.to change { session['redirect_to'] }.from(nil).to(redirect_to_path)

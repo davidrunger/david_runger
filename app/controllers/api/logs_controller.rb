@@ -13,7 +13,7 @@ class Api::LogsController < ApplicationController
         errors=#{@log.errors.to_hash}
         attributes=#{@log.attributes}
       LOG
-      render json: {errors: @log.errors.to_hash}, status: :unprocessable_entity
+      render json: { errors: @log.errors.to_hash }, status: :unprocessable_entity
     end
   end
 

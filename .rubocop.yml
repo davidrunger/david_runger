@@ -47,7 +47,7 @@ Layout/SpaceBeforeBlockBraces:
 Layout/SpaceBeforeSemicolon:
   Enabled: false
 Layout/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
+  EnforcedStyle: space
 Lint/RedundantSplatExpansion:
   Enabled: false
 Metrics/AbcSize:

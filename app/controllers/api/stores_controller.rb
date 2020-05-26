@@ -8,7 +8,7 @@ class Api::StoresController < ApplicationController
     if @store.save
       render json: @store, status: :created
     else
-      render json: {errors: @store.errors.to_hash}, status: :unprocessable_entity
+      render json: { errors: @store.errors.to_hash }, status: :unprocessable_entity
     end
   end
 
@@ -16,7 +16,7 @@ class Api::StoresController < ApplicationController
     if @store.update(store_params)
       render json: @store
     else
-      render json: {errors: @store.errors.to_hash}, status: :unprocessable_entity
+      render json: { errors: @store.errors.to_hash }, status: :unprocessable_entity
     end
   end
 

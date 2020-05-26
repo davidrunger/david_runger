@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_json_error(message = 'There was a problem with your request', status = 400)
-    render json: {error: message}, status: status
+    render json: { error: message }, status: status
   end
 
   def user_not_authorized

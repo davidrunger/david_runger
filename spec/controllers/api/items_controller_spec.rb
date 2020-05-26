@@ -10,7 +10,7 @@ RSpec.describe Api::ItemsController do
     subject(:post_create) { post(:create, params: params) }
 
     context 'when the item params are valid' do
-      let(:valid_params) { {store_id: store.id, item: {name: 'Milk', store_id: store.id}} }
+      let(:valid_params) { { store_id: store.id, item: { name: 'Milk', store_id: store.id } } }
       let(:params) { valid_params }
 
       it 'returns a 201 status code' do
@@ -28,12 +28,12 @@ RSpec.describe Api::ItemsController do
     subject(:patch_update) { patch(:update, params: params) }
 
     let(:item) { items(:item) }
-    let(:base_params) { {id: item.id} }
+    let(:base_params) { { id: item.id } }
 
     context 'when attempting to update the item of another user' do
       let(:owning_user) { item.store.user }
       let(:user) { User.where.not(id: owning_user).first! }
-      let(:params) { base_params.merge(item: {name: item.name + ' Changed'}) }
+      let(:params) { base_params.merge(item: { name: item.name + ' Changed' }) }
 
       it 'does not update the item' do
         expect { patch_update }.not_to change { item.reload.attributes }
@@ -46,7 +46,7 @@ RSpec.describe Api::ItemsController do
     end
 
     context 'when the item is being updated with invalid params' do
-      let(:invalid_params) { {item: {name: ''}} }
+      let(:invalid_params) { { item: { name: '' } } }
       let(:params) { base_params.merge(invalid_params) }
 
       it 'does not update the item' do
@@ -60,7 +60,7 @@ RSpec.describe Api::ItemsController do
     end
 
     context 'when the item is being updated with valid params' do
-      let(:valid_params) { {item: {name: item.name + ' Changed'}} }
+      let(:valid_params) { { item: { name: item.name + ' Changed' } } }
       let(:params) { base_params.merge(valid_params) }
 
       it 'updates the item' do
@@ -75,7 +75,7 @@ RSpec.describe Api::ItemsController do
   end
 
   describe '#destroy' do
-    subject(:delete_destroy) { delete(:destroy, params: {id: item.id}) }
+    subject(:delete_destroy) { delete(:destroy, params: { id: item.id }) }
 
     let(:item) { items(:item) }
 

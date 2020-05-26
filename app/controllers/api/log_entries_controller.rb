@@ -7,7 +7,7 @@ class Api::LogEntriesController < ApplicationController
     if @log_entry.save
       render json: @log_entry, status: :created
     else
-      render json: {errors: @log_entry.errors.to_hash}, status: :unprocessable_entity
+      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
     end
   end
 
@@ -19,7 +19,7 @@ class Api::LogEntriesController < ApplicationController
     if @log_entry.update(log_entry_params)
       render json: @log_entry, status: :ok
     else
-      render json: {errors: @log_entry.errors.to_hash}, status: :unprocessable_entity
+      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
     end
   end
 

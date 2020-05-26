@@ -7,7 +7,7 @@ module NexmoTestApi
     WebMock.stub_request(:post, 'https://rest.nexmo.com/sms/json').
       to_return(
         status: 200,
-        headers: {'Content-Type' => 'application/json'},
+        headers: { 'Content-Type' => 'application/json' },
         body: JSON.dump(single_message_response),
       )
   end
@@ -17,7 +17,7 @@ module NexmoTestApi
     WebMock.stub_request(:post, 'https://rest.nexmo.com/sms/json').
       to_return(
         status: 400,
-        headers: {'Content-Type' => 'application/json'},
+        headers: { 'Content-Type' => 'application/json' },
         body: JSON.dump('errors' => ['something went wrong']),
       )
   end

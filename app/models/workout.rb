@@ -20,7 +20,7 @@
 class Workout < ApplicationRecord
   belongs_to :user
 
-  validates :publicly_viewable, inclusion: {in: [false, true]}
+  validates :publicly_viewable, inclusion: { in: [false, true] }
   validates :rep_totals, presence: true
-  validates :time_in_seconds, presence: true, numericality: {greater_than: 0}
+  validates :time_in_seconds, presence: true, numericality: { greater_than: 0 }
 end

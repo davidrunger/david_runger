@@ -13,7 +13,7 @@ RSpec.describe SmsMessage do
   let(:user) { users(:user) }
   let(:message_type) { 'grocery_store_items_needed' }
   let(:store) { user.stores.first! }
-  let(:message_params) { {'store_id' => store.id} }
+  let(:message_params) { { 'store_id' => store.id } }
 
   describe 'validations' do
     subject(:error_messages) do

@@ -21,7 +21,7 @@ RSpec.describe 'Home page' do
           'as' => 'AS20001 Charter Communications Inc',
           'query' => '76.167.213.95',
         }.to_json,
-        headers: {'content-type' => 'application/json; charset=utf-8'},
+        headers: { 'content-type' => 'application/json; charset=utf-8' },
       )
   end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Home page' do
       Full stack web developer
     HEADLINE
 
-    Percy.snapshot(page, {name: 'Homepage'})
+    Percy.snapshot(page, { name: 'Homepage' })
 
     expect(ip_info_request_stub).to have_been_requested
   end
