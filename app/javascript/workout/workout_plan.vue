@@ -159,14 +159,9 @@ export default {
     handleSecondElapsed() {
       if (this.secondsElapsed >= this.nextRoundStartAtSeconds) {
         this.currentRoundIndex++;
-      }
-
-      if (includes([10, 20, 30], this.secondsUntilNextRound)) {
-        window.speechSynthesis.speak(
-          new SpeechSynthesisUtterance(
-            `${this.secondsUntilNextRound} seconds`,
-          ),
-        );
+        this.say('Go!');
+      } else if (includes([10, 20, 30], this.secondsUntilNextRound)) {
+        this.say(`${this.secondsUntilNextRound} seconds`);
       }
     },
 
@@ -177,6 +172,10 @@ export default {
     saveWorkout() {
       this.timer.stop();
       this.$store.commit('showModal', { modalName: 'confirm-workout' });
+    },
+
+    say(message) {
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(message));
     },
 
     startWorkout() {
