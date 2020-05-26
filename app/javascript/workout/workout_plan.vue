@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   .my2
-    .h1(v-if='timer') Time Elapsed: {{timeElapsedString}}
+    .h1(v-if='timer') Time Elapsed: {{secondsElapsed | secondsAsTime}}
     div(v-else)
       button(
         @click='startWorkout'
@@ -52,6 +52,7 @@ div
 
 <script>
 import { Timer } from 'easytimer.js';
+import { includes } from 'lodash';
 
 import ConfirmWorkoutModal from './confirm_workout_modal.vue';
 
@@ -121,7 +122,6 @@ export default {
     return {
       currentRoundIndex: 0,
       editMode: false,
-      timeElapsedString: null,
       secondsElapsed: 0,
       setsArray: this.initialSetsArray(),
       timer: null,
@@ -156,6 +156,20 @@ export default {
       }
     },
 
+    handleSecondElapsed() {
+      if (this.secondsElapsed >= this.nextRoundStartAtSeconds) {
+        this.currentRoundIndex++;
+      }
+
+      if (includes([10, 20, 30], this.secondsUntilNextRound)) {
+        window.speechSynthesis.speak(
+          new SpeechSynthesisUtterance(
+            `${this.secondsUntilNextRound} seconds`,
+          ),
+        );
+      }
+    },
+
     initialSetsArray() {
       return Array(...Array(this.sets)).map(_ => ({ timeAdjustment: 0 }));
     },
@@ -167,17 +181,12 @@ export default {
 
     startWorkout() {
       this.timer = new Timer();
-      this.timeElapsedString = '00:00:00';
       this.currentRoundIndex = 0;
 
       this.timer.start();
       this.timer.addEventListener('secondsUpdated', () => {
-        this.timeElapsedString = this.timer.getTimeValues().toString();
         this.secondsElapsed = this.timer.getTotalTimeValues().seconds;
-
-        if (this.secondsElapsed >= this.nextRoundStartAtSeconds) {
-          this.currentRoundIndex++;
-        }
+        this.handleSecondElapsed();
       });
     },
 
