@@ -10,6 +10,10 @@ div
       v-model='editMode'
       active-text='Edit mode'
     )
+    el-switch.ml2(
+      v-model='soundEnabled'
+      active-text='Sound'
+    )
   table.my2
     thead
       tr
@@ -124,6 +128,7 @@ export default {
       editMode: false,
       secondsElapsed: 0,
       setsArray: this.initialSetsArray(),
+      soundEnabled: true,
       timer: null,
     };
   },
@@ -175,6 +180,8 @@ export default {
     },
 
     say(message) {
+      if (!this.soundEnabled) return;
+
       window.speechSynthesis.speak(new SpeechSynthesisUtterance(message));
     },
 
