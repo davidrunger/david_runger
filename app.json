@@ -1,0 +1,19 @@
+{
+  "environments": {
+    "review": {
+      "addons": [
+        { "plan": "heroku-postgresql:hobby-dev" },
+        { "plan": "heroku-redis:hobby-dev" },
+        { "plan": "memcachier:dev" }
+      ],
+      "buildpacks": [
+        { "url": "heroku/nodejs" },
+        { "url": "heroku/ruby" },
+        { "url": "https://github.com/weibeld/heroku-buildpack-run" }
+      ],
+      "scripts": {
+        "postdeploy": "bin/rake db:schema:load"
+      }
+    }
+  }
+}
