@@ -11,7 +11,9 @@ div
         :key='logEntryValue'
         @click='postNewLogEntry(logEntryValue)'
       ) {{logEntryValue}}
-    validate
+    validate(
+      :custom='{ customValidationsAreValid }'
+    )
       el-input.new-log-input.mb1(
         :placeholder='log.data_label'
         v-model='newLogEntryData'
@@ -34,6 +36,9 @@ div
 </template>
 
 <script>
+// this regex is far from perfect at discriminating between invalid vs valid time inputs,
+// but it's good enough as a rough sanity check
+const DURATION_INPUT_VALIDATION_REGEX = /^(\d{1,2}:)*\d{1,2}$/;
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 
 export default {
@@ -41,7 +46,7 @@ export default {
     inputType() {
       if (this.isText) {
         return 'textarea';
-      } else if (this.isNumber) {
+      } else if (this.isNumber || this.isCounter) {
         return 'number';
       } else {
         return 'text';
@@ -92,6 +97,14 @@ export default {
   },
 
   methods: {
+    customValidationsAreValid() {
+      if (this.isDuration) {
+        return DURATION_INPUT_VALIDATION_REGEX.test(this.newLogEntryData);
+      } else {
+        return true;
+      }
+    },
+
     focusLogEntryInput() {
       setTimeout(() => {
         this.$refs['log-input'].focus();
