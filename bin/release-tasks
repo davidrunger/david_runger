@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-bin/rails db:migrate
+# run migrations when deploying to production, but not when deploying a review app
+if [ $HEROKU_PR_NUMBER ]
+then
+  echo "Skipping db:migrate because HEROKU_PR_NUMBER is present (value: $HEROKU_PR_NUMBER)"
+else
+  echo "Running bin/rails db:migrate"
+  bin/rails db:migrate
+fi
