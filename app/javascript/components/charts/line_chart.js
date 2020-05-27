@@ -28,7 +28,13 @@ export const optionsDefaults = {
   maintainAspectRatio: false,
   responsive: true,
   scales: {
-    xAxes: [axisOptions],
+    xAxes: [{
+      ...axisOptions,
+      type: 'time',
+      time: {
+        tooltipFormat: 'MMMM DD YYYY, h:mma',
+      },
+    }],
     yAxes: [axisOptions],
   },
   tooltips: {
