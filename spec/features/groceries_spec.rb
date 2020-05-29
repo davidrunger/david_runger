@@ -18,7 +18,7 @@ RSpec.describe 'Groceries app' do
       expect(page).to have_button('Copy to clipboard')
 
       item = store.items.first!
-      expect(page).to have_text("#{item.name} (#{item.needed})")
+      expect(page).to have_text(/#{item.name} +\(#{item.needed}\)/)
     end
   end
 end

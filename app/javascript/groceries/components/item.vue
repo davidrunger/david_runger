@@ -1,5 +1,7 @@
 <template lang='pug'>
-li.grocery-item(:class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}')
+li.grocery-item.flex.items-center(
+  :class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}'
+)
   Drag(:transferData='item')
     span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
     span.decrement.h2.pl1.pr1.js-link.red(
@@ -7,14 +9,17 @@ li.grocery-item(:class='{unneeded: item.needed <= 0, "appear-vertically": isJust
       title='Decrement'
     ) &ndash;
     input(
-      v-show='editingName'
+      v-if='editingName'
       type='text'
       v-model='item.name'
       @blur='stopEditingAndUpdateItemName()'
       @keydown.enter='stopEditingAndUpdateItemName()'
       ref='item-name-input'
     )
-    span(v-show='!editingName' @dblclick='editItemName') {{item.name}}
+    span(v-else)
+      | {{item.name}}
+      |
+      i.el-icon-edit-outline.js-link(@click='editItemName')
     | &nbsp;
     span ({{item.needed}})
     .delete.h2.pl1.pr1.js-link.right.red(
@@ -107,7 +112,8 @@ export default {
 li.grocery-item {
   background: rgba(255, 255, 255, 0.6);
   margin: 5px 0;
-  padding: 6px;
+  padding: 0 6px;
+  height: 30px;
 
   &:not(.unneeded):hover {
     background: rgba(255, 255, 255, 0.8);
@@ -121,5 +127,9 @@ li.grocery-item {
       background: rgba(255, 255, 255, 0.5);
     }
   }
+}
+
+.el-icon-edit-outline {
+  font-size: 12px;
 }
 </style>
