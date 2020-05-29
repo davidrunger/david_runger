@@ -304,7 +304,6 @@ div.font-nunito
 </template>
 
 <script>
-import SmoothScroll from 'smooth-scroll/dist/smooth-scroll.min';
 import PerformantImage from 'components/performant_image.vue';
 
 import * as positionListener from './scripts/position_listener';
@@ -323,7 +322,6 @@ export default {
 
   mounted() {
     positionListener.init();
-    new SmoothScroll('a[href*="#"]');
 
     const logo = document.getElementById('logo');
     logo.addEventListener('transitionend', () => {
