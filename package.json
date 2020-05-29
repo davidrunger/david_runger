@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "test": "node spec/javascript/headless_runner.js",
-    "test-chrome": "bin/setup-mocha-tests && open -a 'Google Chrome' http://localhost:8080/packs-test/mocha_runner.html"
+    "test-chrome": "bin/setup-mocha-tests && open -a 'Google Chrome' http://localhost:8080/packs-test/mocha_runner.html",
+    "test-firefox": "bin/setup-mocha-tests && open -a Firefox http://localhost:8080/packs-test/mocha_runner.html"
   },
   "engines": {
     "node": "12.13.0",
