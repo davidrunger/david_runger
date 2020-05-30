@@ -9,9 +9,6 @@ div
   .center
     log-selector
     router-view(:key='$route.fullPath').m3
-    el-collapse(v-if='!isSharedLog' v-model='expandedPanelNames')
-      el-collapse-item(title = 'Create new log' name='new-log-form')
-        new-log-form
 </template>
 
 <script>
@@ -19,13 +16,11 @@ import { mapGetters, mapState } from 'vuex';
 import 'toastify-js/src/toastify.css';
 
 import signOutMixin from 'lib/mixins/sign_out_mixin';
-import NewLogForm from './components/new_log_form.vue';
 import LogSelector from './components/log_selector.vue';
 
 export default {
   components: {
     LogSelector,
-    NewLogForm,
   },
 
   computed: {
@@ -55,12 +50,6 @@ export default {
         this.$store.commit('showModal', { modalName: 'log-selector' });
       }
     });
-  },
-
-  data() {
-    return {
-      expandedPanelNames: [],
-    };
   },
 
   mixins: [signOutMixin],
