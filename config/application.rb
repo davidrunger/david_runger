@@ -22,12 +22,24 @@ class DavidRunger::Application < Rails::Application
   # ActiveJob/Sidekiq
   config.active_job.queue_adapter = :sidekiq
 
+  # ActionMailer
+  config.action_mailer.default_url_options =
+    case Rails.env
+    when 'production'
+      { host: 'www.davidrunger.com', protocol: 'https' }
+    else
+      { host: 'localhost:3000', protocol: 'http' }
+    end
+
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
 
   # Don't generate system test files.
   config.generators.system_tests = nil
+  config.generators do |g|
+    g.factory_bot(dir: 'spec/factories')
+  end
 
   # Time zone
   config.time_zone = 'America/Los_Angeles'

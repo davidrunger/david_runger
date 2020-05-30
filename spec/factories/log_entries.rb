@@ -17,5 +17,13 @@
 
 FactoryBot.define do
   factory :log_entry do
+    association :log
+    data do
+      if log.is_a?(LogEntries::NumberLogEntry)
+        rand(200)
+      else
+        Faker::Movies::VForVendetta.quote
+      end
+    end
   end
 end
