@@ -396,6 +396,11 @@ p:first-of-type {
   }
 }
 
+#headline-subtitle {
+  text-align: right;
+  padding-top: 6px;
+}
+
 #header {
   position: fixed;
   // performance hint to create a new compositor layer, so we don't re-paint on scroll
