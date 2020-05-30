@@ -18,7 +18,7 @@ div
           name='newLog.description'
         )
         validate.mb1
-          el-input.mb1(
+          el-input(
             placeholder='Label'
             v-model='newLog.data_label'
             name='newLog.data_label'
