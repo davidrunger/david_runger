@@ -18,7 +18,7 @@ class LogsController < ApplicationController
     @body_class = 'sans-serif'
     bootstrap(
       current_user: UserSerializer.new(current_user),
-      logs: ActiveModel::Serializer::CollectionSerializer.new(logs),
+      logs: ActiveModel::Serializer::CollectionSerializer.new(logs.includes(:log_shares)),
       log_input_types: log_input_types,
     )
     render :index
