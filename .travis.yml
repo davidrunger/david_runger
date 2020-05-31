@@ -34,8 +34,7 @@ script:
   - bin/rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang
   - bin/brakeman --quiet
   - ./node_modules/.bin/stylelint app/**/*.{css,scss,vue} --max-warnings 0
-  - bin/rails db:create
-  - bin/rails db:schema:load
+  - bin/rails db:create db:schema:load
   - bin/database_consistency # needs to come after creating the DB & loading the schema
   - bin/rails immigrant:check_keys
   - bin/annotate --models --show-indexes --sort --exclude tests && git diff --exit-code
