@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_033607) do
+ActiveRecord::Schema.define(version: 2020_05_31_013949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 2020_05_26_033607) do
     t.string "data_label", null: false
     t.string "data_type", null: false
     t.boolean "publicly_viewable", default: false, null: false
+    t.integer "reminder_time_in_seconds", comment: "Time in seconds, which, if elapsed since the creation of log or most recent log entry (whichever is later) will trigger a reminder to be sent (via email) to the owning user."
+    t.datetime "reminder_last_sent_at"
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
     t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
   end

@@ -4,16 +4,18 @@
 #
 # Table name: logs
 #
-#  created_at        :datetime         not null
-#  data_label        :string           not null
-#  data_type         :string           not null
-#  description       :string
-#  id                :bigint           not null, primary key
-#  name              :string           not null
-#  publicly_viewable :boolean          default(FALSE), not null
-#  slug              :string           not null
-#  updated_at        :datetime         not null
-#  user_id           :bigint           not null
+#  created_at               :datetime         not null
+#  data_label               :string           not null
+#  data_type                :string           not null
+#  description              :string
+#  id                       :bigint           not null, primary key
+#  name                     :string           not null
+#  publicly_viewable        :boolean          default(FALSE), not null
+#  reminder_last_sent_at    :datetime
+#  reminder_time_in_seconds :integer
+#  slug                     :string           not null
+#  updated_at               :datetime         not null
+#  user_id                  :bigint           not null
 #
 # Indexes
 #
@@ -28,5 +30,7 @@ FactoryBot.define do
     data_type { 'number' }
     description { 'Weight in pounds' }
     name { 'Weight' }
+    reminder_time_in_seconds { Integer(3.days) }
+    reminder_last_sent_at { 1.day.ago }
   end
 end

@@ -38,6 +38,7 @@ class Api::LogsController < ApplicationController
       :description,
       :name,
       :publicly_viewable,
+      :reminder_time_in_seconds,
     )
   end
 

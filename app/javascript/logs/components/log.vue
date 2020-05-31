@@ -26,6 +26,15 @@ div
           span(v-if='publiclyViewable') Viewable by any user
           span(v-else) Shared with {{log.log_shares.length}} emails
     .mt1
+      el-button(
+        @click="$store.commit('showModal', { modalName: 'edit-log-reminder-schedule' })"
+      )
+        div.h4 Reminder settings
+        div.h6
+          span(v-if='log.reminder_time_in_seconds')
+            | {{(log.reminder_time_in_seconds / (60 * 60)).toFixed()}} hours
+          span(v-else) No reminders
+    .mt1
       el-button(@click='destroyLog') Delete log
 
   Modal(name='edit-log-shared-emails' width='85%' maxWidth='600px' backgroundClass='bg-black')
@@ -64,6 +73,10 @@ div
           @click="$store.commit('hideModal', { modalName: 'edit-log-shared-emails' })"
           type='text'
         ) Close
+
+  Modal(name='edit-log-reminder-schedule' width='85%' maxWidth='600px' backgroundClass='bg-black')
+    slot
+      log-reminder-schedule-form(:log='log')
 </template>
 
 <script>
@@ -75,6 +88,7 @@ import DurationTimeseries from './data_renderers/duration_timeseries.vue';
 import IntegerTimeseries from './data_renderers/integer_timeseries.vue';
 import TextLog from './data_renderers/text_log.vue';
 import NewLogEntryForm from './new_log_entry_form.vue';
+import LogReminderScheduleForm from './log_reminder_schedule_form.vue';
 
 const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
   counter: CounterBarGraph,
@@ -102,6 +116,7 @@ export default {
   components: {
     LogDataDisplay,
     NewLogEntryForm,
+    LogReminderScheduleForm,
   },
 
   computed: {
