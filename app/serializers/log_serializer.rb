@@ -25,5 +25,15 @@ class LogSerializer < ActiveModel::Serializer
   attributes :data_label, :data_type, :description, :id, :name, :publicly_viewable, :slug
 
   belongs_to :user, serializer: LogOwnerSerializer
-  has_many :log_shares
+  has_many :log_shares, if: :own_log?
+
+  def own_log?
+    current_user == log.user
+  end
+
+  private
+
+  def log
+    object
+  end
 end
