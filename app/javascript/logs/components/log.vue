@@ -17,11 +17,14 @@ div
     new-log-entry-form(v-if='!renderInputAtTop' :log='log')
     .mt1
       el-button(@click='destroyLastEntry') Delete last entry
-    a.js-link(
-      @click="$store.commit('showModal', { modalName: 'edit-log-shared-emails' })"
-    )
-      span(v-if='publiclyViewable') Viewable by any user
-      span(v-else) Shared with {{log.log_shares.length}} emails
+    .mt1
+      el-button(
+        @click="$store.commit('showModal', { modalName: 'edit-log-shared-emails' })"
+      )
+        div.h4 Sharing settings
+        div.h6
+          span(v-if='publiclyViewable') Viewable by any user
+          span(v-else) Shared with {{log.log_shares.length}} emails
     .mt1
       el-button(@click='destroyLog') Delete log
 
