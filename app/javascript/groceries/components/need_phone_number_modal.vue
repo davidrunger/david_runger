@@ -4,7 +4,7 @@ Modal(name='set-phone-number' width='85%', maxWidth='400px')
     h2.bold.mb2 We need your phone number, first
     el-input(
       v-model='phone'
-      placeholder='Format: 11231231234'
+      placeholder='123-555-1234'
     )
     div.flex.justify-around.mt2
       el-button(
