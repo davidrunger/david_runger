@@ -64,7 +64,7 @@ div.mt1.mb2.ml3.mr2
           type='text'
         ) Cancel
 
-  NeedPhoneNumberModal
+  NeedPhoneNumberModal(@send-text-message='createItemsNeededTextMessage')
 </template>
 
 <script>

@@ -2,8 +2,16 @@
 Modal(name='set-phone-number' width='85%', maxWidth='400px')
   slot
     h2.bold.mb2 We need your phone number, first
-    p Click #[a(:href='editUserPath') here] to enter your phone number.
+    el-input(
+      v-model='phone'
+      placeholder='Format: 11231231234'
+    )
     div.flex.justify-around.mt2
+      el-button(
+        @click='savePhoneAndSendSms'
+        type='primary'
+        plain
+      ) Save phone # and send text
       el-button(
         @click="$store.commit('hideModal', { modalName: 'set-phone-number' })"
         type='text'
@@ -18,12 +26,23 @@ export default {
     ...mapState([
       'current_user',
     ]),
+  },
 
-    editUserPath() {
-      return this.$routes.edit_user_path({
-        id: this.current_user.id,
-        redirect_to: this.$routes.groceries_path(),
-        _options: {}, // providing `_options` seems to be necessary to put query params in the path
+  data() {
+    return {
+      phone: null,
+    };
+  },
+
+  methods: {
+    savePhoneAndSendSms() {
+      this.$http.patch(
+        this.$routes.api_user_path({ id: this.bootstrap.current_user.id }),
+        { user: { phone: this.phone } },
+      ).then(({ data }) => {
+        this.current_user.phone = data.phone;
+        this.$store.commit('hideModal', { modalName: 'set-phone-number' });
+        this.$emit('send-text-message');
       });
     },
   },
