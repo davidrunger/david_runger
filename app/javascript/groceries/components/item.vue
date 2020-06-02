@@ -11,7 +11,7 @@ li.grocery-item.flex.items-center(
     input(
       v-if='editingName'
       type='text'
-      v-model='item.name'
+      :value='item.name'
       @blur='stopEditingAndUpdateItemName()'
       @keydown.enter='stopEditingAndUpdateItemName()'
       ref='item-name-input'
@@ -66,6 +66,7 @@ export default {
 
     stopEditingAndUpdateItemName() {
       this.editingName = false;
+      this.item.name = this.$refs['item-name-input'].value;
       this.$store.dispatch('updateItem', {
         id: this.item.id,
         attributes: {
