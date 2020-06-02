@@ -55,12 +55,12 @@
         ) Initialize Workout!
     div.my2
       h2.h2 Previous workouts
-      workouts-table(
+      WorkoutsTable(
         :isOwnWorkouts='true'
         :workouts='bootstrap.workouts'
       )
     div.my2
-      publicly-shared-workouts
+      PubliclySharedWorkouts
 </template>
 
 <script>

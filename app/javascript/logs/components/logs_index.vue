@@ -5,7 +5,7 @@ section
       router-link.log-link(:to='{ name: "log", params: { slug: log.slug }}') {{log.name}}
   el-collapse(v-model='expandedPanelNames')
     el-collapse-item(title = 'Create new log' name='new-log-form')
-      new-log-form
+      NewLogForm
 </template>
 
 <script>

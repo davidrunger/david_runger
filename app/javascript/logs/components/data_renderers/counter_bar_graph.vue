@@ -1,6 +1,6 @@
 <template lang='pug'>
 .chart-container
-  bar-graph(
+  BarGraph(
     :chart-data='chartMetadata'
     :height='300'
     :options='CHART_OPTIONS'

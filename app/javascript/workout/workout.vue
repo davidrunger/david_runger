@@ -1,7 +1,7 @@
 <template lang='pug'>
   div(v-if='workout')
-    workout-plan(v-bind='workout')
-  new-workout-form(
+    WorkoutPlan(v-bind='workout')
+  NewWorkoutForm(
     v-else
     v-on:workout-initialized='onWorkoutInitialized'
   )

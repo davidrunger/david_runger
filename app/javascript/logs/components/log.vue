@@ -5,7 +5,7 @@ div
   p.h5.mb2.description {{log.description}}
   div.mb2(v-if='log.log_entries === undefined').
     Loading...
-  log-data-display(
+  LogDataDisplay(
     v-else-if='log.log_entries.length'
     :data_label='log.data_label'
     :data_type='log.data_type'
@@ -14,7 +14,7 @@ div
   )
   div.my2(v-else) There are no log entries for this log.
   .controls(v-if='isOwnLog')
-    new-log-entry-form(v-if='!renderInputAtTop' :log='log')
+    NewLogEntryForm(v-if='!renderInputAtTop' :log='log')
     .mt1
       el-button(@click='destroyLastEntry') Delete last entry
     .mt1
@@ -76,7 +76,7 @@ div
 
   Modal(name='edit-log-reminder-schedule' width='85%' maxWidth='600px' backgroundClass='bg-black')
     slot
-      log-reminder-schedule-form(:log='log')
+      LogReminderScheduleForm(:log='log')
 </template>
 
 <script>
