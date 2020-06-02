@@ -7,6 +7,7 @@
 #  created_at :datetime         not null
 #  id         :bigint           not null, primary key
 #  name       :string           not null
+#  notes      :text
 #  updated_at :datetime         not null
 #  user_id    :bigint
 #  viewed_at  :datetime
@@ -21,5 +22,6 @@ FactoryBot.define do
     name { Faker::Company.name }
     association :user
     viewed_at { [nil, 1.month.ago, 1.day.ago].sample }
+    notes { 'member phone number: 619-867-5309' }
   end
 end

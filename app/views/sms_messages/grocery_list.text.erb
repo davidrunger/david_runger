@@ -1,4 +1,7 @@
 == <%= store.name %>
+<% if store.notes.present? %>
+Notes: <%= store.notes %>
+<% end %>
 <% store.items.needed.sort_by { |item| item.name.downcase }.each do |item| %>
 - <%= item.name %> (<%= item.needed %>)
 <% end %>

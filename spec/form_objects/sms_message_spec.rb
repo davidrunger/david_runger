@@ -50,16 +50,20 @@ RSpec.describe SmsMessage do
       sms_message.send(:grocery_store_items_needed_message_body)
     end
 
-    it 'includes the store name and items needed (name & quantity)' do
+    let(:expected_message) do
       needed_items_list =
         store.items.needed.
           sort_by { |item| item.name.downcase }.
           map { |item| "- #{item.name} (#{item.needed})" }
-      expected_message = <<~EXPECTED_MESSAGE.rstrip
+
+      <<~EXPECTED_MESSAGE.rstrip
         == #{store.name}
+        Notes: #{store.notes}
         #{needed_items_list.join("\n")}
       EXPECTED_MESSAGE
+    end
 
+    it 'includes the store name and items needed (name & quantity)' do
       expect(grocery_store_items_needed_message_body).to eq(expected_message)
     end
   end

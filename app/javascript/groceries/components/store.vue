@@ -20,6 +20,21 @@ div.mt1.mb2.ml3.mr2
     el-button.copy-to-clipboard(size='mini') Copy to clipboard
     span(v-if='wasCopiedRecently') Copied!
 
+  div.mb1
+    h3.h3 Notes
+    el-input(
+      v-if='editingNotes'
+      type='textarea'
+      placeholder='Member phone number: 619-867-5309'
+      v-model='store.notes'
+      @blur='stopEditingAndUpdateStoreNotes()'
+      ref='store-notes-input'
+    )
+    p.pre-wrap(v-else)
+      | {{store.notes || 'No notes yet'}}
+      a.edit-store.js-link.gray.ml1(@click='editStoreNotes')
+        i.el-icon-edit-outline
+
   vue-form.col-5.flex(@submit.prevent='postNewItem' :state='formstate')
     validate.float-left
       el-input.item-name-input(
@@ -87,6 +102,7 @@ export default {
   data() {
     return {
       editingName: false,
+      editingNotes: false,
       formstate: {},
       itemsToZero: [],
       newItemName: '',
@@ -155,6 +171,12 @@ export default {
       setTimeout(this.focusStoreNameInput);
     },
 
+    editStoreNotes() {
+      this.editingNotes = true;
+      // wait a tick for input to render, then focus it
+      setTimeout(this.focusStoreNotesInput);
+    },
+
     focusStoreNameInput(callsAlready = 0) {
       if (!this.editingName) return;
 
@@ -164,6 +186,18 @@ export default {
       } else if (callsAlready < 20) {
         // the storeNameInput hasn't had time to render yet; retry later
         setTimeout(() => { this.focusStoreNameInput(callsAlready + 1); }, 50);
+      }
+    },
+
+    focusStoreNotesInput(callsAlready = 0) {
+      if (!this.editingNotes) return;
+
+      const storeNotesInput = this.$refs['store-notes-input'];
+      if (storeNotesInput) {
+        storeNotesInput.focus();
+      } else if (callsAlready < 20) {
+        // the storeNotesInput hasn't had time to render yet; retry later
+        setTimeout(() => { this.focusStoreNotesInput(callsAlready + 1); }, 50);
       }
     },
 
@@ -227,6 +261,16 @@ export default {
         },
       });
     },
+
+    stopEditingAndUpdateStoreNotes() {
+      this.editingNotes = false;
+      this.$store.dispatch('updateStore', {
+        id: this.store.id,
+        attributes: {
+          notes: this.store.notes,
+        },
+      });
+    },
   },
 
   props: {
@@ -271,5 +315,9 @@ export default {
   left: inherit;
   right: 50%;
   transform: translateX(50%);
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
 }
 </style>
