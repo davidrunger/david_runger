@@ -4,6 +4,7 @@ class SmsMessage
   class InvalidMessageTypeError < StandardError ; end
   class SaveSmsRecordError < StandardError ; end
 
+  extend Memoist
   include ActiveModel::Model
 
   MESSAGE_TYPES = %w[
@@ -24,7 +25,15 @@ class SmsMessage
   end
 
   def send!
-    return false if ENV['NEXMO_API_KEY'].blank?
+    if ENV['NEXMO_API_KEY'].blank?
+      message_body # memoize `message_body` so that ActiveRecord queries don't get logged below
+      # print message to facilitate debugging (e.g. particularly in development)
+      puts('NEXMO_API_KEY is blank; message would have been:')
+      puts('~~~~~~~~~~~~~~~~~~~~~')
+      puts(message_body)
+      puts('=====================')
+      return false
+    end
 
     nexmo_response = NexmoClient.send_text!(number: @user.phone, message: message_body)
     if nexmo_response.success?
@@ -37,6 +46,7 @@ class SmsMessage
 
   private
 
+  memoize \
   def message_body
     case @message_type
     when 'grocery_store_items_needed' then grocery_store_items_needed_message_body

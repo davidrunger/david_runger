@@ -7,6 +7,7 @@
 #  created_at :datetime         not null
 #  id         :bigint           not null, primary key
 #  name       :string           not null
+#  notes      :text
 #  updated_at :datetime         not null
 #  user_id    :bigint
 #  viewed_at  :datetime

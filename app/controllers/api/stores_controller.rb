@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::StoresController < ApplicationController
+  using BlankParamsAsNil
+
   before_action :set_store, only: %i[destroy update]
 
   def create
@@ -33,6 +35,6 @@ class Api::StoresController < ApplicationController
   end
 
   def store_params
-    params.require(:store).permit(:name, :viewed_at)
+    params.require(:store).permit(:name, :notes, :viewed_at).blank_params_as_nil(%w[notes])
   end
 end
