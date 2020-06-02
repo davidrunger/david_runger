@@ -48,6 +48,9 @@ Layout/SpaceBeforeSemicolon:
   Enabled: false
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: space
+Lint/MixedRegexpCaptureTypes:
+  # disable because it raises 2 errors inspecting spec/controllers/api/logs_controller_spec.rb
+  Enabled: false
 Lint/RedundantSplatExpansion:
   Enabled: false
 Metrics/AbcSize:
