@@ -20,7 +20,7 @@ def copy_log_entries_to_type_specific_tables!
       old_data = log_entry.data[data_key]
       data =
         if new_log_entry_class == LogEntries::NumberLogEntry
-          Float(old_data.to_s.gsub(/[^\d\.]/, ''))
+          Float(old_data.to_s.gsub(/[^\d.]/, ''))
         else
           old_data
         end
