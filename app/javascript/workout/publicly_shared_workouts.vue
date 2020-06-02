@@ -4,7 +4,7 @@ div.my2
   div(v-if='workouts === null') Loading...
   div(v-else-if='workouts.length === 0') None
   div(v-else)
-    workouts-table(:workouts='workouts')
+    WorkoutsTable(:workouts='workouts')
 </template>
 
 <script>

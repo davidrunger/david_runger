@@ -7,7 +7,7 @@ div
       ul.dropdown-content.bg-black.gray
         li.p1(@click='signOut') Sign out
   .center
-    log-selector
+    LogSelector
     router-view(:key='$route.fullPath').m3
 </template>
 

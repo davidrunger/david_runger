@@ -1,7 +1,7 @@
 <template lang='pug'>
 .flex.justify-center
   .container
-    new-log-entry-form(:log='log')
+    NewLogEntryForm(:log='log')
     table
       EditableTextLogRow(
         v-for='logEntry in formattedLogEntries'
