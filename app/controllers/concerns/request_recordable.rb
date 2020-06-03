@@ -22,9 +22,6 @@ module RequestRecordable
         request_data.to_json,
       )
     end
-  rescue Encoding::UndefinedConversionError => error
-    Rails.logger.info("Error storing request data in Redis, error=#{error.inspect}")
-    Rollbar.info(error)
   rescue
     # wrap the original exception in StashRequestError by raising and immediately rescuing
     begin
