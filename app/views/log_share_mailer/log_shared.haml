@@ -1,0 +1,2 @@
+%p View #{@log.user.email}'s #{@log.name} log here:
+%p= link_to(user_shared_log_url(user_id: @log.user_id, slug: @log.slug), user_shared_log_url(user_id: @log.user_id, slug: @log.slug))
