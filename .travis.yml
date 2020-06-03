@@ -14,7 +14,7 @@ addons:
   chrome: stable
   postgresql: "9.6"
 env:
-  - RAILS_ENV=test NODE_ENV=test SECRET_KEY_BASE=0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b
+  - RAILS_ENV=test NODE_ENV=test DISABLE_SPRING=1 SECRET_KEY_BASE=0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b
 before_install:
   - . $HOME/.nvm/nvm.sh
   - nvm install 12.13.0
