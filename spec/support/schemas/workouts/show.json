@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "created_at": { "type": "string" },
+    "id": { "type": "integer" },
+    "publicly_viewable": { "type": "boolean" },
+    "rep_totals": { "type": "object" },
+    "time_in_seconds": { "type": "integer" },
+    "username": { "type": "string" }
+  }
+}
