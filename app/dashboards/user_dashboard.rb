@@ -10,14 +10,15 @@ class UserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    created_at: Field::DateTime,
+    email: Field::String,
+    id: Field::Number,
+    items: Field::HasMany,
+    last_activity_at: Field::DateTime,
+    phone: Field::String,
     requests: Field::HasMany,
     stores: Field::HasMany,
-    items: Field::HasMany,
-    id: Field::Number,
-    email: Field::String,
-    created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    last_activity_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -36,14 +37,16 @@ class UserDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    created_at
+    email
+    id
+    last_activity_at
+    phone
+    updated_at
+
+    items
     requests
     stores
-    items
-    id
-    email
-    created_at
-    updated_at
-    last_activity_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -51,6 +54,7 @@ class UserDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     email
+    phone
   ].freeze
 
   # Overwrite this method to customize how users are displayed
