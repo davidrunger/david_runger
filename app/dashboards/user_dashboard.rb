@@ -54,7 +54,6 @@ class UserDashboard < Administrate::BaseDashboard
     stores
     items
     email
-    last_activity_at
   ].freeze
 
   # Overwrite this method to customize how users are displayed
