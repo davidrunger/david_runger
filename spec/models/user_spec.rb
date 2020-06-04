@@ -8,6 +8,50 @@ RSpec.describe User do
   it { is_expected.to have_many(:logs) }
   it { is_expected.to have_many(:log_shares) }
 
+  describe 'phone validations' do
+    before { user.phone = phone }
+
+    let(:phone) { '11231231234' }
+
+    context 'when the phone number is 11 digits long, starts with 1, and contains only digits' do
+      before { user.phone = phone }
+
+      it 'is valid' do
+        expect(user).to be_valid
+      end
+    end
+
+    context 'when the phone number is only 10 digits long' do
+      before { expect(phone.size).to eq(10) }
+
+      let(:phone) { super().last(10) }
+
+      it 'is not valid' do
+        expect(user).not_to be_valid
+      end
+    end
+
+    context 'when the phone number does not start with 1' do
+      before { expect(phone.first).not_to eq('1') }
+
+      let(:phone) { "2#{super()[1..-1]}" }
+
+      it 'is not valid' do
+        expect(user).not_to be_valid
+      end
+    end
+
+    context 'when the phone number does not contain only digits' do
+      before { expect(phone.first).not_to eq('1') }
+
+      let(:phone) { '630-1231234' }
+
+      it 'is not valid' do
+        expect(user).not_to be_valid
+      end
+    end
+  end
+
   describe '#items' do
     subject(:items) { user.items }
 
@@ -45,7 +89,7 @@ RSpec.describe User do
     end
   end
 
-  describe 'sms_usage' do
+  describe '#sms_usage' do
     subject(:sms_usage) { user.sms_usage }
 
     let(:sms_cost_1) { 0.006 }
