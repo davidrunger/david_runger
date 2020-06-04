@@ -45,7 +45,6 @@ RSpec.describe Api::LogsController do
       let(:invalid_params) { { log: { name: '' } } }
       let(:params) { invalid_params }
 
-      # rubocop:disable RSpec/MultipleExpectations
       it 'logs info about the log and why it is invalid' do
         allow(Rails.logger).to receive(:info).and_call_original
 
@@ -59,7 +58,6 @@ RSpec.describe Api::LogsController do
           expect(logged_string).to match(/attributes={.*"name"=>"".*}/)
         end
       end
-      # rubocop:enable RSpec/MultipleExpectations
 
       it 'returns a 422 status code' do
         post_create

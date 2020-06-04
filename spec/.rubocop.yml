@@ -4,6 +4,8 @@ Lint/AmbiguousBlockAssociation:
   Enabled: false
 Performance/ChainArrayAllocation:
   Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
 Style/IpAddresses:
   Enabled: false
 Style/MethodCallWithArgsParentheses:

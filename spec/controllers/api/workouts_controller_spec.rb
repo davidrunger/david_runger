@@ -24,4 +24,16 @@ RSpec.describe Api::WorkoutsController do
       end
     end
   end
+
+  describe '#index' do
+    subject(:get_index) { get(:index) }
+
+    it 'reponds with a list of workouts' do
+      get_index
+
+      expect(response.parsed_body).to be_present
+      expect(response.parsed_body.map(&:keys)).
+        to all(include(*%w[created_at id publicly_viewable rep_totals time_in_seconds username]))
+    end
+  end
 end
