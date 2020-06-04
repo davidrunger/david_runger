@@ -33,10 +33,6 @@ class ApplicationController < ActionController::Base
     redirect_to(login_path)
   end
 
-  def after_sign_out_path_for(_resource_or_scope)
-    login_path
-  end
-
   def enable_rack_mini_profiler_if_admin
     if Rails.configuration.rack_mini_profiler_enabled && current_user&.admin?
       Rack::MiniProfiler.authorize_request
