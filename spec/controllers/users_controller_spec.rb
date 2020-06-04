@@ -8,7 +8,7 @@ RSpec.describe UsersController do
   describe '#update' do
     subject(:patch_update_user) { patch(:update, params: { id: user.id, user: user_params }) }
 
-    let(:new_phone_number) { "1555#{rand(10_000_000)}" }
+    let(:new_phone_number) { "1555#{rand(10_000_000).to_s.rjust(7, '9')}" }
     let(:user_params) { { phone: new_phone_number } }
 
     before { user.update!(phone: '11231231234') }
