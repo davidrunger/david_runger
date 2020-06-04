@@ -36,4 +36,42 @@ RSpec.describe Api::WorkoutsController do
         to all(include(*%w[created_at id publicly_viewable rep_totals time_in_seconds username]))
     end
   end
+
+  describe '#update' do
+    subject(:patch_update) { patch(:update, params: params) }
+
+    let(:workout) { workouts(:workout) }
+
+    context 'when the params are valid' do
+      let(:valid_params) do
+        { id: workout.id, workout: { publicly_viewable: !workout.publicly_viewable } }
+      end
+      let(:params) { valid_params }
+
+      it 'returns a 200 status code' do
+        patch_update
+        expect(response.status).to eq(200)
+      end
+
+      it 'updates the workout' do
+        expect { patch_update }.
+          to change { workout.reload.publicly_viewable }.
+          to(params.dig(:workout, :publicly_viewable))
+      end
+
+      it 'responds with the workout as JSON' do
+        patch_update
+        user.reload
+
+        expect(response.parsed_body.keys).to include(*%w[
+          created_at
+          id
+          publicly_viewable
+          rep_totals
+          time_in_seconds
+          username
+        ])
+      end
+    end
+  end
 end
