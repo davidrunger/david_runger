@@ -11,7 +11,7 @@ AllCops:
     - db/schema.rb
     - lib/tasks/auto_annotate_models.rake
     - node_modules/**/*
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.7
 Bundler/GemComment:
   Enabled: false
 FactoryBot/AttributeDefinedStatically:

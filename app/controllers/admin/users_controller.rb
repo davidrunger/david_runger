@@ -18,4 +18,9 @@ class Admin::UsersController < Admin::ApplicationController
 
   # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
   # for more information
+  using BlankParamsAsNil
+
+  def resource_params
+    super.blank_params_as_nil(%w[phone])
+  end
 end

@@ -66,20 +66,18 @@ namespace :assets do
 
   desc 'Boot a server in development that serves assets in a production-like manner'
   task :production_asset_server do
-    begin
-      run_logged_system_command('rm -rf node_modules')
-      run_logged_system_command('rm -rf public/packs')
-      run_logged_system_command('rm -rf public/packs-test')
-      Rake::Task['assets:copy_webpacker_settings'].invoke(
-        'production',
-        'development',
-        'cache_manifest check_yarn_integrity compile dev_server extract_css',
-      )
-      run_logged_system_command('NODE_ENV=production DISABLE_SPRING=1 bin/rails assets:precompile')
-      run_logged_system_command('PRODUCTION_ASSET_CONFIG=1 DISABLE_SPRING=1 bin/rails server')
-    ensure
-      run_logged_system_command('git checkout config/webpacker.yml')
-    end
+    run_logged_system_command('rm -rf node_modules')
+    run_logged_system_command('rm -rf public/packs')
+    run_logged_system_command('rm -rf public/packs-test')
+    Rake::Task['assets:copy_webpacker_settings'].invoke(
+      'production',
+      'development',
+      'cache_manifest check_yarn_integrity compile dev_server extract_css',
+    )
+    run_logged_system_command('NODE_ENV=production DISABLE_SPRING=1 bin/rails assets:precompile')
+    run_logged_system_command('PRODUCTION_ASSET_CONFIG=1 DISABLE_SPRING=1 bin/rails server')
+  ensure
+    run_logged_system_command('git checkout config/webpacker.yml')
   end
 end
 

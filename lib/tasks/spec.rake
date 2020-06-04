@@ -13,20 +13,18 @@ end
 namespace :spec do
   desc 'Run Ruby specs'
   task :rb do
-    begin
-      Rake::Task['assets:copy_webpacker_settings'].invoke(
-        'production',
-        'test',
-        'cache_manifest compile extract_css source_path',
-      )
-      run_logged_system_command('RAILS_ENV=test NODE_ENV=test bin/webpack --silent')
-      run_logged_system_command(<<~COMMAND.squish)
-        #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
-        bin/rspec --format documentation
-      COMMAND
-    ensure
-      run_logged_system_command('git checkout config/webpacker.yml')
-    end
+    Rake::Task['assets:copy_webpacker_settings'].invoke(
+      'production',
+      'test',
+      'cache_manifest compile extract_css source_path',
+    )
+    run_logged_system_command('RAILS_ENV=test NODE_ENV=test bin/webpack --silent')
+    run_logged_system_command(<<~COMMAND.squish)
+      #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
+      bin/rspec --format documentation
+    COMMAND
+  ensure
+    run_logged_system_command('git checkout config/webpacker.yml')
   end
 
   desc 'Set up JavaScript specs'
