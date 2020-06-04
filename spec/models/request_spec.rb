@@ -8,7 +8,6 @@ RSpec.describe Request do
   end
 
   describe '::recent' do
-    # rubocop:disable RSpec/MultipleExpectations
     context 'when called without an argument' do
       subject(:recent_requests) { Request.recent }
 
@@ -32,6 +31,5 @@ RSpec.describe Request do
         expect(requests_in_last_2_days).not_to include(old_request)
       end
     end
-    # rubocop:enable RSpec/MultipleExpectations
   end
 end
