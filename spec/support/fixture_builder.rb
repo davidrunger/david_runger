@@ -15,7 +15,7 @@ FixtureBuilder.configure do |fbuilder|
   fbuilder.factory do
     # users
     user = name(:user, create(:user)).first
-    create(:user)
+    name(:admin, create(:user, :admin))
 
     # groceries
     store = name(:store, create(:store, user: user)).first
