@@ -12,16 +12,7 @@ el-menu.center
 import signOutMixin from 'lib/mixins/sign_out_mixin';
 
 export default {
-  methods: {
-    signOut() {
-      this.$http.delete(this.$routes.destroy_user_session_path({ format: 'json' })).
-        then(() => { window.location.assign(this.$routes.login_path()); });
-    },
-  },
-
   mixins: [signOutMixin],
-
-  props: {},
 };
 </script>
 
