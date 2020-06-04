@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe ApplicationController do
-  controller do
+RSpec.describe Redirectable do
+  controller(ApplicationController) do
     def index
       render(plain: 'This is the #index action.')
     end
