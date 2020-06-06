@@ -59,6 +59,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'http_logger'
   gem 'letter_opener'
   gem 'listen'
   # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database
