@@ -1,4 +1,10 @@
 {
+  "env": {
+    "S3_ACCESS_KEY_ID": { "description": "S3 ACCESS KEY ID", "value": "" },
+    "S3_SECRET_ACCESS_KEY": { "description": "S3 SECRET ACCESS KEY", "value": "" },
+    "S3_BUCKET": { "description": "S3 BUCKET", "value": "" },
+    "S3_REGION": { "description": "S3 REGION", "value": "" }
+  },
   "environments": {
     "review": {
       "addons": [
@@ -11,6 +17,12 @@
         { "url": "heroku/ruby" },
         { "url": "https://github.com/weibeld/heroku-buildpack-run" }
       ],
+      "env": {
+        "S3_ACCESS_KEY_ID": "FAKETEST123",
+        "S3_SECRET_ACCESS_KEY": "aBc123FakeTest",
+        "S3_BUCKET": "david-runger-uploads",
+        "S3_REGION": "us-east-1"
+      },
       "scripts": {
         "postdeploy": "bin/rake db:schema:load"
       }
