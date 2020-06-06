@@ -10,6 +10,7 @@ end
 
 gem 'active_model_serializers'
 gem 'administrate'
+gem 'aws-sdk-s3', require: false
 gem 'browser'
 gem 'connection_pool'
 gem 'dalli'

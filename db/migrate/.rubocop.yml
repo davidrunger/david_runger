@@ -1,10 +1,14 @@
 inherit_from:
   - ../../.rubocop.yml
+Metrics/MethodLength:
+  Enabled: false
 Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - add_foreign_key
     - add_column
     - add_index
+    - belongs_to
+    - bigint
     - change
     - change_column
     - change_column_null
@@ -17,8 +21,10 @@ Style/MethodCallWithArgsParentheses:
     - fail
     - file
     - float
+    - foreign_key
     - head
     - include
+    - index
     - integer
     - jsonb
     - load
