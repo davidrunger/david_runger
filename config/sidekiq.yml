@@ -12,7 +12,7 @@ production:
 :schedule:
   InvalidRecordsChecker:
     cron: '55 16 * * *' # daily at 4:55pm PT
-  <% if ENV['RAILS_ENV'].in?(%w[production test]) %>
+  <% if %w[production test].include?(ENV['RAILS_ENV']) %>
   SendLogReminderEmails:
     cron: '* * * * *' # every minute
   TruncateTables:
