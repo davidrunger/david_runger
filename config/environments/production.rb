@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
+  # Prepare the ingress controller used to receive mail
+  config.action_mailbox.ingress = :mailgun
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -109,4 +112,6 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   require_relative('../../lib/email/mailgun_via_http.rb')
   config.action_mailer.delivery_method = Email::MailgunViaHttp
+
+  config.active_storage.service = :amazon
 end

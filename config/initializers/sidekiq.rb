@@ -2,11 +2,6 @@
 
 require 'sidekiq-scheduler' if Sidekiq.server?
 
-# rubocop:disable Security/YAMLLoad
-sidekiq_config = YAML.load(File.read('config/sidekiq.yml'))
-# rubocop:enable Security/YAMLLoad
-SIDEKIQ_QUEUES = sidekiq_config[:queues].map { |queue_name, _priority| queue_name.freeze }.freeze
-
 # We'll give Sidekiq db 1. The app uses db 0 for its direct uses.
 build_sidekiq_redis_connection = proc { Redis.new(db: 1) }
 

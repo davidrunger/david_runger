@@ -7,11 +7,14 @@ production:
   - ['default', 3]
   - ['rollbar', 3]
   - ['mailers', 1]
+  - ['action_mailbox_routing', 1]
 
 :schedule:
   InvalidRecordsChecker:
     cron: '55 16 * * *' # daily at 4:55pm PT
+  <% if ENV['RAILS_ENV'].in?(%w[production test]) %>
   SendLogReminderEmails:
     cron: '* * * * *' # every minute
   TruncateTables:
     cron: '33 * * * *' # hourly at 33 minutes after
+  <% end %>

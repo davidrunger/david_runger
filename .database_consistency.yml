@@ -1,0 +1,29 @@
+# do not check ActionMailbox/ActiveStorage models, since they are provided by Rails
+ActionMailbox::InboundEmail:
+  message_id:
+    NullConstraintChecker:
+      enabled: false
+  message_checksum:
+    NullConstraintChecker:
+      enabled: false
+ActiveStorage::Blob:
+  key:
+    NullConstraintChecker:
+      enabled: false
+  filename:
+    NullConstraintChecker:
+      enabled: false
+  byte_size:
+    NullConstraintChecker:
+      enabled: false
+  checksum:
+    NullConstraintChecker:
+      enabled: false
+ActiveStorage::VariantRecord:
+  variation_digest:
+    NullConstraintChecker:
+      enabled: false
+ActiveStorage::Attachment:
+  name:
+    NullConstraintChecker:
+      enabled: false
