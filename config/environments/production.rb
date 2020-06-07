@@ -113,5 +113,9 @@ Rails.application.configure do
   require_relative('../../lib/email/mailgun_via_http.rb')
   config.action_mailer.delivery_method = Email::MailgunViaHttp
 
-  config.active_storage.service = :amazon
+  if %w[S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY S3_BUCKET S3_REGION].all? { ENV[_1].present? }
+    config.active_storage.service = :amazon
+  else
+    puts('Skipping :amazon storage enablement because not all required ENV variables are present.')
+  end
 end
