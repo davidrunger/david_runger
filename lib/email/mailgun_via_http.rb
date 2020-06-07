@@ -17,9 +17,9 @@ module Email
         body: {
           from: mail['From'].to_s,
           to: mail['To'].to_s,
-          subject: mail.subject,
+          subject: mail['Subject'].to_s,
           html: mail.body.to_s,
-          'h:Reply-To' => mail.reply_to.first,
+          'h:Reply-To' => mail['Reply-To'].to_s,
         }.compact,
       )
     end

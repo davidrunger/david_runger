@@ -9,20 +9,21 @@ RSpec.describe Email::MailgunViaHttp do
     let(:mail) do
       instance_double(
         ::Mail::Message,
-        subject: subject,
+        subject: email_subject,
         body: email_body,
-        to: [ugly_to_email], # this stub is a bit misleading; `#to` doesn't return an array
-        from: [ugly_from_email], # this stub is a bit misleading; `#from` doesn't return an array
-        reply_to: [reply_to_email],
+        to: [ugly_to_email],
+        from: [ugly_from_email],
+        reply_to: [ugly_reply_to_email],
       )
     end
-    let(:subject) { "There's a new davidrunger.com user! :) Email: davidjrunger@gmail.com." }
+    let(:email_subject) { "There's a new davidrunger.com user! :) Email: davidjrunger@gmail.com." }
     let(:email_body) { 'A new user has been created with email davidjrunger@gmail.com!' }
     let(:ugly_from_email) { 'reply@davidrunger.com' }
+    let(:pretty_from_email) { "DavidRunger.com <#{ugly_from_email}>" }
     let(:ugly_to_email) { 'davidjrunger@gmail.com' }
-    let(:pretty_from_email) { %("DavidRunger.com" <#{ugly_from_email}>) }
-    let(:pretty_to_email) { %("David Runger" <#{ugly_to_email}>) }
-    let(:reply_to_email) { '"DavidRunger.com" <reply@mg.davidrunger.com>' }
+    let(:pretty_to_email) { "David Runger <#{ugly_to_email}>" }
+    let(:ugly_reply_to_email) { 'reply@mg.davidrunger.com' }
+    let(:pretty_reply_to_email) { "DavidRunger.com <#{ugly_reply_to_email}>" }
     let(:stubbed_mailgun_api_key) { '2a4d89d1-1984-4453-8ea5-2468d1769a6c' }
     let!(:mailgun_http_request) do
       stub_request(
@@ -32,9 +33,9 @@ RSpec.describe Email::MailgunViaHttp do
         body: HTTParty::HashConversions.to_params(
           from: pretty_from_email,
           to: pretty_to_email,
-          subject: subject,
+          subject: email_subject,
           html: email_body,
-          'h:Reply-To' => reply_to_email,
+          'h:Reply-To' => pretty_reply_to_email,
         ),
         headers: {
           'Accept' => '*/*',
@@ -57,10 +58,11 @@ RSpec.describe Email::MailgunViaHttp do
       allow(ENV).to receive(:[]).and_call_original # pass other calls through
 
       expect(mail).to receive(:[]).at_least(:once) do |key|
-        if key == 'From'
-          pretty_from_email
-        elsif key == 'To'
-          pretty_to_email
+        case key
+        when 'From' then pretty_from_email
+        when 'To' then pretty_to_email
+        when 'Subject' then email_subject
+        when 'Reply-To' then pretty_reply_to_email
         else
           raise('Unexpected key accessed on mail object')
         end
