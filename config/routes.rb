@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
+    mount Flipper::UI.app(Flipper) => '/flipper'
   end
 
   # Google periodically re-verifies this route, so we need to leave it here indefinitely

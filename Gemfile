@@ -15,7 +15,11 @@ gem 'browser'
 gem 'connection_pool'
 gem 'dalli'
 gem 'devise'
+gem 'email_reply_trimmer', github: 'discourse/email_reply_trimmer'
 gem 'flamegraph' # Provides flamegraphs for rack-mini-profiler.
+gem 'flipper'
+gem 'flipper-redis'
+gem 'flipper-ui'
 gem 'hamlit'
 gem 'httparty'
 gem 'js-routes', require: false
