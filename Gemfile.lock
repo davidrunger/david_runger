@@ -16,6 +16,12 @@ GIT
       spring (>= 1.2, < 3.0)
 
 GIT
+  remote: https://github.com/discourse/email_reply_trimmer.git
+  revision: fd1f2e82397226391c1d12c0d7fdf69a425e2385
+  specs:
+    email_reply_trimmer (0.1.13)
+
+GIT
   remote: https://github.com/rails/rails.git
   revision: 95af87f0a4b6274a43853ed68b17e17c21f804f3
   specs:
@@ -213,6 +219,15 @@ GEM
       activesupport (>= 2)
       hashdiff
     flamegraph (0.9.5)
+    flipper (0.17.2)
+    flipper-redis (0.17.2)
+      flipper (~> 0.17.2)
+      redis (>= 2.2, < 5)
+    flipper-ui (0.17.2)
+      erubi (>= 1.0.0, < 2.0.0)
+      flipper (~> 0.17.2)
+      rack (>= 1.4, < 3)
+      rack-protection (>= 1.5.3, < 2.1.0)
     formatador (0.2.5)
     fugit (1.3.6)
       et-orbi (~> 1.1, >= 1.1.8)
@@ -515,10 +530,14 @@ DEPENDENCIES
   database_consistency
   devise
   dotenv-rails
+  email_reply_trimmer!
   factory_bot_rails
   faker
   fixture_builder
   flamegraph
+  flipper
+  flipper-redis
+  flipper-ui
   guard-espect!
   hamlit
   hashdiff
