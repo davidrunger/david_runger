@@ -6,8 +6,10 @@ production:
   - ['essential', 12] # ideally we'd run this queue on a separate process, but that'd cost money :(
   - ['default', 3]
   - ['rollbar', 3]
-  - ['mailers', 1]
+  - ['action_mailbox_incineration', 1]
   - ['action_mailbox_routing', 1]
+  - ['active_storage_purge', 1]
+  - ['mailers', 1]
 
 :schedule:
   InvalidRecordsChecker:

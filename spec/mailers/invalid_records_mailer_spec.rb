@@ -6,8 +6,8 @@ RSpec.describe InvalidRecordsMailer do
 
     let(:invalid_records_count_hash) { { 'Item' => 0, 'Log' => 2, 'User' => 1, 'Workout' => 0 } }
 
-    it 'is sent from noreply@davidrunger.com' do
-      expect(mail.from).to eq(['noreply@davidrunger.com'])
+    it 'is sent from reply@davidrunger.com' do
+      expect(mail.from).to eq(['reply@davidrunger.com'])
     end
 
     it 'is sent to davidjrunger@gmail.com' do
