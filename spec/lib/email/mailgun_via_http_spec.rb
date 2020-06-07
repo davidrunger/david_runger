@@ -11,15 +11,17 @@ RSpec.describe Email::MailgunViaHttp do
         ::Mail::Message,
         subject: subject,
         body: email_body,
-        to: [to_email], # this stub is a bit misleading; this method doesn't return an array
-        from: [from_email], # this stub is a bit misleading; this method doesn't return an array
+        to: [ugly_to_email], # this stub is a bit misleading; `#to` doesn't return an array
+        from: [ugly_from_email], # this stub is a bit misleading; `#from` doesn't return an array
         reply_to: [reply_to_email],
       )
     end
     let(:subject) { "There's a new davidrunger.com user! :) Email: davidjrunger@gmail.com." }
     let(:email_body) { 'A new user has been created with email davidjrunger@gmail.com!' }
-    let(:from_email) { '"DavidRunger.com" <reply@davidrunger.com>' }
-    let(:to_email) { 'David Runger <davidjrunger@gmail.com>' }
+    let(:ugly_from_email) { 'reply@davidrunger.com' }
+    let(:ugly_to_email) { 'davidjrunger@gmail.com' }
+    let(:pretty_from_email) { %("DavidRunger.com" <#{ugly_from_email}>) }
+    let(:pretty_to_email) { %("David Runger" <#{ugly_to_email}>) }
     let(:reply_to_email) { '"DavidRunger.com" <reply@mg.davidrunger.com>' }
     let(:stubbed_mailgun_api_key) { '2a4d89d1-1984-4453-8ea5-2468d1769a6c' }
     let!(:mailgun_http_request) do
@@ -28,8 +30,8 @@ RSpec.describe Email::MailgunViaHttp do
         'https://api.mailgun.net/v3/mg.davidrunger.com/messages',
       ).with(
         body: HTTParty::HashConversions.to_params(
-          from: from_email,
-          to: to_email,
+          from: pretty_from_email,
+          to: pretty_to_email,
           subject: subject,
           html: email_body,
           'h:Reply-To' => reply_to_email,
@@ -53,6 +55,16 @@ RSpec.describe Email::MailgunViaHttp do
       expect(ENV).to receive(:[]).at_least(:once).with('MAILGUN_API_KEY').
         and_return(stubbed_mailgun_api_key)
       allow(ENV).to receive(:[]).and_call_original # pass other calls through
+
+      expect(mail).to receive(:[]).at_least(:once) do |key|
+        if key == 'From'
+          pretty_from_email
+        elsif key == 'To'
+          pretty_to_email
+        else
+          raise('Unexpected key accessed on mail object')
+        end
+      end
     end
 
     it 'makes an HTTP POST request to ENV["MAILGUN_URL"]' do
