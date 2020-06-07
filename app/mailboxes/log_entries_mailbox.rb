@@ -21,7 +21,7 @@ class LogEntriesMailbox < ApplicationMailbox
     email_content =
       # call #dup because #trim modifies the string (via at least one `#gsub!` call)
       EmailReplyTrimmer.trim((mail.text_part.presence || mail.body).to_s.dup).
-        sub(/\AContent-Type:.+\n+/, '').
+        sub(/\A[\s\S]*^Content-Transfer-Encoding:.+\n+/, '').
         rstrip
 
     if debug?
