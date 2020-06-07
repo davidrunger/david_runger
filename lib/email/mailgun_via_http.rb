@@ -15,11 +15,12 @@ module Email
           password: ENV['MAILGUN_API_KEY'],
         },
         body: {
-          from: mail['From'].to_s,
-          to: mail['To'].to_s,
+          from: mail.from.first,
+          to: mail.to.first,
           subject: mail.subject,
           html: mail.body.to_s,
-        },
+          'h:Reply-To' => mail.reply_to.first,
+        }.compact,
       )
     end
   end
