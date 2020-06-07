@@ -6,8 +6,8 @@ RSpec.describe LogReminderMailer do
 
     let(:log) { logs(:number_log) }
 
-    it 'is sent from log-reminders+{log.slug}@davidrunger.com' do
-      expect(mail.from).to eq(["log-reminders+#{log.slug}@davidrunger.com"])
+    it 'is sent from log-reminders@davidrunger.com' do
+      expect(mail.from).to eq(['log-reminders@davidrunger.com'])
     end
 
     it 'is sent to the owning user' do
@@ -16,6 +16,10 @@ RSpec.describe LogReminderMailer do
 
     it 'has a subject that says to submit a log entry' do
       expect(mail.subject).to eq(%(Submit a log entry for your "#{log.name}" log))
+    end
+
+    it 'has a reply-to that will create a new log entry' do
+      expect(mail.reply_to).to eq(["log-entries|log/#{log.id}@mg.davidrunger.com"])
     end
 
     describe 'the email body' do

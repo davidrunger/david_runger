@@ -5,9 +5,10 @@ class LogReminderMailer < ApplicationMailer
     @log = Log.find(log_id)
     mail(
       to: @log.user.email,
-      # ApplicationMailbox::LOG_REMINDER_REPLIES_ROUTING_REGEX depends on the format of this `from`
-      from: %("DavidRunger.com" <log-reminders+#{@log.slug}@davidrunger.com>),
       subject: %(Submit a log entry for your "#{@log.name}" log),
+      from: %("DavidRunger.com" <log-reminders@davidrunger.com>),
+      # ApplicationMailbox::LOG_ENTRIES_ROUTING_REGEX depends on the format of this `reply_to`
+      reply_to: %("#{@log.name} Log Entries" <log-entries|log/#{@log.id}@mg.davidrunger.com>),
     )
   end
 end
