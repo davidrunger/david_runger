@@ -16,4 +16,43 @@ RSpec.describe Logs::UploadsController do
       expect(response.body).to have_text('Recommended CSV columns')
     end
   end
+
+  describe '#create' do
+    subject(:post_create) { post(:create, params: { log_id: log.id, csv: csv_file }) }
+
+    after { tempfile.close }
+
+    let(:log) { user.logs.where(data_type: 'number').first! }
+    let(:tempfile) { Tempfile.new('log_data.csv') }
+    let(:csv_rows) do
+      [
+        "#{3.days.ago.iso8601},201,",
+        "#{18.hours.ago.iso8601},200,good!",
+        "#{1.hour.ago.iso8601},199,not bad",
+      ]
+    end
+    let(:csv_file) do
+      # https://rubyquicktips.com/post/27753730620/testing-csv-file-uploads
+      csv_content = <<~CSV
+        created_at,data,note
+        #{csv_rows.join("\n")}
+      CSV
+
+      tempfile.write(csv_content)
+      tempfile.rewind
+
+      Rack::Test::UploadedFile.new(tempfile, 'text/csv')
+    end
+
+    it 'creates log entries' do
+      expect do
+        Sidekiq::Testing.inline! do
+          post_create
+        end
+      end.to change { log.reload.log_entries.size }.by(csv_rows.size)
+
+      expect(response).to redirect_to(log_path(log))
+      expect(flash[:notice]).to match(/Data uploaded successfully!/)
+    end
+  end
 end
