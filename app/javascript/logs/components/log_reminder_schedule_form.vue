@@ -2,7 +2,7 @@
 div
   h3.bold.mb2 Reminders
   div.my1(v-if='log.reminder_time_in_seconds')
-    | Current setting: every {{(log.reminder_time_in_seconds / (60 * 60)).toFixed()}} hours
+    | Current setting: every {{this.log.reminder_time_in_seconds | secondsAsHours}} hours
     span.ml1
       el-button(
         @click="cancelReminders"
@@ -34,6 +34,9 @@ div
 </template>
 
 <script>
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+
 const TIME_UNIT_IN_SECONDS = {
   weeks: 7 * 24 * 60 * 60,
   days: 24 * 60 * 60,
@@ -42,14 +45,14 @@ const TIME_UNIT_IN_SECONDS = {
 
 export default {
   computed: {
-    timeUnitOptions() {
-      return Object.keys(TIME_UNIT_IN_SECONDS);
-    },
-
-    reminderTimeInSeconds() {
+    formSelectedReminderTimeInSeconds() {
       if (!this.numberOfTimeUnits || !this.timeUnit) return undefined;
 
       return this.numberOfTimeUnits * TIME_UNIT_IN_SECONDS[this.timeUnit];
+    },
+
+    timeUnitOptions() {
+      return Object.keys(TIME_UNIT_IN_SECONDS);
     },
   },
 
@@ -60,18 +63,46 @@ export default {
     };
   },
 
+  filters: {
+    secondsAsHours(seconds) {
+      return (seconds / (60 * 60)).toFixed();
+    },
+  },
+
   methods: {
     cancelReminders() {
+      this.hideReminderSchedulingModal();
       this.$store.dispatch('updateLog', {
         logId: this.log.id,
         updatedLogParams: { reminder_time_in_seconds: null },
+      }).then(() => {
+        Toastify({
+          text: 'Reminders cancelled!',
+          className: 'success',
+          position: 'center',
+          duration: 1800,
+        }).showToast();
       });
     },
 
+    hideReminderSchedulingModal() {
+      this.$store.commit('hideModal', { modalName: 'edit-log-reminder-schedule' });
+    },
+
     updateLog() {
+      this.hideReminderSchedulingModal();
       this.$store.dispatch('updateLog', {
         logId: this.log.id,
-        updatedLogParams: { reminder_time_in_seconds: this.reminderTimeInSeconds },
+        updatedLogParams: { reminder_time_in_seconds: this.formSelectedReminderTimeInSeconds },
+      }).then(() => {
+        const reminderHours =
+          this.$options.filters.secondsAsHours(this.log.reminder_time_in_seconds);
+        Toastify({
+          text: `Reminder time updated to ${reminderHours} hours!`,
+          className: 'success',
+          position: 'center',
+          duration: 1800,
+        }).showToast();
       });
     },
   },
