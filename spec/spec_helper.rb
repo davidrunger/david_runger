@@ -113,6 +113,15 @@ RSpec.configure do |config|
     allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::MemCacheStore.new)
   end
 
+  config.define_derived_metadata(file_path: %r{/spec/controllers/api/}) do |metadata|
+    # we leverage this metadata for the `config.before(:each, requset_format: :json)` setting below
+    metadata[:requset_format] = :json
+  end
+
+  config.before(:each, requset_format: :json) do
+    request.accept = 'application/json'
+  end
+
   config.after(:each, type: :controller) do
     Devise.sign_out_all_scopes
   end
