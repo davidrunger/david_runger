@@ -73,7 +73,7 @@ if (window.davidrunger.env !== 'test') {
 Vue.use(Vuex);
 
 Vue.use(VueForm);
-if (window.davidrunger.env !== 'test') {
+if (window.location.pathname !== '/packs-test/mocha_runner.html') {
   Vue.use(VueRouter);
 }
 
