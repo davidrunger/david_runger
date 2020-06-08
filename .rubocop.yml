@@ -166,6 +166,8 @@ Style/RescueStandardError:
   Enabled: false
 Style/ReturnNil:
   Enabled: false
+Style/RegexpLiteral:
+  Enabled: false
 Style/Semicolon:
   Enabled: false
 Style/SignalException:
