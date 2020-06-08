@@ -28,7 +28,7 @@ RSpec.describe UsersController do
       before { expect(user).to be_valid }
 
       context 'when the submitted params are valid' do
-        let(:new_phone_number) { "1555#{rand(10_000_000).to_s.rjust(7, '9')}" }
+        let(:new_phone_number) { "1555#{Array.new(7) { rand(10).to_s }.join('')}" }
 
         it 'updates the user' do
           expect { patch_update }.

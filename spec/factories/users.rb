@@ -21,7 +21,7 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     last_activity_at { 2.months.ago }
-    phone { "1630#{rand(10_000_000).to_s.rjust(7, '5')}" }
+    phone { "1630#{Array.new(7) { rand(10).to_s }.join('')}" }
     sms_allowance { 1.0 }
 
     trait :admin do
