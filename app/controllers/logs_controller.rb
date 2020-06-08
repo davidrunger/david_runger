@@ -8,10 +8,8 @@ class LogsController < ApplicationController
       shared_log = sharing_user.logs.find_by!(slug: params[:slug])
       authorize(shared_log, :show?)
       logs = Log.where(id: shared_log)
-    elsif current_user.present?
-      logs = current_user.logs.order(:created_at)
     else
-      fail('Route does not match a shared log and there is no current user')
+      logs = current_user.logs.order(:created_at)
     end
 
     @title = 'Logs'
