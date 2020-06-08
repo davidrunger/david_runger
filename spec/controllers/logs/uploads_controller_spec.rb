@@ -24,13 +24,6 @@ RSpec.describe Logs::UploadsController do
 
     let(:log) { user.logs.where(data_type: 'number').first! }
     let(:tempfile) { Tempfile.new('log_data.csv') }
-    let(:csv_rows) do
-      [
-        "#{3.days.ago.iso8601},201,",
-        "#{18.hours.ago.iso8601},200,good!",
-        "#{1.hour.ago.iso8601},199,not bad",
-      ]
-    end
     let(:csv_file) do
       # https://rubyquicktips.com/post/27753730620/testing-csv-file-uploads
       csv_content = <<~CSV
@@ -44,15 +37,46 @@ RSpec.describe Logs::UploadsController do
       Rack::Test::UploadedFile.new(tempfile, 'text/csv')
     end
 
-    it 'creates log entries' do
-      expect do
-        Sidekiq::Testing.inline! do
-          post_create
-        end
-      end.to change { log.reload.log_entries.size }.by(csv_rows.size)
+    context 'when the data being uploaded is valid' do
+      let(:csv_rows) do
+        [
+          "#{3.days.ago.iso8601},201,",
+          "#{18.hours.ago.iso8601},200,good!",
+          "#{1.hour.ago.iso8601},199,not bad",
+        ]
+      end
 
-      expect(response).to redirect_to(log_path(log))
-      expect(flash[:notice]).to match(/Data uploaded successfully!/)
+      it 'creates log entries' do
+        expect do
+          Sidekiq::Testing.inline! do
+            post_create
+          end
+        end.to change { log.reload.log_entries.size }.by(csv_rows.size)
+
+        expect(response).to redirect_to(log_path(log))
+        expect(flash[:notice]).to match(/Data uploaded successfully!/)
+      end
+    end
+
+    context 'when the data being uploaded is not valid' do
+      let(:csv_rows) do
+        [
+          "#{3.days.ago.iso8601},201,",
+          "#{18.hours.ago.iso8601},,<= THIS ROW IS MISSING A DATA VALUE!",
+          "#{1.hour.ago.iso8601},199,not bad",
+        ]
+      end
+
+      it 'does not create any log entries' do
+        expect do
+          Sidekiq::Testing.inline! do
+            post_create
+          end
+        end.not_to change { log.reload.log_entries.size }
+
+        expect(response).to redirect_to(logs_uploads_path)
+        expect(flash[:alert]).to match(/The uploaded data is invalid/)
+      end
     end
   end
 end
