@@ -15,7 +15,7 @@ FixtureBuilder.configure do |fbuilder|
   fbuilder.factory do
     # users
     user = name(:user, create(:user)).first
-    name(:admin, create(:user, :admin))
+    admin = name(:admin, create(:user, :admin)).first
 
     # groceries
     store = name(:store, create(:store, user: user)).first
@@ -28,6 +28,15 @@ FixtureBuilder.configure do |fbuilder|
       data: 102,
       note: 'I am glad it is an even number',
     )
+    create(
+      :log,
+      user: admin,
+      name: 'Chinups',
+      data_label: '# of chinups',
+      data_type: 'counter',
+      description: nil,
+    )
+
     # text logs
     text_log = name(
       :text_log,
