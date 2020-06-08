@@ -5,6 +5,18 @@ RSpec.describe UsersController do
 
   let(:user) { users(:user) }
 
+  describe '#edit' do
+    subject(:get_edit) { get(:edit, params: { id: user.id }) }
+
+    it "renders a form to update the user's phone number" do
+      get_edit
+
+      expect(response.body).to have_css('form')
+      expect(response.body).to have_text('Phone')
+      expect(response.body).to have_css('input[type="submit"][value="Update User"]')
+    end
+  end
+
   describe '#update' do
     subject(:patch_update_user) { patch(:update, params: { id: user.id, user: user_params }) }
 
