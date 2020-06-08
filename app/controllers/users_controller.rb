@@ -15,6 +15,7 @@ class UsersController < ApplicationController
       redirect_location = session.delete('redirect_to') || edit_user_path(current_user)
       redirect_to(redirect_location)
     else
+      flash[:alert] = "Please fix these problems: #{current_user.errors.full_messages.join(', ')}"
       render :edit
     end
   end

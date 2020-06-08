@@ -18,9 +18,8 @@ RSpec.describe UsersController do
   end
 
   describe '#update' do
-    subject(:patch_update_user) { patch(:update, params: { id: user.id, user: user_params }) }
+    subject(:patch_update) { patch(:update, params: { id: user.id, user: user_params }) }
 
-    let(:new_phone_number) { "1555#{rand(10_000_000).to_s.rjust(7, '9')}" }
     let(:user_params) { { phone: new_phone_number } }
 
     before { user.update!(phone: '11231231234') }
@@ -28,16 +27,40 @@ RSpec.describe UsersController do
     context 'when the user is valid (i.e. can be updated successfully)' do
       before { expect(user).to be_valid }
 
-      it 'updates the user' do
-        expect { patch_update_user }.
-          to change { user.reload.phone }.
-          to(new_phone_number)
+      context 'when the submitted params are valid' do
+        let(:new_phone_number) { "1555#{rand(10_000_000).to_s.rjust(7, '9')}" }
+
+        it 'updates the user' do
+          expect { patch_update }.
+            to change { user.reload.phone }.
+            to(new_phone_number)
+        end
+
+        it 'sets a flash message' do
+          patch_update
+
+          expect(flash[:notice]).to eq('Updated successfully!')
+        end
       end
 
-      it 'sets a flash message' do
-        patch_update_user
+      context 'when the submitted params are not valid' do
+        let(:new_phone_number) { 'this is not a phone number' }
 
-        expect(flash[:notice]).to eq('Updated successfully!')
+        it 'does not update the user' do
+          expect { patch_update }.not_to change { user.reload.phone }
+        end
+
+        it 're-renders the edit page' do
+          patch_update
+
+          expect(patch_update).to render_template('users/edit')
+        end
+
+        it 'sets a flash message' do
+          patch_update
+
+          expect(flash[:alert]).to eq('Please fix these problems: Phone is invalid')
+        end
       end
     end
   end

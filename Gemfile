@@ -89,6 +89,7 @@ group :test do
   gem 'json-schema'
   gem 'launchy' # for save_and_open_page in feature specs
   gem 'percy-capybara'
+  gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
