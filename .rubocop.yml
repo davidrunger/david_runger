@@ -63,6 +63,8 @@ Metrics/MethodLength:
   Max: 30
 Naming/RescuedExceptionsVariableName:
   Enabled: false
+Performance/ChainArrayAllocation:
+  Enabled: false
 Rails:
   Enabled: true
 Rails/Output:
