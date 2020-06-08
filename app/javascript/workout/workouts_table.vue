@@ -12,7 +12,7 @@ table(v-if='workouts.length')
       td {{workout.created_at | prettyTime}}
       td(v-if='!isOwnWorkouts') {{workout.username}}
       td {{(workout.time_in_seconds / 60).toFixed(1)}}
-      td {{JSON.stringify(workout.rep_totals).replace(/{|}|"/g, '').replace(/,/g, ', ')}}
+      td {{workout.rep_totals | prettyObject}}
       td(v-if='isOwnWorkouts')
         el-checkbox(
           v-model='workout.publicly_viewable'
@@ -35,6 +35,13 @@ export default {
   },
 
   filters: {
+    prettyObject(object) {
+      return JSON.stringify(object).
+        replace(/{|}|"/g, '').
+        replace(/,/g, ', ').
+        replace(/:(?! )/g, ': ');
+    },
+
     prettyTime(timeString) {
       return strftime('%b %-d, %Y at %-l:%M%P', new Date(timeString));
     },
