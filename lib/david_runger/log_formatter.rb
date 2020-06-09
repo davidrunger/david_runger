@@ -14,6 +14,7 @@ class DavidRunger::LogFormatter < Lograge::Formatters::KeyValue
   end
 
   def call
-    super(@data) # use the Lograge::Formatters::KeyValue#call method
+    log_message = super(@data)
+    Rails.env.development? ? "#{log_message.red}\n\n" : log_message
   end
 end
