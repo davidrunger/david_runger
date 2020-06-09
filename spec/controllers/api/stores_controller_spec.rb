@@ -13,7 +13,7 @@ RSpec.describe Api::StoresController do
       let(:params) { invalid_params }
 
       it 'does not create a store' do
-        expect { post_create }.not_to change(Store, :count)
+        expect { post_create }.not_to change { Store.count }
       end
 
       it 'returns a 422 status code' do
@@ -27,7 +27,7 @@ RSpec.describe Api::StoresController do
       let(:params) { valid_params }
 
       it 'creates a store' do
-        expect { post_create }.to change(Store, :count).by(1)
+        expect { post_create }.to change { Store.count }.by(1)
       end
 
       it 'returns a 201 status code' do

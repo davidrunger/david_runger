@@ -29,7 +29,7 @@ RSpec.describe Api::LogSharesController do
       end
 
       it 'creates a log share' do
-        expect { post_create }.to change(LogShare, :count).by(1)
+        expect { post_create }.to change { LogShare.count }.by(1)
       end
     end
   end
