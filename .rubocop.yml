@@ -84,6 +84,8 @@ RSpec/ExampleLength:
     # for spec performance reasons, it's often a good idea to make feature specs check multiple
     # things in a single example
     - spec/features/**/*
+RSpec/ExpectChange:
+  EnforcedStyle: block
 RSpec/ExpectInHook:
   Enabled: false
 RSpec/MessageExpectation:
