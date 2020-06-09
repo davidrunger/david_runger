@@ -38,11 +38,4 @@ class Request < ApplicationRecord
 
   validates :url, :handler, :method, :ip, :requested_at, :status, presence: true
   validates :request_id, presence: true
-
-  # rubocop:disable Layout/MultilineMethodArgumentLineBreaks
-  scope :recent, ->(time_period = 1.day) {
-    # convert time_period to integer to avoid DST issues
-    where('requests.requested_at > ?', Time.current - Integer(time_period))
-  }
-  # rubocop:enable Layout/MultilineMethodArgumentLineBreaks
 end
