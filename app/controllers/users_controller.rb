@@ -3,13 +3,12 @@
 class UsersController < ApplicationController
   using BlankParamsAsNil
 
-  before_action :ensure_own_account
-
   def edit
     render :edit
   end
 
   def update
+    authorize(current_user)
     if current_user.update(user_params)
       flash[:notice] = 'Updated successfully!'
       redirect_location = session.delete('redirect_to') || edit_user_path(current_user)
@@ -27,9 +26,5 @@ class UsersController < ApplicationController
       require(:user).
       permit(:phone).
       blank_params_as_nil(%w[phone])
-  end
-
-  def ensure_own_account
-    head :forbidden unless current_user.id.to_s == params['id']
   end
 end
