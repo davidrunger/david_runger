@@ -10,6 +10,7 @@ class DavidRunger::LogBuilder
 
   def extra_logged_data
     {
+      path: request.fullpath,
       exception: exception_log,
       params: params_log,
       status: status_code_log,
@@ -19,6 +20,10 @@ class DavidRunger::LogBuilder
   end
 
   private
+
+  def request
+    payload[:request]
+  end
 
   def payload
     @event.payload
