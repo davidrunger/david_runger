@@ -8,7 +8,7 @@ module QuietRoutingErrorsMonkeypatch
     if exception.is_a?(ActionController::RoutingError)
       data = {
         method: request.method,
-        path: request.path,
+        path: request.fullpath,
         status: wrapper.status_code,
         exception: "#{exception.class.name}[#{exception.message}]",
       }
