@@ -6,7 +6,7 @@ RSpec.describe 'Logs app' do
   context 'when user is signed in' do
     before { sign_in(user) }
 
-    it 'renders the logs app', :js do
+    it 'renders the logs app' do
       visit logs_path
 
       expect(page).to have_text(user.email)

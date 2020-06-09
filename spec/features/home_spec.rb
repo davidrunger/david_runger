@@ -25,7 +25,7 @@ RSpec.describe 'Home page' do
       )
   end
 
-  it 'says "David Runger / Full stack web developer", creates `Request`, fetches IP info', :js do
+  it 'says "David Runger / Full stack web developer", creates `Request`, fetches IP info' do
     spec_start_time = Time.current
 
     expect {
@@ -66,7 +66,8 @@ RSpec.describe 'Home page' do
     expect(ip_info_request_stub).to have_been_requested
   end
 
-  context 'when using an unsupported browser' do
+  # we need to use the :rack_test driver because Chrome doesn't have the page.driver.header method
+  context 'when using an unsupported browser', :rack_test_driver do
     let(:ie_11_user_agent) { 'Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko' }
 
     before do
