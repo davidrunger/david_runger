@@ -6,7 +6,7 @@ RSpec.describe 'Workout app' do
   context 'when user is signed in' do
     before { sign_in(user) }
 
-    it 'renders expected content', :js do
+    it 'renders expected content' do
       visit workout_path
 
       # form for new workout

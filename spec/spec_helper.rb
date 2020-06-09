@@ -35,7 +35,7 @@ Capybara.register_driver(:chrome_headless) do |app|
   options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
-Capybara.default_driver = :rack_test
+Capybara.default_driver = :chrome_headless
 Capybara.javascript_driver = :chrome_headless
 # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
 Capybara.asset_host = 'http://localhost:3000'
@@ -124,6 +124,12 @@ RSpec.configure do |config|
 
   config.after(:each, type: :controller) do
     Devise.sign_out_all_scopes
+  end
+
+  config.around(:each, :rack_test_driver) do |spec|
+    Capybara.current_driver = :rack_test
+    spec.run
+    Capybara.use_default_driver
   end
 
   # rspec-expectations config goes here. You can use an alternate
