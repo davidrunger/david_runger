@@ -3,19 +3,19 @@
 # this quiets logging of 404s
 # modified from https://github.com/roidrage/lograge/issues/146#issuecomment-255337408
 module QuietRoutingErrorsMonkeypatch
-  def log_error(env, wrapper)
+  def log_error(request, wrapper)
     exception = wrapper.exception
     if exception.is_a?(ActionController::RoutingError)
       data = {
-        method: env.method,
-        path: env.path,
+        method: request.method,
+        path: request.path,
         status: wrapper.status_code,
         exception: "#{exception.class.name}[#{exception.message}]",
       }
       formatted_message = Lograge.formatter.call(data)
-      logger(env).public_send(Lograge.log_level, formatted_message)
+      logger(request).public_send(Lograge.log_level, formatted_message)
     else
-      super(env, wrapper)
+      super(request, wrapper)
     end
   end
 end
