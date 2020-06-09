@@ -3,7 +3,7 @@
 class Api::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
-    authorize(@user, :update?)
+    authorize(@user)
     @user.update!(user_params)
     render json: @user
   end
