@@ -3,6 +3,6 @@
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=davidrunger/david_runger)](https://dependabot.com)
 [![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/David-Runger/david_runger)
 
-# david_runger / davidrunger.com
+# [davidrunger.com](https://www.davidrunger.com/)
 
 This is a Ruby on Rails web app that powers my personal website and some small web applications.
