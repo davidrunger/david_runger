@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class UserPolicy < ApplicationPolicy
-  def update?
+  def edit?
+    # user can only edit themself
     @user == @record
+  end
+
+  def update?
+    edit?
   end
 end

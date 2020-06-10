@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LogsController < ApplicationController
+  include TokenAuthorizable
+
   def index
     user_id_param = params[:user_id]
     if user_id_param && params[:slug]
@@ -10,6 +12,15 @@ class LogsController < ApplicationController
       logs = Log.where(id: shared_log)
     else
       logs = current_user.logs.order(:created_at)
+
+      slug = params[:slug]
+      new_entry = params[:new_entry]
+      if slug && new_entry
+        verify_valid_auth_token!
+        log = current_user.logs.find_by!(slug: slug)
+        log.log_entries.create!(data: new_entry)
+        bootstrap(toast_messages: ['New Log entry created!'])
+      end
     end
 
     @title = 'Logs'

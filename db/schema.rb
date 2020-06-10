@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_06_140045) do
+ActiveRecord::Schema.define(version: 2020_06_10_032941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 2020_06_06_140045) do
     t.datetime "last_activity_at"
     t.string "phone"
     t.float "sms_allowance", default: 1.0, null: false, comment: "Total cost in EUR of text messages that the user is allowed to accrue."
+    t.text "auth_token", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

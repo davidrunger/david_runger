@@ -13,6 +13,7 @@ div
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
 import signOutMixin from 'lib/mixins/sign_out_mixin';
@@ -50,6 +51,22 @@ export default {
         this.$store.commit('showModal', { modalName: 'log-selector' });
       }
     });
+
+    // display any initial toast messages
+    const toastMessages = this.bootstrap.toast_messages;
+    if (toastMessages) {
+      toastMessages.forEach((message) => {
+        Toastify({
+          text: message,
+          className: 'success',
+          position: 'center',
+          duration: 1800,
+        }).showToast();
+      });
+    }
+
+    // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
+    window.history.replaceState({}, document.title, window.location.pathname);
   },
 
   mixins: [signOutMixin],
