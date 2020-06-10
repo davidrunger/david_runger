@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   using BlankParamsAsNil
 
   def edit
+    @user = User.find(params[:id])
+    authorize(@user)
     render :edit
   end
 
@@ -24,7 +26,7 @@ class UsersController < ApplicationController
   def user_params
     params.
       require(:user).
-      permit(:phone).
+      permit(:auth_token, :phone).
       blank_params_as_nil(%w[phone])
   end
 end

@@ -22,7 +22,7 @@ RSpec.describe Logs::UploadsController do
 
     after { tempfile.close }
 
-    let(:log) { user.logs.where(data_type: 'number').first! }
+    let(:log) { user.logs.number.first! }
     let(:tempfile) { Tempfile.new('log_data.csv') }
     let(:csv_file) do
       # https://rubyquicktips.com/post/27753730620/testing-csv-file-uploads

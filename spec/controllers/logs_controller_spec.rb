@@ -39,13 +39,43 @@ RSpec.describe LogsController do
     context 'when there is no user_id param (i.e. user viewing their own log)' do
       let(:params) { { slug: log.slug } }
 
-      let(:log) { user.logs.first! }
+      let(:log) { user.logs.number.first! }
 
       it 'responds with 200 and bootstraps info about the log' do
         get_index
 
         expect(response.status).to eq(200)
         expect(response.body).to include(log.name)
+      end
+
+      context 'when there is a `new_entry` query param' do
+        let(:params) { super().merge(new_entry: '199.8') }
+
+        context "when there is an `auth_token` param that is the user's `auth_token`" do
+          let(:params) { super().merge(auth_token: user.auth_token) }
+
+          it 'creates a log entry with the value of the `new_entry` query param' do
+            expect { get_index }.to change { log.log_entries.size }.by(1)
+            log_entry = log.log_entries.order(:created_at).last!
+            expect(log_entry.data).to eq(Float(params[:new_entry]))
+          end
+        end
+
+        context "when there is an `auth_token` param but it is not the user's `auth_token`" do
+          let(:params) { super().merge(auth_token: SecureRandom.uuid) }
+
+          it 'raises an error and does not create a log entry' do
+            expect { get_index }.not_to change { log.reload.log_entries.size }
+          end
+        end
+
+        context 'when there is no `auth_token` param' do
+          let(:params) { super().merge(auth_token: '') }
+
+          it 'raises an error and does not create a log entry' do
+            expect { get_index }.not_to change { log.reload.log_entries.size }
+          end
+        end
       end
     end
   end

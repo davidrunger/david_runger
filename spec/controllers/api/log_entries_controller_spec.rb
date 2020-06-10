@@ -21,7 +21,7 @@ RSpec.describe Api::LogEntriesController do
     end
 
     context 'when the log entry params are valid' do
-      let(:log) { user.logs.where(data_type: 'number').first! }
+      let(:log) { user.logs.number.first! }
       let(:valid_params) { { log_entry: { data: 122, log_id: log.id } } }
       let(:params) { valid_params }
 

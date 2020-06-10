@@ -1,4 +1,11 @@
-= form_with model: current_user do |form|
-  = form.label :phone, 'Phone (country code recommended, e.g. 15551239876)'
-  = form.text_field :phone
-  = form.submit
+= form_with model: @user do |form|
+  %div
+    = form.label :phone, 'Phone (country code recommended, e.g. 15551239876)'
+    = form.text_field :phone
+
+  %div
+    = form.label :auth_token, 'Auth token (for advanced features; safe to ignore)'
+    = form.text_field :auth_token
+
+  %div
+    = form.submit

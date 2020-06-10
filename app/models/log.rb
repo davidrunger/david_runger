@@ -60,6 +60,10 @@ class Log < ApplicationRecord
 
   before_validation :set_slug, if: -> { name_changed? }
 
+  DATA_TYPES.each_key do |data_type|
+    scope(data_type, -> { where(data_type: data_type) })
+  end
+
   scope :needing_reminder,
     -> {
       left_joins(:number_log_entries).
