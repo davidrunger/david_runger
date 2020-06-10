@@ -60,8 +60,7 @@ class DavidRunger::Application < Rails::Application
     Rails.root.join('lib'),
     Rails.root.join(*%w[lib refinements]),
     Rails.root.join(*%w[app controllers lib]),
-  ]
-  config.autoload_paths.concat(extra_load_paths)
+  ].map(&:to_s).map(&:freeze)
   config.eager_load_paths.concat(extra_load_paths)
   config.add_autoload_paths_to_load_path = false
   # Hack (?) to avoid e.g. LoadError: cannot load such file -- devise_helper caused by rails
