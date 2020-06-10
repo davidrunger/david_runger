@@ -349,6 +349,9 @@ GEM
       actionpack (>= 4.2)
       omniauth (>= 1.3.1)
     orm_adapter (0.5.0)
+    pallets (0.8.0)
+      msgpack
+      redis
     parallel (1.19.1)
     parser (2.7.1.3)
       ast (~> 2.4.0)
@@ -563,6 +566,7 @@ DEPENDENCIES
   oj
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  pallets
   percy-capybara
   pg
   pry

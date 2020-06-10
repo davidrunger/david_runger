@@ -52,6 +52,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'immigrant'
+  gem 'pallets'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'

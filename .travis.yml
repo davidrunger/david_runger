@@ -29,20 +29,7 @@ script:
   - node --version && [ "$(node --version)" == 'v12.13.0' ]
   - yarn --version && [ "$(yarn --version)" == '1.19.1' ]
   - chromedriver --version # print chromedriver version, but don't check it, because it changes
-  - yarn install
-  - bin/rails spec:setup_js > /dev/null 2>&1 &
-  - bin/rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang
-  - bin/brakeman --quiet
-  - ./node_modules/.bin/stylelint app/**/*.{css,scss,vue} --max-warnings 0
-  - bin/rails db:create db:schema:load
-  - bin/database_consistency # needs to come after creating the DB & loading the schema
-  - bin/rails immigrant:check_keys
-  - bin/annotate --models --show-indexes --sort --exclude fixtures,tests && git diff --exit-code
-  - bin/rails spec:fixture_builder:rebuild
-  - bin/rails spec:poll_js
-  - ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/ spec/javascript/
-  - bin/rails spec:run_js
-  - bin/rails spec:rb
+  - bin/pallets --verbose -r ./bin/orchestrate-tests.rb
 notifications:
   email:
     on_success: never
