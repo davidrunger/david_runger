@@ -60,7 +60,6 @@ end
 
 class YarnInstall < Pallets::Task
   def run
-    # execute_system_command('echo "fake yarn install"')
     execute_system_command('yarn install')
   end
 end
@@ -72,15 +71,15 @@ class SetupJs < Pallets::Task
     # setup tests
     execute_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
     # compile
-    execute_system_command('NODE_ENV=test bin/webpack --silent')
+    execute_system_command('bin/webpack --silent')
   end
 end
 
 class RunRubocop < Pallets::Task
   def run
-    execute_system_command(
-      'bin/rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang',
-    )
+    execute_system_command(<<~COMMAND.rstrip)
+      bin/rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang
+    COMMAND
   end
 end
 
@@ -132,9 +131,9 @@ end
 
 class RunEslint < Pallets::Task
   def run
-    execute_system_command(
-      './node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/ spec/javascript/',
-    )
+    execute_system_command(<<~COMMAND.rstrip)
+      ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/ spec/javascript/
+    COMMAND
   end
 end
 
@@ -143,9 +142,9 @@ class RunJsSpecs < Pallets::Task
     # run the tests
     execute_system_command('yarn run test')
     # kill JS unit test server (if running)
-    execute_system_command(
-      "ps -ax | egrep 'ruby.*httpd' | egrep -v grep | awk '{print $1}' | xargs kill",
-    )
+    execute_system_command(<<~COMMAND.rstrip)
+      ps -ax | egrep 'ruby.*httpd' | egrep -v grep | awk '{print $1}' | xargs kill
+    COMMAND
   end
 end
 
