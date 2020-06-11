@@ -230,6 +230,7 @@ class OrchestrateTests < Pallets::Workflow
   TRIMMABLE_CHECKS = {
     RunAnnotate => proc { OrchestrateTests.skip_database_checks? },
     RunDatabaseConsistency => proc { OrchestrateTests.skip_database_checks? },
+    RunEslint => proc { !OrchestrateTests.files_with_js_changed? },
     RunImmigrant => proc { OrchestrateTests.skip_database_checks? },
     RunStylelint => proc { OrchestrateTests.skip_css_checks? },
     SetupJs => proc do |tentative_list|
@@ -245,6 +246,13 @@ class OrchestrateTests < Pallets::Workflow
 
     def db_schema_changed?
       files_changed.include?('db/schema.rb')
+    end
+
+    def files_with_js_changed?
+      (
+        (Dir['app/javascript/**/*.{js,vue}'] + Dir['spec/javascript/**/*.{js,vue}']) &
+          files_changed
+      ).any?
     end
 
     def files_changed
