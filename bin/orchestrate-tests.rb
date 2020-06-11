@@ -229,6 +229,11 @@ class OrchestrateTests < Pallets::Workflow
 
   TRIMMABLE_CHECKS = {
     RunAnnotate => proc { !OrchestrateTests.db_schema_changed? },
+    RunBrakeman => proc do
+      haml_or_ruby_files_changed =
+        OrchestrateTests.haml_files_changed? || OrchestrateTests.ruby_files_changed?
+      !haml_or_ruby_files_changed
+    end,
     RunDatabaseConsistency => proc { !OrchestrateTests.db_schema_changed? },
     RunEslint => proc { !OrchestrateTests.files_with_js_changed? },
     RunImmigrant => proc { !OrchestrateTests.db_schema_changed? },
@@ -250,7 +255,11 @@ class OrchestrateTests < Pallets::Workflow
 
     memoize \
     def files_changed
-      `git diff --name-only $(git merge-base HEAD origin/master)`.rstrip.split("\n")
+      puts('Fetching origin master branch')
+      `git fetch origin master:master --depth=1`
+      puts('Done fetching origin master branch')
+
+      `git diff --name-only $(git merge-base HEAD master)`.rstrip.split("\n")
     end
 
     memoize \
@@ -284,8 +293,13 @@ class OrchestrateTests < Pallets::Workflow
     end
 
     memoize \
+    def haml_files_changed?
+      (Dir['app/**/*.haml'] & files_changed).any?
+    end
+
+    memoize \
     def ruby_files_changed?
-      (Dir['**/*.{rb}'] & files_changed).any?
+      (FileList['**/*.rb'].exclude(%r{\Avendor/}).to_a & files_changed).any?
     end
   end
 
