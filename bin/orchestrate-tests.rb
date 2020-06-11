@@ -237,6 +237,7 @@ class OrchestrateTests < Pallets::Workflow
     RunDatabaseConsistency => proc { !OrchestrateTests.db_schema_changed? },
     RunEslint => proc { !OrchestrateTests.files_with_js_changed? },
     RunImmigrant => proc { !OrchestrateTests.db_schema_changed? },
+    RunJsSpecs => proc { !OrchestrateTests.files_with_js_changed? },
     RunRubocop => proc { !ruby_files_changed? },
     RunStylelint => proc { !OrchestrateTests.files_with_css_changed? },
     SetupJs => proc do |tentative_list|
@@ -255,9 +256,11 @@ class OrchestrateTests < Pallets::Workflow
 
     memoize \
     def files_changed
-      puts('Fetching origin master branch')
-      `git fetch origin master:master --depth=1`
-      puts('Done fetching origin master branch')
+      if !system('git log -1 --pretty="%H" master > /dev/null 2>&1')
+        puts('`master` branch is not present; fetching it now...')
+        `git fetch origin master:master --depth=1`
+        puts('Done fetching origin master branch.')
+      end
 
       `git diff --name-only $(git merge-base HEAD master)`.rstrip.split("\n")
     end
@@ -304,12 +307,29 @@ class OrchestrateTests < Pallets::Workflow
   end
 
   target_tasks = [Exit]
-  tentative_requirements = required_tasks(target_tasks)
-  trimmable_requirements =
-    tentative_requirements.select do |task|
-      TRIMMABLE_CHECKS[task]&.call(tentative_requirements)
+  true_requirements = target_tasks
+  # loop up to 10 times to iteratively trim down the necessary dependencies
+  10.times do
+    true_requirements_at_start = true_requirements
+
+    tentative_requirements = required_tasks(target_tasks)
+    new_tentative_requirements = tentative_requirements
+    trimmable_requirements = []
+    tentative_requirements.sort_by { |task| TRIMMABLE_CHECKS.keys.index(task) || -1 }.each do |task|
+      if TRIMMABLE_CHECKS[task]&.call(new_tentative_requirements)
+        trimmable_requirements << task
+        new_tentative_requirements.delete(task)
+      end
     end
-  true_requirements = required_tasks(target_tasks, trimmable_requirements: trimmable_requirements)
+    true_requirements = new_tentative_requirements
+    true_requirements = required_tasks(
+      true_requirements,
+      trimmable_requirements: trimmable_requirements,
+    )
+
+    break if true_requirements_at_start.map(&:name).sort == true_requirements.map(&:name).sort
+  end
+
   ap('Running these tasks:')
   ap(true_requirements.map(&:name).sort)
 
