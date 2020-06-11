@@ -31,6 +31,7 @@ Pallets.configure do |c|
 end
 
 def execute_system_command(command)
+  command = command.squish
   puts("Running system command '#{command}' ...")
   time = Benchmark.measure { system(command) }.real
   exit_code = $CHILD_STATUS.exitstatus
@@ -58,6 +59,68 @@ def execute_rake_task(task_name, *args)
   end
 end
 
+class AddYarnToPath < Pallets::Task
+  def run
+    execute_system_command('export PATH="$HOME/.yarn/bin:$PATH"')
+  end
+end
+
+class InstallChromedriver < Pallets::Task
+  def run
+    latest_release = `wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
+    if (`chromedriver --version` rescue '').include?(" #{latest_release} ")
+      puts("The latest chromedriver release (#{latest_release}) is already installed.")
+    else
+      filename =
+        `echo $OSTYPE`.match?(%r{darwin}) ? 'chromedriver_mac64.zip' : 'chromedriver_linux64.zip'
+      execute_system_command(<<~COMMAND)
+        curl -o $(pwd)/tmp/chromedriver.zip
+        https://chromedriver.storage.googleapis.com/#{latest_release}/#{filename}
+      COMMAND
+      execute_system_command('unzip -d "$HOME/bin/" $(pwd)/tmp/chromedriver.zip')
+    end
+  end
+end
+
+class CheckRubyVersion < Pallets::Task
+  def run
+    execute_system_command(<<~COMMAND)
+      ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby 2.7.0p' ]
+    COMMAND
+  end
+end
+
+class CheckBundlerVersion < Pallets::Task
+  def run
+    execute_system_command(<<~COMMAND)
+      bundler --version && [ "$(bundle --version | cut -c1-21)" = 'Bundler version 2.1.2' ]
+    COMMAND
+  end
+end
+
+class CheckNodeVersion < Pallets::Task
+  def run
+    execute_system_command(<<~COMMAND)
+      node --version && [ "$(node --version)" = 'v12.13.1' ]
+    COMMAND
+  end
+end
+
+class CheckYarnVersion < Pallets::Task
+  def run
+    execute_system_command(<<~COMMAND)
+      yarn --version && [ "$(yarn --version)" = '1.22.0' ]
+    COMMAND
+  end
+end
+
+class PrintChromedriverVersion < Pallets::Task
+  def run
+    # print chromedriver version, but don't check it, because it changes
+    execute_system_command('chromedriver --version')
+  end
+end
+
 class YarnInstall < Pallets::Task
   def run
     execute_system_command('yarn install')
@@ -77,7 +140,7 @@ end
 
 class RunRubocop < Pallets::Task
   def run
-    execute_system_command(<<~COMMAND.rstrip)
+    execute_system_command(<<~COMMAND)
       bin/rubocop $(git ls-tree -r HEAD --name-only) --force-exclusion --format clang
     COMMAND
   end
@@ -117,7 +180,7 @@ end
 
 class RunAnnotate < Pallets::Task
   def run
-    execute_system_command(<<~COMMAND.rstrip)
+    execute_system_command(<<~COMMAND)
       bin/annotate --models --show-indexes --sort --exclude fixtures,tests && git diff --exit-code
     COMMAND
   end
@@ -131,7 +194,7 @@ end
 
 class RunEslint < Pallets::Task
   def run
-    execute_system_command(<<~COMMAND.rstrip)
+    execute_system_command(<<~COMMAND)
       ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/ spec/javascript/
     COMMAND
   end
@@ -142,7 +205,7 @@ class RunJsSpecs < Pallets::Task
     # run the tests
     execute_system_command('yarn run test')
     # kill JS unit test server (if running)
-    execute_system_command(<<~COMMAND.rstrip)
+    execute_system_command(<<~COMMAND)
       ps -ax | egrep 'ruby.*httpd' | egrep -v grep | awk '{print $1}' | xargs kill
     COMMAND
   end
@@ -167,7 +230,7 @@ end
 
 class RunRubySpecs < Pallets::Task
   def run
-    execute_system_command(<<~COMMAND.squish)
+    execute_system_command(<<~COMMAND)
       #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
       bin/rspec --format documentation
     COMMAND
@@ -185,8 +248,17 @@ end
 
 class OrchestrateTests < Pallets::Workflow
   DEPENDENCY_MAP = {
+    # Installation
+    InstallChromedriver => nil,
+    PrintChromedriverVersion => InstallChromedriver,
+    CheckRubyVersion => nil,
+    CheckBundlerVersion => nil,
+    CheckNodeVersion => nil,
+    AddYarnToPath => nil,
+    CheckYarnVersion => AddYarnToPath,
+    YarnInstall => AddYarnToPath,
+
     # JavaScript checks
-    YarnInstall => nil,
     RunStylelint => YarnInstall,
     SetupJs => YarnInstall,
     # RunEslint depends on SetupJs to write webpack.config.static.js
@@ -206,7 +278,7 @@ class OrchestrateTests < Pallets::Workflow
     CompileJavaScriptForRubyTests => [
       ConfigureWebpackerForRubyTests,
       YarnInstall,
-    ],
+    ].freeze,
     RunRubySpecs => [
       BuildFixtures,
       CompileJavaScriptForRubyTests,
@@ -215,6 +287,11 @@ class OrchestrateTests < Pallets::Workflow
 
     # Exit depends on all other tasks completing that are actual checks (as opposed to setup steps)
     Exit => [
+      CheckRubyVersion,
+      CheckBundlerVersion,
+      CheckNodeVersion,
+      CheckYarnVersion,
+      PrintChromedriverVersion,
       RunAnnotate,
       RunBrakeman,
       RunDatabaseConsistency,
@@ -228,6 +305,8 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   TRIMMABLE_CHECKS = {
+    AddYarnToPath => proc { !ENV.key?('TRAVIS') },
+    YarnInstall => proc { !ENV.key?('TRAVIS') },
     RunAnnotate => proc { !OrchestrateTests.db_schema_changed? },
     RunBrakeman => proc do
       haml_or_ruby_files_changed =
