@@ -1,5 +1,6 @@
 language: ruby
-sudo: false
+os: linux
+dist: bionic
 cache:
   bundler: true
   directories:
@@ -9,7 +10,7 @@ rvm:
 services:
   - memcached
   - postgresql
-  - redis-server
+  - redis
 addons:
   chrome: stable
   postgresql: "9.6"
