@@ -231,6 +231,7 @@ class OrchestrateTests < Pallets::Workflow
     RunAnnotate => proc { OrchestrateTests.skip_database_checks? },
     RunDatabaseConsistency => proc { OrchestrateTests.skip_database_checks? },
     RunImmigrant => proc { OrchestrateTests.skip_database_checks? },
+    RunStylelint => proc { OrchestrateTests.skip_css_checks? },
     SetupJs => proc do |tentative_list|
       true_dependents = [RunEslint, RunJsSpecs]
       (tentative_list & true_dependents).empty?
@@ -238,6 +239,10 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   class << self
+    def files_with_css_changed?
+      (Dir['app/**/*.{css,scss,vue}'] & files_changed).any?
+    end
+
     def db_schema_changed?
       files_changed.include?('db/schema.rb')
     end
@@ -261,6 +266,10 @@ class OrchestrateTests < Pallets::Workflow
           trimmable_requirements: trimmable_requirements,
         )).flatten.uniq
       end
+    end
+
+    def skip_css_checks?
+      !files_with_css_changed?
     end
 
     def skip_database_checks?
