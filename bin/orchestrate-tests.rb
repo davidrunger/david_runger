@@ -388,7 +388,8 @@ class OrchestrateTests < Pallets::Workflow
   target_tasks = [Exit]
   true_requirements = target_tasks
   # loop up to 10 times to iteratively trim down the necessary dependencies
-  10.times do
+  iterations = 10
+  iterations.times do |index|
     true_requirements_at_start = true_requirements
 
     tentative_requirements = required_tasks(target_tasks)
@@ -406,7 +407,11 @@ class OrchestrateTests < Pallets::Workflow
       trimmable_requirements: trimmable_requirements,
     )
 
-    break if true_requirements_at_start.map(&:name).sort == true_requirements.map(&:name).sort
+    if true_requirements_at_start.map(&:name).sort == true_requirements.map(&:name).sort
+      break
+    elsif index == iterations - 1
+      raise('We reached the iteration limit for trimming the required tasks!')
+    end
   end
 
   ap('Running these tasks:')
