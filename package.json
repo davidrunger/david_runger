@@ -7,8 +7,8 @@
     "test-firefox": "bin/setup-mocha-tests && open -a Firefox http://localhost:8080/packs-test/mocha_runner.html"
   },
   "engines": {
-    "node": "12.13.0",
-    "yarn": "1.19.1"
+    "node": "12.13.1",
+    "yarn": "1.22.0"
   },
   "browserslist": [
     ">10%"

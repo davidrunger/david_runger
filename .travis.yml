@@ -6,7 +6,7 @@ cache:
   directories:
     - node_modules
 rvm:
-  - "2.7.1"
+  - "2.7.0"
 services:
   - memcached
   - postgresql
@@ -22,18 +22,8 @@ env:
     - SECRET_KEY_BASE=0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b
 before_install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install 12.13.0
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.19.1
-  - export PATH="$HOME/.yarn/bin:$PATH"
-  - CHROMEDRIVER_VERSION=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-  - curl -o tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-  - unzip -d "$HOME/bin/" tmp/chromedriver.zip
+  - nvm install 12.13.1
 script:
-  - ruby --version && [ "$(ruby --version | cut -c1-11)" == 'ruby 2.7.1p' ]
-  - bundle --version && [ "$(bundle --version | cut -c1-20)" == 'Bundler version 2.1.' ]
-  - node --version && [ "$(node --version)" == 'v12.13.0' ]
-  - yarn --version && [ "$(yarn --version)" == '1.19.1' ]
-  - chromedriver --version # print chromedriver version, but don't check it, because it changes
   - bin/pallets --verbose -r ./bin/orchestrate-tests.rb
 notifications:
   email:
