@@ -14,7 +14,7 @@ class LogsController < ApplicationController
       logs = current_user.logs.order(:created_at)
 
       slug = params[:slug]
-      new_entry = params[:new_entry]
+      new_entry = params[:new_entry].presence
       if slug && new_entry
         verify_valid_auth_token!
         log = current_user.logs.find_by!(slug: slug)

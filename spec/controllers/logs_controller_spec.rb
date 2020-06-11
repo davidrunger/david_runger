@@ -48,7 +48,7 @@ RSpec.describe LogsController do
         expect(response.body).to include(log.name)
       end
 
-      context 'when there is a `new_entry` query param' do
+      context 'when there is a non-blank `new_entry` query param' do
         let(:params) { super().merge(new_entry: '199.8') }
 
         context "when there is an `auth_token` param that is the user's `auth_token`" do
@@ -72,8 +72,24 @@ RSpec.describe LogsController do
         context 'when there is no `auth_token` param' do
           let(:params) { super().merge(auth_token: '') }
 
-          it 'raises an error and does not create a log entry' do
+          it 'does not create a log entry' do
             expect { get_index }.not_to change { log.reload.log_entries.size }
+          end
+        end
+      end
+
+      context 'when there is a blank string `new_entry` param' do
+        let(:params) { super().merge(new_entry: '') }
+
+        context "when there is an `auth_token` param that is the user's `auth_token`" do
+          let(:params) { super().merge(auth_token: user.auth_token) }
+
+          it 'does not create a log_entry' do
+            expect { get_index }.not_to change { log.reload.log_entries.size }
+          end
+
+          it 'renders the logs#index page' do
+            expect(get_index).to render_template('logs/index')
           end
         end
       end
