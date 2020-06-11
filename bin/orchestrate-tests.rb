@@ -228,12 +228,12 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   TRIMMABLE_CHECKS = {
-    RunAnnotate => proc { OrchestrateTests.skip_database_checks? },
-    RunDatabaseConsistency => proc { OrchestrateTests.skip_database_checks? },
+    RunAnnotate => proc { !OrchestrateTests.db_schema_changed? },
+    RunDatabaseConsistency => proc { !OrchestrateTests.db_schema_changed? },
     RunEslint => proc { !OrchestrateTests.files_with_js_changed? },
-    RunImmigrant => proc { OrchestrateTests.skip_database_checks? },
+    RunImmigrant => proc { !OrchestrateTests.db_schema_changed? },
     RunRubocop => proc { !ruby_files_changed? },
-    RunStylelint => proc { OrchestrateTests.skip_css_checks? },
+    RunStylelint => proc { !OrchestrateTests.files_with_css_changed? },
     SetupJs => proc do |tentative_list|
       true_dependents = [RunEslint, RunJsSpecs]
       (tentative_list & true_dependents).empty?
@@ -241,18 +241,24 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   class << self
+    extend Memoist
+
+    memoize \
     def db_schema_changed?
       files_changed.include?('db/schema.rb')
     end
 
+    memoize \
     def files_changed
       `git diff --name-only $(git merge-base HEAD origin/master)`.rstrip.split("\n")
     end
 
+    memoize \
     def files_with_css_changed?
       (Dir['app/**/*.{css,scss,vue}'] & files_changed).any?
     end
 
+    memoize \
     def files_with_js_changed?
       (
         (Dir['app/javascript/**/*.{js,vue}'] + Dir['spec/javascript/**/*.{js,vue}']) &
@@ -277,16 +283,9 @@ class OrchestrateTests < Pallets::Workflow
       end
     end
 
+    memoize \
     def ruby_files_changed?
       (Dir['**/*.{rb}'] & files_changed).any?
-    end
-
-    def skip_css_checks?
-      !files_with_css_changed?
-    end
-
-    def skip_database_checks?
-      !db_schema_changed?
     end
   end
 
