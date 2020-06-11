@@ -148,7 +148,7 @@ class RunJsSpecs < Pallets::Task
   end
 end
 
-class RunRubySpecs < Pallets::Task
+class ConfigureWebpackerForRubyTests < Pallets::Task
   def run
     execute_rake_task(
       'assets:copy_webpacker_settings',
@@ -156,7 +156,17 @@ class RunRubySpecs < Pallets::Task
       'test',
       'cache_manifest compile extract_css source_path',
     )
+  end
+end
+
+class CompileJavaScriptForRubyTests < Pallets::Task
+  def run
     execute_system_command('bin/webpack --silent')
+  end
+end
+
+class RunRubySpecs < Pallets::Task
+  def run
     execute_system_command(<<~COMMAND.squish)
       #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
       bin/rspec --format documentation
@@ -174,36 +184,90 @@ class Exit < Pallets::Task
 end
 
 class OrchestrateTests < Pallets::Workflow
-  # JavaScript checks
-  task YarnInstall
-  task RunStylelint => YarnInstall
-  task SetupJs => YarnInstall
-  task RunEslint => SetupJs # RunEslint depends on SetupJs to write webpack.config.static.js
-  task RunJsSpecs => SetupJs
+  DEPENDENCY_MAP = {
+    # JavaScript checks
+    YarnInstall => nil,
+    RunStylelint => YarnInstall,
+    SetupJs => YarnInstall,
+    # RunEslint depends on SetupJs to write webpack.config.static.js
+    RunEslint => SetupJs,
+    RunJsSpecs => SetupJs,
 
-  # Ruby checks
-  task RunRubocop
-  task RunBrakeman
-  task SetupDb
-  task RunDatabaseConsistency => SetupDb
-  task RunImmigrant => SetupDb
-  task RunAnnotate => SetupDb
-  task BuildFixtures => SetupDb
-  # RunRubySpecs depends on SetupJs completing bc. RunRubySpecs needs to modify the webpacker config
-  task RunRubySpecs => [BuildFixtures, SetupJs]
+    # Ruby checks
+    RunRubocop => nil,
+    RunBrakeman => nil,
+    SetupDb => nil,
+    RunDatabaseConsistency => SetupDb,
+    RunImmigrant => SetupDb,
+    RunAnnotate => SetupDb,
+    BuildFixtures => SetupDb,
+    # this config change depends on SetupJs completing in order to avoid webpacker config conflict
+    ConfigureWebpackerForRubyTests => SetupJs,
+    CompileJavaScriptForRubyTests => [
+      ConfigureWebpackerForRubyTests,
+      YarnInstall,
+    ],
+    RunRubySpecs => [
+      BuildFixtures,
+      CompileJavaScriptForRubyTests,
+      ConfigureWebpackerForRubyTests,
+    ].freeze,
 
-  # Exit depends on all other tasks completing that are actual checks (as opposed to setup steps)
-  task Exit => [
-    RunAnnotate,
-    RunBrakeman,
-    RunDatabaseConsistency,
-    RunEslint,
-    RunImmigrant,
-    RunJsSpecs,
-    RunRubocop,
-    RunRubySpecs,
-    RunStylelint,
-  ]
+    # Exit depends on all other tasks completing that are actual checks (as opposed to setup steps)
+    Exit => [
+      RunAnnotate,
+      RunBrakeman,
+      RunDatabaseConsistency,
+      RunEslint,
+      RunImmigrant,
+      RunJsSpecs,
+      RunRubocop,
+      RunRubySpecs,
+      RunStylelint,
+    ].freeze,
+  }.freeze
+
+  TRIMMABLE_CHECKS = {
+    SetupJs => proc do |tentative_list|
+      true_dependents = [RunEslint, RunJsSpecs]
+      (tentative_list & true_dependents).empty?
+    end,
+  }.freeze
+
+  def self.required_tasks(target_tasks, known_dependencies: [], trimmable_requirements: [])
+    new_dependencies =
+      DEPENDENCY_MAP.values_at(*target_tasks).
+        flatten.reject(&:nil?) - known_dependencies - trimmable_requirements
+
+    if new_dependencies.empty?
+      target_tasks
+    else
+      total_dependencies = target_tasks + new_dependencies
+      (target_tasks + required_tasks(
+        new_dependencies,
+        known_dependencies: total_dependencies,
+        trimmable_requirements: trimmable_requirements,
+      )).flatten.uniq
+    end
+  end
+
+  target_tasks = [Exit]
+  tentative_requirements = required_tasks(target_tasks)
+  trimmable_requirements =
+    tentative_requirements.select do |task|
+      TRIMMABLE_CHECKS[task]&.call(tentative_requirements)
+    end
+  true_requirements = required_tasks(target_tasks, trimmable_requirements: trimmable_requirements)
+  ap('Running these tasks:')
+  ap(true_requirements.map(&:name).sort)
+
+  DEPENDENCY_MAP.slice(*true_requirements).each do |task, prerequisites|
+    if Array(prerequisites).reject(&:nil?).empty?
+      task(task)
+    else
+      task(task => Array(prerequisites) & true_requirements)
+    end
+  end
 
   class << self
     attr_accessor :exit_code
