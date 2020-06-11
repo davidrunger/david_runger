@@ -232,6 +232,7 @@ class OrchestrateTests < Pallets::Workflow
     RunDatabaseConsistency => proc { OrchestrateTests.skip_database_checks? },
     RunEslint => proc { !OrchestrateTests.files_with_js_changed? },
     RunImmigrant => proc { OrchestrateTests.skip_database_checks? },
+    RunRubocop => proc { !ruby_files_changed? },
     RunStylelint => proc { OrchestrateTests.skip_css_checks? },
     SetupJs => proc do |tentative_list|
       true_dependents = [RunEslint, RunJsSpecs]
@@ -240,12 +241,16 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   class << self
-    def files_with_css_changed?
-      (Dir['app/**/*.{css,scss,vue}'] & files_changed).any?
-    end
-
     def db_schema_changed?
       files_changed.include?('db/schema.rb')
+    end
+
+    def files_changed
+      `git diff --name-only $(git merge-base HEAD origin/master)`.rstrip.split("\n")
+    end
+
+    def files_with_css_changed?
+      (Dir['app/**/*.{css,scss,vue}'] & files_changed).any?
     end
 
     def files_with_js_changed?
@@ -253,10 +258,6 @@ class OrchestrateTests < Pallets::Workflow
         (Dir['app/javascript/**/*.{js,vue}'] + Dir['spec/javascript/**/*.{js,vue}']) &
           files_changed
       ).any?
-    end
-
-    def files_changed
-      `git diff --name-only $(git merge-base HEAD origin/master)`.rstrip.split("\n")
     end
 
     def required_tasks(target_tasks, known_dependencies: [], trimmable_requirements: [])
@@ -274,6 +275,10 @@ class OrchestrateTests < Pallets::Workflow
           trimmable_requirements: trimmable_requirements,
         )).flatten.uniq
       end
+    end
+
+    def ruby_files_changed?
+      (Dir['**/*.{rb}'] & files_changed).any?
     end
 
     def skip_css_checks?
