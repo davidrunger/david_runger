@@ -228,26 +228,43 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   TRIMMABLE_CHECKS = {
+    RunAnnotate => proc { OrchestrateTests.skip_database_checks? },
+    RunDatabaseConsistency => proc { OrchestrateTests.skip_database_checks? },
+    RunImmigrant => proc { OrchestrateTests.skip_database_checks? },
     SetupJs => proc do |tentative_list|
       true_dependents = [RunEslint, RunJsSpecs]
       (tentative_list & true_dependents).empty?
     end,
   }.freeze
 
-  def self.required_tasks(target_tasks, known_dependencies: [], trimmable_requirements: [])
-    new_dependencies =
-      DEPENDENCY_MAP.values_at(*target_tasks).
-        flatten.reject(&:nil?) - known_dependencies - trimmable_requirements
+  class << self
+    def db_schema_changed?
+      files_changed.include?('db/schema.rb')
+    end
 
-    if new_dependencies.empty?
-      target_tasks
-    else
-      total_dependencies = target_tasks + new_dependencies
-      (target_tasks + required_tasks(
-        new_dependencies,
-        known_dependencies: total_dependencies,
-        trimmable_requirements: trimmable_requirements,
-      )).flatten.uniq
+    def files_changed
+      `git diff --name-only $(git merge-base HEAD origin/master)`.rstrip.split("\n")
+    end
+
+    def required_tasks(target_tasks, known_dependencies: [], trimmable_requirements: [])
+      new_dependencies =
+        DEPENDENCY_MAP.values_at(*target_tasks).
+          flatten.reject(&:nil?) - known_dependencies - trimmable_requirements
+
+      if new_dependencies.empty?
+        target_tasks
+      else
+        total_dependencies = target_tasks + new_dependencies
+        (target_tasks + required_tasks(
+          new_dependencies,
+          known_dependencies: total_dependencies,
+          trimmable_requirements: trimmable_requirements,
+        )).flatten.uniq
+      end
+    end
+
+    def skip_database_checks?
+      !db_schema_changed?
     end
   end
 
