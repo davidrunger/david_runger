@@ -59,12 +59,6 @@ def execute_rake_task(task_name, *args)
   end
 end
 
-class AddYarnToPath < Pallets::Task
-  def run
-    execute_system_command('export PATH="$HOME/.yarn/bin:$PATH"')
-  end
-end
-
 class EnsureLatestChromedriverIsInstalled < Pallets::Task
   def run
     latest_release = `wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
@@ -243,9 +237,8 @@ class OrchestrateTests < Pallets::Workflow
     CheckRubyVersion => nil,
     CheckBundlerVersion => nil,
     CheckNodeVersion => nil,
-    AddYarnToPath => nil,
-    CheckYarnVersion => AddYarnToPath,
-    YarnInstall => AddYarnToPath,
+    CheckYarnVersion => nil,
+    YarnInstall => nil,
 
     RunStylelint => YarnInstall,
     RunRubocop => nil,
@@ -289,7 +282,6 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   TRIMMABLE_CHECKS = {
-    AddYarnToPath => proc { running_locally? },
     BuildFixtures => proc { running_locally? },
     RunAnnotate => proc { !db_schema_changed? },
     RunBrakeman => proc { !(haml_files_changed? || ruby_files_changed?) || running_locally? },
