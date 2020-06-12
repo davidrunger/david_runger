@@ -289,21 +289,17 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   TRIMMABLE_CHECKS = {
-    AddYarnToPath => proc { OrchestrateTests.running_locally? },
-    BuildFixtures => proc { OrchestrateTests.running_locally? },
-    RunAnnotate => proc { !OrchestrateTests.db_schema_changed? },
-    RunBrakeman => proc do
-      haml_or_ruby_files_changed =
-        OrchestrateTests.haml_files_changed? || OrchestrateTests.ruby_files_changed?
-      !haml_or_ruby_files_changed || OrchestrateTests.running_locally?
-    end,
-    RunDatabaseConsistency => proc { !OrchestrateTests.db_schema_changed? },
-    RunEslint => proc { !OrchestrateTests.files_with_js_changed? },
-    RunImmigrant => proc { !OrchestrateTests.db_schema_changed? },
+    AddYarnToPath => proc { running_locally? },
+    BuildFixtures => proc { running_locally? },
+    RunAnnotate => proc { !db_schema_changed? },
+    RunBrakeman => proc { !(haml_files_changed? || ruby_files_changed?) || running_locally? },
+    RunDatabaseConsistency => proc { !db_schema_changed? },
+    RunEslint => proc { !files_with_js_changed? },
+    RunImmigrant => proc { !db_schema_changed? },
     RunRubocop => proc { !ruby_files_changed? },
-    RunStylelint => proc { !OrchestrateTests.files_with_css_changed? },
-    SetupDb => proc { OrchestrateTests.running_locally? },
-    YarnInstall => proc { OrchestrateTests.running_locally? },
+    RunStylelint => proc { !files_with_css_changed? },
+    SetupDb => proc { running_locally? },
+    YarnInstall => proc { running_locally? },
   }.freeze
 
   class << self
