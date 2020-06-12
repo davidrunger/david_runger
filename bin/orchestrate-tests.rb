@@ -197,7 +197,7 @@ class RunRubySpecs < Pallets::Task
   def run
     execute_system_command(<<~COMMAND)
       #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
-      bin/rspec --format documentation
+      bin/rspec --format RSpec::Instafail --format progress --color
     COMMAND
   end
 end

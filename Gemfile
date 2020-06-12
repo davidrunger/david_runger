@@ -83,6 +83,7 @@ group :test do
   gem 'codecov', require: false
   gem 'database_consistency', require: false
   gem 'fixture_builder'
+  gem 'rspec-instafail', require: false
   # note: to use guard-espect from command line, it will also have to be installed "globally"
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   gem 'hashdiff'

@@ -414,6 +414,8 @@ GEM
     rspec-expectations (3.9.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
+    rspec-instafail (1.0.0)
+      rspec
     rspec-mocks (3.9.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
@@ -580,6 +582,7 @@ DEPENDENCIES
   rails-controller-testing
   redis
   rollbar
+  rspec-instafail
   rspec-rails
   rubocop
   rubocop-performance
