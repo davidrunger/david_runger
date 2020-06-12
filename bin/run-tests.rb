@@ -24,4 +24,4 @@ Pallets.configure do |c|
   c.middleware << ExitOnFailureMiddleware
 end
 
-Test::Runner.new.run
+Test::Runner.run_once_config_is_confirmed
