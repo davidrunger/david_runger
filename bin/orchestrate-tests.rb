@@ -127,17 +127,6 @@ class YarnInstall < Pallets::Task
   end
 end
 
-class SetupJs < Pallets::Task
-  def run
-    # boot test server
-    execute_system_command('ruby -run -ehttpd public -p8080 > /dev/null 2>&1 &')
-    # setup tests
-    execute_system_command('bin/setup-mocha-tests >/dev/null 2>&1')
-    # compile
-    execute_system_command('bin/webpack --silent')
-  end
-end
-
 class RunRubocop < Pallets::Task
   def run
     execute_system_command(<<~COMMAND)
@@ -195,34 +184,12 @@ end
 class RunEslint < Pallets::Task
   def run
     execute_system_command(<<~COMMAND)
-      ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/ spec/javascript/
+      ./node_modules/.bin/eslint --max-warnings 0 --ext .js,.vue app/javascript/
     COMMAND
   end
 end
 
-class RunJsSpecs < Pallets::Task
-  def run
-    # run the tests
-    execute_system_command('yarn run test')
-    # kill JS unit test server (if running)
-    execute_system_command(<<~COMMAND)
-      ps -ax | egrep 'ruby.*httpd' | egrep -v grep | awk '{print $1}' | xargs kill
-    COMMAND
-  end
-end
-
-class ConfigureWebpackerForRubyTests < Pallets::Task
-  def run
-    execute_rake_task(
-      'assets:copy_webpacker_settings',
-      'production',
-      'test',
-      'cache_manifest compile extract_css source_path',
-    )
-  end
-end
-
-class CompileJavaScriptForRubyTests < Pallets::Task
+class CompileJavaScript < Pallets::Task
   def run
     execute_system_command('bin/webpack --silent')
   end
@@ -258,14 +225,7 @@ class OrchestrateTests < Pallets::Workflow
     CheckYarnVersion => AddYarnToPath,
     YarnInstall => AddYarnToPath,
 
-    # JavaScript checks
     RunStylelint => YarnInstall,
-    SetupJs => YarnInstall,
-    # RunEslint depends on SetupJs to write webpack.config.static.js
-    RunEslint => SetupJs,
-    RunJsSpecs => SetupJs,
-
-    # Ruby checks
     RunRubocop => nil,
     RunBrakeman => nil,
     SetupDb => nil,
@@ -273,16 +233,12 @@ class OrchestrateTests < Pallets::Workflow
     RunImmigrant => SetupDb,
     RunAnnotate => SetupDb,
     BuildFixtures => SetupDb,
-    # this config change depends on SetupJs completing in order to avoid webpacker config conflict
-    ConfigureWebpackerForRubyTests => SetupJs,
-    CompileJavaScriptForRubyTests => [
-      ConfigureWebpackerForRubyTests,
-      YarnInstall,
-    ].freeze,
+    CompileJavaScript => YarnInstall,
+    # RunEslint depends on `CompileJavaScript` to write a `webpack.config.static.js` file
+    RunEslint => CompileJavaScript,
     RunRubySpecs => [
       BuildFixtures,
-      CompileJavaScriptForRubyTests,
-      ConfigureWebpackerForRubyTests,
+      CompileJavaScript,
     ].freeze,
 
     # Exit depends on all other tasks completing that are actual checks (as opposed to setup steps)
@@ -297,7 +253,6 @@ class OrchestrateTests < Pallets::Workflow
       RunDatabaseConsistency,
       RunEslint,
       RunImmigrant,
-      RunJsSpecs,
       RunRubocop,
       RunRubySpecs,
       RunStylelint,
@@ -316,14 +271,9 @@ class OrchestrateTests < Pallets::Workflow
     RunDatabaseConsistency => proc { !OrchestrateTests.db_schema_changed? },
     RunEslint => proc { !OrchestrateTests.files_with_js_changed? },
     RunImmigrant => proc { !OrchestrateTests.db_schema_changed? },
-    RunJsSpecs => proc { !OrchestrateTests.files_with_js_changed? },
     RunRubocop => proc { !ruby_files_changed? },
     RunStylelint => proc { !OrchestrateTests.files_with_css_changed? },
     SetupDb => proc { OrchestrateTests.running_locally? },
-    SetupJs => proc do |tentative_list|
-      true_dependents = [RunEslint, RunJsSpecs]
-      (tentative_list & true_dependents).empty?
-    end,
     YarnInstall => proc { OrchestrateTests.running_locally? },
   }.freeze
 
@@ -353,10 +303,7 @@ class OrchestrateTests < Pallets::Workflow
 
     memoize \
     def files_with_js_changed?
-      (
-        (Dir['app/javascript/**/*.{js,vue}'] + Dir['spec/javascript/**/*.{js,vue}']) &
-          files_changed
-      ).any?
+      (Dir['app/javascript/**/*.{js,vue}'] & files_changed).any?
     end
 
     memoize \
