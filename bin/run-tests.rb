@@ -24,8 +24,4 @@ Pallets.configure do |c|
   c.middleware << ExitOnFailureMiddleware
 end
 
-# rubocop:disable Style/MixinUsage
-include Test::GlobalMethods
-# rubocop:enable Style/MixinUsage
-
 Test::Runner.new.run

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Test::Tasks::CheckVersions < Pallets::Task
+  include Test::TaskHelpers
+
   def run
     execute_system_command(<<~COMMAND)
       ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby 2.7.0p' ]

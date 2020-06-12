@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Test::Tasks::RunFeatureTests < Pallets::Task
+  include Test::TaskHelpers
+
   def run
     # run all tests in `spec/features/` (wrapped by percy, if PERCY_TOKEN is present)
     execute_system_command(<<~COMMAND)

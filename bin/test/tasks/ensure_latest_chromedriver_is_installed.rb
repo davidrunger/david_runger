@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Test::Tasks::EnsureLatestChromedriverIsInstalled < Pallets::Task
+  include Test::TaskHelpers
+
   def run
     latest_release = `wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
     if (`chromedriver --version` rescue '').include?(" #{latest_release} ")

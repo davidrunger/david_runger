@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Test::Tasks::RunUnitTests < Pallets::Task
+  include Test::TaskHelpers
+
   def run
     # run all tests in `spec/` _except_ those in `spec/controllers/` that are _not_ in
     # `spec/controllers/api/` and those in `spec/features/`
