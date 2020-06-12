@@ -296,7 +296,7 @@ class OrchestrateTests < Pallets::Workflow
     RunDatabaseConsistency => proc { !db_schema_changed? },
     RunEslint => proc { !files_with_js_changed? },
     RunImmigrant => proc { !db_schema_changed? },
-    RunRubocop => proc { !ruby_files_changed? },
+    RunRubocop => proc { !(ruby_files_changed? || files_mentioning_rubocop_changed?) },
     RunStylelint => proc { !files_with_css_changed? },
     SetupDb => proc { running_locally? },
     YarnInstall => proc { running_locally? },
@@ -319,6 +319,11 @@ class OrchestrateTests < Pallets::Workflow
       end
 
       `git diff --name-only $(git merge-base HEAD master)`.rstrip.split("\n")
+    end
+
+    memoize \
+    def files_mentioning_rubocop_changed?
+      files_changed.any? { |file| file.include?('rubocop') } # e.g. `.rubocop.yml`
     end
 
     memoize \
