@@ -193,11 +193,38 @@ class CompileJavaScript < Pallets::Task
   end
 end
 
-class RunRubySpecs < Pallets::Task
+class RunHtmlControllerTests < Pallets::Task
   def run
+    # run all tests in `spec/controllers/` _except_ those in `spec/controllers/api/`
+    execute_system_command(<<~COMMAND)
+      bin/rspec
+      $(ls -d spec/controllers/*/ | grep -v 'spec/controllers/api/' | tr '\\n' ' ')
+      $(ls spec/controllers/*.rb)
+      --format RSpec::Instafail --format progress --color
+    COMMAND
+  end
+end
+
+class RunFeatureTests < Pallets::Task
+  def run
+    # run all tests in `spec/features/` (wrapped by percy, if PERCY_TOKEN is present)
     execute_system_command(<<~COMMAND)
       #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
-      bin/rspec --format RSpec::Instafail --format progress --color
+      bin/rspec spec/features/
+      --format RSpec::Instafail --format progress --color
+    COMMAND
+  end
+end
+
+class RunUnitTests < Pallets::Task
+  def run
+    # run all tests in `spec/` _except_ those in `spec/controllers/` that are _not_ in
+    # `spec/controllers/api/` and those in `spec/features/`
+    execute_system_command(<<~COMMAND)
+      bin/rspec
+      $(ls -d spec/*/ | grep --extended-regex -v 'spec/(controllers|features)/' | tr '\\n' ' ')
+      spec/controllers/api/
+      --format RSpec::Instafail --format progress --color
     COMMAND
   end
 end
@@ -228,10 +255,15 @@ class OrchestrateTests < Pallets::Workflow
     RunImmigrant => SetupDb,
     RunAnnotate => SetupDb,
     BuildFixtures => SetupDb,
+    RunUnitTests => BuildFixtures,
     CompileJavaScript => YarnInstall,
     # RunEslint depends on `CompileJavaScript` to write a `webpack.config.static.js` file
     RunEslint => CompileJavaScript,
-    RunRubySpecs => [
+    RunHtmlControllerTests => [
+      BuildFixtures,
+      CompileJavaScript,
+    ].freeze,
+    RunFeatureTests => [
       BuildFixtures,
       CompileJavaScript,
       EnsureLatestChromedriverIsInstalled,
@@ -245,11 +277,13 @@ class OrchestrateTests < Pallets::Workflow
       CheckYarnVersion,
       RunAnnotate,
       RunBrakeman,
+      RunHtmlControllerTests,
       RunDatabaseConsistency,
       RunEslint,
+      RunFeatureTests,
       RunImmigrant,
       RunRubocop,
-      RunRubySpecs,
+      RunUnitTests,
       RunStylelint,
     ].freeze,
   }.freeze
