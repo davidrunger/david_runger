@@ -65,7 +65,7 @@ class AddYarnToPath < Pallets::Task
   end
 end
 
-class InstallChromedriverIfNeeded < Pallets::Task
+class EnsureLatestChromedriverIsInstalled < Pallets::Task
   def run
     latest_release = `wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
     if (`chromedriver --version` rescue '').include?(" #{latest_release} ")
@@ -79,6 +79,11 @@ class InstallChromedriverIfNeeded < Pallets::Task
       COMMAND
       execute_system_command('unzip -d "$HOME/bin/" $(pwd)/tmp/chromedriver.zip')
     end
+
+    # we print the chromedriver version, to make sure that it was installed successfully and so that
+    # we can view it for debugging, but we don't check it against a specific value, because it is
+    # indeterminate / constantly changing (since we always use the latest Chrome and `chromedriver`)
+    execute_system_command('chromedriver --version')
   end
 end
 
@@ -111,13 +116,6 @@ class CheckYarnVersion < Pallets::Task
     execute_system_command(<<~COMMAND)
       yarn --version && [ "$(yarn --version)" = '1.22.0' ]
     COMMAND
-  end
-end
-
-class PrintChromedriverVersion < Pallets::Task
-  def run
-    # print chromedriver version, but don't check it, because it changes
-    execute_system_command('chromedriver --version')
   end
 end
 
@@ -216,8 +214,7 @@ end
 class OrchestrateTests < Pallets::Workflow
   DEPENDENCY_MAP = {
     # Installation
-    InstallChromedriverIfNeeded => nil,
-    PrintChromedriverVersion => InstallChromedriverIfNeeded,
+    EnsureLatestChromedriverIsInstalled => nil,
     CheckRubyVersion => nil,
     CheckBundlerVersion => nil,
     CheckNodeVersion => nil,
@@ -239,6 +236,7 @@ class OrchestrateTests < Pallets::Workflow
     RunRubySpecs => [
       BuildFixtures,
       CompileJavaScript,
+      EnsureLatestChromedriverIsInstalled,
     ].freeze,
 
     # Exit depends on all other tasks completing that are actual checks (as opposed to setup steps)
@@ -247,7 +245,6 @@ class OrchestrateTests < Pallets::Workflow
       CheckBundlerVersion,
       CheckNodeVersion,
       CheckYarnVersion,
-      PrintChromedriverVersion,
       RunAnnotate,
       RunBrakeman,
       RunDatabaseConsistency,
