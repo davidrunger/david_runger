@@ -57,25 +57,16 @@ Vue.prototype.$routes = window.Routes;
 Vue.config.productionTip = false;
 Vue.config.devtools = window.davidrunger && (window.davidrunger.env === 'development');
 
-// "Vue Test Utils sets a custom error handler to throw errors thrown by instances. If you want this
-// behavior in your tests, you must remove the global error handler."
-if (window.davidrunger.env !== 'test') {
-  Vue.config.errorHandler = (error, _vm, info) => {
-    if (window.Rollbar && window.Rollbar.error) {
-      window.Rollbar.error(error, { info });
-    }
-    // Log the error in all environments. test is configured such that this will actually raise an
-    // error and fail tests. In dev and prod, it will help with debugging.
-    console.error(error); // eslint-disable-line no-console
-  };
-}
+Vue.config.errorHandler = (error, _vm, info) => {
+  if (window.Rollbar && window.Rollbar.error) {
+    window.Rollbar.error(error, { info });
+  }
+  console.error(error); // eslint-disable-line no-console
+};
 
 Vue.use(Vuex);
-
 Vue.use(VueForm);
-if (window.location.pathname !== '/packs-test/mocha_runner.html') {
-  Vue.use(VueRouter);
-}
+Vue.use(VueRouter);
 
 Vue.mixin(titleMixin);
 

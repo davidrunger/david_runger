@@ -47,11 +47,12 @@ development:
 
 test:
   <<: *default
-  source_path: spec/javascript
+  cache_manifest: true
   source_entry_path: packs
   public_output_path: packs-test
-  compile: true
+  compile: false
   hmr: false
+  extract_css: true
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
     pretty: false

@@ -14,15 +14,4 @@ module.exports = {
     '@babel/proposal-object-rest-spread',
     ['@babel/proposal-class-properties', { spec: true }],
   ],
-
-  env: {
-    test: {
-      presets: [
-        ['@babel/env', {
-          modules: false,
-          targets: { node: 'current' }
-        }]
-      ]
-    },
-  }
 };

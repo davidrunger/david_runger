@@ -5,8 +5,7 @@ import _ from 'lodash';
 
 import * as ModalVuex from 'shared/modal_store';
 
-// export for testing
-export const mutations = {
+const mutations = {
   ...ModalVuex.mutations,
 
   deleteItem(state, { item, store }) {
@@ -90,8 +89,7 @@ const getters = {
   },
 };
 
-// export for testing
-export function initialState(bootstrap) {
+function initialState(bootstrap) {
   return {
     ...bootstrap,
     ...ModalVuex.state,

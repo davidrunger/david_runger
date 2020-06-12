@@ -214,25 +214,17 @@ const getters = {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export function logVuexStoreFactory(bootstrap, options = {}) {
+export function logVuexStoreFactory(bootstrap) {
   const state = {
     ...ModalVuex.state,
     currentUser: bootstrap.current_user,
     logs: bootstrap.logs,
   };
 
-  let gettersMaybeIncludingStubs = getters;
-  if (window.davidrunger.env === 'test') {
-    gettersMaybeIncludingStubs = {
-      ...getters,
-      ...options.mockedGetters,
-    };
-  }
-
   return new Vuex.Store({
     state,
     actions,
-    getters: gettersMaybeIncludingStubs,
+    getters,
     mutations,
   });
 }

@@ -12,14 +12,6 @@ module.exports = {
   globals: {
     Routes: false,
   },
-  overrides: [
-    {
-      files: ['spec/javascript/**/*.js'],
-      env: {
-        mocha: true,
-      },
-    },
-  ],
   plugins: ['vue'],
   rules: {
     'arrow-parens': 'off',

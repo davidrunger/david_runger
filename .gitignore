@@ -20,7 +20,6 @@
 .tags_sorted_by_file
 /public/packs
 /public/packs-test
-/spec/javascript/packs/spec_index.js
 /node_modules
 /public/assets
 spec/fixtures/*.yml
