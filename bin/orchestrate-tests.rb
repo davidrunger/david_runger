@@ -311,6 +311,20 @@ class OrchestrateTests < Pallets::Workflow
     end
 
     memoize \
+    def diff
+      command = <<~COMMAND.squish
+        git log master..HEAD --full-diff --source --format="" --unified=0 -p .
+          | grep -Ev "^(diff |index |--- a/|\\+\\+\\+ b/|@@ )"
+      COMMAND
+      `#{command}`
+    end
+
+    memoize \
+    def diff_mentions_rubocop?
+      diff.match?(%r{rubocop}i)
+    end
+
+    memoize \
     def files_changed
       if !system('git log -1 --pretty="%H" master > /dev/null 2>&1')
         puts('`master` branch is not present; fetching it now...')
