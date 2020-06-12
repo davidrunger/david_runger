@@ -11,7 +11,7 @@ class IpBlockDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    ip: Field::Text,
+    ip: IpAddressField,
     reason: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
