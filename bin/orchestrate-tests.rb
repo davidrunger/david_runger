@@ -81,32 +81,17 @@ class EnsureLatestChromedriverIsInstalled < Pallets::Task
   end
 end
 
-class CheckRubyVersion < Pallets::Task
+class CheckVersions < Pallets::Task
   def run
     execute_system_command(<<~COMMAND)
       ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby 2.7.0p' ]
     COMMAND
-  end
-end
-
-class CheckBundlerVersion < Pallets::Task
-  def run
     execute_system_command(<<~COMMAND)
       bundler --version && [ "$(bundle --version | cut -c1-21)" = 'Bundler version 2.1.2' ]
     COMMAND
-  end
-end
-
-class CheckNodeVersion < Pallets::Task
-  def run
     execute_system_command(<<~COMMAND)
       node --version && [ "$(node --version)" = 'v12.13.1' ]
     COMMAND
-  end
-end
-
-class CheckYarnVersion < Pallets::Task
-  def run
     execute_system_command(<<~COMMAND)
       yarn --version && [ "$(yarn --version)" = '1.22.0' ]
     COMMAND
@@ -232,26 +217,24 @@ end
 
 class OrchestrateTests < Pallets::Workflow
   DEPENDENCY_MAP = {
-    # Installation
+    # Installation / Setup
+    CheckVersions => nil,
     EnsureLatestChromedriverIsInstalled => nil,
-    CheckRubyVersion => nil,
-    CheckBundlerVersion => nil,
-    CheckNodeVersion => nil,
-    CheckYarnVersion => nil,
     YarnInstall => nil,
-
-    RunStylelint => YarnInstall,
-    RunRubocop => nil,
-    RunBrakeman => nil,
-    SetupDb => nil,
-    RunDatabaseConsistency => SetupDb,
-    RunImmigrant => SetupDb,
-    RunAnnotate => SetupDb,
-    BuildFixtures => SetupDb,
-    RunUnitTests => BuildFixtures,
     CompileJavaScript => YarnInstall,
+    SetupDb => nil,
+    BuildFixtures => SetupDb,
+
+    # Checks
+    RunStylelint => YarnInstall,
     # RunEslint depends on `CompileJavaScript` to write a `webpack.config.static.js` file
     RunEslint => CompileJavaScript,
+    RunAnnotate => SetupDb,
+    RunBrakeman => nil,
+    RunDatabaseConsistency => SetupDb,
+    RunImmigrant => SetupDb,
+    RunRubocop => nil,
+    RunUnitTests => BuildFixtures,
     RunHtmlControllerTests => [
       BuildFixtures,
       CompileJavaScript,
@@ -264,20 +247,17 @@ class OrchestrateTests < Pallets::Workflow
 
     # Exit depends on all other tasks completing that are actual checks (as opposed to setup steps)
     Exit => [
-      CheckRubyVersion,
-      CheckBundlerVersion,
-      CheckNodeVersion,
-      CheckYarnVersion,
+      CheckVersions,
       RunAnnotate,
       RunBrakeman,
-      RunHtmlControllerTests,
       RunDatabaseConsistency,
       RunEslint,
       RunFeatureTests,
+      RunHtmlControllerTests,
       RunImmigrant,
       RunRubocop,
-      RunUnitTests,
       RunStylelint,
+      RunUnitTests,
     ].freeze,
   }.freeze
 
