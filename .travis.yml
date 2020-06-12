@@ -24,7 +24,7 @@ before_install:
   - . $HOME/.nvm/nvm.sh
   - nvm install 12.13.1
 script:
-  - bin/pallets --verbose -r ./bin/orchestrate-tests.rb
+  - bin/pallets --verbose -r ./bin/run-tests.rb
 notifications:
   email:
     on_success: never
