@@ -200,7 +200,7 @@ class RunHtmlControllerTests < Pallets::Task
       bin/rspec
       $(ls -d spec/controllers/*/ | grep -v 'spec/controllers/api/' | tr '\\n' ' ')
       $(ls spec/controllers/*.rb)
-      --format RSpec::Instafail --format progress --color
+      --format RSpec::Instafail --format progress --force-color
     COMMAND
   end
 end
@@ -211,7 +211,7 @@ class RunFeatureTests < Pallets::Task
     execute_system_command(<<~COMMAND)
       #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
       bin/rspec spec/features/
-      --format RSpec::Instafail --format progress --color
+      --format RSpec::Instafail --format progress --force-color
     COMMAND
   end
 end
@@ -224,7 +224,7 @@ class RunUnitTests < Pallets::Task
       bin/rspec
       $(ls -d spec/*/ | grep --extended-regex -v 'spec/(controllers|features)/' | tr '\\n' ' ')
       spec/controllers/api/
-      --format RSpec::Instafail --format progress --color
+      --format RSpec::Instafail --format progress --force-color
     COMMAND
   end
 end
