@@ -65,7 +65,7 @@ class AddYarnToPath < Pallets::Task
   end
 end
 
-class InstallChromedriver < Pallets::Task
+class InstallChromedriverIfNeeded < Pallets::Task
   def run
     latest_release = `wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
     if (`chromedriver --version` rescue '').include?(" #{latest_release} ")
@@ -249,8 +249,8 @@ end
 class OrchestrateTests < Pallets::Workflow
   DEPENDENCY_MAP = {
     # Installation
-    InstallChromedriver => nil,
-    PrintChromedriverVersion => InstallChromedriver,
+    InstallChromedriverIfNeeded => nil,
+    PrintChromedriverVersion => InstallChromedriverIfNeeded,
     CheckRubyVersion => nil,
     CheckBundlerVersion => nil,
     CheckNodeVersion => nil,
@@ -305,13 +305,13 @@ class OrchestrateTests < Pallets::Workflow
   }.freeze
 
   TRIMMABLE_CHECKS = {
-    AddYarnToPath => proc { !ENV.key?('TRAVIS') },
-    YarnInstall => proc { !ENV.key?('TRAVIS') },
+    AddYarnToPath => proc { OrchestrateTests.running_locally? },
+    BuildFixtures => proc { OrchestrateTests.running_locally? },
     RunAnnotate => proc { !OrchestrateTests.db_schema_changed? },
     RunBrakeman => proc do
       haml_or_ruby_files_changed =
         OrchestrateTests.haml_files_changed? || OrchestrateTests.ruby_files_changed?
-      !haml_or_ruby_files_changed
+      !haml_or_ruby_files_changed || OrchestrateTests.running_locally?
     end,
     RunDatabaseConsistency => proc { !OrchestrateTests.db_schema_changed? },
     RunEslint => proc { !OrchestrateTests.files_with_js_changed? },
@@ -319,10 +319,12 @@ class OrchestrateTests < Pallets::Workflow
     RunJsSpecs => proc { !OrchestrateTests.files_with_js_changed? },
     RunRubocop => proc { !ruby_files_changed? },
     RunStylelint => proc { !OrchestrateTests.files_with_css_changed? },
+    SetupDb => proc { OrchestrateTests.running_locally? },
     SetupJs => proc do |tentative_list|
       true_dependents = [RunEslint, RunJsSpecs]
       (tentative_list & true_dependents).empty?
     end,
+    YarnInstall => proc { OrchestrateTests.running_locally? },
   }.freeze
 
   class << self
@@ -357,6 +359,11 @@ class OrchestrateTests < Pallets::Workflow
       ).any?
     end
 
+    memoize \
+    def haml_files_changed?
+      (Dir['app/**/*.haml'] & files_changed).any?
+    end
+
     def required_tasks(target_tasks, known_dependencies: [], trimmable_requirements: [])
       new_dependencies =
         DEPENDENCY_MAP.values_at(*target_tasks).
@@ -375,8 +382,8 @@ class OrchestrateTests < Pallets::Workflow
     end
 
     memoize \
-    def haml_files_changed?
-      (Dir['app/**/*.haml'] & files_changed).any?
+    def running_locally?
+      !ENV.key?('TRAVIS')
     end
 
     memoize \
