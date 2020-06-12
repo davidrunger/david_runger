@@ -199,8 +199,6 @@ class RunRubySpecs < Pallets::Task
       #{'./node_modules/.bin/percy exec -- ' if ENV['PERCY_TOKEN'].present?}
       bin/rspec --format documentation
     COMMAND
-  ensure
-    execute_system_command('git checkout config/webpacker.yml')
   end
 end
 
