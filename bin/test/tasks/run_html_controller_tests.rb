@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Test::Tasks::RunHtmlControllerTests < Pallets::Task
+  include Test::TaskHelpers
+
   def run
     # run all tests in `spec/controllers/` _except_ those in `spec/controllers/api/`
     execute_system_command(<<~COMMAND)

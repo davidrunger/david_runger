@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Test::GlobalMethods
+module Test::TaskHelpers
   def execute_system_command(command)
     command = command.squish
     puts("Running system command '#{command}' ...")
