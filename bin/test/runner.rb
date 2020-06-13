@@ -19,14 +19,20 @@ class Test::Runner < Pallets::Workflow
     extend Memoist
 
     attr_accessor :exit_code
+    attr_reader :start_time
 
     def register_tasks_and_run
+      print_config
       register_tasks
+      @start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
       new.run
     end
 
     def run_once_config_is_confirmed
       if ENV.key?('TRAVIS')
+        register_tasks_and_run
+      elsif !Test::RequirementsResolver.verify?
+        system('clear')
         register_tasks_and_run
       else
         confirm_config
@@ -42,9 +48,14 @@ class Test::Runner < Pallets::Workflow
       system('clear') if !ENV.key?('TRAVIS')
 
       ap('Running these tasks:')
-      ap(required_tasks.map(&:name).sort)
+      ap(required_tasks.map(&:name).map { _1.gsub('Test::Tasks::', '') }.sort)
       ap('NOT running these tasks:')
-      ap((Pallets::Task.descendants - required_tasks).map(&:name).sort)
+      ap(
+        (Pallets::Task.descendants - required_tasks).
+          map(&:name).
+          map { _1.gsub('Test::Tasks::', '') }.
+          sort,
+      )
     end
 
     def confirm_config
