@@ -8,6 +8,12 @@ GIT
       rspec (>= 2.99.0, < 4.0)
 
 GIT
+  remote: https://github.com/davidrunger/rspec_performance_summary.git
+  revision: e9786afb806a6385ad1a8cbef4c157ce42dea977
+  specs:
+    rspec_performance_summary (0.1.1)
+
+GIT
   remote: https://github.com/davidrunger/spring-watcher-listen.git
   revision: 2af02a92bef8a2e51d6601e40270228a3b3b9967
   specs:
@@ -584,6 +590,7 @@ DEPENDENCIES
   rollbar
   rspec-instafail
   rspec-rails
+  rspec_performance_summary!
   rubocop
   rubocop-performance
   rubocop-rails

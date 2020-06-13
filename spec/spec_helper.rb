@@ -27,6 +27,7 @@ require 'active_support/cache/mem_cache_store'
 require 'sidekiq/testing'
 require 'mail'
 require 'percy'
+require 'rspec_performance_summary'
 
 WebMock.enable!
 WebMock.disable_net_connect!(allow_localhost: true)
@@ -89,13 +90,7 @@ RSpec.configure do |config|
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
 
-  # For test execution time tracking/logging
-  # Borrowed from https://coderwall.com/p/l3nl_w/measure-spec-execution-time
-  spec_stats = {}
-
   config.before(:suite) do
-    spec_stats = {}
-
     # Reset FactoryBot sequences to an arbitrarily high number to avoid collisions with
     # fixture_builder-built fixtures.
     #
@@ -111,10 +106,6 @@ RSpec.configure do |config|
 
   # rubocop:disable RSpec/HookArgument
   config.before(:each) do
-    # Note: you can also put `@__started = Time.now` anywhere in your spec, to start the timer
-    # at a different point
-    @__started = Time.current
-
     Rack::Attack.reset!
   end
   # rubocop:enable RSpec/HookArgument
@@ -132,27 +123,8 @@ RSpec.configure do |config|
     request.accept = 'application/json'
   end
 
-  # rubocop:disable RSpec/HookArgument
-  config.after(:each) do |example|
-    spec_stats[example.full_description] = Float(Time.current) - Float(@__started)
-  end
-  # rubocop:enable RSpec/HookArgument
-
   config.after(:each, type: :controller) do
     Devise.sign_out_all_scopes
-  end
-
-  config.after(:suite) do
-    puts(<<~LOG)
-
-      -----------------------
-      Spec Performance Report
-      -----------------------
-    LOG
-
-    spec_stats.sort_by(&:last).last(10).each do |spec, took|
-      puts("#{took.round(3).to_s.yellow} secs - #{spec.to_s.green}")
-    end
   end
 
   config.around(:each, :rack_test_driver) do |spec|
