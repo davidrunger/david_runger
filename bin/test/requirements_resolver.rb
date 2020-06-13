@@ -66,7 +66,7 @@ class Test::RequirementsResolver
         validate_task_config_groups!
 
         if targets.any?
-          base_dependency_map[Test::Tasks::Exit] += targets
+          base_dependency_map[Test::Tasks::Exit] = targets
         end
 
         forces.each do |force|
@@ -93,6 +93,10 @@ class Test::RequirementsResolver
     end
     # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength
+
+    def verify?
+      global_config['verify']
+    end
 
     def run_defaults?
       global_config['run_defaults']
@@ -213,9 +217,9 @@ class Test::RequirementsResolver
 
   def tasks_and_dependencies(target_tasks, known_dependencies: [], skippable_requirements: [])
     new_dependencies =
-      self.class.dependency_map.values_at(*target_tasks).
+      self.class.dependency_map.values_at(*(target_tasks - self.class.skips)).
         flatten.reject(&:nil?) - known_dependencies - skippable_requirements
-    new_dependencies.reject { can_skip?(_1) }
+    new_dependencies.reject! { can_skip?(_1) }
 
     if new_dependencies.empty?
       target_tasks
