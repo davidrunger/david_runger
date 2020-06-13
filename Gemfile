@@ -93,6 +93,7 @@ group :test do
   gem 'percy-capybara'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
+  gem 'rspec_performance_summary', require: false, github: 'davidrunger/rspec_performance_summary'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webmock'
