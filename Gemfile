@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'active_model_serializers'
 gem 'administrate'
 gem 'aws-sdk-s3', require: false

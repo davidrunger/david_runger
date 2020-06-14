@@ -5,18 +5,23 @@ class Api::TextMessagesController < ApplicationController
 
   def create
     authorize(SmsRecord)
+    action =
+      SmsRecords::SendMessage.new(
+        user: current_user,
+        message_type: text_message_params['message_type'],
+        message_params: text_message_params['message_params'].to_unsafe_h,
+      )
 
-    sms_message = SmsMessage.new(
-      user: current_user,
-      message_type: text_message_params['message_type'],
-      message_params: text_message_params['message_params'],
-    )
-    if !sms_message.valid?
-      render_json_error(sms_message.errors.full_messages.join(', '))
-    elsif !sms_message.send!
-      render_json_error('An error occurred when sending the text message')
-    else
+    if !action.valid?
+      render_json_error(action.errors.full_messages.join(', '))
+      return
+    end
+
+    result = action.run
+    if result.success?
       head :created
+    elsif result.nexmo_request_failed?
+      render_json_error('An error occurred when sending the text message')
     end
   end
 

@@ -32,12 +32,28 @@ RSpec.describe Api::TextMessagesController do
     context 'when the user may send SMS messages' do
       verify { expect(user.may_send_sms?).to eq(true) }
 
+      context 'when the user does not have a phone number' do
+        before { user.update!(phone: nil) }
+
+        let(:params) { valid_params }
+
+        it 'does not attempt to send a text message and raises an error' do
+          expect(NexmoClient).not_to receive(:send_text!)
+          post_create
+        end
+
+        it 'responds with JSON info about the validation error(s)' do
+          post_create
+          expect(response.parsed_body).to eq('error' => "Phone can't be blank")
+        end
+      end
+
       context 'when the message params are invalid' do
         let(:params) { invalid_params }
 
-        it 'does not attempt to send a text message' do
+        it 'does not attempt to send a text message and raises an error' do
           expect(NexmoClient).not_to receive(:send_text!)
-          post_create
+          expect { post_create }.to raise_error(SmsRecords::SendMessage::InvalidMessageType)
         end
       end
 
@@ -68,16 +84,16 @@ RSpec.describe Api::TextMessagesController do
           context 'when sending the message fails' do
             before { NexmoTestApi.stub_post_failure }
 
+            it 'responds with 400 status' do
+              post_create
+              expect(response.status).to eq(400)
+            end
+
             it 'responds with error JSON' do
               post_create
               expect(response.parsed_body).to include(
                 'error' => 'An error occurred when sending the text message',
               )
-            end
-
-            it 'responds with 400 status' do
-              post_create
-              expect(response.status).to eq(400)
             end
           end
         end
