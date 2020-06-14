@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/davidrunger/active_actions.git
+  revision: 347e4fb7d10fe23e1d52dbdd906c1200d4d9b13d
+  specs:
+    active_actions (0.1.1)
+      memoist (~> 0.16)
+      rails (~> 6.0)
+
+GIT
   remote: https://github.com/davidrunger/guard-espect.git
   revision: 8d7f8594d120f4fa815eb20d79aeb962af8e83df
   specs:
@@ -533,6 +541,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_actions!
   active_model_serializers
   administrate
   amazing_print
