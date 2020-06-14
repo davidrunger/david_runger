@@ -53,7 +53,7 @@ RSpec.describe Api::TextMessagesController do
 
         it 'does not attempt to send a text message and raises an error' do
           expect(NexmoClient).not_to receive(:send_text!)
-          expect { post_create }.to raise_error(SmsRecords::SendMessage::InvalidMessageType)
+          expect { post_create }.to raise_error(SmsRecords::GenerateMessage::InvalidMessageType)
         end
       end
 
