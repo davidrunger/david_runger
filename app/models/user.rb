@@ -4,7 +4,6 @@
 #
 # Table name: users
 #
-#  auth_token       :text             not null
 #  created_at       :datetime         not null
 #  email            :string           not null
 #  id               :bigint           not null, primary key
@@ -23,10 +22,10 @@ class User < ApplicationRecord
 
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
-  validates :auth_token, presence: true
   validates :email, presence: true
   validates :phone, format: { with: /\A1[[:digit:]]{10}\z/ }, allow_nil: true
 
+  has_many :auth_tokens, dependent: :destroy
   has_many :logs, dependent: :destroy
   has_many :log_shares, through: :logs
   has_many :requests, dependent: :destroy
@@ -36,18 +35,12 @@ class User < ApplicationRecord
   has_many :text_log_entries, through: :logs
   has_many :workouts, dependent: :destroy
 
-  before_validation :ensure_auth_token
-
   def admin?
     email.in?(ADMIN_EMAILS)
   end
 
   def may_send_sms?
     sms_usage < sms_allowance
-  end
-
-  def ensure_auth_token
-    self.auth_token = SecureRandom.uuid if auth_token.blank?
   end
 
   def sms_usage

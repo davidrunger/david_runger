@@ -55,5 +55,8 @@ FixtureBuilder.configure do |fbuilder|
 
     # workouts
     name(:workout, create(:workout, user: user))
+
+    # auth_tokens
+    create(:auth_token, user: user)
   end
 end

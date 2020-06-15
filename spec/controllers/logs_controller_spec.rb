@@ -51,8 +51,8 @@ RSpec.describe LogsController do
       context 'when there is a non-blank `new_entry` query param' do
         let(:params) { super().merge(new_entry: '199.8') }
 
-        context "when there is an `auth_token` param that is the user's `auth_token`" do
-          let(:params) { super().merge(auth_token: user.auth_token) }
+        context 'when the user has an auth_token whose secret is the submitted auth token param' do
+          let(:params) { super().merge(auth_token: user.auth_tokens.first!.secret) }
 
           it 'creates a log entry with the value of the `new_entry` query param' do
             expect { get_index }.to change { log.log_entries.size }.by(1)
@@ -81,8 +81,8 @@ RSpec.describe LogsController do
       context 'when there is a blank string `new_entry` param' do
         let(:params) { super().merge(new_entry: '') }
 
-        context "when there is an `auth_token` param that is the user's `auth_token`" do
-          let(:params) { super().merge(auth_token: user.auth_token) }
+        context "when there is an auth_token param that is one of the user's auth_token secrets" do
+          let(:params) { super().merge(auth_token: user.auth_tokens.first!.secret) }
 
           it 'does not create a log_entry' do
             expect { get_index }.not_to change { log.reload.log_entries.size }

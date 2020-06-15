@@ -4,7 +4,6 @@
 #
 # Table name: users
 #
-#  auth_token       :text             not null
 #  created_at       :datetime         not null
 #  email            :string           not null
 #  id               :bigint           not null, primary key

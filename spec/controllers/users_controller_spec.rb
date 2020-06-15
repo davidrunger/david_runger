@@ -65,14 +65,5 @@ RSpec.describe UsersController do
         end
       end
     end
-
-    context 'when params include an `auth_token`' do
-      let(:user_params) { { auth_token: new_auth_token } }
-      let(:new_auth_token) { SecureRandom.uuid }
-
-      it "updates the user's `auth_token` to the new value" do
-        expect { patch_update }.to change { user.reload.auth_token }.to(new_auth_token)
-      end
-    end
   end
 end

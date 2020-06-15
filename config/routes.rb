@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     get 'logs/:slug', to: 'logs#index', as: :shared_log
   end
 
+  resources :auth_tokens, only: %i[create destroy update]
+
   namespace :api, defaults: { format: :json } do
     resources :items, only: %i[update destroy]
     resources :log_entries, only: %i[create destroy index update]
