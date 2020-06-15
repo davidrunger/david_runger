@@ -16,7 +16,10 @@ module TokenAuthenticatable
 
   memoize \
   def auth_token_param
-    params[:auth_token]
+    auth_token_param = params[:auth_token]
+    # For AuthTokensController requests, the top-level `auth_token` param might be a hash, which we
+    # don't want here.
+    auth_token_param.is_a?(String) ? auth_token_param : nil
   end
 
   memoize \

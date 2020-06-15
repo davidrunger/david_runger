@@ -1,23 +1,7 @@
 # frozen_string_literal: true
 
 class Api::LogEntriesController < ApplicationController
-  include TokenAuthenticatable
-
-  # For #create, we can also authenticate via an `auth_token` param. If no `auth_token` param is
-  # present, then we will authenticate a current_user and run verify_authenticity_token.
-  skip_before_action :authenticate_user, only: %i[create]
-  skip_before_action :verify_authenticity_token, only: %i[create]
-
   def create
-    if auth_token_param_present?
-      verify_valid_auth_token!
-    else
-      verify_authenticity_token
-      if current_user.blank?
-        raise('User must be logged in to access api/log_entries#create without an auth_token')
-      end
-    end
-
     log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
     @log_entry = log.log_entries.build(log_entry_params)
     if @log_entry.save
