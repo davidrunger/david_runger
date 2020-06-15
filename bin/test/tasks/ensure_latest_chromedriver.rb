@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Test::Tasks::EnsureLatestChromedriverIsInstalled < Pallets::Task
+class Test::Tasks::EnsureLatestChromedriver < Pallets::Task
   include Test::TaskHelpers
 
   def run
