@@ -10,6 +10,32 @@ RSpec.describe Api::LogEntriesController do
   describe '#create' do
     subject(:post_create) { post(:create, params: params) }
 
+    context 'when no current_user is present' do
+      before { controller.sign_out_all_scopes }
+
+      let(:params) { { log_entry: { data: 122, log_id: log.id } } }
+
+      context 'when no auth_token param is provided' do
+        before { expect(params[:auth_token]).to eq(nil) }
+
+        it 'raises an error' do
+          expect { post_create }.to raise_error(
+            StandardError,
+            'User must be logged in to access api/log_entries#create without an auth_token',
+          )
+        end
+      end
+
+      context 'when a valid auth_token param is provided' do
+        let(:params) { super().merge(auth_token: user.auth_tokens.first!.secret) }
+
+        it 'creates a log entry for the log and returns a 201 status code' do
+          expect { post_create }.to change { log.reload.log_entries.size }.by(1)
+          expect(response.status).to eq(201)
+        end
+      end
+    end
+
     context 'when the log entry params are invalid' do
       let(:invalid_params) { { log_entry: { data: nil, log_id: log.id } } }
       let(:params) { invalid_params }

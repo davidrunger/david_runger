@@ -23,7 +23,7 @@
             = form.label :name, 'Name (optional)'
 
           %span.ml2
-            = form.submit
+            = form.submit 'Update Auth Token'
 
         = button_to('Destroy Auth Token', auth_token_path(auth_token), method: :delete, form_class: 'inline')
 

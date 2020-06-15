@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_053455) do
+ActiveRecord::Schema.define(version: 2020_06_15_080811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2020_06_15_053455) do
     t.datetime "last_used_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["secret"], name: "index_auth_tokens_on_secret"
     t.index ["user_id", "secret"], name: "index_auth_tokens_on_user_id_and_secret", unique: true
   end
 
