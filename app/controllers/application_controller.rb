@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from(
     Pundit::NotAuthorizedError,
-    TokenAuthorizable::BlankToken,
-    TokenAuthorizable::InvalidToken,
+    TokenAuthenticatable::BlankToken,
+    TokenAuthenticatable::InvalidToken,
     with: :user_not_authorized,
   )
 

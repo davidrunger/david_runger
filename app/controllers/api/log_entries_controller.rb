@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::LogEntriesController < ApplicationController
-  include TokenAuthorizable
+  include TokenAuthenticatable
 
   # For #create, we can also authenticate via an `auth_token` param. If no `auth_token` param is
   # present, then we will authenticate a current_user and run verify_authenticity_token.

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TokenAuthorizable
+module TokenAuthenticatable
   extend ActiveSupport::Concern
   extend Memoist
 

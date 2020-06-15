@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LogsController < ApplicationController
-  include TokenAuthorizable
+  include TokenAuthenticatable
 
   def index
     user_id_param = params[:user_id]
