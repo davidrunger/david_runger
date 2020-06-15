@@ -18,11 +18,10 @@ RSpec.describe Api::LogEntriesController do
       context 'when no auth_token param is provided' do
         before { expect(params[:auth_token]).to eq(nil) }
 
-        it 'raises an error' do
-          expect { post_create }.to raise_error(
-            StandardError,
-            'User must be logged in to access api/log_entries#create without an auth_token',
-          )
+        it 'does not create a log entry and responds with a 401 status code and error message' do
+          expect { post_create }.not_to change { log.reload.log_entries.size }
+          expect(response.status).to eq(401)
+          expect(response.parsed_body).to eq('error' => 'Your request was not authenticated')
         end
       end
 

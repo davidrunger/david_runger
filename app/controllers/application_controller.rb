@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include Redirectable
   include RequestRecordable
+  include TokenAuthenticatable
 
   protect_from_forgery with: :exception
 
@@ -31,11 +32,24 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user
-    return if user_signed_in?
+    return if user_signed_in? || auth_token_user.present?
 
-    flash[:alert] = 'You must sign in first.'
-    session['user_return_to'] = request.path
-    redirect_to(login_path)
+    if request.format.json?
+      render_json_error('Your request was not authenticated', 401)
+    else
+      flash[:alert] = 'You must sign in first.'
+      session['user_return_to'] = request.path
+      redirect_to(login_path)
+    end
+  end
+
+  # override Rails's built-in #verify_authenticity_token method to allow for `auth_token` use
+  def verify_authenticity_token
+    if auth_token_param_present?
+      verify_valid_auth_token!
+    else
+      super
+    end
   end
 
   def enable_rack_mini_profiler_if_admin
