@@ -4,7 +4,7 @@ module TokenAuthorizable
   extend ActiveSupport::Concern
 
   class BlankToken < StandardError ; end
-  class IncorrectToken < StandardError ; end
+  class InvalidToken < StandardError ; end
 
   private
 
@@ -15,10 +15,12 @@ module TokenAuthorizable
       raise(BlankToken)
     end
 
-    if auth_token_param != current_user.auth_token
-      raise(IncorrectToken)
+    auth_token = current_user.auth_tokens.find_by(secret: auth_token_param)
+    if auth_token.blank?
+      raise(InvalidToken)
     end
 
+    auth_token.update!(last_used_at: Time.current)
     true
   end
 end

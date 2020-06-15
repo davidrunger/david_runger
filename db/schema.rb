@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_032941) do
+ActiveRecord::Schema.define(version: 2020_06_15_053455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,16 @@ ActiveRecord::Schema.define(version: 2020_06_10_032941) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "auth_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "secret", null: false
+    t.text "name"
+    t.datetime "last_used_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "secret"], name: "index_auth_tokens_on_user_id_and_secret", unique: true
   end
 
   create_table "ip_blocks", force: :cascade do |t|
@@ -164,7 +174,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_032941) do
     t.datetime "last_activity_at"
     t.string "phone"
     t.float "sms_allowance", default: 1.0, null: false, comment: "Total cost in EUR of text messages that the user is allowed to accrue."
-    t.text "auth_token", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -181,6 +190,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_032941) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "auth_tokens", "users"
   add_foreign_key "items", "stores"
   add_foreign_key "log_shares", "logs"
   add_foreign_key "logs", "users"

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def user_params
     params.
       require(:user).
-      permit(:auth_token, :phone).
+      permit(:phone).
       blank_params_as_nil(%w[phone])
   end
 end

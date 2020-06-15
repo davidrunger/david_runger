@@ -1,11 +1,31 @@
-= form_with model: @user do |form|
-  %div
-    = form.label :phone, 'Phone (country code recommended, e.g. 15551239876)'
-    = form.text_field :phone
+.p3
+  = form_with model: @user do |form|
+    %div
+      = form.text_field :phone
+      = form.label :phone, 'Phone (country code recommended, e.g. 15551239876)'
 
-  %div
-    = form.label :auth_token, 'Auth token (for advanced features; safe to ignore)'
-    = form.text_field :auth_token
+    %div
+      = form.submit
 
-  %div
-    = form.submit
+  %hr.mt3
+
+  %div.my3
+    %h2.h3 Auth tokens (advanced feature; safe to ignore)
+    - current_user.auth_tokens.each do |auth_token|
+      %div.mt1
+        = form_with(model: auth_token, class: 'inline') do |form|
+          %span
+            = form.text_field :secret
+            = form.label :secret, 'Secret (required)'
+
+          %span.ml2
+            = form.text_field :name
+            = form.label :name, 'Name (optional)'
+
+          %span.ml2
+            = form.submit
+
+        = button_to('Destroy Auth Token', auth_token_path(auth_token), method: :delete, form_class: 'inline')
+
+    %div.mt2
+      = button_to('Create New Auth Token', auth_tokens_path(method: :post))
