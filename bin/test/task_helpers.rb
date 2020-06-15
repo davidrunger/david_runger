@@ -45,6 +45,6 @@ module Test::TaskHelpers
   end
 
   def job_result_hash
-    TaskResultTrackingMiddleware.job_results[self.class.name]
+    Test::Middleware::TaskResultTrackingMiddleware.job_results[self.class.name]
   end
 end
