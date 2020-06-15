@@ -60,16 +60,15 @@
         :workouts='bootstrap.workouts'
       )
     div.my2
-      PubliclySharedWorkouts
+      h2.h2 Others' workouts
+      WorkoutsTable(:workouts='bootstrap.others_workouts')
 </template>
 
 <script>
-import PubliclySharedWorkouts from 'workout/publicly_shared_workouts.vue';
 import WorkoutsTable from 'workout/workouts_table.vue';
 
 export default {
   components: {
-    PubliclySharedWorkouts,
     WorkoutsTable,
   },
 

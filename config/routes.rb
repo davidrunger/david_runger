@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     end
     resources :text_messages, only: %i[create]
     resources :users, only: %i[update]
-    resources :workouts, only: %i[create index update]
+    resources :workouts, only: %i[create update]
   end
 
   namespace :admin do
