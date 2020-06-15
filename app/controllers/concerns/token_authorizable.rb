@@ -2,20 +2,38 @@
 
 module TokenAuthorizable
   extend ActiveSupport::Concern
+  extend Memoist
 
   class BlankToken < StandardError ; end
   class InvalidToken < StandardError ; end
 
   private
 
-  def verify_valid_auth_token!
-    auth_token_param = params[:auth_token]
+  memoize \
+  def auth_token
+    AuthToken.find_by(secret: auth_token_param)
+  end
 
+  memoize \
+  def auth_token_param
+    params[:auth_token]
+  end
+
+  memoize \
+  def auth_token_param_present?
+    auth_token_param.present?
+  end
+
+  memoize \
+  def auth_token_user
+    auth_token&.user
+  end
+
+  def verify_valid_auth_token!
     if auth_token_param.blank?
       raise(BlankToken)
     end
 
-    auth_token = current_user.auth_tokens.find_by(secret: auth_token_param)
     if auth_token.blank?
       raise(InvalidToken)
     end

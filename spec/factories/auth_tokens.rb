@@ -14,6 +14,7 @@
 #
 # Indexes
 #
+#  index_auth_tokens_on_secret              (secret)
 #  index_auth_tokens_on_user_id_and_secret  (user_id,secret) UNIQUE
 #
 FactoryBot.define do
