@@ -3,11 +3,6 @@
 source 'https://rubygems.org'
 ruby '2.7.0'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
-  "https://github.com/#{repo_name}.git"
-end
-
 gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'active_model_serializers'
 gem 'administrate'
@@ -40,6 +35,7 @@ gem 'rack-mini-profiler', require: false
 gem 'rails', github: 'rails/rails'
 gem 'redis'
 gem 'rollbar'
+gem 'shaped', github: 'davidrunger/shaped'
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false # required manually in config/initializers/sidekiq.rb
 gem 'stackprof' # Provides stack traces for flamegraph for rack-mini-profiler.

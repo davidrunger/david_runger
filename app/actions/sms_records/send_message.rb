@@ -3,7 +3,7 @@
 class SmsRecords::SendMessage < ApplicationAction
   class SaveSmsRecordError < StandardError ; end
 
-  requires :message_params, Hash
+  requires :message_params, Shaped::Hash('store_id' => Integer)
   requires :message_type, String
   requires :user, User do
     validates :phone, presence: true
