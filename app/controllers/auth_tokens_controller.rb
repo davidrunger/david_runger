@@ -7,7 +7,7 @@ class AuthTokensController < ApplicationController
 
   def create
     authorize(AuthToken)
-    AuthTokens::Create.new(user: current_user).run
+    AuthTokens::Create.new(user: current_user).run!
     redirect_to(edit_user_path(current_user))
   end
 

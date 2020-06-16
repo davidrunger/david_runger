@@ -17,19 +17,19 @@ class SmsRecords::SendMessage < ApplicationAction
         message_params: message_params,
         message_type: message_type,
         user: user,
-      ).run.message_body
+      ).run!.message_body
 
     nexmo_response =
       SmsRecords::PostToNexmo.new(
         message_body: message_body,
         phone_number: user.phone,
-      ).run.nexmo_response
+      ).run!.nexmo_response
 
     if nexmo_response.success?
       SmsRecords::SaveSmsRecord.new(
         nexmo_response: nexmo_response,
         user: user,
-      ).run
+      ).run!
     else
       result.nexmo_request_failed!
     end
