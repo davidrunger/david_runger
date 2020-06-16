@@ -1,10 +1,11 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 93cabe13d1418f860c72f48530d9037073c0b279
+  revision: d86c801d6e26558efbfc9a289da2883797b18b5d
   specs:
-    active_actions (0.3.0)
+    active_actions (0.5.1)
       memoist (~> 0.16)
       rails (~> 6.0)
+      shaped (~> 0.2)
 
 GIT
   remote: https://github.com/davidrunger/guard-espect.git
@@ -21,6 +22,12 @@ GIT
   specs:
     rspec_performance_summary (0.1.2)
       rspec-core (~> 3.0)
+
+GIT
+  remote: https://github.com/davidrunger/shaped.git
+  revision: 7ae27ac95304602dc960e6e5d398ba4c386c30b0
+  specs:
+    shaped (0.2.1)
 
 GIT
   remote: https://github.com/davidrunger/spring-watcher-listen.git
@@ -606,6 +613,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
+  shaped!
   shoulda-matchers
   sidekiq
   sidekiq-scheduler
