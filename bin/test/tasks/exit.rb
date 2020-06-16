@@ -53,20 +53,28 @@ class Test::Tasks::Exit < Pallets::Task
 
   def post_runtime_to_log
     print("\nPosting data to log... ")
-    response =
-      HTTParty.post(
-        ENV['BUILD_TIME_LOG_URL'],
-        body: {
-          auth_token: ENV['BUILD_TIME_LOG_AUTH_TOKEN'],
-          log_entry: {
-            log_id: ENV['BUILD_TIME_LOG_ID'],
-            data: overall_wall_clock_time.round(1),
-            note: log_note,
+    begin
+      response =
+        HTTParty.post(
+          ENV['BUILD_TIME_LOG_URL'],
+          body: {
+            auth_token: ENV['BUILD_TIME_LOG_AUTH_TOKEN'],
+            log_entry: {
+              log_id: ENV['BUILD_TIME_LOG_ID'],
+              data: overall_wall_clock_time.round(1),
+              note: log_note,
+            },
           },
-        },
-      )
-    code = response.code
-    puts("Response code: #{(code == 201) ? code.to_s.green : code.to_s.red}")
+        )
+      code = response.code
+      puts("Response code: #{(code == 201) ? code.to_s.green : code.to_s.red}")
+    rescue Errno::ECONNREFUSED
+      if ENV['BUILD_TIME_LOG_URL'].include?('localhost')
+        puts("#{'failed'.red} because localhost server is not running, but that's okay.")
+      else
+        raise
+      end
+    end
   end
 
   def log_note
