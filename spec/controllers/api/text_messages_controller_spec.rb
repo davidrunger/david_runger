@@ -6,7 +6,7 @@ RSpec.describe Api::TextMessagesController do
   let(:user) { users(:user) }
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: params) }
+    subject(:post_create) { post(:create, params: params, as: :json) }
 
     let(:valid_params) do
       {

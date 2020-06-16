@@ -3,7 +3,7 @@
 class SmsRecords::GenerateMessage < ApplicationAction
   class InvalidMessageType < StandardError ; end
 
-  requires :message_params, Hash
+  requires :message_params, Shaped::Hash('store_id' => Integer)
   requires :message_type, String
   requires :user, User
 
