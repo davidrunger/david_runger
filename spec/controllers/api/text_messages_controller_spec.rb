@@ -6,7 +6,7 @@ RSpec.describe Api::TextMessagesController do
   let(:user) { users(:user) }
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: params, as: :json) }
+    subject(:post_create) { post(:create, params: params) }
 
     let(:valid_params) do
       {
@@ -67,13 +67,13 @@ RSpec.describe Api::TextMessagesController do
           end
 
           it 'attempts to send a text message' do
-            NexmoTestApi.stub_post_success
+            VendorTestApi::Nexmo.stub_post_success
             expect(NexmoClient).to receive(:send_text!).and_call_original
             post_create
           end
 
           context 'when sending the message succeeds' do
-            before { NexmoTestApi.stub_post_success }
+            before { VendorTestApi::Nexmo.stub_post_success }
 
             it 'responds with 201 status' do
               post_create
@@ -82,7 +82,7 @@ RSpec.describe Api::TextMessagesController do
           end
 
           context 'when sending the message fails' do
-            before { NexmoTestApi.stub_post_failure }
+            before { VendorTestApi::Nexmo.stub_post_failure }
 
             it 'responds with 400 status' do
               post_create
