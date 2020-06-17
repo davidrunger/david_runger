@@ -46,9 +46,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
-    resources :items
     resources :requests, only: %i[index show]
-    resources :stores
     resources :ip_blocks
 
     root to: 'users#index'

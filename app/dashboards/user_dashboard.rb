@@ -13,11 +13,9 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     email: Field::String,
     id: Field::Number,
-    items: Field::HasMany,
     last_activity_at: Field::DateTime,
     phone: Field::String,
     requests: Field::HasMany,
-    stores: Field::HasMany,
     updated_at: Field::DateTime,
   }.freeze
 
@@ -30,8 +28,6 @@ class UserDashboard < Administrate::BaseDashboard
     id
     email
     requests
-    stores
-    items
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -44,9 +40,7 @@ class UserDashboard < Administrate::BaseDashboard
     phone
     updated_at
 
-    items
     requests
-    stores
   ].freeze
 
   # FORM_ATTRIBUTES
