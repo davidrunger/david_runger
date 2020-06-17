@@ -67,7 +67,7 @@ class SaveRequest
   def handle_error_saving_request(error)
     logger.warn("Failed to save Request; error=#{error} request_attributes=#{request_attributes}")
     # wrap the original exception in Request::CreateRequestError by re-raising
-    raise(Request::CreateRequestError, 'Failed to store request data in redis')
+    raise(Request::CreateRequestError, 'Failed to save a Request')
   end
 
   def request_attributes
