@@ -3,7 +3,7 @@
 module Test::TaskHelpers
   def execute_system_command(command)
     command = command.squish
-    puts("Running system command '#{command}' ...")
+    puts("Running system command '#{command.yellow}' ...")
     time = Benchmark.measure { system(command) }.real
     exit_code = $CHILD_STATUS.exitstatus
     update_job_result_exit_code(exit_code)
@@ -16,7 +16,7 @@ module Test::TaskHelpers
   end
 
   def execute_rake_task(task_name, *args)
-    puts("Running rake task '#{task_name}' with args #{args.inspect} ...")
+    puts("Running rake task '#{task_name.yellow}' with args #{args.inspect.yellow} ...")
     time = nil
     begin
       time = Benchmark.measure { Rake::Task[task_name].invoke(*args) }.real
