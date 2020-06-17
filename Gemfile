@@ -88,7 +88,7 @@ group :test do
   gem 'json-schema'
   gem 'launchy' # for save_and_open_page in feature specs
   gem 'percy-capybara'
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
   gem 'rspec-rails'
   gem 'rspec_performance_summary', require: false, github: 'davidrunger/rspec_performance_summary'
   gem 'selenium-webdriver'

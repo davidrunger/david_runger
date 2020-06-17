@@ -44,6 +44,15 @@ GIT
     email_reply_trimmer (0.1.13)
 
 GIT
+  remote: https://github.com/rails/rails-controller-testing.git
+  revision: a60b3da1c1c77959b28606dd087c058c64b5a08f
+  specs:
+    rails-controller-testing (1.0.4)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
+
+GIT
   remote: https://github.com/rails/rails.git
   revision: bd49578cf5c8d181950a172e231c9886f54bbd58
   specs:
@@ -404,10 +413,6 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
-    rails-controller-testing (1.0.4)
-      actionpack (>= 5.0.1.x)
-      actionview (>= 5.0.1.x)
-      activesupport (>= 5.0.1.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -602,7 +607,7 @@ DEPENDENCIES
   rack-attack
   rack-mini-profiler
   rails!
-  rails-controller-testing
+  rails-controller-testing!
   redis
   rollbar
   rspec-instafail
