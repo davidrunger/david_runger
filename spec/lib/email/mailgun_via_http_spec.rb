@@ -50,13 +50,16 @@ RSpec.describe Email::MailgunViaHttp do
       )
     end
 
-    before do
-      expect(ENV).to receive(:[]).at_least(:once).with('MAILGUN_URL').
-        and_return('https://api.mailgun.net/v3/mg.davidrunger.com')
-      expect(ENV).to receive(:[]).at_least(:once).with('MAILGUN_API_KEY').
-        and_return(stubbed_mailgun_api_key)
-      allow(ENV).to receive(:[]).and_call_original # pass other calls through
+    around do |spec|
+      ClimateControl.modify(
+        MAILGUN_URL: 'https://api.mailgun.net/v3/mg.davidrunger.com',
+        MAILGUN_API_KEY: stubbed_mailgun_api_key,
+      ) do
+        spec.run
+      end
+    end
 
+    before do
       expect(mail).to receive(:[]).at_least(:once) do |key|
         case key
         when 'From' then pretty_from_email
