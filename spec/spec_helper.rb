@@ -86,6 +86,7 @@ RSpec.configure do |config|
 
   config.global_fixtures = :all
 
+  config.include(ActiveSupport::Testing::TimeHelpers)
   config.include(FactoryBot::Syntax::Methods)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
@@ -132,6 +133,13 @@ RSpec.configure do |config|
     Capybara.current_driver = :rack_test
     spec.run
     Capybara.use_default_driver
+  end
+
+  config.around(:each, queue_adapter: :test) do |spec|
+    original_active_job_queue_adapter = ActiveJob::Base.queue_adapter
+    ActiveJob::Base.queue_adapter = :test
+    spec.run
+    ActiveJob::Base.queue_adapter = original_active_job_queue_adapter
   end
 
   # rspec-expectations config goes here. You can use an alternate

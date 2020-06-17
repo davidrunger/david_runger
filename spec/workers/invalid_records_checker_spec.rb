@@ -16,15 +16,7 @@ RSpec.describe InvalidRecordsChecker do
         expect(user).not_to be_valid
       end
 
-      # we'll be checking that an email was sent; set up config to handle that
-      around do |spec|
-        original_active_job_queue_adapter = ActiveJob::Base.queue_adapter
-        ActiveJob::Base.queue_adapter = :test
-        spec.run
-        ActiveJob::Base.queue_adapter = original_active_job_queue_adapter
-      end
-
-      it 'enqueues an email' do
+      it 'enqueues an email', queue_adapter: :test do
         expect { perform }.
           to enqueue_mail(InvalidRecordsMailer, :invalid_records).
           with(args: [hash_including('User' => Integer)])
