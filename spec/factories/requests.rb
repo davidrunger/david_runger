@@ -31,29 +31,24 @@
 #
 
 FactoryBot.define do
-  chrome_user_agent = <<-CHROME.squish
-    Chrome 57 Macintosh mobile=false raw=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4)
-    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36
-  CHROME
-
   factory :request do
     request_id { SecureRandom.uuid }
     user_id { nil }
-    url { 'http://davidrunger.com' }
+    url { 'https://www.davidrunger.com/' }
     handler { 'home#index' }
-    referer { nil }
+    referer { 'https://github.com/davidrunger/david_runger' }
     params { {} }
     add_attribute(:method) { 'GET' }
     format { 'html' }
     status { 200 }
-    view { 12 }
-    db { 8 }
-    ip { '77.88.47.71' }
-    user_agent { chrome_user_agent }
-    requested_at { 1.week.ago }
-  end
-
-  trait :chrome do
-    user_agent { chrome_user_agent }
+    view { rand(100) }
+    db { rand(100) }
+    ip { Faker::Internet.public_ip_v4_address }
+    user_agent { Faker::Internet.user_agent }
+    requested_at { rand(1..14).days.ago }
+    location do
+      "#{Faker::Address.city}, #{Faker::Address.state_abbr}, #{Faker::Address.country_code}"
+    end
+    isp { Faker::Company.name }
   end
 end
