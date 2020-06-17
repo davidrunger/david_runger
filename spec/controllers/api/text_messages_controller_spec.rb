@@ -61,10 +61,7 @@ RSpec.describe Api::TextMessagesController do
         let(:params) { valid_params }
 
         context 'when NEXMO_API_KEY is set in ENV' do
-          before do
-            expect(ENV).to receive(:[]).with('NEXMO_API_KEY').and_return('DEFabc123')
-            allow(ENV).to receive(:[]).and_call_original # pass other calls through
-          end
+          around { |spec| ClimateControl.modify(NEXMO_API_KEY: 'DEFabc123') { spec.run } }
 
           it 'attempts to send a text message' do
             VendorTestApi::Nexmo.stub_post_success

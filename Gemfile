@@ -45,6 +45,7 @@ gem 'webpacker'
 group :development, :test do
   gem 'amazing_print'
   gem 'annotate'
+  gem 'climate_control'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
   gem 'faker'
