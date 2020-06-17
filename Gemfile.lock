@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: da5b1c3bb7041af03d5c24bce2639349f7fcb5c2
+  revision: bd49578cf5c8d181950a172e231c9886f54bbd58
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -319,7 +319,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.5.0)
+    loofah (2.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.2.5)
