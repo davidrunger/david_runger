@@ -5,7 +5,10 @@ class Test::Tasks::RunApiControllerTests < Pallets::Task
 
   def run
     execute_system_command(<<~COMMAND)
-      bin/rspec spec/controllers/api/ --format RSpec::Instafail --format progress --force-color
+      DB_SUFFIX=_api
+      bin/rspec
+      spec/controllers/api/
+      --format RSpec::Instafail --format progress --force-color
     COMMAND
   end
 end
