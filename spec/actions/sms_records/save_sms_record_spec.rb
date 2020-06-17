@@ -25,7 +25,7 @@ RSpec.describe SmsRecords::SaveSmsRecord do
       before do
         expect(response).
           to receive(:parsed_response).
-          and_return(NexmoTestApi.single_message_response)
+          and_return(VendorTestApi::Nexmo.single_message_response)
       end
 
       it 'creates one SmsRecord belonging to the user' do
@@ -72,7 +72,7 @@ RSpec.describe SmsRecords::SaveSmsRecord do
     end
 
     context 'when there is no error' do
-      let(:message_hash) { NexmoTestApi.single_message_response['messages'].first }
+      let(:message_hash) { VendorTestApi::Nexmo.single_message_response['messages'].first }
 
       it 'maps the Nexmo json to attributes of the SmsRecord model' do
         expect(nexmo_message_hash_to_attributes).to eq(

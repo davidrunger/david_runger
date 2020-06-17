@@ -2,7 +2,7 @@
 
 # https://developer.nexmo.com/api/sms
 
-module NexmoTestApi
+module VendorTestApi::Nexmo
   def self.stub_post_success
     WebMock.stub_request(:post, 'https://rest.nexmo.com/sms/json').
       to_return(

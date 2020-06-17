@@ -89,6 +89,7 @@ RSpec.configure do |config|
   config.include(FactoryBot::Syntax::Methods)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
+  config.include(Monkeypatches::MakeAllRequestsAsJson, request_format: :json)
 
   config.before(:suite) do
     # Reset FactoryBot sequences to an arbitrarily high number to avoid collisions with

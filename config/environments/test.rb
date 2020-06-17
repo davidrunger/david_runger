@@ -39,4 +39,11 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.active_storage.service = :local
+
+  extra_load_paths = [
+    Rails.root.join('spec/support'),
+  ].map(&:to_s).map(&:freeze)
+  config.eager_load_paths.concat(extra_load_paths)
 end
+
+Rails.autoloaders.main.do_not_eager_load(Rails.root.join('spec/support/matchers/'))
