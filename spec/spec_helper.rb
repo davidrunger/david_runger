@@ -115,11 +115,11 @@ RSpec.configure do |config|
   end
 
   config.define_derived_metadata(file_path: %r{/spec/controllers/api/}) do |metadata|
-    # we leverage this metadata for the `config.before(:each, requset_format: :json)` setting below
-    metadata[:requset_format] = :json
+    # we leverage this metadata for the `config.before(:each, request_format: :json)` setting below
+    metadata[:request_format] = :json
   end
 
-  config.before(:each, requset_format: :json) do
+  config.before(:each, request_format: :json) do
     request.accept = 'application/json'
   end
 
