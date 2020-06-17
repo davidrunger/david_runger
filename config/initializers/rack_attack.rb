@@ -75,11 +75,7 @@ Rack::Attack.blocklist('fail2ban pentesters') do |request|
       # store request data in Redis so that we can store a block reason if/when we create an IpBlock
       ip = request.ip
       path = request.path
-      $redis_pool.with do |conn|
-        redis_key = "blocked-requests:#{ip}"
-        conn.hset(redis_key, path, Time.current.to_i)
-        conn.expire(redis_key, Integer(Rack::Attack::PENTESTING_FINDTIME))
-      end
+      IpBlocks::StoreRequestBlockInRedis.new(ip: ip, path: path).run!
     end
 
     is_blocked_path
