@@ -20,6 +20,7 @@ class Test::RequirementsResolver
         Test::Tasks::CompileJavaScript => Test::Tasks::YarnInstall,
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
+        Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
 
         # Checks
         Test::Tasks::RunStylelint => Test::Tasks::YarnInstall,
@@ -30,14 +31,14 @@ class Test::RequirementsResolver
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
         Test::Tasks::RunRubocop => nil,
-        Test::Tasks::RunUnitTests => Test::Tasks::BuildFixtures,
-        Test::Tasks::RunApiControllerTests => Test::Tasks::BuildFixtures,
+        Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
+        Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunHtmlControllerTests => [
-          Test::Tasks::BuildFixtures,
+          Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
         ],
         Test::Tasks::RunFeatureTests => [
-          Test::Tasks::BuildFixtures,
+          Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
           Test::Tasks::EnsureLatestChromedriver,
         ],
