@@ -49,7 +49,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope
+      scope.none
     end
   end
 end
