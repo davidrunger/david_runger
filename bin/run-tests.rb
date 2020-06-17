@@ -7,7 +7,6 @@ require_relative './test/middleware/task_result_tracking_middleware.rb'
 
 Pallets.configure do |c|
   c.concurrency = 3
-  c.backend = :redis
   c.backend_args = { url: 'redis://127.0.0.1:6379/8' } # use redis db #8 (to avoid conflicts)
   c.serializer = :msgpack
   c.max_failures = 0
