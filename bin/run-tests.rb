@@ -11,7 +11,6 @@ Pallets.configure do |c|
   c.backend_args = { url: 'redis://127.0.0.1:6379/8' } # use redis db #8 (to avoid conflicts)
   c.serializer = :msgpack
   c.max_failures = 0
-  c.logger = Logger.new(STDOUT)
   c.middleware << Test::Middleware::ExitOnFailureMiddleware
   c.middleware << Test::Middleware::TaskResultTrackingMiddleware
 end
