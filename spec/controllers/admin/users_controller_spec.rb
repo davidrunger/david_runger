@@ -28,8 +28,6 @@ RSpec.describe Admin::UsersController do
   describe '#show' do
     subject(:get_show) { get(:show, params: { id: user.id }) }
 
-    let(:user) { User.first! }
-
     it 'renders the email of the user' do
       get_show
 
