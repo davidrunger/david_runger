@@ -31,6 +31,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
         Test::Tasks::RunRubocop => nil,
         Test::Tasks::RunUnitTests => Test::Tasks::BuildFixtures,
+        Test::Tasks::RunApiControllerTests => Test::Tasks::BuildFixtures,
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::BuildFixtures,
           Test::Tasks::CompileJavaScript,
@@ -49,6 +50,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunDatabaseConsistency,
           Test::Tasks::RunEslint,
           Test::Tasks::RunFeatureTests,
+          Test::Tasks::RunApiControllerTests,
           Test::Tasks::RunHtmlControllerTests,
           Test::Tasks::RunImmigrant,
           Test::Tasks::RunRubocop,

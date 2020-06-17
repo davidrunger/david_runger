@@ -4,12 +4,12 @@ class Test::Tasks::RunUnitTests < Pallets::Task
   include Test::TaskHelpers
 
   def run
-    # run all tests in `spec/` _except_ those in `spec/controllers/` that are _not_ in
-    # `spec/controllers/api/` and those in `spec/features/`
+    # Run all tests in `spec/` _except_ those in `spec/controllers/` and `spec/features/`.
+    # Tests in `spec/controllers/` will be run by RunApiControllerTests and RunHtmlControllerTests.
+    # Tests in `spec/features/` will be run by RunFeatureTests.
     execute_system_command(<<~COMMAND)
       bin/rspec
       $(ls -d spec/*/ | grep --extended-regex -v 'spec/(controllers|features)/' | tr '\\n' ' ')
-      spec/controllers/api/
       --format RSpec::Instafail --format progress --force-color
     COMMAND
   end
