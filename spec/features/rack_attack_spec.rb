@@ -5,10 +5,14 @@ RSpec.describe 'Rack::Attack', :rack_test_driver do
     around do |spec|
       original_rack_attack_store = Rack::Attack.cache.store
       expect(Rails.cache).to be_a(ActiveSupport::Cache::MemCacheStore)
+
       Rails.cache.clear
       Rack::Attack.cache.store = Rails.cache
+
       spec.run
+
       Rack::Attack.cache.store = original_rack_attack_store
+      Rails.cache.clear
     end
 
     context 'when -- two times in one day -- a user requests paths with banned segments' do
