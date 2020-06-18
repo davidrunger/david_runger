@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 if Rails.configuration.rack_mini_profiler_enabled
+  # :nocov:
   require 'rack-mini-profiler'
 
   Rack::MiniProfilerRails.initialize!(Rails.application)
@@ -11,4 +12,5 @@ if Rails.configuration.rack_mini_profiler_enabled
   Rack::MiniProfiler.config.storage = Rack::MiniProfiler::RedisStore
 
   Rack::MiniProfiler.config.authorization_mode = :whitelist
+  # :nocov:
 end
