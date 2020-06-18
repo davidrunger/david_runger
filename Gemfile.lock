@@ -1,11 +1,11 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: d86c801d6e26558efbfc9a289da2883797b18b5d
+  revision: 35f397c120120086c1b6a4e3fadaf974b8d2bf1e
   specs:
-    active_actions (0.5.1)
+    active_actions (0.6.0)
       memoist (~> 0.16)
       rails (~> 6.0)
-      shaped (~> 0.2)
+      shaped (~> 0.3.0)
 
 GIT
   remote: https://github.com/davidrunger/guard-espect.git
@@ -25,9 +25,10 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/shaped.git
-  revision: 7ae27ac95304602dc960e6e5d398ba4c386c30b0
+  revision: c06e6f2a64787b15af174877686d61cd067bdbde
   specs:
-    shaped (0.2.1)
+    shaped (0.3.0)
+      activesupport (~> 6.0)
 
 GIT
   remote: https://github.com/davidrunger/spring-watcher-listen.git
@@ -54,7 +55,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 661da266b94909574426fd1121ef13b800e01b9a
+  revision: 664e94989e00b81d61b0dba5ecf476213759adf7
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
