@@ -135,6 +135,20 @@ RSpec.configure do |config|
     Capybara.use_default_driver
   end
 
+  config.around(:each, :production_like_error_handling) do |spec|
+    # https://github.com/rails/rails/pull/11289#issuecomment-118612393
+    env_config = Rails.application.env_config
+    original_show_exceptions = env_config['action_dispatch.show_exceptions']
+    original_show_detailed_exceptions = env_config['action_dispatch.show_detailed_exceptions']
+    env_config['action_dispatch.show_exceptions'] = true
+    env_config['action_dispatch.show_detailed_exceptions'] = false
+
+    spec.run
+
+    env_config['action_dispatch.show_exceptions'] = original_show_exceptions
+    env_config['action_dispatch.show_detailed_exceptions'] = original_show_detailed_exceptions
+  end
+
   config.around(:each, queue_adapter: :test) do |spec|
     original_active_job_queue_adapter = ActiveJob::Base.queue_adapter
     ActiveJob::Base.queue_adapter = :test
