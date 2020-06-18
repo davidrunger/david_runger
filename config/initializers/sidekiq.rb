@@ -24,6 +24,7 @@ Sidekiq.configure_server do |config|
   # This is `(max_)concurrency + 5`.
   # For concurrency (2), see config/sidekiq.yml.
   # For why we are adding 5, see https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control
+  # :nocov:
   config.redis = ConnectionPool.new(size: 7, &build_sidekiq_redis_connection)
 
   if Rails.env.development?
@@ -41,4 +42,5 @@ Sidekiq.configure_server do |config|
       end
     end
   end
+  # :nocov:
 end
