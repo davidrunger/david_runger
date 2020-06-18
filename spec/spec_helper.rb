@@ -106,14 +106,11 @@ RSpec.configure do |config|
     end
   end
 
-  # rubocop:disable RSpec/HookArgument
-  config.before(:each) do
-    Rack::Attack.reset!
-  end
-  # rubocop:enable RSpec/HookArgument
-
-  config.before(:each, :cache) do
-    allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::MemCacheStore.new)
+  config.around(:each, :cache) do |spec|
+    original_rails_cache = Rails.cache
+    Rails.cache = ActiveSupport::Cache::MemCacheStore.new
+    spec.run
+    Rails.cache = original_rails_cache
   end
 
   config.define_derived_metadata(file_path: %r{/spec/controllers/api/}) do |metadata|
