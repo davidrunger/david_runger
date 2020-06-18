@@ -27,7 +27,9 @@ class DavidRunger::Application < Rails::Application
   config.action_mailer.default_url_options =
     case Rails.env
     when 'production'
+      # :nocov:
       { host: 'www.davidrunger.com', protocol: 'https' }
+      # :nocov:
     else
       { host: 'localhost:3000', protocol: 'http' }
     end
@@ -48,12 +50,14 @@ class DavidRunger::Application < Rails::Application
 
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
   if Rails.env.development?
+    # :nocov:
     # require_relative is ugly but ~necessary: https://github.com/rails/rails/issues/25525
     require_relative '../lib/middleware/set_config_server_middleware'
     config.middleware.insert_after(
       Rack::Deflater,
       Middleware::SetConfigServerMiddleware,
     )
+    # :nocov:
   end
 
   extra_load_paths = [
