@@ -85,7 +85,7 @@
     "postcss-syntax": "^0.36.2",
     "stylelint": "~13",
     "stylelint-config-standard": "^20.0.0",
-    "stylelint-scss": "^3.17.2",
+    "stylelint-scss": "^3.18.0",
     "stylelint-webpack-plugin": "^2.1.0",
     "webpack-dev-server": "^3.11.0",
     "webpack-node-externals": "^1.7.2",
