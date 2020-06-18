@@ -26,21 +26,5 @@ Sidekiq.configure_server do |config|
   # For why we are adding 5, see https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control
   # :nocov:
   config.redis = ConnectionPool.new(size: 7, &build_sidekiq_redis_connection)
-
-  if Rails.env.development?
-    config.server_middleware do |chain|
-      require_relative '../../lib/middleware/set_config_sidekiq_middleware'
-      chain.add(Middleware::SetConfigSidekiqMiddleware)
-
-      require_relative '../../lib/middleware/sidekiq_dev_logging'
-      chain.add(Middleware::SidekiqDevLogging)
-      # silence the default Sidekiq logger
-      class ::Sidekiq::JobLogger
-        def call(*_args)
-          yield
-        end
-      end
-    end
-  end
   # :nocov:
 end

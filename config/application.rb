@@ -49,16 +49,6 @@ class DavidRunger::Application < Rails::Application
   config.active_record.default_timezone = :utc
 
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
-  if Rails.env.development?
-    # :nocov:
-    # require_relative is ugly but ~necessary: https://github.com/rails/rails/issues/25525
-    require_relative '../lib/middleware/set_config_server_middleware'
-    config.middleware.insert_after(
-      Rack::Deflater,
-      Middleware::SetConfigServerMiddleware,
-    )
-    # :nocov:
-  end
 
   extra_load_paths = [
     Rails.root.join('lib'),
