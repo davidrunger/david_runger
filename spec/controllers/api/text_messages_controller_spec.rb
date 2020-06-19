@@ -53,7 +53,13 @@ RSpec.describe Api::TextMessagesController do
 
         it 'does not attempt to send a text message and raises an error' do
           expect(NexmoClient).not_to receive(:send_text!)
-          expect { post_create }.to raise_error(SmsRecords::GenerateMessage::InvalidMessageType)
+          expect { post_create }.to raise_error(
+            ActiveActions::TypeMismatch,
+            <<~ERROR.squish)
+              One or more required params are of the wrong type: `message_type` is expected to be
+              shaped like String validating {:inclusion=>["grocery_store_items_needed"]}, but was
+              `"an_unknown_message_type"`.
+            ERROR
         end
       end
 

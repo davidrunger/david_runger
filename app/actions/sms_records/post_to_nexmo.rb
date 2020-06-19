@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SmsRecords::PostToNexmo < ApplicationAction
-  requires :message_body, String
-  requires :phone_number, String
+  requires :message_body, String, presence: true
+  requires :phone_number, String, presence: true
 
   returns :nexmo_response, HTTParty::Response
 

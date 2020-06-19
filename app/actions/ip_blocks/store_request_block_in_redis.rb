@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class IpBlocks::StoreRequestBlockInRedis < ApplicationAction
-  requires :ip, String
-  requires :path, String
+  requires :ip, String, format: { with: /[.0-9]{7,15}/ }
+  requires :path, String, format: { with: %r{\A/} }
 
   def execute
     $redis_pool.with do |conn|
