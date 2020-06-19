@@ -104,6 +104,11 @@ RSpec.configure do |config|
     FactoryBot::Internal.inline_sequences.each do |sequence|
       sequence.instance_variable_set(:@value, FactoryBot::Sequence::EnumeratorAdapter.new(10_000))
     end
+
+    # Some of the specs involve somewhat lengthy strings; increase the size of the printed output
+    # for easier comparison of expected vs actual strings, in the event of a failure.
+    # https://github.com/rspec/rspec-expectations/issues/ 991#issuecomment-302863645
+    RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 2_000
   end
 
   config.around(:each, :cache) do |spec|

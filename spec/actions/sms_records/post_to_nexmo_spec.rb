@@ -11,6 +11,34 @@ RSpec.describe SmsRecords::PostToNexmo do
   end
   let(:message_body) { 'Hi there!' }
 
+  describe 'initializing the action' do
+    context 'when the message_body is a blank string' do
+      let(:post_to_nexmo_params) { super().merge(message_body: '') }
+
+      it 'raises an error' do
+        expect { post_to_nexmo_action }.to raise_error(
+          ActiveActions::TypeMismatch,
+          <<~ERROR.squish)
+            One or more required params are of the wrong type: `message_body` is expected to be
+            shaped like String validating {:presence=>true}, but was `""`.
+          ERROR
+      end
+    end
+
+    context 'when the phone_number is a blank string' do
+      let(:post_to_nexmo_params) { super().merge(phone_number: '') }
+
+      it 'raises an error' do
+        expect { post_to_nexmo_action }.to raise_error(
+          ActiveActions::TypeMismatch,
+          <<~ERROR.squish)
+            One or more required params are of the wrong type: `phone_number` is expected to be
+            shaped like String validating {:presence=>true}, but was `""`.
+          ERROR
+      end
+    end
+  end
+
   describe '#execute' do
     subject(:execute) { post_to_nexmo_action.execute }
 
