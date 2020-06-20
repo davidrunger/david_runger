@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LogEntriesMailbox < ApplicationMailbox
-  using TrimmedMailBody
+  using ParsedMailBody
 
   def process
     log_id = mail.to.first.presence!.match(ApplicationMailbox::LOG_ENTRIES_ROUTING_REGEX)[:log_id]
@@ -9,6 +9,6 @@ class LogEntriesMailbox < ApplicationMailbox
     user = User.find_by!(email: user_email)
     log = user.logs.find(log_id)
 
-    log.log_entries.create!(data: mail.trimmed_body)
+    log.log_entries.create!(data: mail.parsed_body)
   end
 end
