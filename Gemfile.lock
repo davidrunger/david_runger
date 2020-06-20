@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: ebca5e87a7b9d0983f3e860fbd17ab35b558d274
+  revision: 45a104acacffa67484d38bbcf809c5818191abca
   specs:
-    active_actions (0.10.0)
+    active_actions (0.10.1)
       memoist (~> 0.16)
       rails (~> 6.0)
       shaped (~> 0.6.0)
@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 596d4dbb336d29d9b13487624b99657cd4161c6c
+  revision: 36b44ca9f755be908874dc1994ca75fe03fd35c0
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
