@@ -5,5 +5,6 @@ class ApplicationMailbox < ActionMailbox::Base
 
   routing(
     LOG_ENTRIES_ROUTING_REGEX => :log_entries,
+    /\Areply@/ => :replies,
   )
 end
