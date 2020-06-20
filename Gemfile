@@ -35,7 +35,7 @@ gem 'rack-mini-profiler', require: false
 gem 'rails', github: 'rails/rails'
 # We can probably remove this version constraint once Sidekiq 6.1 has been released.
 # See https://github.com/mperham/sidekiq/issues/4591 .
-gem 'redis', '~> 4.2.1'
+gem 'redis', '4.1.4'
 gem 'rollbar'
 gem 'shaped', github: 'davidrunger/shaped'
 gem 'sidekiq'
