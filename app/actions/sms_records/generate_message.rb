@@ -11,7 +11,7 @@ class SmsRecords::GenerateMessage < ApplicationAction
   requires :message_type, String, inclusion: MESSAGE_TEMPLATES
   requires :user, User
 
-  returns :message_body, String
+  returns :message_body, String, presence: true
 
   def execute
     result.message_body = message_body
