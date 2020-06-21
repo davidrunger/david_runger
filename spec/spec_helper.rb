@@ -127,6 +127,17 @@ RSpec.configure do |config|
     request.accept = 'application/json'
   end
 
+  config.before(:each, type: :controller) do
+    # When executed, a Rails middleware will ensure that a `request_id` is set for each request.
+    # However, middleware does not run for controller tests.
+    # Therefore, here we stub a `request_id` in controller tests.
+    # rubocop:disable RSpec/AnyInstance
+    allow_any_instance_of(ActionController::TestRequest).
+      to receive(:request_id).
+      and_return(SecureRandom.uuid)
+    # rubocop:enable RSpec/AnyInstance
+  end
+
   config.after(:each, type: :controller) do
     Devise.sign_out_all_scopes
   end

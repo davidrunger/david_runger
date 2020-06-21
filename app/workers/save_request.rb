@@ -83,6 +83,7 @@ class SaveRequest
       url
       user_agent
       user_id
+      auth_token_id
       view
     ]).merge(
       request_id: @request_id,

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module RequestRecordable
-  class StashRequestError < StandardError; end
-
   extend ActiveSupport::Concern
 
   # The number of seconds to store request data in Redis (to later turn into a `Request`). Set to
@@ -22,20 +20,6 @@ module RequestRecordable
         request_data.to_json,
       )
     end
-  rescue
-    # wrap the original exception in StashRequestError by raising and immediately rescuing
-    begin
-      raise(StashRequestError, 'Failed to store request data in redis')
-    rescue StashRequestError => error
-      cause_error = error.cause
-      Rails.logger.warn(<<-LOG.squish)
-        Failed to store request data in redis,
-        error=#{error.class}: #{error.message},
-        cause=#{cause_error&.class}: #{cause_error&.message},
-        request_data=#{request_data.inspect}
-      LOG
-      Rollbar.warning(error, request_data: request_data)
-    end
   end
 
   private
@@ -50,6 +34,7 @@ module RequestRecordable
       params: params,
       filtered_params: filtered_params,
       user: current_user,
+      auth_token: auth_token,
       request_time: @request_time,
     ).request_data
   end

@@ -45,9 +45,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users
-    resources :requests, only: %i[index show]
+    resources :auth_tokens, only: %i[show]
     resources :ip_blocks
+    resources :requests, only: %i[index show]
+    resources :users
 
     root to: 'users#index'
   end

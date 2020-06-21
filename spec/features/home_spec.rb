@@ -38,6 +38,7 @@ RSpec.describe 'Home page' do
       {
         'id' => Integer,
         'user_id' => nil,
+        'auth_token_id' => nil,
         'url' => %r{http://127.0.0.1:\d+/},
         'handler' => 'home#index',
         'referer' => nil,

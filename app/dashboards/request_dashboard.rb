@@ -11,6 +11,7 @@ class RequestDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
+    auth_token: Field::BelongsTo,
     id: Field::Number,
     url: Field::String,
     handler: Field::String,
@@ -37,6 +38,7 @@ class RequestDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     user
+    auth_token
     handler
     requested_at
     location
@@ -50,6 +52,7 @@ class RequestDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     user
+    auth_token
     url
     handler
     referer
