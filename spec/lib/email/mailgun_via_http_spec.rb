@@ -30,18 +30,19 @@ RSpec.describe Email::MailgunViaHttp do
         :post,
         'https://api.mailgun.net/v3/mg.davidrunger.com/messages',
       ).with(
-        body: HTTParty::HashConversions.to_params(
-          from: pretty_from_email,
+        body: Faraday::NestedParamsEncoder.encode(
           to: pretty_to_email,
           subject: email_subject,
-          html: email_body,
+          from: pretty_from_email,
           'h:Reply-To' => pretty_reply_to_email,
+          html: email_body,
         ),
         headers: {
           'Accept' => '*/*',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Basic YXBpOjJhNGQ4OWQxLTE5ODQtNDQ1My04ZWE1LTI0NjhkMTc2OWE2Yw==',
-          'User-Agent' => 'Ruby',
+          'Content-Type' => 'application/x-www-form-urlencoded',
+          'User-Agent' => 'Faraday v1.0.1',
         },
       ).to_return(
         status: 200,
