@@ -316,7 +316,29 @@ export default {
     SkillRow,
   },
 
+  methods: {
+    setScrollToFragmentTimeouts() {
+      if (window.location.hash) {
+        const fragmentTarget = document.getElementById(window.location.hash.slice(1));
+        if (fragmentTarget) {
+          // retarget scrolling to the element several times. earlier timeouts are so that we
+          // scroll there as quickly as possible. later timeouts are because adjustments to the DOM
+          // might be changing the scroll position of the target element as the page renders. stop
+          // after 850 ms because at that point the user has a reasonable expectation to have full
+          // control over their scroll position.
+          [0, 150, 320, 500, 850].forEach((timeoutMilliseconds) => {
+            setTimeout(() => {
+              fragmentTarget.scrollIntoView();
+            }, timeoutMilliseconds);
+          });
+        }
+      }
+    },
+  },
+
   mounted() {
+    this.setScrollToFragmentTimeouts();
+
     positionListener.init();
 
     const logo = document.getElementById('logo');
