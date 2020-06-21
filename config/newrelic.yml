@@ -27,6 +27,10 @@ common: &default_settings
   distributed_tracing:
     enabled: true
 
+  # https://docs.newrelic.com/docs/agents/ruby-agent/configuration/ruby-agent-configuration#browser_monitoring
+  browser_monitoring:
+    auto_instrument: false
+
 # Environment-specific settings are in this section.
 # RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
 # If your application has other named environments, configure them here.
