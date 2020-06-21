@@ -13,15 +13,19 @@ RSpec.describe Admin::RequestsController do
     context 'when viewing the requests sorted in ascending order of requested_at' do
       let(:params) { { 'request[order]' => 'requested_at', 'request[direction]' => 'asc' } }
 
-      it 'shows the expected info about the Request' do
-        get_index
+      context 'when the request is associated with an auth token' do
+        before { first_request.update!(auth_token: AuthToken.first!) }
 
-        # There are some other fields, but these are the simplest ones to check
-        expect(response.body).to have_text(first_request.id)
-        expect(response.body).to have_text(first_request.handler)
-        expect(response.body).to have_text(first_request.location)
-        expect(response.body).to have_text(first_request.isp)
-        expect(response.body).to have_text(first_request.ip)
+        it 'shows the expected info about the Request' do
+          get_index
+
+          # There are some other fields, but these are the simplest ones to check
+          expect(response.body).to have_text(first_request.id)
+          expect(response.body).to have_text(first_request.handler)
+          expect(response.body).to have_text(first_request.location)
+          expect(response.body).to have_text(first_request.isp)
+          expect(response.body).to have_text(first_request.ip)
+        end
       end
     end
   end

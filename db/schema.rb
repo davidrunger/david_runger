@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_080811) do
+ActiveRecord::Schema.define(version: 2020_06_21_065504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,8 @@ ActiveRecord::Schema.define(version: 2020_06_15_080811) do
     t.string "location"
     t.string "isp"
     t.string "request_id", null: false
+    t.bigint "auth_token_id"
+    t.index ["auth_token_id"], name: "index_requests_on_auth_token_id"
     t.index ["isp"], name: "index_requests_on_isp"
     t.index ["request_id"], name: "index_requests_on_request_id", unique: true
     t.index ["requested_at"], name: "index_requests_on_requested_at"
@@ -196,6 +198,7 @@ ActiveRecord::Schema.define(version: 2020_06_15_080811) do
   add_foreign_key "log_shares", "logs"
   add_foreign_key "logs", "users"
   add_foreign_key "number_log_entries", "logs"
+  add_foreign_key "requests", "auth_tokens"
   add_foreign_key "requests", "users"
   add_foreign_key "sms_records", "users"
   add_foreign_key "stores", "users"

@@ -11,11 +11,14 @@ class RequestDataBuilder
     utf8
   ].map(&:freeze).freeze
 
-  def initialize(request:, params:, filtered_params:, user:, request_time:)
+  # rubocop:disable Metrics/ParameterLists
+  def initialize(request:, params:, filtered_params:, user:, auth_token:, request_time:)
+    # rubocop:enable Metrics/ParameterLists
     @request = request
     @params = params
     @filtered_params = filtered_params
     @user = user
+    @auth_token = auth_token
     @request_time = request_time
   end
 
@@ -24,6 +27,7 @@ class RequestDataBuilder
 
     @request_data = {
       user_id: @user&.id,
+      auth_token_id: @auth_token&.id,
       url: @request.url,
       method: @request.request_method,
       handler: "#{@params['controller']}##{@params['action']}",

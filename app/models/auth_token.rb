@@ -21,4 +21,5 @@ class AuthToken < ApplicationRecord
   validates :secret, presence: true, uniqueness: { scope: :user_id }
 
   belongs_to :user
+  has_many :requests, dependent: :nullify
 end
