@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: dc99dec9af3dbd12f0ab2b22fa4026512a4fcdab
+  revision: 0a58bd73bb1e9b8f5c986b5a74e6bbad4120cddf
   specs:
-    active_actions (0.10.2)
+    active_actions (0.11.0)
       memoist (~> 0.16)
       rails (~> 6.0)
       shaped (~> 0.6.0)
@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 4860c13569a58a33aad81e5091ef5f2cced41456
+  revision: d6fda8e019c057c13869e59ec70a810f64dd377a
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -249,6 +249,8 @@ GEM
       i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (1.0.0)
+      faraday (~> 1.0)
     ffi (1.13.1)
     fixture_builder (0.5.2)
       activerecord (>= 2)
@@ -287,9 +289,6 @@ GEM
     hashdiff (1.0.1)
     hashie (4.1.0)
     http_logger (0.6.0)
-    httparty (0.18.1)
-      mime-types (~> 3.0)
-      multi_xml (>= 0.5.2)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     immigrant (0.3.6)
@@ -341,9 +340,6 @@ GEM
       mimemagic (~> 0.3.2)
     memoist (0.16.2)
     method_source (1.0.0)
-    mime-types (3.3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
@@ -578,6 +574,8 @@ DEPENDENCIES
   email_reply_trimmer!
   factory_bot_rails
   faker
+  faraday
+  faraday_middleware
   fixture_builder
   flamegraph
   flipper
@@ -587,7 +585,6 @@ DEPENDENCIES
   hamlit
   hashdiff
   http_logger
-  httparty
   immigrant
   js-routes
   json-schema

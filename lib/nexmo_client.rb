@@ -4,9 +4,9 @@ module NexmoClient
   NEXMO_SMS_API_URL = 'https://rest.nexmo.com/sms/json'
 
   def self.send_text!(number:, message:)
-    HTTParty.post(
+    Faraday.json_connection.post(
       NEXMO_SMS_API_URL,
-      body: {
+      {
         text: message,
         to: number,
         from: ENV['NEXMO_PHONE_NUMBER'],

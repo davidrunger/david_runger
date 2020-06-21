@@ -30,7 +30,7 @@ class FetchIpInfoForRequest
   memoize \
   def ip_info_from_api(ip)
     Rails.logger.info("Querying ip-api.com for info about IP address '#{ip}'")
-    raw_ip_info_from_api = HTTParty.get("http://ip-api.com/json/#{ip}").parsed_response
+    raw_ip_info_from_api = Faraday.json_connection.get("http://ip-api.com/json/#{ip}").body
     isp, city, state, country = raw_ip_info_from_api.values_at(*%w[isp city region countryCode])
 
     parsed_ip_info = {

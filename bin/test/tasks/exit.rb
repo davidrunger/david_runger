@@ -55,9 +55,9 @@ class Test::Tasks::Exit < Pallets::Task
     print("\nPosting data to log... ")
     begin
       response =
-        HTTParty.post(
+        Faraday.json_connection.post(
           ENV['BUILD_TIME_LOG_URL'],
-          body: {
+          {
             auth_token: ENV['BUILD_TIME_LOG_AUTH_TOKEN'],
             log_entry: {
               log_id: ENV['BUILD_TIME_LOG_ID'],
@@ -66,9 +66,9 @@ class Test::Tasks::Exit < Pallets::Task
             },
           },
         )
-      code = response.code
-      puts("Response code: #{(code == 201) ? code.to_s.green : code.to_s.red}")
-    rescue Errno::ECONNREFUSED
+      status = response.status
+      puts("Response status: #{(status == 201) ? status.to_s.green : status.to_s.red}")
+    rescue Faraday::ConnectionFailed
       if ENV['BUILD_TIME_LOG_URL'].include?('localhost')
         puts("#{'failed'.red} because localhost server is not running, but that's okay.")
       else

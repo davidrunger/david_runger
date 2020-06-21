@@ -4,6 +4,7 @@
 require_relative './test/runner.rb'
 require_relative './test/middleware/exit_on_failure_middleware.rb'
 require_relative './test/middleware/task_result_tracking_middleware.rb'
+require_relative '../config/initializers/monkeypatches/faraday.rb'
 
 Pallets.configure do |c|
   c.concurrency = 3

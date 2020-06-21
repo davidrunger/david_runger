@@ -8,7 +8,7 @@ module Monkeypatches::MakeAllRequestsAsJson
   http_verbs = %w[get post patch put head delete]
   http_verbs.each do |method|
     define_method(method) do |action, options|
-      super(action, { as: :json }.merge(options))
+      super(action, **{ as: :json }.merge(options))
     end
   end
 end
