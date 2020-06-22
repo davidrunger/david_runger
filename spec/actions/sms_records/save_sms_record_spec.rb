@@ -5,10 +5,11 @@ RSpec.describe SmsRecords::SaveSmsRecord do
 
   let(:save_sms_record_params) do
     {
-      nexmo_response_data: VendorTestApi::Nexmo.single_message_response,
+      nexmo_response_data: nexmo_response_data,
       user: user,
     }
   end
+  let(:nexmo_response_data) { VendorTestApi::Nexmo.single_message_response }
   let(:user) { users(:user) }
 
   describe '#execute' do
@@ -48,6 +49,22 @@ RSpec.describe SmsRecords::SaveSmsRecord do
 
         it 'has a to' do
           expect(sms_record.to).to be_present
+        end
+      end
+
+      context "when the provided nexmo_response_data hash doesn't include a message-id" do
+        before { nexmo_response_data.dig('messages', 0).delete('message-id') }
+
+        it 'raises an error' do
+          expect { execute }.to raise_error(ActiveActions::TypeMismatch)
+        end
+      end
+
+      context "when the provided nexmo_response_data hash doesn't include an error-text" do
+        before { nexmo_response_data.dig('messages', 0).delete('error-text') }
+
+        it 'does not raise any error' do
+          expect { execute }.not_to raise_error
         end
       end
     end
