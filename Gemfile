@@ -38,7 +38,6 @@ gem 'rails', github: 'rails/rails'
 # See https://github.com/mperham/sidekiq/issues/4591 .
 gem 'redis', '4.1.4'
 gem 'rollbar'
-gem 'shaped', github: 'davidrunger/shaped'
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false # required manually in config/initializers/sidekiq.rb
 gem 'stackprof' # Provides stack traces for flamegraph for rack-mini-profiler.
