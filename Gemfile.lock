@@ -210,7 +210,7 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
     dalli (2.7.10)
-    database_consistency (0.8.1)
+    database_consistency (0.8.2)
       activerecord (>= 3.2)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
