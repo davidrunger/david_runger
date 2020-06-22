@@ -61,6 +61,6 @@ class AuthTokenDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(auth_token)
-    %("#{auth_token.name}" token)
+    "#{auth_token.name} token"
   end
 end
