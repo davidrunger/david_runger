@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 0a58bd73bb1e9b8f5c986b5a74e6bbad4120cddf
+  revision: c8f99c302e346f0478884e204c4814eb8a5ff61d
   specs:
-    active_actions (0.11.0)
+    active_actions (0.13.0)
       memoist (~> 0.16)
       rails (~> 6.0)
       shaped (~> 0.6.0)
@@ -22,14 +22,6 @@ GIT
   specs:
     rspec_performance_summary (0.1.2)
       rspec-core (~> 3.0)
-
-GIT
-  remote: https://github.com/davidrunger/shaped.git
-  revision: e1e17ef7d467231c1491ef6768065eb1c3544445
-  specs:
-    shaped (0.6.1)
-      activemodel (~> 6.0)
-      activesupport (~> 6.0)
 
 GIT
   remote: https://github.com/davidrunger/spring-watcher-listen.git
@@ -56,7 +48,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: d6fda8e019c057c13869e59ec70a810f64dd377a
+  revision: fb078f3d06d3ce3bf5d25f36135de6978d4250ae
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -491,6 +483,9 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
+    shaped (0.6.4)
+      activemodel (~> 6.0)
+      activesupport (~> 6.0)
     shellany (0.0.1)
     shoulda-matchers (4.3.0)
       activesupport (>= 4.2.0)
@@ -619,7 +614,6 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
-  shaped!
   shoulda-matchers
   sidekiq
   sidekiq-scheduler
