@@ -18,4 +18,8 @@
 
 class LogEntries::NumberLogEntry < LogEntry
   self.table_name = 'number_log_entries'
+
+  def self.policy_class
+    LogEntryPolicy
+  end
 end

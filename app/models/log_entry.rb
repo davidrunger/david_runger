@@ -17,5 +17,7 @@
 
 class LogEntry < ApplicationRecord
   belongs_to :log
+  has_one :user, through: :log
+
   validates :data, presence: true
 end

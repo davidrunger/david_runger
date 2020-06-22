@@ -16,6 +16,7 @@
 #
 class LogShare < ApplicationRecord
   belongs_to :log
+  has_one :user, through: :log
 
   validates :email, presence: true
 end

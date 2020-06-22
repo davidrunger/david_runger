@@ -2,10 +2,12 @@
 
 class Logs::UploadsController < ApplicationController
   def index
+    authorize(LogEntry, :new?)
     render :index
   end
 
   def create
+    authorize(LogEntry)
     log = current_user.logs.find(params['log_id'])
     log_entries =
       CSV.parse(params['csv'].read, headers: true).map do |row|

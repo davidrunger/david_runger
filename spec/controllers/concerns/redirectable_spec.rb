@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Redirectable do
+RSpec.describe Redirectable, :without_verifying_authorization do
   controller(ApplicationController) do
     def index
       render(plain: 'This is the #index action.')

@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user
   before_action :enable_rack_mini_profiler_if_admin
 
+  after_action :verify_authorized
+
   rescue_from(
     Pundit::NotAuthorizedError,
     TokenAuthenticatable::BlankToken,

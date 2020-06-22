@@ -4,6 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_action :authenticate_user, only: [:google_oauth2]
 
   def google_oauth2
+    authorize(User, :create?)
     access_token = request.env['omniauth.auth']
     email = access_token.info['email']
 

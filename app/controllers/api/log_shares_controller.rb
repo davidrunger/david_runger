@@ -2,6 +2,7 @@
 
 class Api::LogSharesController < ApplicationController
   def create
+    authorize(LogShare)
     log = current_user.logs.find(log_share_params[:log_id])
     @log_share = log.log_shares.build(log_share_params)
 
@@ -15,8 +16,13 @@ class Api::LogSharesController < ApplicationController
 
   def destroy
     @log_share = current_user.log_shares.find_by(id: params[:id])
-    head(404) && return if @log_share.nil?
+    if @log_share.nil?
+      head(404)
+      skip_authorization
+      return
+    end
 
+    authorize(@log_share)
     @log_share.destroy!
     head(204)
   end

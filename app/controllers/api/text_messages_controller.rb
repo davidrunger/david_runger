@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::TextMessagesController < ApplicationController
-  after_action :verify_authorized
-
   def create
     authorize(SmsRecord)
     action =

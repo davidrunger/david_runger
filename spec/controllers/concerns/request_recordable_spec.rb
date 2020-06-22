@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RequestRecordable do
+RSpec.describe RequestRecordable, :without_verifying_authorization do
   controller(ApplicationController) do
     def index
       render(plain: 'This is the #index action.')

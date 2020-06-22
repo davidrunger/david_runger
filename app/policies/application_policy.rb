@@ -9,7 +9,9 @@ class ApplicationPolicy
   end
 
   def index?
-    false
+    # Generally, any logged-in user should be able to access an index action.
+    # The records actually available in the index will be limited by the policy scope.
+    @user.is_a?(User)
   end
 
   def show?
@@ -17,7 +19,7 @@ class ApplicationPolicy
   end
 
   def create?
-    false
+    true
   end
 
   def new?
@@ -25,7 +27,7 @@ class ApplicationPolicy
   end
 
   def update?
-    false
+    own_record?
   end
 
   def edit?
@@ -33,7 +35,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    own_record?
   end
 
   def scope
@@ -51,5 +53,11 @@ class ApplicationPolicy
     def resolve
       scope.none
     end
+  end
+
+  private
+
+  def own_record?
+    @record.user == @user
   end
 end

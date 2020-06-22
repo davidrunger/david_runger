@@ -4,12 +4,14 @@ class Api::ItemsController < ApplicationController
   before_action :set_item, only: %i[destroy update]
 
   def create
+    authorize(Item)
     store = current_user.stores.find(params[:store_id])
     @item = store.items.create!(item_params)
     render json: @item, status: :created
   end
 
   def update
+    authorize(@item)
     if @item.update(item_params)
       render json: @item
     else
@@ -18,6 +20,7 @@ class Api::ItemsController < ApplicationController
   end
 
   def destroy
+    authorize(@item)
     @item.destroy!
     head 204
   end

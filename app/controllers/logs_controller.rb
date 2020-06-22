@@ -2,6 +2,7 @@
 
 class LogsController < ApplicationController
   def index
+    authorize(Log)
     user_id_param = params[:user_id]
     if user_id_param && params[:slug]
       sharing_user = User.find(user_id_param)
