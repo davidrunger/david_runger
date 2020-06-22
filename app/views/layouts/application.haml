@@ -11,7 +11,8 @@
     %meta{property: 'og:title', content: title}
 
     -# other metadata
-    - if current_page?(controller: '/home', action: 'index')
+    -# (note: the curly braces are necessary to avoid a warning about keyword params)
+    - if current_page?({ controller: '/home', action: 'index' })
       %meta{name: 'author', content: 'David Runger'}
       %meta{property: 'og:type', content: 'website'}
       %meta{property: 'og:url', content: 'https://www.davidrunger.com/'}

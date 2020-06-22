@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Api::LogsController < ApplicationController
-  before_action :set_log, only: %i[destroy]
+  before_action :set_log, only: %i[destroy update]
 
   def create
+    authorize(Log)
     @log = current_user.logs.build(log_params)
     if @log.save
       render json: @log, status: :created
@@ -18,13 +19,13 @@ class Api::LogsController < ApplicationController
   end
 
   def update
-    @log = current_user.logs.find(params[:id])
+    authorize(@log)
     @log.update!(log_params)
     render json: @log
   end
 
   def destroy
-    @log = current_user.logs.find(params[:id])
+    authorize(@log)
     @log.destroy!
     head(204)
   end
@@ -43,7 +44,7 @@ class Api::LogsController < ApplicationController
   end
 
   def set_log
-    @log ||= current_user.logs.find_by(id: params['id'])
+    @log = current_user.logs.find_by(id: params[:id])
     head(404) if @log.nil?
   end
 end

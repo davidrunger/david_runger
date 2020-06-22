@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ApplicationController do
+RSpec.describe ApplicationController, :without_verifying_authorization do
   controller do
     def index
       render(plain: 'This is the #index action.')

@@ -2,6 +2,7 @@
 
 class WorkoutsController < ApplicationController
   def index
+    authorize(Workout)
     @title = 'Workout'
     @description = 'Plan and execute a timed workout'
     bootstrap(

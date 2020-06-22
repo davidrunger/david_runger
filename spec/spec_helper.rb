@@ -127,6 +127,14 @@ RSpec.configure do |config|
     request.accept = 'application/json'
   end
 
+  config.before(:each, :without_verifying_authorization) do
+    # rubocop:disable RSpec/AnyInstance
+    allow_any_instance_of(ApplicationController).
+      to receive(:pundit_policy_authorized?).
+      and_return(true)
+    # rubocop:enable RSpec/AnyInstance
+  end
+
   config.before(:each, type: :controller) do
     # When executed, a Rails middleware will ensure that a `request_id` is set for each request.
     # However, middleware does not run for controller tests.

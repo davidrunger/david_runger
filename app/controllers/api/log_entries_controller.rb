@@ -2,6 +2,7 @@
 
 class Api::LogEntriesController < ApplicationController
   def create
+    authorize(LogEntry)
     log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
     @log_entry = log.log_entries.build(log_entry_params)
     if @log_entry.save
@@ -14,8 +15,13 @@ class Api::LogEntriesController < ApplicationController
   # currently only works for `TextLogEntry`s
   def update
     @log_entry ||= current_user.text_log_entries.find_by(id: params['id'])
-    head(404) && return if @log_entry.nil?
+    if @log_entry.nil?
+      head(404)
+      skip_authorization
+      return
+    end
 
+    authorize(@log_entry)
     if @log_entry.update(log_entry_params)
       render json: @log_entry, status: :ok
     else
@@ -28,13 +34,19 @@ class Api::LogEntriesController < ApplicationController
       current_user.
         logs.find_by(id: params['log_id'])&.
         log_entries&.find_by(id: params['id'])
-    head(404) && return if @log_entry.nil?
+    if @log_entry.nil?
+      head(404)
+      skip_authorization
+      return
+    end
 
+    authorize(@log_entry)
     @log_entry.destroy!
     head(204)
   end
 
   def index
+    authorize(LogEntry)
     log_id = params['log_id']
 
     log_entries =
