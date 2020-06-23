@@ -25,11 +25,11 @@ div
         th
     tbody
       tr(
-        v-for='(set, index) in sets'
+        v-for='(setCount, index) in numberOfSets'
         :class='tableRowClass(index)'
       )
-        td {{set}}
-        td(v-if='editMode') {{intervalInSeconds * (set - 1) | secondsAsTime}}
+        td {{setCount}}
+        td(v-if='editMode') {{intervalInSeconds * index | secondsAsTime}}
         td(v-if='editMode')
           input(
             type='text'
@@ -38,25 +38,41 @@ div
           )
         td.
           {{
-            intervalInSeconds * (set - 1) +
+            intervalInSeconds * index +
               cumulativeTimeAdjustment(index, timeAdjustments) | secondsAsTime
           }}
-        td(v-for='exercise in exercises') {{(index + 1) * exercise.reps}}
+        td(
+          v-for='exercise in setsArray[index].exercises'
+        )
+          input(
+            v-if='editMode'
+            type='text'
+            v-model.number='exercise.reps'
+            :disabled='index <= (currentRoundIndex - 1)'
+          )
+          span(v-else) {{exercise.reps}}
         td(v-show='index === currentRoundIndex + 1').
           Starts in
           #[span(:class='nextRoundCountdownClass') {{secondsUntilNextRound | secondsAsTime}}]
+      tr
+        td
+        td(v-if='editMode')
+        td(v-if='editMode')
+        td
+        td(v-for='exercise in exercises') {{repTotalsForWorkout[exercise.name]}}
+        td
   .my2
     button(@click='saveWorkout') Mark workout as complete!
 
   ConfirmWorkoutModal(
     :timeInSeconds='secondsElapsed'
-    :repTotals='repTotals'
+    :repTotals='repTotalsAsOfCurrentRound'
   )
 </template>
 
 <script>
 import { Timer } from 'easytimer.js';
-import { includes } from 'lodash';
+import { cloneDeep, includes } from 'lodash';
 
 import ConfirmWorkoutModal from './confirm_workout_modal.vue';
 
@@ -77,7 +93,7 @@ export default {
     },
 
     intervalInMinutes() {
-      return this.minutes / (this.sets - 1);
+      return this.minutes / (this.numberOfSets - 1);
     },
 
     intervalInSeconds() {
@@ -101,12 +117,30 @@ export default {
       );
     },
 
-    repTotals() {
-      const repTotals = {};
-      this.exercises.forEach(({ name, reps }) => {
-        repTotals[name] = reps * (this.currentRoundIndex + 1);
+    repTotalsAsOfCurrentRound() {
+      const repTotalsAsOfCurrentRound = {};
+      this.exercises.forEach(({ name: exerciseName }) => {
+        repTotalsAsOfCurrentRound[exerciseName] =
+          this.setsArray.slice(0, this.currentRoundIndex + 1).reduce((total, setObject) => {
+            const exerciseObject =
+              setObject.exercises.find(exercise => exercise.name === exerciseName);
+            return total + exerciseObject.reps;
+          }, 0);
       });
-      return repTotals;
+      return repTotalsAsOfCurrentRound;
+    },
+
+    repTotalsForWorkout() {
+      const repTotalsForWorkout = {};
+      this.exercises.forEach(({ name: exerciseName }) => {
+        repTotalsForWorkout[exerciseName] =
+          this.setsArray.reduce((total, setObject) => {
+            const exerciseObject =
+              setObject.exercises.find(exercise => exercise.name === exerciseName);
+            return total + exerciseObject.reps;
+          }, 0);
+      });
+      return repTotalsForWorkout;
     },
 
     secondsUntilNextRound() {
@@ -114,7 +148,7 @@ export default {
     },
 
     timeAdjustments() {
-      return this.setsArray.map(set => set.timeAdjustment);
+      return this.setsArray.map(setObject => setObject.timeAdjustment);
     },
   },
 
@@ -148,7 +182,7 @@ export default {
     confirmUnloadWorkoutInProgress(event) {
       if (
         (this.secondsElapsed > 0) &&
-          (this.currentRoundIndex < (this.sets - 1)) &&
+          (this.currentRoundIndex < (this.numberOfSets - 1)) &&
           this.timer.isRunning()
       ) {
         // ask the user to confirm that they want to leave the page
@@ -171,7 +205,10 @@ export default {
     },
 
     initialSetsArray() {
-      return Array(...Array(this.sets)).map(_ => ({ timeAdjustment: 0 }));
+      return Array(...Array(this.numberOfSets)).map(_ => ({
+        timeAdjustment: 0,
+        exercises: cloneDeep(this.exercises),
+      }));
     },
 
     saveWorkout() {
@@ -216,7 +253,7 @@ export default {
       type: Number,
       required: true,
     },
-    sets: {
+    numberOfSets: {
       type: Number,
       required: true,
     },
@@ -228,5 +265,13 @@ export default {
 th,
 td {
   padding: 5px 10px;
+}
+
+tbody tr:last-of-type td:not(:last-of-type) {
+  border-top: 1px solid gray;
+}
+
+td input {
+  width: 50px;
 }
 </style>
