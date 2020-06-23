@@ -115,7 +115,7 @@ export default {
       if (this.formstate.$invalid && !newLogEntryData) return;
 
       this.$store.dispatch(
-        'addLogEntry',
+        'createLogEntry',
         {
           logId: this.log.id,
           newLogEntryData,

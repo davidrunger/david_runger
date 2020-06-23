@@ -40,7 +40,14 @@ FixtureBuilder.configure do |fbuilder|
     # text logs
     text_log = name(
       :text_log,
-      create(:log, user: user, name: 'Dream Journal', data_type: 'text'),
+      create(
+        :log,
+        user: user,
+        name: 'Dream Journal',
+        data_type: 'text',
+        data_label: 'Dream content',
+        description: nil,
+      ),
     ).first
     text_log.log_entries.create!(log: text_log, data: 'Had a cool dream!')
 
