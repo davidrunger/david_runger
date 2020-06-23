@@ -17,8 +17,8 @@
           | Sets
           validate
             el-input(
-              v-model.number='sets'
-              name='sets'
+              v-model.number='numberOfSets'
+              name='numberOfSets'
               required
               type='number'
             )
@@ -76,7 +76,7 @@ export default {
     return {
       formstate: {},
       minutes: null,
-      sets: null,
+      numberOfSets: null,
       exercises: [{}],
     };
   },
@@ -85,7 +85,7 @@ export default {
     initializeWorkout() {
       this.$emit('workout-initialized', {
         minutes: this.minutes,
-        sets: this.sets,
+        numberOfSets: this.numberOfSets,
         exercises: this.exercises,
       });
     },
