@@ -30,7 +30,7 @@ export default {
   computed: {
     formattedLogEntries() {
       let logEntriesToShow;
-      if (this.showAllEntries) {
+      if (this.showAllEntries || (this.log_entries.length <= 3)) {
         logEntriesToShow = this.log_entries;
       } else {
         logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
