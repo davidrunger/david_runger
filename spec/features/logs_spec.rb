@@ -20,6 +20,30 @@ RSpec.describe 'Logs app' do
       expect(page).to have_current_path("/logs/#{log.slug}")
     end
 
+    context 'when user has a text log' do
+      let(:log) { user.logs.text.first! }
+
+      context 'when there are no entries yet for the text log' do
+        before { log.log_entries.find_each(&:destroy!) }
+
+        it 'allows the user to submit their first entry for the log' do
+          visit(log_path(slug: log.slug))
+
+          new_log_entry_text = 'Some great text log entry content!'
+          expect {
+            first(:css, '.new-log-input textarea').native.send_keys(new_log_entry_text)
+            click_button('Add')
+            expect(page).to have_text(new_log_entry_text) # wait for AJAX request to complete
+          }.to change {
+            log.reload.log_entries.count
+          }.by(1)
+
+          last_log_entry = log.log_entries.reorder(:created_at).last!
+          expect(last_log_entry.data).to eq(new_log_entry_text)
+        end
+      end
+    end
+
     context 'when a user tries to subscribe to an unauthorized log entries websocket channel' do
       before do
         expect(LogPolicy).to receive(:new).at_least(:once).and_return(log_policy_stub)
