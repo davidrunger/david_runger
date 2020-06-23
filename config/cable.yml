@@ -1,19 +1,17 @@
-<% database_number = 10 %>
-
 default: &default
   adapter: redis
 
 development:
   <<: *default
   channel_prefix: david_runger_development
-  url: <%= ENV['REDIS_URL'] %>/<%= database_number %>
+  url: <%= ENV['REDIS_URL'] %>
 
 test:
   <<: *default
   channel_prefix: david_runger_test
-  url: redis://localhost:6379/<%= database_number %> # Travis doesn't set a REDIS_URL
+  url: redis://localhost:6379 # Travis doesn't set a REDIS_URL
 
 production:
   <<: *default
   channel_prefix: david_runger_production
-  url: <%= ENV['REDIS_URL'] %>/<%= database_number %>
+  url: <%= ENV['REDIS_URL'] %>
