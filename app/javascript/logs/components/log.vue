@@ -3,6 +3,7 @@ div
   h1.h2.mt3.mb1 {{log.name}}
   h2.h5.gray(v-if='!isOwnLog') shared by {{log.user.email}}
   p.h5.mb2.description {{log.description}}
+  NewLogEntryForm(:log='log' v-if='renderInputAtTop')
   div.mb2(v-if='log.log_entries === undefined').
     Loading...
   LogDataDisplay(
