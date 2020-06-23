@@ -10,8 +10,11 @@ import router from 'logs/router';
 const mutations = {
   ...ModalVuex.mutations,
 
-  addLogEntry(_state, { log, logEntry }) {
-    log.log_entries.push(logEntry);
+  addLogEntry(_state, { log, newLogEntry }) {
+    const existingLogEntry = log.log_entries.find(logEntry => logEntry.id === newLogEntry.id);
+    if (existingLogEntry) return;
+
+    log.log_entries.push(newLogEntry);
   },
 
   addLogShare(_state, { log, logShare }) {
@@ -58,7 +61,12 @@ const mutations = {
 };
 
 const actions = {
-  addLogEntry({ commit, getters }, { logId, newLogEntryData, newLogEntryNote }) {
+  addLogEntry({ commit, getters }, { logId, newLogEntry }) {
+    const log = getters.logById({ logId });
+    commit('addLogEntry', { log, newLogEntry });
+  },
+
+  createLogEntry({ dispatch }, { logId, newLogEntryData, newLogEntryNote }) {
     const payload = {
       log_entry: {
         data: newLogEntryData,
@@ -68,8 +76,7 @@ const actions = {
     };
 
     axios.post(Routes.api_log_entries_path(), payload).then(({ data }) => {
-      const log = getters.logById({ logId });
-      commit('addLogEntry', { log, logEntry: data });
+      dispatch('addLogEntry', { logId, newLogEntry: data });
     });
   },
 

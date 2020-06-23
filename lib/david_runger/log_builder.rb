@@ -10,7 +10,7 @@ class DavidRunger::LogBuilder
 
   def extra_logged_data
     {
-      path: request.fullpath,
+      path: request&.fullpath, # `request` is `nil` when doing action cable logging
       exception: exception_log,
       params: params_log,
       status: status_code_log,
@@ -41,7 +41,8 @@ class DavidRunger::LogBuilder
   end
 
   def params
-    payload[:params]
+    # `payload[:params]` is `nil` when doing action cable logging
+    payload[:params] || {}
   end
 
   def params_log

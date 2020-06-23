@@ -45,7 +45,7 @@ div
           v-model='publiclyViewable'
           @change='savePubliclyViewableChange'
         ) Publicly viewable
-      div(v-if='!publiclyViewable')
+      div(v-if='isOwnLog && !publiclyViewable')
         el-tag(
           :key='logShare.email'
           v-for='logShare in logSharesSortedByLowercasedEmail'
@@ -83,6 +83,7 @@ div
 import ClipboardJS from 'clipboard';
 import { mapGetters } from 'vuex';
 
+import actionCableConsumer from 'channels/consumer';
 import CounterBarGraph from './data_renderers/counter_bar_graph.vue';
 import DurationTimeseries from './data_renderers/duration_timeseries.vue';
 import IntegerTimeseries from './data_renderers/integer_timeseries.vue';
@@ -144,6 +145,7 @@ export default {
 
   created() {
     this.ensureLogEntriesHaveBeenFetched();
+    this.subscribeToLogEntriesChannel();
     this.publiclyViewable = this.log.publicly_viewable;
   },
 
@@ -214,6 +216,21 @@ export default {
       this.$nextTick(_ => {
         this.$refs.saveTagInput.$refs.input.focus();
       });
+    },
+
+    subscribeToLogEntriesChannel() {
+      const vm = this;
+      actionCableConsumer.subscriptions.create(
+        {
+          channel: 'LogEntriesChannel',
+          log_id: vm.log.id,
+        },
+        {
+          received(data) {
+            vm.$store.dispatch('addLogEntry', { logId: vm.log.id, newLogEntry: data });
+          },
+        },
+      );
     },
   },
 
