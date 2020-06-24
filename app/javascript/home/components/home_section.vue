@@ -48,5 +48,9 @@ section {
 .anchor-target {
   position: relative;
   bottom: $header-height;
+
+  @media screen and (max-width: $small-screen-breakpoint) {
+    bottom: 0;
+  }
 }
 </style>

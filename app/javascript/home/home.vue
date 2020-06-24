@@ -409,7 +409,7 @@ p:first-of-type {
 #headline-name {
   font-size: 80px;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: $small-screen-breakpoint) {
     font-size: 40px;
   }
 }
@@ -432,7 +432,7 @@ p:first-of-type {
     width: 500px;
     right: 0;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: $small-screen-breakpoint) {
       display: none;
     }
 
