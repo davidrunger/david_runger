@@ -7,8 +7,8 @@ module Monkeypatches::MakeAllRequestsAsJson
   # https://github.com/rails/rails-controller-testing/blob/a60b3da/lib/rails/controller/testing/integration.rb#L7
   http_verbs = %w[get post patch put head delete]
   http_verbs.each do |method|
-    define_method(method) do |action, options|
-      super(action, **{ as: :json }.merge(options))
+    define_method(method) do |*args, **kwargs|
+      super(*args, **{ as: :json }.merge(kwargs))
     end
   end
 end
