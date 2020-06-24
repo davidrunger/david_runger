@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user
   before_action :enable_rack_mini_profiler_if_admin
 
-  after_action :verify_authorized
+  after_action :verify_authorized, unless: :skip_authorization?
 
   rescue_from(
     Pundit::NotAuthorizedError,
@@ -25,6 +25,12 @@ class ApplicationController < ActionController::Base
   )
 
   private
+
+  def skip_authorization?
+    # All users are allowed to sign out; we don't need to check a pundit policy.
+    # We can't add `skip_authorization` to the controller because the controller is in `devise`.
+    params[:controller] == 'devise/sessions' && params[:action] == 'destroy'
+  end
 
   # add additional data here for inclusion in logs
   def append_info_to_payload(payload)
