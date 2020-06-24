@@ -55,6 +55,32 @@ RSpec.describe 'Logs app' do
           expect(last_log_entry.data).to eq(second_log_entry_text)
         end
       end
+
+      context 'when there is one entry for the log' do
+        before { log.log_entries.drop(1).each(&:destroy!) }
+
+        context 'when the log is not publicly viewable but has been shared with a certain email' do
+          before do
+            log.update!(publicly_viewable: false)
+            log.log_shares.create!(email: other_user.email)
+          end
+
+          let(:other_user) { User.where.not(id: log.user_id).first! }
+
+          context 'when the other user logs in' do
+            before do
+              Devise.sign_out_all_scopes
+              sign_in(other_user)
+            end
+
+            it 'allows the sharee to view the log (via the appropriate URL)' do
+              visit(user_shared_log_path(user_id: user.id, slug: log.slug))
+
+              expect(page).to have_text(log.log_entries.first!.data)
+            end
+          end
+        end
+      end
     end
 
     context 'when a new log entry is published' do
