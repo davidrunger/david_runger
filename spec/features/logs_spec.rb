@@ -26,20 +26,33 @@ RSpec.describe 'Logs app' do
       context 'when there are no entries yet for the text log' do
         before { log.log_entries.find_each(&:destroy!) }
 
-        it 'allows the user to submit their first entry for the log' do
+        it 'allows the user to submit their first and second entry for the log' do
           visit(log_path(slug: log.slug))
 
-          new_log_entry_text = 'Some great text log entry content!'
+          first_log_entry_text = 'Some great text log entry content!'
           expect {
-            first(:css, '.new-log-input textarea').native.send_keys(new_log_entry_text)
+            first(:css, '.new-log-input textarea').native.send_keys(first_log_entry_text)
             click_button('Add')
-            expect(page).to have_text(new_log_entry_text) # wait for AJAX request to complete
+            expect(page).to have_text(first_log_entry_text) # wait for AJAX request to complete
           }.to change {
             log.reload.log_entries.count
           }.by(1)
 
           last_log_entry = log.log_entries.reorder(:created_at).last!
-          expect(last_log_entry.data).to eq(new_log_entry_text)
+          expect(last_log_entry.data).to eq(first_log_entry_text)
+
+          second_log_entry_text = 'Even more great content!'
+          expect {
+            first(:css, '.new-log-input textarea').native.send_keys(second_log_entry_text)
+            click_button('Add')
+            expect(page).to have_text(second_log_entry_text) # wait for AJAX request to complete
+            expect(page).to have_text(first_log_entry_text) # confirm first log entry's still there
+          }.to change {
+            log.reload.log_entries.count
+          }.by(1)
+
+          last_log_entry = log.log_entries.reorder(:created_at).last!
+          expect(last_log_entry.data).to eq(second_log_entry_text)
         end
       end
     end
