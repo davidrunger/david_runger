@@ -15,7 +15,7 @@ gem 'devise'
 gem 'email_reply_trimmer', github: 'discourse/email_reply_trimmer'
 gem 'faraday'
 gem 'faraday_middleware'
-gem 'flamegraph' # Provides flamegraphs for rack-mini-profiler.
+gem 'flamegraph'
 gem 'flipper'
 gem 'flipper-redis'
 gem 'flipper-ui'
@@ -39,8 +39,8 @@ gem 'rails', github: 'rails/rails'
 gem 'redis', '4.1.4'
 gem 'rollbar'
 gem 'sidekiq'
-gem 'sidekiq-scheduler', require: false # required manually in config/initializers/sidekiq.rb
-gem 'stackprof' # Provides stack traces for flamegraph for rack-mini-profiler.
+gem 'sidekiq-scheduler', require: false
+gem 'stackprof'
 gem 'thread_safe'
 gem 'webpacker'
 
@@ -69,11 +69,7 @@ group :development do
   gem 'http_logger'
   gem 'letter_opener'
   gem 'listen'
-  # Performance profiling. Should be listed after `pg` (and `rails`?) gems to get database
-  # performance analysis.
   gem 'spring'
-  # We can go back to the offical spring-watcher-listen after upgrading to Rails 6.
-  # See https://bit.ly/2Frtra3 (bug) and https://bit.ly/2Fpd50n (fix).
   gem 'spring-watcher-listen', github: 'davidrunger/spring-watcher-listen'
 end
 
@@ -83,15 +79,13 @@ group :test do
   gem 'codecov', require: false
   gem 'database_consistency', require: false
   gem 'fixture_builder'
-  gem 'rspec-instafail', require: false
-  # note: to use guard-espect from command line, it will also have to be installed "globally"
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   gem 'hashdiff'
-  # for testing ActiveModelSerializers
   gem 'json-schema'
-  gem 'launchy' # for save_and_open_page in feature specs
+  gem 'launchy'
   gem 'percy-capybara'
   gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
+  gem 'rspec-instafail', require: false
   gem 'rspec-rails'
   gem 'rspec_performance_summary', require: false, github: 'davidrunger/rspec_performance_summary'
   gem 'selenium-webdriver'
