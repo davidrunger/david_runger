@@ -261,12 +261,7 @@ export default {
 };
 </script>
 
-<style>
-th,
-td {
-  padding: 5px 10px;
-}
-
+<style scoped>
 tbody tr:last-of-type td:not(:last-of-type) {
   border-top: 1px solid gray;
 }
