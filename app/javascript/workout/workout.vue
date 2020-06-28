@@ -30,3 +30,10 @@ export default {
   },
 };
 </script>
+
+<style>
+th,
+td {
+  padding: 5px 10px;
+}
+</style>
