@@ -124,11 +124,6 @@ RSpec.configure do |config|
     metadata[:request_format] = :json
   end
 
-  config.before(:each) do
-    # flush Flipper state
-    system('redis-cli -n 3 FLUSHDB', exception: true, out: File::NULL)
-  end
-
   config.before(:each, request_format: :json) do
     request.accept = 'application/json'
   end
@@ -301,4 +296,8 @@ end
 
 def json_response
   JSON(response.body)
+end
+
+def activate_feature!(feature_name)
+  allow(Flipper).to receive(:enabled?).with(feature_name).and_return(true)
 end
