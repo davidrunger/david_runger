@@ -124,6 +124,11 @@ RSpec.configure do |config|
     metadata[:request_format] = :json
   end
 
+  config.before(:each) do
+    # flush Flipper state
+    system('redis-cli -n 3 FLUSHDB', exception: true, out: File::NULL)
+  end
+
   config.before(:each, request_format: :json) do
     request.accept = 'application/json'
   end
