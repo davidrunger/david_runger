@@ -33,7 +33,7 @@ RSpec.describe RunHeat do
     end
 
     context 'when the `disable_run_heat_worker` feature flag is enabled' do
-      before { Flipper.enable(:disable_run_heat_worker) }
+      before { activate_feature!(:disable_run_heat_worker) }
 
       it 'does not execute any system commands' do
         expect(worker).not_to receive(:system)
