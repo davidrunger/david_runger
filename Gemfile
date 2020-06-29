@@ -20,6 +20,7 @@ gem 'flipper'
 gem 'flipper-redis'
 gem 'flipper-ui'
 gem 'hamlit'
+gem 'heat', git: 'https://github.com/davidrunger/heat.git'
 gem 'js-routes', require: false
 gem 'lograge'
 gem 'memoist'
@@ -34,11 +35,12 @@ gem 'pundit'
 gem 'rack-attack'
 gem 'rack-mini-profiler', require: false
 gem 'rails', github: 'rails/rails'
-# We can probably remove this version constraint once Sidekiq 6.1 has been released.
-# See https://github.com/mperham/sidekiq/issues/4591 .
-gem 'redis', '4.1.4'
+gem 'redd', github: 'davidrunger/redd'
+gem 'redis'
 gem 'rollbar'
-gem 'sidekiq'
+# We can probably remove the `github` source once Sidekiq 6.1 has been released.
+# See https://github.com/mperham/sidekiq/issues/4591 .
+gem 'sidekiq', github: 'mperham/sidekiq'
 gem 'sidekiq-scheduler', require: false
 gem 'stackprof'
 gem 'thread_safe'
