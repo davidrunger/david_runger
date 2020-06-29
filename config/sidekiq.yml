@@ -15,6 +15,8 @@ production:
   InvalidRecordsChecker:
     cron: '55 16 * * *' # daily at 4:55pm PT
   <% if %w[production test].include?(ENV['RAILS_ENV']) %>
+  RunHeat:
+    cron: '42 * * * *' # hourly at 42 minutes after the hour
   SendLogReminderEmails:
     cron: '* * * * *' # every minute
   TruncateTables:
