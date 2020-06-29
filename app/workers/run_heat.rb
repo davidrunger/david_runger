@@ -6,6 +6,11 @@ class RunHeat
   include Sidekiq::Worker
 
   def perform
+    if Flipper.enabled?(:disable_run_heat_worker)
+      puts('Skipping RunHeat job because the `disable_run_heat_worker` flag is enabled.')
+      return
+    end
+
     # download
     system('bin/heat')
 

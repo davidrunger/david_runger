@@ -7,7 +7,6 @@ RSpec.describe ParsedMailBody do
 
   before do
     # convert "\n" to "\r\n" because Mailgun seems to send the message with "\r\n"
-    # rubocop:disable RSpec/SubjectStub
     expect(mail).to receive(:text_part).and_return(<<~TEXT.gsub(/(?<!\r)\n/, "\r\n"))
       Content-Type: text/plain;
        charset=UTF-8
@@ -31,7 +30,6 @@ RSpec.describe ParsedMailBody do
       >>
       >
     TEXT
-    # rubocop:enable RSpec/SubjectStub
   end
 
   describe '#parsed_body' do

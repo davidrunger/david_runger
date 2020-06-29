@@ -6,7 +6,11 @@ Performance/ChainArrayAllocation:
   Enabled: false
 RSpec/ExampleLength:
   Enabled: false
+RSpec/HookArgument:
+  Enabled: false
 RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/SubjectStub:
   Enabled: false
 Style/IpAddresses:
   Enabled: false
