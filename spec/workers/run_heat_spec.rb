@@ -22,8 +22,9 @@ RSpec.describe RunHeat do
       end
 
       it 'downloads, zips, and uploads' do
-        expect(worker).to receive(:system).with('bin/heat')
-        expect(worker).to receive(:system).with(%r{\Acd tmp/heat/images/ && zip -r \w+})
+        expect(worker).to receive(:system).with('bin/heat', exception: true)
+        expect(worker).
+          to receive(:system).with(%r{\Acd tmp/heat/images/ && zip -r \w+}, exception: true)
         # rubocop:disable RSpec/AnyInstance
         expect_any_instance_of(Aws::S3::Object).to receive(:upload_file)
         # rubocop:enable RSpec/AnyInstance

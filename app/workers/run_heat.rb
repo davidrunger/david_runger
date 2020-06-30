@@ -14,11 +14,11 @@ class RunHeat
     end
 
     # download
-    system('bin/heat')
+    system('bin/heat', exception: true)
 
     # zip
     zip_file_name = "#{Time.current.iso8601.tr(':', '-')}.zip"
-    system(<<~COMMANDS.squish)
+    system(<<~COMMANDS.squish, exception: true)
       cd tmp/heat/images/ &&
         zip -r #{zip_file_name} ./ &&
         mv #{zip_file_name} ../ &&
