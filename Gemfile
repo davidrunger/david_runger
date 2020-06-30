@@ -38,9 +38,7 @@ gem 'rails', github: 'rails/rails'
 gem 'redd', github: 'davidrunger/redd'
 gem 'redis'
 gem 'rollbar'
-# We can probably remove the `github` source once Sidekiq 6.1 has been released.
-# See https://github.com/mperham/sidekiq/issues/4591 .
-gem 'sidekiq', github: 'mperham/sidekiq'
+gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
 gem 'stackprof'
 gem 'thread_safe'
