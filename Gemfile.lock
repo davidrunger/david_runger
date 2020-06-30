@@ -61,15 +61,6 @@ GIT
     email_reply_trimmer (0.1.13)
 
 GIT
-  remote: https://github.com/mperham/sidekiq.git
-  revision: 19cf129fe34a979ef2eb129a1e07fd83fb8a895a
-  specs:
-    sidekiq (6.1.1)
-      connection_pool (>= 2.2.2)
-      rack (~> 2.0)
-      redis (>= 4.2.0)
-
-GIT
   remote: https://github.com/rails/rails-controller-testing.git
   revision: a2cc8c66acfbfb627e2f24057c56e7d3b5274708
   specs:
@@ -535,6 +526,10 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (4.3.0)
       activesupport (>= 4.2.0)
+    sidekiq (6.1.0)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     sidekiq-scheduler (3.0.1)
       e2mmap
       redis (>= 3, < 5)
@@ -662,7 +657,7 @@ DEPENDENCIES
   rubocop-rspec
   selenium-webdriver
   shoulda-matchers
-  sidekiq!
+  sidekiq
   sidekiq-scheduler
   spring
   spring-commands-rspec
