@@ -62,9 +62,9 @@ GIT
 
 GIT
   remote: https://github.com/mperham/sidekiq.git
-  revision: ab6f16523709016412d7f193fd8cd8b781aba5e2
+  revision: 19cf129fe34a979ef2eb129a1e07fd83fb8a895a
   specs:
-    sidekiq (6.1.0)
+    sidekiq (6.1.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
