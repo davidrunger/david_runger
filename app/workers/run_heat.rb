@@ -14,7 +14,7 @@ class RunHeat
     end
 
     # download
-    system('bin/heat', exception: true)
+    system('bin/heat -n 100', exception: true)
 
     # zip
     zip_file_name = "#{Time.current.iso8601.tr(':', '-')}.zip"
