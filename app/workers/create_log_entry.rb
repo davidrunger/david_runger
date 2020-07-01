@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateLogEntry
-  include Sidekiq::Worker
+  prepend ApplicationWorker
 
   def perform(log_entry_klass, log_entry_attributes)
     klass = log_entry_klass.constantize

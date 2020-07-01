@@ -2,7 +2,7 @@
 
 class FetchIpInfoForRequest
   extend Memoist
-  include Sidekiq::Worker
+  prepend ApplicationWorker
 
   class BlankIpInfo < StandardError ; end
 

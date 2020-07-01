@@ -2,6 +2,7 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+  - ./tools/custom_cops/dont_include_sidekiq_worker.rb
 AllCops:
   EnabledByDefault: true
   Exclude:

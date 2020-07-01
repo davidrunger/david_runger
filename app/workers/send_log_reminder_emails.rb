@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SendLogReminderEmails
-  include Sidekiq::Worker
+  prepend ApplicationWorker
 
   def perform
     Log.needing_reminder.find_each do |log|
