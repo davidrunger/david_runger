@@ -48,12 +48,9 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 687c8c69172c0efa845285afa78991e6397f83f9
+  revision: a5a420cff68be42a138c24b53d4b50c658782170
   specs:
-    runger_style (0.1.0)
-      rubocop (~> 0.86)
-      rubocop-performance (~> 1.6)
-      rubocop-rspec (~> 1.40)
+    runger_style (0.2.0)
 
 GIT
   remote: https://github.com/davidrunger/spring-watcher-listen.git

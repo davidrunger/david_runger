@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MakeRequestColumnsNonNullable < ActiveRecord::Migration[5.1]
   def change
     change_column :requests, :url, :string, null: false

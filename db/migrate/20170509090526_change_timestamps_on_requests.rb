@@ -1,4 +1,6 @@
-require Rails.root.join('db', 'datamigrate', 'transfer_requests_created_at_to_requested_at')
+# frozen_string_literal: true
+
+require Rails.root.join('db/datamigrate/transfer_requests_created_at_to_requested_at')
 
 class ChangeTimestampsOnRequests < ActiveRecord::Migration[5.1]
   def up

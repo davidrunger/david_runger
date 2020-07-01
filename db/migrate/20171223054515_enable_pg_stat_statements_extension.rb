@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EnablePgStatStatementsExtension < ActiveRecord::Migration[5.1]
   def up
     ApplicationRecord.connection.execute('CREATE EXTENSION IF NOT EXISTS pg_stat_statements;')

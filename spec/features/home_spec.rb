@@ -19,7 +19,7 @@ RSpec.describe 'Home page' do
           'isp' => 'Spectrum',
           'org' => 'Charter Communications',
           'as' => 'AS20001 Charter Communications Inc',
-          'query' => '76.167.213.95',
+          'query' => '76.167.213.95', # rubocop:disable Style/IpAddresses
         }.to_json,
         headers: { 'content-type' => 'application/json; charset=utf-8' },
       )
@@ -48,7 +48,7 @@ RSpec.describe 'Home page' do
         'status' => 200,
         'view' => Integer,
         'db' => Integer,
-        'ip' => '127.0.0.1',
+        'ip' => '127.0.0.1', # rubocop:disable Style/IpAddresses
         'user_agent' => /HeadlessChrome/,
         'requested_at' => Time,
         'location' => 'San Diego, CA, US',

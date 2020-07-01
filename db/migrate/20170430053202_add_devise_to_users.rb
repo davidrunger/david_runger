@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDeviseToUsers < ActiveRecord::Migration[5.1]
   def self.up
     change_table :users do |t|
@@ -17,6 +19,6 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.1]
   end
 
   def self.down
-    raise ActiveRecord::IrreversibleMigration
+    raise(ActiveRecord::IrreversibleMigration)
   end
 end

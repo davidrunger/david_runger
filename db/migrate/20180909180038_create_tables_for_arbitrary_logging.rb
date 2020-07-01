@@ -1,4 +1,6 @@
-require Rails.root.join('db', 'datamigrate', 'convert_weight_logs_to_general_logs')
+# frozen_string_literal: true
+
+require Rails.root.join('db/datamigrate/convert_weight_logs_to_general_logs')
 
 class CreateTablesForArbitraryLogging < ActiveRecord::Migration[5.2]
   def change
@@ -44,8 +46,6 @@ class CreateTablesForArbitraryLogging < ActiveRecord::Migration[5.2]
     ##################################
     # drop `weight_logs`
     ##################################
-    # rubocop:disable Rails/ReversibleMigration
     drop_table :weight_logs
-    # rubocop:enable Rails/ReversibleMigration
   end
 end

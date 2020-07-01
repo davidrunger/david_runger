@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSmsRecords < ActiveRecord::Migration[5.1]
   def change
     create_table(:sms_records, comment: 'Records of SMS messages sent via Nexmo') do |t|

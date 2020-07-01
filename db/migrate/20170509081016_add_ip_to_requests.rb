@@ -1,4 +1,6 @@
-require Rails.root.join('db', 'datamigrate', 'set_default_ip_value_for_old_requests')
+# frozen_string_literal: true
+
+require Rails.root.join('db/datamigrate/set_default_ip_value_for_old_requests')
 
 class AddIpToRequests < ActiveRecord::Migration[5.1]
   def up
