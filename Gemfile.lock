@@ -47,6 +47,15 @@ GIT
       rspec-core (~> 3.0)
 
 GIT
+  remote: https://github.com/davidrunger/runger_style.git
+  revision: 687c8c69172c0efa845285afa78991e6397f83f9
+  specs:
+    runger_style (0.1.0)
+      rubocop (~> 0.86)
+      rubocop-performance (~> 1.6)
+      rubocop-rspec (~> 1.40)
+
+GIT
   remote: https://github.com/davidrunger/spring-watcher-listen.git
   revision: 2af02a92bef8a2e51d6601e40270228a3b3b9967
   specs:
@@ -655,6 +664,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  runger_style!
   selenium-webdriver
   shoulda-matchers
   sidekiq
