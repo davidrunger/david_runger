@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class InvalidRecordsChecker
-  include Sidekiq::Worker
+  prepend ApplicationWorker
 
   def perform
     # ensure that all model classes are loaded

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TruncateTables
-  include Sidekiq::Worker
+  prepend ApplicationWorker
 
   ROW_COUNT_SQL = <<~SQL
     SELECT relname, n_live_tup

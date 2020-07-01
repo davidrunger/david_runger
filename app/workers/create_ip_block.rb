@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateIpBlock
-  include Sidekiq::Worker
+  prepend ApplicationWorker
 
   def perform(ip)
     ip_block = IpBlock.find_or_initialize_by(ip: ip)

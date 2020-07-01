@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TouchActivityAt
-  include Sidekiq::Worker
+  prepend ApplicationWorker
 
   def perform(user_id, request_time_as_float)
     user = User.find_by(id: user_id)
