@@ -60,7 +60,7 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-  gem 'runger_style', github: 'davidrunger/runger_style'
+  gem 'runger_style', github: 'davidrunger/runger_style', require: false
   gem 'spring-commands-rspec'
 end
 

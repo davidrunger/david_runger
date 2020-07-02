@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/CyclomaticComplexity
 class Test::RequirementsResolver
   extend Memoist
   include DiffHelpers
@@ -8,7 +7,7 @@ class Test::RequirementsResolver
   class << self
     extend Memoist
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
     memoize \
     def dependency_map
@@ -95,7 +94,7 @@ class Test::RequirementsResolver
       base_dependency_map
     end
     # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
     def verify?
       global_config['verify']
@@ -241,4 +240,3 @@ class Test::RequirementsResolver
     !ENV.key?('TRAVIS')
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity

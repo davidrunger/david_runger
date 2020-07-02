@@ -1,13 +1,9 @@
 inherit_gem:
   runger_style:
-    - default.yml
+    - rulesets/default.yml
+    - rulesets/performance.yml
+    - rulesets/rails.yml
+    - rulesets/rspec.yml
 
 require:
-  - rubocop-rails
   - ./tools/custom_cops/dont_include_sidekiq_worker.rb
-Rails:
-  Enabled: true
-Rails/Output:
-  Enabled: false
-Rails/RakeEnvironment:
-  Enabled: false
