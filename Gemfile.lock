@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: fc883a95a2bffa78dc2b1f28e4808328301549e7
+  revision: 4a8d4a044db114625b4dc4ea415d618668dac541
   specs:
-    active_actions (0.13.2)
+    active_actions (0.13.3)
       memoist (~> 0.16)
       rails (~> 6.0)
       shaped (~> 0.7.0)
