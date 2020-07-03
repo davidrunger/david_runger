@@ -16,7 +16,7 @@ production:
     cron: '55 16 * * *' # daily at 4:55pm PT
   <% if %w[production test].include?(ENV['RAILS_ENV']) %>
   RunHeat:
-    cron: '42 * * * *' # hourly at 42 minutes after the hour
+    cron: '42 */4 * * *' # 42 minutes past every 4th hour
   SendLogReminderEmails:
     cron: '* * * * *' # every minute
   TruncateTables:
