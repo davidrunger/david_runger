@@ -13,7 +13,7 @@ production:
 
 :schedule:
   InvalidRecordsChecker:
-    cron: '55 16 * * *' # daily at 4:55pm PT
+    cron: '23 8 * * *' # daily at 8:23am PT
   <% if %w[production test].include?(ENV['RAILS_ENV']) %>
   RunHeat:
     cron: '42 */4 * * *' # 42 minutes past every 4th hour
