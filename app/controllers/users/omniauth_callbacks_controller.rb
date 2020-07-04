@@ -10,8 +10,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     user = User.find_by(email: email)
     if !user
-      user = User.create!(email: email)
-      NewUserMailer.user_created(user.id).deliver_later
+      user = Users::Create.new(email: email).run!.user
     end
 
     sign_in(user)
