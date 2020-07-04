@@ -30,7 +30,7 @@ RSpec.describe Api::TextMessagesController do
     end
 
     context 'when the user may send SMS messages' do
-      verify { expect(user.may_send_sms?).to eq(true) }
+      before { expect(user.may_send_sms?).to eq(true) }
 
       context 'when the user does not have a phone number' do
         before { user.update!(phone: nil) }
@@ -104,9 +104,10 @@ RSpec.describe Api::TextMessagesController do
     end
 
     context 'when the user may not send SMS messages' do
-      before { user.update!(sms_allowance: 0) }
-
-      verify { expect(user.may_send_sms?).to eq(false) }
+      before do
+        user.update!(sms_allowance: 0)
+        expect(user.may_send_sms?).to eq(false)
+      end
 
       context 'when the message params are valid' do
         let(:params) { valid_params }
