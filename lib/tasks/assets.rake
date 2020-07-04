@@ -102,61 +102,66 @@ module SourceMapHelper
   ROLLBAR_SOURCE_MAP_URI = 'https://api.rollbar.com/api/1/sourcemap/'
   APP_URL_BASE = 'https://www.davidrunger.com'
 
-  def self.manifest
-    @manifest ||= JSON.parse(File.read('public/packs/manifest.json'))
-  end
+  class << self
+    extend Memoist
 
-  def self.post_to_rollbar!(source_url:, source_map_path:)
-    connection =
-      Faraday.new do |conn|
-        conn.request(:multipart)
-        conn.response(:json)
-      end
+    memoize \
+    def manifest
+      JSON.parse(File.read('public/packs/manifest.json'))
+    end
 
-    response = connection.post(
-      ROLLBAR_SOURCE_MAP_URI,
-      {
-        access_token: ENV['ROLLBAR_ACCESS_TOKEN'],
-        environment: Rails.env,
-        version: ENV['SOURCE_VERSION'],
-        minified_url: source_url,
-        source_map: Faraday::FilePart.new(File.open(source_map_path), 'text/plain'),
-      },
-    )
-    puts <<~LOG
-      Posted source map #{source_map_path} for #{source_url}.
-      Response status: #{response.status}
-      Response body: #{response.body}
-    LOG
-  end
+    def post_to_rollbar!(source_url:, source_map_path:)
+      connection =
+        Faraday.new do |conn|
+          conn.request(:multipart)
+          conn.response(:json)
+        end
 
-  def self.upload_source_maps!
-    JS_FILES.each do |file|
-      js_path  = manifest["#{file}.js"]
-      map_path = manifest["#{file}.js.map"]
-      fail(NoSourceMapError, "Source map not found for #{js_path}") if map_path.blank?
+      response = connection.post(
+        ROLLBAR_SOURCE_MAP_URI,
+        {
+          access_token: ENV['ROLLBAR_ACCESS_TOKEN'],
+          environment: Rails.env,
+          version: ENV['SOURCE_VERSION'],
+          minified_url: source_url,
+          source_map: Faraday::FilePart.new(File.open(source_map_path), 'text/plain'),
+        },
+      )
+      puts <<~LOG
+        Posted source map #{source_map_path} for #{source_url}.
+        Response status: #{response.status}
+        Response body: #{response.body}
+      LOG
+    end
 
-      # build the full asset url
-      source_url = "#{APP_URL_BASE}#{js_path}"
-      full_local_map_path = Rails.root.join(File.join('public', map_path))
+    def upload_source_maps!
+      JS_FILES.each do |file|
+        js_path  = manifest["#{file}.js"]
+        map_path = manifest["#{file}.js.map"]
+        fail(NoSourceMapError, "Source map not found for #{js_path}") if map_path.blank?
 
-      begin
-        post_to_rollbar!(source_url: source_url, source_map_path: full_local_map_path)
-      rescue => error
-        Rails.logger.error("Error posting source maps to Rollbar, error=#{error.inspect}")
-        # wrap the original exception by raising and immediately rescuing
+        # build the full asset url
+        source_url = "#{APP_URL_BASE}#{js_path}"
+        full_local_map_path = Rails.root.join(File.join('public', map_path))
+
         begin
-          raise(SourceMapUploadError, 'Failed to upload a source map')
-        rescue SourceMapUploadError => e
-          Rollbar.error(
-            e,
-            file: file,
-            js_path: js_path,
-            map_path: map_path,
-            source_url: source_url,
-            full_local_map_path: full_local_map_path,
-            response_to_s: e.cause&.response.to_s,
-          )
+          post_to_rollbar!(source_url: source_url, source_map_path: full_local_map_path)
+        rescue => error
+          Rails.logger.error("Error posting source maps to Rollbar, error=#{error.inspect}")
+          # wrap the original exception by raising and immediately rescuing
+          begin
+            raise(SourceMapUploadError, 'Failed to upload a source map')
+          rescue SourceMapUploadError => e
+            Rollbar.error(
+              e,
+              file: file,
+              js_path: js_path,
+              map_path: map_path,
+              source_url: source_url,
+              full_local_map_path: full_local_map_path,
+              response_to_s: e.cause&.response.to_s,
+            )
+          end
         end
       end
     end
