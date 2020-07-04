@@ -61,7 +61,7 @@ export default {
     this.logNames.forEach(logName => {
       this.fuzzySet.add(logName);
     });
-    this.unsubscribeFromRouteChanges = on('groceries:route-changed', this.resetQuickSelector);
+    this.unsubscribeFromRouteChanges = on('logs:route-changed', this.resetQuickSelector);
   },
 
   destroyed() {

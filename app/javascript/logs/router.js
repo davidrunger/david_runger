@@ -16,7 +16,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  emit('groceries:route-changed');
+  emit('logs:route-changed');
   next();
 });
 
