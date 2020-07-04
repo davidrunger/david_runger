@@ -2,7 +2,7 @@
 
 class GroceriesController < ApplicationController
   def index
-    authorize(Store, :index?)
+    authorize(Store)
     @title = 'Groceries'
     bootstrap(
       current_user: UserSerializer.new(current_user),
