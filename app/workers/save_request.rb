@@ -28,7 +28,7 @@ class SaveRequest
   private
 
   def should_save_request?
-    return false if LogSkip.should_skip?(params: stashed_data['params'])
+    return false if DavidRunger::LogSkip.should_skip?(params: stashed_data['params'])
 
     unexpected_reasons_not_to_save_request.blank?
   end
