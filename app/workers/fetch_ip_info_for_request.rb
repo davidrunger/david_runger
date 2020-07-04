@@ -6,6 +6,8 @@ class FetchIpInfoForRequest
 
   class BlankIpInfo < StandardError ; end
 
+  LOCAL_IPS = %w[::1 127.0.0.1].map(&:freeze).freeze
+
   def perform(request_id)
     request = Request.find(request_id)
     write_location_info(request)
@@ -15,7 +17,7 @@ class FetchIpInfoForRequest
 
   def write_location_info(request)
     ip = request.ip
-    return if ip.blank? || (Rails.env.development? && ip.in?(%w[::1 127.0.0.1]))
+    return if ip.blank? || (Rails.env.development? && ip.in?(LOCAL_IPS))
 
     ip_info = Rails.cache.read(cache_key(ip)) || ip_info_from_api(ip)
     fail(BlankIpInfo, "Blank IP info for IP '#{ip}'") if ip_info.blank? # trigger Sidekiq retry
