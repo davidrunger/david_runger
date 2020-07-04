@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RequestDataBuilder
+  extend Memoist
+
   # params not worth logging in `Request`s
   BORING_PARAMS = %w[
     _method
@@ -22,9 +24,8 @@ class RequestDataBuilder
     @request_time = request_time
   end
 
+  memoize \
   def request_data
-    return @request_data if defined?(@request_data)
-
     @request_data = {
       user_id: @user&.id,
       auth_token_id: @auth_token&.id,
@@ -42,7 +43,8 @@ class RequestDataBuilder
 
   private
 
+  memoize \
   def raw_user_agent
-    @raw_user_agent ||= @request.user_agent
+    @request.user_agent
   end
 end
