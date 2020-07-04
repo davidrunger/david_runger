@@ -82,5 +82,3 @@ test:
 production:
   <<: *default
   database: david_runger_production
-  username: david_runger
-  password: <%= ENV['DAVID_RUNGER_DATABASE_PASSWORD'] %>
