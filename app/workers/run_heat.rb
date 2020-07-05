@@ -9,7 +9,7 @@ class RunHeat
 
   def perform
     # download
-    system('bin/heat -n 100', exception: true)
+    system('bin/heat -n 50', exception: true)
 
     # zip
     zip_file_name = "#{Time.current.iso8601.tr(':', '-')}.zip"
