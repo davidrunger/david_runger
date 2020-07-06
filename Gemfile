@@ -87,8 +87,8 @@ group :test do
   gem 'percy-capybara'
   gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
   gem 'rspec-instafail', require: false
-  gem 'rspec-rails'
   gem 'rspec_performance_summary', require: false, github: 'davidrunger/rspec_performance_summary'
+  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webmock'
