@@ -29,6 +29,9 @@ require 'mail'
 require 'percy'
 require 'rspec_performance_summary'
 
+# w/o this, Sidekiq's `logger` prints to STDOUT (bad); with this, it prints to `log/test.log` (good)
+Sidekiq.logger = Rails.logger
+
 WebMock.enable!
 WebMock.disable_net_connect!(allow_localhost: true)
 
