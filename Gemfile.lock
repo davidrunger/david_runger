@@ -18,25 +18,25 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: ab22869595d1a25770be6023f8061ec4c2b410c1
+  revision: 1ec7593bd64aa15f2f4ed99c16e1bbd600536fda
   specs:
-    heat (0.2.3)
+    heat (0.3.0)
       activesupport (~> 6.0)
       addressable (~> 2.7)
       dotenv (~> 2.7)
       down (~> 5.1)
       memoist (~> 0.16)
-      redd (= 0.9.0.pre.3)
+      redd (= 0.10.0)
       redis (~> 4.2)
       ruby-progressbar (~> 1.10)
       slop (~> 4.8)
 
 GIT
   remote: https://github.com/davidrunger/redd.git
-  revision: 38b73eb8de168292c1289e966a08596a0a0f25fc
+  revision: 5cdaa2bcb1dfc794981e3d299502c957bb5c09c5
   specs:
-    redd (0.9.0.pre.3)
-      http (~> 2.2)
+    redd (0.10.0)
+      http (~> 4.4)
       lazy_lazer (~> 0.8.1)
 
 GIT
@@ -277,6 +277,9 @@ GEM
     faraday_middleware (1.0.0)
       faraday (~> 1.0)
     ffi (1.13.1)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     fixture_builder (0.5.2)
       activerecord (>= 2)
       activesupport (>= 2)
@@ -313,16 +316,17 @@ GEM
       tilt
     hashdiff (1.0.1)
     hashie (4.1.0)
-    http (2.2.2)
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
-      http-form_data (~> 1.0.1)
-      http_parser.rb (~> 0.6.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http-form_data (1.0.3)
+    http-form_data (2.3.0)
+    http-parser (1.2.1)
+      ffi-compiler (>= 1.0, < 2.0)
     http_logger (0.6.0)
-    http_parser.rb (0.6.0)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     immigrant (0.3.6)
