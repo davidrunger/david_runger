@@ -22,7 +22,7 @@ RSpec.describe RunHeat do
       end
 
       it 'downloads, zips, and uploads' do
-        expect(worker).to receive(:system).with('bin/heat -n 50', exception: true)
+        expect(worker).to receive(:system).with('bin/heat -n 32', exception: true)
         expect(worker).
           to receive(:system).with(%r{\Acd tmp/heat/images/ && zip -r \w+}, exception: true)
         # rubocop:disable RSpec/AnyInstance
