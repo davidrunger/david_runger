@@ -5,16 +5,20 @@ require 'aws-sdk-s3'
 class RunHeat
   prepend ApplicationWorker
 
+  IMAGES_DIRECTORY = 'tmp/heat/images/'
+
   sidekiq_options(retry: 2)
 
   def perform
     # download
     system('bin/heat -n 32', exception: true)
 
+    return if Dir.empty?(IMAGES_DIRECTORY)
+
     # zip
     zip_file_name = "#{Time.current.iso8601.tr(':', '-')}.zip"
     system(<<~COMMANDS.squish, exception: true)
-      cd tmp/heat/images/ &&
+      cd #{IMAGES_DIRECTORY} &&
         zip -r #{zip_file_name} ./ &&
         mv #{zip_file_name} ../ &&
         cd .. &&
