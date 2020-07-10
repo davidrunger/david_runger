@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: eda6ce1438f3d8ca84f79d41e749d5d9cc352678
+  revision: cb2927bb70efca115cfe6b91f613deb654fe59ae
   specs:
     heat (0.3.1)
       activesupport (~> 6.0)
@@ -552,7 +552,7 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
-    slop (4.8.1)
+    slop (4.8.2)
     spring (2.1.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
