@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 3b4962c6e185fd9b8de69de5e9806a5c9cdde0f8
+  revision: 3d57e2d93b7e8f18207a80da0ad7e49161fe3172
   specs:
     active_actions (0.13.3)
       memoist (~> 0.16)
@@ -531,7 +531,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
-    shaped (0.7.1)
+    shaped (0.7.2)
       activemodel (~> 6.0)
       activesupport (~> 6.0)
     shellany (0.0.1)
