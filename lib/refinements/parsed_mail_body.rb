@@ -41,7 +41,7 @@ module ParsedMailBody
               rstrip
           nokogiri_doc = Nokogiri.parse(decoded_html)
           nokogiri_doc.css('.gmail_quote').remove
-          Set.new(nokogiri_doc.to_s.scan(/[^<>\s]+(?=<br|<\/div)/))
+          Set.new(nokogiri_doc.to_s.scan(/[^<>\s]+(?=<br|<\/?div)/))
         end
     end
   end

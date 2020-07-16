@@ -43,7 +43,7 @@ RSpec.describe ParsedMailBody do
       end
     end
 
-    context 'when the actual content is multiple lines of text' do
+    context 'when the actual content is multiple lines of text (case A)' do
       let(:actual_reply_content) do
         <<~EMAIL_BODY
           Hi there,
@@ -108,6 +108,73 @@ RSpec.describe ParsedMailBody do
         expect(parsed_lines[5]).to eq('')
         expect(parsed_lines[6]).to eq('Sincerely,')
         expect(parsed_lines[7]).to eq('David')
+      end
+    end
+
+    context 'when the actual content is multiple lines of text (case B)' do
+      let(:actual_reply_content) do
+        <<~EMAIL_BODY
+          1. my abcdefg, e.g. asdfh aasdf asdflkjasdf asksj or a (asdfjasdfkjasfd)
+          shsfdhs asf asfsfsfj
+          2. asdhasdf asdfasdfsf on the vahsuhsu asfsfss
+          3. asdf asdfasdf Bsdasjsfsdf BBSFBsf asdfasdss evening (asdfas sasfsfss has
+          any asdfasdfasdf asdfasdf ashsh, which, asfsily, asdfasdf!)
+        EMAIL_BODY
+      end
+
+      before do
+        # convert "\n" to "\r\n" because Mailgun seems to send the message with "\r\n"
+        expect(mail).to receive(:html_part).and_return(<<~HTML_PART.gsub(/(?<!\r)\n/, "\r\n"))
+          Content-Type: text/html;
+           charset=UTF-8
+          Content-Transfer-Encoding: quoted-printable
+
+          <div dir=3D"ltr">1. my abcdefg, e.g. asdfh aasdf asdflkjasdf asksj or a (=
+          asdfjasdfkjasfd) shsfdhs asf asfsfsfj<div>2. asdhasdf asdfasdfsf on the v=
+          ahsuhsu asfsfss</div><div>3. asdf asdfasdf Bsdasjsfsdf BBSFBsf asdfasdss =
+          evening (asdfas sasfsfss has any asdfasdfasdf asdfasdf ashsh, which, asfs=
+          ily, asdfasdf!)</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr=
+          " class=3D"gmail_attr">On Thu, Jul 16, 2020 at 3:20 PM DavidRunger.com &l=
+          t;<a href=3D"mailto:log-reminders@davidrunger.com">log-reminders@davidrun=
+          ger.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
+          "margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-=
+          left:1ex"><u></u>=0D
+          =0D
+            =0D
+              =0D
+              =0D
+            =0D
+          =0D
+            <div>=0D
+              <p>Submit a new log entry here:</p>=0D
+          <p><a href=3D"https://www.davidrunger.com/logs/gratitude-journal" target=3D=
+          "_blank">https://www.davidrunger.com/logs/gratitude-journal</a></p>=0D
+          <p>=0D
+          <b>Tip:</b>=0D
+          To create a log entry, you can simply reply to this email with the desire=
+          d log entry content.=0D
+          </p>=0D
+          =0D
+            </div>=0D
+          =0D
+          </blockquote></div>=0D
+        HTML_PART
+      end
+
+      it "returns the user's most recent message/reply with newlines in the proper places" do
+        parsed_lines = parsed_body.split("\n")
+
+        expect(parsed_lines.size).to eq(3)
+
+        expect(parsed_lines[0]).to eq(<<~LINE.squish)
+          1. my abcdefg, e.g. asdfh aasdf asdflkjasdf asksj or a (asdfjasdfkjasfd) shsfdhs asf
+             asfsfsfj
+        LINE
+        expect(parsed_lines[1]).to eq('2. asdhasdf asdfasdfsf on the vahsuhsu asfsfss')
+        expect(parsed_lines[2]).to eq(<<~LINE.squish)
+          3. asdf asdfasdf Bsdasjsfsdf BBSFBsf asdfasdss evening (asdfas sasfsfss has any
+             asdfasdfasdf asdfasdf ashsh, which, asfsily, asdfasdf!)
+        LINE
       end
     end
   end
