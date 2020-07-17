@@ -8,12 +8,16 @@ class WorkoutsController < ApplicationController
     bootstrap(
       current_user: UserSerializer.new(current_user),
       workouts:
-        ActiveModel::Serializer::CollectionSerializer.new(current_user.workouts),
+        ActiveModel::Serializer::CollectionSerializer.new(
+          current_user.workouts.
+            order(created_at: :desc).
+            limit(8),
+        ),
       others_workouts: ActiveModel::Serializer::CollectionSerializer.new(
         policy_scope(Workout).
           where.not(user: current_user).
           order(created_at: :desc).
-          limit(15).
+          limit(8).
           includes(:user),
       ),
     )
