@@ -228,7 +228,7 @@ GEM
       activesupport
     childprocess (3.0.0)
     climate_control (0.2.0)
-    codecov (0.2.1)
+    codecov (0.2.2)
       colorize
       json
       simplecov
