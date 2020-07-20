@@ -186,7 +186,7 @@ RSpec.describe Api::LogEntriesController do
         get_index
 
         returned_log_entry_ids = response.parsed_body.map { |log_entry| log_entry['id'] }
-        log_entry_ids = log.log_entries.pluck(:id)
+        log_entry_ids = log.log_entries.ids
         expect(returned_log_entry_ids).to match_array(log_entry_ids)
       end
 
