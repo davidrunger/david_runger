@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: 657c34f784f39ef0a400e9c14a0e20d2da5cdb64
+  revision: 9191f161ab546e85fe8c723442a555bb85820f31
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -328,7 +328,7 @@ GEM
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
     http_logger (0.6.0)
-    i18n (1.8.3)
+    i18n (1.8.4)
       concurrent-ruby (~> 1.0)
     immigrant (0.3.6)
       activerecord (>= 3.0)
