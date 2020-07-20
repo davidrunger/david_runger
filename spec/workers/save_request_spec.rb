@@ -82,7 +82,7 @@ RSpec.describe SaveRequest do
           let(:auth_token) { AuthToken.first! }
 
           it 'creates a Request associated with that auth_token' do
-            request_ids_before = Request.pluck(:id)
+            request_ids_before = Request.ids
 
             expect { perform }.to change { Request.count }.by(1)
 

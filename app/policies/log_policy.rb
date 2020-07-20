@@ -4,7 +4,7 @@ class LogPolicy < ApplicationPolicy
   def show?
     (log.user == @user) ||
       log.publicly_viewable? ||
-      LogShare.where(log: log, email: @user.email).exists?
+      LogShare.exists?(log: log, email: @user.email)
   end
 
   private
