@@ -14,7 +14,7 @@ class Test::Tasks::CheckVersions < Pallets::Task
       node --version && [ "$(node --version)" = 'v12.13.1' ]
     COMMAND
     execute_system_command(<<~COMMAND)
-      yarn --version && [ "$(yarn --version)" = '1.22.0' ]
+      yarn --version && [ "$(yarn --version)" = '1.22.4' ]
     COMMAND
   end
 end
