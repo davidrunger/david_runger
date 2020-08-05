@@ -2,7 +2,7 @@
 
 # we have a low enough volume of requests that without `STDOUT.sync = true` there is a notable delay
 # in logs being written (due to log buffering); set this value so that logs are written in real time
-STDOUT.sync = true
+$stdout.sync = true
 
 Rails.application.configure do
   config.lograge.enabled = true

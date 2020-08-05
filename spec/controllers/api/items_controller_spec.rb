@@ -33,7 +33,7 @@ RSpec.describe Api::ItemsController do
     context 'when attempting to update the item of another user' do
       let(:owning_user) { item.store.user }
       let(:user) { User.where.not(id: owning_user).first! }
-      let(:params) { base_params.merge(item: { name: item.name + ' Changed' }) }
+      let(:params) { base_params.merge(item: { name: "#{item.name} Changed" }) }
 
       it 'does not update the item' do
         expect { patch_update }.not_to change { item.reload.attributes }
@@ -60,7 +60,7 @@ RSpec.describe Api::ItemsController do
     end
 
     context 'when the item is being updated with valid params' do
-      let(:valid_params) { { item: { name: item.name + ' Changed' } } }
+      let(:valid_params) { { item: { name: "#{item.name} Changed" } } }
       let(:params) { base_params.merge(valid_params) }
 
       it 'updates the item' do
