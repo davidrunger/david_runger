@@ -61,7 +61,7 @@ class Test::Runner < Pallets::Workflow
     def confirm_config
       print_config
       print("\n^ Does that config look good? [y]n")
-      response = STDIN.getch
+      response = $stdin.getch
 
       if response == "\u0003" # ctrl-c
         exit(1)
@@ -85,11 +85,11 @@ class Test::Runner < Pallets::Workflow
         loop do
           # loop until the user hits enter (which will make `STDIN.ready?` true)
           sleep(0.1)
-          next if !STDIN.ready?
+          next if !$stdin.ready?
 
           # take these actions once the user has hit enter (confirming that the setup looks good)
           @listener.stop # stop listening for further changes to `.tests.yml`
-          STDIN.gets while STDIN.ready? # pull/clear the user's input from STDIN
+          $stdin.gets while $stdin.ready? # pull/clear the user's input from STDIN
           break
         end
       end

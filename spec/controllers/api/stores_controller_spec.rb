@@ -46,7 +46,7 @@ RSpec.describe Api::StoresController do
     context 'when attempting to update the store of another user' do
       let(:owning_user) { store.user }
       let(:user) { User.where.not(id: owning_user).first! }
-      let(:params) { base_params.merge(store: { name: store.name + ' Changed' }) }
+      let(:params) { base_params.merge(store: { name: "#{store.name} Changed" }) }
 
       it 'does not update the store' do
         expect { patch_update }.not_to change { store.reload.attributes }
@@ -73,7 +73,7 @@ RSpec.describe Api::StoresController do
     end
 
     context 'when the store is being updated with valid params' do
-      let(:valid_params) { { store: { name: store.name + ' Changed' } } }
+      let(:valid_params) { { store: { name: "#{store.name} Changed" } } }
       let(:params) { base_params.merge(valid_params) }
 
       it 'updates the store' do

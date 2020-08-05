@@ -86,7 +86,7 @@ RSpec.describe Api::LogEntriesController do
     context 'when attempting to update the log entry of another user' do
       let(:owning_user) { log_entry.log.user }
       let(:user) { User.where.not(id: owning_user).first! }
-      let(:params) { base_params.merge(log_entry: { data: log_entry.data + ' ...changed.' }) }
+      let(:params) { base_params.merge(log_entry: { data: "#{log_entry.data} ...changed." }) }
 
       it 'does not update the log_entry' do
         expect { patch_update }.not_to change { log_entry.reload.attributes }
@@ -113,7 +113,7 @@ RSpec.describe Api::LogEntriesController do
     end
 
     context 'when the log entry is being updated with valid params' do
-      let(:valid_params) { { log_entry: { data: log_entry.data + ' ...changed.' } } }
+      let(:valid_params) { { log_entry: { data: "#{log_entry.data} ...changed." } } }
       let(:params) { base_params.merge(valid_params) }
 
       it 'updates the log_entry' do
