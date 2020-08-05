@@ -14,6 +14,7 @@ class Test::Tasks::EnsureLatestChromedriver < Pallets::Task
         curl -o $(pwd)/tmp/chromedriver.zip
         https://chromedriver.storage.googleapis.com/#{latest_release}/#{filename}
       COMMAND
+      execute_system_command('rm -f $HOME/bin/chromedriver')
       execute_system_command('unzip -d "$HOME/bin/" $(pwd)/tmp/chromedriver.zip')
     end
 
