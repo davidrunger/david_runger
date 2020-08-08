@@ -57,20 +57,27 @@
       h2.h2 Previous workouts
       WorkoutsTable(
         :isOwnWorkouts='true'
-        :workouts='bootstrap.workouts'
+        :workouts='workouts'
       )
     div.my2
       h2.h2 Others' workouts
-      WorkoutsTable(:workouts='bootstrap.others_workouts')
+      WorkoutsTable(:workouts='others_workouts')
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import WorkoutsTable from 'workout/workouts_table.vue';
 
 export default {
   components: {
     WorkoutsTable,
   },
+
+  computed: mapState([
+    'others_workouts',
+    'workouts',
+  ]),
 
   data() {
     return {

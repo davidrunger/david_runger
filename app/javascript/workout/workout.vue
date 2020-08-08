@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import NewWorkoutForm from 'workout/new_workout_form.vue';
 import WorkoutPlan from 'workout/workout_plan.vue';
 
@@ -17,15 +19,13 @@ export default {
     WorkoutPlan,
   },
 
-  data() {
-    return {
-      workout: null,
-    };
-  },
+  computed: mapState([
+    'workout',
+  ]),
 
   methods: {
     onWorkoutInitialized(workout) {
-      this.workout = workout;
+      this.$store.commit('setWorkout', { workout });
     },
   },
 };
