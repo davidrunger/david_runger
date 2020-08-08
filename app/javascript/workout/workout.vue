@@ -1,10 +1,7 @@
 <template lang='pug'>
   div(v-if='workout')
     WorkoutPlan(v-bind='workout')
-  NewWorkoutForm(
-    v-else
-    v-on:workout-initialized='onWorkoutInitialized'
-  )
+  NewWorkoutForm(v-else)
 </template>
 
 <script>
@@ -22,12 +19,6 @@ export default {
   computed: mapState([
     'workout',
   ]),
-
-  methods: {
-    onWorkoutInitialized(workout) {
-      this.$store.commit('setWorkout', { workout });
-    },
-  },
 };
 </script>
 
