@@ -53,6 +53,10 @@ export default {
           }).showToast();
 
           this.$store.commit('hideModal', { modalName: this.modalName });
+
+          const completedWorkout = response.data;
+          this.$store.commit('addCompletedWorkout', { completedWorkout });
+          this.$store.commit('setWorkout', { workout: null });
         }
       }).catch((error) => {
         const errorMessage = get(error, 'response.data.error', 'Something went wrong');
