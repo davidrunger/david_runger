@@ -90,11 +90,16 @@ export default {
 
   methods: {
     initializeWorkout() {
-      this.$emit('workout-initialized', {
-        minutes: this.minutes,
-        numberOfSets: this.numberOfSets,
-        exercises: this.exercises,
-      });
+      this.$store.commit(
+        'setWorkout',
+        {
+          workout: {
+            minutes: this.minutes,
+            numberOfSets: this.numberOfSets,
+            exercises: this.exercises,
+          },
+        },
+      );
     },
   },
 };
