@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 3e2bdf643e6d5d2d0e1916519f2fdc8103ad2f80
+  revision: 8ce5a6d868302f3382863e36a974037e840ab023
   specs:
     active_actions (0.13.3)
       memoist (~> 0.16)
@@ -234,7 +234,7 @@ GEM
       simplecov
     coderay (1.1.3)
     colorize (0.8.1)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
