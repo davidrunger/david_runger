@@ -17,7 +17,7 @@
     "@rails/actioncable": "^6.0.3-2",
     "@rails/webpacker": "^5.2.1",
     "autoprefixer": "^9.8.6",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "babel-loader": "^8.1.0",
     "babel-polyfill": "^6.23.0",
     "basscss": "^8.1.0",
