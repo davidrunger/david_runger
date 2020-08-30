@@ -11,6 +11,8 @@ module TokenAuthenticatable
 
   memoize \
   def auth_token
+    return nil if auth_token_param.blank?
+
     AuthToken.find_by(secret: auth_token_param)
   end
 
