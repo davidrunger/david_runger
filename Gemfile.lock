@@ -231,7 +231,7 @@ GEM
     cloudflare-rails (0.6.0)
       httparty
       rails (>= 5.0, < 6.1.0)
-    codecov (0.2.8)
+    codecov (0.2.9)
       json
       simplecov
     coderay (1.1.3)
