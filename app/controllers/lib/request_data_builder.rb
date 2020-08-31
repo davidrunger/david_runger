@@ -34,7 +34,7 @@ class RequestDataBuilder
       handler: "#{@params['controller']}##{@params['action']}",
       params: @filtered_params.except(*BORING_PARAMS),
       referer: @request.referer,
-      ip: @request.ip,
+      ip: @request.remote_ip,
       user_agent: raw_user_agent,
       requested_at_as_float: Float(@request_time),
       format: @request.format.symbol,
