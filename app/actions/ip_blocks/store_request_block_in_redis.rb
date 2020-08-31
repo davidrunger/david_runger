@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class IpBlocks::StoreRequestBlockInRedis < ApplicationAction
-  requires :ip, String, format: { with: /[.:0-9a-z]{7,39}/ }
+  requires :ip, String, format: { with: /\A[.:0-9a-f]{7,39}\z/ }
   requires :path, String, format: { with: %r{\A/} }
 
   def execute
