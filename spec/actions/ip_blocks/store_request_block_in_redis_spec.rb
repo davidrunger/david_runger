@@ -7,7 +7,7 @@ RSpec.describe IpBlocks::StoreRequestBlockInRedis do
 
   let(:store_request_block_params) do
     {
-      ip: '123.456.987.12',
+      ip: Faker::Internet.ip_v4_address,
       path: '/wordpress/themes?admin=true',
     }
   end
@@ -32,11 +32,19 @@ RSpec.describe IpBlocks::StoreRequestBlockInRedis do
           ActiveActions::TypeMismatch,
           <<~ERROR.squish)
             One or more required params are of the wrong type: `ip` is expected to be shaped like
-            String validating {:format=>{:with=>/[.0-9]{7,15}/}}, but was `"this is not an IP"` ;
-            `path` is expected to be shaped like String validating {:format=>{:with=>/\\A\\//}}, but
-            was `"this is not a path"`.
+            String validating {:format=>{:with=>/[.:0-9a-z]{7,39}/}}, but was `"this is not an IP"`
+            ; `path` is expected to be shaped like String validating {:format=>{:with=>/\\A\\//}},
+            but was `"this is not a path"`.
           ERROR
       end
+    end
+  end
+
+  context 'when the IP address is an IPv6 format' do
+    let(:store_request_block_params) { super().merge(ip: Faker::Internet.ip_v6_address) }
+
+    it 'does not raise an error' do
+      expect { store_request_block_action }.not_to raise_error
     end
   end
 end
