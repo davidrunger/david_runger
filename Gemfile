@@ -93,3 +93,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webmock'
 end
+
+group :production do
+  gem 'cloudflare-rails'
+end
