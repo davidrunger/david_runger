@@ -3,6 +3,7 @@
 class Rack::Attack
   BANNED_PATH_FRAGMENTS = Set.new(%w[
     env
+    git
     old-wp
     passwd
     php
