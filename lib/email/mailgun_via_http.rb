@@ -8,7 +8,9 @@ module Email
 
     attr_accessor :message
 
+    # rubocop:disable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
     def initialize(_mail) ; end
+    # rubocop:enable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
 
     def deliver!(mail)
       connection.post(
