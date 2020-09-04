@@ -3,7 +3,7 @@
 class TruncateTables
   prepend ApplicationWorker
 
-  ROW_COUNT_SQL = <<~SQL
+  ROW_COUNT_SQL = <<~SQL.squish
     SELECT relname, n_live_tup
     FROM pg_stat_user_tables
     ORDER BY n_live_tup DESC;
@@ -25,7 +25,7 @@ class TruncateTables
       ApplicationRecord.connection.execute("SELECT count(*) FROM #{table}").to_a.first['count']
     Rails.logger.info("Rows in `#{table}` prior to truncation: #{num_rows}")
 
-    min_surviving_timestamp_sql = <<~SQL
+    min_surviving_timestamp_sql = <<~SQL.squish
       SELECT #{timestamp}
       FROM #{table}
       ORDER BY #{timestamp} DESC
