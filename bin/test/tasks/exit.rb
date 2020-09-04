@@ -46,7 +46,7 @@ class Test::Tasks::Exit < Pallets::Task
     puts("\n")
     puts("Wall clock elapsed time: #{overall_wall_clock_time.round(3).to_s.yellow}")
     total_task_time =
-      Test::Middleware::TaskResultTrackingMiddleware.job_results.map { _2[:run_time] }.inject(:+)
+      Test::Middleware::TaskResultTrackingMiddleware.job_results.map { _2[:run_time] }.sum
     puts("Total task time: #{total_task_time.round(3).to_s.yellow}")
     puts("Parallelism: #{total_task_time.fdiv(overall_wall_clock_time).round(3).to_s.yellow}")
   end

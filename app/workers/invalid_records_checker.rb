@@ -17,7 +17,7 @@ class InvalidRecordsChecker
           klass_name.constantize.find_each.count { |record| !record.valid? }
         end
 
-    total_number_of_invalid_records = invalid_records_count_hash.values.inject(0, :+)
+    total_number_of_invalid_records = invalid_records_count_hash.values.sum
     if total_number_of_invalid_records > 0
       InvalidRecordsMailer.invalid_records(invalid_records_count_hash).deliver_later
     end
