@@ -8,7 +8,9 @@ module Monkeypatches::MakeAllRequestsAsJson
   http_verbs = %w[get post patch put head delete]
   http_verbs.each do |method|
     define_method(method) do |*args, **kwargs|
+      # rubocop:disable Performance/CollectionLiteralInLoop
       super(*args, **{ as: :json }.merge(kwargs))
+      # rubocop:enable Performance/CollectionLiteralInLoop
     end
   end
 end
