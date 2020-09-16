@@ -8042,6 +8042,13 @@ postcss-scss@^2.1.1:
   dependencies:
     postcss "^7.0.6"
 
+postcss-scss@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-3.0.0.tgz#81ef90ea6ed50256e095575526cdcc331a1a1d8b"
+  integrity sha512-8k2CgYMR7aUa7nRTEiMpyf6O13P7qiEbht2XBaOKO2Zj6Ko1ZzESWls7tfaqSDqtJQ2S0k9oPFcefuGwdiHtXw==
+  dependencies:
+    postcss "^8.0.2"
+
 postcss-selector-matches@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/postcss-selector-matches/-/postcss-selector-matches-4.0.0.tgz#71c8248f917ba2cc93037c9637ee09c64436fcff"
