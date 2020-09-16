@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 5211edb09e906dddc6556d90e4823620ad251f1a
+  revision: 10d7e83e10e6b045f7864ccddfa89c715feaf899
   specs:
     active_actions (0.13.3)
       memoist (~> 0.16)
@@ -399,7 +399,7 @@ GEM
     multipart-post (2.1.1)
     nenv (0.3.0)
     newrelic_rpm (6.12.0.367)
-    nio4r (2.5.3)
+    nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.3)
