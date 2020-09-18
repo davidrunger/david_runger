@@ -16,7 +16,7 @@
     "@babel/preset-env": "^7.11.5",
     "@rails/actioncable": "^6.0.3-3",
     "@rails/webpacker": "^5.2.1",
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "^10.0.0",
     "axios": "^0.20.0",
     "babel-loader": "^8.1.0",
     "babel-polyfill": "^6.23.0",
