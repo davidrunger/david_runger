@@ -29,7 +29,7 @@
     "caniuse-lite": "^1.0.30001132",
     "chart.js": "^2.9.3",
     "clipboard": "^2.0.6",
-    "compression-webpack-plugin": "^6.0.1",
+    "compression-webpack-plugin": "^6.0.2",
     "css-loader": "^4.3.0",
     "dompurify": "^2.0.17",
     "easytimer.js": "^4.3.0",
