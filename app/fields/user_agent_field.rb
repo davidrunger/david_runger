@@ -21,7 +21,7 @@ class UserAgentField < Administrate::Field::Base
 
   def good_browser_data?
     [browser_name, browser_version, browser_platform].all?(&:present?) &&
-      browser_name != 'Generic Browser'
+      browser_name != 'Unknown Browser'
   end
 
   memoize \

@@ -27,7 +27,7 @@ RSpec.describe UserAgentField do
     context 'when `browser` cannot identify the browser' do
       let(:raw_user_agent) { 'curl/7.54.0' }
 
-      before { expect(Browser.new(raw_user_agent).name).to eq('Generic Browser') }
+      before { expect(Browser.new(raw_user_agent).name).to eq('Unknown Browser') }
 
       it 'returns the raw user agent' do
         expect(summary_info).to eq(raw_user_agent)
