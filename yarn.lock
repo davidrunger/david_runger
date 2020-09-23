@@ -8037,12 +8037,12 @@ postcss-scss@^2.1.1:
   dependencies:
     postcss "^7.0.6"
 
-postcss-scss@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-3.0.0.tgz#81ef90ea6ed50256e095575526cdcc331a1a1d8b"
-  integrity sha512-8k2CgYMR7aUa7nRTEiMpyf6O13P7qiEbht2XBaOKO2Zj6Ko1ZzESWls7tfaqSDqtJQ2S0k9oPFcefuGwdiHtXw==
+postcss-scss@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-3.0.1.tgz#174745f0ca1fda2ddb7d2a5e5d60fa74db3cbd48"
+  integrity sha512-gEri2aZT2Nwjbbqn0x9SoNHPL3QmswiTPEYS8Cc+kLivP3edPmNJgnENHRhUup8fF9xTpbqHRItBybGGpskj8w==
   dependencies:
-    postcss "^8.0.2"
+    postcss "^8.0.7"
 
 postcss-selector-matches@^4.0.0:
   version "4.0.0"
@@ -8167,7 +8167,7 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.17, postcss@^7.0.2
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^8.0.2, postcss@^8.0.4, postcss@^8.0.8:
+postcss@^8.0.4, postcss@^8.0.7, postcss@^8.0.8:
   version "8.0.8"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.0.8.tgz#5a80323a5107c0411451d1513f17984cfcfcc830"
   integrity sha512-SJpf3Yrghve9ygpOcVhloo6e7q/mkp0YU3FLr3grdZpHmSjgwxTYEIrzkz7cFx27IMLFvIfLBnuw+JrHio14WQ==
