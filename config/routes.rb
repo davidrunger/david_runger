@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get 'groceries', to: 'groceries#index'
   get 'workout', to: 'workouts#index'
+  get 'workouts', to: redirect('workout')
   get 'logs', to: 'logs#index'
   namespace :logs do
     resources :uploads, only: %i[index create]
