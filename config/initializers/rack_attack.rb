@@ -13,9 +13,6 @@ class Rack::Attack
     plugins
     wordpress
     wp
-    wp-admin
-    wp-includes
-    wp-login
     wp1
     wp2
   ].map(&:freeze)).freeze
@@ -39,7 +36,7 @@ class Rack::Attack
     end
 
     def blocked_path?(request)
-      fragments = request.path.split(%r{/|\.|\?})
+      fragments = request.path.split(%r{/|\.|\?|-})
       fragments.map!(&:presence)
       fragments.compact!
       fragments.any? do |fragment|
