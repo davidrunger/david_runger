@@ -229,7 +229,7 @@ GEM
       activesupport
     childprocess (3.0.0)
     climate_control (0.2.0)
-    cloudflare-rails (0.6.0)
+    cloudflare-rails (1.0.0)
       httparty
       rails (>= 5.0, < 6.1.0)
     codecov (0.2.11)
