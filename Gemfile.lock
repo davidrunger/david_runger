@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/rspec_performance_summary.git
-  revision: b6d3803942048b1c1939981dbceb6a37a9fed758
+  revision: 802800cb29ae84079710d16744761ce0e6286a53
   specs:
     rspec_performance_summary (0.1.5)
       rspec-core (~> 3.0)
@@ -482,7 +482,7 @@ GEM
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
       rspec-mocks (~> 3.9.0)
-    rspec-core (3.9.2)
+    rspec-core (3.9.3)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
       diff-lcs (>= 1.2.0, < 2.0)
