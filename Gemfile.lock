@@ -430,7 +430,7 @@ GEM
       msgpack
       redis (~> 4.2)
     parallel (1.19.2)
-    parser (2.7.1.5)
+    parser (2.7.2.0)
       ast (~> 2.4.1)
     percy-capybara (4.3.3)
     pg (1.2.3)
