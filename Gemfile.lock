@@ -48,7 +48,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: f7c19c578016914b58a216a71bc4193d276b1048
+  revision: 3c44842f4ac02c90ff44cf13e5e86dacc44ab767
   specs:
     runger_style (0.2.5)
 
@@ -519,8 +519,9 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 0.87.0)
-    rubocop-rspec (1.43.2)
+    rubocop-rspec (1.44.1)
       rubocop (~> 0.87)
+      rubocop-ast (>= 0.7.1)
     ruby-progressbar (1.10.1)
     rubyzip (2.3.0)
     rufus-scheduler (3.6.0)
