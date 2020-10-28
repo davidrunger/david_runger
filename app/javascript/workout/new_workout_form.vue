@@ -35,7 +35,7 @@
               )
         .col.col-6
           label
-            | Reps
+            | Reps per set
             validate
               el-input(
                 v-model.number='exercise.reps'
