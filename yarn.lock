@@ -11070,10 +11070,10 @@ webpack-sources@^1.0.0, webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack-sources@^2.1:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-2.1.0.tgz#0d6d309f5e048e445d34e22c07073a238ca12730"
-  integrity sha512-gOlNIlnBzDC4yIqRcguYXscNRfSL4KSd2EXMXxkTPCao56YW8CbjrY+EfW5fqJNOdWhlFMxGTy1ctwJgeprnXg==
+webpack-sources@^2.2:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-2.2.0.tgz#058926f39e3d443193b6c31547229806ffd02bac"
+  integrity sha512-bQsA24JLwcnWGArOKUxYKhX3Mz/nK1Xf6hxullKERyktjNMC4x8koOeaDNTA2fEJ09BdWLbM/iTW0ithREUP0w==
   dependencies:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
