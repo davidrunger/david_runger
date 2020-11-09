@@ -82,7 +82,7 @@
     "@percy/agent": "^0.28.4",
     "postcss": "^8.1.4",
     "postcss-safe-parser": "^5.0.2",
-    "postcss-scss": "^3.0.2",
+    "postcss-scss": "^3.0.4",
     "postcss-syntax": "^0.36.2",
     "stylelint": "~13",
     "stylelint-config-standard": "^20.0.0",
