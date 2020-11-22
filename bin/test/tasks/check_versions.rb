@@ -11,10 +11,10 @@ class Test::Tasks::CheckVersions < Pallets::Task
       bundler --version && [ "$(bundle --version | cut -c1-21)" = 'Bundler version 2.1.2' ]
     COMMAND
     execute_system_command(<<~COMMAND)
-      node --version && [ "$(node --version)" = 'v12.13.1' ]
+      node --version && [ "$(node --version)" = 'v14.15.1' ]
     COMMAND
     execute_system_command(<<~COMMAND)
-      yarn --version && [ "$(yarn --version)" = '1.22.4' ]
+      yarn --version && [ "$(yarn --version)" = '1.22.10' ]
     COMMAND
   end
 end

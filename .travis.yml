@@ -22,7 +22,7 @@ env:
     - SECRET_KEY_BASE=0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b
 before_install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install 12.13.1
+  - nvm install 14.15.1
 script:
   - bin/pallets --verbose -r ./bin/run-tests.rb
 notifications:
