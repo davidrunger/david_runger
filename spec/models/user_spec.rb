@@ -34,7 +34,9 @@ RSpec.describe User do
     context 'when the phone number does not start with 1' do
       before { expect(phone.first).not_to eq('1') }
 
+      # rubocop:disable Performance/ArraySemiInfiniteRangeSlice
       let(:phone) { "2#{super()[1..]}" }
+      # rubocop:enable Performance/ArraySemiInfiniteRangeSlice
 
       it 'is not valid' do
         expect(user).not_to be_valid
