@@ -79,7 +79,7 @@
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
-    "@percy/agent": "^0.28.4",
+    "@percy/agent": "^0.28.5",
     "postcss": "^8.1.9",
     "postcss-html": "^0.36.0",
     "postcss-safe-parser": "^5.0.2",
