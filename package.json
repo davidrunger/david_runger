@@ -2,8 +2,8 @@
   "name": "david_runger",
   "private": true,
   "engines": {
-    "node": "14.15.1",
-    "yarn": "1.22.10"
+    "node": "14.15.0",
+    "yarn": "1.22.5"
   },
   "browserslist": [
     ">10%"

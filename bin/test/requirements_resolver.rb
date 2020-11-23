@@ -14,9 +14,8 @@ class Test::RequirementsResolver
       base_dependency_map = {
         # Installation / Setup
         Test::Tasks::EnsureLatestChromedriver => nil,
-        Test::Tasks::InstallYarn => nil,
-        Test::Tasks::YarnInstall => Test::Tasks::InstallYarn,
-        Test::Tasks::CheckVersions => Test::Tasks::InstallYarn,
+        Test::Tasks::YarnInstall => nil,
+        Test::Tasks::CheckVersions => nil,
         Test::Tasks::CompileJavaScript => Test::Tasks::YarnInstall,
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
@@ -156,7 +155,6 @@ class Test::RequirementsResolver
 
   CHECK_CAN_BE_SKIPPED_CONDITIONS = {
     Test::Tasks::BuildFixtures => proc { running_locally? },
-    Test::Tasks::InstallYarn => proc { running_locally? },
     Test::Tasks::RunAnnotate => proc { !db_schema_changed? },
     Test::Tasks::RunBrakeman => proc {
       !(haml_files_changed? || ruby_files_changed?) || running_locally?
@@ -239,6 +237,6 @@ class Test::RequirementsResolver
 
   memoize \
   def running_locally?
-    !ENV.key?('TRAVIS')
+    !ENV.key?('CI')
   end
 end

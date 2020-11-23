@@ -11,7 +11,13 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
       unless ENV.key?('CI')
         execute_system_command("dropdb --if-exists #{db_name}")
       end
-      execute_system_command("createdb -T david_runger_test #{db_name}")
+      execute_system_command(<<~COMMAND)
+        createdb
+          -T david_runger_test #{db_name}
+          -U #{ENV['POSTGRES_USER']}
+          -h #{ENV['POSTGRES_HOST']}
+          --no-password
+      COMMAND
     end
   end
 end
