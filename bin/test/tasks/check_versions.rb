@@ -8,9 +8,6 @@ class Test::Tasks::CheckVersions < Pallets::Task
       ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby 2.7.2p' ]
     COMMAND
     execute_system_command(<<~COMMAND)
-      bundler --version && [ "$(bundle --version | cut -c1-21)" = 'Bundler version 2.1.2' ]
-    COMMAND
-    execute_system_command(<<~COMMAND)
       node --version && [ "$(node --version)" = 'v14.15.0' ]
     COMMAND
     execute_system_command(<<~COMMAND)
