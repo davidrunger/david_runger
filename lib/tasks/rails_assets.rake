@@ -10,7 +10,7 @@ task build_js_routes: :environment do
   puts 'Writing app/javascript/rails_assets/routes.js ...'
   rails_assets_directory_name = 'app/javascript/rails_assets'
   FileUtils.mkdir(rails_assets_directory_name) unless File.exist?(rails_assets_directory_name)
-  JsRoutes.generate!('app/javascript/rails_assets/routes.js', exclude: /admin/)
+  JsRoutes.generate!('app/javascript/rails_assets/routes.js', exclude: /admin/, namespace: 'Routes')
 
   puts 'Done writing named routes JavaScript helpers to file.'
 end
