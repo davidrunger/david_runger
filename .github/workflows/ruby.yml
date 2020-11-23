@@ -1,12 +1,15 @@
-name: Tests & Linters
+name: Test (& Deploy)
 
 on:
   pull_request:
     branches:
-    - master
+      - '*'
+  push:
+    branches:
+      - master
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     services:
       # https://stackoverflow.com/q/57915791/4009384
@@ -66,3 +69,16 @@ jobs:
         BUILD_TIME_LOG_ID: "${{secrets.BUILD_TIME_LOG_ID}}"
         BUILD_TIME_LOG_URL: "${{secrets.BUILD_TIME_LOG_URL}}"
         PERCY_TOKEN: "${{secrets.PERCY_TOKEN}}"
+
+  deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy To Heroku
+        uses: akhileshns/heroku-deploy@v3.6.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: davidrunger
+          heroku_email: davidjrunger@gmail.com
