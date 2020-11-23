@@ -7,7 +7,7 @@ require_relative './test/middleware/task_result_tracking_middleware.rb'
 require_relative '../config/initializers/monkeypatches/faraday.rb'
 
 Pallets.configure do |c|
-  c.concurrency = 3
+  c.concurrency = 2
   c.max_failures = 0
   c.backend_args = { url: 'redis://127.0.0.1:6379/8' } # use redis db #8 (to avoid conflicts)
   c.middleware << Test::Middleware::ExitOnFailureMiddleware

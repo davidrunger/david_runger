@@ -4,7 +4,7 @@ RSpec.describe 'Rack::Attack', :rack_test_driver do
   context 'when Rails cacheing is enabled/functional & Rack::Attack uses the Rails cache', :cache do
     around do |spec|
       original_rack_attack_store = Rack::Attack.cache.store
-      expect(Rails.cache).to be_a(ActiveSupport::Cache::MemCacheStore)
+      expect(Rails.cache).to be_a(ActiveSupport::Cache::MemoryStore)
 
       Rails.cache.clear
       Rack::Attack.cache.store = Rails.cache

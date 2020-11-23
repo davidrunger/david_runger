@@ -1,0 +1,68 @@
+name: Tests & Linters
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      # https://stackoverflow.com/q/57915791/4009384
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432 # Maps port 5432 on service container to the host
+      redis:
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379 # Maps port 6379 on service container to the host
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.x
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+      env:
+        BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 14.15.0
+    - name: Run tests & linters
+      run: bin/pallets --verbose -r ./bin/run-tests.rb
+      env:
+        CI: true
+        RAILS_ENV: test
+        NODE_ENV: test
+        DISABLE_SPRING: 1
+        SECRET_KEY_BASE: 0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b
+        # The hostname used to communicate with the PostgreSQL service container
+        POSTGRES_HOST: 127.0.0.1
+        POSTGRES_USER: postgres
+        PGPASSWORD: postgres # https://www.postgresql.org/docs/current/libpq-envars.html
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+        # The hostname used to communicate with the Redis service container
+        REDIS_HOST: redis
+        REDIS_PORT: 6379
+        BUILD_TIME_LOG_AUTH_TOKEN: "${{secrets.BUILD_TIME_LOG_AUTH_TOKEN}}"
+        BUILD_TIME_LOG_ID: "${{secrets.BUILD_TIME_LOG_ID}}"
+        BUILD_TIME_LOG_URL: "${{secrets.BUILD_TIME_LOG_URL}}"
+        PERCY_TOKEN: "${{secrets.PERCY_TOKEN}}"

@@ -118,7 +118,7 @@ RSpec.configure do |config|
 
   config.around(:each, :cache) do |spec|
     original_rails_cache = Rails.cache
-    Rails.cache = ActiveSupport::Cache::MemCacheStore.new
+    Rails.cache = ActiveSupport::Cache::MemoryStore.new
     spec.run
     Rails.cache = original_rails_cache
   end
