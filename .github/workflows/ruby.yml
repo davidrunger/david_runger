@@ -42,8 +42,6 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.2
-    - uses: ruby/setup-ruby@v1
-      with:
         bundler-cache: true
       env:
         BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
