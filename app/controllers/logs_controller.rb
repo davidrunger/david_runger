@@ -17,7 +17,7 @@ class LogsController < ApplicationController
       if slug && new_entry
         verify_valid_auth_token!
         log = current_user.logs.find_by!(slug: slug)
-        log.log_entries.create!(data: new_entry)
+        LogEntries::CreateFromParam.new(log: log, param: new_entry).run!
         bootstrap(toast_messages: ['New Log entry created!'])
       end
     end
