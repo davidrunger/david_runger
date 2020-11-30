@@ -62,7 +62,7 @@ GIT
 
 GIT
   remote: https://github.com/discourse/email_reply_trimmer.git
-  revision: fd1f2e82397226391c1d12c0d7fdf69a425e2385
+  revision: a359c68839474b26a13b3eb80f4af711945dcaa9
   specs:
     email_reply_trimmer (0.1.13)
 
