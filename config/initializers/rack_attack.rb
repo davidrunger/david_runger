@@ -10,6 +10,7 @@ class Rack::Attack
     phpformbuilder
     phpmyadmin
     phpmyadmin
+    phpunit
     plugins
     wordpress
     wp
