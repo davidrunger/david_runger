@@ -140,9 +140,9 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    active_model_serializers (0.10.11)
-      actionpack (>= 4.1, < 6.1)
-      activemodel (>= 4.1, < 6.1)
+    active_model_serializers (0.10.12)
+      actionpack (>= 4.1, < 6.2)
+      activemodel (>= 4.1, < 6.2)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     addressable (2.7.0)
