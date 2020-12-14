@@ -207,9 +207,9 @@ GEM
       activesupport
     childprocess (3.0.0)
     climate_control (0.2.0)
-    cloudflare-rails (1.0.0)
+    cloudflare-rails (1.1.0)
       httparty
-      rails (>= 5.0, < 6.1.0)
+      rails (>= 5.0, < 6.2.0)
     codecov (0.2.12)
       json
       simplecov
