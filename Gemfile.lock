@@ -475,7 +475,7 @@ GEM
     rubocop-performance (1.9.1)
       rubocop (>= 0.90.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.9.0)
+    rubocop-rails (2.9.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 0.90.0, < 2.0)
@@ -542,7 +542,7 @@ GEM
       e2mmap
     tilt (2.0.10)
     trollop (1.16.2)
-    tzinfo (2.0.3)
+    tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
     warden (1.2.9)
