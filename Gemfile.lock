@@ -542,7 +542,7 @@ GEM
       e2mmap
     tilt (2.0.10)
     trollop (1.16.2)
-    tzinfo (2.0.3)
+    tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
     warden (1.2.9)
