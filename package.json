@@ -75,7 +75,7 @@
     "waypoints": "^4.0.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.2.0",
-    "webpack-merge": "^5.7.2",
+    "webpack-merge": "^5.7.3",
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
