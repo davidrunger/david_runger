@@ -2,6 +2,7 @@
 
 class Rack::Attack
   BANNED_PATH_FRAGMENTS = Set.new(%w[
+    administrator
     env
     git
     old-wp
