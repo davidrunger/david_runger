@@ -4,13 +4,12 @@
 #
 # Table name: users
 #
-#  created_at       :datetime         not null
-#  email            :string           not null
-#  id               :bigint           not null, primary key
-#  last_activity_at :datetime
-#  phone            :string
-#  sms_allowance    :float            default(1.0), not null
-#  updated_at       :datetime         not null
+#  created_at    :datetime         not null
+#  email         :string           not null
+#  id            :bigint           not null, primary key
+#  phone         :string
+#  sms_allowance :float            default(1.0), not null
+#  updated_at    :datetime         not null
 #
 # Indexes
 #

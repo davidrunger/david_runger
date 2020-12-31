@@ -13,7 +13,6 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     email: Field::String,
     id: Field::Number,
-    last_activity_at: Field::DateTime,
     phone: Field::String,
     requests: Field::HasMany,
     updated_at: Field::DateTime,
@@ -36,7 +35,6 @@ class UserDashboard < Administrate::BaseDashboard
     created_at
     email
     id
-    last_activity_at
     phone
     updated_at
 
