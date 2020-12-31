@@ -38,6 +38,8 @@ jobs:
           - 6379:6379 # Maps port 6379 on service container to the host
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 100 # this might cause issues if there are more than 100 commits in a PR (?)
     - name: Setup Ruby 2.7.2
       uses: ruby/setup-ruby@v1
       with:
