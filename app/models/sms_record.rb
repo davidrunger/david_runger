@@ -21,7 +21,7 @@
 #
 
 class SmsRecord < ApplicationRecord
-  validates :nexmo_id, presence: true
+  validates :nexmo_id, presence: true, uniqueness: true
   validates :status, presence: true
   validates :to, presence: true
 

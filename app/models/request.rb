@@ -40,5 +40,5 @@ class Request < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :url, :handler, :method, :ip, :requested_at, :status, presence: true
-  validates :request_id, presence: true
+  validates :request_id, presence: true, uniqueness: true
 end
