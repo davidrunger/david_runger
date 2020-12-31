@@ -25,7 +25,7 @@ module DiffHelpers
   def files_changed
     if !system('git log -1 --pretty="%H" master > /dev/null 2>&1')
       puts('`master` branch is not present; fetching it now...')
-      `git fetch origin master:master --depth=1`
+      system('git fetch origin master:master --depth=1', exception: true)
       puts('Done fetching origin master branch.')
     end
 
