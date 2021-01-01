@@ -82,6 +82,7 @@ class SaveRequest
       status
       url
       user_agent
+      admin_user_id
       user_id
       auth_token_id
       view

@@ -9,9 +9,11 @@ RSpec.describe SessionsController do
 
       let(:user) { users(:user) }
 
-      it 'redirects to the root path' do
+      it 'redirects to the root path with a flash message' do
         get_new
+
         expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to eq('You are already logged in.')
       end
     end
 

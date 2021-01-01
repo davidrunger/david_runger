@@ -17,6 +17,9 @@ FixtureBuilder.configure do |fbuilder|
     user = name(:user, create(:user)).first
     admin = name(:admin, create(:user, :admin)).first
 
+    # admin users
+    name(:admin_user, create(:admin_user))
+
     # groceries
     store = name(:store, create(:store, user: user)).first
     name(:item, create(:item, store: store))
@@ -63,7 +66,7 @@ FixtureBuilder.configure do |fbuilder|
     # workouts
     name(:workout, create(:workout, user: user))
 
-    # auth_tokens
+    # auth tokens
     create(:auth_token, user: user)
   end
 end

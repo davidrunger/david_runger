@@ -14,11 +14,20 @@ class RequestDataBuilder
   ].map(&:freeze).freeze
 
   # rubocop:disable Metrics/ParameterLists
-  def initialize(request:, params:, filtered_params:, user:, auth_token:, request_time:)
+  def initialize(
+    request:,
+    params:,
+    filtered_params:,
+    admin_user:,
+    user:,
+    auth_token:,
+    request_time:
+  )
     # rubocop:enable Metrics/ParameterLists
     @request = request
     @params = params
     @filtered_params = filtered_params
+    @admin_user = admin_user
     @user = user
     @auth_token = auth_token
     @request_time = request_time
@@ -27,6 +36,7 @@ class RequestDataBuilder
   memoize \
   def request_data
     @request_data = {
+      admin_user_id: @admin_user&.id,
       user_id: @user&.id,
       auth_token_id: @auth_token&.id,
       url: @request.url,

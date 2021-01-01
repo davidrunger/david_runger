@@ -27,3 +27,4 @@ webpack.config.static.js
 /app/javascript/rails_assets
 coverage/
 .tests.yml
+*.dump*

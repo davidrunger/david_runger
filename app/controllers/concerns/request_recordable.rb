@@ -13,6 +13,8 @@ module RequestRecordable
     before_action :store_initial_request_data_in_redis
   end
 
+  private
+
   def store_initial_request_data_in_redis
     $redis_pool.with do |conn|
       conn.setex(
@@ -22,8 +24,6 @@ module RequestRecordable
       )
     end
   end
-
-  private
 
   def initial_request_data_redis_key
     "request_data:#{request.request_id.presence!('No request_id')}:initial"
@@ -35,6 +35,7 @@ module RequestRecordable
       request: request,
       params: params,
       filtered_params: filtered_params,
+      admin_user: current_admin_user,
       user: current_user,
       auth_token: auth_token,
       request_time: @request_time,

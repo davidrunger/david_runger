@@ -15,7 +15,8 @@ class DavidRunger::LogBuilder
       params: params_log,
       status: status_code_log,
       ip: payload[:ip], # comes from ApplicationController#append_info_to_payload
-      user_id: payload[:user_id], # comes from ApplicationController#append_info_to_payload,
+      admin_user_id: payload[:admin_user_id], # from ApplicationController#append_info_to_payload
+      user_id: payload[:user_id], # from ApplicationController#append_info_to_payload
     }.compact
   end
 

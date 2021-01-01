@@ -36,6 +36,8 @@ Sidekiq.logger = Rails.logger
 WebMock.enable!
 WebMock.disable_net_connect!(allow_localhost: true)
 
+OmniAuth.config.test_mode = true
+
 Capybara.register_driver(:chrome_headless) do |app|
   options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)

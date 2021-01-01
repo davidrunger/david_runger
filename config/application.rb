@@ -10,6 +10,7 @@ require 'action_mailer/railtie'
 require 'action_view/railtie'
 require 'active_job/railtie'
 require 'active_record/railtie'
+require 'sprockets/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -60,7 +61,6 @@ class DavidRunger::Application < Rails::Application
   # Hack (?) to avoid e.g. LoadError: cannot load such file -- devise_helper caused by rails
   # 6.0.0.rc1 to 6.0.0.rc2 upgrade, probably due to `add_autoload_paths_to_load_path` config option
   # now being respected.
-  $LOAD_PATH << File.join(Gem.loaded_specs['administrate'].full_gem_path, 'app', 'helpers').to_s
   $LOAD_PATH << File.join(Gem.loaded_specs['devise'].full_gem_path, 'app', 'helpers').to_s
 
   ENV['FIXTURES_PATH'] = 'spec/fixtures'

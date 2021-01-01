@@ -4,8 +4,8 @@ source 'https://rubygems.org'
 ruby '2.7.2'
 
 gem 'active_actions', github: 'davidrunger/active_actions'
+gem 'activeadmin'
 gem 'active_model_serializers'
-gem 'administrate'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem 'browser'
@@ -36,6 +36,7 @@ gem 'rack-mini-profiler', require: false
 gem 'rails'
 gem 'redis'
 gem 'rollbar'
+gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
 gem 'stackprof'

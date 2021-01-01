@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_31_022816) do
+ActiveRecord::Schema.define(version: 2021_01_03_111241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,20 @@ ActiveRecord::Schema.define(version: 2020_12_31_022816) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["message_id", "message_checksum"], name: "index_action_mailbox_inbound_emails_uniqueness", unique: true
+  end
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -50,6 +64,13 @@ ActiveRecord::Schema.define(version: 2020_12_31_022816) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
   create_table "auth_tokens", force: :cascade do |t|
@@ -131,6 +152,8 @@ ActiveRecord::Schema.define(version: 2020_12_31_022816) do
     t.string "isp"
     t.string "request_id", null: false
     t.bigint "auth_token_id"
+    t.bigint "admin_user_id"
+    t.index ["admin_user_id"], name: "index_requests_on_admin_user_id"
     t.index ["auth_token_id"], name: "index_requests_on_auth_token_id"
     t.index ["isp"], name: "index_requests_on_isp"
     t.index ["request_id"], name: "index_requests_on_request_id", unique: true
@@ -197,6 +220,7 @@ ActiveRecord::Schema.define(version: 2020_12_31_022816) do
   add_foreign_key "log_shares", "logs"
   add_foreign_key "logs", "users"
   add_foreign_key "number_log_entries", "logs"
+  add_foreign_key "requests", "admin_users"
   add_foreign_key "requests", "auth_tokens"
   add_foreign_key "requests", "users"
   add_foreign_key "sms_records", "users"

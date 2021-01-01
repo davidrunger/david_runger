@@ -37,6 +37,7 @@ RSpec.describe 'Home page' do
     }.from([]).to([
       {
         'id' => Integer,
+        'admin_user_id' => nil,
         'user_id' => nil,
         'auth_token_id' => nil,
         'url' => %r{http://127.0.0.1:\d+/},

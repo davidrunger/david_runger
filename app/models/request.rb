@@ -4,6 +4,7 @@
 #
 # Table name: requests
 #
+#  admin_user_id :bigint
 #  auth_token_id :bigint
 #  db            :integer
 #  format        :string
@@ -25,6 +26,7 @@
 #
 # Indexes
 #
+#  index_requests_on_admin_user_id  (admin_user_id)
 #  index_requests_on_auth_token_id  (auth_token_id)
 #  index_requests_on_isp            (isp)
 #  index_requests_on_request_id     (request_id) UNIQUE

@@ -19,8 +19,6 @@
 class User < ApplicationRecord
   ADMIN_EMAILS = %w[davidjrunger@gmail.com].map(&:freeze).freeze
 
-  devise
-
   validates :email, presence: true, uniqueness: true
   validates :phone, format: { with: /\A1[[:digit:]]{10}\z/ }, allow_nil: true
 
@@ -33,6 +31,8 @@ class User < ApplicationRecord
   has_many :items, through: :stores # must come after has_many :stores declaration
   has_many :text_log_entries, through: :logs
   has_many :workouts, dependent: :destroy
+
+  devise
 
   def admin?
     email.in?(ADMIN_EMAILS)

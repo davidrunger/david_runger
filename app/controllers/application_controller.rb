@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :authenticate_user
+  before_action :authenticate_user!
   before_action :enable_rack_mini_profiler_if_admin
 
   after_action :verify_authorized, unless: :skip_authorization?
@@ -26,6 +26,9 @@ class ApplicationController < ActionController::Base
   private
 
   def skip_authorization?
+    # ActiveAdmin supports an "Authorization Adapter" that can be implemented separately; skip here.
+    return true if params[:controller].match?(%r{\Aactive_admin/|admin/})
+
     # All users are allowed to sign out; we don't need to check a pundit policy.
     # We can't add `skip_authorization` to the controller because the controller is in `devise`.
     params[:controller] == 'devise/sessions' && params[:action] == 'destroy'
@@ -35,11 +38,12 @@ class ApplicationController < ActionController::Base
   def append_info_to_payload(payload)
     super(payload)
     payload[:ip] = request.remote_ip
+    payload[:admin_user_id] = current_admin_user.id if current_admin_user.present?
     payload[:user_id] = current_user.id if current_user.present?
   end
 
-  def authenticate_user
-    return if user_signed_in? || auth_token_user.present?
+  def authenticate_user!
+    return if skip_authorization? || user_signed_in? || auth_token_user.present?
 
     if request.format.json?
       render_json_error('Your request was not authenticated', 401)
@@ -48,6 +52,14 @@ class ApplicationController < ActionController::Base
       session['user_return_to'] = request.path
       redirect_to(login_path)
     end
+  end
+
+  def authenticate_admin_user!
+    return if admin_user_signed_in?
+
+    flash[:alert] = 'You must sign in as an admin user first.'
+    session['user_return_to'] = request.path
+    redirect_to(admin_login_path)
   end
 
   # override Rails's built-in #verify_authenticity_token method to allow for `auth_token` use

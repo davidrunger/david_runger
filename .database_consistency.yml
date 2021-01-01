@@ -1,6 +1,8 @@
 # do not check ActionMailbox/ActiveStorage models, since they are provided by Rails
 ActionMailbox::InboundEmail:
   enabled: false
+ActiveAdmin::Comment:
+  enabled: false
 ActiveStorage::Blob:
   enabled: false
 ActiveStorage::VariantRecord:

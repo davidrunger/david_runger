@@ -46,14 +46,13 @@ Rails.application.routes.draw do
     resources :workouts, only: %i[create update]
   end
 
-  namespace :admin do
-    resources :auth_tokens, only: %i[show]
-    resources :ip_blocks
-    resources :requests, only: %i[index show]
-    resources :users
-
-    root to: 'users#index'
+  devise_for :admin_users
+  get '/admin/login', to: 'admin/sessions#new'
+  devise_scope :admin_user do
+    get '/admin_users/auth/google_oauth2/callback' => 'admin/omniauth_callbacks#google_oauth2'
+    delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_admin_user_session
   end
+  ActiveAdmin.routes(self)
 
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
