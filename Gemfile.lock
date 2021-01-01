@@ -25,9 +25,9 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 3c44842f4ac02c90ff44cf13e5e86dacc44ab767
+  revision: 6bbf9176b451637a905bd060fc1dad8b11b530dc
   specs:
-    runger_style (0.2.5)
+    runger_style (0.2.6)
 
 GIT
   remote: https://github.com/davidrunger/spring-watcher-listen.git
