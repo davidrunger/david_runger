@@ -33,7 +33,7 @@ gem 'puma', '~> 5.0.0.beta1'
 gem 'pundit'
 gem 'rack-attack'
 gem 'rack-mini-profiler', require: false
-gem 'rails', github: 'rails/rails'
+gem 'rails'
 gem 'redis'
 gem 'rollbar'
 gem 'sidekiq'
