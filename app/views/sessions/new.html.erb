@@ -192,7 +192,7 @@
           </div>
         </div>
         <div class="abcRioButtonContents">
-          <%= button_to('Sign in with Google', user_google_oauth2_omniauth_authorize_path) %>
+          <%= button_to('Sign in with Google', "/auth/google_oauth2?redirect_uri=#{url_base}/users/auth/google_oauth2/callback") %>
         </div>
       </div>
     </div>
@@ -203,7 +203,7 @@
   function submitLoginForm(event) {
     event.preventDefault();
 
-    const form = document.querySelector('form[action="/users/auth/google_oauth2"]');
+    const form = document.querySelector('form[action^="/auth/google_oauth2"]');
     form.submit();
   }
 

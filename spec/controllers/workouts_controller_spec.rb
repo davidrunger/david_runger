@@ -3,19 +3,30 @@
 RSpec.describe WorkoutsController do
   let(:user) { users(:user) }
 
-  before { sign_in(user) }
-
   describe '#index' do
     subject(:get_index) { get(:index) }
 
-    it 'responds with 200' do
-      get_index
-      expect(response.status).to eq(200)
+    context 'when logged in' do
+      before { sign_in(user) }
+
+      it 'responds with 200' do
+        get_index
+        expect(response.status).to eq(200)
+      end
+
+      it 'has a title including "Workout"' do
+        get_index
+        expect(response.body).to have_title(/\AWorkout - David Runger\z/)
+      end
     end
 
-    it 'has a title including "Workout"' do
-      get_index
-      expect(response.body).to have_title(/\AWorkout - David Runger\z/)
+    context 'when not logged in' do
+      before { controller.sign_out_all_scopes }
+
+      it 'redirects to the login page' do
+        get_index
+        expect(response).to redirect_to(login_path)
+      end
     end
   end
 end

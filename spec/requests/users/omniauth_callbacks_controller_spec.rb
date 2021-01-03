@@ -5,14 +5,14 @@ RSpec.describe Users::OmniauthCallbacksController do
   # Specs borrowed with modification from
   # https://github.com/omniauth/omniauth/pull/809#issuecomment-512689882
   describe 'mitigating CVE-2015-9284' do
-    describe 'GET /users/auth/:provider' do
+    describe 'GET /auth/:provider' do
       specify do
-        get(user_google_oauth2_omniauth_authorize_path)
-        expect(response).to redirect_to(login_path)
+        expect { get('/auth/google_oauth2') }.
+          to raise_error(ActionController::RoutingError)
       end
     end
 
-    describe 'POST /users/auth/:provider without CSRF token' do
+    describe 'POST /auth/:provider without CSRF token' do
       around do |spec|
         original_allow_forgery_protection = ActionController::Base.allow_forgery_protection
         ActionController::Base.allow_forgery_protection = true
@@ -23,7 +23,7 @@ RSpec.describe Users::OmniauthCallbacksController do
       end
 
       specify do
-        expect { post(user_google_oauth2_omniauth_authorize_path) }.
+        expect { post('/auth/google_oauth2') }.
           to raise_error(ActionController::InvalidAuthenticityToken)
       end
     end

@@ -13,4 +13,15 @@ class SessionsController < ApplicationController
       render :new
     end
   end
+
+  private
+
+  helper_method \
+  def url_base
+    @url_base ||=
+      case Rails.env
+      when 'development' then "http://#{request.host}:#{request.port}"
+      else "https://#{request.host}"
+      end
+  end
 end

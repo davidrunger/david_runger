@@ -19,7 +19,7 @@
 class User < ApplicationRecord
   ADMIN_EMAILS = %w[davidjrunger@gmail.com].map(&:freeze).freeze
 
-  devise :omniauthable, omniauth_providers: [:google_oauth2]
+  devise
 
   validates :email, presence: true, uniqueness: true
   validates :phone, format: { with: /\A1[[:digit:]]{10}\z/ }, allow_nil: true

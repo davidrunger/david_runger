@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get 'upgrade_browser', to: 'home#upgrade_browser'
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users
   devise_scope :user do
+    get '/users/auth/google_oauth2/callback' => 'users/omniauth_callbacks#google_oauth2'
     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   get 'login', to: 'sessions#new'

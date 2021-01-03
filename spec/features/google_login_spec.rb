@@ -9,7 +9,8 @@ RSpec.describe 'Google auth' do
   end
 
   before do
-    OmniAuth.config.mock_auth[:google_oauth2,] = OmniAuth::AuthHash.new(
+    OmniAuth.config.add_mock(
+      :google_oauth2,
       provider: 'google_oauth2',
       uid: '12345678910',
       info: {
