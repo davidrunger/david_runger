@@ -20,7 +20,7 @@ RSpec.describe SessionsController do
 
       it 'renders the new session page' do
         get_new
-        expect(response.body).to have_css('input[type="submit"][value="Sign in with Google"]')
+        expect(response.body).to have_css('button.google-login')
       end
     end
   end

@@ -30,9 +30,9 @@ RSpec.describe 'Google auth' do
 
     it 'allows a user to log in with Google' do
       visit(login_path)
-      expect(page).to have_button('Sign in with Google')
+      expect(page).to have_css('button.google-login')
 
-      expect { click_button('Sign in with Google') }.not_to change { User.count }
+      expect { click_button(class: 'google-login') }.not_to change { User.count }
 
       visit(groceries_path)
       expect(page).to have_text(user.email)
@@ -46,9 +46,9 @@ RSpec.describe 'Google auth' do
 
     it 'allows a user to sign up (and log in) with Google' do
       visit(login_path)
-      expect(page).to have_button('Sign in with Google')
+      expect(page).to have_css('button.google-login')
 
-      expect { click_button('Sign in with Google') }.to change { User.count }.by(1)
+      expect { click_button(class: 'google-login') }.to change { User.count }.by(1)
       user = User.find_by!(email: stubbed_user_email)
 
       visit(groceries_path)
