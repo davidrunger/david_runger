@@ -68,5 +68,8 @@ FixtureBuilder.configure do |fbuilder|
 
     # auth tokens
     create(:auth_token, user: user)
+
+    # IP blocks
+    name(:ip_block, create(:ip_block))
   end
 end
