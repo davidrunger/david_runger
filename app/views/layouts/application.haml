@@ -34,6 +34,10 @@
     = content_for(:extra_javascript)
 
   %body{class: [@body_class, 'sans-serif'].map(&:presence).compact.join(' ')}
+    - if user_signed_in? && admin_user_signed_in? && (current_user.email != current_admin_user.email)
+      .center.p1.bg-aqua
+        = link_to('Unbecome', unbecome_admin_user_path(current_user))
+        = current_user.email
     - if notice.present?
       %p.p2.notice= notice
     - if alert.present?

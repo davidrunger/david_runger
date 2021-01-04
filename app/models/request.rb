@@ -38,6 +38,7 @@ class Request < ApplicationRecord
   # error class for Rollbar logging
   class CreateRequestError < StandardError ; end
 
+  belongs_to :admin_user, optional: true
   belongs_to :auth_token, optional: true
   belongs_to :user, optional: true
 
