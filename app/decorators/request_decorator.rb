@@ -13,6 +13,10 @@ class RequestDecorator < ApplicationDecorator
     end
   end
 
+  def to_s
+    "Request #{id} for #{handler}"
+  end
+
   private
 
   def good_browser_data?

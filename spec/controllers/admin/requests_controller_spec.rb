@@ -42,4 +42,19 @@ RSpec.describe Admin::RequestsController do
       end
     end
   end
+
+  describe '#show' do
+    subject(:get_show) { get(:show, params: { id: request.id }) }
+
+    let(:request) { Request.first! }
+
+    context 'when logged in as an AdminUser' do
+      before { sign_in(admin_user) }
+
+      it 'responds with 200' do
+        get_show
+        expect(response.status).to eq(200)
+      end
+    end
+  end
 end
