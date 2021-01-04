@@ -80,6 +80,7 @@ class Test::RequirementsResolver
         skips.each do |skip|
           base_dependency_map.reject! { |key, _value| key == skip }
           base_dependency_map.transform_values! do |value|
+            # rubocop:disable Lint/DuplicateBranch
             if value.nil?
               value
             elsif Array(value).include?(skip)
@@ -87,6 +88,7 @@ class Test::RequirementsResolver
             else
               value
             end
+            # rubocop:enable Lint/DuplicateBranch
           end
         end
       end

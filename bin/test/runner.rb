@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# rubocop:disable Layout/EmptyLineBetweenDefs
 module Test ; end
 module Test::Tasks ; end
+# rubocop:enable Layout/EmptyLineBetweenDefs
 
 require_relative '../../config/application.rb'
 require 'English'
