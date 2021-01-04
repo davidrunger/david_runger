@@ -6,6 +6,7 @@ ActiveAdmin.register(Request) do
   index do
     id_column
     column :user
+    column :admin_user
     column :auth_token
     column :handler
     column :requested_at
