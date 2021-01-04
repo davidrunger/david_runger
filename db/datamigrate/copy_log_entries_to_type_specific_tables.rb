@@ -7,12 +7,10 @@ def copy_log_entries_to_type_specific_tables!
     new_log_entry_class =
       case log_input.type
       # (durations are recorded as strings, like "42:10")
-      when 'LogInputs::DurationLogInput'
+      when 'LogInputs::DurationLogInput', 'LogInputs::TextLogInput'
         LogEntries::TextLogEntry
       when 'LogInputs::IntegerLogInput'
         LogEntries::NumberLogEntry
-      when 'LogInputs::TextLogInput'
-        LogEntries::TextLogEntry
       end
     data_key = log_input.label
 
