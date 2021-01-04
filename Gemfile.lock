@@ -25,9 +25,9 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 6bbf9176b451637a905bd060fc1dad8b11b530dc
+  revision: a28a33be4827ab56a5da2851d95db15c7c7b95ab
   specs:
-    runger_style (0.2.6)
+    runger_style (0.2.7)
 
 GIT
   remote: https://github.com/davidrunger/spring-watcher-listen.git
@@ -112,6 +112,10 @@ GEM
       globalid (>= 0.3.6)
     activemodel (6.1.0)
       activesupport (= 6.1.0)
+    activemodel-serializers-xml (1.0.2)
+      activemodel (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
     activerecord (6.1.0)
       activemodel (= 6.1.0)
       activesupport (= 6.1.0)
@@ -207,6 +211,12 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    draper (4.0.1)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
+      activemodel-serializers-xml (>= 1.0)
+      activesupport (>= 5.0)
+      request_store (>= 1.0)
     e2mmap (0.1.0)
     erubi (1.10.0)
     et-orbi (1.2.4)
@@ -588,6 +598,7 @@ DEPENDENCIES
   database_consistency
   devise
   dotenv-rails
+  draper
   email_reply_trimmer!
   factory_bot_rails
   faker

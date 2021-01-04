@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register(Request) do
+  decorate_with RequestDecorator
+
   index do
     id_column
     column :user
@@ -9,6 +11,6 @@ ActiveAdmin.register(Request) do
     column :requested_at
     column :location
     column :isp
-    column :user_agent
+    column :pretty_user_agent
   end
 end
