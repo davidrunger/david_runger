@@ -77,6 +77,7 @@ jobs:
         BUILD_TIME_LOG_ID: "${{secrets.BUILD_TIME_LOG_ID}}"
         BUILD_TIME_LOG_URL: "${{secrets.BUILD_TIME_LOG_URL}}"
         PERCY_TOKEN: "${{secrets.PERCY_TOKEN}}"
+        CODECOV_TOKEN: "${{secrets.CODECOV_TOKEN}}"
 
   deploy:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
