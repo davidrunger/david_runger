@@ -30,7 +30,7 @@ gem 'omniauth-google-oauth2'
 # remove once https://github.com/omniauth/omniauth/pull/809 is resolved
 gem 'omniauth-rails_csrf_protection'
 gem 'pg'
-gem 'puma', '~> 5.0.0.beta1'
+gem 'puma', '~> 5.1.1'
 gem 'pundit'
 gem 'rack-attack'
 gem 'rack-mini-profiler', require: false
