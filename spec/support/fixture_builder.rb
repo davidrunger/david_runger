@@ -18,7 +18,7 @@ FixtureBuilder.configure do |fbuilder|
     admin = name(:admin, create(:user, :admin)).first
 
     # admin users
-    name(:admin_user, create(:admin_user))
+    name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com'))
 
     # groceries
     store = name(:store, create(:store, user: user)).first
