@@ -3,6 +3,15 @@
 ActiveAdmin.register(IpBlock) do
   permit_params :ip, :reason
 
+  index do
+    id_column
+    column :ip
+    column(:reason, class: 'pre-wrap')
+    column :created_at
+    column :updated_at
+    actions
+  end
+
   show do
     attributes_table do
       row :ip
