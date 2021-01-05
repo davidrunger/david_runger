@@ -2,6 +2,7 @@
 
 ActiveAdmin.register(Request) do
   decorate_with RequestDecorator
+  includes :admin_user, :auth_token, :user
 
   index do
     id_column
