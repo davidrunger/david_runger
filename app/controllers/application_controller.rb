@@ -25,6 +25,17 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def current_admin_user
+    if Rails.env.development? && Flipper.enabled?(:automatic_admin_login)
+      super ||
+        AdminUser.
+          find_by!(email: 'davidjrunger@gmail.com').
+          tap { |admin_user| sign_in(admin_user) }
+    else
+      super
+    end
+  end
+
   def skip_authorization?
     # ActiveAdmin supports an "Authorization Adapter" that can be implemented separately; skip here.
     return true if params[:controller].match?(%r{\Aactive_admin/|admin/})
