@@ -25,8 +25,7 @@ ActiveAdmin.register(User) do
   end
 
   member_action :unbecome do
-    user = current_user
-    sign_out(user)
-    redirect_to(admin_user_path(user))
+    sign_out(:user)
+    redirect_to(admin_user_path(params[:id]))
   end
 end
