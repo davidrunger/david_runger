@@ -36,11 +36,23 @@ RSpec.describe Admin::UsersController do
     describe '#unbecome' do
       subject(:get_unbecome) { get(:unbecome, params: { id: user.id }) }
 
-      before { sign_in(user) }
+      context 'when a user is signed in' do
+        before { sign_in(user) }
 
-      it 'redirects to the admin user show page' do
-        get_unbecome
-        expect(response).to redirect_to(admin_user_path(user))
+        it 'redirects to the admin user show page' do
+          get_unbecome
+          expect(response).to redirect_to(admin_user_path(user))
+        end
+      end
+
+      # this can happen if an AdminUser double clicks the "Unbecome" link, for example
+      context 'when a user is not signed in' do
+        before { sign_out(:user) }
+
+        it 'redirects to the admin user show page' do
+          get_unbecome
+          expect(response).to redirect_to(admin_user_path(user))
+        end
       end
     end
   end
