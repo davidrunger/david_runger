@@ -20,6 +20,7 @@ class AuthTokensController < ApplicationController
   def update
     authorize(@auth_token)
     @auth_token.update!(auth_token_params)
+    flash[:notice] = 'Updated auth token successfully!'
     redirect_to(edit_user_path(current_user))
   end
 
