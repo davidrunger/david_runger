@@ -31,13 +31,11 @@ class Test::Runner < Pallets::Workflow
     end
 
     def run_once_config_is_confirmed
-      if ENV.key?('TRAVIS')
-        register_tasks_and_run
-      elsif !Test::RequirementsResolver.verify?
+      if Test::RequirementsResolver.verify?
+        confirm_config
+      else
         system('clear')
         register_tasks_and_run
-      else
-        confirm_config
       end
     end
 
