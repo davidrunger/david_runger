@@ -246,7 +246,7 @@ div.font-nunito
           #[b #[a(href='http://basscss.com/') Basscss]] provides CSS utility classes, so that a lot
           of styling can be done in the markup itself.
         li.
-          #[b Continuous integration (CI)] via Travis, which also provides
+          #[b Continuous integration (CI)] via GitHub Actions, which also provides
           #[b continuous deployment (CD)] via #[b Heroku] (which hosts the app)
         li.
           Ruby code is linted by #[b RuboCop], JavaScript by #[b ESLint], and stylesheets by
