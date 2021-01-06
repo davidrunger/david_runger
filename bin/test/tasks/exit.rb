@@ -78,7 +78,7 @@ class Test::Tasks::Exit < Pallets::Task
   end
 
   def log_note
-    "exit_code=#{exit_code} tasks=#{short_job_names.sort.join(',')} branch=#{ENV['TRAVIS_BRANCH']}"
+    "exit_code=#{exit_code} tasks=#{short_job_names.sort.join(',')} ref=#{ENV['GITHUB_REF']}"
   end
 
   def overall_wall_clock_time
