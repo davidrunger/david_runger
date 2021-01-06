@@ -5,11 +5,11 @@ RSpec.describe Logs::UploadsController do
 
   let(:user) { users(:user) }
 
-  describe '#index' do
-    subject(:get_index) { get(:index) }
+  describe '#new' do
+    subject(:get_new) { get(:new) }
 
     it 'renders a form to upload log entry data for a selected log and tips for usage' do
-      get_index
+      get_new
 
       expect(response.body).to have_css('form select[name=log_id]')
       expect(response.body).to have_css('form input[type=file]')
