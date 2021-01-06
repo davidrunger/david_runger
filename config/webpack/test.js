@@ -59,15 +59,6 @@ const testConfig = merge(environment.toWebpackConfig(), shared, {
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
-    // from https://github.com/webpack/webpack/issues/708#issuecomment-70869174
-    function () {
-      this.hooks.done.tap('RungerTestEnvErrorLogger', stats => {
-        if (stats.compilation.errors && stats.compilation.errors.length && process.env.TRAVIS) {
-          console.error(stats.compilation.errors);
-          process.exit(1);
-        }
-      });
-    },
   ],
   resolve: {
     modules: [
