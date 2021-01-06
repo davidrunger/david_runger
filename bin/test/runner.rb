@@ -45,7 +45,7 @@ class Test::Runner < Pallets::Workflow
     end
 
     def print_config
-      system('clear') if !ENV.key?('TRAVIS')
+      system('clear')
 
       ap('Running these tasks:')
       ap(required_tasks.map(&:name).map { _1.gsub('Test::Tasks::', '') }.sort)
