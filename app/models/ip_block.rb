@@ -6,7 +6,7 @@
 #
 #  created_at :datetime         not null
 #  id         :bigint           not null, primary key
-#  ip         :text             not null
+#  ip         :string           not null
 #  reason     :text
 #  updated_at :datetime         not null
 #
