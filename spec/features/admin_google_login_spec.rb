@@ -1,21 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe 'Logging in as an AdminUser via Google auth' do
-  before do
-    OmniAuth.config.add_mock(
-      :google_oauth2,
-      provider: 'google_oauth2',
-      uid: '12345678910',
-      info: {
-        email: stubbed_admin_user_email,
-      },
-      credentials: {
-        token: 'abcdefg12345',
-        expires_at: 1.hour.from_now,
-        expires: true,
-      },
-    )
-  end
+  before { MockOmniAuth.google_oauth2(email: stubbed_admin_user_email) }
 
   context 'when an AdminUser with the email exists in the database' do
     let(:stubbed_admin_user_email) { admin_user.email }
