@@ -236,16 +236,13 @@ export default {
       if (this.formstate.$invalid) return;
 
       this.$store.commit('incrementPendingRequests');
-      const payload = {
-        item: {
+      this.$store.dispatch('createItem', {
+        store: this.store,
+        itemAttributes: {
           name: this.newItemName,
         },
-      };
-      this.$http.post(this.$routes.api_store_items_path(this.store.id), payload).then(response => {
-        this.newItemName = '';
-        this.$store.commit('decrementPendingRequests');
-        this.store.items.unshift({ createdAt: (new Date()).valueOf(), ...response.data });
       });
+      this.newItemName = '';
     },
 
     sortItems(items) {

@@ -8,6 +8,10 @@ import * as ModalVuex from 'shared/modal_store';
 const mutations = {
   ...ModalVuex.mutations,
 
+  addItem(state, { store, itemData }) {
+    store.items.unshift(itemData);
+  },
+
   deleteItem(state, { item, store }) {
     store.items = store.items.filter(storeItem => storeItem !== item);
   },
@@ -32,9 +36,22 @@ const mutations = {
   setCollectingDebounces(state, { value }) {
     state.collectingDebounces = value;
   },
+
+  updateItem(_state, { item, updatedItemData }) {
+    Object.assign(item, updatedItemData);
+  },
 };
 
 const actions = {
+  createItem({ commit }, { store, itemAttributes }) {
+    axios.
+      post(Routes.api_store_items_path(store.id), { item: itemAttributes }).
+      then(({ data }) => {
+        commit('decrementPendingRequests');
+        commit('addItem', { store, itemData: data });
+      });
+  },
+
   deleteItem({ commit, getters }, { item }) {
     axios.delete(Routes.api_item_path(item.id));
     commit('deleteItem', { item, store: getters.currentStore });
@@ -56,8 +73,15 @@ const actions = {
     axios.patch(Routes.api_store_path(store.id), { store: _.pick(store, ['viewed_at']) });
   },
 
-  updateItem(_context, { id, attributes }) {
-    axios.patch(Routes.api_item_path(id), { item: attributes });
+  updateItem({ commit }, { item, attributes }) {
+    axios.
+      patch(Routes.api_item_path(item.id), { item: attributes }).
+      then(({ data }) => {
+        commit(
+          'updateItem',
+          { item, updatedItemData: data },
+        );
+      });
   },
 
   updateStore(_context, { id, attributes }) {

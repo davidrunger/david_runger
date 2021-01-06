@@ -66,11 +66,10 @@ export default {
 
     stopEditingAndUpdateItemName() {
       this.editingName = false;
-      this.item.name = this.$refs['item-name-input'].value;
       this.$store.dispatch('updateItem', {
-        id: this.item.id,
+        item: this.item,
         attributes: {
-          name: this.item.name,
+          name: this.$refs['item-name-input'].value,
         },
       });
     },
