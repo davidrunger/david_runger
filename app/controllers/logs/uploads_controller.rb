@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Logs::UploadsController < ApplicationController
-  def index
+  def new
     authorize(LogEntry, :new?)
-    render :index
+    render :new
   end
 
   def create

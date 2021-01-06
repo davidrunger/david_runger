@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get 'workouts', to: redirect('workout')
   get 'logs', to: 'logs#index'
   namespace :logs do
-    resources :uploads, only: %i[index create]
+    resources :uploads, only: %i[new create]
   end
   get 'logs/:slug', to: 'logs#index', as: :log # routing to specific log will be done by Vue Router
 
