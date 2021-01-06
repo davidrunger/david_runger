@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_111241) do
+ActiveRecord::Schema.define(version: 2021_01_06_065110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_111241) do
   end
 
   create_table "ip_blocks", force: :cascade do |t|
-    t.text "ip", null: false
+    t.string "ip", null: false
     t.text "reason"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
