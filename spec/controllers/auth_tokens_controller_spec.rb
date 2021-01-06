@@ -40,7 +40,7 @@ RSpec.describe AuthTokensController do
     end
 
     let(:auth_token) { user.auth_tokens.first! }
-    let(:new_auth_token_name) { 'Travis CI run times' }
+    let(:new_auth_token_name) { 'CI Build Times' }
     let(:new_auth_token_secret) { SecureRandom.uuid }
 
     it 'updates the specified auth token' do
