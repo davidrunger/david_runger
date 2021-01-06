@@ -9,7 +9,7 @@ development:
 test:
   <<: *default
   channel_prefix: david_runger_test
-  url: redis://localhost:6379 # Travis doesn't set a REDIS_URL
+  url: redis://localhost:6379
 
 production:
   <<: *default
