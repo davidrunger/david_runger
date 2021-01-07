@@ -5,6 +5,6 @@ class QuizParticipationsController < ApplicationController
     authorize(QuizParticipation, :create?)
     quiz = Quiz.find(params[:quiz_id])
     current_user.quiz_participations.create!(quiz_id: quiz.id, display_name: params[:display_name])
-    redirect_to(quiz_path(quiz))
+    redirect_to(quiz)
   end
 end

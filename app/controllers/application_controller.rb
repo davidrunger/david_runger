@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
-  before_action :enable_rack_mini_profiler_if_admin
 
   after_action :verify_authorized, unless: :skip_authorization?
 
@@ -79,12 +78,6 @@ class ApplicationController < ActionController::Base
       verify_valid_auth_token!
     else
       super
-    end
-  end
-
-  def enable_rack_mini_profiler_if_admin
-    if Rails.configuration.rack_mini_profiler_enabled && current_user&.admin?
-      Rack::MiniProfiler.authorize_request
     end
   end
 
