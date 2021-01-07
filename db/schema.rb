@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_06_065110) do
+ActiveRecord::Schema.define(version: 2021_01_07_180543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,25 @@ ActiveRecord::Schema.define(version: 2021_01_06_065110) do
     t.index ["log_id"], name: "index_number_log_entries_on_log_id"
   end
 
+  create_table "quiz_participations", force: :cascade do |t|
+    t.bigint "quiz_id", null: false
+    t.bigint "participant_id", null: false
+    t.string "display_name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["participant_id"], name: "index_quiz_participations_on_participant_id"
+    t.index ["quiz_id", "participant_id"], name: "index_quiz_participations_on_quiz_id_and_participant_id", unique: true
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string "name"
+    t.bigint "owner_id", null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_quizzes_on_owner_id"
+  end
+
   create_table "requests", force: :cascade do |t|
     t.bigint "user_id"
     t.string "url", null: false
@@ -220,6 +239,9 @@ ActiveRecord::Schema.define(version: 2021_01_06_065110) do
   add_foreign_key "log_shares", "logs"
   add_foreign_key "logs", "users"
   add_foreign_key "number_log_entries", "logs"
+  add_foreign_key "quiz_participations", "quizzes"
+  add_foreign_key "quiz_participations", "users", column: "participant_id"
+  add_foreign_key "quizzes", "users", column: "owner_id"
   add_foreign_key "requests", "admin_users"
   add_foreign_key "requests", "auth_tokens"
   add_foreign_key "requests", "users"

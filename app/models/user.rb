@@ -25,6 +25,13 @@ class User < ApplicationRecord
   has_many :auth_tokens, dependent: :destroy
   has_many :logs, dependent: :destroy
   has_many :log_shares, through: :logs
+  has_many :quizzes, dependent: :destroy, foreign_key: 'owner_id', inverse_of: :owner
+  has_many(
+    :quiz_participations,
+    dependent: :destroy,
+    foreign_key: 'participant_id',
+    inverse_of: :participant,
+  )
   has_many :requests, dependent: :destroy
   has_many :sms_records, dependent: :destroy
   has_many :stores, dependent: :destroy

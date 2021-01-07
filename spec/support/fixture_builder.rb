@@ -71,5 +71,8 @@ FixtureBuilder.configure do |fbuilder|
 
     # IP blocks
     name(:ip_block, create(:ip_block))
+
+    # quizzes
+    create(:quiz, owner: user)
   end
 end

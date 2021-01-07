@@ -21,6 +21,7 @@ gem 'flipper'
 gem 'flipper-redis'
 gem 'flipper-ui'
 gem 'hamlit'
+gem 'hashid-rails'
 gem 'js-routes', require: false
 gem 'lograge'
 gem 'memoist'

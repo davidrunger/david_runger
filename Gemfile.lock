@@ -274,6 +274,10 @@ GEM
       actionpack (>= 4.1)
       activesupport (>= 4.1)
     hashdiff (1.0.1)
+    hashid-rails (1.4.1)
+      activerecord (>= 4.0)
+      hashids (~> 1.0)
+    hashids (1.0.5)
     hashie (4.1.0)
     http_logger (0.6.0)
     httparty (0.18.1)
@@ -614,6 +618,7 @@ DEPENDENCIES
   guard-espect!
   hamlit
   hashdiff
+  hashid-rails
   http_logger
   immigrant
   js-routes
