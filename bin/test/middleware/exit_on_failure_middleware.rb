@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/EmptyLineBetweenDefs
 module Test ; end
 module Test::Middleware ; end
-# rubocop:enable Layout/EmptyLineBetweenDefs
 
 # rubocop:disable Style/StaticClass
 class Test::Middleware::ExitOnFailureMiddleware

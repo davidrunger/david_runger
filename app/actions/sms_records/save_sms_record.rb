@@ -5,13 +5,15 @@ class SmsRecords::SaveSmsRecord < ApplicationAction
     :nexmo_response_data,
     {
       'message-count' => String,
-      'messages' => [{
-        'message-price' => String,
-        'error-text' => Shaped::Shape(String, nil),
-        'message-id' => String,
-        'status' => String,
-        'to' => String,
-      }],
+      'messages' => [
+        {
+          'message-price' => String,
+          'error-text' => Shaped::Shape(String, nil),
+          'message-id' => String,
+          'status' => String,
+          'to' => String,
+        },
+      ],
     },
   )
   requires :user, User
