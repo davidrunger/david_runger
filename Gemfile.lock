@@ -279,6 +279,10 @@ GEM
       hashids (~> 1.0)
     hashids (1.0.5)
     hashie (4.1.0)
+    hotwire-rails (0.1.2)
+      rails (>= 6.0.0)
+      stimulus-rails
+      turbo-rails
     http_logger (0.6.0)
     httparty (0.18.1)
       mime-types (~> 3.0)
@@ -407,8 +411,6 @@ GEM
     rack (2.2.3)
     rack-attack (6.3.1)
       rack (>= 1.0, < 3)
-    rack-mini-profiler (2.3.0)
-      rack (>= 1.2.0)
     rack-protection (2.1.0)
       rack
     rack-proxy (0.6.5)
@@ -548,6 +550,8 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stackprof (0.2.16)
+    stimulus-rails (0.1.2)
+      rails (>= 6.0.0)
     super_diff (0.5.3)
       attr_extras (>= 6.2.4)
       diff-lcs
@@ -559,6 +563,8 @@ GEM
       e2mmap
     tilt (2.0.10)
     trollop (1.16.2)
+    turbo-rails (0.5.3)
+      rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
@@ -619,6 +625,7 @@ DEPENDENCIES
   hamlit
   hashdiff
   hashid-rails
+  hotwire-rails
   http_logger
   immigrant
   js-routes
@@ -641,7 +648,6 @@ DEPENDENCIES
   puma (~> 5.1.1)
   pundit
   rack-attack
-  rack-mini-profiler
   rails
   rails-controller-testing!
   redis

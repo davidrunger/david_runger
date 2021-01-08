@@ -66,8 +66,9 @@ class DavidRunger::Application < Rails::Application
 
   ENV['FIXTURES_PATH'] = 'spec/fixtures'
 
-  config.rack_mini_profiler_enabled = (ENV['ENABLE_PROFILER'] == 'true')
-
   # Time until incoming mail incineration. Default is 30 days, but we don't need that long.
   config.action_mailbox.incinerate_after = 1.day
+
+  # https://github.com/hotwired/turbo-rails/blob/9d53529/README.md#compatibility-with-rails-ujs
+  config.action_view.form_with_generates_remote_forms = false
 end

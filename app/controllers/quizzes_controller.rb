@@ -2,7 +2,7 @@
 
 class QuizzesController < ApplicationController
   def show
-    @quiz = policy_scope(Quiz).find(params[:id])
+    @quiz = policy_scope(Quiz).find(params[:id]).decorate
     authorize(@quiz, :show?)
     render :show
   end

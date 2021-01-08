@@ -130,6 +130,10 @@ RSpec.configure do |config|
     metadata[:request_format] = :json
   end
 
+  config.before(:each) do
+    Rack::Attack.reset!
+  end
+
   config.before(:each, request_format: :json) do
     request.accept = 'application/json'
   end

@@ -22,4 +22,6 @@ class QuizParticipation < ApplicationRecord
 
   validates :display_name, presence: true
   validates :participant_id, uniqueness: { scope: :quiz_id }
+
+  broadcasts_to :quiz
 end
