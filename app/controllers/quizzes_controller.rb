@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
+  before_action :enable_turbo
+
   def show
     @quiz = policy_scope(Quiz).find(params[:id]).decorate
     authorize(@quiz, :show?)
