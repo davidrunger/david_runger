@@ -6,7 +6,7 @@
     %div You are participating!
   - else
     %div
-      = form_with(url: quiz_quiz_participations_path(@quiz), method: :post) do |form|
+      = form_with(url: quiz_quiz_participations_path(@quiz)) do |form|
         = form.label(:display_name, 'Your name')
         = form.text_field :display_name
         = form.submit('Join the quiz!')
