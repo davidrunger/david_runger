@@ -11,5 +11,5 @@
     }
 
 %div.py4.center
-  = form_tag("/auth/google_oauth2?redirect_uri=#{url_base}/users/auth/google_oauth2/callback", method: :post, data: { turbo: false }) do
+  = form_tag("/auth/google_oauth2?redirect_uri=#{url_base}/users/auth/google_oauth2/callback", method: :post) do
     = button_tag(image_tag('google-login.png'), type: :submit, class: 'google-login')
