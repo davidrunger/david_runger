@@ -8,7 +8,7 @@
 #  id         :bigint           not null, primary key
 #  name       :string
 #  owner_id   :bigint           not null
-#  status     :string
+#  status     :string           default("unstarted"), not null
 #  updated_at :datetime         not null
 #
 # Indexes
@@ -17,6 +17,8 @@
 #
 class Quiz < ApplicationRecord
   include Hashid::Rails
+
+  validates :status, presence: true, inclusion: %w[unstarted open closed].map(&:freeze).freeze
 
   belongs_to :owner, class_name: 'User'
 

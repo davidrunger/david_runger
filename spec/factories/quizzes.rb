@@ -8,7 +8,7 @@
 #  id         :bigint           not null, primary key
 #  name       :string
 #  owner_id   :bigint           not null
-#  status     :string
+#  status     :string           default("unstarted"), not null
 #  updated_at :datetime         not null
 #
 # Indexes
