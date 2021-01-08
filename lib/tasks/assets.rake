@@ -94,10 +94,8 @@ module DeployAssetsHelper
 end
 
 module SourceMapHelper
-  # rubocop:disable Layout/EmptyLineBetweenDefs
   class NoSourceMapError < StandardError ; end
   class SourceMapUploadError < StandardError ; end
-  # rubocop:enable Layout/EmptyLineBetweenDefs
 
   JS_FILES =
     Dir['app/javascript/packs/**/*.js'].map { |path| path.match(%r{/([^/]+).js})[1] }.freeze

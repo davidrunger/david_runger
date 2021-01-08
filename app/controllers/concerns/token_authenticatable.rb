@@ -4,10 +4,8 @@ module TokenAuthenticatable
   extend ActiveSupport::Concern
   extend Memoist
 
-  # rubocop:disable Layout/EmptyLineBetweenDefs
   class BlankToken < StandardError ; end
   class InvalidToken < StandardError ; end
-  # rubocop:enable Layout/EmptyLineBetweenDefs
 
   private
 
