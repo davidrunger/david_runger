@@ -1,1 +1,3 @@
-%li= quiz_participation.display_name
+= turbo_stream.remove(quiz_participation)
+= turbo_stream.append('quiz_participations') do
+  %li{id: dom_id(quiz_participation)}= quiz_participation.display_name
