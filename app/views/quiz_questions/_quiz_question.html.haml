@@ -1,0 +1,6 @@
+= turbo_stream.remove(quiz_question)
+= turbo_stream.append('quiz_questions') do
+  %li.p1{id: dom_id(quiz_question)}
+    = quiz_question.content
+    - quiz_question.answers.each_with_index do |answer, index|
+      .pl1{class: answer.is_correct? ? 'bold' : ''} #{(index + 65).chr}. #{answer.content}

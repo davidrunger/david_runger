@@ -1,0 +1,7 @@
+.p3
+  %h1 Upload questions for #{@quiz.name}
+
+  = form_with(url: quiz_question_uploads_path) do |form|
+    %div= form.label :questions
+    %div= form.text_area :questions
+    %div= form.submit
