@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resources :auth_tokens, only: %i[create destroy update]
   resources :quizzes, only: %i[new create show] do
     resources :quiz_participations, only: %i[create]
+    resources :question_uploads, only: %i[new create]
   end
 
   namespace :api, defaults: { format: :json } do

@@ -1,24 +1,32 @@
-%h1= @quiz.name
-- if @quiz.owned_by_current_user?
-  You are the quiz owner!
-- else
-  - if @quiz.current_user_is_participating?
-    %div You are participating!
+= turbo_stream_from @quiz
+
+.p3
+  %h1= @quiz.name
+  - if @quiz.owned_by_current_user?
+    You are the quiz owner!
   - else
-    %div
-      = form_with(url: quiz_quiz_participations_path(@quiz)) do |form|
-        = form.label(:display_name, 'Your name')
-        = form.text_field :display_name
-        = form.submit('Join the quiz!')
+    - if @quiz.current_user_is_participating?
+      %div You are participating!
+    - else
+      %div
+        = form_with(url: quiz_quiz_participations_path(@quiz)) do |form|
+          = form.label(:display_name, 'Your name')
+          = form.text_field :display_name
+          = form.submit('Join the quiz!')
 
-%div
-  Share this page's URL to invite
-  #{@quiz.owned_by_current_user? ? '' : 'other'}
-  participants!
+  %div
+    Share this page's URL to invite
+    #{@quiz.owned_by_current_user? ? '' : 'other'}
+    participants!
 
 
-%div
-  %h2 Participants
-  %ol#quiz_participations
-    = turbo_stream_from @quiz
-    = render @quiz.quiz_participations
+  %div
+    %h2 Participants
+    %ol#quiz_participations
+      = render @quiz.participations
+
+  - if @quiz.owned_by_current_user?
+    %h2 Questions
+    %ol#quiz_questions
+      = render @quiz.questions
+    %div= link_to('Add questions', new_quiz_question_upload_path(@quiz))

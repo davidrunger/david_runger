@@ -22,6 +22,23 @@ class Quiz < ApplicationRecord
 
   belongs_to :owner, class_name: 'User'
 
-  has_many :quiz_participations, dependent: :destroy
-  has_many :participants, through: :quiz_participations
+  has_many(
+    :participations,
+    dependent: :destroy,
+    class_name: 'QuizParticipation',
+    inverse_of: :quiz,
+  )
+  has_many(
+    :questions,
+    dependent: :destroy,
+    class_name: 'QuizQuestion',
+    inverse_of: :quiz,
+  )
+  has_many :participants, through: :participations
+  has_many(
+    :question_answers,
+    through: :questions,
+    source: :answers,
+    class_name: 'QuizQuestionAnswer',
+  )
 end
