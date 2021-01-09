@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   include Redirectable
   include RequestRecordable
   include TokenAuthenticatable
-  include TurboEnableable
 
   protect_from_forgery with: :exception
 

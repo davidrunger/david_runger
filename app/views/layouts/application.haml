@@ -26,9 +26,6 @@
       window.davidrunger = {env: '#{Rails.env}'};
       window.davidrunger.bootstrap = JSON.parse("#{raw(escape_javascript((@bootstrap_data || {}).to_json))}");
 
-    - if @turbo_enabled
-      = stimulus_include_tags
-      = turbo_include_tags
     - if Rails.env.development? && !ENV['PRODUCTION_ASSET_CONFIG'].present?
       = javascript_pack_tag('styles', defer: true)
     - else

@@ -3,7 +3,7 @@
 RSpec.describe QuestionUploadsController do
   before { sign_in(user) }
 
-  let(:user) { users(:user) }
+  let(:user) { users(:admin) }
   let(:quiz) { user.quizzes.first! }
 
   describe '#new' do

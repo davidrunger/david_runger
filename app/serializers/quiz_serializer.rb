@@ -16,8 +16,6 @@
 #
 #  index_quizzes_on_owner_id  (owner_id)
 #
-FactoryBot.define do
-  factory :quiz do
-    name { Faker::Educator.course_name }
-  end
+class QuizSerializer < ActiveModel::Serializer
+  attributes :hashid
 end

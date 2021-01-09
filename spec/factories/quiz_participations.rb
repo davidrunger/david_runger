@@ -17,19 +17,10 @@
 #  index_quiz_participations_on_quiz_id_and_display_name    (quiz_id,display_name) UNIQUE
 #  index_quiz_participations_on_quiz_id_and_participant_id  (quiz_id,participant_id) UNIQUE
 #
-class QuizParticipation < ApplicationRecord
-  belongs_to :quiz
-  belongs_to :participant, class_name: 'User'
-
-  has_many(
-    :quiz_question_answer_selections,
-    dependent: :destroy,
-    foreign_key: :participation_id,
-    inverse_of: :participation,
-  )
-
-  validates :display_name, presence: true, uniqueness: { scope: :quiz_id }
-  validates :participant_id, uniqueness: { scope: :quiz_id }
-
-  broadcasts_to :quiz
+FactoryBot.define do
+  factory :quiz_participation do
+    association :participant, factory: :user
+    association :quiz
+    display_name { participant.email.split('@').first.titleize }
+  end
 end

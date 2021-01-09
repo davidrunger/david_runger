@@ -3,7 +3,15 @@
 class QuizPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      Quiz.all
+      @scope.where(owner: @user)
     end
+  end
+
+  def show?
+    true
+  end
+
+  def update?
+    @record.owner == @user
   end
 end

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
-  before_action :enable_turbo
-
   def show
-    @quiz = policy_scope(Quiz).find(params[:id]).decorate
+    # don't use `policy_scope` here, because we want anyone to be able to view any quiz
+    @quiz = Quiz.find(params[:id]).decorate
     authorize(@quiz, :show?)
     @title = @quiz.name
+    bootstrap(quiz: QuizSerializer.new(@quiz))
     render :show
   end
 
@@ -19,7 +19,14 @@ class QuizzesController < ApplicationController
   def create
     authorize(Quiz, :create?)
     quiz = current_user.quizzes.create!(quiz_params)
-    redirect_to(quiz_path(quiz))
+    redirect_to(quiz)
+  end
+
+  def update
+    @quiz = policy_scope(Quiz).find(params[:id])
+    authorize(@quiz, :update?)
+    Quizzes::Update.new(quiz: @quiz, params: quiz_params).run!
+    redirect_to(@quiz)
   end
 
   private
@@ -27,6 +34,6 @@ class QuizzesController < ApplicationController
   def quiz_params
     params.
       require(:quiz).
-      permit(:name)
+      permit(:current_question_number, :name, :status)
   end
 end

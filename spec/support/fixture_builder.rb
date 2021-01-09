@@ -73,6 +73,17 @@ FixtureBuilder.configure do |fbuilder|
     name(:ip_block, create(:ip_block))
 
     # quizzes
-    create(:quiz, owner: user)
+    quiz = create(:quiz, owner: admin)
+
+    # quiz participations
+    create(:quiz_participation, quiz: quiz, participant: user)
+
+    # quiz questions
+    quiz_question = create(:quiz_question, quiz: quiz)
+
+    # quiz question answers
+    [true, false, false].shuffle.each do |is_correct|
+      create(:quiz_question_answer, question: quiz_question, is_correct: is_correct)
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_025911) do
+ActiveRecord::Schema.define(version: 2021_01_16_071345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,7 +141,17 @@ ActiveRecord::Schema.define(version: 2021_01_09_025911) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["participant_id"], name: "index_quiz_participations_on_participant_id"
+    t.index ["quiz_id", "display_name"], name: "index_quiz_participations_on_quiz_id_and_display_name", unique: true
     t.index ["quiz_id", "participant_id"], name: "index_quiz_participations_on_quiz_id_and_participant_id", unique: true
+  end
+
+  create_table "quiz_question_answer_selections", force: :cascade do |t|
+    t.bigint "answer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "participation_id", null: false
+    t.index ["answer_id"], name: "index_quiz_question_answer_selections_on_answer_id"
+    t.index ["participation_id"], name: "index_quiz_question_answer_selections_on_participation_id"
   end
 
   create_table "quiz_question_answers", force: :cascade do |t|
@@ -156,7 +166,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_025911) do
   create_table "quiz_questions", force: :cascade do |t|
     t.bigint "quiz_id", null: false
     t.text "content", null: false
-    t.string "status", default: "unstarted", null: false
+    t.string "status", default: "open", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["quiz_id"], name: "index_quiz_questions_on_quiz_id"
@@ -168,6 +178,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_025911) do
     t.string "status", default: "unstarted", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "current_question_number", default: 1, null: false
     t.index ["owner_id"], name: "index_quizzes_on_owner_id"
   end
 
@@ -259,6 +270,8 @@ ActiveRecord::Schema.define(version: 2021_01_09_025911) do
   add_foreign_key "number_log_entries", "logs"
   add_foreign_key "quiz_participations", "quizzes"
   add_foreign_key "quiz_participations", "users", column: "participant_id"
+  add_foreign_key "quiz_question_answer_selections", "quiz_participations", column: "participation_id"
+  add_foreign_key "quiz_question_answer_selections", "quiz_question_answers", column: "answer_id"
   add_foreign_key "quiz_question_answers", "quiz_questions", column: "question_id"
   add_foreign_key "quiz_questions", "quizzes"
   add_foreign_key "quizzes", "users", column: "owner_id"

@@ -1,99 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "2c46f493fcfaee8dcaf8b3b0c62d02f01668c12c75dc354d27310de0a2feb63a",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/quizzes/show.html.haml",
-      "line": 31,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => policy_scope(Quiz).find(params[:id]).decorate.questions, {})",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "QuizzesController",
-          "method": "show",
-          "line": 10,
-          "file": "app/controllers/quizzes_controller.rb",
-          "rendered": {
-            "name": "quizzes/show",
-            "file": "app/views/quizzes/show.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "quizzes/show"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "note": "False positive"
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "3b59bb5e5e2ec2c9e540725d6d241f2cb23f746ad40f720df2e9347c25f81fc9",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/quizzes/show.html.haml",
-      "line": 26,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => policy_scope(Quiz).find(params[:id]).decorate.participations, {})",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "QuizzesController",
-          "method": "show",
-          "line": 10,
-          "file": "app/controllers/quizzes_controller.rb",
-          "rendered": {
-            "name": "quizzes/show",
-            "file": "app/views/quizzes/show.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "quizzes/show"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "note": "False positive"
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "610f910d67a92619b99602ef1d1f8d3a4a9a06deaea517d28296ee256a0a0466",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/quizzes/show.html.haml",
-      "line": 24,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => policy_scope(Quiz).find(params[:id]).decorate.quiz_participations, {})",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "QuizzesController",
-          "method": "show",
-          "line": 7,
-          "file": "app/controllers/quizzes_controller.rb",
-          "rendered": {
-            "name": "quizzes/show",
-            "file": "app/views/quizzes/show.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "quizzes/show"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "note": "False positive (param is just used to find a record, not to generate a string/path)"
-    },
-    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "616431b6208e4fbf3c93282db8295303771f3a1f015931f5cc22c2d6e4c63e2f",
@@ -112,8 +19,28 @@
       "user_input": "params[:quiz_id]",
       "confidence": "Weak",
       "note": "False positive"
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "ca7f1648e420facb0263276c92e16f4d6beba5af1d8aa729bc37c45db21c3cd2",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/quizzes_controller.rb",
+      "line": 29,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(policy_scope(Quiz).find(params[:id]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "QuizzesController",
+        "method": "update"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "False positive"
     }
   ],
-  "updated": "2021-01-08 21:57:59 -0800",
+  "updated": "2021-01-15 20:10:49 -0800",
   "brakeman_version": "4.10.1"
 }

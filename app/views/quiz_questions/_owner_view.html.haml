@@ -1,0 +1,3 @@
+= question.content
+- question.answers.each_with_index do |answer, index|
+  .pl1{class: answer.is_correct? ? 'bold' : ''} #{(index + 65).chr}. #{answer.content}

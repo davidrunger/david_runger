@@ -3,7 +3,7 @@
 RSpec.describe QuizzesController do
   before { sign_in(user) }
 
-  let(:user) { users(:user) }
+  let(:user) { users(:admin) }
 
   describe '#show' do
     subject(:get_show) { get(:show, params: { id: quiz.id }) }
@@ -20,19 +20,64 @@ RSpec.describe QuizzesController do
     end
 
     context 'when viewed by a user who is not the quiz owner' do
-      before do
-        sign_in(non_owner)
-        expect(controller.current_user).not_to eq(quiz.owner)
-      end
+      before { expect(controller.current_user).not_to eq(quiz.owner) }
 
-      let(:non_owner) { User.where.not(id: quiz.owner).first! }
+      let(:user) { User.where.not(id: quiz.owner).first! }
 
       context 'when the user is not yet a quiz participant' do
-        before { expect(quiz.participants).not_to include(non_owner) }
+        before { quiz.participations.where(participant: user).find_each(&:destroy!) }
 
         it 'has a form to enter a display name and join the quiz' do
           get_show
           expect(response.body).to have_css('form input#display_name[type=text]')
+        end
+      end
+
+      context 'when the user is a quiz participant' do
+        let(:user) { quiz.participants.first! }
+
+        context 'when the quiz is "active"' do
+          before { quiz.update!(status: 'active') }
+
+          context 'when the current question is "open"' do
+            before do
+              quiz.update!(current_question_number: 1)
+              quiz.questions.order(:created_at).first!.update!(status: 'open')
+            end
+
+            it 'has a form to choose an answer' do
+              get_show
+              expect(response.body).to have_css(
+                'form input[type="radio"][name="quiz_question_answer_selection[answer_id]"]',
+              )
+            end
+          end
+
+          context 'when the current question is "closed"' do
+            before do
+              quiz.update!(current_question_number: 1)
+              quiz.questions.order(:created_at).first!.update!(status: 'closed')
+            end
+
+            context 'when the question has been answered by at least one participant' do
+              before do
+                create(
+                  :quiz_question_answer_selection,
+                  answer: answer,
+                  participation: participation,
+                )
+              end
+
+              let(:answer) { quiz.question_answers.first! }
+              let(:participation) { quiz.participations.find_by!(participant: user) }
+
+              it 'lists the participants who gave each answer' do
+                get_show
+                expect(response.body).
+                  to have_text(/#{answer.content}\s\(.*#{participation.display_name}.*\)/)
+              end
+            end
+          end
         end
       end
     end
@@ -56,6 +101,26 @@ RSpec.describe QuizzesController do
       expect { post_create }.to change { user.reload.quizzes.size }.by(1)
       quiz = Quiz.order(:created_at).last!
       expect(quiz.name).to eq(quiz_name)
+    end
+  end
+
+  describe '#update' do
+    subject(:patch_update) do
+      patch(
+        :update,
+        params: {
+          id: quiz.id,
+          quiz: {
+            current_question_number: quiz.current_question_number + 1,
+          },
+        },
+      )
+    end
+
+    let(:quiz) { Quiz.first! }
+
+    it 'updates the quiz' do
+      expect { patch_update }.to change { quiz.reload.current_question_number }.by(1)
     end
   end
 end
