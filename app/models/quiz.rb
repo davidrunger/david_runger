@@ -18,7 +18,7 @@
 class Quiz < ApplicationRecord
   include Hashid::Rails
 
-  validates :status, presence: true, inclusion: %w[unstarted open closed].map(&:freeze).freeze
+  validates :status, presence: true, inclusion: %w[unstarted active closed].map(&:freeze).freeze
 
   belongs_to :owner, class_name: 'User'
 
