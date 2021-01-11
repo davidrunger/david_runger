@@ -81,7 +81,7 @@
   },
   "devDependencies": {
     "@percy/agent": "^0.28.6",
-    "postcss": "^8.2.2",
+    "postcss": "^8.2.4",
     "postcss-html": "^0.36.0",
     "postcss-safe-parser": "^5.0.2",
     "postcss-scss": "^3.0.4",
