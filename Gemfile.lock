@@ -238,7 +238,7 @@ GEM
       activesupport (>= 2)
       hashdiff
     flamegraph (0.9.5)
-    flipper (0.20.2)
+    flipper (0.20.3)
     flipper-redis (0.20.1)
       flipper (~> 0.20.1)
       redis (>= 2.2, < 5)
