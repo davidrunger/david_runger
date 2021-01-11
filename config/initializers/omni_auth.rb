@@ -3,6 +3,9 @@
 # avoid OmniAuth output being sent to STDOUT during tests
 OmniAuth.config.logger = Rails.logger
 
+# Can be removed after https://github.com/cookpad/omniauth-rails_csrf_protection/pull/9 is released?
+OmniAuth.config.request_validation_phase = OmniAuth::RailsCsrfProtection::TokenVerifier.new
+
 Rails.application.config.middleware.use(OmniAuth::Builder) do
   provider(
     :google_oauth2,

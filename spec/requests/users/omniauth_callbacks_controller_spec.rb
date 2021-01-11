@@ -22,9 +22,13 @@ RSpec.describe Users::OmniauthCallbacksController do
         ActionController::Base.allow_forgery_protection = original_allow_forgery_protection
       end
 
-      specify do
-        expect { post('/auth/google_oauth2') }.
-          to raise_error(ActionController::InvalidAuthenticityToken)
+      it 'redirects to `/auth/failure?[...]`' do
+        post('/auth/google_oauth2')
+        expect(response).to redirect_to(
+          '/auth/failure' \
+          '?message=ActionController%3A%3AInvalidAuthenticityToken' \
+          '&strategy=google_oauth2',
+        )
       end
     end
   end
