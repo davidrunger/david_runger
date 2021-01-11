@@ -239,8 +239,8 @@ GEM
       hashdiff
     flamegraph (0.9.5)
     flipper (0.20.2)
-    flipper-redis (0.20.1)
-      flipper (~> 0.20.1)
+    flipper-redis (0.20.2)
+      flipper (~> 0.20.2)
       redis (>= 2.2, < 5)
     flipper-ui (0.20.1)
       erubi (>= 1.0.0, < 2.0.0)
