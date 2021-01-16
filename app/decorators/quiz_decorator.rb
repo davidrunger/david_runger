@@ -37,6 +37,15 @@ class QuizDecorator < Draper::Decorator
     current_question.answer_selections.exists?(participation_id: participation.id)
   end
 
+  def participations_sorted_by_display_name
+    participations.decorate.sort_by { |participation| participation.display_name.downcase }
+  end
+
+  memoize \
+  def question_count
+    questions.count
+  end
+
   private
 
   def ordered_questions
