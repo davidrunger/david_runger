@@ -9,6 +9,7 @@
 .pt4
   = render partial: 'quiz_questions/answerers', locals: { question: @quiz.current_question }
   %hr
-  .p1 Leaderboard: [leaderboard]
+  %h3 Leaderboard
+  = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
   %hr
   .p1 Progress and personal question performance: #{@quiz.questions.size} questions total

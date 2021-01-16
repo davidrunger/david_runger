@@ -4,3 +4,6 @@
     %span{class: answer.is_correct? ? 'bold' : ''} #{(index + 65).chr}. #{answer.content}
     - if answer.answering_participations.any?
       %span{class: answer.is_correct? ? 'green' : 'red'} (#{answer.respondents_list})
+
+%h3 Leaderboard
+= render partial: 'quiz/leaderboard', locals: { quiz: @quiz }

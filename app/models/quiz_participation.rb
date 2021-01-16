@@ -27,6 +27,17 @@ class QuizParticipation < ApplicationRecord
     foreign_key: :participation_id,
     inverse_of: :participation,
   )
+  has_many(
+    :correct_answer_selections,
+    -> {
+      joins(answer: :question).
+        where(quiz_questions: { status: 'closed' }).
+        where(quiz_question_answers: { is_correct: true })
+    },
+    class_name: 'QuizQuestionAnswerSelection',
+    foreign_key: :participation_id,
+    inverse_of: :participation,
+  )
 
   validates :display_name, presence: true, uniqueness: { scope: :quiz_id }
   validates :participant_id, uniqueness: { scope: :quiz_id }

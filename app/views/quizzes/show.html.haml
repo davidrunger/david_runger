@@ -9,3 +9,6 @@
     = render 'quizzes/show/unstarted'
   - elsif @quiz.active?
     = render 'quizzes/show/active'
+  - elsif @quiz.closed?
+    %h3 Final results
+    = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
