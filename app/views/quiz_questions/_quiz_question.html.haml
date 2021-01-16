@@ -1,6 +1,5 @@
-= turbo_stream.remove(quiz_question)
-= turbo_stream.append('quiz_questions') do
+- if quiz_question.open?
   %li.p1{id: dom_id(quiz_question)}
-    = quiz_question.content
-    - quiz_question.answers.each_with_index do |answer, index|
-      .pl1{class: answer.is_correct? ? 'bold' : ''} #{(index + 65).chr}. #{answer.content}
+    = render partial: 'quiz_questions/owner_view', locals: { question: quiz_question }
+- else
+  = render partial: 'quiz_questions/closed', locals: { question: quiz_question }

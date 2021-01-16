@@ -1,0 +1,6 @@
+= question.content
+- question.answers.includes(:answering_participations).decorate.each_with_index do |answer, index|
+  .pl1
+    %span{class: answer.is_correct? ? 'bold' : ''} #{(index + 65).chr}. #{answer.content}
+    - if answer.answering_participations.any?
+      %span{class: answer.is_correct? ? 'green' : 'red'} (#{answer.respondents_list})

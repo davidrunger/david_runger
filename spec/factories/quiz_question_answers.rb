@@ -15,21 +15,9 @@
 #
 #  index_quiz_question_answers_on_question_id  (question_id)
 #
-class QuizQuestionAnswer < ApplicationRecord
-  validates :content, presence: true
-
-  belongs_to :question, class_name: 'QuizQuestion'
-
-  has_many(
-    :selections,
-    dependent: :destroy,
-    class_name: 'QuizQuestionAnswerSelection',
-    foreign_key: 'answer_id',
-    inverse_of: :answer,
-  )
-  has_many(
-    :answering_participations,
-    through: :selections,
-    source: :participation,
-  )
+FactoryBot.define do
+  factory :quiz_question_answer do
+    association :question
+    content { Faker::Color.unique.color_name.titleize }
+  end
 end

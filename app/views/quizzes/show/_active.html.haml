@@ -1,0 +1,9 @@
+%h2 Question #{@quiz.current_question_number}
+- if @quiz.current_question.open?
+  = render 'quiz_questions/open'
+- else
+  = render partial: 'quiz_questions/closed', locals: { question: @quiz.current_question }
+  - if @quiz.owned_by_current_user?
+    = form_with(model: @quiz) do |form|
+      = form.hidden_field(:current_question_number, value: @quiz.current_question_number + 1)
+      = form.submit('Next question')

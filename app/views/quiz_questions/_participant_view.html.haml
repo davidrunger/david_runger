@@ -1,0 +1,8 @@
+= question.content
+= form_with(model: [@quiz, @quiz.current_question_current_user_answer_selection]) do |form|
+  - question.answers.each_with_index do |answer, index|
+    .p1
+      = form.radio_button :answer_id, answer.id
+      = form.label :answer_id, "#{(index + 65).chr}. #{answer.content}", value: answer.id
+  = form.submit @quiz.current_question_current_user_answer_selection.persisted? ? 'Update' : 'Submit'
+

@@ -22,7 +22,6 @@ gem 'flipper-redis'
 gem 'flipper-ui'
 gem 'hamlit'
 gem 'hashid-rails'
-gem 'hotwire-rails'
 gem 'js-routes', require: false
 gem 'lograge'
 gem 'memoist'
@@ -42,6 +41,7 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
 gem 'stackprof'
 gem 'thread_safe'
+gem 'turbo-rails'
 gem 'webpacker'
 
 group :development, :test do
