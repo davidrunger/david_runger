@@ -1,4 +1,0 @@
-- participation = quiz_question_answer_selection.participation
-= turbo_stream.remove(participation)
-= turbo_stream.append('quiz_question_answer_selections') do
-  %li{id: dom_id(participation), class: participation.quiz.decorate.participation_answered_current_question?(participation) ? 'bold' : ''}= participation.display_name
