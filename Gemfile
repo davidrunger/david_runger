@@ -80,7 +80,6 @@ group :test do
   gem 'database_consistency', require: false
   gem 'fixture_builder'
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
-  gem 'hashdiff'
   gem 'json-schema'
   gem 'launchy'
   gem 'percy-capybara'

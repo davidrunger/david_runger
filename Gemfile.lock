@@ -616,7 +616,6 @@ DEPENDENCIES
   flipper-ui
   guard-espect!
   hamlit
-  hashdiff
   hashid-rails
   http_logger
   immigrant
