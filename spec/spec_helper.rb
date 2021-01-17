@@ -7,7 +7,8 @@ require 'factory_bot_rails'
 require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
-if ENV['CI'] == 'true'
+is_ci = (ENV['CI'] == 'true')
+if is_ci
   require 'simplecov'
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
@@ -45,7 +46,7 @@ end
 Capybara.default_driver = :chrome_headless
 Capybara.javascript_driver = :chrome_headless
 # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
-Capybara.asset_host = 'http://localhost:3000'
+Capybara.asset_host = "http://localhost:#{(is_ci || !Webpacker.dev_server.running?) ? 3000 : 8080}"
 Capybara.server = :puma, { Silent: true }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
