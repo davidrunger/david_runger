@@ -49,13 +49,8 @@ end
 
 group :development, :test do
   gem 'amazing_print'
-  gem 'annotate'
-  gem 'climate_control'
+  gem 'annotate', require: false
   gem 'dotenv-rails', require: 'dotenv/rails-now'
-  gem 'factory_bot_rails'
-  gem 'faker'
-  gem 'immigrant'
-  gem 'pallets'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -80,12 +75,17 @@ end
 group :test do
   gem 'brakeman', require: false
   gem 'capybara'
+  gem 'climate_control'
   gem 'codecov', require: false
   gem 'database_consistency', require: false
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'fixture_builder'
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
+  gem 'immigrant', require: false
   gem 'json-schema'
   gem 'launchy'
+  gem 'pallets'
   gem 'percy-capybara'
   gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
   gem 'rspec-instafail', require: false
