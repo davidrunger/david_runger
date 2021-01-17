@@ -7,3 +7,7 @@
 
 %h3 Leaderboard
 = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
+
+- if !@quiz.owned_by_current_user?
+  %h3 Progress
+  = render partial: 'quiz/progress', locals: { quiz: @quiz }

@@ -1,7 +1,7 @@
 - if @quiz.owned_by_current_user?
   = render partial: 'quiz_questions/owner_view', locals: { question: @quiz.current_question }
   = form_with(model: @quiz.current_question) do |form|
-    = form.hidden_field(:status, value: 'closed')
+    = form.hidden_field(:status, value: QuizQuestion::CLOSED)
     = form.submit('Close question')
 - else
   = render partial: 'quiz_questions/participant_view', locals: { question: @quiz.current_question }
@@ -12,4 +12,6 @@
   %h3 Leaderboard
   = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
   %hr
-  .p1 Progress and personal question performance: #{@quiz.questions.size} questions total
+  - if !@quiz.owned_by_current_user?
+    %h3 Progress
+    = render partial: 'quiz/progress', locals: { quiz: @quiz }

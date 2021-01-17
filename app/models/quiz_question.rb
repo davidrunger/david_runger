@@ -16,7 +16,9 @@
 #  index_quiz_questions_on_quiz_id  (quiz_id)
 #
 class QuizQuestion < ApplicationRecord
-  STATUSES = %w[open closed].map(&:freeze).freeze
+  OPEN = 'open'
+  CLOSED = 'closed'
+  STATUSES = [OPEN, CLOSED].freeze
 
   validates :content, presence: true
   validates :status, presence: true, inclusion: STATUSES

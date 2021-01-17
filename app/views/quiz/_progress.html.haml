@@ -1,0 +1,5 @@
+%ol
+  - quiz.ordered_questions.decorate.each do |question|
+    %li{
+      title: question.revealed? ? question.content : '[question hidden for now]'
+    }= question.answer_correctness_mark
