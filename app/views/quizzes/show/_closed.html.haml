@@ -1,0 +1,8 @@
+%h3 Final results
+= render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
+
+%hr.my3
+
+%h3 Questions
+- @quiz.questions.each do |quiz_question|
+  .p1= render partial: 'quiz_questions/closed', locals: { question: quiz_question }
