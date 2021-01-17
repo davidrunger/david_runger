@@ -19,6 +19,7 @@ class QuizQuestionAnswerSelection < ApplicationRecord
   belongs_to :answer, class_name: 'QuizQuestionAnswer'
   belongs_to :participation, class_name: 'QuizParticipation'
 
+  has_one :participant, through: :participation
   has_one :question, through: :answer
   has_one :quiz, through: :question
 end

@@ -17,6 +17,16 @@ class QuizQuestionAnswerSelectionsController < ApplicationController
     redirect_to(selection.quiz)
   end
 
+  def update
+    @quiz_question_answer_selection = policy_scope(QuizQuestionAnswerSelection).find(params[:id])
+    authorize(@quiz_question_answer_selection, :update?)
+
+    @quiz_question_answer_selection.update!(quiz_question_answer_selection_params)
+
+    flash[:notice] = 'Answer updated!'
+    redirect_to(@quiz_question_answer_selection.quiz)
+  end
+
   private
 
   def quiz_question_answer_selection_params
