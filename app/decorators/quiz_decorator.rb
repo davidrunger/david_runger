@@ -46,8 +46,6 @@ class QuizDecorator < Draper::Decorator
     questions.count
   end
 
-  private
-
   def ordered_questions
     questions.order(:created_at)
   end

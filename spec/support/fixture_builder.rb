@@ -79,11 +79,15 @@ FixtureBuilder.configure do |fbuilder|
     create(:quiz_participation, quiz: quiz, participant: user)
 
     # quiz questions
-    quiz_question = create(:quiz_question, quiz: quiz)
+    quiz_question_1 = create(:quiz_question, quiz: quiz)
+    quiz_question_2 = create(:quiz_question, quiz: quiz)
 
     # quiz question answers
     [true, false, false].shuffle.each do |is_correct|
-      create(:quiz_question_answer, question: quiz_question, is_correct: is_correct)
+      create(:quiz_question_answer, question: quiz_question_1, is_correct: is_correct)
+    end
+    [true, false].shuffle.each do |is_correct|
+      create(:quiz_question_answer, question: quiz_question_2, is_correct: is_correct)
     end
   end
 end

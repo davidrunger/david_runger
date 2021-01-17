@@ -31,7 +31,7 @@ class QuizParticipation < ApplicationRecord
     :correct_answer_selections,
     -> {
       joins(answer: :question).
-        where(quiz_questions: { status: 'closed' }).
+        merge(QuizQuestion.closed).
         where(quiz_question_answers: { is_correct: true })
     },
     class_name: 'QuizQuestionAnswerSelection',
