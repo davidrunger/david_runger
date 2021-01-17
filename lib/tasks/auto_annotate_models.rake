@@ -32,5 +32,6 @@ if Rails.env.development?
     )
   end
 
-  Annotate.load_tasks
+  # We've commented this out, so that we don't have to require `annotate`.
+  # Annotate.load_tasks
 end
