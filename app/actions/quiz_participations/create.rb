@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+class QuizParticipations::Create < ApplicationAction
+  requires :display_name, String
+  requires :quiz, Quiz
+  requires :user, User
+
+  def execute
+    participation = user.quiz_participations.create!(quiz_id: quiz.id, display_name: display_name)
+
+    QuizzesChannel.broadcast_to(quiz, new_participant_name: participation.display_name)
+  end
+end

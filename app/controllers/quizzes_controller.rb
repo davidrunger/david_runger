@@ -6,7 +6,10 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find(params[:id]).decorate
     authorize(@quiz, :show?)
     @title = @quiz.name
-    bootstrap(quiz: QuizSerializer.new(@quiz))
+    bootstrap(
+      current_user: UserSerializer.new(current_user),
+      quiz: QuizSerializer.new(@quiz),
+    )
     render :show
   end
 
