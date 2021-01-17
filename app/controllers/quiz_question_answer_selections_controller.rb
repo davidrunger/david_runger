@@ -3,12 +3,17 @@
 class QuizQuestionAnswerSelectionsController < ApplicationController
   def create
     authorize(QuizQuestionAnswerSelection, :create?)
-    selection =
+
+    quiz_participation =
       current_user.
         quiz_participations.
-        find_by!(quiz_id: Quiz.find(params[:quiz_id]).id).
-        quiz_question_answer_selections.
-        create!(quiz_question_answer_selection_params)
+        find_by!(quiz_id: Quiz.find(params[:quiz_id]).id)
+    selection =
+      QuizQuestionAnswerSelections::Create.new(
+        params: quiz_question_answer_selection_params,
+        quiz_participation: quiz_participation,
+      ).run!.selection
+
     redirect_to(selection.quiz)
   end
 

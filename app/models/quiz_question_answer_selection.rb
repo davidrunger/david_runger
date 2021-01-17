@@ -21,6 +21,4 @@ class QuizQuestionAnswerSelection < ApplicationRecord
 
   has_one :question, through: :answer
   has_one :quiz, through: :question
-
-  broadcasts_to :quiz
 end
