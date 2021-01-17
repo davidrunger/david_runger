@@ -558,8 +558,6 @@ GEM
       e2mmap
     tilt (2.0.10)
     trollop (1.16.2)
-    turbo-rails (0.5.3)
-      rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
@@ -665,7 +663,6 @@ DEPENDENCIES
   stackprof
   super_diff
   thread_safe
-  turbo-rails
   webmock
   webpacker
 

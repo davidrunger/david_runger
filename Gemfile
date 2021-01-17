@@ -41,7 +41,6 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
 gem 'stackprof'
 gem 'thread_safe'
-gem 'turbo-rails'
 gem 'webpacker'
 
 group :development, :test do
