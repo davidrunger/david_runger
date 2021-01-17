@@ -76,7 +76,7 @@ FixtureBuilder.configure do |fbuilder|
     quiz = create(:quiz, owner: admin)
 
     # quiz participations
-    create(:quiz_participation, quiz: quiz, participant: user)
+    participation = create(:quiz_participation, quiz: quiz, participant: user)
 
     # quiz questions
     quiz_question_1 = create(:quiz_question, quiz: quiz)
@@ -89,5 +89,9 @@ FixtureBuilder.configure do |fbuilder|
     [true, false].shuffle.each do |is_correct|
       create(:quiz_question_answer, question: quiz_question_2, is_correct: is_correct)
     end
+
+    # quiz question answer selections
+    answer = quiz.question_answers.first!
+    create(:quiz_question_answer_selection, answer: answer, participation: participation)
   end
 end
