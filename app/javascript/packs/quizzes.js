@@ -11,6 +11,7 @@ actionCableConsumer.subscriptions.create(
       if (!data) return;
 
       if (data.command === 'refresh') {
+        Turbo.clearCache();
         Turbo.visit(window.location.pathname, { action: 'replace' });
       } else if (data.new_answerer_name) {
         [...document.getElementById('quiz_question_answer_selections').querySelectorAll('li')].
