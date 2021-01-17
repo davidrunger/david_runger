@@ -1,8 +1,6 @@
 - content_for(:extra_javascript) do
   = javascript_pack_tag('quizzes', defer: true)
 
-= turbo_stream_from @quiz
-
 .p3
   %h1= @quiz.name
   - if @quiz.unstarted?
