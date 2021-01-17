@@ -43,6 +43,10 @@ gem 'stackprof'
 gem 'thread_safe'
 gem 'webpacker'
 
+group :production do
+  gem 'cloudflare-rails'
+end
+
 group :development, :test do
   gem 'amazing_print'
   gem 'annotate'
@@ -91,8 +95,4 @@ group :test do
   gem 'shoulda-matchers'
   gem 'super_diff'
   gem 'webmock'
-end
-
-group :production do
-  gem 'cloudflare-rails'
 end
