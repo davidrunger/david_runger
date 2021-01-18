@@ -262,6 +262,10 @@ export default {
 </script>
 
 <style scoped>
+table {
+  border-spacing: 0;
+}
+
 tbody tr:last-of-type td:not(:last-of-type) {
   border-top: 1px solid gray;
 }

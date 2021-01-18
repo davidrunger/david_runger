@@ -18,8 +18,8 @@ aside.border-right.border-gray
         :disabled='postingStore || formstate.$invalid'
         size='medium'
       )
-    ul.stores-list
-      li.js-link.stores-list__item.h3.my2.py1.px2(
+    .stores-list
+      .js-link.stores-list__item.h3.my2.py1.px2(
         v-for='store in sortedStores'
         :class='{selected: store === currentStore}'
         @click='$store.dispatch("selectStore", { store })'

@@ -1,7 +1,7 @@
 <template lang='pug'>
 section
-  ul
-    li.log-link-container.m1.h2(v-for='log in logs')
+  div
+    .log-link-container.m1.h2(v-for='log in logs')
       router-link.log-link(:to='{ name: "log", params: { slug: log.slug }}') {{log.name}}
   el-collapse(v-model='expandedPanelNames')
     el-collapse-item(title = 'Create new log' name='new-log-form')

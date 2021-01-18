@@ -14,8 +14,8 @@ Modal(
       @keydown.down='incrementHighlightedLogIndex'
       ref='log-search-input'
     )
-    ul
-      li.log-link-container(v-for='(log, index) in orderedMatches')
+    div
+      .log-link-container(v-for='(log, index) in orderedMatches')
         router-link.log-link(
           :to='{ name: "log", params: { slug: log.slug }}'
           :class='{bold: (index === highlightedLogIndex)}'
