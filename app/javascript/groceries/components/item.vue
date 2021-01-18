@@ -1,5 +1,5 @@
 <template lang='pug'>
-li.grocery-item.flex.items-center(
+.grocery-item.flex.items-center(
   :class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}'
 )
   Drag(:transferData='item')
@@ -109,7 +109,7 @@ export default {
   -ms-user-select: none;
 }
 
-li.grocery-item {
+.grocery-item {
   background: rgba(255, 255, 255, 0.6);
   margin: 5px 0;
   padding: 0 6px;

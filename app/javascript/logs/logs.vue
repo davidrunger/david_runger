@@ -4,8 +4,8 @@ div
     div {{bootstrap.current_user.email}}
     .dropdown
       i.el-icon-more.dropbtn
-      ul.dropdown-content.bg-black.gray
-        li.p1(@click='signOut') Sign out
+      .dropdown-content.bg-black.gray
+        .p1(@click='signOut') Sign out
   .center
     LogSelector
     router-view(:key='$route.fullPath').m3
@@ -83,7 +83,7 @@ body {
   color: #e0e0e0;
 }
 
-li.log-link-container {
+.log-link-container {
   // specify the height so that changing the font on hover size doesn't push other links up/down
   height: 26px;
 }
@@ -139,7 +139,7 @@ textarea.el-textarea__inner {
   display: inline-block;
 }
 
-ul.dropdown-content {
+.dropdown-content {
   display: none;
   position: absolute;
   right: 0;
@@ -149,15 +149,15 @@ ul.dropdown-content {
   z-index: 1;
 }
 
-ul.dropdown-content li {
+.dropdown-content div {
   cursor: pointer;
 }
 
-ul.dropdown-content li:hover {
+.dropdown-content div:hover {
   background-color: white;
 }
 
-.dropdown:hover ul.dropdown-content {
+.dropdown:hover .dropdown-content {
   display: block;
 }
 </style>
