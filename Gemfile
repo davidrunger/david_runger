@@ -51,6 +51,7 @@ group :development, :test do
   gem 'amazing_print'
   gem 'annotate', require: false
   gem 'dotenv-rails', require: 'dotenv/rails-now'
+  gem 'immigrant'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -82,7 +83,6 @@ group :test do
   gem 'faker'
   gem 'fixture_builder'
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
-  gem 'immigrant', require: false
   gem 'json-schema'
   gem 'launchy'
   gem 'pallets'
