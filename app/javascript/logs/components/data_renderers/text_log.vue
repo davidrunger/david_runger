@@ -1,7 +1,7 @@
 <template lang='pug'>
 .flex.justify-center
   .container
-    table
+    table.text-log-table
       EditableTextLogRow(
         v-for='logEntry in formattedLogEntries'
         :key='logEntry.id'
@@ -113,7 +113,7 @@ ol {
   margin-left: 5px;
 }
 
-table {
+table.text-log-table {
   margin: 15px 0;
   color: #aaa;
   font-size: 14px;

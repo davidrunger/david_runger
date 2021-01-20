@@ -66,9 +66,10 @@ const actions = {
     commit('addLogEntry', { log, newLogEntry });
   },
 
-  createLogEntry({ dispatch }, { logId, newLogEntryData, newLogEntryNote }) {
+  createLogEntry({ dispatch }, { logId, newLogEntryCreatedAt, newLogEntryData, newLogEntryNote }) {
     const payload = {
       log_entry: {
+        created_at: newLogEntryCreatedAt,
         data: newLogEntryData,
         log_id: logId,
         note: newLogEntryNote,

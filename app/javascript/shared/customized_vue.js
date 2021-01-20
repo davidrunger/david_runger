@@ -4,6 +4,7 @@ import 'element-ui/lib/theme-chalk/base.css';
 import 'element-ui/lib/theme-chalk/button.css';
 import 'element-ui/lib/theme-chalk/card.css';
 import 'element-ui/lib/theme-chalk/checkbox.css';
+import 'element-ui/lib/theme-chalk/date-picker.css';
 import 'element-ui/lib/theme-chalk/dropdown-item.css';
 import 'element-ui/lib/theme-chalk/icon.css';
 import 'element-ui/lib/theme-chalk/input.css';
@@ -20,6 +21,7 @@ import {
   Checkbox,
   Collapse,
   CollapseItem,
+  DatePicker,
   Icon,
   Input,
   Menu,
@@ -75,6 +77,7 @@ Vue.use(Card);
 Vue.use(Checkbox);
 Vue.use(Collapse);
 Vue.use(CollapseItem);
+Vue.use(DatePicker);
 Vue.use(Icon);
 Vue.use(Input);
 Vue.use(Menu);
