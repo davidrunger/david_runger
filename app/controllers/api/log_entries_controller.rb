@@ -73,6 +73,6 @@ class Api::LogEntriesController < ApplicationController
   private
 
   def log_entry_params
-    params.require(:log_entry).permit(:data, :note)
+    params.require(:log_entry).permit(:created_at, :data, :note)
   end
 end

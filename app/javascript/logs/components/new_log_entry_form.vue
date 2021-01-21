@@ -22,6 +22,11 @@ div
         ref='log-input'
         :type='inputType'
       )
+    el-date-picker.mb1(
+      v-model='newLogEntryCreatedAt'
+      type='datetime'
+      placeholder='Backdate (optional)'
+    )
     el-input.new-log-input.mb1(
       v-if='isCounter || isDuration || isNumber'
       placeholder='Note (optional)'
@@ -91,6 +96,7 @@ export default {
   data() {
     return {
       formstate: {},
+      newLogEntryCreatedAt: null,
       newLogEntryData: null,
       newLogEntryNote: null,
     };
@@ -118,10 +124,12 @@ export default {
         'createLogEntry',
         {
           logId: this.log.id,
+          newLogEntryCreatedAt: this.newLogEntryCreatedAt,
           newLogEntryData,
           newLogEntryNote: this.newLogEntryNote,
         },
       );
+      this.newLogEntryCreatedAt = null;
       this.newLogEntryData = null;
       this.newLogEntryNote = null;
     },
