@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 804960e69b3bc40b6722e85154ab9bfced6f762e
+  revision: 4998000bdeefddf46bbfd16bbfe878dcf8568051
   specs:
-    active_actions (0.13.3)
+    active_actions (0.14.0)
       memoist (~> 0.16)
       rails (~> 6.0)
       shaped (~> 0.7.0)
@@ -190,7 +190,7 @@ GEM
     codecov (0.2.15)
       simplecov (>= 0.15, < 0.21)
     coderay (1.1.3)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
     crack (0.4.5)
       rexml
@@ -552,7 +552,7 @@ GEM
       diff-lcs
       patience_diff
     temple (0.8.2)
-    thor (1.0.1)
+    thor (1.1.0)
     thread_safe (0.3.6)
     thwait (0.2.0)
       e2mmap
