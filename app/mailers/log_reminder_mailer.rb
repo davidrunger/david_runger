@@ -2,7 +2,7 @@
 
 class LogReminderMailer < ApplicationMailer
   def reminder(log_id)
-    @log = Log.find(log_id)
+    @log = Log.includes(:user).find(log_id)
     mail(
       to: @log.user.email,
       subject: %(Submit a log entry for your "#{@log.name}" log),

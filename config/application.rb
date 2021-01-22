@@ -50,6 +50,8 @@ class DavidRunger::Application < Rails::Application
   config.time_zone = 'America/Los_Angeles'
   config.active_record.default_timezone = :utc
 
+  config.active_record.strict_loading_by_default = true
+
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
 
   extra_load_paths = [
@@ -71,4 +73,8 @@ class DavidRunger::Application < Rails::Application
 
   # https://github.com/hotwired/turbo-rails/blob/9d53529/README.md#compatibility-with-rails-ujs
   config.action_view.form_with_generates_remote_forms = false
+
+  config.after_initialize do
+    ActionMailbox::InboundEmail.strict_loading_by_default = false
+  end
 end

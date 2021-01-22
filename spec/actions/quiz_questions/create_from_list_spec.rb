@@ -3,7 +3,13 @@
 RSpec.describe QuizQuestions::CreateFromList do
   subject(:action) { QuizQuestions::CreateFromList.new(action_inputs) }
 
-  before { quiz.questions.find_each(&:destroy!) }
+  before do
+    QuizQuestion.strict_loading_by_default = false
+    QuizQuestionAnswer.strict_loading_by_default = false
+    quiz.questions.find_each(&:destroy!)
+    QuizQuestionAnswer.strict_loading_by_default = true
+    QuizQuestion.strict_loading_by_default = true
+  end
 
   let(:action_inputs) do
     {

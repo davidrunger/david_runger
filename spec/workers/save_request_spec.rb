@@ -86,7 +86,7 @@ RSpec.describe SaveRequest do
 
             expect { perform }.to change { Request.count }.by(1)
 
-            request = Request.where.not(id: request_ids_before).first!
+            request = Request.where.not(id: request_ids_before).includes(:auth_token).first!
             expect(request.auth_token).to eq(auth_token)
           end
         end

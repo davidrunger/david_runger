@@ -91,7 +91,7 @@ FixtureBuilder.configure do |fbuilder|
     end
 
     # quiz question answer selections
-    answer = quiz.question_answers.first!
+    answer = Quiz.includes(:question_answers).find(quiz.id).question_answers.first!
     create(:quiz_question_answer_selection, answer: answer, participation: participation)
   end
 end

@@ -2,7 +2,7 @@
 
 class LogShareMailer < ApplicationMailer
   def log_shared(log_share_id)
-    log_share = LogShare.find(log_share_id)
+    log_share = LogShare.includes(:log, :user).find(log_share_id)
     @log = log_share.log
     mail(
       to: log_share.email,

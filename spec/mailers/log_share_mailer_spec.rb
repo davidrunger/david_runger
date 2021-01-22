@@ -4,7 +4,7 @@ RSpec.describe LogShareMailer do
   describe '#log_shared' do
     subject(:mail) { LogShareMailer.log_shared(log_share.id) }
 
-    let(:log_share) { LogShare.first! }
+    let(:log_share) { LogShare.includes(log: :user).first! }
     let(:sharee_email) { log_share.email }
     let(:shared_log) { log_share.log }
     let(:sharing_user) { shared_log.user }
