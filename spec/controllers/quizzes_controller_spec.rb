@@ -6,7 +6,7 @@ RSpec.describe QuizzesController do
   let(:user) { users(:admin) }
 
   describe '#show' do
-    subject(:get_show) { get(:show, params: { id: quiz.id }) }
+    subject(:get_show) { get(:show, params: { id: quiz.hashid }) }
 
     let(:quiz) { Quiz.first! }
 
@@ -23,6 +23,15 @@ RSpec.describe QuizzesController do
       before { expect(controller.current_user).not_to eq(quiz.owner) }
 
       let(:user) { User.where.not(id: quiz.owner).first! }
+
+      context 'when using plain, integer id rather than hashid URL param' do
+        subject(:get_show) { get(:show, params: { id: quiz.id }) }
+
+        it 'responds with 404' do
+          get_show
+          expect(response.status).to eq(404)
+        end
+      end
 
       context 'when the user is not yet a quiz participant' do
         before { quiz.participations.where(participant: user).find_each(&:destroy!) }
