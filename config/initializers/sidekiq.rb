@@ -26,5 +26,13 @@ Sidekiq.configure_server do |config|
   # For why we are adding 5, see https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control
   # :nocov:
   config.redis = ConnectionPool.new(size: 7, &build_sidekiq_redis_connection)
+
+  if Rails.env.development?
+    require 'sidekiq_middleware/server/bullet'
+
+    config.server_middleware do |chain|
+      chain.add(SidekiqMiddleware::Server::Bullet)
+    end
+  end
   # :nocov:
 end

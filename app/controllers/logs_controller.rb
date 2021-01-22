@@ -10,7 +10,7 @@ class LogsController < ApplicationController
       authorize(shared_log, :show?)
       logs = Log.where(id: shared_log)
     else
-      logs = current_user.logs.order(:created_at)
+      logs = current_user.logs.order(:created_at).includes(:log_shares)
 
       slug = params[:slug]
       new_entry = params[:new_entry].presence
@@ -27,7 +27,7 @@ class LogsController < ApplicationController
     bootstrap(
       current_user: UserSerializer.new(current_user),
       logs: ActiveModel::Serializer::CollectionSerializer.new(
-        logs.includes(:log_shares),
+        logs,
         scope: current_user,
         scope_name: :current_user,
       ),
