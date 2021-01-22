@@ -5,6 +5,8 @@ class QuizzesController < ApplicationController
     # don't use `policy_scope` here, because we want anyone to be able to view any quiz
     @quiz = Quiz.find(params[:id]).decorate
     authorize(@quiz, :show?)
+    require_hashid_param!(@quiz)
+
     @title = @quiz.name
     bootstrap(
       current_user: UserSerializer.new(current_user),
