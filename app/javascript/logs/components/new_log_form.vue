@@ -3,8 +3,8 @@ div
   .h2.my2 New Log
   .flex.justify-center.mb1
     div(style='width: 400px')
-      vue-form.px1(@submit.prevent='postNewLog' :state='formstate')
-        validate.mb1
+      form.px1(@submit.prevent='postNewLog')
+        .mb1
           el-input(
             placeholder='Name'
             v-model='newLog.name'
@@ -17,14 +17,14 @@ div
           v-model='newLog.description'
           name='newLog.description'
         )
-        validate.mb1
+        .mb1
           el-input(
             placeholder='Label'
             v-model='newLog.data_label'
             name='newLog.data_label'
             required
           )
-        validate.mb1
+        .mb1
           el-select(
             placeholder='Type'
             v-model='newLog.data_type'
@@ -37,18 +37,16 @@ div
               :label='dataType.label'
               :value='dataType.data_type'
             )
-        el-input(
-          type='submit'
-          value='Create'
-          :disabled='postingLog || formstate.$invalid'
-        )
+        el-button(
+          native-type='submit'
+          :disabled='postingLog'
+        ) Create
 </template>
 
 <script>
 export default {
   data() {
     return {
-      formstate: {},
       newLog: {
         data_label: '',
         data_type: '',
@@ -61,8 +59,6 @@ export default {
 
   methods: {
     postNewLog() {
-      if (this.formstate.$invalid) return;
-
       this.postingLog = true;
 
       this.$http.post(this.$routes.api_logs_path(), { log: this.newLog }).then(() => {

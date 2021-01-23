@@ -1,6 +1,4 @@
 import axios from 'axios';
-import Vue from 'shared/customized_vue';
-import Vuex from 'vuex';
 import _ from 'lodash';
 
 import * as ModalVuex from 'shared/modal_store';
@@ -26,11 +24,6 @@ const mutations = {
 
   incrementPendingRequests(state) {
     state.pendingRequests += 1;
-  },
-
-  moveItem(state, { item, newStore, oldStore }) {
-    oldStore.items = _.reject(oldStore.items, { id: item.id });
-    newStore.items.push(item);
   },
 
   setCollectingDebounces(state, { value }) {
@@ -62,14 +55,9 @@ const actions = {
     commit('deleteStore', { store });
   },
 
-  moveItem({ commit, getters }, { item, newStore }) {
-    commit('moveItem', { item, newStore, oldStore: getters.currentStore });
-    axios.patch(Routes.api_item_path(item.id), { item: { store_id: newStore.id } });
-  },
-
   selectStore(_context, { store }) {
     // update the store's viewed_at time, bc. this is actually how we determine the selected store
-    Vue.set(store, 'viewed_at', (new Date()).toISOString());
+    store.viewed_at = (new Date()).toISOString();
     axios.patch(Routes.api_store_path(store.id), { store: _.pick(store, ['viewed_at']) });
   },
 
@@ -113,26 +101,17 @@ const getters = {
   },
 };
 
-function initialState(bootstrap) {
-  return {
-    ...bootstrap,
-    ...ModalVuex.state,
-    collectingDebounces: false,
-    current_user: bootstrap.current_user,
-    stores: bootstrap.stores,
-    pendingRequests: 0,
-    postingStore: false,
-  };
-}
+const state = {
+  ...window.davidrunger.bootstrap,
+  ...ModalVuex.state,
+  collectingDebounces: false,
+  pendingRequests: 0,
+  postingStore: false,
+};
 
-// eslint-disable-next-line import/prefer-default-export
-export function groceryVuexStoreFactory(bootstrap) {
-  return new Vuex.Store({
-    state: initialState(bootstrap),
-    actions,
-    getters,
-    mutations,
-  });
-}
-
-export default groceryVuexStoreFactory(window.davidrunger.bootstrap);
+export default {
+  state,
+  actions,
+  getters,
+  mutations,
+};

@@ -82,6 +82,7 @@ div
 
 <script>
 import ClipboardJS from 'clipboard';
+import { h } from 'vue';
 import { mapGetters } from 'vuex';
 
 import actionCableConsumer from 'channels/consumer';
@@ -99,20 +100,15 @@ const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
   text: TextLog,
 };
 
-const LogDataDisplay = {
-  functional: true,
-  render(h, context) {
-    const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[context.props.data_type];
-
-    return h(DataRenderer, {
-      props: {
-        log: context.props.log,
-        log_entries: context.props.log_entries,
-        data_label: context.props.data_label,
-      },
-    });
-  },
+const LogDataDisplay = props => {
+  const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[props.data_type];
+  return h(DataRenderer, {
+    log: props.log,
+    log_entries: props.log_entries,
+    data_label: props.data_label,
+  });
 };
+LogDataDisplay.props = ['data_type', 'log', 'log_entries', 'data_label'];
 
 export default {
   components: {

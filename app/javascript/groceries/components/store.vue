@@ -35,8 +35,8 @@ div.mt1.mb2.ml3.mr2
       a.edit-store.js-link.gray.ml1(@click='editStoreNotes')
         i.el-icon-edit-outline
 
-  vue-form.col-5.flex(@submit.prevent='postNewItem' :state='formstate')
-    validate.float-left
+  form.col-5.flex(@submit.prevent='postNewItem')
+    .float-left
       el-input.item-name-input(
         placeholder='Add an item'
         type='text'
@@ -45,12 +45,11 @@ div.mt1.mb2.ml3.mr2
         required
         size='medium'
       )
-    el-input.flex-0.button.button-outline.float-left.ml1(
-      value='Add'
-      type='submit'
-      size='medium'
-      :disabled='formstate.$invalid'
-    )
+    .ml1
+      el-button.flex-0.button.button-outline(
+        native-type='submit'
+        size='medium'
+      ) Add
 
   .items-list.mt0.mb0
     Item(v-for='item in sortedItems' :item="item" :key="item.id")
@@ -103,7 +102,6 @@ export default {
     return {
       editingName: false,
       editingNotes: false,
-      formstate: {},
       itemsToZero: [],
       newItemName: '',
       wasCopiedRecently: false,
@@ -233,8 +231,6 @@ export default {
     }, DEBOUNCE_TIME),
 
     postNewItem() {
-      if (this.formstate.$invalid) return;
-
       this.$store.commit('incrementPendingRequests');
       this.$store.dispatch('createItem', {
         store: this.store,

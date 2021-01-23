@@ -1,5 +1,3 @@
-import Vuex from 'vuex';
-
 import * as ModalVuex from 'shared/modal_store';
 
 const mutations = {
@@ -20,22 +18,15 @@ const getters = {
   ...ModalVuex.getters,
 };
 
-function initialState(bootstrap) {
-  return {
-    ...bootstrap,
-    ...ModalVuex.state,
-    workout: null,
-  };
-}
+const state = {
+  ...window.davidrunger.bootstrap,
+  ...ModalVuex.state,
+  workout: null,
+};
 
-// eslint-disable-next-line import/prefer-default-export
-export function workoutVuexStoreFactory(bootstrap) {
-  return new Vuex.Store({
-    state: initialState(bootstrap),
-    actions,
-    getters,
-    mutations,
-  });
-}
-
-export default workoutVuexStoreFactory(window.davidrunger.bootstrap);
+export default {
+  state,
+  actions,
+  getters,
+  mutations,
+};

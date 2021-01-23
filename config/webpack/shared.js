@@ -51,11 +51,15 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+    }),
     new VueLoaderPlugin(),
-    // use en locale (rather than zh-CN) for element-ui
+    // use en locale (rather than zh-CN) for element-plus
     new webpack.NormalModuleReplacementPlugin(
-      /element-ui[/\\]lib[/\\]locale[/\\]lang[/\\]zh-CN/,
-      'element-ui/lib/locale/lang/en'
+      /element-plus[/\\]lib[/\\]locale[/\\]lang[/\\]zh-CN/,
+      'element-plus/lib/locale/lang/en',
     ),
   ],
 

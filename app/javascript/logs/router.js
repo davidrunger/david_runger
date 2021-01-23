@@ -1,4 +1,4 @@
-import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 import Log from 'logs/components/log.vue';
 import LogsIndex from 'logs/components/logs_index.vue';
@@ -10,8 +10,8 @@ const routes = [
   { path: '/users/:user_id/logs/:slug', name: 'shared_log', component: Log },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes,
 });
 

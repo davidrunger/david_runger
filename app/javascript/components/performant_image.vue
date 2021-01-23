@@ -18,15 +18,15 @@ import { emit } from 'lib/event_bus';
 
 export default {
   mounted() {
-    const nonWebpSource = this.$slots.default.find(slot => (
-      slot.data.attrs.type !== 'webp'
+    const nonWebpSource = this.$slots.default().find(slot => (
+      slot.props.type !== 'webp'
     ));
-    this.originalImageUrl = nonWebpSource.data.attrs.src;
+    this.originalImageUrl = nonWebpSource.props.src;
 
-    const webpSource = this.$slots.default.find(slot => (
-      slot.data.attrs.type === 'webp'
+    const webpSource = this.$slots.default().find(slot => (
+      slot.props.type === 'webp'
     ));
-    this.webpImageUrl = webpSource ? webpSource.data.attrs.src : null;
+    this.webpImageUrl = webpSource ? webpSource.props.src : null;
 
     checkWebpSupport().then(webpIsSupported => { this.canUseWebp = webpIsSupported; });
     whenDomReady().then(() => { this.mayRenderLazyImages = true; });

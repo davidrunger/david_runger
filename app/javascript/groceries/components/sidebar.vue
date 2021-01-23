@@ -2,8 +2,8 @@
 aside.border-right.border-gray
   LoggedInHeader.mb2
   .p2
-    vue-form.add-store.flex(@submit.prevent='createStore' :state='formstate')
-      validate.flex-1.mr1
+    form.add-store.flex(@submit.prevent='createStore')
+      .flex-1.mr1
         el-input(
           type='text'
           v-model='newStoreName'
@@ -12,19 +12,18 @@ aside.border-right.border-gray
           placeholder='Add a store'
           size='medium'
         )
-      el-input.flex-0(
-        value='Add'
-        type='submit'
-        :disabled='postingStore || formstate.$invalid'
+      el-button.flex-0(
+        native-type='submit'
+        :disabled='postingStore'
         size='medium'
-      )
+      ) Add
     .stores-list
       .js-link.stores-list__item.h3.my2.py1.px2(
         v-for='store in sortedStores'
         :class='{selected: store === currentStore}'
         @click='$store.dispatch("selectStore", { store })'
       )
-        Drop(@drop='dropItem(store, ...arguments)')
+        div
           a.store-name {{store.name}}
           a.js-link.right(@click.stop="$store.dispatch('deleteStore', { store })") &times;
 </template>
@@ -59,19 +58,12 @@ export default {
 
   data() {
     return {
-      formstate: {},
       newStoreName: '',
     };
   },
 
   methods: {
-    dropItem(store, item) {
-      this.$store.dispatch('moveItem', { item, newStore: store });
-    },
-
     createStore() {
-      if (this.formstate.$invalid) return;
-
       this.$store.state.postingStore = true;
       const payload = {
         store: {

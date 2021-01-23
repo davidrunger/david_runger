@@ -2,7 +2,7 @@
 .grocery-item.flex.items-center(
   :class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}'
 )
-  Drag(:transferData='item')
+  div
     span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
     span.decrement.h2.pl1.pr1.js-link.red(
       @click='decrement(item)'

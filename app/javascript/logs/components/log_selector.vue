@@ -5,21 +5,20 @@ Modal(
   maxWidth='400px'
   backgroundClass='bg-black'
 )
-  slot
-    input.mb2(
-      type='text'
-      v-model='searchString'
-      @keydown.enter='selectHighlightedLog'
-      @keydown.up='decrementHighlightedLogIndex'
-      @keydown.down='incrementHighlightedLogIndex'
-      ref='log-search-input'
-    )
-    div
-      .log-link-container(v-for='(log, index) in orderedMatches')
-        router-link.log-link(
-          :to='{ name: "log", params: { slug: log.slug }}'
-          :class='{bold: (index === highlightedLogIndex)}'
-        ) {{log.name}}
+  input.mb2(
+    type='text'
+    v-model='searchString'
+    @keydown.enter='selectHighlightedLog'
+    @keydown.up='decrementHighlightedLogIndex'
+    @keydown.down='incrementHighlightedLogIndex'
+    ref='log-search-input'
+  )
+  div
+    .log-link-container(v-for='(log, index) in orderedMatches')
+      router-link.log-link(
+        :to='{ name: "log", params: { slug: log.slug }}'
+        :class='{bold: (index === highlightedLogIndex)}'
+      ) {{log.name}}
 </template>
 
 <script>
@@ -64,15 +63,15 @@ export default {
     this.unsubscribeFromRouteChanges = on('logs:route-changed', this.resetQuickSelector);
   },
 
-  destroyed() {
-    this.unsubscribeFromRouteChanges();
-  },
-
   data() {
     return {
       highlightedLogIndex: 0,
       searchString: '',
     };
+  },
+
+  unmounted() {
+    this.unsubscribeFromRouteChanges();
   },
 
   methods: {
@@ -130,7 +129,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-/deep/ input[type=text] {
+:deep(input[type=text]) {
   max-width: 60%;
   border-radius: 4px;
   border: 1px solid #dcdfe6;

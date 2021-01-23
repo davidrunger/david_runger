@@ -6,7 +6,7 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
   )
     div.modal-container.p3.rounded(
       :style='{ width: width, maxWidth: maxWidth }'
-      :class='this.backgroundClass'
+      :class='backgroundClass'
     )
       slot
 </template>
@@ -37,16 +37,16 @@ export default {
     },
   },
 
-  destroyed() {
-    window.removeEventListener('keydown', this.handleKeydown);
-  },
-
   created() {
     // since there might be multiple modals, ensure we only register the keydown listener once
     if (!window.davidrunger.modalKeydownListenerRegistered) {
       window.addEventListener('keydown', this.handleKeydown);
       window.davidrunger.modalKeydownListenerRegistered = true;
     }
+  },
+
+  unmounted() {
+    window.removeEventListener('keydown', this.handleKeydown);
   },
 
   props: {

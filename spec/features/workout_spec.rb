@@ -12,7 +12,7 @@ RSpec.describe 'Workout app' do
       # form for new workout
       expect(page).to have_text('New Workout')
       expect(page).to have_css('form')
-      expect(page).to have_button('Initialize Workout!', disabled: true)
+      expect(page).to have_button('Initialize Workout!')
 
       # own workouts
       expect(page).to have_text('Previous workouts')
