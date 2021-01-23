@@ -35,5 +35,20 @@ class SmsRecords::PostToNexmo < ApplicationAction
       #{message_body}
       =====================
     LOG
+
+    result.nexmo_response_data =
+      {
+        'message-count' => '1',
+        'messages' => [
+          {
+            'status' => '0',
+            'message-id' => '00000123',
+            'to' => '44123456789',
+            'remaining-balance' => '1.10',
+            'message-price' => '0.05',
+            'network' => '23410',
+          },
+        ],
+      }
   end
 end

@@ -3,8 +3,15 @@
 # https://developer.nexmo.com/api/sms
 
 module VendorTestApi::Nexmo
-  def self.stub_post_success
+  def self.stub_post_success(message_content: :default)
+    post_body_regex =
+      case message_content
+      when :default then /"text":/
+      else /#{Regexp.escape({ text: message_content }.to_json[1..-2])}/
+      end
+
     WebMock.stub_request(:post, 'https://rest.nexmo.com/sms/json').
+      with(body: post_body_regex).
       to_return(
         status: 200,
         headers: { 'Content-Type' => 'application/json' },
