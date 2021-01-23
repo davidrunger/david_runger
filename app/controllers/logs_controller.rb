@@ -23,7 +23,6 @@ class LogsController < ApplicationController
     end
 
     @title = 'Logs'
-    @body_class = 'sans-serif'
     bootstrap(
       current_user: UserSerializer.new(current_user),
       logs: ActiveModel::Serializer::CollectionSerializer.new(

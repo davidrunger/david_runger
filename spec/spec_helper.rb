@@ -131,6 +131,17 @@ RSpec.configure do |config|
     metadata[:request_format] = :json
   end
 
+  if Bullet.enable?
+    config.before(:each) do
+      Bullet.start_request
+    end
+
+    config.after(:each) do
+      Bullet.perform_out_of_channel_notifications if Bullet.notification?
+      Bullet.end_request
+    end
+  end
+
   config.before(:each) do
     Rack::Attack.reset!
   end

@@ -1,0 +1,8 @@
+%h1 Your quizzes
+
+%ol
+  - policy_scope(Quiz).each do |quiz|
+    %li= link_to(quiz.name, quiz)
+
+%div
+  %strong= link_to('Create new quiz', new_quiz_path)

@@ -11,7 +11,7 @@ RSpec.describe QuizQuestions::CreateFromList do
       questions_list: questions_list,
     }
   end
-  let(:quiz) { Quiz.first! }
+  let(:quiz) { create(:quiz, owner: users(:admin)) }
   let(:questions_list) do
     <<~QUESTIONS_LIST
       What's your Hogwarts house?
