@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   .my2
-    .h1(v-if='timer') Time Elapsed: {{secondsElapsed | secondsAsTime}}
+    .h1(v-if='timer') Time Elapsed: {{secondsAsTime(secondsElapsed)}}
     div(v-else)
       button(
         @click='startWorkout'
@@ -29,7 +29,7 @@ div
         :class='tableRowClass(index)'
       )
         td {{setCount}}
-        td(v-if='editMode') {{intervalInSeconds * index | secondsAsTime}}
+        td(v-if='editMode') {{secondsAsTime(intervalInSeconds * index)}}
         td(v-if='editMode')
           input(
             type='text'
@@ -38,8 +38,8 @@ div
           )
         td.
           {{
-            intervalInSeconds * index +
-              cumulativeTimeAdjustment(index, timeAdjustments) | secondsAsTime
+            secondsAsTime(intervalInSeconds * index +
+              cumulativeTimeAdjustment(index, timeAdjustments))
           }}
         td(
           v-for='exercise in setsArray[index].exercises'
@@ -53,7 +53,7 @@ div
           span(v-else) {{exercise.reps}}
         td(v-show='index === currentRoundIndex + 1').
           Starts in
-          #[span(:class='nextRoundCountdownClass') {{secondsUntilNextRound | secondsAsTime}}]
+          #[span(:class='nextRoundCountdownClass') {{secondsAsTime(secondsUntilNextRound)}}]
       tr
         td
         td(v-if='editMode')
@@ -167,17 +167,6 @@ export default {
     };
   },
 
-  filters: {
-    secondsAsTime(seconds) {
-      const minutesAsDecimal = seconds / 60;
-      const wholeMinutes = Math.floor(minutesAsDecimal);
-      const secondsRemainder = Math.floor(seconds - (60 * wholeMinutes));
-      const paddedSeconds =
-        (secondsRemainder < 10) ? `0${secondsRemainder}` : `${secondsRemainder}`;
-      return `${wholeMinutes}:${paddedSeconds}`;
-    },
-  },
-
   methods: {
     confirmUnloadWorkoutInProgress(event) {
       if (
@@ -220,6 +209,15 @@ export default {
       if (!this.soundEnabled) return;
 
       window.speechSynthesis.speak(new SpeechSynthesisUtterance(message));
+    },
+
+    secondsAsTime(seconds) {
+      const minutesAsDecimal = seconds / 60;
+      const wholeMinutes = Math.floor(minutesAsDecimal);
+      const secondsRemainder = Math.floor(seconds - (60 * wholeMinutes));
+      const paddedSeconds =
+        (secondsRemainder < 10) ? `0${secondsRemainder}` : `${secondsRemainder}`;
+      return `${wholeMinutes}:${paddedSeconds}`;
     },
 
     startWorkout() {

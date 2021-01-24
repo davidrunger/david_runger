@@ -32,9 +32,9 @@ div.font-nunito
     .parallax-inner.parallax-inner--macbook-1
 
   HomeSection(section='about', title='About me', :renderHeadingManually='true')
-    template(slot-scope='slotProps')
+    template(v-slot:default='slotProps')
       .flex
-        .flex-2.mr4.py1.pr2
+        .flex-2.mr4.pr2
           HomeSectionHeader(:title='slotProps.title')
 
           p I'm a full stack web developer.
@@ -80,7 +80,8 @@ div.font-nunito
           name='Elasticsearch'
           details='A fast, powerful, and flexible search backend.'
         )
-          img(slot='image' src='~img/elasticsearch.svg' alt='Elasticsearch')
+          template(v-slot:image)
+            img(src='~img/elasticsearch.svg' alt='Elasticsearch')
         SkillRow(
           name='Git'
           details='The standard in version control.'
@@ -120,7 +121,8 @@ div.font-nunito
             the front end.
           `
         )
-          img(slot='image' src='~img/lodash.svg' alt='Lodash')
+          template(v-slot:image)
+            img(src='~img/lodash.svg' alt='Lodash')
         SkillRow(
           name='NodeJS'
           details=`
@@ -152,10 +154,12 @@ div.font-nunito
         SkillRow(
           name='RSpec'
         )
-          span(slot='details').
-            I #[em.italic love] testing. RSpec makes tests readable and easy to write.
-          PerformantImage(slot='image' alt='RSpec' imageStyle='height: 65px' lazy=true)
-            source(type='png' src='~img/rspec.png')
+          template(v-slot:details)
+            span.
+              I #[em.italic love] testing. RSpec makes tests readable and easy to write.
+          template(v-slot:image)
+            PerformantImage(alt='RSpec' imageStyle='height: 65px' lazy=true)
+              source(type='png' src='~img/rspec.png')
         SkillRow(
           name='Ruby'
           details='Ruby was designed for developer happiness, and it shows!'
@@ -164,9 +168,10 @@ div.font-nunito
           name='Ruby on Rails'
           iconIdentifier='rails'
         )
-          span(slot='details').
-            I ❤️&nbsp;Rails: a web-development framework with a great ecosystem that makes
-            development fast and fun. Rails's ActiveRecord ORM is superb.
+          template(v-slot:details)
+            span.
+              I ❤️&nbsp;Rails: a web-development framework with a great ecosystem that makes
+              development fast and fun. Rails's ActiveRecord ORM is superb.
         SkillRow(
           name='Sass'
           details=`
@@ -178,95 +183,100 @@ div.font-nunito
         SkillRow(
           name='VueJS'
         )
-          span(slot='details').
-            I think that Vue is one of the best client-side frameworks/libraries out there, and I
-            hope that its popularity continues to grow. I keep track of my grocery list using
-            #[a(:href='$routes.groceries_path()') an app that I built with Vue].
+          template(v-slot:details)
+            span.
+              I think that Vue is one of the best client-side frameworks/libraries out there, and I
+              hope that its popularity continues to grow. I keep track of my grocery list using
+              #[a(:href='$routes.groceries_path()') an app that I built with Vue].
         SkillRow(
           name='Webpack'
         )
-          span(slot='details').
-            A versatile and powerful build tool for all-things client-side.
-            #[span.monospace webpack‑dev‑server] and hot code reloading really enhance the
-            development experience.
+          template(v-slot:details)
+            span.
+              A versatile and powerful build tool for all-things client-side.
+              #[span.monospace webpack‑dev‑server] and hot code reloading really enhance the
+              development experience.
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-1
 
   HomeSection(section='projects', title='Projects')
     Project
-      span(slot='title') My Grocery List
-      span(slot='technologies') Rails 6, Vue.js, Vuex, Nexmo SMS API
-      div(slot='links')
-        a(:href='this.$routes.groceries_path()') Live
-        span #{' - '}
-        a(
-          href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
-        ) GitHub
-      PerformantImage(slot='image' alt='Groceries app' lazy=true)
-        source(type='jpg' src='~img/groceries.jpg')
-        source(type='webp' src='~img/groceries.webp')
-      div(slot='overview')
+      template(v-slot:title)
+        span My Grocery List
+      template(v-slot:technologies)
+        span Rails 6, Vue.js, Vuex, Nexmo SMS API
+      template(v-slot:links)
+        div
+          a(:href='$routes.groceries_path()') Live
+          span #{' - '}
+          a(
+            href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
+          ) GitHub
+      template(v-slot:image)
+        PerformantImage(alt='Groceries app' lazy=true)
+          source(type='jpg' src='~img/groceries.jpg')
+          source(type='webp' src='~img/groceries.webp')
+      template(v-slot:overview)
         p.
           I choose not to own a smartphone (😱), and I eat the same few things week after week.
           With this in mind, I wanted an app that would help me to efficiently track and purchase
           groceries. Plus, I wanted an excuse to experiment with
           #[a(href='https://vuejs.org/') Vue.js]! So I built
-          #[a(:href='this.$routes.groceries_path()') davidrunger.com/groceries].
+          #[a(:href='$routes.groceries_path()') davidrunger.com/groceries].
         p.
           I use this app to keep track of which grocery items I need. Then, when it's time to go
           shopping, I text the grocery list to myself via the Nexmo SMS API, so that I can easily to
           refer to it on my "dumb" phone while I'm at the store.
-      ul(slot='tech-list')
-        li.
-          A #[b Rails 6] back end serves a #[b Vue.js] front end application that's built with
-          #[b #[a(href='https://pugjs.org') pug]] templates, ES6 (via
-          #[b #[a(href='https://babeljs.io/') babel]]), and
-          #[b #[a(href='http://sass-lang.com/') Sass]].
-        li.
-          Rails's #[b webpacker] gem provides #[b Hot Module Replacement] for
-          #[i all] aspects of the frontend app (HTML, CSS, and JavaScript). This creates a
-          super efficient and enjoyable development flow! 😄
-        li #[b Google OAuth] provides convenient and secure sign-in
-        li #[b Vuex] manages the application state
-        li.
-          Integrates with the #[b #[a(href='https://www.nexmo.com/?') Nexmo] SMS API], allowing
-          users to text themselves a list of currently needed grocery items
-        li.
-          The excellent
-          #[b #[a(href='https://github.com/cameronhimself/vue-drag-drop') vue-drag-drop]] library
-          allows dragging an item from one store to another.
-        li.
-          The excellent #[b #[a(href='https://github.com/railsware/js-routes') js-routes]]
-          library allows the use of Rails named routes / path helpers on the client-side, too! :)
-        li.
-          #[b #[a(href='http://element.eleme.io/#/en-US') Element]] provides pretty and ready-to-use
-          Vue UI components.
-        li.
-          #[b #[a(href='http://basscss.com/') Basscss]] provides CSS utility classes, so that a lot
-          of styling can be done in the markup itself.
-        li.
-          #[b Continuous integration (CI)] via GitHub Actions, which also provides
-          #[b continuous deployment (CD)] via #[b Heroku] (which hosts the app)
-        li.
-          Ruby code is linted by #[b RuboCop], JavaScript by #[b ESLint], and stylesheets by
-          #[b Stylelint].
+      template(v-slot:tech-list)
+        ul
+          li.
+            A #[b Rails 6] back end serves a #[b Vue.js] front end application that's built with
+            #[b #[a(href='https://pugjs.org') pug]] templates, ES6 (via
+            #[b #[a(href='https://babeljs.io/') babel]]), and
+            #[b #[a(href='http://sass-lang.com/') Sass]].
+          li.
+            Rails's #[b webpacker] gem provides #[b Hot Module Replacement] for
+            #[i all] aspects of the frontend app (HTML, CSS, and JavaScript). This creates a
+            super efficient and enjoyable development flow! 😄
+          li #[b Google OAuth] provides convenient and secure sign-in
+          li #[b Vuex] manages the application state
+          li.
+            Integrates with the #[b #[a(href='https://www.nexmo.com/?') Nexmo] SMS API], allowing
+            users to text themselves a list of currently needed grocery items
+          li.
+            The excellent #[b #[a(href='https://github.com/railsware/js-routes') js-routes]]
+            library allows the use of Rails named routes / path helpers on the client-side, too! :)
+          li.
+            #[b #[a(href='https://element-plus.org/#/en-US') Element Plus]] provides pretty and
+            ready-to-use Vue UI components.
+          li.
+            #[b #[a(href='http://basscss.com/') Basscss]] provides CSS utility classes, so that a lot
+            of styling can be done in the markup itself.
+          li.
+            #[b Continuous integration (CI)] via GitHub Actions, which also provides
+            #[b continuous deployment (CD)] via #[b Heroku] (which hosts the app)
+          li.
+            Ruby code is linted by #[b RuboCop], JavaScript by #[b ESLint], and stylesheets by
+            #[b Stylelint].
 
     Project
-      span(slot='title') Rosetta Code Languages Selector
-      span(slot='technologies') Chrome Extension, Capybara integration tests
-      div(slot='links')
-        a(
-          href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg'
-        ) Live
-        span #{' - '}
-        a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
-
-      PerformantImage(slot='image' alt='Rosetta Code Languages Selector' lazy=true)
-        source(type='png' src='~img/rc-languages-selector.png')
-        source(type='webp' src='~img/rc-languages-selector.webp')
-
-      div(slot='overview')
+      template(v-slot:title)
+        span Rosetta Code Languages Selector
+      template(v-slot:technologies)
+        span Chrome Extension, Capybara integration tests
+      template(v-slot:links)
+        div
+          a(
+            href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg'
+          ) Live
+          span #{' - '}
+          a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
+      template(v-slot:image)
+        PerformantImage(alt='Rosetta Code Languages Selector' lazy=true)
+          source(type='png' src='~img/rc-languages-selector.png')
+          source(type='webp' src='~img/rc-languages-selector.webp')
+      template(v-slot:overview)
         p.
           #[a(href='http://rosettacode.org/wiki/Rosetta_Code') RosettaCode.org] is a great website
           for comparing programming languages and/or learning a new language based on others that
@@ -274,15 +284,15 @@ div.font-nunito
           implementations available in different languages that it can be difficult to find the code
           samples for the languages that you are focusing on. This extension solves that problem by
           only showing code samples for languages that you have specifically selected.
-
-      ul(slot='tech-list')
-        li.
-          Comprehensive Capybara integration test suite allows for confident refactoring and
-          feature extension.
-        li.
-          Custom testing solution mimics the Chrome Extension API by monkeypatching the Capybara
-          library to automatically inject the extension's JavaScript and CSS assets into any page
-          visited during an integration test.
+      template(v-slot:tech-list)
+        ul
+          li.
+            Comprehensive Capybara integration test suite allows for confident refactoring and
+            feature extension.
+          li.
+            Custom testing solution mimics the Chrome Extension API by monkeypatching the Capybara
+            library to automatically inject the extension's JavaScript and CSS assets into any page
+            visited during an integration test.
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-2
@@ -385,14 +395,14 @@ p:first-of-type {
   margin-top: 0;
 }
 
-.project {
-  /deep/ img {
-    box-shadow: #c0c0c0 2px 2px 10px 0;
-    border-radius: 3px;
-    max-height: 300px;
-    max-width: 90%;
-  }
+:deep(.project img) {
+  box-shadow: #c0c0c0 2px 2px 10px 0;
+  border-radius: 3px;
+  max-height: 300px;
+  max-width: 90%;
+}
 
+.project {
   ul {
     list-style: initial;
 
@@ -464,7 +474,7 @@ p:first-of-type {
   }
 }
 
-/deep/ .about-image {
+:deep(.about-image) {
   max-width: 100%;
   box-shadow: $gray-light 0 2px 5px;
 }

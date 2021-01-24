@@ -1,7 +1,7 @@
 <template lang='pug'>
-  div(v-if='workout')
-    WorkoutPlan(v-bind='workout')
-  NewWorkoutForm(v-else)
+div(v-if='workout')
+  WorkoutPlan(v-bind='workout')
+NewWorkoutForm(v-else)
 </template>
 
 <script>

@@ -1,8 +1,7 @@
 <template lang='pug'>
 div
-  vue-form.px1(
+  form.px1(
     @submit.prevent='postNewLogEntry(newLogEntryData)'
-    :state='formstate'
     :class='log.data_type'
   )
     .mb1(v-if='isCounter')
@@ -11,18 +10,15 @@ div
         :key='logEntryValue'
         @click='postNewLogEntry(logEntryValue)'
       ) {{logEntryValue}}
-    validate(
-      :custom='{ customValidationsAreValid }'
+    el-input.new-log-input.mb1(
+      :placeholder='log.data_label'
+      v-model='newLogEntryData'
+      name='log.data_label'
+      required
+      ref='log-input'
+      :type='inputType'
     )
-      el-input.new-log-input.mb1(
-        :placeholder='log.data_label'
-        v-model='newLogEntryData'
-        name='log.data_label'
-        required
-        ref='log-input'
-        :type='inputType'
-      )
-    el-date-picker.mb1(
+    el-date-picker.mb1.mr1(
       v-model='newLogEntryCreatedAt'
       type='datetime'
       placeholder='Backdate (optional)'
@@ -33,17 +29,12 @@ div
       v-model='newLogEntryNote'
       type='text'
     )
-    el-input(
-      type='submit'
-      value='Add'
-      :disabled='formstate.$invalid'
-    )
+    el-button(
+      native-type='submit'
+    ) Add
 </template>
 
 <script>
-// this regex is far from perfect at discriminating between invalid vs valid time inputs,
-// but it's good enough as a rough sanity check
-const DURATION_INPUT_VALIDATION_REGEX = /^(\d{1,2}:)*\d{1,2}$/;
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 
 export default {
@@ -95,7 +86,6 @@ export default {
 
   data() {
     return {
-      formstate: {},
       newLogEntryCreatedAt: null,
       newLogEntryData: null,
       newLogEntryNote: null,
@@ -103,14 +93,6 @@ export default {
   },
 
   methods: {
-    customValidationsAreValid() {
-      if (this.isDuration) {
-        return DURATION_INPUT_VALIDATION_REGEX.test(this.newLogEntryData);
-      } else {
-        return true;
-      }
-    },
-
     focusLogEntryInput() {
       setTimeout(() => {
         this.$refs['log-input'].focus();
@@ -118,8 +100,6 @@ export default {
     },
 
     postNewLogEntry(newLogEntryData) {
-      if (this.formstate.$invalid && !newLogEntryData) return;
-
       this.$store.dispatch(
         'createLogEntry',
         {
@@ -149,7 +129,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-/deep/ form.number,
+:deep(form.number),
 form.duration {
   margin: 0 auto;
   max-width: 200px;

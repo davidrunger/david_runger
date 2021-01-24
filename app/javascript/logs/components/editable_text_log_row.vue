@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style scoped>
-/deep/ textarea.el-textarea__inner {
+:deep(textarea.el-textarea__inner) {
   width: 100%;
   resize: vertical;
   height: 12rem;

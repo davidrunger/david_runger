@@ -1,6 +1,4 @@
 import axios from 'axios';
-import Vue from 'vue';
-import Vuex from 'vuex';
 import _, { sortBy } from 'lodash';
 import Toastify from 'toastify-js';
 
@@ -41,7 +39,7 @@ const mutations = {
   },
 
   setLogEntries(state, { log, logEntries }) {
-    Vue.set(log, 'log_entries', sortBy(logEntries, 'created_at'));
+    log.log_entries = sortBy(logEntries, 'created_at');
   },
 
   updateLog(_state, { log, updatedLogData }) {
@@ -197,7 +195,7 @@ const getters = {
   isOwnLog(state, getters) {
     if (!getters.selectedLog) return false;
 
-    return getters.selectedLog.user.id === state.currentUser.id;
+    return getters.selectedLog.user.id === state.current_user.id;
   },
 
   // eslint-disable-next-line no-shadow
@@ -221,18 +219,14 @@ const getters = {
   },
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export function logVuexStoreFactory(bootstrap) {
-  const state = {
-    ...ModalVuex.state,
-    currentUser: bootstrap.current_user,
-    logs: bootstrap.logs,
-  };
+const state = {
+  ...window.davidrunger.bootstrap,
+  ...ModalVuex.state,
+};
 
-  return new Vuex.Store({
-    state,
-    actions,
-    getters,
-    mutations,
-  });
-}
+export default {
+  state,
+  actions,
+  getters,
+  mutations,
+};
