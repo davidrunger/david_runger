@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
+  self.container_classes = %w[py3 px4]
+
+  def index
+    authorize(Quiz, :index?)
+    render :index
+  end
+
   def show
     # don't use `policy_scope` here, because we want anyone to be able to view any quiz
     @quiz = Quiz.find(params[:id]).decorate

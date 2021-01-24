@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   end
 
   resources :auth_tokens, only: %i[create destroy update]
-  resources :quizzes, only: %i[new create show update] do
+
+  resources :quizzes, only: %i[index new create show update] do
     resources :quiz_participations, only: %i[create]
     resources :question_uploads, only: %i[new create]
     resources :quiz_question_answer_selections, only: %i[create update]

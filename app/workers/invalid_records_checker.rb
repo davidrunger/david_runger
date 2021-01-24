@@ -14,7 +14,14 @@ class InvalidRecordsChecker
         map(&:name).
         sort.
         index_with do |klass_name|
-          klass_name.constantize.find_each.count { |record| !record.valid? }
+          model_klass = klass_name.constantize
+          non_optional_belongs_to_associations =
+            model_klass.
+              reflect_on_all_associations(:belongs_to).
+              reject { |association| association.options[:optional] }.
+              map(&:name)
+          relation = model_klass.includes(non_optional_belongs_to_associations)
+          relation.find_each.count { |record| !record.valid? }
         end
 
     total_number_of_invalid_records = invalid_records_count_hash.values.sum

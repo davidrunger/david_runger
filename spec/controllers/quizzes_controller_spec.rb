@@ -5,6 +5,23 @@ RSpec.describe QuizzesController do
 
   let(:user) { users(:admin) }
 
+  describe '#index' do
+    subject(:get_index) { get(:index) }
+
+    it "lists the user's existing quizzes" do
+      get_index
+
+      user.quizzes.presence!.each do |quiz|
+        expect(response.body).to have_link(quiz.name, href: quiz_path(quiz))
+      end
+    end
+
+    it 'has a link to create a new quiz' do
+      get_index
+      expect(response.body).to have_link('Create new quiz', href: new_quiz_path)
+    end
+  end
+
   describe '#show' do
     subject(:get_show) { get(:show, params: { id: quiz.hashid }) }
 

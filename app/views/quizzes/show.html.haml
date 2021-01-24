@@ -1,11 +1,10 @@
 - content_for(:extra_javascript) do
   = javascript_pack_tag('quizzes', defer: true)
 
-.p3
-  %h1= @quiz.name
-  - if @quiz.unstarted?
-    = render 'quizzes/show/unstarted'
-  - elsif @quiz.active?
-    = render 'quizzes/show/active'
-  - elsif @quiz.closed?
-    = render 'quizzes/show/closed'
+%h1= @quiz.name
+- if @quiz.unstarted?
+  = render 'quizzes/show/unstarted'
+- elsif @quiz.active?
+  = render 'quizzes/show/active'
+- elsif @quiz.closed?
+  = render 'quizzes/show/closed'

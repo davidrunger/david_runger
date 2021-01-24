@@ -313,8 +313,4 @@ export default {
   right: 50%;
   transform: translateX(50%);
 }
-
-.pre-wrap {
-  white-space: pre-wrap;
-}
 </style>

@@ -13,6 +13,11 @@ RSpec.describe QuestionUploadsController do
       get_new
       expect(response.body).to have_css('form textarea[name=questions]')
     end
+
+    it 'has instructions about how to format the questions (and an example)' do
+      get_new
+      expect(response.body).to have_text(/Instructions.*separate line.*Example.*Which is biggest/m)
+    end
   end
 
   describe '#create' do

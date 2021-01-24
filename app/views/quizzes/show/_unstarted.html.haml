@@ -28,5 +28,5 @@
 - if @quiz.owned_by_current_user?
   %h2 Questions
   %ol#quiz_questions
-    = render @quiz.questions
+    = render @quiz.questions.includes(:answers)
   %div= link_to('Add questions', new_quiz_question_upload_path(@quiz))

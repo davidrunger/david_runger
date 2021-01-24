@@ -3,6 +3,8 @@
 class QuestionUploadsController < ApplicationController
   before_action :set_quiz, only: %i[new create]
 
+  self.container_classes = QuizzesController.container_classes
+
   def new
     authorize(QuizQuestion, :new?)
     authorize(@quiz, :show?)

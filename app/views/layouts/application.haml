@@ -33,7 +33,7 @@
     = content_for(:extra_css)
     = content_for(:extra_javascript)
 
-  %body{class: [@body_class, 'sans-serif'].map(&:presence).compact.join(' ')}
+  %body{class: 'sans-serif'}
     - if user_signed_in? && admin_user_signed_in? && (current_user.email != current_admin_user.email)
       .center.p1.bg-aqua
         = link_to('Unbecome', unbecome_admin_user_path(current_user))
@@ -42,4 +42,5 @@
       %p.p2.notice= notice
     - if alert.present?
       %p.p2.alert= alert
-    = yield
+    .container{class: container_classes}
+      = yield
