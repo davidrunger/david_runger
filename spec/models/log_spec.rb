@@ -22,7 +22,7 @@ RSpec.describe Log do
       let(:reminder_time_interval) { 3.days }
 
       context 'when the log has at least one log entry' do
-        let(:log) { Log.joins(:text_log_entries).first! }
+        let(:log) { Log.joins(:log_entries).first! }
 
         context 'when all log entries were created long enough ago that a reminder is needed' do
           before do

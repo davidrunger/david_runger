@@ -10,12 +10,12 @@ RSpec.describe SendLogReminderEmails do
       let(:log_needing_reminder) { Log.needing_reminder.first! }
 
       before do
-        log = Log.number.joins(:number_log_entries).first!
+        log = Log.number.joins(:log_entries).first!
         log.update!(
           reminder_time_in_seconds: 3600,
           reminder_last_sent_at: nil,
         )
-        log.number_log_entries.find_each { _1.update!(created_at: 2.hours.ago) }
+        log.log_entries.find_each { _1.update!(created_at: 2.hours.ago) }
       end
 
       around do |spec|

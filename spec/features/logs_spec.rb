@@ -39,7 +39,7 @@ RSpec.describe 'Logs app' do
           }.by(1)
 
           last_log_entry = log.log_entries.reorder(:created_at).last!
-          expect(last_log_entry.data).to eq(first_log_entry_text)
+          expect(last_log_entry.value).to eq(first_log_entry_text)
 
           second_log_entry_text = 'Even more great content!'
           expect {
@@ -52,7 +52,7 @@ RSpec.describe 'Logs app' do
           }.by(1)
 
           last_log_entry = log.log_entries.reorder(:created_at).last!
-          expect(last_log_entry.data).to eq(second_log_entry_text)
+          expect(last_log_entry.value).to eq(second_log_entry_text)
         end
       end
 
@@ -76,7 +76,7 @@ RSpec.describe 'Logs app' do
             it 'allows the sharee to view the log (via the appropriate URL)' do
               visit(user_shared_log_path(user_id: user.id, slug: log.slug))
 
-              expect(page).to have_text(log.log_entries.first!.data)
+              expect(page).to have_text(log.log_entries.first!.value)
             end
           end
         end
@@ -88,7 +88,7 @@ RSpec.describe 'Logs app' do
         # don't actually create the log entry, because we don't want the log entry to be returned
         # via an API call (by virtue of having been persisted to the database). we'll _only_ publish
         # the log entry via websockets (which requires stubbing `id` and `created_at` values).
-        log_entry = log.log_entries.build(data: new_log_entry_text)
+        log_entry = log.build_log_entry(value: new_log_entry_text)
         expect(log_entry).
           to receive(:read_attribute_before_type_cast).
           with('created_at').
@@ -96,7 +96,7 @@ RSpec.describe 'Logs app' do
         LogEntriesChannel.broadcast_to(
           log_entry.log,
           LogEntrySerializer.new(log_entry).as_json.merge(
-            id: LogEntries::TextLogEntry.maximum(:id) + 1,
+            id: LogEntry.maximum(:id) + 1,
           ),
         )
       end
@@ -128,7 +128,7 @@ RSpec.describe 'Logs app' do
         it 'does not render a new log entry that is broadcast to that channel' do
           visit(log_path(slug: log.slug))
 
-          expect(page).to have_text(log.log_entries.first!.data)
+          expect(page).to have_text(log.log_entries.first!.value)
 
           # Unfortunately, we need to sleep to give websockets/JavaScript enough time to put the new
           # log entry into the page. If we don't wait long enough for the new text to appear, then
@@ -147,7 +147,7 @@ RSpec.describe 'Logs app' do
         it 'renders a new log entry that is broadcast to that channel' do
           visit(log_path(slug: log.slug))
 
-          expect(page).to have_text(log.log_entries.first!.data)
+          expect(page).to have_text(log.log_entries.first!.value)
 
           publish_new_log_entry
           expect(page).to have_text(new_log_entry_text)

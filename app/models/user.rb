@@ -36,7 +36,7 @@ class User < ApplicationRecord
   has_many :sms_records, dependent: :destroy
   has_many :stores, dependent: :destroy
   has_many :items, through: :stores # must come after has_many :stores declaration
-  has_many :text_log_entries, through: :logs
+  has_many :log_entries, through: :logs
   has_many :workouts, dependent: :destroy
 
   devise

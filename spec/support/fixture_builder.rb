@@ -28,7 +28,7 @@ FixtureBuilder.configure do |fbuilder|
     number_log = name(:number_log, create(:log, user: user, data_type: 'number')).first
     number_log.log_entries.create!(
       log: number_log,
-      data: 102,
+      data_logable: create(:numeric_datum, value: 102),
       note: 'I am glad it is an even number',
     )
     create(
@@ -52,7 +52,10 @@ FixtureBuilder.configure do |fbuilder|
         description: nil,
       ),
     ).first
-    text_log.log_entries.create!(log: text_log, data: 'Had a cool dream!')
+    text_log.log_entries.create!(
+      log: text_log,
+      data_logable: create(:textual_datum, value: 'Had a cool dream!'),
+    )
 
     # log shares
     name(:log_share, create(:log_share, log: number_log))

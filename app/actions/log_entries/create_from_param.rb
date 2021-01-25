@@ -6,12 +6,11 @@ class LogEntries::CreateFromParam < ApplicationAction
 
   def execute
     if log.data_type == 'number' && param.match?(/\s+/)
-      data, note = param.split(/\s+/, 2)
+      value, note = param.split(/\s+/, 2)
     else
-      data = param
+      value = param
     end
 
-    log_entry = log.log_entries.build(data: data, note: note)
-    LogEntries::Save.new(log_entry: log_entry).run!
+    LogEntries::Create.new(log: log, attributes: { value: value, note: note }).run!
   end
 end

@@ -57,7 +57,6 @@ RSpec.describe Api::LogEntriesController do
 
       it 'returns the serialized newly created log entry with a created_at ISO-8601 Z timestamp' do
         post_create
-
         expect(response.parsed_body['created_at']).to match(iso8601_z_regex)
       end
 
@@ -86,7 +85,7 @@ RSpec.describe Api::LogEntriesController do
     context 'when attempting to update the log entry of another user' do
       let(:owning_user) { log_entry.log.user }
       let(:user) { User.where.not(id: owning_user).first! }
-      let(:params) { base_params.merge(log_entry: { data: "#{log_entry.data} ...changed." }) }
+      let(:params) { base_params.merge(log_entry: { data: "#{log_entry.value} -- but changed!" }) }
 
       it 'does not update the log_entry' do
         expect { patch_update }.not_to change { log_entry.reload.attributes }
@@ -102,8 +101,8 @@ RSpec.describe Api::LogEntriesController do
       let(:invalid_params) { { log_entry: { data: '' } } }
       let(:params) { base_params.merge(invalid_params) }
 
-      it 'does not update the log_entry' do
-        expect { patch_update }.not_to change { log_entry.reload.attributes }
+      it "does not update the log_entry's value" do
+        expect { patch_update }.not_to change { log_entry.reload.value }
       end
 
       it 'returns a 422 status code' do
@@ -113,16 +112,15 @@ RSpec.describe Api::LogEntriesController do
     end
 
     context 'when the log entry is being updated with valid params' do
-      let(:valid_params) { { log_entry: { data: "#{log_entry.data} ...changed." } } }
+      let(:valid_params) { { log_entry: { data: "#{log_entry.value} ...changed." } } }
       let(:params) { base_params.merge(valid_params) }
 
-      it 'updates the log_entry' do
-        expect { patch_update }.to change { log_entry.reload.data }
+      it "updates the log_entry's value" do
+        expect { patch_update }.to change { log_entry.reload.value }
       end
 
       it 'returns the serialized, updated log entry with a created_at ISO-8601 Z timestamp' do
         patch_update
-
         expect(response.parsed_body['created_at']).to match(iso8601_z_regex)
       end
 
@@ -165,8 +163,8 @@ RSpec.describe Api::LogEntriesController do
 
       it 'destroys the log_entry' do
         expect { delete_destroy }.to change {
-          LogEntries::NumberLogEntry.find_by(id: log_entry.id)
-        }.from(LogEntries::NumberLogEntry).to(nil)
+          LogEntry.find_by(id: log_entry.id)
+        }.from(LogEntry).to(nil)
       end
 
       it 'returns a 204 status code' do

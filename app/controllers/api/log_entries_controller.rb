@@ -3,19 +3,18 @@
 class Api::LogEntriesController < ApplicationController
   def create
     authorize(LogEntry)
-    log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
-    @log_entry = log.log_entries.build(log_entry_params)
-    if @log_entry.valid?
-      LogEntries::Save.new(log_entry: @log_entry).run!
-      render json: @log_entry, status: :created
+
+    if log_entry_params[:data].present?
+      log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
+      log_entry = LogEntries::Create.new(log: log, attributes: log_entry_params).run!.log_entry
+      render json: log_entry, status: :created
     else
-      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
+      render json: { errors: 'No data value was provided' }, status: :unprocessable_entity
     end
   end
 
-  # currently only works for `TextLogEntry`s
   def update
-    @log_entry ||= current_user.text_log_entries.find_by(id: params['id'])
+    @log_entry ||= current_user.log_entries.find_by(id: params['id'])
     if @log_entry.nil?
       head(404)
       skip_authorization
@@ -23,10 +22,10 @@ class Api::LogEntriesController < ApplicationController
     end
 
     authorize(@log_entry)
-    if @log_entry.update(log_entry_params)
+    if @log_entry.data_logable.update(value: log_entry_params[:data])
       render json: @log_entry, status: :ok
     else
-      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
+      render json: { errors: @log_entry.data_logable.errors.to_hash }, status: :unprocessable_entity
     end
   end
 
@@ -54,12 +53,9 @@ class Api::LogEntriesController < ApplicationController
       if log_id.present?
         log = Log.find(log_id)
         authorize(log, :show?)
-        log.log_entries
+        log.log_entries.includes(:data_logable)
       else
-        logs =
-          current_user.logs.
-            includes(:number_log_entries, :text_log_entries).
-            to_a
+        logs = current_user.logs.includes(log_entries: :data_logable).to_a
         logs.map!(&:log_entries).flatten!
         logs
       end

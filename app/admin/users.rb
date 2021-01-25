@@ -3,6 +3,9 @@
 ActiveAdmin.register(User) do
   menu parent: 'Users'
   permit_params :email, :phone, :sms_allowance
+  filter :email
+  filter :created_at
+  filter :updated_at
 
   index do
     id_column

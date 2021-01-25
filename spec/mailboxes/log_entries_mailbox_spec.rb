@@ -32,7 +32,7 @@ RSpec.describe LogEntriesMailbox do
       processed_mail
 
       last_log_entry = log.log_entries.order(:created_at).last!
-      expect(last_log_entry.data).to eq(Float(body))
+      expect(last_log_entry.value).to eq(Float(body))
     end
 
     it 'broadcasts the creation of the new log entry', :action_cable_test_adapter do

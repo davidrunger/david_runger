@@ -46,16 +46,7 @@ class Log < ApplicationRecord
 
   belongs_to :user
 
-  has_many :number_log_entries,
-    class_name: 'LogEntries::NumberLogEntry',
-    dependent: :destroy,
-    inverse_of: :log
-
-  has_many :text_log_entries,
-    class_name: 'LogEntries::TextLogEntry',
-    dependent: :destroy,
-    inverse_of: :log
-
+  has_many :log_entries, dependent: :destroy
   has_many :log_shares, dependent: :destroy
 
   before_validation :set_slug, if: -> { name_changed? }
@@ -66,35 +57,23 @@ class Log < ApplicationRecord
 
   scope :needing_reminder,
     -> {
-      left_joins(:number_log_entries).
-        left_joins(:text_log_entries).
+      left_joins(:log_entries).
         where.not(reminder_time_in_seconds: nil).
         group('logs.id').
         having(<<~SQL.squish)
           (
-            MAX(number_log_entries.created_at) IS NULL
-            AND MAX(text_log_entries.created_at) IS NULL
+            MAX(log_entries.created_at) IS NULL
             AND logs.reminder_last_sent_at IS NULL
             AND EXTRACT(EPOCH FROM (NOW() - logs.created_at)) > logs.reminder_time_in_seconds
           )
           OR
           (
-            MAX(number_log_entries.created_at) IS NOT NULL
-            AND (logs.reminder_last_sent_at IS NULL OR logs.reminder_last_sent_at < MAX(number_log_entries.created_at))
-            AND EXTRACT(EPOCH FROM (NOW() - MAX(number_log_entries.created_at))) >= logs.reminder_time_in_seconds
-          )
-          OR
-          (
-            MAX(text_log_entries.created_at) IS NOT NULL
-            AND (logs.reminder_last_sent_at IS NULL OR logs.reminder_last_sent_at < MAX(text_log_entries.created_at))
-            AND EXTRACT(EPOCH FROM (NOW() - MAX(text_log_entries.created_at))) >= logs.reminder_time_in_seconds
+            MAX(log_entries.created_at) IS NOT NULL
+            AND (logs.reminder_last_sent_at IS NULL OR logs.reminder_last_sent_at < MAX(log_entries.created_at))
+            AND EXTRACT(EPOCH FROM (NOW() - MAX(log_entries.created_at))) > logs.reminder_time_in_seconds
           )
         SQL
     }
-
-  def log_entries
-    public_send(DATA_TYPES[data_type][:association])
-  end
 
   def set_slug
     self.slug = name.downcase.gsub(%r{\s+|\.+|\\|/}, '-').gsub(/[^[:alnum:]\-_]/, '')
@@ -102,5 +81,21 @@ class Log < ApplicationRecord
 
   def to_param
     slug
+  end
+
+  def data_logable_klass
+    case data_type
+    when 'counter', 'number' then NumericDatum
+    when 'duration', 'text' then TextualDatum
+    end
+  end
+
+  def build_log_entry(attributes)
+    attributes = attributes.to_h.with_indifferent_access
+    log_entries.build(
+      attributes.except(:data, :value).merge(
+        data_logable: data_logable_klass.new(value: attributes[:value] || attributes[:data]),
+      ),
+    )
   end
 end

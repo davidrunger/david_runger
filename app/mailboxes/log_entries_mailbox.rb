@@ -9,6 +9,6 @@ class LogEntriesMailbox < ApplicationMailbox
     user = User.find_by!(email: user_email)
     log = user.logs.find(log_id)
 
-    LogEntries::Save.new(log_entry: log.log_entries.build(data: mail.parsed_body)).run
+    LogEntries::Create.new(log: log, attributes: { value: mail.parsed_body }).run!
   end
 end

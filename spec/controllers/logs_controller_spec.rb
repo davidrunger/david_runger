@@ -57,7 +57,7 @@ RSpec.describe LogsController do
           it 'creates a log entry with the value of the `new_entry` query param' do
             expect { get_index }.to change { log.log_entries.size }.by(1)
             log_entry = log.log_entries.order(:created_at).last!
-            expect(log_entry.data).to eq(Float(params[:new_entry]))
+            expect(log_entry.value).to eq(Float(params[:new_entry]))
           end
 
           context 'when the log is a number log' do
@@ -74,7 +74,7 @@ RSpec.describe LogsController do
                 expect { get_index }.to change { log.log_entries.size }.by(1)
                 log_entry = log.log_entries.order(:created_at).last!
 
-                expect(log_entry.data).to eq(new_entry_data)
+                expect(log_entry.value).to eq(new_entry_data)
                 expect(log_entry.note).to eq(new_entry_note)
               end
             end

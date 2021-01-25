@@ -27,7 +27,7 @@ RSpec.describe Logs::UploadsController do
     let(:csv_file) do
       # https://rubyquicktips.com/post/27753730620/testing-csv-file-uploads
       csv_content = <<~CSV
-        created_at,data,note
+        created_at,value,note
         #{csv_rows.join("\n")}
       CSV
 

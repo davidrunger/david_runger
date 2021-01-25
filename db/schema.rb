@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_16_071345) do
+ActiveRecord::Schema.define(version: 2021_01_25_094831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,17 @@ ActiveRecord::Schema.define(version: 2021_01_16_071345) do
     t.index ["store_id"], name: "index_items_on_store_id"
   end
 
+  create_table "log_entries", force: :cascade do |t|
+    t.bigint "log_id", null: false
+    t.text "note"
+    t.bigint "data_logable_id", null: false
+    t.string "data_logable_type", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["data_logable_id", "data_logable_type"], name: "index_log_entries_on_data_logable_id_and_data_logable_type", unique: true
+    t.index ["log_id"], name: "index_log_entries_on_log_id"
+  end
+
   create_table "log_shares", force: :cascade do |t|
     t.bigint "log_id", null: false
     t.text "email", null: false
@@ -125,13 +136,10 @@ ActiveRecord::Schema.define(version: 2021_01_16_071345) do
     t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
   end
 
-  create_table "number_log_entries", force: :cascade do |t|
-    t.bigint "log_id", null: false
-    t.float "data", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "note"
-    t.index ["log_id"], name: "index_number_log_entries_on_log_id"
+  create_table "numeric_data", force: :cascade do |t|
+    t.float "value", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "quiz_participations", force: :cascade do |t|
@@ -232,13 +240,10 @@ ActiveRecord::Schema.define(version: 2021_01_16_071345) do
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
-  create_table "text_log_entries", force: :cascade do |t|
-    t.bigint "log_id", null: false
-    t.text "data", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "note"
-    t.index ["log_id"], name: "index_text_log_entries_on_log_id"
+  create_table "textual_data", force: :cascade do |t|
+    t.text "value", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -265,9 +270,9 @@ ActiveRecord::Schema.define(version: 2021_01_16_071345) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "auth_tokens", "users"
   add_foreign_key "items", "stores"
+  add_foreign_key "log_entries", "logs"
   add_foreign_key "log_shares", "logs"
   add_foreign_key "logs", "users"
-  add_foreign_key "number_log_entries", "logs"
   add_foreign_key "quiz_participations", "quizzes"
   add_foreign_key "quiz_participations", "users", column: "participant_id"
   add_foreign_key "quiz_question_answer_selections", "quiz_participations", column: "participation_id"
@@ -280,6 +285,5 @@ ActiveRecord::Schema.define(version: 2021_01_16_071345) do
   add_foreign_key "requests", "users"
   add_foreign_key "sms_records", "users"
   add_foreign_key "stores", "users"
-  add_foreign_key "text_log_entries", "logs"
   add_foreign_key "workouts", "users"
 end
