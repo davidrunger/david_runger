@@ -7,7 +7,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/question_uploads_controller.rb",
-      "line": 15,
+      "line": 17,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(policy_scope(Quiz).find(params[:quiz_id]))",
       "render_path": null,
@@ -21,13 +21,33 @@
       "note": "False positive"
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "c4d98d8b128881441391541128a15dcad245c56aa7689794ba9cc674ce90211f",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/log_entries_controller.rb",
+      "line": 98,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.select_values(\"SELECT row_to_json(log_entry)\\nFROM (\\n  SELECT\\n    #{table_name}.id,\\n    to_char(\\n      #{table_name}.created_at AT TIME ZONE 'UTC',\\n      'YYYY-MM-DD\\\"T\\\"HH24:MI:SS\\\"Z\\\"'\\n    ) AS created_at,\\n    #{table_name}.data,\\n    #{table_name}.log_id,\\n    #{table_name}.note\\n  FROM #{table_name}\\n  INNER JOIN logs ON logs.id = #{table_name}.log_id\\n  WHERE logs.user_id = #{user.id}\\n) log_entry;\\n\".squish)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::LogEntriesController",
+        "method": "log_entry_json_strings_for_user_and_table"
+      },
+      "user_input": "table_name",
+      "confidence": "Medium",
+      "note": "False positive"
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "ca7f1648e420facb0263276c92e16f4d6beba5af1d8aa729bc37c45db21c3cd2",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/quizzes_controller.rb",
-      "line": 29,
+      "line": 41,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(policy_scope(Quiz).find(params[:id]))",
       "render_path": null,
@@ -39,8 +59,28 @@
       "user_input": "params[:id]",
       "confidence": "Weak",
       "note": "False positive"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ee8da255976e57b16f2a4d99b376976ee79f419e74c2a6259118655395db94aa",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/log_entries_controller.rb",
+      "line": 87,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.select_values(\"SELECT row_to_json(log_entry)\\nFROM (\\n  SELECT\\n    id,\\n    to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD\\\"T\\\"HH24:MI:SS\\\"Z\\\"') AS created_at,\\n    data,\\n    log_id,\\n    note\\n  FROM #{log.log_entries_table_name}\\n  WHERE #{log.log_entries_table_name}.log_id = #{log.id}\\n) log_entry;\\n\".squish)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::LogEntriesController",
+        "method": "log_entry_json_strings_for_log"
+      },
+      "user_input": "log.log_entries_table_name",
+      "confidence": "Medium",
+      "note": "False positive"
     }
   ],
-  "updated": "2021-01-15 20:10:49 -0800",
+  "updated": "2021-01-27 22:23:11 -0800",
   "brakeman_version": "4.10.1"
 }

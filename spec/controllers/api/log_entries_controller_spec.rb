@@ -208,7 +208,9 @@ RSpec.describe Api::LogEntriesController do
             log_entry.slice('id')
           end
         expected_simplified_response_data =
-          user.logs.map(&:log_entries).flatten.map { |log_entry| { 'id' => log_entry.id } }
+          user.logs.includes(:number_log_entries, :text_log_entries).
+            map(&:log_entries).flatten.
+            map { |log_entry| { 'id' => log_entry.id } }
 
         expect(simplified_response_data).to match_array(expected_simplified_response_data)
       end

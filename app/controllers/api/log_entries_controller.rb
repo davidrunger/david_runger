@@ -50,29 +50,64 @@ class Api::LogEntriesController < ApplicationController
     authorize(LogEntry)
     log_id = params['log_id']
 
-    log_entries =
+    log_entry_json_strings =
       if log_id.present?
         log = Log.find(log_id)
         authorize(log, :show?)
-        log.log_entries
+        log_entry_json_strings_for_log(log)
       else
-        logs =
-          current_user.logs.
-            includes(:number_log_entries, :text_log_entries).
-            to_a
-        logs.map!(&:log_entries).flatten!
-        logs
+        log_entry_json_strings_for_user_and_table(
+          user: current_user,
+          table_name: LogEntries::NumberLogEntry.table_name,
+        ) +
+          log_entry_json_strings_for_user_and_table(
+            user: current_user,
+            table_name: LogEntries::TextLogEntry.table_name,
+          )
       end
 
-    render json: ActiveModel::Serializer::CollectionSerializer.new(
-      log_entries,
-      serializer: LogEntrySerializer,
-    )
+    render(json: "[#{log_entry_json_strings.join(',')}]")
   end
 
   private
 
   def log_entry_params
     params.require(:log_entry).permit(:created_at, :data, :note)
+  end
+
+  def log_entry_json_strings_for_log(log)
+    ActiveRecord::Base.connection.select_values(<<~SQL.squish)
+      SELECT row_to_json(log_entry)
+      FROM (
+        SELECT
+          id,
+          to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"') AS created_at,
+          data,
+          log_id,
+          note
+        FROM #{log.log_entries_table_name}
+        WHERE #{log.log_entries_table_name}.log_id = #{log.id}
+      ) log_entry;
+    SQL
+  end
+
+  def log_entry_json_strings_for_user_and_table(user:, table_name:)
+    ActiveRecord::Base.connection.select_values(<<~SQL.squish)
+      SELECT row_to_json(log_entry)
+      FROM (
+        SELECT
+          #{table_name}.id,
+          to_char(
+            #{table_name}.created_at AT TIME ZONE 'UTC',
+            'YYYY-MM-DD"T"HH24:MI:SS"Z"'
+          ) AS created_at,
+          #{table_name}.data,
+          #{table_name}.log_id,
+          #{table_name}.note
+        FROM #{table_name}
+        INNER JOIN logs ON logs.id = #{table_name}.log_id
+        WHERE logs.user_id = #{user.id}
+      ) log_entry;
+    SQL
   end
 end
