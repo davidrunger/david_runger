@@ -30,7 +30,7 @@ class DavidRunger::Application < Rails::Application
     case Rails.env
     when 'production'
       # :nocov:
-      { host: 'www.davidrunger.com', protocol: 'https' }
+      { host: 'davidrunger.com', protocol: 'https' }
       # :nocov:
     else
       { host: 'localhost:3000', protocol: 'http' }
