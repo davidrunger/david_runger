@@ -82,11 +82,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def filtered_params
-    filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
-    filter.filter(params)
-  end
-
   def render_json_error(message = 'There was a problem with your request', status = 400)
     render json: { error: message }, status: status
   end

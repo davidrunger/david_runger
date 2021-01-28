@@ -45,4 +45,9 @@ module RequestRecordable
   def set_request_time
     @request_time = Time.current
   end
+
+  def filtered_params
+    filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
+    filter.filter(params)
+  end
 end
