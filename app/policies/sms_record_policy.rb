@@ -2,6 +2,6 @@
 
 class SmsRecordPolicy < ApplicationPolicy
   def create?
-    @user.may_send_sms?
+    @user.sms_usage < @user.sms_allowance
   end
 end

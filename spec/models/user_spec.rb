@@ -63,34 +63,6 @@ RSpec.describe User do
     end
   end
 
-  describe '#may_send_sms?' do
-    subject(:may_send_sms?) { user.may_send_sms? }
-
-    context 'when user has already used up his SMS allowance' do
-      before do
-        user.sms_records.destroy_all
-        create(:sms_record, user: user, cost: 0.006)
-        user.update!(sms_allowance: 0.006)
-      end
-
-      it 'returns false' do
-        expect(may_send_sms?).to eq(false)
-      end
-    end
-
-    context 'when user has part of his SMS allowance still remaining' do
-      before do
-        user.sms_records.destroy_all
-        create(:sms_record, user: user, cost: 0.006)
-        user.update!(sms_allowance: 0.007)
-      end
-
-      it 'returns true' do
-        expect(may_send_sms?).to eq(true)
-      end
-    end
-  end
-
   describe '#sms_usage' do
     subject(:sms_usage) { user.sms_usage }
 
