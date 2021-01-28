@@ -11,7 +11,9 @@ class QuizPolicy < ApplicationPolicy
     true
   end
 
-  def update?
+  private
+
+  def own_record?
     @record.owner == @user
   end
 end
