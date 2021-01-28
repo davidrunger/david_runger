@@ -48,15 +48,4 @@ class User < ApplicationRecord
   def sms_usage
     sms_records.sum(:cost)
   end
-
-  def partially_anonymized_username
-    email_username, email_domain = email.split('@')
-
-    if email_username.length >= 8
-      partially_anonymized_email_username = "#{email_username[0..2]}...#{email_username[-3..]}"
-      [partially_anonymized_email_username, email_domain].join('@')
-    else
-      "User #{id}"
-    end
-  end
 end
