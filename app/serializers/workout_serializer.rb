@@ -26,7 +26,7 @@ class WorkoutSerializer < ActiveModel::Serializer
   end
 
   def username
-    workout.user.partially_anonymized_username
+    workout.user.decorate.partially_anonymized_username
   end
 
   private
