@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DavidRunger::LogFormatter < Lograge::Formatters::KeyValue
+class Logs::LogFormatter < Lograge::Formatters::KeyValue
   def initialize(data)
     controller = data.delete(:controller) # e.g. 'Api::LogEntriesController'
     action = data[:action] # e.g. 'index'
