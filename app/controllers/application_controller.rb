@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   include ContainerClassable
   include HashidRequireable
   include Pundit
-  include Redirectable
   include RequestRecordable
   include TokenAuthenticatable
 
