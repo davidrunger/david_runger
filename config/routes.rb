@@ -67,9 +67,8 @@ Rails.application.routes.draw do
   end
 
   # Google periodically re-verifies this route, so we need to leave it here indefinitely
-  # rubocop:disable Layout/MultilineMethodArgumentLineBreaks
-  get 'google83c07e1014ea4a70', to: ->(_env) {
-    [200, {}, ['google-site-verification: google83c07e1014ea4a70.html']]
-  }
-  # rubocop:enable Layout/MultilineMethodArgumentLineBreaks
+  get(
+    'google83c07e1014ea4a70',
+    to: ->(_env) { [200, {}, ['google-site-verification: google83c07e1014ea4a70.html']] },
+  )
 end
