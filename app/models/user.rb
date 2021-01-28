@@ -45,10 +45,6 @@ class User < ApplicationRecord
     email.in?(ADMIN_EMAILS)
   end
 
-  def may_send_sms?
-    sms_usage < sms_allowance
-  end
-
   def sms_usage
     sms_records.sum(:cost)
   end
