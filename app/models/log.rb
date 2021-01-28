@@ -103,4 +103,8 @@ class Log < ApplicationRecord
   def to_param
     slug
   end
+
+  def log_entries_table_name
+    DATA_TYPES[data_type][:association]
+  end
 end
