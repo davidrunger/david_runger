@@ -5,7 +5,7 @@ class QuizQuestionsController < ApplicationController
 
   def update
     authorize(@quiz_question, :update?)
-    QuizQuestions::Update.new(quiz_question: @quiz_question, params: quiz_question_params).run!
+    QuizQuestions::Update.run!(quiz_question: @quiz_question, params: quiz_question_params)
     redirect_to(@quiz_question.quiz)
   end
 

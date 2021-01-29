@@ -13,23 +13,23 @@ class SmsRecords::SendMessage < ApplicationAction
 
   def execute
     message_body =
-      SmsRecords::GenerateMessage.new(
+      SmsRecords::GenerateMessage.run!(
         message_params: message_params,
         message_type: message_type,
         user: user,
-      ).run!.message_body
+      ).message_body
 
     post_to_nexmo_result =
-      SmsRecords::PostToNexmo.new(
+      SmsRecords::PostToNexmo.new!(
         message_body: message_body,
         phone_number: user.phone,
-      ).run!
+      ).run
 
     if post_to_nexmo_result.success?
-      SmsRecords::SaveSmsRecord.new(
+      SmsRecords::SaveSmsRecord.run!(
         nexmo_response_data: post_to_nexmo_result.nexmo_response_data,
         user: user,
-      ).run!
+      )
     elsif post_to_nexmo_result.nexmo_request_failed?
       result.nexmo_request_failed!
     end

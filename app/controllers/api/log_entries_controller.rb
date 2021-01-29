@@ -6,7 +6,7 @@ class Api::LogEntriesController < ApplicationController
     log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
     @log_entry = log.log_entries.build(log_entry_params)
     if @log_entry.valid?
-      LogEntries::Save.new(log_entry: @log_entry).run!
+      LogEntries::Save.run!(log_entry: @log_entry)
       render json: @log_entry, status: :created
     else
       render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
