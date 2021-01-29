@@ -41,7 +41,11 @@ class Prerenderer
   def html_for_prerendering(html)
     html_doc = Nokogiri::HTML(html)
     recharge_spent_devicon_css_preloader(html_doc)
-    html_doc.to_s
+
+    <<~HTML
+      <!DOCTYPE html>
+      #{html_doc}
+    HTML
   end
 
   def recharge_spent_devicon_css_preloader(html_doc)
