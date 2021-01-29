@@ -42,7 +42,6 @@ div.mt1.mb2.ml3.mr2
         type='text'
         v-model='newItemName'
         name='newItemName'
-        required
         size='medium'
       )
     .ml1

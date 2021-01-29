@@ -8,7 +8,6 @@ div.m2
         el-input(
           v-model.number='minutes'
           name='minutes'
-          required
           type='number'
         )
     .my1
@@ -17,7 +16,6 @@ div.m2
         el-input(
           v-model.number='numberOfSets'
           name='numberOfSets'
-          required
           type='number'
         )
     .my1.clearfix(v-for='(exercise, index) in exercises')
@@ -27,7 +25,6 @@ div.m2
           el-input(
             v-model='exercise.name'
             :name='`exercise-${index}-name`'
-            required
             type='text'
           )
       .col.col-6
@@ -36,7 +33,6 @@ div.m2
           el-input(
             v-model.number='exercise.reps'
             :name='`exercise-${index}-reps`'
-            required
             type='number'
           )
     .my1.center

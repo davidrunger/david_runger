@@ -14,7 +14,6 @@ div
       :placeholder='log.data_label'
       v-model='newLogEntryData'
       name='log.data_label'
-      required
       ref='log-input'
       :type='inputType'
     )

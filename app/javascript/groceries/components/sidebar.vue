@@ -8,7 +8,6 @@ aside.border-right.border-gray
           type='text'
           v-model='newStoreName'
           name='newStoreName'
-          required
           placeholder='Add a store'
           size='medium'
         )
