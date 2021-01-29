@@ -9,7 +9,6 @@ div
             placeholder='Name'
             v-model='newLog.name'
             name='newLog.name'
-            required
           )
         el-input.mb1(
           type='textarea'
@@ -22,14 +21,12 @@ div
             placeholder='Label'
             v-model='newLog.data_label'
             name='newLog.data_label'
-            required
           )
         .mb1
           el-select(
             placeholder='Type'
             v-model='newLog.data_type'
             name='newLog.data_type'
-            required
           )
             el-option(
               v-for='dataType in bootstrap.log_input_types'
