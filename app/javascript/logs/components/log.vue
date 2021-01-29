@@ -261,4 +261,8 @@ export default {
 .el-tag + .button-new-tag {
   margin-left: 10px;
 }
+
+.el-button {
+  height: auto;
+}
 </style>
