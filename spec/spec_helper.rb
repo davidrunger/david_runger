@@ -151,11 +151,13 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :without_verifying_authorization) do
-    # rubocop:disable RSpec/AnyInstance
-    allow_any_instance_of(ApplicationController).
+    allow(controller).
       to receive(:pundit_policy_authorized?).
       and_return(true)
-    # rubocop:enable RSpec/AnyInstance
+  end
+
+  config.before(:each, :prerendering_disabled) do
+    activate_feature!(:disable_prerendering)
   end
 
   config.before(:each, type: :controller) do
@@ -317,5 +319,6 @@ def json_response
 end
 
 def activate_feature!(feature_name)
+  allow(Flipper).to receive(:enabled?).and_call_original
   allow(Flipper).to receive(:enabled?).with(feature_name).and_return(true)
 end

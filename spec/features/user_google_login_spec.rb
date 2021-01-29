@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Logging in as a User via Google auth' do
+RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
   before { MockOmniAuth.google_oauth2(email: stubbed_user_email) }
 
   context 'when the user already exists in the database' do

@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
+  include Prerenderable
+
   skip_before_action :authenticate_user!, only: %i[index upgrade_browser]
 
   def index
     skip_authorization
     @description = 'The personal website of web developer David Runger'
-    render :index
+    serve_prerender_with_fallback(filename: 'home.html') { render :index }
   end
 
   def upgrade_browser

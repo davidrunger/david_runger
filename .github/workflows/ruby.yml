@@ -80,7 +80,7 @@ jobs:
         PERCY_TOKEN: "${{secrets.PERCY_TOKEN}}"
         CODECOV_TOKEN: "${{secrets.CODECOV_TOKEN}}"
 
-  deploy:
+  deploy-and-prerender:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     needs: test
     runs-on: ubuntu-latest
@@ -92,3 +92,20 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: davidrunger
           heroku_email: davidjrunger@gmail.com
+      - run: sleep 30 # give some time for the new release to boot up
+      - name: Setup Ruby 2.7.2
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+        env:
+          BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
+      - run: gem install addressable aws-sdk-s3 ferrum
+      - name: Prerender page(s) and upload them to S3
+        run: bin/prerender
+        env:
+          CI: true
+          AWS_ACCESS_KEY_ID: "${{secrets.AWS_ACCESS_KEY_ID}}"
+          AWS_SECRET_ACCESS_KEY: "${{secrets.AWS_SECRET_ACCESS_KEY}}"
+          S3_REGION: us-east-1
+          S3_BUCKET: david-runger-uploads

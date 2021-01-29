@@ -21,7 +21,7 @@ RSpec.describe 'Rack::Attack', :rack_test_driver do
         visit('/wordpress')
       end
 
-      it 'bans the user from visiting any page' do
+      it 'bans the user from visiting any page', :prerendering_disabled do
         expect {
           request_two_banned_paths
         }.to change {
