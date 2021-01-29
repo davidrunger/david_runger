@@ -2,8 +2,11 @@
   -# load CSS, except in development, where CSS will be loaded by style-loader, via JavaScript
   - unless Rails.env.development? && ENV['PRODUCTION_ASSET_CONFIG'].blank?
     %link{rel: "stylesheet", href: asset_pack_path('home_app.css')}
-  -# load devicons regardless of environment
-  %link{rel: 'stylesheet', href: '//cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css'}
+  -# always load `devicons` (in a nonblocking way (https://web.dev/defer-non-critical-css/))
+  - devicon_href = 'https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css'
+  %link{rel: "preload", href: devicon_href, as: "style", onload: "this.onload=null;this.rel='stylesheet'"}
+  %noscript
+    %link{rel: "stylesheet", href: devicon_href}
 
 - content_for(:extra_javascript) do
   = javascript_pack_tag('home_app', defer: true)

@@ -11,6 +11,9 @@
         { "url": "heroku/ruby" },
         { "url": "https://github.com/weibeld/heroku-buildpack-run" }
       ],
+      "env": {
+        "HASHID_SALT": "9611c66b-766d-48b5-a8f4-2b51635db6e9"
+      },
       "scripts": {
         "postdeploy": "bin/rake db:schema:load"
       }
