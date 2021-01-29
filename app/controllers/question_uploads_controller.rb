@@ -13,7 +13,7 @@ class QuestionUploadsController < ApplicationController
   def create
     authorize(QuizQuestion, :create?)
     authorize(QuizQuestionAnswer, :create?)
-    QuizQuestions::CreateFromList.new(quiz: @quiz, questions_list: params[:questions]).run!
+    QuizQuestions::CreateFromList.run!(quiz: @quiz, questions_list: params[:questions])
     redirect_to(@quiz)
   end
 

@@ -37,7 +37,7 @@ class QuizzesController < ApplicationController
   def update
     @quiz = policy_scope(Quiz).find(params[:id])
     authorize(@quiz, :update?)
-    Quizzes::Update.new(quiz: @quiz, params: quiz_params).run!
+    Quizzes::Update.run!(quiz: @quiz, params: quiz_params)
     redirect_to(@quiz)
   end
 

@@ -9,10 +9,10 @@ class QuizQuestionAnswerSelectionsController < ApplicationController
         quiz_participations.
         find_by!(quiz_id: Quiz.find(params[:quiz_id]).id)
     selection =
-      QuizQuestionAnswerSelections::Create.new(
+      QuizQuestionAnswerSelections::Create.run!(
         params: quiz_question_answer_selection_params,
         quiz_participation: quiz_participation,
-      ).run!.selection
+      ).selection
 
     redirect_to(selection.quiz)
   end

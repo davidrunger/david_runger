@@ -17,14 +17,14 @@ class VoicemailsMailbox < ApplicationMailbox
     # If any errors occur here, we want to rescue them, so that the Sidekiq mail-processing job
     # won't retry (maybe sending text messages repeatedly, which costs $ and which annoys the user)
     begin
-      SmsRecords::SendMessage.new(
+      SmsRecords::SendMessage.run!(
         user: user,
         message_type: 'forwarded_voicemail',
         message_params: {
           subject: subject,
           voicemail_message_content: voicemail_message_content,
         },
-      ).run!
+      )
     rescue => error
       Rollbar.error(
         error,
