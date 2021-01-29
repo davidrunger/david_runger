@@ -92,7 +92,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: davidrunger
           heroku_email: davidjrunger@gmail.com
-      - run: sleep 30 # give some time for the new release to boot up
+      - run: sleep 60 # give some time for the new release to boot up
       - name: Setup Ruby 2.7.2
         uses: ruby/setup-ruby@v1
         with:
