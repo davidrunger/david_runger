@@ -34,13 +34,20 @@ module Prerenderable
           else html
           end
         end
+    rescue Aws::S3::Errors::NoSuchKey => error
+      log_warning(error)
+      nil
     rescue => error
       case Rails.env
       when 'production' then Rollbar.error(error, filename: filename)
       when 'test' then raise(error)
-      else Rails.logger.warn("Could not fetch prerendered content: #{error.inspect}")
+      else log_warning(error)
       end
       nil
     end
+  end
+
+  def log_warning(error)
+    Rails.logger.warn("Could not fetch prerendered content: #{error.inspect}")
   end
 end

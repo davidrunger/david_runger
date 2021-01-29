@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 RSpec.describe Prerenderable, :without_verifying_authorization do
+  before { stub_const('LIVE_RENDERED_PAGE_TEXT', 'Good morning, Vietnam!') }
+
   controller(ApplicationController) do
     include Prerenderable
 
     skip_before_action :authenticate_user!
 
     def index
-      serve_prerender_with_fallback(filename: 'home.html') { render(plain: 'Hola mundo') }
+      serve_prerender_with_fallback(filename: 'home.html') do
+        render(plain: LIVE_RENDERED_PAGE_TEXT)
+      end
     end
   end
 
@@ -72,6 +76,31 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
               get_index
               expect(response.body).to have_text(page_text)
             end
+          end
+        end
+
+        context 'when S3 responds with an Aws::S3::Errors::NoSuchKey error' do
+          before do
+            expect_any_instance_of(Aws::S3::Object). # rubocop:disable RSpec/AnyInstance
+              to receive(:get).
+              and_raise(Aws::S3::Errors::NoSuchKey.allocate)
+          end
+
+          it 'serves the page via the fallback block' do
+            get_index
+            expect(response.body).to have_text(LIVE_RENDERED_PAGE_TEXT)
+          end
+
+          it 'does not log an error to Rollbar' do
+            expect(Rollbar).not_to receive(:error)
+            get_index
+          end
+
+          it 'logs to Rails.logger' do
+            expect(Rails.logger).to receive(:warn).with(
+              /Could not fetch prerendered content/,
+            ).and_call_original
+            get_index
           end
         end
       end
