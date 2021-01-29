@@ -5,6 +5,10 @@ migrate() {
   bin/rails db:migrate
 }
 
+echo "Purging prerendered pages..."
+bin/rails runner bin/purge-prerendered-pages
+echo "... done purging prerendered pages."
+
 # run migrations when deploying to production, but not when deploying a review app
 if [ $HEROKU_PR_NUMBER ]
 then
