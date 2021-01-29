@@ -4,7 +4,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
   payload = args.extract_options!
 
   controller_name = payload[:controller]
-  next if Rails.env.test? && controller_name == 'AnonymousController'
+  next if controller_name == 'AnonymousController' # this occurs in tests
 
   controller_klass = controller_name.constantize
   # We won't log requests to non-ApplicationController controllers (e.g. Flipper & Sidekiq engines)

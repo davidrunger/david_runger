@@ -6,7 +6,7 @@ ruby '2.7.2'
 gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'activeadmin'
 gem 'active_model_serializers'
-gem 'aws-sdk-s3', require: false
+gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
 gem 'browser'
 gem 'connection_pool'

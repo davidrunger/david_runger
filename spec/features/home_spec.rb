@@ -25,7 +25,7 @@ RSpec.describe 'Home page' do
       )
   end
 
-  it 'says "David Runger / Full stack web developer", creates `Request`, fetches IP info' do
+  it 'says "David Runger", creates a `Request`, & fetches IP info', :prerendering_disabled do
     spec_start_time = Time.current
 
     expect {
