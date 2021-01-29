@@ -100,7 +100,6 @@ jobs:
           bundler-cache: true
         env:
           BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
-      - run: gem install addressable aws-sdk-s3 ferrum
       - name: Prerender page(s) and upload them to S3
         run: bin/prerender
         env:

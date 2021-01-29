@@ -1,11 +1,15 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'rubygems'
+require 'bundler'
+Bundler.setup(:default, :test)
+
 require 'addressable'
 require 'aws-sdk-s3'
 require 'dotenv/load' if ENV['CI'] != 'true'
 require 'ferrum'
-require 'fileutils'
+require 'nokogiri'
 
 class Prerenderer
   def initialize
@@ -29,9 +33,21 @@ class Prerenderer
     Aws::S3::Resource.new(region: ENV['S3_REGION']).
       bucket(ENV['S3_BUCKET']).
       object("prerenders/#{filename}").
-      put(body: "<!DOCTYPE html>\n#{html}")
+      put(body: html_for_prerendering(html))
   rescue => error
     puts("Error uploading object: #{error.inspect}")
+  end
+
+  def html_for_prerendering(html)
+    html_doc = Nokogiri::HTML(html)
+    recharge_spent_devicon_css_preloader(html_doc)
+    html_doc.to_s
+  end
+
+  def recharge_spent_devicon_css_preloader(html_doc)
+    spent_css_preloader =
+      html_doc.css(%(head link[rel=stylesheet][onload*="this.rel='stylesheet'"][href*=devicon]))
+    spent_css_preloader.attribute('rel', 'preload')
   end
 end
 

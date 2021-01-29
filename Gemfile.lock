@@ -187,6 +187,7 @@ GEM
       activesupport
     childprocess (3.0.0)
     climate_control (0.2.0)
+    cliver (0.3.2)
     cloudflare-rails (1.1.0)
       httparty
       rails (>= 5.0, < 6.2.0)
@@ -235,6 +236,11 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (1.0.0)
       faraday (~> 1.0)
+    ferrum (0.9)
+      addressable (~> 2.5)
+      cliver (~> 0.3)
+      concurrent-ruby (~> 1.1)
+      websocket-driver (>= 0.6, < 0.8)
     ffi (1.14.2)
     fixture_builder (0.5.2)
       activerecord (>= 2)
@@ -590,6 +596,7 @@ DEPENDENCIES
   active_actions!
   active_model_serializers
   activeadmin
+  addressable
   amazing_print
   annotate
   aws-sdk-s3
@@ -614,6 +621,7 @@ DEPENDENCIES
   faker
   faraday
   faraday_middleware
+  ferrum
   fixture_builder
   flamegraph
   flipper
@@ -632,6 +640,7 @@ DEPENDENCIES
   lograge
   memoist
   newrelic_rpm
+  nokogiri
   oj
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
