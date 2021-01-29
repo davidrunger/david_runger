@@ -75,6 +75,7 @@ group :development do
 end
 
 group :test do
+  gem 'addressable'
   gem 'brakeman', require: false
   gem 'capybara'
   gem 'climate_control'
@@ -82,10 +83,12 @@ group :test do
   gem 'database_consistency', require: false
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'ferrum'
   gem 'fixture_builder'
   gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   gem 'json-schema'
   gem 'launchy'
+  gem 'nokogiri'
   gem 'pallets'
   gem 'percy-capybara'
   gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
