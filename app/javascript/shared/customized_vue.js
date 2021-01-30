@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import whenDomReady from 'when-dom-ready';
 
-import Modal from 'components/modal.vue';
 import 'shared/common';
 import titleMixin from 'lib/mixins/title_mixin';
 
@@ -14,8 +13,6 @@ export function renderApp(vueApp) {
   app.config.globalProperties.bootstrap = window.davidrunger && window.davidrunger.bootstrap;
 
   app.mixin(titleMixin);
-
-  app.component('Modal', Modal);
 
   const _renderApp = () => {
     document.body.appendChild(document.createElement('replaced-container'));
