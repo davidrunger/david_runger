@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { createApp } from 'vue';
-import { createStore, createLogger } from 'vuex';
-import { sync } from 'vuex-router-sync';
 import whenDomReady from 'when-dom-ready';
 
 import Modal from 'components/modal.vue';
@@ -14,7 +12,7 @@ if (csrfMetaTag) {
   axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
 }
 
-export function renderApp(vueApp, { router, storeDefinition } = {}) {
+export function renderApp(vueApp) {
   const app = createApp(vueApp);
 
   app.config.devtools = window.davidrunger && (window.davidrunger.env === 'development');
@@ -24,23 +22,6 @@ export function renderApp(vueApp, { router, storeDefinition } = {}) {
   app.config.globalProperties.$http = axios;
 
   app.mixin(titleMixin);
-
-  if (router) {
-    app.use(router);
-  }
-
-  if (storeDefinition) {
-    const store = createStore({
-      ...storeDefinition,
-      // log Vuex updates to console since Vue Chrome extension doesn't yet support Vuex in Vue 3
-      plugins: (process.env.NODE_ENV === 'development') ? [createLogger()] : [],
-    });
-    app.use(store);
-
-    if (router) {
-      sync(store, router);
-    }
-  }
 
   app.component('Modal', Modal);
 
