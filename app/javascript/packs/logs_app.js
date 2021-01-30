@@ -1,6 +1,7 @@
 import { renderApp } from 'shared/customized_vue';
 import { createStore, createLogger } from 'vuex';
 import { sync } from 'vuex-router-sync';
+import { useAxios } from 'shared/axios';
 import { useElementPlus } from 'shared/element_plus';
 import LogApp from 'logs/logs.vue';
 import storeDefinition from 'logs/store';
@@ -11,6 +12,7 @@ const app = renderApp(LogApp, {
   storeDefinition,
 });
 
+useAxios(app);
 useElementPlus(app);
 
 const store = createStore({
