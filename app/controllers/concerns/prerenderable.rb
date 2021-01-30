@@ -6,7 +6,9 @@ module Prerenderable
   def serve_prerender_with_fallback(filename:, &fallback)
     prerendered_html = prerendered_html(filename)
     if prerendered_html
-      render html: prerendered_html.html_safe, layout: false # rubocop:disable Rails/OutputSafety
+      # rubocop:disable Rails/OutputSafety
+      render html: html_with_webp_class_if_chrome(prerendered_html).html_safe, layout: false
+      # rubocop:enable Rails/OutputSafety
     else
       instance_eval(&fallback)
     end
@@ -26,14 +28,7 @@ module Prerenderable
         bucket(ENV['S3_BUCKET']).
         object("prerenders/#{filename}").
         get.body.read.
-        yield_self do |html|
-          case Rails.env
-          when 'development'
-            # convert relative asset paths to absolute paths pointing to davidrunger.com
-            html.gsub(%r{(href|src)="/packs/}, '\1="https://davidrunger.com/packs/')
-          else html
-          end
-        end
+        yield_self { html_with_absolutized_asset_paths(_1) }
     rescue Aws::S3::Errors::NoSuchKey => error
       log_warning(error)
       nil
@@ -45,6 +40,23 @@ module Prerenderable
       end
       nil
     end
+  end
+
+  def html_with_absolutized_asset_paths(html)
+    if Rails.env.development?
+      # convert relative asset paths to absolute paths pointing to davidrunger.com
+      html.gsub!(%r{(href|src)="/packs/}, '\1="https://davidrunger.com/packs/')
+    end
+
+    html
+  end
+
+  def html_with_webp_class_if_chrome(html)
+    if browser.chrome?
+      html.sub!('<html>', '<html class="webp">')
+    end
+
+    html
   end
 
   def log_warning(error)

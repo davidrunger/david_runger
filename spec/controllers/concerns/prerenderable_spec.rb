@@ -47,7 +47,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
               'https://david-runger-test-uploads.s3.amazonaws.com/prerenders/home.html',
             ).to_return(status: 200, headers: {}, body: <<~HTML)
               <!doctype html>
-              <html lang="en">
+              <html>
                 <head>
                   <meta charset="utf-8">
                   <title>Title</title>
@@ -62,6 +62,27 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           it 'serves the prerendered page' do
             get_index
             expect(response.body).to have_text(page_text)
+          end
+
+          context 'when the browser is Chrome' do
+            let(:chrome_88_user_agent) do
+              <<~USER_AGENT.squish
+                Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36
+              USER_AGENT
+            end
+
+            before do
+              request.headers['User-Agent'] = chrome_88_user_agent
+
+              browser = Browser.new(chrome_88_user_agent)
+              expect(browser).to be_chrome
+            end
+
+            it 'serves the prerendered page with `html.webp`' do
+              get_index
+              expect(response.body).to have_css('html.webp')
+            end
           end
 
           context 'when Rails.env is "development"' do
