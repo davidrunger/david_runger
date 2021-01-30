@@ -160,6 +160,17 @@ RSpec.configure do |config|
     activate_feature!(:disable_prerendering)
   end
 
+  config.before(:each, :rails_env) do |example|
+    expect(Rails).
+      to receive(:env).
+      at_least(:once).
+      and_return(
+        ActiveSupport::EnvironmentInquirer.new(
+          example.metadata[:rails_env].to_s,
+        ),
+      )
+  end
+
   config.before(:each, type: :controller) do
     # When executed, a Rails middleware will ensure that a `request_id` is set for each request.
     # However, middleware does not run for controller tests.

@@ -85,14 +85,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
             end
           end
 
-          context 'when Rails.env is "development"' do
-            before do
-              expect(Rails).
-                to receive(:env).
-                at_least(:once).
-                and_return(ActiveSupport::EnvironmentInquirer.new('development'))
-            end
-
+          context 'when Rails.env is "development"', rails_env: :development do
             it 'serves the prerendered page' do
               get_index
               expect(response.body).to have_text(page_text)
@@ -137,14 +130,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           end
         end
 
-        context 'when Rails.env is "production"' do
-          before do
-            expect(Rails).
-              to receive(:env).
-              at_least(:once).
-              and_return(ActiveSupport::EnvironmentInquirer.new('production'))
-          end
-
+        context 'when Rails.env is "production"', rails_env: :production do
           it 'logs to Rollbar' do
             expect(Rollbar).to receive(:error).with(
               Aws::Errors::MissingRegionError,
@@ -154,14 +140,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           end
         end
 
-        context 'when Rails.env is "development"' do
-          before do
-            expect(Rails).
-              to receive(:env).
-              at_least(:once).
-              and_return(ActiveSupport::EnvironmentInquirer.new('development'))
-          end
-
+        context 'when Rails.env is "development"', rails_env: :development do
           it 'logs to Rails.logger' do
             expect(Rails.logger).to receive(:warn).with(
               /Could not fetch prerendered content/,

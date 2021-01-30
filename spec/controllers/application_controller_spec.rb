@@ -10,13 +10,7 @@ RSpec.describe ApplicationController, :without_verifying_authorization do
   describe '#current_admin_user' do
     subject(:current_admin_user) { controller.send(:current_admin_user) }
 
-    context 'when Rails.env is "development"' do
-      before do
-        expect(Rails).
-          to receive(:env).
-          and_return(ActiveSupport::EnvironmentInquirer.new('development'))
-      end
-
+    context 'when Rails.env is "development"', rails_env: :development do
       context 'when the `automatic_admin_login` flag is enabled' do
         before { activate_feature!(:automatic_admin_login) }
 
