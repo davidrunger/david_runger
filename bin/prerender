@@ -10,6 +10,7 @@ require 'aws-sdk-s3'
 require 'dotenv/load' if ENV['CI'] != 'true'
 require 'ferrum'
 require 'nokogiri'
+require 'pry-byebug' if ENV['CI'] != 'true'
 
 class Prerenderer
   def initialize
@@ -20,7 +21,7 @@ class Prerenderer
     url = Addressable::URI.parse(url)
     url.query_values = (url.query_values || {}).merge(prerender: 'true')
     @browser.goto(url.to_s)
-    upload_prerender_to_s3(filename: filename, html: @browser.body)
+    upload_prerender_to_s3(filename: filename, html: "<!DOCTYPE html>\n#{@browser.body}")
   end
 
   def quit_browser
@@ -41,11 +42,7 @@ class Prerenderer
   def html_for_prerendering(html)
     html_doc = Nokogiri::HTML(html)
     recharge_spent_devicon_css_preloader(html_doc)
-
-    <<~HTML
-      <!DOCTYPE html>
-      #{html_doc}
-    HTML
+    html_doc.to_s
   end
 
   def recharge_spent_devicon_css_preloader(html_doc)
