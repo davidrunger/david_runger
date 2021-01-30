@@ -35,3 +35,12 @@ export default {
   },
 };
 </script>
+
+<style>
+.el-collapse,
+.el-collapse-item__header,
+.el-collapse-item__wrap {
+  background: initial;
+  border: none;
+}
+</style>
