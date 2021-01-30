@@ -40,15 +40,20 @@ class Prerenderer
   end
 
   def html_for_prerendering(html)
-    html_doc = Nokogiri::HTML(html)
-    recharge_spent_devicon_css_preloader(html_doc)
-    html_doc.to_s
+    @html_doc = Nokogiri::HTML(html)
+    recharge_spent_devicon_css_preloader
+    remove_webp_class
+    @html_doc.to_s
   end
 
-  def recharge_spent_devicon_css_preloader(html_doc)
+  def recharge_spent_devicon_css_preloader
     spent_css_preloader =
-      html_doc.css(%(head link[rel=stylesheet][onload*="this.rel='stylesheet'"][href*=devicon]))
+      @html_doc.css(%(head link[rel=stylesheet][onload*="this.rel='stylesheet'"][href*=devicon]))
     spent_css_preloader.attribute('rel', 'preload')
+  end
+
+  def remove_webp_class
+    @html_doc.css('html').remove_class('webp')
   end
 end
 
