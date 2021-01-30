@@ -94,7 +94,7 @@ const actions = {
   },
 
   deleteLastLogEntry({ commit }, { log }) {
-    const lastLogEntry = _(log.log_entries).sortBy('created_at').last();
+    const lastLogEntry = _.last(_.sortBy(log.log_entries, 'created_at'));
     axios.
       delete(Routes.api_log_entry_path({
         id: lastLogEntry.id,

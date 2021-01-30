@@ -91,7 +91,7 @@ const getters = {
     if (!state.stores) return null;
 
     return (
-      _(state.stores).filter('viewed_at').sortBy(['viewed_at']).last() ||
+      _.last(_.sortBy(_.filter(state.stores, 'viewed_at'), 'viewed_at')) ||
       state.stores[0]
     );
   },
