@@ -26,7 +26,9 @@ div.font-nunito
         a.nav-link(href='#contact')
           span.ptb-1 Contact
     a.down-arrow-container.center.circle.mb3(href='#about')
-      el-icon(name='arrow-down')
+      //- hat tip to https://codepen.io/postor/pen/mskxI for a starting point for this
+      svg(class='arrow')
+        path(d='M0 0 L12 12 L24 0')
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-1
@@ -506,5 +508,18 @@ p:first-of-type {
     color: white;
     transition: 0.3s;
   }
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: 7px;
+}
+
+.arrow path {
+  stroke: #333;
+  fill: transparent;
+  stroke-width: 2px;
 }
 </style>
