@@ -78,8 +78,10 @@ group :test do
   gem 'addressable'
   gem 'brakeman', require: false
   gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'climate_control'
   gem 'codecov', require: false
+  gem 'cuprite'
   gem 'database_consistency', require: false
   gem 'factory_bot_rails'
   gem 'faker'
@@ -95,7 +97,6 @@ group :test do
   gem 'rspec-instafail', require: false
   gem 'rspec_performance_summary', require: false, github: 'davidrunger/rspec_performance_summary'
   gem 'rspec-rails'
-  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'super_diff'
   gem 'webmock'

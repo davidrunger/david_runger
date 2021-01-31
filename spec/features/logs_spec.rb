@@ -150,7 +150,7 @@ RSpec.describe 'Logs app' do
           expect(page).to have_text(log.log_entries.first!.data)
 
           publish_new_log_entry
-          expect(page).to have_text(new_log_entry_text)
+          expect(page).to have_text(new_log_entry_text, wait: 5)
         end
       end
     end

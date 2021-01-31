@@ -24,9 +24,12 @@ RSpec.describe 'Quizzes app' do
 
       participant_name = 'Jessica'
       expect(page).not_to have_text(participant_name)
+
       Capybara.using_session('Quiz participant session') do
+        visit(quiz_path)
         sign_in(participant)
         visit(quiz_path)
+
         fill_in('display_name', with: participant_name)
         click_button('Join the quiz!')
       end

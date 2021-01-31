@@ -24,6 +24,8 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'capybara/cuprite'
+require 'capybara-screenshot/rspec'
 require 'active_support/cache/mem_cache_store'
 require 'sidekiq/testing'
 require 'mail'
@@ -40,8 +42,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 OmniAuth.config.test_mode = true
 
 Capybara.register_driver(:chrome_headless) do |app|
-  options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  Capybara::Cuprite::Driver.new(app, process_timeout: 10, inspector: false, headless: true)
 end
 Capybara.default_driver = :chrome_headless
 Capybara.javascript_driver = :chrome_headless
