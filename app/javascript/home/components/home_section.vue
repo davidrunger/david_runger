@@ -1,7 +1,7 @@
 <template lang='pug'>
 .section-container.relative.bg-white.flex.justify-center(:class='section', ref='root')
   .anchor-target(:id='section')
-  section.p3(:data-section='section')
+  section.py3.px1(:data-section='section')
     .js-scroll-hook.absolute(style='top: 25vh; bottom: 0;')
     Header(v-if='!renderHeadingManually', :title='title')
     slot(:title='title')
@@ -10,7 +10,7 @@
 <script>
 import { h } from 'vue';
 
-export const Header = props => h('h1', { class: 'h1 bold mt0 mb2' }, props.title);
+export const Header = props => h('h1', { class: 'h1 bold mt0 mb3' }, props.title);
 Header.props = ['title'];
 
 export default {
@@ -39,16 +39,17 @@ export default {
 @import '~css/variables';
 
 section {
-  width: 850px;
+  width: 100%;
+  max-width: 850px;
+
+  @media screen and (min-width: 600px) {
+    padding: var(--space-3);
+  }
 }
 
 // semi-hacky way to make scroll position account for header space
 .anchor-target {
   position: relative;
   bottom: $header-height;
-
-  @media screen and (max-width: $small-screen-breakpoint) {
-    bottom: 0;
-  }
 }
 </style>

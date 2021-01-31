@@ -1,5 +1,5 @@
 <template lang='pug'>
-.monospace
+#app-root.sans-serif
   #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.bg-black
     .spacer.flex-grow-1
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
@@ -8,7 +8,7 @@
       #headline-name.monospace.font-blue-light.pb-5.mb-5.border-bottom.border-gray.pb-2
         span David Runger
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
-    header#header.fixed-top.flex-grow-1.flex.bg-black.col-12.relative
+    header#header.flex-grow-1.flex.bg-black.col-12.relative
       .font-size-2.js-link.js-scroll-top.ml3
         a#logo.monospace.font-blue-light.opacity-animated.opacity-0(
           href='#home',
@@ -43,13 +43,13 @@
 
           p.
             I love the Ruby programming language, the Rails web development framework, and the RSpec
-            testing library. These are well-designed tools (with healthy supporting ecosystems) that
+            testing library. These are well-designed tools with strong supporting ecosystems that
             allow me to work efficiently and to have fun doing it.
           p.
-            Previously, I've been a software engineer and support engineer at
+            I've been a software engineer and support engineer at
             #[a(href='https://hired.com') Hired], a web development bootcamp teaching assistant at
-            #[a(href='http://www.appacademy.io') App Academy], a high school math teacher, a public
-            bus driver, and a long haul truck driver.
+            #[a(href='http://www.appacademy.io') App&nbsp;Academy], a high school math teacher, a
+            public bus driver, and a long haul truck driver.
 
         .flex-1
           PerformantImage(imageClass='about-image' alt='A picture of me' lazy=true)
@@ -160,7 +160,7 @@
             span.
               I #[em.italic love] testing. RSpec makes tests readable and easy to write.
           template(v-slot:image)
-            PerformantImage(alt='RSpec' imageStyle='height: 65px' lazy=true)
+            PerformantImage(alt='RSpec' lazy=true)
               source(type='png' src='~img/rspec.png')
         SkillRow(
           name='Ruby'
@@ -187,17 +187,15 @@
         )
           template(v-slot:details)
             span.
-              I think that Vue is one of the best client-side frameworks/libraries out there, and I
-              hope that its popularity continues to grow. I keep track of my grocery list using
-              #[a(:href='$routes.groceries_path()') an app that I built with Vue].
+              I think that Vue is one of the best client-side libraries out there, and I hope that
+              its popularity continues to grow.
         SkillRow(
           name='Webpack'
         )
           template(v-slot:details)
             span.
-              A versatile and powerful build tool for all-things client-side.
-              #[span.monospace webpack‑dev‑server] and hot code reloading really enhance the
-              development experience.
+              A versatile and powerful build tool for all-things client-side. Hot code reloading
+              really enhances the development experience.
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-1
@@ -211,10 +209,6 @@
       template(v-slot:links)
         div
           a(:href='$routes.groceries_path()') Live
-          span #{' - '}
-          a(
-            href='https://github.com/davidrunger/david_runger/tree/master/app/javascript/groceries'
-          ) GitHub
       template(v-slot:image)
         PerformantImage(alt='Groceries app' lazy=true)
           source(type='jpg' src='~img/groceries.jpg')
@@ -382,10 +376,28 @@ export default {
 <style lang='scss' scoped>
 @import '~css/variables';
 
+#app-root {
+  letter-spacing: 0.2px;
+  font-weight: 300;
+
+  @media (max-width: 750px) {
+    font-size: 15px;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 14px;
+  }
+}
+
+:deep(b) {
+  font-weight: 600;
+}
+
 p,
-ul {
+ul,
+:deep(td) {
   margin: 15px auto;
-  line-height: 20px;
+  line-height: 25px;
 }
 
 p:first-of-type {
@@ -402,6 +414,8 @@ p:first-of-type {
 .project {
   ul {
     list-style: initial;
+    padding-inline-start: 0;
+    padding-left: 0;
 
     li {
       margin: 4px 0 4px 20px;
@@ -417,7 +431,7 @@ p:first-of-type {
   font-size: 80px;
 
   @media screen and (max-width: $small-screen-breakpoint) {
-    font-size: 40px;
+    font-size: 65px;
   }
 }
 
