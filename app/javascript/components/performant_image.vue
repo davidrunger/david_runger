@@ -4,7 +4,6 @@ div
   img(v-else
     :src='(canUseWebp && webpImageUrl) ? webpImageUrl : originalImageUrl'
     :class='imageClass'
-    :style='imageStyle'
     :alt='alt'
     @load='emitGlobalLoadEvent'
   )
@@ -47,10 +46,6 @@ export default {
       required: true,
     },
     imageClass: {
-      type: String,
-      required: false,
-    },
-    imageStyle: {
       type: String,
       required: false,
     },

@@ -65,18 +65,32 @@ export default {
 
 i[class^=devicon-] {
   font-size: 65px;
+
+  @media (max-width: 550px) {
+    font-size: 45px;
+  }
 }
 
-tr:not(:first-child) {
+tr:not(:first-child) td {
   border-top: 1px solid $gray-lighter;
 }
 
 td {
-  margin: 10px 0;
-  padding: 0 10px;
+  padding: 10px;
   height: 75px;
   vertical-align: middle;
-  line-height: 20px;
+
+  :deep(img) {
+    width: 65px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 10px 4px;
+
+    :deep(img) {
+      width: 50px;
+    }
+  }
 }
 
 td:nth-child(2) {

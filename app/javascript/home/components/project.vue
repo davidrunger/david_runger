@@ -2,7 +2,7 @@
 .mt2
   .card
     .card__body
-      .project.py1.px3
+      .project.p1
         h2.h2.center.mb1
           slot(name='title')
         .center.gray.mb1
