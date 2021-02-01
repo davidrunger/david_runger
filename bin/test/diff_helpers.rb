@@ -17,8 +17,8 @@ module DiffHelpers
   end
 
   memoize \
-  def diff_mentions_rubocop?
-    diff.match?(%r{rubocop}i)
+  def diff_mentions?(phrase)
+    diff.match?(%r{#{phrase}}i)
   end
 
   memoize \
