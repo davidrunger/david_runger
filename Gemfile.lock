@@ -1,11 +1,11 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 31160ce467fd5023ce92fc4594b99bedfaf1207d
+  revision: 010558bc789d56182770f6d724db2d1407115f06
   specs:
-    active_actions (0.15.1.alpha)
+    active_actions (0.16.1.alpha)
       memoist (~> 0.16)
       rails (~> 6.0)
-      shaped (~> 0.7.0)
+      shaped (~> 0.8.0)
 
 GIT
   remote: https://github.com/davidrunger/guard-espect.git
@@ -522,7 +522,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.1)
-    shaped (0.7.3)
+    shaped (0.8.0)
       activemodel (~> 6.0)
       activesupport (~> 6.0)
     shellany (0.0.1)
