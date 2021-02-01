@@ -77,10 +77,17 @@ const actions = {
   },
 
   zeroItems(_context, { items }) {
-    items.forEach((item) => {
-      item.needed = 0;
-      axios.patch(Routes.api_item_path(item.id), { item: { needed: 0 } });
-    });
+    items.forEach(item => { item.needed = 0; });
+
+    axios.post(
+      Routes.api_items_bulk_update_index_path(),
+      {
+        bulk_update: {
+          item_ids: items.map(item => item.id),
+          attributes_change: { needed: 0 },
+        },
+      },
+    );
   },
 };
 
