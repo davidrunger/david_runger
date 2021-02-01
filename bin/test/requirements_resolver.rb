@@ -157,17 +157,20 @@ class Test::RequirementsResolver
 
   CHECK_CAN_BE_SKIPPED_CONDITIONS = {
     Test::Tasks::BuildFixtures => proc { running_locally? },
-    Test::Tasks::RunAnnotate => proc { !db_schema_changed? },
+    Test::Tasks::RunAnnotate => proc { !db_schema_changed? && !diff_mentions?('annotate') },
     Test::Tasks::RunBrakeman => proc {
-      !(haml_files_changed? || ruby_files_changed?) || running_locally?
+      (!(haml_files_changed? || ruby_files_changed?) || running_locally?) &&
+        !diff_mentions?('brakeman')
     },
-    Test::Tasks::RunDatabaseConsistency => proc { !db_schema_changed? },
-    Test::Tasks::RunEslint => proc { !files_with_js_changed? },
-    Test::Tasks::RunImmigrant => proc { !db_schema_changed? },
+    Test::Tasks::RunDatabaseConsistency => proc {
+      !db_schema_changed? && !diff_mentions?('database_consistency')
+    },
+    Test::Tasks::RunEslint => proc { !files_with_js_changed? && !diff_mentions?('eslint') },
+    Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
     Test::Tasks::RunRubocop => proc {
-      !(ruby_files_changed? || rubocop_files_changed? || diff_mentions_rubocop?)
+      !ruby_files_changed? && !rubocop_files_changed? && !diff_mentions?('rubocop')
     },
-    Test::Tasks::RunStylelint => proc { !files_with_css_changed? },
+    Test::Tasks::RunStylelint => proc { !files_with_css_changed? && !diff_mentions?('stylelint') },
     Test::Tasks::SetupDb => proc { running_locally? },
     Test::Tasks::YarnInstall => proc { running_locally? },
   }.freeze
