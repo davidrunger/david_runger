@@ -15,7 +15,7 @@ export function renderApp(vueApp) {
   app.mixin(titleMixin);
 
   const _renderApp = () => {
-    app.mount('.container');
+    app.mount('#container');
   };
 
   whenDomReady(() => {

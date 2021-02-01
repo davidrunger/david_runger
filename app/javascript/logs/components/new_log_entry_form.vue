@@ -10,13 +10,15 @@ div
         :key='logEntryValue'
         @click='postNewLogEntry(logEntryValue)'
       ) {{logEntryValue}}
-    el-input.new-log-input.mb1(
-      :placeholder='log.data_label'
-      v-model='newLogEntryData'
-      name='log.data_label'
-      ref='log-input'
-      :type='inputType'
-    )
+    .flex.justify-center
+      .container
+        el-input.new-log-input.mb1(
+          :placeholder='log.data_label'
+          v-model='newLogEntryData'
+          name='log.data_label'
+          ref='log-input'
+          :type='inputType'
+        )
     el-date-picker.mb1.mr1(
       v-model='newLogEntryCreatedAt'
       type='datetime'
