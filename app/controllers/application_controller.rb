@@ -4,6 +4,7 @@
 # We are getting some ignorable warnings about :reek:InstanceVariableAssumption
 class ApplicationController < ActionController::Base
   include Bootstrappable
+  include BrowserSupportCheckable
   include ContainerClassable
   include HashidRequireable
   include Pundit
