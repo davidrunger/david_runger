@@ -18,9 +18,9 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/rspec_performance_summary.git
-  revision: 37ad60314e4bc35a1c3ec699634c95edaf38f1ba
+  revision: 7e1a0c63bc1f4118073f16745ce0c05afa4fde59
   specs:
-    rspec_performance_summary (0.1.5)
+    rspec_performance_summary (0.1.8.alpha)
       rspec-core (~> 3.0)
 
 GIT
@@ -489,7 +489,7 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
-    rspec-support (3.10.1)
+    rspec-support (3.10.2)
     rubocop (1.8.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
