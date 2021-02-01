@@ -17,9 +17,12 @@ RSpec.describe 'Rack::Attack', :rack_test_driver do
 
     context 'when -- two times in one day -- a user requests paths with banned segments' do
       subject(:request_two_banned_paths) do
-        visit('/wp')
-        visit('/wordpress')
+        visit(banned_path_1)
+        visit(banned_path_2)
       end
+
+      let(:banned_path_1) { BannedPathFragment.first!.value }
+      let(:banned_path_2) { BannedPathFragment.second!.value }
 
       it 'bans the user from visiting any page', :prerendering_disabled do
         expect {

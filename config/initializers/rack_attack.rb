@@ -1,23 +1,7 @@
 # frozen_string_literal: true
 
 class Rack::Attack
-  BANNED_PATH_FRAGMENTS = Set.new(%w[
-    administrator
-    env
-    git
-    old-wp
-    passwd
-    php
-    phpformbuilder
-    phpmyadmin
-    phpmyadmin
-    phpunit
-    plugins
-    wordpress
-    wp
-    wp1
-    wp2
-  ].map(&:freeze)).freeze
+  PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_}.freeze
   PENTESTERS_PREFIX = 'pentesters-'
   PENTESTING_FINDTIME = 1.day.freeze
 
@@ -32,17 +16,23 @@ class Rack::Attack
     extend Memoist
 
     memoize \
+    def banned_path_fragments
+      # rescue because sometimes the database might not even exist yet, e.g. during tests
+      Set.new((BannedPathFragment.pluck(:value) rescue []).map(&:freeze)).freeze
+    end
+
+    memoize \
     def blocked_ips
       # rescue because sometimes the database might not even exist yet, e.g. during tests
       Set.new((IpBlock.pluck(:ip) rescue []).map(&:freeze)).freeze
     end
 
     def blocked_path?(request)
-      fragments = request.path.split(%r{/|\.|\?|-})
+      fragments = request.path.split(PATH_FRAGMENT_SEPARATOR_REGEX)
       fragments.map!(&:presence)
       fragments.compact!
       fragments.any? do |fragment|
-        fragment.downcase.in?(Rack::Attack::BANNED_PATH_FRAGMENTS)
+        fragment.downcase.in?(Rack::Attack.banned_path_fragments)
       end && !Rails.application.routes.recognize_path_with_request(
         ActionDispatch::Request.new(request.env),
         request.path,
@@ -56,6 +46,7 @@ end
 Rails.application.reloader.to_prepare do
   # Trigger memoization during bootup (rather than waiting until first request is made).
   # Do it within a `reloader.to_prepare` block to avoid warning about autoloading constants.
+  Rack::Attack.banned_path_fragments
   Rack::Attack.blocked_ips
 end
 
