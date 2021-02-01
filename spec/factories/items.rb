@@ -18,7 +18,15 @@
 
 FactoryBot.define do
   factory :item do
-    name { 'milk' }
-    needed { 1 }
+    name { Faker::Food.unique.ingredient }
+    needed { rand(2) }
+
+    trait :needed do
+      needed { rand(1..8) }
+    end
+
+    trait :unneeded do
+      needed { 0 }
+    end
   end
 end
