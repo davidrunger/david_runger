@@ -73,6 +73,10 @@ FixtureBuilder.configure do |fbuilder|
     # IP blocks
     name(:ip_block, create(:ip_block))
 
+    # banned path fragments
+    create(:banned_path_fragment, value: 'wp')
+    create(:banned_path_fragment, value: 'wordpress')
+
     # quizzes
     quiz = create(:quiz, owner: admin)
 

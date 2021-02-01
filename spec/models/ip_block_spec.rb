@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe IpBlock, type: :model do
+RSpec.describe IpBlock do
   subject(:ip_block) { IpBlock.new }
 
   it { is_expected.to validate_presence_of(:ip) }

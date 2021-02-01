@@ -63,6 +63,7 @@ RSpec.describe 'Home page' do
       Full stack web developer
     HEADLINE
 
+    sleep(2) # allow some extra time for CSS `background-image`s to load and be rendered
     Percy.snapshot(page, { name: 'Homepage' })
 
     expect(ip_info_request_stub).to have_been_requested
