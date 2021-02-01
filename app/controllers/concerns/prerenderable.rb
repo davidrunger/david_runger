@@ -7,7 +7,7 @@ module Prerenderable
     prerendered_html = prerendered_html(filename)
     if prerendered_html
       # rubocop:disable Rails/OutputSafety
-      render html: html_with_webp_class_if_chrome(prerendered_html).html_safe, layout: false
+      render html: html_with_webp_class_if_supported(prerendered_html).html_safe, layout: false
       # rubocop:enable Rails/OutputSafety
     else
       instance_eval(&fallback)
@@ -51,8 +51,8 @@ module Prerenderable
     html
   end
 
-  def html_with_webp_class_if_chrome(html)
-    if browser.chrome?
+  def html_with_webp_class_if_supported(html)
+    if browser_support_checker.supports_webp?
       html.sub!('<html>', '<html class="webp">')
     end
 
