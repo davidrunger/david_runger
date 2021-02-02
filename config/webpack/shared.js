@@ -2,8 +2,9 @@ const webpack = require('webpack');
 const { basename, dirname, join, relative, resolve } = require('path');
 const { sync } = require('glob');
 const extname = require('path-complete-extname');
-const { settings } = require('./configuration.js');
 const { VueLoaderPlugin } = require('vue-loader');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const { settings } = require('./configuration.js');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
@@ -61,6 +62,7 @@ module.exports = {
       /element-plus[/\\]lib[/\\]locale[/\\]lang[/\\]zh-CN/,
       'element-plus/lib/locale/lang/en',
     ),
+    new MomentLocalesPlugin(),
   ],
 
   resolve: {
