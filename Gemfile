@@ -9,6 +9,7 @@ gem 'active_model_serializers'
 gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
 gem 'browser'
+gem 'chartkick'
 gem 'connection_pool'
 gem 'dalli'
 gem 'devise'

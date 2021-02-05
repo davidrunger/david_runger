@@ -125,6 +125,12 @@ RSpec.configure do |config|
     Rails.cache = original_rails_cache
   end
 
+  config.around(:each, :frozen_time) do |spec|
+    freeze_time
+    spec.run
+    travel_back
+  end
+
   config.define_derived_metadata(file_path: %r{/spec/controllers/api/}) do |metadata|
     # we leverage this metadata for the `config.before(:each, request_format: :json)` setting below
     metadata[:request_format] = :json
@@ -143,6 +149,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Rack::Attack.reset!
+    $redis_pool.with { |conn| conn.flushdb } # rubocop:disable Style/SymbolProc
   end
 
   config.before(:each, request_format: :json) do
