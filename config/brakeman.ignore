@@ -41,6 +41,26 @@
       "note": "False positive"
     },
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "89537a2fd2bfdb7ade9a62cadf34792a41454170023f10f050ac866d17163058",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/workers/track_asset_sizes.rb",
+      "line": 63,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`wc -c < #{full_glob}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TrackAssetSizes",
+        "method": "track_filesize"
+      },
+      "user_input": "full_glob",
+      "confidence": "Medium",
+      "note": "False positive"
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "c019346622be6e914674a02397a41e3dea2be4d13cd835c06e34e6583811ca70",
@@ -161,6 +181,6 @@
       "note": "False positive"
     }
   ],
-  "updated": "2021-02-01 14:07:41 -0800",
+  "updated": "2021-02-05 06:19:23 -0800",
   "brakeman_version": "5.0.0"
 }

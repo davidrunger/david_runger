@@ -60,7 +60,7 @@ class TrackAssetSizes
   private
 
   def track_filesize(glob, full_glob)
-    filesize_string = (OS.mac? ? `stat -f%z #{full_glob}` : `du --bytes #{full_glob}`).rstrip
+    filesize_string = `wc -c < #{full_glob}`.strip
     filesize = Integer(filesize_string)
     RedisTimeseries[glob].add(filesize)
   end
