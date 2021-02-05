@@ -21,6 +21,26 @@
       "note": "False positive"
     },
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "590fa82489eb8a2a82ad113c88eacfdc23296b67625bec2ae7fb1a6e67be1c71",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/workers/track_asset_sizes.rb",
+      "line": 63,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`wc -c < $(ls #{full_glob})`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TrackAssetSizes",
+        "method": "track_filesize"
+      },
+      "user_input": "full_glob",
+      "confidence": "Medium",
+      "note": "False positive"
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "616431b6208e4fbf3c93282db8295303771f3a1f015931f5cc22c2d6e4c63e2f",
@@ -38,26 +58,6 @@
       },
       "user_input": "params[:quiz_id]",
       "confidence": "Weak",
-      "note": "False positive"
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "89537a2fd2bfdb7ade9a62cadf34792a41454170023f10f050ac866d17163058",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/workers/track_asset_sizes.rb",
-      "line": 63,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`wc -c < #{full_glob}`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "TrackAssetSizes",
-        "method": "track_filesize"
-      },
-      "user_input": "full_glob",
-      "confidence": "Medium",
       "note": "False positive"
     },
     {
@@ -181,6 +181,6 @@
       "note": "False positive"
     }
   ],
-  "updated": "2021-02-05 06:19:23 -0800",
+  "updated": "2021-02-05 06:50:20 -0800",
   "brakeman_version": "5.0.0"
 }
