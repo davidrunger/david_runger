@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '2.7.2'
+ruby '3.0.0'
 
 gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'activeadmin'
@@ -97,6 +97,5 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
-  gem 'super_diff'
   gem 'webmock'
 end
