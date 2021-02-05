@@ -11,6 +11,7 @@ ActiveAdmin.register(Request) do
     column :auth_token
     column :handler
     column :requested_at
+    column :total
     column :location
     column :isp
     column :pretty_user_agent
