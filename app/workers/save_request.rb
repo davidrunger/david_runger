@@ -86,6 +86,7 @@ class SaveRequest
       user_id
       auth_token_id
       view
+      total
     ]).merge(
       request_id: @request_id,
       requested_at: requested_at,

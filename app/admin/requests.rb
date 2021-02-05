@@ -37,6 +37,7 @@ ActiveAdmin.register(Request) do
       row :status
       row :db
       row :view
+      row :total
       row :request_id
     end
     active_admin_comments

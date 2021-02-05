@@ -1,72 +1,89 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Home page' do
-  let!(:ip_info_request_stub) do
-    stub_request(:get, 'http://ip-api.com/json/127.0.0.1').
-      to_return(
-        status: 200,
-        body: {
-          'status' => 'success',
-          'country' => 'United States',
-          'countryCode' => 'US',
-          'region' => 'CA',
-          'regionName' => 'California',
-          'city' => 'San Diego',
-          'zip' => '92123',
-          'lat' => 32.7967,
-          'lon' => -117.1367,
-          'timezone' => 'America/Los_Angeles',
-          'isp' => 'Spectrum',
-          'org' => 'Charter Communications',
-          'as' => 'AS20001 Charter Communications Inc',
-          'query' => '76.167.213.95', # rubocop:disable Style/IpAddresses
-        }.to_json,
-        headers: { 'content-type' => 'application/json; charset=utf-8' },
-      )
-  end
-
-  it 'says "David Runger", creates a `Request`, & fetches IP info', :prerendering_disabled do
-    spec_start_time = Time.current
-
-    expect {
-      Sidekiq::Testing.inline! do
-        visit root_path
-      end
-    }.to change {
-      Request.where('requests.requested_at > ?', spec_start_time).map(&:attributes)
-    }.from([]).to([
-      {
-        'id' => Integer,
-        'admin_user_id' => nil,
-        'user_id' => nil,
-        'auth_token_id' => nil,
-        'url' => %r{http://127.0.0.1:\d+/},
-        'handler' => 'home#index',
-        'referer' => nil,
-        'params' => {},
-        'method' => 'GET',
-        'format' => 'html',
-        'status' => 200,
-        'view' => Integer,
-        'db' => Integer,
-        'ip' => '127.0.0.1', # rubocop:disable Style/IpAddresses
-        'user_agent' => /HeadlessChrome/,
-        'requested_at' => Time,
-        'location' => 'San Diego, CA, US',
-        'isp' => 'Spectrum',
-        'request_id' => String,
-      },
-    ])
+RSpec.describe 'Home page', :prerendering_disabled do
+  it 'says "David Runger / Full stack web developer"' do
+    visit root_path
 
     expect(page).to have_text(<<~HEADLINE)
       David Runger
       Full stack web developer
     HEADLINE
 
-    sleep(2) # allow some extra time for CSS `background-image`s to load and be rendered
     Percy.snapshot(page, { name: 'Homepage' })
+  end
 
-    expect(ip_info_request_stub).to have_been_requested
+  # we need to use the :rack_test driver because Chrome doesn't have the page.driver.header method
+  context 'when there is an `X-Request-Start` HTTP header', :rack_test_driver do
+    before { page.driver.header('X-Request-Start', (Time.current.to_f * 1_000.0).round.to_s) }
+
+    context 'when there is a `User-Agent` header' do
+      before { page.driver.header('User-Agent', user_agent) }
+
+      let(:user_agent) { 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)' }
+
+      context 'when Sidekiq jobs are executed' do
+        around { |spec| Sidekiq::Testing.inline! { spec.run } }
+
+        let!(:ip_info_request_stub) do
+          stub_request(:get, 'http://ip-api.com/json/127.0.0.1').
+            to_return(
+              status: 200,
+              body: {
+                'status' => 'success',
+                'country' => 'United States',
+                'countryCode' => 'US',
+                'region' => 'CA',
+                'regionName' => 'California',
+                'city' => 'San Diego',
+                'zip' => '92123',
+                'lat' => 32.7967,
+                'lon' => -117.1367,
+                'timezone' => 'America/Los_Angeles',
+                'isp' => 'Spectrum',
+                'org' => 'Charter Communications',
+                'as' => 'AS20001 Charter Communications Inc',
+                'query' => '76.167.213.95', # rubocop:disable Style/IpAddresses
+              }.to_json,
+              headers: { 'content-type' => 'application/json; charset=utf-8' },
+            )
+        end
+
+        it 'creates a `Request` with a `total` time' do
+          spec_start_time = Time.current
+
+          expect {
+            visit root_path
+          }.to change {
+            Request.where('requests.requested_at > ?', spec_start_time).map(&:attributes)
+          }.from([]).to([
+            {
+              'id' => Integer,
+              'admin_user_id' => nil,
+              'user_id' => nil,
+              'auth_token_id' => nil,
+              'url' => 'http://www.example.com/',
+              'handler' => 'home#index',
+              'referer' => nil,
+              'params' => {},
+              'method' => 'GET',
+              'format' => 'html',
+              'status' => 200,
+              'view' => Integer,
+              'db' => Integer,
+              'total' => Integer,
+              'ip' => '127.0.0.1', # rubocop:disable Style/IpAddresses
+              'user_agent' => user_agent,
+              'requested_at' => Time,
+              'location' => 'San Diego, CA, US',
+              'isp' => 'Spectrum',
+              'request_id' => String,
+            },
+          ])
+
+          expect(ip_info_request_stub).to have_been_requested
+        end
+      end
+    end
   end
 
   # we need to use the :rack_test driver because Chrome doesn't have the page.driver.header method

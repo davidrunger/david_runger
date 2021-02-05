@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_102230) do
+ActiveRecord::Schema.define(version: 2021_02_05_064622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_102230) do
     t.string "request_id", null: false
     t.bigint "auth_token_id"
     t.bigint "admin_user_id"
+    t.integer "total"
     t.index ["admin_user_id"], name: "index_requests_on_admin_user_id"
     t.index ["auth_token_id"], name: "index_requests_on_auth_token_id"
     t.index ["isp"], name: "index_requests_on_isp"
