@@ -19,6 +19,7 @@
 #  request_id    :string           not null
 #  requested_at  :datetime         not null
 #  status        :integer          not null
+#  total         :integer
 #  url           :string           not null
 #  user_agent    :string
 #  user_id       :bigint

@@ -19,6 +19,7 @@
 #  request_id    :string           not null
 #  requested_at  :datetime         not null
 #  status        :integer          not null
+#  total         :integer
 #  url           :string           not null
 #  user_agent    :string
 #  user_id       :bigint
@@ -47,6 +48,7 @@ FactoryBot.define do
     status { 200 }
     view { rand(100) }
     db { rand(100) }
+    total { view + db + rand(100) }
     ip { Faker::Internet.public_ip_v4_address }
     user_agent { Faker::Internet.user_agent }
     requested_at { rand(1..14).days.ago }

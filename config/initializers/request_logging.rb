@@ -27,6 +27,13 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
     status: payload[:status] || (payload[:exception].present? ? 500 : nil),
     view: payload[:view_runtime],
     db: payload[:db_runtime],
+    total:
+      # Heroku adds an `X-Request-Start` header ("unix timestamp (milliseconds) when the request was
+      # received by the router") https://devcenter.heroku.com/articles/http-routing
+      if (request_start_time_in_ms = payload[:headers]['HTTP_X_REQUEST_START'].presence&.to_f)
+        # number of milliseconds (rounded to integer) since the request was received by the router
+        ((Time.current.to_f - request_start_time_in_ms.fdiv(1_000.0)) * 1_000.0).round
+      end,
   }
 
   $redis_pool.with do |conn|
