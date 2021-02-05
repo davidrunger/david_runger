@@ -8,8 +8,7 @@ class Test::Tasks::EnsureLatestChromedriver < Pallets::Task
     if (`chromedriver --version` rescue '').include?(" #{latest_release} ")
       puts("The latest chromedriver release (#{latest_release}) is already installed.")
     else
-      filename =
-        `echo $OSTYPE`.include?('darwin') ? 'chromedriver_mac64.zip' : 'chromedriver_linux64.zip'
+      filename = OS.mac? ? 'chromedriver_mac64.zip' : 'chromedriver_linux64.zip'
       execute_system_command(<<~COMMAND)
         curl -o $(pwd)/tmp/chromedriver.zip
         https://chromedriver.storage.googleapis.com/#{latest_release}/#{filename}

@@ -7,7 +7,11 @@ migrate() {
 
 echo "Purging prerendered pages..."
 bin/rails runner bin/purge-prerendered-pages
-echo "... done purging prerendered pages."
+echo "... done."
+
+echo "Enqueueing job to track asset sizes..."
+bin/rails runner "TrackAssetSizes.perform_in(2.minutes)"
+echo "... done."
 
 # run migrations when deploying to production, but not when deploying a review app
 if [ $HEROKU_PR_NUMBER ]

@@ -6,7 +6,7 @@ RSpec.describe SendLogReminderEmails do
   describe '#perform' do
     subject(:perform) { worker.perform }
 
-    context 'when there is at least one log that is due to have a reminder email sent' do
+    context 'when there is at least one log due to have a reminder email sent', :frozen_time do
       let(:log_needing_reminder) { Log.needing_reminder.first! }
 
       before do
@@ -16,12 +16,6 @@ RSpec.describe SendLogReminderEmails do
           reminder_last_sent_at: nil,
         )
         log.number_log_entries.find_each { _1.update!(created_at: 2.hours.ago) }
-      end
-
-      around do |spec|
-        freeze_time
-        spec.run
-        travel_back
       end
 
       it 'updates the reminder_last_sent_at timestamp (making the log no longer need reminding)' do
