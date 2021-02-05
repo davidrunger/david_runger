@@ -274,7 +274,7 @@ GEM
       shellany (~> 0.0)
       thor (>= 0.18.1)
     guard-compat (1.2.1)
-    hamlit (2.14.3)
+    hamlit (2.14.4)
       temple (>= 0.8.2)
       thor
       tilt
