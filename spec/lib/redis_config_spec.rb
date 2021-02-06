@@ -109,6 +109,21 @@ RSpec.describe RedisConfig do
           expect(get.value).to eq(Integer(value))
         end
       end
+
+      context 'when the value exists in Redis but not the memory store' do
+        before do
+          RedisConfig.set(key_name, value)
+          # this simulates e.g. a value being set in a web server process and then a sidekiq worker
+          # booting up (which will not have a `@values_map` instance variable yet)
+          RedisConfig.instance_variable_set(:@values_map, nil)
+        end
+
+        let(:value) { '81' }
+
+        it 'returns the value correctly typed' do
+          expect(get.value).to eq(Integer(value))
+        end
+      end
     end
   end
 

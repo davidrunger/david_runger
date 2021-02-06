@@ -52,10 +52,13 @@ module RedisConfig
   private
 
   def setting_for(key_name, backup_value = nil)
+    type = types_map[key_name.to_s]
+    raw_value = values_map[key_name.to_s]
+
     RedisConfig::Setting.new(
-      name: key_name,
-      type: types_map[key_name.to_s],
-      value: values_map[key_name] || backup_value,
+      name: key_name.to_s,
+      type: type,
+      value: raw_value.present? ? typed_value(raw_value, type) : backup_value,
     )
   end
 
