@@ -4,7 +4,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
   it 'says "David Runger / Full stack web developer"' do
     visit root_path
 
-    expect(page).to have_text(<<~HEADLINE)
+    expect(page).to have_text(<<~HEADLINE, normalize_ws: false)
       David Runger
       Full stack web developer
     HEADLINE

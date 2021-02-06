@@ -47,6 +47,7 @@ Capybara.javascript_driver = :chrome_headless
 # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
 Capybara.asset_host = "http://localhost:#{(is_ci || !Webpacker.dev_server.running?) ? 3000 : 8080}"
 Capybara.server = :puma, { Silent: true }
+Capybara.default_normalize_ws = true
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
