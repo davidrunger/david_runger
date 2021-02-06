@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+panel 'Setting Details' do
+  attributes_table_for setting do
+    row :name
+    row :type
+    row :value
+  end
+end
