@@ -1,0 +1,12 @@
+- is_new = @setting.name.blank?
+- http_verb = is_new ? :post : :patch
+- url = is_new ? admin_settings_create_path : admin_settings_update_path
+- submit_label = "#{is_new ? 'Create' : 'Update'} Setting"
+
+= semantic_form_for(@setting, url: url, html: { method: http_verb }) do |f|
+  = f.inputs do
+    = f.input :name, label: 'Name'
+    = f.input :type, label: 'Type', as: :select, collection: RedisConfig::TYPES
+    = f.input :value, label: 'Value', required: false
+  = f.actions do
+    = f.action :submit, label: submit_label

@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+table_for(settings, class: 'index_table index') do
+  column(:name) { |setting| link_to(setting.name, admin_settings_show_path(name: setting.name)) }
+  column :type
+  column :value
+  column { |setting| link_to('Edit', admin_settings_edit_path(name: setting.name)) }
+  column do |setting|
+    link_to('Delete', admin_settings_destroy_path(name: setting.name), method: :delete)
+  end
+end
