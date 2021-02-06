@@ -100,7 +100,7 @@ RSpec.describe QuizzesController do
               it 'lists the participants who gave each answer' do
                 get_show
                 expect(response.body).
-                  to have_text(/#{answer.content}\s\(.*#{participation.display_name}.*\)/)
+                  to have_text(/#{answer.content} \(.*#{participation.display_name}.*\)/)
               end
             end
 
@@ -127,7 +127,7 @@ RSpec.describe QuizzesController do
 
                 it 'indicates that the user got a question correct & a subsequent one incorrect' do
                   get_show
-                  expect(response.body).to have_text(/✓\n×/)
+                  expect(response.body).to have_text(/✓ ×/)
                 end
               end
             end

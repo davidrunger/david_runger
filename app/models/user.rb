@@ -41,8 +41,10 @@ class User < ApplicationRecord
 
   devise
 
+  scope :admin, -> { where(email: ADMIN_EMAILS) }
+
   def admin?
-    email.in?(ADMIN_EMAILS)
+    self.class.admin.exists?(id: self)
   end
 
   def sms_usage

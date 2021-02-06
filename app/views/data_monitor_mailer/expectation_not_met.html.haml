@@ -1,0 +1,16 @@
+%div
+  The
+  %code= @check_name
+  check failed to match its expected value. 😰
+
+%div
+  %strong Actual value:
+  = @actual_value
+
+%div
+  %strong Expected value:
+  = @expected_range_string
+
+%div
+  %strong Checked at:
+  = @check_run_at

@@ -13,6 +13,8 @@ production:
 :schedule:
   InvalidRecordsChecker:
     cron: '23 8 * * *' # daily at 8:23am PT
+  DataMonitors::Launcher:
+    cron: '16 2 * * *' # daily at 2:16am PT
   <% if %w[production test].include?(ENV['RAILS_ENV']) %>
   SendLogReminderEmails:
     cron: '* * * * *' # every minute

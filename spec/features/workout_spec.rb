@@ -24,7 +24,7 @@ RSpec.describe 'Workout app' do
       )
 
       # public workouts of others
-      expect(page).to have_text("Others' workouts\nNone")
+      expect(page).to have_text("Others' workouts\nNone", normalize_ws: false)
       expect(page).not_to have_text('Loading')
     end
   end
