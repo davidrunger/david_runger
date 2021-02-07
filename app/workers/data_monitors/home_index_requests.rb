@@ -35,6 +35,6 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
   end
 
   def average_response_time_in_past_day
-    requests_in_past_day.average(:total)
+    requests_in_past_day.average(:total)&.round(1)
   end
 end
