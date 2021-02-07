@@ -163,6 +163,26 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "d0bafcab384b8078c9ca3b28d66093a66c48817618cf4e39bdc158102dc6736a",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/workers/data_monitors/base.rb",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "lock_manager.lock(\"redlock-locks:#{\"#{self.class}##{check_name}\"}:email-alert\", MILLISECONDS_BETWEEN_EMAIL_ALERTS)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "DataMonitors::Base",
+        "method": "verify_data_expectation"
+      },
+      "user_input": "self.class",
+      "confidence": "Weak",
+      "note": "False positive"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "ee8da255976e57b16f2a4d99b376976ee79f419e74c2a6259118655395db94aa",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -181,6 +201,6 @@
       "note": "False positive"
     }
   ],
-  "updated": "2021-02-05 06:50:20 -0800",
+  "updated": "2021-02-06 23:04:41 -0800",
   "brakeman_version": "5.0.0"
 }
