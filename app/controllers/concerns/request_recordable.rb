@@ -31,7 +31,7 @@ module RequestRecordable
 
   memoize \
   def request_data
-    RequestDataBuilder.new(
+    SaveRequest::RequestDataBuilder.new(
       request: request,
       params: params,
       filtered_params: filtered_params,
