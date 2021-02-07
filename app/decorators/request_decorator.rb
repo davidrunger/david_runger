@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RequestDecorator < ApplicationDecorator
+class RequestDecorator < Draper::Decorator
   extend Memoist
 
   delegate_all
