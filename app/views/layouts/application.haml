@@ -22,7 +22,7 @@
       %meta{property: 'og:description', content: @description}
 
     = csrf_meta_tags
-    = nonced_javascript_tag do
+    %script{type: "text/javascript"}
       window.davidrunger = {env: '#{Rails.env}'};
       window.davidrunger.bootstrap = JSON.parse("#{raw(escape_javascript((@bootstrap_data || {}).to_json))}");
 
