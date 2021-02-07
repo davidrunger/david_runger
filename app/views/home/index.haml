@@ -4,16 +4,9 @@
     %link{rel: "stylesheet", href: asset_pack_path('home_app.css')}
   -# always load `devicons` (in a nonblocking way (https://web.dev/defer-non-critical-css/))
   - devicon_href = 'https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css'
-  %link{id: "devicon-preload", rel: "preload", as: "style"}
+  %link{rel: "preload", href: devicon_href, as: "style", onload: "this.onload=null;this.rel='stylesheet'"}
   %noscript
     %link{rel: "stylesheet", href: devicon_href}
-  = nonced_javascript_tag do
-    const deviconPreloader = document.getElementById('devicon-preload');
-    deviconPreloader.addEventListener('load', function () {
-    this.onload = null;
-    this.rel = 'stylesheet';
-    });
-    deviconPreloader.href = '#{devicon_href}';
 
 - content_for(:extra_javascript) do
   = javascript_pack_tag('home_app', defer: true)

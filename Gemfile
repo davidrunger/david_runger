@@ -41,7 +41,6 @@ gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
-gem 'secure_headers'
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
 gem 'stackprof'
