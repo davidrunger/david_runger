@@ -36,6 +36,8 @@ gem 'pundit'
 gem 'rack-attack'
 gem 'rails'
 gem 'redis'
+gem 'request_store'
+gem 'request_store-sidekiq'
 gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
