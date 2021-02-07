@@ -4,6 +4,16 @@
 ActiveAdmin.register_page('Settings') do
   menu parent: 'Admin'
 
+  action_item :edit, only: :show do
+    setting_name = params[:name]
+    link_to('Edit Setting', admin_settings_edit_path(name: setting_name))
+  end
+
+  action_item :destroy, only: :show do
+    setting_name = params[:name]
+    link_to('Delete Setting', admin_settings_destroy_path(name: setting_name), method: :delete)
+  end
+
   action_item :new do
     link_to 'New Setting', admin_settings_new_path
   end
