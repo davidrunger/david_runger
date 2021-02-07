@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RequestDataBuilder
+class SaveRequest::RequestDataBuilder
   extend Memoist
 
   # params not worth logging in `Request`s
