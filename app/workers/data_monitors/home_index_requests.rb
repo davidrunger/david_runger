@@ -9,19 +9,14 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
       expectation: (5..500),
     )
 
-    min_response_time = redis_config('average_response_time_in_past_day', 'min', 10)
-    max_response_time = redis_config('average_response_time_in_past_day', 'max', 200)
+    accessor = RedisConfig::Accessor.new("#{self.class.name}.average_response_time_in_past_day")
     verify_data_expectation(
       check_name: :average_response_time_in_past_day,
-      expectation: (min_response_time..max_response_time),
+      expectation: (accessor.get('min', 10)..accessor.get('max', 200)),
     )
   end
 
   private
-
-  def redis_config(key, subkey, backup)
-    RedisConfig.get("DataMonitors::HomeIndexRequests.#{key}.#{subkey}", backup).value
-  end
 
   def requests_in_past_day
     Request.
