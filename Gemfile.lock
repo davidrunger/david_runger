@@ -521,6 +521,7 @@ GEM
       fugit (~> 1.1, >= 1.1.6)
     sassc (2.4.0)
       ffi (~> 1.9)
+    secure_headers (6.3.1)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -667,6 +668,7 @@ DEPENDENCIES
   rubocop-rspec
   runger_style!
   sassc
+  secure_headers
   selenium-webdriver
   shoulda-matchers
   sidekiq

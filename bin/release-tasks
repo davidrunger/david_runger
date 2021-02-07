@@ -5,18 +5,14 @@ migrate() {
   bin/rails db:migrate
 }
 
-echo "Purging prerendered pages..."
-bin/rails runner bin/purge-prerendered-pages
-echo "... done."
-
 echo "Enqueueing job to track asset sizes..."
 bin/rails runner "TrackAssetSizes.perform_in(2.minutes)"
 echo "... done."
 
-# run migrations when deploying to production, but not when deploying a review app
+# run migrations and clear prerenders when deploying to production, but not deploying a review app
 if [ $HEROKU_PR_NUMBER ]
 then
-  echo "Skipping db:migrate because HEROKU_PR_NUMBER is present (value: $HEROKU_PR_NUMBER)"
+  echo "Skipping migrations etc because HEROKU_PR_NUMBER is present (value: $HEROKU_PR_NUMBER)"
 else
   # Retry up to 10 times w/ increasing `sleep`. h/t: https://stackoverflow.com/a/12321815/4009384
   NEXT_WAIT_TIME=1
@@ -24,4 +20,8 @@ else
       sleep $(( NEXT_WAIT_TIME++ ))
   done
   [ $NEXT_WAIT_TIME -lt 10 ]
+
+  echo "Purging prerendered pages..."
+  bin/rails runner bin/purge-prerendered-pages
+  echo "... done."
 fi
