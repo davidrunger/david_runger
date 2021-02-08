@@ -142,6 +142,7 @@ GEM
       activesupport (>= 3.0.0, < 6.2)
       ruby2_keywords (>= 0.0.2, < 1.0)
     ast (2.4.2)
+    attr_extras (6.2.4)
     aws-eventstream (1.1.0)
     aws-partitions (1.423.0)
     aws-sdk-core (3.112.0)
@@ -395,6 +396,8 @@ GEM
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
+    patience_diff (1.1.0)
+      trollop (~> 1.16)
     percy-capybara (4.3.3)
     pg (1.2.3)
     pry (0.13.1)
@@ -559,11 +562,16 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stackprof (0.2.16)
+    super_diff (0.6.0)
+      attr_extras (>= 6.2.4)
+      diff-lcs
+      patience_diff
     temple (0.8.2)
     thor (1.1.0)
     thwait (0.2.0)
       e2mmap
     tilt (2.0.10)
+    trollop (1.16.2)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
@@ -675,6 +683,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen!
   stackprof
+  super_diff
   webmock
   webpacker
 
