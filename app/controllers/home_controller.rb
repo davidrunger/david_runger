@@ -8,7 +8,12 @@ class HomeController < ApplicationController
   def index
     skip_authorization
     @description = 'The personal website of web developer David Runger'
-    serve_prerender_with_fallback(filename: 'home.html') { render :index }
+    serve_prerender_with_fallback(
+      filename: 'home.html',
+      expected_content: 'Full stack web developer',
+    ) do
+      render :index
+    end
   end
 
   def upgrade_browser

@@ -9,7 +9,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
     skip_before_action :authenticate_user!
 
     def index
-      serve_prerender_with_fallback(filename: 'home.html') do
+      serve_prerender_with_fallback(filename: 'home.html', expected_content: 'Great page text!') do
         render(plain: LIVE_RENDERED_PAGE_TEXT)
       end
     end
@@ -63,6 +63,22 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           it 'serves the prerendered page' do
             get_index
             expect(response.body).to have_text(page_text)
+          end
+
+          context 'when the prerender does not include the expected content' do
+            let(:page_text) { 'There was an error!' }
+
+            it 'live-renders the page rather than serving the prerender' do
+              expect(Rails.logger).
+                to receive(:info).
+                with(/prerender was found, but it did not include/).
+                and_call_original
+              expect(Rails.logger).to receive(:info).at_least(:once).and_call_original # pass others
+
+              get_index
+
+              expect(response.body).to have_text(LIVE_RENDERED_PAGE_TEXT)
+            end
           end
 
           context 'when the browser is Chrome with a version >= 32' do
@@ -133,6 +149,12 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           end
 
           it 'serves the page via the fallback block' do
+            expect(Rails.logger).
+              to receive(:info).
+              with(%(Could not find a "home.html" prerender.)).
+              and_call_original
+            expect(Rails.logger).to receive(:info).at_least(:once).and_call_original # pass others
+
             get_index
             expect(response.body).to have_text(LIVE_RENDERED_PAGE_TEXT)
           end
