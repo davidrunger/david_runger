@@ -3,13 +3,21 @@
 module Prerenderable
   extend ActiveSupport::Concern
 
-  def serve_prerender_with_fallback(filename:, &fallback)
+  def serve_prerender_with_fallback(filename:, expected_content:, &fallback)
     prerendered_html = prerendered_html(filename)
     if prerendered_html
-      # rubocop:disable Rails/OutputSafety
-      render html: html_with_webp_class_if_supported(prerendered_html).html_safe, layout: false
-      # rubocop:enable Rails/OutputSafety
+      if prerendered_html.include?(expected_content)
+        # rubocop:disable Rails/OutputSafety
+        render html: html_with_webp_class_if_supported(prerendered_html).html_safe, layout: false
+        # rubocop:enable Rails/OutputSafety
+      else
+        Rails.logger.info(<<~LOG)
+          A "#{filename}" prerender was found, but it did not include "#{expected_content}".
+        LOG
+        instance_eval(&fallback)
+      end
     else
+      Rails.logger.info(%(Could not find a "#{filename}" prerender.))
       instance_eval(&fallback)
     end
   end
