@@ -9,10 +9,10 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
       expectation: (5..500),
     )
 
-    accessor = RedisConfig::Accessor.new("#{self.class.name}.average_response_time_in_past_day")
+    accessor = RedisConfig::Accessor.new("#{self.class.name}.median_response_time_in_past_day")
     verify_data_expectation(
-      check_name: :average_response_time_in_past_day,
-      expectation: (accessor.get('min', 10)..accessor.get('max', 200)),
+      check_name: :median_response_time_in_past_day,
+      expectation: (accessor.get('min', 10)..accessor.get('max', 100)),
     )
   end
 
@@ -29,7 +29,10 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
     requests_in_past_day.size
   end
 
-  def average_response_time_in_past_day
-    requests_in_past_day.average(:total)&.round(1)
+  def median_response_time_in_past_day
+    requests_in_past_day.
+      select('PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY "total") AS "percentile"').
+      to_a.first.percentile&.
+      round(1)
   end
 end
