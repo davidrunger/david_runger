@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: cefa458a3dd92219e0655b9051c53e9fc22cbadc
+  revision: 6ed077d7aa9569676826dc8acf62fc9d8b7592b7
   specs:
     active_actions (0.16.1.alpha)
       memoist (~> 0.16)
@@ -360,7 +360,7 @@ GEM
     multipart-post (2.1.1)
     nenv (0.3.0)
     newrelic_rpm (6.15.0)
-    nio4r (2.5.4)
+    nio4r (2.5.5)
     nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
@@ -528,7 +528,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.1)
-    shaped (0.8.0)
+    shaped (0.8.2)
       activemodel (~> 6.0)
       activesupport (~> 6.0)
     shellany (0.0.1)
