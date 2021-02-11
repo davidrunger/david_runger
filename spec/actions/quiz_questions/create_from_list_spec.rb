@@ -17,7 +17,7 @@ RSpec.describe QuizQuestions::CreateFromList do
       What's your Hogwarts house?
       Gryffindor
       Hufflepuff
-      - Ravenclaw
+      -Ravenclaw
       Slytherin
 
       Do you think that smarter people are usually capable of deeper love?
