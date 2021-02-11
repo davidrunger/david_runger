@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuizQuestions::CreateFromList < ApplicationAction
-  CORRECT_ANSWER_PREFIX = /\A- */.freeze
+  CORRECT_ANSWER_PREFIX = /\A\s*-\s*/.freeze
 
   requires :quiz, Shaped::Shape(Quiz)
   requires :questions_list, Shaped::Shape(String)

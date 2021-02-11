@@ -22,7 +22,7 @@ RSpec.describe QuizQuestions::CreateFromList do
 
       Do you think that smarter people are usually capable of deeper love?
       Yes
-      - No
+       - No
     QUESTIONS_LIST
   end
 
