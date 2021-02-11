@@ -20,6 +20,8 @@ class QuestionUploadsController < ApplicationController
   private
 
   def set_quiz
-    @quiz = policy_scope(Quiz).find(params[:quiz_id])
+    # rubocop:disable Rails/DynamicFindBy
+    @quiz = policy_scope(Quiz).find_by_hashid!(params[:quiz_id])
+    # rubocop:enable Rails/DynamicFindBy
   end
 end

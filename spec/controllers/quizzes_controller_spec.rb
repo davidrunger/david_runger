@@ -44,9 +44,8 @@ RSpec.describe QuizzesController do
       context 'when using plain, integer id rather than hashid URL param' do
         subject(:get_show) { get(:show, params: { id: quiz.id }) }
 
-        it 'responds with 404' do
-          get_show
-          expect(response.status).to eq(404)
+        it 'raises an error' do
+          expect { get_show }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
 
@@ -163,7 +162,7 @@ RSpec.describe QuizzesController do
       patch(
         :update,
         params: {
-          id: quiz.id,
+          id: quiz.hashid,
           quiz: {
             current_question_number: quiz.current_question_number + 1,
           },

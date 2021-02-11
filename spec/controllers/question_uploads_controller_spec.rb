@@ -7,7 +7,7 @@ RSpec.describe QuestionUploadsController do
   let(:quiz) { user.quizzes.first! }
 
   describe '#new' do
-    subject(:get_new) { get(:new, params: { quiz_id: quiz.id }) }
+    subject(:get_new) { get(:new, params: { quiz_id: quiz.hashid }) }
 
     it 'renders a form to upload quiz questions' do
       get_new
@@ -21,7 +21,9 @@ RSpec.describe QuestionUploadsController do
   end
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: { quiz_id: quiz.id, questions: questions_list }) }
+    subject(:post_create) do
+      post(:create, params: { quiz_id: quiz.hashid, questions: questions_list })
+    end
 
     let(:questions_list) do
       <<~QUESTIONS_LIST

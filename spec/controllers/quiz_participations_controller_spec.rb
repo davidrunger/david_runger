@@ -7,7 +7,7 @@ RSpec.describe QuizParticipationsController do
   let(:quiz) { Quiz.first! }
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: { quiz_id: quiz.id, display_name: 'Al' }) }
+    subject(:post_create) { post(:create, params: { quiz_id: quiz.hashid, display_name: 'Al' }) }
 
     context 'when the user is not yet participating in the quiz' do
       before { user.quiz_participations.where(quiz: quiz).find_each(&:destroy!) }

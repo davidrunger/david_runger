@@ -43,13 +43,33 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "616431b6208e4fbf3c93282db8295303771f3a1f015931f5cc22c2d6e4c63e2f",
+      "fingerprint": "6ec98885fe4746f341dec349efa9b844cd8bb007dea972105df6b963feae95e7",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/quizzes_controller.rb",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(policy_scope(Quiz).find_by_hashid!(params[:id]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "QuizzesController",
+        "method": "update"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "False positive"
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "95dd1d8a773f1b6c3739d9a58a2eb033595a3ca3bc433be6d5b8f9ab27e4d710",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/question_uploads_controller.rb",
       "line": 17,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(policy_scope(Quiz).find(params[:quiz_id]))",
+      "code": "redirect_to(policy_scope(Quiz).find_by_hashid!(params[:quiz_id]))",
       "render_path": null,
       "location": {
         "type": "method",
@@ -141,26 +161,6 @@
       "note": "False positive"
     },
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "ca7f1648e420facb0263276c92e16f4d6beba5af1d8aa729bc37c45db21c3cd2",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/quizzes_controller.rb",
-      "line": 41,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(policy_scope(Quiz).find(params[:id]))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "QuizzesController",
-        "method": "update"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "note": "False positive"
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "d0bafcab384b8078c9ca3b28d66093a66c48817618cf4e39bdc158102dc6736a",
@@ -201,6 +201,6 @@
       "note": "False positive"
     }
   ],
-  "updated": "2021-02-06 23:04:41 -0800",
+  "updated": "2021-02-11 05:15:05 -0800",
   "brakeman_version": "5.0.0"
 }
