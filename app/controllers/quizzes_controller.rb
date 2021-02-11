@@ -10,9 +10,8 @@ class QuizzesController < ApplicationController
 
   def show
     # don't use `policy_scope` here, because we want anyone to be able to view any quiz
-    @quiz = Quiz.find(params[:id]).decorate
+    @quiz = Quiz.find_by_hashid!(params[:id]).decorate # rubocop:disable Rails/DynamicFindBy
     authorize(@quiz, :show?)
-    require_hashid_param!(@quiz)
 
     @title = @quiz.name
     bootstrap(
@@ -35,7 +34,7 @@ class QuizzesController < ApplicationController
   end
 
   def update
-    @quiz = policy_scope(Quiz).find(params[:id])
+    @quiz = policy_scope(Quiz).find_by_hashid!(params[:id]) # rubocop:disable Rails/DynamicFindBy
     authorize(@quiz, :update?)
     Quizzes::Update.run!(quiz: @quiz, params: quiz_params)
     redirect_to(@quiz)
