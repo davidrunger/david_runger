@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuizQuestions::CreateFromList < ApplicationAction
-  CORRECT_ANSWER_PREFIX = '- '
+  CORRECT_ANSWER_PREFIX = /\A- */.freeze
 
   requires :quiz, Shaped::Shape(Quiz)
   requires :questions_list, Shaped::Shape(String)
@@ -29,9 +29,9 @@ class QuizQuestions::CreateFromList < ApplicationAction
   end
 
   def create_answer_from_text!(answer_text:, question:)
-    if answer_text.start_with?(CORRECT_ANSWER_PREFIX)
+    if answer_text.match?(CORRECT_ANSWER_PREFIX)
       is_correct = true
-      answer_text = answer_text.delete_prefix(CORRECT_ANSWER_PREFIX)
+      answer_text = answer_text.sub(CORRECT_ANSWER_PREFIX, '')
     else
       is_correct = false
     end
