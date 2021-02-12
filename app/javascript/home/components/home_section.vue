@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import '~css/variables';
+@import 'css/variables.scss';
 
 section {
   width: 100%;

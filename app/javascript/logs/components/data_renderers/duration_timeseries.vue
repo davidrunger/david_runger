@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LineChart from 'components/charts/line_chart';
+import LineChart from '@/components/charts/line_chart';
 
 function epochMsToHhMmSs(epochMs) {
   return new Date(epochMs).

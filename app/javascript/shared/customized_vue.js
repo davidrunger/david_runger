@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
 import whenDomReady from 'when-dom-ready';
 
-import 'shared/routes';
-import titleMixin from 'lib/mixins/title_mixin';
+import '@/shared/routes';
+import titleMixin from '@/lib/mixins/title_mixin';
 
 export function renderApp(vueApp) {
   const app = createApp(vueApp);

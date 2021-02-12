@@ -222,6 +222,8 @@ GEM
       activemodel-serializers-xml (>= 1.0)
       activesupport (>= 5.0)
       request_store (>= 1.0)
+    dry-cli (0.6.0)
+      concurrent-ruby (~> 1.0)
     e2mmap (0.1.0)
     erubi (1.10.0)
     et-orbi (1.2.4)
@@ -576,6 +578,13 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
     uniform_notifier (1.13.2)
+    vite_rails (2.0.2)
+      railties (>= 5.1)
+      vite_ruby
+    vite_ruby (1.0.2)
+      dry-cli (~> 0.6)
+      rack-proxy (>= 0.6.1)
+      zeitwerk
     warden (1.2.9)
       rack (>= 2.0.9)
     webmock (3.11.2)
@@ -684,6 +693,7 @@ DEPENDENCIES
   spring-watcher-listen!
   stackprof
   super_diff
+  vite_rails
   webmock
   webpacker
 

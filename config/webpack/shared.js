@@ -67,6 +67,7 @@ module.exports = {
 
   resolve: {
     alias: {
+      '@': resolve(__dirname, '../../app/javascript'),
       img: resolve(__dirname, '../../app/assets/images'),
       css: resolve(__dirname, '../../app/assets/stylesheets'),
     },

@@ -20,7 +20,6 @@
 .tags_sorted_by_file
 /public/packs
 /public/packs-test
-/node_modules
 /public/assets
 spec/fixtures/*.yml
 webpack.config.static.js
@@ -28,3 +27,4 @@ webpack.config.static.js
 coverage/
 .tests.yml
 *.dump*
+/public/vite-dev

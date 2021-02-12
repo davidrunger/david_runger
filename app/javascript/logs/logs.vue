@@ -16,7 +16,7 @@ import { mapGetters, mapState } from 'vuex';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
-import signOutMixin from 'lib/mixins/sign_out_mixin';
+import signOutMixin from '@/lib/mixins/sign_out_mixin';
 import LogSelector from './components/log_selector.vue';
 
 export default {

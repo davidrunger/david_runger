@@ -5,7 +5,7 @@
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
     //- the top of the page
     #headline-container.flex-grow-1(data-section='')
-      #headline-name.monospace.font-blue-light.pb-5.mb-5.border-bottom.border-gray.pb-2
+      #headline-name.monospace.font-blue-light.border-bottom.border-gray.pb-2
         span David Runger
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
     header#header.flex-grow-1.flex.bg-black.col-12.relative
@@ -306,8 +306,7 @@
 </template>
 
 <script>
-import PerformantImage from 'components/performant_image.vue';
-
+import PerformantImage from '@/components/performant_image.vue';
 import * as positionListener from './scripts/position_listener';
 import HomeSection, { Header as HomeSectionHeader } from './components/home_section.vue';
 import Project from './components/project.vue';
@@ -374,7 +373,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import '~css/variables';
+@import 'css/variables.scss';
 
 #app-root {
   letter-spacing: 0.2px;
@@ -496,7 +495,6 @@ p:first-of-type {
   width: $size;
   height: $size;
   line-height: $size;
-  color: $black-light;
   background: $gray-light;
   font-size: 30px;
   padding: 2px 0 0 2px; // nudges the arrow icon into the right place

@@ -10,10 +10,16 @@ task build_js_routes: :environment do
   puts 'Writing app/javascript/rails_assets/routes.js ...'
   rails_assets_directory_name = 'app/javascript/rails_assets'
   FileUtils.mkdir(rails_assets_directory_name) unless File.exist?(rails_assets_directory_name)
+  routes_path = 'app/javascript/rails_assets/routes.js'
   JsRoutes.generate!(
-    'app/javascript/rails_assets/routes.js',
+    routes_path,
     exclude: /admin|google|rails|sidekiq/,
     namespace: 'Routes',
+  )
+  # HACK: fix a weird bug where `this` is somehow undefined when switching to Vite
+  File.write(
+    routes_path,
+    File.read(routes_path).sub(/^}\)\.call\(this\);/, '}).call(this || window);'),
   )
 
   puts 'Done writing named routes JavaScript helpers to file.'

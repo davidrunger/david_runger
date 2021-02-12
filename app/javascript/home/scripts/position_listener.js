@@ -3,7 +3,7 @@ import Gator from 'gator';
 import 'waypoints/lib/noframework.waypoints'; // adds `Waypoint` to window
 import 'waypoints/lib/shortcuts/inview'; // adds `Inview` to `Waypoint`
 
-import { on } from 'lib/event_bus';
+import { on } from '@/lib/event_bus';
 
 let forcedActiveNavIdSetAt;
 let forcedActiveNavId;

@@ -1,4 +1,4 @@
-import * as ModalVuex from 'shared/modal_store';
+import * as ModalVuex from '@/shared/modal_store';
 
 const mutations = {
   ...ModalVuex.mutations,

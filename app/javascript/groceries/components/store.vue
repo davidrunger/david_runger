@@ -87,7 +87,7 @@ import ClipboardJS from 'clipboard';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
-import { DEBOUNCE_TIME } from 'groceries/constants';
+import { DEBOUNCE_TIME } from '@/groceries/constants';
 import Item from './item.vue';
 import NeedPhoneNumberModal from './need_phone_number_modal.vue';
 

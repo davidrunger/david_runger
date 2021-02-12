@@ -58,7 +58,7 @@ div.m2
 <script>
 import { mapState } from 'vuex';
 
-import WorkoutsTable from 'workout/workouts_table.vue';
+import WorkoutsTable from './workouts_table.vue';
 
 export default {
   components: {

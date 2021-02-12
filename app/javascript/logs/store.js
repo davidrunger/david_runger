@@ -2,8 +2,8 @@ import axios from 'axios';
 import _, { sortBy } from 'lodash';
 import Toastify from 'toastify-js';
 
-import * as ModalVuex from 'shared/modal_store';
-import router from 'logs/router';
+import * as ModalVuex from '@/shared/modal_store';
+import router from './router';
 
 const mutations = {
   ...ModalVuex.mutations,

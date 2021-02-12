@@ -9,7 +9,7 @@ el-menu.center
 </template>
 
 <script>
-import signOutMixin from 'lib/mixins/sign_out_mixin';
+import signOutMixin from '@/lib/mixins/sign_out_mixin';
 
 export default {
   mixins: [signOutMixin],

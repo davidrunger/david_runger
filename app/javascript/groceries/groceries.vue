@@ -49,12 +49,12 @@ export default {
 }
 
 main {
-  background-image: url('~img/beach-background.jpg');
+  background-image: url('../../assets/images/beach-background.jpg');
 }
 
 html.webp {
   main {
-    background-image: url('~img/beach-background.webp');
+    background-image: url('../../assets/images/beach-background.webp');
   }
 }
 </style>

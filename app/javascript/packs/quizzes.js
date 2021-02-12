@@ -1,4 +1,4 @@
-import actionCableConsumer from 'channels/consumer';
+import actionCableConsumer from '@/channels/consumer';
 import { Turbo } from '@hotwired/turbo-rails';
 
 actionCableConsumer.subscriptions.create(

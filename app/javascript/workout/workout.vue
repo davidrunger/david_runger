@@ -7,8 +7,8 @@ NewWorkoutForm(v-else)
 <script>
 import { mapState } from 'vuex';
 
-import NewWorkoutForm from 'workout/new_workout_form.vue';
-import WorkoutPlan from 'workout/workout_plan.vue';
+import NewWorkoutForm from './new_workout_form.vue';
+import WorkoutPlan from './workout_plan.vue';
 
 export default {
   components: {

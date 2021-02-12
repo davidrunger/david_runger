@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LineChart from 'components/charts/line_chart';
+import LineChart from '@/components/charts/line_chart';
 
 export default {
   components: {
