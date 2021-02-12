@@ -10,7 +10,9 @@ class Test::Tasks::RunUnitTests < Pallets::Task
     execute_system_command(<<~COMMAND)
       DB_SUFFIX=_unit
       bin/rspec
-      $(ls -d spec/*/ | grep --extended-regex -v 'spec/(controllers|features)/' | tr '\\n' ' ')
+      $(ls -d spec/*/ |
+        grep --extended-regex -v 'spec/(controllers|features|helpers)/' |
+        tr '\\n' ' ')
       --format RSpec::Instafail --format progress --force-color
     COMMAND
   end
