@@ -31,7 +31,7 @@
 <script>
 import { debounce } from 'lodash';
 
-import { DEBOUNCE_TIME } from 'groceries/constants';
+import { DEBOUNCE_TIME } from '@/groceries/constants';
 
 export default {
   data() {

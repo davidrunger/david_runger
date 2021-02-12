@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import BarGraph from 'components/charts/bar_graph';
+import BarGraph from '@/components/charts/bar_graph';
 
 export default {
   components: {

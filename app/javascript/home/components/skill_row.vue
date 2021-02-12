@@ -60,8 +60,8 @@ export default {
 };
 </script>
 
-<style scoped>
-@import '~css/variables';
+<style lang='scss' scoped>
+@import 'css/variables.scss';
 
 i[class^=devicon-] {
   font-size: 65px;

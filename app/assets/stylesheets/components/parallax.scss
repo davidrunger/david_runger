@@ -33,7 +33,7 @@
   &::before {
     @extend %parallax-pseudo;
 
-    background-image: url('~img/macbook-1.jpg');
+    background-image: url('../images/macbook-1.jpg');
   }
 }
 
@@ -41,20 +41,20 @@
   &::before {
     @extend %parallax-pseudo;
 
-    background-image: url('~img/macbook-2.jpg');
+    background-image: url('../images/macbook-2.jpg');
   }
 }
 
 html.webp {
   .parallax-inner--macbook-1 {
     &::before {
-      background-image: url('~img/macbook-1.webp');
+      background-image: url('../images/macbook-1.webp');
     }
   }
 
   .parallax-inner--macbook-2 {
     &::before {
-      background-image: url('~img/macbook-2.webp');
+      background-image: url('../images/macbook-2.webp');
     }
   }
 }

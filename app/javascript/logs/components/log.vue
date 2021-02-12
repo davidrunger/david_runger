@@ -85,7 +85,7 @@ import ClipboardJS from 'clipboard';
 import { h } from 'vue';
 import { mapGetters } from 'vuex';
 
-import actionCableConsumer from 'channels/consumer';
+import actionCableConsumer from '@/channels/consumer';
 import CounterBarGraph from './data_renderers/counter_bar_graph.vue';
 import DurationTimeseries from './data_renderers/duration_timeseries.vue';
 import IntegerTimeseries from './data_renderers/integer_timeseries.vue';

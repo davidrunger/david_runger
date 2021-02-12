@@ -1,7 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-import * as ModalVuex from 'shared/modal_store';
+import * as ModalVuex from '@/shared/modal_store';
 
 const mutations = {
   ...ModalVuex.mutations,

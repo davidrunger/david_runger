@@ -12,8 +12,8 @@ div
 <script>
 import whenDomReady from 'when-dom-ready';
 
-import checkWebpSupport from 'lib/check_webp_support';
-import { emit } from 'lib/event_bus';
+import checkWebpSupport from '@/lib/check_webp_support';
+import { emit } from '@/lib/event_bus';
 
 export default {
   mounted() {

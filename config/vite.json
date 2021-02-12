@@ -1,0 +1,12 @@
+{
+  "all": {
+    "entrypointsDir": "packs",
+    "sourceCodeDir": "app/javascript",
+    "watchAdditionalPaths": []
+  },
+  "development": {
+    "autoBuild": true,
+    "publicOutputDir": "vite-dev",
+    "port": 3036
+  }
+}

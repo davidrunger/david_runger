@@ -1,1 +1,1 @@
-import 'rails_assets/routes';
+import '@/rails_assets/routes';

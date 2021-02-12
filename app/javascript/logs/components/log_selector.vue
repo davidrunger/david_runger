@@ -25,7 +25,7 @@ Modal(
 import { mapGetters, mapState } from 'vuex';
 import FuzzySet from 'fuzzyset.js';
 
-import { on } from 'lib/event_bus';
+import { on } from '@/lib/event_bus';
 
 export default {
   computed: {

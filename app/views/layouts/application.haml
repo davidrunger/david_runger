@@ -27,7 +27,9 @@
       window.davidrunger.bootstrap = JSON.parse("#{raw(escape_javascript((@bootstrap_data || {}).to_json))}");
 
     - if Rails.env.development? && !ENV['PRODUCTION_ASSET_CONFIG'].present?
-      = javascript_pack_tag('styles', defer: true)
+      - if use_vite?
+        = vite_client_tag
+      = js_tag('styles')
     - else
       %link{rel: "stylesheet", href: asset_pack_path('styles.css')}
     = content_for(:extra_css)
