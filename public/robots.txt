@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://davidrunger.com/sitemap.xml
