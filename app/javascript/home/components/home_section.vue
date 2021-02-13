@@ -2,7 +2,7 @@
 .section-container.relative.bg-white.flex.justify-center(:class='section', ref='root')
   .anchor-target(:id='section')
   section.py3.px1(:data-section='section')
-    .js-scroll-hook.absolute(style='top: 25vh; bottom: 0;')
+    .js-scroll-hook.absolute
     Header(v-if='!renderHeadingManually', :title='title')
     slot(:title='title')
 </template>
@@ -51,5 +51,10 @@ section {
 .anchor-target {
   position: relative;
   bottom: $header-height;
+}
+
+.js-scroll-hook {
+  top: 25vh;
+  bottom: 0;
 }
 </style>
