@@ -238,7 +238,7 @@
           li #[b Google OAuth] provides convenient and secure sign-in
           li #[b Vuex] manages the application state
           li.
-            Integrates with the #[b #[a(href='https://www.nexmo.com/?') Nexmo] SMS API], allowing
+            Integrates with the #[b #[a(href='https://www.nexmo.com/') Nexmo] SMS API], allowing
             users to text themselves a list of currently needed grocery items
           li.
             The excellent #[b #[a(href='https://github.com/railsware/js-routes') js-routes]]
