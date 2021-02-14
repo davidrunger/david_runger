@@ -79,5 +79,94 @@ RSpec.describe QuizQuestions::CreateFromList do
         end
       end
     end
+
+    context 'when there is no answer marked correct for the second question' do
+      let(:questions_list) do
+        <<~QUESTIONS_LIST
+          What's bigger?
+          - The Sun
+          The Earth
+
+          Do you think that smarter people are usually capable of deeper love?
+          Yes
+          No
+        QUESTIONS_LIST
+      end
+
+      it 'does not create any questions' do
+        expect {
+          run!
+        }.not_to change {
+          quiz.questions.count
+        }
+      end
+
+      it 'does not create any answers' do
+        expect {
+          run!
+        }.not_to change {
+          quiz.question_answers.count
+        }
+      end
+    end
+
+    context 'when there are multiple answers marked correct for the second question' do
+      let(:questions_list) do
+        <<~QUESTIONS_LIST
+          What's bigger?
+          - The Sun
+          The Earth
+
+          Do you think that smarter people are usually capable of deeper love?
+          -Yes
+          -No
+        QUESTIONS_LIST
+      end
+
+      it 'does not create any questions' do
+        expect {
+          run!
+        }.not_to change {
+          quiz.questions.count
+        }
+      end
+
+      it 'does not create any answers' do
+        expect {
+          run!
+        }.not_to change {
+          quiz.question_answers.count
+        }
+      end
+    end
+
+    context 'when there is only one answer for the second question' do
+      let(:questions_list) do
+        <<~QUESTIONS_LIST
+          What's bigger?
+          - The Sun
+          The Earth
+
+          Do you think that smarter people are usually capable of deeper love?
+          No
+        QUESTIONS_LIST
+      end
+
+      it 'does not create any questions' do
+        expect {
+          run!
+        }.not_to change {
+          quiz.questions.count
+        }
+      end
+
+      it 'does not create any answers' do
+        expect {
+          run!
+        }.not_to change {
+          quiz.question_answers.count
+        }
+      end
+    end
   end
 end
