@@ -7,9 +7,14 @@ class QuizQuestions::CreateFromList < ApplicationAction
   requires :questions_list, Shaped::Shape(String)
 
   def execute
-    question_and_answer_text_chunks.each do |question_and_answer_text_chunk|
-      create_models_from_text!(question_and_answer_text_chunk)
+    Quiz.transaction do
+      question_and_answer_text_chunks.each do |question_and_answer_text_chunk|
+        create_models_from_text!(question_and_answer_text_chunk)
+      end
+      verify_answers!
     end
+  rescue => error
+    Rollbar.error(error)
   end
 
   private
@@ -36,5 +41,17 @@ class QuizQuestions::CreateFromList < ApplicationAction
       is_correct = false
     end
     question.answers.create!(is_correct: is_correct, content: answer_text.strip)
+  end
+
+  def verify_answers!
+    quiz.questions.each do |question|
+      if question.answers.size < 2
+        fail("Too few answers for question '#{question.content}'!")
+      end
+
+      if question.answers.correct.size != 1
+        fail("Wrong number of correct answers for question '#{question.content}'!")
+      end
+    end
   end
 end

@@ -32,4 +32,6 @@ class QuizQuestionAnswer < ApplicationRecord
     through: :selections,
     source: :participation,
   )
+
+  scope :correct, -> { where(is_correct: true) }
 end
