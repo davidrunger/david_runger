@@ -4,5 +4,6 @@
     .p1
       = form.radio_button :answer_id, answer.id
       = form.label :answer_id, "#{(index + 65).chr}. #{answer.content}", value: answer.id
-  = form.submit @quiz.current_question_current_user_answer_selection.persisted? ? 'Update' : 'Submit'
+  - already_answered = @quiz.current_question_current_user_answer_selection.persisted?
+  = form.submit(already_answered ? 'Update' : 'Submit', data: { disable_with: already_answered ? 'Updating...' : 'Submitting...' })
 

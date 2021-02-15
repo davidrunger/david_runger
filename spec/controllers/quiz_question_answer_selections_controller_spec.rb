@@ -12,16 +12,33 @@ RSpec.describe QuizQuestionAnswerSelectionsController do
         params: {
           quiz_id: quiz.hashid,
           quiz_question_answer_selection: {
-            answer_id: quiz.question_answers.first!.id,
+            answer_id: answer.id,
           },
         },
       )
     end
 
+    let(:answer) { quiz.question_answers.first! }
     let(:quiz) { Quiz.first! }
 
-    it 'creates a QuizQuestionAnswerSelection' do
-      expect { post_create }.to change { QuizQuestionAnswerSelection.count }.by(1)
+    context 'when the user has not yet answered that question' do
+      before { answer.selections.where(participation: participation).find_each(&:destroy!) }
+
+      let(:participation) { QuizParticipation.where(participant: user) }
+
+      it 'creates a QuizQuestionAnswerSelection' do
+        expect { post_create }.to change { QuizQuestionAnswerSelection.count }.by(1)
+      end
+    end
+
+    context 'when the user has already answered the question' do
+      before { expect(answer.selections.where(participation: participation)).to exist }
+
+      let(:participation) { QuizParticipation.where(participant: user) }
+
+      it 'raises an error' do
+        expect { post_create }.to raise_error(ActiveRecord::RecordInvalid, /already been answered/)
+      end
     end
   end
 

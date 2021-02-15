@@ -22,4 +22,14 @@ class QuizQuestionAnswerSelection < ApplicationRecord
   has_one :participant, through: :participation
   has_one :question, through: :answer
   has_one :quiz, through: :question
+
+  validate :only_one_selection_per_question
+
+  private
+
+  def only_one_selection_per_question
+    if question.answer_selections.where.not(id: id).exists?(participation: participation)
+      errors.add(:base, 'Question has already been answered')
+    end
+  end
 end
