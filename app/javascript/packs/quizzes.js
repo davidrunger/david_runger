@@ -1,5 +1,8 @@
+import Rails from '@rails/ujs';
 import actionCableConsumer from '@/channels/consumer';
 import { Turbo } from '@hotwired/turbo-rails';
+
+Rails.start();
 
 actionCableConsumer.subscriptions.create(
   {

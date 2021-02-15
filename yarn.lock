@@ -1098,6 +1098,11 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.1.1.tgz#e980b2ea1c62cae17bcddad37deb6ba88d498b63"
   integrity sha512-A8toxvSuzK/wX9uMwyV6T1EYzlqzIJNrO8XiNCSNsmKresdX2cbAjxFdMu9haaPJPjl3aC2FKRJeVCUWVtLPAQ==
 
+"@rails/ujs@^6.1.2-1":
+  version "6.1.2-1"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.2-1.tgz#2b5963e93c02f5b52f0f1f31f52c04a915c0cc08"
+  integrity sha512-XojGDY6DkcXSa/jbHu0xJwjR8YeqDaZRYnoUROlYqaafw8bSbnv8h8uvAdCfSgyo4+/6j1QgU2src6V3CgfC4g==
+
 "@rails/webpacker@^5.2.1":
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-5.2.1.tgz#87cdbd4af2090ae2d74bdc51f6f04717d907c5b3"
