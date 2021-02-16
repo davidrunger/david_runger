@@ -82,6 +82,7 @@ group :test do
   gem 'addressable'
   gem 'brakeman', require: false
   gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'climate_control'
   gem 'codecov', require: false
   gem 'database_consistency', require: false

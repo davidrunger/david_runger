@@ -5,6 +5,8 @@ class QuizzesController < ApplicationController
 
   self.container_classes = %w[py3 px4]
 
+  before_action :set_quiz, only: %i[respondents leaderboard progress]
+
   def index
     authorize(Quiz, :index?)
     render :index
@@ -42,7 +44,31 @@ class QuizzesController < ApplicationController
     redirect_to(@quiz)
   end
 
+  def respondents
+    authorize(@quiz, :show?)
+    render partial: 'quiz_questions/respondents', locals: { question: @quiz.current_question }
+  end
+
+  def leaderboard
+    authorize(@quiz, :show?)
+    render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
+  end
+
+  def progress
+    authorize(@quiz, :show?)
+    render partial: 'quiz/progress', locals: { quiz: @quiz }
+  end
+
   private
+
+  def set_quiz
+    quiz =
+      Quiz.joins(:participations). # rubocop:disable Rails/DynamicFindBy
+        merge(current_user.quiz_participations).
+        find_by_hashid(params[:id]) ||
+      current_user.quizzes.find_by_hashid(params[:id]) # rubocop:disable Rails/DynamicFindBy
+    @quiz = quiz.presence!.decorate
+  end
 
   def quiz_params
     params.

@@ -1,8 +1,10 @@
 import Rails from '@rails/ujs';
 import actionCableConsumer from '@/channels/consumer';
 import { Turbo } from '@hotwired/turbo-rails';
+import { loadAsyncPartials } from '@/lib/async_partial';
 
 Rails.start();
+document.documentElement.addEventListener('turbo:load', loadAsyncPartials);
 
 actionCableConsumer.subscriptions.create(
   {
