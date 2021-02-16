@@ -5,26 +5,17 @@ class QuizDecorator < Draper::Decorator
 
   delegate_all
 
-  def current_user_participation
-    h.current_user.quiz_participations.find_by(quiz_id: id)
-  end
-
   memoize \
   def current_user_participation!
-    h.current_user.quiz_participations.find_by!(quiz_id: id)
+    h.current_user_participation.presence!
   end
 
   def current_user_is_participating?
-    current_user_participation.present?
+    h.current_user_participation.present?
   end
 
   def owned_by_current_user?
     h.current_user == owner
-  end
-
-  memoize \
-  def current_question
-    ordered_questions.offset(current_question_number - 1).first
   end
 
   def current_question_current_user_answer_selection
@@ -34,19 +25,20 @@ class QuizDecorator < Draper::Decorator
   end
 
   def participation_answered_current_question?(participation)
-    current_question.answer_selections.exists?(participation_id: participation.id)
+    current_question.answer_selections.any? do |selection|
+      selection.participation_id == participation.id
+    end
   end
 
   def participations_sorted_by_display_name
-    participations.decorate.sort_by { |participation| participation.display_name.downcase }
+    participations.
+      includes(:correct_answer_selections).
+      decorate.
+      sort_by { |participation| participation.display_name.downcase }
   end
 
   memoize \
   def question_count
     questions.count
-  end
-
-  def ordered_questions
-    questions.order(:created_at)
   end
 end

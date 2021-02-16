@@ -7,7 +7,7 @@
   = render partial: 'quiz_questions/participant_view', locals: { question: @quiz.current_question }
 
 .pt4
-  = render partial: 'quiz_questions/answerers', locals: { question: @quiz.current_question }
+  = render partial: 'quiz_questions/answerers', locals: { question: QuizQuestion.includes(:answer_selections).find(@quiz.current_question.id) }
   %hr
   %h3 Leaderboard
   = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
