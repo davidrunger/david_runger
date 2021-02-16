@@ -6,11 +6,14 @@
 - else
   = render partial: 'quiz_questions/participant_view', locals: { question: @quiz.current_question }
 
-.pt4
+.pt2
+  %hr
+  %h3 Respondents
   = render partial: 'quiz_questions/answerers', locals: { question: QuizQuestion.includes(:answer_selections).find(@quiz.current_question.id) }
   %hr
   %h3 Leaderboard
-  = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
+  .mb2
+    = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
   %hr
   - if !@quiz.owned_by_current_user?
     %h3 Progress
