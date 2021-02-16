@@ -3,6 +3,22 @@
 ActiveAdmin.register(QuizQuestion) do
   menu false
 
+  controller do
+    def find_resource
+      collection = scoped_collection
+      if params[:action] == 'destroy'
+        collection = collection.includes(answers: :selections)
+      end
+      collection.find(params[:id])
+    end
+
+    def destroy
+      destroy! do |format|
+        format.html { redirect_to(admin_quiz_path(resource.quiz.id)) }
+      end
+    end
+  end
+
   show do
     attributes_table do
       row(:quiz) { |question| link_to(question.quiz.name, admin_quiz_path(question.quiz.id)) }

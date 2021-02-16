@@ -14,5 +14,16 @@ RSpec.describe Admin::QuizQuestionsController do
         expect(response.status).to eq(200)
       end
     end
+
+    describe '#destroy' do
+      subject(:delete_destroy) { delete(:destroy, params: { id: quiz_question.id }) }
+
+      let(:quiz_question) { QuizQuestion.first! }
+
+      it 'redirects to the quiz show page' do
+        delete_destroy
+        expect(response).to redirect_to(admin_quiz_path(quiz_question.quiz.id))
+      end
+    end
   end
 end

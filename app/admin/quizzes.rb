@@ -46,6 +46,11 @@ ActiveAdmin.register(Quiz) do
         column(:id) { |question| link_to(question.id, admin_quiz_question_path(question.id)) }
         column :content
         column :status
+        column do |question|
+          span link_to('View', admin_quiz_question_path(question.id))
+          span link_to('Edit', edit_admin_quiz_question_path(question.id))
+          span link_to('Delete', admin_quiz_question_path(question.id), method: :delete)
+        end
       end
     end
 
