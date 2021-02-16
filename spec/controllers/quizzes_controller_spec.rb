@@ -103,34 +103,6 @@ RSpec.describe QuizzesController do
                   to have_text(/#{answer.content} \(.*#{participation.display_name}.*\)/)
               end
             end
-
-            context 'when the current question is #2' do
-              before { quiz.update!(current_question_number: 2) }
-
-              context 'when the participant got question #1 correct and question #2 incorrect' do
-                before do
-                  quiz.questions.order(:created_at).limit(2).
-                    tap { |questions| fail('Too few questions!') if questions.size < 2 }.
-                    find_each.with_index do |question, index|
-                      question.update!(status: QuizQuestion::CLOSED)
-                      question.answer_selections.find_each(&:destroy!)
-                      answer = question.answers.find_by!(is_correct: (index == 0))
-                      create(
-                        :quiz_question_answer_selection,
-                        answer: answer,
-                        participation: user_participation,
-                      )
-                    end
-                end
-
-                let(:user_participation) { quiz.participations.find_by!(participant_id: user) }
-
-                it 'indicates that the user got a question correct & a subsequent one incorrect' do
-                  get_show
-                  expect(response.body).to have_text(/✓ ×/)
-                end
-              end
-            end
           end
         end
       end

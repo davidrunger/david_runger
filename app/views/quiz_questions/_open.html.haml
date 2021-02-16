@@ -9,12 +9,14 @@
 .pt2
   %hr
   %h3 Respondents
-  = render partial: 'quiz_questions/answerers', locals: { question: QuizQuestion.includes(:answer_selections).find(@quiz.current_question.id) }
+  .mb2{data: { async_partial_src: respondents_quiz_path(@quiz), delay: 750 }}
+    [ ... loading respondents ... ]
   %hr
   %h3 Leaderboard
-  .mb2
-    = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
-  %hr
+  .mb2{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: 1000 }}
+    [ ... loading leaderboard ... ]
   - if !@quiz.owned_by_current_user?
+    %hr
     %h3 Progress
-    = render partial: 'quiz/progress', locals: { quiz: @quiz }
+    %div{data: { async_partial_src: progress_quiz_path(@quiz), delay: 1250 }}
+      [ ... loading progress ... ]

@@ -7,8 +7,10 @@
 
 - if !@quiz.closed?
   %h3 Leaderboard
-  = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
+  .mb2{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: 750 }}
+    [ ... loading leaderboard ... ]
 
   - if !@quiz.owned_by_current_user?
     %h3 Progress
-    = render partial: 'quiz/progress', locals: { quiz: @quiz }
+    %div{data: { async_partial_src: progress_quiz_path(@quiz), delay: 1000 }}
+      [ ... loading progress ... ]
