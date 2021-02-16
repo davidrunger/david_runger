@@ -35,6 +35,7 @@ ActiveAdmin.register(Quiz) do
     attributes_table do
       row :name
       row :owner
+      row(:user_facing_link) { |quiz| link_to(quiz_url(quiz.hashid), quiz_url(quiz.hashid)) }
       row :status
       row :current_question_number
       row :created_at
