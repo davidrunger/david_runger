@@ -14,26 +14,14 @@ class QuizQuestionDecorator < Draper::Decorator
   end
 
   def revealed?
-    !QuizQuestion.where(id: unrevealed_quiz_questions).exists?(id: object)
+    created_at <= quiz.current_question.created_at
   end
 
   private
 
-  def unrevealed_quiz_questions
-    quiz.questions.order(:created_at).offset(quiz.current_question_number)
-  end
-
   def current_user_answer
-    answers.joins(:selections).
-      where(
-        quiz_question_answer_selections: {
-          participation_id: current_user_participation,
-        },
-      ).
-      first
-  end
-
-  def current_user_participation
-    quiz.participations.where(participant_id: h.current_user)
+    answer_selections.find do |selection|
+      selection.participation_id == h.current_user_participation.id
+    end&.answer
   end
 end

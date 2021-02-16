@@ -44,6 +44,20 @@ class Quiz < ApplicationRecord
     source: :answers,
     class_name: 'QuizQuestionAnswer',
   )
+  has_many(
+    :ordered_questions,
+    -> { order(:created_at) },
+    class_name: 'QuizQuestion',
+    inverse_of: :quiz,
+  )
+
+  has_one(
+    :current_question,
+    ->(quiz) { quiz.ordered_questions.offset(quiz.current_question_number - 1).limit(1) },
+    class_name: 'QuizQuestion',
+    dependent: :destroy,
+    inverse_of: :quiz,
+  )
 
   STATUSES.each do |status|
     define_method("#{status}?") do

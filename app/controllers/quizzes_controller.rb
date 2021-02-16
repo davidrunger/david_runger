@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
+  extend Memoist
+
   self.container_classes = %w[py3 px4]
 
   def index
@@ -47,4 +49,12 @@ class QuizzesController < ApplicationController
       require(:quiz).
       permit(:current_question_number, :name, :status)
   end
+
+  # rubocop:disable Style/MethodCallWithArgsParentheses
+  helper_method \
+  memoize \
+  def current_user_participation
+    @quiz.participations.find_by(participant_id: current_user)
+  end
+  # rubocop:enable Style/MethodCallWithArgsParentheses
 end
