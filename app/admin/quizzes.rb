@@ -22,12 +22,33 @@ ActiveAdmin.register(Quiz) do
 
   index do
     id_column
-    column :name
+    column(:name) { |quiz| link_to(quiz.name, admin_quiz_path(quiz.id)) }
     column :owner
     column :status
     column :created_at
     column :updated_at
     column :current_question_number
     actions
+  end
+
+  show do
+    attributes_table do
+      row :name
+      row :owner
+      row :status
+      row :current_question_number
+      row :created_at
+      row :updated_at
+    end
+
+    panel 'Questions' do
+      table_for quiz.questions.order(:created_at) do
+        column(:id) { |question| link_to(question.id, admin_quiz_question_path(question.id)) }
+        column :content
+        column :status
+      end
+    end
+
+    active_admin_comments
   end
 end
