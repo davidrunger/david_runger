@@ -47,7 +47,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/quizzes_controller.rb",
-      "line": 40,
+      "line": 44,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(policy_scope(Quiz).find_by_hashid!(params[:id]))",
       "render_path": null,
@@ -57,26 +57,6 @@
         "method": "update"
       },
       "user_input": "params[:id]",
-      "confidence": "Weak",
-      "note": "False positive"
-    },
-    {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "95dd1d8a773f1b6c3739d9a58a2eb033595a3ca3bc433be6d5b8f9ab27e4d710",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/question_uploads_controller.rb",
-      "line": 17,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(policy_scope(Quiz).find_by_hashid!(params[:quiz_id]))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "QuestionUploadsController",
-        "method": "create"
-      },
-      "user_input": "params[:quiz_id]",
       "confidence": "Weak",
       "note": "False positive"
     },
@@ -118,6 +98,26 @@
       },
       "user_input": "table",
       "confidence": "Medium",
+      "note": "False positive"
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "c0ff216b8aef89a80825bb5f0b11e4d6dc40575227e26364420c2ff22a03704c",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/question_uploads_controller.rb",
+      "line": 20,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(policy_scope(Quiz).find_by_hashid!(params[:quiz_id]), :status => :see_other, :notice => \"Questions saved successfully!\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "QuestionUploadsController",
+        "method": "create"
+      },
+      "user_input": "params[:quiz_id]",
+      "confidence": "Weak",
       "note": "False positive"
     },
     {
@@ -201,6 +201,6 @@
       "note": "False positive"
     }
   ],
-  "updated": "2021-02-11 05:15:05 -0800",
+  "updated": "2021-02-17 20:51:03 -0800",
   "brakeman_version": "5.0.0"
 }

@@ -3,7 +3,7 @@
 class QuizzesController < ApplicationController
   extend Memoist
 
-  self.container_classes = %w[py3 px4]
+  self.container_classes = %w[py1 px3]
 
   before_action :set_quiz, only: %i[respondents leaderboard progress]
 

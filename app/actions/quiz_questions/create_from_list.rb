@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class QuizQuestions::CreateFromList < ApplicationAction
+  class InvalidAnswers < StandardError ; end
+
   CORRECT_ANSWER_PREFIX = /\A\s*-\s*/.freeze
 
   requires :quiz, Shaped::Shape(Quiz)
   requires :questions_list, Shaped::Shape(String)
+
+  fails_with :invalid_answers
 
   def execute
     Quiz.transaction do
@@ -13,8 +17,8 @@ class QuizQuestions::CreateFromList < ApplicationAction
       end
       verify_answers!
     end
-  rescue => error
-    Rollbar.error(error)
+  rescue InvalidAnswers => error
+    result.invalid_answers!(error.message)
   end
 
   private
@@ -46,11 +50,11 @@ class QuizQuestions::CreateFromList < ApplicationAction
   def verify_answers!
     quiz.questions.each do |question|
       if question.answers.size < 2
-        fail("Too few answers for question '#{question.content}'!")
+        raise(InvalidAnswers, "Too few answers for question '#{question.content}'!")
       end
 
       if question.answers.correct.size != 1
-        fail("Wrong number of correct answers for question '#{question.content}'!")
+        raise(InvalidAnswers, "Wrong number of correct answers for question '#{question.content}'!")
       end
     end
   end
