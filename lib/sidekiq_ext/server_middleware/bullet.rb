@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-module SidekiqMiddleware; end
-module SidekiqMiddleware::Server; end
+module SidekiqExt::ServerMiddleware ; end
 
-class SidekiqMiddleware::Server::Bullet
+class SidekiqExt::ServerMiddleware::Bullet
   def call(_worker, _job, _queue)
     # rubocop:disable Style/ExplicitBlockArgument
     Bullet.profile do
