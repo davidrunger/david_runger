@@ -82,6 +82,7 @@ FixtureBuilder.configure do |fbuilder|
 
     # quiz participations
     participation = create(:quiz_participation, quiz: quiz, participant: user)
+    participation_2 = create(:quiz_participation, quiz: quiz, participant: admin)
 
     # quiz questions
     quiz_question_1 = create(:quiz_question, quiz: quiz)
@@ -97,6 +98,8 @@ FixtureBuilder.configure do |fbuilder|
 
     # quiz question answer selections
     answer = quiz.question_answers.first!
+    answer_2 = quiz.question_answers.second!
     create(:quiz_question_answer_selection, answer: answer, participation: participation)
+    create(:quiz_question_answer_selection, answer: answer_2, participation: participation_2)
   end
 end

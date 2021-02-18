@@ -2,9 +2,10 @@
 
 RSpec.describe InvalidRecordsMailer do
   describe '#invalid_records' do
-    subject(:mail) { InvalidRecordsMailer.invalid_records(invalid_records_count_hash) }
+    subject(:mail) { InvalidRecordsMailer.invalid_records(klass_name, number_of_invalid_records) }
 
-    let(:invalid_records_count_hash) { { 'Item' => 0, 'Log' => 2, 'User' => 1, 'Workout' => 0 } }
+    let(:klass_name) { 'User' }
+    let(:number_of_invalid_records) { 1 }
 
     it 'is sent from reply@davidrunger.com' do
       expect(mail.from).to eq(['reply@davidrunger.com'])
@@ -15,27 +16,17 @@ RSpec.describe InvalidRecordsMailer do
     end
 
     it 'has a subject mentioning that there is at least one invalid record' do
-      expect(mail.subject).to eq('There is at least one invalid record. :(')
+      expect(mail.subject).to eq(
+        "There are #{number_of_invalid_records} invalid #{klass_name}s. :(",
+      )
     end
 
     describe 'the email body' do
       subject(:body) { mail.body.to_s }
 
-      it 'lists in the body only the classes that have at least one invalid record' do
-        klass_names_with_no_invalid_records, klass_names_with_invalid_records =
-          invalid_records_count_hash.
-            partition { |_key, value| value == 0 }.
-            map { |partition| partition.map(&:first).map(&:presence!) }
-
-        expect(body).to include(CGI.escapeHTML(JSON.pretty_generate('Log' => 2, 'User' => 1)))
-
-        klass_names_with_no_invalid_records.each do |klass_name|
-          expect(body).not_to include(klass_name)
-        end
-
-        klass_names_with_invalid_records.each do |klass_name|
-          expect(body).to include(klass_name)
-        end
+      it 'mentions the class name and number of invalid records' do
+        expect(body).to have_text(klass_name)
+        expect(body).to have_text(number_of_invalid_records)
       end
     end
   end
