@@ -1,2 +1,2 @@
-- quiz.participations_sorted_by_display_name.each do |participation|
-  %div #{participation.display_name} (#{participation.correct_answer_count}/#{quiz.question_count})
+- quiz.participations_sorted_by_score.each do |participation|
+  %div{class: (participation == current_user_participation) ? 'bold' : ''} #{participation.display_name} (#{participation.correct_answer_count}/#{quiz.question_count})
