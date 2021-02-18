@@ -27,11 +27,14 @@ Sidekiq.configure_server do |config|
   # :nocov:
   config.redis = ConnectionPool.new(size: 7, &build_sidekiq_redis_connection)
 
+  require 'sidekiq_ext/logger'
+  config.options[:job_logger] = SidekiqExt::JobLogger
+
   if Rails.env.development?
-    require 'sidekiq_middleware/server/bullet'
+    require 'sidekiq_ext/server_middleware/bullet'
 
     config.server_middleware do |chain|
-      chain.add(SidekiqMiddleware::Server::Bullet)
+      chain.add(SidekiqExt::ServerMiddleware::Bullet)
     end
   end
   # :nocov:
