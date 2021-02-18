@@ -11,7 +11,7 @@ production:
   - ['mailers', 1]
 
 :schedule:
-  InvalidRecordsChecker:
+  InvalidRecordsCheck::Launcher:
     cron: '23 8 * * *' # daily at 8:23am PT
   <% if %w[production test].include?(ENV['RAILS_ENV']) %>
   DataMonitors::Launcher:

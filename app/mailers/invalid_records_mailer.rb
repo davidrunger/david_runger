@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class InvalidRecordsMailer < ApplicationMailer
-  def invalid_records(invalid_records_count_hash)
-    @nonzero_invalid_record_counts = invalid_records_count_hash.reject { |_key, value| value == 0 }
-    mail(subject: 'There is at least one invalid record. :(')
+  def invalid_records(klass_name, number_of_invalid_records)
+    @klass_name = klass_name
+    @number_of_invalid_records = number_of_invalid_records
+    mail(subject: "There are #{@number_of_invalid_records} invalid #{@klass_name}s. :(")
   end
 end
