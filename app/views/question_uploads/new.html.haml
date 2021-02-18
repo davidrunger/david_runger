@@ -1,11 +1,19 @@
+- content_for(:extra_javascript) do
+  = js_tag('turbo')
+
 %h1 Upload questions for #{@quiz.name}
 
 %section
   -# `turbo: false` here because otherwise we don't get the necessary bootstrap data
   -# in the quiz show view after submitting this form (Turbo bug?)
-  = form_with(url: quiz_question_uploads_path, data: { turbo: false }) do |form|
+  = form_with(url: quiz_question_uploads_path) do |form|
+    - if @error_message
+      .my2
+        .flash__header--alert Error
+        .flash__message--alert= @error_message
+
     %div= form.label :questions
-    %div= form.text_area :questions, size: '60x12'
+    %div= form.text_area :questions, size: '60x12', value: @questions
     %div.pt2= form.submit
 
 %section

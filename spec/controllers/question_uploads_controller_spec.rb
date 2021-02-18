@@ -50,5 +50,28 @@ RSpec.describe QuestionUploadsController do
 
       expect(response).to redirect_to(quiz_path(quiz))
     end
+
+    context 'when one of the questions being uploaded does not have an answer marked correct' do
+      let(:questions_list) do
+        <<~QUESTIONS_LIST
+          Which is currently farther from the sun?
+          Neptune
+          -Pluto
+
+          Do you think that smarter people are usually capable of deeper love?
+          Yes
+          No
+        QUESTIONS_LIST
+      end
+
+      it 'renders the new form with an error message' do
+        post_create
+        expect(response.body).to have_css('form textarea[name="questions"]')
+        expect(response.body).to have_text(<<~TEXT.squish)
+          Wrong number of correct answers for question 'Do you think that smarter people are usually
+          capable of deeper love?'!
+        TEXT
+      end
+    end
   end
 end

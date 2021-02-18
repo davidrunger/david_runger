@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe QuizQuestions::CreateFromList do
-  subject(:action) { QuizQuestions::CreateFromList.new(action_inputs) }
+  subject(:action) { QuizQuestions::CreateFromList.new!(action_inputs) }
 
   before { quiz.questions.find_each(&:destroy!) }
 
@@ -26,12 +26,12 @@ RSpec.describe QuizQuestions::CreateFromList do
     QUESTIONS_LIST
   end
 
-  describe '#run!' do
-    subject(:run!) { action.run! }
+  describe '#run' do
+    subject(:run) { action.run }
 
     it 'creates two questions and six answers' do
       expect {
-        run!
+        run
       }.to change {
         quiz.questions.count
       }.by(2).and change {
@@ -40,7 +40,7 @@ RSpec.describe QuizQuestions::CreateFromList do
     end
 
     describe 'the created questions and answers' do
-      before { run! }
+      before { run }
 
       describe 'the first question created' do
         let(:first_question) { quiz.questions.order(:created_at).last(2).first }
@@ -95,7 +95,7 @@ RSpec.describe QuizQuestions::CreateFromList do
 
       it 'does not create any questions' do
         expect {
-          run!
+          run
         }.not_to change {
           quiz.questions.count
         }
@@ -103,7 +103,7 @@ RSpec.describe QuizQuestions::CreateFromList do
 
       it 'does not create any answers' do
         expect {
-          run!
+          run
         }.not_to change {
           quiz.question_answers.count
         }
@@ -125,7 +125,7 @@ RSpec.describe QuizQuestions::CreateFromList do
 
       it 'does not create any questions' do
         expect {
-          run!
+          run
         }.not_to change {
           quiz.questions.count
         }
@@ -133,7 +133,7 @@ RSpec.describe QuizQuestions::CreateFromList do
 
       it 'does not create any answers' do
         expect {
-          run!
+          run
         }.not_to change {
           quiz.question_answers.count
         }
@@ -154,7 +154,7 @@ RSpec.describe QuizQuestions::CreateFromList do
 
       it 'does not create any questions' do
         expect {
-          run!
+          run
         }.not_to change {
           quiz.questions.count
         }
@@ -162,7 +162,7 @@ RSpec.describe QuizQuestions::CreateFromList do
 
       it 'does not create any answers' do
         expect {
-          run!
+          run
         }.not_to change {
           quiz.question_answers.count
         }
