@@ -41,8 +41,12 @@
         = link_to('Unbecome', unbecome_admin_user_path(current_user))
         = current_user.email
     - if notice.present?
-      %p.p2.notice= notice
+      .m2
+        .flash__header--notice Notice
+        .flash__message--notice= notice
     - if alert.present?
-      %p.p2.alert= alert
+      .m2
+        .flash__header--alert Alert
+        .flash__message--alert= alert
     #container{class: container_classes}
       = yield
