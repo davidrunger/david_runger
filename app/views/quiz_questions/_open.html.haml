@@ -6,17 +6,28 @@
 - else
   = render partial: 'quiz_questions/participant_view', locals: { question: @quiz.current_question }
 
+- already_answered = !@quiz.owned_by_current_user? && without_bullet { @quiz.current_question.decorate.answered_by_current_user? }
 .pt2
   %hr
   %h3 Respondents
-  .mb2{data: { async_partial_src: respondents_quiz_path(@quiz), delay: 750 }}
-    [ ... loading respondents ... ]
+  - if already_answered
+    - @quiz = Quiz.includes(:participations).find(@quiz.id).decorate
+    = render partial: 'quiz_questions/respondents', locals: { question: @quiz.current_question }
+  - else
+    .mb2{data: { async_partial_src: respondents_quiz_path(@quiz), delay: 750 }}
+      [ ... loading respondents ... ]
   %hr
   %h3 Leaderboard
-  .mb2{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: 1000 }}
-    [ ... loading leaderboard ... ]
+  - if already_answered
+    = render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
+  - else
+    .mb2{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: 1000 }}
+      [ ... loading leaderboard ... ]
   - if !@quiz.owned_by_current_user?
     %hr
     %h3 Progress
-    %div{data: { async_partial_src: progress_quiz_path(@quiz), delay: 1250 }}
-      [ ... loading progress ... ]
+    - if already_answered
+      = render partial: 'quiz/progress', locals: { quiz: @quiz }
+    - else
+      %div{data: { async_partial_src: progress_quiz_path(@quiz), delay: 1250 }}
+        [ ... loading progress ... ]

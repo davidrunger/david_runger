@@ -17,11 +17,19 @@ class QuizQuestionDecorator < Draper::Decorator
     created_at <= quiz.current_question.created_at
   end
 
+  def answered_by_current_user?
+    current_user_answer_selection.present?
+  end
+
   private
 
   def current_user_answer
+    current_user_answer_selection&.answer
+  end
+
+  def current_user_answer_selection
     answer_selections.find do |selection|
       selection.participation_id == h.current_user_participation.id
-    end&.answer
+    end
   end
 end

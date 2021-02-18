@@ -97,4 +97,23 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  helper_method \
+  def without_bullet
+    if defined?(Bullet)
+      begin
+        previous_enable_value = Bullet.enable?
+        previous_counter_cache_enable_value = Bullet.counter_cache_enable?
+        Bullet.enable = false
+        yield
+      ensure
+        Bullet.enable = previous_enable_value
+        Bullet.counter_cache_enable = previous_counter_cache_enable_value
+      end
+    else
+      # :nocov:
+      yield
+      # :nocov:
+    end
+  end
 end
