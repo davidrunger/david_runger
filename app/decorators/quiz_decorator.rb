@@ -30,11 +30,14 @@ class QuizDecorator < Draper::Decorator
     end
   end
 
-  def participations_sorted_by_display_name
+  def participations_sorted_by_score
     participations.
       includes(:correct_answer_selections).
       decorate.
-      sort_by { |participation| participation.display_name.downcase }
+      sort_by do |participation|
+        # list from high score to low score, then use name to sort ties
+        [-1 * participation.correct_answer_count, participation.display_name.downcase]
+      end
   end
 
   memoize \
