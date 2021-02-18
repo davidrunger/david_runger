@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe SidekiqMiddleware::Server::Bullet do
-  subject(:middleware_instance) { SidekiqMiddleware::Server::Bullet.new }
+RSpec.describe SidekiqExt::ServerMiddleware::Bullet do
+  subject(:middleware_instance) { SidekiqExt::ServerMiddleware::Bullet.new }
 
   describe '#call' do
     it 'calls the provided block' do
