@@ -17,6 +17,7 @@ class TrackAssetSizes
     home*.js
     logs*.js
     quizzes*.js
+    turbo*.js
     workout*.js
   ].map(&:freeze).freeze
 
