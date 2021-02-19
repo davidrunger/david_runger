@@ -79,6 +79,13 @@ jobs:
         BUILD_TIME_LOG_URL: "${{secrets.BUILD_TIME_LOG_URL}}"
         PERCY_TOKEN: "${{secrets.PERCY_TOKEN}}"
         CODECOV_TOKEN: "${{secrets.CODECOV_TOKEN}}"
+    - name: Save fixtures artifact
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: fixtures
+        path: spec/fixtures/
+        retention-days: 5
 
   deploy-and-prerender:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
