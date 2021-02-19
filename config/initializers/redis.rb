@@ -16,4 +16,4 @@ db_number =
   end
 
 # See comments in config/initializers/sidekiq.rb for rationale re: pool size of 4.
-$redis_pool = ConnectionPool.new(size: 4, timeout: 1) { Redis.new(db: db_number) }
+$redis_pool = ConnectionPool.new(size: 2, timeout: 1) { Redis.new(db: db_number) }

@@ -9,14 +9,15 @@ Sidekiq.configure_client do |config|
   # Sidekiq Client Connection Pool size:
   # We have 20 connections total from Heroku Redis Hobby Dev plan
   # ... minus 7 connections used for the Sidekiq server below ...
-  # ... minus 5 connections for `rails console` and general padding ...
-  # ... leaves us with 8 connections total for the Rails server process(es).
-  # We are running 1 server process, so that process has 8 connections to work with.
+  # ... minus 1 for `rails console` use and padding ...
+  # ... leaves us with 12 connections total for other uses.
   # We'll distribute those Redis connections like so:
-  # * 3 connections for the Sidekiq client pool (the line below)
-  # * 4 for the application (in config/initializers/redis.rb)
-  # * 1 for Flipper (in config/initializers/flipper.rb)
-  config.redis = ConnectionPool.new(size: 3, &build_sidekiq_redis_connection)
+  # - 2 connections for the Sidekiq client pool (the line below) * 2 because both the web server and
+  #   the Sidekiq process can invoke Sidekiq jobs (i.e. can use a Sidekiq client connection)
+  # - 2 for the application (in config/initializers/redis.rb) * 2 for the same reason
+  # - 1 for Flipper (in config/initializers/flipper.rb) * 2 for the same reason
+  # - 2 for ActionCable
+  config.redis = ConnectionPool.new(size: 2, &build_sidekiq_redis_connection)
 end
 
 Sidekiq.configure_server do |config|
