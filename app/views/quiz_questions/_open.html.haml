@@ -4,7 +4,7 @@
     = form.hidden_field(:status, value: QuizQuestion::CLOSED)
     = form.submit('Close question')
 - else
-  = turbo_frame_tag 'quiz-question-participant-view' do
+  = tag.turbo_frame(id: 'quiz-question-participant-view') do
     = render partial: 'quiz_questions/participant_view', locals: { question: @quiz.current_question }
 
 .pt2

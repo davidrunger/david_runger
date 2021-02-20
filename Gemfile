@@ -44,7 +44,6 @@ gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
 gem 'stackprof'
-gem 'turbo-rails'
 gem 'webpacker'
 
 group :production do
