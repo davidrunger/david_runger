@@ -8,9 +8,9 @@
 - if !@quiz.closed?
   %h3 Leaderboard
   .mb2{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: 750 }}
-    [ ... loading leaderboard ... ]
+    .spinner--circle
 
   - if !@quiz.owned_by_current_user?
     %h3 Progress
     %div{data: { async_partial_src: progress_quiz_path(@quiz), delay: 1000 }}
-      [ ... loading progress ... ]
+      .spinner--circle
