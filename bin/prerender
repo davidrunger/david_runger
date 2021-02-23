@@ -33,7 +33,7 @@ class Prerenderer
   def upload_prerender_to_s3(filename:, html:)
     Aws::S3::Resource.new(region: ENV['S3_REGION']).
       bucket(ENV['S3_BUCKET']).
-      object("prerenders/#{filename}").
+      object("prerenders/#{ENV.fetch('GITHUB_SHA')}/#{filename}").
       put(body: html_for_prerendering(html))
   rescue => error
     puts("Error uploading object: #{error.inspect}")

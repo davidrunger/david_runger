@@ -18,15 +18,18 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
   describe '#serve_prerender_with_fallback' do
     subject(:get_index) { get(:index) }
 
-    context 'when AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY ENV variables are set' do
+    context 'when AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, & HEROKU_SLUG_COMMIT ENVs are set' do
       around do |spec|
         ClimateControl.modify(
           AWS_ACCESS_KEY_ID: 'HU49U3C3HUBKHCRQQ32L',
           AWS_SECRET_ACCESS_KEY: 'QRZ4jVBn3EqPrgtz2mKNb6XdMhULGSliA7w1scD8',
+          HEROKU_SLUG_COMMIT: commit_sha,
         ) do
           spec.run
         end
       end
+
+      let(:commit_sha) { Digest::SHA1.hexdigest(rand(1_000_000).to_s) }
 
       context 'when S3_REGION and S3_BUCKET ENV variables are set' do
         around do |spec|
@@ -45,7 +48,8 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           before do
             stub_request(
               :get,
-              'https://david-runger-test-uploads.s3.amazonaws.com/prerenders/home.html',
+              'https://david-runger-test-uploads.s3.amazonaws.com/'\
+              "prerenders/#{commit_sha}/home.html",
             ).to_return(status: 200, headers: {}, body: <<~HTML)
               <!doctype html>
               <html>

@@ -28,13 +28,13 @@ module Prerenderable
     return nil if Flipper.enabled?(:disable_prerendering)
 
     Rails.cache.fetch(
-      "prerendered-pages:#{filename}",
+      "prerendered-pages:#{ENV.fetch('HEROKU_SLUG_COMMIT')}:#{filename}",
       expires_in: 1.day,
       skip_nil: true,
     ) do
       Aws::S3::Resource.new(region: ENV['S3_REGION']).
         bucket(ENV['S3_BUCKET']).
-        object("prerenders/#{filename}").
+        object("prerenders/#{ENV.fetch('HEROKU_SLUG_COMMIT')}/#{filename}").
         get.body.read.
         yield_self { html_with_absolutized_asset_paths(_1) }
     rescue Aws::S3::Errors::NoSuchKey => error
