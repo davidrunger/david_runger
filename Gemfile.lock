@@ -247,7 +247,7 @@ GEM
     faraday-net_http (1.0.0)
     faraday_middleware (1.0.0)
       faraday (~> 1.0)
-    ferrum (0.9)
+    ferrum (0.10.2)
       addressable (~> 2.5)
       cliver (~> 0.3)
       concurrent-ruby (~> 1.1)
