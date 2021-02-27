@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 76ffc0d09f6c968527c33fb645353ba2f38fe021
+  revision: 941262eaa40c35a954c9c05cb83098daa147eefe
   specs:
     active_actions (0.17.1.alpha)
       memoist (~> 0.16)
@@ -363,7 +363,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
-    minitest (5.14.3)
+    minitest (5.14.4)
     msgpack (1.4.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
