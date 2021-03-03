@@ -16,6 +16,8 @@ production:
   <% if %w[production test].include?(ENV['RAILS_ENV']) %>
   DataMonitors::Launcher:
     cron: '4-59/5 * * * *' # every 5 minutes (offset by 4 minutes)
+  RunHeat:
+    cron: '42 * * * *' # hourly at 42 minutes past the hour
   SendLogReminderEmails:
     cron: '* * * * *' # every minute
   TruncateTables:

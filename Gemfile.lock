@@ -17,6 +17,29 @@ GIT
       rspec (>= 2.99.0, < 4.0)
 
 GIT
+  remote: https://github.com/davidrunger/heat.git
+  revision: 756607efe5b3b84489f97aaf9e314c33fc1b5b1a
+  specs:
+    heat (0.3.2)
+      activesupport (~> 6.0)
+      addressable (~> 2.7)
+      dotenv (~> 2.7)
+      down (~> 5.1)
+      memoist (~> 0.16)
+      redd (= 0.10.0)
+      redis (~> 4.2)
+      ruby-progressbar (~> 1.10)
+      slop (~> 4.8)
+
+GIT
+  remote: https://github.com/davidrunger/redd.git
+  revision: 5cdaa2bcb1dfc794981e3d299502c957bb5c09c5
+  specs:
+    redd (0.10.0)
+      http (~> 4.4)
+      lazy_lazer (~> 0.8.1)
+
+GIT
   remote: https://github.com/davidrunger/rspec_performance_summary.git
   revision: 12a94d78adfe2a88b58f130ed91bd1399bc92385
   specs:
@@ -217,10 +240,14 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
     docile (1.3.5)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    down (5.2.0)
+      addressable (~> 2.5)
     draper (4.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -253,6 +280,9 @@ GEM
       concurrent-ruby (~> 1.1)
       websocket-driver (>= 0.6, < 0.8)
     ffi (1.14.2)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     fixture_builder (0.5.2)
       activerecord (>= 2)
       activesupport (>= 2)
@@ -299,6 +329,16 @@ GEM
       hashids (~> 1.0)
     hashids (1.0.5)
     hashie (4.1.0)
+    http (4.4.1)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (2.3.0)
+    http-parser (1.2.3)
+      ffi-compiler (>= 1.0, < 2.0)
     http_logger (0.6.0)
     httparty (0.18.1)
       mime-types (~> 3.0)
@@ -337,6 +377,7 @@ GEM
     kaminari-core (1.2.1)
     launchy (2.5.0)
       addressable (~> 2.7)
+    lazy_lazer (0.8.1)
     letter_opener (1.7.0)
       launchy (~> 2.2)
     listen (3.4.1)
@@ -561,6 +602,7 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.2)
+    slop (4.8.2)
     spring (2.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -584,6 +626,9 @@ GEM
     trollop (1.16.2)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
     unicode-display_width (2.0.0)
     uniform_notifier (1.14.0)
     vite_rails (2.0.2)
@@ -654,6 +699,7 @@ DEPENDENCIES
   guard-espect!
   hamlit
   hashid-rails
+  heat!
   http_logger
   immigrant
   js-routes
@@ -679,6 +725,7 @@ DEPENDENCIES
   rack-attack
   rails
   rails-controller-testing!
+  redd!
   redis
   redlock
   request_store

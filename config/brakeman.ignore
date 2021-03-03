@@ -27,7 +27,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/workers/track_asset_sizes.rb",
-      "line": 63,
+      "line": 64,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`wc -c < $(ls #{full_glob})`",
       "render_path": null,
@@ -181,6 +181,26 @@
       "note": "False positive"
     },
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "ec5436ae646651e3b86a90d5967da1ad3a307fcc3ac056b1b52a11e091a92663",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/workers/run_heat.rb",
+      "line": 21,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "system(\"cd #{\"tmp/heat/images/\"} &&\\n  zip -r #{\"#{Time.current.iso8601.tr(\":\", \"-\")}.zip\"} ./ &&\\n  mv #{\"#{Time.current.iso8601.tr(\":\", \"-\")}.zip\"} ../ &&\\n  cd .. &&\\n  rm -rf ./images/\\n\".squish, :exception => true)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RunHeat",
+        "method": "perform"
+      },
+      "user_input": "Time.current.iso8601.tr(\":\", \"-\")",
+      "confidence": "Medium",
+      "note": "False positive"
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "ee8da255976e57b16f2a4d99b376976ee79f419e74c2a6259118655395db94aa",
@@ -201,6 +221,6 @@
       "note": "False positive"
     }
   ],
-  "updated": "2021-02-17 20:51:03 -0800",
+  "updated": "2021-03-02 19:05:33 -0800",
   "brakeman_version": "5.0.0"
 }
