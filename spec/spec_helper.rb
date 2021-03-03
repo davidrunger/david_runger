@@ -15,6 +15,7 @@ if is_ci
   SimpleCov.start do
     add_filter(%r{^/spec/})
   end
+  Codecov.pass_ci_if_error = true
 end
 require File.expand_path('../config/environment', __dir__)
 require Rails.root.join('spec/support/fixture_builder.rb').to_s
