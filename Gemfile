@@ -17,7 +17,6 @@ gem 'draper'
 gem 'email_reply_trimmer', github: 'discourse/email_reply_trimmer'
 gem 'faraday'
 gem 'faraday_middleware'
-gem 'flamegraph'
 gem 'flipper'
 gem 'flipper-redis'
 gem 'flipper-ui'
@@ -45,7 +44,6 @@ gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
-gem 'stackprof'
 gem 'webpacker'
 
 group :production do

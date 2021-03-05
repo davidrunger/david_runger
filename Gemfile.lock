@@ -287,7 +287,6 @@ GEM
       activerecord (>= 2)
       activesupport (>= 2)
       hashdiff
-    flamegraph (0.9.5)
     flipper (0.20.3)
     flipper-redis (0.20.3)
       flipper (~> 0.20.3)
@@ -613,7 +612,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    stackprof (0.2.16)
     super_diff (0.6.1)
       attr_extras (>= 6.2.4)
       diff-lcs
@@ -692,7 +690,6 @@ DEPENDENCIES
   faraday_middleware
   ferrum
   fixture_builder
-  flamegraph
   flipper
   flipper-redis
   flipper-ui
@@ -747,7 +744,6 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   spring-watcher-listen!
-  stackprof
   super_diff
   vite_rails
   webmock
