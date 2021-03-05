@@ -22,7 +22,7 @@ gem 'flipper-redis'
 gem 'flipper-ui'
 gem 'hamlit'
 gem 'hashid-rails'
-gem 'heat', git: 'https://github.com/davidrunger/heat.git'
+gem 'heat', git: 'https://github.com/davidrunger/heat.git', require: false
 gem 'js-routes', require: false
 gem 'lograge'
 gem 'memoist'
@@ -35,7 +35,7 @@ gem 'puma', '~> 5.2.2'
 gem 'pundit'
 gem 'rack-attack'
 gem 'rails'
-gem 'redd', github: 'davidrunger/redd'
+gem 'redd', github: 'davidrunger/redd', require: false
 gem 'redis'
 gem 'redlock'
 gem 'request_store'
