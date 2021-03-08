@@ -10803,10 +10803,10 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-ruby@^1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/vite-plugin-ruby/-/vite-plugin-ruby-1.0.15.tgz#7376dcb04a3f503fe809543842452019b762f8e7"
-  integrity sha512-ZtLjM7elehyafVQCmjUh23qf2GceP6RjMTsp2Fin0c/R/i6nBvLlwEArHZvXH+L1y88FTptRBolW3SpFcflgnQ==
+vite-plugin-ruby@^1.0.16:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/vite-plugin-ruby/-/vite-plugin-ruby-1.0.16.tgz#945ac8cdb277390e6237269b49260ee872d5da0f"
+  integrity sha512-dTkJCuoMqAA0tgITA8cK899ck7pZO2RfgTpZm2NkA0HQe6CZTX+TNG8s6GZ9osBaicsLpDDOn0Obg7u67ORVmA==
   dependencies:
     debug "^4.3.1"
     fast-glob "^3.2.4"
