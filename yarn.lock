@@ -3784,10 +3784,10 @@ electron-to-chromium@^1.3.649:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.654.tgz#f1b82d59bdeafa65af75794356df54f92b41c4de"
   integrity sha512-Zy2gc/c8KYFg2GkNr7Ruzh5tPEZpFm7EyXqZTFasm1YRDJtpyBRGaOuM0H3t6SuIP53qX4kNmtO9t0WjhBjE9A==
 
-element-plus@^1.0.2-beta.33:
-  version "1.0.2-beta.33"
-  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.0.2-beta.33.tgz#0e924c8872dbc14e916ed5d6452d9799b04d4c60"
-  integrity sha512-CHm+KO/d1rJ8R+0S3Hi0xwHhia5KSGChp/w1M8rWZNDQsjHJv/8CEpGSet8htXzgpl4amIFEOb7+uKP38Hu2Xw==
+element-plus@^1.0.2-beta.34:
+  version "1.0.2-beta.34"
+  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.0.2-beta.34.tgz#19b1fb8adb2408a852dd11e2d409e20195f09d4f"
+  integrity sha512-StYHJha8W98JQLOSHnfmbAHOpIBEgpjdwTc/ng2GjXlEE/oPc6bDbO8d3FmCalg0y9otvGqE1ufLFNTi3WjaVA==
   dependencies:
     "@popperjs/core" "^2.4.4"
     async-validator "^3.4.0"
