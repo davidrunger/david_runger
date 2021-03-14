@@ -288,8 +288,8 @@ GEM
       activesupport (>= 2)
       hashdiff
     flipper (0.20.4)
-    flipper-redis (0.20.3)
-      flipper (~> 0.20.3)
+    flipper-redis (0.20.4)
+      flipper (~> 0.20.4)
       redis (>= 2.2, < 5)
     flipper-ui (0.20.4)
       erubi (>= 1.0.0, < 2.0.0)
