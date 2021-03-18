@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: fd845b74a62d47f4cee66f71d6def0cbd77baba5
+  revision: 23cc2456366c8b72d9e82a96d029f1cfdd1ecefc
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
