@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class QuizQuestionAnswerSelections::Create < ApplicationAction
-  requires :quiz_participation, Shaped::Shape(QuizParticipation)
-  requires :params, Shaped::Shape(ActionController::Parameters)
+  requires :quiz_participation, QuizParticipation
+  requires :params, ActionController::Parameters
 
   returns :selection, QuizQuestionAnswerSelection, presence: true
 

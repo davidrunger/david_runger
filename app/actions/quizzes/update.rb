@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Quizzes::Update < ApplicationAction
-  requires :quiz, Shaped::Shape(Quiz)
-  requires :params, Shaped::Shape(ActionController::Parameters)
+  requires :quiz, Quiz
+  requires :params, ActionController::Parameters
 
   def execute
     quiz.update!(params)

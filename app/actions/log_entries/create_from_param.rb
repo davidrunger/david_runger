@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class LogEntries::CreateFromParam < ApplicationAction
-  requires :log, Shaped::Shape(Log)
-  requires :param, Shaped::Shape(String)
+  requires :log, Log
+  requires :param, String
 
   def execute
     if log.data_type == 'number' && param.match?(/\s+/)
