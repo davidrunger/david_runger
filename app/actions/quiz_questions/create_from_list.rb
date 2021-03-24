@@ -5,8 +5,8 @@ class QuizQuestions::CreateFromList < ApplicationAction
 
   CORRECT_ANSWER_PREFIX = /\A\s*-\s*/.freeze
 
-  requires :quiz, Shaped::Shape(Quiz)
-  requires :questions_list, Shaped::Shape(String)
+  requires :quiz, Quiz
+  requires :questions_list, String
 
   fails_with :invalid_answers
 
