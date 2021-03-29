@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: b74b1052c81c812784bd5835a188c06d1f62ec80
+  revision: 19bebd5e503018735e296e1de60143f200ddf4eb
   specs:
-    active_actions (0.17.1.alpha)
+    active_actions (0.17.2.alpha)
       memoist (~> 0.16)
       rails (~> 6.0)
       shaped (~> 0.8.0)
@@ -400,8 +400,10 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.0212)
-    mimemagic (0.3.5)
-    mini_mime (1.0.2)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
+    mini_mime (1.0.3)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
     msgpack (1.4.2)
