@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/rspec_performance_summary.git
-  revision: 563d2933a61a73b1119f5ee0c11907194615083c
+  revision: 95365594e2c564d93d4052f75d0b22805d7a601e
   specs:
     rspec_performance_summary (0.1.8.alpha)
       rspec-core (~> 3.0)
@@ -400,7 +400,9 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.0212)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
