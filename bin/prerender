@@ -14,7 +14,7 @@ require 'pry-byebug' if ENV['CI'] != 'true'
 
 class Prerenderer
   def initialize
-    @browser = Ferrum::Browser.new(process_timeout: 10, timeout: 60)
+    @browser = Ferrum::Browser.new(process_timeout: 20, timeout: 60)
   end
 
   def prerender(url:, filename:)
