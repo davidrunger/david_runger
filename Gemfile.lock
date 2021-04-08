@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 944775fd22e702e663fd44f8fe640487d1d5e48f
+  revision: e2ab4b6e1426576521d69a68653c01098f2d2136
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -387,13 +387,13 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.9.0)
+    loofah (2.9.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.2.8)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    marcel (1.0.0)
+    marcel (1.0.1)
     memoist (0.16.2)
     method_source (1.0.0)
     mime-types (3.3.1)
