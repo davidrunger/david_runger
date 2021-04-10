@@ -1,6 +1,4 @@
-:concurrency: 1 # I like to just use 1 thread in development so that the logs don't get intermixed
-production:
-  :concurrency: 2
+:concurrency: 1
 
 :queues:
   - ['default', 3]
