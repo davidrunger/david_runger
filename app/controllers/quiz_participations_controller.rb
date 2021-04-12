@@ -5,11 +5,15 @@ class QuizParticipationsController < ApplicationController
     authorize(QuizParticipation, :create?)
 
     quiz = Quiz.find_by_hashid!(params[:quiz_id]) # rubocop:disable Rails/DynamicFindBy
-    QuizParticipations::Create.run!(
+    result = QuizParticipations::Create.new(
       display_name: params[:display_name],
       quiz: quiz,
       user: current_user,
-    )
+    ).run
+
+    if !result.success?
+      flash[:alert] = result.error_message
+    end
 
     redirect_to(quiz)
   end
