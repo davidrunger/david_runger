@@ -4,6 +4,14 @@ import { Turbo } from '@hotwired/turbo-rails';
 import { loadAsyncPartials } from '@/lib/async_partial';
 
 Rails.start();
+// https://github.com/hotwired/turbo-rails/issues/135#issuecomment-814413558
+Rails.delegate(document, Rails.linkDisableSelector, 'turbo:before-cache', Rails.enableElement);
+Rails.delegate(document, Rails.buttonDisableSelector, 'turbo:before-cache', Rails.enableElement);
+Rails.delegate(document, Rails.buttonDisableSelector, 'turbo:submit-end', Rails.enableElement);
+Rails.delegate(document, Rails.formSubmitSelector, 'turbo:submit-start', Rails.disableElement);
+Rails.delegate(document, Rails.formSubmitSelector, 'turbo:submit-end', Rails.enableElement);
+Rails.delegate(document, Rails.formSubmitSelector, 'turbo:before-cache', Rails.enableElement);
+
 document.documentElement.addEventListener('turbo:load', loadAsyncPartials);
 
 actionCableConsumer.subscriptions.create(
