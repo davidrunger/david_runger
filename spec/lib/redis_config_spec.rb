@@ -54,10 +54,7 @@ RSpec.describe RedisConfig do
 
     context 'when the value is initially nil' do
       it 'changes the retrieved value to the newly set value' do
-        expect { set }.
-          to change { RedisConfig.get(key_name).value }.
-          from(nil).
-          to(Integer(value))
+        expect { set }.to change { RedisConfig.get(key_name).value }.from(nil).to(Integer(value))
       end
     end
 

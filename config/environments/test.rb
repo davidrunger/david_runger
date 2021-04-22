@@ -24,9 +24,7 @@ Rails.application.configure do
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
-  config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{Integer(1.hour)}",
-  }
+  config.public_file_server.headers = { 'Cache-Control' => "public, max-age=#{Integer(1.hour)}" }
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -50,9 +48,7 @@ Rails.application.configure do
 
   config.active_storage.service = :local
 
-  extra_load_paths = [
-    Rails.root.join('spec/support'),
-  ].map(&:to_s).map(&:freeze)
+  extra_load_paths = [Rails.root.join('spec/support')].map(&:to_s).map(&:freeze)
   config.eager_load_paths.concat(extra_load_paths)
 end
 

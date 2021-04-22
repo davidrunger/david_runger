@@ -43,10 +43,7 @@ ActiveAdmin.register_page('Settings') do
   page_action :edit do
     setting_name = params[:name]
     @page_title = %(Edit "#{setting_name}" Setting)
-    @setting =
-      RedisConfig::SettingDecorator.new(
-        RedisConfig.get(setting_name),
-      )
+    @setting = RedisConfig::SettingDecorator.new(RedisConfig.get(setting_name))
     render :form, layout: 'active_admin'
   end
 

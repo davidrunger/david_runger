@@ -27,10 +27,7 @@ class AuthTokensController < ApplicationController
   private
 
   def auth_token_params
-    params.
-      require(:auth_token).
-      permit(:name, :secret).
-      blank_params_as_nil(%w[name secret])
+    params.require(:auth_token).permit(:name, :secret).blank_params_as_nil(%w[name secret])
   end
 
   def set_auth_token

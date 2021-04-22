@@ -32,8 +32,7 @@ class Api::LogEntriesController < ApplicationController
 
   def destroy
     @log_entry =
-      current_user.
-        logs.find_by(id: params['log_id'])&.
+      current_user.logs.find_by(id: params['log_id'])&.
         log_entries&.find_by(id: params['id'])
     if @log_entry.nil?
       head(404)

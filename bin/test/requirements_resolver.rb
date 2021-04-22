@@ -141,12 +141,7 @@ class Test::RequirementsResolver
     end
 
     def validate_task_config_groups!
-      task_config_options = %w[
-        default
-        force
-        skip
-        target
-      ]
+      task_config_options = %w[default force skip target]
 
       unexpected_task_options = task_config_groups.keys - task_config_options
       if unexpected_task_options.any?

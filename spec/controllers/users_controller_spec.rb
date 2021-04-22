@@ -32,9 +32,7 @@ RSpec.describe UsersController do
           let(:new_phone_number) { "1555#{Array.new(7) { rand(10).to_s }.join('')}" }
 
           it 'updates the user' do
-            expect { patch_update }.
-              to change { user.reload.phone }.
-              to(new_phone_number)
+            expect { patch_update }.to change { user.reload.phone }.to(new_phone_number)
           end
 
           it 'sets a flash message' do

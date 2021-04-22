@@ -76,10 +76,7 @@ RSpec.describe Api::LogsController do
         let(:params) { { id: log.id, log: { publicly_viewable: true } } }
 
         it 'changes the log to `publicly_viewable: true`' do
-          expect { patch_update }.
-            to change { log.reload.publicly_viewable }.
-            from(false).
-            to(true)
+          expect { patch_update }.to change { log.reload.publicly_viewable }.from(false).to(true)
         end
 
         it 'responds with the log as JSON' do

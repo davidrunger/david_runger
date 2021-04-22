@@ -9,10 +9,7 @@ class DataMonitors::Users < DataMonitors::Base
       expectation: %w[davidjrunger@gmail.com],
     )
 
-    verify_data_expectation(
-      check_name: :user_count,
-      expectation: (4..100),
-    )
+    verify_data_expectation(check_name: :user_count, expectation: (4..100))
   end
 
   private

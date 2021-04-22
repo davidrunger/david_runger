@@ -18,10 +18,7 @@ class QuizzesController < ApplicationController
     authorize(@quiz, :show?)
 
     @title = @quiz.name
-    bootstrap(
-      current_user: UserSerializer.new(current_user),
-      quiz: QuizSerializer.new(@quiz),
-    )
+    bootstrap(current_user: UserSerializer.new(current_user), quiz: QuizSerializer.new(@quiz))
     render :show
   end
 
@@ -71,9 +68,7 @@ class QuizzesController < ApplicationController
   end
 
   def quiz_params
-    params.
-      require(:quiz).
-      permit(:current_question_number, :name, :status)
+    params.require(:quiz).permit(:current_question_number, :name, :status)
   end
 
   # rubocop:disable Style/MethodCallWithArgsParentheses

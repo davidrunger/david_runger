@@ -31,9 +31,7 @@ RSpec.describe LogShareMailer do
       subject(:body) { mail.body.to_s }
 
       it 'has a link to the shared log' do
-        expect(body).to include(
-          %(View #{sharing_user.email}'s #{shared_log.name} log here:),
-        )
+        expect(body).to include(%(View #{sharing_user.email}'s #{shared_log.name} log here:))
         expect(body).to include(
           user_shared_log_url(
             user_id: sharing_user.id,

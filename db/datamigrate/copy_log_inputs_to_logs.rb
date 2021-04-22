@@ -14,9 +14,6 @@ def copy_log_inputs_to_logs!
         'text'
       end
 
-    log.update!(
-      data_type: data_type,
-      data_label: log_input.label,
-    )
+    log.update!(data_type: data_type, data_label: log_input.label)
   end
 end
