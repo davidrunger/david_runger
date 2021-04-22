@@ -99,7 +99,7 @@
     "vite": "^2.1.5",
     "vite-plugin-ruby": "^1.0.18",
     "webpack-dev-server": "^3.11.2",
-    "webpack-node-externals": "^2.5.2",
+    "webpack-node-externals": "^3.0.0",
     "webpack-sources": "^2.2"
   }
 }
