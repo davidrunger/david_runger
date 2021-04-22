@@ -10,8 +10,11 @@ class CreateIpBlock
         $redis_pool.
           with { |conn| conn.hgetall("blocked-requests:#{ip}") }.
           transform_values { Integer(_1) }.
-          select { |_path, unix_time| unix_time >= Integer(Rack::Attack::PENTESTING_FINDTIME.ago) }.
-          map { |path, unix_time| "#{path} (at #{Time.zone.at(unix_time)})" }.
+          filter_map do |path, unix_time|
+            if unix_time >= Integer(Rack::Attack::PENTESTING_FINDTIME.ago)
+              "#{path} (at #{Time.zone.at(unix_time)})"
+            end
+          end.
           join("\n")
       ip_block.update!(reason: block_reason)
     end
