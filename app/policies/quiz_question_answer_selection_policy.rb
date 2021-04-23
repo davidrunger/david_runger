@@ -3,8 +3,7 @@
 class QuizQuestionAnswerSelectionPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      @scope.joins(:participation).
-        where(quiz_participations: { participant_id: @user })
+      @scope.joins(:participation).where(quiz_participations: { participant_id: @user })
     end
   end
 

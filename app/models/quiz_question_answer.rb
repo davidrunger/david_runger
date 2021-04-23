@@ -27,11 +27,7 @@ class QuizQuestionAnswer < ApplicationRecord
     foreign_key: 'answer_id',
     inverse_of: :answer,
   )
-  has_many(
-    :answering_participations,
-    through: :selections,
-    source: :participation,
-  )
+  has_many(:answering_participations, through: :selections, source: :participation)
 
   scope :correct, -> { where(is_correct: true) }
 end

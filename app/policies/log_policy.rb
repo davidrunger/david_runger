@@ -2,9 +2,7 @@
 
 class LogPolicy < ApplicationPolicy
   def show?
-    own_record? ||
-      log.publicly_viewable? ||
-      LogShare.exists?(log: log, email: @user.email)
+    own_record? || log.publicly_viewable? || LogShare.exists?(log: log, email: @user.email)
   end
 
   private

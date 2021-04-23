@@ -11,10 +11,7 @@ RSpec.describe SendLogReminderEmails do
 
       before do
         log = Log.number.joins(:number_log_entries).first!
-        log.update!(
-          reminder_time_in_seconds: 3600,
-          reminder_last_sent_at: nil,
-        )
+        log.update!(reminder_time_in_seconds: 3600, reminder_last_sent_at: nil)
         log.number_log_entries.find_each { _1.update!(created_at: 2.hours.ago) }
       end
 

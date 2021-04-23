@@ -7,9 +7,7 @@ class InvalidRecordsCheck::Launcher
     # ensure that all model classes are loaded
     Rails.application.eager_load!
 
-    ApplicationRecord.
-      descendants.
-      reject { _1.descendants.any? }.
+    ApplicationRecord.descendants.reject { _1.descendants.any? }.
       map(&:name).
       sort.
       each_with_index do |klass_name, index|

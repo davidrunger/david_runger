@@ -32,11 +32,7 @@ class QuizQuestion < ApplicationRecord
     foreign_key: :question_id,
     inverse_of: :question,
   )
-  has_many(
-    :answer_selections,
-    through: :answers,
-    source: :selections,
-  )
+  has_many(:answer_selections, through: :answers, source: :selections)
 
   STATUSES.each do |status|
     scope status, -> { where(status: status) }

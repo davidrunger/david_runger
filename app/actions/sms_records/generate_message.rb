@@ -3,10 +3,7 @@
 class SmsRecords::GenerateMessage < ApplicationAction
   class InvalidMessageType < StandardError ; end
 
-  MESSAGE_TEMPLATES = %w[
-    forwarded_voicemail
-    grocery_store_items_needed
-  ].map(&:freeze).freeze
+  MESSAGE_TEMPLATES = %w[forwarded_voicemail grocery_store_items_needed].map(&:freeze).freeze
 
   requires :message_params, Hash
   requires :message_type, String, inclusion: MESSAGE_TEMPLATES

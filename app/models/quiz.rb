@@ -31,12 +31,7 @@ class Quiz < ApplicationRecord
     class_name: 'QuizParticipation',
     inverse_of: :quiz,
   )
-  has_many(
-    :questions,
-    dependent: :destroy,
-    class_name: 'QuizQuestion',
-    inverse_of: :quiz,
-  )
+  has_many(:questions, dependent: :destroy, class_name: 'QuizQuestion', inverse_of: :quiz)
   has_many :participants, through: :participations
   has_many(
     :question_answers,

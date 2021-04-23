@@ -20,10 +20,7 @@ class SmsRecords::SendMessage < ApplicationAction
       ).message_body
 
     post_to_nexmo_result =
-      SmsRecords::PostToNexmo.new!(
-        message_body: message_body,
-        phone_number: user.phone,
-      ).run
+      SmsRecords::PostToNexmo.new!(message_body: message_body, phone_number: user.phone).run
 
     if post_to_nexmo_result.success?
       SmsRecords::SaveSmsRecord.run!(

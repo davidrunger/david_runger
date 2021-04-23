@@ -38,8 +38,7 @@ class VoicemailsMailbox < ApplicationMailbox
   private
 
   def auth_token_secret
-    mail.to.first.presence!.
-      match(ApplicationMailbox::VOICEMAILS_ROUTING_REGEX)[:auth_token_secret]
+    mail.to.first.presence!.match(ApplicationMailbox::VOICEMAILS_ROUTING_REGEX)[:auth_token_secret]
   end
 
   def auth_token
@@ -55,8 +54,7 @@ class VoicemailsMailbox < ApplicationMailbox
   end
 
   def voicemail_message_content
-    mail.parsed_body.
-      match(%r{<https://voice.google.com> (?<message>.+) play message})&.
+    mail.parsed_body.match(%r{<https://voice.google.com> (?<message>.+) play message})&.
       named_captures&.
       dig('message')
   end
