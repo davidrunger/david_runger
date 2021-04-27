@@ -40,7 +40,7 @@
     "css-loader": "^5.2.4",
     "dompurify": "^2.2.7",
     "easytimer.js": "^4.3.4",
-    "element-plus": "^1.0.2-beta.40",
+    "element-plus": "^1.0.2-beta.41",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-webpack": "^0.13.0",
