@@ -86,7 +86,7 @@
   "devDependencies": {
     "@percy/agent": "^0.28.6",
     "@vitejs/plugin-vue": "^1.2.2",
-    "postcss": "^8.2.12",
+    "postcss": "^8.2.13",
     "postcss-html": "^0.36.0",
     "postcss-safe-parser": "^5.0.2",
     "postcss-scss": "^3.0.5",
