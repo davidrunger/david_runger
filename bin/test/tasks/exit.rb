@@ -55,7 +55,7 @@ class Test::Tasks::Exit < Pallets::Task
     print("\nPosting data to log... ")
     begin
       response =
-        Faraday.json_connection.post(
+        Faraday.json_connection(timeout: 120).post(
           ENV['BUILD_TIME_LOG_URL'],
           {
             auth_token: ENV['BUILD_TIME_LOG_AUTH_TOKEN'],
