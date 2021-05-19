@@ -9,9 +9,9 @@ module NexmoClient
       {
         text: message,
         to: number,
-        from: ENV['NEXMO_PHONE_NUMBER'],
-        api_key: ENV['NEXMO_API_KEY'],
-        api_secret: ENV['NEXMO_API_SECRET'],
+        from: ENV.fetch('NEXMO_PHONE_NUMBER'),
+        api_key: ENV.fetch('NEXMO_API_KEY'),
+        api_secret: ENV.fetch('NEXMO_API_SECRET'),
       },
     )
   end

@@ -28,9 +28,9 @@ module Email
     private
 
     def connection
-      Faraday.new(ENV['MAILGUN_URL']) do |conn|
+      Faraday.new(ENV.fetch('MAILGUN_URL')) do |conn|
         conn.request(:url_encoded)
-        conn.basic_auth('api', ENV['MAILGUN_API_KEY'])
+        conn.basic_auth('api', ENV.fetch('MAILGUN_API_KEY'))
       end
     end
   end

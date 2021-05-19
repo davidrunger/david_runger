@@ -88,8 +88,16 @@ RSpec.describe VoicemailsMailbox do
       end
     end
 
-    context 'when NEXMO_API_KEY is set in ENV' do
-      around { |spec| ClimateControl.modify(NEXMO_API_KEY: 'DEFabc123') { spec.run } }
+    context 'when the relevant NEXMO ENV variables are set' do
+      around do |spec|
+        ClimateControl.modify(
+          NEXMO_PHONE_NUMBER: '11235551234',
+          NEXMO_API_KEY: 'DEFabc123',
+          NEXMO_API_SECRET: '183726ea',
+        ) do
+          spec.run
+        end
+      end
 
       context 'when sending the message via Nexmo succeeds' do
         let!(:stubbed_venmo_post_success) do
