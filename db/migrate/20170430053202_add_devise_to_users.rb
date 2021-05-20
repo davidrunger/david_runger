@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/ReversibleMigrationMethodDefinition
 class AddDeviseToUsers < ActiveRecord::Migration[5.1]
   def self.up
     change_table :users do |t|
@@ -22,3 +23,4 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.1]
     raise(ActiveRecord::IrreversibleMigration)
   end
 end
+# rubocop:enable Rails/ReversibleMigrationMethodDefinition
