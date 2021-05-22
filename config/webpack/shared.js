@@ -31,10 +31,6 @@ module.exports = {
         },
       },
       {
-        test: /\/rails_assets\/.*\.js$/,
-        loader: 'script-loader',
-      },
-      {
         test: /\.pug$/,
         loader: 'pug-plain-loader',
       },

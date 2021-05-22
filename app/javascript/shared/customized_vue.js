@@ -1,15 +1,17 @@
 import { createApp } from 'vue';
 import whenDomReady from 'when-dom-ready';
 
-import '@/rails_assets/routes';
+import * as Routes from '@/rails_assets/routes';
 import titleMixin from '@/lib/mixins/title_mixin';
+
+window.Routes = Routes;
 
 export function renderApp(vueApp) {
   const app = createApp(vueApp);
 
   app.config.devtools = window.davidrunger && (window.davidrunger.env === 'development');
 
-  app.config.globalProperties.$routes = window.Routes;
+  app.config.globalProperties.$routes = Routes;
   app.config.globalProperties.bootstrap = window.davidrunger && window.davidrunger.bootstrap;
 
   app.mixin(titleMixin);
