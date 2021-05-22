@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :items, only: %i[update destroy]
     namespace :items do
-      resources :bulk_update, only: %i[create]
+      resources :bulk_updates, only: %i[create]
     end
     resources :log_entries, only: %i[create destroy index update]
     resources :log_shares, only: %i[create destroy]

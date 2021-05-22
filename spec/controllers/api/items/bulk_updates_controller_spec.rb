@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::Items::BulkUpdateController do
+RSpec.describe Api::Items::BulkUpdatesController do
   before { sign_in(user) }
 
   let(:user) { store.user }
