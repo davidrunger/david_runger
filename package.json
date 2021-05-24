@@ -76,7 +76,7 @@
     "vue-chartjs": "https://github.com/davidrunger/vue-chartjs.git#vue-3",
     "vue-loader": "^16.2.0",
     "vue-router": "^4.0",
-    "vuex": "^4.0.0",
+    "vuex": "^4.0.1",
     "vuex-router-sync": "^5.0.0",
     "waypoints": "^4.0.1",
     "webpack": "^4.46.0",
