@@ -1,5 +1,5 @@
 import { renderApp } from '@/shared/customized_vue';
-import { createStore, createLogger } from 'vuex';
+import { createStore } from 'vuex';
 import { useAxios } from '@/shared/axios';
 import { useElementPlus } from '@/shared/element_plus';
 import Modal from '@/components/modal.vue';
@@ -14,7 +14,5 @@ useElementPlus(app);
 
 const store = createStore({
   ...storeDefinition,
-  // log Vuex updates to console since Vue Chrome extension doesn't yet support Vuex in Vue 3
-  plugins: (process.env.NODE_ENV === 'development') ? [createLogger()] : [],
 });
 app.use(store);
