@@ -99,6 +99,7 @@ RSpec.configure do |config|
 
   config.global_fixtures = :all
 
+  config.include(SpecHelpers)
   config.include(ActiveSupport::Testing::TimeHelpers)
   config.include(FactoryBot::Syntax::Methods)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
@@ -337,13 +338,4 @@ Shoulda::Matchers.configure do |config|
     with.test_framework(:rspec)
     with.library(:rails)
   end
-end
-
-def json_response
-  JSON(response.body)
-end
-
-def activate_feature!(feature_name)
-  allow(Flipper).to receive(:enabled?).and_call_original
-  allow(Flipper).to receive(:enabled?).with(feature_name).and_return(true)
 end

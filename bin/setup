@@ -6,9 +6,11 @@ require 'fileutils'
 # path to your application root.
 APP_ROOT = File.expand_path('..', __dir__)
 
+# rubocop:disable Style/TopLevelMethodDefinition
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
+# rubocop:enable Style/TopLevelMethodDefinition
 
 FileUtils.chdir(APP_ROOT) do
   # This script is a way to setup or update your development environment automatically.
