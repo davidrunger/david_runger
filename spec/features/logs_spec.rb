@@ -6,18 +6,26 @@ RSpec.describe 'Logs app' do
   context 'when user is signed in' do
     before { sign_in(user) }
 
-    it 'renders the logs app and allows the user to view a log' do
-      visit logs_path
+    context 'when user has multiple logs' do
+      before { expect(user.logs.size).to be >= 2 }
 
-      expect(page).to have_text(user.email)
-      user.logs.pluck(:name).presence!.each do |log_name|
-        expect(page).to have_text(log_name)
+      it 'renders the logs app and allows the user to view a log' do
+        visit logs_path
+
+        expect(page).to have_text(user.email)
+        user.logs.pluck(:name).presence!.each do |log_name|
+          expect(page).to have_text(log_name)
+        end
+        expect(page).to have_text('Create new log')
+
+        log = user.logs.first!
+        other_log = user.logs.second!
+        click_link(log.name)
+
+        expect(page).to have_current_path("/logs/#{log.slug}")
+        expect(page).to have_text(log.name)
+        expect(page).not_to have_text(other_log.name)
       end
-      expect(page).to have_text('Create new log')
-
-      log = user.logs.first!
-      click_link(log.name)
-      expect(page).to have_current_path("/logs/#{log.slug}")
     end
 
     context 'when user has a text log' do
