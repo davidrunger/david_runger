@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 9148145543f693d48ffc2125797894b346a42cb0
+  revision: f4ec01b0066aacf7cf0689981a01a3c9187c9f92
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: 840299cceb5c4a69ad4ccbf90980d80aaf03c40d
+  revision: b0373c5bbd91c60cf70b0ccab4617fa13fdadfea
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,14 +41,14 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/rspec_performance_summary.git
-  revision: 2f7eb319f6d0697d4af3489767740bf19cfe5855
+  revision: c961559299e69f72c7ff863743022ad5250d08e0
   specs:
     rspec_performance_summary (0.1.8.alpha)
       rspec-core (~> 3.0)
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 986e7385685c505b56895b2fec55713cb4e4d4d5
+  revision: 7e737803aa707b0bd301bb7f1770f92407097d2e
   specs:
     runger_style (0.2.21.alpha)
 
@@ -167,8 +167,8 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.4)
     aws-eventstream (1.1.1)
-    aws-partitions (1.465.0)
-    aws-sdk-core (3.114.1)
+    aws-partitions (1.467.0)
+    aws-sdk-core (3.114.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
@@ -176,7 +176,7 @@ GEM
     aws-sdk-kms (1.43.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.96.0)
+    aws-sdk-s3 (1.96.1)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -191,7 +191,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
-    brakeman (5.0.2)
+    brakeman (5.0.4)
     browser (5.3.1)
     builder (3.2.4)
     bullet (6.1.4)
@@ -215,11 +215,10 @@ GEM
     childprocess (3.0.0)
     climate_control (1.0.1)
     cliver (0.3.2)
-    cloudflare-rails (2.0.0)
-      actionpack (>= 5.0, < 6.2.0)
-      activesupport (>= 5.0, < 6.2.0)
-      httparty
-      railties (>= 5.0, < 6.2.0)
+    cloudflare-rails (2.2.0)
+      actionpack (>= 5.2, < 7.1.0)
+      activesupport (>= 5.2, < 7.1.0)
+      railties (>= 5.2, < 7.1.0)
     codecov (0.5.2)
       simplecov (>= 0.15, < 0.22)
     coderay (1.1.3)
@@ -347,9 +346,6 @@ GEM
     http-parser (1.2.3)
       ffi-compiler (>= 1.0, < 2.0)
     http_logger (0.6.0)
-    httparty (0.18.1)
-      mime-types (~> 3.0)
-      multi_xml (>= 0.5.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     immigrant (0.3.6)
@@ -364,7 +360,7 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    js-routes (2.0.6)
+    js-routes (2.0.7)
       railties (>= 4)
     json-schema (2.8.1)
       addressable (>= 2.4)
@@ -404,9 +400,6 @@ GEM
     marcel (1.0.1)
     memoist (0.16.2)
     method_source (1.0.0)
-    mime-types (3.3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.0225)
     mini_mime (1.0.3)
     mini_portile2 (2.5.3)
     minitest (5.14.4)
@@ -429,7 +422,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oj (3.11.5)
+    oj (3.11.6)
     omniauth (2.0.4)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
@@ -516,7 +509,7 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.2.5)
+    redis (4.3.1)
     redlock (1.2.1)
       redis (>= 3.0.0, < 5.0)
     regexp_parser (2.1.1)
@@ -571,7 +564,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    rubocop-rspec (2.3.0)
+    rubocop-rspec (2.4.0)
       rubocop (~> 1.0)
       rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
@@ -638,7 +631,7 @@ GEM
     vite_rails (2.0.12)
       railties (>= 5.1, < 8)
       vite_ruby (~> 1.0)
-    vite_ruby (1.2.11)
+    vite_ruby (1.2.12)
       dry-cli (~> 0.7.0)
       rack-proxy (~> 0.6, >= 0.6.1)
       zeitwerk (~> 2.2)
@@ -653,7 +646,7 @@ GEM
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
-    websocket-driver (0.7.4)
+    websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
