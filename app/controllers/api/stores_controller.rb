@@ -27,14 +27,14 @@ class Api::StoresController < ApplicationController
   def destroy
     authorize(@store)
     @store.destroy!
-    head(204)
+    head(:no_content)
   end
 
   private
 
   def set_store
     @store = current_user.stores.find_by(id: params['id'])
-    head(404) if @store.nil?
+    head(:not_found) if @store.nil?
   end
 
   def store_params

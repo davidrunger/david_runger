@@ -17,14 +17,14 @@ class Api::LogSharesController < ApplicationController
   def destroy
     @log_share = current_user.log_shares.find_by(id: params[:id])
     if @log_share.nil?
-      head(404)
+      head(:not_found)
       skip_authorization
       return
     end
 
     authorize(@log_share)
     @log_share.destroy!
-    head(204)
+    head(:no_content)
   end
 
   private

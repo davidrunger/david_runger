@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: f4ec01b0066aacf7cf0689981a01a3c9187c9f92
+  revision: 3fb1cd2534fcc8041d96396e7627aa673f3c0a63
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: b0373c5bbd91c60cf70b0ccab4617fa13fdadfea
+  revision: d5df445c20f46dc30da115e00cb8928c89bf8379
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,14 +41,14 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/rspec_performance_summary.git
-  revision: c961559299e69f72c7ff863743022ad5250d08e0
+  revision: f7ed4040b1d2499c0e46ee429df16ee3500516a0
   specs:
     rspec_performance_summary (0.1.8.alpha)
       rspec-core (~> 3.0)
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 7e737803aa707b0bd301bb7f1770f92407097d2e
+  revision: 3644ecc92f67f496f5e165c7ed6c5e6bcffcc22d
   specs:
     runger_style (0.2.21.alpha)
 
@@ -167,13 +167,13 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.4)
     aws-eventstream (1.1.1)
-    aws-partitions (1.467.0)
-    aws-sdk-core (3.114.2)
+    aws-partitions (1.470.0)
+    aws-sdk-core (3.114.3)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.43.0)
+    aws-sdk-kms (1.44.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-s3 (1.96.1)
@@ -286,7 +286,7 @@ GEM
       cliver (~> 0.3)
       concurrent-ruby (~> 1.1)
       websocket-driver (>= 0.6, < 0.8)
-    ffi (1.15.1)
+    ffi (1.15.3)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -303,7 +303,7 @@ GEM
       flipper (~> 0.21.0)
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, < 2.2.0)
-    formatador (0.2.5)
+    formatador (0.3.0)
     formtastic (4.0.0)
       actionpack (>= 5.2.0)
     formtastic_i18n (0.7.0)
@@ -546,7 +546,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rubocop (1.16.0)
+    rubocop (1.17.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -560,7 +560,7 @@ GEM
     rubocop-performance (1.11.3)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.10.1)
+    rubocop-rails (2.11.0)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
