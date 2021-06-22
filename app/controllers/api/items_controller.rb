@@ -22,7 +22,7 @@ class Api::ItemsController < ApplicationController
   def destroy
     authorize(@item)
     @item.destroy!
-    head 204
+    head :no_content
   end
 
   private
@@ -33,6 +33,6 @@ class Api::ItemsController < ApplicationController
 
   def set_item
     @item ||= current_user.items.find_by(id: params['id'])
-    head(404) if @item.nil?
+    head(:not_found) if @item.nil?
   end
 end

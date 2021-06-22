@@ -17,7 +17,7 @@ class Api::LogEntriesController < ApplicationController
   def update
     @log_entry ||= current_user.text_log_entries.find_by(id: params['id'])
     if @log_entry.nil?
-      head(404)
+      head(:not_found)
       skip_authorization
       return
     end
@@ -35,14 +35,14 @@ class Api::LogEntriesController < ApplicationController
       current_user.logs.find_by(id: params['log_id'])&.
         log_entries&.find_by(id: params['id'])
     if @log_entry.nil?
-      head(404)
+      head(:not_found)
       skip_authorization
       return
     end
 
     authorize(@log_entry)
     @log_entry.destroy!
-    head(204)
+    head(:no_content)
   end
 
   def index

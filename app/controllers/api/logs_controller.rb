@@ -27,7 +27,7 @@ class Api::LogsController < ApplicationController
   def destroy
     authorize(@log)
     @log.destroy!
-    head(204)
+    head(:no_content)
   end
 
   private
@@ -45,6 +45,6 @@ class Api::LogsController < ApplicationController
 
   def set_log
     @log = current_user.logs.find_by(id: params[:id])
-    head(404) if @log.nil?
+    head(:not_found) if @log.nil?
   end
 end
