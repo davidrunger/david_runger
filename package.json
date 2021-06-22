@@ -88,7 +88,7 @@
     "@vitejs/plugin-vue": "^1.2.3",
     "postcss": "^8.3.5",
     "postcss-html": "^0.36.0",
-    "postcss-safe-parser": "^5.0.2",
+    "postcss-safe-parser": "^6.0.0",
     "postcss-scss": "^4.0.0",
     "postcss-syntax": "^0.36.2",
     "sass": "^1.35.1",
