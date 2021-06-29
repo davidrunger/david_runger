@@ -60,7 +60,7 @@
     "node-pre-gyp": "^0.17.0",
     "node-sass": "^6.0.1",
     "normalize.css": "^8.0.1",
-    "optimize-css-assets-webpack-plugin": "^6.0.0",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
     "path-complete-extname": "^1.0.0",
     "postcss-loader": "^4.3.0",
     "precss": "^4.0.0",
