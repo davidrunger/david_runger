@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 643f988e2e688780cbf66af5b30204b8f536c619
+  revision: 72ca88c7c991d437124710dfee60b708cbb0c368
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: b123a765c5cdbc1c0bf1ad64931cde3d5b00feb8
+  revision: 79bcd8029a2ba4490b0e7977408404800af3f1d9
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,14 +41,14 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/rspec_performance_summary.git
-  revision: bb57d452731b382953dade1f7ee0c866ed47c65f
+  revision: e79f002877ff6dc08ebb8c30e49bc912652830f2
   specs:
     rspec_performance_summary (0.1.8.alpha)
       rspec-core (~> 3.0)
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: b4194c10b57674f73935d042a6c14f9c7b3ad0ff
+  revision: 9bc6df69c4430f31c3fe1964caac04b1e6b91ff8
   specs:
     runger_style (0.2.22.alpha)
 
@@ -155,7 +155,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     amazing_print (1.3.0)
     annotate (3.1.1)
@@ -167,7 +167,7 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.4)
     aws-eventstream (1.1.1)
-    aws-partitions (1.472.0)
+    aws-partitions (1.473.0)
     aws-sdk-core (3.115.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -266,19 +266,23 @@ GEM
       railties (>= 5.0.0)
     faker (2.18.0)
       i18n (>= 1.6, < 2)
-    faraday (1.4.3)
+    faraday (1.5.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0.1)
       faraday-net_http (~> 1.0)
       faraday-net_http_persistent (~> 1.1)
+      faraday-patron (~> 1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords (>= 0.0.4)
     faraday-em_http (1.0.0)
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
+    faraday-patron (1.0.0)
     faraday_middleware (1.0.0)
       faraday (~> 1.0)
     ferrum (0.11)
@@ -408,7 +412,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
-    newrelic_rpm (7.1.0)
+    newrelic_rpm (7.2.0)
     nio4r (2.5.7)
     nokogiri (1.11.7)
       mini_portile2 (~> 2.5.0)
@@ -422,7 +426,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oj (3.11.7)
+    oj (3.11.8)
     omniauth (2.0.4)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
@@ -546,7 +550,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rubocop (1.18.0)
+    rubocop (1.18.2)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -560,7 +564,7 @@ GEM
     rubocop-performance (1.11.3)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.11.1)
+    rubocop-rails (2.11.2)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
@@ -569,7 +573,7 @@ GEM
       rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
-    rubyzip (2.3.0)
+    rubyzip (2.3.2)
     rufus-scheduler (3.7.0)
       fugit (~> 1.1, >= 1.1.6)
     sassc (2.4.0)
@@ -631,7 +635,7 @@ GEM
     vite_rails (2.0.12)
       railties (>= 5.1, < 8)
       vite_ruby (~> 1.0)
-    vite_ruby (1.2.12)
+    vite_ruby (1.2.15)
       dry-cli (~> 0.7.0)
       rack-proxy (~> 0.6, >= 0.6.1)
       zeitwerk (~> 2.2)
