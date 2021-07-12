@@ -74,9 +74,6 @@ jobs:
         # The hostname used to communicate with the Redis service container
         REDIS_HOST: redis
         REDIS_PORT: 6379
-        BUILD_TIME_LOG_AUTH_TOKEN: "${{secrets.BUILD_TIME_LOG_AUTH_TOKEN}}"
-        BUILD_TIME_LOG_ID: "${{secrets.BUILD_TIME_LOG_ID}}"
-        BUILD_TIME_LOG_URL: "${{secrets.BUILD_TIME_LOG_URL}}"
         BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
         PERCY_TOKEN: "${{secrets.PERCY_TOKEN}}"
         CODECOV_TOKEN: "${{secrets.CODECOV_TOKEN}}"
