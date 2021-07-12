@@ -38,7 +38,7 @@
     "clipboard": "^2.0.8",
     "compression-webpack-plugin": "^6.1.1",
     "css-loader": "^5.2.6",
-    "dompurify": "^2.2.9",
+    "dompurify": "^2.3.0",
     "easytimer.js": "^4.4.0",
     "element-plus": "^1.0.2-beta.46",
     "eslint": "^7.30.0",
