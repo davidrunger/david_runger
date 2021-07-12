@@ -2734,10 +2734,10 @@ chartjs-color@^2.1.0:
     chartjs-color-string "^0.6.0"
     color-convert "^1.9.3"
 
-chartkick@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/chartkick/-/chartkick-4.0.4.tgz#273f5fbaaebfb9aa95e76c8b9b996564321a5ab9"
-  integrity sha512-kUSrZslQg0xbbYrtJz++Ohw64j0i6AS5uZu22agMf7ikaMYYMuQgTmrCrZ2xQ3rsQtjKSqdz4VHzl8vVRoG5Fw==
+chartkick@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/chartkick/-/chartkick-4.0.5.tgz#310a60c931e8ceedc39adee2ef8e9d1e474cb0e6"
+  integrity sha512-xKak4Fsgfvp1hj/LykRKkniDMaZASx2A4TdVc/sfsiNFFNf1m+D7PGwP1vgj1UsbsCjOCSfGWWyJpOYxkUCBug==
   optionalDependencies:
     chart.js ">=3.0.2"
     chartjs-adapter-date-fns ">=2.0.0"
