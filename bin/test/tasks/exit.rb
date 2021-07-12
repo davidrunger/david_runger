@@ -5,7 +5,6 @@ class Test::Tasks::Exit < Pallets::Task
 
   def run
     @overall_finish_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-    post_runtime_to_log
     print_individual_task_times
     print_overall_time_and_parallelism
     print_exit_code_info
@@ -49,36 +48,6 @@ class Test::Tasks::Exit < Pallets::Task
       Test::Middleware::TaskResultTrackingMiddleware.job_results.map { _2[:run_time] }.sum
     puts("Total task time: #{total_task_time.round(3).to_s.yellow}")
     puts("Parallelism: #{total_task_time.fdiv(overall_wall_clock_time).round(3).to_s.yellow}")
-  end
-
-  def post_runtime_to_log
-    print("\nPosting data to log... ")
-    begin
-      response =
-        Faraday.json_connection(timeout: 120).post(
-          ENV['BUILD_TIME_LOG_URL'],
-          {
-            auth_token: ENV['BUILD_TIME_LOG_AUTH_TOKEN'],
-            log_entry: {
-              log_id: ENV['BUILD_TIME_LOG_ID'],
-              data: overall_wall_clock_time.round(1),
-              note: log_note,
-            },
-          },
-        )
-      status = response.status
-      puts("Response status: #{(status == 201) ? status.to_s.green : status.to_s.red}")
-    rescue Faraday::ConnectionFailed
-      if ENV['BUILD_TIME_LOG_URL'].include?('localhost')
-        puts("#{'failed'.red} because localhost server is not running, but that's okay.")
-      else
-        raise
-      end
-    end
-  end
-
-  def log_note
-    "exit_code=#{exit_code} tasks=#{short_job_names.sort.join(',')} ref=#{ENV['GITHUB_REF']}"
   end
 
   def overall_wall_clock_time
