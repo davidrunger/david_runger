@@ -43,7 +43,7 @@ export default {
     inputType() {
       if (this.isText) {
         return 'textarea';
-      } else if (this.isNumber || this.isCounter) {
+      } else if (this.isCounter) {
         return 'number';
       } else {
         return 'text';
