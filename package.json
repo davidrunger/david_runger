@@ -41,7 +41,7 @@
     "dompurify": "^2.3.0",
     "easytimer.js": "^4.4.0",
     "element-plus": "^1.0.2-beta.46",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-loader": "^4.0.2",
