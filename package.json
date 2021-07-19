@@ -71,7 +71,7 @@
     "script-loader": "^0.7.2",
     "strftime": "^0.10.0",
     "style-loader": "^2.0.0",
-    "toastify-js": "^1.11.0",
+    "toastify-js": "^1.11.1",
     "vue": "^3.0",
     "vue-chartjs": "https://github.com/davidrunger/vue-chartjs.git#vue-3",
     "vue-loader": "^16.3.0",
