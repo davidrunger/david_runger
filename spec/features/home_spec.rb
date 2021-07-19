@@ -9,7 +9,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
       Full stack web developer
     HEADLINE
 
-    Percy.snapshot(page, { name: 'Homepage' })
+    page.percy_snapshot('Homepage')
   end
 
   # we need to use the :rack_test driver because Chrome doesn't have the page.driver.header method
