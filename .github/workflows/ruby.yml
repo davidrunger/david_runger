@@ -40,10 +40,10 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 100 # this might cause issues if there are more than 100 commits in a PR (?)
-    - name: Set up Ruby 3.0.1
+    - name: Set up Ruby 3.0.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0.1
+        ruby-version: 3.0.2
         bundler-cache: true
       env:
         BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
@@ -98,10 +98,10 @@ jobs:
           heroku_app_name: davidrunger
           heroku_email: davidjrunger@gmail.com
       - run: sleep 60 # give some time for the new release to boot up
-      - name: Set up Ruby 3.0.1
+      - name: Set up Ruby 3.0.2
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.1
+          ruby-version: 3.0.2
           bundler-cache: true
         env:
           BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
