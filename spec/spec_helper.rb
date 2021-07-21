@@ -29,7 +29,7 @@ require 'capybara-screenshot/rspec' if !is_ci
 require 'active_support/cache/mem_cache_store'
 require 'sidekiq/testing'
 require 'mail'
-require 'percy'
+require 'percy/capybara'
 require 'rspec_performance_summary'
 require 'super_diff/rspec-rails'
 
