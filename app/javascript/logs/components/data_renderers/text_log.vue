@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';
-import NewLogEntryForm from '@/logs/components/new_log_entry_form.vue';
-
 import createDOMPurify from 'dompurify';
 import marked from 'marked';
 import strftime from 'strftime';
+
+import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';
+import NewLogEntryForm from '@/logs/components/new_log_entry_form.vue';
 
 const DOMPurify = createDOMPurify(window);
 
