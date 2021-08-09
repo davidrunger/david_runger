@@ -1,5 +1,6 @@
-import { renderApp } from '@/shared/customized_vue';
 import { createStore } from 'vuex';
+
+import { renderApp } from '@/shared/customized_vue';
 import { useAxios } from '@/shared/axios';
 import { useElementPlus } from '@/shared/element_plus';
 import Modal from '@/components/modal.vue';
