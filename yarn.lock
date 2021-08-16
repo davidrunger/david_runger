@@ -3840,10 +3840,10 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-easytimer.js@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/easytimer.js/-/easytimer.js-4.4.0.tgz#bcaa31a3a07ea0086740b46ac7e451b8b65c6911"
-  integrity sha512-2pow104DQHvlrct7oZczXOa7H4T0MqIr7Dd8qXrJ3dJHnnuxF6Fe37hYq9WLyKfxjrYmpEt0XRj0dY9pdo1VcQ==
+easytimer.js@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/easytimer.js/-/easytimer.js-4.5.0.tgz#9f8554ebc7b93a7a1abcd0639873e471661a5a21"
+  integrity sha512-2qlHNw0mpi7RM/bMN5BqCsLaHTSNXp/iGp/I2P7WxGWlr/nc6no41LgZlXQFqOfJ1u8DIeABAV3TOhou+dGJdw==
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"
