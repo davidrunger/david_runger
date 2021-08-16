@@ -39,7 +39,7 @@
     "compression-webpack-plugin": "^6.1.1",
     "css-loader": "^5.2.7",
     "dompurify": "^2.3.0",
-    "easytimer.js": "^4.4.0",
+    "easytimer.js": "^4.5.0",
     "element-plus": "^1.0.2-beta.46",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
