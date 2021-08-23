@@ -10,6 +10,6 @@ module JavascriptHelper
   end
 
   def use_vite?
-    Rails.env.development? && !Flipper.enabled?(:use_webpack)
+    Rails.env.development? && !ENV.key?('USE_WEBPACK')
   end
 end
