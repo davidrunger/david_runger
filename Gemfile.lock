@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 7d0d8648f85f10fb349899e9573722c8d8233ead
+  revision: b47dedd93d9811abc78c4580e34d32235cac519d
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: f52d390ba1077d5efaaa44a7307285eab9f901bd
+  revision: e87fefa33620babb86fbcca679de465e2ba8ff7d
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,14 +41,14 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/rspec_performance_summary.git
-  revision: fac5408235b77b9a0a3b33ae422a9d904bb28cbf
+  revision: 664f0bca9d78cb89552007836bc8816b5d1c0a29
   specs:
     rspec_performance_summary (0.1.8.alpha)
       rspec-core (~> 3.0)
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 659404a8d0dc9de979d181f9c43e9fe83b8cc007
+  revision: c7074afc0032f8ad29f09cbe298d1540f0673ad2
   specs:
     runger_style (0.2.22.alpha)
 
@@ -166,21 +166,21 @@ GEM
       ruby2_keywords (>= 0.0.2, < 1.0)
     ast (2.4.2)
     attr_extras (6.2.4)
-    aws-eventstream (1.1.1)
-    aws-partitions (1.492.0)
-    aws-sdk-core (3.119.1)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.496.0)
+    aws-sdk-core (3.121.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.47.0)
-      aws-sdk-core (~> 3, >= 3.119.0)
+    aws-sdk-kms (1.48.0)
+      aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.100.0)
-      aws-sdk-core (~> 3, >= 3.119.0)
+    aws-sdk-s3 (1.102.0)
+      aws-sdk-core (~> 3, >= 3.120.0)
       aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.1)
-    aws-sigv4 (1.2.4)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.4.0)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.16)
     better_errors (2.9.1)
@@ -292,7 +292,7 @@ GEM
       cliver (~> 0.3)
       concurrent-ruby (~> 1.1)
       websocket-driver (>= 0.6, < 0.8)
-    ffi (1.15.3)
+    ffi (1.15.4)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -428,7 +428,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oj (3.13.2)
+    oj (3.13.4)
     omniauth (2.0.4)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
