@@ -40,13 +40,6 @@ GIT
       lazy_lazer (~> 0.8.1)
 
 GIT
-  remote: https://github.com/davidrunger/rspec_performance_summary.git
-  revision: 664f0bca9d78cb89552007836bc8816b5d1c0a29
-  specs:
-    rspec_performance_summary (0.1.8.alpha)
-      rspec-core (~> 3.0)
-
-GIT
   remote: https://github.com/davidrunger/runger_style.git
   revision: c7074afc0032f8ad29f09cbe298d1540f0673ad2
   specs:
@@ -736,7 +729,6 @@ DEPENDENCIES
   rollbar
   rspec-instafail
   rspec-rails
-  rspec_performance_summary!
   rubocop
   rubocop-performance
   rubocop-rails

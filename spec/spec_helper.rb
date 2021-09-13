@@ -30,7 +30,6 @@ require 'active_support/cache/mem_cache_store'
 require 'sidekiq/testing'
 require 'mail'
 require 'percy/capybara'
-require 'rspec_performance_summary'
 require 'super_diff/rspec-rails'
 
 # w/o this, Sidekiq's `logger` prints to STDOUT (bad); with this, it prints to `log/test.log` (good)
