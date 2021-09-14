@@ -42,6 +42,7 @@ class Quiz < ApplicationRecord
   has_many(
     :ordered_questions,
     -> { order(:created_at) },
+    dependent: :destroy,
     class_name: 'QuizQuestion',
     inverse_of: :quiz,
   )

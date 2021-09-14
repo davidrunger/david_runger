@@ -34,6 +34,7 @@ class QuizParticipation < ApplicationRecord
         merge(QuizQuestion.closed).
         where(quiz_question_answers: { is_correct: true })
     },
+    dependent: :destroy,
     class_name: 'QuizQuestionAnswerSelection',
     foreign_key: :participation_id,
     inverse_of: :participation,

@@ -12,7 +12,7 @@ ActiveAdmin.register(Quiz) do
       if params[:action] == 'destroy'
         collection =
           collection.includes(
-            participations: :quiz_question_answer_selections,
+            participations: %i[correct_answer_selections quiz_question_answer_selections],
             questions: { answers: :selections },
           )
       end
