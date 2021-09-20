@@ -84,7 +84,7 @@
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
-    "@percy/cli": "^1.0.0-beta.67",
+    "@percy/cli": "^1.0.0-beta.68",
     "@vitejs/plugin-vue": "^1.4.0",
     "postcss": "^8.3.6",
     "postcss-html": "^0.36.0",
