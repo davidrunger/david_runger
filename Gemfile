@@ -23,7 +23,7 @@ gem 'flipper-ui'
 gem 'hamlit'
 gem 'hashid-rails'
 gem 'heat', git: 'https://github.com/davidrunger/heat.git', require: false
-gem 'js-routes', require: false
+gem 'js-routes', '2.0.8', require: false
 gem 'lograge'
 gem 'memoist'
 gem 'newrelic_rpm'
