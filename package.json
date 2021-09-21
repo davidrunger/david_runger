@@ -94,7 +94,7 @@
     "sass": "^1.41.1",
     "stylelint": "~13",
     "stylelint-config-standard": "^22.0.0",
-    "stylelint-scss": "^3.20.1",
+    "stylelint-scss": "^3.21.0",
     "stylelint-webpack-plugin": "^2.2.2",
     "vite": "^2.5.10",
     "vite-plugin-ruby": "^3.0.1",
