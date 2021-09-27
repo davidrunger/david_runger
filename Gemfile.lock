@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: c97856b1b29135c76cee2cfe7c05290de81188c4
+  revision: 8427b20e0120386906a6aa7be5a3637b3f645315
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: b4d31eb5464141bbbe1c9f9df26724db7755624a
+  revision: ed8867a61a9dd6be6b2af70e143452ec7e7fa25c
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 9380aa889a72822547afc15080b47d52430036dc
+  revision: f7f035a3156ebb21537fc184682a5b6a61a571ad
   specs:
     runger_style (0.2.22.alpha)
 
@@ -160,8 +160,8 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.4)
     aws-eventstream (1.2.0)
-    aws-partitions (1.503.0)
-    aws-sdk-core (3.121.0)
+    aws-partitions (1.507.0)
+    aws-sdk-core (3.121.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
@@ -407,9 +407,9 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
-    newrelic_rpm (7.2.0)
+    newrelic_rpm (8.0.0)
     nio4r (2.5.8)
-    nokogiri (1.12.4)
+    nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -564,9 +564,8 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    rubocop-rspec (2.4.0)
-      rubocop (~> 1.0)
-      rubocop-ast (>= 1.1.0)
+    rubocop-rspec (2.5.0)
+      rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
