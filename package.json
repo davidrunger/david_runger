@@ -50,7 +50,7 @@
     "file-loader": "^6.2.0",
     "fuzzyset.js": "^1.0.6",
     "gator": "^1.2.4",
-    "glob": "^7.1.7",
+    "glob": "^7.2.0",
     "js-yaml": "^4.1.0",
     "keycode": "^2.2.0",
     "lodash": "^4.17.21",
