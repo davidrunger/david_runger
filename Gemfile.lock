@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 8427b20e0120386906a6aa7be5a3637b3f645315
+  revision: c278fabf304c83253024f498d3da444e3afb79a3
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: ed8867a61a9dd6be6b2af70e143452ec7e7fa25c
+  revision: 3dbcc4495f52afa4d949945138c6a32462b132f2
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: f7f035a3156ebb21537fc184682a5b6a61a571ad
+  revision: 785ef5a9a18b217a644dddd90344c3a94cd9b01a
   specs:
     runger_style (0.2.22.alpha)
 
@@ -160,13 +160,13 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.4)
     aws-eventstream (1.2.0)
-    aws-partitions (1.507.0)
+    aws-partitions (1.510.0)
     aws-sdk-core (3.121.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.48.0)
+    aws-sdk-kms (1.49.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-s3 (1.103.0)
@@ -364,7 +364,7 @@ GEM
     json-schema (2.8.1)
       addressable (>= 2.4)
     jsonapi-renderer (0.2.2)
-    jwt (2.2.3)
+    jwt (2.3.0)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -421,7 +421,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oj (3.13.7)
+    oj (3.13.8)
     omniauth (2.0.4)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
@@ -546,16 +546,16 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rubocop (1.21.0)
+    rubocop (1.22.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.9.1, < 2.0)
+      rubocop-ast (>= 1.12.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.11.0)
+    rubocop-ast (1.12.0)
       parser (>= 3.0.1.1)
     rubocop-performance (1.11.5)
       rubocop (>= 1.7.0, < 2.0)
