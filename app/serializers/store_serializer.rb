@@ -9,7 +9,7 @@
 #  name       :string           not null
 #  notes      :text
 #  updated_at :datetime         not null
-#  user_id    :bigint
+#  user_id    :bigint           not null
 #  viewed_at  :datetime
 #
 # Indexes
