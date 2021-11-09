@@ -12,7 +12,7 @@
 #  status     :string           not null
 #  to         :string           not null
 #  updated_at :datetime         not null
-#  user_id    :bigint
+#  user_id    :bigint           not null
 #
 # Indexes
 #

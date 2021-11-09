@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_05_064622) do
+ActiveRecord::Schema.define(version: 2021_11_09_051300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,7 +224,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_064622) do
     t.string "error", comment: "Error description, provided by Nexmo, if present"
     t.string "to", null: false, comment: "The phone number to which the message was sent"
     t.float "cost", comment: "Cost of the message in EUR; may be NULL if send failed"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["nexmo_id"], name: "index_sms_records_on_nexmo_id", unique: true
@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_064622) do
 
   create_table "stores", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "viewed_at"
