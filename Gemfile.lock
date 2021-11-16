@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: b598febdc806578969b714066a37f2a507bd40d7
+  revision: 14770c5a18f7c55c2f9651b32c120df3b422b3a3
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: 44425b62b528c70956b88223fcd5c2a4598f8f7d
+  revision: 1a4c90e19fdabcfe05cdcf0bdc36741204cf5224
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 627a21c8a4371ff20a2ec920b85b0b6cf99cc30d
+  revision: be9766c0a0b22b216a6c181e054218205d8df048
   specs:
     runger_style (0.2.22.alpha)
 
@@ -160,8 +160,8 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.4)
     aws-eventstream (1.2.0)
-    aws-partitions (1.525.0)
-    aws-sdk-core (3.122.0)
+    aws-partitions (1.530.0)
+    aws-sdk-core (3.122.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -222,7 +222,7 @@ GEM
       rexml
     crass (1.0.6)
     dalli (3.0.4)
-    database_consistency (1.1.5)
+    database_consistency (1.1.6)
       activerecord (>= 3.2)
     debug_inspector (1.1.0)
     devise (4.8.0)
@@ -548,7 +548,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.3)
-    rubocop (1.22.3)
+    rubocop (1.23.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -610,9 +610,9 @@ GEM
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.2.2)
-      actionpack (>= 4.0)
-      activesupport (>= 4.0)
+    sprockets-rails (3.4.0)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     super_diff (0.8.0)
       attr_extras (>= 6.2.4)
