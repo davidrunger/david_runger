@@ -13,7 +13,7 @@
 
 <script>
 import createDOMPurify from 'dompurify';
-import marked from 'marked';
+import { marked } from 'marked';
 import strftime from 'strftime';
 
 import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';

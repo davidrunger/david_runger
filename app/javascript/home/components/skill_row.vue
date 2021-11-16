@@ -61,9 +61,9 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import 'css/variables.scss';
+@import "css/variables";
 
-i[class^=devicon-] {
+i[class^="devicon-"] {
   font-size: 65px;
 
   @media (max-width: 550px) {

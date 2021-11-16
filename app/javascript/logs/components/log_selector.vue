@@ -129,7 +129,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-:deep(input[type=text]) {
+:deep(input[type="text"]) {
   max-width: 60%;
   border-radius: 4px;
   border: 1px solid #dcdfe6;

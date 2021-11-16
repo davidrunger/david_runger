@@ -1,10 +1,7 @@
 // https://codepen.io/hugodf/pen/dyojOoO
 @mixin flash-header {
   color: #fff;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
   font-weight: 700;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
@@ -12,10 +9,7 @@
 }
 
 @mixin flash-message {
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
   border-width: 1px;
   border-top-width: 0;
   border-bottom-right-radius: 0.25rem;

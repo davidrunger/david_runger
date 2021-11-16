@@ -103,28 +103,25 @@ export default {
 .increment,
 .delete {
   font-size: 15px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -ms-user-select: none;
+  user-select: none;
 }
 
 .grocery-item {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 60%);
   margin: 5px 0;
   padding: 0 6px;
   height: 30px;
 
   &:not(.unneeded):hover {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 80%);
   }
 
   &.unneeded {
-    background: rgba(255, 255, 255, 0.3);
-    color: rgba(0, 0, 0, 0.55);
+    background: rgba(255, 255, 255, 30%);
+    color: rgba(0, 0, 0, 55%);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 50%);
     }
   }
 }
