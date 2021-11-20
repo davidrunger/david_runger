@@ -46,6 +46,7 @@ module.exports = {
       named: 'never',
       asyncArrow: 'always',
     }],
+    'vue/multi-word-component-names': 'off',
   },
   settings: {
     'import/resolver': {
