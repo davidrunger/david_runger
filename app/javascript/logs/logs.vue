@@ -99,8 +99,8 @@ a.log-link {
 }
 
 .el-collapse-item {
-  [role='tab']:focus,
-  [role='button']:focus {
+  [role="tab"]:focus,
+  [role="button"]:focus {
     outline: none;
   }
 }
@@ -114,7 +114,7 @@ a.log-link {
   }
 }
 
-input[type=text],
+input[type="text"],
 textarea.el-textarea__inner,
 .el-input input.el-input__inner,
 .el-input.is-disabled input.el-input__inner {
@@ -144,7 +144,7 @@ textarea.el-textarea__inner {
   position: absolute;
   right: 0;
   min-width: 120px;
-  box-shadow: 0 8px 16px 0 rgba(200, 200, 200, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(200, 200, 200, 20%);
   text-align: right;
   z-index: 1;
 }

@@ -1,5 +1,5 @@
 %parallax-pseudo {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   width: 100%;
@@ -20,8 +20,8 @@
 
   // lighten the image with a semi-transparent white mask
   &::after {
-    content: '';
-    background: rgba(255, 255, 255, 0.3);
+    content: "";
+    background: rgba(255, 255, 255, 30%);
     position: fixed;
     top: 0;
     width: 100%;
@@ -33,7 +33,7 @@
   &::before {
     @extend %parallax-pseudo;
 
-    background-image: url('../images/macbook-1.jpg');
+    background-image: url("../images/macbook-1.jpg");
   }
 }
 
@@ -41,20 +41,20 @@
   &::before {
     @extend %parallax-pseudo;
 
-    background-image: url('../images/macbook-2.jpg');
+    background-image: url("../images/macbook-2.jpg");
   }
 }
 
 html.webp {
   .parallax-inner--macbook-1 {
     &::before {
-      background-image: url('../images/macbook-1.webp');
+      background-image: url("../images/macbook-1.webp");
     }
   }
 
   .parallax-inner--macbook-2 {
     &::before {
-      background-image: url('../images/macbook-2.webp');
+      background-image: url("../images/macbook-2.webp");
     }
   }
 }
