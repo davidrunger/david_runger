@@ -19,8 +19,6 @@
           span.ptb-1 About
         a.nav-link(href='#skills')
           span.ptb-1 Skills
-        a.nav-link(href='#projects')
-          span.ptb-1 Projects
         a.nav-link(href='#resume')
           span.ptb-1 Resume
         a.nav-link(href='#contact')
@@ -200,104 +198,11 @@
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-1
 
-  HomeSection(section='projects', title='Projects')
-    Project
-      template(v-slot:title)
-        span My Grocery List
-      template(v-slot:technologies)
-        span Rails 6, Vue.js, Vuex, Nexmo SMS API
-      template(v-slot:links)
-        div
-          a(:href='$routes.groceries_path()') Live
-      template(v-slot:image)
-        PerformantImage(alt='Groceries app' lazy=true)
-          source(type='jpg' src='~img/groceries.jpg')
-          source(type='webp' src='~img/groceries.webp')
-      template(v-slot:overview)
-        p.
-          I choose not to own a smartphone (😱), and I eat the same few things week after week.
-          With this in mind, I wanted an app that would help me to efficiently track and purchase
-          groceries. Plus, I wanted an excuse to experiment with
-          #[a(href='https://vuejs.org/') Vue.js]! So I built
-          #[a(:href='$routes.groceries_path()') davidrunger.com/groceries].
-        p.
-          I use this app to keep track of which grocery items I need. Then, when it's time to go
-          shopping, I text the grocery list to myself via the Nexmo SMS API, so that I can easily to
-          refer to it on my "dumb" phone while I'm at the store.
-      template(v-slot:tech-list)
-        ul
-          li.
-            A #[b Rails 6] back end serves a #[b Vue.js] front end application that's built with
-            #[b #[a(href='https://pugjs.org') pug]] templates, ES6 (via
-            #[b #[a(href='https://babeljs.io/') babel]]), and
-            #[b #[a(href='http://sass-lang.com/') Sass]].
-          li.
-            Rails's #[b webpacker] gem provides #[b Hot Module Replacement] for
-            #[i all] aspects of the frontend app (HTML, CSS, and JavaScript). This creates a
-            super efficient and enjoyable development flow! 😄
-          li #[b Google OAuth] provides convenient and secure sign-in
-          li #[b Vuex] manages the application state
-          li.
-            Integrates with the #[b #[a(href='https://www.nexmo.com/') Nexmo] SMS API], allowing
-            users to text themselves a list of currently needed grocery items
-          li.
-            The excellent #[b #[a(href='https://github.com/railsware/js-routes') js-routes]]
-            library allows the use of Rails named routes / path helpers on the client-side, too! :)
-          li.
-            #[b #[a(href='https://element-plus.org/#/en-US') Element Plus]] provides pretty and
-            ready-to-use Vue UI components.
-          li.
-            #[b #[a(href='http://basscss.com/') Basscss]] provides CSS utility classes, so that a lot
-            of styling can be done in the markup itself.
-          li.
-            #[b Continuous integration (CI)] via GitHub Actions, which also provides
-            #[b continuous deployment (CD)] via #[b Heroku] (which hosts the app)
-          li.
-            Ruby code is linted by #[b RuboCop], JavaScript by #[b ESLint], and stylesheets by
-            #[b Stylelint].
-
-    Project
-      template(v-slot:title)
-        span Rosetta Code Languages Selector
-      template(v-slot:technologies)
-        span Chrome Extension, Capybara integration tests
-      template(v-slot:links)
-        div
-          a(
-            href='https://chrome.google.com/webstore/detail/rosetta-code-languages-se/icjinpkbplhheomciikehmieadoibljg'
-          ) Live
-          span #{' - '}
-          a(href='https://github.com/davidrunger/rc-languages-selector') GitHub
-      template(v-slot:image)
-        PerformantImage(alt='Rosetta Code Languages Selector' lazy=true)
-          source(type='png' src='~img/rc-languages-selector.png')
-          source(type='webp' src='~img/rc-languages-selector.webp')
-      template(v-slot:overview)
-        p.
-          #[a(href='http://rosettacode.org/wiki/Rosetta_Code') RosettaCode.org] is a great website
-          for comparing programming languages and/or learning a new language based on others that
-          you already know. However, for each sample programming task, there are so many
-          implementations available in different languages that it can be difficult to find the code
-          samples for the languages that you are focusing on. This extension solves that problem by
-          only showing code samples for languages that you have specifically selected.
-      template(v-slot:tech-list)
-        ul
-          li.
-            Comprehensive Capybara integration test suite allows for confident refactoring and
-            feature extension.
-          li.
-            Custom testing solution mimics the Chrome Extension API by monkeypatching the Capybara
-            library to automatically inject the extension's JavaScript and CSS assets into any page
-            visited during an integration test.
-
-  .parallax-outer
-    .parallax-inner.parallax-inner--macbook-2
-
   HomeSection(section='resume', title='Resume')
     a.resume-button.block.center(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
   .parallax-outer
-    .parallax-inner.parallax-inner--macbook-1
+    .parallax-inner.parallax-inner--macbook-2
 
   HomeSection(section='contact', title='Contact me')
     p #[b Email:] #[a(href='mailto:davidjrunger@gmail.com') davidjrunger@gmail.com]
@@ -309,7 +214,6 @@
 import PerformantImage from '@/components/performant_image.vue';
 import * as positionListener from './scripts/position_listener';
 import HomeSection, { Header as HomeSectionHeader } from './components/home_section.vue';
-import Project from './components/project.vue';
 import SkillRow from './components/skill_row.vue';
 
 export default {
@@ -317,7 +221,6 @@ export default {
     HomeSection,
     HomeSectionHeader,
     PerformantImage,
-    Project,
     SkillRow,
   },
 
@@ -401,29 +304,6 @@ ul,
 
 p:first-of-type {
   margin-top: 0;
-}
-
-:deep(.project img) {
-  box-shadow: #c0c0c0 2px 2px 10px 0;
-  border-radius: 3px;
-  max-height: 300px;
-  max-width: 90%;
-}
-
-.project {
-  ul {
-    list-style: initial;
-    padding-inline-start: 0;
-    padding-left: 0;
-
-    li {
-      margin: 4px 0 4px 20px;
-    }
-
-    li:last-of-type {
-      margin-bottom: 0;
-    }
-  }
 }
 
 #headline-name {
