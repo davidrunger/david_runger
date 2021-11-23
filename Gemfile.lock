@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 14770c5a18f7c55c2f9651b32c120df3b422b3a3
+  revision: 6ca70b9c61a46bd213d206e1bbb38b677b830d8a
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: 1a4c90e19fdabcfe05cdcf0bdc36741204cf5224
+  revision: 45e12030a458ceba6d7473fa53fd23aac506a696
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: be9766c0a0b22b216a6c181e054218205d8df048
+  revision: 5f28add287110ec26cf180d9af3c3ccafe34bc12
   specs:
     runger_style (0.2.22.alpha)
 
@@ -55,7 +55,7 @@ GIT
 
 GIT
   remote: https://github.com/discourse/email_reply_trimmer.git
-  revision: a359c68839474b26a13b3eb80f4af711945dcaa9
+  revision: 1a1b1f4b4da874a5e0579220bfe6852d646ea23a
   specs:
     email_reply_trimmer (0.1.13)
 
@@ -158,9 +158,9 @@ GEM
       activesupport (>= 3.0.0, < 6.2)
       ruby2_keywords (>= 0.0.2, < 1.0)
     ast (2.4.2)
-    attr_extras (6.2.4)
+    attr_extras (6.2.5)
     aws-eventstream (1.2.0)
-    aws-partitions (1.530.0)
+    aws-partitions (1.534.0)
     aws-sdk-core (3.122.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
@@ -169,7 +169,7 @@ GEM
     aws-sdk-kms (1.51.0)
       aws-sdk-core (~> 3, >= 3.122.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.105.1)
+    aws-sdk-s3 (1.106.0)
       aws-sdk-core (~> 3, >= 3.122.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
@@ -575,7 +575,7 @@ GEM
       fugit (~> 1.1, >= 1.1.6)
     sassc (2.4.0)
       ffi (~> 1.9)
-    selenium-webdriver (4.0.3)
+    selenium-webdriver (4.1.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
@@ -610,7 +610,7 @@ GEM
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.4.0)
+    sprockets-rails (3.4.1)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
