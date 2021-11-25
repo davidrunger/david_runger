@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '3.0.2'
+ruby '3.0.3'
 
 gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'activeadmin'
