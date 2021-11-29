@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 6ca70b9c61a46bd213d206e1bbb38b677b830d8a
+  revision: 14233b928fd4c18f71c694b6e5241bdac073a3a7
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: 45e12030a458ceba6d7473fa53fd23aac506a696
+  revision: 3f9598438a0e4e695151dbc1876013cd2908ed6b
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 5f28add287110ec26cf180d9af3c3ccafe34bc12
+  revision: 4335c4033f18b58893895f45b0902122cc05df61
   specs:
     runger_style (0.2.22.alpha)
 
@@ -160,8 +160,8 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.5)
     aws-eventstream (1.2.0)
-    aws-partitions (1.534.0)
-    aws-sdk-core (3.122.1)
+    aws-partitions (1.535.0)
+    aws-sdk-core (3.123.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -169,7 +169,7 @@ GEM
     aws-sdk-kms (1.51.0)
       aws-sdk-core (~> 3, >= 3.122.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.106.0)
+    aws-sdk-s3 (1.107.0)
       aws-sdk-core (~> 3, >= 3.122.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
@@ -310,7 +310,7 @@ GEM
     fugit (1.5.2)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
-    globalid (0.5.2)
+    globalid (1.0.0)
       activesupport (>= 5.0)
     guard (2.18.0)
       formatador (>= 0.2.4)
@@ -333,7 +333,7 @@ GEM
     hashid-rails (1.4.1)
       activerecord (>= 4.0)
       hashids (~> 1.0)
-    hashids (1.0.5)
+    hashids (1.0.6)
     hashie (5.0.0)
     http (4.4.1)
       addressable (~> 2.3)
@@ -409,7 +409,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
-    newrelic_rpm (8.1.0)
+    newrelic_rpm (8.2.0)
     nio4r (2.5.8)
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
@@ -445,7 +445,7 @@ GEM
       msgpack
       redis (~> 4.2)
     parallel (1.21.0)
-    parser (3.0.2.0)
+    parser (3.0.3.1)
       ast (~> 2.4.1)
     patience_diff (1.2.0)
       optimist (~> 3.0)
