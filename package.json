@@ -33,7 +33,7 @@
     "basscss-colors": "^2.2.0",
     "basscss-lighten": "^1.1.0",
     "caniuse-lite": "^1.0.30001283",
-    "chart.js": "^2.9.4",
+    "chart.js": "^3.6.2",
     "chartkick": "^4.1.1",
     "clipboard": "^2.0.8",
     "compression-webpack-plugin": "^6.1.1",
