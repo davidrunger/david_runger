@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 14233b928fd4c18f71c694b6e5241bdac073a3a7
+  revision: 1c9bde250e32cf41abc7ed7b750ca70c6ca9fc3f
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: 3f9598438a0e4e695151dbc1876013cd2908ed6b
+  revision: cc72af218cc48e326ae2877c78956a6d6bee875e
   specs:
     heat (0.3.2)
       activesupport (~> 6.0)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 4335c4033f18b58893895f45b0902122cc05df61
+  revision: f53800f3367746d96ec7eb4f33708d56febf6edc
   specs:
     runger_style (0.2.22.alpha)
 
@@ -160,16 +160,16 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.5)
     aws-eventstream (1.2.0)
-    aws-partitions (1.535.0)
-    aws-sdk-core (3.123.0)
+    aws-partitions (1.539.0)
+    aws-sdk-core (3.124.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.51.0)
+    aws-sdk-kms (1.52.0)
       aws-sdk-core (~> 3, >= 3.122.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.107.0)
+    aws-sdk-s3 (1.109.0)
       aws-sdk-core (~> 3, >= 3.122.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
@@ -221,7 +221,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    dalli (3.0.4)
+    dalli (3.1.0)
     database_consistency (1.1.6)
       activerecord (>= 3.2)
     debug_inspector (1.1.0)
@@ -514,7 +514,7 @@ GEM
     redis (4.5.1)
     redlock (1.2.2)
       redis (>= 3.0.0, < 5.0)
-    regexp_parser (2.1.1)
+    regexp_parser (2.2.0)
     request_store (1.5.0)
       rack (>= 1.4)
     request_store-sidekiq (0.1.0)
@@ -557,7 +557,7 @@ GEM
       rubocop-ast (>= 1.12.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.13.0)
+    rubocop-ast (1.14.0)
       parser (>= 3.0.1.1)
     rubocop-performance (1.12.0)
       rubocop (>= 1.7.0, < 2.0)
