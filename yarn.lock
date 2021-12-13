@@ -4968,10 +4968,10 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-fuzzyset.js@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/fuzzyset.js/-/fuzzyset.js-1.0.6.tgz#c33da713ee7d052bc8399747cf578f40e0595588"
-  integrity sha512-M16E9/d3Ogiy6XEWQ1CbTCqbULcNaEIg3Qxs0VKhdDSjH3kAskWBZKGyTFb6tPF9FfwSBDcrIjsMQ7R62dNOYw==
+fuzzyset.js@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/fuzzyset.js/-/fuzzyset.js-1.0.7.tgz#11e6aaa88b03fcfa1e36165dc2911f62494701b7"
+  integrity sha512-SmfOVSiPjbyC17m1i86wFq+jmkGioqlY/amT6RZzq4hPTGJFWFF2voUe88zrq/zDbehFnSJFtu6kqTUCw1caKQ==
 
 gator@^1.2.4:
   version "1.2.4"
