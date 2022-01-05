@@ -218,9 +218,11 @@ class Test::RequirementsResolver
   end
 
   def tasks_and_dependencies(target_tasks, known_dependencies: [], skippable_requirements: [])
+    # rubocop:disable Style/CollectionCompact
     new_dependencies =
       self.class.dependency_map.values_at(*(target_tasks - self.class.skips)).
         flatten.reject(&:nil?) - known_dependencies - skippable_requirements
+    # rubocop:enable Style/CollectionCompact
     new_dependencies.reject! { can_skip?(_1) }
 
     if new_dependencies.empty?

@@ -97,7 +97,7 @@ class Test::Runner < Pallets::Workflow
 
     def register_tasks
       Test::RequirementsResolver.dependency_map.slice(*required_tasks).each do |task, prerequisites|
-        if Array(prerequisites).reject(&:nil?).empty?
+        if Array(prerequisites).reject(&:nil?).empty? # rubocop:disable Style/CollectionCompact
           task(task)
         else
           task(task => Array(prerequisites) & required_tasks)

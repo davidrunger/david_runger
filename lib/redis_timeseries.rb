@@ -16,10 +16,9 @@ class RedisTimeseries
   def to_h
     $redis_pool.
       with { |conn| conn.zrange(@timeseries_name, 0, -1, withscores: true) }.
-      map do |value_with_salt, timestamp|
+      to_h do |value_with_salt, timestamp|
         [Time.at(timestamp).in_time_zone, Integer(value_with_salt.split(SEPARATOR).first)]
-      end.
-      to_h
+      end
   end
 
   def add(value)

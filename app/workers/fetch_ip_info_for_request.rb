@@ -32,7 +32,7 @@ class FetchIpInfoForRequest
     isp, city, state, country = raw_ip_info_from_api.values_at(*%w[isp city region countryCode])
 
     {
-      location: [city, state, country].reject(&:blank?).join(', '),
+      location: [city, state, country].compact_blank.join(', '),
       isp: isp,
     }
   end
