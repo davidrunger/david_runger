@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '3.0.3'
+ruby '3.1.0'
 
 gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'activeadmin'
@@ -26,6 +26,9 @@ gem 'heat', git: 'https://github.com/davidrunger/heat.git', require: false
 gem 'js-routes', '2.0.8', require: false
 gem 'lograge'
 gem 'memoist'
+gem 'net-imap' # remove after https://github.com/mikel/mail/pull/1439 is addressed
+gem 'net-pop' # remove after https://github.com/mikel/mail/pull/1439 is addressed
+gem 'net-smtp' # remove after https://github.com/mikel/mail/pull/1439 is addressed
 gem 'newrelic_rpm'
 gem 'oj'
 gem 'omniauth-google-oauth2'
