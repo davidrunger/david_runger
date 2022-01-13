@@ -2,7 +2,7 @@
   = form_with model: @user do |form|
     %div
       = form.text_field :phone
-      = form.label :phone, 'Phone (country code recommended, e.g. 15551239876)'
+      = form.label :phone, 'Phone (country code required, e.g. 15551239876)'
 
     %div
       = form.submit
