@@ -31,7 +31,7 @@ RSpec.describe RepliesMailbox do
 
     it 'triggers a ReplyForwardingMailer#reply_received email to be sent', queue_adapter: :test do
       expect { processed_mail }.to enqueue_mail(ReplyForwardingMailer, :reply_received).
-        with(args: [from_email, email_subject, email_body])
+        with(from_email, email_subject, email_body)
     end
   end
 end

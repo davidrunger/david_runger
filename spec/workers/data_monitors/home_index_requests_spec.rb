@@ -20,12 +20,7 @@ RSpec.describe DataMonitors::HomeIndexRequests do
         it 'enqueues an email', :frozen_time, queue_adapter: :test do
           expect { perform }.
             to enqueue_mail(DataMonitorMailer, :expectation_not_met).
-            with(args: [
-              full_check_name,
-              0,
-              String,
-              Time.current.to_s,
-            ])
+            with(full_check_name, 0, String, Time.current.to_s)
         end
       end
 
@@ -33,9 +28,7 @@ RSpec.describe DataMonitors::HomeIndexRequests do
         before { DataMonitors::HomeIndexRequests.new.perform }
 
         it 'does not enqueue an email', :frozen_time, queue_adapter: :test do
-          expect { perform }.
-            not_to enqueue_mail(DataMonitorMailer, :expectation_not_met).
-            with(args: [full_check_name, anything, anything, anything])
+          expect { perform }.not_to enqueue_mail(DataMonitorMailer, :expectation_not_met)
         end
       end
     end

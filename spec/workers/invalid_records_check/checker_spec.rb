@@ -19,9 +19,7 @@ RSpec.describe InvalidRecordsCheck::Checker do
       end
 
       it 'enqueues an email', queue_adapter: :test do
-        expect { perform }.
-          to enqueue_mail(InvalidRecordsMailer, :invalid_records).
-          with(args: ['User', 1])
+        expect { perform }.to enqueue_mail(InvalidRecordsMailer, :invalid_records).with('User', 1)
       end
     end
 

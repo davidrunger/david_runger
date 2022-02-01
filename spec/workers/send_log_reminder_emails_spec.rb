@@ -27,7 +27,7 @@ RSpec.describe SendLogReminderEmails do
 
       it 'sends a LogReminderMailer#reminder email for the log', queue_adapter: :test do
         expect { perform }.to enqueue_mail(LogReminderMailer, :reminder).
-          with(args: [log_needing_reminder.id])
+          with(log_needing_reminder.id)
       end
     end
   end
