@@ -22,6 +22,7 @@ export const optionsDefaults = {
   responsive: true,
   scales: {
     xAxes: [_.merge({}, commonAxisOptions, {
+      offset: true,
       type: 'time',
       time: {
         minUnit: 'day',
