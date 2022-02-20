@@ -37,6 +37,17 @@ RSpec.describe Api::UsersController do
           )
         end
       end
+
+      context 'when updating preferences' do
+        let(:preferences) { { favorite_number: 2 } }
+        let(:params) { { id: user_id_param, user: { preferences: preferences } } }
+
+        it 'updates the user' do
+          expect { patch_update }.
+            to change { user.reload.preferences }.
+            to(hash_including(preferences.stringify_keys))
+        end
+      end
     end
 
     context 'when a user attempts to update another user' do

@@ -8,6 +8,7 @@
 #  email         :string           not null
 #  id            :bigint           not null, primary key
 #  phone         :string
+#  preferences   :jsonb            not null
 #  sms_allowance :float            default(1.0), not null
 #  updated_at    :datetime         not null
 #
