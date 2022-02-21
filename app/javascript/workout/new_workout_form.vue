@@ -9,6 +9,7 @@ div.m2
           v-model.number='minutes'
           name='minutes'
           type='number'
+          step='0.1'
         )
     .my1
       label
@@ -18,7 +19,7 @@ div.m2
           name='numberOfSets'
           type='number'
         )
-    .my1.clearfix(v-for='(exercise, index) in exercises')
+    .my1.clearfix.flex(v-for='(exercise, index) in exercises')
       .col.col-6
         label
           | Exercise
@@ -27,7 +28,7 @@ div.m2
             :name='`exercise-${index}-name`'
             type='text'
           )
-      .col.col-6
+      .col.col-5
         label
           | Reps per set
           el-input(
@@ -35,6 +36,8 @@ div.m2
             :name='`exercise-${index}-reps`'
             type='number'
           )
+      .col.col-1.flex.flex-column.items-center.justify-center
+        button(type='button' @click='removeExercise(index)') X
     .my1.center
       el-button(
         @click='exercises.push({})'
@@ -91,6 +94,10 @@ export default {
           },
         },
       );
+    },
+
+    removeExercise(index) {
+      this.exercises.splice(index, 1);
     },
   },
 };
