@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: e363e081deef7d35b83c1a80b9f29ce131599009
+  revision: 3c73ea70cf1c25a5d9ccf793408d609fb8481780
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: 0f9dc5a85daae337c43fda5fd80ecddde05254a4
+  revision: 90ce03987e853a9b5cc18f21fe34f03e4cf580fd
   specs:
     heat (0.3.2)
       activesupport (>= 6, < 8)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 8b873e32a53957c416e644d3d21d3b57d8ace6cc
+  revision: 4bd76561825fa04ce7bc18456ac604c3a4b42b96
   specs:
     runger_style (0.2.22.alpha)
 
@@ -114,7 +114,7 @@ GEM
       activemodel (>= 4.1, < 7.1)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
-    activeadmin (2.10.0)
+    activeadmin (2.10.1)
       arbre (~> 1.2, >= 1.2.1)
       formtastic (>= 3.1, < 5.0)
       formtastic_i18n (~> 0.4)
@@ -160,17 +160,17 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.5)
     aws-eventstream (1.2.0)
-    aws-partitions (1.556.0)
-    aws-sdk-core (3.126.2)
+    aws-partitions (1.560.0)
+    aws-sdk-core (3.127.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.54.0)
-      aws-sdk-core (~> 3, >= 3.126.0)
+    aws-sdk-kms (1.55.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.112.0)
-      aws-sdk-core (~> 3, >= 3.126.0)
+    aws-sdk-s3 (1.113.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.4.0)
@@ -209,7 +209,7 @@ GEM
     childprocess (4.1.0)
     climate_control (1.0.1)
     cliver (0.3.2)
-    cloudflare-rails (2.3.0)
+    cloudflare-rails (2.4.0)
       actionpack (>= 5.2, < 7.1.0)
       activesupport (>= 5.2, < 7.1.0)
       railties (>= 5.2, < 7.1.0)
@@ -431,9 +431,9 @@ GEM
       digest
       net-protocol
       timeout
-    newrelic_rpm (8.4.0)
+    newrelic_rpm (8.5.0)
     nio4r (2.5.8)
-    nokogiri (1.13.2)
+    nokogiri (1.13.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -473,7 +473,7 @@ GEM
       optimist (~> 3.0)
     percy-capybara (5.0.0)
       capybara (>= 3)
-    pg (1.3.2)
+    pg (1.3.3)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -579,8 +579,8 @@ GEM
       rubocop-ast (>= 1.15.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.15.2)
-      parser (>= 3.0.1.1)
+    rubocop-ast (1.16.0)
+      parser (>= 3.1.1.0)
     rubocop-performance (1.13.2)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
@@ -588,7 +588,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    rubocop-rspec (2.8.0)
+    rubocop-rspec (2.9.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
