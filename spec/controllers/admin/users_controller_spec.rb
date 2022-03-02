@@ -55,6 +55,15 @@ RSpec.describe Admin::UsersController do
         end
       end
     end
+
+    describe '#destroy' do
+      subject(:delete_destroy) { delete(:destroy, params: { id: user.id }) }
+
+      it 'redirects to the users index page' do
+        delete_destroy
+        expect(response).to redirect_to(admin_users_path)
+      end
+    end
   end
 
   describe '#become' do
