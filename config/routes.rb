@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   get '/admin/login', to: 'admin/sessions#new'
   devise_scope :admin_user do
     get '/admin_users/auth/google_oauth2/callback' => 'admin/omniauth_callbacks#google_oauth2'
-    delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_admin_user_session
+    delete '/admin_users/sign_out', to: 'devise/sessions#destroy', as: :destroy_admin_user_session
   end
   ActiveAdmin.routes(self)
 
