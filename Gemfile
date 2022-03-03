@@ -29,7 +29,6 @@ gem 'memoist'
 gem 'net-imap' # remove after https://github.com/mikel/mail/pull/1439 is addressed
 gem 'net-pop' # remove after https://github.com/mikel/mail/pull/1439 is addressed
 gem 'net-smtp' # remove after https://github.com/mikel/mail/pull/1439 is addressed
-gem 'newrelic_rpm'
 gem 'oj'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
