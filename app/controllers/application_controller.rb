@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include Bootstrappable
   include BrowserSupportCheckable
   include ContainerClassable
-  include Pundit
+  include Pundit::Authorization
   include RequestRecordable
   include TokenAuthenticatable
 
