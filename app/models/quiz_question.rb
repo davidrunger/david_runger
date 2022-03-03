@@ -35,7 +35,9 @@ class QuizQuestion < ApplicationRecord
   has_many(:answer_selections, through: :answers, source: :selections)
 
   STATUSES.each do |status|
-    scope status, -> { where(status: status) }
+    unless status == 'open' # there is a QuizQuestion::open class method we don't want to overwrite
+      scope status, -> { where(status: status) }
+    end
 
     define_method("#{status}?") do
       self.status == status
