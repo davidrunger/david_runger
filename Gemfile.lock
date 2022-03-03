@@ -431,7 +431,6 @@ GEM
       digest
       net-protocol
       timeout
-    newrelic_rpm (8.5.0)
     nio4r (2.5.8)
     nokogiri (1.13.3)
       mini_portile2 (~> 2.8.0)
@@ -737,7 +736,6 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
-  newrelic_rpm
   nokogiri
   oj
   omniauth-google-oauth2

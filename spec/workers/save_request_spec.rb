@@ -22,7 +22,7 @@ RSpec.describe SaveRequest do
         to receive(:final_stashed_json).
         at_least(:once).
         and_return(stubbed_final_stashed_json)
-      expect(stubbed_data_manager).
+      allow(stubbed_data_manager).
         to receive(:stashed_data).
         at_least(:once).
         and_return(
