@@ -15,14 +15,7 @@ RSpec.describe FetchIpInfoForRequest do
 
     context 'when IP address info is already cached', :cache do
       before do
-        Rails.cache.write(
-          "ip-info:#{request.ip}",
-          {
-            location: location,
-            isp: isp,
-          },
-          {},
-        )
+        Rails.cache.write("ip-info:#{request.ip}", { location: location, isp: isp }, {})
       end
 
       it 'updates the request with the IP address info' do

@@ -7,8 +7,7 @@ RSpec.describe Users::OmniauthCallbacksController do
   describe 'mitigating CVE-2015-9284' do
     describe 'GET /auth/:provider' do
       specify do
-        expect { get('/auth/google_oauth2') }.
-          to raise_error(ActionController::RoutingError)
+        expect { get('/auth/google_oauth2') }.to raise_error(ActionController::RoutingError)
       end
     end
 

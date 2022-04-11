@@ -17,12 +17,7 @@ RSpec.describe RepliesMailbox do
     subject(:processed_mail) { process(mail) }
 
     let(:mail) do
-      Mail.new(
-        to: to_email,
-        from: from_email,
-        subject: email_subject,
-        body: email_body,
-      )
+      Mail.new(to: to_email, from: from_email, subject: email_subject, body: email_body)
     end
 
     it 'marks email as delivered' do

@@ -135,13 +135,7 @@ RSpec.describe Api::LogEntriesController do
 
   describe '#destroy' do
     subject(:delete_destroy) do
-      delete(
-        :destroy,
-        params: {
-          id: log_entry.id,
-          log_id: log_entry.log_id,
-        },
-      )
+      delete(:destroy, params: { id: log_entry.id, log_id: log_entry.log_id })
     end
 
     let(:log_entry) { logs(:number_log).log_entries.first! }
