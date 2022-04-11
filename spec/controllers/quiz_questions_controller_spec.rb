@@ -5,15 +5,7 @@ RSpec.describe QuizQuestionsController do
 
   describe '#update' do
     subject(:patch_update) do
-      patch(
-        :update,
-        params: {
-          id: quiz_question.id,
-          quiz_question: {
-            status: new_status,
-          },
-        },
-      )
+      patch(:update, params: { id: quiz_question.id, quiz_question: { status: new_status } })
     end
 
     before { quiz_question.update!(status: initial_status) }

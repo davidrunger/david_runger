@@ -165,9 +165,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :without_verifying_authorization) do
-    allow(controller).
-      to receive(:pundit_policy_authorized?).
-      and_return(true)
+    allow(controller).to receive(:pundit_policy_authorized?).and_return(true)
   end
 
   config.before(:each, :prerendering_disabled) do

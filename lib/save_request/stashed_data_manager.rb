@@ -44,10 +44,7 @@ class SaveRequest::StashedDataManager
 
   def delete_request_data
     $redis_pool.with do |conn|
-      conn.del(
-        initial_request_data_redis_key,
-        final_request_data_redis_key,
-      )
+      conn.del(initial_request_data_redis_key, final_request_data_redis_key)
     end
   end
 end

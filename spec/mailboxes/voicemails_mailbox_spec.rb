@@ -36,12 +36,7 @@ RSpec.describe VoicemailsMailbox do
     # rubocop:enable RSpec/EmptyLineAfterSubject, RSpec/MultipleSubjects
 
     let(:mail) do
-      Mail.new(
-        to: to_email,
-        from: from_email,
-        subject: full_email_subject,
-        body: email_body,
-      )
+      Mail.new(to: to_email, from: from_email, subject: full_email_subject, body: email_body)
     end
 
     context 'when there is no AuthToken matching the secret in the `To` address' do
@@ -124,9 +119,7 @@ RSpec.describe VoicemailsMailbox do
     context 'when an error occurs sending the SMS message' do
       before do
         # rubocop:disable RSpec/AnyInstance
-        expect_any_instance_of(SmsRecords::SendMessage).
-          to receive(:run!).
-          and_raise(raised_error)
+        expect_any_instance_of(SmsRecords::SendMessage).to receive(:run!).and_raise(raised_error)
         # rubocop:enable RSpec/AnyInstance
       end
 

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 6b67150c577487e33e602c9d4757e183aebcfdad
+  revision: 0c3b973b4c74cb728078dadcc20f6597f8c756cd
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/heat.git
-  revision: c2e96d1fb8580ef2940a6a22198c856e89f55df1
+  revision: 99325528b1b64952624b197e6c31704c73252df0
   specs:
     heat (0.3.2)
       activesupport (>= 6, < 8)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 9f46a46063417ae2f1e929f6e92c34b459f781b2
+  revision: 3677cc6149435e98c59ef2b2b97aa56a0a8cc228
   specs:
     runger_style (0.2.22.alpha)
 
@@ -160,7 +160,7 @@ GEM
     ast (2.4.2)
     attr_extras (6.2.5)
     aws-eventstream (1.2.0)
-    aws-partitions (1.573.0)
+    aws-partitions (1.575.0)
     aws-sdk-core (3.130.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
@@ -184,7 +184,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.11.1)
       msgpack (~> 1.2)
-    brakeman (5.2.1)
+    brakeman (5.2.2)
     browser (5.3.1)
     builder (3.2.4)
     bullet (7.0.1)
@@ -410,7 +410,7 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
     minitest (5.15.0)
-    msgpack (1.4.5)
+    msgpack (1.5.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -533,7 +533,7 @@ GEM
     redis (4.6.0)
     redlock (1.2.2)
       redis (>= 3.0.0, < 5.0)
-    regexp_parser (2.2.1)
+    regexp_parser (2.3.0)
     request_store (1.5.1)
       rack (>= 1.4)
     request_store-sidekiq (0.1.0)
@@ -567,7 +567,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rubocop (1.26.1)
+    rubocop (1.27.0)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -576,7 +576,7 @@ GEM
       rubocop-ast (>= 1.16.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.16.0)
+    rubocop-ast (1.17.0)
       parser (>= 3.1.1.0)
     rubocop-performance (1.13.3)
       rubocop (>= 1.7.0, < 2.0)
