@@ -45,8 +45,6 @@ jobs:
       with:
         ruby-version: 3.1.0
         bundler-cache: true
-      env:
-        BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
     - uses: actions/setup-node@v1
       with:
         node-version: 16.13.0
@@ -74,7 +72,6 @@ jobs:
         # The hostname used to communicate with the Redis service container
         REDIS_HOST: redis
         REDIS_PORT: 6379
-        BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
         PERCY_TOKEN: "${{secrets.PERCY_TOKEN}}"
         CODECOV_TOKEN: "${{secrets.CODECOV_TOKEN}}"
     - name: Save fixtures artifact
@@ -103,8 +100,6 @@ jobs:
         with:
           ruby-version: 3.1.0
           bundler-cache: true
-        env:
-          BUNDLE_GITHUB__COM: "${{secrets.BUNDLE_GITHUB__COM}}"
       - name: Prerender page(s) and upload them to S3
         run: bin/prerender
         env:
