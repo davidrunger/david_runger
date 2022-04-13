@@ -35,7 +35,7 @@ div.mt1.mb2.ml3.mr2
       a.edit-store.js-link.gray.ml1(@click='editStoreNotes')
         i.el-icon-edit-outline
 
-  form.col-5.flex(@submit.prevent='postNewItem')
+  form.flex(@submit.prevent='postNewItem')
     .float-left
       el-input.item-name-input(
         placeholder='Add an item'
