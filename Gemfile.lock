@@ -273,11 +273,11 @@ GEM
     flipper-redis (0.24.1)
       flipper (~> 0.24.1)
       redis (>= 3.0, < 5)
-    flipper-ui (0.24.0)
+    flipper-ui (0.24.1)
       erubi (>= 1.0.0, < 2.0.0)
-      flipper (~> 0.24.0)
+      flipper (~> 0.24.1)
       rack (>= 1.4, < 3)
-      rack-protection (>= 1.5.3, < 2.2.0)
+      rack-protection (>= 1.5.3, <= 2.2.0)
       sanitize (< 7)
     formatador (1.1.0)
     formtastic (4.0.0)
@@ -448,7 +448,7 @@ GEM
     rack (2.2.3)
     rack-attack (6.6.1)
       rack (>= 1.0, < 3)
-    rack-protection (2.1.0)
+    rack-protection (2.2.0)
       rack
     rack-proxy (0.7.2)
       rack
