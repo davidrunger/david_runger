@@ -3,7 +3,7 @@
 db_number =
   if Rails.env.test?
     # piggyback on the Postgres DB_SUFFIX ENV variable to choose a Redis DB number
-    case ENV['DB_SUFFIX']
+    case ENV.fetch('DB_SUFFIX', nil)
     when '_unit', nil then 4
     when '_api' then 5
     when '_html' then 6

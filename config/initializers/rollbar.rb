@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 Rollbar.configure do |config|
-  code_version = ENV['SOURCE_VERSION'] || File.read('SOURCE_VERSION') rescue nil
+  code_version = ENV.fetch('SOURCE_VERSION', nil) || File.read('SOURCE_VERSION') rescue nil
 
-  config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
+  config.access_token = ENV.fetch('ROLLBAR_ACCESS_TOKEN', nil)
   config.code_version = code_version
 
   # Without configuration, Rollbar is enabled in all environments.
@@ -59,9 +59,9 @@ Rollbar.configure do |config|
   # environment variable like this: `ROLLBAR_ENV=staging`. This is a recommended
   # setup for Heroku. See:
   # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
-  config.environment = ENV['ROLLBAR_ENV'] || Rails.env
+  config.environment = ENV.fetch('ROLLBAR_ENV', nil) || Rails.env
 
-  client_token = ENV['POST_CLIENT_ITEM_ACCESS_TOKEN']
+  client_token = ENV.fetch('POST_CLIENT_ITEM_ACCESS_TOKEN', nil)
   config.js_enabled = Flipper.enabled?(:rollbar_js)
   config.js_options = {
     accessToken: client_token,

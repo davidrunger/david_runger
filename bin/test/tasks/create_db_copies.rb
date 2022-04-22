@@ -14,8 +14,8 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
       execute_system_command(<<~COMMAND)
         createdb
           -T david_runger_test #{db_name}
-          -U #{ENV['POSTGRES_USER']}
-          -h #{ENV['POSTGRES_HOST']}
+          -U #{ENV.fetch('POSTGRES_USER', nil)}
+          -h #{ENV.fetch('POSTGRES_HOST', nil)}
           --no-password
       COMMAND
     end
