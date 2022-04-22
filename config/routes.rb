@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
   get 'logs/:slug', to: 'logs#index', as: :log # routing to specific log will be done by Vue Router
 
-  resources :users, only: %i[edit update] do
+  resources :users, only: %i[edit] do
     get 'logs/:slug', to: 'logs#index', as: :shared_log
   end
 
@@ -56,7 +56,6 @@ Rails.application.routes.draw do
     resources :stores, only: %i[create update destroy] do
       resources :items, only: %i[create]
     end
-    resources :text_messages, only: %i[create]
     resources :users, only: %i[update]
     resources :workouts, only: %i[create update]
   end

@@ -11,13 +11,9 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    user_params = params.require(:user).permit(:phone, preferences: {})
+    user_params = params.require(:user).permit(preferences: {})
     user_params.each do |key, value|
       case key
-      when 'phone'
-        phone = value.gsub(/[^[:digit:]]/, '')
-        phone = "1#{phone}" if phone.size == 10
-        user_params[key] = phone
       when 'preferences'
         user_params[key] = current_user.preferences.merge(value)
       end

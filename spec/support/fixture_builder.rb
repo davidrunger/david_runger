@@ -61,9 +61,6 @@ FixtureBuilder.configure do |fbuilder|
     # requests
     name(:request, create(:request))
 
-    # sms records
-    name(:sms_record, create(:sms_record, user: user))
-
     # workouts
     name(:workout, create(:workout, user: user))
 

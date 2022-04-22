@@ -16,7 +16,6 @@ div.mt1.mb2.ml3.mr2
   div.mb2
     el-button(id="show-modal" @click='initializeTripCheckinModal()' size='mini').
       Check in shopping trip
-    el-button(@click='handleTextItemsToPhoneClick' size='mini') Text items to phone
     el-button.copy-to-clipboard(size='mini') Copy to clipboard
     span(v-if='wasCopiedRecently') Copied!
 
@@ -76,25 +75,19 @@ div.mt1.mb2.ml3.mr2
           @click="$store.commit('hideModal', { modalName: 'check-in-shopping-trip' })"
           type='text'
         ) Cancel
-
-  NeedPhoneNumberModal(@send-text-message='createItemsNeededTextMessage')
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { debounce, get, isEmpty, sortBy } from 'lodash';
+import { debounce, sortBy } from 'lodash';
 import ClipboardJS from 'clipboard';
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
 
 import { DEBOUNCE_TIME } from '@/groceries/constants';
 import Item from './item.vue';
-import NeedPhoneNumberModal from './need_phone_number_modal.vue';
 
 export default {
   components: {
     Item,
-    NeedPhoneNumberModal,
   },
 
   data() {
@@ -136,32 +129,6 @@ export default {
   },
 
   methods: {
-    createItemsNeededTextMessage() {
-      this.$http.post(this.$routes.api_text_messages_path(), {
-        text_message: {
-          message_type: 'grocery_store_items_needed',
-          message_params: { store_id: this.store.id },
-        },
-      }).then((response) => {
-        if (response.status === 201) {
-          Toastify({
-            text: 'Message sent!',
-            className: 'success',
-            position: 'center',
-            duration: 2500,
-          }).showToast();
-        }
-      }).catch((error) => {
-        const errorMessage = get(error, 'response.data.error', 'Something went wrong');
-        Toastify({
-          text: errorMessage,
-          className: 'error',
-          position: 'center',
-          duration: 2500,
-        }).showToast();
-      });
-    },
-
     editStoreName() {
       this.editingName = true;
       // wait a tick for input to render, then focus it
@@ -202,15 +169,6 @@ export default {
       this.$store.dispatch('zeroItems', { items: this.itemsToZero.slice() });
       this.itemsToZero = [];
       this.$store.commit('hideModal', { modalName: 'check-in-shopping-trip' });
-    },
-
-    handleTextItemsToPhoneClick() {
-      const currentUserPhone = this.current_user.phone;
-      if (isEmpty(currentUserPhone)) {
-        this.$store.commit('showModal', { modalName: 'set-phone-number' });
-      } else {
-        this.createItemsNeededTextMessage();
-      }
     },
 
     initializeTripCheckinModal() {

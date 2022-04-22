@@ -12,7 +12,7 @@ RSpec.describe Api::UsersController do
       let(:user_id_param) { user.id }
 
       context 'when the params are valid' do
-        let(:valid_params) { { id: user_id_param, user: { phone: '123-555-4321' } } }
+        let(:valid_params) { { id: user_id_param, user: { preferences: { color: 'blue' } } } }
         let(:params) { valid_params }
 
         it 'returns a 200 status code' do
@@ -21,9 +21,7 @@ RSpec.describe Api::UsersController do
         end
 
         it 'updates the user' do
-          expect { patch_update }.
-            to change { user.reload.phone }.
-            to("1#{params.dig(:user, :phone).delete('-')}")
+          expect { patch_update }.to change { user.reload.preferences }.to({ 'color' => 'blue' })
         end
 
         it 'responds with the user as JSON' do
@@ -33,7 +31,7 @@ RSpec.describe Api::UsersController do
           expect(response.parsed_body).to include(
             'email' => user.email,
             'id' => user.id,
-            'phone' => user.phone,
+            'preferences' => { 'color' => 'blue' },
           )
         end
       end
@@ -55,7 +53,7 @@ RSpec.describe Api::UsersController do
       let(:other_user) { User.where.not(id: user).first! }
 
       context 'when the params are valid' do
-        let(:valid_params) { { id: user_id_param, user: { phone: '123-555-4321' } } }
+        let(:valid_params) { { id: user_id_param, user: { preferences: { color: 'blue' } } } }
         let(:params) { valid_params }
 
         it 'returns a 403 status code' do
@@ -64,7 +62,7 @@ RSpec.describe Api::UsersController do
         end
 
         it 'does not update the user' do
-          expect { patch_update }.not_to change { user.reload.phone }
+          expect { patch_update }.not_to change { user.reload.preferences }
         end
 
         it 'responds with a JSON error message' do
