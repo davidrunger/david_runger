@@ -7,10 +7,10 @@ Bundler.setup(:default, :test)
 
 require 'addressable'
 require 'aws-sdk-s3'
-require 'dotenv/load' if ENV['CI'] != 'true'
+require 'dotenv/load' if ENV.fetch('CI', nil) != 'true'
 require 'ferrum'
 require 'nokogiri'
-require 'pry-byebug' if ENV['CI'] != 'true'
+require 'pry-byebug' if ENV.fetch('CI', nil) != 'true'
 
 class Prerenderer
   def initialize
@@ -31,8 +31,8 @@ class Prerenderer
   private
 
   def upload_prerender_to_s3(filename:, html:)
-    Aws::S3::Resource.new(region: ENV['S3_REGION']).
-      bucket(ENV['S3_BUCKET']).
+    Aws::S3::Resource.new(region: ENV.fetch('S3_REGION', nil)).
+      bucket(ENV.fetch('S3_BUCKET', nil)).
       object("prerenders/#{ENV.fetch('GITHUB_SHA')}/#{filename}").
       put(body: html_for_prerendering(html))
   rescue => error

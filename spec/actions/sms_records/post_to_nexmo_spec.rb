@@ -44,7 +44,7 @@ RSpec.describe SmsRecords::PostToNexmo do
 
     context 'when NEXMO_API_KEY is not present in the ENV' do
       before do
-        expect(ENV['NEXMO_API_KEY']).not_to be_present
+        expect(ENV.fetch('NEXMO_API_KEY', nil)).not_to be_present
         # suppress `puts` from actually printing
         expect(post_to_nexmo_action).to receive(:puts)
       end

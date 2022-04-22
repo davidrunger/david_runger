@@ -19,7 +19,7 @@ m =
     end
 
     def env_var_version
-      ENV['BUNDLER_VERSION']
+      ENV.fetch('BUNDLER_VERSION', nil)
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -43,7 +43,7 @@ m =
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     def gemfile
-      gemfile = ENV['BUNDLE_GEMFILE']
+      gemfile = ENV.fetch('BUNDLE_GEMFILE', nil)
       return gemfile if gemfile && !gemfile.empty?
 
       File.expand_path('../Gemfile', __dir__)

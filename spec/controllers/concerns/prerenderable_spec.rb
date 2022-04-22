@@ -178,7 +178,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
       end
 
       context 'when S3_REGION is not set' do
-        before { expect(ENV['S3_REGION']).to eq(nil) }
+        before { expect(ENV.fetch('S3_REGION', nil)).to eq(nil) }
 
         context 'when Rails.env is "test"' do
           before { expect(Rails.env).to eq('test') }

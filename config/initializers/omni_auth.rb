@@ -6,8 +6,8 @@ OmniAuth.config.logger = Rails.logger
 Rails.application.config.middleware.use(OmniAuth::Builder) do
   provider(
     :google_oauth2,
-    ENV['GOOGLE_OAUTH_CLIENT_ID'],
-    ENV['GOOGLE_OAUTH_CLIENT_SECRET'],
+    ENV.fetch('GOOGLE_OAUTH_CLIENT_ID', nil),
+    ENV.fetch('GOOGLE_OAUTH_CLIENT_SECRET', nil),
     scope: 'email',
     # a better name would be `is_callback_path' (https://github.com/omniauth/omniauth/issues/630)
     callback_path: ->(env) do

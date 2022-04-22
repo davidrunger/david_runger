@@ -21,7 +21,7 @@ namespace :assets do
   desc 'Writes the git sha currently being deployed to a file'
   task :save_source_version do
     if ENV['SOURCE_VERSION'].present?
-      File.write('SOURCE_VERSION', ENV['SOURCE_VERSION'])
+      File.write('SOURCE_VERSION', ENV.fetch('SOURCE_VERSION', nil))
     else
       puts "ENV['SOURCE_VERSION'] was not present!"
       abort
@@ -120,9 +120,9 @@ module SourceMapHelper
       response = connection.post(
         ROLLBAR_SOURCE_MAP_URI,
         {
-          access_token: ENV['ROLLBAR_ACCESS_TOKEN'],
+          access_token: ENV.fetch('ROLLBAR_ACCESS_TOKEN', nil),
           environment: Rails.env,
-          version: ENV['SOURCE_VERSION'],
+          version: ENV.fetch('SOURCE_VERSION', nil),
           minified_url: source_url,
           source_map: Faraday::FilePart.new(File.open(source_map_path), 'text/plain'),
         },

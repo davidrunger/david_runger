@@ -7,7 +7,7 @@ require 'factory_bot_rails'
 require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
-is_ci = (ENV['CI'] == 'true')
+is_ci = (ENV.fetch('CI', nil) == 'true')
 if is_ci
   require 'simplecov'
   require 'codecov'
