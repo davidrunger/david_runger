@@ -4,13 +4,11 @@
 #
 # Table name: users
 #
-#  created_at    :datetime         not null
-#  email         :string           not null
-#  id            :bigint           not null, primary key
-#  phone         :string
-#  preferences   :jsonb            not null
-#  sms_allowance :float            default(1.0), not null
-#  updated_at    :datetime         not null
+#  created_at  :datetime         not null
+#  email       :string           not null
+#  id          :bigint           not null, primary key
+#  preferences :jsonb            not null
+#  updated_at  :datetime         not null
 #
 # Indexes
 #
@@ -20,8 +18,7 @@
 class User < ApplicationRecord
   ADMIN_EMAILS = %w[davidjrunger@gmail.com].map(&:freeze).freeze
 
-  validates :email, presence: true, uniqueness: true
-  validates :phone, format: { with: /\A1[[:digit:]]{10}\z/ }, allow_nil: true
+  validates :email, presence: true, uniqueness: true, format: { with: /\A\S+@\S+\.\S+\z/ }
 
   has_many :auth_tokens, dependent: :destroy
   has_many :logs, dependent: :destroy
@@ -34,7 +31,6 @@ class User < ApplicationRecord
     inverse_of: :participant,
   )
   has_many :requests, dependent: :destroy
-  has_many :sms_records, dependent: :destroy
   has_many :stores, dependent: :destroy
   has_many :items, through: :stores # must come after has_many :stores declaration
   has_many :text_log_entries, through: :logs
@@ -46,9 +42,5 @@ class User < ApplicationRecord
 
   def admin?
     self.class.admin.exists?(id: self)
-  end
-
-  def sms_usage
-    sms_records.sum(:cost)
   end
 end

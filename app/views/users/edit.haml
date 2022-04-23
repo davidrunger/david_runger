@@ -1,14 +1,4 @@
 .p3
-  = form_with model: @user do |form|
-    %div
-      = form.text_field :phone
-      = form.label :phone, 'Phone (country code required, e.g. 15551239876)'
-
-    %div
-      = form.submit
-
-  %hr.mt3
-
   %div.my3
     %h2.h3 Auth tokens (advanced feature; safe to ignore)
     - current_user.auth_tokens.each do |auth_token|

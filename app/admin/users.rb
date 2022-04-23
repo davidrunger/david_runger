@@ -2,7 +2,7 @@
 
 ActiveAdmin.register(User) do
   menu parent: 'Users'
-  permit_params :email, :phone, :sms_allowance
+  permit_params :email
 
   controller do
     def find_resource
@@ -19,8 +19,6 @@ ActiveAdmin.register(User) do
     column :email
     column :created_at
     column :updated_at
-    column :phone
-    column :sms_allowance
     actions
     column { |user| link_to('Become', become_admin_user_path(user)) }
   end

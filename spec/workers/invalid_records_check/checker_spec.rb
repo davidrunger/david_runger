@@ -11,9 +11,8 @@ RSpec.describe InvalidRecordsCheck::Checker do
     context 'when there is at least one invalid record of the specified class' do
       before do
         user = User.first!
-        # this "phone number" violates the `format` regex validation for User#phone
         # rubocop:disable Rails/SkipsModelValidations
-        user.update_columns(phone: 'this is not a phone number')
+        user.update_columns(email: 'this is not an email address')
         # rubocop:enable Rails/SkipsModelValidations
         expect(user).not_to be_valid
       end
