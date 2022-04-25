@@ -92,7 +92,7 @@
     "postcss-safe-parser": "^6.0.0",
     "postcss-scss": "^4.0.3",
     "postcss-syntax": "^0.36.2",
-    "sass": "^1.50.0",
+    "sass": "^1.50.1",
     "stylelint": "^14.7.1",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-scss": "^4.2.0",
