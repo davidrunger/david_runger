@@ -205,10 +205,12 @@ export default {
       this.$store.commit('showModal', { modalName: 'confirm-workout' });
     },
 
-    say(message) {
+    say(message, volume = 1) {
       if (!this.soundEnabled) return;
 
-      window.speechSynthesis.speak(new SpeechSynthesisUtterance(message));
+      const utterance = new SpeechSynthesisUtterance(message);
+      utterance.volume = volume;
+      window.speechSynthesis.speak(utterance);
     },
 
     secondsAsTime(seconds) {
@@ -225,6 +227,7 @@ export default {
       this.currentRoundIndex = 0;
 
       this.timer.start();
+      this.say('Starting workout', 0); // "say" it silently to enable speech synthesis on iOS
       this.timer.addEventListener('secondsUpdated', () => {
         this.secondsElapsed = this.timer.getTotalTimeValues().seconds;
         this.handleSecondElapsed();

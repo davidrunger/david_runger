@@ -67,4 +67,9 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener
 
   config.active_storage.service = :local
+
+  local_hostname = ENV.fetch('LOCAL_HOSTNAME', nil)
+  if local_hostname && !local_hostname.empty? # rubocop:disable Rails/Present
+    config.hosts << local_hostname
+  end
 end
