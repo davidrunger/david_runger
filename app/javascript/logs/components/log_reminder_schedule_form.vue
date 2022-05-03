@@ -2,7 +2,7 @@
 div
   h3.bold.mb2 Reminders
   div.my1(v-if='log.reminder_time_in_seconds')
-    | Current setting: every {{this.log.reminder_time_in_seconds | secondsAsHours}} hours
+    | Current setting: every {{reminderTimeInHours}} hours
     span.ml1
       el-button(
         @click="cancelReminders"
@@ -51,6 +51,10 @@ export default {
       return this.numberOfTimeUnits * TIME_UNIT_IN_SECONDS[this.timeUnit];
     },
 
+    reminderTimeInHours() {
+      return (this.log.reminder_time_in_seconds / (60 * 60)).toFixed();
+    },
+
     timeUnitOptions() {
       return Object.keys(TIME_UNIT_IN_SECONDS);
     },
@@ -61,12 +65,6 @@ export default {
       numberOfTimeUnits: null,
       timeUnit: null,
     };
-  },
-
-  filters: {
-    secondsAsHours(seconds) {
-      return (seconds / (60 * 60)).toFixed();
-    },
   },
 
   methods: {
@@ -95,10 +93,8 @@ export default {
         logId: this.log.id,
         updatedLogParams: { reminder_time_in_seconds: this.formSelectedReminderTimeInSeconds },
       }).then(() => {
-        const reminderHours =
-          this.$options.filters.secondsAsHours(this.log.reminder_time_in_seconds);
         Toastify({
-          text: `Reminder time updated to ${reminderHours} hours!`,
+          text: 'Reminder time updated!',
           className: 'success',
           position: 'center',
           duration: 1800,
