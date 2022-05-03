@@ -24,7 +24,7 @@ aside.border-right.border-gray
       )
         div
           a.store-name {{store.name}}
-          a.js-link.right(@click.stop="$store.dispatch('deleteStore', { store })") &times;
+          a.js-link.right(@click.stop='destroyStore(store)') &times;
 </template>
 
 <script>
@@ -76,6 +76,16 @@ export default {
         newStore.viewed_at = (new Date(newStore.viewed_at)).toISOString();
         this.stores.unshift(newStore);
       });
+    },
+
+    destroyStore(store) {
+      const confirmation = window.confirm(
+        `Are you sure that you want to delete the ${store.name} store and all of its items?`,
+      );
+
+      if (confirmation === true) {
+        this.$store.dispatch('deleteStore', { store });
+      }
     },
   },
 
