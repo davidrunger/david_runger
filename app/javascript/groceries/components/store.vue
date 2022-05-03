@@ -172,7 +172,6 @@ export default {
     },
 
     initializeTripCheckinModal() {
-      this.itemsToZero = this.neededItems;
       this.$store.commit('showModal', { modalName: 'check-in-shopping-trip' });
     },
 
