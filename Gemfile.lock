@@ -199,7 +199,7 @@ GEM
       rexml
     crass (1.0.6)
     dalli (3.2.1)
-    database_consistency (1.1.14)
+    database_consistency (1.1.15)
       activerecord (>= 3.2)
     debug_inspector (1.1.0)
     devise (4.8.1)
