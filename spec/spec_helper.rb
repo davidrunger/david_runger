@@ -14,6 +14,7 @@ if is_ci
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
   SimpleCov.start do
     add_filter(%r{^/spec/})
+    enable_coverage(:branch)
   end
   Codecov.pass_ci_if_error = true
 end
