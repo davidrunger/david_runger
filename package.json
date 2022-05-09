@@ -99,7 +99,7 @@
     "stylelint-webpack-plugin": "^2.3.2",
     "vite": "^2.9.8",
     "vite-plugin-ruby": "^3.0.9",
-    "webpack-dev-server": "^4.8.1",
+    "webpack-dev-server": "^4.9.0",
     "webpack-node-externals": "^3.0.0",
     "webpack-sources": "^3.2"
   }
