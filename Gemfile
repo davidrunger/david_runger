@@ -56,9 +56,6 @@ group :development, :test do
   gem 'bullet'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'immigrant'
-  gem 'pry'
-  gem 'pry-byebug'
-  gem 'pry-rails'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
