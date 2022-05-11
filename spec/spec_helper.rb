@@ -43,7 +43,7 @@ OmniAuth.config.test_mode = true
 
 Capybara.register_driver(:chrome_headless) do |app|
   options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
 end
 Capybara::Screenshot.register_driver(:chrome_headless) do |driver, path|
   driver.browser.save_screenshot(path)
