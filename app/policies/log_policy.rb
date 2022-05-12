@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class LogPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      @user.logs
+    end
+  end
+
   def show?
     own_record? || log.publicly_viewable? || LogShare.exists?(log: log, email: @user.email)
   end

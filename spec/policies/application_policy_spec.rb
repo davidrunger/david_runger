@@ -14,7 +14,7 @@ RSpec.describe ApplicationPolicy do
 
   describe '#show?' do
     subject(:show?) { policy.show? }
-    specify { expect(show?).to eq(false) }
+    specify { expect(show?).to eq(true) }
   end
 
   describe '#create?' do
@@ -46,8 +46,8 @@ RSpec.describe ApplicationPolicy do
   describe '#scope' do
     subject(:scope) { policy.scope }
 
-    it 'returns an empty set of records' do
-      expect(scope).not_to exist
+    it 'returns the set of records that the user may access' do
+      expect(scope.order(:id)).to eq(user.logs.order(:id))
     end
   end
 end
