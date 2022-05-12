@@ -32,7 +32,7 @@ module Email
     def connection
       Faraday.new(ENV.fetch('MAILGUN_URL')) do |conn|
         conn.request(:url_encoded)
-        conn.basic_auth('api', ENV.fetch('MAILGUN_API_KEY'))
+        conn.request(:basic_auth, 'api', ENV.fetch('MAILGUN_API_KEY'))
       end
     end
   end
