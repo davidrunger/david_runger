@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe ApplicationPolicy do
-  subject(:policy) { ApplicationPolicy.new(user, log) }
+  subject(:policy) { ApplicationPolicy.new(user, workout) }
 
-  let(:log) { user.logs.first! }
+  let(:workout) { user.workouts.first! }
   let(:user) { users(:user) }
 
   # rubocop:disable RSpec/EmptyLineAfterSubject
@@ -14,7 +14,7 @@ RSpec.describe ApplicationPolicy do
 
   describe '#show?' do
     subject(:show?) { policy.show? }
-    specify { expect(show?).to eq(false) }
+    specify { expect(show?).to eq(true) }
   end
 
   describe '#create?' do
@@ -46,8 +46,17 @@ RSpec.describe ApplicationPolicy do
   describe '#scope' do
     subject(:scope) { policy.scope }
 
-    it 'returns an empty set of records' do
-      expect(scope).not_to exist
+    it 'returns the set of records that the user may access' do
+      expect(scope.order(:id)).
+        to eq(Workout.where(user: user).or(Workout.where(publicly_viewable: true)).order(:id))
+    end
+
+    context 'when the policy does not define a scope' do
+      subject(:policy) { ApplicationPolicy.new(user, user.logs.first!) } # there is no Log Scope
+
+      it 'defaults to an empty relation' do
+        expect(scope).to eq(Log.none)
+      end
     end
   end
 end
