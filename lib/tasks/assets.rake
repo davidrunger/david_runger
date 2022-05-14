@@ -124,7 +124,7 @@ module SourceMapHelper
           environment: Rails.env,
           version: ENV.fetch('SOURCE_VERSION', nil),
           minified_url: source_url,
-          source_map: Faraday::FilePart.new(File.open(source_map_path), 'text/plain'),
+          source_map: Faraday::Multipart::FilePart.new(File.open(source_map_path), 'text/plain'),
         },
       )
       puts <<~LOG
