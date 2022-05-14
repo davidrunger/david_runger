@@ -238,6 +238,8 @@ GEM
     faraday (2.3.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
+    faraday-multipart (1.0.3)
+      multipart-post (>= 1.2, < 3)
     faraday-net_http (2.0.2)
     ferrum (0.11)
       addressable (~> 2.5)
@@ -355,6 +357,7 @@ GEM
     msgpack (1.5.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
+    multipart-post (2.1.1)
     nenv (0.3.0)
     net-imap (0.2.3)
       digest
@@ -643,6 +646,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   faraday
+  faraday-multipart
   ferrum
   fixture_builder
   flipper
