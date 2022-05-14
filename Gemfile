@@ -66,6 +66,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'debug', require: false
   gem 'http_logger'
   gem 'letter_opener'
   gem 'listen'
