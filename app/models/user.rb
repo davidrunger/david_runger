@@ -16,8 +16,6 @@
 #
 
 class User < ApplicationRecord
-  ADMIN_EMAILS = %w[davidjrunger@gmail.com].map(&:freeze).freeze
-
   validates :email, presence: true, uniqueness: true, format: { with: /\A\S+@\S+\.\S+\z/ }
 
   has_many :auth_tokens, dependent: :destroy
@@ -37,10 +35,4 @@ class User < ApplicationRecord
   has_many :workouts, dependent: :destroy
 
   devise
-
-  scope :admin, -> { where(email: ADMIN_EMAILS) }
-
-  def admin?
-    self.class.admin.exists?(id: self)
-  end
 end
