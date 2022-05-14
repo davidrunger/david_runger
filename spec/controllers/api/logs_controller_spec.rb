@@ -49,7 +49,7 @@ RSpec.describe Api::LogsController do
         post_create
 
         expect(Rails.logger).to have_received(:info) do |logged_string|
-          break if logged_string.include?('method=POST path=/api/logs')
+          break if logged_string.include?('path=/api/logs method=POST')
 
           expect(logged_string).to match(/Failed to create log\./)
           expect(logged_string).to match(/errors={.*:name=>\["can't be blank"\].*}/)
