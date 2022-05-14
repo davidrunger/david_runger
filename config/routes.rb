@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   end
   ActiveAdmin.routes(self)
 
-  authenticate :user, ->(user) { user.admin? } do
+  authenticate :admin_user do
     mount Sidekiq::Web => '/sidekiq'
     mount Flipper::UI.app(Flipper) => '/flipper'
   end

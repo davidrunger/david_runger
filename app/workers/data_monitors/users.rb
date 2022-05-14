@@ -15,7 +15,7 @@ class DataMonitors::Users < DataMonitors::Base
   private
 
   def admin_email_addresses
-    User.admin.pluck(:email)
+    AdminUser.pluck(:email)
   end
 
   def user_count
