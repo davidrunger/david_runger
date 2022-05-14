@@ -10,7 +10,16 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
       data[:action] = "#{controller.delete_suffix('Controller').underscore}##{action}"
     end
 
-    @data = data
+    @data =
+      data.
+        sort_by.
+        with_index do |(key, _value), index|
+          case key
+          when :path then 0
+          when :method then 1
+          else index
+          end
+        end.to_h
   end
 
   def call
