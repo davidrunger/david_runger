@@ -9,6 +9,8 @@ RSpec.describe 'Home page', :prerendering_disabled do
       Full stack web developer
     HEADLINE
 
+    wait_for { page.execute_script('return document.fonts.check("65px devicon")') }.to eq(true)
+
     page.percy_snapshot('Homepage')
   end
 
