@@ -508,6 +508,8 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
+    rspec-wait (0.0.9)
+      rspec (>= 3, < 4)
     rubocop (1.29.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
@@ -686,6 +688,7 @@ DEPENDENCIES
   rollbar
   rspec-instafail
   rspec-rails
+  rspec-wait
   rubocop
   rubocop-performance
   rubocop-rails

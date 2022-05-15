@@ -97,6 +97,7 @@ group :test do
   gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
   gem 'rspec-instafail', require: false
   gem 'rspec-rails'
+  gem 'rspec-wait'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'super_diff'
