@@ -14,6 +14,5 @@ module.exports = {
     '@babel/syntax-dynamic-import',
     '@babel/proposal-object-rest-spread',
     ['@babel/proposal-class-properties', { spec: true }],
-    ['component', { libraryName: 'element-plus', styleLibraryName: 'theme-chalk' }],
   ],
 };

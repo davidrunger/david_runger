@@ -19,7 +19,7 @@ div
     .mt1
       el-button(@click='destroyLastEntry') Delete last entry
     .mt1
-      el-button(
+      el-button.multi-line(
         @click="$store.commit('showModal', { modalName: 'edit-log-shared-emails' })"
       )
         div.h4 Sharing settings
@@ -27,7 +27,7 @@ div
           span(v-if='publiclyViewable') Viewable by any user
           span(v-else) Shared with {{log.log_shares.length}} emails
     .mt1
-      el-button(
+      el-button.multi-line(
         @click="$store.commit('showModal', { modalName: 'edit-log-reminder-schedule' })"
       )
         div.h4 Reminder settings
@@ -264,5 +264,13 @@ export default {
 
 .el-button {
   height: auto;
+}
+
+:deep(.el-button.multi-line > span) {
+  display: block;
+}
+
+:deep(.el-input__wrapper) {
+  background-color: var(--main-bg-color);
 }
 </style>
