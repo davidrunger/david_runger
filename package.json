@@ -16,7 +16,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-env": "^7.17.10",
     "@hotwired/turbo-rails": "^7.1.1",
-    "@rails/actioncable": "^7.0.2",
+    "@rails/actioncable": "^7.0.3",
     "@rails/ujs": "^7.0.2",
     "@rails/webpacker": "^5.4.3",
     "@vue/compiler-sfc": "^3.0.11",
