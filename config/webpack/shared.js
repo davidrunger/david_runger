@@ -4,7 +4,8 @@ const { sync } = require('glob');
 const extname = require('path-complete-extname');
 const { VueLoaderPlugin } = require('vue-loader');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const { settings } = require('./configuration.js');
+const ElementPlus = require('unplugin-element-plus/webpack');
+const { settings } = require('./configuration');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
@@ -38,6 +39,11 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      },
     ],
   },
 
@@ -59,6 +65,7 @@ module.exports = {
       'element-plus/lib/locale/lang/en',
     ),
     new MomentLocalesPlugin(),
+    ElementPlus(),
   ],
 
   resolve: {
@@ -67,7 +74,7 @@ module.exports = {
       img: resolve(__dirname, '../../app/assets/images'),
       css: resolve(__dirname, '../../app/assets/stylesheets'),
     },
-    extensions: settings.extensions,
+    extensions: [...settings.extensions, '.mjs'],
   },
 
   resolveLoader: {

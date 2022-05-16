@@ -1,6 +1,6 @@
 <template lang="pug">
 el-menu.center
-  el-submenu(index='1')
+  el-sub-menu(index='1')
     template(v-slot:title) {{bootstrap.current_user.email}}
     a(:href="$routes.edit_user_path(bootstrap.current_user)")
       el-menu-item(index='1-1') Account Settings
@@ -26,12 +26,12 @@ export default {
   border: none;
 }
 
-:deep(.el-submenu.is-opened .el-submenu__title) {
+:deep(.el-sub-menu.is-opened .el-sub-menu__title) {
   background-color: #d1e7ff;
 }
 
 :deep(.el-menu),
-:deep(.el-submenu__title i) {
+:deep(.el-sub-menu__title i) {
   color: #111;
 }
 
