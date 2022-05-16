@@ -11048,10 +11048,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite-plugin-ruby@^3.0.10:
-  version "3.0.10"
-  resolved "https://registry.yarnpkg.com/vite-plugin-ruby/-/vite-plugin-ruby-3.0.10.tgz#d9075bd8a1c5bc98fb2e442938d84803eaa96ee3"
-  integrity sha512-6xOZT1F1VWl98I+TydOfqxyi6LH7MS01V+vnEl2WQm4OoK4Ugs8yAlp+do26BQBEvrr1E6ndlOtFaYOYuobsrA==
+vite-plugin-ruby@^3.0.12:
+  version "3.0.12"
+  resolved "https://registry.yarnpkg.com/vite-plugin-ruby/-/vite-plugin-ruby-3.0.12.tgz#6b935e900f10d72dc59161f04ba4b0c24fa40652"
+  integrity sha512-QosYDK6qOV1UeeFXlcH+A4pyoIs2lU9R2gWm+AJZ6gZ2yiiiLShYF6juYV8GeDsaXcOfVbPetkuPfnQCzE4mPQ==
   dependencies:
     debug "^4.3.3"
     fast-glob "^3.2.11"
