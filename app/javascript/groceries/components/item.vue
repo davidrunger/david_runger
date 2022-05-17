@@ -114,6 +114,10 @@ export default {
 
   &:not(.unneeded):hover {
     background: rgba(255, 255, 255, 80%);
+
+    @media (hover: none), (hover: on-demand) {
+      background: rgba(255, 255, 255, 60%);
+    }
   }
 
   &.unneeded {
@@ -122,6 +126,10 @@ export default {
 
     &:hover {
       background: rgba(255, 255, 255, 50%);
+
+      @media (hover: none), (hover: on-demand) {
+        background: rgba(255, 255, 255, 30%);
+      }
     }
   }
 }
