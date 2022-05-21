@@ -15,6 +15,7 @@ import {
   ElSwitch,
   ElTag,
 } from 'element-plus';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
 export function useElementPlus(app) {
   app.use(ElButton);
@@ -32,4 +33,8 @@ export function useElementPlus(app) {
   app.use(ElSubMenu);
   app.use(ElSwitch);
   app.use(ElTag);
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component);
+  }
 }
