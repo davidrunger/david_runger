@@ -19,7 +19,8 @@
     span(v-else)
       | {{item.name}}
       |
-      i.el-icon-edit-outline.js-link(@click='editItemName')
+      el-icon.js-link(@click='editItemName')
+        Edit
     | &nbsp;
     span ({{item.needed}})
     .delete.h2.pl1.pr1.js-link.right.red(
@@ -132,9 +133,5 @@ export default {
       }
     }
   }
-}
-
-.el-icon-edit-outline {
-  font-size: 12px;
 }
 </style>
