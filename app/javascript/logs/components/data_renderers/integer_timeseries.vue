@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LineChart from '@/components/charts/line_chart';
+import LineChart from '@/components/charts/line_chart.vue';
 
 export default {
   components: {
@@ -27,25 +27,11 @@ export default {
 
     logEntriesToChartData() {
       return this.log_entries.map(logEntry => ({
-        t: logEntry.created_at,
+        x: logEntry.created_at,
         y: logEntry.data,
         note: logEntry.note,
       }));
     },
-  },
-
-  created() {
-    this.CHART_OPTIONS = {
-      scales: {
-        xAxes: [{
-          type: 'time',
-          ticks: {
-            minRotation: 52,
-            source: 'auto',
-          },
-        }],
-      },
-    };
   },
 
   props: {

@@ -3,7 +3,6 @@ const { basename, dirname, join, relative, resolve } = require('path');
 const { sync } = require('glob');
 const extname = require('path-complete-extname');
 const { VueLoaderPlugin } = require('vue-loader');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const ElementPlus = require('unplugin-element-plus/webpack');
 const { settings } = require('./configuration');
 
@@ -64,7 +63,6 @@ module.exports = {
       /element-plus[/\\]lib[/\\]locale[/\\]lang[/\\]zh-CN/,
       'element-plus/lib/locale/lang/en',
     ),
-    new MomentLocalesPlugin(),
     ElementPlus(),
   ],
 
