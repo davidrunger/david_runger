@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LineChart from '@/components/charts/line_chart';
+import LineChart from '@/components/charts/line_chart.vue';
 
 function epochMsToHhMmSs(epochMs) {
   return new Date(epochMs).
@@ -52,7 +52,7 @@ export default {
 
     logEntriesToChartData() {
       return this.log_entries.map(logEntry => ({
-        t: logEntry.created_at,
+        x: logEntry.created_at,
         y: new Date(`1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data)}Z`),
         note: logEntry.note,
       }));
@@ -61,26 +61,26 @@ export default {
 
   created() {
     this.CHART_OPTIONS = {
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label(tooltipItem) {
+              return epochMsToHhMmSs(tooltipItem.parsed.y);
+            },
+          },
+        },
+      },
       scales: {
-        xAxes: [{
+        x: {
           type: 'time',
           ticks: {
             minRotation: 52,
             source: 'auto',
           },
-        }],
-        yAxes: [{
-          ticks: {
-            userCallback(v) {
-              return epochMsToHhMmSs(v);
-            },
-          },
-        }],
-      },
-      tooltips: {
-        callbacks: {
-          label(tooltipItem, _data) {
-            return epochMsToHhMmSs(tooltipItem.yLabel);
+        },
+        y: {
+          afterTickToLabelConversion(axis) {
+            axis.ticks = axis.ticks.map(tick => ({ ...tick, label: epochMsToHhMmSs(tick.value) }));
           },
         },
       },

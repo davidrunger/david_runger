@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import BarGraph from '@/components/charts/bar_graph';
+import BarGraph from '@/components/charts/bar_graph.vue';
 
 export default {
   components: {
@@ -41,7 +41,7 @@ export default {
 
       return Object.entries(countByDate).
         map(([date, count]) => ({
-          t: date,
+          x: date,
           y: count,
         }));
     },
