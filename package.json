@@ -88,7 +88,7 @@
   "devDependencies": {
     "@percy/cli": "^1.2.1",
     "@vitejs/plugin-vue": "^1.10.2",
-    "postcss": "^8.4.13",
+    "postcss": "^8.4.14",
     "postcss-html": "^1.4.1",
     "postcss-safe-parser": "^6.0.0",
     "postcss-scss": "^4.0.4",
