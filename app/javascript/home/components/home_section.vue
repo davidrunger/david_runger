@@ -3,15 +3,15 @@
   .anchor-target(:id='section')
   section.py3.px1(:data-section='section')
     .js-scroll-hook.absolute
-    Header(v-if='!renderHeadingManually', :title='title')
+    SectionHeader(v-if='!renderHeadingManually', :title='title')
     slot(:title='title')
 </template>
 
 <script>
 import { h } from 'vue';
 
-export const Header = props => h('h1', { class: 'h1 bold mt0 mb3' }, props.title);
-Header.props = ['title'];
+export const SectionHeader = props => h('h1', { class: 'h1 bold mt0 mb3' }, props.title);
+SectionHeader.props = ['title'];
 
 export default {
   props: {
@@ -30,7 +30,7 @@ export default {
   },
 
   components: {
-    Header,
+    SectionHeader,
   },
 };
 </script>
