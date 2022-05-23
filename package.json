@@ -31,7 +31,7 @@
     "basscss-border-colors": "^2.1.0",
     "basscss-colors": "^2.2.0",
     "basscss-lighten": "^1.1.0",
-    "caniuse-lite": "^1.0.30001341",
+    "caniuse-lite": "^1.0.30001342",
     "chart.js": "^3",
     "chartjs-adapter-date-fns": "^2.0.0",
     "chartkick": "^4.1.1",
