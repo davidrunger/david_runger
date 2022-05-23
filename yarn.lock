@@ -1093,6 +1093,13 @@
     "@hotwired/turbo" "^7.1.0"
     "@rails/actioncable" "^7.0"
 
+"@hotwired/turbo-rails@https://github.com/seanpdoyle/turbo-rails#inline-conditional-chaining":
+  version "7.1.2"
+  resolved "https://github.com/seanpdoyle/turbo-rails#9178aedb0bc3bd65fdc0f1c0f57722846b3efe19"
+  dependencies:
+    "@hotwired/turbo" "^7.1.0"
+    "@rails/actioncable" "^7.0"
+
 "@hotwired/turbo@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-7.1.0.tgz#27e44e0e3dc5bd1d4bda0766d579cf5a14091cd7"
