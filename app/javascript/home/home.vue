@@ -35,7 +35,7 @@
     template(v-slot:default='slotProps')
       .flex
         .flex-2.mr4.pr2
-          HomeSectionHeader(:title='slotProps.title')
+          SectionHeader(:title='slotProps.title')
 
           p I'm a full stack web developer.
 
@@ -213,13 +213,13 @@
 <script>
 import PerformantImage from '@/components/performant_image.vue';
 import * as positionListener from './scripts/position_listener';
-import HomeSection, { Header as HomeSectionHeader } from './components/home_section.vue';
+import HomeSection, { SectionHeader } from './components/home_section.vue';
 import SkillRow from './components/skill_row.vue';
 
 export default {
   components: {
     HomeSection,
-    HomeSectionHeader,
+    SectionHeader,
     PerformantImage,
     SkillRow,
   },
