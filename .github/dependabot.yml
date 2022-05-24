@@ -5,7 +5,7 @@ updates:
   schedule:
     interval: weekly
     time: "03:52"
-    timezone: America/Los_Angeles
+    timezone: America/Chicago
   open-pull-requests-limit: 20
   ignore:
   - dependency-name: chartkick
@@ -19,7 +19,7 @@ updates:
   schedule:
     interval: weekly
     time: "03:52"
-    timezone: America/Los_Angeles
+    timezone: America/Chicago
   open-pull-requests-limit: 20
   ignore:
   - dependency-name: chart.js
