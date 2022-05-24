@@ -3,7 +3,6 @@
   LineChart(
     :chart-data='chartMetadata'
     :height='300'
-    :options='CHART_OPTIONS'
   )
 </template>
 

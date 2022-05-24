@@ -88,6 +88,10 @@ body {
   height: 26px;
 }
 
+a {
+  color: #5aa8ed;
+}
+
 a.log-link {
   color: #e0e0e0;
   font-size: 100%;

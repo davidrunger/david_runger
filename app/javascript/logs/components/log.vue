@@ -59,20 +59,18 @@ div
           v-if='inputVisible'
           v-model='inputValue'
           ref='saveTagInput'
-          size='mini'
           @keyup.enter.native='handleLogShareCreation'
           @blur='handleLogShareCreation'
         )
         el-button(v-else class='button-new-tag' size='small' @click='showInput') + Share with email
       div.mt1 Shareable link: {{shareableUrl}}
       div
-        el-button.copy-to-clipboard(size='mini')
+        el-button.copy-to-clipboard(size='small')
           span(v-if='wasCopiedRecently') Copied!
           span(v-else) Copy to clipboard
       div.mt1
-        el-button(
+        a.js-link(
           @click="$store.commit('hideModal', { modalName: 'edit-log-shared-emails' })"
-          type='text'
         ) Close
 
   Modal(name='edit-log-reminder-schedule' width='85%' maxWidth='600px' backgroundClass='bg-black')

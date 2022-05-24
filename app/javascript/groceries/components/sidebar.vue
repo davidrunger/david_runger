@@ -9,12 +9,10 @@ aside.border-right.border-gray
           v-model='newStoreName'
           name='newStoreName'
           placeholder='Add a store'
-          size='medium'
         )
       el-button.flex-0(
         native-type='submit'
         :disabled='postingStore'
-        size='medium'
       ) Add
     .stores-list
       .js-link.stores-list__item.h3.my2.py1.px2(
