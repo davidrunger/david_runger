@@ -15,9 +15,9 @@ div.mt1.mb2.ml3.mr2
         Edit
     span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
   div.mb2
-    el-button(id="show-modal" @click='initializeTripCheckinModal()' size='mini').
+    el-button(id="show-modal" @click='initializeTripCheckinModal()').
       Check in shopping trip
-    el-button.copy-to-clipboard(size='mini') Copy to clipboard
+    el-button.copy-to-clipboard Copy to clipboard
     span(v-if='wasCopiedRecently') Copied!
 
   div.mb1
@@ -43,12 +43,10 @@ div.mt1.mb2.ml3.mr2
         type='text'
         v-model='newItemName'
         name='newItemName'
-        size='medium'
       )
     .ml1
       el-button.flex-0.button.button-outline(
         native-type='submit'
-        size='medium'
       ) Add
 
   .items-list.mt0.mb0

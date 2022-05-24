@@ -106,10 +106,6 @@ ol {
   width: 100%;
 }
 
-.el-button--mini {
-  padding: 6px 10px;
-}
-
 .el-button + .el-button {
   margin-left: 5px;
 }

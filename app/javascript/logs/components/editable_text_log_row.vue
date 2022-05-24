@@ -7,8 +7,8 @@ tr
   td.left-align(v-else v-html='logEntry.html')
 
   td(v-if='editing')
-    el-button(@click='updateLogEntry' size='mini') Save
-    el-button(@click='cancelEditing' size='mini') Cancel
+    el-button(@click='updateLogEntry' size='small') Save
+    el-button(@click='cancelEditing' size='small') Cancel
   td(v-else)
     a.js-link(@click='editing = true') Edit
 </template>
