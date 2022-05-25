@@ -4,7 +4,6 @@ import { Turbo } from '@hotwired/turbo-rails';
 import actionCableConsumer from '@/channels/consumer';
 import { loadAsyncPartials } from '@/lib/async_partial';
 
-Rails.start();
 // https://github.com/hotwired/turbo-rails/issues/135#issuecomment-814413558
 Rails.delegate(document, Rails.linkDisableSelector, 'turbo:before-cache', Rails.enableElement);
 Rails.delegate(document, Rails.buttonDisableSelector, 'turbo:before-cache', Rails.enableElement);

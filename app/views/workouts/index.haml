@@ -1,7 +1,2 @@
-- content_for(:extra_css) do
-  -# load CSS, except in development, where CSS will be loaded by style-loader, via JavaScript
-  - unless Rails.env.development? && ENV['PRODUCTION_ASSET_CONFIG'].blank?
-    %link{rel: "stylesheet", href: asset_pack_path('workout_app.css')}
-
-- content_for(:extra_javascript) do
+- content_for(:page_assets) do
   = js_tag('workout_app')

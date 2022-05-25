@@ -23,8 +23,7 @@ class Test::RequirementsResolver
 
         # Checks
         Test::Tasks::RunStylelint => Test::Tasks::YarnInstall,
-        # RunEslint depends on `CompileJavaScript` to write a `webpack.config.static.js` file
-        Test::Tasks::RunEslint => Test::Tasks::CompileJavaScript,
+        Test::Tasks::RunEslint => nil,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,

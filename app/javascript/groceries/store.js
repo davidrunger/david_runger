@@ -1,10 +1,14 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-import * as ModalVuex from '@/shared/modal_store';
+import {
+  getters as modalGetters,
+  mutations as modalMutations,
+  state as modalState,
+} from '@/shared/modal_store';
 
 const mutations = {
-  ...ModalVuex.mutations,
+  ...modalMutations,
 
   addItem(state, { store, itemData }) {
     store.items.unshift(itemData);
@@ -92,7 +96,7 @@ const actions = {
 };
 
 const getters = {
-  ...ModalVuex.getters,
+  ...modalGetters,
 
   currentStore(state) {
     if (!state.stores) return null;
@@ -110,7 +114,7 @@ const getters = {
 
 const state = {
   ...window.davidrunger.bootstrap,
-  ...ModalVuex.state,
+  ...modalState,
   collectingDebounces: false,
   pendingRequests: 0,
   postingStore: false,

@@ -1,7 +1,3 @@
 -# load CSS, except in development, where CSS will be loaded by style-loader, via JavaScript
-- content_for(:extra_css) do
-  - unless Rails.env.development? && ENV['PRODUCTION_ASSET_CONFIG'].blank?
-    %link{rel: "stylesheet", href: asset_pack_path('groceries_app.css')}
-
-- content_for(:extra_javascript) do
+- content_for(:page_assets) do
   = js_tag('groceries_app')

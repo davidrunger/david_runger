@@ -544,7 +544,6 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    semantic_range (3.0.0)
     shaped (0.8.2)
       activemodel (~> 6.0)
       activesupport (~> 6.0)
@@ -602,11 +601,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -705,7 +699,6 @@ DEPENDENCIES
   super_diff
   vite_rails
   webmock
-  webpacker
 
 RUBY VERSION
    ruby 3.1.2p20

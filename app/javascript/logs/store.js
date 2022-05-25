@@ -2,11 +2,15 @@ import axios from 'axios';
 import _, { sortBy } from 'lodash';
 import Toastify from 'toastify-js';
 
-import * as ModalVuex from '@/shared/modal_store';
+import {
+  getters as modalGetters,
+  mutations as modalMutations,
+  state as modalState,
+} from '@/shared/modal_store';
 import router from './router';
 
 const mutations = {
-  ...ModalVuex.mutations,
+  ...modalMutations,
 
   addLogEntry(_state, { log, newLogEntry }) {
     const existingLogEntry = log.log_entries.find(logEntry => logEntry.id === newLogEntry.id);
@@ -189,7 +193,7 @@ const actions = {
 };
 
 const getters = {
-  ...ModalVuex.getters,
+  ...modalGetters,
 
   // eslint-disable-next-line no-shadow
   isOwnLog(state, getters) {
@@ -221,7 +225,7 @@ const getters = {
 
 const state = {
   ...window.davidrunger.bootstrap,
-  ...ModalVuex.state,
+  ...modalState,
 };
 
 export default {

@@ -1,9 +1,13 @@
 import axios from 'axios';
 
-import * as ModalVuex from '@/shared/modal_store';
+import {
+  getters as modalGetters,
+  mutations as modalMutations,
+  state as modalState,
+} from '@/shared/modal_store';
 
 const mutations = {
-  ...ModalVuex.mutations,
+  ...modalMutations,
 
   addCompletedWorkout(state, { completedWorkout }) {
     state.workouts = state.workouts.concat(completedWorkout);
@@ -26,12 +30,12 @@ const actions = {
 };
 
 const getters = {
-  ...ModalVuex.getters,
+  ...modalGetters,
 };
 
 const state = {
   ...window.davidrunger.bootstrap,
-  ...ModalVuex.state,
+  ...modalState,
   workout: null,
 };
 

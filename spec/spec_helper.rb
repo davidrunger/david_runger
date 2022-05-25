@@ -37,7 +37,7 @@ require 'super_diff/rspec-rails'
 Sidekiq.logger = Rails.logger
 
 WebMock.enable!
-WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable_net_connect!(allow_localhost: true, net_http_connect_on_start: true)
 
 OmniAuth.config.test_mode = true
 
@@ -51,7 +51,7 @@ end
 Capybara.default_driver = :chrome_headless
 Capybara.javascript_driver = :chrome_headless
 # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
-Capybara.asset_host = "http://localhost:#{(is_ci || !Webpacker.dev_server.running?) ? 3000 : 8080}"
+Capybara.asset_host = 'http://localhost:3000'
 Capybara.server = :puma, { Silent: true }
 Capybara.default_normalize_ws = true
 
