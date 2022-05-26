@@ -16,8 +16,6 @@
 .gemtags
 .tags
 .tags_sorted_by_file
-/public/packs
-/public/packs-test
 /public/assets
 spec/fixtures/*.yml
 /app/javascript/rails_assets
