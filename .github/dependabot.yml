@@ -8,9 +8,6 @@ updates:
     timezone: America/Chicago
   open-pull-requests-limit: 20
   ignore:
-  - dependency-name: chartkick
-    versions:
-    - 4.0.2
   - dependency-name: codecov
     versions:
     - 0.5.1
@@ -44,10 +41,6 @@ updates:
   - dependency-name: vue-router
     versions:
     - 4.0.6
-  - dependency-name: chartkick
-    versions:
-    - 4.0.0
-    - 4.0.2
   - dependency-name: postcss
     versions:
     - 8.2.6
