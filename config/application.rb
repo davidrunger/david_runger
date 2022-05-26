@@ -47,7 +47,7 @@ class DavidRunger::Application < Rails::Application
   end
 
   # Time zone
-  config.time_zone = 'America/Los_Angeles'
+  config.time_zone = ENV.fetch('TIME_ZONE', 'America/Chicago')
   config.active_record.default_timezone = :utc
 
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
