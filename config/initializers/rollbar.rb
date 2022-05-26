@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rollbar.configure do |config|
-  code_version = ENV.fetch('SOURCE_VERSION', nil) || File.read('SOURCE_VERSION') rescue nil
+  code_version = ENV.fetch('SOURCE_VERSION', nil) || ENV.fetch('HEROKU_SLUG_COMMIT', nil) rescue nil
 
   config.access_token = ENV.fetch('ROLLBAR_ACCESS_TOKEN', nil)
   config.code_version = code_version
