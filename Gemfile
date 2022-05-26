@@ -44,7 +44,7 @@ gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
-gem 'webpacker'
+gem 'vite_rails'
 
 group :production do
   gem 'cloudflare-rails'
@@ -73,7 +73,6 @@ group :development do
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen', github: 'davidrunger/spring-watcher-listen'
-  gem 'vite_rails'
 end
 
 group :test do

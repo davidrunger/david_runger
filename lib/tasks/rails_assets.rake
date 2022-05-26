@@ -21,8 +21,3 @@ task build_js_routes: :environment do
 
   puts 'Done writing named routes JavaScript helpers to file.'
 end
-
-desc 'Check for changes to routes.rb & recompile JS routes if needed'
-file 'app/javascript/rails_assets/routes.js' => [:environment, 'config/routes.rb'] do
-  Rake::Task['build_js_routes'].invoke
-end

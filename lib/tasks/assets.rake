@@ -28,56 +28,15 @@ namespace :assets do
     end
   end
 
-  # Examples:
-  #
-  #   Rake::Task['assets:copy_webpacker_settings'].invoke('production', 'test', 'extract_css')
-  #
-  #   $ bin/rails 'assets:copy_webpacker_settings[production, development, extract_css source_path]'
-  desc 'Copy webpacker configuration settings from one env to another env'
-  task :copy_webpacker_settings, [:from_env, :to_env, :settings_to_copy] do |_task, args|
-    webpacker_config_path = 'config/webpacker.yml'
-    # rubocop:disable Security/YAMLLoad (this is trusted yaml; we don't need to load it "safely")
-    webpacker_config = YAML.load(File.read(webpacker_config_path), aliases: true)
-    # rubocop:enable Security/YAMLLoad
-
-    settings_to_copy = args[:settings_to_copy].split(/\s+/)
-    from_env = args[:from_env]
-    to_env = args[:to_env]
-    puts <<~LOG
-      Copying webpacker settings for #{settings_to_copy} from "#{from_env}" to "#{to_env}" ...
-    LOG
-
-    from_config = webpacker_config[from_env]
-    old_to_config = webpacker_config[to_env]
-
-    new_to_config = old_to_config.deep_dup
-    settings_to_copy.each do |setting|
-      if from_config[setting].nil?
-        new_to_config.delete(setting)
-      else
-        new_to_config[setting] = from_config[setting]
-      end
-    end
-
-    webpacker_config[to_env] = new_to_config
-
-    File.write(webpacker_config_path, YAML.dump(webpacker_config))
-  end
-
   desc 'Boot a server in development that serves assets in a production-like manner'
   task :production_asset_server do
-    run_logged_system_command('rm -rf node_modules')
-    run_logged_system_command('rm -rf public/packs')
-    run_logged_system_command('rm -rf public/packs-test')
-    Rake::Task['assets:copy_webpacker_settings'].invoke(
-      'production',
-      'development',
-      'cache_manifest check_yarn_integrity compile dev_server extract_css',
-    )
-    run_logged_system_command('NODE_ENV=production DISABLE_SPRING=1 bin/rails assets:precompile')
+    run_logged_system_command('rm -rf node_modules/')
+    run_logged_system_command('rm -rf public/vite/ public/vite-dev/')
+    run_logged_system_command('rm -f app/javascript/rails_assets/routes.js')
+    run_logged_system_command('DISABLE_SPRING=1 bin/rails build_js_routes')
+    run_logged_system_command('NODE_ENV=production yarn install')
+    run_logged_system_command('NODE_ENV=production bin/vite build --force')
     run_logged_system_command('PRODUCTION_ASSET_CONFIG=1 DISABLE_SPRING=1 bin/rails server')
-  ensure
-    run_logged_system_command('git checkout config/webpacker.yml')
   end
 end
 

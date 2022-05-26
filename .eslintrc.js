@@ -18,7 +18,9 @@ module.exports = {
     'comma-dangle': ['warn', 'always-multiline'],
     'dot-location': ['error', 'object'],
     'function-paren-newline': 'off',
+    'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'max-len': ['warn', { code: 100, ignoreUrls: true }],
     'newline-per-chained-call': 'off',
@@ -47,19 +49,5 @@ module.exports = {
       asyncArrow: 'always',
     }],
     'vue/multi-word-component-names': 'off',
-  },
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: (
-          (env.NODE_ENV === 'production') ?
-            'webpack.config.js' :
-            'webpack.config.static.js'
-        ),
-      },
-    },
-    react: {
-      version: '16.4.2',
-    },
   },
 };

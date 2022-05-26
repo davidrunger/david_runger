@@ -8,8 +8,6 @@
 /.bundle
 /log/*
 /tmp/*
-# used by mocha-webpack
-.tmp/*
 !/log/.keep
 !/tmp/.keep
 /node_modules
@@ -22,9 +20,9 @@
 /public/packs-test
 /public/assets
 spec/fixtures/*.yml
-webpack.config.static.js
 /app/javascript/rails_assets
 coverage/
 .tests.yml
 *.dump*
+/public/vite
 /public/vite-dev
