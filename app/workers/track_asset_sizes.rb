@@ -2,67 +2,89 @@
 
 class TrackAssetSizes
   prepend ApplicationWorker
-
-  BUNDLE_SUFFIXES = ['', '.br', '.gz'].freeze
-  CSS_BUNDLE_GLOBS = %w[
-    groceries*.css
-    home*.css
-    logs*.css
-    styles*.css
-    workout*.css
-  ].map(&:freeze).freeze
-  JS_BUNDLE_GLOBS = %w[
-    charts*.js
-    groceries*.js
-    home*.js
-    logs*.js
-    quizzes*.js
-    turbo*.js
-    workout*.js
-  ].map(&:freeze).freeze
+  extend Memoist
 
   class << self
     extend Memoist
 
-    memoize \
     def all_globs
-      css_globs + js_globs
-    end
-
-    memoize \
-    def css_globs
-      CSS_BUNDLE_GLOBS.map do |bundle_glob|
-        BUNDLE_SUFFIXES.map do |bundle_suffix|
-          "#{bundle_glob}#{bundle_suffix}"
-        end
-      end.flatten
-    end
-
-    memoize \
-    def js_globs
-      JS_BUNDLE_GLOBS.map do |bundle_glob|
-        BUNDLE_SUFFIXES.map do |bundle_suffix|
-          "#{bundle_glob}#{bundle_suffix}"
-        end
-      end.flatten
+      new.track_all_asset_sizes(dry_run: true).keys.sort
     end
   end
 
   def perform
-    self.class.css_globs.each do |glob|
-      track_filesize(glob, "public/packs/#{glob}")
-    end
+    track_all_asset_sizes
+  end
 
-    self.class.js_globs.each do |glob|
-      track_filesize(glob, "public/packs/js/#{glob}")
+  def track_all_asset_sizes(dry_run: false)
+    accumulator = {}
+    packs.each do |pack_name|
+      track_asset_sizes(pack_name, accumulator: accumulator, dry_run: dry_run)
     end
+    accumulator
   end
 
   private
 
-  def track_filesize(glob, full_glob)
-    filesize_string = `wc -c < $(ls #{full_glob})`.strip
-    filesize = Integer(filesize_string)
-    RedisTimeseries[glob].add(filesize)
+  def track_asset_sizes(pack_name, accumulator:, dry_run:)
+    asset_and_js_dependencies = asset_and_js_dependencies("packs/#{pack_name}.js")
+    total_js_files_size =
+      asset_and_js_dependencies.
+        sum { |asset| File.new("public/vite/#{file_name(asset)}").size }
+
+    total_css_files_size =
+      asset_and_js_dependencies.map { |asset| manifest[asset]['css'] || [] }.
+        flatten.uniq.
+        sum { |css_path| File.new("public/vite/#{css_path}").size }
+
+    plain_pack_name = pack_name.delete_suffix('_app')
+    js_glob = "#{plain_pack_name}*.js"
+    css_glob = "#{plain_pack_name}*.css"
+
+    record_asset_size(js_glob, total_js_files_size, accumulator: accumulator, dry_run: dry_run)
+    record_asset_size(css_glob, total_css_files_size, accumulator: accumulator, dry_run: dry_run)
+  end
+
+  def record_asset_size(glob, files_size, accumulator:, dry_run:)
+    if files_size > 1
+      accumulator[glob] = files_size
+      RedisTimeseries[glob].add(files_size) unless dry_run
+    end
+  end
+
+  def file_name(asset)
+    manifest[asset]['file']
+  end
+
+  memoize \
+  def asset_and_js_dependencies(asset)
+    ([asset] +
+      ((manifest[asset]['imports'] || []) + (manifest[asset]['dynamicImports'] || [])).
+        map do |imported_file|
+          asset_and_js_dependencies(imported_file)
+        end.
+        flatten
+    ).uniq
+  end
+
+  memoize \
+  def packs
+    manifest.
+      filter_map do |path, info|
+        if info['isEntry']
+          path.delete_prefix('packs/').delete_suffix('.js')
+        end
+      end.
+      sort
+  end
+
+  memoize \
+  def manifest
+    JSON.parse(manifest_json)
+  end
+
+  memoize \
+  def manifest_json
+    File.read('public/vite/manifest.json')
   end
 end
