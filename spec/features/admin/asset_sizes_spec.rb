@@ -9,8 +9,8 @@ RSpec.describe 'Admin asset sizes' do
     context 'when there is data about the size of an asset' do
       before do
         glob = TrackAssetSizes.all_globs.first
-        RedisTimeseries[glob].add(10)
-        RedisTimeseries[glob].add(16)
+        PostgresTimeseries[glob].add(10)
+        PostgresTimeseries[glob].add(16)
       end
 
       it 'renders a page with an "Asset Sizes" header and a canvas' do
