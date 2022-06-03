@@ -48,7 +48,7 @@ class TrackAssetSizes
   def record_asset_size(glob, files_size, accumulator:, dry_run:)
     if files_size > 1
       accumulator[glob] = files_size
-      PostgresTimeseries[glob].add(files_size) unless dry_run
+      Timeseries[glob].add(files_size) unless dry_run
     end
   end
 
