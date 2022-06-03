@@ -54,7 +54,6 @@ RSpec.describe Email::MailgunViaHttp do
     around do |spec|
       ClimateControl.modify(
         MAILGUN_URL: 'https://api.mailgun.net/v3/mg.davidrunger.com',
-        MAILGUN_API_KEY: stubbed_mailgun_api_key,
       ) do
         spec.run
       end
@@ -71,6 +70,9 @@ RSpec.describe Email::MailgunViaHttp do
           raise('Unexpected key accessed on mail object')
         end
       end
+
+      expect(Rails.application.credentials).to receive(:mailgun).
+        and_return(api_key: stubbed_mailgun_api_key)
     end
 
     it 'makes an HTTP POST request to ENV["MAILGUN_URL"]' do

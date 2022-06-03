@@ -15,16 +15,12 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
     end
   end
 
-  describe '#serve_prerender_with_fallback' do
+  describe '#serve_prerender_with_fallback', :fake_aws_credentials do
     subject(:get_index) { get(:index) }
 
-    context 'when AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, & HEROKU_SLUG_COMMIT ENVs are set' do
+    context 'when ENV["HEROKU_SLUG_COMMIT"] is set' do
       around do |spec|
-        ClimateControl.modify(
-          AWS_ACCESS_KEY_ID: 'HU49U3C3HUBKHCRQQ32L',
-          AWS_SECRET_ACCESS_KEY: 'QRZ4jVBn3EqPrgtz2mKNb6XdMhULGSliA7w1scD8',
-          HEROKU_SLUG_COMMIT: commit_sha,
-        ) do
+        ClimateControl.modify(HEROKU_SLUG_COMMIT: commit_sha) do
           spec.run
         end
       end

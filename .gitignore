@@ -24,3 +24,5 @@ coverage/
 *.dump*
 /public/vite
 /public/vite-dev
+/config/credentials/development.key
+/config/credentials/production.key

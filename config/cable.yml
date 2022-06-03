@@ -4,7 +4,7 @@ default: &default
 development:
   <<: *default
   channel_prefix: david_runger_development
-  url: <%= ENV['REDIS_URL'] %>
+  url: redis://localhost:6379
 
 test:
   <<: *default
@@ -14,4 +14,4 @@ test:
 production:
   <<: *default
   channel_prefix: david_runger_production
-  url: <%= ENV['REDIS_URL'] %>
+  url: <%= Rails.application.credentials.redis&.dig(:tls_url) %>

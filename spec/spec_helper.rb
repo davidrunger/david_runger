@@ -205,6 +205,24 @@ RSpec.configure do |config|
     Capybara.use_default_driver
   end
 
+  config.around(:each, :fake_aws_credentials) do |spec|
+    original_credentials = Aws.config[:credentials]
+
+    # rubocop:disable Rails/SaveBang
+    Aws.config.update(
+      credentials: Aws::Credentials.new(
+        # these credentials are made up
+        'BL3BI938XI837K0E32BU', # access_key_id
+        'a8Bu8h03DD32mBUD8udod83FUFd73rlbUB9872OI', # secret_access_key
+      ),
+    )
+
+    spec.run
+
+    Aws.config.update(credentials: original_credentials)
+    # rubocop:enable Rails/SaveBang
+  end
+
   config.around(:each, :production_like_error_handling) do |spec|
     # https://github.com/rails/rails/pull/11289#issuecomment-118612393
     env_config = Rails.application.env_config
