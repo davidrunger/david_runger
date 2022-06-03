@@ -8,7 +8,7 @@ ActiveAdmin.register_page('Asset Sizes') do
 
     TrackAssetSizes.all_globs.each do |glob|
       h2(glob)
-      div(line_chart(PostgresTimeseries[glob].to_h))
+      div(line_chart(Timeseries[glob].to_h))
     end
   end
 end

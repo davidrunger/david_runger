@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe PostgresTimeseries do
-  subject(:timeseries) { PostgresTimeseries[timeseries_name] }
+RSpec.describe Timeseries do
+  subject(:timeseries) { Timeseries[timeseries_name] }
 
   let(:timeseries_name) { 'test-timeseries' }
 

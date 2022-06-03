@@ -69,7 +69,7 @@ RSpec.describe TrackAssetSizes do
           expect {
             perform
           }.to change {
-            PostgresTimeseries['groceries*.js'].to_h
+            Timeseries['groceries*.js'].to_h
           }.from({}).
             to({ Time.current => 100 })
         end
@@ -78,7 +78,7 @@ RSpec.describe TrackAssetSizes do
           expect {
             perform
           }.to change {
-            PostgresTimeseries['groceries*.css'].to_h
+            Timeseries['groceries*.css'].to_h
           }.from({}).
             to({ Time.current => 110 })
         end
