@@ -3,13 +3,13 @@
 Rollbar.configure do |config|
   code_version = ENV.fetch('SOURCE_VERSION', nil) || ENV.fetch('HEROKU_SLUG_COMMIT', nil) rescue nil
 
-  config.access_token = ENV.fetch('ROLLBAR_ACCESS_TOKEN', nil)
+  config.access_token = Rails.application.credentials.rollbar&.dig(:access_token)
   config.code_version = code_version
 
   # Without configuration, Rollbar is enabled in all environments.
   # To disable in specific environments, set config.enabled=false.
   if Rails.env.in?(%w[development test])
-    config.enabled = ENV['ROLLBAR_ACCESS_TOKEN'].present?
+    config.enabled = Rails.application.credentials.rollbar&.dig(:access_token).present?
   end
 
   # By default, Rollbar will try to call the `current_user` controller method
@@ -61,7 +61,7 @@ Rollbar.configure do |config|
   # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
   config.environment = ENV.fetch('ROLLBAR_ENV', nil) || Rails.env
 
-  client_token = ENV.fetch('POST_CLIENT_ITEM_ACCESS_TOKEN', nil)
+  client_token = Rails.application.credentials.rollbar&.dig(:post_client_item_access_token)
   config.js_enabled = Flipper.enabled?(:rollbar_js)
   config.js_options = {
     accessToken: client_token,

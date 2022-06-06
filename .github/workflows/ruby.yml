@@ -59,6 +59,7 @@ jobs:
       run: bin/pallets --verbose -r ./bin/run-tests.rb
       env:
         CI: true
+        AWS_EC2_METADATA_DISABLED: true
         RAILS_ENV: test
         NODE_ENV: test
         DISABLE_SPRING: 1

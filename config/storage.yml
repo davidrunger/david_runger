@@ -4,7 +4,7 @@ local:
 
 amazon:
   service: S3
-  access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
-  secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  access_key_id: <%= Rails.application.credentials.aws&.dig(:access_key_id) %>
+  secret_access_key: <%= Rails.application.credentials.aws&.dig(:secret_access_key) %>
   bucket: <%= ENV['S3_BUCKET'] %>
   region: <%= ENV['S3_REGION'] %>

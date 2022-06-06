@@ -53,10 +53,10 @@ Rails.application.configure do
   # Use a different cache store in production.
   config.cache_store =
     :mem_cache_store,
-    ENV.fetch('MEMCACHIER_SERVERS', nil),
+    Rails.application.credentials.memcachier&.fetch(:servers),
     {
-      password: ENV.fetch('MEMCACHIER_PASSWORD', nil),
-      username: ENV.fetch('MEMCACHIER_USERNAME', nil),
+      password: Rails.application.credentials.memcachier&.fetch(:password),
+      username: Rails.application.credentials.memcachier&.fetch(:username),
     }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
@@ -116,7 +116,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = Email::MailgunViaHttp
 
   if ENV.fetch('HEROKU_APP_NAME', nil) == 'davidrunger'
-    if %w[AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY S3_BUCKET S3_REGION].all? { ENV[_1].present? }
+    if [
+      ENV.fetch('S3_BUCKET', nil),
+      ENV.fetch('S3_REGION', nil),
+      Rails.application.credentials.aws&.dig(:access_key_id),
+      Rails.application.credentials.aws&.dig(:secret_access_key),
+    ].all?(&:present?)
       config.active_storage.service = :amazon
     else
       raise(':amazon storage cannot be enabled because not all required ENV variables are present')
