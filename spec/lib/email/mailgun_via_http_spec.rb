@@ -51,14 +51,6 @@ RSpec.describe Email::MailgunViaHttp do
       )
     end
 
-    around do |spec|
-      ClimateControl.modify(
-        MAILGUN_URL: 'https://api.mailgun.net/v3/mg.davidrunger.com',
-      ) do
-        spec.run
-      end
-    end
-
     before do
       expect(mail).to receive(:[]).at_least(:once) do |key|
         case key
@@ -75,7 +67,7 @@ RSpec.describe Email::MailgunViaHttp do
         and_return(api_key: stubbed_mailgun_api_key)
     end
 
-    it 'makes an HTTP POST request to ENV["MAILGUN_URL"]' do
+    it 'makes an HTTP POST request to the appropriate Mailgun URL' do
       deliver!
 
       expect(mailgun_http_request).to have_been_requested
