@@ -37,7 +37,7 @@ module Email
           :authorization,
           :basic,
           'api',
-          Rails.application.credentials.mailgun.fetch(:api_key),
+          Rails.application.credentials.mailgun!.fetch(:api_key),
         )
       end
     end
