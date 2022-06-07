@@ -7,4 +7,4 @@ amazon:
   access_key_id: <%= Rails.application.credentials.aws&.dig(:access_key_id) %>
   secret_access_key: <%= Rails.application.credentials.aws&.dig(:secret_access_key) %>
   bucket: <%= ENV['S3_BUCKET'] %>
-  region: <%= ENV['S3_REGION'] %>
+  region: us-east-1

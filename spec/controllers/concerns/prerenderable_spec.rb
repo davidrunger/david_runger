@@ -27,10 +27,9 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
 
       let(:commit_sha) { Digest::SHA1.hexdigest(rand(1_000_000).to_s) }
 
-      context 'when S3_REGION and S3_BUCKET ENV variables are set' do
+      context 'when an S3_BUCKET ENV variable is set' do
         around do |spec|
           ClimateControl.modify(
-            S3_REGION: 'us-east-1',
             S3_BUCKET: 'david-runger-test-uploads',
           ) do
             spec.run
@@ -173,21 +172,21 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
         end
       end
 
-      context 'when S3_REGION is not set' do
-        before { expect(ENV.fetch('S3_REGION', nil)).to eq(nil) }
+      context 'when S3_BUCKET is not set' do
+        before { expect(ENV.fetch('S3_BUCKET', nil)).to eq(nil) }
 
         context 'when Rails.env is "test"' do
           before { expect(Rails.env).to eq('test') }
 
           it 'raises an error' do
-            expect { get_index }.to raise_error(Aws::Errors::MissingRegionError)
+            expect { get_index }.to raise_error(KeyError)
           end
         end
 
         context 'when Rails.env is "production"', rails_env: :production do
           it 'logs to Rollbar' do
             expect(Rollbar).to receive(:error).with(
-              Aws::Errors::MissingRegionError,
+              KeyError,
               filename: 'home.html',
             ).and_call_original
             get_index

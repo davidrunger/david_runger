@@ -116,7 +116,6 @@ Rails.application.configure do
   if ENV.fetch('HEROKU_APP_NAME', nil) == 'davidrunger'
     if [
       ENV.fetch('S3_BUCKET', nil),
-      ENV.fetch('S3_REGION', nil),
       Rails.application.credentials.aws&.dig(:access_key_id),
       Rails.application.credentials.aws&.dig(:secret_access_key),
     ].all?(&:present?)
