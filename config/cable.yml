@@ -14,4 +14,7 @@ test:
 production:
   <<: *default
   channel_prefix: david_runger_production
-  url: <%= Rails.application.credentials.redis&.dig(:url) %>
+  ssl_params:
+    verify_mode: <%= OpenSSL::SSL::VERIFY_NONE %>
+  # We'll check ENV['REDIS_TLS_URL'] for Heroku review apps, which can't decrypt credentials
+  url: <%= Rails.application.credentials.redis&.dig(:tls_url) || ENV['REDIS_TLS_URL'] %>
