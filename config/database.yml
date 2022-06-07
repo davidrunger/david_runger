@@ -85,3 +85,4 @@ test:
 production:
   <<: *default
   database: david_runger_production
+  url: <%= Rails.application.credentials.postgres&.dig(:url) %>
