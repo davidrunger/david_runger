@@ -31,7 +31,7 @@ class Prerenderer
   private
 
   def upload_prerender_to_s3(filename:, html:)
-    Aws::S3::Resource.new(region: ENV.fetch('S3_REGION', nil)).
+    Aws::S3::Resource.new(region: 'us-east-1').
       bucket(ENV.fetch('S3_BUCKET', nil)).
       object("prerenders/#{ENV.fetch('GITHUB_SHA')}/#{filename}").
       put(body: html_for_prerendering(html))

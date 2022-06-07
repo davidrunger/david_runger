@@ -32,8 +32,8 @@ module Prerenderable
       expires_in: 1.day,
       skip_nil: true,
     ) do
-      Aws::S3::Resource.new(region: ENV.fetch('S3_REGION', nil)).
-        bucket(ENV.fetch('S3_BUCKET', nil)).
+      Aws::S3::Resource.new(region: 'us-east-1').
+        bucket(ENV.fetch('S3_BUCKET')).
         object("prerenders/#{ENV.fetch('HEROKU_SLUG_COMMIT')}/#{filename}").
         get.body.read.
         yield_self { html_with_absolutized_asset_paths(_1) }
