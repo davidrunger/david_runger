@@ -63,7 +63,7 @@ RSpec.describe Email::MailgunViaHttp do
         end
       end
 
-      expect(Rails.application.credentials).to receive(:mailgun).
+      expect(Rails.application.credentials).to receive(:mailgun!).
         and_return(api_key: stubbed_mailgun_api_key)
     end
 
