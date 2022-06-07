@@ -22,14 +22,6 @@ namespace :assets do
   end
 end
 
-module DeployAssetsHelper
-  class NotOnHerokuError < StandardError ; end
-
-  def self.on_heroku?
-    ENV['HEROKU'].present?
-  end
-end
-
 if Rails.env.production?
   Rake::Task['assets:precompile'].enhance(%w[build_js_routes])
 end
