@@ -3,6 +3,7 @@
 # rubocop:disable Style/ClassAndModuleChildren
 module Email
   class MailgunViaHttp
+    MAILGUN_URL = 'https://api.mailgun.net/v3/mg.davidrunger.com'
     # must _not_ start with a slash! ( https://github.com/lostisland/faraday/issues/293/ )
     MESSAGES_PATH = 'messages'
 
@@ -30,7 +31,7 @@ module Email
     private
 
     def connection
-      Faraday.new(ENV.fetch('MAILGUN_URL')) do |conn|
+      Faraday.new(MAILGUN_URL) do |conn|
         conn.request(:url_encoded)
         conn.request(
           :authorization,
