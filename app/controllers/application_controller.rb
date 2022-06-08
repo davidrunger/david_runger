@@ -23,10 +23,22 @@ class ApplicationController < ActionController::Base
     with: :user_not_authorized,
   )
 
-  private
+  def current_user
+    if (
+      (Rails.env.development? || ENV['HEROKU_PR_NUMBER'].present?) &&
+        Flipper.enabled?(:automatic_user_login)
+    )
+      super || User.find_by!(email: 'davidjrunger@gmail.com').tap { |user| sign_in(user) }
+    else
+      super
+    end
+  end
 
   def current_admin_user
-    if Rails.env.development? && Flipper.enabled?(:automatic_admin_login)
+    if (
+      (Rails.env.development? || ENV['HEROKU_PR_NUMBER'].present?) &&
+        Flipper.enabled?(:automatic_admin_login)
+    )
       super ||
         AdminUser.
           find_by!(email: 'davidjrunger@gmail.com').
@@ -35,6 +47,8 @@ class ApplicationController < ActionController::Base
       super
     end
   end
+
+  private
 
   def skip_authorization?
     # ActiveAdmin supports an "Authorization Adapter" that can be implemented separately; skip here.
