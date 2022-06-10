@@ -26,7 +26,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'capybara-screenshot/rspec' if !is_ci
+require 'capybara-screenshot/rspec'
 require 'active_support/cache/mem_cache_store'
 require 'sidekiq/testing'
 require 'mail'
@@ -37,7 +37,11 @@ require 'super_diff/rspec-rails'
 Sidekiq.logger = Rails.logger
 
 WebMock.enable!
-WebMock.disable_net_connect!(allow_localhost: true, net_http_connect_on_start: true)
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  allow: 'david-runger-test-uploads.s3.amazonaws.com', # upload feature test failure screenshots
+  net_http_connect_on_start: true,
+)
 
 OmniAuth.config.test_mode = true
 
@@ -47,6 +51,18 @@ Capybara.register_driver(:chrome_headless) do |app|
 end
 Capybara::Screenshot.register_driver(:chrome_headless) do |driver, path|
   driver.browser.save_screenshot(path)
+end
+if is_ci
+  Capybara::Screenshot.s3_configuration = {
+    s3_client_credentials: {
+      access_key_id: Rails.application.credentials.aws![:access_key_id],
+      secret_access_key: Rails.application.credentials.aws![:secret_access_key],
+      region: 'us-east-1',
+    },
+    bucket_name: 'david-runger-test-uploads',
+    bucket_host: 'david-runger-test-uploads.s3.amazonaws.com',
+    key_prefix: 'failure-screenshots/',
+  }
 end
 Capybara.default_driver = :chrome_headless
 Capybara.javascript_driver = :chrome_headless
