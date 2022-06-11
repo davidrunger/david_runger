@@ -74,6 +74,7 @@ jobs:
         REDIS_PORT: 6379
         PERCY_TOKEN: "${{secrets.PERCY_TOKEN}}"
         CODECOV_TOKEN: "${{secrets.CODECOV_TOKEN}}"
+        RAILS_MASTER_KEY: "${{secrets.RAILS_MASTER_KEY}}"
     - name: Save fixtures artifact
       uses: actions/upload-artifact@v2
       if: failure()
