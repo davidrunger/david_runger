@@ -76,7 +76,7 @@
     "postcss": "^8.4.14",
     "postcss-html": "^1.4.1",
     "sass": "^1.52.3",
-    "stylelint": "^14.8.5",
+    "stylelint": "^14.9.1",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-scss": "^4.2.0"
   }
