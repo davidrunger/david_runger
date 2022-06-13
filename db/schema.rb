@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_29_020803) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_06_14_035333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,8 +18,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.integer "status", default: 0, null: false
     t.string "message_id", null: false
     t.string "message_checksum", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["message_id", "message_checksum"], name: "index_action_mailbox_inbound_emails_uniqueness", unique: true
   end
 
@@ -31,8 +30,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.bigint "resource_id"
     t.string "author_type"
     t.bigint "author_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
@@ -43,7 +42,7 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -55,8 +54,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.text "metadata"
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -68,8 +67,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string "email", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
@@ -77,9 +76,9 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.bigint "user_id", null: false
     t.text "secret", null: false
     t.text "name"
-    t.datetime "last_used_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "last_used_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["secret"], name: "index_auth_tokens_on_secret"
     t.index ["user_id", "secret"], name: "index_auth_tokens_on_user_id_and_secret", unique: true
   end
@@ -87,16 +86,16 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
   create_table "banned_path_fragments", force: :cascade do |t|
     t.string "value", null: false
     t.text "notes"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["value"], name: "index_banned_path_fragments_on_value", unique: true
   end
 
   create_table "ip_blocks", force: :cascade do |t|
     t.string "ip", null: false
     t.text "reason"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["ip"], name: "index_ip_blocks_on_ip", unique: true
   end
 
@@ -104,31 +103,31 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.bigint "store_id", null: false
     t.string "name", null: false
     t.integer "needed", default: 1, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["store_id"], name: "index_items_on_store_id"
   end
 
   create_table "log_shares", force: :cascade do |t|
     t.bigint "log_id", null: false
     t.text "email", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["log_id", "email"], name: "index_log_shares_on_log_id_and_email", unique: true
   end
 
   create_table "logs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "description"
     t.string "slug", null: false
     t.string "data_label", null: false
     t.string "data_type", null: false
     t.boolean "publicly_viewable", default: false, null: false
     t.integer "reminder_time_in_seconds", comment: "Time in seconds, which, if elapsed since the creation of log or most recent log entry (whichever is later) will trigger a reminder to be sent (via email) to the owning user."
-    t.datetime "reminder_last_sent_at"
+    t.datetime "reminder_last_sent_at", precision: nil
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
     t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
   end
@@ -136,8 +135,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
   create_table "number_log_entries", force: :cascade do |t|
     t.bigint "log_id", null: false
     t.float "data", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "note"
     t.index ["log_id"], name: "index_number_log_entries_on_log_id"
   end
@@ -146,8 +145,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.bigint "quiz_id", null: false
     t.bigint "participant_id", null: false
     t.string "display_name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["participant_id"], name: "index_quiz_participations_on_participant_id"
     t.index ["quiz_id", "display_name"], name: "index_quiz_participations_on_quiz_id_and_display_name", unique: true
     t.index ["quiz_id", "participant_id"], name: "index_quiz_participations_on_quiz_id_and_participant_id", unique: true
@@ -155,8 +154,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
 
   create_table "quiz_question_answer_selections", force: :cascade do |t|
     t.bigint "answer_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "participation_id", null: false
     t.index ["answer_id"], name: "index_quiz_question_answer_selections_on_answer_id"
     t.index ["participation_id"], name: "index_quiz_question_answer_selections_on_participation_id"
@@ -166,8 +165,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.bigint "question_id", null: false
     t.text "content", null: false
     t.boolean "is_correct", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_quiz_question_answers_on_question_id"
   end
 
@@ -175,8 +174,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.bigint "quiz_id", null: false
     t.text "content", null: false
     t.string "status", default: "open", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["quiz_id"], name: "index_quiz_questions_on_quiz_id"
   end
 
@@ -184,8 +183,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.string "name"
     t.bigint "owner_id", null: false
     t.string "status", default: "unstarted", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "current_question_number", default: 1, null: false
     t.index ["owner_id"], name: "index_quizzes_on_owner_id"
   end
@@ -203,7 +202,7 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.integer "db"
     t.string "ip", null: false
     t.string "user_agent"
-    t.datetime "requested_at", null: false
+    t.datetime "requested_at", precision: nil, null: false
     t.string "location"
     t.string "isp"
     t.string "request_id", null: false
@@ -221,9 +220,9 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
   create_table "stores", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "viewed_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "viewed_at", precision: nil
     t.text "notes"
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
@@ -231,8 +230,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
   create_table "text_log_entries", force: :cascade do |t|
     t.bigint "log_id", null: false
     t.text "data", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "note"
     t.index ["log_id"], name: "index_text_log_entries_on_log_id"
   end
@@ -240,14 +239,14 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
   create_table "timeseries", force: :cascade do |t|
     t.text "name", null: false
     t.json "measurements", default: [], null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.jsonb "preferences", default: {}, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
@@ -256,8 +255,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_020803) do
     t.bigint "user_id", null: false
     t.integer "time_in_seconds", null: false
     t.jsonb "rep_totals", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "publicly_viewable", default: false, null: false
     t.index ["created_at"], name: "index_workouts_on_created_at"
     t.index ["user_id"], name: "index_workouts_on_user_id"

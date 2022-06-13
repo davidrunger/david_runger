@@ -10,7 +10,7 @@ class LogsController < ApplicationController
       authorize(shared_log, :show?)
       logs = Log.where(id: shared_log)
     else
-      logs = current_user.logs.order(:created_at).includes(:log_shares)
+      logs = current_user.logs.order(:created_at).includes(:log_shares, :user)
 
       slug = params[:slug]
       new_entry = params[:new_entry].presence
