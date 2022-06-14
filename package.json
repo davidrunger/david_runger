@@ -52,7 +52,6 @@
     "node-pre-gyp": "^0.17.0",
     "normalize.css": "^8.0.1",
     "path-complete-extname": "^1.0.0",
-    "precss": "^4.0.0",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
     "resolve-url-loader": "^5.0.0",
