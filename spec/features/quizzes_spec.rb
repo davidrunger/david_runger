@@ -32,11 +32,11 @@ RSpec.describe 'Quizzes app' do
 
       # a participant joins
       Capybara.using_session('Quiz participant session') do
+        sleep(0.2)
         sign_in(participant)
+        sleep(0.6)
         visit(quiz_path)
-        Capybara.using_wait_time(20) do
-          fill_in('display_name', with: participant_name)
-        end
+        fill_in('display_name', with: participant_name)
         click_button('Join the quiz!')
       end
 
