@@ -44,6 +44,7 @@ gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sidekiq-scheduler', require: false
+gem 'sprockets-rails'
 gem 'vite_rails'
 
 group :production do
@@ -72,7 +73,7 @@ group :development do
   gem 'letter_opener'
   gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', github: 'davidrunger/spring-watcher-listen'
+  gem 'spring-watcher-listen', github: 'rails/spring-watcher-listen'
 end
 
 group :test do
@@ -95,7 +96,7 @@ group :test do
   gem 'percy-capybara'
   gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
   gem 'rspec-instafail', require: false
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 6.0.0.rc1'
   gem 'rspec-wait'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
