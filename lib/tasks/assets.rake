@@ -24,4 +24,8 @@ end
 
 if Rails.env.production?
   Rake::Task['assets:precompile'].enhance(%w[build_js_routes])
+
+  Rake::Task['assets:clean'].enhance do
+    FileUtils.remove_dir('node_modules', true)
+  end
 end
