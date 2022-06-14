@@ -49,7 +49,6 @@
     "keycode": "^2.2.1",
     "lodash": "^4.17.21",
     "marked": "^4.0.17",
-    "node-pre-gyp": "^0.17.0",
     "normalize.css": "^8.0.1",
     "path-complete-extname": "^1.0.0",
     "pug": "^3.0.2",
