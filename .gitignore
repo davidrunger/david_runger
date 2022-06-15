@@ -23,6 +23,7 @@ coverage/
 .tests.yml
 *.dump*
 /public/vite
+/public/vite-admin
 /public/vite-dev
 /config/credentials/development.key
 /config/credentials/test.key

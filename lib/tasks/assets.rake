@@ -23,7 +23,15 @@ namespace :assets do
 end
 
 if Rails.env.production?
-  Rake::Task['assets:precompile'].enhance(%w[build_js_routes])
+  Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
+    system(
+      {
+        'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_packs',
+        'VITE_RUBY_PUBLIC_OUTPUT_DIR' => 'vite-admin',
+      },
+      'bin/vite build --force',
+    )
+  end
 
   Rake::Task['assets:clean'].enhance do
     FileUtils.remove_dir('node_modules', true)
