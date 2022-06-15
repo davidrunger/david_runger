@@ -32,8 +32,8 @@ RSpec.describe 'Quizzes app' do
 
       # a participant joins
       Capybara.using_session('Quiz participant session') do
-        sign_in(participant)
         wait_for do
+          sign_in(participant)
           visit(quiz_path)
           page.has_css?('input#display_name')
         end.to eq(true)
