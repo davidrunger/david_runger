@@ -1,5 +1,5 @@
 import axios from 'axios';
-import _ from 'lodash';
+import { filter, last, pick, sortBy } from 'lodash-es';
 
 import {
   getters as modalGetters,
@@ -62,7 +62,7 @@ const actions = {
   selectStore(_context, { store }) {
     // update the store's viewed_at time, bc. this is actually how we determine the selected store
     store.viewed_at = (new Date()).toISOString();
-    axios.patch(Routes.api_store_path(store.id), { store: _.pick(store, ['viewed_at']) });
+    axios.patch(Routes.api_store_path(store.id), { store: pick(store, ['viewed_at']) });
   },
 
   updateItem({ commit }, { item, attributes }) {
@@ -102,7 +102,7 @@ const getters = {
     if (!state.stores) return null;
 
     return (
-      _.last(_.sortBy(_.filter(state.stores, 'viewed_at'), 'viewed_at')) ||
+      last(sortBy(filter(state.stores, 'viewed_at'), 'viewed_at')) ||
       state.stores[0]
     );
   },

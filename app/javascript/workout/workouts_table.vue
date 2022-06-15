@@ -22,7 +22,7 @@ div(v-else) None
 </template>
 
 <script>
-import { sortBy } from 'lodash';
+import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';

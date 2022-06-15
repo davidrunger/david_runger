@@ -19,7 +19,7 @@ import {
   Tooltip, LineElement, LinearScale, PointElement, TimeScale,
 } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import { merge } from 'lodash';
+import { merge } from 'lodash-es';
 
 ChartJS.register(
   Tooltip, LineElement, LinearScale, PointElement, TimeScale,

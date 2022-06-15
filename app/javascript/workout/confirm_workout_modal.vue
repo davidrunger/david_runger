@@ -23,7 +23,7 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
 </template>
 
 <script>
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 

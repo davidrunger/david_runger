@@ -60,7 +60,7 @@ div.m2
 
 <script>
 import { mapState } from 'vuex';
-import _ from 'lodash';
+import { get } from 'lodash-es';
 
 import WorkoutsTable from './workouts_table.vue';
 
@@ -75,7 +75,7 @@ export default {
   ]),
 
   data() {
-    return _.get(this, 'bootstrap.current_user.preferences.default_workout') || {
+    return get(this, 'bootstrap.current_user.preferences.default_workout') || {
       minutes: null,
       numberOfSets: null,
       exercises: [{}],

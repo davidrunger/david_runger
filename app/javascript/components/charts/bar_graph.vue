@@ -18,7 +18,7 @@ import {
   Chart as ChartJS,
   Title, Tooltip, BarElement, LinearScale, TimeScale,
 } from 'chart.js';
-import { merge } from 'lodash';
+import { merge } from 'lodash-es';
 
 ChartJS.register(
   Title, Tooltip, BarElement, LinearScale, TimeScale,
