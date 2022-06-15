@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 
 import { DEBOUNCE_TIME } from '@/groceries/constants';
 

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { last, remove, throttle } from 'lodash-es';
 import Gator from 'gator';
 import 'waypoints/lib/noframework.waypoints'; // adds `Waypoint` to window
 import 'waypoints/lib/shortcuts/inview'; // adds `Inview` to `Waypoint`
@@ -21,7 +21,7 @@ function getActiveNavlink(scrollDirection) {
   } else if (scrollDirection === 'up') {
     activeNavId = sectionsFullyInView[0] || sectionsPartiallyInView[0] || null;
   } else {
-    activeNavId = _.last(sectionsFullyInView) || _.last(sectionsPartiallyInView) || null;
+    activeNavId = last(sectionsFullyInView) || last(sectionsPartiallyInView) || null;
   }
 
   if (activeNavId) {
@@ -70,7 +70,7 @@ function getScrollHooks() {
 
 // Image loading can alter page layout (increasing height), so refresh waypoints when that happens.
 function initImageLoadedRefreshing() {
-  const throttledRefreshAll = _.throttle(refreshAll, 1000, { leading: false });
+  const throttledRefreshAll = throttle(refreshAll, 1000, { leading: false });
   on('performant-image:image-loaded', throttledRefreshAll);
 }
 
@@ -101,14 +101,14 @@ export function init() {
       exit(direction) {
         if (scrollHookHash === '#') return;
 
-        _.remove(sectionsFullyInView, hash => hash === scrollHookHash);
+        remove(sectionsFullyInView, hash => hash === scrollHookHash);
         updateHighlightedNavlink(direction);
       },
       exited(direction) {
         if (scrollHookHash === '#') return;
 
-        _.remove(sectionsFullyInView, hash => hash === scrollHookHash);
-        _.remove(sectionsPartiallyInView, hash => hash === scrollHookHash);
+        remove(sectionsFullyInView, hash => hash === scrollHookHash);
+        remove(sectionsPartiallyInView, hash => hash === scrollHookHash);
         updateHighlightedNavlink(direction);
       },
     });

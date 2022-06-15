@@ -27,7 +27,7 @@ aside.border-right.border-gray
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import _ from 'lodash';
+import { sortBy } from 'lodash-es';
 
 import LoggedInHeader from './logged_in_header.vue';
 
@@ -49,7 +49,7 @@ export default {
     ]),
 
     sortedStores() {
-      return _.sortBy(this.stores, store => store.name.toLowerCase());
+      return sortBy(this.stores, store => store.name.toLowerCase());
     },
   },
 

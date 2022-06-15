@@ -1,5 +1,5 @@
 import axios from 'axios';
-import _, { sortBy } from 'lodash';
+import { last, sortBy } from 'lodash-es';
 import Toastify from 'toastify-js';
 
 import {
@@ -98,7 +98,7 @@ const actions = {
   },
 
   deleteLastLogEntry({ commit }, { log }) {
-    const lastLogEntry = _.last(_.sortBy(log.log_entries, 'created_at'));
+    const lastLogEntry = last(sortBy(log.log_entries, 'created_at'));
     axios.
       delete(Routes.api_log_entry_path({
         id: lastLogEntry.id,

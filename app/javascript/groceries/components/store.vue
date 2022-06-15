@@ -79,7 +79,7 @@ div.mt1.mb2.ml3.mr2
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { debounce, sortBy } from 'lodash';
+import { debounce, sortBy } from 'lodash-es';
 import ClipboardJS from 'clipboard';
 
 import { DEBOUNCE_TIME } from '@/groceries/constants';

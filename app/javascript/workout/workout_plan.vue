@@ -72,7 +72,7 @@ div
 
 <script>
 import { Timer } from 'easytimer.js';
-import { cloneDeep, includes } from 'lodash';
+import { cloneDeep, includes } from 'lodash-es';
 
 import ConfirmWorkoutModal from './confirm_workout_modal.vue';
 
