@@ -20,7 +20,7 @@ module DavidRunger ; end
 
 class DavidRunger::Application < Rails::Application
   # Initialize configuration defaults for originally generated Rails version.
-  config.load_defaults(6.1)
+  config.load_defaults(7.0)
 
   # ActiveJob/Sidekiq
   config.active_job.queue_adapter = :sidekiq
@@ -72,4 +72,6 @@ class DavidRunger::Application < Rails::Application
 
   # https://github.com/hotwired/turbo-rails/blob/9d53529/README.md#compatibility-with-rails-ujs
   config.action_view.form_with_generates_remote_forms = false
+
+  config.action_controller.wrap_parameters_by_default = false
 end
