@@ -48,7 +48,6 @@
     "marked": "^4.0.17",
     "normalize.css": "^8.0.1",
     "pug": "^3.0.2",
-    "resolve-url-loader": "^5.0.0",
     "script-loader": "^0.7.2",
     "strftime": "^0.10.1",
     "stylelint-config-standard-scss": "^4.0.0",
