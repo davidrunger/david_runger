@@ -67,13 +67,13 @@ export default {
           name: this.newStoreName,
         },
       };
-      this.$http.post(this.$routes.api_stores_path(), payload).then(response => {
-        this.newStoreName = '';
-        this.$store.state.postingStore = false;
-        const newStore = response.data;
-        newStore.viewed_at = (new Date(newStore.viewed_at)).toISOString();
-        this.stores.unshift(newStore);
-      });
+      this.$http.post(this.$routes.api_stores_path(), { json: payload }).json().
+        then(newStoreData => {
+          this.newStoreName = '';
+          this.$store.state.postingStore = false;
+          newStoreData.viewed_at = (new Date(newStoreData.viewed_at)).toISOString();
+          this.stores.unshift(newStoreData);
+        });
     },
 
     destroyStore(store) {

@@ -50,19 +50,17 @@ export default {
       const payload = { workout: { publicly_viewable: newPubliclyViewableValue } };
 
       this.$http.
-        patch(Routes.api_workout_path(workoutId), payload).
-        then((response) => {
-          if (response.status === 200) {
-            const message = response.data.publicly_viewable ?
-              'Workout is now publicly viewable.' :
-              'Workout is now private.';
-            Toastify({
-              text: message,
-              className: 'success',
-              position: 'center',
-              duration: 1800,
-            }).showToast();
-          }
+        patch(Routes.api_workout_path(workoutId), { json: payload }).json().
+        then(responseData => {
+          const message = responseData.publicly_viewable ?
+            'Workout is now publicly viewable.' :
+            'Workout is now private.';
+          Toastify({
+            text: message,
+            className: 'success',
+            position: 'center',
+            duration: 1800,
+          }).showToast();
         });
     },
   },

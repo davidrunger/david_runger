@@ -77,10 +77,9 @@ div.mt1.mb2.ml3.mr2
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { debounce, sortBy } from 'lodash-es';
+import { sortBy } from 'lodash-es';
 import ClipboardJS from 'clipboard';
 
-import { DEBOUNCE_TIME } from '@/groceries/constants';
 import Item from './item.vue';
 
 export default {
@@ -172,17 +171,6 @@ export default {
     initializeTripCheckinModal() {
       this.$store.commit('showModal', { modalName: 'check-in-shopping-trip' });
     },
-
-    // we need `function` for correct `this`
-    // eslint-disable-next-line func-names
-    debouncedPatchItem: debounce(function (itemId, newNeeded) {
-      const payload = {
-        item: { needed: newNeeded },
-      };
-      this.$http.patch(this.$routes.api_item_path(itemId), payload).then(() => {
-        this.$store.commit('decrementPendingRequests');
-      });
-    }, DEBOUNCE_TIME),
 
     postNewItem() {
       this.$store.commit('incrementPendingRequests');

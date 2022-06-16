@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { kyApi } from '@/shared/ky';
 
 import {
   getters as modalGetters,
@@ -20,9 +20,9 @@ const mutations = {
 
 const actions = {
   initializeWorkout({ commit, state }, { workout }) {
-    axios.patch(
+    kyApi.patch(
       Routes.api_user_path({ id: state.current_user.id }),
-      { user: { preferences: { default_workout: workout } } },
+      { json: { user: { preferences: { default_workout: workout } } } },
     );
 
     commit('setWorkout', { workout });

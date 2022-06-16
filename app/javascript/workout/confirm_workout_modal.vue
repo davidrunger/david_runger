@@ -37,27 +37,26 @@ export default {
 
   methods: {
     saveWorkout() {
-      this.$http.post(this.$routes.api_workouts_path(), {
-        workout: {
-          publicly_viewable: this.publiclyViewable,
-          rep_totals: this.repTotals,
-          time_in_seconds: this.timeInSeconds,
-        },
-      }).then((response) => {
-        if (response.status === 201) {
-          Toastify({
-            text: 'Workout completion logged successfully!',
-            className: 'success',
-            position: 'center',
-            duration: 2500,
-          }).showToast();
+      this.$http.post(
+        this.$routes.api_workouts_path(),
+        { json:
+          { workout: {
+            publicly_viewable: this.publiclyViewable,
+            rep_totals: this.repTotals,
+            time_in_seconds: this.timeInSeconds,
+          } } },
+      ).json().then(completedWorkout => {
+        Toastify({
+          text: 'Workout completion logged successfully!',
+          className: 'success',
+          position: 'center',
+          duration: 2500,
+        }).showToast();
 
-          this.$store.commit('hideModal', { modalName: this.modalName });
+        this.$store.commit('hideModal', { modalName: this.modalName });
 
-          const completedWorkout = response.data;
-          this.$store.commit('addCompletedWorkout', { completedWorkout });
-          this.$store.commit('setWorkout', { workout: null });
-        }
+        this.$store.commit('addCompletedWorkout', { completedWorkout });
+        this.$store.commit('setWorkout', { workout: null });
       }).catch((error) => {
         const errorMessage = get(error, 'response.data.error', 'Something went wrong');
         Toastify({

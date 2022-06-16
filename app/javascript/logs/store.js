@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { last, sortBy } from 'lodash-es';
 import Toastify from 'toastify-js';
+import { kyApi } from '@/shared/ky';
 
 import {
   getters as modalGetters,
@@ -78,7 +78,7 @@ const actions = {
       },
     };
 
-    axios.post(Routes.api_log_entries_path(), payload).then(({ data }) => {
+    kyApi.post(Routes.api_log_entries_path(), { json: payload }).json().then(data => {
       dispatch('addLogEntry', { logId, newLogEntry: data });
     });
   },
@@ -91,7 +91,7 @@ const actions = {
       },
     };
 
-    axios.post(Routes.api_log_shares_path(), payload).then(({ data }) => {
+    kyApi.post(Routes.api_log_shares_path(), { json: payload }).json().then(data => {
       const log = getters.logById({ logId });
       commit('addLogShare', { log, logShare: data });
     });
@@ -99,7 +99,7 @@ const actions = {
 
   deleteLastLogEntry({ commit }, { log }) {
     const lastLogEntry = last(sortBy(log.log_entries, 'created_at'));
-    axios.
+    kyApi.
       delete(Routes.api_log_entry_path({
         id: lastLogEntry.id,
         log_id: log.id,
@@ -109,19 +109,20 @@ const actions = {
   },
 
   deleteLog({ commit }, { log }) {
-    axios.delete(Routes.api_log_path({ id: log.id })).
+    kyApi.delete(Routes.api_log_path({ id: log.id })).
       then(() => { commit('deleteLog', { log }); });
   },
 
   deleteLogShare({ commit }, { log, logShareId }) {
-    axios.delete(Routes.api_log_share_path({ id: logShareId })).
+    kyApi.delete(Routes.api_log_share_path({ id: logShareId })).
       then(() => { commit('deleteLogShare', { log, logShareId }); });
   },
 
   fetchAllLogEntries({ commit, getters }) {
-    axios.
+    kyApi.
       get(Routes.api_log_entries_path()).
-      then(({ data }) => {
+      json().
+      then(data => {
         const entriesByLogId = {};
         data.forEach(logEntry => {
           const { log_id: logId } = logEntry;
@@ -143,9 +144,10 @@ const actions = {
   },
 
   fetchLogEntries({ commit, getters }, { logId }) {
-    axios.
+    kyApi.
       get(Routes.api_log_entries_path({ log_id: logId })).
-      then(({ data }) => {
+      json().
+      then(data => {
         commit(
           'setLogEntries',
           {
@@ -160,9 +162,10 @@ const actions = {
     const payload = { log: updatedLogParams };
 
     return (
-      axios.
-        patch(Routes.api_log_path(logId), payload).
-        then(({ data }) => {
+      kyApi.
+        patch(Routes.api_log_path(logId), { json: payload }).
+        json().
+        then(data => {
           const log = getters.logById({ logId });
           commit(
             'updateLog',
@@ -178,9 +181,10 @@ const actions = {
     };
 
     return (
-      axios.
-        patch(Routes.api_log_entry_path(logEntryId), payload).
-        then(({ data }) => {
+      kyApi.
+        patch(Routes.api_log_entry_path(logEntryId), { json: payload }).
+        json().
+        then(data => {
           const logId = data.log_id;
           const log = getters.logById({ logId });
           commit(
