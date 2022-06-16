@@ -2,10 +2,6 @@
 div
   header.flex.justify-between.p1
     div {{bootstrap.current_user.email}}
-    .dropdown
-      i.el-icon-more.dropbtn
-      .dropdown-content.bg-black.gray
-        .p1(@click='signOut') Sign out
   .center
     LogSelector
     router-view(:key='$route.fullPath').m3
@@ -16,7 +12,6 @@ import { mapGetters, mapState } from 'vuex';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
-import signOutMixin from '@/lib/mixins/sign_out_mixin';
 import LogSelector from './components/log_selector.vue';
 
 export default {
@@ -68,8 +63,6 @@ export default {
     // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
     window.history.replaceState({}, document.title, window.location.pathname);
   },
-
-  mixins: [signOutMixin],
 };
 </script>
 
@@ -136,32 +129,5 @@ textarea.el-textarea__inner {
 
 .el-input input.el-input__inner {
   color: white;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  min-width: 120px;
-  box-shadow: 0 8px 16px 0 rgba(200, 200, 200, 20%);
-  text-align: right;
-  z-index: 1;
-}
-
-.dropdown-content div {
-  cursor: pointer;
-}
-
-.dropdown-content div:hover {
-  background-color: white;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
 }
 </style>

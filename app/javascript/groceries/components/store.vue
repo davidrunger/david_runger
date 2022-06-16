@@ -11,8 +11,7 @@ div.mt1.mb2.ml3.mr2
     )
     span(v-if='!editingName') {{ store.name }}
     a.edit-store.js-link.gray.ml1(@click='editStoreName')
-      el-icon
-        Edit
+      font-awesome-icon(icon='fa-regular fa-edit')
     span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
   div.mb2
     el-button(id="show-modal" @click='initializeTripCheckinModal()').
@@ -33,8 +32,7 @@ div.mt1.mb2.ml3.mr2
     p.pre-wrap(v-else)
       | {{store.notes || 'No notes yet'}}
       a.edit-store.js-link.gray.ml1(@click='editStoreNotes')
-        el-icon
-          Edit
+        font-awesome-icon(icon='fa-regular fa-edit')
 
   form.flex(@submit.prevent='postNewItem')
     .float-left
