@@ -57,8 +57,4 @@ html.webp {
     background-image: url("../../assets/images/beach-background.webp");
   }
 }
-
-:deep(.el-icon) {
-  vertical-align: middle;
-}
 </style>
