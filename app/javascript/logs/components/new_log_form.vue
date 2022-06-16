@@ -58,11 +58,12 @@ export default {
     postNewLog() {
       this.postingLog = true;
 
-      this.$http.post(this.$routes.api_logs_path(), { log: this.newLog }).then(() => {
-        this.newLog = {};
-        this.postingLog = false;
-        window.location.reload();
-      });
+      this.$http.post(this.$routes.api_logs_path(), { json: { log: this.newLog } }).json().
+        then(() => {
+          this.newLog = {};
+          this.postingLog = false;
+          window.location.reload();
+        });
     },
   },
 };

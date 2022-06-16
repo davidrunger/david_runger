@@ -32,8 +32,6 @@
 <script>
 import { debounce } from 'lodash-es';
 
-import { DEBOUNCE_TIME } from '@/groceries/constants';
-
 export default {
   data() {
     return {
@@ -81,13 +79,13 @@ export default {
       const payload = {
         item: { needed: newNeeded },
       };
-      this.$http.patch(this.$routes.api_item_path(itemId), payload).
+      this.$http.patch(this.$routes.api_item_path(itemId), { json: payload }).json().
         then(() => { this.$store.commit('decrementPendingRequests'); });
       this.$store.commit('incrementPendingRequests');
       // set collectingDebounces to false _after_ incrementing pendingRequests so that
       // debouncingOrWaitingOnNetwork stays consistently true
       this.$store.commit('setCollectingDebounces', { value: false });
-    }, DEBOUNCE_TIME),
+    }, 333),
   },
 
   props: {

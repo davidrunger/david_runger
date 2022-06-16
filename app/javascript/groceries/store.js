@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { filter, last, pick, sortBy } from 'lodash-es';
+import { kyApi } from '@/shared/ky';
 
 import {
   getters as modalGetters,
@@ -41,54 +41,58 @@ const mutations = {
 
 const actions = {
   createItem({ commit }, { store, itemAttributes }) {
-    axios.
-      post(Routes.api_store_items_path(store.id), { item: itemAttributes }).
-      then(({ data }) => {
+    kyApi.
+      post(Routes.api_store_items_path(store.id), { json: { item: itemAttributes } }).
+      json().
+      then(itemData => {
         commit('decrementPendingRequests');
-        commit('addItem', { store, itemData: data });
+        commit('addItem', { store, itemData });
       });
   },
 
   deleteItem({ commit, getters }, { item }) {
-    axios.delete(Routes.api_item_path(item.id));
+    kyApi.delete(Routes.api_item_path(item.id));
     commit('deleteItem', { item, store: getters.currentStore });
   },
 
   deleteStore({ commit }, { store }) {
-    axios.delete(Routes.api_store_path(store.id));
+    kyApi.delete(Routes.api_store_path(store.id));
     commit('deleteStore', { store });
   },
 
   selectStore(_context, { store }) {
     // update the store's viewed_at time, bc. this is actually how we determine the selected store
     store.viewed_at = (new Date()).toISOString();
-    axios.patch(Routes.api_store_path(store.id), { store: pick(store, ['viewed_at']) });
+    kyApi.patch(Routes.api_store_path(store.id), { json: { store: pick(store, ['viewed_at']) } });
   },
 
   updateItem({ commit }, { item, attributes }) {
-    axios.
-      patch(Routes.api_item_path(item.id), { item: attributes }).
-      then(({ data }) => {
+    kyApi.
+      patch(Routes.api_item_path(item.id), { json: { item: attributes } }).
+      json().
+      then(updatedItemData => {
         commit(
           'updateItem',
-          { item, updatedItemData: data },
+          { item, updatedItemData },
         );
       });
   },
 
   updateStore(_context, { id, attributes }) {
-    axios.patch(Routes.api_store_path(id), { store: attributes });
+    kyApi.patch(Routes.api_store_path(id), { json: { store: attributes } });
   },
 
   zeroItems(_context, { items }) {
     items.forEach(item => { item.needed = 0; });
 
-    axios.post(
+    kyApi.post(
       Routes.api_items_bulk_updates_path(),
       {
-        bulk_update: {
-          item_ids: items.map(item => item.id),
-          attributes_change: { needed: 0 },
+        json: {
+          bulk_update: {
+            item_ids: items.map(item => item.id),
+            attributes_change: { needed: 0 },
+          },
         },
       },
     );

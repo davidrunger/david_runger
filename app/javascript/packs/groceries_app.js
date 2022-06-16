@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 
 import { renderApp } from '@/shared/customized_vue';
-import { useAxios } from '@/shared/axios';
+import { useKy } from '@/shared/ky';
 import { useElementPlus } from '@/shared/element_plus';
 import Modal from '@/components/modal.vue';
 import Groceries from '@/groceries/groceries.vue';
@@ -13,7 +13,7 @@ import storeDefinition from '@/groceries/store';
 const app = renderApp(Groceries, { storeDefinition });
 
 app.component('Modal', Modal);
-useAxios(app);
+useKy(app);
 useElementPlus(app);
 
 library.add(faEdit);
