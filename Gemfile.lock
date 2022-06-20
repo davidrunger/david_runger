@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: e456763e58c43b502a73b20dcf13c8acf3bac256
+  revision: c2911d009594804f909a00bca1f1451b87e4c9f0
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -582,7 +582,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    strscan (3.0.1)
+    strscan (3.0.3)
     super_diff (0.9.0)
       attr_extras (>= 6.2.4)
       diff-lcs
@@ -590,7 +590,7 @@ GEM
     temple (0.8.2)
     thor (1.2.1)
     tilt (2.0.10)
-    timeout (0.2.0)
+    timeout (0.3.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
