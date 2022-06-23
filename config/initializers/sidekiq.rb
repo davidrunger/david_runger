@@ -29,7 +29,7 @@ Sidekiq.configure_server do |config|
   config.redis = ConnectionPool.new(size: 7, &build_sidekiq_redis_connection)
 
   require 'sidekiq_ext/job_logger'
-  config.options[:job_logger] = SidekiqExt::JobLogger
+  config[:job_logger] = SidekiqExt::JobLogger
 
   if Rails.env.development?
     require 'sidekiq_ext/server_middleware/bullet'
