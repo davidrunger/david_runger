@@ -2,8 +2,7 @@
 
 require 'sidekiq-scheduler' if Sidekiq.server?
 
-# We'll give Sidekiq db 1. The app uses db 0 for its direct uses.
-build_sidekiq_redis_connection = proc { Redis.new(**RedisOptions.options(db: 1)) }
+build_sidekiq_redis_connection = proc { Redis.new(**RedisOptions.options(db: 0)) }
 
 Sidekiq.configure_client do |config|
   # Sidekiq Client Connection Pool size:
