@@ -51,6 +51,7 @@ Rollbar.configure do |config|
 
   # Enable delayed reporting (using Sidekiq)
   config.use_sidekiq
+  config.async_json_payload = true # https://github.com/rollbar/rollbar-gem/issues/ 1077
   # You can supply custom Sidekiq options:
   # config.use_sidekiq 'queue' => 'default'
 
