@@ -45,6 +45,7 @@ class SaveRequest
     [
       ('Initial stashed JSON for request logging was blank' if initial_stashed_json.blank?),
       ('Final stashed JSON for request logging was blank' if final_stashed_json.blank?),
+      ('Request was already saved' if Request.exists?(request_id: @request_id)),
     ].compact
   end
 

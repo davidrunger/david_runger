@@ -77,6 +77,14 @@ RSpec.describe SaveRequest do
           )
         end
 
+        context 'when the request has already been saved' do
+          before { Request.first!.update!(request_id: request_id) }
+
+          it 'does not raise an error' do
+            expect { perform }.not_to raise_error
+          end
+        end
+
         context 'when there is an auth_token_id in the initial stashed JSON' do
           let(:stubbed_initial_stashed_json) { super().merge('auth_token_id' => auth_token.id) }
           let(:auth_token) { AuthToken.first! }
