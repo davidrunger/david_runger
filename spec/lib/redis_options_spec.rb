@@ -20,11 +20,9 @@ RSpec.describe RedisOptions do
       context 'when Redis credentials are present' do
         let(:tls_url) { 'rediss://:p4ssw0rd@10.0.1.1:6380' }
 
-        before do
-          expect(Rails.application.credentials).to receive(:redis).and_return(tls_url: tls_url)
-        end
+        around { |spec| ClimateControl.modify(REDIS_TLS_URL: tls_url) { spec.run } }
 
-        it 'returns the redis.tls_url from the Rails credentials' do
+        it 'uses the Redis TLS url' do
           expect(options[:url]).to eq("#{tls_url}/#{db_number}")
         end
       end

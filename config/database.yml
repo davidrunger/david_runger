@@ -85,5 +85,4 @@ test:
 production:
   <<: *default
   database: david_runger_production
-  # We need to check ENV['DATABASE_URL'] for Heroku review apps, which can't decrypt credentials
-  url: <%= ENV['EMERGENCY_DATABASE_URL'] || Rails.application.credentials.postgres&.dig(:url) || ENV['DATABASE_URL'] %>
+  url: <%= ENV.fetch('DATABASE_URL', nil) %>
