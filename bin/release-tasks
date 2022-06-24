@@ -13,9 +13,6 @@ echo "... done."
 if [ $HEROKU_PR_NUMBER ]
 then
   echo "Skipping db:migrate because HEROKU_PR_NUMBER is present (value: $HEROKU_PR_NUMBER)"
-  # disable prerendering for review apps because needed ENV['HEROKU_SLUG_COMMIT'] is not present
-  echo "Disabling prerendering because HEROKU_PR_NUMBER is present"
-  bin/rails runner "Flipper.enable(:disable_prerendering)"
 else
   # Retry up to 10 times w/ increasing `sleep`. h/t: https://stackoverflow.com/a/12321815/4009384
   NEXT_WAIT_TIME=1
