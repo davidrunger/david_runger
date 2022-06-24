@@ -13,7 +13,7 @@
         { "url": "https://github.com/weibeld/heroku-buildpack-run" }
       ],
       "scripts": {
-        "postdeploy": "bin/rake db:schema:load"
+        "postdeploy": "./bin/review_app_postdeploy.sh"
       }
     }
   }
