@@ -10,7 +10,7 @@ class TruncateTables
   SQL
 
   def self.max_allowed_rows
-    Integer(ENV.fetch('MAX_TABLE_ROWS', 1_000))
+    Integer(ENV.fetch('MAX_TABLE_ROWS', 800))
   end
 
   def self.print_row_counts
@@ -60,6 +60,7 @@ class TruncateTables
     self.class.print_row_counts
     Rails.logger.info
 
+    self.class.truncate(table: 'ip_blocks', timestamp: 'created_at')
     self.class.truncate(table: 'requests', timestamp: 'requested_at')
 
     Rails.logger.info('Done truncating tables')
