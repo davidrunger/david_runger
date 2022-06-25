@@ -14,7 +14,8 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
     div.flex.justify-around.mt2
       el-button(
         @click="$store.commit('hideModal', { modalName })"
-        type='text'
+        type='primary'
+        link
       ) Cancel
       el-button(
         type='primary'

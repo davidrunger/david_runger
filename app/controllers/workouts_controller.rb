@@ -9,7 +9,7 @@ class WorkoutsController < ApplicationController
       current_user: UserSerializer.new(current_user),
       workouts:
         ActiveModel::Serializer::CollectionSerializer.new(
-          current_user.workouts.
+          current_user.workouts.includes(:user).
             order(created_at: :desc).
             limit(8),
         ),
