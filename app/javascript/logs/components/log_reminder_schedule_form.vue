@@ -6,7 +6,8 @@ div
     span.ml1
       el-button(
         @click="cancelReminders"
-        type='text'
+        type='primary'
+        link
       ) Cancel reminders
 
   div
@@ -29,7 +30,8 @@ div
     div
       el-button(
         @click="$store.commit('hideModal', { modalName: 'edit-log-reminder-schedule' })"
-        type='text'
+        type='primary'
+        link
       ) Close
 </template>
 

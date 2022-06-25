@@ -71,7 +71,8 @@ div.mt1.mb2.ml3.mr2
         ) Set checked items to 0 needed
         el-button(
           @click="$store.commit('hideModal', { modalName: 'check-in-shopping-trip' })"
-          type='text'
+          type='primary'
+          link
         ) Cancel
 </template>
 
