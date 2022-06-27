@@ -8,7 +8,7 @@ class Test::Tasks::CompileJavaScript < Pallets::Task
     execute_rake_task('build_js_routes')
     execute_system_command('bin/vite build --force')
     execute_system_command(
-      'VITE_RUBY_ENTRYPOINTS_DIR=admin_packs VITE_RUBY_PUBLIC_OUTPUT_DIR=vite-admin '\
+      'VITE_RUBY_ENTRYPOINTS_DIR=admin_packs VITE_RUBY_PUBLIC_OUTPUT_DIR=vite-admin ' \
       'bin/vite build --force',
     )
   end
