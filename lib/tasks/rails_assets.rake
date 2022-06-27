@@ -9,7 +9,7 @@ task build_js_routes: :environment do
 
   puts 'Writing app/javascript/rails_assets/routes.js ...'
   rails_assets_directory_name = 'app/javascript/rails_assets'
-  FileUtils.mkdir(rails_assets_directory_name) unless File.exist?(rails_assets_directory_name)
+  FileUtils.mkdir_p(rails_assets_directory_name)
   routes_path = 'rails_assets/routes.js'
   JsRoutes.generate!(routes_path, exclude: /admin|google|login|rails|sidekiq/)
   app_javascript_path = "app/javascript/#{routes_path}"

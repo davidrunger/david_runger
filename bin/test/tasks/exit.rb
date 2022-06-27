@@ -34,8 +34,8 @@ class Test::Tasks::Exit < Pallets::Task
         exit_message_color = (exit_code == 0) ? :green : :red
         colorized_exit_message = exit_message.public_send(exit_message_color)
         puts(
-          "#{task_name.sub('Test::Tasks::', '').rjust(max_job_name_length)} : "\
-          "#{colorized_exit_message} "\
+          "#{task_name.sub('Test::Tasks::', '').rjust(max_job_name_length)} : " \
+          "#{colorized_exit_message} " \
           "(took #{run_time.round(3).to_s.yellow} seconds)",
         )
       end

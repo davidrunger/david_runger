@@ -34,7 +34,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
         before do
           stub_request(
             :get,
-            'https://david-runger-uploads.s3.amazonaws.com/'\
+            'https://david-runger-uploads.s3.amazonaws.com/' \
             "prerenders/#{commit_sha}/home.html",
           ).to_return(status: 200, headers: {}, body: <<~HTML)
             <!doctype html>
