@@ -13,14 +13,22 @@ module.exports = {
     Routes: false,
   },
   plugins: ['vue'],
+  settings: {
+    'import/resolver': {
+      'eslint-import-resolver-custom-alias': {
+        alias: {
+          '@': './app/javascript',
+          css: './app/assets/stylesheets',
+        },
+      },
+    },
+  },
   rules: {
     'arrow-parens': 'off',
     'comma-dangle': ['warn', 'always-multiline'],
     'dot-location': ['error', 'object'],
     'function-paren-newline': 'off',
-    'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
-    'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'max-len': ['warn', { code: 100, ignoreUrls: true }],
     'newline-per-chained-call': 'off',
@@ -41,8 +49,8 @@ module.exports = {
       minProperties: 99,
     }],
     'operator-linebreak': 'off',
-    'quotes': ['warn', 'single', { avoidEscape: true }],
-    'semi': ['warn', 'always'],
+    quotes: ['warn', 'single', { avoidEscape: true }],
+    semi: ['warn', 'always'],
     'space-before-function-paren': ['warn', {
       anonymous: 'always',
       named: 'never',
