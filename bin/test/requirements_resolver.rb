@@ -23,7 +23,7 @@ class Test::RequirementsResolver
 
         # Checks
         Test::Tasks::RunStylelint => Test::Tasks::YarnInstall,
-        Test::Tasks::RunEslint => nil,
+        Test::Tasks::RunEslint => Test::Tasks::YarnInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
