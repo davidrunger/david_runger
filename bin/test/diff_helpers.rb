@@ -57,7 +57,7 @@ module DiffHelpers
     ruby_files =
       Dir['*.rb'] +
       Dir.glob('*').select { File.directory?(_1) }.map do |directory|
-        Dir["#{directory}/**/*.rb"]
+        Dir["#{directory}/**/*.rb"] + Dir["#{directory}/**/*.rake"]
       end.flatten
     (ruby_files & files_changed).any?
   end
