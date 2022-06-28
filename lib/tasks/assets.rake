@@ -18,7 +18,7 @@ namespace :assets do
     run_logged_system_command('DISABLE_SPRING=1 bin/rails build_js_routes')
     run_logged_system_command('NODE_ENV=production yarn install')
     run_logged_system_command('NODE_ENV=production bin/vite build --force')
-    run_logged_system_command('PRODUCTION_ASSET_CONFIG=1 DISABLE_SPRING=1 bin/rails server')
+    run_logged_system_command('DISABLE_SPRING=1 PRODUCTION_ASSET_CONFIG=1 VITE_RUBY_AUTO_BUILD=false bin/rails server')
   end
 end
 
