@@ -21,6 +21,16 @@ RSpec.describe Api::ItemsController do
       it 'creates that item for the store' do
         expect { post_create }.to change { store.reload.items.size }.by(1)
       end
+
+      context 'when the item name contains leading or trailing whitespace' do
+        let(:params) { super().deep_merge(item: { name: ' cheese ' }) }
+
+        it 'strips the whitespace' do
+          expect { post_create }.
+            to change { store.reload.items.order(:created_at).last!.name }.
+            to('cheese')
+        end
+      end
     end
   end
 

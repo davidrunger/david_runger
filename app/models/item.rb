@@ -22,5 +22,7 @@ class Item < ApplicationRecord
 
   validates :name, presence: true
 
+  auto_strip_attributes :name, squish: true
+
   scope :needed, -> { where('items.needed > 0') }
 end
