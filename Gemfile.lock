@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/casperisfine/redis-rb.git
+  revision: 5d52c437fdcd2c1d94de8f6f5675a1432fa49d74
+  branch: ssl-v3-compatibility
+  specs:
+    redis (4.7.0)
+
+GIT
   remote: https://github.com/davidrunger/active_actions.git
   revision: 41a3fe3a3cdb4af919d7d24ac69ccc6270f58e32
   specs:
@@ -477,7 +484,6 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.7.0)
     redlock (1.2.2)
       redis (>= 3.0.0, < 5.0)
     regexp_parser (2.5.0)
@@ -686,7 +692,7 @@ DEPENDENCIES
   rack-attack
   rails
   rails-controller-testing!
-  redis
+  redis!
   redlock
   request_store
   request_store-sidekiq
