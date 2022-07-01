@@ -1,0 +1,3 @@
+%h2 Previous check-ins
+- @marriage.check_ins.order(created_at: :desc).decorate.each do |check_in|
+  %div= link_to(check_in.pretty_created_at, check_in)

@@ -1,0 +1,24 @@
+= link_to('Back to check-ins', check_ins_path)
+%h1
+  Manage your marriage
+  - if @marriage.other_partner
+    to #{@marriage.other_partner.email}
+%h2 Emotional needs
+%ol
+  - @marriage.emotional_needs.each do |emotional_need|
+    %li #{emotional_need.name} (#{emotional_need.description})
+%h2 Add an emotional need
+= form_with(model: @marriage.emotional_needs.build) do |form|
+  .mb2
+    %div
+      = form.label :name
+    %div
+      = form.text_field :name
+  .mb2
+    %div
+      = form.label :description
+    %div
+      = form.text_area :description, size: '50x8'
+  .mb2
+    %div
+      = form.submit

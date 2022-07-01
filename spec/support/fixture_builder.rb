@@ -98,5 +98,8 @@ FixtureBuilder.configure do |fbuilder|
     answer_2 = quiz.question_answers.second!
     create(:quiz_question_answer_selection, answer:, participation:)
     create(:quiz_question_answer_selection, answer: answer_2, participation: participation_2)
+
+    # marriages
+    create(:marriage, partner_1: user, partner_2: admin)
   end
 end

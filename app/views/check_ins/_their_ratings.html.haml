@@ -1,0 +1,10 @@
+%h2 Their answers
+- if @check_in.completed_by_both_partners?
+  - @check_in.partner_ratings.includes(:emotional_need).each do |rating|
+    %div
+      %strong #{rating.emotional_need.name}:
+      = rating.score
+- elsif @check_in.completed_by_partner?
+  [hidden until you submit your answers]
+- else
+  They didn't complete it yet.
