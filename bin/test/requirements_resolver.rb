@@ -34,7 +34,6 @@ class Test::RequirementsResolver
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
-          Test::Tasks::RunFeatureTests, # hack to get feature tests (checked by Percy) to run first
         ],
         Test::Tasks::RunFeatureTests => [
           Test::Tasks::CreateDbCopies,
