@@ -33,7 +33,7 @@ class FetchIpInfoForRequest
 
     {
       location: [city, state, country].compact_blank.join(', '),
-      isp: isp,
+      isp:,
     }
   end
 end

@@ -6,7 +6,7 @@ RSpec.describe Api::WorkoutsController do
   let(:user) { users(:user) }
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: params) }
+    subject(:post_create) { post(:create, params:) }
 
     context 'when the item params are valid' do
       let(:valid_params) do
@@ -16,7 +16,7 @@ RSpec.describe Api::WorkoutsController do
 
       it 'returns a 201 status code' do
         post_create
-        expect(response.status).to eq(201)
+        expect(response).to have_http_status(201)
       end
 
       it 'creates a workout for the user' do
@@ -26,7 +26,7 @@ RSpec.describe Api::WorkoutsController do
   end
 
   describe '#update' do
-    subject(:patch_update) { patch(:update, params: params) }
+    subject(:patch_update) { patch(:update, params:) }
 
     let(:workout) { workouts(:workout) }
 
@@ -38,7 +38,7 @@ RSpec.describe Api::WorkoutsController do
 
       it 'returns a 200 status code' do
         patch_update
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
 
       it 'updates the workout' do

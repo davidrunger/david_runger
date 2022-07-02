@@ -22,7 +22,7 @@ RSpec.describe QuizQuestionAnswerSelectionsController do
     let(:quiz) { Quiz.first! }
 
     context 'when the user has not yet answered that question' do
-      before { answer.selections.where(participation: participation).find_each(&:destroy!) }
+      before { answer.selections.where(participation:).find_each(&:destroy!) }
 
       let(:participation) { QuizParticipation.where(participant: user) }
 
@@ -32,7 +32,7 @@ RSpec.describe QuizQuestionAnswerSelectionsController do
     end
 
     context 'when the user has already answered the question' do
-      before { expect(answer.selections.where(participation: participation)).to exist }
+      before { expect(answer.selections.where(participation:)).to exist }
 
       let(:participation) { QuizParticipation.where(participant: user) }
 

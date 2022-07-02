@@ -30,7 +30,7 @@ module RedisConfig
 
   def all
     types_map.map do |key, type|
-      RedisConfig::Setting.new(name: key, type: type, value: values_map[key])
+      RedisConfig::Setting.new(name: key, type:, value: values_map[key])
     end
   end
 
@@ -57,7 +57,7 @@ module RedisConfig
 
     RedisConfig::Setting.new(
       name: key_name.to_s,
-      type: type,
+      type:,
       value: raw_value.present? ? typed_value(raw_value, type) : backup_value,
     )
   end

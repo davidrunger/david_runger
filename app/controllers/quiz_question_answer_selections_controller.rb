@@ -13,7 +13,7 @@ class QuizQuestionAnswerSelectionsController < ApplicationController
     selection =
       QuizQuestionAnswerSelections::Create.run!(
         params: quiz_question_answer_selection_params,
-        quiz_participation: quiz_participation,
+        quiz_participation:,
       ).selection
 
     redirect_to(selection.quiz)

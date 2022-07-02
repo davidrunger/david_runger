@@ -9,7 +9,7 @@ RSpec.describe Admin::BannedPathFragmentsController do
 
       it 'responds with 200' do
         get_index
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
     end
 
@@ -20,7 +20,7 @@ RSpec.describe Admin::BannedPathFragmentsController do
 
       it 'responds with 200' do
         get_show
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
     end
   end

@@ -19,7 +19,7 @@ RSpec.describe UserDecorator do
     context "when the user's email is not particularly short" do
       let(:email) { '0123456789@b.c' }
 
-      before { user.update!(email: email) }
+      before { user.update!(email:) }
 
       it "returns a partially anonymized string based on the user's email" do
         expect(partially_anonymized_username).not_to include(email)

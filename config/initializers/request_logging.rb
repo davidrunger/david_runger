@@ -18,7 +18,7 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
     LOG
     Rollbar.warn(
       Request::CreateRequestError.new('Request UUID for request logging was blank'),
-      request_id: request_id,
+      request_id:,
     )
     next
   end

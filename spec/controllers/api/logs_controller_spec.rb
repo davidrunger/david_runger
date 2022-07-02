@@ -6,7 +6,7 @@ RSpec.describe Api::LogsController do
   let(:user) { users(:user) }
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: params) }
+    subject(:post_create) { post(:create, params:) }
 
     context 'when the log being created is valid' do
       let(:valid_params) do
@@ -22,7 +22,7 @@ RSpec.describe Api::LogsController do
 
       it 'returns a 201 status code' do
         post_create
-        expect(response.status).to eq(201)
+        expect(response).to have_http_status(201)
       end
 
       it 'responds with the log as JSON' do
@@ -59,13 +59,13 @@ RSpec.describe Api::LogsController do
 
       it 'returns a 422 status code' do
         post_create
-        expect(response.status).to eq(422)
+        expect(response).to have_http_status(422)
       end
     end
   end
 
   describe '#update' do
-    subject(:patch_update) { patch(:update, params: params) }
+    subject(:patch_update) { patch(:update, params:) }
 
     context 'when a log has `publicly_viewable: false`' do
       before { expect(log.publicly_viewable?).to eq(false) }
@@ -110,7 +110,7 @@ RSpec.describe Api::LogsController do
 
       it 'returns a 404 status code' do
         delete_destroy
-        expect(response.status).to eq(404)
+        expect(response).to have_http_status(404)
       end
     end
 
@@ -123,7 +123,7 @@ RSpec.describe Api::LogsController do
 
       it 'returns a 204 status code' do
         delete_destroy
-        expect(response.status).to eq(204)
+        expect(response).to have_http_status(204)
       end
     end
   end

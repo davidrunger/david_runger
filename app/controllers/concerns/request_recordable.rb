@@ -28,12 +28,12 @@ module RequestRecordable
   memoize \
   def request_data
     SaveRequest::RequestDataBuilder.new(
-      request: request,
-      params: params,
-      filtered_params: filtered_params,
+      request:,
+      params:,
+      filtered_params:,
       admin_user: current_admin_user,
       user: current_user,
-      auth_token: auth_token,
+      auth_token:,
       request_time: @request_time,
     ).request_data
   end

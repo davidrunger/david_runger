@@ -19,7 +19,7 @@ class TrackAssetSizes
   def track_all_asset_sizes(dry_run: false)
     accumulator = {}
     packs.each do |pack_name|
-      track_asset_sizes(pack_name, accumulator: accumulator, dry_run: dry_run)
+      track_asset_sizes(pack_name, accumulator:, dry_run:)
     end
     accumulator
   end
@@ -41,8 +41,8 @@ class TrackAssetSizes
     js_glob = "#{plain_pack_name}*.js"
     css_glob = "#{plain_pack_name}*.css"
 
-    record_asset_size(js_glob, total_js_files_size, accumulator: accumulator, dry_run: dry_run)
-    record_asset_size(css_glob, total_css_files_size, accumulator: accumulator, dry_run: dry_run)
+    record_asset_size(js_glob, total_js_files_size, accumulator:, dry_run:)
+    record_asset_size(css_glob, total_css_files_size, accumulator:, dry_run:)
   end
 
   def record_asset_size(glob, files_size, accumulator:, dry_run:)

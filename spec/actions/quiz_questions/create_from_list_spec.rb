@@ -7,8 +7,8 @@ RSpec.describe QuizQuestions::CreateFromList do
 
   let(:action_inputs) do
     {
-      quiz: quiz,
-      questions_list: questions_list,
+      quiz:,
+      questions_list:,
     }
   end
   let(:quiz) { create(:quiz, owner: users(:admin)) }

@@ -7,7 +7,7 @@ class QuizParticipationsController < ApplicationController
     quiz = Quiz.find_by_hashid!(params[:quiz_id]) # rubocop:disable Rails/DynamicFindBy
     result = QuizParticipations::Create.new(
       display_name: params[:display_name],
-      quiz: quiz,
+      quiz:,
       user: current_user,
     ).run
 

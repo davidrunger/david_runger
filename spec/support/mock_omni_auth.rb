@@ -7,7 +7,7 @@ module MockOmniAuth
       provider: 'google_oauth2',
       uid: '12345678910',
       info: {
-        email: email,
+        email:,
       },
       credentials: {
         token: 'abcdefg12345',

@@ -187,10 +187,7 @@ class Test::RequirementsResolver
         end
       end
       true_requirements = new_tentative_requirements
-      true_requirements = tasks_and_dependencies(
-        true_requirements,
-        skippable_requirements: skippable_requirements,
-      )
+      true_requirements = tasks_and_dependencies(true_requirements, skippable_requirements:)
 
       if true_requirements_at_start.map(&:name).sort == true_requirements.map(&:name).sort
         break
@@ -231,7 +228,7 @@ class Test::RequirementsResolver
       (target_tasks + tasks_and_dependencies(
         new_dependencies,
         known_dependencies: total_dependencies,
-        skippable_requirements: skippable_requirements,
+        skippable_requirements:,
       )).flatten.uniq
     end
   end

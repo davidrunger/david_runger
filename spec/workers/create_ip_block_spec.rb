@@ -9,7 +9,7 @@ RSpec.describe CreateIpBlock do
     let(:ip) { Faker::Internet.public_ip_v4_address }
 
     context 'when there is already an IpBlock with the specified IP' do
-      before { create(:ip_block, ip: ip) }
+      before { create(:ip_block, ip:) }
 
       it 'does not create a new IpBlock or raise an error' do
         expect { perform }.not_to change { IpBlock.count }
@@ -17,12 +17,12 @@ RSpec.describe CreateIpBlock do
     end
 
     context 'when there is not yet an IpBlock with the specified IP' do
-      before { IpBlock.where(ip: ip).find_each(&:destroy!) }
+      before { IpBlock.where(ip:).find_each(&:destroy!) }
 
       context 'when there is data in Redis about the previously blocked requests of the IP' do
         before do
-          IpBlocks::StoreRequestBlockInRedis.new(ip: ip, path: blocked_path_1).run
-          IpBlocks::StoreRequestBlockInRedis.new(ip: ip, path: blocked_path_2).run
+          IpBlocks::StoreRequestBlockInRedis.new(ip:, path: blocked_path_1).run
+          IpBlocks::StoreRequestBlockInRedis.new(ip:, path: blocked_path_2).run
         end
 
         let(:blocked_path_1) { '/wp' }

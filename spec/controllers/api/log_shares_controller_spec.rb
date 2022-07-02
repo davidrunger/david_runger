@@ -7,7 +7,7 @@ RSpec.describe Api::LogSharesController do
   let(:log) { user.logs.joins(:log_shares).first! }
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: params) }
+    subject(:post_create) { post(:create, params:) }
 
     context 'when the log share params are invalid' do
       let(:invalid_params) { { log_share: { email: nil, log_id: log.id } } }
@@ -15,7 +15,7 @@ RSpec.describe Api::LogSharesController do
 
       it 'returns a 422 status code' do
         post_create
-        expect(response.status).to eq(422)
+        expect(response).to have_http_status(422)
       end
     end
 
@@ -25,7 +25,7 @@ RSpec.describe Api::LogSharesController do
 
       it 'returns a 201 status code' do
         post_create
-        expect(response.status).to eq(201)
+        expect(response).to have_http_status(201)
       end
 
       it 'creates a log share' do
@@ -49,7 +49,7 @@ RSpec.describe Api::LogSharesController do
 
       it 'returns a 404 status code' do
         delete_destroy
-        expect(response.status).to eq(404)
+        expect(response).to have_http_status(404)
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe Api::LogSharesController do
 
       it 'returns a 204 status code' do
         delete_destroy
-        expect(response.status).to eq(204)
+        expect(response).to have_http_status(204)
       end
     end
   end

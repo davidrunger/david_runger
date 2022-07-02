@@ -8,7 +8,7 @@ RSpec.describe Api::LogEntriesController do
   let(:iso8601_z_regex) { /\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\z/ }
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: params) }
+    subject(:post_create) { post(:create, params:) }
 
     context 'when no current_user is present' do
       before { controller.sign_out_all_scopes }
@@ -20,7 +20,7 @@ RSpec.describe Api::LogEntriesController do
 
         it 'does not create a log entry and responds with a 401 status code and error message' do
           expect { post_create }.not_to change { log.reload.log_entries.size }
-          expect(response.status).to eq(401)
+          expect(response).to have_http_status(401)
           expect(response.parsed_body).to eq('error' => 'Your request was not authenticated')
         end
       end
@@ -30,7 +30,7 @@ RSpec.describe Api::LogEntriesController do
 
         it 'creates a log entry for the log and returns a 201 status code' do
           expect { post_create }.to change { log.reload.log_entries.size }.by(1)
-          expect(response.status).to eq(201)
+          expect(response).to have_http_status(201)
         end
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe Api::LogEntriesController do
 
       it 'returns a 422 status code' do
         post_create
-        expect(response.status).to eq(422)
+        expect(response).to have_http_status(422)
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe Api::LogEntriesController do
 
       it 'returns a 201 status code' do
         post_create
-        expect(response.status).to eq(201)
+        expect(response).to have_http_status(201)
       end
 
       it 'returns the serialized newly created log entry with a created_at ISO-8601 Z timestamp' do
@@ -78,7 +78,7 @@ RSpec.describe Api::LogEntriesController do
   end
 
   describe '#update' do
-    subject(:patch_update) { patch(:update, params: params) }
+    subject(:patch_update) { patch(:update, params:) }
 
     let(:log_entry) { logs(:text_log).log_entries.first! }
     let(:base_params) { { id: log_entry.id } }
@@ -94,7 +94,7 @@ RSpec.describe Api::LogEntriesController do
 
       it 'returns a 404 status code' do
         patch_update
-        expect(response.status).to eq(404)
+        expect(response).to have_http_status(404)
       end
     end
 
@@ -108,7 +108,7 @@ RSpec.describe Api::LogEntriesController do
 
       it 'returns a 422 status code' do
         patch_update
-        expect(response.status).to eq(422)
+        expect(response).to have_http_status(422)
       end
     end
 
@@ -128,7 +128,7 @@ RSpec.describe Api::LogEntriesController do
 
       it 'returns a 200 status code' do
         patch_update
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
     end
   end
@@ -150,7 +150,7 @@ RSpec.describe Api::LogEntriesController do
 
       it 'returns a 404 status code' do
         delete_destroy
-        expect(response.status).to eq(404)
+        expect(response).to have_http_status(404)
       end
     end
 
@@ -165,13 +165,13 @@ RSpec.describe Api::LogEntriesController do
 
       it 'returns a 204 status code' do
         delete_destroy
-        expect(response.status).to eq(204)
+        expect(response).to have_http_status(204)
       end
     end
   end
 
   describe '#index' do
-    subject(:get_index) { get(:index, params: params) }
+    subject(:get_index) { get(:index, params:) }
 
     context 'when a log_id param is provided' do
       let(:params) { { log_id: log.id } }

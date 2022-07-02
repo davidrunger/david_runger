@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Rack::Attack
-  PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_}.freeze
+  PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_}
   PENTESTERS_PREFIX = 'pentesters-'
   PENTESTING_FINDTIME = 1.day.freeze
 

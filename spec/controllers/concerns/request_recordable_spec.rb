@@ -9,7 +9,7 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
 
   describe '#store_initial_request_data_in_redis' do
     subject(:data_stashed_in_redis_after_request) do
-      get(:index, params: params)
+      get(:index, params:)
 
       $redis_pool.with do |conn|
         JSON(conn.get(controller.send(:initial_request_data_redis_key)))
