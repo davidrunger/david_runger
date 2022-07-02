@@ -55,8 +55,8 @@ class SaveRequest
         message: error_message,
         error_klass: Request::CreateRequestError,
         data: {
-          initial_stashed_json: initial_stashed_json,
-          final_stashed_json: final_stashed_json,
+          initial_stashed_json:,
+          final_stashed_json:,
           request_id: @request_id,
         },
       )
@@ -88,7 +88,7 @@ class SaveRequest
       total
     ]).merge(
       request_id: @request_id,
-      requested_at: requested_at,
+      requested_at:,
     )
   end
 

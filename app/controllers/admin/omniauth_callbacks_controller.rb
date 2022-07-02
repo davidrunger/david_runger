@@ -8,7 +8,7 @@ class Admin::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     access_token = request.env['omniauth.auth']
     email = access_token.info['email']
-    admin_user = AdminUser.find_by(email: email)
+    admin_user = AdminUser.find_by(email:)
 
     if admin_user
       sign_in(admin_user)

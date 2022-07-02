@@ -5,7 +5,7 @@
 module InstrumentFail2BanEventMonkeypatch
   def ban!(discriminator, _bantime)
     return_value = super
-    ActiveSupport::Notifications.instrument('fail2banned.rack_attack', discriminator: discriminator)
+    ActiveSupport::Notifications.instrument('fail2banned.rack_attack', discriminator:)
     return_value
   end
 end

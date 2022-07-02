@@ -21,14 +21,14 @@ ActiveAdmin.register_page('Settings') do
   page_action :index do
     @page_title = 'Settings'
     settings = RedisConfig.all
-    render :index, layout: 'active_admin', locals: { settings: settings }
+    render :index, layout: 'active_admin', locals: { settings: }
   end
 
   page_action :show do
     setting_name = params[:name]
     @page_title = setting_name
     setting = RedisConfig.get(setting_name)
-    render :show, layout: 'active_admin', locals: { setting: setting }
+    render :show, layout: 'active_admin', locals: { setting: }
   end
 
   page_action :new do

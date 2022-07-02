@@ -3,7 +3,7 @@
 class QuizQuestions::CreateFromList < ApplicationAction
   class InvalidAnswers < StandardError ; end
 
-  CORRECT_ANSWER_PREFIX = /\A\s*-\s*/.freeze
+  CORRECT_ANSWER_PREFIX = /\A\s*-\s*/
 
   requires :quiz, Quiz
   requires :questions_list, String
@@ -33,7 +33,7 @@ class QuizQuestions::CreateFromList < ApplicationAction
     question = quiz.questions.create!(content: question_text.strip)
 
     answer_texts.each do |answer_text|
-      create_answer_from_text!(answer_text: answer_text, question: question)
+      create_answer_from_text!(answer_text:, question:)
     end
   end
 
@@ -44,7 +44,7 @@ class QuizQuestions::CreateFromList < ApplicationAction
     else
       is_correct = false
     end
-    question.answers.create!(is_correct: is_correct, content: answer_text.strip)
+    question.answers.create!(is_correct:, content: answer_text.strip)
   end
 
   def verify_answers!

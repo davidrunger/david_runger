@@ -6,7 +6,7 @@ RSpec.describe LogsController do
   let(:user) { users(:user) }
 
   describe '#index' do
-    subject(:get_index) { get(:index, params: params) }
+    subject(:get_index) { get(:index, params:) }
 
     context 'when there is a user_id param (for a shared log)' do
       let(:params) { { user_id: other_user.id, slug: other_user_log.slug } }
@@ -30,7 +30,7 @@ RSpec.describe LogsController do
         it 'responds with 200 and bootstraps info about the log' do
           get_index
 
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(200)
           expect(response.body).to include(other_user_log.name)
         end
       end
@@ -44,7 +44,7 @@ RSpec.describe LogsController do
       it 'responds with 200 and bootstraps info about the log' do
         get_index
 
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
         expect(response.body).to include(log.name)
       end
 

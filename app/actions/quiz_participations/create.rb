@@ -8,7 +8,7 @@ class QuizParticipations::Create < ApplicationAction
   fails_with :invalid_participation
 
   def execute
-    participation = user.quiz_participations.build(quiz_id: quiz.id, display_name: display_name)
+    participation = user.quiz_participations.build(quiz_id: quiz.id, display_name:)
 
     if participation.valid?
       participation.save!

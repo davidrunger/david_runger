@@ -48,7 +48,7 @@ RSpec.describe ApplicationPolicy do
 
     it 'returns the set of records that the user may access' do
       expect(scope.order(:id)).
-        to eq(Workout.where(user: user).or(Workout.where(publicly_viewable: true)).order(:id))
+        to eq(Workout.where(user:).or(Workout.where(publicly_viewable: true)).order(:id))
     end
 
     context 'when the policy does not define a scope' do

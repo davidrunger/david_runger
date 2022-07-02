@@ -6,7 +6,7 @@ RSpec.describe Api::StoresController do
   let(:user) { users(:user) }
 
   describe '#create' do
-    subject(:post_create) { post(:create, params: params) }
+    subject(:post_create) { post(:create, params:) }
 
     context 'when the store being created is invalid' do
       let(:invalid_params) { { store: { name: '' } } }
@@ -18,7 +18,7 @@ RSpec.describe Api::StoresController do
 
       it 'returns a 422 status code' do
         post_create
-        expect(response.status).to eq(422)
+        expect(response).to have_http_status(422)
       end
     end
 
@@ -32,13 +32,13 @@ RSpec.describe Api::StoresController do
 
       it 'returns a 201 status code' do
         post_create
-        expect(response.status).to eq(201)
+        expect(response).to have_http_status(201)
       end
     end
   end
 
   describe '#update' do
-    subject(:patch_update) { patch(:update, params: params) }
+    subject(:patch_update) { patch(:update, params:) }
 
     let(:store) { stores(:store) }
     let(:base_params) { { id: store.id } }
@@ -54,7 +54,7 @@ RSpec.describe Api::StoresController do
 
       it 'returns a 404 status code' do
         patch_update
-        expect(response.status).to eq(404)
+        expect(response).to have_http_status(404)
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe Api::StoresController do
 
       it 'returns a 422 status code' do
         patch_update
-        expect(response.status).to eq(422)
+        expect(response).to have_http_status(422)
       end
     end
 
@@ -82,7 +82,7 @@ RSpec.describe Api::StoresController do
 
       it 'returns a 200 status code' do
         patch_update
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
     end
   end
@@ -102,7 +102,7 @@ RSpec.describe Api::StoresController do
 
       it 'returns a 404 status code' do
         delete_destroy
-        expect(response.status).to eq(404)
+        expect(response).to have_http_status(404)
       end
     end
 
@@ -115,7 +115,7 @@ RSpec.describe Api::StoresController do
 
       it 'returns a 204 status code' do
         delete_destroy
-        expect(response.status).to eq(204)
+        expect(response).to have_http_status(204)
       end
     end
   end

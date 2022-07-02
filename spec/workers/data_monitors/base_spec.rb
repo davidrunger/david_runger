@@ -5,7 +5,7 @@ RSpec.describe DataMonitors::Base do
 
   describe '#actual_satisfies_expectation?' do
     subject(:actual_satisfies_expectation?) do
-      data_monitor.send(:actual_satisfies_expectation?, actual: actual, expected: expected)
+      data_monitor.send(:actual_satisfies_expectation?, actual:, expected:)
     end
 
     context 'when expected is a range' do

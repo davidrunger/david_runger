@@ -20,7 +20,7 @@ RSpec.describe SidekiqExt::JobLogger do
 
     it 'returns the expected job hash context' do
       expect(job_hash_context).to eq(
-        jid: jid,
+        jid:,
         queue: 'default',
         class: 'SomeWorkerClass',
         args: '["one", 2, true]',

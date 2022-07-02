@@ -6,7 +6,7 @@ RSpec.describe Api::UsersController do
   let(:user) { users(:user) }
 
   describe '#update' do
-    subject(:patch_update) { patch(:update, params: params) }
+    subject(:patch_update) { patch(:update, params:) }
 
     context 'when a user is updating themself' do
       let(:user_id_param) { user.id }
@@ -17,7 +17,7 @@ RSpec.describe Api::UsersController do
 
         it 'returns a 200 status code' do
           patch_update
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(200)
         end
 
         it 'updates the user' do
@@ -38,7 +38,7 @@ RSpec.describe Api::UsersController do
 
       context 'when updating preferences' do
         let(:preferences) { { favorite_number: 2 } }
-        let(:params) { { id: user_id_param, user: { preferences: preferences } } }
+        let(:params) { { id: user_id_param, user: { preferences: } } }
 
         it 'updates the user' do
           expect { patch_update }.
@@ -58,7 +58,7 @@ RSpec.describe Api::UsersController do
 
         it 'returns a 403 status code' do
           patch_update
-          expect(response.status).to eq(403)
+          expect(response).to have_http_status(403)
         end
 
         it 'does not update the user' do

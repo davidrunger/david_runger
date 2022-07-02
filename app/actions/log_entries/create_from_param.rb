@@ -11,7 +11,7 @@ class LogEntries::CreateFromParam < ApplicationAction
       data = param
     end
 
-    log_entry = log.log_entries.build(data: data, note: note)
-    LogEntries::Save.run!(log_entry: log_entry)
+    log_entry = log.log_entries.build(data:, note:)
+    LogEntries::Save.run!(log_entry:)
   end
 end

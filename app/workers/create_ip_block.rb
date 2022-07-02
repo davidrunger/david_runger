@@ -4,7 +4,7 @@ class CreateIpBlock
   prepend ApplicationWorker
 
   def perform(ip)
-    ip_block = IpBlock.find_or_initialize_by(ip: ip)
+    ip_block = IpBlock.find_or_initialize_by(ip:)
     if ip_block.new_record?
       block_reason =
         $redis_pool.

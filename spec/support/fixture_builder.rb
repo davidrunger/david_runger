@@ -21,12 +21,12 @@ FixtureBuilder.configure do |fbuilder|
     name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com'))
 
     # groceries
-    store = name(:store, create(:store, user: user)).first
-    name(:item, create(:item, :needed, store: store))
-    create(:item, :unneeded, store: store)
+    store = name(:store, create(:store, user:)).first
+    name(:item, create(:item, :needed, store:))
+    create(:item, :unneeded, store:)
 
     # number logs
-    number_log = name(:number_log, create(:log, user: user, data_type: 'number')).first
+    number_log = name(:number_log, create(:log, user:, data_type: 'number')).first
     number_log.log_entries.create!(
       log: number_log,
       data: 102,
@@ -46,7 +46,7 @@ FixtureBuilder.configure do |fbuilder|
       :text_log,
       create(
         :log,
-        user: user,
+        user:,
         name: 'Dream Journal',
         data_type: 'text',
         data_label: 'Dream content',
@@ -62,10 +62,10 @@ FixtureBuilder.configure do |fbuilder|
     name(:request, create(:request))
 
     # workouts
-    name(:workout, create(:workout, user: user))
+    name(:workout, create(:workout, user:))
 
     # auth tokens
-    create(:auth_token, user: user)
+    create(:auth_token, user:)
 
     # IP blocks
     name(:ip_block, create(:ip_block))
@@ -78,25 +78,25 @@ FixtureBuilder.configure do |fbuilder|
     quiz = create(:quiz, owner: admin)
 
     # quiz participations
-    participation = create(:quiz_participation, quiz: quiz, participant: user)
-    participation_2 = create(:quiz_participation, quiz: quiz, participant: admin)
+    participation = create(:quiz_participation, quiz:, participant: user)
+    participation_2 = create(:quiz_participation, quiz:, participant: admin)
 
     # quiz questions
-    quiz_question_1 = create(:quiz_question, quiz: quiz)
-    quiz_question_2 = create(:quiz_question, quiz: quiz)
+    quiz_question_1 = create(:quiz_question, quiz:)
+    quiz_question_2 = create(:quiz_question, quiz:)
 
     # quiz question answers
     [true, false, false].shuffle.each do |is_correct|
-      create(:quiz_question_answer, question: quiz_question_1, is_correct: is_correct)
+      create(:quiz_question_answer, question: quiz_question_1, is_correct:)
     end
     [true, false].shuffle.each do |is_correct|
-      create(:quiz_question_answer, question: quiz_question_2, is_correct: is_correct)
+      create(:quiz_question_answer, question: quiz_question_2, is_correct:)
     end
 
     # quiz question answer selections
     answer = quiz.question_answers.first!
     answer_2 = quiz.question_answers.second!
-    create(:quiz_question_answer_selection, answer: answer, participation: participation)
+    create(:quiz_question_answer_selection, answer:, participation:)
     create(:quiz_question_answer_selection, answer: answer_2, participation: participation_2)
   end
 end

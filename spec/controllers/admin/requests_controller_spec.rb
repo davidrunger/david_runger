@@ -11,7 +11,7 @@ RSpec.describe Admin::RequestsController do
 
       it 'responds with 200' do
         get_index
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
 
       context 'when one of the Requests has a parseable user agent' do
@@ -30,7 +30,7 @@ RSpec.describe Admin::RequestsController do
       end
 
       context 'when one of the Requests has an unparseable user agent' do
-        before { request.update!(user_agent: user_agent) }
+        before { request.update!(user_agent:) }
 
         let(:user_agent) { 'Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)' }
         let(:request) { Request.order(id: :desc).first! }
@@ -53,7 +53,7 @@ RSpec.describe Admin::RequestsController do
 
       it 'responds with 200' do
         get_show
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
     end
   end

@@ -9,7 +9,7 @@ RSpec.describe Admin::SettingsController do
 
       it 'responds with 200' do
         get_index
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
     end
 
@@ -18,7 +18,7 @@ RSpec.describe Admin::SettingsController do
 
       it 'responds with 200' do
         get_new
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(200)
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Admin::SettingsController do
 
         it 'responds with 200' do
           get_show
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(200)
         end
       end
     end
@@ -53,23 +53,14 @@ RSpec.describe Admin::SettingsController do
 
         it 'responds with 200' do
           get_edit
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(200)
         end
       end
     end
 
     describe '#create' do
       subject(:post_create) do
-        post(
-          :create,
-          params: {
-            redis_config_setting: {
-              name: setting_name,
-              type: type,
-              value: value,
-            },
-          },
-        )
+        post(:create, params: { redis_config_setting: { name: setting_name, type:, value: } })
       end
 
       let(:setting_name) { 'power_level' }
@@ -90,7 +81,7 @@ RSpec.describe Admin::SettingsController do
           params: {
             redis_config_setting: {
               name: setting_name,
-              type: type,
+              type:,
               value: new_value,
             },
           },

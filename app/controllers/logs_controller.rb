@@ -16,8 +16,8 @@ class LogsController < ApplicationController
       new_entry = params[:new_entry].presence
       if slug && new_entry
         verify_valid_auth_token!
-        log = current_user.logs.find_by!(slug: slug)
-        LogEntries::CreateFromParam.run!(log: log, param: new_entry)
+        log = current_user.logs.find_by!(slug:)
+        LogEntries::CreateFromParam.run!(log:, param: new_entry)
         bootstrap(toast_messages: ['New Log entry created!'])
       end
     end
@@ -30,7 +30,7 @@ class LogsController < ApplicationController
         scope: current_user,
         scope_name: :current_user,
       ),
-      log_input_types: log_input_types,
+      log_input_types:,
     )
     render :index
   end

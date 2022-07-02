@@ -78,7 +78,7 @@ RSpec.describe SaveRequest do
         end
 
         context 'when the request has already been saved' do
-          before { Request.first!.update!(request_id: request_id) }
+          before { Request.first!.update!(request_id:) }
 
           it 'does not raise an error' do
             expect { perform }.not_to raise_error

@@ -86,12 +86,7 @@ RSpec.describe QuizzesController do
 
             context 'when the question has been answered by at least one participant' do
               before do
-                expect(
-                  QuizQuestionAnswerSelection.where(
-                    answer: answer,
-                    participation: participation,
-                  ),
-                ).to exist
+                expect(QuizQuestionAnswerSelection.where(answer:, participation:)).to exist
               end
 
               let(:answer) { quiz.question_answers.first! }

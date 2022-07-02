@@ -28,7 +28,7 @@ class QuizQuestionAnswerSelection < ApplicationRecord
   private
 
   def only_one_selection_per_question
-    if question.answer_selections.where.not(id: id).exists?(participation: participation)
+    if question.answer_selections.where.not(id:).exists?(participation:)
       errors.add(:base, 'Question has already been answered')
     end
   end

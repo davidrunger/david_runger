@@ -8,22 +8,14 @@ RSpec.describe Api::Items::BulkUpdatesController do
 
   describe '#create' do
     subject(:post_create) do
-      post(
-        :create,
-        params: {
-          bulk_update: {
-            item_ids: item_ids,
-            attributes_change: { needed: 0 },
-          },
-        },
-      )
+      post(:create, params: { bulk_update: { item_ids:, attributes_change: { needed: 0 } } })
     end
 
     context 'when a store has multiple needed items' do
       before do
         2.times do
           if store.items.needed.size < 2
-            create(:item, :needed, store: store)
+            create(:item, :needed, store:)
           end
         end
 

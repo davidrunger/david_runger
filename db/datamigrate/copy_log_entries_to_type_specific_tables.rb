@@ -25,8 +25,8 @@ def copy_log_entries_to_type_specific_tables!
 
       new_log_entry_class.create!(
         created_at: log_entry.created_at, # updated_at will reflect the actual time of creation
-        data: data,
-        log: log,
+        data:,
+        log:,
       )
     end
   end

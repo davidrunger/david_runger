@@ -8,9 +8,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     access_token = request.env['omniauth.auth']
     email = access_token.info['email']
 
-    user = User.find_by(email: email)
+    user = User.find_by(email:)
     if !user
-      user = Users::Create.run!(email: email).user
+      user = Users::Create.run!(email:).user
     end
 
     sign_in(user)

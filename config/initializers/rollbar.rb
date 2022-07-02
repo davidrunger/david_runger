@@ -73,7 +73,7 @@ Rollbar.configure do |config|
       client: {
         javascript: {
           source_map_enabled: true,
-          code_version: code_version,
+          code_version:,
           guess_uncaught_frames: true,
         },
       },

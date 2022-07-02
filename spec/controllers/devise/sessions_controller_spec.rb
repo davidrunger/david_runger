@@ -14,7 +14,7 @@ RSpec.describe Devise::SessionsController do
       context 'when the request format is json', request_format: :json do
         it 'responds with 204' do
           delete_destroy
-          expect(response.status).to eq(204)
+          expect(response).to have_http_status(204)
         end
       end
     end

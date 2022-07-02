@@ -19,7 +19,7 @@ RSpec.describe LogEntriesMailbox do
         to: to_email,
         from: user.email,
         subject: %(Re: Submit a log entry for your "#{log.name}" log),
-        body: body,
+        body:,
       )
     end
     let(:body) { '148.8' }
