@@ -24,6 +24,7 @@ gem 'flipper-ui'
 gem 'hamlit'
 gem 'hashid-rails'
 gem 'js-routes', '2.2.4', require: false
+gem 'jwt'
 gem 'lograge'
 gem 'memoist'
 gem 'net-imap' # remove after https://github.com/mikel/mail/pull/1439 is addressed

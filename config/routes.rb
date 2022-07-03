@@ -31,6 +31,18 @@ Rails.application.routes.draw do
     get 'logs/:slug', to: 'logs#index', as: :shared_log
   end
 
+  resources :check_ins, only: %i[create index show update]
+  %w[check_in check-ins check-in checkins checkin].each do |path|
+    get path, to: redirect('check_ins')
+  end
+  resources :proposals, only: %i[create] do
+    collection do
+      get :accept
+    end
+  end
+  resource :marriage, only: %i[show]
+  resources :emotional_needs, only: %i[create]
+
   resources :auth_tokens, only: %i[create destroy update]
 
   resources :quizzes, only: %i[index new create show update] do

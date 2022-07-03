@@ -1,0 +1,12 @@
+%h2 Your answers
+= form_with(model: @check_in, method: :patch) do |check_in_form|
+  - @check_in.need_satisfaction_ratings.where(user: current_user).includes(:emotional_need).each do |rating|
+    = check_in_form.fields_for(rating, index: rating.id) do |ratings_form|
+      .my1
+        %div
+          = ratings_form.label :score, "#{rating.emotional_need.name}:"
+          = ratings_form.text_field :score
+        %div
+          = rating.emotional_need.description
+  %div
+    = check_in_form.submit

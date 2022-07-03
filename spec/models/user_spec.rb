@@ -15,4 +15,10 @@ RSpec.describe User do
       expect(user.items.find(item_id)).to eq(Item.find(item_id))
     end
   end
+
+  describe '#marriage' do
+    it 'returns a Marriage' do
+      expect(user.marriage).to be_a(Marriage)
+    end
+  end
 end

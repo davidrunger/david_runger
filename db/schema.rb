@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_14_035333) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_03_121911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,6 +91,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_14_035333) do
     t.index ["value"], name: "index_banned_path_fragments_on_value", unique: true
   end
 
+  create_table "check_ins", force: :cascade do |t|
+    t.bigint "marriage_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marriage_id"], name: "index_check_ins_on_marriage_id"
+  end
+
+  create_table "emotional_needs", force: :cascade do |t|
+    t.bigint "marriage_id", null: false
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marriage_id"], name: "index_emotional_needs_on_marriage_id"
+  end
+
   create_table "ip_blocks", force: :cascade do |t|
     t.string "ip", null: false
     t.text "reason"
@@ -130,6 +146,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_14_035333) do
     t.datetime "reminder_last_sent_at", precision: nil
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
     t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
+  end
+
+  create_table "marriages", force: :cascade do |t|
+    t.bigint "partner_1_id", null: false
+    t.bigint "partner_2_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_1_id"], name: "index_marriages_on_partner_1_id"
+    t.index ["partner_2_id"], name: "index_marriages_on_partner_2_id"
+  end
+
+  create_table "need_satisfaction_ratings", force: :cascade do |t|
+    t.bigint "emotional_need_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "check_in_id", null: false
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_in_id"], name: "index_need_satisfaction_ratings_on_check_in_id"
+    t.index ["emotional_need_id"], name: "index_need_satisfaction_ratings_on_emotional_need_id"
+    t.index ["user_id"], name: "index_need_satisfaction_ratings_on_user_id"
   end
 
   create_table "number_log_entries", force: :cascade do |t|
@@ -265,9 +302,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_14_035333) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "auth_tokens", "users"
+  add_foreign_key "check_ins", "marriages"
+  add_foreign_key "emotional_needs", "marriages"
   add_foreign_key "items", "stores"
   add_foreign_key "log_shares", "logs"
   add_foreign_key "logs", "users"
+  add_foreign_key "marriages", "users", column: "partner_1_id"
+  add_foreign_key "marriages", "users", column: "partner_2_id"
+  add_foreign_key "need_satisfaction_ratings", "check_ins"
+  add_foreign_key "need_satisfaction_ratings", "emotional_needs"
+  add_foreign_key "need_satisfaction_ratings", "users"
   add_foreign_key "number_log_entries", "logs"
   add_foreign_key "quiz_participations", "quizzes"
   add_foreign_key "quiz_participations", "users", column: "participant_id"

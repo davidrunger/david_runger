@@ -668,6 +668,7 @@ DEPENDENCIES
   immigrant
   js-routes (= 2.2.4)
   json-schema
+  jwt
   launchy
   letter_opener
   listen

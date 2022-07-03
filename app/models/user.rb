@@ -35,4 +35,10 @@ class User < ApplicationRecord
   has_many :workouts, dependent: :destroy
 
   devise
+
+  before_destroy { |user| user.marriage&.destroy! }
+
+  def marriage
+    Marriage.where(partner_1_id: id).or(Marriage.where(partner_2_id: id)).first
+  end
 end
