@@ -100,6 +100,9 @@ FixtureBuilder.configure do |fbuilder|
     create(:quiz_question_answer_selection, answer: answer_2, participation: participation_2)
 
     # marriages
-    create(:marriage, partner_1: user, partner_2: admin)
+    marriage = create(:marriage, partner_1: user, partner_2: admin)
+
+    # emotional needs
+    create(:emotional_need, marriage:)
   end
 end
