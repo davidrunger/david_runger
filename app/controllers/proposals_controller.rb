@@ -13,7 +13,7 @@ class ProposalsController < ApplicationController
     proposer_id =
       JWT.decode(
         params[:token],
-        Rails.application.credentials.jwt_secret,
+        Rails.application.credentials.jwt_secret!,
         true,
         { algorithm: 'HS512' },
       ).dig(0, 'proposer_id')

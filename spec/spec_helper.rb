@@ -8,6 +8,7 @@ require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
 is_ci = (ENV.fetch('CI', nil) == 'true')
+use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
 if is_ci
   require 'simplecov'
   require 'codecov'
@@ -26,7 +27,8 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'capybara-screenshot/rspec'
+require 'capybara/email/rspec'
+require 'capybara-screenshot/rspec' unless use_headful_chrome
 require 'active_support/cache/mem_cache_store'
 require 'sidekiq/testing'
 require 'mail'
@@ -49,8 +51,14 @@ Capybara.register_driver(:chrome_headless) do |app|
   options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
   Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
 end
-Capybara::Screenshot.register_driver(:chrome_headless) do |driver, path|
-  driver.browser.save_screenshot(path)
+Capybara.register_driver(:chrome_headful) do |app|
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox disable-gpu])
+  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
+end
+unless use_headful_chrome
+  Capybara::Screenshot.register_driver(:chrome_headless) do |driver, path|
+    driver.browser.save_screenshot(path)
+  end
 end
 if is_ci
   Capybara::Screenshot.s3_configuration = {
@@ -64,12 +72,16 @@ if is_ci
     key_prefix: 'failure-screenshots/',
   }
 end
-Capybara.default_driver = :chrome_headless
-Capybara.javascript_driver = :chrome_headless
+browser_driver = use_headful_chrome ? :chrome_headful : :chrome_headless
+Capybara.default_driver = browser_driver
+Capybara.javascript_driver = browser_driver
 # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
 Capybara.asset_host = 'http://localhost:3000'
 Capybara.server = :puma, { Silent: true }
 Capybara.default_normalize_ws = true
+# this matches setting in config/environments/test.rb
+Capybara.server_port = 3001
+Capybara.app_host = 'http://localhost:3001'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
