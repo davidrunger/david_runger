@@ -24,4 +24,6 @@ class NeedSatisfactionRating < ApplicationRecord
   belongs_to :check_in
 
   scope :completed, -> { where.not(score: nil) }
+
+  validates :score, numericality: { only_integer: true, in: (-3..3), allow_nil: true }
 end
