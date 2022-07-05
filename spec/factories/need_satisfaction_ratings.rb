@@ -19,5 +19,9 @@
 #  index_need_satisfaction_ratings_on_user_id            (user_id)
 #
 FactoryBot.define do
-  factory :need_satisfaction_rating
+  factory :need_satisfaction_rating do
+    association :emotional_need
+    association :user
+    association :check_in
+  end
 end
