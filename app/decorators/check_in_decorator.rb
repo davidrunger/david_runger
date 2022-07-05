@@ -12,12 +12,17 @@ class CheckInDecorator < Draper::Decorator
 
   memoize \
   def completed_by_both_partners?
-    need_satisfaction_ratings.completed.size == (marriage.emotional_needs.size * 2)
+    need_satisfaction_ratings.completed.size == (emotional_needs_for_check_in.size * 2)
   end
 
   memoize \
   def completed_by_partner?
-    partner_ratings.completed.size == marriage.emotional_needs.size
+    partner_ratings.completed.size == emotional_needs_for_check_in.size
+  end
+
+  memoize \
+  def emotional_needs_for_check_in
+    marriage.emotional_needs.where('emotional_needs.created_at <= ?', created_at)
   end
 
   memoize \

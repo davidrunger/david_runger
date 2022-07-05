@@ -103,6 +103,13 @@ FixtureBuilder.configure do |fbuilder|
     marriage = create(:marriage, partner_1: user, partner_2: admin)
 
     # emotional needs
-    create(:emotional_need, marriage:)
+    emotional_need = create(:emotional_need, marriage:)
+
+    # check-ins
+    check_in = create(:check_in, marriage:)
+
+    # need satisfaction ratings
+    create(:need_satisfaction_rating, emotional_need:, check_in:, user:, score: 3)
+    create(:need_satisfaction_rating, emotional_need:, check_in:, user: admin, score: -3)
   end
 end
