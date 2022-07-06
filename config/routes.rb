@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   resources :quiz_questions, only: %i[update]
 
   namespace :api, defaults: { format: :json } do
+    resources :check_ins, only: %i[update]
     resources :items, only: %i[update destroy]
     namespace :items do
       resources :bulk_updates, only: %i[create]

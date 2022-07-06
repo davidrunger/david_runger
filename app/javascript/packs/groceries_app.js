@@ -10,7 +10,7 @@ import Modal from '@/components/modal.vue';
 import Groceries from '@/groceries/groceries.vue';
 import storeDefinition from '@/groceries/store';
 
-const app = renderApp(Groceries, { storeDefinition });
+const app = renderApp(Groceries);
 
 app.component('Modal', Modal);
 useKy(app);

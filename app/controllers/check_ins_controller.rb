@@ -4,7 +4,7 @@ class CheckInsController < ApplicationController
   self.container_classes = %w[p3]
 
   before_action :ensure_marriage, only: %i[index]
-  before_action :set_check_in, only: %i[show update]
+  before_action :set_check_in, only: %i[show]
 
   def index
     authorize(CheckIn)
@@ -21,23 +21,20 @@ class CheckInsController < ApplicationController
 
   def show
     authorize(@check_in, :show?)
-  end
-
-  def update
-    authorize(@check_in, :update?)
-    check_in_params[:need_satisfaction_rating].each do |id, attributes|
-      need_satisfaction_rating = NeedSatisfactionRating.find(id)
-      authorize(need_satisfaction_rating, :update?)
-      need_satisfaction_rating.update!(attributes)
-    end
-    redirect_to(@check_in)
+    bootstrap(
+      check_in: @check_in,
+      need_satisfaction_ratings:
+        ActiveModel::Serializer::CollectionSerializer.new(
+          @check_in.
+            need_satisfaction_ratings.
+            where(user: current_user).
+            includes(:emotional_need).
+            order('emotional_needs.name'),
+        ),
+    )
   end
 
   private
-
-  def check_in_params
-    params.require(:check_in).permit(need_satisfaction_rating: {})
-  end
 
   def set_check_in
     @check_in = policy_scope(CheckIn).find(params[:id]).decorate

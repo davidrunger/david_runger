@@ -58,6 +58,12 @@ class ApplicationPolicy
   private
 
   def own_record?
-    @record.user == @user
+    if @record.respond_to?(:user_id)
+      # if possible, avoid loading the record's user for better performance
+      @record.user_id == @user.id
+    else
+      # only load the user record if necessary
+      @record.user == @user
+    end
   end
 end
