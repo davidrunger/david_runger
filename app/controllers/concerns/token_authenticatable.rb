@@ -25,11 +25,6 @@ module TokenAuthenticatable
   end
 
   memoize \
-  def auth_token_param_present?
-    auth_token_param.present?
-  end
-
-  memoize \
   def auth_token_user
     auth_token&.user
   end
