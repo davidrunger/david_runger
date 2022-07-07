@@ -85,7 +85,13 @@ RSpec.describe 'Check-Ins app' do
           expect(page).to have_current_path(check_in_path(check_in))
 
           fill_in_emotional_needs_ratings(rating: 2)
-          click_button('Update Check in')
+          click_button('Update Check-in')
+          wait_for do
+            CheckIn.order(:created_at).last!.
+              need_satisfaction_ratings.
+              exists?(user:, score: nil)
+          end.to eq(false)
+          sleep(0.2) # this seems to be needed to ensure the rating update transaction is committed
 
           # other partner fills in ratings
           Capybara.using_session('spouse') do
@@ -95,17 +101,20 @@ RSpec.describe 'Check-Ins app' do
               page.has_text?('Their answers [hidden until you submit your answers]')
             end.to eq(true)
             fill_in_emotional_needs_ratings(rating: -2)
-            click_button('Update Check in')
+            click_button('Update Check-in')
             expect(page).to have_text("Their answers #{first_emotional_need.name}: 2")
           end
 
-          click_button('Update Check in') # refresh the page by clicking button
+          click_button('Update Check-in') # refresh the page by clicking button
           expect(page).to have_text("Their answers #{first_emotional_need.name}: -2")
         end
 
         def fill_in_emotional_needs_ratings(rating:)
           marriage.emotional_needs.each do |emotional_need|
-            fill_in("#{emotional_need.name}:", with: rating)
+            page.find('strong', text: emotional_need.name).
+              find(:xpath, '..'). # parent
+              find('button.need_satisfaction_rating', text: /\A#{rating}\z/).
+              click
           end
         end
       end

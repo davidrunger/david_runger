@@ -6,7 +6,7 @@ import titleMixin from '@/lib/mixins/title_mixin';
 
 window.Routes = Routes;
 
-export function renderApp(vueApp) {
+export function renderApp(vueApp, domTargetSelector = '#container') {
   const app = createApp(vueApp);
 
   app.config.devtools = window.davidrunger && (window.davidrunger.env === 'development');
@@ -17,7 +17,7 @@ export function renderApp(vueApp) {
   app.mixin(titleMixin);
 
   const _renderApp = () => {
-    app.mount('#container');
+    app.mount(domTargetSelector);
   };
 
   whenDomReady(() => {

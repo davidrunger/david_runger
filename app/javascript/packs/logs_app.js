@@ -9,10 +9,7 @@ import LogApp from '@/logs/logs.vue';
 import storeDefinition from '@/logs/store';
 import router from '@/logs/router';
 
-const app = renderApp(LogApp, {
-  router,
-  storeDefinition,
-});
+const app = renderApp(LogApp);
 
 app.component('Modal', Modal);
 useKy(app);
