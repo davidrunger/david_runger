@@ -17,4 +17,9 @@ export default defineConfig({
       'css': path.resolve(__dirname, './app/assets/stylesheets'),
     },
   },
+  server: {
+    hmr: {
+      port: 443,
+    },
+  },
 })
