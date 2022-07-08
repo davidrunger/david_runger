@@ -53,11 +53,15 @@ export default {
 
 <style lang='scss'>
 button.need_satisfaction_rating {
-  width: 30px;
-  margin: 0 3px;
+  width: 40px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  margin: 0 1px;
+  padding: 5px;
 
   &.selected {
-    background-color: blue;
+    background-color: lightblue;
   }
 }
 </style>
