@@ -54,7 +54,7 @@
     "strftime": "^0.10.1",
     "toastify-js": "^1.11.2",
     "unplugin-element-plus": "^0.4.1",
-    "vite": "^2.9.13",
+    "vite": "^2.9.14",
     "vite-plugin-ruby": "^3.0.12",
     "vue": "^3.2",
     "vue-chartjs": "^4.1",
