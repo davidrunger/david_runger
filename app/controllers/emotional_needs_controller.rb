@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EmotionalNeedsController < ApplicationController
-  before_action :set_emotional_need, only: %i[edit update]
+  before_action :set_emotional_need, only: %i[destroy edit update]
 
   def create
     authorize(EmotionalNeed)
@@ -16,6 +16,12 @@ class EmotionalNeedsController < ApplicationController
   def update
     authorize(@emotional_need)
     @emotional_need.update!(emotional_need_params)
+    redirect_to(marriage_path)
+  end
+
+  def destroy
+    authorize(@emotional_need)
+    @emotional_need.destroy!
     redirect_to(marriage_path)
   end
 

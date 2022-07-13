@@ -41,4 +41,14 @@ RSpec.describe EmotionalNeedsController do
       }.to([new_emotional_need_name, new_emotional_need_description])
     end
   end
+
+  describe '#destroy' do
+    subject(:delete_destroy) { delete(:destroy, params: { id: emotional_need.id }) }
+
+    it 'destroys the specified emotional need' do
+      expect { delete_destroy }.
+        to change { user.marriage.emotional_needs.where(id: emotional_need).size }.
+        by(-1)
+    end
+  end
 end
