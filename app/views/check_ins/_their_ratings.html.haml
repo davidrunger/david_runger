@@ -1,6 +1,6 @@
 %h2 Their answers
 - if @check_in.completed_by_both_partners?
-  - @check_in.partner_ratings.includes(:emotional_need).each do |rating|
+  - @check_in.partner_ratings.joins(:emotional_need).includes(:emotional_need).order('emotional_needs.name').each do |rating|
     %div
       %strong #{rating.emotional_need.name}:
       = rating.score
