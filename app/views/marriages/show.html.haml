@@ -6,7 +6,9 @@
 %h2 Emotional needs
 %ol
   - @marriage.emotional_needs.each do |emotional_need|
-    %li #{emotional_need.name} (#{emotional_need.description})
+    %li
+      #{emotional_need.name} (#{emotional_need.description})
+      = link_to('Edit', edit_emotional_need_path(emotional_need))
 %h2 Add an emotional need
 = form_with(model: @marriage.emotional_needs.build) do |form|
   .mb2
