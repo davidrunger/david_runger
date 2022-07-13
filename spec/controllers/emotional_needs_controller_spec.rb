@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+RSpec.describe EmotionalNeedsController do
+  before { sign_in(user) }
+
+  let(:emotional_need) { EmotionalNeed.first! }
+  let(:user) { emotional_need.marriage.partner_1 }
+
+  describe '#edit' do
+    subject(:get_edit) { get(:edit, params: { id: emotional_need.id }) }
+
+    it 'renders a form to edit the emotional need' do
+      get_edit
+
+      expect(response.body).to have_button('Update Emotional need')
+    end
+  end
+
+  describe '#update' do
+    subject(:patch_update) do
+      patch(
+        :update,
+        params: {
+          id: emotional_need.id,
+          emotional_need: {
+            name: new_emotional_need_name,
+            description: new_emotional_need_description,
+          },
+        },
+      )
+    end
+
+    let(:new_emotional_need_name) { Faker::Emotion.unique.noun.capitalize }
+    let(:new_emotional_need_description) { Faker::Company.unique.bs.capitalize }
+
+    it 'updates the specified emotional need' do
+      expect {
+        patch_update
+      }.to change {
+        emotional_need.reload.attributes.values_at(*%w[name description])
+      }.to([new_emotional_need_name, new_emotional_need_description])
+    end
+  end
+end

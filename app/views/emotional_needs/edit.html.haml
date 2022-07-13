@@ -1,0 +1,6 @@
+= form_with model: @emotional_need do |form|
+  %div= form.label :name
+  %div= form.text_field :name
+  %div= form.label :description
+  %div= form.text_area :description
+  %div= form.submit
