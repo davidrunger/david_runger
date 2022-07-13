@@ -4,20 +4,36 @@ div.my1(
 )
   strong {{needSatisfactionRating.emotional_need.name}}:
   div
-    button.need_satisfaction_rating(
+    EmojiButton(
       v-for='ratingValue in RATINGS_RANGE'
-      :class='{selected: needSatisfactionRating.score === ratingValue}'
-      @click='needSatisfactionRating.score = ratingValue'
-    ) {{ratingValue}}
+      :needSatisfactionRating='needSatisfactionRating'
+      :emojis='EMOJIS.get(ratingValue)'
+      :ratingValue='ratingValue'
+      @set-rating-score='(rating) => needSatisfactionRating.score = rating'
+    )
 button.mt1.h3(@click='updateCheckIn') Update Check-in
 </template>
 
 <script>
 import { cloneDeep, range } from 'lodash';
+import EmojiButton from './components/emoji_button.vue';
 
 export default {
+  components: {
+    EmojiButton,
+  },
+
   created() {
     this.RATINGS_RANGE = range(-3, 4);
+    this.EMOJIS = new Map([
+      [-3, ['😢']],
+      [-2, ['😞']],
+      [-1, ['😕']],
+      [0, ['😐']],
+      [1, ['🙂']],
+      [2, ['😀']],
+      [3, ['🥰', '😍', '🤩', '😇', '🥳']],
+    ]);
   },
 
   data() {
@@ -50,18 +66,3 @@ export default {
   props: {},
 };
 </script>
-
-<style lang='scss'>
-button.need_satisfaction_rating {
-  width: 40px;
-  height: 30px;
-  border-radius: 20px;
-  border: none;
-  margin: 0 1px;
-  padding: 5px;
-
-  &.selected {
-    background-color: lightblue;
-  }
-}
-</style>
