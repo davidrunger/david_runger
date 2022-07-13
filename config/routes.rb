@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     end
   end
   resource :marriage, only: %i[show]
-  resources :emotional_needs, only: %i[create edit update]
+  resources :emotional_needs, only: %i[create destroy edit update]
 
   resources :auth_tokens, only: %i[create destroy update]
 

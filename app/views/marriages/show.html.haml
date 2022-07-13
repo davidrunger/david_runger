@@ -1,3 +1,9 @@
+- content_for(:page_assets) do
+  = js_tag('marriage')
+
+- content_for(:extra_css) do
+  = stylesheet_link_tag('marriage')
+
 = link_to('Back to check-ins', check_ins_path)
 %h1
   Manage your marriage
@@ -9,6 +15,8 @@
     %li
       #{emotional_need.name} (#{emotional_need.description})
       = link_to('Edit', edit_emotional_need_path(emotional_need))
+      |
+      = button_to('Delete', emotional_need_path(emotional_need), method: :delete, form_class: 'button_to inline', class: 'link', data: { confirm: "Are you sure you want to delete \"#{emotional_need.name}\"?" })
 %h2 Add an emotional need
 = form_with(model: @marriage.emotional_needs.build) do |form|
   .mb2
