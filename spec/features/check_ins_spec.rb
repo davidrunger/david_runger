@@ -113,7 +113,7 @@ RSpec.describe 'Check-Ins app' do
           marriage.emotional_needs.each do |emotional_need|
             page.find('strong', text: emotional_need.name).
               find(:xpath, '..'). # parent
-              find('button.need_satisfaction_rating', text: /\A#{rating}\z/).
+              find('button', text: /\A#{rating}\z/).
               click
           end
         end
