@@ -111,8 +111,14 @@ RSpec.describe 'Check-Ins app' do
 
         def fill_in_emotional_needs_ratings(rating:)
           marriage.emotional_needs.each do |emotional_need|
-            page.find('strong', text: emotional_need.name).
-              find(:xpath, '..'). # parent
+            grandparent =
+              page.
+                find('strong', text: emotional_need.name).
+                find(:xpath, '../..')
+
+            expect(grandparent.find_all('button').size).to eq(7)
+
+            grandparent.
               find('button', text: /\A#{rating}\z/).
               click
           end

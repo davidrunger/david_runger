@@ -1,8 +1,14 @@
 <template lang='pug'>
-div.my1(
+div.my2(
   v-for='needSatisfactionRating in needSatisfactionRatings'
 )
-  strong {{needSatisfactionRating.emotional_need.name}}:
+  .mb1
+    strong {{needSatisfactionRating.emotional_need.name}}
+    el-tooltip(
+      placement='top-end'
+      :content='needSatisfactionRating.emotional_need.description'
+    )
+      span.circled-text.monospace i
   div
     EmojiButton(
       v-for='ratingValue in RATINGS_RANGE'
@@ -66,3 +72,25 @@ export default {
   props: {},
 };
 </script>
+
+<style scoped>
+.el-tooltip__trigger {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+span.circled-text {
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+</style>
+
+<style>
+.el-popper {
+  max-width: 50%;
+}
+</style>
