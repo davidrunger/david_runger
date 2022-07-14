@@ -22,7 +22,10 @@ class CheckInsController < ApplicationController
   def show
     authorize(@check_in, :show?)
     bootstrap(
-      check_in: @check_in,
+      check_in: ActiveModelSerializers::SerializableResource.new(
+        @check_in,
+        serializer: CheckInSerializer,
+      ),
       need_satisfaction_ratings:
         ActiveModel::Serializer::CollectionSerializer.new(
           @check_in.
