@@ -1,10 +1,11 @@
-%h2 Their answers
+%h2.mb1.mt3 Their answers
 - if @check_in.completed_by_both_partners?
-  - @check_in.partner_ratings.joins(:emotional_need).includes(:emotional_need).order('emotional_needs.name').each do |rating|
-    %div
-      %strong #{rating.emotional_need.name}:
-      = rating.score
-      = link_to('graph', history_emotional_need_path(rating.emotional_need, rated_user: 'self'))
+  .h3
+    - @check_in.partner_ratings.joins(:emotional_need).includes(:emotional_need).order('emotional_needs.name').each do |rating|
+      .mb1
+        #{rating.emotional_need.name}:
+        %strong= rating.score
+        %small= link_to('graph', history_emotional_need_path(rating.emotional_need, rated_user: 'self'))
 - elsif @check_in.completed_by_partner?
   [hidden until you submit your answers]
 - else
