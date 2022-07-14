@@ -31,14 +31,14 @@ class Test::RequirementsResolver
         Test::Tasks::RunRubocop => nil,
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
-        Test::Tasks::RunHtmlControllerTests => [
-          Test::Tasks::CreateDbCopies,
-          Test::Tasks::CompileJavaScript,
-        ],
         Test::Tasks::RunFeatureTests => [
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
           Test::Tasks::EnsureLatestChromedriver,
+        ],
+        Test::Tasks::RunHtmlControllerTests => [
+          Test::Tasks::CreateDbCopies,
+          Test::Tasks::CompileJavaScript,
         ],
 
         # Exit depends on all tasks completing that are actual checks (as opposed to setup steps)
