@@ -51,4 +51,28 @@ RSpec.describe EmotionalNeedsController do
         by(-1)
     end
   end
+
+  describe '#history' do
+    subject(:get_history) { get(:history, params: { id: emotional_need.id }) }
+
+    it 'renders a heading and a chartkick graph' do
+      get_history
+
+      expect(response.body).to have_css('h1', text: emotional_need.name)
+      expect(response.body).to have_text('new Chartkick["LineChart"]')
+    end
+
+    context 'when `rated_user` param is "partner"' do
+      subject(:get_history) do
+        get(:history, params: { id: emotional_need.id, rated_user: 'partner' })
+      end
+
+      it 'renders a heading and a chartkick graph' do
+        get_history
+
+        expect(response.body).to have_css('h1', text: emotional_need.name)
+        expect(response.body).to have_text('new Chartkick["LineChart"]')
+      end
+    end
+  end
 end
