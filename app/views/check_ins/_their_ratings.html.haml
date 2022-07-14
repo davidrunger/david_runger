@@ -4,6 +4,7 @@
     %div
       %strong #{rating.emotional_need.name}:
       = rating.score
+      = link_to('graph', history_emotional_need_path(rating.emotional_need, rated_user: 'self'))
 - elsif @check_in.completed_by_partner?
   [hidden until you submit your answers]
 - else

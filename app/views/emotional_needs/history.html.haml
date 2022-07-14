@@ -1,0 +1,8 @@
+- content_for(:page_assets) do
+  = js_tag('charts')
+
+%a{href: 'javascript:history.back()'} Go back
+
+%h1.center= @emotional_need.name
+
+= line_chart(@rating_data, library: { scales: { y: { max: 3, min: -3, ticks: { maxTicksLimit: 7, stepSize: 1 } } } })
