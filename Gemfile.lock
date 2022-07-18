@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 5eae64396e9579d727d2db1b4e662140cd5cc80e
+  revision: 4e9a178aeb4beb8b1894385b79da3f7338120567
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -305,7 +305,7 @@ GEM
     hashids (1.0.6)
     hashie (5.0.0)
     http_logger (0.7.0)
-    i18n (1.10.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     immigrant (0.3.6)
       activerecord (>= 3.0)
