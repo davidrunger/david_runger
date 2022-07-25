@@ -151,7 +151,14 @@ class Test::RequirementsResolver
 
   CHECK_CAN_BE_SKIPPED_CONDITIONS = {
     Test::Tasks::BuildFixtures => proc { running_locally? },
-    Test::Tasks::RunAnnotate => proc { !db_schema_changed? && !diff_mentions?('annotate') },
+    Test::Tasks::RunAnnotate => proc {
+      !db_schema_changed? &&
+        !diff_mentions?('annotate') &&
+        !files_added_in?('app/models') &&
+        !files_added_in?('app/serializers') &&
+        !files_added_in?('spec/factories') &&
+        !files_added_in?('spec/serializers')
+    },
     Test::Tasks::RunBrakeman => proc {
       (!(haml_files_changed? || ruby_files_changed?) || running_locally?) &&
         !diff_mentions?('brakeman')
