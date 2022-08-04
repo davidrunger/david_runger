@@ -102,11 +102,15 @@ RSpec.describe 'Check-Ins app' do
             end.to eq(true)
             fill_in_emotional_needs_ratings(rating: -2)
             click_button('Update Check-in')
-            expect(page).to have_text("Their answers #{first_emotional_need.name}: 2")
+            expect(page).to have_text(
+              /Their answers #{first_emotional_need.name}igraph -3-2-101😀3/,
+            )
           end
 
           click_button('Update Check-in') # refresh the page by clicking button
-          expect(page).to have_text("Their answers #{first_emotional_need.name}: -2")
+          expect(page).to have_text(
+            /Their answers #{first_emotional_need.name}igraph -3😞-10123/,
+          )
         end
 
         def fill_in_emotional_needs_ratings(rating:)

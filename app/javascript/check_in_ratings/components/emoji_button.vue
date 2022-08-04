@@ -1,7 +1,7 @@
 <template lang="pug">
 button(
-  :class='{selected}'
-  @click='$emit("setRatingScore", ratingValue);'
+  :class='{editable, selected}'
+  @click='handleClick'
 )
   span(v-if='selected') {{emoji}}
   span(v-else) {{ratingValue}}
@@ -21,7 +21,19 @@ export default {
     },
   },
 
+  methods: {
+    handleClick() {
+      if (this.editable) {
+        this.$emit('setRatingScore', this.ratingValue);
+      }
+    },
+  },
+
   props: {
+    editable: {
+      type: Boolean,
+      default: true,
+    },
     emojis: {
       type: Array,
       required: true,
@@ -46,9 +58,23 @@ button {
   border: none;
   margin: 0 1px;
   padding: 5px;
+  cursor: pointer;
+
+  &:not(:hover) {
+    background-color: #e9e9ed;
+  }
 
   &.selected {
     background-color: lightblue;
+  }
+
+  &:not(.editable):hover {
+    background-color: #e9e9ed;
+    cursor: default;
+
+    &.selected {
+      background-color: lightblue;
+    }
   }
 }
 </style>
