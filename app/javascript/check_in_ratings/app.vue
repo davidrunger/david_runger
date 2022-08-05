@@ -4,6 +4,7 @@ h2 Your answers
 Ratings(
   :needSatisfactionRatings='userRatingsOfPartner'
   :editable='true'
+  ratedUser='partner'
 )
 
 hr.my4
@@ -13,6 +14,7 @@ Ratings(
   v-if='partnerRatingsOfUser'
   :needSatisfactionRatings='partnerRatingsOfUser'
   :editable='false'
+  ratedUser='self'
 )
 div(v-else) {{bootstrap.partner_ratings_hidden_reason}}
 </template>
