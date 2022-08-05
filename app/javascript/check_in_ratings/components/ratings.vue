@@ -10,7 +10,7 @@ div.my2(
       :content='needSatisfactionRating.emotional_need.description'
     )
       span.circled-text.monospace i
-    a.ml1(:href='$routes.history_emotional_need_path(needSatisfactionRating.emotional_need.id, { rated_user: "partner" })') graph
+    a.ml1(:href='$routes.history_emotional_need_path(needSatisfactionRating.emotional_need.id, { rated_user: ratedUser })') graph
   div
     EmojiButton(
       v-for='ratingValue in RATINGS_RANGE'
@@ -73,6 +73,10 @@ export default {
     },
     needSatisfactionRatings: {
       type: Array,
+      required: true,
+    },
+    ratedUser: {
+      type: String,
       required: true,
     },
   },
