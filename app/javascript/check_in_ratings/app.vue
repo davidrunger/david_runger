@@ -1,95 +1,39 @@
 <!-- eslint-disable max-len -->
 <template lang='pug'>
-div.my2(
-  v-for='needSatisfactionRating in needSatisfactionRatings'
+h2 Your answers
+Ratings(
+  :needSatisfactionRatings='userRatingsOfPartner'
+  :editable='true'
 )
-  .mb1
-    strong {{needSatisfactionRating.emotional_need.name}}
-    el-tooltip(
-      placement='top-end'
-      :content='needSatisfactionRating.emotional_need.description'
-    )
-      span.circled-text.monospace i
-    a.ml1(:href='$routes.history_emotional_need_path(needSatisfactionRating.emotional_need.id, { rated_user: "partner" })') graph
-  div
-    EmojiButton(
-      v-for='ratingValue in RATINGS_RANGE'
-      :needSatisfactionRating='needSatisfactionRating'
-      :emojis='EMOJIS.get(ratingValue)'
-      :ratingValue='ratingValue'
-      @set-rating-score='(rating) => needSatisfactionRating.score = rating'
-    )
-button.mt1.h3(@click='updateCheckIn') Update Check-in
+
+hr.my4
+
+h2 Their answers
+Ratings(
+  v-if='partnerRatingsOfUser'
+  :needSatisfactionRatings='partnerRatingsOfUser'
+  :editable='false'
+)
+div(v-else) {{bootstrap.partner_ratings_hidden_reason}}
 </template>
 
 <script>
-import { cloneDeep, range } from 'lodash';
-import EmojiButton from './components/emoji_button.vue';
+import { cloneDeep } from 'lodash';
+import Ratings from './components/ratings.vue';
 
 export default {
   components: {
-    EmojiButton,
-  },
-
-  created() {
-    this.RATINGS_RANGE = range(-3, 4);
-    this.EMOJIS = new Map([
-      [-3, ['😢']],
-      [-2, ['😞']],
-      [-1, ['😕']],
-      [0, ['😐']],
-      [1, ['🙂']],
-      [2, ['😀']],
-      [3, ['🥰', '😍', '🤩', '😇', '🥳']],
-    ]);
+    Ratings,
   },
 
   data() {
     return {
-      needSatisfactionRatings: cloneDeep(this.bootstrap.need_satisfaction_ratings),
+      partnerRatingsOfUser: cloneDeep(this.bootstrap.partner_ratings_of_user),
+      userRatingsOfPartner: cloneDeep(this.bootstrap.user_ratings_of_partner),
     };
   },
-
-  methods: {
-    updateCheckIn() {
-      const needSatisfactionPayload = {};
-      this.needSatisfactionRatings.forEach(needSatisfactionRating => {
-        needSatisfactionPayload[needSatisfactionRating.id] =
-          { score: needSatisfactionRating.score };
-      });
-      this.$http.patch(
-        this.$routes.api_check_in_path(this.bootstrap.check_in.id),
-        { json: {
-          check_in: {
-            need_satisfaction_rating: needSatisfactionPayload,
-          },
-        } },
-      ).json().
-        then(() => {
-          window.location.reload(); // refresh page to load spouse's answers (if available)
-        });
-    },
-  },
-
-  props: {},
 };
 </script>
-
-<style scoped>
-.el-tooltip__trigger {
-  display: inline-block;
-  margin-left: 5px;
-}
-
-span.circled-text {
-  border: 1px solid black;
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  text-align: center;
-  font-weight: bold;
-}
-</style>
 
 <style>
 .el-popper {

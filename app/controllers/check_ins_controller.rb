@@ -21,12 +21,12 @@ class CheckInsController < ApplicationController
 
   def show
     authorize(@check_in, :show?)
-    bootstrap(
+    bootstrap_data = {
       check_in: ActiveModelSerializers::SerializableResource.new(
         @check_in,
         serializer: CheckInSerializer,
       ),
-      need_satisfaction_ratings:
+      user_ratings_of_partner:
         ActiveModel::Serializer::CollectionSerializer.new(
           @check_in.
             need_satisfaction_ratings.
@@ -34,7 +34,24 @@ class CheckInsController < ApplicationController
             includes(:emotional_need).
             order('emotional_needs.name'),
         ),
-    )
+    }
+
+    if @check_in.completed_by_both_partners?
+      bootstrap_data[:partner_ratings_of_user] =
+        ActiveModel::Serializer::CollectionSerializer.new(
+          @check_in.
+            need_satisfaction_ratings.
+            where(user: current_user.marriage.decorate.other_partner).
+            includes(:emotional_need).
+            order('emotional_needs.name'),
+        )
+    elsif @check_in.completed_by_partner?
+      bootstrap_data[:partner_ratings_hidden_reason] = '[hidden until you submit your answers]'
+    else
+      bootstrap_data[:partner_ratings_hidden_reason] = "They didn't complete it yet."
+    end
+
+    bootstrap(bootstrap_data)
   end
 
   private
