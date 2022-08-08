@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 0c52d661812c82cc11aaa39e3dc4ccd0c8214e89
+  revision: 0c79b8ea61409a043273300d27fb6b01b5399cd3
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -236,7 +236,7 @@ GEM
       request_store (>= 1.0)
       ruby2_keywords
     dry-cli (0.7.0)
-    erubi (1.10.0)
+    erubi (1.11.0)
     et-orbi (1.2.7)
       tzinfo
     factory_bot (6.2.1)
