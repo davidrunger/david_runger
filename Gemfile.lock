@@ -192,7 +192,7 @@ GEM
       launchy
     case_transform (0.2)
       activesupport
-    chartkick (4.2.0)
+    chartkick (4.2.1)
     childprocess (4.1.0)
     climate_control (1.2.0)
     cliver (0.3.2)
