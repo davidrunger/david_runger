@@ -17,7 +17,7 @@ module RequestRecordable
 
   def store_initial_request_data_in_redis
     $redis_pool.with do |conn|
-      conn.setex(initial_request_data_redis_key, REQUEST_DATA_TTL, request_data.to_json)
+      conn.call('setex', initial_request_data_redis_key, REQUEST_DATA_TTL, request_data.to_json)
     end
   end
 

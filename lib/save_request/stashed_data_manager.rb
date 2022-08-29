@@ -19,7 +19,7 @@ class SaveRequest::StashedDataManager
 
   memoize \
   def initial_stashed_json
-    $redis_pool.with { |conn| conn.get(initial_request_data_redis_key) }
+    $redis_pool.with { |conn| conn.call('get', initial_request_data_redis_key) }
   end
 
   memoize \
@@ -34,7 +34,7 @@ class SaveRequest::StashedDataManager
 
   memoize \
   def final_stashed_json
-    $redis_pool.with { |conn| conn.get(final_request_data_redis_key) }
+    $redis_pool.with { |conn| conn.call('get', final_request_data_redis_key) }
   end
 
   memoize \
@@ -44,7 +44,7 @@ class SaveRequest::StashedDataManager
 
   def delete_request_data
     $redis_pool.with do |conn|
-      conn.del(initial_request_data_redis_key, final_request_data_redis_key)
+      conn.call('del', initial_request_data_redis_key, final_request_data_redis_key)
     end
   end
 end

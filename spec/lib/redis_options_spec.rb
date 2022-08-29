@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 RSpec.describe RedisOptions do
-  subject(:redis_options) { RedisOptions }
+  subject(:redis_options) { RedisOptions.new(db: db_number) }
 
-  describe '::options' do
-    subject(:options) do
-      redis_options.options(db: db_number)
-    end
+  let(:db_number) { 2 }
 
-    let(:db_number) { 2 }
+  describe '#url' do
+    subject(:url) { redis_options.url }
 
     context 'when Rails.env is "development"', rails_env: :development do
-      it 'returns a localhost URL' do
-        expect(options[:url]).to eq("redis://localhost:6379/#{db_number}")
+      it 'returns a localhost URL with a database path' do
+        expect(url).to eq('redis://localhost:6379/2')
       end
     end
 
@@ -22,8 +20,8 @@ RSpec.describe RedisOptions do
 
         around { |spec| ClimateControl.modify(REDIS_URL: redis_url) { spec.run } }
 
-        it 'uses the Redis url' do
-          expect(options).to eq(url: "#{redis_url}/#{db_number}")
+        it 'returns the Redis url with a database path' do
+          expect(url).to eq("#{redis_url}/#{db_number}")
         end
       end
     end

@@ -6,8 +6,8 @@ class IpBlocks::StoreRequestBlockInRedis < ApplicationAction
 
   def execute
     $redis_pool.with do |conn|
-      conn.hset(redis_hash_key, path, Time.current.to_i)
-      conn.expire(redis_hash_key, Integer(Rack::Attack::PENTESTING_FINDTIME))
+      conn.call('hset', redis_hash_key, path, Time.current.to_i)
+      conn.call('expire', redis_hash_key, Integer(Rack::Attack::PENTESTING_FINDTIME))
     end
   end
 

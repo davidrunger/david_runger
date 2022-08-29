@@ -15,7 +15,11 @@ db_number =
     # :nocov:
   end
 
-$redis_pool =
-  ConnectionPool.new(size: 3, timeout: 1) do
-    Redis.new(**RedisOptions.options(db: db_number))
+redis_options = RedisOptions.new(db: db_number)
+redis_config = RedisClient.config(url: redis_options.url)
+$redis_pool = redis_config.new_pool(size: Integer(ENV.fetch('RAILS_MAX_THREADS', 3)))
+
+$redis_rb_pool =
+  ConnectionPool.new(size: 1, timeout: 1) do
+    Redis.new(url: RedisOptions.new(db: db_number).url)
   end
