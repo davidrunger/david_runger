@@ -48,7 +48,7 @@
     "keycode": "^2.2.1",
     "ky": "^0.31.1",
     "lodash-es": "^4.17.21",
-    "marked": "^4.0.19",
+    "marked": "^4.1.0",
     "normalize.css": "^8.0.1",
     "pug": "^3.0.2",
     "strftime": "^0.10.1",
