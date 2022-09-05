@@ -22,7 +22,7 @@
     "@rails/actioncable": "^7.0.3",
     "@rails/ujs": "^7.0.3",
     "@vitejs/plugin-vue": "^3.0.3",
-    "@vue/compiler-sfc": "^3.2.37",
+    "@vue/compiler-sfc": "^3.2.38",
     "babel-polyfill": "^6.23.0",
     "basscss": "^8.1.0",
     "basscss-background-colors": "^2.1.0",
