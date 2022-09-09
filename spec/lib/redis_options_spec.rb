@@ -18,12 +18,12 @@ RSpec.describe RedisOptions do
 
     context 'when Rails.env is "production"', rails_env: :production do
       context 'when Redis credentials are present' do
-        let(:tls_url) { 'rediss://:p4ssw0rd@10.0.1.1:6380' }
+        let(:redis_url) { 'redis://:p4ssw0rd@10.0.1.1:6380' }
 
-        around { |spec| ClimateControl.modify(REDIS_TLS_URL: tls_url) { spec.run } }
+        around { |spec| ClimateControl.modify(REDIS_URL: redis_url) { spec.run } }
 
-        it 'uses the Redis TLS url' do
-          expect(options[:url]).to eq("#{tls_url}/#{db_number}")
+        it 'uses the Redis url' do
+          expect(options).to eq(url: "#{redis_url}/#{db_number}")
         end
       end
     end

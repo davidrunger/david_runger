@@ -25,7 +25,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  config.require_master_key = ENV['HEROKU_PR_NUMBER'].nil?
+  config.require_master_key = true
 
   config.public_file_server.enabled = true
 
@@ -42,15 +42,13 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
-  if ENV.fetch('HEROKU_APP_NAME', nil) == 'davidrunger'
-    if [
-      Rails.application.credentials.aws&.dig(:access_key_id),
-      Rails.application.credentials.aws&.dig(:secret_access_key),
-    ].all?(&:present?)
-      config.active_storage.service = :amazon
-    else
-      raise(':amazon storage cannot be enabled because not all required ENV variables are present')
-    end
+  if [
+    Rails.application.credentials.aws&.dig(:access_key_id),
+    Rails.application.credentials.aws&.dig(:secret_access_key),
+  ].all?(&:present?)
+    config.active_storage.service = :amazon
+  else
+    raise(':amazon storage cannot be enabled because not all required credentials are present')
   end
 
   # Mount Action Cable outside main process or domain.
@@ -71,11 +69,8 @@ Rails.application.configure do
   # Use a different cache store in production.
   config.cache_store =
     :mem_cache_store,
-    Rails.application.credentials.memcachier&.fetch(:servers),
-    {
-      password: Rails.application.credentials.memcachier&.fetch(:password),
-      username: Rails.application.credentials.memcachier&.fetch(:username),
-    }
+    ENV.fetch('MEMCACHED_URL'),
+    { password: ENV.fetch('MEMCACHED_PASSWORD') }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque

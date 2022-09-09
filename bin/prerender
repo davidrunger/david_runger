@@ -10,7 +10,7 @@ require 'aws-sdk-s3'
 require 'dotenv/load' if ENV.fetch('CI', nil) != 'true'
 require 'ferrum'
 require 'nokogiri'
-require 'pry-byebug' if ENV.fetch('CI', nil) != 'true'
+require 'debug' if ENV.fetch('CI', nil) != 'true'
 
 class Prerenderer
   def initialize
@@ -31,9 +31,12 @@ class Prerenderer
   private
 
   def upload_prerender_to_s3(filename:, html:)
+    git_sha = `git rev-parse HEAD`.strip
+    raise('Could not determine git SHA!') if git_sha.empty?
+
     Aws::S3::Resource.new(region: 'us-east-1').
       bucket('david-runger-uploads').
-      object("prerenders/#{ENV.fetch('GITHUB_SHA')}/#{filename}").
+      object("prerenders/#{git_sha}/#{filename}").
       put(body: html_for_prerendering(html))
   rescue => error
     puts("Error uploading object: #{error.inspect}")
@@ -58,5 +61,5 @@ class Prerenderer
 end
 
 prerenderer = Prerenderer.new
-prerenderer.prerender(url: 'https://davidrunger.com', filename: 'home.html')
+prerenderer.prerender(url: 'https://runger.party', filename: 'home.html')
 prerenderer.quit_browser

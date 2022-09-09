@@ -57,6 +57,7 @@ group :development, :test do
   gem 'amazing_print'
   gem 'annotate', require: false
   gem 'bullet'
+  gem 'debug', require: false
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'immigrant'
   gem 'rubocop', require: false
@@ -70,7 +71,6 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'debug', require: false
   gem 'http_logger'
   gem 'letter_opener'
   gem 'listen'

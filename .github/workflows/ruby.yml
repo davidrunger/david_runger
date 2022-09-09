@@ -88,19 +88,26 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Deploy To Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Clone repo
+        uses: actions/checkout@master
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: davidrunger
-          heroku_email: davidjrunger@gmail.com
+          fetch-depth: 0
+
+      - name: Deploy to Dokku
+        uses: dokku/github-action@master
+        with:
+          git_push_flags: --force -vvv
+          git_remote_url: 'ssh://dokku@198.199.122.6:22/davidrunger'
+          ssh_private_key: ${{secrets.SSH_PRIVATE_KEY}}
+
       - run: sleep 60 # give some time for the new release to boot up
+
       - name: Set up Ruby 3.1.2
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.1.2
           bundler-cache: true
+
       - name: Prerender page(s) and upload them to S3
         run: bin/prerender
         env:

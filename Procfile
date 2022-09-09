@@ -1,2 +1,3 @@
-web: "$(ls vendor/foreman/gems/foreman-*/bin/foreman)" start -f Procfile.multi
+web: bin/rails server -p $PORT -e $RAILS_ENV
+worker: bin/sidekiq --config config/sidekiq.yml
 release: bin/release-tasks

@@ -1,2 +1,0 @@
-web: WEB_CONCURRENCY=0 bin/rails server -p $PORT -e $RAILS_ENV
-sidekiq: bin/sidekiq --config config/sidekiq.yml
