@@ -62,11 +62,6 @@ class ApplicationController < ActionController::Base
   # add additional data here for inclusion in logs
   def append_info_to_payload(payload)
     super(payload)
-    if Flipper.enabled?(:extra_request_logging)
-      Rails.logger.info("request.ip: #{request.ip}")
-      Rails.logger.info("request.remote_ip: #{request.remote_ip}")
-      Rails.logger.info("request.headers.to_h: #{request.headers.to_h}")
-    end
     payload[:ip] = request.remote_ip
     payload[:admin_user_id] = current_admin_user.id if current_admin_user.present?
     payload[:user_id] = current_user.id if current_user.present?
