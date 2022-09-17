@@ -562,7 +562,7 @@ GEM
       activemodel (>= 6, < 8)
       activesupport (>= 6, < 8)
     shellany (0.0.1)
-    shoulda-matchers (5.1.0)
+    shoulda-matchers (5.2.0)
       activesupport (>= 5.2.0)
     sidekiq (6.5.6)
       connection_pool (>= 2.2.5)
