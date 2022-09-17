@@ -61,5 +61,5 @@ class Prerenderer
 end
 
 prerenderer = Prerenderer.new
-prerenderer.prerender(url: 'https://runger.party', filename: 'home.html')
+prerenderer.prerender(url: 'https://davidrunger.com', filename: 'home.html')
 prerenderer.quit_browser
