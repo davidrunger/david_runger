@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 772e4cca174726fb6be852c8e57721ca315a2e11
+  revision: fba7881e5e699a7234a83513a89dcb129ac6bbb7
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -353,7 +353,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.18.0)
+    loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.2.8)
