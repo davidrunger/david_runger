@@ -16,6 +16,6 @@ db_number =
   end
 
 $redis_pool =
-  ConnectionPool.new(size: 5, timeout: 1) do
+  ConnectionPool.new(size: 3, timeout: 1) do
     Redis.new(**RedisOptions.options(db: db_number))
   end
