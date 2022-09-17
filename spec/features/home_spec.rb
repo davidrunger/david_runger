@@ -16,7 +16,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
   # we need to use the :rack_test driver because Chrome doesn't have the page.driver.header method
   context 'when there is an `X-Request-Start` HTTP header', :rack_test_driver do
-    before { page.driver.header('X-Request-Start', (Time.current.to_f * 1_000.0).round.to_s) }
+    before { page.driver.header('X-Request-Start', Time.current.to_f.round(3).to_s) }
 
     context 'when there is a `User-Agent` header' do
       before { page.driver.header('User-Agent', user_agent) }

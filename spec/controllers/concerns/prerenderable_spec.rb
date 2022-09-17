@@ -18,9 +18,9 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
   describe '#serve_prerender_with_fallback', :fake_aws_credentials do
     subject(:get_index) { get(:index) }
 
-    context 'when ENV["HEROKU_SLUG_COMMIT"] is set' do
+    context 'when ENV["GIT_REV"] is set' do
       around do |spec|
-        ClimateControl.modify(HEROKU_SLUG_COMMIT: commit_sha) do
+        ClimateControl.modify(GIT_REV: commit_sha) do
           spec.run
         end
       end

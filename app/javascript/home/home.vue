@@ -77,6 +77,12 @@
           details='Because looking good is half the battle! Love that flexbox. :)'
         )
         SkillRow(
+          name='Dokku'
+          details='An open-source alternative to Heroku. (This site runs on Dokku!)'
+        )
+          template(v-slot:image)
+            img(src='~img/dokku.svg' alt='Dokku')
+        SkillRow(
           name='Elasticsearch'
           details='A fast, powerful, and flexible search backend.'
         )

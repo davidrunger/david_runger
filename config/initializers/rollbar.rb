@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rollbar.configure do |config|
-  code_version = ENV.fetch('SOURCE_VERSION', nil) || ENV.fetch('HEROKU_SLUG_COMMIT', nil) rescue nil
+  code_version = ENV.fetch('GIT_REV', nil)
 
   config.access_token = Rails.application.credentials.rollbar&.dig(:access_token)
   config.code_version = code_version

@@ -15,8 +15,7 @@ db_number =
     # :nocov:
   end
 
-# See comments in config/initializers/sidekiq.rb for rationale re: pool size of 2.
 $redis_pool =
-  ConnectionPool.new(size: 2, timeout: 1) do
+  ConnectionPool.new(size: 5, timeout: 1) do
     Redis.new(**RedisOptions.options(db: db_number))
   end
