@@ -6,16 +6,16 @@ require 'sidekiq-scheduler' if Sidekiq.server?
 build_sidekiq_redis_connection = proc { Redis.new(**RedisOptions.options(db: 1)) }
 
 Sidekiq.configure_client do |config|
-  config.redis = ConnectionPool.new(size: 10, &build_sidekiq_redis_connection)
+  config.redis = ConnectionPool.new(size: 3, &build_sidekiq_redis_connection)
 end
 
 Sidekiq.configure_server do |config|
   # Sidekiq Server Connection Pool size:
   # This is `(max_)concurrency + 5`.
-  # For concurrency (5), see config/sidekiq.yml.
+  # For concurrency (3), see config/sidekiq.yml.
   # For why we are adding 5, see https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control
   # :nocov:
-  config.redis = ConnectionPool.new(size: 10, &build_sidekiq_redis_connection)
+  config.redis = ConnectionPool.new(size: 8, &build_sidekiq_redis_connection)
 
   require 'sidekiq_ext/job_logger'
   config[:job_logger] = SidekiqExt::JobLogger
