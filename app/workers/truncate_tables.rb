@@ -10,7 +10,7 @@ class TruncateTables
   SQL
 
   def self.max_allowed_rows
-    Integer(ENV.fetch('MAX_TABLE_ROWS', 800))
+    Integer(ENV.fetch('MAX_TABLE_ROWS', 10_000))
   end
 
   def self.print_row_counts
