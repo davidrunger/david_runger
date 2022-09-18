@@ -10,12 +10,12 @@
 
 :schedule:
   InvalidRecordsCheck::Launcher:
-    cron: '23 8 * * *' # daily at 8:23am PT
+    cron: '23 8 * * *' # daily at 8:23am CT
   <% if %w[production test].include?(ENV['RAILS_ENV']) %>
   DataMonitors::Launcher:
     cron: '4-59/5 * * * *' # every 5 minutes (offset by 4 minutes)
   SendLogReminderEmails:
     cron: '* * * * *' # every minute
   TruncateTables:
-    cron: '33 * * * *' # hourly at 33 minutes after
+    cron: '58 4 * * *' # daily at 4:58am CT
   <% end %>
