@@ -37,7 +37,8 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
   }
 
   $redis_pool.with do |conn|
-    conn.setex(
+    conn.call(
+      'setex',
       "request_data:#{request_id}:final",
       ::RequestRecordable::REQUEST_DATA_TTL,
       final_request_data.to_json,

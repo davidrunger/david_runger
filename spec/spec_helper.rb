@@ -186,7 +186,7 @@ RSpec.configure do |config|
   config.before(:each) do
     Rack::Attack.reset!
     RedisConfig.clear!
-    $redis_pool.with { |conn| conn.flushdb } # rubocop:disable Style/SymbolProc
+    $redis_pool.with { |conn| conn.call('flushdb') }
   end
 
   config.before(:each, request_format: :json) do

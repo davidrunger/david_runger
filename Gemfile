@@ -39,13 +39,14 @@ gem 'pundit'
 gem 'rack-attack'
 gem 'rails'
 gem 'redis'
+gem 'redis-client'
 gem 'redlock'
 gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
-gem 'sidekiq-scheduler', require: false
+gem 'sidekiq-scheduler', github: 'sidekiq-scheduler/sidekiq-scheduler', require: false
 gem 'sprockets-rails'
 gem 'vite_rails'
 

@@ -8,7 +8,7 @@ class CreateIpBlock
     if ip_block.new_record?
       block_reason =
         $redis_pool.
-          with { |conn| conn.hgetall("blocked-requests:#{ip}") }.
+          with { |conn| conn.call('hgetall', "blocked-requests:#{ip}") }.
           transform_values { Integer(_1) }.
           filter_map do |path, unix_time|
             if unix_time >= Integer(Rack::Attack::PENTESTING_FINDTIME.ago)
