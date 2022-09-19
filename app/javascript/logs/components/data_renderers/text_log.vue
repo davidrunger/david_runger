@@ -30,7 +30,7 @@ export default {
         logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
       }
 
-      return logEntriesToShow.reverse();
+      return logEntriesToShow.slice().reverse();
     },
   },
 
