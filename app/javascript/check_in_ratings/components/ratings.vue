@@ -5,11 +5,13 @@ div.my2(
 )
   .mb1
     strong {{needSatisfactionRating.emotional_need.name}}
-    el-tooltip(
+    el-popover(
       placement='top-end'
+      trigger='click'
       :content='needSatisfactionRating.emotional_need.description'
     )
-      span.circled-text.monospace i
+      template(#reference)
+        span.circled-text.monospace.js-link i
     a.ml1(:href='$routes.history_emotional_need_path(needSatisfactionRating.emotional_need.id, { rated_user: ratedUser })') graph
   div
     EmojiButton(
@@ -86,7 +88,7 @@ export default {
 <style scoped>
 .el-tooltip__trigger {
   display: inline-block;
-  margin-left: 5px;
+  margin-left: 3px;
 }
 
 span.circled-text {
@@ -96,5 +98,12 @@ span.circled-text {
   height: 16px;
   text-align: center;
   font-weight: bold;
+}
+</style>
+
+<style>
+.el-popover.el-popper {
+  word-break: initial !important;
+  text-align: initial !important;
 }
 </style>
