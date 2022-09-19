@@ -5,8 +5,10 @@ class Api::CheckInsController < ApplicationController
 
   def update
     authorize(@check_in, :update?)
+    need_satisfaction_ratings =
+      @check_in.need_satisfaction_ratings.includes(%i[check_in emotional_need user])
     check_in_params[:need_satisfaction_rating].each do |id, attributes|
-      need_satisfaction_rating = NeedSatisfactionRating.find(id)
+      need_satisfaction_rating = need_satisfaction_ratings.detect { _1.id == Integer(id) }
       authorize(need_satisfaction_rating, :update?)
       need_satisfaction_rating.update!(attributes)
     end
