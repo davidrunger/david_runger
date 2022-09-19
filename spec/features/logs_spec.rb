@@ -34,12 +34,13 @@ RSpec.describe 'Logs app' do
       context 'when there are no entries yet for the text log' do
         before { log.log_entries.find_each(&:destroy!) }
 
-        it 'allows the user to submit their first and second entry for the log' do
+        it 'allows the user to submit log entries and edit them' do
           visit(log_path(slug: log.slug))
 
+          # Add first log entry
           first_log_entry_text = 'Some great text log entry content!'
           expect {
-            first(:css, '.new-log-input textarea').native.send_keys(first_log_entry_text)
+            first('.new-log-input textarea').native.send_keys(first_log_entry_text)
             click_button('Add')
             expect(page).to have_text(first_log_entry_text) # wait for AJAX request to complete
           }.to change {
@@ -49,9 +50,10 @@ RSpec.describe 'Logs app' do
           last_log_entry = log.log_entries.reorder(:created_at).last!
           expect(last_log_entry.data).to eq(first_log_entry_text)
 
+          # Add second log entry
           second_log_entry_text = 'Even more great content!'
           expect {
-            first(:css, '.new-log-input textarea').native.send_keys(second_log_entry_text)
+            first('.new-log-input textarea').native.send_keys(second_log_entry_text)
             click_button('Add')
             expect(page).to have_text(second_log_entry_text) # wait for AJAX request to complete
             expect(page).to have_text(first_log_entry_text) # confirm first log entry's still there
@@ -61,6 +63,15 @@ RSpec.describe 'Logs app' do
 
           last_log_entry = log.log_entries.reorder(:created_at).last!
           expect(last_log_entry.data).to eq(second_log_entry_text)
+
+          # Edit second log entry (and verify that correct order is preserved)
+          first('a', text: 'Edit').click
+          added_edit_text = ' Added text!'
+          first('.text-log-table textarea').send_keys(added_edit_text)
+          first('button', text: 'Save').click
+          expect(page).to have_text(
+            /#{second_log_entry_text}#{added_edit_text}.*#{first_log_entry_text}/,
+          )
         end
       end
 
