@@ -3,7 +3,7 @@
   .container
     table.text-log-table
       EditableTextLogRow(
-        v-for='logEntry in formattedLogEntries'
+        v-for='logEntry in sortedLogEntries'
         :key='logEntry.id'
         :logEntry='logEntry'
       )
@@ -12,14 +12,8 @@
 </template>
 
 <script>
-import createDOMPurify from 'dompurify';
-import { marked } from 'marked';
-import strftime from 'strftime';
-
 import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';
 import NewLogEntryForm from '@/logs/components/new_log_entry_form.vue';
-
-const DOMPurify = createDOMPurify(window);
 
 export default {
   components: {
@@ -28,7 +22,7 @@ export default {
   },
 
   computed: {
-    formattedLogEntries() {
+    sortedLogEntries() {
       let logEntriesToShow;
       if (this.showAllEntries || (this.log_entries.length <= 3)) {
         logEntriesToShow = this.log_entries;
@@ -36,15 +30,7 @@ export default {
         logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
       }
 
-      const sortedAndFormattedEntries =
-        logEntriesToShow.map(logEntry => ({
-          id: logEntry.id,
-          createdAt: strftime('%b %-d %-l:%M%P', new Date(logEntry.created_at)),
-          plaintext: logEntry.data,
-          html: DOMPurify.sanitize(marked(logEntry.data)),
-        })).reverse();
-
-      return sortedAndFormattedEntries;
+      return logEntriesToShow.reverse();
     },
   },
 
@@ -124,7 +110,7 @@ table.text-log-table {
   }
 
   td {
-    padding: 10px 0;
+    padding: 5px 10px;
     word-break: initial;
     white-space: pre-wrap;
     line-height: 1.13rem;
