@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 ruby '3.1.2'
 
 gem 'active_actions', github: 'davidrunger/active_actions'
-gem 'activeadmin'
+gem 'activeadmin', require: false # manually require for web processes to save memory elsewhere
 gem 'active_model_serializers'
 gem 'auto_strip_attributes'
 gem 'aws-sdk-s3'

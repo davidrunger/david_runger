@@ -83,7 +83,7 @@ Rails.application.routes.draw do
     get '/admin_users/auth/google_oauth2/callback' => 'admin/omniauth_callbacks#google_oauth2'
     delete '/admin_users/sign_out', to: 'devise/sessions#destroy', as: :destroy_admin_user_session
   end
-  ActiveAdmin.routes(self)
+  ActiveAdmin.routes(self) if defined?(Rails::Server) || (ENV['RAILS_ENV'] == 'test')
 
   authenticate :admin_user do
     mount Sidekiq::Web => '/sidekiq'
