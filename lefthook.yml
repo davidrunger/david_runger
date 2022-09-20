@@ -1,0 +1,10 @@
+pre-commit:
+  commands:
+    gitleaks:
+      run: gitleaks protect --staged --verbose &> /dev/null
+
+skip_output:
+  - meta
+  - success
+  - summary
+  - execution
