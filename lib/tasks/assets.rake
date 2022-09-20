@@ -13,7 +13,7 @@ namespace :assets do
   desc 'Boot a server in development that serves assets in a production-like manner'
   task :production_asset_server do
     run_logged_system_command('rm -rf node_modules/')
-    run_logged_system_command('rm -rf public/vite/ public/vite-dev/')
+    run_logged_system_command('rm -rf public/vite/')
     run_logged_system_command('rm -f app/javascript/rails_assets/routes.js')
     run_logged_system_command('DISABLE_SPRING=1 bin/rails build_js_routes')
     run_logged_system_command('NODE_ENV=production yarn install')
