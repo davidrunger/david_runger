@@ -1,7 +1,7 @@
-pre-commit:
+pre-push:
   commands:
     gitleaks:
-      run: gitleaks protect --staged --verbose &> /dev/null
+      run: gitleaks detect --log-opts="master...HEAD" --verbose &> /dev/null
 
 skip_output:
   - meta
