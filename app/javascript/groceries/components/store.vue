@@ -45,6 +45,7 @@ div.mt1.mb2.ml3.mr2
     .ml1
       el-button.flex-0.button.button-outline(
         native-type='submit'
+        :disabled='v$.$invalid'
       ) Add
 
   .items-list.mt0.mb0
@@ -81,6 +82,8 @@ import { mapGetters, mapState } from 'vuex';
 import { sortBy } from 'lodash-es';
 import ClipboardJS from 'clipboard';
 import { EditIcon } from 'vue-tabler-icons';
+import { required } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
 
 import Item from './item.vue';
 
@@ -88,6 +91,24 @@ export default {
   components: {
     EditIcon,
     Item,
+  },
+
+  computed: {
+    ...mapGetters([
+      'debouncingOrWaitingOnNetwork',
+    ]),
+
+    ...mapState([
+      'current_user',
+    ]),
+
+    neededItems() {
+      return this.sortItems(this.store.items.filter(item => item.needed > 0));
+    },
+
+    sortedItems() {
+      return this.sortItems(this.store.items);
+    },
   },
 
   data() {
@@ -108,24 +129,6 @@ export default {
       this.wasCopiedRecently = true;
       setTimeout(() => { this.wasCopiedRecently = false; }, 3000);
     });
-  },
-
-  computed: {
-    ...mapGetters([
-      'debouncingOrWaitingOnNetwork',
-    ]),
-
-    ...mapState([
-      'current_user',
-    ]),
-
-    neededItems() {
-      return this.sortItems(this.store.items.filter(item => item.needed > 0));
-    },
-
-    sortedItems() {
-      return this.sortItems(this.store.items);
-    },
   },
 
   methods: {
@@ -216,6 +219,14 @@ export default {
       type: Object,
       required: true,
     },
+  },
+
+  setup: () => ({ v$: useVuelidate() }),
+
+  validations() {
+    return {
+      newItemName: { required },
+    };
   },
 };
 </script>
