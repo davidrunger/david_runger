@@ -20,7 +20,7 @@
       | {{item.name}}
       |
       a.js-link.gray(@click='editItemName')
-        font-awesome-icon(icon='fa-regular fa-edit')
+        edit-icon(size='22')
     | &nbsp;
     span ({{item.needed}})
     .delete.h2.pl1.pr1.js-link.right.red(
@@ -31,8 +31,13 @@
 
 <script>
 import { debounce } from 'lodash-es';
+import { EditIcon } from 'vue-tabler-icons';
 
 export default {
+  components: {
+    EditIcon,
+  },
+
   data() {
     return {
       editingName: false,

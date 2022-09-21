@@ -11,7 +11,7 @@ div.mt1.mb2.ml3.mr2
     )
     span(v-if='!editingName') {{ store.name }}
     a.edit-store.js-link.gray.ml1(@click='editStoreName')
-      font-awesome-icon(icon='fa-regular fa-edit')
+      edit-icon(size='27')
     span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
   div.mb2
     el-button(id="show-modal" @click='initializeTripCheckinModal()').
@@ -32,7 +32,7 @@ div.mt1.mb2.ml3.mr2
     p.pre-wrap(v-else)
       | {{store.notes || 'No notes yet'}}
       a.edit-store.js-link.gray.ml1(@click='editStoreNotes')
-        font-awesome-icon(icon='fa-regular fa-edit')
+        edit-icon(size='18' style='vertical-align: -0.2rem;')
 
   form.flex(@submit.prevent='postNewItem')
     .float-left
@@ -80,11 +80,13 @@ div.mt1.mb2.ml3.mr2
 import { mapGetters, mapState } from 'vuex';
 import { sortBy } from 'lodash-es';
 import ClipboardJS from 'clipboard';
+import { EditIcon } from 'vue-tabler-icons';
 
 import Item from './item.vue';
 
 export default {
   components: {
+    EditIcon,
     Item,
   },
 
@@ -236,6 +238,10 @@ export default {
 </style>
 
 <style lang='scss'>
+.icon-tabler-edit {
+  vertical-align: -0.3rem;
+}
+
 .toastify {
   &.error {
     background: #d42b2b;
