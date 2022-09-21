@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :emotional_need do
-    name { Faker::Emotion.unique.noun.capitalize }
+    name { "#{Faker::Emotion.unique.noun.capitalize}-#{SecureRandom.alphanumeric(5)}" }
     description { Faker::Company.unique.bs.capitalize }
   end
 end
