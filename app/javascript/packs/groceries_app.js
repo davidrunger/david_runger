@@ -1,7 +1,4 @@
 import { createStore } from 'vuex';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faEdit } from '@fortawesome/free-regular-svg-icons';
 
 import { renderApp } from '@/shared/customized_vue';
 import { useKy } from '@/shared/ky';
@@ -15,9 +12,6 @@ const app = renderApp(Groceries);
 app.component('Modal', Modal);
 useKy(app);
 useElementPlus(app);
-
-library.add(faEdit);
-app.component('font-awesome-icon', FontAwesomeIcon);
 
 const store = createStore({
   ...storeDefinition,
