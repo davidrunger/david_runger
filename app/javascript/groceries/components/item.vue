@@ -20,7 +20,7 @@
       | {{item.name}}
       |
       a.js-link.gray(@click='editItemName')
-        edit-icon(size='22')
+        edit-icon(size='17')
     | &nbsp;
     span ({{item.needed}})
     .delete.h2.pl1.pr1.js-link.right.red(

@@ -32,7 +32,7 @@ div.mt1.mb2.ml3.mr2
     p.pre-wrap(v-else)
       | {{store.notes || 'No notes yet'}}
       a.edit-store.js-link.gray.ml1(@click='editStoreNotes')
-        edit-icon(size='18' style='vertical-align: -0.2rem;')
+        edit-icon(size='18')
 
   form.flex(@submit.prevent='postNewItem')
     .float-left
@@ -234,28 +234,5 @@ export default {
   &:hover {
     color: black;
   }
-}
-</style>
-
-<style lang='scss'>
-.icon-tabler-edit {
-  vertical-align: -0.3rem;
-}
-
-.toastify {
-  &.error {
-    background: #d42b2b;
-  }
-
-  &.success {
-    background: #219b21;
-  }
-}
-
-// double the `.toastify-center` class to ensure it has higher precedence than the library's CSS
-.toastify-center.toastify-center {
-  left: inherit;
-  right: 50%;
-  transform: translateX(50%);
 }
 </style>

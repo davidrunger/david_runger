@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 #groceries-app {
   font-size: 0.95rem;
 }
@@ -56,5 +56,26 @@ html.webp {
   main {
     background-image: url("../../assets/images/beach-background.webp");
   }
+}
+
+.toastify {
+  &.error {
+    background: #d42b2b;
+  }
+
+  &.success {
+    background: #219b21;
+  }
+}
+
+// double the `.toastify-center` class to ensure it has higher precedence than the library's CSS
+.toastify-center.toastify-center {
+  left: inherit;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.icon-tabler {
+  vertical-align: bottom;
 }
 </style>
