@@ -68,7 +68,7 @@ class DavidRunger::Application < Rails::Application
   ENV['FIXTURES_PATH'] = 'spec/fixtures'
 
   # Time until incoming mail incineration. Default is 30 days, but we don't need that long.
-  config.action_mailbox.incinerate_after = 1.minute
+  config.action_mailbox.incinerate_after = 1.week
 
   # https://github.com/hotwired/turbo-rails/blob/9d53529/README.md#compatibility-with-rails-ujs
   config.action_view.form_with_generates_remote_forms = false
