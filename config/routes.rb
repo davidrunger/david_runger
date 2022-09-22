@@ -95,11 +95,6 @@ Rails.application.routes.draw do
     'google83c07e1014ea4a70',
     to: ->(_env) { [200, {}, ['google-site-verification: google83c07e1014ea4a70.html']] },
   )
-  # detectify route verification
-  get(
-    '7ee411f3bc50160c876708bdda166787.txt',
-    to: ->(_env) { [200, {}, ['detectify']] },
-  )
 
   get '/404', to: 'errors#not_found', via: :all
   get '/422', to: 'errors#unacceptable', via: :all
