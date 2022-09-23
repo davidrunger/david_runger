@@ -8,7 +8,14 @@ module Prerenderable
     if prerendered_html
       if prerendered_html.include?(expected_content)
         # rubocop:disable Rails/OutputSafety
-        render html: html_with_webp_class_if_supported(prerendered_html).html_safe, layout: false
+        render(
+          layout: false,
+          html:
+            prerendered_html.
+              then { html_with_webp_class_if_supported(_1) }.
+              then { html_with_nonced_scripts(_1) }.
+              html_safe,
+        )
         # rubocop:enable Rails/OutputSafety
       else
         Rails.logger.info(<<~LOG)
@@ -56,6 +63,11 @@ module Prerenderable
       html.gsub!(%r{(href|src)="/vite/assets/}, '\1="https://davidrunger.com/vite/assets/')
     end
 
+    html
+  end
+
+  def html_with_nonced_scripts(html)
+    html.gsub!(/<script +nonce="" *>/, %(<script nonce="#{content_security_policy_nonce}">))
     html
   end
 
