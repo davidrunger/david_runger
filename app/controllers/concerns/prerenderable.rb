@@ -53,7 +53,7 @@ module Prerenderable
   def html_with_absolutized_asset_paths(html)
     if Rails.env.development?
       # convert relative asset paths to absolute paths pointing to davidrunger.com
-      html.gsub!(%r{(href|src)="/packs/}, '\1="https://davidrunger.com/packs/')
+      html.gsub!(%r{(href|src)="/vite/assets/}, '\1="https://davidrunger.com/vite/assets/')
     end
 
     html
