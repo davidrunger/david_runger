@@ -8,7 +8,15 @@
 
 Rails.application.configure do
   config.content_security_policy do |policy|
-    extra_sources = (Rails.env.development? && !ENV.key?('PRODUCTION_ASSET_CONFIG')) ? %i[ws] : []
+    extra_sources = []
+    if Rails.env.development?
+      # :nocov:
+      extra_sources << 'https://davidrunger.com' # allow assets from production for local prerenders
+      if !ENV.key?('PRODUCTION_ASSET_CONFIG')
+        extra_sources << 'ws' # for vite live reloading websockets server
+      end
+      # :nocov:
+    end
 
     policy.default_src(:none)
     policy.base_uri(:self)
