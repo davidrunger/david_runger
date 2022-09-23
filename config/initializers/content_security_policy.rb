@@ -10,7 +10,8 @@ Rails.application.configure do
   config.content_security_policy do |policy|
     extra_sources = (Rails.env.development? && !ENV.key?('PRODUCTION_ASSET_CONFIG')) ? %i[ws] : []
 
-    policy.default_src(:self, :https, *extra_sources)
+    policy.default_src(:none)
+    policy.connect_src(:self)
     policy.font_src(:self, :https, :data, *extra_sources)
     policy.img_src(:self, :https, :data, *extra_sources)
     policy.object_src(:none)
