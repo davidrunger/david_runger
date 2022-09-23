@@ -7,7 +7,11 @@
     link.rel = 'preload'
     link.href = '#{devicon_href}'
     link.as = 'style'
-    link.onload = () => { link.onload = null; link.rel = 'stylesheet'; };
+    link.onload = () => {
+    link.onload = null;
+    link.rel = 'stylesheet';
+    link.setAttribute('data-lazyloader-state', 'spent');
+    };
     document.head.appendChild(link);
   %noscript
     %link{rel: "stylesheet", href: devicon_href}
