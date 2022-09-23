@@ -10,10 +10,8 @@
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
     header#header.flex-grow-1.flex.bg-black.col-12.relative
       .font-size-2.js-link.js-scroll-top.ml3
-        a#logo.monospace.font-blue-light.opacity-animated.opacity-0(
-          href='#home',
-          style='display: none;'
-        ) David Runger
+        a#logo.monospace.font-blue-light.opacity-animated.opacity-0.display-none(href='#home')
+          | David Runger
       nav#nav.sans-serif.flex.justify-around.absolute.mr4
         a.nav-link(href='#about')
           span.ptb-1 About
