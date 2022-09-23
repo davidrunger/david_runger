@@ -7,6 +7,12 @@ class QuizzesController < ApplicationController
 
   before_action :set_quiz, only: %i[respondents leaderboard progress]
 
+  # workarounds until https://github.com/hotwired/turbo/issues/ 294 is resolved
+  before_action :dont_set_csp_nonce
+  content_security_policy do |policy|
+    policy.script_src(:self, :https, :unsafe_inline)
+  end
+
   def index
     authorize(Quiz, :index?)
     render :index
@@ -57,6 +63,10 @@ class QuizzesController < ApplicationController
   end
 
   private
+
+  def dont_set_csp_nonce
+    request.env['action_dispatch.content_security_policy_nonce_directives'] = []
+  end
 
   def set_quiz
     quiz =
