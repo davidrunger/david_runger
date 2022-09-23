@@ -12,7 +12,7 @@ Rails.application.configure do
 
     policy.default_src(:none)
     policy.base_uri(:self)
-    policy.connect_src(:self)
+    policy.connect_src(:self, *extra_sources)
     policy.form_action(:self)
     policy.font_src(:self, :https, :data, *extra_sources)
     policy.img_src(:self, :https, :data, *extra_sources)
