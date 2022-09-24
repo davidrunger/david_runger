@@ -20,7 +20,14 @@ class TruncateTables
     end
   end
 
-  def self.truncate(table:, timestamp:)
+  def self.truncate(
+    table:,
+    timestamp:,
+    max_allowed_rows: self.max_allowed_rows,
+    min_surviving_timestamp: nil
+  )
+    log_truncation_plan(table:, max_allowed_rows:, min_surviving_timestamp:)
+
     num_rows =
       ApplicationRecord.connection.execute("SELECT count(*) FROM #{table}").to_a.first['count']
     Rails.logger.info("Rows in `#{table}` prior to truncation: #{num_rows}")
@@ -32,9 +39,12 @@ class TruncateTables
       LIMIT #{max_allowed_rows}
     SQL
 
-    min_surviving_timestamp =
+    min_surviving_timestamp_based_on_count =
       ApplicationRecord.connection.execute(min_surviving_timestamp_sql).to_a.last&.dig(timestamp)
-    return if min_surviving_timestamp.nil?
+    return if min_surviving_timestamp_based_on_count.nil?
+
+    min_surviving_timestamp =
+      [min_surviving_timestamp_based_on_count, min_surviving_timestamp].compact.max
 
     delete_old_rows_sql = <<~SQL.squish
       DELETE
@@ -50,18 +60,30 @@ class TruncateTables
     Rails.logger.info("Rows in `#{table}` after truncation: #{num_rows}")
   end
 
+  def self.log_truncation_plan(table:, max_allowed_rows:, min_surviving_timestamp:)
+    if min_surviving_timestamp.present?
+      Rails.logger.info(<<~LOG.squish)
+        Truncating `#{table}` with a minimum surviving timestamp of #{min_surviving_timestamp} and
+        #{max_allowed_rows} rows (whichever leaves fewer rows in the table).
+      LOG
+    else
+      Rails.logger.info("Truncating `#{table}` with a max of #{max_allowed_rows} rows.")
+    end
+  end
+
   def perform
-    Rails.logger.info(<<~LOG.squish)
-      About to truncate database tables;
-      max allowed rows is #{self.class.max_allowed_rows}
-    LOG
+    Rails.logger.info('About to truncate database tables.')
 
     Rails.logger.info('Approximate row counts prior to deletion:')
     self.class.print_row_counts
     Rails.logger.info
 
-    self.class.truncate(table: 'ip_blocks', timestamp: 'created_at')
     self.class.truncate(table: 'requests', timestamp: 'requested_at')
+    self.class.truncate(
+      table: 'ip_blocks',
+      timestamp: 'created_at',
+      min_surviving_timestamp: 2.weeks.ago,
+    )
 
     Rails.logger.info('Done truncating tables')
   end

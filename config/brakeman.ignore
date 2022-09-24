@@ -1,33 +1,13 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "09045badfa704d608d12465f5611539db8c2c92156f8ebcce40889902c427bfe",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/workers/truncate_tables.rb",
-      "line": 36,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.execute(\"SELECT #{timestamp}\\nFROM #{table}\\nORDER BY #{timestamp} DESC\\nLIMIT #{max_allowed_rows}\\n\".squish)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "TruncateTables",
-        "method": "s(:self).truncate"
-      },
-      "user_input": "timestamp",
-      "confidence": "Medium",
-      "note": "False positive"
-    },
-    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "6ec98885fe4746f341dec349efa9b844cd8bb007dea972105df6b963feae95e7",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/quizzes_controller.rb",
-      "line": 41,
+      "line": 47,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(policy_scope(Quiz).find_by_hashid!(params[:id]))",
       "render_path": null,
@@ -38,6 +18,9 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
+      "cwe_id": [
+        601
+      ],
       "note": "False positive"
     },
     {
@@ -47,7 +30,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/workers/truncate_tables.rb",
-      "line": 25,
+      "line": 32,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ApplicationRecord.connection.execute(\"SELECT count(*) FROM #{table}\")",
       "render_path": null,
@@ -58,6 +41,9 @@
       },
       "user_input": "table",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": "False positive"
     },
     {
@@ -67,7 +53,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/workers/truncate_tables.rb",
-      "line": 49,
+      "line": 59,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ApplicationRecord.connection.execute(\"SELECT count(*) FROM #{table}\")",
       "render_path": null,
@@ -78,6 +64,9 @@
       },
       "user_input": "table",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": "False positive"
     },
     {
@@ -98,6 +87,32 @@
       },
       "user_input": "params[:quiz_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        601
+      ],
+      "note": "False positive"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "c2422c251bc6d0f4999324e7363620e1bb482ebcb03b8363678e0cc34c4ff6c2",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/workers/truncate_tables.rb",
+      "line": 54,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ApplicationRecord.connection.execute(\"DELETE\\nFROM #{table}\\nWHERE #{timestamp} < '#{[ApplicationRecord.connection.execute(\"SELECT #{timestamp}\\nFROM #{table}\\nORDER BY #{timestamp} DESC\\nLIMIT #{max_allowed_rows}\\n\".squish).to_a.last.dig(timestamp), min_surviving_timestamp].compact.max}'\\n\".squish)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TruncateTables",
+        "method": "s(:self).truncate"
+      },
+      "user_input": "table",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": "False positive"
     },
     {
@@ -118,26 +133,9 @@
       },
       "user_input": "table_name",
       "confidence": "Medium",
-      "note": "False positive"
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "c97ff1b04af48f14d7fd9c44860f7bd89b84c7cd1f135727a753c10b89f92b3c",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/workers/truncate_tables.rb",
-      "line": 44,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.execute(\"DELETE\\nFROM #{table}\\nWHERE #{timestamp} < '#{ApplicationRecord.connection.execute(\"SELECT #{timestamp}\\nFROM #{table}\\nORDER BY #{timestamp} DESC\\nLIMIT #{max_allowed_rows}\\n\".squish).to_a.last.dig(timestamp)}'\\n\".squish)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "TruncateTables",
-        "method": "s(:self).truncate"
-      },
-      "user_input": "table",
-      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": "False positive"
     },
     {
@@ -158,6 +156,9 @@
       },
       "user_input": "self.class",
       "confidence": "Weak",
+      "cwe_id": [
+        89
+      ],
       "note": "False positive"
     },
     {
@@ -178,9 +179,35 @@
       },
       "user_input": "log.log_entries_table_name",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "False positive"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "f9f69f44bded4b596e91b9bdc87afd7f1dc509ff5f1aad57773f1e44cb43970f",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/workers/truncate_tables.rb",
+      "line": 43,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ApplicationRecord.connection.execute(\"SELECT #{timestamp}\\nFROM #{table}\\nORDER BY #{timestamp} DESC\\nLIMIT #{max_allowed_rows}\\n\".squish)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TruncateTables",
+        "method": "s(:self).truncate"
+      },
+      "user_input": "timestamp",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": "False positive"
     }
   ],
-  "updated": "2022-04-12 16:00:37 -0700",
-  "brakeman_version": "5.2.2"
+  "updated": "2022-09-23 21:59:08 -0500",
+  "brakeman_version": "5.3.1"
 }
