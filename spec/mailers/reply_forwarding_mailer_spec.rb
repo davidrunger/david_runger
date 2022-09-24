@@ -18,7 +18,7 @@ RSpec.describe ReplyForwardingMailer do
     end
 
     it 'has no reply-to' do
-      expect(mail.reply_to).to eq([])
+      expect(mail.reply_to).to eq(nil)
     end
 
     it "has a subject that includes the subject from the user's email and their email address" do

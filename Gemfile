@@ -26,10 +26,8 @@ gem 'hashid-rails'
 gem 'js-routes', '2.2.4', require: false
 gem 'jwt'
 gem 'lograge'
+gem 'mail', '>= 2.8.0.rc1' # remove this listing from Gemfile after a non-rc version is released
 gem 'memoist'
-gem 'net-imap' # remove after https://github.com/mikel/mail/pull/1439 is addressed
-gem 'net-pop' # remove after https://github.com/mikel/mail/pull/1439 is addressed
-gem 'net-smtp' # remove after https://github.com/mikel/mail/pull/1439 is addressed
 gem 'oj'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
