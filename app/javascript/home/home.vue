@@ -72,7 +72,7 @@
         )
         SkillRow(
           name='CSS3'
-          details='Because looking good is half the battle! Love that flexbox. :)'
+          details='Because looking good is half the battle!'
         )
         SkillRow(
           name='Dokku'
