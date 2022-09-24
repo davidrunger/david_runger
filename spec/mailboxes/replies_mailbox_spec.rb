@@ -26,7 +26,9 @@ RSpec.describe RepliesMailbox do
 
     it 'triggers a ReplyForwardingMailer#reply_received email to be sent', queue_adapter: :test do
       expect { processed_mail }.to enqueue_mail(ReplyForwardingMailer, :reply_received).
-        with(from_email, email_subject, email_body)
+        with(String, from_email, email_subject, email_body, false) { |message_id, _, _, _, _|
+          expect(message_id).to eq(mail.message_id)
+        }
     end
 
     context 'when an error is raised while parsing the email body' do
@@ -49,7 +51,7 @@ RSpec.describe RepliesMailbox do
 
       it 'sends the email with a body indicating an error occurred', queue_adapter: :test do
         expect { processed_mail }.to enqueue_mail(ReplyForwardingMailer, :reply_received).
-          with(from_email, email_subject, '[error reading parsed body]')
+          with(String, from_email, email_subject, '[error reading parsed body]', false)
       end
     end
   end
