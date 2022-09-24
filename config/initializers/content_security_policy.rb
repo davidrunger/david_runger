@@ -13,7 +13,7 @@ Rails.application.configure do
       # :nocov:
       extra_sources << 'https://davidrunger.com' # allow assets from production for local prerenders
       if !ENV.key?('PRODUCTION_ASSET_CONFIG')
-        extra_sources << 'ws' # for vite live reloading websockets server
+        extra_sources << 'ws:' # for vite live reloading websockets server
       end
       # :nocov:
     end
