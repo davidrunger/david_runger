@@ -47,7 +47,7 @@ GIT
 
 GIT
   remote: https://github.com/sidekiq-scheduler/sidekiq-scheduler.git
-  revision: 8ad1f746b2743c13ba9b37309271bd41aff2a4f1
+  revision: 02fc716588601d92fa667a8b310f4f91e6119763
   specs:
     sidekiq-scheduler (4.0.2)
       redis (>= 4.2.0)
@@ -285,7 +285,7 @@ GEM
     formtastic (4.0.0)
       actionpack (>= 5.2.0)
     formtastic_i18n (0.7.0)
-    fugit (1.7.0)
+    fugit (1.7.1)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     globalid (1.0.0)
