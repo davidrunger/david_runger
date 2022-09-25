@@ -6,11 +6,16 @@ class RepliesMailbox < ApplicationMailbox
   def process
     from_email = mail['From'].to_s.presence!
     subject = mail.subject.presence || '[no subject]'
+    is_attachment = mail.attachment?
     has_attachments = mail.has_attachments?
     mail.without_attachments!
     body =
       begin
-        mail.parsed_body || '[no body]'
+        if is_attachment
+          '[no body (just an attachment)]'
+        else
+          mail.parsed_body || '[no body]'
+        end
       rescue => error
         Rollbar.error(
           error,
@@ -26,6 +31,7 @@ class RepliesMailbox < ApplicationMailbox
       from_email,
       subject,
       body,
+      is_attachment,
       has_attachments,
     ).deliver_later
   end

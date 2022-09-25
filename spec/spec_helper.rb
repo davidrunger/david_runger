@@ -134,6 +134,10 @@ RSpec.configure do |config|
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
   config.include(Monkeypatches::MakeAllRequestsAsJson, request_format: :json)
   config.include(ActionCable::TestHelper, :action_cable_test_adapter)
+  config.include(ActionMailbox::TestHelper, type: :mailbox)
+  config.include(ActionMailbox::TestHelper, type: :mailer)
+  config.include(MailSpecHelpers, type: :mailbox)
+  config.include(MailSpecHelpers, type: :mailer)
 
   config.before(:suite) do
     # Reset FactoryBot sequences to an arbitrarily high number to avoid collisions with

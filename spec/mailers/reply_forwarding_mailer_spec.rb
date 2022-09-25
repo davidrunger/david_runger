@@ -8,6 +8,7 @@ RSpec.describe ReplyForwardingMailer do
         from_email,
         email_subject,
         email_body,
+        is_attachment,
         has_attachments,
       )
     end
@@ -17,6 +18,7 @@ RSpec.describe ReplyForwardingMailer do
     let(:from_email) { user.email }
     let(:email_subject) { 'Great website!!!' }
     let(:email_body) { 'I just want to let you know that your website is great!' }
+    let(:is_attachment) { false }
     let(:has_attachments) { false }
 
     it 'is sent from noreply@davidrunger.com' do
@@ -78,6 +80,23 @@ RSpec.describe ReplyForwardingMailer do
       end
 
       it 'includes the attachments' do
+        expect(mail.attachments.size).to eq(1)
+      end
+    end
+
+    context 'when the forwarded email is just an attachment' do
+      before { route_raw_email_fixture('attachment_only') }
+
+      let(:message_id) { '15113626491834982726@google.com' }
+      let(:email_body) { '[no body (just an attachment)]' }
+      let(:is_attachment) { true }
+      let(:has_attachments) { false }
+
+      it 'says that there is no email body' do
+        expect(mail.message.encoded).to include(email_body)
+      end
+
+      it 'includes the attachment' do
         expect(mail.attachments.size).to eq(1)
       end
     end
