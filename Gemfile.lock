@@ -29,15 +29,6 @@ GIT
     runger_style (0.2.22.alpha)
 
 GIT
-  remote: https://github.com/rails/rails-controller-testing.git
-  revision: 351c0162df0771c0c48e6a5a886c4c2f0a5d1a74
-  specs:
-    rails-controller-testing (1.0.5)
-      actionpack (>= 5.0.1.rc1)
-      actionview (>= 5.0.1.rc1)
-      activesupport (>= 5.0.1.rc1)
-
-GIT
   remote: https://github.com/sidekiq-scheduler/sidekiq-scheduler.git
   revision: 02fc716588601d92fa667a8b310f4f91e6119763
   specs:
@@ -464,6 +455,10 @@ GEM
       activesupport (= 7.0.4)
       bundler (>= 1.15.0)
       railties (= 7.0.4)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -699,7 +694,7 @@ DEPENDENCIES
   pundit
   rack-attack
   rails
-  rails-controller-testing!
+  rails-controller-testing
   redis
   redis-client
   redlock
