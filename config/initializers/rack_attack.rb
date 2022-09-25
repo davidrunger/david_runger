@@ -28,6 +28,8 @@ class Rack::Attack
     end
 
     def blocked_path?(request)
+      return true if request.fullpath.include?('%00')
+
       fragments = request.path.split(PATH_FRAGMENT_SEPARATOR_REGEX)
       fragments.map!(&:presence)
       fragments.compact!
