@@ -90,7 +90,6 @@ group :test do
   gem 'faker'
   gem 'ferrum'
   gem 'fixture_builder'
-  gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   gem 'json-schema'
   gem 'launchy'
   gem 'nokogiri'
