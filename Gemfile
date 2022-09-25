@@ -96,7 +96,7 @@ group :test do
   gem 'nokogiri'
   gem 'pallets'
   gem 'percy-capybara'
-  gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
+  gem 'rails-controller-testing'
   gem 'rspec-instafail', require: false
   gem 'rspec-rails', '>= 6.0.0.rc1'
   gem 'rspec-wait'
