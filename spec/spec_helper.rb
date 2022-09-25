@@ -224,6 +224,14 @@ RSpec.configure do |config|
     allow_any_instance_of(ActionController::TestRequest).
       to receive(:request_id).
       and_return(SecureRandom.uuid)
+
+    allow_any_instance_of(ActionController::TestRequest).
+      to receive(:headers).
+      and_wrap_original do |request|
+        headers = request.call
+        headers['action_dispatch.request_id'] ||= SecureRandom.uuid
+        headers
+      end
     # rubocop:enable RSpec/AnyInstance
   end
 
