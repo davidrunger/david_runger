@@ -8,6 +8,12 @@ GIT
       shaped (~> 0.9.0)
 
 GIT
+  remote: https://github.com/davidrunger/email_reply_trimmer.git
+  revision: 8e2bf196f8463da6c756f3a90cc92ab450e0004a
+  specs:
+    email_reply_trimmer (0.1.13)
+
+GIT
   remote: https://github.com/davidrunger/guard-espect.git
   revision: 8d7f8594d120f4fa815eb20d79aeb962af8e83df
   specs:
@@ -21,12 +27,6 @@ GIT
   revision: e0d1d353dba5b321a1d7b7c42a445b24ceb63cff
   specs:
     runger_style (0.2.22.alpha)
-
-GIT
-  remote: https://github.com/discourse/email_reply_trimmer.git
-  revision: 8e2bf196f8463da6c756f3a90cc92ab450e0004a
-  specs:
-    email_reply_trimmer (0.1.13)
 
 GIT
   remote: https://github.com/rails/rails-controller-testing.git
