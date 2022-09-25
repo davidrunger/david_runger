@@ -1,16 +1,25 @@
 # frozen_string_literal: true
 
 class ReplyForwardingMailer < ApplicationMailer
-  def reply_received(message_id, from_email, subject, body, has_attachments)
+  # rubocop:disable Metrics/ParameterLists
+  def reply_received(message_id, from_email, subject, body, is_attachment, has_attachments)
     @from_email = from_email
     @subject = subject
     @body = body
 
-    if has_attachments
+    if is_attachment || has_attachments
       inbound_email = ActionMailbox::InboundEmail.find_by!(message_id:)
-      inbound_email_attachments = Mail.new(inbound_email.raw_email_blob.download).attachments
-      inbound_email_attachments.each do |attachment|
-        attachments[attachment.filename] = attachment.decoded
+
+      if is_attachment
+        inbound_email_mail = Mail.new(inbound_email.raw_email_blob.download)
+        attachments[inbound_email_mail.filename] = inbound_email_mail.decoded
+      end
+
+      if has_attachments
+        inbound_email_attachments = Mail.new(inbound_email.raw_email_blob.download).attachments
+        inbound_email_attachments.each do |attachment|
+          attachments[attachment.filename] = attachment.decoded
+        end
       end
     end
 
@@ -21,4 +30,5 @@ class ReplyForwardingMailer < ApplicationMailer
       subject: "#{from_email} wrote: #{subject}",
     )
   end
+  # rubocop:enable Metrics/ParameterLists
 end
