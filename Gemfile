@@ -74,7 +74,7 @@ group :development do
   gem 'letter_opener'
   gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', github: 'rails/spring-watcher-listen'
+  gem 'spring-watcher-listen'
 end
 
 group :test do
