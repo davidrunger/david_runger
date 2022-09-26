@@ -1435,12 +1435,12 @@
   dependencies:
     vue-demi "^0.13.4"
 
-"@vuelidate/validators@^2.0.0-alpha.31":
-  version "2.0.0-alpha.31"
-  resolved "https://registry.yarnpkg.com/@vuelidate/validators/-/validators-2.0.0-alpha.31.tgz#04d63307bc0a12db9f7ad94243350b83aacee998"
-  integrity sha512-+MFA9nZ7Y9zCpq383/voPDk/hiAmu6KqiJJhLOYB/FmrUPVoyKnuKnI9Bwiq8ok9GZlVkI8BnIrKPKGj9QpwiQ==
+"@vuelidate/validators@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@vuelidate/validators/-/validators-2.0.0.tgz#1ddd86c6c81b2cfbb5720961e951cc53ec0a80be"
+  integrity sha512-fQQcmDWfz7pyH5/JPi0Ng2GEgNK1pUHn/Z/j5rG/Q+HwhgIXvJblTPcZwKOj1ABL7V4UVuGKECvZCDHNGOwdrg==
   dependencies:
-    vue-demi "^0.13.4"
+    vue-demi "^0.13.11"
 
 "@vueuse/core@^9.1.0":
   version "9.1.0"
@@ -4494,12 +4494,7 @@ vue-chartjs@^4.1:
   resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-4.1.1.tgz#b1ffc2845e09d14cb5255305b11bd3e8df8058ab"
   integrity sha512-rKIQ3jPrjhwxjKdNJppnYxRuBSrx4QeM3nNHsfIxEqjX6QS4Jq6e6vnZBxh2MDpURDC2uvuI2N0eIt1cWXbBVA==
 
-vue-demi@*:
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.5.tgz#8eeed566a7d86eb090209a11723f887d28aeb2d1"
-  integrity sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==
-
-vue-demi@^0.13.4:
+vue-demi@*, vue-demi@^0.13.11, vue-demi@^0.13.4:
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
   integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
