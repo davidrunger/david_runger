@@ -2,6 +2,8 @@
 
 require 'sidekiq-scheduler' if Sidekiq.server?
 
+Sidekiq.strict_args!
+
 # We'll give Sidekiq db 1. The app uses db 0 for its direct uses.
 redis_options = RedisOptions.new(db: 1)
 build_sidekiq_redis_connection =
