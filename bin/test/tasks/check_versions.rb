@@ -8,7 +8,7 @@ class Test::Tasks::CheckVersions < Pallets::Task
       ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby 3.1.2p' ]
     COMMAND
     execute_system_command(<<~COMMAND)
-      node --version && [ "$(node --version)" = 'v16.13.0' ]
+      node --version && [ "$(node --version)" = 'v18.9.1' ]
     COMMAND
     execute_system_command(<<~COMMAND)
       yarn --version && ([ "$(yarn --version)" = '1.22.18' ] || [ "$(yarn --version)" = '1.22.19' ])

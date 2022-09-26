@@ -47,7 +47,7 @@ jobs:
         bundler-cache: true
     - uses: actions/setup-node@v1
       with:
-        node-version: 16.13.0
+        node-version: 18.9.1
     - name: Cache node_modules
       uses: actions/cache@v1
       with:
