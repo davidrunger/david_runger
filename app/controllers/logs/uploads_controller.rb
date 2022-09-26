@@ -21,7 +21,7 @@ class Logs::UploadsController < ApplicationController
 
     if log_entries.all?(&:valid?)
       log_entries.each do |log_entry|
-        CreateLogEntry.perform_async(log_entry.class.name, log_entry.attributes)
+        CreateLogEntry.perform_async(log_entry.class.name, log_entry.attributes.as_json)
       end
       flash[:notice] = 'Data uploaded successfully! Give it a moment to enter the database.'
       redirect_to(log_path(slug: log.slug))
