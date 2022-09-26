@@ -22,6 +22,7 @@ spec/fixtures/*.yml
 coverage/
 .tests.yml
 *.dump*
+export
 /public/vite
 /public/vite-admin
 /config/credentials/development.key
