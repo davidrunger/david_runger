@@ -139,9 +139,7 @@
         )
         SkillRow(
           name='PostgreSQL'
-          details=`
-            A fast, rock-solid, open source SQL database. I am really grateful for this tool.
-          `
+          details='A fast, rock-solid, open source SQL database.'
         )
         SkillRow(
           name='React'
@@ -153,17 +151,12 @@
         )
         SkillRow(
           name='Redis'
-          details=`
-            An amazingly fast in-memory database. My main exposure has been via the Sidekiq
-            job-processing library.
-          `
+          details='A fast in-memory database.'
         )
         SkillRow(
           name='RSpec'
+          details='I love testing, and RSpec makes tests readable and easy to write.'
         )
-          template(v-slot:details)
-            span.
-              I #[em.italic love] testing. RSpec makes tests readable and easy to write.
           template(v-slot:image)
             PerformantImage(alt='RSpec' lazy=true)
               source(type='png' src='~img/rspec.png')
@@ -174,11 +167,11 @@
         SkillRow(
           name='Ruby on Rails'
           iconIdentifier='rails'
+          details=`
+            A web-development framework with a great ecosystem that makes development fast and fun.
+            Rails's ActiveRecord ORM is superb.
+          `
         )
-          template(v-slot:details)
-            span.
-              I ❤️&nbsp;Rails: a web-development framework with a great ecosystem that makes
-              development fast and fun. Rails's ActiveRecord ORM is superb.
         SkillRow(
           name='Sass'
           details=`
@@ -192,15 +185,15 @@
         )
           template(v-slot:details)
             span.
-              I think that Vue is one of the best client-side libraries out there, and I hope that
-              its popularity continues to grow.
+              VueJS is a great library for building front-end UX, and it has a great supporting
+              ecosystem. I hope that its popularity continues to grow.
         SkillRow(
           name='Webpack'
+          details=`
+            A versatile and powerful build tool for all-things client-side. Hot code reloading
+            really enhances the development experience.
+          `
         )
-          template(v-slot:details)
-            span.
-              A versatile and powerful build tool for all-things client-side. Hot code reloading
-              really enhances the development experience.
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-1
