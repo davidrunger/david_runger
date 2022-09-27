@@ -1,13 +1,19 @@
 # frozen_string_literal: true
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require 'factory_bot_rails'
 require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
+require File.expand_path('../config/environment', __dir__)
+abort('The Rails environment is running in production mode!') if Rails.env.production?
+require Rails.root.join('spec/support/fixture_builder.rb').to_s
+Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
+require 'rspec/rails'
+require 'sidekiq/testing'
+require 'super_diff/rspec-rails'
+
 is_ci = (ENV.fetch('CI', nil) == 'true')
-use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
 if is_ci
   require 'simplecov'
   require 'codecov'
@@ -18,21 +24,6 @@ if is_ci
   end
   Codecov.pass_ci_if_error = true
 end
-require File.expand_path('../config/environment', __dir__)
-require Rails.root.join('spec/support/fixture_builder.rb').to_s
-Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
-# Prevent database truncation if the environment is production
-abort('The Rails environment is running in production mode!') if Rails.env.production?
-require 'rspec/rails'
-require 'capybara/rails'
-require 'capybara/rspec'
-require 'capybara/email/rspec'
-require 'capybara-screenshot/rspec' unless use_headful_chrome
-require 'active_support/cache/mem_cache_store'
-require 'sidekiq/testing'
-require 'mail'
-require 'percy/capybara'
-require 'super_diff/rspec-rails'
 
 # w/o this, Sidekiq's `logger` prints to STDOUT (bad); with this, it prints to `log/test.log` (good)
 Sidekiq.logger = Rails.logger
@@ -43,44 +34,6 @@ WebMock.disable_net_connect!(
   allow: 'david-runger-test-uploads.s3.amazonaws.com', # upload feature test failure screenshots
   net_http_connect_on_start: true,
 )
-
-OmniAuth.config.test_mode = true
-
-Capybara.register_driver(:chrome_headless) do |app|
-  options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
-end
-Capybara.register_driver(:chrome_headful) do |app|
-  options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox disable-gpu])
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
-end
-unless use_headful_chrome
-  Capybara::Screenshot.register_driver(:chrome_headless) do |driver, path|
-    driver.browser.save_screenshot(path)
-  end
-end
-if is_ci
-  Capybara::Screenshot.s3_configuration = {
-    s3_client_credentials: {
-      access_key_id: Rails.application.credentials.aws![:access_key_id],
-      secret_access_key: Rails.application.credentials.aws![:secret_access_key],
-      region: 'us-east-1',
-    },
-    bucket_name: 'david-runger-test-uploads',
-    bucket_host: 'david-runger-test-uploads.s3.amazonaws.com',
-    key_prefix: 'failure-screenshots/',
-  }
-end
-browser_driver = use_headful_chrome ? :chrome_headful : :chrome_headless
-Capybara.default_driver = browser_driver
-Capybara.javascript_driver = browser_driver
-# allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
-Capybara.asset_host = 'http://localhost:3000'
-Capybara.server = :puma, { Silent: true }
-Capybara.default_normalize_ws = true
-# this matches setting in config/environments/test.rb
-Capybara.server_port = 3001
-Capybara.app_host = 'http://localhost:3001'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -127,6 +80,7 @@ RSpec.configure do |config|
   config.global_fixtures = :all
 
   config.include(SpecHelpers)
+  config.include(FactoryBot::Syntax::Methods)
   config.include(ActiveSupport::Testing::TimeHelpers)
   config.include(FactoryBot::Syntax::Methods)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
@@ -158,6 +112,7 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :cache) do |spec|
+    require 'active_support/cache/mem_cache_store'
     original_rails_cache = Rails.cache
     Rails.cache = ActiveSupport::Cache::MemoryStore.new
     spec.run
@@ -213,6 +168,74 @@ RSpec.configure do |config|
           example.metadata[:rails_env].to_s,
         ),
       )
+  end
+
+  def set_up_capybara
+    require 'capybara/rails'
+    require 'capybara/rspec'
+    require 'capybara/email/rspec'
+
+    Capybara.default_normalize_ws = true
+  end
+
+  def set_up_web_testing
+    set_up_capybara
+    OmniAuth.config.test_mode = true
+  end
+
+  config.before(:all, type: :feature) do
+    set_up_web_testing
+
+    use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
+    require 'capybara-screenshot/rspec' unless use_headful_chrome
+    require 'percy/capybara'
+    require 'selenium-webdriver'
+
+    Capybara.register_driver(:chrome_headless) do |app|
+      options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
+      Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
+    end
+    Capybara.register_driver(:chrome_headful) do |app|
+      options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox disable-gpu])
+      Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
+    end
+    unless use_headful_chrome
+      Capybara::Screenshot.register_driver(:chrome_headless) do |driver, path|
+        driver.browser.save_screenshot(path)
+      end
+    end
+    if is_ci
+      Capybara::Screenshot.s3_configuration = {
+        s3_client_credentials: {
+          access_key_id: Rails.application.credentials.aws![:access_key_id],
+          secret_access_key: Rails.application.credentials.aws![:secret_access_key],
+          region: 'us-east-1',
+        },
+        bucket_name: 'david-runger-test-uploads',
+        bucket_host: 'david-runger-test-uploads.s3.amazonaws.com',
+        key_prefix: 'failure-screenshots/',
+      }
+    end
+    browser_driver = use_headful_chrome ? :chrome_headful : :chrome_headless
+    Capybara.default_driver = browser_driver
+    Capybara.javascript_driver = browser_driver
+    # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
+    Capybara.asset_host = 'http://localhost:3000'
+    Capybara.server = :puma, { Silent: true }
+    # this matches setting in config/environments/test.rb
+    Capybara.server_port = 3001
+    Capybara.app_host = 'http://localhost:3001'
+  end
+
+  config.before(:all, type: :mailer) do
+    set_up_capybara
+  end
+
+  config.before(:all, type: :controller) do
+    require 'rails-controller-testing'
+    config.include(Rails::Controller::Testing::TestProcess)
+    config.include(Rails::Controller::Testing::TemplateAssertions)
+    set_up_web_testing
   end
 
   config.before(:each, type: :controller) do

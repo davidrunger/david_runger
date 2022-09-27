@@ -2,6 +2,8 @@
 
 RSpec::Matchers.define(:match_schema) do |schema|
   match do |json|
+    require 'json-schema'
+
     JSON::Validator.fully_validate(schema, json, strict: true, validate_schema: true).empty?
   end
 

@@ -58,13 +58,12 @@ group :development, :test do
   gem 'bullet'
   gem 'debug', require: false
   gem 'dotenv-rails', require: 'dotenv/rails-now'
-  gem 'immigrant'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'runger_style', github: 'davidrunger/runger_style', require: false
-  gem 'spring-commands-rspec'
+  gem 'spring-commands-rspec', require: false
 end
 
 group :development do
@@ -78,28 +77,28 @@ group :development do
 end
 
 group :test do
-  gem 'addressable'
+  gem 'addressable', require: false
   gem 'brakeman', require: false
-  gem 'capybara'
-  gem 'capybara-email'
-  gem 'capybara-screenshot'
+  gem 'capybara', require: false
+  gem 'capybara-email', require: false
+  gem 'capybara-screenshot', require: false
   gem 'climate_control'
   gem 'codecov', require: false
   gem 'database_consistency', require: false
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'ferrum'
+  gem 'ferrum', require: false
   gem 'fixture_builder'
-  gem 'json-schema'
-  gem 'launchy'
-  gem 'nokogiri'
-  gem 'pallets'
-  gem 'percy-capybara'
-  gem 'rails-controller-testing'
+  gem 'immigrant', require: false
+  gem 'json-schema', require: false
+  gem 'nokogiri', require: false
+  gem 'pallets', require: false
+  gem 'percy-capybara', require: false
+  gem 'rails-controller-testing', require: false
   gem 'rspec-instafail', require: false
   gem 'rspec-rails', '>= 6.0.0.rc1'
   gem 'rspec-wait'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', require: false
   gem 'shoulda-matchers'
   gem 'super_diff'
   gem 'webmock'
