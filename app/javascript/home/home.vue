@@ -133,8 +133,8 @@
         SkillRow(
           name='NodeJS'
           details=`
-            The JavaScript ecosystem is still a bit too "Wild West" for my taste, but Node and its
-            ecosystem are important parts of the modern web stack.
+            The JavaScript ecosystem is a bit too "Wild West" for my taste, but Node and its
+            ecosystem are essential parts of the modern web stack.
           `
         )
         SkillRow(
