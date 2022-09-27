@@ -124,7 +124,7 @@
         SkillRow(
           name='Lodash'
           details=`
-            I adore Lodash. It brings a lot of the concision and clarity that I love about Ruby to
+            Lodash brings a lot of the concision, convenience, and clarity that I love about Ruby to
             the front end.
           `
         )
