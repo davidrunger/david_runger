@@ -92,7 +92,10 @@
         )
         SkillRow(
           name='GitHub'
-          details='I have performed and received many, many code reviews via GitHub.'
+          details=`
+            Where software teams and the open source community collaborate. GitHub Actions are
+            great!
+          `
         )
         SkillRow(
           name='Heroku'
