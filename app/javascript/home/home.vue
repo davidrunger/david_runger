@@ -60,7 +60,7 @@
       tbody
         SkillRow(
           name='Babel'
-          details='For that sweet, sweet ES6 syntax.'
+          details='Allowing us to safely use modern JavaScript features.'
           devIconStyle='background: #f5db55'
           :wordmarkedIcon='false'
           :coloredIcon='false'
