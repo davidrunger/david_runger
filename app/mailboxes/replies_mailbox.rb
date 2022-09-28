@@ -5,6 +5,7 @@ class RepliesMailbox < ApplicationMailbox
 
   def process
     from_email = mail['From'].to_s.presence!
+    Rails.logger.info("Processing email to RepliesMailbox from '#{from_email}'.")
     subject = mail.subject.presence || '[no subject]'
     is_attachment = mail.attachment?
     has_attachments = mail.has_attachments?
