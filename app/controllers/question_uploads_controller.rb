@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class QuestionUploadsController < ApplicationController
+  include CspDisableable
+
   before_action :set_quiz, only: %i[new create]
 
   self.container_classes = QuizzesController.container_classes
