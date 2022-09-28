@@ -1,35 +1,38 @@
 # frozen_string_literal: true
 
 RSpec.describe ParsedMailBody do
+  include MailSpecHelpers
   using ParsedMailBody
 
-  subject(:mail) { Mail::Message.new }
+  let(:mail) { Mail::Message.new }
 
   before do
     # convert "\n" to "\r\n" because Mailgun seems to send the message with "\r\n"
-    expect(mail).to receive(:text_part).and_return(<<~TEXT.gsub(/(?<!\r)\n/, "\r\n"))
-      Content-Type: text/plain;
-       charset=UTF-8
-      Content-Transfer-Encoding: 7bit
+    expect(mail).to receive(:text_part) do
+      <<~TEXT.gsub(/(?<!\r)\n/, "\r\n")
+        Content-Type: text/plain;
+         charset=UTF-8
+        Content-Transfer-Encoding: 7bit
 
-      #{actual_reply_content}
+        #{actual_reply_content}
 
-      On Sat, Jun 6, 2020 at 10:59 PM David Runger <davidjrunger@gmail.com> wrote:
+        On Sat, Jun 6, 2020 at 10:59 PM David Runger <davidjrunger@gmail.com> wrote:
 
-      > 184.2
-      >
-      > On Sat, Jun 6, 2020 at 10:58 PM DavidRunger.com <
-      > log-reminders@davidrunger.com> wrote:
-      >
-      >> Submit a new log entry here:
-      >>
-      >> https://www.davidrunger.com/logs/weight
-      >>
-      >> *Tip:* To create a log entry, you can simply reply to this email with
-      >> the desired log entry content.
-      >>
-      >
-    TEXT
+        > 184.2
+        >
+        > On Sat, Jun 6, 2020 at 10:58 PM DavidRunger.com <
+        > log-reminders@davidrunger.com> wrote:
+        >
+        >> Submit a new log entry here:
+        >>
+        >> https://www.davidrunger.com/logs/weight
+        >>
+        >> *Tip:* To create a log entry, you can simply reply to this email with
+        >> the desired log entry content.
+        >>
+        >
+      TEXT
+    end
   end
 
   describe '#parsed_body' do
@@ -175,6 +178,16 @@ RSpec.describe ParsedMailBody do
           3. asdf asdfasdf Bsdasjsfsdf BBSFBsf asdfasdss evening (asdfas sasfsfss has any
              asdfasdfasdf asdfasdf ashsh, which, asfsily, asdfasdf!)
         LINE
+      end
+    end
+
+    context 'when the email body is empty' do
+      before { RSpec::Mocks.space.proxy_for(mail).reset }
+
+      let(:mail) { mail_from_raw_email_fixture('empty_body') }
+
+      it 'returns nil' do
+        expect(parsed_body).to eq(nil)
       end
     end
   end

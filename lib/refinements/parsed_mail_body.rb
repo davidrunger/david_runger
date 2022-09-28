@@ -10,7 +10,10 @@ module ParsedMailBody
       # decode quoted-printable encoding
       unparsed_body = unparsed_body.unpack1('M').force_encoding('utf-8')
       # trim content from the end of the body ("On [date/time] [person/email] wrote:[...]")
-      EmailReplyTrimmer.trim(unparsed_body).rstrip.
+      trimmed_body = EmailReplyTrimmer.trim(unparsed_body)
+      return nil if trimmed_body.nil?
+
+      trimmed_body.rstrip.
         # remove newlines that were added just to break up long lines
         gsub(/\S+\n\S+/) do |match|
           word_before_newline = match.split("\n").first
