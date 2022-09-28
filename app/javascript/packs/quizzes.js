@@ -40,7 +40,7 @@ actionCableConsumer.subscriptions.create(
 );
 
 function refresh() {
-  Turbo.clearCache();
+  Turbo.cache.clear();
   Turbo.visit(window.location.pathname, { action: 'replace' });
 }
 
