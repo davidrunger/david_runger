@@ -63,6 +63,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :check_ins, only: %i[update]
+    resources :csp_reports, only: %i[create]
     resources :items, only: %i[update destroy]
     namespace :items do
       resources :bulk_updates, only: %i[create]

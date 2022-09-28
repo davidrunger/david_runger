@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_19_155817) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_28_140111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,6 +96,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_155817) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marriage_id"], name: "index_check_ins_on_marriage_id"
+  end
+
+  create_table "csp_reports", force: :cascade do |t|
+    t.string "document_uri", null: false
+    t.string "violated_directive", null: false
+    t.string "original_policy", null: false
+    t.string "incoming_ip", null: false
+    t.string "referrer"
+    t.string "blocked_uri"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "emotional_needs", force: :cascade do |t|

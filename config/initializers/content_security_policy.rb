@@ -29,8 +29,7 @@ Rails.application.configure do
     policy.script_src(:self, *extra_sources)
     policy.style_src(:self, :https, :unsafe_inline, *extra_sources)
     policy.frame_ancestors(:self)
-    # Specify URI for violation reports
-    # policy.report_uri "/csp-violation-report-endpoint"
+    policy.report_uri('/api/csp_reports')
   end
 
   # Generate session nonces for permitted importmap and inline scripts
