@@ -9,6 +9,10 @@ echo "Enqueueing job to track asset sizes..."
 bin/rails runner "TrackAssetSizes.perform_in(2.minutes)"
 echo "... done."
 
+echo "Creating a Deploy..."
+bin/rails runner "Deploy.create!(git_sha: '$GIT_REV')"
+echo "... done."
+
 # Retry up to 10 times w/ increasing `sleep`. h/t: https://stackoverflow.com/a/12321815/4009384
 NEXT_WAIT_TIME=1
 until [ $NEXT_WAIT_TIME -eq 10 ] || migrate; do

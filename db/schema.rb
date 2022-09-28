@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_28_140111) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_28_202702) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_28_140111) do
     t.string "blocked_uri"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "deploys", force: :cascade do |t|
+    t.string "git_sha", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["git_sha"], name: "index_deploys_on_git_sha"
   end
 
   create_table "emotional_needs", force: :cascade do |t|
