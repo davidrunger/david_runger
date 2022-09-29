@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template lang='pug'>
 h2 Your answers
 Ratings(
