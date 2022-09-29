@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TrackAssetSizes
-  prepend ApplicationWorker
   extend Memoist
 
   class << self
