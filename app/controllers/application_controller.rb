@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# Per Rails convention, this is the base class from which (almost?) all of our controllers inherit.
-# We are getting some ignorable warnings about :reek:InstanceVariableAssumption
 class ApplicationController < ActionController::Base
   include Bootstrappable
   include BrowserSupportCheckable
