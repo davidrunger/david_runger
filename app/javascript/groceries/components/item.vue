@@ -1,6 +1,6 @@
 <template lang='pug'>
 .grocery-item.flex.items-center(
-  :class='{unneeded: item.needed <= 0, "appear-vertically": isJustAdded(item)}'
+  :class='{unneeded: item.needed <= 0}'
 )
   div
     span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
