@@ -12,7 +12,7 @@ aside.border-right.border-gray
         )
       el-button.flex-0(
         native-type='submit'
-        :disabled='postingStore'
+        :disabled='postingStore || v$.$invalid'
       ) Add
     .stores-list
       .js-link.stores-list__item.h3.my2.py1.px2(
@@ -28,6 +28,8 @@ aside.border-right.border-gray
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { sortBy } from 'lodash-es';
+import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
 
 import LoggedInHeader from './logged_in_header.vue';
 
@@ -87,7 +89,13 @@ export default {
     },
   },
 
-  props: {},
+  setup: () => ({ v$: useVuelidate() }),
+
+  validations() {
+    return {
+      newStoreName: { required },
+    };
+  },
 };
 </script>
 
