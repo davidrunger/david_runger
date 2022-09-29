@@ -32,10 +32,14 @@ div
     )
     el-button(
       native-type='submit'
+      :disabled='v$.$invalid'
     ) Add
 </template>
 
 <script>
+import { required } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
+
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 
 export default {
@@ -125,6 +129,14 @@ export default {
       type: Object,
       required: true,
     },
+  },
+
+  setup: () => ({ v$: useVuelidate() }),
+
+  validations() {
+    return {
+      newLogEntryData: { required },
+    };
   },
 };
 </script>
