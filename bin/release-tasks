@@ -1,21 +1,36 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ./bin/rails runner
+# frozen_string_literal: true
 
-migrate() {
-  echo "Running bin/rails db:migrate"
-  bin/rails db:migrate
-}
+class Runner
+  def run_task(task_description)
+    print("#{task_description}... ")
+    start_time = Time.current
+    yield
+    puts("done. (Took #{(Time.current - start_time).round(2)} seconds.)")
+  end
+end
 
-echo "Enqueueing job to track asset sizes..."
-bin/rails runner "TrackAssetSizes.perform_in(2.minutes)"
-echo "... done."
+runner = Runner.new
 
-echo "Creating a Deploy..."
-bin/rails runner "Deploy.create!(git_sha: '$GIT_REV')"
-echo "... done."
+runner.run_task('Running db:migrate') do
+  Rails.application.load_tasks
 
-# Retry up to 10 times w/ increasing `sleep`. h/t: https://stackoverflow.com/a/12321815/4009384
-NEXT_WAIT_TIME=1
-until [ $NEXT_WAIT_TIME -eq 10 ] || migrate; do
-    sleep $(( NEXT_WAIT_TIME++ ))
-done
-[ $NEXT_WAIT_TIME -lt 10 ]
+  (1..10).each do |attempt_number|
+    print("attempt ##{attempt_number}...")
+    Rake::Task['db:migrate'].invoke
+  rescue => error
+    pp(error)
+    sleep(attempt_number)
+  else
+    break
+  end
+end
+
+runner.run_task('Recording asset sizes') do
+  TrackAssetSizes.new.perform
+end
+
+runner.run_task('Creating a `Deploy`') do
+  Deploy.create!(git_sha: ENV.fetch('GIT_REV'))
+end
+
