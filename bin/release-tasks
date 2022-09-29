@@ -24,7 +24,7 @@ runner.run_task('Running db:migrate') do
   Rails.application.load_tasks
 
   (1..10).each do |attempt_number|
-    print("attempt ##{attempt_number}...")
+    print("attempt ##{attempt_number}... ")
     Rake::Task['db:migrate'].invoke
   rescue => error
     pp(error)
@@ -40,4 +40,18 @@ end
 
 runner.run_task('Creating a `Deploy`') do
   Deploy.create!(git_sha: ENV.fetch('GIT_REV'))
+end
+
+runner.run_task('Notifying Rollbar of deploy') do
+  access_token = Rails.application.credentials.rollbar!.access_token!
+  Faraday.json_connection.post(
+    'https://api.rollbar.com/api/1/deploy/',
+    {
+      'environment' => Rails.env,
+      'revision' => ENV.fetch('GIT_REV'),
+    },
+    {
+      'X-Rollbar-Access-Token' => access_token,
+    },
+  )
 end
