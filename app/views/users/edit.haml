@@ -15,7 +15,8 @@
           %span.ml2
             = form.submit 'Update Auth Token'
 
-        = button_to('Destroy Auth Token', auth_token_path(auth_token), method: :delete, form_class: 'inline')
+        = button_to('Destroy Auth Token', auth_token_path(auth_token),
+          method: :delete, form_class: 'inline')
 
     %div.mt2
       = button_to('Create New Auth Token', auth_tokens_path(method: :post))

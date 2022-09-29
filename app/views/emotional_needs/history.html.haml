@@ -5,4 +5,5 @@
 
 %h1.center= @emotional_need.name
 
-= line_chart(@rating_data, library: { scales: { y: { max: 3, min: -3, ticks: { maxTicksLimit: 7, stepSize: 1 } } } })
+= line_chart(@rating_data,
+  library: { scales: { y: { max: 3, min: -3, ticks: { maxTicksLimit: 7, stepSize: 1 } } } })
