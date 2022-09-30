@@ -72,5 +72,18 @@ RSpec.describe Email::MailgunViaHttp do
 
       expect(mailgun_http_request).to have_been_requested
     end
+
+    context 'when the `log_mailgun_http_response` flag is enabled' do
+      before { activate_feature!(:log_mailgun_http_response) }
+
+      it 'logs info about the Mailgun HTTP response' do
+        expect(Rails.logger).
+          to receive(:info).
+          with(/Mailgun response for email.* status=.* body=.* headers=/).
+          and_call_original
+
+        deliver!
+      end
+    end
   end
 end
