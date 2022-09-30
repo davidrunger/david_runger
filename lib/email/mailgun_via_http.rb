@@ -16,16 +16,26 @@ module Email
     # rubocop:enable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
 
     def deliver!(mail)
-      connection.post(
-        MESSAGES_PATH,
-        {
-          to: mail['To'].to_s,
-          subject: mail['Subject'].to_s,
-          from: mail['From'].to_s,
-          'h:Reply-To' => mail['Reply-To'].to_s,
-          html: mail.body.to_s,
-        }.compact,
-      )
+      response =
+        connection.post(
+          MESSAGES_PATH,
+          {
+            to: mail['To'].to_s,
+            subject: mail['Subject'].to_s,
+            from: mail['From'].to_s,
+            'h:Reply-To' => mail['Reply-To'].to_s,
+            html: mail.body.to_s.presence || '<div></div>', # Mailgun requires us to send something
+          }.compact,
+        )
+
+      if Flipper.enabled?(:log_mailgun_http_response)
+        Rails.logger.info(<<~LOG.squish)
+          Mailgun response for email to #{mail['To']} with subject "#{mail['Subject']}":
+          status=#{response.status}
+          body=#{response.body}
+          headers=#{response.headers}.
+        LOG
+      end
     end
 
     private
