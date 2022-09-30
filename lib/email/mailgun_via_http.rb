@@ -16,17 +16,29 @@ module Email
     # rubocop:enable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
 
     def deliver!(mail)
-      response =
-        connection.post(
-          MESSAGES_PATH,
-          {
-            to: mail['To'].to_s,
-            subject: mail['Subject'].to_s,
-            from: mail['From'].to_s,
-            'h:Reply-To' => mail['Reply-To'].to_s,
-            html: mail.body.to_s.presence || '<div></div>', # Mailgun requires us to send something
-          }.compact,
-        )
+      post_body = {
+        to: mail['To'].to_s,
+        subject: mail['Subject'].to_s,
+        from: mail['From'].to_s,
+        'h:Reply-To' => mail['Reply-To'].to_s,
+        html: mail.body.to_s.presence || mail.html_part&.body.presence || '<div></div>',
+      }
+
+      if mail.has_attachments?
+        post_body[:attachment] = []
+        # use random directory for thread safety (so users' emails don't conflict w/ each other)
+        directory = "tmp/attachments/#{Time.zone.today.iso8601}/#{SecureRandom.alphanumeric(5)}"
+        FileUtils.mkdir_p(directory)
+        mail.attachments.each do |attachment|
+          file = File.new("#{directory}/#{attachment.filename}", 'w+b')
+          file.write(attachment.body.to_s)
+          file.rewind
+          post_body[:attachment] <<
+            Faraday::Multipart::FilePart.new(file, 'application/octet-stream')
+        end
+      end
+
+      response = connection.post(MESSAGES_PATH, post_body)
 
       if Flipper.enabled?(:log_mailgun_http_response)
         Rails.logger.info(<<~LOG.squish)
@@ -42,6 +54,7 @@ module Email
 
     def connection
       Faraday.new(MAILGUN_URL) do |conn|
+        conn.request(:multipart)
         conn.request(:url_encoded)
         conn.request(
           :authorization,
