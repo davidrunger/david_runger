@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'sidekiq-scheduler' if Sidekiq.server?
-
 Sidekiq.strict_args!
 
 # We'll give Sidekiq db 1. The app uses db 0 for its direct uses.
