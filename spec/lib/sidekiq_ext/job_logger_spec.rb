@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe SidekiqExt::JobLogger do
-  subject(:logger) { SidekiqExt::JobLogger.new }
+  subject(:logger) { SidekiqExt::JobLogger.new(Sidekiq.default_configuration.logger) }
 
   describe '#job_hash_context' do
     subject(:job_hash_context) { logger.job_hash_context(job_hash) }

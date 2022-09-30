@@ -43,7 +43,7 @@ gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
-gem 'sidekiq'
+gem 'sidekiq', '>=  7.0.0.beta1'
 gem 'sprockets-rails'
 gem 'vite_rails'
 
