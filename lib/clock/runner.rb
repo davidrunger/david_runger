@@ -17,7 +17,7 @@ class Clock::Runner
       execute_tasks
       sleep(seconds_until_next_minute(Time.now) + 0.001)
     end
-  rescue Interrupt
+  rescue SignalException
     # :nocov:
     puts('Thanks for using Clock! Exiting now.')
     exit(0) # rubocop:disable Rails/Exit
