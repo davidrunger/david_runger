@@ -4,13 +4,9 @@ Sidekiq.strict_args!
 
 # We'll give Sidekiq db 1. The app uses db 0 for its direct uses.
 redis_options = RedisOptions.new(db: 1)
-build_sidekiq_redis_connection =
-  proc { Sidekiq::RedisClientAdapter.new(url: redis_options.url).new_client }
-
-Sidekiq::RedisConnection.adapter = :redis_client
 
 Sidekiq.configure_client do |config|
-  config.redis = ConnectionPool.new(size: 3, &build_sidekiq_redis_connection)
+  config.redis = { url: redis_options.url }
 end
 
 Sidekiq.configure_server do |config|
@@ -19,7 +15,7 @@ Sidekiq.configure_server do |config|
   # For concurrency (3), see config/sidekiq.yml.
   # For why we are adding 5, see https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control
   # :nocov:
-  config.redis = ConnectionPool.new(size: 8, &build_sidekiq_redis_connection)
+  config.redis = { url: redis_options.url }
 
   require 'sidekiq_ext/job_logger'
   config[:job_logger] = SidekiqExt::JobLogger

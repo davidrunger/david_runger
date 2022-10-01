@@ -35,7 +35,7 @@ require 'percy/capybara'
 require 'super_diff/rspec-rails'
 
 # w/o this, Sidekiq's `logger` prints to STDOUT (bad); with this, it prints to `log/test.log` (good)
-Sidekiq.logger = Rails.logger
+Sidekiq.default_configuration.logger = Rails.logger
 
 WebMock.enable!
 WebMock.disable_net_connect!(
