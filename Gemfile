@@ -44,7 +44,6 @@ gem 'request_store-sidekiq'
 gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
-gem 'sidekiq-scheduler', github: 'sidekiq-scheduler/sidekiq-scheduler', require: false
 gem 'sprockets-rails'
 gem 'vite_rails'
 
