@@ -21,6 +21,21 @@ class CheckInsController < ApplicationController
 
   def show
     authorize(@check_in, :show?)
+    @title = "Marriage Check-In ##{@check_in.check_in_number}"
+    bootstrap(show_bootstrap_data)
+  end
+
+  private
+
+  def set_check_in
+    @check_in = policy_scope(CheckIn).find(params[:id]).decorate
+  end
+
+  def ensure_marriage
+    Marriage.create!(partner_1: current_user) if current_user.marriage.nil?
+  end
+
+  def show_bootstrap_data
     bootstrap_data = {
       check_in: ActiveModelSerializers::SerializableResource.new(
         @check_in,
@@ -51,16 +66,6 @@ class CheckInsController < ApplicationController
       bootstrap_data[:partner_ratings_hidden_reason] = "They didn't complete it yet."
     end
 
-    bootstrap(bootstrap_data)
-  end
-
-  private
-
-  def set_check_in
-    @check_in = policy_scope(CheckIn).find(params[:id]).decorate
-  end
-
-  def ensure_marriage
-    Marriage.create!(partner_1: current_user) if current_user.marriage.nil?
+    bootstrap_data
   end
 end
