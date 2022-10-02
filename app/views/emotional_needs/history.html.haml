@@ -1,7 +1,8 @@
 - content_for(:page_assets) do
   = js_tag('charts')
 
-%a{href: 'javascript:history.back()'} Go back
+- if request.referrer.present?
+  = link_to 'Go back', :back
 
 %h1.center= @emotional_need.name
 
