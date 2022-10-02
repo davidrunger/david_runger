@@ -59,7 +59,7 @@ FixtureBuilder.configure do |fbuilder|
     name(:log_share, create(:log_share, log: number_log))
 
     # requests
-    name(:request, create(:request))
+    request = name(:request, create(:request)).first
 
     # workouts
     name(:workout, create(:workout, user:))
@@ -111,5 +111,8 @@ FixtureBuilder.configure do |fbuilder|
     # need satisfaction ratings
     create(:need_satisfaction_rating, emotional_need:, check_in:, user:, score: 3)
     create(:need_satisfaction_rating, emotional_need:, check_in:, user: admin, score: -3)
+
+    # csp reports
+    name(:csp_report, create(:csp_report, incoming_ip: request.ip))
   end
 end
