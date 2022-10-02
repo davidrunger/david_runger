@@ -126,6 +126,8 @@ RSpec.configure do |config|
 
   config.global_fixtures = :all
 
+  config.wait_timeout = Integer(ENV.fetch('RSPEC_WAIT_TIMEOUT', 10))
+
   config.include(SpecHelpers)
   config.include(ActiveSupport::Testing::TimeHelpers)
   config.include(FactoryBot::Syntax::Methods)
