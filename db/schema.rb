@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_28_202702) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_02_162936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -102,7 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_28_202702) do
     t.string "document_uri", null: false
     t.string "violated_directive", null: false
     t.string "original_policy", null: false
-    t.string "incoming_ip", null: false
+    t.string "ip", null: false
     t.string "referrer"
     t.string "blocked_uri"
     t.datetime "created_at", null: false

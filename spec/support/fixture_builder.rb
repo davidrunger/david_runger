@@ -113,6 +113,6 @@ FixtureBuilder.configure do |fbuilder|
     create(:need_satisfaction_rating, emotional_need:, check_in:, user: admin, score: -3)
 
     # csp reports
-    name(:csp_report, create(:csp_report, incoming_ip: request.ip))
+    name(:csp_report, create(:csp_report, ip: request.ip))
   end
 end

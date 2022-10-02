@@ -14,7 +14,7 @@ class Api::CspReportsController < ApplicationController
       CspReport.new do |report|
         report.blocked_uri = csp_report_params['blocked-uri']
         report.document_uri = csp_report_params['document-uri']
-        report.incoming_ip = request.remote_ip
+        report.ip = request.remote_ip
         report.original_policy = csp_report_params['original-policy']
         report.referrer = csp_report_params['referrer']
         report.violated_directive = csp_report_params['violated-directive']

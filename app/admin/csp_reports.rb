@@ -8,7 +8,7 @@ ActiveAdmin.register(CspReport) do
       row :document_uri
       row :violated_directive
       row :original_policy
-      row :incoming_ip
+      row :ip
       row :referrer
       row :blocked_uri
 
@@ -19,7 +19,7 @@ ActiveAdmin.register(CspReport) do
     panel 'Requests with same IP' do
       requests =
         Request.
-          where(ip: resource.incoming_ip).
+          where(ip: resource.ip).
           order(id: :desc).
           includes(:admin_user, :auth_token, :user)
 
