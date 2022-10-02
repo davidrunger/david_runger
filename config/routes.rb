@@ -79,10 +79,16 @@ Rails.application.routes.draw do
   end
 
   devise_for :admin_users
-  get '/admin/login', to: 'admin/sessions#new'
   devise_scope :admin_user do
     get '/admin_users/auth/google_oauth2/callback' => 'admin/omniauth_callbacks#google_oauth2'
     delete '/admin_users/sign_out', to: 'devise/sessions#destroy', as: :destroy_admin_user_session
+  end
+  get '/admin/login', to: 'admin/sessions#new'
+  # https://stackoverflow.com/a/46218826/4009384
+  Rails.application.routes.named_routes.tap do |named_routes|
+    # Devise calls `#new_admin_user_session_url` to determine where to redirect an AdminUser to log
+    # in, so we need to alias `#admin_login` to that name.
+    named_routes['new_admin_user_session'] = named_routes['admin_login']
   end
   ActiveAdmin.routes(self)
 

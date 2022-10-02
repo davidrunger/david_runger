@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
     return if admin_user_signed_in?
 
     flash[:alert] = 'You must sign in as an admin user first.'
-    session['user_return_to'] = request.path
+    session['admin_user_return_to'] = request.path
     redirect_to(admin_login_path)
   end
 
