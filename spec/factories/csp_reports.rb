@@ -8,7 +8,7 @@
 #  created_at         :datetime         not null
 #  document_uri       :string           not null
 #  id                 :bigint           not null, primary key
-#  incoming_ip        :string           not null
+#  ip                 :string           not null
 #  original_policy    :string           not null
 #  referrer           :string
 #  updated_at         :datetime         not null
@@ -26,7 +26,7 @@ FactoryBot.define do
         'unsafe-inline'; frame-ancestors 'self'; report-uri /api/csp_reports
       POLICY
     end
-    incoming_ip { Faker::Internet.public_ip_v6_address }
+    ip { Faker::Internet.public_ip_v6_address }
     referrer { 'https://davidrunger.com/check_ins/9' }
     blocked_uri { 'inline' }
   end
