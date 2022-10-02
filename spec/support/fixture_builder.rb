@@ -5,6 +5,8 @@ include FactoryBot::Syntax::Methods
 # rubocop:enable Style/MixinUsage
 
 FixtureBuilder.configure do |fbuilder|
+  ENV['FIXTURES_PATH'] = 'spec/fixtures'
+
   # rebuild fixtures automatically when these files change:
   fbuilder.files_to_check += Dir[
     'spec/factories/*.rb',
