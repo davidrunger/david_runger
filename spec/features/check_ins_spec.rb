@@ -112,12 +112,16 @@ RSpec.describe 'Check-Ins app' do
             /Their answers #{first_emotional_need.name}igraph -3😞-10123/,
           )
 
-          # links to graph of ratings of partner
+          # check for link(s) to graph of ratings of partner
           expect(page).to have_link(
             'graph',
             href: history_emotional_need_path(first_emotional_need, rated_user: 'partner'),
           )
-          # links to graph of partner's ratings of user
+          # view a graph
+          first('a', text: 'graph').click
+          # go back
+          click_link('Go back')
+          # check for link(s) to graph of partner's ratings of user
           expect(page).to have_link(
             'graph',
             href: history_emotional_need_path(first_emotional_need, rated_user: 'self'),
