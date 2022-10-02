@@ -10,6 +10,8 @@ class Api::CspReportsController < ApplicationController
   def create
     skip_authorization
 
+    Rollbar.error(Error.new(CspViolation), csp_report_params:)
+
     csp_report =
       CspReport.new do |report|
         report.blocked_uri = csp_report_params['blocked-uri']

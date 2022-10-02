@@ -53,6 +53,10 @@ class DavidRunger::Application < Rails::Application
 
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
 
+  errors_file = Rails.root.join('lib/errors.rb')
+  Rails.autoloaders.main.ignore(errors_file) # must do this bc. `errors.rb` does not define `Error`
+  require errors_file
+
   extra_load_paths = [
     Rails.root.join('lib'),
     Rails.root.join(*%w[lib refinements]),
