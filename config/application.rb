@@ -69,7 +69,7 @@ class DavidRunger::Application < Rails::Application
   # now being respected.
   $LOAD_PATH << File.join(Gem.loaded_specs['devise'].full_gem_path, 'app', 'helpers').to_s
 
-  ENV['FIXTURES_PATH'] = 'spec/fixtures'
+  ENV['FIXTURES_PATH'] ||= 'spec/fixtures' if ENV.fetch('RAILS_ENV', nil) == 'test'
 
   # Time until incoming mail incineration. Default is 30 days, but we don't need that long.
   config.action_mailbox.incinerate_after = 1.week
