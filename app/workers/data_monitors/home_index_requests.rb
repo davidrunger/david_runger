@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DataMonitors::HomeIndexRequests < DataMonitors::Base
+  extend Memoist
   prepend ApplicationWorker
 
   def perform
@@ -15,16 +16,22 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
 
   private
 
-  def requests_in_past_day
-    Request.where(handler: 'home#index').where(requested_at: 1.day.ago..).where.not(total: nil)
+  def home_requests_in_past_day
+    Request.
+      where(handler: 'home#index').
+      where(requested_at: 1.day.ago..)
   end
 
   def number_of_requests_in_past_day
-    requests_in_past_day.size
+    home_requests_in_past_day.size
   end
 
+  memoize \
   def median_response_time_in_past_day
-    requests_in_past_day.
+    home_requests_in_past_day.
+      where.not(total: nil).
+      where('url LIKE ?', "#{Rails.application.routes.url_helpers.root_url}%").
+      where.not('url LIKE ?', '%/?prerender=true').
       select('PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY "total") AS "percentile"').
       to_a.first.percentile&.
       round(1)
