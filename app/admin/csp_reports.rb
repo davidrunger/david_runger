@@ -24,7 +24,7 @@ ActiveAdmin.register(CspReport) do
           includes(:admin_user, :auth_token, :user)
 
       paginated_collection(requests.page(params[:page]).per(15)) do
-        table_for(collection, sortable: false) do
+        table_for(collection.decorate, sortable: false) do
           column :id
           column :user
           column :admin_user
