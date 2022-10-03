@@ -12,7 +12,7 @@ class Admin::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if admin_user
       sign_in(admin_user)
-      redirect_to(session.delete('user_return_to') || admin_root_path)
+      redirect_to(session.delete('admin_user_return_to') || admin_root_path)
     else
       flash[:alert] = "#{email} is not authorized to access admin"
       redirect_to(admin_login_path)
