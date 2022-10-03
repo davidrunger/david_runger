@@ -99,6 +99,7 @@ group :test do
   gem 'rspec-instafail', require: false
   gem 'rspec-rails', '>= 6.0.0.rc1'
   gem 'rspec-wait'
+  gem 'selenium-devtools'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'super_diff'

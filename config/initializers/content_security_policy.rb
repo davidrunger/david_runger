@@ -23,7 +23,7 @@ Rails.application.configure do
     policy.base_uri(:self)
     policy.connect_src(:self, *extra_sources)
     policy.manifest_src(:self, *extra_sources)
-    policy.form_action(:self)
+    policy.form_action(:self, 'https://accounts.google.com')
     policy.font_src(:self, :https, :data, *extra_sources)
     policy.img_src(:self, :https, :data, *extra_sources)
     policy.object_src(:none)
