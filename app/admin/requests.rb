@@ -26,6 +26,7 @@ ActiveAdmin.register(Request) do
       row :user
       row :admin_user
       row :auth_token
+      row :pretty_user_agent
       row :user_agent
       row :location
       row :isp
