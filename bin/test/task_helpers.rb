@@ -25,16 +25,26 @@ module Test::TaskHelpers
       puts("'#{task_name}' failed ('exited with 1', raised #{error.inspect}).".red)
       raise # this will exit the program if it's a `SystemExit` exception
     rescue => error
-      update_job_result_exit_code(1)
-      puts("'#{task_name}' failed ('exited with 1', raised #{error.inspect}).".red)
-      Test::Runner.exit_code = 1 if Test::Runner.exit_code == 0
+      record_failure_and_log_message(
+        "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
+      )
     else
-      update_job_result_exit_code(0)
-      puts("'#{task_name}' succeeded (took #{time.round(3)}).".green)
+      record_success_and_log_message("'#{task_name}' succeeded (took #{time.round(3)}).")
     end
   end
 
   private
+
+  def record_success_and_log_message(message)
+    update_job_result_exit_code(0)
+    puts(message.green)
+  end
+
+  def record_failure_and_log_message(message)
+    update_job_result_exit_code(1)
+    puts(message.red)
+    Test::Runner.exit_code = 1 if Test::Runner.exit_code == 0
+  end
 
   def update_job_result_exit_code(exit_code)
     preexisting_exit_code = job_result_hash[:exit_code]
