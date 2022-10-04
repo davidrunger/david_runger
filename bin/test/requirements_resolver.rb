@@ -12,14 +12,16 @@ class Test::RequirementsResolver
     memoize \
     def dependency_map
       base_dependency_map = {
+        # NB: Tasks that are better to run earlier are listed first.
+
         # Installation / Setup
-        Test::Tasks::EnsureLatestChromedriver => nil,
         Test::Tasks::YarnInstall => nil,
-        Test::Tasks::CheckVersions => nil,
         Test::Tasks::CompileJavaScript => Test::Tasks::YarnInstall,
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
+        Test::Tasks::EnsureLatestChromedriver => nil,
+        Test::Tasks::CheckVersions => nil,
 
         # Checks
         Test::Tasks::RunStylelint => Test::Tasks::YarnInstall,
@@ -31,6 +33,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunRubocop => nil,
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
+        Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileJavaScript,
         Test::Tasks::RunFeatureTests => [
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
@@ -45,11 +48,12 @@ class Test::RequirementsResolver
         Test::Tasks::Exit => [
           Test::Tasks::CheckVersions,
           Test::Tasks::RunAnnotate,
+          Test::Tasks::RunApiControllerTests,
           Test::Tasks::RunBrakeman,
           Test::Tasks::RunDatabaseConsistency,
           Test::Tasks::RunEslint,
           Test::Tasks::RunFeatureTests,
-          Test::Tasks::RunApiControllerTests,
+          Test::Tasks::RunFileSizeChecks,
           Test::Tasks::RunHtmlControllerTests,
           Test::Tasks::RunImmigrant,
           Test::Tasks::RunRubocop,

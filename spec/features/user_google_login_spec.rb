@@ -51,7 +51,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
     end
 
     context 'when Google responds with "This is Google OAuth."' do
-      before do
+      around do |spec|
         page.driver.browser.intercept do |request, &continue|
           if request.url.start_with?('https://accounts.google.com/o/oauth2/auth?')
             fetch = page.driver.browser.devtools.fetch
@@ -65,6 +65,10 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
             continue.call(request)
           end
         end
+
+        spec.run
+
+        page.driver.browser.devtools.fetch.disable
       end
 
       it "renders Google's response" do
