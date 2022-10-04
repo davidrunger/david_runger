@@ -1,2 +1,3 @@
-config/credentials/*.yml.enc diff=rails_credentials
-config/credentials.yml.enc diff=rails_credentials
+# Uncomment the below lines to view decrypted credentials in git diffs.
+# config/credentials/*.yml.enc diff=rails_credentials
+# config/credentials.yml.enc diff=rails_credentials
