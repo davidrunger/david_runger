@@ -19,7 +19,7 @@ div(v-else) {{bootstrap.partner_ratings_hidden_reason}}
 </template>
 
 <script>
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import Ratings from './components/ratings.vue';
 
 export default {
