@@ -23,7 +23,7 @@ RSpec.describe 'Check-Ins app' do
             and_return('xyz248')
         end
 
-        it 'allows inviting spouse, adding emotional needs, and accepting proposal' do
+        it 'allows inviting spouse, adding emotional needs, & accepting proposal', :multi_session do
           visit check_ins_path
 
           expect(page).to have_text('Enter the email of your spouse')
@@ -72,7 +72,10 @@ RSpec.describe 'Check-Ins app' do
 
         let(:first_emotional_need) { marriage.emotional_needs.first! }
 
-        it "allows creating a check-in, rating need fulfillment, viewing partner's ratings, etc" do
+        it(
+          "allows creating a check-in, rating need fulfillment, viewing partner's ratings, etc",
+          :multi_session,
+        ) do
           visit check_ins_path
 
           expect(page).to have_button('Create a new check-in')

@@ -286,6 +286,45 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter = original_active_job_queue_adapter
   end
 
+  config.around(:each, type: :feature) do |spec|
+    # The rack driver doesn't support this functionality.
+    # I cannot figure out how to get it to work with multiple different Chrome Capybara sessions.
+    if !spec.metadata[:rack_test_driver] && !spec.metadata[:multi_session]
+      stubbed_responses = spec.metadata[:stubbed_responses] || {}
+      allowed_prefixes = [Capybara.app_host, *spec.metadata[:allowed_external_path_prefixes]]
+      page.driver.browser.devtools.fetch.on(:request_paused) do |event_data|
+        url = event_data.dig('request', 'url')
+        matching_stubbed_response_pattern =
+          stubbed_responses.keys.find { |url_pattern| url.match?(url_pattern) }
+        if matching_stubbed_response_pattern
+          stubbed_response = stubbed_responses[matching_stubbed_response_pattern]
+          page.driver.browser.devtools.fetch.fulfill_request(
+            request_id: event_data['requestId'],
+            response_code: stubbed_response[:response_code] || 200,
+            body: Base64.strict_encode64(stubbed_response[:body]),
+          )
+        elsif allowed_prefixes.any? { url.start_with?(_1) }
+          page.driver.browser.devtools.fetch.continue_request(request_id: event_data['requestId'])
+        else
+          Rails.logger.info("Blocking request to #{url.red} .")
+          page.driver.browser.devtools.fetch.fail_request(
+            request_id: event_data['requestId'],
+            error_reason: 'BlockedByClient',
+          )
+        end
+      end
+
+      page.driver.browser.devtools.fetch.enable
+    end
+
+    spec.run
+
+    if !spec.metadata[:rack_test_driver]
+      page.driver.browser.devtools.callbacks.clear
+      page.driver.browser.devtools.fetch.disable
+    end
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

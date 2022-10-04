@@ -50,27 +50,14 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
       OmniAuth.config.test_mode = original_omni_auth_test_mode
     end
 
-    context 'when Google responds with "This is Google OAuth."' do
-      around do |spec|
-        page.driver.browser.intercept do |request, &continue|
-          if request.url.start_with?('https://accounts.google.com/o/oauth2/auth?')
-            fetch = page.driver.browser.devtools.fetch
-            fetch.enable
-            fetch.fulfill_request(
-              request_id: request.id,
-              response_code: 200,
-              body: Base64.strict_encode64('This is Google OAuth.'),
-            )
-          else
-            continue.call(request)
-          end
-        end
-
-        spec.run
-
-        page.driver.browser.devtools.fetch.disable
-      end
-
+    context(
+      'when Google responds with "This is Google OAuth."',
+      stubbed_responses: {
+        %r{\Ahttps://accounts\.google\.com/o/oauth2/auth\?} => {
+          body: 'This is Google OAuth.',
+        },
+      },
+    ) do
       it "renders Google's response" do
         visit(login_path)
         expect(page).to have_css('button.google-login')

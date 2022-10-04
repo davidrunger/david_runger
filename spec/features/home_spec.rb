@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe 'Home page', :prerendering_disabled do
-  it 'says "David Runger / Full stack web developer"' do
+  it(
+    'says "David Runger / Full stack web developer"',
+    allowed_external_path_prefixes: ['https://cdn.jsdelivr.net/gh/konpa/devicon'],
+  ) do
     visit root_path
 
     expect(page).to have_text(<<~HEADLINE, normalize_ws: false)
