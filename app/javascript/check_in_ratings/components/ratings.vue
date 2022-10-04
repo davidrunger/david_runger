@@ -26,7 +26,7 @@ button.mt1.h3(v-if='editable' @click='updateCheckIn') Update Check-in
 </template>
 
 <script>
-import { range } from 'lodash';
+import { range } from 'lodash-es';
 import EmojiButton from './emoji_button.vue';
 
 export default {

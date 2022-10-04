@@ -40,6 +40,12 @@ module.exports = {
     'no-new': 'off',
     'no-param-reassign': 'off',
     'no-plusplus': 'off',
+    'no-restricted-imports': ['error', {
+      paths: [{
+        name: 'lodash',
+        message: 'Use lodash-es.',
+      }],
+    }],
     'no-underscore-dangle': 'off',
     'no-unreachable': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-use-before-define': ['error', { functions: false }],
