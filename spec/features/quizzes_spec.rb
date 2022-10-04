@@ -81,7 +81,9 @@ RSpec.describe 'Quizzes app' do
 
       # participant chooses an incorrect answer
       Capybara.using_session('Quiz participant session') do
-        choose(second_question.answers.first!.content)
+        Capybara.using_wait_time(10) do
+          choose(second_question.answers.first!.content)
+        end
         click_button('Submit')
       end
 
