@@ -69,6 +69,13 @@ export default {
 <style lang='scss'>
 :root {
   --main-bg-color: #111;
+
+  .el-button {
+    --el-button-text-color: #b8babd;
+    --el-button-disabled-text-color: #3d3d3d;
+    --el-button-disabled-bg-color: var(--main-bg-color);
+    --el-button-disabled-border-color: #2a2a2a;
+  }
 }
 
 body {
@@ -102,15 +109,6 @@ a.log-link {
   }
 }
 
-.el-button {
-  background: #111;
-
-  &:focus,
-  &:hover {
-    background: #111;
-  }
-}
-
 input[type="text"],
 textarea.el-textarea__inner,
 .el-input input.el-input__inner,
@@ -129,5 +127,20 @@ textarea.el-textarea__inner {
 
 .el-input input.el-input__inner {
   color: white;
+}
+</style>
+
+<style lang='scss' scoped>
+:deep(.el-button) {
+  background: var(--main-bg-color);
+
+  &:focus,
+  &:hover {
+    background: var(--main-bg-color);
+  }
+
+  &.is-disabled {
+    border-color: var(--el-button-disabled-border-color);
+  }
 }
 </style>
