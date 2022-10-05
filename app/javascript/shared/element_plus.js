@@ -2,8 +2,6 @@ import {
   ElButton,
   ElCard,
   ElCheckbox,
-  ElCollapse,
-  ElCollapseItem,
   ElDatePicker,
   ElInput,
   ElMenu,
@@ -19,8 +17,6 @@ export function useElementPlus(app) {
   app.use(ElButton);
   app.use(ElCard);
   app.use(ElCheckbox);
-  app.use(ElCollapse);
-  app.use(ElCollapseItem);
   app.use(ElDatePicker);
   app.use(ElInput);
   app.use(ElMenu);
