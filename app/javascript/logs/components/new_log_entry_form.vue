@@ -154,4 +154,8 @@ form.duration {
   margin: 0 auto;
   max-width: 200px;
 }
+
+:deep(.el-input__wrapper) {
+  width: 200px;
+}
 </style>
