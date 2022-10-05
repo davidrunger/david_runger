@@ -14,6 +14,14 @@ GIT
     email_reply_trimmer (0.1.13)
 
 GIT
+  remote: https://github.com/davidrunger/pallets.git
+  revision: 4f7107ade57b9183d7fb36fba9912536930f7603
+  specs:
+    pallets (0.11.0)
+      msgpack
+      redis (~> 4.2)
+
+GIT
   remote: https://github.com/davidrunger/runger_style.git
   revision: 3e057215ea4cdcc054da96ea231383745ad3ad96
   specs:
@@ -365,9 +373,6 @@ GEM
       omniauth (~> 2.0)
     optimist (3.0.1)
     orm_adapter (0.5.0)
-    pallets (0.11.0)
-      msgpack
-      redis (~> 4.2)
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
@@ -641,7 +646,7 @@ DEPENDENCIES
   oj
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
-  pallets
+  pallets!
   percy-capybara
   pg
   pry-byebug
