@@ -218,6 +218,12 @@ RSpec.configure do |config|
       )
   end
 
+  config.around(:each, :wait_time) do |example|
+    Capybara.using_wait_time(example.metadata[:wait_time]) do
+      example.run
+    end
+  end
+
   config.before(:each, type: :controller) do
     # When executed, a Rails middleware will ensure that a `request_id` is set for each request.
     # However, middleware does not run for controller tests.

@@ -7,7 +7,7 @@ RSpec.describe 'Quizzes app' do
   context 'when user is signed in' do
     before { sign_in(quiz_owner) }
 
-    it 'allows creating a new quiz, joining the quiz, answering questions, etc' do
+    it 'allows creating a new quiz, joining the quiz, answering questions, etc', wait_time: 10 do
       # visit new quiz page
       visit(new_quiz_path)
 
@@ -81,9 +81,7 @@ RSpec.describe 'Quizzes app' do
 
       # participant chooses an incorrect answer
       Capybara.using_session('Quiz participant session') do
-        Capybara.using_wait_time(10) do
-          choose(second_question.answers.first!.content)
-        end
+        choose(second_question.answers.first!.content)
         click_button('Submit')
       end
 
