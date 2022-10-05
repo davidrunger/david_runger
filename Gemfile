@@ -93,7 +93,7 @@ group :test do
   gem 'json-schema'
   gem 'launchy'
   gem 'nokogiri'
-  gem 'pallets'
+  gem 'pallets', github: 'davidrunger/pallets'
   gem 'percy-capybara'
   gem 'rails-controller-testing'
   gem 'rspec-instafail', require: false
