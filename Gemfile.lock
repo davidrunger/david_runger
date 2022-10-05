@@ -459,6 +459,7 @@ GEM
       railties (>= 5.0)
     rexml (3.2.5)
     rollbar (3.3.1)
+    rouge (4.0.0)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -661,6 +662,7 @@ DEPENDENCIES
   request_store
   request_store-sidekiq
   rollbar
+  rouge
   rspec-instafail
   rspec-rails (>= 6.0.0.rc1)
   rspec-wait
@@ -674,6 +676,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   sidekiq (>= 7.0.0.beta1)
+  simplecov
   spring
   spring-commands-rspec
   spring-watcher-listen

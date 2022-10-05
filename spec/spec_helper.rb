@@ -8,15 +8,19 @@ require 'webmock/rspec'
 require 'pundit/rspec'
 is_ci = (ENV.fetch('CI', nil) == 'true')
 use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
+require 'simplecov'
 if is_ci
-  require 'simplecov'
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
-  SimpleCov.start do
-    add_filter(%r{^/spec/})
-    enable_coverage(:branch)
-  end
   Codecov.pass_ci_if_error = true
+elsif (executed_spec_files = ARGV.grep(%r{\Aspec/}).presence)
+  require_relative '../tools/simplecov/formatter/terminal.rb'
+  SimpleCov::Formatter::Terminal.executed_spec_files = executed_spec_files
+  SimpleCov.formatter = SimpleCov::Formatter::Terminal
+end
+SimpleCov.start do
+  add_filter(%r{^/spec/})
+  enable_coverage(:branch)
 end
 require File.expand_path('../config/environment', __dir__)
 require Rails.root.join('spec/support/fixture_builder.rb').to_s
