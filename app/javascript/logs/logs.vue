@@ -76,6 +76,10 @@ export default {
     --el-button-disabled-bg-color: var(--main-bg-color);
     --el-button-disabled-border-color: #2a2a2a;
   }
+
+  .el-input__wrapper {
+    background-color: var(--main-bg-color);
+  }
 }
 
 body {
@@ -99,13 +103,6 @@ a.log-link {
 
   &:hover {
     font-size: 110%;
-  }
-}
-
-.el-collapse-item {
-  [role="tab"]:focus,
-  [role="button"]:focus {
-    outline: none;
   }
 }
 

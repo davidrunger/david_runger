@@ -3,9 +3,8 @@ section
   div
     .log-link-container.m1.h2(v-for='log in logs')
       router-link.log-link(:to='{ name: "log", params: { slug: log.slug }}') {{log.name}}
-  el-collapse(v-model='expandedPanelNames')
-    el-collapse-item(title = 'Create new log' name='new-log-form')
-      NewLogForm
+  hr.my3.border-gray
+  NewLogForm
 </template>
 
 <script>
@@ -24,23 +23,14 @@ export default {
     ]),
   },
 
-  data() {
-    return {
-      expandedPanelNames: [],
-    };
-  },
-
   title() {
     return 'Logs - David Runger';
   },
 };
 </script>
 
-<style>
-.el-collapse,
-.el-collapse-item__header,
-.el-collapse-item__wrap {
-  background: initial;
-  border: none;
+<style scoped>
+hr {
+  max-width: 400px;
 }
 </style>

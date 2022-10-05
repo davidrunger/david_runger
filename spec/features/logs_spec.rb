@@ -16,7 +16,7 @@ RSpec.describe 'Logs app' do
         user.logs.pluck(:name).presence!.each do |log_name|
           expect(page).to have_text(log_name)
         end
-        expect(page).to have_text('Create new log')
+        expect(page).to have_text('New Log')
 
         log = user.logs.first!
         other_log = user.logs.second!

@@ -12,17 +12,17 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'check_in_ratings*.js' => (195..205),
     'check_in_ratings*.css' => (10..15),
     'groceries*.js' => (425..435),
-    'groceries*.css' => (105..115),
+    'groceries*.css' => (100..110),
     'home*.js' => (150..160),
     'home*.css' => (1..4),
     'logs*.js' => (880..890),
-    'logs*.css' => (105..115),
+    'logs*.css' => (100..110),
     'marriage*.js' => (10..20),
     'quizzes*.js' => (105..115),
     'styles*.css' => (15..25),
     'turbo*.js' => (70..80),
     'workout*.js' => (425..440),
-    'workout*.css' => (105..115),
+    'workout*.css' => (100..110),
   }.freeze
 
   def run
