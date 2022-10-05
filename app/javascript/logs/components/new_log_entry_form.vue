@@ -19,21 +19,24 @@ div
           ref='log-input'
           :type='inputType'
         )
-    el-date-picker.mb1.mr1(
-      v-model='newLogEntryCreatedAt'
-      type='datetime'
-      placeholder='Backdate (optional)'
-    )
-    el-input.new-log-input.mb1(
-      v-if='isCounter || isDuration || isNumber'
-      placeholder='Note (optional)'
-      v-model='newLogEntryNote'
-      type='text'
-    )
-    el-button(
-      native-type='submit'
-      :disabled='v$.$invalid'
-    ) Add
+    div(:class='{mt1: isText}')
+      el-date-picker(
+        :class='{mb1: isNumeric}'
+        v-model='newLogEntryCreatedAt'
+        type='datetime'
+        placeholder='Backdate (optional)'
+      )
+      el-input.new-log-input(
+        :class='{mb1: isNumeric}'
+        v-if='isNumeric'
+        placeholder='Note (optional)'
+        v-model='newLogEntryNote'
+        type='text'
+      )
+      el-button(
+        native-type='submit'
+        :disabled='v$.$invalid'
+      ) Add
 </template>
 
 <script>
@@ -64,6 +67,10 @@ export default {
 
     isNumber() {
       return this.log.data_type === 'number';
+    },
+
+    isNumeric() {
+      return this.isCounter || this.isDuration || this.isNumber;
     },
 
     isText() {
