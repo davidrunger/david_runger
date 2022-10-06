@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'memoist'
+
 class SimpleCov::Formatter::Terminal
   extend Memoist
 
