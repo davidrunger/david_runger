@@ -96,12 +96,14 @@ group :test do
   gem 'pallets', github: 'davidrunger/pallets'
   gem 'percy-capybara'
   gem 'rails-controller-testing'
+  gem 'rouge'
   gem 'rspec-instafail', require: false
   gem 'rspec-rails', '>= 6.0.0.rc1'
   gem 'rspec-wait'
   gem 'selenium-devtools'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'simplecov'
   gem 'super_diff'
   gem 'webmock'
 end
