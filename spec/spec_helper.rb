@@ -13,7 +13,10 @@ if is_ci
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
   Codecov.pass_ci_if_error = true
-elsif (executed_spec_files = ARGV.grep(%r{\Aspec/}).presence)
+elsif (
+  (executed_spec_files = ARGV.grep(%r{\Aspec/.+_spec\.rb}).presence) &&
+    executed_spec_files&.size == 1
+)
   require_relative '../tools/simplecov/formatter/terminal.rb'
   SimpleCov::Formatter::Terminal.executed_spec_files = executed_spec_files
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
