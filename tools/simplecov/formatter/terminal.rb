@@ -49,7 +49,7 @@ class SimpleCov::Formatter::Terminal
     source = syntax_highlighted_source_lines[line.line_number - 1]
     case line.coverage
     when nil then "#{'░░ '.gray}#{source}"
-    when 1 then "#{'██ '.green}#{source}"
+    when (1..) then "#{'██ '.green}#{source}"
     when 0 then "#{'██ '.red}#{source}"
     else raise('Unexpected coverage value!')
     end
