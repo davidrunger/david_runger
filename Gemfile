@@ -97,7 +97,6 @@ group :test do
   gem 'pallets', github: 'davidrunger/pallets'
   gem 'percy-capybara'
   gem 'rails-controller-testing'
-  gem 'rouge'
   gem 'rspec-instafail', require: false
   gem 'rspec-rails', '>= 6.0.0.rc1'
   gem 'rspec-wait'
@@ -105,6 +104,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov'
+  gem 'simple_cov-formatter-terminal', github: 'davidrunger/simple_cov-formatter-terminal'
   gem 'super_diff'
   gem 'webmock'
 end
