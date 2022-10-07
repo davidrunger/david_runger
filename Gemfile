@@ -18,9 +18,9 @@ gem 'draper'
 gem 'email_reply_trimmer', github: 'davidrunger/email_reply_trimmer'
 gem 'faraday'
 gem 'faraday-multipart'
-# remove GitHub sources after flipper-redis relaxes its redis constraint to allow redis >= 5.0.5
-gem 'flipper', github: 'davidrunger/flipper', branch: 'relax-redis-constraint-to-lt-6'
-gem 'flipper-redis', github: 'davidrunger/flipper', branch: 'relax-redis-constraint-to-lt-6'
+# remove GitHub sources after new release relaxes redis constraint to allow redis >= 5.0.5
+gem 'flipper', github: 'jnunemaker/flipper'
+gem 'flipper-redis', github: 'jnunemaker/flipper'
 gem 'flipper-ui'
 gem 'hamlit'
 gem 'hashid-rails'

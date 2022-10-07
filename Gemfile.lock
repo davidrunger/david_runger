@@ -14,16 +14,6 @@ GIT
     email_reply_trimmer (0.1.13)
 
 GIT
-  remote: https://github.com/davidrunger/flipper.git
-  revision: c08942bc1432c966b01e2bbd3d818a08635c3d5f
-  branch: relax-redis-constraint-to-lt-6
-  specs:
-    flipper (0.25.2)
-    flipper-redis (0.25.2)
-      flipper (~> 0.25.2)
-      redis (>= 3.0, < 6)
-
-GIT
   remote: https://github.com/davidrunger/pallets.git
   revision: ccba82ee375df56ffd08ec97ee987faf390a2642
   specs:
@@ -46,6 +36,15 @@ GIT
       memoist (>= 0.16.2, < 1)
       rouge (>= 4.0.0, < 5)
       simplecov (>= 0.21.2, < 1)
+
+GIT
+  remote: https://github.com/jnunemaker/flipper.git
+  revision: 6d2753e8b7f563ebdd9c08dfa24d4fb21eb18fd6
+  specs:
+    flipper (0.25.2)
+    flipper-redis (0.25.2)
+      flipper (~> 0.25.2)
+      redis (>= 3.0, < 6)
 
 GEM
   remote: https://rubygems.org/
