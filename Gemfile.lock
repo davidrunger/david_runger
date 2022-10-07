@@ -37,6 +37,16 @@ GIT
   specs:
     runger_style (0.2.22.alpha)
 
+GIT
+  remote: https://github.com/davidrunger/simple_cov-formatter-terminal.git
+  revision: c686eeb134277d5808f474eb59456a32d9ab32a4
+  specs:
+    simple_cov-formatter-terminal (0.1.0)
+      amazing_print (>= 1.4.0, < 2)
+      memoist (>= 0.16.2, < 1)
+      rouge (>= 4.0.0, < 5)
+      simplecov (>= 0.21.2, < 1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -669,7 +679,6 @@ DEPENDENCIES
   request_store
   request_store-sidekiq
   rollbar
-  rouge
   rspec-instafail
   rspec-rails (>= 6.0.0.rc1)
   rspec-wait
@@ -683,6 +692,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   sidekiq (>= 7.0.0.beta1)
+  simple_cov-formatter-terminal!
   simplecov
   spring
   spring-commands-rspec
