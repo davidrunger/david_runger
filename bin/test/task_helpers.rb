@@ -1,17 +1,23 @@
 # frozen_string_literal: true
 
 module Test::TaskHelpers
-  def execute_system_command(command)
+  def execute_system_command(command, env_vars = {})
     command = command.squish
-    puts("Running system command '#{command.yellow}' ...")
-    time = Benchmark.measure { system(command) }.real
+    puts("Running system command '#{command.yellow}' with ENV vars #{env_vars.to_s.yellow} ...")
+    time = Benchmark.measure { system(env_vars, command) }.real
     exit_code = $CHILD_STATUS.exitstatus
     update_job_result_exit_code(exit_code)
     if exit_code == 0
-      puts("'#{command}' succeeded (exited with #{exit_code}, took #{time.round(3)}).".green)
+      puts(<<~LOG.squish)
+        '#{command.green}' with ENV vars #{env_vars.to_s.green} succeeded
+        (exited with #{exit_code}, took #{time.round(3)}).
+      LOG
     else
       Test::Runner.exit_code = exit_code if Test::Runner.exit_code == 0
-      puts("'#{command}' failed (exited with #{exit_code}, took #{time.round(3)}).".red)
+      puts(<<~LOG.squish.red)
+        '#{command.red}' with ENV vars #{env_vars.to_s.red} failed
+        (exited with #{exit_code}, took #{time.round(3)}).
+      LOG
     end
   end
 
