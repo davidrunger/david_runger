@@ -16,6 +16,19 @@ namespace :assets do
     puts '... success.'
   end
 
+  def upload_zipped_assets(git_sha, directory_name)
+    file_output_path = "tmp/#{directory_name}.zip"
+    FileUtils.mkdir_p('tmp')
+    system("cd public && zip -r ../#{file_output_path} #{directory_name}")
+
+    Aws::S3::Resource.new(region: 'us-east-1').
+      bucket('david-runger-test-uploads').
+      object("compiled-assets/#{git_sha}/#{directory_name}.zip").
+      put(body: File.read(file_output_path))
+
+    system("rm #{file_output_path}")
+  end
+
   desc 'Boot a server in development that serves assets in a production-like manner'
   task :production_asset_server do
     run_logged_system_command('rm -rf node_modules/')
@@ -32,18 +45,33 @@ namespace :assets do
       },
     )
   end
+
+  desc 'Upload Vite assets to S3'
+  task :upload_vite_assets do
+    git_sha = `git rev-parse HEAD`.strip
+    raise('Could not determine git SHA!') if git_sha.empty?
+
+    upload_zipped_assets(git_sha, 'vite')
+    upload_zipped_assets(git_sha, 'vite-admin')
+  end
 end
 
 Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
-  system('bin/vite build --force --debug', exception: true)
-  system(
-    {
-      'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_packs',
-      'VITE_RUBY_PUBLIC_OUTPUT_DIR' => 'vite-admin',
-    },
-    'bin/vite build --force --debug',
-    exception: true,
-  )
+  def download_s3_zip(git_sha, directory_name)
+    Aws::S3::Resource.new(region: 'us-east-1').
+      bucket('david-runger-test-uploads').
+      object("compiled-assets/#{git_sha}/#{directory_name}.zip").
+      get(response_target: "tmp/#{directory_name}.zip")
+  end
+
+  git_sha = `git rev-parse HEAD`.strip
+  raise('Could not determine git SHA!') if git_sha.empty?
+
+  download_s3_zip(git_sha, 'vite')
+  download_s3_zip(git_sha, 'vite-admin')
+
+  system('unzip -d public/ tmp/vite.zip')
+  system('unzip -d public/ tmp/vite-admin.zip')
 end
 
 if Rails.env.production?
