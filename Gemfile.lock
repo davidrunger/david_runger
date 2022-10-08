@@ -507,6 +507,8 @@ GEM
       rspec-expectations (~> 3.11)
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
+    rspec-retry (0.6.2)
+      rspec-core (> 3.3)
     rspec-support (3.11.1)
     rspec-wait (0.0.9)
       rspec (>= 3, < 4)
@@ -689,6 +691,7 @@ DEPENDENCIES
   rollbar
   rspec-instafail
   rspec-rails (>= 6.0.0.rc1)
+  rspec-retry
   rspec-wait
   rubocop
   rubocop-performance
