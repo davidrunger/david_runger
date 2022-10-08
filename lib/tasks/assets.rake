@@ -35,13 +35,14 @@ namespace :assets do
 end
 
 Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
-  system('bin/vite build --force')
+  system('bin/vite build --force', exception: true)
   system(
     {
       'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_packs',
       'VITE_RUBY_PUBLIC_OUTPUT_DIR' => 'vite-admin',
     },
     'bin/vite build --force',
+    exception: true,
   )
 end
 
