@@ -78,6 +78,23 @@ Rack::Attack.blocklist('blocked IPs') do |request|
   request.ip.in?(Rack::Attack.blocked_ips)
 end
 
+# https://github.com/rack/rack-attack#logging--instrumentation
+ActiveSupport::Notifications.
+  subscribe(/rack_attack/) do |name, _start, _finish, request_id, payload|
+    next if payload.keys == [:discriminator] # from InstrumentFail2BanEventMonkeypatch
+
+    request = payload[:request]
+    Rails.logger.info(<<~LOG.squish)
+      [rack-attack]
+      [#{request_id}]
+      event=#{name}
+      ip=#{request.ip}
+      fullpath=#{request.fullpath}
+      request_method=#{request.request_method}
+      user_agent=#{request.user_agent}
+    LOG
+  end
+
 # this notification gets triggered via `InstrumentFail2BanEvent` monkeypatch
 ActiveSupport::Notifications.subscribe(
   'fail2banned.rack_attack',
