@@ -28,7 +28,7 @@ class Rack::Attack
     end
 
     def blocked_path?(request)
-      return true if request.fullpath.include?('%00')
+      return true if request.fullpath.include?("\u0000")
       return false if request.fullpath.start_with?('/sidekiq/')
 
       fragments = request.path.split(PATH_FRAGMENT_SEPARATOR_REGEX)
