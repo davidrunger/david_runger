@@ -18,7 +18,7 @@ class BannedPathFragment < ApplicationRecord
   validates(
     :value,
     presence: true,
-    format: { without: Rack::Attack::PATH_FRAGMENT_SEPARATOR_REGEX },
+    format: { with: /\A[a-z0-9]+\z/ },
     uniqueness: true,
   )
 end
