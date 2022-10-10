@@ -20,17 +20,6 @@ end
 
 runner = Runner.new
 
-runner.run_task('Installing skedjewel') do
-  skedjewel_path = Rails.root.join('bin/skedjewel')
-  system(
-    'curl -L https://github.com/davidrunger/skedjewel/releases/download/' \
-    'v0.0.1.alpha-4/skedjewel-v0.0.1.alpha-4-linux ' \
-    "> #{skedjewel_path} " \
-    "&& chmod a+x #{skedjewel_path}",
-    exception: true,
-  )
-end
-
 runner.run_task('Running db:migrate') do
   Rails.application.load_tasks
 

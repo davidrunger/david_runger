@@ -72,6 +72,17 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
 
   system('unzip -d public/ tmp/vite.zip')
   system('unzip -d public/ tmp/vite-admin.zip')
+
+  # install skedjewel
+  bin_path = Rails.root.join('bin')
+  skedjewel_url =
+    'https://github.com/davidrunger/skedjewel/releases/download/' \
+    'v0.0.1.alpha-4/skedjewel-v0.0.1.alpha-4-linux'
+  system(<<~SH.squish, exception: true)
+    curl -L #{skedjewel_url} > skedjewel &&
+      mv skedjewel #{bin_path}/ &&
+      chmod a+x #{bin_path}/skedjewel
+  SH
 end
 
 if Rails.env.production?
