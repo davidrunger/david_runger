@@ -1,4 +1,4 @@
 web: bin/rails server -p $PORT -e $RAILS_ENV
 worker: bin/sidekiq
-clock: bin/schedjewel
+clock: bin/skedjewel
 release: bin/release-tasks
