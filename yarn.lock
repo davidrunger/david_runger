@@ -4524,10 +4524,10 @@ vue-router@^4.1:
   dependencies:
     "@vue/devtools-api" "^6.1.4"
 
-vue-tabler-icons@^2.11.4:
-  version "2.11.4"
-  resolved "https://registry.yarnpkg.com/vue-tabler-icons/-/vue-tabler-icons-2.11.4.tgz#4085822a5103580ca8914767acb569282e385144"
-  integrity sha512-/g+94rl3Y4KAQlMiMBttAbtZxo/U/iTf+MT5tO7WMw53ymKCphS75ExQZTbpLrXtVI6V5E/kzt9sxBQhiv4+7w==
+vue-tabler-icons@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/vue-tabler-icons/-/vue-tabler-icons-2.12.0.tgz#5f6fc602f30452a94097a285002b05113648f3b0"
+  integrity sha512-rzoYzXC+WItZRgZm8YUKtMFRlup51Vaia37pVuWCgQoWzk0VzaQPkHe2+GTGUAYVbLAGz/xXEWh7s2cZ1ZaDVg==
 
 vue@^3.2:
   version "3.2.40"
