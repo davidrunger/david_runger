@@ -76,8 +76,7 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   # install skedjewel
   bin_path = Rails.root.join('bin')
   skedjewel_url =
-    'https://github.com/davidrunger/skedjewel/releases/download/' \
-    'v0.0.1.alpha5/skedjewel-v0.0.1.alpha5-linux'
+    'https://github.com/davidrunger/skedjewel/releases/download/v0.0.1/skedjewel-v0.0.1-linux'
   system(<<~SH.squish, exception: true)
     curl -L #{skedjewel_url} > skedjewel &&
       mv skedjewel #{bin_path}/ &&
