@@ -9,16 +9,15 @@ require 'pundit/rspec'
 is_ci = (ENV.fetch('CI', nil) == 'true')
 use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
 require 'simplecov'
-executed_spec_files = ARGV.grep(%r{\Aspec/.+_spec\.rb})
 if is_ci
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
   Codecov.pass_ci_if_error = true
-elsif executed_spec_files.size == 1
+elsif (executed_spec_files = ARGV.grep(%r{\Aspec/.+_spec\.rb})).size == 1
   $checking_test_coverage = true
   require 'simple_cov/formatter/terminal'
-  SimpleCov::Formatter::Terminal.executed_spec_files = executed_spec_files
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
+  SimpleCov::Formatter::Terminal.executed_spec_file = executed_spec_files.first
 end
 SimpleCov.start do
   add_filter(%r{^/spec/})
