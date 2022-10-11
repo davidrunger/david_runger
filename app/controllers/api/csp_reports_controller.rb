@@ -3,6 +3,10 @@
 class Api::CspReportsController < ApplicationController
   extend Memoist
 
+  IGNORED_USER_AGENTS = [
+    /DuckDuckBot/,
+  ].freeze
+
   skip_before_action :authenticate_user!, only: %i[create]
   # The browser submitting the report will not have any CSRF token
   skip_before_action :verify_authenticity_token, only: %i[create]
@@ -10,7 +14,9 @@ class Api::CspReportsController < ApplicationController
   def create
     skip_authorization
 
-    Rollbar.error(Error.new(CspViolation), csp_report_params:)
+    if send_csp_violation_to_rollbar?
+      Rollbar.error(Error.new(CspViolation), csp_report_params:)
+    end
 
     csp_report =
       CspReport.new do |report|
@@ -31,5 +37,10 @@ class Api::CspReportsController < ApplicationController
   memoize \
   def csp_report_params
     JSON(request.raw_post)['csp-report']
+  end
+
+  memoize \
+  def send_csp_violation_to_rollbar?
+    IGNORED_USER_AGENTS.none? { request.user_agent.match?(_1) }
   end
 end
