@@ -25,6 +25,7 @@ class Api::CspReportsController < ApplicationController
         report.ip = request.remote_ip
         report.original_policy = csp_report_params['original-policy']
         report.referrer = csp_report_params['referrer']
+        report.user_agent = request.user_agent
         report.violated_directive = csp_report_params['violated-directive']
       end
     csp_report.save!

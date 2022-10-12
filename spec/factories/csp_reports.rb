@@ -12,6 +12,7 @@
 #  original_policy    :string           not null
 #  referrer           :string
 #  updated_at         :datetime         not null
+#  user_agent         :text             not null
 #  violated_directive :string           not null
 #
 FactoryBot.define do
@@ -29,5 +30,6 @@ FactoryBot.define do
     ip { Faker::Internet.public_ip_v6_address }
     referrer { 'https://davidrunger.com/check_ins/9' }
     blocked_uri { 'inline' }
+    user_agent { Faker::Internet.user_agent }
   end
 end

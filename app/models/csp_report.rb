@@ -12,6 +12,7 @@
 #  original_policy    :string           not null
 #  referrer           :string
 #  updated_at         :datetime         not null
+#  user_agent         :text             not null
 #  violated_directive :string           not null
 #
 class CspReport < ApplicationRecord
@@ -19,4 +20,5 @@ class CspReport < ApplicationRecord
   validates :violated_directive, presence: true
   validates :original_policy, presence: true
   validates :ip, presence: true
+  validates :user_agent, presence: true
 end
