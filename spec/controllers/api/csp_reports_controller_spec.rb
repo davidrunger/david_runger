@@ -26,5 +26,32 @@ RSpec.describe Api::CspReportsController do
     it 'creates that item for the store' do
       expect { post_create }.to change { CspReport.count }.by(1)
     end
+
+    context 'when the user agent is DuckDuckBot' do
+      before do
+        request.headers['User-Agent'] =
+          "'DuckDuckBot-Https/1.1; (+https://duckduckgo.com/duckduckbot)'"
+      end
+
+      it 'does not send an error to Rollbar' do
+        expect(Rollbar).not_to receive(:error)
+
+        post_create
+      end
+    end
+
+    context 'when the user agent is Firefox' do
+      before do
+        request.headers['User-Agent'] =
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) ' \
+          'Gecko/20100101 Firefox/105.0'
+      end
+
+      it 'sends an error to Rollbar' do
+        expect(Rollbar).to receive(:error).with(CspViolation, hash_including(:csp_report_params))
+
+        post_create
+      end
+    end
   end
 end
