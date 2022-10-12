@@ -28,9 +28,10 @@ RSpec.describe Api::CspReportsController do
     end
 
     context 'when the user agent is DuckDuckBot' do
-      before do
-        request.headers['User-Agent'] =
-          "'DuckDuckBot-Https/1.1; (+https://duckduckgo.com/duckduckbot)'"
+      before { request.headers['User-Agent'] = duck_duck_bot_user_agent }
+
+      let(:duck_duck_bot_user_agent) do
+        "'DuckDuckBot-Https/1.1; (+https://duckduckgo.com/duckduckbot)'"
       end
 
       it 'does not send an error to Rollbar' do
@@ -38,19 +39,31 @@ RSpec.describe Api::CspReportsController do
 
         post_create
       end
+
+      it 'creates a CspReport with the DuckDuckBot user agent' do
+        post_create
+
+        expect(CspReport.last!.user_agent).to eq(duck_duck_bot_user_agent)
+      end
     end
 
     context 'when the user agent is Firefox' do
-      before do
-        request.headers['User-Agent'] =
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) ' \
-          'Gecko/20100101 Firefox/105.0'
+      before { request.headers['User-Agent'] = firefox_user_agent }
+
+      let(:firefox_user_agent) do
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) Gecko/20100101 Firefox/105.0'
       end
 
       it 'sends an error to Rollbar' do
         expect(Rollbar).to receive(:error).with(CspViolation, hash_including(:csp_report_params))
 
         post_create
+      end
+
+      it 'creates a CspReport with the Firefox user agent' do
+        post_create
+
+        expect(CspReport.last!.user_agent).to eq(firefox_user_agent)
       end
     end
   end
