@@ -152,6 +152,13 @@ RSpec.configure do |config|
   config.around(:each, type: :feature) do |example|
     example.run_with_retry(retry: 2) # this actually means 'try: 2', i.e. retry just once
   end
+  config.retry_callback =
+    proc do |ex|
+      if ex.metadata[:type] == :feature
+        Capybara.reset!
+        page.driver.reset!
+      end
+    end
 
   config.before(:suite) do
     # Reset FactoryBot sequences to an arbitrarily high number to avoid collisions with
