@@ -78,4 +78,11 @@ class DavidRunger::Application < Rails::Application
   config.action_view.form_with_generates_remote_forms = false
 
   config.action_controller.wrap_parameters_by_default = false
+
+  initializer(
+    'move Browser middleware after Rack::Attack',
+    after: 'rack-attack.middleware',
+  ) do |app|
+    app.middleware.move_after(Rack::Attack, Browser::Middleware)
+  end
 end
