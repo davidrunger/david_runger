@@ -1,7 +1,20 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register(CspReport) do
+  decorate_with CspReportDecorator
   menu parent: 'Admin'
+
+  index do
+    id_column
+    column :created_at
+    column :ip
+    column :pretty_user_agent
+    column :violated_directive
+    column :blocked_uri
+    column :document_uri
+    column :referrer
+    column :original_policy
+  end
 
   show do
     attributes_table do
