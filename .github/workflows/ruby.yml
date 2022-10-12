@@ -37,7 +37,7 @@ jobs:
         ports:
           - 6379:6379 # Maps port 6379 on service container to the host
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 100 # this might cause issues if there are more than 100 commits in a PR (?)
     - name: Set up Ruby 3.1.2
@@ -45,11 +45,11 @@ jobs:
       with:
         ruby-version: 3.1.2
         bundler-cache: true
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v3
       with:
         node-version: 18.9.1
     - name: Cache node_modules
-      uses: actions/cache@v1
+      uses: actions/cache@v3
       with:
         path: node_modules
         key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
