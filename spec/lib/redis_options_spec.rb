@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe RedisOptions do
-  context 'when not providing a database number' do
-    subject(:redis_options) { RedisOptions.new }
+  describe '#url' do
+    subject(:url) { redis_options.url }
 
-    describe '#url' do
-      subject(:url) { redis_options.url }
+    context 'when not providing a database number' do
+      subject(:redis_options) { RedisOptions.new }
 
       context 'when Rails.env is "development"', rails_env: :development do
         it 'is a localhost URL ending with "/0"' do
@@ -21,15 +21,11 @@ RSpec.describe RedisOptions do
         end
       end
     end
-  end
 
-  context 'when explicitly providing a database number' do
-    subject(:redis_options) { RedisOptions.new(db: db_number) }
+    context 'when explicitly providing a database number' do
+      subject(:redis_options) { RedisOptions.new(db: db_number) }
 
-    let(:db_number) { 2 }
-
-    describe '#url' do
-      subject(:url) { redis_options.url }
+      let(:db_number) { 2 }
 
       context 'when RAILS_ENV is "development"' do
         around { |spec| ClimateControl.modify(RAILS_ENV: 'development') { spec.run } }
