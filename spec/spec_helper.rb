@@ -18,6 +18,8 @@ elsif ARGV.grep(%r{\Aspec/.+_spec\.rb}).size == 1
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
 end
 SimpleCov.start do
+  db_suffix = ENV.fetch('DB_SUFFIX', nil)
+  command_name("#{db_suffix.delete_prefix('_').capitalize} Tests") if db_suffix.present?
   add_filter(%r{^/spec/})
   enable_coverage(:branch)
 end
