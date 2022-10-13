@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-load Rails.root.join('lib/redis_options.rb') if $checking_test_coverage
-
 RSpec.describe RedisOptions do
   context 'when not providing a database number' do
     subject(:redis_options) { RedisOptions.new }

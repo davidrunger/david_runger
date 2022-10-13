@@ -29,11 +29,10 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/simple_cov-formatter-terminal.git
-  revision: 951e03ef7fddfdb3599a08aa5314a117d2cccb3a
+  revision: a04312e45c80b32f5b59e8cfd329f00fc5d2138b
   specs:
     simple_cov-formatter-terminal (0.1.0)
       activesupport (>= 7.0.4, < 8)
-      amazing_print (>= 1.4.0, < 2)
       memoist (>= 0.16.2, < 1)
       rouge (>= 4.0.0, < 5)
       simplecov (>= 0.21.2, < 1)
