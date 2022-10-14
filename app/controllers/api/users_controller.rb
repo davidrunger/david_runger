@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
   def user_params
     user_params = params.require(:user).permit(preferences: {})
     user_params.each do |key, value|
-      case key
+      case key # :nocov-else: can't be anything but preferences bc that is only param permitted
       when 'preferences'
         user_params[key] = current_user.preferences.merge(value)
       end
