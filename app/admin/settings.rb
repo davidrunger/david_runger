@@ -49,13 +49,19 @@ ActiveAdmin.register_page('Settings') do
 
   page_action :create, method: :post do
     setting_params = params.require(:redis_config_setting)
-    setting_name = setting_params[:name]
-    RedisConfig.add(*setting_params.permit(:name, :type).to_h.values)
-    if (value = setting_params[:value].presence)
-      RedisConfig.set(setting_name, value)
+    name = setting_params[:name].presence
+    type = setting_params[:type].presence
+    value = setting_params[:value].presence
+
+    if [name, type, value].all?(&:present?)
+      RedisConfig.add(*setting_params.permit(:name, :type).to_h.values)
+      RedisConfig.set(name, value)
+      flash[:notice] = %(Setting "#{name}" created.)
+      redirect_to admin_settings_show_path(name:)
+    else
+      flash[:notice] = 'Submitted setting is missing required parameter(s).'
+      redirect_to admin_settings_new_path
     end
-    flash[:notice] = %(Setting "#{setting_name}" created.)
-    redirect_to admin_settings_show_path(name: setting_name)
   end
 
   page_action :update, method: :patch do
