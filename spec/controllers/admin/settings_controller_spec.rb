@@ -67,10 +67,27 @@ RSpec.describe Admin::SettingsController do
       let(:type) { 'integer' }
       let(:value) { rand(1_000) }
 
-      it 'adds the setting to RedisConfig' do
-        expect { RedisConfig.get(setting_name) }.to raise_error(ArgumentError)
-        post_create
-        expect(RedisConfig.get(setting_name).value).to eq(value)
+      context 'when all required parameters are provided' do
+        it 'adds the setting to RedisConfig' do
+          expect { RedisConfig.get(setting_name) }.to raise_error(ArgumentError)
+          post_create
+          expect(RedisConfig.get(setting_name).value).to eq(value)
+        end
+      end
+
+      context 'when not all required parameters are provided' do
+        let(:value) { nil }
+
+        it 'does not add the setting to RedisConfig' do
+          expect { RedisConfig.get(setting_name) }.to raise_error(ArgumentError)
+          post_create
+          expect { RedisConfig.get(setting_name) }.to raise_error(ArgumentError)
+        end
+
+        it 'redirects to the new setting page' do
+          post_create
+          expect(response.status).to redirect_to(admin_settings_new_path)
+        end
       end
     end
 
