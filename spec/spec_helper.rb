@@ -17,6 +17,7 @@ elsif ARGV.grep(%r{\Aspec/.+_spec\.rb}).size == 1
   require 'simple_cov/formatter/terminal'
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
 end
+SimpleCov.coverage_dir('tmp/simple_cov')
 SimpleCov.start do
   db_suffix = ENV.fetch('DB_SUFFIX', nil)
   command_name("#{db_suffix.delete_prefix('_').capitalize} Tests") if db_suffix.present?
