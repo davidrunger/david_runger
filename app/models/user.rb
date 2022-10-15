@@ -36,7 +36,19 @@ class User < ApplicationRecord
 
   devise
 
-  before_destroy { |user| user.marriage&.destroy! }
+  before_destroy do |user|
+    if user.marriage
+      marriage =
+        Marriage.
+          includes(
+            check_ins: :need_satisfaction_ratings,
+            emotional_needs: :need_satisfaction_ratings,
+          ).
+          find(user.marriage.id)
+
+      marriage.destroy!
+    end
+  end
 
   def marriage
     Marriage.where(partner_1_id: id).or(Marriage.where(partner_2_id: id)).first
