@@ -43,12 +43,13 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/simple_cov-formatter-terminal.git
-  revision: 505f7febf06f400bf3bfcf873f6da80ab719ec9d
+  revision: d24c6e089df825abc40da30baa842081129f28ae
   specs:
     simple_cov-formatter-terminal (0.1.0)
       activesupport (>= 7.0.4, < 8)
       memoist (>= 0.16.2, < 1)
       rouge (>= 4.0.0, < 5)
+      rspec-core (>= 3.11.0, < 4)
       simplecov (>= 0.21.2, < 1)
 
 GIT
