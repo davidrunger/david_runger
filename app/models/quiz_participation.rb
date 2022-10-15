@@ -27,6 +27,8 @@ class QuizParticipation < ApplicationRecord
     foreign_key: :participation_id,
     inverse_of: :participation,
   )
+  # rubocop:disable Rails/HasManyOrHasOneDependent
+  # We don't need `:dependent` option because this is a subset of `quiz_question_answer_selections`
   has_many(
     :correct_answer_selections,
     -> {
@@ -34,11 +36,11 @@ class QuizParticipation < ApplicationRecord
         merge(QuizQuestion.closed).
         where(quiz_question_answers: { is_correct: true })
     },
-    dependent: :destroy,
     class_name: 'QuizQuestionAnswerSelection',
     foreign_key: :participation_id,
     inverse_of: :participation,
   )
+  # rubocop:enable Rails/HasManyOrHasOneDependent
 
   validates :display_name, presence: true, uniqueness: { scope: :quiz_id }
   validates :participant_id, uniqueness: { scope: :quiz_id }
