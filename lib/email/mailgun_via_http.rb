@@ -61,7 +61,7 @@ module Email
         subject: mail['Subject'].to_s,
         from: mail['From'].to_s,
         'h:Reply-To' => mail['Reply-To'].to_s,
-        html: mail.body.to_s.presence || mail.html_part&.body.presence || '<div></div>',
+        html: mail.body.to_s.presence || '<div></div>',
       }
 
       if mail.has_attachments?
