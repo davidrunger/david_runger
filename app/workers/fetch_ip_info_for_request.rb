@@ -15,7 +15,7 @@ class FetchIpInfoForRequest
 
   def write_location_info(request)
     ip = request.ip
-    return if ip.blank? || (Rails.env.development? && ip.in?(LOCAL_IPS))
+    return if ip.in?(LOCAL_IPS)
 
     ip_info = Rails.cache.fetch(cache_key(ip), expires_in: 4.weeks) { ip_info_from_api(ip) }
     request.update!(ip_info)

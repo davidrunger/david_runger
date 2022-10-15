@@ -27,5 +27,14 @@ RSpec.describe FetchIpInfoForRequest do
           to([location, isp])
       end
     end
+
+    context 'when the request IP is a localhost IP' do
+      before { request.update!(ip: '127.0.0.1') } # rubocop:disable Style/IpAddresses
+
+      it 'does not make a request to Rails.cache' do
+        expect(Rails.cache).not_to receive(:fetch)
+        perform
+      end
+    end
   end
 end

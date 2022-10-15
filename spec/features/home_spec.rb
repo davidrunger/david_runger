@@ -27,7 +27,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
         around { |spec| Sidekiq::Testing.inline! { spec.run } }
 
         let!(:ip_info_request_stub) do
-          stub_request(:get, 'http://ip-api.com/json/127.0.0.1').
+          stub_request(:get, "http://ip-api.com/json/#{ip_address}").
             to_return(
               status: 200,
               body: {
@@ -50,39 +50,51 @@ RSpec.describe 'Home page', :prerendering_disabled do
             )
         end
 
-        it 'creates a `Request` with a `total` time' do
-          spec_start_time = Time.current
+        context 'when the request has a non-localhost IP address' do
+          before do
+            # rubocop:disable RSpec/AnyInstance
+            allow_any_instance_of(ActionDispatch::Request).
+              to receive(:remote_ip).
+              and_return(ip_address)
+            # rubocop:enable RSpec/AnyInstance
+          end
 
-          expect {
-            visit root_path
-          }.to change {
-            Request.where('requests.requested_at > ?', spec_start_time).map(&:attributes)
-          }.from([]).to([
-            {
-              'id' => Integer,
-              'admin_user_id' => nil,
-              'user_id' => nil,
-              'auth_token_id' => nil,
-              'url' => 'http://localhost:3001/',
-              'handler' => 'home#index',
-              'referer' => nil,
-              'params' => {},
-              'method' => 'GET',
-              'format' => 'html',
-              'status' => 200,
-              'view' => Integer,
-              'db' => Integer,
-              'total' => Integer,
-              'ip' => '127.0.0.1', # rubocop:disable Style/IpAddresses
-              'user_agent' => user_agent,
-              'requested_at' => Time,
-              'location' => 'San Diego, CA, US',
-              'isp' => 'Spectrum',
-              'request_id' => String,
-            },
-          ])
+          let(:ip_address) { Faker::Internet.ip_v4_address }
 
-          expect(ip_info_request_stub).to have_been_requested
+          it 'creates a `Request` with a `total` time' do
+            spec_start_time = Time.current
+
+            expect {
+              visit root_path
+            }.to change {
+              Request.where('requests.requested_at > ?', spec_start_time).map(&:attributes)
+            }.from([]).to([
+              {
+                'id' => Integer,
+                'admin_user_id' => nil,
+                'user_id' => nil,
+                'auth_token_id' => nil,
+                'url' => 'http://localhost:3001/',
+                'handler' => 'home#index',
+                'referer' => nil,
+                'params' => {},
+                'method' => 'GET',
+                'format' => 'html',
+                'status' => 200,
+                'view' => Integer,
+                'db' => Integer,
+                'total' => Integer,
+                'ip' => ip_address,
+                'user_agent' => user_agent,
+                'requested_at' => Time,
+                'location' => 'San Diego, CA, US',
+                'isp' => 'Spectrum',
+                'request_id' => String,
+              },
+            ])
+
+            expect(ip_info_request_stub).to have_been_requested
+          end
         end
       end
     end
