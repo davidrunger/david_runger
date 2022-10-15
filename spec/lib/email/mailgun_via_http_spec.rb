@@ -58,4 +58,21 @@ RSpec.describe Email::MailgunViaHttp do
       end
     end
   end
+
+  describe '#post_body' do
+    subject(:post_body) { mailgun_via_http.send(:post_body, mail) }
+
+    context 'when the mail body is empty' do
+      before do
+        expect(mail).to receive(:body).and_return(instance_double(Mail::Body, to_s: ''))
+        expect(mail).to receive(:has_attachments?).and_return(false)
+      end
+
+      let(:mail) { mail_from_raw_email_fixture('empty_body') }
+
+      it 'returns a hash with default empty HTML tags for the :html key' do
+        expect(post_body[:html]).to eq('<div></div>')
+      end
+    end
+  end
 end
