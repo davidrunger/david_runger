@@ -21,4 +21,39 @@ RSpec.describe User do
       expect(user.marriage).to be_a(Marriage)
     end
   end
+
+  describe '#destroy' do
+    subject(:destroy) { user.destroy }
+
+    let(:user) do
+      User.
+        includes(
+          :quizzes,
+          logs: %i[log_shares number_log_entries text_log_entries],
+          quiz_participations: :quiz_question_answer_selections,
+          stores: :items,
+        ).
+        find(users(:user).id)
+    end
+    let!(:user_id) { user.id }
+
+    context 'when the user has a marriage' do
+      let!(:marriage_id) { user.marriage.id }
+
+      it 'destroys the user and their marriage' do
+        destroy # rubocop:disable Rails/SaveBang
+        expect { User.find(user_id) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { Marriage.find(marriage_id) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when the user does not have a marriage' do
+      before { user.marriage&.destroy! }
+
+      it 'destroys the user' do
+        destroy # rubocop:disable Rails/SaveBang
+        expect { User.find(user_id) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 end
