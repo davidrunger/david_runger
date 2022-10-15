@@ -39,7 +39,7 @@ FactoryBot.define do
   factory :request do
     request_id { SecureRandom.uuid }
     user_id { nil }
-    url { 'https://www.davidrunger.com/' }
+    url { 'https://davidrunger.com/' }
     handler { 'home#index' }
     referer { 'https://github.com/davidrunger/david_runger' }
     params { {} }

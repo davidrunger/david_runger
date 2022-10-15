@@ -33,4 +33,27 @@ RSpec.describe DataMonitors::HomeIndexRequests do
       end
     end
   end
+
+  describe '#median_response_time_in_past_day' do
+    subject(:median_response_time_in_past_day) { worker.send(:median_response_time_in_past_day) }
+
+    context 'when there is 1 considered request for home#index' do
+      before do
+        Request.find_each(&:destroy!)
+        create(
+          :request,
+          url: 'https://davidrunger.com/',
+          handler: 'home#index',
+          requested_at: 6.hours.ago,
+          total: response_time,
+        )
+      end
+
+      let(:response_time) { rand(110) }
+
+      it 'returns the total time of that request' do
+        expect(median_response_time_in_past_day).to eq(response_time)
+      end
+    end
+  end
 end
