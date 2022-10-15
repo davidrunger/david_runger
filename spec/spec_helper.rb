@@ -16,6 +16,11 @@ if is_ci
 elsif ARGV.grep(%r{\Aspec/.+_spec\.rb}).size == 1
   require 'simple_cov/formatter/terminal'
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
+  # rubocop:disable Performance/RedundantMerge
+  SimpleCov::Formatter::Terminal.spec_file_to_application_file_map.merge!(
+    %r{\Aspec/config/initializers/monkeypatches/} => 'config/initializers/monkeypatches/',
+  )
+  # rubocop:enable Performance/RedundantMerge
 end
 SimpleCov.coverage_dir('tmp/simple_cov')
 SimpleCov.start do
