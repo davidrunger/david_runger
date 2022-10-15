@@ -8,6 +8,6 @@ module ErrorLogger
       #{"; #{data_log_line}" if data_log_line.present?}
     LOG
 
-    Rollbar.warn(error_klass.new(message), data)
+    Rollbar.warn(*[Error.new(error_klass, message), data].compact_blank)
   end
 end
