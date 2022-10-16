@@ -159,4 +159,18 @@ RSpec.describe RedisConfig do
       end
     end
   end
+
+  describe '::typed_value' do
+    subject(:typed_value) { RedisConfig.send(:typed_value, value, type) }
+
+    context 'when the type is not a known/expected type' do
+      let(:type) { 'float' }
+      let(:value) { 22.99 }
+
+      it 'raises an error' do
+        expect { typed_value }.
+          to raise_error(StandardError, "Unexpected type '#{type}' for RedisConfig!")
+      end
+    end
+  end
 end
