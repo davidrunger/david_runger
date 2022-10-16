@@ -79,6 +79,7 @@ module RedisConfig
   def typed_value(value, type)
     case type
     when 'integer' then Integer(value)
+    else raise("Unexpected type '#{type}' for RedisConfig!")
     end
   end
 
