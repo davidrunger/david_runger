@@ -23,9 +23,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
       let(:user_agent) { 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)' }
 
-      context 'when Sidekiq jobs are executed' do
-        around { |spec| Sidekiq::Testing.inline! { spec.run } }
-
+      context 'when Sidekiq jobs are executed', :inline_sidekiq do
         let!(:ip_info_request_stub) do
           stub_request(:get, "http://ip-api.com/json/#{ip_address}").
             to_return(
