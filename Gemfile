@@ -81,7 +81,7 @@ end
 group :test do
   gem 'addressable'
   gem 'brakeman', require: false
-  gem 'capybara', github: 'davidrunger/capybara' # remove after teamcapybara/capybara #2590 is fixed
+  gem 'capybara', github: 'teamcapybara/capybara' # remove after teamcapybara/capybara#2590 is fixed
   gem 'capybara-email'
   gem 'capybara-screenshot'
   gem 'climate_control'
