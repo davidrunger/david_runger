@@ -3,10 +3,11 @@
 class CreateIpBlock
   prepend ApplicationWorker
 
-  def perform(ip)
+  def perform(ip, reason = nil)
     ip_block = IpBlock.find_or_initialize_by(ip:)
     if ip_block.new_record?
       block_reason =
+        reason ||
         $redis_pool.
           with { |conn| conn.call('hgetall', "blocked-requests:#{ip}") }.
           transform_values { Integer(_1) }.
