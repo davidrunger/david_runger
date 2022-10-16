@@ -10,12 +10,6 @@ namespace :assets do
     end
   end
 
-  def run_logged_rake_task(rake_task_name)
-    puts "Running rake task '#{rake_task_name.blue}' ..."
-    Rake::Task[rake_task_name].invoke
-    puts '... success.'
-  end
-
   def upload_zipped_assets(git_sha, directory_name)
     file_output_path = "tmp/#{directory_name}.zip"
     FileUtils.mkdir_p('tmp')
@@ -34,8 +28,17 @@ namespace :assets do
     run_logged_system_command('rm -rf node_modules/')
     run_logged_system_command('rm -rf public/assets/ public/vite/ public/vite-admin/')
     run_logged_system_command('rm -f app/javascript/rails_assets/routes.js')
+    run_logged_system_command('DISABLE_SPRING=1 bin/rails build_js_routes')
     run_logged_system_command('yarn install', { 'NODE_ENV' => 'production' })
-    run_logged_rake_task('assets:precompile')
+    run_logged_system_command('bin/vite build --force', { 'NODE_ENV' => 'production' })
+    run_logged_system_command(
+      'bin/vite build --force',
+      {
+        'NODE_ENV' => 'production',
+        'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_packs',
+        'VITE_RUBY_PUBLIC_OUTPUT_DIR' => 'vite-admin',
+      },
+    )
     run_logged_system_command(
       'bin/rails server',
       {
