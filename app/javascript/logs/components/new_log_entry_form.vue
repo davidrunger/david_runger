@@ -158,4 +158,9 @@ form.duration {
 :deep(.el-input__wrapper) {
   width: 200px;
 }
+
+// double selector ensures that this rule has precedence over `.el-input` display
+:deep(.el-date-editor.el-date-editor) {
+  display: inline-block;
+}
 </style>

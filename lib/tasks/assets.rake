@@ -28,9 +28,14 @@ namespace :assets do
     run_logged_system_command('rm -rf node_modules/')
     run_logged_system_command('rm -rf public/assets/ public/vite/ public/vite-admin/')
     run_logged_system_command('rm -f app/javascript/rails_assets/routes.js')
-    run_logged_system_command('DISABLE_SPRING=1 bin/rails build_js_routes')
+    run_logged_system_command('bin/rails build_js_routes', { 'DISABLE_SPRING' => '1' })
     run_logged_system_command('yarn install', { 'NODE_ENV' => 'production' })
-    run_logged_system_command('bin/vite build --force', { 'NODE_ENV' => 'production' })
+    run_logged_system_command(
+      'bin/vite build --force',
+      {
+        'NODE_ENV' => 'production',
+      },
+    )
     run_logged_system_command(
       'bin/vite build --force',
       {
