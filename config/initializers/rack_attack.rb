@@ -4,6 +4,7 @@ class Rack::Attack
   PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_}
   PENTESTERS_PREFIX = 'pentesters-'
   PENTESTING_FINDTIME = 1.day.freeze
+  WHITELISTED_PATH_PREFIXES = %w[/flipper/ /sidekiq/].freeze
 
   # Limit all IPs to 60 requests per clock minute
   # rubocop:disable Style/SymbolProc
@@ -29,7 +30,7 @@ class Rack::Attack
 
     def blocked_path?(request)
       return true if request.fullpath.include?("\u0000")
-      return false if request.fullpath.start_with?('/sidekiq/')
+      return false if WHITELISTED_PATH_PREFIXES.any? { request.fullpath.start_with?(_1) }
 
       fragments = request.path.split(PATH_FRAGMENT_SEPARATOR_REGEX)
       fragments.map!(&:presence)
