@@ -56,7 +56,6 @@ group :development, :test do
   gem 'amazing_print'
   gem 'annotate', require: false
   gem 'bullet'
-  gem 'debug', require: false
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'immigrant'
   gem 'pry-byebug', require: false
