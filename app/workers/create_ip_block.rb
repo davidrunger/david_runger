@@ -11,9 +11,7 @@ class CreateIpBlock
           with { |conn| conn.call('hgetall', "blocked-requests:#{ip}") }.
           transform_values { Integer(_1) }.
           filter_map do |path, unix_time|
-            if unix_time >= Integer(Rack::Attack::PENTESTING_FINDTIME.ago)
-              "#{path} (at #{Time.zone.at(unix_time)})"
-            end
+            "#{path} (at #{Time.zone.at(unix_time)})"
           end.
           join("\n")
       ip_block.update!(reason: block_reason)
