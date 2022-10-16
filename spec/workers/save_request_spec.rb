@@ -8,17 +8,17 @@ RSpec.describe SaveRequest do
 
     let(:request_id) { SecureRandom.uuid }
     let(:stubbed_data_manager) { instance_double(SaveRequest::StashedDataManager) }
-    let(:stubbed_initial_stashed_json) { {} }
-    let(:stubbed_final_stashed_json) { {} }
+    let(:stubbed_initial_stashed_json) { { some: :data } }
+    let(:stubbed_final_stashed_json) { { more: :data } }
     let(:stubbed_additional_data) { { 'params' => {} } }
 
     before do
       expect(SaveRequest::StashedDataManager).to receive(:new).and_return(stubbed_data_manager)
-      expect(stubbed_data_manager).
+      allow(stubbed_data_manager).
         to receive(:initial_stashed_json).
         at_least(:once).
         and_return(stubbed_initial_stashed_json)
-      expect(stubbed_data_manager).
+      allow(stubbed_data_manager).
         to receive(:final_stashed_json).
         at_least(:once).
         and_return(stubbed_final_stashed_json)
@@ -34,6 +34,9 @@ RSpec.describe SaveRequest do
     end
 
     context 'when the stashed data is all missing' do
+      let(:stubbed_initial_stashed_json) { {} }
+      let(:stubbed_final_stashed_json) { {} }
+
       before do
         expect(stubbed_initial_stashed_json).to be_blank
         expect(stubbed_final_stashed_json).to be_blank
@@ -97,6 +100,27 @@ RSpec.describe SaveRequest do
             request = Request.where.not(id: request_ids_before).first!
             expect(request.auth_token).to eq(auth_token)
           end
+        end
+      end
+    end
+
+    context 'when the request merits a ban' do
+      let(:stubbed_additional_data) do
+        {
+          'url' => '/404',
+          'params' => params,
+          'ip' => request_ip,
+        }
+      end
+      let(:params) { { "HHHHF\u0000\u0000\u0000K\u0000\u0000\u0000\u0000\u0018 " => nil } }
+      let(:request_ip) { Faker::Internet.ip_v4_address }
+
+      context 'when Sidekiq executes jobs', :inline_sidekiq do
+        it 'creates an IpBlock' do
+          expect { perform }.to change { IpBlock.count }.by(1)
+          ip_block = IpBlock.last!
+          expect(ip_block.ip).to eq(request_ip)
+          expect(ip_block.reason).to eq(JSON(params.keys + params.values))
         end
       end
     end

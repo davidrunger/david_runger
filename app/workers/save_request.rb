@@ -3,6 +3,7 @@
 # This Sidekiq worker class converts data that has been stashed in Redis at two stages in the
 # request lifecycle into `Request` records saved to the Postgres database.
 class SaveRequest
+  extend Memoist
   prepend ApplicationWorker
 
   delegate(
@@ -17,8 +18,13 @@ class SaveRequest
     @request_id = request_id
     @stashed_data_manager = SaveRequest::StashedDataManager.new(@request_id)
 
-    if should_save_request?
-      save_request
+    if can_save_request?
+      if ban_reasons.present?
+        ban_requesting_ip
+        delete_request_data
+      else
+        save_request
+      end
     else
       log_unexpected_reasons_not_to_save_request
       delete_request_data
@@ -27,7 +33,28 @@ class SaveRequest
 
   private
 
-  def should_save_request?
+  memoize \
+  def ban_reasons
+    ban_reasons = []
+
+    if params_keys_and_values.compact.any? { _1.include?("\u0000") }
+      ban_reasons << JSON(params_keys_and_values)
+    end
+
+    ban_reasons
+  end
+
+  memoize \
+  def params_keys_and_values
+    params = stashed_data['params']
+    params.keys + params.values
+  end
+
+  def ban_requesting_ip
+    CreateIpBlock.perform_async(stashed_data['ip'], ban_reasons.join("\n"))
+  end
+
+  def can_save_request?
     unexpected_reasons_not_to_save_request.blank?
   end
 

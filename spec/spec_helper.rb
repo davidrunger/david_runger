@@ -279,6 +279,10 @@ RSpec.configure do |config|
     Capybara.use_default_driver
   end
 
+  config.around(:each, :inline_sidekiq) do |spec|
+    Sidekiq::Testing.inline! { spec.run }
+  end
+
   config.around(:each, :fake_aws_credentials) do |spec|
     original_credentials = Aws.config[:credentials]
 
