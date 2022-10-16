@@ -2,7 +2,7 @@
 
 namespace :assets do
   def run_logged_system_command(command, env_vars = {})
-    puts "Running system command '#{command.blue}' with ENV vars #{env_vars}..."
+    puts "Running system command '#{command.blue}' with ENV vars #{env_vars.to_s.blue}..."
     if system(env_vars, command)
       puts '... success.'
     else
