@@ -18,7 +18,7 @@ elsif ARGV.grep(%r{\Aspec/.+_spec\.rb}).size == 1
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
   # rubocop:disable Performance/RedundantMerge
   SimpleCov::Formatter::Terminal.spec_file_to_application_file_map.merge!(
-    %r{\Aspec/config/initializers/monkeypatches/} => 'config/initializers/monkeypatches/',
+    %r{\Aspec/config/initializers/} => 'config/initializers/',
   )
   # rubocop:enable Performance/RedundantMerge
 end
