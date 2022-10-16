@@ -20,5 +20,20 @@ RSpec.describe TruncateTables do
         perform
       end
     end
+
+    context 'when there are no rows in the `requests` table' do
+      before { Request.delete_all }
+
+      it 'does not issue a DELETE command against the `requests` table' do
+        expect(ApplicationRecord.connection).
+          not_to receive(:execute).
+          with(/DELETE FROM requests/i)
+
+        # pass other calls through
+        allow(ApplicationRecord.connection).to receive(:execute).and_call_original
+
+        perform
+      end
+    end
   end
 end
