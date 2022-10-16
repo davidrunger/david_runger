@@ -15,7 +15,12 @@ class CreateIpBlock
             "#{path} (at #{Time.zone.at(unix_time)})"
           end.
           join("\n")
-      ip_block.update!(reason: block_reason)
+
+      begin
+        ip_block.update!(reason: block_reason)
+      rescue ActiveRecord::RecordNotUnique => error # can happen due to race condition
+        Rollbar.warn(error)
+      end
     end
   end
 end
