@@ -49,6 +49,7 @@ runner.run_task('Notifying Rollbar of deploy') do
     {
       'environment' => Rails.env,
       'revision' => ENV.fetch('GIT_REV'),
+      'rollbar_username' => 'davidjrunger',
     },
     {
       'X-Rollbar-Access-Token' => access_token,
