@@ -7,7 +7,7 @@ class ApplicationCable::Channel < ActionCable::Channel::Base
 
     if !policy_instance.public_send(policy_query)
       raise(Pundit::NotAuthorizedError, <<~ERROR.squish)
-        #{policy_klass} says that #{current_user.class}:#{current_user&.id.inspect}
+        #{policy_klass} says that #{current_user.class}:#{current_user.id}
         is not authorized to #{policy_query} #{record.class}:#{record.id}
       ERROR
     end
