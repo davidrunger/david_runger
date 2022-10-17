@@ -13,6 +13,7 @@
 /node_modules
 /yarn-error.log
 .byebug_history
+.irb_history
 .gemtags
 .tags
 .tags_sorted_by_file
