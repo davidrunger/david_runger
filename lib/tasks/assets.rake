@@ -66,8 +66,7 @@ end
 
 Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   def download_s3_zip(git_sha, directory_name)
-    Aws::S3::Resource.new(region: 'us-east-1').
-      bucket('david-runger-test-uploads').
+    s3_bucket.
       object("compiled-assets/#{git_sha}/#{directory_name}.zip").
       get(response_target: "tmp/#{directory_name}.zip")
   end
@@ -75,9 +74,38 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   git_sha = ENV.fetch('GIT_REV')
   raise('Could not determine git SHA!') if git_sha.empty?
 
-  download_s3_zip(git_sha, 'vite')
-  download_s3_zip(git_sha, 'vite-admin')
+  def download_s3_zips(git_sha)
+    download_s3_zip(git_sha, 'vite')
+    download_s3_zip(git_sha, 'vite-admin')
+  end
 
+  def s3_bucket
+    @s3_bucket ||= Aws::S3::Resource.new(region: 'us-east-1').bucket('david-runger-test-uploads')
+  end
+
+  begin
+    download_s3_zips(git_sha)
+  rescue Aws::S3::Errors::AccessDenied, Aws::S3::Errors::NoSuchKey => error
+    if (
+      (use_fallback_until = ENV.fetch('USE_PRECOMPILED_ASSETS_FALLBACK_UNTIL', nil)) &&
+        Time.current <= Time.zone.at(Integer(use_fallback_until))
+    )
+      # These errors can occur if there aren't precompiled assets available for the specified git
+      # sha, e.g. if deploying manually via `git push` rather than via GitHub Actions. In this case,
+      # find the most recent SHA for which there _are_ precompiled assets, and use that.
+      Rails.logger.warn("Could not fetch precompiled assets for git sha #{git_sha}.")
+      Rollbar.warn(error, git_sha:)
+      most_recent_object = s3_bucket.objects(prefix: 'compiled-assets/').max_by(&:last_modified)
+      git_sha = most_recent_object.key.delete_prefix('compiled-assets/').remove(%r{/vite[^/]*\z})
+      Rails.logger.info("Attempting to fetch fallback precompiled assets (git sha #{git_sha}).")
+      download_s3_zips(git_sha)
+    else
+      raise
+    end
+  end
+
+  FileUtils.rm_rf('public/vite/')
+  FileUtils.rm_rf('public/vite-admin/')
   system('unzip -d public/ tmp/vite.zip')
   system('unzip -d public/ tmp/vite-admin.zip')
 
