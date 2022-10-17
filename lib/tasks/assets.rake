@@ -84,16 +84,17 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   end
 
   begin
+    Rails.logger.info("Attempting to fetch precompiled assets (git sha #{git_sha}).")
     download_s3_zips(git_sha)
   rescue Aws::S3::Errors::AccessDenied, Aws::S3::Errors::NoSuchKey => error
+    # These errors can occur if there aren't precompiled assets available for the specified git sha,
+    # e.g. if deploying manually via `git push` rather than via GitHub Actions. In this case, find
+    # the most recent SHA for which there _are_ precompiled assets, and use that.
+    Rails.logger.warn("Could not fetch precompiled assets for git sha #{git_sha}.")
     if (
       (use_fallback_until = ENV.fetch('USE_PRECOMPILED_ASSETS_FALLBACK_UNTIL', nil)) &&
         Time.current <= Time.zone.at(Integer(use_fallback_until))
     )
-      # These errors can occur if there aren't precompiled assets available for the specified git
-      # sha, e.g. if deploying manually via `git push` rather than via GitHub Actions. In this case,
-      # find the most recent SHA for which there _are_ precompiled assets, and use that.
-      Rails.logger.warn("Could not fetch precompiled assets for git sha #{git_sha}.")
       Rollbar.warn(error, git_sha:)
       most_recent_object = s3_bucket.objects(prefix: 'compiled-assets/').max_by(&:last_modified)
       git_sha = most_recent_object.key.delete_prefix('compiled-assets/').remove(%r{/vite[^/]*\z})
