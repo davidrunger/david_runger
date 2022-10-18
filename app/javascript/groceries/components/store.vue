@@ -12,6 +12,8 @@ div.mt1.mb2.ml3.mr2
     span(v-if='!editingName') {{ store.name }}
     a.edit-store.js-link.gray.ml1(@click='editStoreName')
       edit-icon(size='27')
+    el-button.ml1(v-if='store.private' size='small' @click='togglePrivacy') Make public
+    el-button.ml1(v-else size='small' @click='togglePrivacy') Make private
     span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
   div.mb2
     el-button(id="show-modal" @click='initializeTripCheckinModal()').
@@ -49,7 +51,12 @@ div.mt1.mb2.ml3.mr2
       ) Add
 
   .items-list.mt0.mb0(v-auto-animate)
-    Item(v-for='item in sortedItems' :item="item" :key="item.id")
+    Item(
+      v-for='item in sortedItems'
+      :item="item"
+      :key="item.id"
+      :ownStore='store.own_store'
+    )
 
   Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
     slot
@@ -196,7 +203,7 @@ export default {
     stopEditingAndUpdateStoreName() {
       this.editingName = false;
       this.$store.dispatch('updateStore', {
-        id: this.store.id,
+        store: this.store,
         attributes: {
           name: this.store.name,
         },
@@ -206,9 +213,18 @@ export default {
     stopEditingAndUpdateStoreNotes() {
       this.editingNotes = false;
       this.$store.dispatch('updateStore', {
-        id: this.store.id,
+        store: this.store,
         attributes: {
           notes: this.store.notes,
+        },
+      });
+    },
+
+    togglePrivacy() {
+      this.$store.dispatch('updateStore', {
+        store: this.store,
+        attributes: {
+          private: !this.store.private,
         },
       });
     },

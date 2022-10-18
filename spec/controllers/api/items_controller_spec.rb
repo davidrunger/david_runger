@@ -5,6 +5,7 @@ RSpec.describe Api::ItemsController do
 
   let(:store) { stores(:store) }
   let(:user) { store.user }
+  let(:non_spouse_user) { User.where.not(id: [owning_user, owning_user&.spouse].compact).first! }
 
   describe '#create' do
     subject(:post_create) { post(:create, params:) }
@@ -40,9 +41,9 @@ RSpec.describe Api::ItemsController do
     let(:item) { items(:item) }
     let(:base_params) { { id: item.id } }
 
-    context 'when attempting to update the item of another user' do
+    context 'when attempting to update the item of another (non-spouse) user' do
       let(:owning_user) { item.store.user }
-      let(:user) { User.where.not(id: owning_user).first! }
+      let(:user) { non_spouse_user }
       let(:params) { base_params.merge(item: { name: "#{item.name} Changed" }) }
 
       it 'does not update the item' do
@@ -89,9 +90,9 @@ RSpec.describe Api::ItemsController do
 
     let(:item) { items(:item) }
 
-    context 'when attempting to destroy the item of another user' do
+    context 'when attempting to destroy the item of another (non-spouse) user' do
       let(:owning_user) { item.store.user }
-      let(:user) { User.where.not(id: owning_user).first! }
+      let(:user) { non_spouse_user }
 
       it 'does not destroy the item' do
         expect { delete_destroy }.not_to change { item.reload.persisted? }

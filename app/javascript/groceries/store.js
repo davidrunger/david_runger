@@ -37,6 +37,10 @@ const mutations = {
   updateItem(_state, { item, updatedItemData }) {
     Object.assign(item, updatedItemData);
   },
+
+  updateStore(_state, { store, updatedStoreData }) {
+    Object.assign(store, updatedStoreData);
+  },
 };
 
 const actions = {
@@ -63,7 +67,12 @@ const actions = {
   selectStore(_context, { store }) {
     // update the store's viewed_at time, bc. this is actually how we determine the selected store
     store.viewed_at = (new Date()).toISOString();
-    kyApi.patch(Routes.api_store_path(store.id), { json: { store: pick(store, ['viewed_at']) } });
+    if (store.own_store) {
+      kyApi.patch(
+        Routes.api_store_path(store.id),
+        { json: { store: pick(store, ['viewed_at']) } },
+      );
+    }
   },
 
   updateItem({ commit }, { item, attributes }) {
@@ -78,8 +87,16 @@ const actions = {
       });
   },
 
-  updateStore(_context, { id, attributes }) {
-    kyApi.patch(Routes.api_store_path(id), { json: { store: attributes } });
+  updateStore({ commit }, { store, attributes }) {
+    kyApi.
+      patch(Routes.api_store_path(store.id), { json: { store: attributes } }).
+      json().
+      then(updatedStoreData => {
+        commit(
+          'updateStore',
+          { store, updatedStoreData },
+        );
+      });
   },
 
   zeroItems(_context, { items }) {
@@ -106,7 +123,7 @@ const getters = {
     if (!state.stores) return null;
 
     return (
-      last(sortBy(filter(state.stores, 'viewed_at'), 'viewed_at')) ||
+      last(sortBy(filter([...state.stores, ...state.spouse_stores], 'viewed_at'), 'viewed_at')) ||
       state.stores[0]
     );
   },

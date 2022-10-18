@@ -2,7 +2,7 @@
 
 class Api::Items::BulkUpdatesController < ApplicationController
   def create
-    items.includes(:store, :user).find_each { |item| authorize(item, :update?) }
+    items.includes(:store).find_each { |item| authorize(item, :update?) }
     Items::BulkUpdate::Create.run!(items: items.to_a, attributes_change: attributes_change.to_h)
     head(:no_content)
   end
