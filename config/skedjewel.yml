@@ -4,6 +4,5 @@ config:
 
 jobs:
   DataMonitors::Launcher: '**:07' # hourly at 7 minutes after
-  InvalidRecordsCheck::Launcher: '01:23' # daily at 1:23am UTC
   SendLogReminderEmails: '**:**' # every minute
   TruncateTables: '04:58' # daily at 4:58am UTC
