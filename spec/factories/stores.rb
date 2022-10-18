@@ -11,7 +11,7 @@
 #  private    :boolean          default(FALSE), not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
-#  viewed_at  :datetime
+#  viewed_at  :datetime         not null
 #
 # Indexes
 #
@@ -22,7 +22,7 @@ FactoryBot.define do
   factory :store do
     name { Faker::Company.name }
     association :user
-    viewed_at { [nil, 1.month.ago, 1.day.ago].sample }
+    viewed_at { [1.month.ago, 1.day.ago].sample }
     notes { 'member phone number: 619-867-5309' }
   end
 end

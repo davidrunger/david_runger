@@ -11,7 +11,7 @@
 #  private    :boolean          default(FALSE), not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
-#  viewed_at  :datetime
+#  viewed_at  :datetime         not null
 #
 # Indexes
 #
@@ -22,4 +22,5 @@ class Store < ApplicationRecord
   belongs_to :user
   has_many :items, dependent: :destroy
   validates :name, presence: true
+  validates :viewed_at, presence: true
 end
