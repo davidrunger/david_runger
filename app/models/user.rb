@@ -53,4 +53,8 @@ class User < ApplicationRecord
   def marriage
     Marriage.where(partner_1_id: id).or(Marriage.where(partner_2_id: id)).first
   end
+
+  def spouse
+    [marriage&.partner_1, marriage&.partner_2].compact.reject { _1.id == id }.first
+  end
 end

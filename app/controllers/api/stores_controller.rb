@@ -38,6 +38,9 @@ class Api::StoresController < ApplicationController
   end
 
   def store_params
-    params.require(:store).permit(:name, :notes, :viewed_at).blank_params_as_nil(%w[notes])
+    params.
+      require(:store).
+      permit(:name, :notes, :private, :viewed_at).
+      blank_params_as_nil(%w[notes])
   end
 end

@@ -8,6 +8,7 @@
 #  id         :bigint           not null, primary key
 #  name       :string           not null
 #  notes      :text
+#  private    :boolean          default(FALSE), not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
 #  viewed_at  :datetime

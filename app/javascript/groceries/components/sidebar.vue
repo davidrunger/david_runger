@@ -1,5 +1,5 @@
 <template lang='pug'>
-aside.border-right.border-gray
+aside.border-right.border-gray.overflow-auto
   LoggedInHeader.mb2
   .p2
     form.add-store.flex(@submit.prevent='createStore')
@@ -15,14 +15,17 @@ aside.border-right.border-gray
         :disabled='postingStore || v$.$invalid'
       ) Add
     .stores-list
-      .js-link.stores-list__item.h3.my2.py1.px2(
+      StoreListEntry(
         v-for='store in sortedStores'
-        :class='{selected: store === currentStore}'
-        @click='$store.dispatch("selectStore", { store })'
+        :store='store'
       )
-        div
-          a.store-name {{store.name}}
-          a.js-link.right(@click.stop='destroyStore(store)') &times;
+    div(v-if='sortedSpouseStores.length > 0')
+      .h2 Spouse's Stores
+      .stores-list
+        StoreListEntry(
+          v-for='store in sortedSpouseStores'
+          :store='store'
+        )
 </template>
 
 <script>
@@ -32,12 +35,14 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 
 import LoggedInHeader from './logged_in_header.vue';
+import StoreListEntry from './store_list_entry.vue';
 
 export default {
   name: 'Sidebar',
 
   components: {
     LoggedInHeader,
+    StoreListEntry,
   },
 
   computed: {
@@ -47,8 +52,13 @@ export default {
 
     ...mapState([
       'postingStore',
+      'spouse_stores',
       'stores',
     ]),
+
+    sortedSpouseStores() {
+      return sortBy(this.spouse_stores, store => store.name.toLowerCase());
+    },
 
     sortedStores() {
       return sortBy(this.stores, store => store.name.toLowerCase());
@@ -77,16 +87,6 @@ export default {
           this.stores.unshift(newStoreData);
         });
     },
-
-    destroyStore(store) {
-      const confirmation = window.confirm(
-        `Are you sure that you want to delete the ${store.name} store and all of its items?`,
-      );
-
-      if (confirmation === true) {
-        this.$store.dispatch('deleteStore', { store });
-      }
-    },
   },
 
   setup: () => ({ v$: useVuelidate() }),
@@ -113,15 +113,6 @@ aside {
     min-width: 180px;
     width: 35vw;
     max-width: 280px;
-  }
-}
-
-.stores-list__item {
-  background: rgba(255, 255, 255, 50%);
-
-  &.selected {
-    background: rgba(255, 255, 255, 75%);
-    font-weight: bold;
   }
 }
 </style>
