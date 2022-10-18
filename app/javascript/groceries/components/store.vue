@@ -12,8 +12,9 @@ div.mt1.mb2.ml3.mr2
     span(v-if='!editingName') {{ store.name }}
     a.edit-store.js-link.gray.ml1(@click='editStoreName')
       edit-icon(size='27')
-    el-button.ml1(v-if='store.private' size='small' @click='togglePrivacy') Make public
-    el-button.ml1(v-else size='small' @click='togglePrivacy') Make private
+    span(v-if='store.own_store')
+      el-button.ml1(v-if='store.private' size='small' @click='togglePrivacy') Make public
+      el-button.ml1(v-else size='small' @click='togglePrivacy') Make private
     span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
   div.mb2
     el-button(id="show-modal" @click='initializeTripCheckinModal()').
