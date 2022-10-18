@@ -3,28 +3,59 @@
 RSpec.describe SidekiqExt::JobLogger do
   subject(:logger) { SidekiqExt::JobLogger.new(Sidekiq.default_configuration.logger) }
 
-  describe '#job_hash_context' do
-    subject(:job_hash_context) { logger.job_hash_context(job_hash) }
+  describe '#call' do
+    subject(:call) { logger.call(item, queue, &job_block) }
 
-    let(:job_hash) do
+    # Sidekiq usually does this automatically when a job raises an error, but since we aren't fully
+    # running jobs here (just calling the logger), we'll do it manually.
+    after { Thread.current[:sidekiq_context] = nil }
+
+    let(:item) do
       {
-        'bid' => nil,
-        'jid' => jid,
-        'tags' => nil,
+        'retry' => true,
         'queue' => 'default',
-        'class' => 'SomeWorkerClass',
-        'args' => ['one', 2, true],
+        'args' => ['AuthToken'],
+        'class' => 'InvalidRecordsCheck::Checker',
+        'jid' => SecureRandom.hex(12),
+        'created_at' => Time.current.to_f,
+        'enqueued_at' => Time.current.to_f,
       }
     end
-    let(:jid) { SecureRandom.uuid }
+    let(:queue) { 'default' }
 
-    it 'returns the expected job hash context' do
-      expect(job_hash_context).to eq(
-        jid:,
-        queue: 'default',
-        class: 'SomeWorkerClass',
-        args: '["one", 2, true]',
-      )
+    context 'when the executed job does not raise an error' do
+      let(:job_block) { proc { puts('Performing the work ... !') } }
+
+      it 'prints start job info, executes the block, and prints done job info' do
+        expect(Sidekiq.logger.instance_variable_get(:@logdev)).
+          to receive(:write).
+          with(/queue=default args=\["AuthToken"\] INFO: start\n\z/).
+          and_call_original
+        expect($stdout).to receive(:puts).with('Performing the work ... !')
+        expect(Sidekiq.logger.instance_variable_get(:@logdev)).
+          to receive(:write).
+          with(/queue=default args=\["AuthToken"\] elapsed=\d\.\d{1,3} INFO: done\n\z/).
+          and_call_original
+
+        call
+      end
+    end
+
+    context 'when the executed job raises an error' do
+      let(:job_block) { proc { raise('A problem occurred in the Sidekiq job!') } }
+
+      it 'prints start job info, executes the block, and prints failed job info' do
+        expect(Sidekiq.logger.instance_variable_get(:@logdev)).
+          to receive(:write).
+          with(/queue=default args=\["AuthToken"\] INFO: start\n\z/).
+          and_call_original
+        expect(Sidekiq.logger.instance_variable_get(:@logdev)).
+          to receive(:write).
+          with(/queue=default args=\["AuthToken"\] elapsed=\d\.\d{1,3} INFO: fail\n\z/).
+          and_call_original
+
+        expect { call }.to raise_error(/A problem occurred in the Sidekiq job!/)
+      end
     end
   end
 end
