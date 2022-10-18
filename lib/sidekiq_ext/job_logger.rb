@@ -10,7 +10,8 @@ class SidekiqExt::JobLogger < ::Sidekiq::JobLogger
   def call(item, queue)
     start = ::Process.clock_gettime(::Process::CLOCK_MONOTONIC)
     Sidekiq::Context.add(:queue, queue)
-    Sidekiq::Context.add(:args, JSON(item['args']))
+    json = JSON.dump(item['args'])
+    Sidekiq::Context.add(:args, json.size <= 140 ? json : "#{json[0...140]}...]")
     @logger.info('start')
 
     yield

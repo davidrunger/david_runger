@@ -35,10 +35,28 @@ RSpec.describe SidekiqExt::JobLogger do
         expect($stdout).to receive(:puts).with('Performing the work ... !')
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["#{ip_address}"\] elapsed=\d\.\d{1,3} INFO: done\n\z/).
+          with(/queue=default args=\["#{ip_address}"\] elapsed=\d+\.\d{1,3} INFO: done\n\z/).
           and_call_original
 
         call
+      end
+
+      context 'when the job arguments are lengthy' do
+        let(:ip_address) { ('123.' * 300).remove(/\.\z/) }
+
+        it 'logs an abbreviated version of the job arguments' do
+          expect(Sidekiq.logger.instance_variable_get(:@logdev)).
+            to receive(:write).
+            with(/queue=default args=\["#{'123.' * 34}12...\] INFO: start\n\z/).
+            and_call_original
+          expect($stdout).to receive(:puts).with('Performing the work ... !')
+          expect(Sidekiq.logger.instance_variable_get(:@logdev)).
+            to receive(:write).
+            with(/args=\["#{'123.' * 34}12...\] elapsed=\d+\.\d{1,3} INFO: done\n\z/).
+            and_call_original
+
+          call
+        end
       end
     end
 
@@ -52,7 +70,7 @@ RSpec.describe SidekiqExt::JobLogger do
           and_call_original
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["#{ip_address}"\] elapsed=\d\.\d{1,3} INFO: fail\n\z/).
+          with(/queue=default args=\["#{ip_address}"\] elapsed=\d+\.\d{1,3} INFO: fail\n\z/).
           and_call_original
 
         expect { call }.to raise_error(/A problem occurred in the Sidekiq job!/)
