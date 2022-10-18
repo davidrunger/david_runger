@@ -14,13 +14,14 @@ RSpec.describe SidekiqExt::JobLogger do
       {
         'retry' => true,
         'queue' => 'default',
-        'args' => ['AuthToken'],
-        'class' => 'InvalidRecordsCheck::Checker',
+        'args' => [ip_address],
+        'class' => 'CreateIpBlock',
         'jid' => SecureRandom.hex(12),
         'created_at' => Time.current.to_f,
         'enqueued_at' => Time.current.to_f,
       }
     end
+    let(:ip_address) { Faker::Internet.ip_v4_address }
     let(:queue) { 'default' }
 
     context 'when the executed job does not raise an error' do
@@ -29,12 +30,12 @@ RSpec.describe SidekiqExt::JobLogger do
       it 'prints start job info, executes the block, and prints done job info' do
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["AuthToken"\] INFO: start\n\z/).
+          with(/queue=default args=\["#{ip_address}"\] INFO: start\n\z/).
           and_call_original
         expect($stdout).to receive(:puts).with('Performing the work ... !')
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["AuthToken"\] elapsed=\d\.\d{1,3} INFO: done\n\z/).
+          with(/queue=default args=\["#{ip_address}"\] elapsed=\d\.\d{1,3} INFO: done\n\z/).
           and_call_original
 
         call
@@ -47,11 +48,11 @@ RSpec.describe SidekiqExt::JobLogger do
       it 'prints start job info, executes the block, and prints failed job info' do
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["AuthToken"\] INFO: start\n\z/).
+          with(/queue=default args=\["#{ip_address}"\] INFO: start\n\z/).
           and_call_original
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["AuthToken"\] elapsed=\d\.\d{1,3} INFO: fail\n\z/).
+          with(/queue=default args=\["#{ip_address}"\] elapsed=\d\.\d{1,3} INFO: fail\n\z/).
           and_call_original
 
         expect { call }.to raise_error(/A problem occurred in the Sidekiq job!/)
