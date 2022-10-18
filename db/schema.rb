@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_18_153151) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_18_212647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -278,7 +278,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_153151) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.datetime "viewed_at", precision: nil
+    t.datetime "viewed_at", precision: nil, null: false
     t.text "notes"
     t.boolean "private", default: false, null: false
     t.index ["user_id"], name: "index_stores_on_user_id"

@@ -11,7 +11,7 @@
 #  private    :boolean          default(FALSE), not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
-#  viewed_at  :datetime
+#  viewed_at  :datetime         not null
 #
 # Indexes
 #
@@ -46,24 +46,13 @@ RSpec.describe(StoreSerializer) do
 
     context 'when the store belongs to the current user' do
       let(:current_user) { store.user }
+      let(:viewed_at_time) { 3.days.ago }
 
-      context 'when the store has been viewed' do
-        before { store.update!(viewed_at: viewed_at_time) }
+      before { store.update!(viewed_at: viewed_at_time) }
 
-        let(:viewed_at_time) { 3.days.ago }
-
-        it 'is a timestamp formatted as JavaScript formats timestamps' do
-          expect(viewed_at).to be_instance_of(String)
-          expect(viewed_at).to eq(viewed_at_time.utc.iso8601(3))
-        end
-      end
-
-      context 'when the store has not been viewed' do
-        before { store.update!(viewed_at: nil) }
-
-        it 'is nil' do
-          expect(viewed_at).to eq(nil)
-        end
+      it 'is a timestamp formatted as JavaScript formats timestamps' do
+        expect(viewed_at).to be_instance_of(String)
+        expect(viewed_at).to eq(viewed_at_time.utc.iso8601(3))
       end
     end
 

@@ -11,7 +11,7 @@
 #  private    :boolean          default(FALSE), not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
-#  viewed_at  :datetime
+#  viewed_at  :datetime         not null
 #
 # Indexes
 #
@@ -27,7 +27,7 @@ class StoreSerializer < ActiveModel::Serializer
   end
 
   def viewed_at
-    own_store? ? store.viewed_at&.utc&.iso8601(3) : nil # match time format to the JavaScript one
+    own_store? ? store.viewed_at.utc.iso8601(3) : nil # match time format to the JavaScript one
   end
 
   private
