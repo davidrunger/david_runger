@@ -14,6 +14,7 @@ module SpringWatcherListenIgnorer
       log/|
       node_modules/|
       personal/|
+      spec/fixtures/|
       tmp/
       )
     }x)
