@@ -34,10 +34,10 @@ div.mt1.mb2.ml3.mr2
     )
     p.pre-wrap(v-else)
       | {{store.notes || 'No notes yet'}}
-      a.edit-store.js-link.gray.ml1(@click='editStoreNotes')
+      a.edit-store.js-link.gray.ml1(v-if='store.own_store' @click='editStoreNotes')
         edit-icon(size='18')
 
-  form.flex(@submit.prevent='postNewItem')
+  form.flex(v-if='store.own_store' @submit.prevent='postNewItem')
     .float-left
       el-input.item-name-input(
         placeholder='Add an item'
