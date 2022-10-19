@@ -2,12 +2,13 @@
 .grocery-item.flex.items-center(
   :class='{unneeded: item.needed <= 0}'
 )
-  div
+  .left
     span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
     span.decrement.h2.pl1.pr1.js-link.red(
       @click='decrement(item)'
       title='Decrement'
     ) &ndash;
+  .left
     input(
       v-if='editingName'
       type='text'
@@ -16,18 +17,18 @@
       @keydown.enter='stopEditingAndUpdateItemName()'
       ref='item-name-input'
     )
-    span(v-else)
+    span.item-name(v-else)
       | {{item.name}}
       |
       a.js-link.gray(@click='editItemName')
         edit-icon(size='17')
     | &nbsp;
     span ({{item.needed}})
-    .delete.h2.pl1.pr1.js-link.right.red(
-      v-if='ownStore'
-      @click="$store.dispatch('deleteItem', { item })"
-      title='Delete item'
-    ) ×
+  .delete.h2.pl1.pr1.js-link.right.red(
+    v-if='ownStore'
+    @click="$store.dispatch('deleteItem', { item })"
+    title='Delete item'
+  ) ×
 </template>
 
 <script>
@@ -116,11 +117,19 @@ export default {
   user-select: none;
 }
 
+.delete {
+  margin-left: auto;
+}
+
+.item-name {
+  word-break: break-word;
+}
+
 .grocery-item {
   background: rgba(255, 255, 255, 60%);
   margin: 5px 0;
-  padding: 0 6px;
-  height: 30px;
+  padding: 6px;
+  min-height: 30px;
 
   &:not(.unneeded):hover {
     background: rgba(255, 255, 255, 80%);
