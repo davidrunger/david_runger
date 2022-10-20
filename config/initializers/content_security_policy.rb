@@ -9,19 +9,27 @@
 Rails.application.configure do
   config.content_security_policy do |policy|
     extra_sources = []
+    extra_connect_sources = []
+    # :nocov:
     if Rails.env.development?
-      # :nocov:
       extra_sources << 'https://davidrunger.com' # allow assets from production for local prerenders
       if !ENV.key?('PRODUCTION_ASSET_CONFIG')
         extra_sources << 'ws://localhost:3036' # vite live reloading websockets server
         extra_sources << 'http://localhost:3036' # vite asset server
+
+        if (local_hostname = ENV.fetch('LOCAL_HOSTNAME', nil)).present?
+          extra_sources << "ws://#{local_hostname}:3036"
+          extra_sources << "http://#{local_hostname}:3036"
+        end
       end
-      # :nocov:
+    elsif Rails.env.production?
+      extra_connect_sources << 'wss://davidrunger.com'
     end
+    # :nocov:
 
     policy.default_src(:none)
     policy.base_uri(:self)
-    policy.connect_src(:self, *extra_sources)
+    policy.connect_src(:self, *extra_sources, *extra_connect_sources)
     policy.manifest_src(:self, *extra_sources)
     policy.form_action(:self, 'https://accounts.google.com')
     policy.font_src(:self, :https, :data, *extra_sources)
