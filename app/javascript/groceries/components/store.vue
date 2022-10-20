@@ -63,7 +63,7 @@ div.mt1.mb2.ml3.mr2
     slot
       h3.bold.mb2.
         What did you get?
-      ul
+      ul.check-in-items-list
         li.flex.items-center.mb1(
           v-for='(item, index) in neededItems'
           :key='item.id'
@@ -267,5 +267,10 @@ export default {
   &:hover {
     color: black;
   }
+}
+
+.check-in-items-list {
+  max-height: 60vw;
+  overflow: auto;
 }
 </style>
