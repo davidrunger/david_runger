@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-load '~/.irbrc.rb'
+home_irbrc_path = '~/.irbrc.rb'
+# this file is not expected to be there in production
+load(home_irbrc_path) if File.exist?(home_irbrc_path)
 
 IRB.conf[:USE_AUTOCOMPLETE] = false
