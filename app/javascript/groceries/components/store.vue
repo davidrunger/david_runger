@@ -64,14 +64,19 @@ div.mt1.mb2.ml3.mr2
       h3.bold.mb2.
         What did you get?
       ul
-        li.flex.items-center.mb1(v-for='(item, index) in neededItems' :key='item.id')
+        li.flex.items-center.mb1(
+          v-for='(item, index) in neededItems'
+          :key='item.id'
+        )
           input(
             type='checkbox'
             v-model='itemsToZero'
             :value='item'
             :id='`trip-checkin-item-${item.id}`'
           )
-          label.ml1(:for='`trip-checkin-item-${item.id}`') {{item.name}}
+          label.ml1(:for='`trip-checkin-item-${item.id}`')
+            span {{item.name}}
+            span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
       div.flex.justify-around.mt2
         el-button(
           @click='handleTripCheckinModalSubmit'
