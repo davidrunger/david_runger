@@ -13,17 +13,23 @@ Rails.application.configure do
     # :nocov:
     if Rails.env.development?
       extra_sources << 'https://davidrunger.com' # allow assets from production for local prerenders
+      extra_connect_sources << 'ws://localhost:3000' # actioncable connections
+      local_hostname = ENV.fetch('LOCAL_HOSTNAME', nil)
+      if local_hostname.present?
+        extra_connect_sources << "ws://#{local_hostname}:3000" # actioncable w/ local hostname
+      end
+
       if !ENV.key?('PRODUCTION_ASSET_CONFIG')
         extra_sources << 'ws://localhost:3036' # vite live reloading websockets server
         extra_sources << 'http://localhost:3036' # vite asset server
 
-        if (local_hostname = ENV.fetch('LOCAL_HOSTNAME', nil)).present?
-          extra_sources << "ws://#{local_hostname}:3036"
-          extra_sources << "http://#{local_hostname}:3036"
+        if local_hostname.present?
+          extra_sources << "ws://#{local_hostname}:3036" # vite live reload server w/ local hostname
+          extra_sources << "http://#{local_hostname}:3036" # vite asset server w/ local hostname
         end
       end
     elsif Rails.env.production?
-      extra_connect_sources << 'wss://davidrunger.com'
+      extra_connect_sources << 'wss://davidrunger.com' # for actioncable websockets
     end
     # :nocov:
 
