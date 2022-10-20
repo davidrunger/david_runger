@@ -23,6 +23,11 @@ Rails.application.configure do
         extra_sources << 'ws://localhost:3036' # vite live reloading websockets server
         extra_sources << 'http://localhost:3036' # vite asset server
 
+        if (vite_ruby_host = ENV.fetch('VITE_RUBY_HOST', nil)).present?
+          extra_connect_sources << "ws://#{vite_ruby_host}:3036" # vite server at e.g. 0.0.0.0
+          extra_connect_sources << "http://#{vite_ruby_host}:3036" # vite server at e.g. 0.0.0.0
+        end
+
         if local_hostname.present?
           extra_sources << "ws://#{local_hostname}:3036" # vite live reload server w/ local hostname
           extra_sources << "http://#{local_hostname}:3036" # vite asset server w/ local hostname
