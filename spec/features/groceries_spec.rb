@@ -9,8 +9,6 @@ RSpec.describe 'Groceries app' do
     it 'renders expected content' do
       visit groceries_path
 
-      expect(page).to have_text(user.email)
-
       store = user.stores.reorder(viewed_at: :desc).first!
       expect(page).to have_text(store.name)
       expect(page).to have_button('Check in shopping trip')

@@ -17,7 +17,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
         expect { click_button(class: 'google-login') }.not_to change { User.count }
 
-        visit(groceries_path)
+        visit(logs_path)
         expect(page).to have_text(user.email)
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         expect { click_button(class: 'google-login') }.to change { User.count }.by(1)
         user = User.find_by!(email: stubbed_user_email)
 
-        visit(groceries_path)
+        visit(logs_path)
         expect(page).to have_text(user.email)
       end
     end
