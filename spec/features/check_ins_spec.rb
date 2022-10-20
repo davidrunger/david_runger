@@ -50,7 +50,7 @@ RSpec.describe 'Check-Ins app' do
           Capybara.using_session('proposee') do
             wait_for do
               sign_in(proposee)
-              visit(groceries_path)
+              visit(logs_path)
               page.has_text?(proposee.email)
             end.to eq(true)
 

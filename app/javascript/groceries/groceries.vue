@@ -50,6 +50,7 @@ export default {
 
 main {
   background-image: url("../../assets/images/beach-background.jpg");
+  z-index: 5;
 }
 
 html.webp {
