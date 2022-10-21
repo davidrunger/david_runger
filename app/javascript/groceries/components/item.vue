@@ -143,8 +143,10 @@ button.increment {
     top: -1px;
   }
 
-  &:hover {
-    background: white;
+  @media (hover: hover) {
+    &:hover {
+      background: white;
+    }
   }
 }
 
