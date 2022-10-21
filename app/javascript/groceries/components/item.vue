@@ -2,12 +2,14 @@
 .grocery-item.flex.items-center(
   :class='{unneeded: item.needed <= 0}'
 )
-  .left
-    span.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment') +
-    span.decrement.h2.pl1.pr1.js-link.red(
+  .left.nowrap
+    button.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment')
+      span +
+    button.decrement.h2.mx1.js-link.red(
       @click='decrement(item)'
       title='Decrement'
-    ) &ndash;
+    )
+      span &ndash;
   .left
     input(
       v-if='editingName'
@@ -119,6 +121,31 @@ export default {
 
 .delete {
   margin-left: auto;
+}
+
+button.decrement,
+button.increment {
+  border: none;
+  border: 1px solid silver;
+  font-size: 20px;
+  font-weight: bold;
+  vertical-align: middle;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+  height: 25px;
+  width: 35px;
+  border-radius: 3px;
+  background: none;
+
+  span {
+    position: relative;
+    top: -1px;
+  }
+
+  &:hover {
+    background: white;
+  }
 }
 
 .item-name {
