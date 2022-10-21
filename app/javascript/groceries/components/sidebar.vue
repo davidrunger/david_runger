@@ -1,39 +1,40 @@
 <template lang='pug'>
-aside.border-right.border-gray.overflow-auto(
+aside.border-right.border-gray(
   :class='{ collapsed: !visible }'
 )
-  .sidebar-toggle__container.border-bottom
-    button.sidebar-toggle(
-      @click='this.visible = !visible'
-      :class='{ "rotated-180": visible }'
-    )
-      arrow-bar-right-icon(size='29')
-  nav
-    .store-lists-container.pb2
-      form.add-store.flex(@submit.prevent='createStore')
-        .flex-1.mr1
-          el-input(
-            type='text'
-            v-model='newStoreName'
-            name='newStoreName'
-            placeholder='Add a store'
-          )
-        el-button.flex-0(
-          native-type='submit'
-          :disabled='postingStore || v$.$invalid'
-        ) Add
-      .stores-list
-        StoreListEntry(
-          v-for='store in sortedStores'
-          :store='store'
-        )
-      div(v-if='sortedSpouseStores.length > 0')
-        .spouse-stores-header.h2 Spouse's Stores
+  .overflow-auto.vh-100.hidden-scrollbars
+    .sidebar-toggle__container.border-bottom
+      button.sidebar-toggle(
+        @click='this.visible = !visible'
+        :class='{ "rotated-180": visible }'
+      )
+        arrow-bar-right-icon(size='29')
+    nav
+      .store-lists-container.pb2
+        form.add-store.flex(@submit.prevent='createStore')
+          .flex-1.mr1
+            el-input(
+              type='text'
+              v-model='newStoreName'
+              name='newStoreName'
+              placeholder='Add a store'
+            )
+          el-button.flex-0(
+            native-type='submit'
+            :disabled='postingStore || v$.$invalid'
+          ) Add
         .stores-list
           StoreListEntry(
-            v-for='store in sortedSpouseStores'
+            v-for='store in sortedStores'
             :store='store'
           )
+        div(v-if='sortedSpouseStores.length > 0')
+          .spouse-stores-header.h2 Spouse's Stores
+          .stores-list
+            StoreListEntry(
+              v-for='store in sortedSpouseStores'
+              :store='store'
+            )
 </template>
 
 <script>
@@ -114,7 +115,6 @@ export default {
 aside {
   background: linear-gradient(to bottom, #458fc0 0%, #a8b2ce 50%, #b6bcd5 100%);
   transition: min-width 0.7s, width 0.7s, max-width 0.7s;
-  scrollbar-width: none;  /* Firefox https://stackoverflow.com/a/38994837/4009384 */
 
   .spouse-stores-header,
   :deep(.stores-list__item) {
@@ -146,10 +146,6 @@ aside {
       max-width: 280px;
     }
   }
-}
-
-aside::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome https://stackoverflow.com/a/38994837/4009384 */
 }
 
 nav {
