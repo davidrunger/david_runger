@@ -16,6 +16,8 @@
 #
 
 class User < ApplicationRecord
+  extend Memoist
+
   validates :email, presence: true, uniqueness: true, format: { with: /\A\S+@\S+\.\S+\z/ }
 
   has_many :auth_tokens, dependent: :destroy
@@ -37,7 +39,7 @@ class User < ApplicationRecord
   devise
 
   before_destroy do |user|
-    if user.marriage
+    if user.reload.marriage
       marriage =
         Marriage.
           includes(
@@ -50,11 +52,18 @@ class User < ApplicationRecord
     end
   end
 
+  memoize \
   def marriage
     Marriage.where(partner_1_id: id).or(Marriage.where(partner_2_id: id)).first
   end
 
+  memoize \
   def spouse
     [marriage&.partner_1, marriage&.partner_2].compact.reject { _1.id == id }.first
+  end
+
+  def reload
+    flush_cache # clear memoized methods
+    super
   end
 end
