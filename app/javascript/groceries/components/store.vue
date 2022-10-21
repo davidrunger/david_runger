@@ -256,7 +256,7 @@ export default {
 
 <style lang='scss' scoped>
 .store-container {
-  max-height: 97vh;
+  max-height: 97dvh;
 }
 
 .item-name-input {

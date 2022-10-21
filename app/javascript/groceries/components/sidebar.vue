@@ -2,7 +2,7 @@
 aside.border-right.border-gray(
   :class='{ collapsed: !visible }'
 )
-  .overflow-auto.vh-100.hidden-scrollbars
+  .overflow-auto.dvh-100.hidden-scrollbars
     .sidebar-toggle__container.border-bottom
       button.sidebar-toggle(
         @click='this.visible = !visible'
