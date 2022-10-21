@@ -131,6 +131,10 @@ aside {
     :deep(.stores-list__item) {
       opacity: 0.3;
     }
+
+    .overflow-auto {
+      overflow-x: hidden;
+    }
   }
 
   &:not(.collapsed) {
