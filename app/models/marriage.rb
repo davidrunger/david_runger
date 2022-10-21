@@ -24,4 +24,16 @@ class Marriage < ApplicationRecord
   def partners
     User.where(id: [partner_1_id, partner_2_id])
   end
+
+  after_create_commit do |marriage|
+    # clear possibly memoized (and about-to-be-inaccurate) User #marriage and #spouse methods
+    marriage.partner_1.flush_cache
+    marriage.partner_2&.flush_cache
+  end
+
+  after_destroy do |marriage|
+    # clear possibly memoized (and about-to-be-inaccurate) User #marriage and #spouse methods
+    marriage.partner_1.flush_cache
+    marriage.partner_2&.flush_cache
+  end
 end
