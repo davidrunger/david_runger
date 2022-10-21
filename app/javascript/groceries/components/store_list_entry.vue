@@ -1,12 +1,13 @@
 <template lang='pug'>
-.js-link.stores-list__item.h3.my2.py1.px2(
+.flex.js-link.stores-list__item.h3.my2.py1.px2.items-center.justify-between(
   :class='{selected: store === currentStore}'
   @click='$store.dispatch("selectStore", { store })'
 )
-  div
-    a.store-name {{store.name}}
+  div.store-name
+    a {{store.name}}
     lock-icon.ml1(v-if='store.private' size='22')
-    a.js-link.right(
+  div.delete-button
+    a.js-link(
       v-if='store.own_store'
       @click.stop='destroyStore(store)'
     ) &times;
