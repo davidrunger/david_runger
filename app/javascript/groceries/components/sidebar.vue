@@ -44,6 +44,8 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
+import { isMobileDevice } from '@/lib/is_mobile_device';
+import { on } from '@/lib/event_bus';
 import LoggedInHeader from './logged_in_header.vue';
 import StoreListEntry from './store_list_entry.vue';
 
@@ -76,10 +78,18 @@ export default {
     },
   },
 
+  created() {
+    this.unsubscribeFromStoreSelected = on('groceries:store-selected', this.handleStoreSelected);
+  },
+
+  unmounted() {
+    this.unsubscribeFromStoreSelected();
+  },
+
   data() {
     return {
       newStoreName: '',
-      visible: true,
+      visible: !isMobileDevice(),
     };
   },
 
@@ -98,6 +108,12 @@ export default {
           newStoreData.viewed_at = (new Date(newStoreData.viewed_at)).toISOString();
           this.stores.unshift(newStoreData);
         });
+    },
+
+    handleStoreSelected() {
+      if (isMobileDevice()) {
+        this.visible = false;
+      }
     },
   },
 

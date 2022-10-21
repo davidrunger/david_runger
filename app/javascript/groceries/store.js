@@ -1,5 +1,6 @@
 import { filter, last, pick, sortBy } from 'lodash-es';
 import { kyApi } from '@/shared/ky';
+import { emit } from '@/lib/event_bus';
 
 import {
   getters as modalGetters,
@@ -67,6 +68,10 @@ const actions = {
   selectStore(_context, { store }) {
     // update the store's viewed_at time, bc. this is actually how we determine the selected store
     store.viewed_at = (new Date()).toISOString();
+
+    // emit event so sidebar can collapse if on mobile
+    emit('groceries:store-selected');
+
     if (store.own_store) {
       kyApi.patch(
         Routes.api_store_path(store.id),
