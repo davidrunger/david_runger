@@ -17,10 +17,15 @@ div.mt1.mb2.ml3.mr2
         el-button.ml1(v-if='store.private' size='small' @click='togglePrivacy') Make public
         el-button.ml1(v-else size='small' @click='togglePrivacy') Make private
       span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
-    div.mb2
-      el-button(id="show-modal" @click='initializeTripCheckinModal()').
-        Check in shopping trip
-      el-button.copy-to-clipboard Copy to clipboard
+    div.buttons-container.mb2
+      el-button.mr1.mt1(
+        id="show-modal"
+        @click='initializeTripCheckinModal()'
+        :size='$is_mobile_device ? "small" : null'
+      ) Check in items
+      el-button.copy-to-clipboard.mt1(
+        :size='$is_mobile_device ? "small" : null'
+      ) Copy to clipboard
       span(v-if='wasCopiedRecently') Copied!
 
     div.mb1
@@ -255,6 +260,15 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+// https://stackoverflow.com/a/30891910/4009384
+.buttons-container {
+  margin-top: calc(-1 * var(--space-1));
+}
+
+.copy-to-clipboard {
+  margin-left: 0;
+}
+
 .store-container {
   max-height: 97dvh;
 }
