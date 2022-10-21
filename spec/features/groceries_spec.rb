@@ -11,7 +11,7 @@ RSpec.describe 'Groceries app' do
 
       store = user.stores.reorder(viewed_at: :desc).first!
       expect(page).to have_text(store.name)
-      expect(page).to have_button('Check in shopping trip')
+      expect(page).to have_button('Check in items')
       expect(page).to have_button('Copy to clipboard')
 
       item = store.items.first!

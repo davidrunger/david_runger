@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import whenDomReady from 'when-dom-ready';
 
+import { isMobileDevice } from '@/lib/is_mobile_device';
 import * as Routes from '@/rails_assets/routes';
 import titleMixin from '@/lib/mixins/title_mixin';
 
@@ -12,6 +13,7 @@ export function renderApp(vueApp, domTargetSelector = '#container') {
   app.config.devtools = window.davidrunger && (window.davidrunger.env === 'development');
 
   app.config.globalProperties.$routes = Routes;
+  app.config.globalProperties.$is_mobile_device = isMobileDevice();
   app.config.globalProperties.bootstrap = window.davidrunger && window.davidrunger.bootstrap;
 
   app.mixin(titleMixin);
