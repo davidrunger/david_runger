@@ -44,7 +44,6 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
-import { isMobileDevice } from '@/lib/is_mobile_device';
 import { on } from '@/lib/event_bus';
 import LoggedInHeader from './logged_in_header.vue';
 import StoreListEntry from './store_list_entry.vue';
@@ -89,7 +88,7 @@ export default {
   data() {
     return {
       newStoreName: '',
-      visible: !isMobileDevice(),
+      visible: !this.$is_mobile_device,
     };
   },
 
@@ -111,7 +110,7 @@ export default {
     },
 
     handleStoreSelected() {
-      if (isMobileDevice()) {
+      if (this.$is_mobile_device) {
         this.visible = false;
       }
     },
