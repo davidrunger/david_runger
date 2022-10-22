@@ -1,12 +1,12 @@
 <template lang='pug'>
 aside.border-right.border-gray(
-  :class='{ collapsed: !visible }'
+  :class='{ collapsed }'
 )
   .overflow-auto.dvh-100.hidden-scrollbars
     .sidebar-toggle__container.border-bottom
       button.sidebar-toggle(
-        @click='this.visible = !visible'
-        :class='{ "rotated-180": visible }'
+        @click='this.collapsed = !collapsed'
+        :class='{ "rotated-180": expanded }'
       )
         arrow-bar-right-icon(size='29')
     nav
@@ -75,6 +75,10 @@ export default {
     sortedStores() {
       return sortBy(this.stores, store => store.name.toLowerCase());
     },
+
+    expanded() {
+      return !this.collapsed;
+    },
   },
 
   created() {
@@ -88,7 +92,7 @@ export default {
   data() {
     return {
       newStoreName: '',
-      visible: !this.$is_mobile_device,
+      collapsed: this.$is_mobile_device,
     };
   },
 
@@ -111,7 +115,7 @@ export default {
 
     handleStoreSelected() {
       if (this.$is_mobile_device) {
-        this.visible = false;
+        this.collapsed = true;
       }
     },
   },
@@ -137,6 +141,18 @@ aside {
     transition: opacity 0.7s;
   }
 
+  @media screen and (max-width: 400px) {
+    min-width: 150px;
+    width: 45vw;
+    max-width: 180px;
+  }
+
+  @media screen and (min-width: 400px) {
+    min-width: 180px;
+    width: 35vw;
+    max-width: 280px;
+  }
+
   &.collapsed {
     min-width: 50px;
     width: 50px;
@@ -151,27 +167,13 @@ aside {
       overflow-x: hidden;
     }
   }
-
-  &:not(.collapsed) {
-    @media screen and (max-width: 399px) {
-      min-width: 150px;
-      width: 45vw;
-      max-width: 180px;
-    }
-
-    @media screen and (min-width: 400px) {
-      min-width: 180px;
-      width: 35vw;
-      max-width: 280px;
-    }
-  }
 }
 
 nav {
   position: relative;
   top: 10px;
 
-  @media screen and (max-width: 399px) {
+  @media screen and (max-width: 400px) {
     min-width: calc(150px - var(--space-2) * 2);
     width: calc(45vw - var(--space-2) * 2);
     max-width: calc(180px - var(--space-2) * 2);
@@ -214,7 +216,7 @@ button.sidebar-toggle {
   transition: transform 0.7s, left 0.7s;
 
   &.rotated-180 {
-    @media screen and (max-width: 399px) {
+    @media screen and (max-width: 400px) {
       transform: rotate(180deg);
     }
 
