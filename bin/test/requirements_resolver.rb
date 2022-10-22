@@ -75,6 +75,8 @@ class Test::RequirementsResolver
         end
 
         forces.each do |force|
+          next if force == Test::Tasks::Exit # don't allow Exit to be a dependency of itself
+
           if !force.in?(base_dependency_map[Test::Tasks::Exit])
             base_dependency_map[Test::Tasks::Exit] << force
           end
