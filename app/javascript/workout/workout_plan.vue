@@ -20,9 +20,8 @@
         th Set
         th(v-if='editMode') Base Time
         th(v-if='editMode') Time Adjustment
-        th #[span(v-if='editMode') Final] Time
+        th.time-column #[span(v-if='editMode') Final] Time
         th(v-for='exercise in exercises') {{exercise.name}}
-        th
     tbody
       tr(
         v-for='(setCount, index) in numberOfSets'
@@ -36,11 +35,7 @@
             v-model.number='setsArray[index].timeAdjustment'
             :disabled='index <= currentRoundIndex'
           )
-        td.
-          {{
-            secondsAsTime(intervalInSeconds * index +
-              cumulativeTimeAdjustment(index, timeAdjustments))
-          }}
+        td(:class='nextRoundCountdownClass(index)') {{timeColumnValue(index)}}
         td(
           v-for='exercise in setsArray[index].exercises'
         )
@@ -51,16 +46,12 @@
             :disabled='index <= (currentRoundIndex - 1)'
           )
           span(v-else) {{exercise.reps}}
-        td(v-show='index === currentRoundIndex + 1').
-          Starts in
-          #[span(:class='nextRoundCountdownClass') {{secondsAsTime(secondsUntilNextRound)}}]
       tr
         td
         td(v-if='editMode')
         td(v-if='editMode')
         td
         td(v-for='exercise in exercises') {{repTotalsForWorkout[exercise.name]}}
-        td
   .my2
     button(@click='saveWorkout') Mark workout as complete!
 
@@ -98,16 +89,6 @@ export default {
 
     intervalInSeconds() {
       return this.intervalInMinutes * 60;
-    },
-
-    nextRoundCountdownClass() {
-      if (this.secondsUntilNextRound <= 10) {
-        return ['red', 'bold'];
-      } else if (this.secondsUntilNextRound <= 30) {
-        return 'orange';
-      } else {
-        return '';
-      }
     },
 
     nextRoundStartAtSeconds() {
@@ -200,6 +181,18 @@ export default {
       }));
     },
 
+    nextRoundCountdownClass(index) {
+      if (index !== this.currentRoundIndex + 1) return '';
+
+      if (this.secondsUntilNextRound <= 10) {
+        return ['red', 'bold'];
+      } else if (this.secondsUntilNextRound <= 30) {
+        return 'orange';
+      } else {
+        return '';
+      }
+    },
+
     saveWorkout() {
       this.timer.stop();
       this.$store.commit('showModal', { modalName: 'confirm-workout' });
@@ -243,6 +236,17 @@ export default {
         return ''; // future round
       }
     },
+
+    timeColumnValue(index) {
+      if (this.currentRoundIndex + 1 === index) {
+        return `-${this.secondsAsTime(this.secondsUntilNextRound)}`;
+      } else {
+        return this.secondsAsTime(
+          this.intervalInSeconds * index +
+            this.cumulativeTimeAdjustment(index, this.timeAdjustments),
+        );
+      }
+    },
   },
 
   props: {
@@ -263,6 +267,11 @@ export default {
 </script>
 
 <style scoped>
+.time-column {
+  /* fix the width because otherwise it changes as the countdown time changes */
+  width: 75px;
+}
+
 table {
   border-spacing: 0;
 }
