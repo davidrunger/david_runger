@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-home_irbrc_path = '~/.irbrc.rb'
+home_irbrc_path = "#{ENV['HOME']}/.irbrc.rb"
 # this file is not expected to be there in production
 load(home_irbrc_path) if File.exist?(home_irbrc_path)
 
