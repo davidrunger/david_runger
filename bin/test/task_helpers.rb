@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'open3'
+
 module Test::TaskHelpers
   def execute_system_command(command, env_vars = {})
     command = command.squish
@@ -14,6 +16,33 @@ module Test::TaskHelpers
       LOG
     else
       Test::Runner.exit_code = exit_code if Test::Runner.exit_code == 0
+      record_failed_command(command)
+      puts(<<~LOG.squish.red)
+        '#{command.red}' with ENV vars #{env_vars.to_s.red} failed
+        (exited with #{exit_code}, took #{time.round(3)}).
+      LOG
+    end
+  end
+
+  def execute_rspec_command(command, env_vars = {})
+    command = command.squish
+    puts("Running system command '#{command.yellow}' with ENV vars #{env_vars.to_s.yellow} ...")
+    stdout, _stderr, status = nil, nil, nil # rubocop:disable Style/ParallelAssignment
+    time =
+      Benchmark.measure do
+        stdout, _stderr, status = Open3.capture3(env_vars, command)
+      end.real
+    puts(stdout)
+    exit_code = status.success? ? 0 : 1
+    update_job_result_exit_code(exit_code)
+    if exit_code == 0
+      puts(<<~LOG.squish)
+        '#{command.green}' with ENV vars #{env_vars.to_s.green} succeeded
+        (exited with #{exit_code}, took #{time.round(3)}).
+      LOG
+    else
+      Test::Runner.exit_code = exit_code if Test::Runner.exit_code == 0
+      record_failed_tests(stdout)
       puts(<<~LOG.squish.red)
         '#{command.red}' with ENV vars #{env_vars.to_s.red} failed
         (exited with #{exit_code}, took #{time.round(3)}).
@@ -31,6 +60,8 @@ module Test::TaskHelpers
       puts("'#{task_name}' failed ('exited with 1', raised #{error.inspect}).".red)
       raise # this will exit the program if it's a `SystemExit` exception
     rescue => error
+      args_string = "[#{args.map(&:to_s).join(',')}]"
+      record_failed_command("bin/rails #{task_name}#{args_string if !args.empty?}")
       record_failure_and_log_message(
         "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
       )
@@ -58,6 +89,21 @@ module Test::TaskHelpers
     unless preexisting_exit_code.present? && (preexisting_exit_code > exit_code)
       job_result_hash[:exit_code] = exit_code
     end
+  end
+
+  def record_failed_command(command)
+    job_result_hash[:failed_commands] ||= []
+    job_result_hash[:failed_commands] << command
+  end
+
+  def record_failed_tests(stdout)
+    job_result_hash[:failed_commands] ||= []
+    stdout.
+      match(%r{\nFailed examples:\n\n(.*)\n\nRandomized with seed}m).[](1).
+      split("\n").
+      each do |failed_test|
+        job_result_hash[:failed_commands] << failed_test.sub(%r{\A\e\[31mrspec ./}, '')
+      end
   end
 
   def job_result_hash

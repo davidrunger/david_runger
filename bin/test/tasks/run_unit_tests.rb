@@ -7,7 +7,7 @@ class Test::Tasks::RunUnitTests < Pallets::Task
     # Run all tests in `spec/` _except_ those in `spec/controllers/` and `spec/features/`.
     # Tests in `spec/controllers/` will be run by RunApiControllerTests and RunHtmlControllerTests.
     # Tests in `spec/features/` will be run by RunFeatureTests.
-    execute_system_command(<<~COMMAND)
+    execute_rspec_command(<<~COMMAND)
       DB_SUFFIX=_unit
       bin/rspec
       $(ls -d spec/*/ |
