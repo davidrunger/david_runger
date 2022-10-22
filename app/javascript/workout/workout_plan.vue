@@ -1,11 +1,6 @@
 <template lang='pug'>
-.pt1.pb3
-  .my2
-    .h1(v-if='timer') Time Elapsed: {{secondsAsTime(secondsElapsed)}}
-    div(v-else)
-      button(
-        @click='startWorkout'
-      ) Start timer
+.center.pb3
+  .py2
     el-switch(
       v-model='editMode'
       active-text='Edit mode'
@@ -14,44 +9,50 @@
       v-model='soundEnabled'
       active-text='Sound'
     )
-  table.my2
-    thead
-      tr
-        th Set
-        th(v-if='editMode') Base Time
-        th(v-if='editMode') Time Adjustment
-        th.time-column #[span(v-if='editMode') Final] Time
-        th(v-for='exercise in exercises') {{exercise.name}}
-    tbody
-      tr(
-        v-for='(setCount, index) in numberOfSets'
-        :class='tableRowClass(index)'
-      )
-        td {{setCount}}
-        td(v-if='editMode') {{secondsAsTime(intervalInSeconds * index)}}
-        td(v-if='editMode')
-          input(
-            type='text'
-            v-model.number='setsArray[index].timeAdjustment'
-            :disabled='index <= currentRoundIndex'
-          )
-        td(:class='nextRoundCountdownClass(index)') {{timeColumnValue(index)}}
-        td(
-          v-for='exercise in setsArray[index].exercises'
+    .h1(v-if='timer') Time Elapsed: {{secondsAsTime(secondsElapsed)}}
+    .mt1(v-else)
+      button(
+        @click='startWorkout'
+      ) Start timer
+  .flex.justify-center
+    table
+      thead
+        tr
+          th Set
+          th(v-if='editMode') Base Time
+          th(v-if='editMode') Time Adjustment
+          th.time-column #[span(v-if='editMode') Final] Time
+          th(v-for='exercise in exercises') {{exercise.name}}
+      tbody
+        tr(
+          v-for='(setCount, index) in numberOfSets'
+          :class='tableRowClass(index)'
         )
-          input(
-            v-if='editMode'
-            type='text'
-            v-model.number='exercise.reps'
-            :disabled='index <= (currentRoundIndex - 1)'
+          td {{setCount}}
+          td(v-if='editMode') {{secondsAsTime(intervalInSeconds * index)}}
+          td(v-if='editMode')
+            input(
+              type='text'
+              v-model.number='setsArray[index].timeAdjustment'
+              :disabled='index <= currentRoundIndex'
+            )
+          td(:class='nextRoundCountdownClass(index)') {{timeColumnValue(index)}}
+          td(
+            v-for='exercise in setsArray[index].exercises'
           )
-          span(v-else) {{exercise.reps}}
-      tr
-        td
-        td(v-if='editMode')
-        td(v-if='editMode')
-        td
-        td(v-for='exercise in exercises') {{repTotalsForWorkout[exercise.name]}}
+            input(
+              v-if='editMode'
+              type='text'
+              v-model.number='exercise.reps'
+              :disabled='index <= (currentRoundIndex - 1)'
+            )
+            span(v-else) {{exercise.reps}}
+        tr
+          td
+          td(v-if='editMode')
+          td(v-if='editMode')
+          td
+          td(v-for='exercise in exercises') {{repTotalsForWorkout[exercise.name]}}
   .my2
     button(@click='saveWorkout') Mark workout as complete!
 
@@ -276,7 +277,11 @@ table {
   border-spacing: 0;
 }
 
-tbody tr:last-of-type td:not(:last-of-type) {
+table tr:first-of-type th {
+  border-bottom: 1px solid gray;
+}
+
+tbody tr:last-of-type td {
   border-top: 1px solid gray;
 }
 
