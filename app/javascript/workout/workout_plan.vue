@@ -1,5 +1,5 @@
 <template lang='pug'>
-.pb4
+.pt1.pb3
   .my2
     .h1(v-if='timer') Time Elapsed: {{secondsAsTime(secondsElapsed)}}
     div(v-else)
