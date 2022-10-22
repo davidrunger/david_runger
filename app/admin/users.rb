@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register(User) do
-  menu parent: 'Users'
   permit_params :email
 
   controller do
