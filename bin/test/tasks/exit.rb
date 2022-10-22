@@ -50,7 +50,6 @@ class Test::Tasks::Exit < Pallets::Task
   end
 
   def print_failed_commands
-    sorted_job_results
     printed_header = false
     sorted_job_results.each do |task_name, result_hash|
       failed_commands = Array(result_hash[:failed_commands])
