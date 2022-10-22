@@ -3,6 +3,12 @@
 module DiffHelpers
   extend Memoist
 
+  SPECIAL_RUBY_FILES = %w[
+    .irbrc
+    .pryrc
+    Gemfile
+  ].freeze
+
   private
 
   memoize \
@@ -68,7 +74,8 @@ module DiffHelpers
       Dir['*.rb'] +
       Dir.glob('*').select { File.directory?(_1) }.map do |directory|
         Dir["#{directory}/**/*.rb"] + Dir["#{directory}/**/*.rake"]
-      end.flatten
+      end.flatten +
+      SPECIAL_RUBY_FILES
     (ruby_files & files_changed).any?
   end
 end
