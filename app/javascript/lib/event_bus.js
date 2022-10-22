@@ -5,7 +5,9 @@
 // returns a function that unsubscribes from the event
 export function on(eventName, callback) {
   window.addEventListener(eventName, callback);
-  return () => { window.removeEventListener(eventName, callback); };
+  return function unsubscribe() {
+    window.removeEventListener(eventName, callback);
+  };
 }
 
 export function emit(eventName) {

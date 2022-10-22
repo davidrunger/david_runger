@@ -38,13 +38,14 @@ aside.border-right.border-gray(
 </template>
 
 <script>
+import { inject, ref } from 'vue';
 import { mapGetters, mapState } from 'vuex';
 import { sortBy } from 'lodash-es';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
-import { on } from '@/lib/event_bus';
+import { useSubscription } from '@/lib/composables/use_subscription';
 import LoggedInHeader from './logged_in_header.vue';
 import StoreListEntry from './store_list_entry.vue';
 
@@ -81,18 +82,9 @@ export default {
     },
   },
 
-  created() {
-    this.unsubscribeFromStoreSelected = on('groceries:store-selected', this.handleStoreSelected);
-  },
-
-  unmounted() {
-    this.unsubscribeFromStoreSelected();
-  },
-
   data() {
     return {
       newStoreName: '',
-      collapsed: this.$is_mobile_device,
     };
   },
 
@@ -112,15 +104,25 @@ export default {
           this.stores.unshift(newStoreData);
         });
     },
-
-    handleStoreSelected() {
-      if (this.$is_mobile_device) {
-        this.collapsed = true;
-      }
-    },
   },
 
-  setup: () => ({ v$: useVuelidate() }),
+  setup() {
+    const isMobileDevice = inject('isMobileDevice');
+    const collapsed = ref(isMobileDevice);
+
+    function handleStoreSelected() {
+      if (isMobileDevice) {
+        collapsed.value = true;
+      }
+    }
+
+    useSubscription('groceries:store-selected', handleStoreSelected);
+
+    return {
+      collapsed,
+      v$: useVuelidate(),
+    };
+  },
 
   validations() {
     return {
