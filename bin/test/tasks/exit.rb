@@ -25,7 +25,6 @@ class Test::Tasks::Exit < Pallets::Task
 
   def print_individual_task_times
     puts("\n")
-    max_job_name_length = short_job_names.map(&:size).max
     sorted_job_results.
       each do |task_name, result_hash|
         exit_code = result_hash[:exit_code]
@@ -34,7 +33,7 @@ class Test::Tasks::Exit < Pallets::Task
         exit_message_color = (exit_code == 0) ? :green : :red
         colorized_exit_message = exit_message.public_send(exit_message_color)
         puts(
-          "#{task_name.sub('Test::Tasks::', '').rjust(max_job_name_length)} : " \
+          "#{rjusted_short_name(task_name)} : " \
           "#{colorized_exit_message} " \
           "(took #{run_time.round(3).to_s.yellow} seconds)",
         )
@@ -59,7 +58,7 @@ class Test::Tasks::Exit < Pallets::Task
       printed_header = true
 
       failed_commands.each do |failed_command|
-        puts("#{task_name}: #{failed_command.red}")
+        puts("#{rjusted_short_name(task_name)} : #{failed_command.red}")
       end
     end
   end
@@ -80,5 +79,13 @@ class Test::Tasks::Exit < Pallets::Task
     job_results.sort_by do |_task_name, result_hash|
       [result_hash[:exit_code], result_hash[:run_time]]
     end
+  end
+
+  def max_job_name_length
+    short_job_names.map(&:size).max
+  end
+
+  def rjusted_short_name(task_name)
+    task_name.sub('Test::Tasks::', '').rjust(max_job_name_length)
   end
 end

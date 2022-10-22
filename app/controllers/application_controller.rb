@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     with: :user_not_authorized,
   )
 
-  def current_user
+   def current_user
     if Rails.env.development? && Flipper.enabled?(:automatic_user_login)
       super || User.find_by!(email: 'davidjrunger@gmail.com').tap { |user| sign_in(user) }
     else
