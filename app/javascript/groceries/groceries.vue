@@ -3,11 +3,15 @@ div#groceries-app
   div#page.flex.dvh-100
     Sidebar
     main.flex-1.bg-cover
-      Store(v-if='currentStore' :store='currentStore')
+      Store(
+        v-if='currentStore'
+        :store='currentStore'
+      )
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'pinia';
+import { useGroceriesStore } from '@/groceries/store';
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
 
@@ -18,9 +22,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
+    ...mapState(useGroceriesStore, [
       'currentStore',
-      'debouncingOrWaitingOnNetwork',
     ]),
   },
 

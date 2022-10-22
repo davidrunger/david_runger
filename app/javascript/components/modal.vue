@@ -12,27 +12,34 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'pinia';
+import { useModalStore } from '@/shared/modal/store';
 import keycode from 'keycode';
 
 export default {
   computed: {
-    ...mapGetters([
+    ...mapState(useModalStore, [
       'showingModal',
     ]),
+  },
+
+  data() {
+    return {
+      modalStore: useModalStore(),
+    };
   },
 
   methods: {
     handleClickMask(event) {
       // make sure we don't close the modal when clicks within the modal propagate up
       if (event.target === this.$refs.mask) {
-        this.$store.commit('hideModal', { modalName: this.name });
+        this.modalStore.hideModal({ modalName: this.name });
       }
     },
 
     handleKeydown(e) {
       if (e.which === keycode('escape')) {
-        this.$store.commit('hideTopModal');
+        this.modalStore.hideTopModal();
       }
     },
   },

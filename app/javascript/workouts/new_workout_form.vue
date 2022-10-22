@@ -59,9 +59,10 @@ div.m2
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'pinia';
 import { get } from 'lodash-es';
 
+import { useWorkoutsStore } from '@/workouts/store';
 import WorkoutsTable from './workouts_table.vue';
 
 export default {
@@ -69,31 +70,36 @@ export default {
     WorkoutsTable,
   },
 
-  computed: mapState([
-    'others_workouts',
-    'workouts',
-  ]),
+  computed: {
+    ...mapState(useWorkoutsStore, [
+      'others_workouts',
+      'workouts',
+    ]),
+  },
 
   data() {
-    return get(this, 'bootstrap.current_user.preferences.default_workout') || {
-      minutes: null,
-      numberOfSets: null,
-      exercises: [{}],
+    const workout =
+      get(this, 'bootstrap.current_user.preferences.default_workout') ||
+        {
+          minutes: null,
+          numberOfSets: null,
+          exercises: [{}],
+        };
+    return {
+      ...workout,
+      workoutsStore: useWorkoutsStore(),
     };
   },
 
   methods: {
     initializeWorkout() {
-      this.$store.dispatch(
-        'initializeWorkout',
-        {
-          workout: {
-            minutes: this.minutes,
-            numberOfSets: this.numberOfSets,
-            exercises: this.exercises,
-          },
+      this.workoutsStore.initializeWorkout({
+        workout: {
+          minutes: this.minutes,
+          numberOfSets: this.numberOfSets,
+          exercises: this.exercises,
         },
-      );
+      });
     },
 
     removeExercise(index) {

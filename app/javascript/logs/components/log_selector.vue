@@ -22,18 +22,17 @@ Modal(
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
 import FuzzySet from 'fuzzyset.js';
+import { mapState } from 'pinia';
 
 import { on } from '@/lib/event_bus';
+import { useLogsStore } from '@/logs/store';
+import { useModalStore } from '@/shared/modal/store';
 
 export default {
   computed: {
-    ...mapGetters([
+    ...mapState(useLogsStore, [
       'logByName',
-    ]),
-
-    ...mapState([
       'logs',
     ]),
 
@@ -51,7 +50,7 @@ export default {
     },
 
     showingLogSelector() {
-      return this.$store.getters.showingModal({ modalName: 'log-selector' });
+      return this.modalStore.showingModal({ modalName: 'log-selector' });
     },
   },
 
@@ -66,6 +65,7 @@ export default {
   data() {
     return {
       highlightedLogIndex: 0,
+      modalStore: useModalStore(),
       searchString: '',
     };
   },
@@ -99,7 +99,7 @@ export default {
     },
 
     resetQuickSelector() {
-      this.$store.commit('hideModal', { modalName: 'log-selector' });
+      this.modalStore.hideModal({ modalName: 'log-selector' });
       this.highlightedLogIndex = 0;
       this.searchString = '';
     },

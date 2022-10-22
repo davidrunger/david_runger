@@ -11,7 +11,7 @@ aside.border-right.border-gray(
         arrow-bar-right-icon(size='29')
     nav
       .store-lists-container.pb2
-        form.add-store.flex(@submit.prevent='createStore')
+        form.add-store.flex(@submit.prevent='handleNewStoreSubmission()')
           .flex-1.mr1
             el-input(
               type='text'
@@ -39,12 +39,13 @@ aside.border-right.border-gray(
 
 <script>
 import { inject, ref } from 'vue';
-import { mapGetters, mapState } from 'vuex';
 import { sortBy } from 'lodash-es';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
+import { mapState } from 'pinia';
 
+import { useGroceriesStore } from '@/groceries/store';
 import { useSubscription } from '@/lib/composables/use_subscription';
 import LoggedInHeader from './logged_in_header.vue';
 import StoreListEntry from './store_list_entry.vue';
@@ -59,11 +60,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'currentStore',
-    ]),
-
-    ...mapState([
+    ...mapState(useGroceriesStore, [
       'postingStore',
       'spouse_stores',
       'stores',
@@ -89,20 +86,9 @@ export default {
   },
 
   methods: {
-    createStore() {
-      this.$store.state.postingStore = true;
-      const payload = {
-        store: {
-          name: this.newStoreName,
-        },
-      };
-      this.$http.post(this.$routes.api_stores_path(), { json: payload }).json().
-        then(newStoreData => {
-          this.newStoreName = '';
-          this.$store.state.postingStore = false;
-          newStoreData.viewed_at = (new Date(newStoreData.viewed_at)).toISOString();
-          this.stores.unshift(newStoreData);
-        });
+    handleNewStoreSubmission() {
+      this.groceriesStore.createStore(this.newStoreName).
+        then(() => { this.newStoreName = ''; });
     },
   },
 
@@ -120,6 +106,7 @@ export default {
 
     return {
       collapsed,
+      groceriesStore: useGroceriesStore(),
       v$: useVuelidate(),
     };
   },

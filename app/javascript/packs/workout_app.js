@@ -1,19 +1,13 @@
-import { createStore } from 'vuex';
-
+import { createPinia } from 'pinia';
 import { renderApp } from '@/shared/customized_vue';
 import { useKy } from '@/shared/ky';
 import { useElementPlus } from '@/shared/element_plus';
 import Modal from '@/components/modal.vue';
-import WorkoutApp from '@/workout/workout.vue';
-import storeDefinition from '@/workout/store';
+import WorkoutApp from '@/workouts/workout.vue';
 
 const app = renderApp(WorkoutApp);
-
+const pinia = createPinia();
+app.use(pinia);
 app.component('Modal', Modal);
 useKy(app);
 useElementPlus(app);
-
-const store = createStore({
-  ...storeDefinition,
-});
-app.use(store);
