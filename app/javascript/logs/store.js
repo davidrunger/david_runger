@@ -31,6 +31,18 @@ const actions = {
     });
   },
 
+  createLog({ log }) {
+    this.postingLog = true;
+
+    return kyApi.
+      post(Routes.api_logs_path(), { json: { log } }).json().
+      then((logData) => {
+        this.postingLog = false;
+        this.logs = this.logs.concat(logData);
+        return logData;
+      });
+  },
+
   createLogEntry({ logId, newLogEntryCreatedAt, newLogEntryData, newLogEntryNote }) {
     const payload = {
       log_entry: {
@@ -113,17 +125,6 @@ const actions = {
           log: this.logById({ logId }),
           logEntries: data,
         });
-      });
-  },
-
-  postNewLog({ log }) {
-    this.postingLog = true;
-
-    return kyApi.
-      post(Routes.api_logs_path(), { json: { log } }).json().
-      then(() => {
-        this.postingLog = false;
-        window.location.reload();
       });
   },
 

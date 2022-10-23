@@ -3,7 +3,7 @@ div
   .h2.my2 New Log
   .flex.justify-center.mb1
     div(style='width: 400px')
-      form.px1(@submit.prevent='postNewLog')
+      form.px1(@submit.prevent='createLog')
         .mb1
           el-input(
             placeholder='Name'
@@ -64,9 +64,12 @@ export default {
   },
 
   methods: {
-    postNewLog() {
-      this.logsStore.postNewLog({ log: this.newLog }).
-        then(() => { this.newLog = {}; });
+    createLog() {
+      this.logsStore.createLog({ log: this.newLog }).
+        then((log) => {
+          this.newLog = {};
+          this.$router.push({ name: 'log', params: { slug: log.slug } });
+        });
     },
   },
 };
