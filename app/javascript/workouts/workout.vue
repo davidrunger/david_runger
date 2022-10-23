@@ -1,5 +1,5 @@
 <template lang='pug'>
-div(v-if='workout.active')
+div(v-if='workoutIsInProgress')
   WorkoutPlan(v-bind='workout')
 NewWorkoutForm(v-else)
 </template>
@@ -18,6 +18,7 @@ export default {
 
   computed: mapState(useWorkoutsStore, [
     'workout',
+    'workoutIsInProgress',
   ]),
 };
 </script>
