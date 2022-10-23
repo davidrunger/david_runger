@@ -59,8 +59,7 @@ export default {
         }).showToast();
 
         this.modalStore.hideModal({ modalName: this.modalName });
-        this.workoutsStore.addCompletedWorkout({ completedWorkout });
-        this.workoutsStore.setWorkout({ workout: null });
+        this.workoutsStore.completeWorkout({ completedWorkout });
       }).catch((error) => {
         const errorMessage = get(error, 'response.data.error', 'Something went wrong');
         Toastify({

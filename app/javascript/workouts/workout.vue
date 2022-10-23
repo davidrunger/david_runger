@@ -1,5 +1,5 @@
 <template lang='pug'>
-div(v-if='workout')
+div(v-if='workout.active')
   WorkoutPlan(v-bind='workout')
 NewWorkoutForm(v-else)
 </template>

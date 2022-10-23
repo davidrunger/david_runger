@@ -6,7 +6,7 @@ div.m2
       label
         | Minutes
         el-input(
-          v-model.number='minutes'
+          v-model.number='workoutsStore.workout.minutes'
           name='minutes'
           type='number'
           step='0.1'
@@ -15,11 +15,11 @@ div.m2
       label
         | Sets
         el-input(
-          v-model.number='numberOfSets'
+          v-model.number='workoutsStore.workout.numberOfSets'
           name='numberOfSets'
           type='number'
         )
-    .my1.clearfix.flex(v-for='(exercise, index) in exercises')
+    .my1.clearfix.flex(v-for='(exercise, index) in workout.exercises')
       .col.col-6
         label
           | Exercise
@@ -40,12 +40,12 @@ div.m2
         button(type='button' @click='removeExercise(index)') X
     .my1.center
       el-button(
-        @click='exercises.push({})'
+        @click='workout.exercises.push({})'
       ) Add exercise
     .mt3.center
       el-button(
         type='primary'
-        @click='initializeWorkout()'
+        @click='this.workoutsStore.initializeWorkout()'
       ) Initialize Workout!
   div.my2
     h2.h2 Previous workouts
@@ -60,7 +60,6 @@ div.m2
 
 <script>
 import { mapState } from 'pinia';
-import { get } from 'lodash-es';
 
 import { useWorkoutsStore } from '@/workouts/store';
 import WorkoutsTable from './workouts_table.vue';
@@ -73,37 +72,20 @@ export default {
   computed: {
     ...mapState(useWorkoutsStore, [
       'others_workouts',
+      'workout',
       'workouts',
     ]),
   },
 
   data() {
-    const workout =
-      get(this, 'bootstrap.current_user.preferences.default_workout') ||
-        {
-          minutes: null,
-          numberOfSets: null,
-          exercises: [{}],
-        };
     return {
-      ...workout,
       workoutsStore: useWorkoutsStore(),
     };
   },
 
   methods: {
-    initializeWorkout() {
-      this.workoutsStore.initializeWorkout({
-        workout: {
-          minutes: this.minutes,
-          numberOfSets: this.numberOfSets,
-          exercises: this.exercises,
-        },
-      });
-    },
-
     removeExercise(index) {
-      this.exercises.splice(index, 1);
+      this.workout.exercises.splice(index, 1);
     },
   },
 };
