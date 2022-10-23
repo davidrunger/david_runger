@@ -16,12 +16,13 @@ table(v-if='workouts.length')
       td(v-if='isOwnWorkouts')
         el-checkbox(
           v-model='workout.publicly_viewable'
-          @change='savePubliclyViewableChange(workout.id, workout.publicly_viewable)'
+          @change='savePubliclyViewableChange(workout)'
         )
 div(v-else) None
 </template>
 
 <script>
+import { useWorkoutsStore } from '@/workouts/store';
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
 import Toastify from 'toastify-js';
@@ -32,6 +33,12 @@ export default {
     workoutsSortedByCreatedAtDesc() {
       return sortBy(this.workouts, 'created_at').reverse();
     },
+  },
+
+  data() {
+    return {
+      workoutsStore: useWorkoutsStore(),
+    };
   },
 
   methods: {
@@ -46,11 +53,8 @@ export default {
       return strftime('%b %-d, %Y at %-l:%M%P', new Date(timeString));
     },
 
-    savePubliclyViewableChange(workoutId, newPubliclyViewableValue) {
-      const payload = { workout: { publicly_viewable: newPubliclyViewableValue } };
-
-      this.$http.
-        patch(Routes.api_workout_path(workoutId), { json: payload }).json().
+    savePubliclyViewableChange(workout) {
+      this.workoutsStore.updateWorkout({ workout, attributes: workout }).
         then(responseData => {
           const message = responseData.publicly_viewable ?
             'Workout is now publicly viewable.' :
