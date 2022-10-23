@@ -65,9 +65,9 @@ export default {
     },
 
     setNeeded(item, needed) {
-      this.groceriesStore.setCollectingDebounces({ value: true });
       item.needed = needed;
-      this.debouncedPatchItem(item.id, item.needed);
+      this.groceriesStore.setCollectingDebounces({ value: true });
+      this.debouncedPatchItem(item);
     },
 
     stopEditingAndUpdateItemName() {
@@ -82,15 +82,8 @@ export default {
 
     // we need `function` for correct `this`
     // eslint-disable-next-line func-names
-    debouncedPatchItem: debounce(function (itemId, newNeeded) {
-      const payload = {
-        item: { needed: newNeeded },
-      };
-      this.$http.patch(this.$routes.api_item_path(itemId), { json: payload }).json().
-        then(() => { this.groceriesStore.decrementPendingRequests(); });
-      this.groceriesStore.incrementPendingRequests();
-      // set collectingDebounces to false _after_ incrementing pendingRequests so that
-      // debouncingOrWaitingOnNetwork stays consistently true
+    debouncedPatchItem: debounce(function (item) {
+      this.groceriesStore.updateItem({ item, attributes: item });
       this.groceriesStore.setCollectingDebounces({ value: false });
     }, 333),
   },
