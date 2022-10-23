@@ -79,10 +79,15 @@ const actions = {
   },
 
   updateItem({ item, attributes }) {
+    this.incrementPendingRequests();
+
     kyApi.
       patch(Routes.api_item_path(item.id), { json: { item: attributes } }).
       json().
-      then(updatedItemData => { Object.assign(item, updatedItemData); });
+      then(updatedItemData => {
+        Object.assign(item, updatedItemData);
+        this.decrementPendingRequests();
+      });
   },
 
   updateStore({ store, attributes }) {
