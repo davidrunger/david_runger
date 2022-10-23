@@ -86,6 +86,8 @@ export default {
     },
 
     intervalInMinutes() {
+      if (this.numberOfSets === 1) return 0;
+
       return this.minutes / (this.numberOfSets - 1);
     },
 
@@ -210,6 +212,8 @@ export default {
     },
 
     secondsAsTime(seconds) {
+      if (seconds <= 0) return '0:00';
+
       const minutesAsDecimal = seconds / 60;
       const wholeMinutes = Math.floor(minutesAsDecimal);
       const secondsRemainder = Math.floor(seconds - (60 * wholeMinutes));
