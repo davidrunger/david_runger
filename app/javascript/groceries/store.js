@@ -14,8 +14,11 @@ const actions = {
       post(Routes.api_store_items_path(store.id), { json: { item: itemAttributes } }).
       json().
       then(itemData => {
+        itemData.newlyAdded = true;
         this.decrementPendingRequests();
         this.addItem({ store, itemData });
+
+        setTimeout(() => { itemData.newlyAdded = false; }, 1000);
       });
   },
 

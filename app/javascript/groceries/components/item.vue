@@ -1,6 +1,6 @@
 <template lang='pug'>
 .grocery-item.flex.items-center(
-  :class='{unneeded: item.needed <= 0}'
+  :class='{unneeded: item.needed <= 0, "appear-vertically": item.newlyAdded}'
 )
   .left.nowrap
     button.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment')
@@ -62,10 +62,6 @@ export default {
       this.editingName = true;
       // wait a tick for input to render, then focus it
       setTimeout(() => { this.$refs['item-name-input'].focus(); });
-    },
-
-    isJustAdded(item) {
-      return !!item.createdAt && item.createdAt > ((new Date()).valueOf() - 1000);
     },
 
     setNeeded(item, needed) {
