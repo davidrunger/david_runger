@@ -1,4 +1,3 @@
-import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import { createPinia } from 'pinia';
 
 import { renderApp } from '@/shared/customized_vue';
@@ -13,4 +12,3 @@ app.use(pinia);
 app.component('Modal', Modal);
 useKy(app);
 useElementPlus(app);
-app.use(autoAnimatePlugin);

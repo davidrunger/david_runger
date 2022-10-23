@@ -57,7 +57,7 @@ div.mt1.mb2.ml3.mr2
           :disabled='v$.$invalid'
         ) Add
 
-    .items-list.mt0.mb0(v-auto-animate)
+    .items-list.mt0.mb0
       Item(
         v-for='item in sortedItems'
         :item="item"
