@@ -86,6 +86,10 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
 
   def check_for_file_size_violations
     if file_size_violations.any?
+      file_size_violations.each do |glob, actual_file_size|
+        record_failed_command("#{glob} size #{actual_file_size} is not in #{CONSTRAINTS[glob]}")
+      end
+
       record_failure_and_log_message(<<~LOG.squish)
         There are file size violations in #{self.class.name}! #{readable_file_size_violations}.
       LOG
@@ -94,6 +98,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
 
   def check_for_mismatched_files
     if unspecified_files.any?
+      record_failed_command("missing file size constraint(s) for #{unspecified_files}")
       record_failure_and_log_message(<<~LOG.squish)
         There are asset(s) (#{unspecified_files}) that lack
         file size constraints specified in #{self.class.name}!
@@ -101,6 +106,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     end
 
     if nonexistent_files.any?
+      record_failed_command("missing file(s) #{nonexistent_files}")
       record_failure_and_log_message(<<~LOG.squish)
         There are assets (#{nonexistent_files}) specified in
         #{self.class.name} that don't correspond to actual files!
