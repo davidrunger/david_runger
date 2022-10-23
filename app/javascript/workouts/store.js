@@ -24,6 +24,18 @@ const actions = {
     this.workoutIsInProgress = false;
   },
 
+  createWorkout({ workout }) {
+    return kyApi.post(
+      Routes.api_workouts_path(),
+      { json:
+        { workout: {
+          publicly_viewable: workout.publiclyViewable,
+          rep_totals: workout.repTotals,
+          time_in_seconds: workout.timeInSeconds,
+        } } },
+    ).json();
+  },
+
   initializeWorkout() {
     this.workoutIsInProgress = true;
     kyApi.
