@@ -5,6 +5,7 @@ import { kyApi } from '@/shared/ky';
 
 const state = () => ({
   ...window.davidrunger.bootstrap,
+  postingLog: false,
 });
 
 const actions = {
@@ -112,6 +113,17 @@ const actions = {
           log: this.logById({ logId }),
           logEntries: data,
         });
+      });
+  },
+
+  postNewLog({ log }) {
+    this.postingLog = true;
+
+    return kyApi.
+      post(Routes.api_logs_path(), { json: { log } }).json().
+      then(() => {
+        this.postingLog = false;
+        window.location.reload();
       });
   },
 

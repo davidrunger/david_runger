@@ -41,29 +41,32 @@ div
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { useLogsStore } from '@/logs/store';
+
 export default {
+  computed: {
+    ...mapState(useLogsStore, [
+      'postingLog',
+    ]),
+  },
+
   data() {
     return {
+      logsStore: useLogsStore(),
       newLog: {
         data_label: '',
         data_type: '',
         description: '',
         name: '',
       },
-      postingLog: false,
     };
   },
 
   methods: {
     postNewLog() {
-      this.postingLog = true;
-
-      this.$http.post(this.$routes.api_logs_path(), { json: { log: this.newLog } }).json().
-        then(() => {
-          this.newLog = {};
-          this.postingLog = false;
-          window.location.reload();
-        });
+      this.logsStore.postNewLog({ log: this.newLog }).
+        then(() => { this.newLog = {}; });
     },
   },
 };
