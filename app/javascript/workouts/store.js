@@ -2,26 +2,30 @@ import { defineStore } from 'pinia';
 import { kyApi } from '@/shared/ky';
 import { get } from 'lodash-es';
 
-const state = () => ({
-  ...window.davidrunger.bootstrap,
-  workout:
+const state = () => {
+  const workout =
     get(window, 'davidrunger.bootstrap.current_user.preferences.default_workout') ||
       {
         minutes: null,
         numberOfSets: null,
         exercises: [{}],
-        active: false,
-      },
-});
+      };
+
+  return {
+    ...window.davidrunger.bootstrap,
+    workout,
+    workoutIsInProgress: false,
+  };
+};
 
 const actions = {
   completeWorkout({ completedWorkout }) {
     this.workouts = this.workouts.concat(completedWorkout);
-    this.workout.active = false;
+    this.workoutIsInProgress = false;
   },
 
   initializeWorkout() {
-    this.workout.active = true;
+    this.workoutIsInProgress = true;
     kyApi.
       patch(
         Routes.api_user_path({ id: this.current_user.id }),
