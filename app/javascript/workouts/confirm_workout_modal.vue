@@ -42,33 +42,30 @@ export default {
 
   methods: {
     saveWorkout() {
-      this.$http.post(
-        this.$routes.api_workouts_path(),
-        { json:
-          { workout: {
-            publicly_viewable: this.publiclyViewable,
-            rep_totals: this.repTotals,
-            time_in_seconds: this.timeInSeconds,
-          } } },
-      ).json().then(completedWorkout => {
-        Toastify({
-          text: 'Workout completion logged successfully!',
-          className: 'success',
-          position: 'center',
-          duration: 2500,
-        }).showToast();
+      this.workoutsStore.createWorkout({ workout: {
+        publiclyViewable: this.publiclyViewable,
+        repTotals: this.repTotals,
+        timeInSeconds: this.timeInSeconds,
+      } }).
+        then(completedWorkout => {
+          Toastify({
+            text: 'Workout completion logged successfully!',
+            className: 'success',
+            position: 'center',
+            duration: 2500,
+          }).showToast();
 
-        this.modalStore.hideModal({ modalName: this.modalName });
-        this.workoutsStore.completeWorkout({ completedWorkout });
-      }).catch((error) => {
-        const errorMessage = get(error, 'response.data.error', 'Something went wrong');
-        Toastify({
-          text: errorMessage,
-          className: 'error',
-          position: 'center',
-          duration: 2500,
-        }).showToast();
-      });
+          this.modalStore.hideModal({ modalName: this.modalName });
+          this.workoutsStore.completeWorkout({ completedWorkout });
+        }).catch((error) => {
+          const errorMessage = get(error, 'response.data.error', 'Something went wrong');
+          Toastify({
+            text: errorMessage,
+            className: 'error',
+            position: 'center',
+            duration: 2500,
+          }).showToast();
+        });
     },
   },
 
