@@ -48,6 +48,15 @@ const actions = {
   setWorkout({ workout }) {
     this.workout = workout;
   },
+
+  updateWorkout({ workout, attributes }) {
+    return kyApi.
+      patch(
+        Routes.api_workout_path(workout.id),
+        { json: { workout: attributes } },
+      ).
+      json();
+  },
 };
 
 export const useWorkoutsStore = defineStore('workouts', {
