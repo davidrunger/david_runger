@@ -1,72 +1,63 @@
+import { defineStore } from 'pinia';
 import { filter, last, pick, sortBy } from 'lodash-es';
 import { kyApi } from '@/shared/ky';
 import { emit } from '@/lib/event_bus';
 
-import {
-  getters as modalGetters,
-  mutations as modalMutations,
-  state as modalState,
-} from '@/shared/modal_store';
-
-const mutations = {
-  ...modalMutations,
-
-  addItem(state, { store, itemData }) {
+const actions = {
+  addItem({ store, itemData }) {
     store.items.unshift(itemData);
   },
 
-  deleteItem(state, { item, store }) {
-    store.items = store.items.filter(storeItem => storeItem !== item);
-  },
-
-  deleteStore(state, { store: deletedStore }) {
-    state.stores = state.stores.filter(store => store !== deletedStore);
-  },
-
-  decrementPendingRequests(state) {
-    state.pendingRequests -= 1;
-  },
-
-  incrementPendingRequests(state) {
-    state.pendingRequests += 1;
-  },
-
-  setCollectingDebounces(state, { value }) {
-    state.collectingDebounces = value;
-  },
-
-  updateItem(_state, { item, updatedItemData }) {
-    Object.assign(item, updatedItemData);
-  },
-
-  updateStore(_state, { store, updatedStoreData }) {
-    Object.assign(store, updatedStoreData);
-  },
-};
-
-const actions = {
-  createItem({ commit }, { store, itemAttributes }) {
+  createItem({ store, itemAttributes }) {
+    this.incrementPendingRequests();
     kyApi.
       post(Routes.api_store_items_path(store.id), { json: { item: itemAttributes } }).
       json().
       then(itemData => {
-        commit('decrementPendingRequests');
-        commit('addItem', { store, itemData });
+        this.decrementPendingRequests();
+        this.addItem({ store, itemData });
       });
   },
 
-  deleteItem({ commit, getters }, { item }) {
+  createStore(newStoreName) {
+    this.postingStore = true;
+    const payload = {
+      store: {
+        name: newStoreName,
+      },
+    };
+
+    return (
+      kyApi.
+        post(Routes.api_stores_path(), { json: payload }).json().
+        then(newStoreData => {
+          this.postingStore = false;
+          this.stores.unshift(newStoreData);
+        })
+    );
+  },
+
+  decrementPendingRequests() {
+    this.pendingRequests -= 1;
+  },
+
+  deleteItem({ item }) {
+    const store = this.currentStore;
+    store.items = store.items.filter(storeItem => storeItem !== item);
     kyApi.delete(Routes.api_item_path(item.id));
-    commit('deleteItem', { item, store: getters.currentStore });
   },
 
-  deleteStore({ commit }, { store }) {
-    kyApi.delete(Routes.api_store_path(store.id));
-    commit('deleteStore', { store });
+  deleteStore({ store: deletedStore }) {
+    this.stores = this.stores.filter(store => store !== deletedStore);
+    kyApi.delete(Routes.api_store_path(deletedStore.id));
   },
 
-  selectStore(_context, { store }) {
-    // update the store's viewed_at time, bc. this is actually how we determine the selected store
+  incrementPendingRequests() {
+    this.pendingRequests += 1;
+  },
+
+  selectStore({ store }) {
+    // update the store's viewed_at time so that it will become the `currentStore`
     store.viewed_at = (new Date()).toISOString();
 
     // emit event so sidebar can collapse if on mobile
@@ -80,31 +71,25 @@ const actions = {
     }
   },
 
-  updateItem({ commit }, { item, attributes }) {
+  setCollectingDebounces({ value }) {
+    this.collectingDebounces = value;
+  },
+
+  updateItem({ item, attributes }) {
     kyApi.
       patch(Routes.api_item_path(item.id), { json: { item: attributes } }).
       json().
-      then(updatedItemData => {
-        commit(
-          'updateItem',
-          { item, updatedItemData },
-        );
-      });
+      then(updatedItemData => { Object.assign(item, updatedItemData); });
   },
 
-  updateStore({ commit }, { store, attributes }) {
+  updateStore({ store, attributes }) {
     kyApi.
       patch(Routes.api_store_path(store.id), { json: { store: attributes } }).
       json().
-      then(updatedStoreData => {
-        commit(
-          'updateStore',
-          { store, updatedStoreData },
-        );
-      });
+      then(updatedStoreData => { Object.assign(store, updatedStoreData); });
   },
 
-  zeroItems(_context, { items }) {
+  zeroItems({ items }) {
     items.forEach(item => { item.needed = 0; });
 
     kyApi.post(
@@ -122,8 +107,6 @@ const actions = {
 };
 
 const getters = {
-  ...modalGetters,
-
   currentStore(state) {
     if (!state.stores) return null;
 
@@ -138,17 +121,15 @@ const getters = {
   },
 };
 
-const state = {
+const state = () => ({
   ...window.davidrunger.bootstrap,
-  ...modalState,
   collectingDebounces: false,
   pendingRequests: 0,
   postingStore: false,
-};
+});
 
-export default {
+export const useGroceriesStore = defineStore('groceries', {
   state,
   actions,
   getters,
-  mutations,
-};
+});

@@ -20,7 +20,7 @@ div
       el-button(@click='destroyLastEntry') Delete last entry
     .mt1
       el-button.multi-line(
-        @click="$store.commit('showModal', { modalName: 'edit-log-shared-emails' })"
+        @click="modalStore.showModal({ modalName: 'edit-log-shared-emails' })"
       )
         div.h4 Sharing settings
         div.h6
@@ -28,7 +28,7 @@ div
           span(v-else) Shared with {{log.log_shares.length}} emails
     .mt1
       el-button.multi-line(
-        @click="$store.commit('showModal', { modalName: 'edit-log-reminder-schedule' })"
+        @click="modalStore.showModal({ modalName: 'edit-log-reminder-schedule' })"
       )
         div.h4 Reminder settings
         div.h6
@@ -70,7 +70,7 @@ div
           span(v-else) Copy to clipboard
       div.mt1
         a.js-link(
-          @click="$store.commit('hideModal', { modalName: 'edit-log-shared-emails' })"
+          @click="modalStore.hideModal({ modalName: 'edit-log-shared-emails' })"
         ) Close
 
   Modal(name='edit-log-reminder-schedule' width='85%' maxWidth='600px' backgroundClass='bg-black')
@@ -79,10 +79,12 @@ div
 </template>
 
 <script>
+import { mapState } from 'pinia';
 import ClipboardJS from 'clipboard';
 import { h } from 'vue';
-import { mapGetters } from 'vuex';
 
+import { useLogsStore } from '@/logs/store';
+import { useModalStore } from '@/shared/modal/store';
 import actionCableConsumer from '@/channels/consumer';
 import CounterBarGraph from './data_renderers/counter_bar_graph.vue';
 import DurationTimeseries from './data_renderers/duration_timeseries.vue';
@@ -116,7 +118,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
+    ...mapState(useLogsStore, {
       isOwnLog: 'isOwnLog',
       log: 'selectedLog',
     }),
@@ -148,6 +150,8 @@ export default {
     return {
       inputVisible: false,
       inputValue: '',
+      logsStore: useLogsStore(),
+      modalStore: useModalStore(),
       wasCopiedRecently: false,
       publiclyViewable: false,
     };
@@ -160,7 +164,7 @@ export default {
       );
 
       if (confirmation === true) {
-        this.$store.dispatch('deleteLastLogEntry', { log: this.log });
+        this.logsStore.deleteLastLogEntry({ log: this.log });
       }
     },
 
@@ -170,18 +174,18 @@ export default {
       );
 
       if (confirmation === true) {
-        this.$store.dispatch('deleteLog', { log: this.log });
+        this.logsStore.deleteLog({ log: this.log });
       }
     },
 
     ensureLogEntriesHaveBeenFetched() {
       if (!this.log.log_entries) {
-        this.$store.dispatch('fetchLogEntries', { logId: this.log.id });
+        this.logsStore.fetchLogEntries({ logId: this.log.id });
       }
     },
 
     handleLogShareDeletion(logShare) {
-      this.$store.dispatch('deleteLogShare', {
+      this.logsStore.deleteLogShare({
         log: this.log,
         logShareId: logShare.id,
       });
@@ -190,7 +194,7 @@ export default {
     handleLogShareCreation() {
       const { inputValue } = this;
       if (inputValue) {
-        this.$store.dispatch('addLogShare', {
+        this.logsStore.addLogShare({
           logId: this.log.id,
           newLogShareEmail: inputValue,
         });
@@ -200,7 +204,7 @@ export default {
     },
 
     savePubliclyViewableChange(newPubliclyViewableState) {
-      this.$store.dispatch('updateLog', {
+      this.logsStore.updateLog({
         logId: this.log.id,
         updatedLogParams: { publicly_viewable: newPubliclyViewableState },
       });
@@ -222,7 +226,7 @@ export default {
         },
         {
           received(data) {
-            vm.$store.dispatch('addLogEntry', { logId: vm.log.id, newLogEntry: data });
+            vm.logsStore.addLogEntry({ logId: vm.log.id, newLogEntry: data });
           },
         },
       );

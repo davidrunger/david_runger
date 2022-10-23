@@ -66,6 +66,7 @@
 import { Timer } from 'easytimer.js';
 import { cloneDeep, includes } from 'lodash-es';
 
+import { useModalStore } from '@/shared/modal/store';
 import ConfirmWorkoutModal from './confirm_workout_modal.vue';
 
 export default {
@@ -142,6 +143,7 @@ export default {
     return {
       currentRoundIndex: 0,
       editMode: false,
+      modalStore: useModalStore(),
       secondsElapsed: 0,
       setsArray: this.initialSetsArray(),
       soundEnabled: true,
@@ -196,7 +198,7 @@ export default {
 
     saveWorkout() {
       this.timer.stop();
-      this.$store.commit('showModal', { modalName: 'confirm-workout' });
+      this.modalStore.showModal({ modalName: 'confirm-workout' });
     },
 
     say(message, volume = 1) {

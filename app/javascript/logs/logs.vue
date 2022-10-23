@@ -8,10 +8,12 @@ div
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'pinia';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
+import { useLogsStore } from '@/logs/store';
+import { useModalStore } from '@/shared/modal/store';
 import LogSelector from './components/log_selector.vue';
 
 export default {
@@ -20,13 +22,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
+    ...mapState(useLogsStore, [
       'isSharedLog',
       'selectedLog',
-    ]),
-
-    ...mapState([
-      'logs',
     ]),
   },
 
@@ -37,13 +35,13 @@ export default {
       // Otherwise (i.e. if viewing index), fetch all entries immediately.
       const delayBeforeFetchingAllLogs = this.selectedLog ? 10 : 0;
       setTimeout(() => {
-        this.$store.dispatch('fetchAllLogEntries');
+        this.logsStore.fetchAllLogEntries();
       }, delayBeforeFetchingAllLogs);
     }
 
     document.addEventListener('keydown', (event) => {
       if ((event.key === 'k') && (event.metaKey === true)) {
-        this.$store.commit('showModal', { modalName: 'log-selector' });
+        this.modalStore.showModal({ modalName: 'log-selector' });
       }
     });
 
@@ -62,6 +60,13 @@ export default {
 
     // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
     window.history.replaceState({}, document.title, window.location.pathname);
+  },
+
+  data() {
+    return {
+      logsStore: useLogsStore(),
+      modalStore: useModalStore(),
+    };
   },
 };
 </script>

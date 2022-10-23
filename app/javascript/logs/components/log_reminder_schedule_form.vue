@@ -29,13 +29,15 @@ div
       ) Save
     div
       el-button(
-        @click="$store.commit('hideModal', { modalName: 'edit-log-reminder-schedule' })"
+        @click="modalStore.hideModal({ modalName: 'edit-log-reminder-schedule' })"
         type='primary'
         link
       ) Close
 </template>
 
 <script>
+import { useModalStore } from '@/shared/modal/store';
+import { useLogsStore } from '@/logs/store';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
@@ -64,6 +66,8 @@ export default {
 
   data() {
     return {
+      logsStore: useLogsStore(),
+      modalStore: useModalStore(),
       numberOfTimeUnits: null,
       timeUnit: null,
     };
@@ -72,7 +76,7 @@ export default {
   methods: {
     cancelReminders() {
       this.hideReminderSchedulingModal();
-      this.$store.dispatch('updateLog', {
+      this.logsStore.updateLog({
         logId: this.log.id,
         updatedLogParams: { reminder_time_in_seconds: null },
       }).then(() => {
@@ -86,12 +90,12 @@ export default {
     },
 
     hideReminderSchedulingModal() {
-      this.$store.commit('hideModal', { modalName: 'edit-log-reminder-schedule' });
+      this.modalStore.hideModal({ modalName: 'edit-log-reminder-schedule' });
     },
 
     updateLog() {
       this.hideReminderSchedulingModal();
-      this.$store.dispatch('updateLog', {
+      this.logsStore.updateLog({
         logId: this.log.id,
         updatedLogParams: { reminder_time_in_seconds: this.formSelectedReminderTimeInSeconds },
       }).then(() => {

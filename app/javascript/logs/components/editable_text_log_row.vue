@@ -14,6 +14,7 @@ tr
 </template>
 
 <script>
+import { useLogsStore } from '@/logs/store';
 import createDOMPurify from 'dompurify';
 import { marked } from 'marked';
 import strftime from 'strftime';
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       editing: false,
+      logsStore: useLogsStore(),
       newPlaintext: this.logEntry.data.slice(),
     };
   },
@@ -46,10 +48,11 @@ export default {
 
     updateLogEntry() {
       const updatedLogEntryParams = { data: this.newPlaintext };
-      this.$store.dispatch('updateLogEntry', {
-        logEntryId: this.logEntry.id,
-        updatedLogEntryParams,
-      }).
+      this.logsStore.
+        updateLogEntry({
+          logEntryId: this.logEntry.id,
+          updatedLogEntryParams,
+        }).
         then(() => { this.editing = false; });
     },
   },

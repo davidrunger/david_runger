@@ -28,12 +28,13 @@
     span ({{item.needed}})
   .delete.h2.pl1.pr1.js-link.right.red(
     v-if='ownStore'
-    @click="$store.dispatch('deleteItem', { item })"
+    @click="groceriesStore.deleteItem({ item })"
     title='Delete item'
   ) ×
 </template>
 
 <script>
+import { useGroceriesStore } from '@/groceries/store';
 import { debounce } from 'lodash-es';
 import { EditIcon } from 'vue-tabler-icons';
 
@@ -45,6 +46,7 @@ export default {
   data() {
     return {
       editingName: false,
+      groceriesStore: useGroceriesStore(),
     };
   },
 
@@ -67,14 +69,14 @@ export default {
     },
 
     setNeeded(item, needed) {
-      this.$store.commit('setCollectingDebounces', { value: true });
+      this.groceriesStore.setCollectingDebounces({ value: true });
       item.needed = needed;
       this.debouncedPatchItem(item.id, item.needed);
     },
 
     stopEditingAndUpdateItemName() {
       this.editingName = false;
-      this.$store.dispatch('updateItem', {
+      this.groceriesStore.updateItem({
         item: this.item,
         attributes: {
           name: this.$refs['item-name-input'].value,
@@ -89,11 +91,11 @@ export default {
         item: { needed: newNeeded },
       };
       this.$http.patch(this.$routes.api_item_path(itemId), { json: payload }).json().
-        then(() => { this.$store.commit('decrementPendingRequests'); });
-      this.$store.commit('incrementPendingRequests');
+        then(() => { this.groceriesStore.decrementPendingRequests(); });
+      this.groceriesStore.incrementPendingRequests();
       // set collectingDebounces to false _after_ incrementing pendingRequests so that
       // debouncingOrWaitingOnNetwork stays consistently true
-      this.$store.commit('setCollectingDebounces', { value: false });
+      this.groceriesStore.setCollectingDebounces({ value: false });
     }, 333),
   },
 

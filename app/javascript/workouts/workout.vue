@@ -5,8 +5,8 @@ NewWorkoutForm(v-else)
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
+import { mapState } from 'pinia';
+import { useWorkoutsStore } from '@/workouts/store';
 import NewWorkoutForm from './new_workout_form.vue';
 import WorkoutPlan from './workout_plan.vue';
 
@@ -16,7 +16,7 @@ export default {
     WorkoutPlan,
   },
 
-  computed: mapState([
+  computed: mapState(useWorkoutsStore, [
     'workout',
   ]),
 };

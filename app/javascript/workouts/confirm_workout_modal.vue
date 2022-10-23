@@ -13,7 +13,7 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
       ) Publicly viewable
     div.flex.justify-around.mt2
       el-button(
-        @click="$store.commit('hideModal', { modalName })"
+        @click="modalStore.hideModal({ modalName })"
         type='primary'
         link
       ) Cancel
@@ -27,12 +27,16 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
 import { get } from 'lodash-es';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+import { useModalStore } from '@/shared/modal/store';
+import { useWorkoutsStore } from '@/workouts/store';
 
 export default {
   data() {
     return {
       modalName: 'confirm-workout',
+      modalStore: useModalStore(),
       publiclyViewable: false,
+      workoutsStore: useWorkoutsStore(),
     };
   },
 
@@ -54,10 +58,9 @@ export default {
           duration: 2500,
         }).showToast();
 
-        this.$store.commit('hideModal', { modalName: this.modalName });
-
-        this.$store.commit('addCompletedWorkout', { completedWorkout });
-        this.$store.commit('setWorkout', { workout: null });
+        this.modalStore.hideModal({ modalName: this.modalName });
+        this.workoutsStore.addCompletedWorkout({ completedWorkout });
+        this.workoutsStore.setWorkout({ workout: null });
       }).catch((error) => {
         const errorMessage = get(error, 'response.data.error', 'Something went wrong');
         Toastify({

@@ -90,19 +90,21 @@ div.mt1.mb2.ml3.mr2
             plain
           ) Set checked items to 0 needed
           el-button(
-            @click="$store.commit('hideModal', { modalName: 'check-in-shopping-trip' })"
+            @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
             type='primary'
             link
           ) Cancel
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
 import { sortBy } from 'lodash-es';
 import ClipboardJS from 'clipboard';
 import { EditIcon } from 'vue-tabler-icons';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
+import { mapState } from 'pinia';
+import { useGroceriesStore } from '@/groceries/store';
+import { useModalStore } from '@/shared/modal/store';
 
 import Item from './item.vue';
 
@@ -113,12 +115,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'debouncingOrWaitingOnNetwork',
-    ]),
-
-    ...mapState([
+    ...mapState(useGroceriesStore, [
       'current_user',
+      'debouncingOrWaitingOnNetwork',
     ]),
 
     neededItems() {
@@ -134,7 +133,9 @@ export default {
     return {
       editingName: false,
       editingNotes: false,
+      groceriesStore: useGroceriesStore(),
       itemsToZero: [],
+      modalStore: useModalStore(),
       newItemName: '',
       wasCopiedRecently: false,
     };
@@ -188,18 +189,17 @@ export default {
     },
 
     handleTripCheckinModalSubmit() {
-      this.$store.dispatch('zeroItems', { items: this.itemsToZero.slice() });
+      this.groceriesStore.zeroItems({ items: this.itemsToZero.slice() });
       this.itemsToZero = [];
-      this.$store.commit('hideModal', { modalName: 'check-in-shopping-trip' });
+      this.modalStore.hideModal({ modalName: 'check-in-shopping-trip' });
     },
 
     initializeTripCheckinModal() {
-      this.$store.commit('showModal', { modalName: 'check-in-shopping-trip' });
+      this.modalStore.showModal({ modalName: 'check-in-shopping-trip' });
     },
 
     postNewItem() {
-      this.$store.commit('incrementPendingRequests');
-      this.$store.dispatch('createItem', {
+      this.groceriesStore.createItem({
         store: this.store,
         itemAttributes: {
           name: this.newItemName,
@@ -214,7 +214,7 @@ export default {
 
     stopEditingAndUpdateStoreName() {
       this.editingName = false;
-      this.$store.dispatch('updateStore', {
+      this.groceriesStore.updateStore({
         store: this.store,
         attributes: {
           name: this.store.name,
@@ -224,7 +224,7 @@ export default {
 
     stopEditingAndUpdateStoreNotes() {
       this.editingNotes = false;
-      this.$store.dispatch('updateStore', {
+      this.groceriesStore.updateStore({
         store: this.store,
         attributes: {
           notes: this.store.notes,
@@ -233,7 +233,7 @@ export default {
     },
 
     togglePrivacy() {
-      this.$store.dispatch('updateStore', {
+      this.groceriesStore.updateStore({
         store: this.store,
         attributes: {
           private: !this.store.private,

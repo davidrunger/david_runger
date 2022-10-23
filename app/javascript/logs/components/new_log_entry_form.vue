@@ -40,6 +40,7 @@ div
 </template>
 
 <script>
+import { useLogsStore } from '@/logs/store';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 
@@ -98,6 +99,7 @@ export default {
 
   data() {
     return {
+      logsStore: useLogsStore(),
       newLogEntryCreatedAt: null,
       newLogEntryData: null,
       newLogEntryNote: null,
@@ -112,18 +114,16 @@ export default {
     },
 
     postNewLogEntry(newLogEntryData) {
-      this.$store.dispatch(
-        'createLogEntry',
-        {
-          logId: this.log.id,
-          newLogEntryCreatedAt: this.newLogEntryCreatedAt,
-          newLogEntryData,
-          newLogEntryNote: this.newLogEntryNote,
-        },
-      );
-      this.newLogEntryCreatedAt = null;
-      this.newLogEntryData = null;
-      this.newLogEntryNote = null;
+      this.logsStore.createLogEntry({
+        logId: this.log.id,
+        newLogEntryCreatedAt: this.newLogEntryCreatedAt,
+        newLogEntryData,
+        newLogEntryNote: this.newLogEntryNote,
+      }).then(() => {
+        this.newLogEntryCreatedAt = null;
+        this.newLogEntryData = null;
+        this.newLogEntryNote = null;
+      });
     },
   },
 

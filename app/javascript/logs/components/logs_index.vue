@@ -8,8 +8,8 @@ section
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
+import { mapState } from 'pinia';
+import { useLogsStore } from '@/logs/store';
 import NewLogForm from './new_log_form.vue';
 
 export default {
@@ -18,7 +18,7 @@ export default {
   },
 
   computed: {
-    ...mapState([
+    ...mapState(useLogsStore, [
       'logs',
     ]),
   },

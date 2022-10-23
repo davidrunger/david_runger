@@ -1,7 +1,7 @@
 <template lang='pug'>
 .flex.js-link.stores-list__item.h3.my2.py1.px2.items-center.justify-between(
   :class='{selected: store === currentStore}'
-  @click='$store.dispatch("selectStore", { store })'
+  @click='groceriesStore.selectStore({ store })'
 )
   div.store-name
     a {{store.name}}
@@ -14,8 +14,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'pinia';
 import { LockIcon } from 'vue-tabler-icons';
+
+import { useGroceriesStore } from '@/groceries/store';
 
 export default {
   name: 'StoreListEntry',
@@ -25,9 +27,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
+    ...mapState(useGroceriesStore, [
       'currentStore',
     ]),
+  },
+
+  data() {
+    return {
+      groceriesStore: useGroceriesStore(),
+    };
   },
 
   methods: {
@@ -37,7 +45,7 @@ export default {
       );
 
       if (confirmation === true) {
-        this.$store.dispatch('deleteStore', { store });
+        this.groceriesStore.deleteStore({ store });
       }
     },
   },
