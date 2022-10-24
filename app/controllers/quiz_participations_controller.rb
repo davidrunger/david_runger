@@ -12,7 +12,9 @@ class QuizParticipationsController < ApplicationController
     ).run
 
     if !result.success?
+      # rubocop:disable Rails/ActionControllerFlashBeforeRender
       flash[:alert] = result.error_message
+      # rubocop:enable Rails/ActionControllerFlashBeforeRender
     end
 
     redirect_to(quiz)
