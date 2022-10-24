@@ -2,9 +2,9 @@
 el-menu.center
   el-sub-menu(index='1')
     template(v-slot:title) Account
-    el-menu-item(
+    el-menu-item.email(
       index='1-1'
-      disabled='true'
+      :disabled='true'
     ) {{bootstrap.current_user.email}}
     a(:href="$routes.edit_user_path(bootstrap.current_user)")
       el-menu-item(index='1-2') Account Settings
@@ -21,8 +21,20 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.user-email {
-  line-height: 30px;
+.email {
+  font-size: 10px;
+  height: 30px;
+}
+
+:deep(.el-sub-menu .el-menu-item.el-menu-item.el-menu-item) {
+  @media screen and (max-width: 500px) {
+    padding-left: 15px;
+  }
+}
+
+:deep(.el-sub-menu .el-icon.el-sub-menu__icon-arrow) {
+  right: 10px;
+  width: initial;
 }
 
 .el-menu {

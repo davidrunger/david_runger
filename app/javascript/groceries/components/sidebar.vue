@@ -121,7 +121,23 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+@mixin sidebar-width($padding: 0px) { /* stylelint-disable-line length-zero-no-unit */
+  @media screen and (max-width: 400px) {
+    min-width: calc(150px - $padding);
+    width: calc(45vw - $padding);
+    max-width: calc(180px - $padding);
+  }
+
+  @media screen and (min-width: 400px) {
+    min-width: calc(180px - $padding);
+    width: calc(35vw - $padding);
+    max-width: calc(280px - $padding);
+  }
+}
+
 aside {
+  @include sidebar-width;
+
   background: linear-gradient(to bottom, #458fc0 0%, #a8b2ce 50%, #b6bcd5 100%);
   transition: min-width 0.7s, width 0.7s, max-width 0.7s;
 
@@ -129,18 +145,6 @@ aside {
   :deep(.stores-list__item) {
     opacity: 1;
     transition: opacity 0.7s;
-  }
-
-  @media screen and (max-width: 400px) {
-    min-width: 150px;
-    width: 45vw;
-    max-width: 180px;
-  }
-
-  @media screen and (min-width: 400px) {
-    min-width: 180px;
-    width: 35vw;
-    max-width: 280px;
   }
 
   &.collapsed {
@@ -159,35 +163,15 @@ aside {
   }
 }
 
-.el-menu {
-  @media screen and (max-width: 400px) {
-    min-width: 150px;
-    width: 45vw;
-    max-width: 180px;
-  }
-
-  @media screen and (min-width: 400px) {
-    min-width: 180px;
-    width: 35vw;
-    max-width: 280px;
-  }
+:deep(.el-sub-menu__title) {
+  @include sidebar-width;
 }
 
 nav {
+  @include sidebar-width($padding: calc(var(--space-2) * 2));
+
   position: relative;
   top: 10px;
-
-  @media screen and (max-width: 400px) {
-    min-width: calc(150px - var(--space-2) * 2);
-    width: calc(45vw - var(--space-2) * 2);
-    max-width: calc(180px - var(--space-2) * 2);
-  }
-
-  @media screen and (min-width: 400px) {
-    min-width: calc(180px - var(--space-2) * 2);
-    width: calc(35vw - var(--space-2) * 2);
-    max-width: calc(280px - var(--space-2) * 2);
-  }
 }
 
 .store-lists-container {
@@ -220,13 +204,7 @@ button.sidebar-toggle {
   transition: transform 0.7s, left 0.7s;
 
   &.rotated-180 {
-    @media screen and (max-width: 400px) {
-      transform: rotate(180deg);
-    }
-
-    @media screen and (min-width: 400px) {
-      transform: rotate(180deg);
-    }
+    transform: rotate(180deg);
   }
 }
 </style>
