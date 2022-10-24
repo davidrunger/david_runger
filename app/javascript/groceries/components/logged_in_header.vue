@@ -1,11 +1,15 @@
 <template lang="pug">
 el-menu.center
   el-sub-menu(index='1')
-    template(v-slot:title) {{bootstrap.current_user.email}}
+    template(v-slot:title) Account
+    el-menu-item(
+      index='1-1'
+      disabled='true'
+    ) {{bootstrap.current_user.email}}
     a(:href="$routes.edit_user_path(bootstrap.current_user)")
-      el-menu-item(index='1-1') Account Settings
+      el-menu-item(index='1-2') Account Settings
     a.js-link(@click='signOut()')
-      el-menu-item(index='1-2') Sign Out
+      el-menu-item(index='1-3') Sign Out
 </template>
 
 <script>
@@ -37,5 +41,9 @@ export default {
 
 :deep(.el-menu--inline) {
   background-color: rgba(255, 255, 255, 90%);
+}
+
+:deep(.el-menu-item.is-disabled) {
+  cursor: default;
 }
 </style>

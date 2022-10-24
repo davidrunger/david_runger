@@ -9,6 +9,7 @@ aside.border-right.border-gray(
         :class='{ "rotated-180": expanded }'
       )
         arrow-bar-right-icon(size='29')
+    LoggedInHeader.mb1
     nav
       .store-lists-container.pb2
         form.add-store.flex(@submit.prevent='handleNewStoreSubmission()')
@@ -155,6 +156,20 @@ aside {
     .overflow-auto {
       overflow-x: hidden;
     }
+  }
+}
+
+.el-menu {
+  @media screen and (max-width: 400px) {
+    min-width: 150px;
+    width: 45vw;
+    max-width: 180px;
+  }
+
+  @media screen and (min-width: 400px) {
+    min-width: 180px;
+    width: 35vw;
+    max-width: 280px;
   }
 }
 
