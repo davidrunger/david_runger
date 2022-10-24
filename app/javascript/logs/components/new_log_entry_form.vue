@@ -28,7 +28,7 @@ div
       )
       el-input.new-log-input(
         :class='{mb1: isNumeric}'
-        v-if='isNumeric'
+        v-if='isDuration || isNumber'
         placeholder='Note (optional)'
         v-model='newLogEntryNote'
         type='text'
