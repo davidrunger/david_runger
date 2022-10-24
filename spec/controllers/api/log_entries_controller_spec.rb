@@ -179,7 +179,7 @@ RSpec.describe Api::LogEntriesController do
       it 'returns data only about that particular log' do
         get_index
 
-        returned_log_entry_ids = response.parsed_body.map { |log_entry| log_entry['id'] }
+        returned_log_entry_ids = response.parsed_body.pluck('id')
         log_entry_ids = log.log_entries.ids
         expect(returned_log_entry_ids).to match_array(log_entry_ids)
       end
@@ -187,7 +187,7 @@ RSpec.describe Api::LogEntriesController do
       it 'formats the created_at timestamps as an ISO-8601 time with "Z" timezone' do
         get_index
 
-        expect(response.parsed_body.map { _1['created_at'] }).to all(match(iso8601_z_regex))
+        expect(response.parsed_body.pluck('created_at')).to all(match(iso8601_z_regex))
       end
     end
 
