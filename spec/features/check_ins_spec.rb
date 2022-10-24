@@ -137,9 +137,11 @@ RSpec.describe 'Check-Ins app' do
 
             expect(grandparent.find_all('button').size).to eq(7)
 
+            # rubocop:disable RSpec/Capybara/SpecificActions
             grandparent.
               find('button', text: /\A#{rating}\z/).
               click
+            # rubocop:enable RSpec/Capybara/SpecificActions
           end
         end
       end
