@@ -49,7 +49,7 @@ GIT
 
 GIT
   remote: https://github.com/teamcapybara/capybara.git
-  revision: 957e8d9da9b5c92751cff7e98395e03efcff90d5
+  revision: 2d05c203d79bca7b3b093c37f866ee41f294925b
   specs:
     capybara (3.38.0)
       addressable
