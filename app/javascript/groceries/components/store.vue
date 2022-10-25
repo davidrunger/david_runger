@@ -20,7 +20,7 @@ div.mt1.mb2.ml3.mr2
     div.buttons-container.mb2
       el-button.mr1.mt1(
         id="show-modal"
-        @click='initializeTripCheckinModal()'
+        @click='initializeTripCheckIn'
         :size='$is_mobile_device ? "small" : null'
       ) Check in items
       el-button.copy-to-clipboard.mt1(
@@ -67,11 +67,18 @@ div.mt1.mb2.ml3.mr2
 
     Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
       slot
+        div
+          span Stores: {{groceriesStore.checkInStores.map(store => store.name).join(', ')}}
+          el-button.choose-stores.ml1(
+            link
+            type='primary'
+            @click='manageCheckInStores'
+          ) Choose stores
         h3.bold.mb2.
           What did you get?
         ul.check-in-items-list
           li.flex.items-center.mb1(
-            v-for='(item, index) in neededItems'
+            v-for='(item, index) in neededCheckInItems'
             :key='item.id'
           )
             input(
@@ -94,16 +101,53 @@ div.mt1.mb2.ml3.mr2
             type='primary'
             link
           ) Cancel
+
+    Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
+      slot
+        h4.bold.mt1.mb2.
+          Which stores would you like to check in?
+        ul.check-in-stores-list
+          li.flex.items-center.mb1(
+            v-for='(store, index) in groceriesStore.sortedStores'
+            :key='store.id'
+          )
+            input(
+              type='checkbox'
+              v-model='groceriesStore.checkInStores'
+              :value='store'
+              :id='`checkin-stores-${store.id}`'
+            )
+            label.ml1(:for='`checkin-stores-${store.id}`')
+              span {{store.name}}
+        h4.bold.mb2.
+          Spouse's stores
+        ul.check-in-stores-list
+          li.flex.items-center.mb1(
+            v-for='(store, index) in groceriesStore.sortedSpouseStores'
+            :key='store.id'
+          )
+            input(
+              type='checkbox'
+              v-model='groceriesStore.checkInStores'
+              :value='store'
+              :id='`checkin-stores-${store.id}`'
+            )
+            label.ml1(:for='`checkin-stores-${store.id}`')
+              span {{store.name}}
+        div.flex.justify-around.mt2
+          el-button(
+            @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })"
+            type='primary'
+          ) Done
 </template>
 
 <script>
-import { sortBy } from 'lodash-es';
 import ClipboardJS from 'clipboard';
 import { EditIcon } from 'vue-tabler-icons';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import { mapState } from 'pinia';
-import { useGroceriesStore } from '@/groceries/store';
+import { useGroceriesStore, helpers } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
 
 import Item from './item.vue';
@@ -118,14 +162,11 @@ export default {
     ...mapState(useGroceriesStore, [
       'current_user',
       'debouncingOrWaitingOnNetwork',
+      'neededCheckInItems',
     ]),
 
-    neededItems() {
-      return this.sortItems(this.store.items.filter(item => item.needed > 0));
-    },
-
     sortedItems() {
-      return this.sortItems(this.store.items);
+      return helpers.sortByName(this.store.items);
     },
   },
 
@@ -194,8 +235,13 @@ export default {
       this.modalStore.hideModal({ modalName: 'check-in-shopping-trip' });
     },
 
-    initializeTripCheckinModal() {
+    initializeTripCheckIn() {
+      this.groceriesStore.addCheckInStore({ store: this.groceriesStore.currentStore });
       this.modalStore.showModal({ modalName: 'check-in-shopping-trip' });
+    },
+
+    manageCheckInStores() {
+      this.modalStore.showModal({ modalName: 'manage-check-in-stores' });
     },
 
     postNewItem() {
@@ -206,10 +252,6 @@ export default {
         },
       });
       this.newItemName = '';
-    },
-
-    sortItems(items) {
-      return sortBy(items, item => item.name.toLowerCase());
     },
 
     stopEditingAndUpdateStoreName() {
@@ -260,6 +302,13 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+button.choose-stores {
+  font-size: inherit;
+  padding: 0;
+  position: relative;
+  top: -0.5px;
+}
+
 // https://stackoverflow.com/a/30891910/4009384
 .buttons-container {
   margin-top: calc(-1 * var(--space-1));
@@ -270,6 +319,7 @@ export default {
 }
 
 .store-container {
+  max-height: 97vh; // fallback for browsers that don't yet support `dvh` units
   max-height: 97dvh;
 }
 
