@@ -6,6 +6,8 @@ class SaveRequest
   extend Memoist
   prepend ApplicationWorker
 
+  self.unique_while_executing = true
+
   delegate(
     :delete_request_data,
     :initial_stashed_json,
@@ -17,6 +19,8 @@ class SaveRequest
   def perform(request_id)
     @request_id = request_id
     @stashed_data_manager = SaveRequest::StashedDataManager.new(@request_id)
+
+    return if Request.exists?(request_id: @request_id)
 
     if can_save_request?
       if ban_reasons.present?
@@ -72,7 +76,6 @@ class SaveRequest
     [
       ('Initial stashed JSON for request logging was blank' if initial_stashed_json.blank?),
       ('Final stashed JSON for request logging was blank' if final_stashed_json.blank?),
-      ('Request was already saved' if Request.exists?(request_id: @request_id)),
     ].compact
   end
 

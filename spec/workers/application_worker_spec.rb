@@ -19,8 +19,10 @@ RSpec.describe ApplicationWorker do
     end
   end
 
+  let(:worker) { StubbedTestJob.new }
+
   describe '#perform' do
-    subject(:call_perform) { StubbedTestJob.new.perform }
+    subject(:call_perform) { worker.perform }
 
     context 'when the job is disabled via a flipper flag' do
       before { activate_feature!(:disable_stubbed_test_job_worker) }
@@ -37,6 +39,28 @@ RSpec.describe ApplicationWorker do
       it "executes the worker's perform method" do
         call_perform
         expect(StubbedTestJob.perform_was_called).to eq(true)
+      end
+    end
+
+    context 'when the worker sets unique_while_executing to true' do
+      before do
+        StubbedTestJob.class_eval do
+          self.unique_while_executing = true
+        end
+      end
+
+      it "executes the worker's perform method" do
+        call_perform
+        expect(StubbedTestJob.perform_was_called).to eq(true)
+      end
+
+      context 'when a lock for that job + arguments is already in redis' do
+        before { worker.send(:lock_obtained?, []) } # this sets the lock
+
+        it "does not execute the worker's perform method" do
+          call_perform
+          expect(StubbedTestJob.perform_was_called).to eq(false)
+        end
       end
     end
   end

@@ -3,6 +3,8 @@
 class SendLogReminderEmails
   prepend ApplicationWorker
 
+  self.unique_while_executing = true
+
   def perform
     Log.needing_reminder.find_each do |log|
       log.update!(reminder_last_sent_at: Time.current)
