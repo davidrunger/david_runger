@@ -90,6 +90,11 @@ div.mt1.mb2.ml3.mr2
             label.ml1(:for='`trip-checkin-item-${item.id}`')
               span {{item.name}}
               span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
+              el-button(
+                link
+                type='primary'
+                @click='skip(item)'
+              ) Skip
         div.flex.justify-around.mt2
           el-button(
             @click='handleTripCheckinModalSubmit'
@@ -230,7 +235,11 @@ export default {
     },
 
     handleTripCheckinModalSubmit() {
-      this.groceriesStore.zeroItems({ items: this.itemsToZero.slice() });
+      this.groceriesStore.zeroItems({
+        items:
+          this.itemsToZero.slice().
+            filter(item => this.groceriesStore.neededCheckInItems.includes(item)),
+      });
       this.itemsToZero = [];
       this.modalStore.hideModal({ modalName: 'check-in-shopping-trip' });
     },
@@ -252,6 +261,10 @@ export default {
         },
       });
       this.newItemName = '';
+    },
+
+    skip(item) {
+      this.groceriesStore.skipItem({ item });
     },
 
     stopEditingAndUpdateStoreName() {
