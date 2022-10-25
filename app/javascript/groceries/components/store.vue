@@ -111,34 +111,14 @@ div.mt1.mb2.ml3.mr2
       slot
         h4.bold.mt1.mb2.
           Which stores would you like to check in?
-        ul.check-in-stores-list
-          li.flex.items-center.mb1(
-            v-for='(store, index) in groceriesStore.sortedStores'
-            :key='store.id'
-          )
-            input(
-              type='checkbox'
-              v-model='groceriesStore.checkInStores'
-              :value='store'
-              :id='`checkin-stores-${store.id}`'
-            )
-            label.ml1(:for='`checkin-stores-${store.id}`')
-              span {{store.name}}
+        CheckInStoreList(
+          :stores='groceriesStore.sortedStores'
+        )
         h4.bold.mb2.
           Spouse's stores
-        ul.check-in-stores-list
-          li.flex.items-center.mb1(
-            v-for='(store, index) in groceriesStore.sortedSpouseStores'
-            :key='store.id'
-          )
-            input(
-              type='checkbox'
-              v-model='groceriesStore.checkInStores'
-              :value='store'
-              :id='`checkin-stores-${store.id}`'
-            )
-            label.ml1(:for='`checkin-stores-${store.id}`')
-              span {{store.name}}
+        CheckInStoreList(
+          :stores='groceriesStore.sortedSpouseStores'
+        )
         div.flex.justify-around.mt2
           el-button(
             @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })"
@@ -155,10 +135,12 @@ import { mapState } from 'pinia';
 import { useGroceriesStore, helpers } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
 
+import CheckInStoreList from './check_in_store_list.vue';
 import Item from './item.vue';
 
 export default {
   components: {
+    CheckInStoreList,
     EditIcon,
     Item,
   },
