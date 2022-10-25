@@ -26,4 +26,6 @@ class NeedSatisfactionRating < ApplicationRecord
   scope :completed, -> { where.not(score: nil) }
 
   validates :score, numericality: { only_integer: true, in: (-3..3), allow_nil: true }
+
+  has_paper_trail
 end
