@@ -67,8 +67,13 @@ const actions = {
 
   deleteItem({ item }) {
     const store = this.currentStore;
-    store.items = store.items.filter(storeItem => storeItem !== item);
-    kyApi.delete(Routes.api_item_path(item.id));
+
+    this.incrementPendingRequests();
+    kyApi.delete(Routes.api_item_path(item.id)).
+      then(() => {
+        this.decrementPendingRequests();
+        store.items = store.items.filter(storeItem => storeItem !== item);
+      });
   },
 
   deleteStore({ store: deletedStore }) {
