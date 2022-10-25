@@ -3,6 +3,8 @@
 class CreateIpBlock
   prepend ApplicationWorker
 
+  self.unique_while_executing = true
+
   def perform(ip, reason = nil)
     ip_block = IpBlock.find_or_initialize_by(ip:)
     if ip_block.new_record?
@@ -16,11 +18,7 @@ class CreateIpBlock
           end.
           join("\n")
 
-      begin
-        ip_block.update!(reason: block_reason)
-      rescue ActiveRecord::RecordNotUnique => error # can happen due to race condition
-        Rollbar.warn(error)
-      end
+      ip_block.update!(reason: block_reason)
     end
   end
 end
