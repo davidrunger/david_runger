@@ -72,13 +72,6 @@ html.webp {
   }
 }
 
-// double the `.toastify-center` class to ensure it has higher precedence than the library's CSS
-.toastify-center.toastify-center {
-  left: inherit;
-  right: 50%;
-  transform: translateX(50%);
-}
-
 .icon-tabler {
   vertical-align: bottom;
 }

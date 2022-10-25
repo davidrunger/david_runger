@@ -6,8 +6,12 @@ class Api::ItemsController < ApplicationController
   def create
     authorize(Item)
     store = current_user.stores.find(params[:store_id])
-    @item = store.items.create!(item_params)
-    render json: @item, status: :created
+    @item = store.items.build(item_params)
+    if @item.save
+      render json: @item, status: :created
+    else
+      render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def update

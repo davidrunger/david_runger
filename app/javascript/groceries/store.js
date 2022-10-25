@@ -31,7 +31,7 @@ const actions = {
 
   createItem({ store, itemAttributes }) {
     this.incrementPendingRequests();
-    kyApi.
+    return kyApi.
       post(Routes.api_store_items_path(store.id), { json: { item: itemAttributes } }).
       json().
       then(itemData => {
@@ -69,7 +69,10 @@ const actions = {
     const store = this.currentStore;
 
     this.incrementPendingRequests();
-    kyApi.delete(Routes.api_item_path(item.id)).
+    kyApi.delete(
+      Routes.api_item_path(item.id),
+      { headers: { 'content-type': 'application/json' } },
+    ).json().
       then(() => {
         this.decrementPendingRequests();
         store.items = store.items.filter(storeItem => storeItem !== item);

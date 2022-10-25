@@ -13,12 +13,12 @@
 #
 # Indexes
 #
-#  index_items_on_store_id  (store_id)
+#  index_items_on_store_id_and_name  (store_id,name) UNIQUE
 #
 
 FactoryBot.define do
   factory :item do
-    name { Faker::Food.unique.ingredient }
+    name { "#{Faker::Food.unique.ingredient}-#{SecureRandom.alphanumeric(5)}" }
     needed { rand(2) }
 
     trait :needed do
