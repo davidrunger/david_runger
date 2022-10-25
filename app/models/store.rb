@@ -23,4 +23,6 @@ class Store < ApplicationRecord
   has_many :items, dependent: :destroy
   validates :name, presence: true
   validates :viewed_at, presence: true
+
+  has_paper_trail
 end

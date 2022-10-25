@@ -24,5 +24,7 @@ class Item < ApplicationRecord
 
   auto_strip_attributes :name, squish: true
 
+  has_paper_trail
+
   scope :needed, -> { where('items.needed > 0') }
 end

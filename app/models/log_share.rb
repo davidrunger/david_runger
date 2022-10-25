@@ -19,4 +19,6 @@ class LogShare < ApplicationRecord
   has_one :user, through: :log
 
   validates :email, presence: true, uniqueness: { scope: :log_id }
+
+  has_paper_trail
 end

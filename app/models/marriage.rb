@@ -21,6 +21,8 @@ class Marriage < ApplicationRecord
   has_many :check_ins, dependent: :destroy
   has_many :emotional_needs, dependent: :destroy
 
+  has_paper_trail
+
   def partners
     User.where(id: [partner_1_id, partner_2_id])
   end

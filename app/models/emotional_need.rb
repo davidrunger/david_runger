@@ -20,4 +20,6 @@ class EmotionalNeed < ApplicationRecord
   has_many :need_satisfaction_ratings, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :marriage }
+
+  has_paper_trail
 end

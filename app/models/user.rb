@@ -38,6 +38,8 @@ class User < ApplicationRecord
 
   devise
 
+  has_paper_trail
+
   before_destroy do |user|
     if user.reload.marriage
       marriage =

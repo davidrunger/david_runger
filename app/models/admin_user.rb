@@ -17,4 +17,6 @@ class AdminUser < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   devise
+
+  has_paper_trail
 end
