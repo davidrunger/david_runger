@@ -17,6 +17,7 @@
       :value='item.name'
       @blur='stopEditingAndUpdateItemName'
       @keydown.enter='stopEditingAndUpdateItemName'
+      @keydown.escape='editingName = false;'
       ref='item-name-input'
     )
     span.item-name(v-else)
