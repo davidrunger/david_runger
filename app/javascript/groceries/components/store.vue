@@ -132,6 +132,8 @@ import { EditIcon } from 'vue-tabler-icons';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import { mapState } from 'pinia';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 import { useGroceriesStore, helpers } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
 
@@ -241,6 +243,18 @@ export default {
         itemAttributes: {
           name: this.newItemName,
         },
+      }).catch(({ response }) => {
+        this.groceriesStore.decrementPendingRequests();
+        response.json().then(({ errors }) => {
+          errors.forEach((errorMessage) => {
+            Toastify({
+              text: errorMessage,
+              className: 'error',
+              position: 'center',
+              duration: 2500,
+            }).showToast();
+          });
+        });
       });
       this.newItemName = '';
     },

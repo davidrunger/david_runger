@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_25_185251) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_25_211828) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -140,7 +140,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_185251) do
     t.integer "needed", default: 1, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["store_id"], name: "index_items_on_store_id"
+    t.index ["store_id", "name"], name: "index_items_on_store_id_and_name", unique: true
   end
 
   create_table "log_shares", force: :cascade do |t|

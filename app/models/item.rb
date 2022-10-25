@@ -13,14 +13,14 @@
 #
 # Indexes
 #
-#  index_items_on_store_id  (store_id)
+#  index_items_on_store_id_and_name  (store_id,name) UNIQUE
 #
 
 class Item < ApplicationRecord
   belongs_to :store
   has_one :user, through: :store
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :store_id }
 
   auto_strip_attributes :name, squish: true
 

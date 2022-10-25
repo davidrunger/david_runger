@@ -33,6 +33,25 @@ RSpec.describe Api::ItemsController do
         end
       end
     end
+
+    context 'when the item params are not valid' do
+      let(:invalid_params) { { store_id: store.id, item: { name: '', store_id: store.id } } }
+      let(:params) { invalid_params }
+
+      it 'returns a 422 status code' do
+        post_create
+        expect(response).to have_http_status(422)
+      end
+
+      it 'does not create an item' do
+        expect { post_create }.not_to change { Item.count }
+      end
+
+      it 'responds with error message(s)' do
+        post_create
+        expect(response.parsed_body).to eq('errors' => ["Name can't be blank"])
+      end
+    end
   end
 
   describe '#update' do

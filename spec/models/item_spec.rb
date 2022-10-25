@@ -5,6 +5,8 @@ RSpec.describe Item do
 
   it { is_expected.to belong_to(:store) }
 
+  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:store_id) }
+
   describe '::needed' do
     context 'when `needed` is greater than 0' do
       before { item.update!(needed: 1) }
