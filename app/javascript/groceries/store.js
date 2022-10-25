@@ -3,7 +3,27 @@ import { filter, last, pick, sortBy } from 'lodash-es';
 import { kyApi } from '@/shared/ky';
 import { emit } from '@/lib/event_bus';
 
+const state = () => ({
+  ...window.davidrunger.bootstrap,
+  collectingDebounces: false,
+  pendingRequests: 0,
+  postingStore: false,
+  checkInStores: [],
+});
+
+export const helpers = {
+  sortByName(objects) {
+    return sortBy(objects, object => object.name.toLowerCase());
+  },
+};
+
 const actions = {
+  addCheckInStore({ store }) {
+    if (this.checkInStores.includes(store)) return;
+
+    this.checkInStores = [...this.checkInStores, store];
+  },
+
   addItem({ store, itemData }) {
     store.items.unshift(itemData);
   },
@@ -115,26 +135,33 @@ const actions = {
 };
 
 const getters = {
-  currentStore(state) {
-    if (!state.stores) return null;
+  currentStore() {
+    if (!this.stores) return null;
 
     return (
-      last(sortBy(filter([...state.stores, ...state.spouse_stores], 'viewed_at'), 'viewed_at')) ||
-      state.stores[0]
+      last(sortBy(filter([...this.stores, ...this.spouse_stores], 'viewed_at'), 'viewed_at')) ||
+      this.stores[0]
     );
   },
 
-  debouncingOrWaitingOnNetwork(state) {
-    return state.collectingDebounces || (state.pendingRequests > 0);
+  debouncingOrWaitingOnNetwork() {
+    return this.collectingDebounces || (this.pendingRequests > 0);
+  },
+
+  neededCheckInItems() {
+    return helpers.sortByName(
+      this.checkInStores.map(store => store.items.filter(item => item.needed > 0)).flat(),
+    );
+  },
+
+  sortedSpouseStores() {
+    return helpers.sortByName(this.spouse_stores);
+  },
+
+  sortedStores() {
+    return helpers.sortByName(this.stores);
   },
 };
-
-const state = () => ({
-  ...window.davidrunger.bootstrap,
-  collectingDebounces: false,
-  pendingRequests: 0,
-  postingStore: false,
-});
 
 export const useGroceriesStore = defineStore('groceries', {
   state,

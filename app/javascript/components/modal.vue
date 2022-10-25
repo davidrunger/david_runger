@@ -98,9 +98,12 @@ export default {
 
 .modal-container {
   min-width: 300px;
+  max-height: 90vh; // fallback for browsers that don't yet support `dvh` units
+  max-height: 90dvh;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 33%);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  overflow: auto;
 }
 
 .modal-enter {

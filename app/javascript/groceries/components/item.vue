@@ -15,8 +15,8 @@
       v-if='editingName'
       type='text'
       :value='item.name'
-      @blur='stopEditingAndUpdateItemName()'
-      @keydown.enter='stopEditingAndUpdateItemName()'
+      @blur='stopEditingAndUpdateItemName'
+      @keydown.enter='stopEditingAndUpdateItemName'
       ref='item-name-input'
     )
     span.item-name(v-else)
@@ -71,6 +71,8 @@ export default {
     },
 
     stopEditingAndUpdateItemName() {
+      if (!this.$refs['item-name-input']) return; // was happening for me in Chrome in development
+
       this.editingName = false;
       this.groceriesStore.updateItem({
         item: this.item,

@@ -26,21 +26,20 @@ aside.border-right.border-gray(
           ) Add
         .stores-list
           StoreListEntry(
-            v-for='store in sortedStores'
+            v-for='store in groceriesStore.sortedStores'
             :store='store'
           )
-        div(v-if='sortedSpouseStores.length > 0')
+        div(v-if='groceriesStore.sortedSpouseStores.length > 0')
           .spouse-stores-header.h2 Spouse's Stores
           .stores-list
             StoreListEntry(
-              v-for='store in sortedSpouseStores'
+              v-for='store in groceriesStore.sortedSpouseStores'
               :store='store'
             )
 </template>
 
 <script>
 import { inject, ref } from 'vue';
-import { sortBy } from 'lodash-es';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
@@ -66,14 +65,6 @@ export default {
       'spouse_stores',
       'stores',
     ]),
-
-    sortedSpouseStores() {
-      return sortBy(this.spouse_stores, store => store.name.toLowerCase());
-    },
-
-    sortedStores() {
-      return sortBy(this.stores, store => store.name.toLowerCase());
-    },
 
     expanded() {
       return !this.collapsed;
