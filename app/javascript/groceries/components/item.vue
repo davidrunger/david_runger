@@ -27,6 +27,12 @@
         edit-icon(size='17')
     | &nbsp;
     span ({{item.needed}})
+    el-button(
+      link
+      type='primary'
+      @click='unskip(item)'
+      v-if='groceriesStore.skippedItems.includes(item)'
+    ) Unskip
   .delete.h2.pl1.pr1.js-link.right.red(
     v-if='ownStore'
     @click="groceriesStore.deleteItem({ item })"
@@ -89,6 +95,10 @@ export default {
       this.groceriesStore.updateItem({ item, attributes: item });
       this.groceriesStore.setCollectingDebounces({ value: false });
     }, 333),
+
+    unskip(item) {
+      this.groceriesStore.unskipItem({ item });
+    },
   },
 
   props: {

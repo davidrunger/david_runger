@@ -9,6 +9,7 @@ const state = () => ({
   pendingRequests: 0,
   postingStore: false,
   checkInStores: [],
+  skippedItems: [],
 });
 
 export const helpers = {
@@ -98,6 +99,16 @@ const actions = {
     this.collectingDebounces = value;
   },
 
+  skipItem({ item }) {
+    if (this.skippedItems.includes(item)) return;
+
+    this.skippedItems = [...this.skippedItems, item];
+  },
+
+  unskipItem({ item: itemToUnskip }) {
+    this.skippedItems = this.skippedItems.filter(item => item.id !== itemToUnskip.id);
+  },
+
   updateItem({ item, attributes }) {
     this.incrementPendingRequests();
 
@@ -150,7 +161,12 @@ const getters = {
 
   neededCheckInItems() {
     return helpers.sortByName(
-      this.checkInStores.map(store => store.items.filter(item => item.needed > 0)).flat(),
+      this.checkInStores.
+        map(store => (
+          store.items.filter(item => (
+            item.needed > 0 && !this.skippedItems.includes(item)
+          ))
+        )).flat(),
     );
   },
 
