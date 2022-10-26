@@ -1,5 +1,5 @@
 <template lang='pug'>
-#app-root.sans-serif
+#app-root.sans-serif.mb3
   #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.bg-black
     .spacer.flex-grow-1
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
@@ -31,8 +31,17 @@
 
   HomeSection(section='about', title='About me', :renderHeadingManually='true')
     template(v-slot:default='slotProps')
-      .flex
-        .flex-2.mr4.pr2
+      .sm-flex.row-reverse
+        .flex-2.mt1
+          PerformantImage.center.mt1.mb3(
+            imageClass='about-image'
+            alt='A picture of me'
+            :lazy='true'
+          )
+            source(type='jpg' src='~img/david.jpg')
+            source(type='webp' src='~img/david.webp')
+
+        .flex-3.p2.sm-px4
           SectionHeader(:title='slotProps.title')
 
           p I'm a full stack web developer.
@@ -46,11 +55,6 @@
             #[a(href='https://hired.com') Hired], a web development bootcamp teaching assistant at
             #[a(href='http://www.appacademy.io') App&nbsp;Academy], a high school math teacher, a
             public bus driver, and a long haul truck driver.
-
-        .flex-1
-          PerformantImage(imageClass='about-image' alt='A picture of me' lazy=true)
-            source(type='jpg' src='~img/david.jpg')
-            source(type='webp' src='~img/david.webp')
 
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-2
@@ -92,7 +96,8 @@
         )
         SkillRow(
           name='GitHub'
-          details=`
+          details=
+          `
             Where software teams and the open source community collaborate. GitHub Actions are
             great!
           `
@@ -111,7 +116,8 @@
         )
         SkillRow(
           name='JavaScript'
-          details=`
+          details=
+          `
             A flexible language, essential for any modern web app. ES6 (plus lodash to fill in some
             utility functions) makes JavaScript coding pretty enjoyable.
           `
@@ -123,7 +129,8 @@
         )
         SkillRow(
           name='Lodash'
-          details=`
+          details=
+          `
             Lodash brings a lot of the concision, convenience, and clarity that I love about Ruby to
             the front end.
           `
@@ -132,7 +139,8 @@
             img(src='~img/lodash.svg' alt='Lodash')
         SkillRow(
           name='NodeJS'
-          details=`
+          details=
+          `
             The JavaScript ecosystem is a bit too "Wild West" for my taste, but Node and its
             ecosystem are essential parts of the modern web stack.
           `
@@ -143,7 +151,8 @@
         )
         SkillRow(
           name='React'
-          details=`
+          details=
+          `
             Declarative rendering, component-based development, and one-way data flow make React a
             superior alternative to direct DOM manipulation for moderately (or highly) complex
             client-side apps.
@@ -158,7 +167,10 @@
           details='I love testing, and RSpec makes tests readable and easy to write.'
         )
           template(v-slot:image)
-            PerformantImage(alt='RSpec' lazy=true)
+            PerformantImage(
+              alt='RSpec'
+              :lazy='true'
+            )
               source(type='png' src='~img/rspec.png')
         SkillRow(
           name='Ruby'
@@ -167,18 +179,20 @@
         SkillRow(
           name='Ruby on Rails'
           iconIdentifier='rails'
-          details=`
+          details=
+          `
             A web-development framework with a great ecosystem that makes development fast and fun.
             Rails's ActiveRecord ORM is superb.
           `
         )
         SkillRow(
           name='Sass'
-          details=`
+          :wordmarkedIcon='false'
+          details=
+          `
             It's in the name - syntactically awesome style sheets. Why write CSS when you can write
             Sass? :)
           `
-          :wordmarkedIcon='false'
         )
         SkillRow(
           name='VueJS'
@@ -189,7 +203,8 @@
               ecosystem. I hope that its popularity continues to grow.
         SkillRow(
           name='Webpack'
-          details=`
+          details=
+          `
             A versatile and powerful build tool for all-things client-side. Hot code reloading
             really enhances the development experience.
           `
@@ -198,7 +213,10 @@
   .parallax-outer
     .parallax-inner.parallax-inner--macbook-1
 
-  HomeSection(section='resume', title='Resume')
+  HomeSection.pb4(
+    section='resume'
+    title='Resume'
+  )
     a.resume-button.block.center(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
   .parallax-outer
@@ -287,6 +305,17 @@ export default {
 
 :deep(b) {
   font-weight: 600;
+}
+
+@media (min-width: 40em) {
+  .sm-flex {
+    display: flex;
+  }
+
+  .sm-px4 {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
 }
 
 p,
