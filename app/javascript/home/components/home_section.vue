@@ -1,7 +1,7 @@
 <template lang='pug'>
-.section-container.relative.bg-white.flex.justify-center(:class='section', ref='root')
+.section-container.relative.bg-white.flex.justify-center.p2(:class='section', ref='root')
   .anchor-target(:id='section')
-  section.py3.px1(:data-section='section')
+  section(:data-section='section')
     .js-scroll-hook.absolute
     SectionHeader(v-if='!renderHeadingManually', :title='title')
     slot(:title='title')
@@ -10,7 +10,7 @@
 <script>
 import { h } from 'vue';
 
-export const SectionHeader = props => h('h1', { class: 'h1 bold mt0 mb3' }, props.title);
+export const SectionHeader = props => h('h1', { class: 'h1 bold mt0 mb2' }, props.title);
 SectionHeader.props = ['title'];
 
 export default {
@@ -43,7 +43,7 @@ section {
   max-width: 850px;
 
   @media screen and (min-width: 600px) {
-    padding: var(--space-3);
+    padding: var(--space-2) var(--space-3) 0 var(--space-3);
   }
 }
 

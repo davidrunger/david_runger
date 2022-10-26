@@ -10,6 +10,14 @@
   flex: 2;
 }
 
+.flex-3 {
+  flex: 3;
+}
+
 .flex-grow-1 {
   flex-grow: 1;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
 }
