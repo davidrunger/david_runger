@@ -36,7 +36,9 @@
               v-model.number='setsArray[index].timeAdjustment'
               :disabled='index <= currentRoundIndex'
             )
-          td(:class='nextRoundCountdownClass(index)') {{timeColumnValue(index)}}
+          td(
+            :class='nextRoundCountdownClasses(index)'
+          ) {{timeColumnValue(index)}}
           td(
             v-for='exercise in setsArray[index].exercises'
           )
@@ -186,16 +188,17 @@ export default {
       }));
     },
 
-    nextRoundCountdownClass(index) {
+    nextRoundCountdownClasses(index) {
       if (index !== this.currentRoundIndex + 1) return '';
 
+      const classes = ['bold'];
       if (this.secondsUntilNextRound <= 10) {
-        return ['red', 'bold'];
+        classes.push('red');
       } else if (this.secondsUntilNextRound <= 30) {
-        return 'orange';
-      } else {
-        return '';
+        classes.push('orange');
       }
+
+      return classes;
     },
 
     saveWorkout() {
