@@ -10,7 +10,7 @@
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
     header#header.flex-grow-1.flex.bg-black.col-12.relative
       .font-size-2.js-link.js-scroll-top.ml3
-        a#logo.monospace.font-blue-light.opacity-animated.opacity-0.display-none(href='#home')
+        a#logo.monospace.font-blue-light.opacity-animated.opacity-0(href='#home')
           | David Runger
       nav#nav.sans-serif.flex.justify-around.absolute.mr4
         a.nav-link(href='#about')
@@ -250,11 +250,6 @@ export default {
     positionListener.init();
 
     const logo = document.getElementById('logo');
-    logo.addEventListener('transitionend', () => {
-      if (window.getComputedStyle(logo).opacity === '0') {
-        logo.style.display = 'none';
-      }
-    });
     new Waypoint.Inview({ // eslint-disable-line no-undef
       element: document.getElementById('home'),
       enter() {
@@ -262,7 +257,6 @@ export default {
         logo.classList.remove('opacity-1');
       },
       exited() {
-        logo.style.display = 'inline';
         setTimeout(() => {
           logo.classList.add('opacity-1');
           logo.classList.remove('opacity-0');
