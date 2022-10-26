@@ -22,12 +22,13 @@ Modal(
 </template>
 
 <script>
+import { ref } from 'vue';
 import FuzzySet from 'fuzzyset.js';
 import { mapState } from 'pinia';
 
-import { on } from '@/lib/event_bus';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
+import { useSubscription } from '@/lib/composables/use_subscription';
 
 export default {
   computed: {
@@ -59,19 +60,6 @@ export default {
     this.logNames.forEach(logName => {
       this.fuzzySet.add(logName);
     });
-    this.unsubscribeFromRouteChanges = on('logs:route-changed', this.resetQuickSelector);
-  },
-
-  data() {
-    return {
-      highlightedLogIndex: 0,
-      modalStore: useModalStore(),
-      searchString: '',
-    };
-  },
-
-  unmounted() {
-    this.unsubscribeFromRouteChanges();
   },
 
   methods: {
@@ -98,15 +86,29 @@ export default {
       this.selectLog(highlightedLog);
     },
 
-    resetQuickSelector() {
-      this.modalStore.hideModal({ modalName: 'log-selector' });
-      this.highlightedLogIndex = 0;
-      this.searchString = '';
-    },
-
     selectLog(log) {
       this.$router.push({ name: 'log', params: { slug: log.slug } });
     },
+  },
+
+  setup() {
+    const modalStore = useModalStore();
+    const highlightedLogIndex = ref(0);
+    const searchString = ref('');
+
+    function resetQuickSelector() {
+      modalStore.hideModal({ modalName: 'log-selector' });
+      highlightedLogIndex.value = 0;
+      searchString.value = '';
+    }
+
+    useSubscription('logs:route-changed', resetQuickSelector);
+
+    return {
+      modalStore,
+      highlightedLogIndex,
+      searchString,
+    };
   },
 
   watch: {
