@@ -26,8 +26,12 @@
       svg(class='arrow')
         path(d='M0 0 L12 12 L24 0')
 
-  .parallax-outer
-    .parallax-inner.parallax-inner--macbook-1
+  ParallaxImage(
+    v-if='!$is_mobile_device'
+    variant='macbook-1'
+  )
+  //- this is necessary so that the #home section will scroll out of page when clicking down arrow
+  .bg-black(v-else style='height: 40px')
 
   HomeSection(section='about', title='About me', :renderHeadingManually='true')
     template(v-slot:default='slotProps')
@@ -56,8 +60,7 @@
             #[a(href='http://www.appacademy.io') App&nbsp;Academy], a high school math teacher, a
             public bus driver, and a long haul truck driver.
 
-  .parallax-outer
-    .parallax-inner.parallax-inner--macbook-2
+  ParallaxImage(variant='macbook-2')
 
   HomeSection(section='skills', title='Skills')
     table
@@ -210,8 +213,7 @@
           `
         )
 
-  .parallax-outer
-    .parallax-inner.parallax-inner--macbook-1
+  ParallaxImage(variant='macbook-1')
 
   HomeSection.pb4(
     section='resume'
@@ -219,8 +221,7 @@
   )
     a.resume-button.block.center(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
-  .parallax-outer
-    .parallax-inner.parallax-inner--macbook-2
+  ParallaxImage(variant='macbook-2')
 
   HomeSection(section='contact', title='Contact me')
     p #[b Email:] #[a(href='mailto:davidjrunger@gmail.com') davidjrunger@gmail.com]
@@ -230,6 +231,7 @@
 
 <script>
 import PerformantImage from '@/components/performant_image.vue';
+import ParallaxImage from './components/parallax_image.vue';
 import * as positionListener from './scripts/position_listener';
 import HomeSection, { SectionHeader } from './components/home_section.vue';
 import SkillRow from './components/skill_row.vue';
@@ -238,6 +240,7 @@ export default {
   components: {
     HomeSection,
     SectionHeader,
+    ParallaxImage,
     PerformantImage,
     SkillRow,
   },
@@ -395,6 +398,8 @@ p:first-of-type {
 .down-arrow-container {
   $size: 50px;
 
+  position: relative;
+  bottom: 30px;
   width: $size;
   height: $size;
   line-height: $size;

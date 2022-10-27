@@ -10,7 +10,7 @@
 <script>
 import { h } from 'vue';
 
-export const SectionHeader = props => h('h1', { class: 'h1 bold mt0 mb2' }, props.title);
+export const SectionHeader = props => h('h1', { class: 'h1 bold mt0 my2' }, props.title);
 SectionHeader.props = ['title'];
 
 export default {
