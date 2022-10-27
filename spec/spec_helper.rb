@@ -13,7 +13,7 @@ if is_ci
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
   Codecov.pass_ci_if_error = true
-elsif ARGV.grep(%r{\Aspec/.+_spec\.rb}).size == 1
+elsif RSpec.configuration.files_to_run.one?
   require 'simple_cov/formatter/terminal'
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
   # rubocop:disable Performance/RedundantMerge
