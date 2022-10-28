@@ -545,7 +545,7 @@ GEM
       activesupport (>= 6, < 8)
     shoulda-matchers (5.2.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.0.0.beta1)
+    sidekiq (7.0.0)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
@@ -694,7 +694,7 @@ DEPENDENCIES
   selenium-devtools
   selenium-webdriver
   shoulda-matchers
-  sidekiq (>= 7.0.0.beta1)
+  sidekiq
   simple_cov-formatter-terminal!
   simplecov
   spring
