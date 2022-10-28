@@ -533,7 +533,7 @@ GEM
       nokogiri (>= 1.12.0)
     sassc (2.4.0)
       ffi (~> 1.9)
-    selenium-devtools (0.106.0)
+    selenium-devtools (0.107.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.5.0)
       childprocess (>= 0.5, < 5.0)
