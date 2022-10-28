@@ -215,7 +215,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    dalli (3.2.2)
+    dalli (3.2.3)
     database_consistency (1.2.2)
       activerecord (>= 3.2)
     debug_inspector (1.1.0)
