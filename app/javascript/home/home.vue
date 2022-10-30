@@ -224,7 +224,7 @@
       template(v-slot:technologies)
         span Rails 7, Vue 3
       template(v-slot:links)
-        a(href='https://github.com/davidrunger/david_runger/') Source Code
+        a(href='https://github.com/davidrunger/david_runger/') GitHub
       template(v-slot:overview)
         p.
 
@@ -303,6 +303,37 @@
             and
             #[a(href='https://github.com/jenseng/immigrant') Immigrant]
             help to ensure that the database is well-structured.
+
+    Project
+      template(v-slot:title)
+        span Serpent.js
+      template(v-slot:technologies)
+        span jQuery, object-oriented JavaScript
+      template(v-slot:links)
+        div
+          a(href='https://davidrunger.github.io/serpent') Live
+          span {{' - '}}
+          a(href='http://github.com/davidrunger/serpent') GitHub
+      template(v-slot:image)
+        PerformantImage(alt='Serpent Game' lazy='true')
+          source(type='jpg' src='~img/serpent.jpg')
+          source(type='webp' src='~img/serpent.webp')
+      template(v-slot:overview)
+        div(slot='overview')
+          p.
+            Serpent is twice as fun as classic Snake. At least, there are twice as many players!
+            Each snake can be toggled between human or AI control, so you can play against the
+            computer or a friend. Or just watch two AIs play each other. Or see whether your right
+            or left hand is smarter. Controls allow for customizing the game speed and board
+            dimensions.
+      template(v-slot:tech-list)
+        ul
+          li.
+            Efficiently manipulates the DOM, allowing for large game boards and unreasonably high
+            game speeds
+          li.
+            Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
+            toward the apple at all times
 
   ParallaxImage(variant='macbook-2')
 
@@ -529,5 +560,9 @@ p:first-of-type {
   stroke: #333;
   fill: transparent;
   stroke-width: 2px;
+}
+
+:deep(.project-container:last-of-type) {
+  margin-bottom: var(--space-3);
 }
 </style>
