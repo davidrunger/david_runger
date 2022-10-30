@@ -1,5 +1,5 @@
 <template lang='pug'>
-.mt2
+.project-container.mt2
   .card
     .card__body
       .project.p1
