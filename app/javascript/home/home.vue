@@ -17,6 +17,8 @@
           span.ptb-1 About
         a.nav-link(href='#skills')
           span.ptb-1 Skills
+        a.nav-link(href='#projects')
+          span.ptb-1 Projects
         a.nav-link(href='#resume')
           span.ptb-1 Resume
         a.nav-link(href='#contact')
@@ -215,13 +217,102 @@
 
   ParallaxImage(variant='macbook-1')
 
+  HomeSection(section='projects' title='Projects')
+    Project.mt3
+      template(v-slot:title)
+        span DavidRunger.com
+      template(v-slot:technologies)
+        span Rails 7, Vue 3
+      template(v-slot:links)
+        a(href='https://github.com/davidrunger/david_runger/') Source Code
+      template(v-slot:overview)
+        p.
+
+          You are here, at #[a(href='https://davidrunger.com') davidrunger.com]! This is a
+          playground for me to experiment with various web technologies, and where I host various
+          apps that I have built for myself and my family:
+
+        ul
+
+          li.
+            #[a(href='https://davidrunger.com/groceries') Groceries]* -
+            the family grocery list, designed and built to be mobile-friendly for use on-the-go
+
+          li.
+            #[a(href='https://davidrunger.com/workout') Workout]* -
+            an app for tracking workouts over time, and to stay on-pace within a workout
+
+          li.
+            #[a(href='https://davidrunger.com/logs') Logs]* -
+            track whatever you want with various log types (text, number, duration, and/or counter)
+
+          li.
+            #[a(href='https://davidrunger.com/quizzes') Quizzes]* -
+            a multi-person quiz app that uses ActionCable websockets for real-time interactivity
+
+          li.
+            #[a(href='https://davidrunger.com/check_ins') Check-ins]* -
+            track how well your emotional needs are being met in your marriage/relationship
+
+        p *Google login required
+
+      template(v-slot:tech-list)
+        ul
+          li.
+            A
+            #[a(href='https://rubyonrails.org/') Rails 7]
+            backend serves various
+            #[a(href='https://vuejs.org/') Vue 3]
+            front-end apps built with
+            #[a(href='https://pugjs.org') Pug] templates, ES6 (via
+            #[a(href='https://babeljs.io/') Babel]), and
+            #[a(href='http://sass-lang.com/') Sass].
+          li.
+            #[a(href='https://pinia.vuejs.org/') Pinia] provides client-side state management.
+          li.
+
+            The excellent
+            #[a(href='https://vite-ruby.netlify.app/guide/rails.html') Vite Rails]
+            gem, in conjunction with Vue and Pinia, provides hot module replacement (HMR), creating
+            an efficient and enjoyable development flow.
+            Vite Rails also bundles the application JavaScript and CSS for
+            production.
+
+          li Google OAuth provides convenient and secure sign-in.
+          li.
+            #[a(href='https://github.com/railsware/js-routes') JsRoutes] allows the
+            use of Rails named routes / path helpers on the client-side, too! :)
+          li.
+            #[a(href='https://element-plus.org/#/en-US') Element Plus] provides aesthetic and
+            ready-to-use Vue UI components.
+          li.
+            #[a(href='http://basscss.com/') Basscss] provides CSS utility classes, so that a
+            lot of styling can be done quickly and cleanly within the markup itself.
+          li.
+            #[a(href='https://github.com/features/actions') GitHub Actions] provides continuous
+            integration (CI) testing and linting, as well as
+            continuous deployment (CD) via integration with
+            #[a(href='https://dokku.com/') Dokku] on a DigitalOcean host.
+          li.
+            Ruby code is linted by #[a(href='https://rubocop.org/') RuboCop],
+            JavaScript by #[a(href='https://eslint.org/') ESLint],
+            and stylesheets by #[a(href='https://stylelint.io/') Stylelint].
+            #[a(href='https://github.com/presidentbeef/brakeman') Brakeman] checks for
+            Rails security issues, and
+            #[a(href='https://github.com/djezzzl/database_consistency') DatabaseConsistency]
+            and
+            #[a(href='https://github.com/jenseng/immigrant') Immigrant]
+            help to ensure that the database is well-structured.
+
+  ParallaxImage(variant='macbook-2')
+
   HomeSection.pb4(
     section='resume'
     title='Resume'
   )
     a.resume-button.block.center(href='/David-Runger-Resume.pdf') Download Resume (pdf)
 
-  ParallaxImage(variant='macbook-2')
+  ParallaxImage(variant='macbook-1')
 
   HomeSection(section='contact', title='Contact me')
     p #[b Email:] #[a(href='mailto:davidjrunger@gmail.com') davidjrunger@gmail.com]
@@ -234,6 +325,7 @@ import PerformantImage from '@/components/performant_image.vue';
 import ParallaxImage from './components/parallax_image.vue';
 import * as positionListener from './scripts/position_listener';
 import HomeSection, { SectionHeader } from './components/home_section.vue';
+import Project from './components/project.vue';
 import SkillRow from './components/skill_row.vue';
 
 export default {
@@ -242,6 +334,7 @@ export default {
     SectionHeader,
     ParallaxImage,
     PerformantImage,
+    Project,
     SkillRow,
   },
 
