@@ -39,13 +39,11 @@
     template(v-slot:default='slotProps')
       .sm-flex.row-reverse
         .flex-2.mt1
-          PerformantImage.center.mt1.mb3(
-            imageClass='about-image'
-            alt='A picture of me'
-            :lazy='true'
-          )
-            source(type='jpg' src='~img/david.jpg')
-            source(type='webp' src='~img/david.webp')
+          LoadNotifyingImage.center.mt1.mb3
+            img.about-image(
+              src='~img/david.webp'
+              alt='A picture of me'
+            )
 
         .flex-3.p2.sm-px4
           SectionHeader(:title='slotProps.title')
@@ -172,11 +170,11 @@
           details='I love testing, and RSpec makes tests readable and easy to write.'
         )
           template(v-slot:image)
-            PerformantImage(
-              alt='RSpec'
-              :lazy='true'
-            )
-              source(type='png' src='~img/rspec.png')
+            LoadNotifyingImage
+              img(
+                src='~img/rspec.webp'
+                alt='RSpec'
+              )
         SkillRow(
           name='Ruby'
           details='Ruby was designed for developer happiness, and it shows!'
@@ -315,12 +313,11 @@
           span {{' - '}}
           a(href='http://github.com/davidrunger/serpent') GitHub
       template(v-slot:image)
-        PerformantImage(
-          alt='Serpent Game'
-          :lazy='true'
-        )
-          source(type='jpg' src='~img/serpent.jpg')
-          source(type='webp' src='~img/serpent.webp')
+        LoadNotifyingImage
+          img(
+            src='~img/serpent.webp'
+            alt='Serpent Game'
+          )
       template(v-slot:overview)
         div(slot='overview')
           p.
@@ -350,12 +347,11 @@
         div
           a(href='https://github.com/davidrunger/simple_cov-formatter-terminal') GitHub
       template(v-slot:image)
-        PerformantImage(
-          alt='SimpleCov::Formatter::Terminal'
-          :lazy='true'
-        )
-          source(type='png' src='~img/simplecov-terminal.png')
-          source(type='webp' src='~img/simplecov-terminal.webp')
+        LoadNotifyingImage
+          img(
+            src='~img/simplecov-terminal.webp'
+            alt='SimpleCov::Formatter::Terminal'
+          )
       template(v-slot:overview)
         div(slot='overview')
           p.
@@ -395,7 +391,7 @@
 </template>
 
 <script>
-import PerformantImage from '@/components/performant_image.vue';
+import LoadNotifyingImage from '@/components/load_notifying_image.vue';
 import ParallaxImage from './components/parallax_image.vue';
 import * as positionListener from './scripts/position_listener';
 import HomeSection, { SectionHeader } from './components/home_section.vue';
@@ -407,7 +403,7 @@ export default {
     HomeSection,
     SectionHeader,
     ParallaxImage,
-    PerformantImage,
+    LoadNotifyingImage,
     Project,
     SkillRow,
   },

@@ -71,7 +71,7 @@ function getScrollHooks() {
 // Image loading can alter page layout (increasing height), so refresh waypoints when that happens.
 function initImageLoadedRefreshing() {
   const throttledRefreshAll = throttle(refreshAll, 1000, { leading: false });
-  on('performant-image:image-loaded', throttledRefreshAll);
+  on('load-notifying-image:image-loaded', throttledRefreshAll);
 }
 
 function refreshAll() {
