@@ -89,8 +89,19 @@ export function init() {
       enter(direction) {
         if (scrollHookHash === '#') return;
 
-        sectionsPartiallyInView.push(scrollHookHash);
-        updateHighlightedNavlink(direction);
+        function intersectionHandler(entries) {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (!sectionsPartiallyInView.includes(scrollHookHash)) {
+                sectionsPartiallyInView.push(scrollHookHash);
+                updateHighlightedNavlink(direction);
+              }
+            }
+          });
+        }
+
+        const observer = new IntersectionObserver(intersectionHandler, { threshold: 1 });
+        observer.observe(scrollHook);
       },
       entered(direction) {
         if (scrollHookHash === '#') return;
