@@ -3,13 +3,21 @@
   .card
     .card__body
       .project.p1
-        h2.h2.center.mt0.mb1
+        h2.center.mt0.mb1(
+          :class='$is_mobile_device ? "h3" : "h2"'
+        )
           slot(name='title')
         .center.gray.mb1
           slot(name='technologies')
-        .center.mb2(v-if='this.$slots["links"]')
+        .center(
+          v-if='this.$slots["links"]'
+          :class='linksContainerClass'
+        )
           slot(name='links')
-        .mb3.center(v-if='this.$slots["image"]')
+        .center(
+          v-if='this.$slots["image"]'
+          :class='imageContainerClass'
+        )
           slot(name='image')
 
         slot(name='overview')
@@ -17,6 +25,23 @@
         h3.h3.bold.mb1(v-if='this.$slots["tech-list"] && this.$slots["overview"]') Tech
         slot(name='tech-list')
 </template>
+
+<script>
+export default {
+  props: {
+    imageContainerClass: {
+      type: String,
+      required: false,
+      default: 'mb3',
+    },
+    linksContainerClass: {
+      type: String,
+      required: false,
+      default: 'mb2',
+    },
+  },
+};
+</script>
 
 <style lang='scss'>
 .card {
@@ -47,5 +72,9 @@
       margin-bottom: 0;
     }
   }
+}
+
+img {
+  max-width: 100%;
 }
 </style>
