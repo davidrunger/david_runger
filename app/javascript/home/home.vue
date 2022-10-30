@@ -315,7 +315,10 @@
           span {{' - '}}
           a(href='http://github.com/davidrunger/serpent') GitHub
       template(v-slot:image)
-        PerformantImage(alt='Serpent Game' lazy='true')
+        PerformantImage(
+          alt='Serpent Game'
+          :lazy='true'
+        )
           source(type='jpg' src='~img/serpent.jpg')
           source(type='webp' src='~img/serpent.webp')
       template(v-slot:overview)
@@ -334,6 +337,46 @@
           li.
             Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
             toward the apple at all times
+
+    Project(
+      image-container-class='mb0'
+      links-container-class='mb0'
+    )
+      template(v-slot:title)
+        span SimpleCov::Formatter::Terminal
+      template(v-slot:technologies)
+        span Ruby
+      template(v-slot:links)
+        div
+          a(href='https://github.com/davidrunger/simple_cov-formatter-terminal') GitHub
+      template(v-slot:image)
+        PerformantImage(
+          alt='SimpleCov::Formatter::Terminal'
+          :lazy='true'
+        )
+          source(type='png' src='~img/simplecov-terminal.png')
+          source(type='webp' src='~img/simplecov-terminal.webp')
+      template(v-slot:overview)
+        div(slot='overview')
+          p.
+            Having good test coverage is important to me; it lowers the chance of shipping bugs and
+            makes it possible to update dependencies with confidence and without manual testing.
+
+          p.
+            However, I couldn't find a way to get quick, detailed feedback about my app's code
+            coverage while working on tests &mdash; so I wrote
+            #[code SimpleCov::Formatter::Terminal].
+            It prints line-by-line code coverage information to the
+            terminal after every test run, and includes info about branch coverage, as well, making
+            it easy to see where test coverage is missing, and to add tests covering the uncovered
+            code.
+
+          p
+            | Thanks to dog-fooding #[code SimpleCov::Formatter::Terminal] on itself, I'm easily
+            | able to keep its {{' '}}
+            a(href='https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master')
+              | code coverage at 100%
+            | .
 
   ParallaxImage(variant='macbook-2')
 
