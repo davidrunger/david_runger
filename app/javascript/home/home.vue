@@ -355,7 +355,7 @@
       template(v-slot:overview)
         div(slot='overview')
           p.
-            Having good test coverage is important to me; it lowers the chance of shipping bugs and
+            Having good test coverage is important to me. It lowers the chance of shipping bugs and
             makes it possible to update dependencies with confidence and without manual testing.
 
           p.
@@ -373,6 +373,42 @@
             a(href='https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master')
               | code coverage at 100%
             | .
+
+    Project
+      template(v-slot:title)
+        span Skedjewel
+      template(v-slot:technologies)
+        span Crystal
+      template(v-slot:links)
+        div
+          a(href='https://github.com/davidrunger/skedjewel') GitHub
+      template(v-slot:image)
+        LoadNotifyingImage
+          img(
+            src='~img/skedjewel.webp'
+            alt='skedjewel.yml'
+          )
+      template(v-slot:overview)
+        div(slot='overview')
+          p.
+
+            DavidRunger.com has some Sidekiq jobs that I want to run at various scheduled intervals.
+            There are some gems to help with this, like
+            #[a(href='https://github.com/sidekiq-scheduler/sidekiq-scheduler/') sidekiq-scheduler],
+            but, at the time of writing, it
+            #[a(href='https://github.com/sidekiq-scheduler/sidekiq-scheduler/issues/409') doesn't work with Sidekiq 7].
+
+          p.
+
+            Thus, partially as an excuse to try out the
+            #[a(href='https://crystal-lang.org/') Crystal]
+
+            programming language, I wrote a simple job runner in Crystal called
+            #[code skedjewel],
+
+            which I use to execute scheduled Sidekiq jobs for DavidRunger.com. I love the small
+            memory consumption of the compiled skedjewel Crystal binary, since memory is a precious
+            resource on my small DigitalOcean droplet.
 
   ParallaxImage(variant='macbook-2')
 
