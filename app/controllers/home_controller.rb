@@ -18,7 +18,7 @@ class HomeController < ApplicationController
 
   def upgrade_browser
     skip_authorization
-    if BrowserSupportChecker.new(browser).supported?
+    if browser_support_checker.supported?
       redirect_to(root_path)
     else
       render :upgrade_browser

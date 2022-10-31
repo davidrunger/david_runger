@@ -27,27 +27,13 @@ export default {
 
 .macbook-1 {
   &::before {
-    background-image: url("img/macbook-1.jpg");
+    background-image: url("img/macbook-1.webp");
   }
 }
 
 .macbook-2 {
   &::before {
-    background-image: url("img/macbook-2.jpg");
-  }
-}
-
-html.webp {
-  .macbook-1 {
-    &::before {
-      background-image: url("img/macbook-1.webp");
-    }
-  }
-
-  .macbook-2 {
-    &::before {
-      background-image: url("img/macbook-2.webp");
-    }
+    background-image: url("img/macbook-2.webp");
   }
 }
 

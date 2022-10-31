@@ -12,7 +12,6 @@ module Prerenderable
           layout: false,
           html:
             prerendered_html.
-              then { html_with_webp_class_if_supported(_1) }.
               then { html_with_nonced_scripts(_1) }.
               html_safe,
         )
@@ -68,14 +67,6 @@ module Prerenderable
 
   def html_with_nonced_scripts(html)
     html.gsub!(/<script +nonce="" *>/, %(<script nonce="#{content_security_policy_nonce}">))
-    html
-  end
-
-  def html_with_webp_class_if_supported(html)
-    if browser_support_checker.supports_webp?
-      html.sub!('<html>', '<html class="webp">')
-    end
-
     html
   end
 

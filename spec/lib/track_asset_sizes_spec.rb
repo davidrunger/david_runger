@@ -22,7 +22,6 @@ RSpec.describe TrackAssetSizes do
                 "assets/groceries_app.00fba040.css"
               ],
               "assets": [
-                "assets/beach-background.40e662f9.jpg",
                 "assets/beach-background.93ff8fcc.webp"
               ]
             },

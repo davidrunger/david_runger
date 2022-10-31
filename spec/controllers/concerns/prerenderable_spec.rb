@@ -29,7 +29,6 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
 
       context 'when S3 responds with prerendered page content' do
         let(:page_text) { 'Great page text!' }
-        let(:html_webp_selector) { 'html.webp' }
 
         before do
           stub_request(
@@ -68,58 +67,6 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
             get_index
 
             expect(response.body).to have_text(LIVE_RENDERED_PAGE_TEXT)
-          end
-        end
-
-        context 'when the browser is Chrome with a version >= 32' do
-          let(:chrome_88_user_agent) do
-            <<~USER_AGENT.squish
-              Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36
-              (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36
-            USER_AGENT
-          end
-
-          before do
-            request.headers['User-Agent'] = chrome_88_user_agent
-
-            browser = Browser.new(chrome_88_user_agent)
-            expect(browser).to be_chrome
-          end
-
-          it 'serves the prerendered page with `html.webp`' do
-            get_index
-            expect(response.body).to have_css(html_webp_selector)
-          end
-        end
-
-        context 'when the browser is Firefox with a version >= 65' do
-          let(:firefox_85_user_agent) do
-            <<~USER_AGENT.squish
-              Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:85.0) Gecko/20100101 Firefox/85.0
-            USER_AGENT
-          end
-
-          before do
-            request.headers['User-Agent'] = firefox_85_user_agent
-
-            browser = Browser.new(firefox_85_user_agent)
-            expect(browser).to be_firefox
-          end
-
-          it 'serves the prerendered page with `html.webp`' do
-            get_index
-            expect(response.body).to have_css(html_webp_selector)
-          end
-        end
-
-        context 'when the browser is curl' do
-          let(:curl_user_agent) { 'curl/7.64.1' }
-
-          before { request.headers['User-Agent'] = curl_user_agent }
-
-          it 'serves the prerendered page without `html.webp`' do
-            get_index
-            expect(response.body).not_to have_css(html_webp_selector)
           end
         end
 

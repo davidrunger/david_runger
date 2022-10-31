@@ -52,14 +52,8 @@ export default {
 }
 
 main {
-  background-image: url("../../assets/images/beach-background.jpg");
+  background-image: url("../../assets/images/beach-background.webp");
   z-index: 5;
-}
-
-html.webp {
-  main {
-    background-image: url("../../assets/images/beach-background.webp");
-  }
 }
 
 .toastify {
