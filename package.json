@@ -60,7 +60,7 @@
     "vue": "^3.2",
     "vue-chartjs": "^4.1",
     "vue-router": "^4.1",
-    "vue-tabler-icons": "^2.14.0",
+    "vue-tabler-icons": "^2.16.0",
     "waypoints": "^4.0.1",
     "when-dom-ready": "^1.2.12"
   },
