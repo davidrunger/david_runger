@@ -10,7 +10,7 @@
       %code.monospace note
       (optional)
 
-= form_with(action: logs_uploads_path, method: :post, multipart: true) do
+= form_with(url: logs_uploads_path, method: :post, multipart: true) do
   = hidden_field_tag(:authenticity_token, form_authenticity_token)
   %div
     %label{for: 'log_id'} Log

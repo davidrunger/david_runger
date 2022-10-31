@@ -3,8 +3,8 @@
 class CreateLogEntry
   prepend ApplicationWorker
 
-  def perform(log_entry_klass, log_entry_attributes)
+  def perform(log_entry_klass, log_entry_attributes_json)
     klass = log_entry_klass.constantize
-    klass.create!(log_entry_attributes)
+    klass.create!(JSON(log_entry_attributes_json))
   end
 end
