@@ -234,7 +234,7 @@
 
           li.
             #[a(href='https://davidrunger.com/groceries') Groceries]* -
-            the family grocery list, designed and built to be mobile-friendly for use on-the-go
+            the collaborative family grocery list, built to be mobile-friendly for use on-the-go
 
           li.
             #[a(href='https://davidrunger.com/workout') Workout]* -
@@ -409,6 +409,52 @@
             which I use to execute scheduled Sidekiq jobs for DavidRunger.com. I love the small
             memory consumption of the compiled skedjewel Crystal binary, since memory is a precious
             resource on my small DigitalOcean droplet.
+
+    Project
+      template(v-slot:title)
+        span Assorted Gems
+      template(v-slot:technologies)
+        span Ruby
+      template(v-slot:overview)
+        div(slot='overview')
+          p.
+
+            Below are some of the Ruby gems that I've written.
+
+          ul
+            li.
+
+              #[a(href='https://github.com/davidrunger/active_actions') #[code active_actions]]:
+
+              The missing piece of Rails! Organize and validate the actions of your Rails
+              application with this combined form object / command object.
+
+            li.
+
+              #[a(href='https://github.com/davidrunger/shaped') #[code shaped]]:
+
+              Validate the shape of Ruby objects (hashes, arrays, and more). This is a dependency
+              used in #[code active_actions] (mentioned just above).
+
+            li.
+
+              #[a(href='https://github.com/davidrunger/fcom') #[code fcom]]:
+
+              A CLI tool for parsing git history. I use this regularly.
+
+            li.
+
+              #[a(href='https://github.com/davidrunger/rspec_performance_summary') #[code rspec_performance_summary]]:
+
+              Find low-hanging / high-impact opportunities to speed up your test suite by printing
+              the execution time of your slowest RSpec examples.
+
+            li.
+
+              #[a(href='https://github.com/davidrunger/schedjewel') #[code schedjewel]]:
+
+              Execute Sidekiq jobs on a schedule. (This is essentially a Ruby version of the Crystal
+              #[code skedjewel] project mentioned above.)
 
   ParallaxImage(variant='macbook-2')
 
