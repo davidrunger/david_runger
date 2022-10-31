@@ -58,7 +58,6 @@ class Prerenderer
   def html_for_prerendering(html)
     @html_doc = Nokogiri::HTML(html)
     remove_devicon_stylesheet!
-    remove_webp_class!
     @html_doc.to_s
   end
 
@@ -70,10 +69,6 @@ class Prerenderer
       '[data-lazyloader-state="spent"]',
     ).remove
     # rubocop:enable Layout/LineLength
-  end
-
-  def remove_webp_class!
-    @html_doc.css('html').remove_class('webp')
   end
 end
 
