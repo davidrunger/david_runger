@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 044d5489873efcf39b57108b5fd85298ca61c1be
+  revision: 178469752d3fe990577d136f990d212eb8ee54a0
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -357,7 +357,7 @@ GEM
       net-protocol
     net-protocol (0.1.3)
       timeout
-    net-smtp (0.3.2)
+    net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
     nokogiri (1.13.9)
