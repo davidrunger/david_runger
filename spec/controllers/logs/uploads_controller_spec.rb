@@ -11,6 +11,7 @@ RSpec.describe Logs::UploadsController do
     it 'renders a form to upload log entry data for a selected log and tips for usage' do
       get_new
 
+      expect(response.body).to have_css("form[action='#{logs_uploads_path}'][method='post']")
       expect(response.body).to have_css('form select[name=log_id]')
       expect(response.body).to have_css('form input[type=file]')
       expect(response.body).to have_text('Recommended CSV columns')
