@@ -3204,9 +3204,9 @@ known-css-properties@^0.25.0:
   resolved "https://registry.yarnpkg.com/known-css-properties/-/known-css-properties-0.25.0.tgz#6ebc4d4b412f602e5cfbeb4086bd544e34c0a776"
   integrity sha512-b0/9J1O9Jcyik1GC6KC42hJ41jKwdO/Mq8Mdo5sYN+IuRTXs2YFHZC3kZSx6ueusqa95x3wLYe/ytKjbAfGixA==
 
-"ky@https://github.com/davidrunger/ky#verify-emptiness-with-content-encoding":
+"ky@https://github.com/davidrunger/ky#check-cloned-response-size":
   version "0.32.1"
-  resolved "https://github.com/davidrunger/ky#a4865a045bd2b9390d9e7bca223c0c20cbc0093d"
+  resolved "https://github.com/davidrunger/ky#79f8793fe406c6e6b372d64d5596f3e05be8ff9a"
 
 levn@^0.4.1:
   version "0.4.1"
