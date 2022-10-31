@@ -315,14 +315,14 @@
 
           li.
 
-            A custom-built #[a(href='https://github.com/linkyndy/pallets') pallets]-based,
+            A custom-built, #[a(href='https://github.com/linkyndy/pallets') pallets]-based,
             parallelized test runner workflow executes only the tests and other checks that are
             needed for any given PR, making development and deployment as fast as possible while
             ensuring application stability.
 
           li.
 
-            A custom-built #[a(href='https://github.com/rubycdp/ferrum') ferrum]-based prerendering
+            A custom-built, #[a(href='https://github.com/rubycdp/ferrum') ferrum]-based prerendering
             system captures and then serves a static HTML version of the JavaScript-based homepage,
             allowing me to enjoy the developer-friendly ergonomics of a Vue-based workflow in
             development, while still serving a simple HTML page in production for optimal rendering
