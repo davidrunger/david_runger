@@ -40,7 +40,7 @@
       .sm-flex.row-reverse
         .flex-2.mt1
           LoadNotifyingImage.center.mt1.mb3
-            img.about-image(
+            img.about-image.box-shadow(
               src='~img/david.webp'
               alt='A picture of me'
             )
@@ -392,7 +392,7 @@
           a(href='http://github.com/davidrunger/serpent') GitHub
       template(v-slot:image)
         LoadNotifyingImage
-          img(
+          img.box-shadow(
             src='~img/serpent.webp'
             alt='Serpent Game'
           )
@@ -462,7 +462,7 @@
           a(href='https://github.com/davidrunger/skedjewel') GitHub
       template(v-slot:image)
         LoadNotifyingImage
-          img(
+          img.box-shadow(
             src='~img/skedjewel.webp'
             alt='skedjewel.yml'
           )
@@ -715,6 +715,9 @@ p:first-of-type {
 
 :deep(.about-image) {
   max-width: 100%;
+}
+
+:deep(.box-shadow) {
   box-shadow: $gray-light 0 2px 5px;
 }
 
