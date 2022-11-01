@@ -3,7 +3,7 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
   template(v-slot:default='slotProps')
     .sm-flex.row-reverse
       .flex-2.mt1
-        LoadNotifyingImage.center.mt1.mb3
+        .center.mt1.mb3
           img.about-image.box-shadow(
             src='~img/david.webp'
             alt='A picture of me'
@@ -26,13 +26,11 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
 </template>
 
 <script>
-import LoadNotifyingImage from '@/components/load_notifying_image.vue';
 import HomeSection, { SectionHeader } from './home_section.vue';
 
 export default {
   components: {
     HomeSection,
-    LoadNotifyingImage,
     SectionHeader,
   },
 };

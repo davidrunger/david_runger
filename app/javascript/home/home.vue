@@ -1,6 +1,7 @@
+<!-- eslint-disable max-len -->
 <template lang='pug'>
 #app-root.sans-serif.mb3
-  #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.bg-black
+  #home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.bg-black(ref="homeRef")
     .spacer.flex-grow-1
     //- HACK: add `data-section=''` so that we will clear the selected nav element when scrolled to
     //- the top of the page
@@ -10,19 +11,17 @@
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
     header#header.flex-grow-1.flex.justify-between.bg-black.col-12.relative
       .font-size-2.js-link.js-scroll-top.ml3
-        a#logo.monospace.font-blue-light.opacity-animated.opacity-0(href='#home')
+        a#logo.monospace.font-blue-light.opacity-animated(
+          href='#home'
+          :class='{ "opacity-0": homeIsVisible }'
+        )
           | David Runger
       nav#nav.sans-serif.flex.justify-around.absolute.mr4
-        a.nav-link(href='#about')
-          span.ptb-1 About
-        a.nav-link(href='#skills')
-          span.ptb-1 Skills
-        a.nav-link(href='#projects')
-          span.ptb-1 Projects
-        a.nav-link(href='#resume')
-          span.ptb-1 Resume
-        a.nav-link(href='#contact')
-          span.ptb-1 Contact
+        NavLink(section='about')
+        NavLink(section='skills')
+        NavLink(section='projects')
+        NavLink(section='resume')
+        NavLink(section='contact')
       .toggleable-menu
         .line-container
           .line
@@ -69,10 +68,13 @@
 </template>
 
 <script>
-import ParallaxImage from './components/parallax_image.vue';
-import * as positionListener from './scripts/position_listener';
+import { ref } from 'vue';
+import { useIntersectionObserver } from '@vueuse/core';
+
 import About from './components/about.vue';
 import Contact from './components/contact.vue';
+import NavLink from './components/nav_link.vue';
+import ParallaxImage from './components/parallax_image.vue';
 import Projects from './components/projects.vue';
 import Resume from './components/resume.vue';
 import Skills from './components/skills.vue';
@@ -81,6 +83,7 @@ export default {
   components: {
     About,
     Contact,
+    NavLink,
     ParallaxImage,
     Projects,
     Resume,
@@ -113,26 +116,24 @@ export default {
 
   mounted() {
     this.setScrollToFragmentTimeouts();
-
-    positionListener.init();
-
-    const logo = document.getElementById('logo');
-    new Waypoint.Inview({ // eslint-disable-line no-undef
-      element: document.getElementById('home'),
-      enter() {
-        logo.classList.add('opacity-0');
-        logo.classList.remove('opacity-1');
-      },
-      exited() {
-        setTimeout(() => {
-          logo.classList.add('opacity-1');
-          logo.classList.remove('opacity-0');
-        }, 0);
-      },
-    });
   },
 
-  props: {},
+  setup() {
+    const homeRef = ref(null);
+    const homeIsVisible = ref(true);
+
+    useIntersectionObserver(
+      homeRef,
+      ([{ isIntersecting }]) => {
+        homeIsVisible.value = isIntersecting;
+      },
+    );
+
+    return {
+      homeIsVisible,
+      homeRef,
+    };
+  },
 };
 </script>
 
@@ -195,32 +196,6 @@ export default {
 
     @media screen and (max-width: $small-screen-breakpoint) {
       display: none;
-    }
-
-    a.nav-link {
-      color: $gray-light;
-
-      &.active {
-        color: $white-dark;
-      }
-
-      &:hover {
-        color: white;
-      }
-
-      span {
-        border-bottom-width: 2px;
-        border-bottom-style: solid;
-        transition: border-bottom-color 1s ease-out;
-      }
-
-      &.active span {
-        border-bottom-color: rgba($white-dark, 80%);
-      }
-
-      &:not(.active) span {
-        border-bottom-color: rgba($white-dark, 0%);
-      }
     }
   }
 }

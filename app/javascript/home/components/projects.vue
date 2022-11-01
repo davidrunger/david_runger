@@ -175,11 +175,10 @@ HomeSection(section='projects' title='Projects')
         span {{' - '}}
         a(href='http://github.com/davidrunger/serpent') GitHub
     template(v-slot:image)
-      LoadNotifyingImage
-        img.box-shadow(
-          src='~img/serpent.webp'
-          alt='Serpent Game'
-        )
+      img.box-shadow(
+        src='~img/serpent.webp'
+        alt='Serpent Game'
+      )
     template(v-slot:overview)
       div(slot='overview')
         p.
@@ -209,11 +208,10 @@ HomeSection(section='projects' title='Projects')
       div
         a(href='https://github.com/davidrunger/simple_cov-formatter-terminal') GitHub
     template(v-slot:image)
-      LoadNotifyingImage
-        img(
-          src='~img/simplecov-terminal.webp'
-          alt='SimpleCov::Formatter::Terminal'
-        )
+      img(
+        src='~img/simplecov-terminal.webp'
+        alt='SimpleCov::Formatter::Terminal'
+      )
     template(v-slot:overview)
       div(slot='overview')
         p.
@@ -245,11 +243,10 @@ HomeSection(section='projects' title='Projects')
       div
         a(href='https://github.com/davidrunger/skedjewel') GitHub
     template(v-slot:image)
-      LoadNotifyingImage
-        img.box-shadow(
-          src='~img/skedjewel.webp'
-          alt='skedjewel.yml'
-        )
+      img.box-shadow(
+        src='~img/skedjewel.webp'
+        alt='skedjewel.yml'
+      )
     template(v-slot:overview)
       div(slot='overview')
         p.
@@ -321,14 +318,12 @@ HomeSection(section='projects' title='Projects')
 </template>
 
 <script>
-import LoadNotifyingImage from '@/components/load_notifying_image.vue';
 import HomeSection from './home_section.vue';
 import Project from './project.vue';
 
 export default {
   components: {
     HomeSection,
-    LoadNotifyingImage,
     Project,
   },
 };
