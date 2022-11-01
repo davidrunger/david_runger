@@ -61,8 +61,17 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
-  # Highlight code that triggered database queries in logs.
-  config.active_record.verbose_query_logs = true
+  if ENV.fetch('TEST_LOGGING', nil) == '1'
+    # :nocov:
+    config.log_level = :debug
+    config.active_record.verbose_query_logs = true
+    # :nocov:
+  else
+    puts 'Logs are being suppressed to speed up the test suite. ' \
+         'Set TEST_LOGGING=1 to add logging back.'
+    config.log_level = :warn
+    config.active_record.verbose_query_logs = false
+  end
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
