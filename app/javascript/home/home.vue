@@ -8,7 +8,7 @@
       #headline-name.monospace.font-blue-light.border-bottom.border-gray.pb-2
         span David Runger
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
-    header#header.flex-grow-1.flex.bg-black.col-12.relative
+    header#header.flex-grow-1.flex.justify-between.bg-black.col-12.relative
       .font-size-2.js-link.js-scroll-top.ml3
         a#logo.monospace.font-blue-light.opacity-animated.opacity-0(href='#home')
           | David Runger
@@ -23,6 +23,20 @@
           span.ptb-1 Resume
         a.nav-link(href='#contact')
           span.ptb-1 Contact
+      .toggleable-menu
+        .line-container
+          .line
+          .line
+          .line
+        .clearfix.header-height-spacer
+        input.menu-toggle(type='checkbox' ref='menu-toggle-checkbox')
+        .mobile-nav.dvh-100
+          ul
+            li #[a(href='#about' @click='collapseMobileMenu') About]
+            li #[a(href='#skills' @click='collapseMobileMenu') Skills]
+            li #[a(href='#projects' @click='collapseMobileMenu') Projects]
+            li #[a(href='#resume' @click='collapseMobileMenu') Resume]
+            li #[a(href='#contact' @click='collapseMobileMenu') Contact]
     a.down-arrow-container.center.circle.mb3(href='#about')
       //- hat tip to https://codepen.io/postor/pen/mskxI for a starting point for this
       svg(class='arrow')
@@ -569,6 +583,10 @@ export default {
   },
 
   methods: {
+    collapseMobileMenu() {
+      this.$refs['menu-toggle-checkbox'].checked = false;
+    },
+
     setScrollToFragmentTimeouts() {
       if (window.location.hash) {
         const fragmentTarget = document.getElementById(window.location.hash.slice(1));
@@ -766,5 +784,76 @@ p:first-of-type {
 
 :deep(.project-container:last-of-type) {
   margin-bottom: var(--space-3);
+}
+
+.toggleable-menu {
+  display: none;
+
+  @media screen and (max-width: $small-screen-breakpoint) {
+    display: block;
+  }
+}
+
+.header-height-spacer {
+  height: $header-height;
+}
+
+.line-container {
+  float: right;
+  margin-top: 11px;
+  margin-right: 20px;
+  z-index: 10;
+  position: relative;
+
+  .line {
+    width: 30px;
+    height: 2px;
+    margin: 7px 0;
+    background-color: white;
+  }
+}
+
+input.menu-toggle[type="checkbox"] {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 40px;
+  height: 38px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 11;
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 80px;
+  text-align: center;
+  background: #111;
+  transition: transform 0.3s;
+  transform: translate(0, -100%);
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li a {
+    color: #b5b6be;
+    display: block;
+    padding: 25px 20px;
+    font-size: 25px;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+input:checked + .mobile-nav {
+  transform: translate(0, 0);
 }
 </style>
