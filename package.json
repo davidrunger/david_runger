@@ -46,7 +46,7 @@
     "fuzzyset.js": "^1.0.7",
     "gator": "^1.2.4",
     "keycode": "^2.2.1",
-    "ky": "https://github.com/davidrunger/ky#check-cloned-response-size",
+    "ky": "^0.32.2",
     "lodash-es": "^4.17.21",
     "marked": "^4.1.1",
     "normalize.css": "^8.0.1",
