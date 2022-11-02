@@ -1,7 +1,7 @@
 <template lang='pug'>
 HomeSection(section='about', title='About me', :renderHeadingManually='true')
   template(v-slot:default='slotProps')
-    .sm-flex.row-reverse
+    .sm-flex.row-reverse.items-center
       .flex-2.mt1
         .center.mt1.mb3
           img.about-image.box-shadow(
