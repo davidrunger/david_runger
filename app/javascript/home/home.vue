@@ -23,12 +23,16 @@
         NavLink(section='resume')
         NavLink(section='contact')
       .toggleable-menu
-        .line-container
+        .line-container(:class='{ "menu-open": menuOpen }')
           .line
           .line
           .line
         .clearfix.header-height-spacer
-        input.menu-toggle(type='checkbox' ref='menu-toggle-checkbox')
+        input.menu-toggle(
+          type='checkbox'
+          ref='menu-toggle-checkbox'
+          @click='menuOpen = !menuOpen'
+        )
         .mobile-nav.dvh-100
           ul
             li #[a(href='#about' @click='collapseMobileMenu') About]
@@ -90,8 +94,15 @@ export default {
     Skills,
   },
 
+  data() {
+    return {
+      menuOpen: false,
+    };
+  },
+
   methods: {
     collapseMobileMenu() {
+      this.menuOpen = false;
       this.$refs['menu-toggle-checkbox'].checked = false;
     },
 
@@ -254,6 +265,26 @@ export default {
     height: 2px;
     margin: 7px 0;
     background-color: white;
+    transition: transform 0.3s linear, width 0.3s linear;
+  }
+
+  &.menu-open {
+    .line:nth-child(1),
+    .line:nth-child(3) {
+      width: 35px;
+    }
+
+    .line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .line:nth-child(2) {
+      transform: translateX(100px);
+    }
+
+    .line:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
   }
 }
 
