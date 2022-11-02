@@ -43,9 +43,13 @@ runner.run_task('Creating a `Deploy`') do
 end
 
 runner.run_task('Registering deploy with Sidekiq') do
-  require 'sidekiq/deploy'
-  # we need to do this in a slightly non-documented way bc our sidekiq is using db 1 (not default 0)
-  Sidekiq::Deploy.new(Sidekiq.redis_pool).mark(label: ENV.fetch('GIT_REV').first(7))
+  system(
+    # Use Redis DB 1 because that's what Sidekiq uses (see config/initializers/sidekiq.rb).
+    # See https://github.com/mperham/sidekiq/issues/ 5615 for some context.
+    { 'REDIS_URL' => RedisOptions.new(db: 1).url },
+    Rails.root.join('bin/_sidekiq/mark_deploy.rb').to_s,
+    exception: true,
+  )
 end
 
 runner.run_task('Notifying Rollbar of deploy') do
