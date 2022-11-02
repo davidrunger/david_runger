@@ -15,7 +15,10 @@ div
   )
   div.my2(v-else) There are no log entries for this log.
   .controls(v-if='isOwnLog')
-    NewLogEntryForm(v-if='!renderInputAtTop' :log='log')
+    NewLogEntryForm(
+      v-if='!renderInputAtTop'
+      :log='log'
+    )
     .mt1
       el-button(@click='destroyLastEntry') Delete last entry
     .mt1
@@ -169,11 +172,13 @@ export default {
     },
 
     destroyLog() {
-      const confirmation = window.confirm(
-        `Are you sure that you want to delete the ${this.log.name} log and all of its log entries?`,
-      );
+      const promptResponse =
+        prompt(`Are you sure you want to delete this log and all of its entries?
+If so, enter the name of this log:
+${this.log.name}`,
+        );
 
-      if (confirmation === true) {
+      if (promptResponse === this.log.name) {
         this.logsStore.deleteLog({ log: this.log });
       }
     },
