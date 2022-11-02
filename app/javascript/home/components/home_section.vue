@@ -2,7 +2,7 @@
 .section-container.relative.bg-white.flex.justify-center.p2(:class='section', ref='root')
   .anchor-target(:id='section')
   section(:data-section='section')
-    .js-scroll-hook.absolute
+    ScrollHook(:section='section')
     SectionHeader(v-if='!renderHeadingManually', :title='title')
     slot(:title='title')
 </template>
@@ -10,10 +10,17 @@
 <script>
 import { h } from 'vue';
 
+import ScrollHook from './scroll_hook.vue';
+
 export const SectionHeader = props => h('h1', { class: 'h1 bold mt0 my2' }, props.title);
 SectionHeader.props = ['title'];
 
 export default {
+  components: {
+    ScrollHook,
+    SectionHeader,
+  },
+
   props: {
     renderHeadingManually: {
       type: Boolean,
@@ -27,10 +34,6 @@ export default {
       type: String,
       required: false,
     },
-  },
-
-  components: {
-    SectionHeader,
   },
 };
 </script>
@@ -51,10 +54,5 @@ section {
 .anchor-target {
   position: relative;
   bottom: $header-height;
-}
-
-.js-scroll-hook {
-  top: 25vh;
-  bottom: 0;
 }
 </style>
