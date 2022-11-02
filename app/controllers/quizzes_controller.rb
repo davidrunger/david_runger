@@ -60,11 +60,13 @@ class QuizzesController < ApplicationController
   private
 
   def set_quiz
+    id_param = params[:id]
+
     quiz =
       Quiz.joins(:participations). # rubocop:disable Rails/DynamicFindBy
         merge(current_user.quiz_participations).
-        find_by_hashid(params[:id]) ||
-      current_user.quizzes.find_by_hashid(params[:id]) # rubocop:disable Rails/DynamicFindBy
+        find_by_hashid(id_param) ||
+      current_user.quizzes.find_by_hashid(id_param) # rubocop:disable Rails/DynamicFindBy
     @quiz = quiz.presence!.decorate
   end
 

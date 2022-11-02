@@ -43,15 +43,19 @@ module ApplicationWorker
   private
 
   def with_lock_or_reschedule(args)
-    if !self.class.unique_while_executing? || lock_obtained?(args)
+    if !unique_while_executing? || lock_obtained?(args)
       begin
         yield
       ensure
-        remove_lock(args) if self.class.unique_while_executing?
+        remove_lock(args) if unique_while_executing?
       end
     else
       reschedule(args)
     end
+  end
+
+  def unique_while_executing?
+    self.class.unique_while_executing?
   end
 
   def lock_obtained?(args)

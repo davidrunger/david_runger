@@ -16,8 +16,8 @@ class RedisOptions
 
   memoize \
   def url_without_db
-    case ENV.fetch('RAILS_ENV', nil)
-    when 'development', 'test', nil then 'redis://localhost:6379'
+    case ENV.fetch('RAILS_ENV')
+    when 'development', 'test' then 'redis://localhost:6379'
     else ENV.fetch('REDIS_URL')
     end
   end

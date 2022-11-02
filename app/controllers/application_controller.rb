@@ -44,12 +44,14 @@ class ApplicationController < ActionController::Base
   private
 
   def skip_authorization?
+    controller = params[:controller]
+
     # ActiveAdmin supports an "Authorization Adapter" that can be implemented separately; skip here.
-    return true if params[:controller].match?(%r{\Aactive_admin/|admin/})
+    return true if controller.match?(%r{\Aactive_admin/|admin/})
 
     # All users are allowed to sign out; we don't need to check a pundit policy.
     # We can't add `skip_authorization` to the controller because the controller is in `devise`.
-    params[:controller] == 'devise/sessions' && params[:action] == 'destroy'
+    controller == 'devise/sessions' && params[:action] == 'destroy'
   end
 
   # add additional data here for inclusion in logs

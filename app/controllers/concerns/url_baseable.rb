@@ -10,10 +10,12 @@ module UrlBaseable
   private
 
   def url_base
+    host = request.host
+
     @url_base ||=
       case Rails.env
-      when 'development' then "http://#{request.host}:#{request.port}"
-      else "https://#{request.host}"
+      when 'development' then "http://#{host}:#{request.port}"
+      else "https://#{host}"
       end
   end
 end

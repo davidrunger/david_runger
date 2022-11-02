@@ -49,12 +49,15 @@ class QuizQuestions::CreateFromList < ApplicationAction
 
   def verify_answers!
     quiz.questions.each do |question|
-      if question.answers.size < 2
-        raise(InvalidAnswers, "Too few answers for question '#{question.content}'!")
+      content = question.content
+      answers = question.answers
+
+      if answers.size < 2
+        raise(InvalidAnswers, "Too few answers for question '#{content}'!")
       end
 
-      if question.answers.correct.size != 1
-        raise(InvalidAnswers, "Wrong number of correct answers for question '#{question.content}'!")
+      if answers.correct.size != 1
+        raise(InvalidAnswers, "Wrong number of correct answers for question '#{content}'!")
       end
     end
   end

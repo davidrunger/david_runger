@@ -9,12 +9,14 @@ class Api::LogsController < ApplicationController
     if @log.save
       render json: @log, status: :created
     else
+      errors_hash = @log.errors.to_hash
+
       Rails.logger.info(<<~LOG.squish)
         Failed to create log.
-        errors=#{@log.errors.to_hash}
+        errors=#{errors_hash}
         attributes=#{@log.attributes}
       LOG
-      render json: { errors: @log.errors.to_hash }, status: :unprocessable_entity
+      render json: { errors: errors_hash }, status: :unprocessable_entity
     end
   end
 
