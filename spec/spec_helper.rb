@@ -56,7 +56,6 @@ WebMock.enable!
 WebMock.disable_net_connect!(
   allow_localhost: true,
   allow: 'david-runger-test-uploads.s3.amazonaws.com', # upload feature test failure screenshots
-  net_http_connect_on_start: true,
 )
 
 OmniAuth.config.test_mode = true
