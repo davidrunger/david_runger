@@ -48,7 +48,7 @@ HomeSection(section='projects' title='Projects')
           front-end apps built with
           #[a(href='https://pugjs.org') Pug] templates, ES6 (via
           #[a(href='https://babeljs.io/') Babel]), and
-          #[a(href='http://sass-lang.com/') Sass].
+          #[a(href='https://sass-lang.com/') Sass].
 
         li.
 
@@ -126,7 +126,7 @@ HomeSection(section='projects' title='Projects')
 
         li.
 
-          #[a(href='http://basscss.com/') Basscss] provides CSS utility classes, so a
+          #[a(href='https://basscss.com/') Basscss] provides CSS utility classes, so a
           lot of styling can be done quickly and cleanly within the markup itself.
 
         li.
@@ -173,7 +173,7 @@ HomeSection(section='projects' title='Projects')
       div
         a(href='https://davidrunger.github.io/serpent') Live
         span {{' - '}}
-        a(href='http://github.com/davidrunger/serpent') GitHub
+        a(href='https://github.com/davidrunger/serpent') GitHub
     template(v-slot:image)
       img.box-shadow(
         src='~img/serpent.webp'

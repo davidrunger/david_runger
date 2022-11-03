@@ -28,6 +28,7 @@ class FetchIpInfoForRequest
   memoize \
   def ip_info_from_api(ip)
     Rails.logger.info("Querying ip-api.com for info about IP address '#{ip}'")
+    # we'd have to pay to use https :( so just use http
     raw_ip_info_from_api = Faraday.json_connection.get("http://ip-api.com/json/#{ip}").body
     isp, city, state, country = raw_ip_info_from_api.values_at(*%w[isp city region countryCode])
 
