@@ -4,6 +4,9 @@ class GroceriesController < ApplicationController
   def index
     authorize(Store)
     @title = 'Groceries'
+
+    spouse = current_user.spouse
+
     bootstrap(
       current_user: UserSerializer.new(current_user),
       stores:
@@ -13,9 +16,9 @@ class GroceriesController < ApplicationController
           scope_name: :current_user,
         ),
       spouse_stores:
-        if current_user.spouse
+        if spouse
           ActiveModel::Serializer::CollectionSerializer.new(
-            current_user.spouse.stores.where.not(private: true).includes(:items),
+            spouse.stores.where.not(private: true).includes(:items),
             scope: current_user,
             scope_name: :current_user,
           )

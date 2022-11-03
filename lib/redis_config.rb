@@ -5,16 +5,18 @@ module RedisConfig
   TYPES = %w[integer].map(&:freeze).freeze
 
   def add(key_name, type)
+    key_name_string = key_name.to_s
     type = type.to_s
+
     if !type.in?(TYPES)
       raise(ArgumentError, %(Type "#{type}" is not supported))
     end
 
-    if types_map.key?(key_name.to_s)
+    if types_map.key?(key_name_string)
       raise(ArgumentError, %(Setting "#{key_name}" has already been registered))
     end
 
-    types_map[key_name.to_s] = type
+    types_map[key_name_string] = type
     setting_for(key_name)
   end
 
@@ -35,9 +37,11 @@ module RedisConfig
   end
 
   def delete(key_name)
+    key_name_string = key_name.to_s
+
     ensure_key_has_been_registered!(key_name)
-    types_map.delete(key_name.to_s)
-    values_map.delete(key_name.to_s)
+    types_map.delete(key_name_string)
+    values_map.delete(key_name_string)
     true
   end
 
@@ -52,11 +56,13 @@ module RedisConfig
   private
 
   def setting_for(key_name, backup_value = nil)
-    type = types_map[key_name.to_s]
-    raw_value = values_map[key_name.to_s]
+    key_name_string = key_name.to_s
+
+    type = types_map[key_name_string]
+    raw_value = values_map[key_name_string]
 
     RedisConfig::Setting.new(
-      name: key_name.to_s,
+      name: key_name_string,
       type:,
       value: raw_value.present? ? typed_value(raw_value, type) : backup_value,
     )

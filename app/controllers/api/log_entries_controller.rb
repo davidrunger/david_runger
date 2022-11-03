@@ -75,6 +75,8 @@ class Api::LogEntriesController < ApplicationController
   end
 
   def log_entry_json_strings_for_log(log)
+    table_name = log.log_entries_table_name
+
     ActiveRecord::Base.connection.select_values(<<~SQL.squish)
       SELECT row_to_json(log_entry)
       FROM (
@@ -84,8 +86,8 @@ class Api::LogEntriesController < ApplicationController
           data,
           log_id,
           note
-        FROM #{log.log_entries_table_name}
-        WHERE #{log.log_entries_table_name}.log_id = #{log.id}
+        FROM #{table_name}
+        WHERE #{table_name}.log_id = #{log.id}
       ) log_entry;
     SQL
   end

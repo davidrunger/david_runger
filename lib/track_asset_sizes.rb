@@ -57,8 +57,10 @@ class TrackAssetSizes
 
   memoize \
   def asset_and_js_dependencies(asset)
+    asset_manifest = manifest[asset]
+
     ([asset] +
-      ((manifest[asset]['imports'] || []) + (manifest[asset]['dynamicImports'] || [])).
+      ((asset_manifest['imports'] || []) + (asset_manifest['dynamicImports'] || [])).
         map do |imported_file|
           asset_and_js_dependencies(imported_file)
         end.

@@ -33,14 +33,16 @@ module Prerenderable
   def prerendered_html(filename)
     return nil if Flipper.enabled?(:disable_prerendering)
 
+    git_rev = ENV.fetch('GIT_REV')
+
     Rails.cache.fetch(
-      "prerendered-pages:#{ENV.fetch('GIT_REV')}:#{filename}",
+      "prerendered-pages:#{git_rev}:#{filename}",
       expires_in: 1.day,
       skip_nil: true,
     ) do
       Aws::S3::Resource.new(region: 'us-east-1').
         bucket('david-runger-uploads').
-        object("prerenders/#{ENV.fetch('GIT_REV')}/#{filename}").
+        object("prerenders/#{git_rev}/#{filename}").
         get.body.read.
         then { html_with_absolutized_asset_paths(_1) }
     rescue Aws::S3::Errors::NoSuchKey => error

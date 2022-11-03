@@ -3,20 +3,23 @@
 class LogsController < ApplicationController
   def index
     authorize(Log)
+
     user_id_param = params[:user_id]
-    if user_id_param && params[:slug]
+    slug_param = params[:slug]
+
+    if user_id_param && slug_param
       sharing_user = User.find(user_id_param)
-      shared_log = sharing_user.logs.find_by!(slug: params[:slug])
+      shared_log = sharing_user.logs.find_by!(slug: slug_param)
       authorize(shared_log, :show?)
       logs = Log.where(id: shared_log)
     else
-      logs = current_user.logs.order(:created_at).includes(:log_shares, :user)
+      current_user_logs = current_user.logs
+      logs = current_user_logs.order(:created_at).includes(:log_shares, :user)
 
-      slug = params[:slug]
       new_entry = params[:new_entry].presence
-      if slug && new_entry
+      if slug_param && new_entry
         verify_valid_auth_token!
-        log = current_user.logs.find_by!(slug:)
+        log = current_user_logs.find_by!(slug: slug_param)
         LogEntries::CreateFromParam.run!(log:, param: new_entry)
         bootstrap(toast_messages: ['New Log entry created!'])
       end

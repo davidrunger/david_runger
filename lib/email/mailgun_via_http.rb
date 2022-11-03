@@ -79,12 +79,13 @@ module Email
     end
 
     def safe_to_value(mail)
-      to_value = mail['To'].to_s
-      return to_value if !Rails.env.development?
+      mail_to = mail['To']
+      to_string = mail_to.to_s
+      return to_string if !Rails.env.development?
 
-      recipients = mail['To'].field.addresses
+      recipients = mail_to.field.addresses
       if Set[*recipients].subset?(DEVELOPER_EMAILS)
-        to_value
+        to_string
       else
         fail("You *actually* tried to send an email to #{recipients}!")
       end

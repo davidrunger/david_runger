@@ -13,8 +13,12 @@ class TruncateTables
     Integer(ENV.fetch('MAX_TABLE_ROWS', 10_000))
   end
 
+  def self.execute_sql(sql)
+    ApplicationRecord.connection.execute(sql)
+  end
+
   def self.print_row_counts
-    ApplicationRecord.connection.execute(ROW_COUNT_SQL).to_a.each do |row|
+    execute_sql(ROW_COUNT_SQL).to_a.each do |row|
       Rails.logger.info("#{row['n_live_tup']} rows - #{row['relname']}")
     end
   end
@@ -27,9 +31,7 @@ class TruncateTables
   )
     log_truncation_plan(table:, max_allowed_rows:, min_surviving_timestamp:)
 
-    num_rows =
-      ApplicationRecord.connection.execute("SELECT count(*) FROM #{table}").to_a.first['count']
-    Rails.logger.info("Rows in `#{table}` prior to truncation: #{num_rows}")
+    Rails.logger.info("Rows in `#{table}` prior to truncation: #{num_rows(table)}")
 
     min_surviving_timestamp_sql = <<~SQL.squish
       SELECT #{timestamp}
@@ -39,7 +41,7 @@ class TruncateTables
     SQL
 
     min_surviving_timestamp_based_on_count =
-      ApplicationRecord.connection.execute(min_surviving_timestamp_sql).to_a.last&.dig(timestamp)
+      execute_sql(min_surviving_timestamp_sql).to_a.last&.dig(timestamp)
     return if min_surviving_timestamp_based_on_count.nil?
 
     min_surviving_timestamp =
@@ -50,13 +52,11 @@ class TruncateTables
       FROM #{table}
       WHERE #{timestamp} < '#{min_surviving_timestamp}'
     SQL
-    ApplicationRecord.connection.execute(delete_old_rows_sql)
+    execute_sql(delete_old_rows_sql)
     Rails.logger.info(
       "Deleted rows older than #{min_surviving_timestamp} (database time, probably UTC)",
     )
-    num_rows =
-      ApplicationRecord.connection.execute("SELECT count(*) FROM #{table}").to_a.first['count']
-    Rails.logger.info("Rows in `#{table}` after truncation: #{num_rows}")
+    Rails.logger.info("Rows in `#{table}` after truncation: #{num_rows(table)}")
   end
 
   def self.log_truncation_plan(table:, max_allowed_rows:, min_surviving_timestamp:)
@@ -68,6 +68,10 @@ class TruncateTables
     else
       Rails.logger.info("Truncating `#{table}` with a max of #{max_allowed_rows} rows.")
     end
+  end
+
+  def self.num_rows(table)
+    execute_sql("SELECT count(*) FROM #{table}").to_a.first['count']
   end
 
   def perform

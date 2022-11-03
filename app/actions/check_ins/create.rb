@@ -7,9 +7,10 @@ class CheckIns::Create < ApplicationAction
 
   def execute
     check_in = marriage.check_ins.create!
+    marriage = check_in.marriage
 
-    check_in.marriage.emotional_needs.each do |emotional_need|
-      check_in.marriage.partners.each do |partner|
+    marriage.emotional_needs.each do |emotional_need|
+      marriage.partners.each do |partner|
         NeedSatisfactionRating.create!(check_in:, emotional_need:, user: partner)
       end
     end
