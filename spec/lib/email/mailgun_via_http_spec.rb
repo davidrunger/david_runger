@@ -75,4 +75,38 @@ RSpec.describe Email::MailgunViaHttp do
       end
     end
   end
+
+  describe '#safe_to_value' do
+    subject(:safe_to_value) { mailgun_via_http.send(:safe_to_value, mail) }
+
+    context 'when Rails.env is "development"', rails_env: :development do
+      context 'when the recpient is davidrunger@gmail.com' do
+        let(:mail) { mail_from_raw_email_fixture('body_and_attachment') }
+
+        it 'returns davidjrunger@gmail.com' do
+          expect(safe_to_value).to eq('David Runger <davidjrunger@gmail.com>')
+        end
+      end
+
+      context 'when the recpient is not davidrunger@gmail.com' do
+        let(:mail) { mail_from_raw_email_fixture('empty_body') }
+
+        it 'raises an error' do
+          expect { safe_to_value }.to raise_error(
+            'You *actually* tried to send an email to ["reply@mg.davidrunger.com"]!',
+          )
+        end
+      end
+    end
+
+    context 'when Rails.env is "production"', rails_env: :production do
+      context 'when the recpient is not davidrunger@gmail.com' do
+        let(:mail) { mail_from_raw_email_fixture('empty_body') }
+
+        it 'returns the email' do
+          expect(safe_to_value).to eq('"DavidRunger.com" <reply@mg.davidrunger.com>')
+        end
+      end
+    end
+  end
 end
