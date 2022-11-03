@@ -21,7 +21,7 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
         p.
           I've been a software engineer and support engineer at
           #[a(href='https://hired.com') Hired], a web development bootcamp teaching assistant at
-          #[a(href='http://www.appacademy.io') App&nbsp;Academy], a high school math teacher, a
+          #[a(href='https://www.appacademy.io/') App&nbsp;Academy], a high school math teacher, a
           public bus driver, and a long haul truck driver.
 </template>
 
