@@ -5,6 +5,7 @@ module Email
   class MailgunViaHttp
     extend Memoist
 
+    DEVELOPER_EMAILS = Set['davidjrunger@gmail.com'].freeze
     MAILGUN_URL = 'https://api.mailgun.net/v3/mg.davidrunger.com'
     # must _not_ start with a slash! ( https://github.com/lostisland/faraday/issues/293/ )
     MESSAGES_PATH = 'messages'
@@ -55,7 +56,7 @@ module Email
     memoize \
     def post_body(mail)
       body = {
-        to: mail['To'].to_s,
+        to: safe_to_value(mail),
         subject: mail['Subject'].to_s,
         from: mail['From'].to_s,
         'h:Reply-To' => mail['Reply-To'].to_s,
@@ -75,6 +76,18 @@ module Email
       end
 
       body
+    end
+
+    def safe_to_value(mail)
+      to_value = mail['To'].to_s
+      return to_value if !Rails.env.development?
+
+      recipients = mail['To'].field.addresses
+      if Set[*recipients].subset?(DEVELOPER_EMAILS)
+        to_value
+      else
+        fail("You *actually* tried to send an email to #{recipients}!")
+      end
     end
 
     def delete_attachments
