@@ -9,8 +9,6 @@ module Email
     # must _not_ start with a slash! ( https://github.com/lostisland/faraday/issues/293/ )
     MESSAGES_PATH = 'messages'
 
-    attr_accessor :message
-
     # rubocop:disable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
     # rubocop:disable Style/RedundantInitialize
     def initialize(_mail) ; end
@@ -43,7 +41,7 @@ module Email
           :authorization,
           :basic,
           'api',
-          Rails.application.credentials.mailgun!.fetch(:api_key),
+          ENV.fetch('MAILGUN_API_KEY') { Rails.application.credentials.mailgun!.fetch(:api_key) },
         )
       end
     end
