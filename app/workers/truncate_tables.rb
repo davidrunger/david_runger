@@ -14,7 +14,6 @@ class TruncateTables
   end
 
   def self.print_row_counts
-    ApplicationRecord.connection.execute('ANALYZE')
     ApplicationRecord.connection.execute(ROW_COUNT_SQL).to_a.each do |row|
       Rails.logger.info("#{row['n_live_tup']} rows - #{row['relname']}")
     end
