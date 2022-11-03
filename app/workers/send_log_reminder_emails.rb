@@ -3,7 +3,7 @@
 class SendLogReminderEmails
   prepend ApplicationWorker
 
-  self.unique_while_executing = true
+  unique_while_executing!
 
   def perform
     Log.needing_reminder.find_each do |log|

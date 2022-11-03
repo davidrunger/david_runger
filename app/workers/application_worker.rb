@@ -8,14 +8,22 @@ module ApplicationWorker
 
   MAX_RETRY_WAIT_TIME = 30 # seconds
 
-  # borrowed from https://github.com/mperham/sidekiq/blob/v6.1.0/lib/sidekiq/worker.rb#L137-L142
+  module ClassMethods
+    def unique_while_executing!
+      @unique_while_executing = true
+    end
+
+    def unique_while_executing?
+      !!@unique_while_executing
+    end
+  end
+
   def self.prepended(base)
+    # borrowed from https://github.com/mperham/sidekiq/blob/v6.1.0/lib/sidekiq/worker.rb#L137-L142
     base.include(Sidekiq::Worker::Options)
     base.extend(Sidekiq::Worker::ClassMethods)
 
-    class << base
-      attr_accessor :unique_while_executing
-    end
+    base.extend(ApplicationWorker::ClassMethods)
   end
 
   def perform(*args)
@@ -35,11 +43,11 @@ module ApplicationWorker
   private
 
   def with_lock_or_reschedule(args)
-    if !self.class.unique_while_executing || lock_obtained?(args)
+    if !self.class.unique_while_executing? || lock_obtained?(args)
       begin
         yield
       ensure
-        remove_lock(args) if self.class.unique_while_executing
+        remove_lock(args) if self.class.unique_while_executing?
       end
     else
       reschedule(args)

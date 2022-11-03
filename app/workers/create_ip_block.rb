@@ -3,7 +3,7 @@
 class CreateIpBlock
   prepend ApplicationWorker
 
-  self.unique_while_executing = true
+  unique_while_executing!
 
   def perform(ip, reason = nil)
     ip_block = IpBlock.find_or_initialize_by(ip:)

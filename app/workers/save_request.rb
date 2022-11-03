@@ -6,7 +6,7 @@ class SaveRequest
   extend Memoist
   prepend ApplicationWorker
 
-  self.unique_while_executing = true
+  unique_while_executing!
 
   delegate(
     :delete_request_data,
