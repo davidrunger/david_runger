@@ -27,10 +27,10 @@ module Test::TaskHelpers
   def execute_rspec_command(command, env_vars = {})
     command = command.squish
     puts("Running system command '#{command.yellow}' with ENV vars #{env_vars.to_s.yellow} ...")
-    stdout, _stderr, status = nil, nil, nil # rubocop:disable Style/ParallelAssignment
+    stdout, status = nil, nil # rubocop:disable Style/ParallelAssignment
     time =
       Benchmark.measure do
-        stdout, _stderr, status = Open3.capture3(env_vars, command)
+        stdout, status = Open3.capture2(env_vars, command)
       end.real
     puts(stdout)
     exit_code = status.success? ? 0 : 1
