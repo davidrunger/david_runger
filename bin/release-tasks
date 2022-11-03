@@ -16,6 +16,21 @@ class Runner
     yield
     puts("done. (Took #{(Time.current - start_time).round(2)} seconds.)")
   end
+
+  def with_modified_env(env_modifications)
+    original_env_values = {}
+
+    env_modifications.each do |env_var, new_value|
+      original_env_values[env_var] = ENV.fetch(env_var, nil)
+      ENV[env_var] = new_value
+    end
+
+    yield
+  ensure
+    original_env_values.each do |env_var, original_value|
+      ENV[env_var] = original_value
+    end
+  end
 end
 
 runner = Runner.new
@@ -43,13 +58,10 @@ runner.run_task('Creating a `Deploy`') do
 end
 
 runner.run_task('Registering deploy with Sidekiq') do
-  system(
-    # Use Redis DB 1 because that's what Sidekiq uses (see config/initializers/sidekiq.rb).
-    # See https://github.com/mperham/sidekiq/issues/ 5615 for some context.
-    { 'REDIS_URL' => RedisOptions.new(db: 1).url },
-    Rails.root.join('bin/_sidekiq/mark_deploy.rb').to_s,
-    exception: true,
-  )
+  runner.with_modified_env('REDIS_URL' => RedisOptions.new(db: 1).url) do
+    require 'sidekiq/deploy'
+    Sidekiq::Deploy.mark!(ENV.fetch('GIT_REV').first(7))
+  end
 end
 
 runner.run_task('Notifying Rollbar of deploy') do
