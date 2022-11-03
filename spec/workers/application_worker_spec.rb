@@ -45,7 +45,7 @@ RSpec.describe ApplicationWorker do
     context 'when the worker sets unique_while_executing to true' do
       before do
         StubbedTestJob.class_eval do
-          self.unique_while_executing = true
+          unique_while_executing!
         end
       end
 
