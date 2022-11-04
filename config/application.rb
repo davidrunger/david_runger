@@ -17,7 +17,8 @@ require 'sprockets/railtie'
 Bundler.require(*Rails.groups)
 
 module DavidRunger
-  CANONICAL_URL = 'https://davidrunger.com/'
+  CANONICAL_DOMAIN = 'davidrunger.com'
+  CANONICAL_URL = "https://#{CANONICAL_DOMAIN}/".freeze
 end
 
 class DavidRunger::Application < Rails::Application
@@ -32,7 +33,7 @@ class DavidRunger::Application < Rails::Application
     case Rails.env
     when 'production'
       # :nocov:
-      { host: 'davidrunger.com', protocol: 'https' }
+      { host: CANONICAL_DOMAIN, protocol: 'https' }
       # :nocov:
     else
       { host: 'localhost:3000', protocol: 'http' }

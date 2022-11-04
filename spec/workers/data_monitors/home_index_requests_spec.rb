@@ -42,7 +42,7 @@ RSpec.describe DataMonitors::HomeIndexRequests do
         Request.find_each(&:destroy!)
         create(
           :request,
-          url: 'https://davidrunger.com/',
+          url: DavidRunger::CANONICAL_URL,
           handler: 'home#index',
           requested_at: 6.hours.ago,
           total: response_time,

@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :csp_report do
-    document_uri { 'https://davidrunger.com/emotional_needs/5/history?rated_user=partner' }
+    document_uri { "#{DavidRunger::CANONICAL_URL}emotional_needs/5/history?rated_user=partner" }
     violated_directive { 'script-src-elem' }
     original_policy do
       <<~POLICY.squish
@@ -28,7 +28,7 @@ FactoryBot.define do
       POLICY
     end
     ip { Faker::Internet.public_ip_v6_address }
-    referrer { 'https://davidrunger.com/check_ins/9' }
+    referrer { "#{DavidRunger::CANONICAL_URL}check_ins/9" }
     blocked_uri { 'inline' }
     user_agent { Faker::Internet.user_agent }
   end
