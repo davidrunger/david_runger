@@ -18,8 +18,12 @@ class CheckHomeLinks::Launcher
   def linked_urls
     links.filter_map do |link|
       href = link.attr('href')
-      href if href.match?(%r{\A(https?:)?//})
+      href if url?(href)
     end.uniq
+  end
+
+  def url?(href)
+    href.match?(%r{\A(https?:)?//})
   end
 
   memoize \
