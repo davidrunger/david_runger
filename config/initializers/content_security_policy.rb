@@ -12,7 +12,7 @@ Rails.application.configure do
     extra_connect_sources = []
     # :nocov:
     if Rails.env.development?
-      extra_sources << 'https://davidrunger.com' # allow assets from production for local prerenders
+      extra_sources << DavidRunger::CANONICAL_URL # allow assets from prod for local prerenders
       extra_connect_sources << 'ws://localhost:3000' # actioncable connections
       local_hostname = ENV.fetch('LOCAL_HOSTNAME', nil)
       if local_hostname.present?

@@ -74,7 +74,7 @@ end
 
 prerenderer = Prerenderer.new
 prerenderer.prerender(
-  url: 'https://davidrunger.com',
+  url: DavidRunger::CANONICAL_URL,
   filename: 'home.html',
   expected_text: '@davidrunger',
 )
