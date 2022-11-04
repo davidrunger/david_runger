@@ -5,6 +5,7 @@ require 'digest/sha1'
 module ApplicationWorker
   extend Memoist
   include Sidekiq::Worker # rubocop:disable CustomCops/DontIncludeSidekiqWorker
+  include SpacedLaunching
 
   MAX_RETRY_WAIT_TIME = 30 # seconds
 

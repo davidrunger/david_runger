@@ -17,23 +17,23 @@ HomeSection(section='projects' title='Projects')
       ul
 
         li.
-          #[a(href='https://davidrunger.com/groceries') Groceries]* -
+          #[a(href='https://davidrunger.com/groceries/') Groceries]* -
           the collaborative family grocery list, built to be mobile-friendly for use on-the-go
 
         li.
-          #[a(href='https://davidrunger.com/workout') Workout]* -
+          #[a(href='https://davidrunger.com/workout/') Workout]* -
           an app for tracking workouts over time, and to stay on-pace within a workout
 
         li.
-          #[a(href='https://davidrunger.com/logs') Logs]* -
+          #[a(href='https://davidrunger.com/logs/') Logs]* -
           track whatever you want with various log types (text, number, duration, and/or counter)
 
         li.
-          #[a(href='https://davidrunger.com/quizzes') Quizzes]* -
+          #[a(href='https://davidrunger.com/quizzes/') Quizzes]* -
           a multi-person quiz app that uses ActionCable websockets for real-time interactivity
 
         li.
-          #[a(href='https://davidrunger.com/check_ins') Check-ins]* -
+          #[a(href='https://davidrunger.com/check_ins/') Check-ins]* -
           track how well your emotional needs are being met in your marriage/relationship
 
       p *#[strong Google login required]
@@ -171,7 +171,7 @@ HomeSection(section='projects' title='Projects')
       span jQuery, object-oriented JavaScript
     template(v-slot:links)
       div
-        a(href='https://davidrunger.github.io/serpent') Live
+        a(href='https://davidrunger.github.io/serpent/') Live
         span {{' - '}}
         a(href='https://github.com/davidrunger/serpent') GitHub
     template(v-slot:image)

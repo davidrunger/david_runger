@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe NewUserMailer do
+RSpec.describe AdminMailer do
   describe '#user_created' do
-    subject(:mail) { NewUserMailer.user_created(new_user.id) }
+    subject(:mail) { AdminMailer.bad_home_link(url, status, expected_status) }
 
-    let(:new_user) { users(:user) }
+    let(:url) { 'https://app.codecov.io/gh/davidrunger/david_runger' }
+    let(:status) { 500 }
+    let(:expected_status) { 200 }
 
     it 'is sent from reply@davidrunger.com' do
       expect(mail.from).to eq(['reply@davidrunger.com'])
@@ -14,9 +16,9 @@ RSpec.describe NewUserMailer do
       expect(mail.to).to eq(['davidjrunger@gmail.com'])
     end
 
-    it 'has a subject that says there is a new user and their email' do
+    it 'has a subject that says there is a problem with a home link' do
       expect(mail.subject).to eq(
-        "There's a new davidrunger.com user! :) Email: #{new_user.email}.",
+        "Home link to #{url} did not return expected status",
       )
     end
 
@@ -27,8 +29,10 @@ RSpec.describe NewUserMailer do
     describe 'the email body' do
       subject(:body) { mail.body.to_s }
 
-      it 'says that there is a new user' do
-        expect(body).to include("A new user has been created with email #{new_user.email}!")
+      it 'says the URL and what the unexpected response status was' do
+        expect(body).to have_text(
+          "We made a request to #{url} and its response status was #{status}",
+        )
       end
     end
   end
