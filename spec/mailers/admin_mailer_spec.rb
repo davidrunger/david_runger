@@ -34,6 +34,16 @@ RSpec.describe AdminMailer do
           "We made a request to #{url} and its response status was #{status}",
         )
       end
+
+      context 'when the status is nil' do
+        let(:status) { nil }
+
+        it 'says the URL and what the unexpected response status was (nil)' do
+          expect(body).to have_text(
+            "We made a request to #{url} and its response status was nil",
+          )
+        end
+      end
     end
   end
 end
