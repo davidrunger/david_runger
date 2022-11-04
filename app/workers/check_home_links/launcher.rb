@@ -19,7 +19,7 @@ class CheckHomeLinks::Launcher
     links.filter_map do |link|
       href = link.attr('href')
       href if href.match?(%r{\A(https?:)?//})
-    end
+    end.uniq
   end
 
   memoize \
