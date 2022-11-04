@@ -49,4 +49,38 @@ RSpec.describe CheckHomeLinks::Launcher do
       end
     end
   end
+
+  describe '#url?' do
+    subject(:url?) { worker.send(:url?, href) }
+
+    context 'when the href is a relative path' do
+      let(:href) { '/groceries' }
+
+      specify { expect(url?).to eq(false) }
+    end
+
+    context 'when the href is a fragment' do
+      let(:href) { '#about' }
+
+      specify { expect(url?).to eq(false) }
+    end
+
+    context 'when the href is an http URL' do
+      let(:href) { 'http://www.google.com/' }
+
+      specify { expect(url?).to eq(true) }
+    end
+
+    context 'when the href is an https URL' do
+      let(:href) { 'https://www.google.com/' }
+
+      specify { expect(url?).to eq(true) }
+    end
+
+    context 'when the href is a URL beginning with //' do
+      let(:href) { '//www.google.com/' }
+
+      specify { expect(url?).to eq(true) }
+    end
+  end
 end
