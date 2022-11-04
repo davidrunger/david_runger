@@ -7,6 +7,6 @@ class Users::Create < ApplicationAction
 
   def execute
     result.user = User.create!(email:)
-    NewUserMailer.user_created(result.user.id).deliver_later
+    AdminMailer.user_created(result.user.id).deliver_later
   end
 end
