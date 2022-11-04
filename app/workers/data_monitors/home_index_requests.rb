@@ -30,7 +30,7 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
   def median_response_time_in_past_day
     home_requests_in_past_day.
       where.not(total: nil).
-      where('url LIKE ?', 'https://davidrunger.com/%').
+      where('url LIKE ?', "#{DavidRunger::CANONICAL_URL}%").
       where.not('url LIKE ?', '%/?prerender=true').
       select('PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY "total") AS "percentile"').
       to_a.first.percentile&.
