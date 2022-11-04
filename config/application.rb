@@ -33,7 +33,7 @@ class DavidRunger::Application < Rails::Application
     case Rails.env
     when 'production'
       # :nocov:
-      { host: CANONICAL_DOMAIN, protocol: 'https' }
+      { host: DavidRunger::CANONICAL_DOMAIN, protocol: 'https' }
       # :nocov:
     else
       { host: 'localhost:3000', protocol: 'http' }
