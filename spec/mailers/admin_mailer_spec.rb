@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe AdminMailer do
-  describe '#user_created' do
-    subject(:mail) { AdminMailer.bad_home_link(url, status, expected_status) }
+  describe '#bad_home_link' do
+    subject(:mail) { AdminMailer.bad_home_link(url, status, expected_statuses) }
 
     let(:url) { 'https://app.codecov.io/gh/davidrunger/david_runger' }
     let(:status) { 500 }
-    let(:expected_status) { 200 }
+    let(:expected_statuses) { [200] }
 
     it 'is sent from reply@davidrunger.com' do
       expect(mail.from).to eq(['reply@davidrunger.com'])
@@ -29,10 +29,10 @@ RSpec.describe AdminMailer do
     describe 'the email body' do
       subject(:body) { mail.body.to_s }
 
-      it 'says the URL and what the unexpected response status was' do
-        expect(body).to have_text(
-          "We made a request to #{url} and its response status was #{status}",
-        )
+      it 'says the URL, the unexpected response status, and expected statuses' do
+        expect(body).to have_text("We made a request to #{url}")
+        expect(body).to have_text("its response status was #{status}")
+        expect(body).to have_text("we expected it to be in #{expected_statuses}")
       end
 
       context 'when the status is nil' do
