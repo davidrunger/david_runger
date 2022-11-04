@@ -34,7 +34,7 @@ Rails.application.configure do
         end
       end
     elsif Rails.env.production?
-      extra_connect_sources << 'wss://davidrunger.com' # for actioncable websockets
+      extra_connect_sources << "wss://#{DavidRunger::CANONICAL_DOMAIN}" # for actioncable websockets
     end
     # :nocov:
 
