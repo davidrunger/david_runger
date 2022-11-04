@@ -18,7 +18,6 @@ RSpec.describe CheckHomeLinks::Checker do
     context 'when the link returns the expected status' do
       it 'does not send an email', queue_adapter: :test do
         expect { perform }.not_to enqueue_mail
-        # expect { perform }.not_to enqueue_mail(AdminMailer, :bad_home_link)
       end
     end
 
@@ -28,7 +27,7 @@ RSpec.describe CheckHomeLinks::Checker do
       it 'sends an AdminMailer#bad_home_link email', queue_adapter: :test do
         expect { perform }.
           to enqueue_mail(AdminMailer, :bad_home_link).
-          with(url, status, 200)
+          with(url, status, [200])
       end
     end
 
@@ -44,7 +43,7 @@ RSpec.describe CheckHomeLinks::Checker do
       it 'sends an AdminMailer#bad_home_link email', queue_adapter: :test do
         expect { perform }.
           to enqueue_mail(AdminMailer, :bad_home_link).
-          with(url, nil, 200)
+          with(url, nil, [200])
       end
     end
   end
