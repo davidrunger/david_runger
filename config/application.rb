@@ -16,7 +16,9 @@ require 'sprockets/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module DavidRunger ; end
+module DavidRunger
+  CANONICAL_URL = 'https://davidrunger.com/'
+end
 
 class DavidRunger::Application < Rails::Application
   # Initialize configuration defaults for originally generated Rails version.
