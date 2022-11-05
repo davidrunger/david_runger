@@ -38,15 +38,6 @@ GIT
       rspec-core (>= 3.11.0, < 4)
       simplecov (>= 0.21.2, < 1)
 
-GIT
-  remote: https://github.com/jnunemaker/flipper.git
-  revision: 6d2753e8b7f563ebdd9c08dfa24d4fb21eb18fd6
-  specs:
-    flipper (0.25.2)
-    flipper-redis (0.25.2)
-      flipper (~> 0.25.2)
-      redis (>= 3.0, < 6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -258,6 +249,10 @@ GEM
       activerecord (>= 2)
       activesupport (>= 2)
       hashdiff
+    flipper (0.25.3)
+    flipper-redis (0.25.3)
+      flipper (~> 0.25.3)
+      redis (>= 3.0, < 6)
     flipper-ui (0.25.2)
       erubi (>= 1.0.0, < 2.0.0)
       flipper (~> 0.25.2)
@@ -640,8 +635,8 @@ DEPENDENCIES
   faraday-multipart
   ferrum
   fixture_builder
-  flipper!
-  flipper-redis!
+  flipper
+  flipper-redis
   flipper-ui
   hamlit
   hashid-rails
