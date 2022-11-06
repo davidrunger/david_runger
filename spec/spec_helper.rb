@@ -17,7 +17,7 @@ elsif RSpec.configuration.files_to_run.one?
   require 'simple_cov/formatter/terminal'
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
   # rubocop:disable Performance/RedundantMerge
-  SimpleCov::Formatter::Terminal.spec_file_to_application_file_map.merge!(
+  SimpleCov::Formatter::Terminal.config.spec_to_app_file_map.merge!(
     %r{\Aspec/config/initializers/} => 'config/initializers/',
   )
   # rubocop:enable Performance/RedundantMerge
