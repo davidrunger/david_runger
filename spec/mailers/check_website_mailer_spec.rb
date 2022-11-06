@@ -5,13 +5,15 @@ RSpec.describe CheckWebsiteMailer do
     subject(:mail) { CheckWebsiteMailer.item_available(true, false, 2) }
 
     before do
-      User.find_or_initialize_by(id: 30).update!(email:)
+      User.find_or_initialize_by(id: 1).update!(email: user_1_email)
+      User.find_or_initialize_by(id: 30).update!(email: user_30_email)
     end
 
-    let(:email) { Faker::Internet.email }
+    let(:user_1_email) { Faker::Internet.email }
+    let(:user_30_email) { Faker::Internet.email }
 
-    it 'is sent to User 30' do
-      expect(mail.to).to eq([email])
+    it 'is sent to Users 30 and 1' do
+      expect(mail.to).to match_array([user_30_email, user_1_email])
     end
 
     it 'has a subject that says the item is available' do
