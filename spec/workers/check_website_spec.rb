@@ -138,8 +138,28 @@ RSpec.describe(CheckWebsite) do
         end
 
         it 'sends an email', queue_adapter: :test do
-          expect { perform }.to enqueue_mail(CheckWebsiteMailer, :item_available).
+          expect { perform }.
+            to enqueue_mail(CheckWebsiteMailer, :item_available).
             with(true, false, 2)
+        end
+
+        context 'when item is not available and restocks are planned' do
+          let(:response_data) do
+            data = super()
+            availabilities = data['availabilities']
+            availability = availabilities[1]
+            availability['availableForCashCarry'] = false
+            availability_detail = availability['buyingOption']['cashCarry']['availability']
+            availability_detail['quantity'] = 0
+            availability_detail['restocks'] = [{ 'date' => '2022-12-01' }]
+            data
+          end
+
+          it 'sends an email', queue_adapter: :test do
+            expect { perform }.
+              to enqueue_mail(CheckWebsiteMailer, :restock_planned).
+              with([{ date: '2022-12-01' }])
+          end
         end
       end
     end
