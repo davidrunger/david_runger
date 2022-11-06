@@ -11,4 +11,13 @@ class CheckWebsiteMailer < ApplicationMailer
       subject: 'The item you are waiting for is available',
     )
   end
+
+  def restock_planned(restocks)
+    @restocks = restocks
+
+    mail(
+      to: [User.find(30).email, User.find(1).email],
+      subject: 'A restock is planned for the item you are waiting for',
+    )
+  end
 end
