@@ -67,8 +67,6 @@ Rails.application.configure do
     config.active_record.verbose_query_logs = true
     # :nocov:
   else
-    puts 'Logs are being suppressed to speed up the test suite. ' \
-         'Set TEST_LOGGING=1 to add logging back.'
     config.log_level = :warn
     config.active_record.verbose_query_logs = false
   end
