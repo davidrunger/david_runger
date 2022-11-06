@@ -7,7 +7,7 @@ class CheckWebsiteMailer < ApplicationMailer
     @quantity = quantity
 
     mail(
-      to: User.find(30).email,
+      to: [User.find(30).email, User.find(1).email],
       subject: 'The item you are waiting for is available',
     )
   end
