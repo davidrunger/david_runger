@@ -22,6 +22,27 @@ RSpec.describe User do
     end
   end
 
+  describe '#spouse' do
+    subject(:spouse) { user.spouse }
+
+    context 'when the user is married' do
+      it "returns the user's spouse" do
+        expect(spouse).to eq(users(:admin))
+      end
+    end
+
+    context 'when the user is not married' do
+      before do
+        user.marriage&.destroy!
+        user.reload
+      end
+
+      it 'returns nil' do
+        expect(spouse).to eq(nil)
+      end
+    end
+  end
+
   describe '#destroy' do
     subject(:destroy) { user.destroy }
 
