@@ -2,7 +2,10 @@
 
 class CheckWebsite
   extend Memoist
+  include Throttleable
   prepend ApplicationWorker
+
+  TIME_BETWEEN_EMAIL_ALERTS = 1.day.freeze
 
   def perform
     available_for_cash_carry = nil
@@ -29,11 +32,14 @@ class CheckWebsite
     LOG
 
     if available_for_cash_carry || available_for_click_collect || (quantity > 0)
-      CheckWebsiteMailer.item_available(
-        available_for_cash_carry,
-        available_for_click_collect,
-        quantity,
-      ).deliver_later
+      lock_key = "#{self.class.name}:email-alert"
+      throttled('send email', lock_key, TIME_BETWEEN_EMAIL_ALERTS) do
+        CheckWebsiteMailer.item_available(
+          available_for_cash_carry,
+          available_for_click_collect,
+          quantity,
+        ).deliver_later
+      end
     end
   end
 
