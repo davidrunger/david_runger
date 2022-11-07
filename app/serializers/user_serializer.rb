@@ -15,6 +15,10 @@
 #  index_users_on_email  (email) UNIQUE
 #
 
-class UserSerializer < ActiveModel::Serializer
-  attributes :email, :id, :preferences
+class UserSerializer < ApplicationSerializer
+  attributes(*%i[email id preferences])
+
+  class ForSpouse < UserSerializer
+    filtered_attributes(%i[email id])
+  end
 end

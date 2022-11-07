@@ -126,6 +126,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    alba (2.0.1)
     amazing_print (1.4.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
@@ -605,6 +606,7 @@ DEPENDENCIES
   active_model_serializers
   activeadmin
   addressable
+  alba
   amazing_print
   annotate
   auto_strip_attributes

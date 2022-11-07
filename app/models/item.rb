@@ -17,6 +17,8 @@
 #
 
 class Item < ApplicationRecord
+  include JsonBroadcastable
+
   belongs_to :store
   has_one :user, through: :store
 
@@ -27,4 +29,6 @@ class Item < ApplicationRecord
   has_paper_trail
 
   scope :needed, -> { where('items.needed > 0') }
+
+  broadcasts_json_to(GroceriesChannel, :user)
 end
