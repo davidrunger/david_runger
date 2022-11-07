@@ -74,7 +74,7 @@
           @click='manageCheckInStores'
         ) Choose stores
       h3.bold.mb2.
-        What did you get?
+        What did you get? ({{itemsToZero.length}}/{{neededCheckInItems.length}})
       ul.check-in-items-list
         li.flex.items-center.mb1(
           v-for='(item, index) in neededCheckInItems'
