@@ -347,7 +347,7 @@ button.choose-stores {
 }
 
 .check-in-items-list {
-  max-height: 60vw;
+  max-height: 50vh;
   overflow: auto;
 }
 </style>
