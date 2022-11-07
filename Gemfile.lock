@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: faf9ecc88f49c8def475b498e9121a78d0877c06
+  revision: 2e89354e9f85628fa23dfc55e41f280ae12a3d52
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
