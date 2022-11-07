@@ -1,129 +1,128 @@
 <template lang="pug">
-div.mt1.mb2.ml3.mr2
-  .store-container.overflow-auto.hidden-scrollbars
-    h2.h2.store-name.bold.my2
-      input(
-        v-if='editingName'
+.store-container.overflow-auto.hidden-scrollbars.pt1.pb2.pl3.pr2
+  h2.h2.store-name.bold.my2
+    input(
+      v-if='editingName'
+      type='text'
+      v-model='store.name'
+      @blur='stopEditingAndUpdateStoreName()'
+      @keydown.enter='stopEditingAndUpdateStoreName()'
+      ref='store-name-input'
+    )
+    span(v-if='!editingName') {{ store.name }}
+    a.edit-store.js-link.gray.ml1(@click='editStoreName')
+      edit-icon(size='27')
+    span(v-if='store.own_store')
+      el-button.ml1(v-if='store.private' size='small' @click='togglePrivacy') Make public
+      el-button.ml1(v-else size='small' @click='togglePrivacy') Make private
+    span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
+  div.buttons-container.mb2
+    el-button.mr1.mt1(
+      id="show-modal"
+      @click='initializeTripCheckIn'
+      :size='$is_mobile_device ? "small" : null'
+    ) Check in items
+    el-button.copy-to-clipboard.mt1(
+      :size='$is_mobile_device ? "small" : null'
+    ) Copy to clipboard
+    span(v-if='wasCopiedRecently') Copied!
+
+  div.mb1
+    h3.h3 Notes
+    el-input(
+      v-if='editingNotes'
+      type='textarea'
+      placeholder='Member phone number: 619-867-5309'
+      v-model='store.notes'
+      @blur='stopEditingAndUpdateStoreNotes()'
+      ref='store-notes-input'
+    )
+    p.pre-wrap(v-else)
+      | {{store.notes || 'No notes yet'}}
+      a.edit-store.js-link.gray.ml1(v-if='store.own_store' @click='editStoreNotes')
+        edit-icon(size='18')
+
+  form.flex(v-if='store.own_store' @submit.prevent='postNewItem')
+    .float-left
+      el-input.item-name-input(
+        placeholder='Add an item'
         type='text'
-        v-model='store.name'
-        @blur='stopEditingAndUpdateStoreName()'
-        @keydown.enter='stopEditingAndUpdateStoreName()'
-        ref='store-name-input'
+        v-model='newItemName'
+        name='newItemName'
       )
-      span(v-if='!editingName') {{ store.name }}
-      a.edit-store.js-link.gray.ml1(@click='editStoreName')
-        edit-icon(size='27')
-      span(v-if='store.own_store')
-        el-button.ml1(v-if='store.private' size='small' @click='togglePrivacy') Make public
-        el-button.ml1(v-else size='small' @click='togglePrivacy') Make private
-      span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
-    div.buttons-container.mb2
-      el-button.mr1.mt1(
-        id="show-modal"
-        @click='initializeTripCheckIn'
-        :size='$is_mobile_device ? "small" : null'
-      ) Check in items
-      el-button.copy-to-clipboard.mt1(
-        :size='$is_mobile_device ? "small" : null'
-      ) Copy to clipboard
-      span(v-if='wasCopiedRecently') Copied!
+    .ml1
+      el-button.flex-0.button.button-outline(
+        native-type='submit'
+        :disabled='v$.$invalid'
+      ) Add
 
-    div.mb1
-      h3.h3 Notes
-      el-input(
-        v-if='editingNotes'
-        type='textarea'
-        placeholder='Member phone number: 619-867-5309'
-        v-model='store.notes'
-        @blur='stopEditingAndUpdateStoreNotes()'
-        ref='store-notes-input'
-      )
-      p.pre-wrap(v-else)
-        | {{store.notes || 'No notes yet'}}
-        a.edit-store.js-link.gray.ml1(v-if='store.own_store' @click='editStoreNotes')
-          edit-icon(size='18')
+  .items-list.mt0.mb0
+    Item(
+      v-for='item in sortedItems'
+      :item="item"
+      :key="item.id"
+      :ownStore='store.own_store'
+    )
 
-    form.flex(v-if='store.own_store' @submit.prevent='postNewItem')
-      .float-left
-        el-input.item-name-input(
-          placeholder='Add an item'
-          type='text'
-          v-model='newItemName'
-          name='newItemName'
+  Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
+    slot
+      div
+        span Stores: {{groceriesStore.checkInStores.map(store => store.name).join(', ')}}
+        el-button.choose-stores.ml1(
+          link
+          type='primary'
+          @click='manageCheckInStores'
+        ) Choose stores
+      h3.bold.mb2.
+        What did you get?
+      ul.check-in-items-list
+        li.flex.items-center.mb1(
+          v-for='(item, index) in neededCheckInItems'
+          :key='item.id'
         )
-      .ml1
-        el-button.flex-0.button.button-outline(
-          native-type='submit'
-          :disabled='v$.$invalid'
-        ) Add
-
-    .items-list.mt0.mb0
-      Item(
-        v-for='item in sortedItems'
-        :item="item"
-        :key="item.id"
-        :ownStore='store.own_store'
-      )
-
-    Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
-      slot
-        div
-          span Stores: {{groceriesStore.checkInStores.map(store => store.name).join(', ')}}
-          el-button.choose-stores.ml1(
-            link
-            type='primary'
-            @click='manageCheckInStores'
-          ) Choose stores
-        h3.bold.mb2.
-          What did you get?
-        ul.check-in-items-list
-          li.flex.items-center.mb1(
-            v-for='(item, index) in neededCheckInItems'
-            :key='item.id'
+          input(
+            type='checkbox'
+            v-model='itemsToZero'
+            :value='item'
+            :id='`trip-checkin-item-${item.id}`'
           )
-            input(
-              type='checkbox'
-              v-model='itemsToZero'
-              :value='item'
-              :id='`trip-checkin-item-${item.id}`'
-            )
-            label.ml1(:for='`trip-checkin-item-${item.id}`')
-              span {{item.name}}
-              span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
-              el-button(
-                link
-                type='primary'
-                @click='skip(item)'
-              ) Skip
-        div.flex.justify-around.mt2
-          el-button(
-            @click='handleTripCheckinModalSubmit'
-            type='primary'
-            plain
-          ) Set checked items to 0 needed
-          el-button(
-            @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
-            type='primary'
-            link
-          ) Cancel
+          label.ml1(:for='`trip-checkin-item-${item.id}`')
+            span {{item.name}}
+            span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
+            el-button(
+              link
+              type='primary'
+              @click='skip(item)'
+            ) Skip
+      div.flex.justify-around.mt2
+        el-button(
+          @click='handleTripCheckinModalSubmit'
+          type='primary'
+          plain
+        ) Set checked items to 0 needed
+        el-button(
+          @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
+          type='primary'
+          link
+        ) Cancel
 
-    Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
-      slot
-        h4.bold.mt1.mb2.
-          Which stores would you like to check in?
-        CheckInStoreList(
-          :stores='groceriesStore.sortedStores'
-        )
-        h4.bold.mb2.
-          Spouse's stores
-        CheckInStoreList(
-          :stores='groceriesStore.sortedSpouseStores'
-        )
-        div.flex.justify-around.mt2
-          el-button(
-            @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })"
-            type='primary'
-          ) Done
+  Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
+    slot
+      h4.bold.mt1.mb2.
+        Which stores would you like to check in?
+      CheckInStoreList(
+        :stores='groceriesStore.sortedStores'
+      )
+      h4.bold.mb2.
+        Spouse's stores
+      CheckInStoreList(
+        :stores='groceriesStore.sortedSpouseStores'
+      )
+      div.flex.justify-around.mt2
+        el-button(
+          @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })"
+          type='primary'
+        ) Done
 </template>
 
 <script>
