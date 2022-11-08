@@ -20,7 +20,6 @@ div.my2(
       :emojis='EMOJIS.get(ratingValue)'
       :ratingValue='ratingValue'
       :editable='editable'
-      @set-rating-score='(rating) => needSatisfactionRating.score = rating'
     )
 button.mt1.h3(v-if='editable' @click='submitCheckIn') Submit Check-in
 </template>
