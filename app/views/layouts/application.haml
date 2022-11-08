@@ -33,8 +33,7 @@
     = csrf_meta_tags
     = javascript_tag(nonce: true) do
       window.davidrunger = {env: '#{Rails.env}'};
-      window.davidrunger.bootstrap = JSON.parse(
-      "#{raw(escape_javascript((@bootstrap_data || {}).to_json))}");
+      window.davidrunger.bootstrap = JSON.parse("#{raw(escape_javascript((bootstrap).to_json))}");
 
     - if Rails.env.development? && !ENV['PRODUCTION_ASSET_CONFIG'].present?
       = vite_client_tag
