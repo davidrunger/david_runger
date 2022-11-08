@@ -11,7 +11,7 @@ class Api::CheckInSubmissionsController < ApplicationController
     elsif !check_in.decorate.all_ratings_scored_by_self?
       render json: { error: 'You must submit all ratings first' }, status: :unprocessable_entity
     else
-      submission.save!
+      CheckInSubmissions::Create.run!(submission:, user: current_user)
     end
   end
 end

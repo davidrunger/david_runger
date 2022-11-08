@@ -15,16 +15,35 @@ Ratings(
   :editable='false'
   ratedUser='self'
 )
-div(v-else) {{bootstrap.partner_ratings_hidden_reason}}
+div(v-else) {{checkInsStore.partner_ratings_hidden_reason}}
 </template>
 
 <script>
+import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
 import Ratings from './components/ratings.vue';
 
 export default {
   components: {
     Ratings,
+  },
+
+  created() {
+    actionCableConsumer.subscriptions.create(
+      {
+        channel: 'CheckInsChannel',
+        marriage_id: window.davidrunger.bootstrap.marriage.id,
+      },
+      {
+        received: (data) => {
+          if (data.event === 'check-in-submitted') {
+            this.checkInsStore.setPartnerRatingsOfUser({
+              ratings: data.ratings,
+            });
+          }
+        },
+      },
+    );
   },
 
   data() {

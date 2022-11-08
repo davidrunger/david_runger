@@ -10,6 +10,11 @@ const actions = {
     Object.assign(needSatisfactionRating, attributes);
   },
 
+  setPartnerRatingsOfUser({ ratings }) {
+    this.partner_ratings_hidden_reason = null;
+    this.partner_ratings_of_user = ratings;
+  },
+
   submitCheckIn() {
     return kyApi.
       post(
