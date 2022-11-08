@@ -9,6 +9,7 @@ button(
 
 <script>
 import { sample } from 'lodash-es';
+import { useCheckInsStore } from '@/check_ins/store';
 
 export default {
   computed: {
@@ -21,14 +22,19 @@ export default {
     },
   },
 
+  data() {
+    return {
+      checkInsStore: useCheckInsStore(),
+    };
+  },
+
   methods: {
     handleClick() {
       if (this.editable) {
-        this.$emit('setRatingScore', this.ratingValue);
-        this.$http.patch(
-          this.$routes.api_need_satisfaction_rating_path(this.needSatisfactionRating.id),
-          { json: { need_satisfaction_rating: { score: this.ratingValue } } },
-        );
+        this.checkInsStore.updateRating({
+          needSatisfactionRating: this.needSatisfactionRating,
+          attributes: { score: this.ratingValue },
+        });
       }
     },
   },
