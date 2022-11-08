@@ -15,6 +15,11 @@ class CheckIns::Create < ApplicationAction
       end
     end
 
+    CheckInsChannel.broadcast_to(
+      marriage,
+      { command: 'redirect', location: check_in_path(check_in) },
+    )
+
     result.check_in = check_in
   end
 end
