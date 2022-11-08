@@ -40,6 +40,7 @@ class CheckInsController < ApplicationController
     check_in_need_satisfaction_ratings = @check_in.need_satisfaction_ratings
 
     bootstrap_data = {
+      marriage: MarriageSerializer.new(@check_in.marriage),
       check_in: ActiveModelSerializers::SerializableResource.new(
         @check_in,
         serializer: CheckInSerializer,
