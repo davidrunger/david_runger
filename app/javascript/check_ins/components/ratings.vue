@@ -93,6 +93,7 @@ span.circled-text {
 
 <style>
 .el-popover.el-popper {
+  max-width: 50%;
   word-break: initial !important;
   text-align: initial !important;
 }

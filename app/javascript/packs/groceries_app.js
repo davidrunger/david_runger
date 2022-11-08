@@ -1,5 +1,4 @@
 import { createPinia } from 'pinia';
-
 import { renderApp } from '@/shared/customized_vue';
 import { useKy } from '@/shared/ky';
 import { useElementPlus } from '@/shared/element_plus';
