@@ -9,21 +9,21 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
   # file size constraints in kilobytes
   CONSTRAINTS = {
     'charts*.js' => (340..350),
-    'check_in_ratings*.js' => (165..175),
-    'check_in_ratings*.css' => (10..15),
+    'check_ins*.css' => (10..15),
+    'check_ins*.js' => (165..175),
     'check_ins_index*.js' => (5..15),
-    'groceries*.js' => (400..410),
     'groceries*.css' => (100..110),
-    'home*.js' => (130..140),
+    'groceries*.js' => (400..410),
     'home*.css' => (0..10),
-    'logs*.js' => (825..835),
+    'home*.js' => (130..140),
     'logs*.css' => (100..110),
+    'logs*.js' => (825..835),
     'marriage*.js' => (10..20),
     'quizzes*.js' => (105..115),
     'styles*.css' => (15..25),
     'turbo*.js' => (70..80),
-    'workout*.js' => (385..395),
     'workout*.css' => (100..110),
+    'workout*.js' => (385..395),
   }.freeze
 
   def run

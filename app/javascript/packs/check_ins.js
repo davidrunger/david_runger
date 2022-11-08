@@ -1,9 +1,9 @@
 import { renderApp } from '@/shared/customized_vue';
 import { useKy } from '@/shared/ky';
-import CheckInRatings from '@/check_in_ratings/app.vue';
+import CheckIns from '@/check_ins/app.vue';
 import { ElPopover } from 'element-plus';
 
-const app = renderApp(CheckInRatings, '#check_in_ratings_app');
+const app = renderApp(CheckIns, '#check_ins_app');
 
 app.use(ElPopover);
 
