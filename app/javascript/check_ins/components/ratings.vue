@@ -12,7 +12,7 @@ div.my2(
     )
       template(#reference)
         span.circled-text.monospace.js-link i
-    a.ml1(:href='$routes.history_emotional_need_path(needSatisfactionRating.emotional_need.id, { rated_user: ratedUser })') graph
+    a.ml1(:href='graphLink(needSatisfactionRating)') graph
   div
     EmojiButton(
       v-for='ratingValue in RATINGS_RANGE'
@@ -47,6 +47,14 @@ export default {
   },
 
   methods: {
+    graphLink(needSatisfactionRating) {
+      return this.$routes.
+        history_emotional_need_path(
+          needSatisfactionRating.emotional_need.id,
+          { rated_user: this.ratedUser },
+        );
+    },
+
     submitCheckIn() {
       this.$http.post(
         this.$routes.api_check_in_check_in_submissions_path(this.bootstrap.check_in.id),
