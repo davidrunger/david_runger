@@ -25,6 +25,10 @@ export default {
     handleClick() {
       if (this.editable) {
         this.$emit('setRatingScore', this.ratingValue);
+        this.$http.patch(
+          this.$routes.api_need_satisfaction_rating_path(this.needSatisfactionRating.id),
+          { json: { need_satisfaction_rating: { score: this.ratingValue } } },
+        );
       }
     },
   },

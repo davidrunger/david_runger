@@ -22,7 +22,7 @@ div.my2(
       :editable='editable'
       @set-rating-score='(rating) => needSatisfactionRating.score = rating'
     )
-button.mt1.h3(v-if='editable' @click='updateCheckIn') Update Check-in
+button.mt1.h3(v-if='editable' @click='submitCheckIn') Submit Check-in
 </template>
 
 <script>
@@ -48,19 +48,9 @@ export default {
   },
 
   methods: {
-    updateCheckIn() {
-      const needSatisfactionPayload = {};
-      this.needSatisfactionRatings.forEach(needSatisfactionRating => {
-        needSatisfactionPayload[needSatisfactionRating.id] =
-          { score: needSatisfactionRating.score };
-      });
-      this.$http.patch(
-        this.$routes.api_check_in_path(this.bootstrap.check_in.id),
-        { json: {
-          check_in: {
-            need_satisfaction_rating: needSatisfactionPayload,
-          },
-        } },
+    submitCheckIn() {
+      this.$http.post(
+        this.$routes.api_check_in_check_in_submissions_path(this.bootstrap.check_in.id),
       ).json().
         then(() => {
           window.location.reload(); // refresh page to load spouse's answers (if available)

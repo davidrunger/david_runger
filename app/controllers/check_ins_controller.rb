@@ -53,7 +53,7 @@ class CheckInsController < ApplicationController
         ),
     }
 
-    if @check_in.completed_by_both_partners?
+    if @check_in.submitted_by_both_partners?
       bootstrap_data[:partner_ratings_of_user] =
         ActiveModel::Serializer::CollectionSerializer.new(
           check_in_need_satisfaction_ratings.
@@ -61,7 +61,7 @@ class CheckInsController < ApplicationController
             includes(:emotional_need).
             order('emotional_needs.name'),
         )
-    elsif @check_in.completed_by_partner?
+    elsif @check_in.submitted_by_partner?
       bootstrap_data[:partner_ratings_hidden_reason] = '[hidden until you submit your answers]'
     else
       bootstrap_data[:partner_ratings_hidden_reason] = "They didn't complete it yet."
