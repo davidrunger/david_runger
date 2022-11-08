@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_25_211828) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_041924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_211828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["value"], name: "index_banned_path_fragments_on_value", unique: true
+  end
+
+  create_table "check_in_submissions", force: :cascade do |t|
+    t.bigint "check_in_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_in_id", "user_id"], name: "index_check_in_submissions_on_check_in_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_check_in_submissions_on_user_id"
   end
 
   create_table "check_ins", force: :cascade do |t|
@@ -333,6 +342,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_211828) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "auth_tokens", "users"
+  add_foreign_key "check_in_submissions", "check_ins"
+  add_foreign_key "check_in_submissions", "users"
   add_foreign_key "check_ins", "marriages"
   add_foreign_key "emotional_needs", "marriages"
   add_foreign_key "items", "stores"

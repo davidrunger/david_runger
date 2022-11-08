@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class CheckInPolicy < ApplicationPolicy
+class CheckInSubmissionPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      @user.marriage.check_ins
+      @user.check_in_submissions
     end
   end
 end

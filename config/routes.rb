@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get 'logs/:slug', to: 'logs#index', as: :shared_log
   end
 
-  resources :check_ins, only: %i[create index show update]
+  resources :check_ins, only: %i[create index show]
   %w[check_in check-ins check-in checkins checkin].each do |path|
     get path, to: redirect('check_ins')
   end
@@ -62,7 +62,10 @@ Rails.application.routes.draw do
   resources :quiz_questions, only: %i[update]
 
   namespace :api, defaults: { format: :json } do
-    resources :check_ins, only: %i[update]
+    resources :check_ins, only: [] do
+      resources :check_in_submissions, only: %i[create]
+    end
+    resources :need_satisfaction_ratings, only: %i[update]
     resources :csp_reports, only: %i[create]
     resources :items, only: %i[update destroy]
     namespace :items do

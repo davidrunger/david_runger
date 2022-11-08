@@ -35,6 +35,8 @@ class User < ApplicationRecord
   has_many :items, through: :stores # must come after has_many :stores declaration
   has_many :text_log_entries, through: :logs
   has_many :workouts, dependent: :destroy
+  has_many :need_satisfaction_ratings, dependent: :destroy
+  has_many :check_in_submissions, dependent: :destroy
 
   devise
 

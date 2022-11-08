@@ -85,13 +85,15 @@ RSpec.describe 'Check-Ins app' do
           expect(page).to have_current_path(check_in_path(check_in))
 
           fill_in_emotional_needs_ratings(rating: 2)
-          click_button('Update Check-in')
           wait_for do
             CheckIn.order(:created_at).last!.
               need_satisfaction_ratings.
               exists?(user:, score: nil)
           end.to eq(false)
           sleep(0.2) # this seems to be needed to ensure the rating update transaction is committed
+          click_button('Submit Check-in')
+          wait_for { CheckInSubmission.exists?(user:, check_in:) }.to eq(true)
+          expect(page).to have_text("They didn't complete it yet.")
 
           # other partner fills in ratings
           Capybara.using_session('spouse') do
@@ -101,13 +103,19 @@ RSpec.describe 'Check-Ins app' do
               page.has_text?('Their answers [hidden until you submit your answers]')
             end.to eq(true)
             fill_in_emotional_needs_ratings(rating: -2)
-            click_button('Update Check-in')
+            wait_for do
+              CheckIn.order(:created_at).last!.
+                need_satisfaction_ratings.
+                exists?(user: spouse, score: nil)
+            end.to eq(false)
+            sleep(0.2) # this might help ensure the rating update transaction is committed
+            click_button('Submit Check-in')
             expect(page).to have_text(
               /Their answers #{first_emotional_need.name}igraph -3-2-101😀3/,
             )
           end
 
-          click_button('Update Check-in') # refresh the page by clicking button
+          click_button('Submit Check-in') # refresh the page by clicking button
           expect(page).to have_text(
             /Their answers #{first_emotional_need.name}igraph -3😞-10123/,
           )

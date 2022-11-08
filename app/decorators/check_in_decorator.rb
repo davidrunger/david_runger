@@ -11,13 +11,23 @@ class CheckInDecorator < Draper::Decorator
   end
 
   memoize \
-  def completed_by_both_partners?
-    need_satisfaction_ratings.completed.size == (emotional_needs_for_check_in.size * 2)
+  def submitted_by_both_partners?
+    submitted_by_partner? && submitted_by_self?
   end
 
   memoize \
-  def completed_by_partner?
-    partner_ratings.completed.size == emotional_needs_for_check_in.size
+  def all_ratings_scored_by_self?
+    own_ratings.completed.size == emotional_needs_for_check_in.size
+  end
+
+  memoize \
+  def submitted_by_partner?
+    marriage.decorate.other_partner.check_in_submissions.exists?(check_in_id: id)
+  end
+
+  memoize \
+  def submitted_by_self?
+    h.current_user.check_in_submissions.exists?(check_in_id: id)
   end
 
   memoize \
@@ -31,7 +41,7 @@ class CheckInDecorator < Draper::Decorator
   end
 
   memoize \
-  def partner_ratings
-    need_satisfaction_ratings.where(user: marriage.decorate.other_partner)
+  def own_ratings
+    need_satisfaction_ratings.where(user: h.current_user)
   end
 end
