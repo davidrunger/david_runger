@@ -10,6 +10,7 @@ class CheckInsController < ApplicationController
     authorize(CheckIn)
     @title = 'Marriage check-ins'
     @marriage = current_user.marriage.decorate
+    bootstrap(marriage: MarriageSerializer.new(@marriage))
     render :index
   end
 
