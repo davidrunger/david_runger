@@ -26,6 +26,7 @@ button.mt1.h3(v-if='editable' @click='submitCheckIn') Submit Check-in
 
 <script>
 import { range } from 'lodash-es';
+import { useCheckInsStore } from '@/check_ins/store';
 import EmojiButton from './emoji_button.vue';
 
 export default {
@@ -46,6 +47,12 @@ export default {
     ]);
   },
 
+  data() {
+    return {
+      checkInsStore: useCheckInsStore(),
+    };
+  },
+
   methods: {
     graphLink(needSatisfactionRating) {
       return this.$routes.
@@ -56,11 +63,10 @@ export default {
     },
 
     submitCheckIn() {
-      this.$http.post(
-        this.$routes.api_check_in_check_in_submissions_path(this.bootstrap.check_in.id),
-      ).json().
+      this.checkInsStore.submitCheckIn().
         then(() => {
-          window.location.reload(); // refresh page to load spouse's answers (if available)
+          // refresh page to load spouse's answers (if available)
+          window.location.reload();
         });
     },
   },

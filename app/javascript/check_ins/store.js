@@ -10,6 +10,15 @@ const actions = {
     Object.assign(needSatisfactionRating, attributes);
   },
 
+  submitCheckIn() {
+    return kyApi.
+      post(
+        Routes.api_check_in_check_in_submissions_path(
+          this.check_in.id,
+        ),
+      );
+  },
+
   updateRating({ needSatisfactionRating, attributes }) {
     this.modifyRating({ needSatisfactionRating, attributes });
     kyApi.patch(
