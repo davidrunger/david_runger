@@ -13,6 +13,10 @@ const state = () => ({
 });
 
 export const helpers = {
+  getById(collection, id) {
+    return collection.find(item => item.id === id);
+  },
+
   sortByName(objects) {
     return sortBy(objects, object => object.name.toLowerCase());
   },
@@ -26,6 +30,7 @@ const actions = {
   },
 
   addItem({ store, itemData }) {
+    store = store || helpers.getById(this.allStores, itemData.store_id);
     store.items.unshift(itemData);
   },
 
@@ -56,7 +61,7 @@ const actions = {
         post(Routes.api_stores_path(), { json: payload }).json().
         then(newStoreData => {
           this.postingStore = false;
-          this.stores.unshift(newStoreData);
+          this.own_stores.unshift(newStoreData);
         })
     );
   },
@@ -66,8 +71,11 @@ const actions = {
   },
 
   deleteItem({ item }) {
-    const store = this.currentStore;
+    const store = helpers.getById(this.allStores, item.store_id);
+    store.items = store.items.filter(storeItem => storeItem.id !== item.id);
+  },
 
+  destroyItem({ item }) {
     this.incrementPendingRequests();
     kyApi.delete(
       Routes.api_item_path(item.id),
@@ -75,17 +83,25 @@ const actions = {
     ).json().
       then(() => {
         this.decrementPendingRequests();
-        store.items = store.items.filter(storeItem => storeItem !== item);
+        this.deleteItem({ item });
       });
   },
 
   deleteStore({ store: deletedStore }) {
-    this.stores = this.stores.filter(store => store !== deletedStore);
+    this.own_stores = this.own_stores.filter(store => store !== deletedStore);
     kyApi.delete(Routes.api_store_path(deletedStore.id));
   },
 
   incrementPendingRequests() {
     this.pendingRequests += 1;
+  },
+
+  modifyItem({ item, attributes }) {
+    if (!item) {
+      const store = helpers.getById(this.allStores, attributes.store_id);
+      item = helpers.getById(store.items, attributes.id);
+    }
+    Object.assign(item, attributes);
   },
 
   selectStore({ store }) {
@@ -124,7 +140,7 @@ const actions = {
       patch(Routes.api_item_path(item.id), { json: { item: attributes } }).
       json().
       then(updatedItemData => {
-        Object.assign(item, updatedItemData);
+        this.modifyItem({ item, attributes: updatedItemData });
         this.decrementPendingRequests();
       });
   },
@@ -154,12 +170,16 @@ const actions = {
 };
 
 const getters = {
+  allStores() {
+    return [...this.own_stores, ...this.spouse_stores];
+  },
+
   currentStore() {
-    if (!this.stores) return null;
+    if (!this.own_stores) return null;
 
     return (
-      last(sortBy(filter([...this.stores, ...this.spouse_stores], 'viewed_at'), 'viewed_at')) ||
-      this.stores[0]
+      last(sortBy(filter(this.allStores, 'viewed_at'), 'viewed_at')) ||
+      this.own_stores[0]
     );
   },
 
@@ -183,7 +203,7 @@ const getters = {
   },
 
   sortedStores() {
-    return helpers.sortByName(this.stores);
+    return helpers.sortByName(this.own_stores);
   },
 };
 

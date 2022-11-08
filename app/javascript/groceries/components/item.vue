@@ -35,7 +35,7 @@
     ) Unskip
   .delete.h2.pl1.pr1.js-link.right.red(
     v-if='ownStore'
-    @click="groceriesStore.deleteItem({ item })"
+    @click="groceriesStore.destroyItem({ item })"
     title='Delete item'
   ) ×
 </template>

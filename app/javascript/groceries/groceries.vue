@@ -11,6 +11,8 @@ div#groceries-app
 
 <script>
 import { mapState } from 'pinia';
+import { get } from 'lodash-es';
+import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
@@ -29,6 +31,33 @@ export default {
 
   created() {
     window.addEventListener('beforeunload', this.warnIfRequestPending);
+
+    const spouseId = get(window, 'davidrunger.bootstrap.spouse.id');
+    if (spouseId) {
+      actionCableConsumer.subscriptions.create(
+        {
+          channel: 'GroceriesChannel',
+          user_id: spouseId,
+        },
+        {
+          received: (data) => {
+            if (data.action === 'created') {
+              this.groceriesStore.addItem({ itemData: data.model });
+            } else if (data.action === 'destroyed') {
+              this.groceriesStore.deleteItem({ item: data.model });
+            } else if (data.action === 'updated') {
+              this.groceriesStore.modifyItem({ attributes: data.model });
+            }
+          },
+        },
+      );
+    }
+  },
+
+  data() {
+    return {
+      groceriesStore: useGroceriesStore(),
+    };
   },
 
   methods: {
@@ -41,8 +70,6 @@ export default {
       }
     },
   },
-
-  props: {},
 };
 </script>
 
