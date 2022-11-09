@@ -11,10 +11,20 @@ button(
 import { sample } from 'lodash-es';
 import { useCheckInsStore } from '@/check_ins/store';
 
+const EMOJIS = new Map([
+  [-3, ['😢']],
+  [-2, ['😞']],
+  [-1, ['😕']],
+  [0, ['😐']],
+  [1, ['🙂']],
+  [2, ['😀']],
+  [3, ['🥰', '😍', '🤩', '😇', '🥳']],
+]);
+
 export default {
   computed: {
     emoji() {
-      return sample(this.emojis);
+      return sample(EMOJIS.get(this.ratingValue));
     },
 
     selected() {
@@ -43,10 +53,6 @@ export default {
     editable: {
       type: Boolean,
       default: true,
-    },
-    emojis: {
-      type: Array,
-      required: true,
     },
     needSatisfactionRating: {
       type: Object,
