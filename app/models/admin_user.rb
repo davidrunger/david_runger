@@ -19,4 +19,8 @@ class AdminUser < ApplicationRecord
   devise
 
   has_paper_trail
+
+  def display_name
+    email.split('@').first
+  end
 end
