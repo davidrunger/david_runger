@@ -8,15 +8,17 @@ el-menu.center
     ) {{$bootstrap.current_user.email}}
     a(:href="$routes.edit_user_path($bootstrap.current_user)")
       el-menu-item(index='1-2') Account Settings
-    a.js-link(@click='signOut()')
+    a.js-link(@click='signOut')
       el-menu-item(index='1-3') Sign Out
 </template>
 
 <script>
-import signOutMixin from '@/lib/mixins/sign_out_mixin';
+import signOut from '@/lib/sign_out';
 
 export default {
-  mixins: [signOutMixin],
+  methods: {
+    signOut,
+  },
 };
 </script>
 
