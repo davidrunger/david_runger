@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 2e89354e9f85628fa23dfc55e41f280ae12a3d52
+  revision: 81500e15e77552f5766371769bb1b0289df3de84
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -596,7 +596,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.5)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
