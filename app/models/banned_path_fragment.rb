@@ -6,7 +6,6 @@
 #
 #  created_at :datetime         not null
 #  id         :bigint           not null, primary key
-#  notes      :text
 #  updated_at :datetime         not null
 #  value      :string           not null
 #

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_08_041924) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_09_164248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,7 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_041924) do
 
   create_table "banned_path_fragments", force: :cascade do |t|
     t.string "value", null: false
-    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["value"], name: "index_banned_path_fragments_on_value", unique: true
