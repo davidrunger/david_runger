@@ -20,4 +20,12 @@ class LogEntry < ApplicationRecord
   has_one :user, through: :log
 
   validates :data, presence: true
+
+  def self.policy_class
+    LogEntryPolicy
+  end
+
+  def self.serializer_class
+    LogEntrySerializer
+  end
 end
