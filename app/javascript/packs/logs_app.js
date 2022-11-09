@@ -3,7 +3,6 @@ import { createPinia } from 'pinia';
 import { markRaw } from 'vue';
 
 import { renderApp } from '@/shared/customized_vue';
-import { useKy } from '@/shared/ky';
 import { useElementPlus } from '@/shared/element_plus';
 import Modal from '@/components/modal.vue';
 import LogApp from '@/logs/logs.vue';
@@ -16,7 +15,6 @@ pinia.use(({ store }) => {
 });
 app.use(pinia);
 app.component('Modal', Modal);
-useKy(app);
 useElementPlus(app);
 app.use(router);
 app.use(autoAnimatePlugin);

@@ -15,7 +15,3 @@ if (csrfMetaTag) {
 }
 
 export { kyApi };
-
-export function useKy(app) {
-  app.config.globalProperties.$http = kyApi;
-}
