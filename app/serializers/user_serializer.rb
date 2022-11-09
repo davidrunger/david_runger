@@ -18,7 +18,7 @@
 class UserSerializer < ApplicationSerializer
   attributes(*%i[email id preferences])
 
-  class ForSpouse < UserSerializer
+  class Basic < UserSerializer
     filtered_attributes(%i[email id])
   end
 end

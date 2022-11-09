@@ -8,7 +8,7 @@ class CheckInSubmissions::Create < ApplicationAction
     submission.save!
 
     if check_in.decorate.submitted_by_partner?
-      CheckInsChannel.broadcast_to(
+      CheckInsChannel.from(user).broadcast_to(
         check_in.marriage,
         event: 'check-in-submitted',
         ratings: user_ratings_of_partner,

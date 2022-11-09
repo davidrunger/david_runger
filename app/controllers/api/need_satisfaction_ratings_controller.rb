@@ -5,7 +5,11 @@ class Api::NeedSatisfactionRatingsController < ApplicationController
 
   def update
     authorize(@need_satisfaction_rating)
-    @need_satisfaction_rating.update!(need_satisfaction_rating_params)
+    NeedSatisfactionRatings::Update.run!(
+      need_satisfaction_rating: @need_satisfaction_rating,
+      attributes: need_satisfaction_rating_params.to_h,
+      current_user:,
+    )
     render json: @need_satisfaction_rating
   end
 

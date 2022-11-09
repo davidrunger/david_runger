@@ -94,6 +94,7 @@ RSpec.describe 'Check-Ins app' do
           click_button('Submit Check-in')
           wait_for { CheckInSubmission.exists?(user:, check_in:) }.to eq(true)
           expect(page).to have_text("They didn't complete it yet.")
+          sleep(0.2) # this might help to make switching to the other window more reliable
 
           # other partner fills in ratings
           Capybara.using_session('spouse') do
@@ -113,12 +114,23 @@ RSpec.describe 'Check-Ins app' do
             expect(page).to have_text(
               /Their answers #{first_emotional_need.name}igraph -3-2-101😀3/,
             )
+            sleep(0.2) # this might help to make switching to the other window more reliable
           end
 
-          click_button('Submit Check-in') # refresh the page by clicking button
           expect(page).to have_text(
             /Their answers #{first_emotional_need.name}igraph -3😞-10123/,
           )
+
+          # change rating
+          fill_in_emotional_needs_ratings(rating: 1)
+          sleep(0.2) # this might help ensure the rating update transaction is committed
+
+          # verify that partner sees the change
+          Capybara.using_session('spouse') do
+            expect(page).to have_text(
+              /Their answers #{first_emotional_need.name}igraph -3-2-10🙂23/,
+            )
+          end
 
           # check for link(s) to graph of ratings of partner
           expect(page).to have_link(
@@ -138,15 +150,15 @@ RSpec.describe 'Check-Ins app' do
 
         def fill_in_emotional_needs_ratings(rating:)
           marriage.emotional_needs.each do |emotional_need|
-            grandparent =
+            need_label_grandparent =
               page.
-                find('strong', text: emotional_need.name).
+                first('strong', text: emotional_need.name).
                 find(:xpath, '../..')
 
-            expect(grandparent.find_all('button').size).to eq(7)
+            expect(need_label_grandparent.find_all('button').size).to eq(7)
 
             # rubocop:disable RSpec/Capybara/SpecificActions
-            grandparent.
+            need_label_grandparent.
               find('button', text: /\A#{rating}\z/).
               click
             # rubocop:enable RSpec/Capybara/SpecificActions
