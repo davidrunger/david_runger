@@ -2,11 +2,22 @@ import { defineStore } from 'pinia';
 import { kyApi } from '@/shared/ky';
 
 const state = () => ({
+  partner_ratings_of_user: [],
   ...window.davidrunger.bootstrap,
 });
 
+const helpers = {
+  getById(collection, id) {
+    return collection.find(item => item.id === id);
+  },
+};
+
 const actions = {
   modifyRating({ needSatisfactionRating, attributes }) {
+    needSatisfactionRating =
+      needSatisfactionRating ||
+        helpers.getById(this.partner_ratings_of_user, attributes.id);
+
     Object.assign(needSatisfactionRating, attributes);
   },
 

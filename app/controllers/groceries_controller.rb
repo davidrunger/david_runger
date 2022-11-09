@@ -9,7 +9,7 @@ class GroceriesController < ApplicationController
 
     bootstrap(
       current_user: UserSerializer.new(current_user),
-      spouse: spouse && UserSerializer::ForSpouse.new(spouse),
+      spouse: spouse && UserSerializer::Basic.new(spouse),
       own_stores:
         ActiveModel::Serializer::CollectionSerializer.new(
           current_user.stores.includes(:items),

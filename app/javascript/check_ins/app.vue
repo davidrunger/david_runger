@@ -10,7 +10,7 @@ hr.my4
 
 h2 Their answers
 Ratings(
-  v-if='checkInsStore.partner_ratings_of_user'
+  v-if='checkInsStore.partner_ratings_of_user.length'
   :needSatisfactionRatings='checkInsStore.partner_ratings_of_user'
   :editable='false'
   ratedUser='self'
@@ -36,9 +36,15 @@ export default {
       },
       {
         received: (data) => {
+          if (data.originating_user_id === this.bootstrap.current_user.id) return;
+
           if (data.event === 'check-in-submitted') {
             this.checkInsStore.setPartnerRatingsOfUser({
               ratings: data.ratings,
+            });
+          } else if (data.event === 'need-satisfaction-rating-updated') {
+            this.checkInsStore.modifyRating({
+              attributes: data.rating,
             });
           }
         },
