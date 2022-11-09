@@ -17,7 +17,6 @@ div.my2(
     EmojiButton(
       v-for='ratingValue in RATINGS_RANGE'
       :needSatisfactionRating='needSatisfactionRating'
-      :emojis='EMOJIS.get(ratingValue)'
       :ratingValue='ratingValue'
       :editable='editable'
     )
@@ -36,15 +35,6 @@ export default {
 
   created() {
     this.RATINGS_RANGE = range(-3, 4);
-    this.EMOJIS = new Map([
-      [-3, ['😢']],
-      [-2, ['😞']],
-      [-1, ['😕']],
-      [0, ['😐']],
-      [1, ['🙂']],
-      [2, ['😀']],
-      [3, ['🥰', '😍', '🤩', '😇', '🥳']],
-    ]);
   },
 
   data() {
