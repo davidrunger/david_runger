@@ -5,8 +5,8 @@ el-menu.center
     el-menu-item.email(
       index='1-1'
       :disabled='true'
-    ) {{bootstrap.current_user.email}}
-    a(:href="$routes.edit_user_path(bootstrap.current_user)")
+    ) {{$bootstrap.current_user.email}}
+    a(:href="$routes.edit_user_path($bootstrap.current_user)")
       el-menu-item(index='1-2') Account Settings
     a.js-link(@click='signOut()')
       el-menu-item(index='1-3') Sign Out

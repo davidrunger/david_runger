@@ -137,7 +137,7 @@ export default {
 
     shareableUrl() {
       return window.location.origin + Routes.user_shared_log_path({
-        user_id: this.bootstrap.current_user.id,
+        user_id: this.$bootstrap.current_user.id,
         slug: this.log.slug,
       });
     },

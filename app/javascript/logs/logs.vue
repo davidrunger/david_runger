@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   header.flex.justify-between.p1
-    div {{bootstrap.current_user.email}}
+    div {{$bootstrap.current_user.email}}
   .center
     LogSelector
     router-view(:key='$route.fullPath').m3
@@ -46,7 +46,7 @@ export default {
     });
 
     // display any initial toast messages
-    const toastMessages = this.bootstrap.toast_messages;
+    const toastMessages = this.$bootstrap.toast_messages;
     if (toastMessages) {
       toastMessages.forEach((message) => {
         Toastify({

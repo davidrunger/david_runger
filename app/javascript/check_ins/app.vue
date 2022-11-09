@@ -36,7 +36,7 @@ export default {
       },
       {
         received: (data) => {
-          if (data.originating_user_id === this.bootstrap.current_user.id) return;
+          if (data.originating_user_id === this.$bootstrap.current_user.id) return;
 
           if (data.event === 'check-in-submitted') {
             this.checkInsStore.setPartnerRatingsOfUser({
