@@ -16,6 +16,6 @@
 #
 #  index_quizzes_on_owner_id  (owner_id)
 #
-class QuizSerializer < ActiveModel::Serializer
+class QuizSerializer < ApplicationSerializer
   attributes :hashid, :owner_id
 end

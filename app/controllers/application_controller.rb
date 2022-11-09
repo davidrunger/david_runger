@@ -43,6 +43,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def _render_with_renderer_json(resource, options)
+    if resource.is_a?(ApplicationRecord)
+      resource = resource.serializer(current_user:)
+    end
+
+    super(resource, options)
+  end
+
   def skip_authorization?
     controller = params[:controller]
 

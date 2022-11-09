@@ -15,16 +15,10 @@
 #  index_log_entries_on_log_id  (log_id)
 #
 
-class LogEntrySerializer < ActiveModel::Serializer
-  attributes :id, :created_at, :data, :log_id, :note
+class LogEntrySerializer < ApplicationSerializer
+  attributes :id, :data, :log_id, :note
 
-  def created_at
+  attribute(:created_at) do |log_entry|
     log_entry.read_attribute_before_type_cast('created_at').iso8601
-  end
-
-  private
-
-  def log_entry
-    object
   end
 end

@@ -11,17 +11,15 @@ class GroceriesController < ApplicationController
       current_user: UserSerializer.new(current_user),
       spouse: spouse && UserSerializer::Basic.new(spouse),
       own_stores:
-        ActiveModel::Serializer::CollectionSerializer.new(
+        StoreSerializer.new(
           current_user.stores.includes(:items),
-          scope: current_user,
-          scope_name: :current_user,
+          params: { current_user: },
         ),
       spouse_stores:
         if spouse
-          ActiveModel::Serializer::CollectionSerializer.new(
+          StoreSerializer.new(
             spouse.stores.where.not(private: true).includes(:items),
-            scope: current_user,
-            scope_name: :current_user,
+            params: { current_user: },
           )
         else
           []

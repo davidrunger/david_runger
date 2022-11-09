@@ -20,17 +20,13 @@
 
 RSpec.describe(StoreSerializer) do
   subject(:store_serializer) do
-    StoreSerializer.new(
-      store,
-      scope: current_user,
-      scope_name: :current_user,
-    )
+    StoreSerializer.new(store, params: { current_user: })
   end
 
   let(:store) { users(:user).stores.first! }
 
-  describe '#own_store' do
-    subject(:own_store) { store_serializer.own_store }
+  describe 'own_store attribute' do
+    subject(:own_store) { store_serializer.as_json['own_store'] }
 
     context 'when the store belongs to the current user' do
       let(:current_user) { store.user }
@@ -41,8 +37,8 @@ RSpec.describe(StoreSerializer) do
     end
   end
 
-  describe '#viewed_at' do
-    subject(:viewed_at) { store_serializer.viewed_at }
+  describe 'viewed_at attribute' do
+    subject(:viewed_at) { store_serializer.as_json['viewed_at'] }
 
     context 'when the store belongs to the current user' do
       let(:current_user) { store.user }

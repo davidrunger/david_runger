@@ -7,13 +7,12 @@ class WorkoutsController < ApplicationController
     @description = 'Plan and execute a timed workout'
     bootstrap(
       current_user: UserSerializer.new(current_user),
-      workouts:
-        ActiveModel::Serializer::CollectionSerializer.new(
-          current_user.workouts.includes(:user).
-            order(created_at: :desc).
-            limit(8),
-        ),
-      others_workouts: ActiveModel::Serializer::CollectionSerializer.new(
+      workouts: WorkoutSerializer.new(
+        current_user.workouts.includes(:user).
+          order(created_at: :desc).
+          limit(8),
+      ),
+      others_workouts: WorkoutSerializer.new(
         policy_scope(Workout).
           where.not(user: current_user).
           order(created_at: :desc).

@@ -16,6 +16,6 @@
 #  index_items_on_store_id_and_name  (store_id,name) UNIQUE
 #
 
-class ItemSerializer < ActiveModel::Serializer
+class ItemSerializer < ApplicationSerializer
   attributes :id, :name, :needed, :store_id
 end

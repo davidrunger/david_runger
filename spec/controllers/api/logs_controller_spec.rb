@@ -34,6 +34,7 @@ RSpec.describe Api::LogsController do
           'id' => Integer,
           'name' => 'Resting Heart Rate',
           'publicly_viewable' => false,
+          'reminder_time_in_seconds' => nil,
           'slug' => 'resting-heart-rate',
         )
       end
@@ -88,6 +89,7 @@ RSpec.describe Api::LogsController do
             'id' => Integer,
             'name' => log.name,
             'publicly_viewable' => log.reload.publicly_viewable,
+            'reminder_time_in_seconds' => Integer,
             'slug' => log.slug,
           )
         end

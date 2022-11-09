@@ -19,6 +19,6 @@ class UserSerializer < ApplicationSerializer
   attributes(*%i[email id preferences])
 
   class Basic < UserSerializer
-    filtered_attributes(%i[email id])
+    filtered_attributes(*%i[email id])
   end
 end

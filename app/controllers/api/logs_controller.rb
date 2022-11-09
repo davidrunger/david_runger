@@ -7,7 +7,7 @@ class Api::LogsController < ApplicationController
     authorize(Log)
     @log = current_user.logs.build(log_params)
     if @log.save
-      render json: @log, status: :created
+      render json: @log.serializer(own_log: true), status: :created
     else
       errors_hash = @log.errors.to_hash
 
@@ -23,7 +23,7 @@ class Api::LogsController < ApplicationController
   def update
     authorize(@log)
     @log.update!(log_params)
-    render json: @log
+    render json: @log.serializer(own_log: true)
   end
 
   def destroy

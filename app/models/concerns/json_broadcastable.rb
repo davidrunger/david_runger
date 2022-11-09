@@ -25,7 +25,7 @@ module JsonBroadcastable
     channel.broadcast_to(
       public_send(channel_target),
       action:,
-      model: ActiveModel::Serializer.serializer_for(self).new(self).as_json,
+      model: as_json,
     )
   end
 end

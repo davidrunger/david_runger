@@ -33,6 +33,36 @@ RSpec.describe LogsController do
           expect(response).to have_http_status(200)
           expect(response.body).to include(other_user_log.name)
         end
+
+        describe 'bootstrap data' do
+          subject(:bootstrap_data) do
+            get_index
+            assigns[:bootstrap_data].as_json
+          end
+
+          it 'has only one log' do
+            expect(bootstrap_data['logs'].size).to eq(1)
+          end
+
+          describe 'the log' do
+            subject(:log_data_keys) { bootstrap_data.dig('logs', 0).keys.map(&:to_s) }
+
+            it 'does not reveal confidential log information' do
+              expect(log_data_keys).not_to include('log_shares')
+              expect(log_data_keys).not_to include('publicly_viewable')
+              expect(log_data_keys).not_to include('reminder_time_in_seconds')
+              expect(log_data_keys).to match_array(%w[
+                data_label
+                data_type
+                description
+                id
+                name
+                slug
+                user
+              ])
+            end
+          end
+        end
       end
     end
 

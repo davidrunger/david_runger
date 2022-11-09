@@ -18,8 +18,4 @@
 
 class LogEntries::NumberLogEntry < LogEntry
   self.table_name = 'number_log_entries' # rubocop:disable Rails/TableNameAssignment
-
-  def self.policy_class
-    LogEntryPolicy
-  end
 end

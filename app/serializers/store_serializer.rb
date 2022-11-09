@@ -18,25 +18,22 @@
 #  index_stores_on_user_id  (user_id)
 #
 
-class StoreSerializer < ActiveModel::Serializer
+class StoreSerializer < ApplicationSerializer
   attributes :id, :name, :notes, :own_store, :private, :viewed_at
-  has_many :items
+  many :items, resource: ItemSerializer
 
-  def own_store
-    own_store?
+  attribute(:own_store) do |store|
+    own_store?(store)
   end
 
-  def viewed_at
-    own_store? ? store.viewed_at.utc.iso8601(3) : nil # match time format to the JavaScript one
+  attribute(:viewed_at) do |store|
+    # match time format to the JavaScript one
+    own_store?(store) ? store.viewed_at.utc.iso8601(3) : nil
   end
 
   private
 
-  def own_store?
+  def own_store?(store)
     store.user_id == current_user.id
-  end
-
-  def store
-    object
   end
 end

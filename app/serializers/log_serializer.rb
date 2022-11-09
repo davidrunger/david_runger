@@ -23,20 +23,30 @@
 #  index_logs_on_user_id_and_slug  (user_id,slug) UNIQUE
 #
 
-class LogSerializer < ActiveModel::Serializer
-  attributes :data_label, :data_type, :description, :id, :name, :publicly_viewable, :slug
-  attribute :reminder_time_in_seconds, if: :own_log?
+class LogSerializer < ApplicationSerializer
+  attributes(*%i[
+    data_label
+    data_type
+    description
+    id
+    name
+    slug
+  ])
 
-  belongs_to :user, serializer: LogOwnerSerializer
-  has_many :log_shares, if: :own_log?
+  attributes(
+    *%w[
+      publicly_viewable
+      reminder_time_in_seconds
+    ],
+    if: :own_log?,
+  )
 
-  def own_log?
-    current_user == log.user
-  end
+  one :user, resource: UserSerializer::Basic
+  many :log_shares, resource: LogShareSerializer, if: :own_log?
 
   private
 
-  def log
-    object
+  def own_log?
+    params[:own_log]
   end
 end

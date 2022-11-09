@@ -35,10 +35,16 @@ RSpec.describe CheckInsController do
       expect(response.body).to have_text(/Marriage Check-In #\d+/)
     end
 
-    it 'sets the correct bootstrap data for the check-in' do
-      get_show
+    describe 'bootstrap data' do
+      subject(:bootstrap_data) do
+        get_show
+        assigns[:bootstrap_data].as_json
+      end
 
-      expect(assigns[:bootstrap_data].as_json['check_in'].keys).to eq(%i[id])
+      it 'sets the correct bootstrap data for the check-in' do
+        expect(bootstrap_data['marriage'].keys).to eq(%w[id])
+        expect(bootstrap_data['check_in'].keys).to eq(%w[id])
+      end
     end
   end
 end

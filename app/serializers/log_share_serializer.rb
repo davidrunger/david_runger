@@ -14,6 +14,6 @@
 #
 #  index_log_shares_on_log_id_and_email  (log_id,email) UNIQUE
 #
-class LogShareSerializer < ActiveModel::Serializer
+class LogShareSerializer < ApplicationSerializer
   attributes :email, :id
 end

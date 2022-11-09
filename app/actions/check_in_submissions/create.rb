@@ -19,7 +19,7 @@ class CheckInSubmissions::Create < ApplicationAction
   private
 
   def user_ratings_of_partner
-    ActiveModel::Serializer::CollectionSerializer.new(
+    NeedSatisfactionRatingSerializer.new(
       check_in.need_satisfaction_ratings.
         where(user:).
         includes(:emotional_need).
