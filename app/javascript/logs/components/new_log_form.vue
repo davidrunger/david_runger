@@ -29,7 +29,7 @@ div
             name='newLog.data_type'
           )
             el-option(
-              v-for='dataType in bootstrap.log_input_types'
+              v-for='dataType in $bootstrap.log_input_types'
               :key='dataType.data_type'
               :label='dataType.label'
               :value='dataType.data_type'
