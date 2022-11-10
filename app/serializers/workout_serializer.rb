@@ -17,21 +17,15 @@
 #  index_workouts_on_created_at  (created_at)
 #  index_workouts_on_user_id     (user_id)
 #
-class WorkoutSerializer < ActiveModel::Serializer
-  attributes :created_at, :id, :publicly_viewable, :rep_totals, :time_in_seconds, :username
+class WorkoutSerializer < ApplicationSerializer
+  attributes :created_at, :id, :publicly_viewable, :time_in_seconds
 
-  def rep_totals
+  attribute(:rep_totals) do |workout|
     # alphabetize keys (workout names)
     workout.rep_totals.sort.to_h
   end
 
-  def username
+  attribute(:username) do |workout|
     workout.user.decorate.partially_anonymized_username
-  end
-
-  private
-
-  def workout
-    object
   end
 end

@@ -5,7 +5,6 @@ ruby '3.1.2'
 
 gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'activeadmin'
-gem 'active_model_serializers'
 gem 'alba'
 gem 'auto_strip_attributes'
 gem 'aws-sdk-s3'

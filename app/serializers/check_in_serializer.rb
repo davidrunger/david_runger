@@ -13,6 +13,6 @@
 #
 #  index_check_ins_on_marriage_id  (marriage_id)
 #
-class CheckInSerializer < ActiveModel::Serializer
+class CheckInSerializer < ApplicationSerializer
   attributes :id
 end

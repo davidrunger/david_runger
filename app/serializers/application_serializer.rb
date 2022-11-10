@@ -6,7 +6,7 @@ class ApplicationSerializer
   class << self
     attr_accessor :_filtered_attributes
 
-    def filtered_attributes(filtered_attributes)
+    def filtered_attributes(*filtered_attributes)
       self._filtered_attributes = filtered_attributes
     end
   end
@@ -17,5 +17,11 @@ class ApplicationSerializer
     else
       super
     end
+  end
+
+  private
+
+  def current_user
+    params[:current_user]
   end
 end

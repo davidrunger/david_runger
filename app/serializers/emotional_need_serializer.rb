@@ -15,6 +15,6 @@
 #
 #  index_emotional_needs_on_marriage_id_and_name  (marriage_id,name) UNIQUE
 #
-class EmotionalNeedSerializer < ActiveModel::Serializer
+class EmotionalNeedSerializer < ApplicationSerializer
   attributes :description, :id, :name
 end

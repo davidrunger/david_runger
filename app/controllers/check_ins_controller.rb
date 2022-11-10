@@ -40,13 +40,10 @@ class CheckInsController < ApplicationController
     check_in_need_satisfaction_ratings = @check_in.need_satisfaction_ratings
 
     bootstrap_data = {
-      marriage: MarriageSerializer.new(@check_in.marriage),
-      check_in: ActiveModelSerializers::SerializableResource.new(
-        @check_in,
-        serializer: CheckInSerializer,
-      ),
+      marriage: @check_in.marriage.serializer,
+      check_in: @check_in.serializer,
       user_ratings_of_partner:
-        ActiveModel::Serializer::CollectionSerializer.new(
+        NeedSatisfactionRatingSerializer.new(
           check_in_need_satisfaction_ratings.
             where(user: current_user).
             includes(:emotional_need).
@@ -56,7 +53,7 @@ class CheckInsController < ApplicationController
 
     if @check_in.submitted_by_both_partners?
       bootstrap_data[:partner_ratings_of_user] =
-        ActiveModel::Serializer::CollectionSerializer.new(
+        NeedSatisfactionRatingSerializer.new(
           check_in_need_satisfaction_ratings.
             where(user: current_user.marriage.decorate.other_partner).
             includes(:emotional_need).

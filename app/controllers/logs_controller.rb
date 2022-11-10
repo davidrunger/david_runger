@@ -4,10 +4,7 @@ class LogsController < ApplicationController
   def index
     authorize(Log)
 
-    user_id_param = params[:user_id]
-    slug_param = params[:slug]
-
-    if user_id_param && slug_param
+    if shared_log?
       sharing_user = User.find(user_id_param)
       shared_log = sharing_user.logs.find_by!(slug: slug_param)
       authorize(shared_log, :show?)
@@ -28,17 +25,25 @@ class LogsController < ApplicationController
     @title = 'Logs'
     bootstrap(
       current_user: UserSerializer.new(current_user),
-      logs: ActiveModel::Serializer::CollectionSerializer.new(
-        logs,
-        scope: current_user,
-        scope_name: :current_user,
-      ),
+      logs: LogSerializer.new(logs, params: { own_log: !shared_log? }),
       log_input_types:,
     )
     render :index
   end
 
   private
+
+  def shared_log?
+    user_id_param && slug_param
+  end
+
+  def user_id_param
+    params[:user_id]
+  end
+
+  def slug_param
+    params[:slug]
+  end
 
   def log_input_types
     [

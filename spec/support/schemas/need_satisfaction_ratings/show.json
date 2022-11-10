@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "score": { "type": "integer" },
+    "emotional_need": {
+      "type": "object",
+      "properties": {
+          "description": { "type": "string" },
+          "id": { "type": "number" },
+          "name": { "type": "string" }
+        },
+      "additionalProperties": false
+    }
+  }
+}

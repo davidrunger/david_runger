@@ -19,8 +19,14 @@
 #  index_need_satisfaction_ratings_on_user_id            (user_id)
 #
 
-class NeedSatisfactionRatingSerializer < ApplicationSerializer
-  attributes :id, :score
+RSpec.describe NeedSatisfactionRatingSerializer do
+  subject(:serializer) { NeedSatisfactionRatingSerializer.new(need_satisfaction_rating) }
 
-  one :emotional_need, resource: EmotionalNeedSerializer
+  let(:need_satisfaction_rating) { NeedSatisfactionRating.first! }
+
+  specify do
+    expect(serializer.to_json).to match_schema(
+      'spec/support/schemas/need_satisfaction_ratings/show.json',
+    )
+  end
 end

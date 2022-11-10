@@ -2,4 +2,25 @@
 
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
+
+  class << self
+    extend Memoist
+
+    memoize \
+    def serializer_class
+      "#{name}Serializer".constantize
+    end
+  end
+
+  # rubocop:disable Rails/Delegate
+  def as_json
+    serializer.as_json
+  end
+  # rubocop:enable Rails/Delegate
+
+  # rubocop:disable Style/OptionHash
+  def serializer(params = {})
+    self.class.serializer_class.new(self, params:)
+  end
+  # rubocop:enable Style/OptionHash
 end
