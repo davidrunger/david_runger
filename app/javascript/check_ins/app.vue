@@ -32,7 +32,6 @@ export default {
     actionCableConsumer.subscriptions.create(
       {
         channel: 'CheckInsChannel',
-        marriage_id: window.davidrunger.bootstrap.marriage.id,
       },
       {
         received: (data) => {
