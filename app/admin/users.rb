@@ -2,6 +2,8 @@
 
 ActiveAdmin.register(User) do
   permit_params :email
+  filter :email
+  filter :created_at
 
   controller do
     def find_resource
