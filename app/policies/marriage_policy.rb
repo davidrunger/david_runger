@@ -10,4 +10,8 @@ class MarriagePolicy < ApplicationPolicy
   def propose?
     true
   end
+
+  def show_groceries?
+    [@user.id, @user.spouse.id].sort == [@record.partner_1_id, @record.partner_2_id].sort
+  end
 end
