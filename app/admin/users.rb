@@ -19,6 +19,15 @@ ActiveAdmin.register(User) do
     end
   end
 
+  show do
+    attributes_table do
+      row :email
+      row :created_at
+      row :updated_at
+    end
+    active_admin_comments
+  end
+
   index do
     id_column
     column :email
@@ -26,6 +35,14 @@ ActiveAdmin.register(User) do
     column :updated_at
     actions
     column { |user| link_to('Become', become_admin_user_path(user)) }
+  end
+
+  form do |f1|
+    f1.semantic_errors
+    active_admin_form_for([:admin, resource]) do |f2|
+      f2.inputs(:email)
+      f2.actions
+    end
   end
 
   action_item :become, only: :show do
