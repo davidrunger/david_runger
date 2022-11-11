@@ -44,7 +44,14 @@ const actions = {
   },
 };
 
+const getters = {
+  submitted() {
+    return this.check_in.submitted;
+  },
+};
+
 export const useCheckInsStore = defineStore('check-ins', {
   state,
   actions,
+  getters,
 });

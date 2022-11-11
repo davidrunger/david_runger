@@ -42,7 +42,7 @@ RSpec.describe CheckInsController do
       end
 
       it 'sets the correct bootstrap data for the check-in' do
-        expect(bootstrap_data['check_in'].keys).to eq(%w[id])
+        expect(bootstrap_data['check_in'].keys).to eq(%w[id submitted])
       end
     end
   end

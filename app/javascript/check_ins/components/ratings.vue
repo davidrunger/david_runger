@@ -20,17 +20,24 @@ div.my2(
       :ratingValue='ratingValue'
       :editable='editable'
     )
-button.mt1.h3(v-if='editable' @click='submitCheckIn') Submit Check-in
+button.mt1.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
 </template>
 
 <script>
 import { range } from 'lodash-es';
+import { mapState } from 'pinia';
 import { useCheckInsStore } from '@/check_ins/store';
 import EmojiButton from './emoji_button.vue';
 
 export default {
   components: {
     EmojiButton,
+  },
+
+  computed: {
+    ...mapState(useCheckInsStore, [
+      'submitted',
+    ]),
   },
 
   created() {
