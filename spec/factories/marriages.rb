@@ -16,5 +16,8 @@
 #  index_marriages_on_partner_2_id  (partner_2_id)
 #
 FactoryBot.define do
-  factory :marriage
+  factory :marriage do
+    association :partner_1
+    association :partner_2
+  end
 end
