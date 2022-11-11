@@ -12,7 +12,7 @@ div
           )
         el-input.mb1(
           type='textarea'
-          placeholder='Details/Description'
+          placeholder='Details/Description (optional)'
           v-model='newLog.description'
           name='newLog.description'
         )
