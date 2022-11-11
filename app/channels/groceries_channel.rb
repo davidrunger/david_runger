@@ -2,8 +2,8 @@
 
 class GroceriesChannel < ApplicationCable::Channel
   def subscribed
-    user = User.find(params[:user_id])
-    authorize!(user, :show_groceries?)
-    stream_for(user)
+    marriage = current_user.marriage.presence!
+    authorize!(marriage, :show_groceries?)
+    stream_for(marriage)
   end
 end

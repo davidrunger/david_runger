@@ -37,7 +37,6 @@ export default {
       actionCableConsumer.subscriptions.create(
         {
           channel: 'GroceriesChannel',
-          user_id: spouseId,
         },
         {
           received: (data) => {

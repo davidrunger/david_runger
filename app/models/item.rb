@@ -30,5 +30,5 @@ class Item < ApplicationRecord
 
   scope :needed, -> { where('items.needed > 0') }
 
-  broadcasts_json_to(GroceriesChannel, :user)
+  broadcasts_json_to(GroceriesChannel, ->(item) { item.user&.marriage })
 end
