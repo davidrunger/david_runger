@@ -15,4 +15,8 @@
 #
 class CheckInSerializer < ApplicationSerializer
   attributes :id
+
+  attribute(:submitted) do |check_in|
+    check_in.decorate.submitted_by_self?
+  end
 end
