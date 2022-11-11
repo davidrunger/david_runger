@@ -18,7 +18,7 @@ div
         )
         .mb1
           el-input(
-            placeholder='Label'
+            placeholder='Label (e.g. Weight, Run time, etc)'
             v-model='newLog.data_label'
             name='newLog.data_label'
           )
