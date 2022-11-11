@@ -10,7 +10,6 @@ class CheckInsController < ApplicationController
     authorize(CheckIn)
     @title = 'Marriage check-ins'
     @marriage = current_user.marriage.decorate
-    bootstrap(marriage: MarriageSerializer.new(@marriage))
     render :index
   end
 
@@ -40,7 +39,6 @@ class CheckInsController < ApplicationController
     check_in_need_satisfaction_ratings = @check_in.need_satisfaction_ratings
 
     bootstrap_data = {
-      marriage: @check_in.marriage.serializer,
       check_in: @check_in.serializer,
       user_ratings_of_partner:
         NeedSatisfactionRatingSerializer.new(
