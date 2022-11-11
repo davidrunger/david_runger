@@ -35,8 +35,8 @@ form
           :name='`exercise-${index}-reps`'
           type='number'
         )
-    .col.col-1.flex.flex-column.items-center.justify-center
-      button(type='button' @click='removeExercise(index)') X
+    .col.col-1.flex.flex-column.items-center.justify-end
+      el-button(@click='removeExercise(index)') X
   .my1.center
     el-button(
       @click='workout.exercises.push({})'
