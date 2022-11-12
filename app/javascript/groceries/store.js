@@ -31,6 +31,10 @@ const actions = {
 
   addItem({ store, itemData }) {
     store = store || helpers.getById(this.allStores, itemData.store_id);
+
+    // don't add item to store if it's already there
+    if (helpers.getById(store.items, itemData.id)) return;
+
     store.items.unshift(itemData);
   },
 
