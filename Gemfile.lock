@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/simple_cov-formatter-terminal.git
-  revision: c768c3a431c96648fdcf4f885205e293e22a4dff
+  revision: bb2fa6c7236a6a22eedd5d00abbf19b8f6859d90
   specs:
     simple_cov-formatter-terminal (0.1.0)
       activesupport (>= 7.0.4, < 8)
