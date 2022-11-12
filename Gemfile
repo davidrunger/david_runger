@@ -34,7 +34,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'paper_trail'
 gem 'pg'
-gem 'puma'
+gem 'puma', github: 'puma/puma' # use github til release of https://github.com/puma/puma/pull/ 3002
 gem 'pundit'
 gem 'rack-attack'
 gem 'rails'
@@ -71,6 +71,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'hotwire-livereload'
   gem 'http_logger'
   gem 'letter_opener'
   gem 'listen'

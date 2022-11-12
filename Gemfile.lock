@@ -38,6 +38,13 @@ GIT
       rspec-core (>= 3.11.0, < 4)
       simplecov (>= 0.21.2, < 1)
 
+GIT
+  remote: https://github.com/puma/puma.git
+  revision: d0dc3e44df86be1708c8d67fa0e8e753c477a480
+  specs:
+    puma (6.0.0)
+      nio4r (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -271,6 +278,9 @@ GEM
       hashids (~> 1.0)
     hashids (1.0.6)
     hashie (5.0.0)
+    hotwire-livereload (1.2.2)
+      listen (>= 3.0.0)
+      rails (>= 6.0.0)
     http_logger (0.7.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
@@ -389,8 +399,6 @@ GEM
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
     public_suffix (5.0.0)
-    puma (6.0.0)
-      nio4r (~> 2.0)
     pundit (2.2.0)
       activesupport (>= 3.0.0)
     racc (1.6.0)
@@ -633,6 +641,7 @@ DEPENDENCIES
   flipper-ui
   hamlit
   hashid-rails
+  hotwire-livereload
   http_logger
   immigrant
   js-routes (= 2.2.4)
@@ -653,7 +662,7 @@ DEPENDENCIES
   percy-capybara
   pg
   pry-byebug
-  puma
+  puma!
   pundit
   rack-attack
   rails

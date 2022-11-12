@@ -86,6 +86,13 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  config.hotwire_livereload.listen_paths = %w[
+    app/views
+    app/helpers
+    app/assets/stylesheets
+  ].map { Rails.root.join(_1) }
+  config.hotwire_livereload.force_reload_paths = config.hotwire_livereload.listen_paths
+
   # Email
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
