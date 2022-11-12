@@ -86,6 +86,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  config.hotwire_livereload.disable_default_listeners = true
   config.hotwire_livereload.listen_paths = %w[
     app/views
     app/helpers
