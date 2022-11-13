@@ -74,38 +74,38 @@ export default {
   },
 
   methods: {
-    cancelReminders() {
+    async cancelReminders() {
       this.hideReminderSchedulingModal();
-      this.logsStore.updateLog({
+
+      await this.logsStore.updateLog({
         logId: this.log.id,
         updatedLogParams: { reminder_time_in_seconds: null },
-      }).then(() => {
-        Toastify({
-          text: 'Reminders cancelled!',
-          className: 'success',
-          position: 'center',
-          duration: 1800,
-        }).showToast();
       });
+
+      Toastify({
+        text: 'Reminders cancelled!',
+        position: 'center',
+        duration: 1800,
+      }).showToast();
     },
 
     hideReminderSchedulingModal() {
       this.modalStore.hideModal({ modalName: 'edit-log-reminder-schedule' });
     },
 
-    updateLog() {
+    async updateLog() {
       this.hideReminderSchedulingModal();
-      this.logsStore.updateLog({
+
+      await this.logsStore.updateLog({
         logId: this.log.id,
         updatedLogParams: { reminder_time_in_seconds: this.formSelectedReminderTimeInSeconds },
-      }).then(() => {
-        Toastify({
-          text: 'Reminder time updated!',
-          className: 'success',
-          position: 'center',
-          duration: 1800,
-        }).showToast();
       });
+
+      Toastify({
+        text: 'Reminder time updated!',
+        position: 'center',
+        duration: 1800,
+      }).showToast();
     },
   },
 

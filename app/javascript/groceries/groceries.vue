@@ -82,16 +82,6 @@ main {
   z-index: 5;
 }
 
-.toastify {
-  &.error {
-    background: #d42b2b;
-  }
-
-  &.success {
-    background: #219b21;
-  }
-}
-
 .icon-tabler {
   vertical-align: bottom;
 }

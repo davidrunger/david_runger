@@ -51,7 +51,6 @@ export default {
       toastMessages.forEach((message) => {
         Toastify({
           text: message,
-          className: 'success',
           position: 'center',
           duration: 1800,
         }).showToast();

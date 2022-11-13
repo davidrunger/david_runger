@@ -113,17 +113,17 @@ export default {
       });
     },
 
-    postNewLogEntry(newLogEntryData) {
-      this.logsStore.createLogEntry({
+    async postNewLogEntry(newLogEntryData) {
+      await this.logsStore.createLogEntry({
         logId: this.log.id,
         newLogEntryCreatedAt: this.newLogEntryCreatedAt,
         newLogEntryData,
         newLogEntryNote: this.newLogEntryNote,
-      }).then(() => {
-        this.newLogEntryCreatedAt = null;
-        this.newLogEntryData = null;
-        this.newLogEntryNote = null;
       });
+
+      this.newLogEntryCreatedAt = null;
+      this.newLogEntryData = null;
+      this.newLogEntryNote = null;
     },
   },
 

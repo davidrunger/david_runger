@@ -17,7 +17,7 @@ const actions = {
     log.log_entries.push(newLogEntry);
   },
 
-  addLogShare({ logId, newLogShareEmail }) {
+  async addLogShare({ logId, newLogShareEmail }) {
     const payload = {
       log_share: {
         log_id: logId,
@@ -25,25 +25,31 @@ const actions = {
       },
     };
 
-    kyApi.post(Routes.api_log_shares_path(), { json: payload }).json().then(logShareData => {
-      const log = this.logById({ logId });
-      log.log_shares.push(logShareData);
-    });
+    const logShareData =
+      await kyApi.post(
+        Routes.api_log_shares_path(),
+        { json: payload },
+      ).json();
+
+    const log = this.logById({ logId });
+    log.log_shares.push(logShareData);
   },
 
-  createLog({ log }) {
+  async createLog({ log }) {
     this.postingLog = true;
 
-    return kyApi.
-      post(Routes.api_logs_path(), { json: { log } }).json().
-      then((logData) => {
-        this.postingLog = false;
-        this.logs = this.logs.concat(logData);
-        return logData;
-      });
+    const logData =
+      await kyApi.post(
+        Routes.api_logs_path(),
+        { json: { log } },
+      ).json();
+
+    this.postingLog = false;
+    this.logs = this.logs.concat(logData);
+    return logData;
   },
 
-  createLogEntry({ logId, newLogEntryCreatedAt, newLogEntryData, newLogEntryNote }) {
+  async createLogEntry({ logId, newLogEntryCreatedAt, newLogEntryData, newLogEntryNote }) {
     const payload = {
       log_entry: {
         created_at: newLogEntryCreatedAt,
@@ -53,124 +59,115 @@ const actions = {
       },
     };
 
-    return kyApi.post(Routes.api_log_entries_path(), { json: payload }).json().then(data => {
-      this.addLogEntry({ logId, newLogEntry: data });
-    });
+    const data =
+      await kyApi.post(
+        Routes.api_log_entries_path(),
+        { json: payload },
+      ).json();
+
+    this.addLogEntry({ logId, newLogEntry: data });
   },
 
-  deleteLastLogEntry({ log }) {
+  async deleteLastLogEntry({ log }) {
     const lastLogEntry = last(sortBy(log.log_entries, 'created_at'));
-    kyApi.
-      delete(Routes.api_log_entry_path({
+    await kyApi.delete(
+      Routes.api_log_entry_path({
         id: lastLogEntry.id,
         log_id: log.id,
         _options: {}, // providing `_options` seems to be necessary to put query params in the path
-      })).
-      then(() => { this.deleteLogEntry({ log, logEntry: lastLogEntry }); });
+      }),
+    );
+    this.deleteLogEntry({ log, logEntry: lastLogEntry });
   },
 
-  deleteLog({ log: logToDelete }) {
-    kyApi.delete(Routes.api_log_path({ id: logToDelete.id })).
-      then(() => {
-        Toastify({
-          text: `Deleted "${logToDelete.name}" log.`,
-          className: 'success',
-          position: 'center',
-          duration: 1800,
-        }).showToast();
-        this.router.push({ name: 'logs-index' });
-        // we need to wait a tick so we don't remove the log while still on the log show page
-        setTimeout(() => {
-          this.logs = this.logs.filter(log => log.id !== logToDelete.id);
-        });
-      });
+  async deleteLog({ log: logToDelete }) {
+    await kyApi.delete(Routes.api_log_path({ id: logToDelete.id }));
+    Toastify({
+      text: `Deleted "${logToDelete.name}" log.`,
+      position: 'center',
+      duration: 1800,
+    }).showToast();
+    this.router.push({ name: 'logs-index' });
+    // we need to wait a tick so we don't remove the log while still on the log show page
+    setTimeout(() => {
+      this.logs = this.logs.filter(log => log.id !== logToDelete.id);
+    });
   },
 
   deleteLogEntry({ log, logEntry: logEntryToDelete }) {
     log.log_entries = log.log_entries.filter(logEntry => logEntry !== logEntryToDelete);
   },
 
-  deleteLogShare({ log, logShareId }) {
-    kyApi.delete(Routes.api_log_share_path({ id: logShareId })).
-      then(() => {
-        log.log_shares = log.log_shares.filter(logShare => logShare.id !== logShareId);
-      });
+  async deleteLogShare({ log, logShareId }) {
+    await kyApi.delete(Routes.api_log_share_path({ id: logShareId }));
+    log.log_shares = log.log_shares.filter(logShare => logShare.id !== logShareId);
   },
 
-  fetchAllLogEntries() {
-    kyApi.
-      get(Routes.api_log_entries_path()).
-      json().
-      then(data => {
-        const entriesByLogId = {};
-        data.forEach(logEntry => {
-          const { log_id: logId } = logEntry;
-          entriesByLogId[logId] = entriesByLogId[logId] || [];
-          entriesByLogId[logId].push(logEntry);
-        });
+  async fetchAllLogEntries() {
+    const data = await kyApi.get(Routes.api_log_entries_path()).json();
+    const entriesByLogId = {};
+    data.forEach(logEntry => {
+      const { log_id: logId } = logEntry;
+      entriesByLogId[logId] = entriesByLogId[logId] || [];
+      entriesByLogId[logId].push(logEntry);
+    });
 
-        Object.keys(entriesByLogId).forEach(logId => {
-          const logEntries = entriesByLogId[logId];
-          this.setLogEntries({
-            log: this.logById({ logId: parseInt(logId, 10) }),
-            logEntries,
-          });
-        });
+    Object.keys(entriesByLogId).forEach(logId => {
+      const logEntries = entriesByLogId[logId];
+      this.setLogEntries({
+        log: this.logById({ logId: parseInt(logId, 10) }),
+        logEntries,
       });
+    });
   },
 
-  fetchLogEntries({ logId }) {
-    kyApi.
-      get(Routes.api_log_entries_path({ log_id: logId })).
-      json().
-      then(data => {
-        this.setLogEntries({
-          log: this.logById({ logId }),
-          logEntries: data,
-        });
-      });
+  async fetchLogEntries({ logId }) {
+    const data = await kyApi.get(Routes.api_log_entries_path({ log_id: logId })).json();
+
+    this.setLogEntries({
+      log: this.logById({ logId }),
+      logEntries: data,
+    });
   },
 
   setLogEntries({ log, logEntries }) {
     log.log_entries = sortBy(logEntries, 'created_at');
   },
 
-  updateLog({ logId, updatedLogParams }) {
+  async updateLog({ logId, updatedLogParams }) {
     const payload = { log: updatedLogParams };
 
-    return (
-      kyApi.
-        patch(Routes.api_log_path(logId), { json: payload }).
-        json().
-        then(updatedLogData => {
-          const log = this.logById({ logId });
-          Object.assign(log, updatedLogData);
-        })
-    );
+    const updatedLogData =
+      await kyApi.patch(
+        Routes.api_log_path(logId),
+        { json: payload },
+      ).json();
+
+    const log = this.logById({ logId });
+    Object.assign(log, updatedLogData);
   },
 
-  updateLogEntry({ logEntryId, updatedLogEntryParams }) {
+  async updateLogEntry({ logEntryId, updatedLogEntryParams }) {
     const payload = {
       log_entry: updatedLogEntryParams,
     };
 
-    return (
-      kyApi.
-        patch(Routes.api_log_entry_path(logEntryId), { json: payload }).
-        json().
-        then(updatedLogEntryData => {
-          const logId = updatedLogEntryData.log_id;
-          const log = this.logById({ logId });
-          log.log_entries =
-            log.log_entries.map(logEntry => {
-              if (logEntry.id === logEntryId) {
-                return updatedLogEntryData;
-              } else {
-                return logEntry;
-              }
-            });
-        })
-    );
+    const updatedLogEntryData =
+      await kyApi.patch(
+        Routes.api_log_entry_path(logEntryId),
+        { json: payload },
+      ).json();
+
+    const logId = updatedLogEntryData.log_id;
+    const log = this.logById({ logId });
+    log.log_entries =
+      log.log_entries.map(logEntry => {
+        if (logEntry.id === logEntryId) {
+          return updatedLogEntryData;
+        } else {
+          return logEntry;
+        }
+      });
   },
 };
 

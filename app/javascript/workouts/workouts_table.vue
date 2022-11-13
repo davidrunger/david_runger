@@ -53,19 +53,16 @@ export default {
       return strftime('%b %-d, %Y at %-l:%M%P', new Date(timeString));
     },
 
-    savePubliclyViewableChange(workout) {
-      this.workoutsStore.updateWorkout({ workout, attributes: workout }).
-        then(responseData => {
-          const message = responseData.publicly_viewable ?
-            'Workout is now publicly viewable.' :
-            'Workout is now private.';
-          Toastify({
-            text: message,
-            className: 'success',
-            position: 'center',
-            duration: 1800,
-          }).showToast();
-        });
+    async savePubliclyViewableChange(workout) {
+      const responseData = await this.workoutsStore.updateWorkout({ workout, attributes: workout });
+      const message = responseData.publicly_viewable ?
+        'Workout is now publicly viewable.' :
+        'Workout is now private.';
+      Toastify({
+        text: message,
+        position: 'center',
+        duration: 1800,
+      }).showToast();
     },
   },
 
