@@ -46,14 +46,13 @@ export default {
       this.editing = false;
     },
 
-    updateLogEntry() {
+    async updateLogEntry() {
       const updatedLogEntryParams = { data: this.newPlaintext };
-      this.logsStore.
-        updateLogEntry({
-          logEntryId: this.logEntry.id,
-          updatedLogEntryParams,
-        }).
-        then(() => { this.editing = false; });
+      await this.logsStore.updateLogEntry({
+        logEntryId: this.logEntry.id,
+        updatedLogEntryParams,
+      });
+      this.editing = false;
     },
   },
 

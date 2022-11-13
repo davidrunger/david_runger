@@ -78,9 +78,9 @@ export default {
   },
 
   methods: {
-    handleNewStoreSubmission() {
-      this.groceriesStore.createStore(this.newStoreName).
-        then(() => { this.newStoreName = ''; });
+    async handleNewStoreSubmission() {
+      await this.groceriesStore.createStore(this.newStoreName);
+      this.newStoreName = '';
     },
   },
 

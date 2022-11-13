@@ -35,24 +35,24 @@ const actions = {
     // don't add item to store if it's already there
     if (helpers.getById(store.items, itemData.id)) return;
 
+    itemData.newlyAdded = true;
     store.items.unshift(itemData);
+    setTimeout(() => { itemData.newlyAdded = false; }, 1000);
   },
 
-  createItem({ store, itemAttributes }) {
+  async createItem({ store, itemAttributes }) {
     this.incrementPendingRequests();
-    return kyApi.
-      post(Routes.api_store_items_path(store.id), { json: { item: itemAttributes } }).
-      json().
-      then(itemData => {
-        itemData.newlyAdded = true;
-        this.decrementPendingRequests();
-        this.addItem({ store, itemData });
 
-        setTimeout(() => { itemData.newlyAdded = false; }, 1000);
-      });
+    const itemData = await kyApi.post(
+      Routes.api_store_items_path(store.id),
+      { json: { item: itemAttributes } },
+    ).json();
+
+    this.decrementPendingRequests();
+    this.addItem({ store, itemData });
   },
 
-  createStore(newStoreName) {
+  async createStore(newStoreName) {
     this.postingStore = true;
     const payload = {
       store: {
@@ -60,14 +60,14 @@ const actions = {
       },
     };
 
-    return (
-      kyApi.
-        post(Routes.api_stores_path(), { json: payload }).json().
-        then(newStoreData => {
-          this.postingStore = false;
-          this.own_stores.unshift(newStoreData);
-        })
-    );
+    const newStoreData =
+      await kyApi.post(
+        Routes.api_stores_path(),
+        { json: payload },
+      ).json();
+
+    this.postingStore = false;
+    this.own_stores.unshift(newStoreData);
   },
 
   decrementPendingRequests() {
@@ -79,16 +79,15 @@ const actions = {
     store.items = store.items.filter(storeItem => storeItem.id !== item.id);
   },
 
-  destroyItem({ item }) {
+  async destroyItem({ item }) {
     this.incrementPendingRequests();
-    kyApi.delete(
+    await kyApi.delete(
       Routes.api_item_path(item.id),
       { headers: { 'content-type': 'application/json' } },
-    ).json().
-      then(() => {
-        this.decrementPendingRequests();
-        this.deleteItem({ item });
-      });
+    );
+
+    this.decrementPendingRequests();
+    this.deleteItem({ item });
   },
 
   deleteStore({ store: deletedStore }) {
@@ -137,23 +136,27 @@ const actions = {
     this.skippedItems = this.skippedItems.filter(item => item.id !== itemToUnskip.id);
   },
 
-  updateItem({ item, attributes }) {
+  async updateItem({ item, attributes }) {
     this.incrementPendingRequests();
 
-    kyApi.
-      patch(Routes.api_item_path(item.id), { json: { item: attributes } }).
-      json().
-      then(updatedItemData => {
-        this.modifyItem({ item, attributes: updatedItemData });
-        this.decrementPendingRequests();
-      });
+    const updatedItemData =
+      await kyApi.patch(
+        Routes.api_item_path(item.id),
+        { json: { item: attributes } },
+      ).json();
+
+    this.modifyItem({ item, attributes: updatedItemData });
+    this.decrementPendingRequests();
   },
 
-  updateStore({ store, attributes }) {
-    kyApi.
-      patch(Routes.api_store_path(store.id), { json: { store: attributes } }).
-      json().
-      then(updatedStoreData => { Object.assign(store, updatedStoreData); });
+  async updateStore({ store, attributes }) {
+    const updatedStoreData =
+      await kyApi.patch(
+        Routes.api_store_path(store.id),
+        { json: { store: attributes } },
+      ).json();
+
+    Object.assign(store, updatedStoreData);
   },
 
   zeroItems({ items }) {

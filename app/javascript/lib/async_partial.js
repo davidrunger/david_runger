@@ -5,9 +5,9 @@ export function loadAsyncPartials() {
   });
 }
 
-function fetchPartial(asyncPartialEl) {
+async function fetchPartial(asyncPartialEl) {
   const src = asyncPartialEl.dataset.asyncPartialSrc;
-  fetch(src).
-    then(response => response.text()).
-    then(html => { asyncPartialEl.innerHTML = html; });
+  const response = await fetch(src);
+  const html = await response.text();
+  asyncPartialEl.innerHTML = html;
 }

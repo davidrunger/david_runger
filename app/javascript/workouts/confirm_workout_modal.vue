@@ -24,7 +24,6 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
 </template>
 
 <script>
-import { get } from 'lodash-es';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import { useModalStore } from '@/shared/modal/store';
@@ -41,31 +40,31 @@ export default {
   },
 
   methods: {
-    saveWorkout() {
-      this.workoutsStore.createWorkout({ workout: {
-        publiclyViewable: this.publiclyViewable,
-        repTotals: this.repTotals,
-        timeInSeconds: this.timeInSeconds,
-      } }).
-        then(completedWorkout => {
-          Toastify({
-            text: 'Workout completion logged successfully!',
-            className: 'success',
-            position: 'center',
-            duration: 2500,
-          }).showToast();
+    async saveWorkout() {
+      try {
+        const completedWorkout =
+          await this.workoutsStore.createWorkout({ workout: {
+            publiclyViewable: this.publiclyViewable,
+            repTotals: this.repTotals,
+            timeInSeconds: this.timeInSeconds,
+          } });
 
-          this.modalStore.hideModal({ modalName: this.modalName });
-          this.workoutsStore.completeWorkout({ completedWorkout });
-        }).catch((error) => {
-          const errorMessage = get(error, 'response.data.error', 'Something went wrong');
-          Toastify({
-            text: errorMessage,
-            className: 'error',
-            position: 'center',
-            duration: 2500,
-          }).showToast();
-        });
+        Toastify({
+          text: 'Workout completion logged successfully!',
+          position: 'center',
+          duration: 2500,
+        }).showToast();
+
+        this.modalStore.hideModal({ modalName: this.modalName });
+        this.workoutsStore.completeWorkout({ completedWorkout });
+      } catch (error) {
+        Toastify({
+          text: 'Something went wrong',
+          className: 'error',
+          position: 'center',
+          duration: 2500,
+        }).showToast();
+      }
     },
   },
 

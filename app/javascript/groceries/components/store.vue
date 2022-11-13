@@ -242,17 +242,16 @@ export default {
         itemAttributes: {
           name: this.newItemName,
         },
-      }).catch(({ response }) => {
+      }).catch(async ({ response }) => {
         this.groceriesStore.decrementPendingRequests();
-        response.json().then(({ errors }) => {
-          errors.forEach((errorMessage) => {
-            Toastify({
-              text: errorMessage,
-              className: 'error',
-              position: 'center',
-              duration: 2500,
-            }).showToast();
-          });
+        const { errors } = await response.json();
+        errors.forEach((errorMessage) => {
+          Toastify({
+            text: errorMessage,
+            className: 'error',
+            position: 'center',
+            duration: 2500,
+          }).showToast();
         });
       });
       this.newItemName = '';

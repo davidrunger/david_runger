@@ -64,12 +64,10 @@ export default {
   },
 
   methods: {
-    createLog() {
-      this.logsStore.createLog({ log: this.newLog }).
-        then((log) => {
-          this.newLog = {};
-          this.$router.push({ name: 'log', params: { slug: log.slug } });
-        });
+    async createLog() {
+      const log = await this.logsStore.createLog({ log: this.newLog });
+      this.newLog = {};
+      this.$router.push({ name: 'log', params: { slug: log.slug } });
     },
   },
 };

@@ -59,12 +59,10 @@ export default {
         );
     },
 
-    submitCheckIn() {
-      this.checkInsStore.submitCheckIn().
-        then(() => {
-          // refresh page to load spouse's answers (if available)
-          window.location.reload();
-        });
+    async submitCheckIn() {
+      await this.checkInsStore.submitCheckIn();
+      // refresh page to load spouse's answers (if available)
+      window.location.reload();
     },
   },
 
