@@ -57,9 +57,9 @@ export default {
 
   created() {
     this.fuzzySet = FuzzySet();
-    this.logNames.forEach(logName => {
+    for (const logName of this.logNames) {
       this.fuzzySet.add(logName);
-    });
+    }
   },
 
   methods: {

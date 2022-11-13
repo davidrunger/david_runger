@@ -106,27 +106,27 @@ export default {
 
     repTotalsAsOfCurrentRound() {
       const repTotalsAsOfCurrentRound = {};
-      this.exercises.forEach(({ name: exerciseName }) => {
+      for (const { name: exerciseName } of this.exercises) {
         repTotalsAsOfCurrentRound[exerciseName] =
           this.setsArray.slice(0, this.currentRoundIndex + 1).reduce((total, setObject) => {
             const exerciseObject =
               setObject.exercises.find(exercise => exercise.name === exerciseName);
             return total + exerciseObject.reps;
           }, 0);
-      });
+      }
       return repTotalsAsOfCurrentRound;
     },
 
     repTotalsForWorkout() {
       const repTotalsForWorkout = {};
-      this.exercises.forEach(({ name: exerciseName }) => {
+      for (const { name: exerciseName } of this.exercises) {
         repTotalsForWorkout[exerciseName] =
           this.setsArray.reduce((total, setObject) => {
             const exerciseObject =
               setObject.exercises.find(exercise => exercise.name === exerciseName);
             return total + exerciseObject.reps;
           }, 0);
-      });
+      }
       return repTotalsForWorkout;
     },
 

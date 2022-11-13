@@ -160,7 +160,7 @@ const actions = {
   },
 
   zeroItems({ items }) {
-    items.forEach(item => { item.needed = 0; });
+    for (const item of items) item.needed = 0;
 
     kyApi.post(
       Routes.api_items_bulk_updates_path(),

@@ -46,6 +46,12 @@ module.exports = {
         message: 'Use lodash-es.',
       }],
     }],
+    'no-restricted-syntax': [
+      'error',
+      'ForInStatement',
+      'LabeledStatement',
+      'WithStatement',
+    ],
     'no-underscore-dangle': 'off',
     'no-unreachable': ((env.NODE_ENV === 'production') ? 'error' : 'warn'),
     'no-use-before-define': ['error', { functions: false }],

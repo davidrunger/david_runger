@@ -115,11 +115,11 @@ export default {
           // might be changing the scroll position of the target element as the page renders. stop
           // after 850 ms because at that point the user has a reasonable expectation to have full
           // control over their scroll position.
-          [0, 150, 320, 500, 850].forEach((timeoutMilliseconds) => {
+          for (const timeoutMilliseconds of [0, 150, 320, 500, 850]) {
             setTimeout(() => {
               fragmentTarget.scrollIntoView();
             }, timeoutMilliseconds);
-          });
+          }
         }
       }
     },

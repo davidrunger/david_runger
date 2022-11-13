@@ -83,15 +83,15 @@ export default {
 
       const mostRecentLogEntryValues = [];
 
-      this.log.log_entries.slice().reverse().forEach((logEntry) => {
-        if (mostRecentLogEntryValues.length >= MAX_RECENT_LOG_ENTRY_VALUES) return;
+      for (const logEntry of this.log.log_entries.slice().reverse()) {
+        if (mostRecentLogEntryValues.length >= MAX_RECENT_LOG_ENTRY_VALUES) break;
 
         const value = logEntry.data;
         const isAlreadyInList = mostRecentLogEntryValues.indexOf(value) !== -1;
         if (!isAlreadyInList) {
           mostRecentLogEntryValues.push(value);
         }
-      });
+      }
 
       return mostRecentLogEntryValues.sort((a, b) => a - b);
     },
