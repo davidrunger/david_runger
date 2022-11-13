@@ -28,7 +28,7 @@ export default {
     logEntriesToChartData() {
       const countByDate = {};
 
-      this.log_entries.forEach(logEntry => {
+      for (const logEntry of this.log_entries) {
         const date = new Date(logEntry.created_at);
         const dateIsoStringInLocalTime =
           (new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000)).
@@ -37,7 +37,7 @@ export default {
 
         countByDate[dateIsoStringInLocalTime] = countByDate[dateIsoStringInLocalTime] || 0;
         countByDate[dateIsoStringInLocalTime] += logEntry.data;
-      });
+      }
 
       return Object.entries(countByDate).
         map(([date, count]) => ({

@@ -106,19 +106,19 @@ const actions = {
   async fetchAllLogEntries() {
     const data = await kyApi.get(Routes.api_log_entries_path()).json();
     const entriesByLogId = {};
-    data.forEach(logEntry => {
+    for (const logEntry of data) {
       const { log_id: logId } = logEntry;
       entriesByLogId[logId] = entriesByLogId[logId] || [];
       entriesByLogId[logId].push(logEntry);
-    });
+    }
 
-    Object.keys(entriesByLogId).forEach(logId => {
+    for (const logId of Object.keys(entriesByLogId)) {
       const logEntries = entriesByLogId[logId];
       this.setLogEntries({
         log: this.logById({ logId: parseInt(logId, 10) }),
         logEntries,
       });
-    });
+    }
   },
 
   async fetchLogEntries({ logId }) {

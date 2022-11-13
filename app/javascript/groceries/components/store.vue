@@ -245,14 +245,14 @@ export default {
       }).catch(async ({ response }) => {
         this.groceriesStore.decrementPendingRequests();
         const { errors } = await response.json();
-        errors.forEach((errorMessage) => {
+        for (const errorMessage of errors) {
           Toastify({
             text: errorMessage,
             className: 'error',
             position: 'center',
             duration: 2500,
           }).showToast();
-        });
+        }
       });
       this.newItemName = '';
     },

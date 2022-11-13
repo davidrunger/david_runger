@@ -48,13 +48,13 @@ export default {
     // display any initial toast messages
     const toastMessages = this.$bootstrap.toast_messages;
     if (toastMessages) {
-      toastMessages.forEach((message) => {
+      for (const message of toastMessages) {
         Toastify({
           text: message,
           position: 'center',
           duration: 1800,
         }).showToast();
-      });
+      }
     }
 
     // remove any query params that might be present (e.g. `new_entry` and `auth_token`)

@@ -1,8 +1,8 @@
 export function loadAsyncPartials() {
-  document.querySelectorAll('[data-async-partial-src]').forEach(asyncPartialEl => {
+  for (const asyncPartialEl of document.querySelectorAll('[data-async-partial-src]')) {
     const delay = parseInt(asyncPartialEl.dataset.delay || '0', 10);
     setTimeout(fetchPartial.bind(null, asyncPartialEl), delay);
-  });
+  }
 }
 
 async function fetchPartial(asyncPartialEl) {
