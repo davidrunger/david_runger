@@ -23,9 +23,10 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 822ca5f37303c2d50921daadefc08ed1a130c992
+  revision: 341fc1d3160029556abb1cb40689469ea5912111
   specs:
     runger_style (0.2.22.alpha)
+      rubocop (>= 1.38.0, < 2)
 
 GIT
   remote: https://github.com/davidrunger/simple_cov-formatter-terminal.git
@@ -495,7 +496,7 @@ GEM
     rspec-support (3.11.1)
     rspec-wait (0.0.9)
       rspec (>= 3, < 4)
-    rubocop (1.37.1)
+    rubocop (1.39.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
