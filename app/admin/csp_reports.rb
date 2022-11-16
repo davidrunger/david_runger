@@ -20,6 +20,8 @@ ActiveAdmin.register(CspReport) do
     attributes_table do
       row :document_uri
       row :violated_directive
+      row :pretty_user_agent
+      row :user_agent
       row :original_policy
       row :ip
       row :referrer
