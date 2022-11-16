@@ -32,6 +32,11 @@ export default {
   created() {
     window.addEventListener('beforeunload', this.warnIfRequestPending);
 
+    // https://stackoverflow.com/a/59492869/4009384
+    document.addEventListener('touchmove', (event) => {
+      if (event.scale !== 1) { event.preventDefault(); }
+    }, { passive: false });
+
     const spouseId = get(window, 'davidrunger.bootstrap.spouse.id');
     if (spouseId) {
       actionCableConsumer.subscriptions.create(
@@ -84,5 +89,16 @@ main {
 
 .icon-tabler {
   vertical-align: bottom;
+}
+
+// https://stackoverflow.com/a/45769607/4009384
+@media screen and (max-width: 767px) {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"] {
+    font-size: 16px;
+  }
 }
 </style>
