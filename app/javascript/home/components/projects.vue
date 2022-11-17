@@ -252,10 +252,9 @@ HomeSection(section='projects' title='Projects')
         p.
 
           DavidRunger.com has some Sidekiq jobs that I want to run at various scheduled intervals.
-          There are some gems to help with this, like
+          There are some great add-on gems that provide this functionality, like
           #[a(href='https://github.com/sidekiq-scheduler/sidekiq-scheduler/') sidekiq-scheduler],
-          but, at the time of writing, it
-          #[a(href='https://github.com/sidekiq-scheduler/sidekiq-scheduler/issues/409') doesn't work with Sidekiq 7].
+          but I wanted something that wasn't so dependent on Sidekiq internals.
 
         p.
 
