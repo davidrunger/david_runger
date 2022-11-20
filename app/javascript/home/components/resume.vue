@@ -3,7 +3,7 @@ HomeSection.pb4(
   section='resume'
   title='Resume'
 )
-  a.resume-button.block.center(href='/David-Runger-Resume.pdf') Download Resume (pdf)
+  a.resume-button.block.center(href='/David-Runger-Resume.pdf') View Resume (pdf)
 </template>
 
 <script>
