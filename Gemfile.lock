@@ -392,7 +392,7 @@ GEM
       optimist (~> 3.0)
     percy-capybara (5.0.0)
       capybara (>= 3)
-    pg (1.4.4)
+    pg (1.4.5)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
