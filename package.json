@@ -50,7 +50,7 @@
     "lodash-es": "^4.17.21",
     "marked": "^4.2.3",
     "normalize.css": "^8.0.1",
-    "pinia": "^2.0.23",
+    "pinia": "^2.0.24",
     "pug": "^3.0.2",
     "strftime": "^0.10.1",
     "toastify-js": "^1.12.0",
