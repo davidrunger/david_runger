@@ -17,6 +17,7 @@
       %meta{property: 'og:type', content: 'website'}
       %meta{property: 'og:url', content: DavidRunger::CANONICAL_URL}
       %meta{property: 'og:image', content: image_url('david.jpg')}
+      %link{rel: 'canonical', href: DavidRunger::CANONICAL_URL}
     - if @description.present?
       %meta{name: 'description', content: @description}
       %meta{property: 'og:description', content: @description}
