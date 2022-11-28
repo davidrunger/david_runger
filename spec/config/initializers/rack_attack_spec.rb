@@ -38,5 +38,17 @@ RSpec.describe(Rack::Attack) do
       end
     end
   end
+
+  describe '::fragments' do
+    subject(:fragments) { Rack::Attack.send(:fragments, fullpath) }
+
+    context 'when the fullpath is "/?q=(alevins)"' do
+      let(:fullpath) { '/?q=(alevins)' }
+
+      it 'returns the fragments' do
+        expect(fragments).to eq(['q', '(alevins)'])
+      end
+    end
+  end
 end
 # rubocop:enable RSpec/FilePath
