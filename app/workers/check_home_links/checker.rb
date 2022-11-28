@@ -27,11 +27,25 @@ class CheckHomeLinks::Checker
     LOG
 
     if !status.in?(expected_statuses)
-      AdminMailer.bad_home_link(url, status, expected_statuses).deliver_later
+      previous_failure_count =
+        Integer($redis_pool.with { _1.call('get', redis_failure_key(url)) } || 0)
+      new_failure_count = previous_failure_count + 1
+
+      $redis_pool.
+        with { _1.call('setex', redis_failure_key(url), Integer(2.days), new_failure_count) }
+
+      if new_failure_count >= 2
+        AdminMailer.bad_home_link(url, status, expected_statuses).deliver_later
+      end
     end
   end
 
   private
+
+  memoize \
+  def redis_failure_key(url)
+    "link_check:#{url}:failed"
+  end
 
   memoize \
   def response(url)
