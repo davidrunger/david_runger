@@ -17,7 +17,7 @@ class BannedPathFragment < ApplicationRecord
   validates(
     :value,
     presence: true,
-    format: { with: /\A[a-z0-9]+\z/ },
+    format: { with: /\A[a-z0-9%]+\z/ },
     uniqueness: true,
   )
 end
