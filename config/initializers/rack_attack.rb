@@ -29,10 +29,11 @@ class Rack::Attack
     end
 
     def blocked_path?(request)
-      return true if request.fullpath.include?("\u0000")
-      return false if WHITELISTED_PATH_PREFIXES.any? { request.fullpath.start_with?(_1) }
+      fullpath = request.fullpath
+      return true if fullpath.include?("\u0000")
+      return false if WHITELISTED_PATH_PREFIXES.any? { fullpath.start_with?(_1) }
 
-      fragments = request.path.split(PATH_FRAGMENT_SEPARATOR_REGEX)
+      fragments = fullpath.split(PATH_FRAGMENT_SEPARATOR_REGEX)
       fragments.map!(&:presence)
       fragments.compact!
       fragments.any? do |fragment|
