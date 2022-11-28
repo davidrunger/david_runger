@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Rack::Attack
-  PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_}
+  PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_|=}
   PENTESTERS_PREFIX = 'pentesters-'
   PENTESTING_FINDTIME = 1.day.freeze
   WHITELISTED_PATH_PREFIXES = %w[/flipper/ /sidekiq/ /vite/ /vite-admin/].freeze
@@ -33,10 +33,7 @@ class Rack::Attack
       return true if fullpath.include?("\u0000")
       return false if WHITELISTED_PATH_PREFIXES.any? { fullpath.start_with?(_1) }
 
-      fragments = fullpath.split(PATH_FRAGMENT_SEPARATOR_REGEX)
-      fragments.map!(&:presence)
-      fragments.compact!
-      fragments.any? do |fragment|
+      fragments(fullpath).any? do |fragment|
         fragment.downcase.in?(Rack::Attack.banned_path_fragments)
       end && !Rails.application.routes.recognize_path_with_request(
         ActionDispatch::Request.new(request.env),
@@ -44,6 +41,14 @@ class Rack::Attack
         {},
         raise_on_missing: false,
       )
+    end
+
+    private
+
+    def fragments(fullpath)
+      fullpath.
+        split(PATH_FRAGMENT_SEPARATOR_REGEX).
+        filter_map(&:presence)
     end
   end
 end
