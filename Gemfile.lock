@@ -189,7 +189,6 @@ GEM
       capybara (>= 1.0, < 4)
       launchy
     chartkick (4.2.1)
-    childprocess (4.1.0)
     climate_control (1.2.0)
     cloudflare-rails (2.4.0)
       actionpack (>= 5.2, < 7.1.0)
@@ -527,8 +526,7 @@ GEM
       ffi (~> 1.9)
     selenium-devtools (0.108.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.6.1)
-      childprocess (>= 0.5, < 5.0)
+    selenium-webdriver (4.7.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
