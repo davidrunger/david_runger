@@ -22,6 +22,12 @@ RSpec.describe Api::WorkoutsController do
       it 'creates a workout for the user' do
         expect { post_create }.to change { user.reload.workouts.size }.by(1)
       end
+
+      it 'responds with the workout as JSON' do
+        post_create
+
+        expect(response.body).to match_schema('workouts/show.json')
+      end
     end
   end
 
@@ -49,16 +55,8 @@ RSpec.describe Api::WorkoutsController do
 
       it 'responds with the workout as JSON' do
         patch_update
-        user.reload
 
-        expect(response.parsed_body.keys).to include(*%w[
-          created_at
-          id
-          publicly_viewable
-          rep_totals
-          time_in_seconds
-          username
-        ])
+        expect(response.body).to match_schema('workouts/show.json')
       end
     end
   end
