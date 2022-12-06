@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 RSpec::Matchers.define(:match_schema) do |schema|
+  schema = "spec/support/schemas/#{schema}"
   match do |json|
     JSON::Validator.fully_validate(schema, json, strict: true, validate_schema: true).empty?
   end
