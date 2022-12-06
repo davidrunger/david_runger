@@ -59,6 +59,7 @@ RSpec.describe Api::LogEntriesController do
         post_create
 
         expect(response.parsed_body['created_at']).to match(iso8601_z_regex)
+        expect(response.body).to match_schema('log_entries/show.json')
       end
 
       context 'when there is a note in the log entry params' do
@@ -124,6 +125,7 @@ RSpec.describe Api::LogEntriesController do
         patch_update
 
         expect(response.parsed_body['created_at']).to match(iso8601_z_regex)
+        expect(response.body).to match_schema('log_entries/show.json')
       end
 
       it 'returns a 200 status code' do
