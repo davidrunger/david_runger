@@ -26,7 +26,7 @@ RSpec.describe Api::WorkoutsController do
       it 'responds with the workout as JSON' do
         post_create
 
-        expect(response.body).to match_schema('workouts/show.json')
+        expect(response.body).to match_schema('workouts/show')
       end
     end
   end
@@ -56,7 +56,7 @@ RSpec.describe Api::WorkoutsController do
       it 'responds with the workout as JSON' do
         patch_update
 
-        expect(response.body).to match_schema('workouts/show.json')
+        expect(response.body).to match_schema('workouts/show')
       end
     end
   end
