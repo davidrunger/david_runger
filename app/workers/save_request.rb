@@ -23,7 +23,9 @@ class SaveRequest
     return if Request.exists?(request_id: @request_id)
 
     if can_save_request?
-      if ban_reasons.present?
+      if uptime_robot_ping?
+        delete_request_data
+      elsif ban_reasons.present?
         ban_requesting_ip
         delete_request_data
       else
@@ -38,6 +40,11 @@ class SaveRequest
   private
 
   memoize \
+  def uptime_robot_ping?
+    params['uptime_robot'].present?
+  end
+
+  memoize \
   def ban_reasons
     ban_reasons = []
 
@@ -50,8 +57,12 @@ class SaveRequest
 
   memoize \
   def params_keys_and_values
-    params = stashed_data['params']
     params.keys + params.values
+  end
+
+  memoize \
+  def params
+    stashed_data['params']
   end
 
   def ban_requesting_ip
