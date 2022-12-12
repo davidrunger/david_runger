@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 5c64e1787d8815c4b294382164c0d9b794d05768
+  revision: 08cb142c9d9cd4f69d57a0770ef2bfcf505b38d7
   specs:
     runger_style (0.2.22.alpha)
       rubocop (>= 1.38.0, < 2)
@@ -299,7 +299,7 @@ GEM
       thor (>= 0.14, < 2.0)
     js-routes (2.2.4)
       railties (>= 4)
-    json (2.6.2)
+    json (2.6.3)
     json-schema (3.0.0)
       addressable (>= 2.8)
     jwt (2.5.0)
