@@ -18,7 +18,7 @@ import {
   Chart as ChartJS,
   Tooltip, LineElement, LinearScale, PointElement, TimeScale,
 } from 'chart.js';
-import 'chartjs-adapter-date-fns';
+import 'chartjs-adapter-luxon';
 import { merge } from 'lodash-es';
 
 ChartJS.register(
