@@ -131,4 +131,21 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   require_relative('../../lib/email/mailgun_via_http.rb')
   config.action_mailer.delivery_method = Email::MailgunViaHttp
+
+  # https://old.reddit.com/r/rails/comments/zmznbi/is_there_a_gem_for_tracking_adhoc_rails_console/j0e6ffu/
+  console do
+    PaperTrail.request.whodunnit =
+      -> {
+        @paper_trail_whodunnit ||=
+          begin
+            name = nil
+            until name.present?
+              print 'What is your name (used by PaperTrail to record who changed records)? '
+              name = gets.chomp
+            end
+            puts "Thank you, #{name}! Be safe!"
+            name
+          end
+      }
+  end
 end
