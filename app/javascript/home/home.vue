@@ -35,11 +35,16 @@
         )
         .mobile-nav.dvh-100
           ul
-            li #[a(href='#about' @click='collapseMobileMenu') About]
-            li #[a(href='#skills' @click='collapseMobileMenu') Skills]
-            li #[a(href='#projects' @click='collapseMobileMenu') Projects]
-            li #[a(href='#resume' @click='collapseMobileMenu') Resume]
-            li #[a(href='#contact' @click='collapseMobileMenu') Contact]
+            li(@click='collapseMobileMenu')
+              NavLink(section='about')
+            li(@click='collapseMobileMenu')
+              NavLink(section='skills')
+            li(@click='collapseMobileMenu')
+              NavLink(section='projects')
+            li(@click='collapseMobileMenu')
+              NavLink(section='resume')
+            li(@click='collapseMobileMenu')
+              NavLink(section='contact')
     a.down-arrow-container.center.circle.mb3(href='#about')
       //- hat tip to https://codepen.io/postor/pen/mskxI for a starting point for this
       svg(class='arrow')
