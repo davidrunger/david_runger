@@ -9,42 +9,9 @@
       #headline-name.monospace.font-blue-light.border-bottom.border-gray.pb-2
         span David Runger
       #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
-    header#header.flex-grow-1.flex.justify-between.bg-black.col-12.relative
-      .font-size-2.js-link.js-scroll-top.ml3
-        a#logo.monospace.font-blue-light.opacity-animated(
-          href='#home'
-          :class='{ "opacity-0": homeIsVisible }'
-        )
-          | David Runger
-      nav#nav.sans-serif.flex.justify-around.absolute.mr4
-        NavLink(section='about')
-        NavLink(section='skills')
-        NavLink(section='projects')
-        NavLink(section='resume')
-        NavLink(section='contact')
-      .toggleable-menu
-        .line-container(:class='{ "menu-open": menuOpen }')
-          .line
-          .line
-          .line
-        .clearfix.header-height-spacer
-        input.menu-toggle(
-          type='checkbox'
-          ref='menu-toggle-checkbox'
-          @click='menuOpen = !menuOpen'
-        )
-        .mobile-nav.dvh-100
-          ul
-            li(@click='collapseMobileMenu')
-              NavLink(section='about')
-            li(@click='collapseMobileMenu')
-              NavLink(section='skills')
-            li(@click='collapseMobileMenu')
-              NavLink(section='projects')
-            li(@click='collapseMobileMenu')
-              NavLink(section='resume')
-            li(@click='collapseMobileMenu')
-              NavLink(section='contact')
+
+    HomeHeader
+
     a.down-arrow-container.center.circle.mb3(href='#about')
       //- hat tip to https://codepen.io/postor/pen/mskxI for a starting point for this
       svg(class='arrow')
@@ -80,9 +47,10 @@
 import { ref } from 'vue';
 import { useIntersectionObserver } from '@vueuse/core';
 
+import { useHomeStore } from '@/home/store';
 import About from './components/about.vue';
 import Contact from './components/contact.vue';
-import NavLink from './components/nav_link.vue';
+import HomeHeader from './components/home_header.vue';
 import ParallaxImage from './components/parallax_image.vue';
 import Projects from './components/projects.vue';
 import Resume from './components/resume.vue';
@@ -92,7 +60,7 @@ export default {
   components: {
     About,
     Contact,
-    NavLink,
+    HomeHeader,
     ParallaxImage,
     Projects,
     Resume,
@@ -101,16 +69,11 @@ export default {
 
   data() {
     return {
-      menuOpen: false,
+      homeStore: useHomeStore(),
     };
   },
 
   methods: {
-    collapseMobileMenu() {
-      this.menuOpen = false;
-      this.$refs['menu-toggle-checkbox'].checked = false;
-    },
-
     setScrollToFragmentTimeouts() {
       if (window.location.hash) {
         const fragmentTarget = document.getElementById(window.location.hash.slice(1));
@@ -136,17 +99,16 @@ export default {
 
   setup() {
     const homeRef = ref(null);
-    const homeIsVisible = ref(true);
+    const homeStore = useHomeStore();
 
     useIntersectionObserver(
       homeRef,
       ([{ isIntersecting }]) => {
-        homeIsVisible.value = isIntersecting;
+        homeStore.homeIsVisible = isIntersecting;
       },
     );
 
     return {
-      homeIsVisible,
       homeRef,
     };
   },
@@ -197,25 +159,6 @@ export default {
   padding-top: 6px;
 }
 
-#header {
-  position: fixed;
-  // performance hint to create a new compositor layer, so we don't re-paint on scroll
-  will-change: transform;
-  top: 0;
-  z-index: 1;
-  height: $header-height;
-  line-height: $header-height;
-
-  #nav {
-    width: 500px;
-    right: 0;
-
-    @media screen and (max-width: $small-screen-breakpoint) {
-      display: none;
-    }
-  }
-}
-
 :deep(.box-shadow) {
   box-shadow: $gray-light 0 2px 5px;
 }
@@ -244,96 +187,5 @@ export default {
   stroke: #333;
   fill: transparent;
   stroke-width: 2px;
-}
-
-.toggleable-menu {
-  display: none;
-
-  @media screen and (max-width: $small-screen-breakpoint) {
-    display: block;
-  }
-}
-
-.header-height-spacer {
-  height: $header-height;
-}
-
-.line-container {
-  float: right;
-  margin-top: 11px;
-  margin-right: 20px;
-  z-index: 10;
-  position: relative;
-
-  .line {
-    width: 30px;
-    height: 2px;
-    margin: 7px 0;
-    background-color: white;
-    transition: transform 0.3s linear, width 0.3s linear;
-  }
-
-  &.menu-open {
-    .line:nth-child(1),
-    .line:nth-child(3) {
-      width: 35px;
-    }
-
-    .line:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .line:nth-child(2) {
-      transform: translateX(100px);
-    }
-
-    .line:nth-child(3) {
-      transform: translateY(-10px) rotate(-45deg);
-    }
-  }
-}
-
-input.menu-toggle[type="checkbox"] {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  width: 40px;
-  height: 38px;
-  cursor: pointer;
-  opacity: 0;
-  z-index: 11;
-}
-
-.mobile-nav {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding-top: 80px;
-  text-align: center;
-  background: #111;
-  transition: transform 0.3s;
-  transform: translate(0, -100%);
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  li a {
-    color: #b5b6be;
-    display: block;
-    padding: 25px 20px;
-    font-size: 25px;
-
-    &:hover {
-      color: white;
-    }
-  }
-}
-
-input:checked + .mobile-nav {
-  transform: translate(0, 0);
 }
 </style>
