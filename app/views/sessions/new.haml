@@ -13,3 +13,6 @@
 %div.py4.center
   = form_tag("/auth/google_oauth2?redirect_uri=#{url_base}/users/auth/google_oauth2/callback") do
     = button_tag(image_tag('google-login.png'), type: :submit, class: 'google-login')
+  %div
+    or go to the
+    #{link_to('home page', root_path)}.
