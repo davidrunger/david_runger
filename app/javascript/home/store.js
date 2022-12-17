@@ -5,6 +5,8 @@ const SECTION_ORDER = ['about', 'skills', 'projects', 'resume', 'contact'];
 
 const state = () => ({
   clickedSection: null,
+  homeIsVisible: true,
+  menuOpen: false,
   visibleSections: [],
 });
 
