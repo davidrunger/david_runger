@@ -1,6 +1,6 @@
 <template lang="pug">
-div#groceries-app
-  div#page.flex.dvh-100
+#groceries-app
+  #page.flex.dvh-100
     Sidebar
     main.flex-1.bg-cover
       Store(
@@ -78,6 +78,11 @@ export default {
 </script>
 
 <style lang='scss'>
+// Disable mobile double-click zooming https://stackoverflow.com/a/54207844/4009384
+* {
+  touch-action: manipulation;
+}
+
 #groceries-app {
   font-size: 0.95rem;
 }
