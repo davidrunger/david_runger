@@ -39,6 +39,18 @@ export default {
 
     const spouseId = get(window, 'davidrunger.bootstrap.spouse.id');
     if (spouseId) {
+      // HACK: add on to the installEventHandlers method because it's called when the ActionCable
+      // connection is re-established after having been broken (though it's also called when
+      // first loading the page, which we don't need, so ignore that one)
+      const originalInstallEventHandlers =
+        actionCableConsumer.connection.installEventHandlers.bind(actionCableConsumer.connection);
+      let isFirstInstall = true;
+      actionCableConsumer.connection.installEventHandlers = () => {
+        if (!isFirstInstall) this.groceriesStore.pullStoreData();
+        isFirstInstall = false;
+        originalInstallEventHandlers();
+      };
+
       actionCableConsumer.subscriptions.create(
         {
           channel: 'GroceriesChannel',

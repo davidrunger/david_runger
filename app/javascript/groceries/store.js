@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { filter, last, pick, sortBy } from 'lodash-es';
+import { filter, get, last, pick, sortBy } from 'lodash-es';
 import { kyApi } from '@/shared/ky';
 import { emit } from '@/lib/event_bus';
 
@@ -93,6 +93,22 @@ const actions = {
   deleteStore({ store: deletedStore }) {
     this.own_stores = this.own_stores.filter(store => store !== deletedStore);
     kyApi.delete(Routes.api_store_path(deletedStore.id));
+  },
+
+  pullStoreData() {
+    kyApi.get(Routes.api_stores_path()).json().
+      then(data => {
+        this.own_stores = data.own_stores.map(store => {
+          const preexistingStore = helpers.getById(this.own_stores, store.id);
+          store.viewed_at = get(preexistingStore, 'viewed_at');
+          return store;
+        });
+        this.spouse_stores = data.spouse_stores.map(store => {
+          const preexistingStore = helpers.getById(this.spouse_stores, store.id);
+          store.viewed_at = get(preexistingStore, 'viewed_at');
+          return store;
+        });
+      });
   },
 
   incrementPendingRequests() {
