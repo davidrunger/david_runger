@@ -5,6 +5,29 @@ class Api::StoresController < ApplicationController
 
   before_action :set_store, only: %i[destroy update]
 
+  def index
+    authorize(Store)
+
+    spouse = current_user.spouse
+
+    render json: {
+      own_stores:
+        StoreSerializer.new(
+          current_user.stores.includes(:items),
+          params: { current_user: },
+        ).as_json,
+      spouse_stores:
+        if spouse
+          StoreSerializer.new(
+            spouse.stores.where.not(private: true).includes(:items),
+            params: { current_user: },
+          ).as_json
+        else
+          []
+        end,
+    }
+  end
+
   def create
     authorize(Store)
     @store = current_user.stores.build(store_params.merge(viewed_at: Time.current))

@@ -5,6 +5,25 @@ RSpec.describe Api::StoresController do
 
   let(:user) { users(:user) }
 
+  describe '#index' do
+    subject(:get_index) { get(:index) }
+
+    it "returns the user's own_stores and spouse_stores" do
+      get_index
+      expect(json_response.keys).to match_array(%w[own_stores spouse_stores])
+    end
+
+    context 'when the user does not have a spouse' do
+      before { user.marriage&.destroy! }
+
+      it "returns the user's own_stores and spouse_stores" do
+        get_index
+        expect(json_response.keys).to match_array(%w[own_stores spouse_stores])
+        expect(json_response['spouse_stores']).to eq([])
+      end
+    end
+  end
+
   describe '#create' do
     subject(:post_create) { post(:create, params:) }
 
