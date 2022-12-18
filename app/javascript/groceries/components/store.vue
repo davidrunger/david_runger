@@ -321,7 +321,8 @@ button.choose-stores {
   margin-top: calc(-1 * var(--space-1));
 }
 
-.copy-to-clipboard {
+// repeat class to increase specificity to override element plus default margin-left
+.copy-to-clipboard.copy-to-clipboard {
   margin-left: 0;
 }
 
