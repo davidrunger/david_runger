@@ -3,7 +3,6 @@
   BarGraph(
     :chart-data='chartMetadata'
     :height='300'
-    :options='CHART_OPTIONS'
   )
 </template>
 
@@ -45,20 +44,6 @@ export default {
           y: count,
         }));
     },
-  },
-
-  created() {
-    this.CHART_OPTIONS = {
-      scales: {
-        xAxes: [{
-          type: 'time',
-          ticks: {
-            minRotation: 52,
-            source: 'auto',
-          },
-        }],
-      },
-    };
   },
 
   props: {

@@ -1,7 +1,7 @@
 <template lang="pug">
 VueLine(
-  :chart-options="chartOptions"
-  :chart-data="mergedChartData"
+  :options="chartOptions"
+  :data="mergedChartData"
   :chart-id="chartId"
   :dataset-id-key="datasetIdKey"
   :plugins="plugins"
