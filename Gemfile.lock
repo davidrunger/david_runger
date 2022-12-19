@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/simple_cov-formatter-terminal.git
-  revision: 5aa3400020d288d9d52fa07954fdb9c79e7169b7
+  revision: 1cb2997cf04dfd624054abf1d932649886d83f00
   specs:
     simple_cov-formatter-terminal (0.1.0)
       activesupport (>= 7.0.4, < 8)
@@ -470,7 +470,7 @@ GEM
       railties (>= 5.0)
     rexml (3.2.5)
     rollbar (3.3.2)
-    rouge (4.0.0)
+    rouge (4.0.1)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
