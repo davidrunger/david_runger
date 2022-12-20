@@ -4427,10 +4427,10 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==
 
-vue-chartjs@^4.1:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-4.1.2.tgz#f899ba14f3b80660f8d2c610a015341806dfc437"
-  integrity sha512-QSggYjeFv/L4jFSBQpX8NzrAvX0B+Ha6nDgxkTG8tEXxYOOTwKI4phRLe+B4f+REnkmg7hgPY24R0cixZJyXBg==
+vue-chartjs@^5.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-5.0.1.tgz#14ab31c83a1f0dd0949a722db109ab5f91e1020d"
+  integrity sha512-+0IfwyZ1U+oKU0CJmqgEMieov5K+c5AuZ7boJeDnhCC/qmtKTLId1jL7BID5poCaC38DOUbJu77vsA091aYeRw==
 
 vue-demi@*, vue-demi@^0.13.11:
   version "0.13.11"
