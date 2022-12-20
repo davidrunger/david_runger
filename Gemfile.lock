@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: c5f1e171cd3f559e6e9c747e020b205e0fadcd97
+  revision: 6d6b43399014bf64ea0ef459bf3fa3e21ca0a3bd
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -205,7 +205,7 @@ GEM
     dalli (3.2.3)
     database_consistency (1.7.0)
       activerecord (>= 3.2)
-    date (3.3.1)
+    date (3.3.3)
     debug_inspector (1.1.0)
     devise (4.8.1)
       bcrypt (~> 3.0)
