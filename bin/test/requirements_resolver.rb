@@ -172,7 +172,12 @@ class Test::RequirementsResolver
     Test::Tasks::RunDatabaseConsistency => proc {
       !db_schema_changed? && !diff_mentions?('database_consistency')
     },
-    Test::Tasks::RunEslint => proc { !files_with_js_changed? && !diff_mentions?('eslint') },
+    Test::Tasks::RunEslint => proc {
+      !files_with_js_changed? &&
+        !diff_mentions?('eslint') &&
+        !file_changed?('package.json') &&
+        !file_changed?('yarn.lock')
+    },
     Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
     Test::Tasks::RunRubocop => proc {
       !ruby_files_changed? && !rubocop_files_changed? && !diff_mentions?('rubocop')

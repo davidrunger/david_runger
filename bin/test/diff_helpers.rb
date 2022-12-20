@@ -11,9 +11,13 @@ module DiffHelpers
 
   private
 
+  def file_changed?(filename)
+    files_changed.include?(filename)
+  end
+
   memoize \
   def db_schema_changed?
-    files_changed.include?('db/schema.rb')
+    file_changed?('db/schema.rb')
   end
 
   memoize \
