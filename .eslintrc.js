@@ -30,7 +30,7 @@ module.exports = {
     'function-paren-newline': 'off',
     'import/no-extraneous-dependencies': 'off',
     // https://github.com/import-js/eslint-plugin-import/issues/1810#issuecomment-1142145572
-    'import/no-unresolved': ['error', { ignore: ['vue-chartjs'] }],
+    'import/no-unresolved': ['error', { ignore: ['chartjs-adapter-luxon', 'vue-chartjs'] }],
     'import/prefer-default-export': 'off',
     'max-len': ['warn', { code: 100, ignoreUrls: true }],
     'newline-per-chained-call': 'off',
