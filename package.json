@@ -32,7 +32,7 @@
     "basscss-colors": "^2.2.0",
     "basscss-lighten": "^1.1.0",
     "chart.js": "^4.1.1",
-    "chartjs-adapter-luxon": "1.2.1",
+    "chartjs-adapter-luxon": "1.3.0",
     "chartkick": "https://github.com/ankane/chartkick.js",
     "clipboard": "^2.0.11",
     "dompurify": "^2.4.1",
