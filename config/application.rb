@@ -19,6 +19,12 @@ Bundler.require(*Rails.groups)
 module DavidRunger
   CANONICAL_DOMAIN = 'davidrunger.com'
   CANONICAL_URL = "https://#{CANONICAL_DOMAIN}/".freeze
+
+  class << self
+    def canonical_url(path)
+      "https://#{CANONICAL_DOMAIN}#{path}"
+    end
+  end
 end
 
 class DavidRunger::Application < Rails::Application

@@ -9,6 +9,7 @@
     %title= title
     %meta{name: 'title', content: title}
     %meta{property: 'og:title', content: title}
+    %link{rel: 'canonical', href: DavidRunger.canonical_url(request.path)}
 
     -# other metadata
     -# (note: the curly braces are necessary to avoid a warning about keyword params)
@@ -17,7 +18,6 @@
       %meta{property: 'og:type', content: 'website'}
       %meta{property: 'og:url', content: DavidRunger::CANONICAL_URL}
       %meta{property: 'og:image', content: image_url('david.jpg')}
-      %link{rel: 'canonical', href: DavidRunger::CANONICAL_URL}
     - if @description.present?
       %meta{name: 'description', content: @description}
       %meta{property: 'og:description', content: @description}
