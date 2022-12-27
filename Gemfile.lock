@@ -39,13 +39,6 @@ GIT
       rspec-core (>= 3.11.0, < 4)
       simplecov (>= 0.21.2, < 1)
 
-GIT
-  remote: https://github.com/puma/puma.git
-  revision: 7b6301009321d527891e4761da0d39a025b9015f
-  specs:
-    puma (6.0.1.dev)
-      nio4r (~> 2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -402,6 +395,8 @@ GEM
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
     public_suffix (5.0.0)
+    puma (6.0.1)
+      nio4r (~> 2.0)
     pundit (2.2.0)
       activesupport (>= 3.0.0)
     racc (1.6.1)
@@ -663,7 +658,7 @@ DEPENDENCIES
   percy-capybara
   pg
   pry-byebug
-  puma!
+  puma
   pundit
   rack-attack
   rails
