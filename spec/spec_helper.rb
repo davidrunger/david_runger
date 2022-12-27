@@ -10,9 +10,8 @@ is_ci = (ENV.fetch('CI', nil) == 'true')
 use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
 require 'simplecov'
 if is_ci
-  require 'codecov'
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-  Codecov.pass_ci_if_error = true
+  require 'simplecov-cobertura'
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 elsif RSpec.configuration.files_to_run.one?
   require 'simple_cov/formatter/terminal'
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
@@ -22,12 +21,12 @@ elsif RSpec.configuration.files_to_run.one?
   )
   # rubocop:enable Performance/RedundantMerge
 end
-SimpleCov.coverage_dir('tmp/simple_cov')
+SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
 SimpleCov.start do
   db_suffix = ENV.fetch('DB_SUFFIX', nil)
   command_name("#{db_suffix.delete_prefix('_').capitalize} Tests") if db_suffix.present?
   add_filter(%r{^/spec/})
-  enable_coverage(:branch)
+  enable_coverage(:branch) if !is_ci # Codecov doesn't respect `nocov-else` etc comments
 end
 require File.expand_path('../config/environment', __dir__)
 require Rails.root.join('spec/support/fixture_builder.rb').to_s

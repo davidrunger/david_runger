@@ -83,6 +83,10 @@ jobs:
         name: fixtures
         path: spec/fixtures/
         retention-days: 5
+    - name: Upload Code Coverage
+      uses: codecov/codecov-action@v3
+      with:
+        directory: tmp/simple_cov
 
   deploy-and-prerender:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
