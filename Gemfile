@@ -85,7 +85,6 @@ group :test do
   gem 'capybara-email'
   gem 'capybara-screenshot'
   gem 'climate_control'
-  gem 'codecov', require: false
   gem 'database_consistency', require: false
   gem 'factory_bot_rails'
   gem 'faker'
@@ -104,6 +103,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov'
+  gem 'simplecov-cobertura'
   gem 'simple_cov-formatter-terminal', github: 'davidrunger/simple_cov-formatter-terminal'
   gem 'super_diff'
   gem 'webmock'
