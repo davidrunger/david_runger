@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '3.1.3'
+ruby '3.2.0'
 
 gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'activeadmin'
@@ -27,7 +27,7 @@ gem 'js-routes', '2.2.4', require: false
 gem 'jwt'
 gem 'lograge'
 gem 'memoist'
-gem 'nokogiri'
+gem 'nokogiri', '1.14.0.rc1'
 gem 'oj'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
