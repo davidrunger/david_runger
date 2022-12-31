@@ -7,10 +7,18 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql/data:delegated
     ports:
-      - "127.0.0.1:5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_USER: david_runger
       POSTGRES_HOST_AUTH_METHOD: trust
+  redis:
+    image: redis:7.0.7-alpine
+    ports:
+      - '6379:6379'
+    command: redis-server
+    volumes:
+      - redis:/data:delegated
 
 volumes:
   postgresql:
+  redis:
