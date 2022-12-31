@@ -25,7 +25,7 @@ default: &default
 development:
   <<: *default
   database: david_runger_development
-  host: 127.0.0.1
+  host: <%= ENV.fetch('POSTGRES_HOST', '127.0.0.1') %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -60,7 +60,7 @@ development:
 test:
   <<: *default
   database: david_runger_test<%= ENV['DB_SUFFIX'] %>
-  host: <%= ENV['POSTGRES_HOST'] || 'localhost' %>
+  host: <%= ENV.fetch('POSTGRES_HOST', 'localhost') %>
   username: <%= ENV.key?('CI') ? ENV['POSTGRES_USER'] : 'david_runger' %>
   password: <%= ENV['PGPASSWORD'] || '' %>
 

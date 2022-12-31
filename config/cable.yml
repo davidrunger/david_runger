@@ -4,7 +4,7 @@ default: &default
 development:
   <<: *default
   channel_prefix: david_runger_development
-  url: redis://localhost:6379
+  url: <%= ENV.fetch('REDIS_URL', 'redis://localhost:6379') %>
 
 test:
   <<: *default
