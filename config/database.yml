@@ -25,12 +25,13 @@ default: &default
 development:
   <<: *default
   database: david_runger_development
+  host: 127.0.0.1
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: david_runger
+  username: david_runger
 
   # The password associated with the postgres role (username).
   #password:
@@ -60,7 +61,7 @@ test:
   <<: *default
   database: david_runger_test<%= ENV['DB_SUFFIX'] %>
   host: <%= ENV['POSTGRES_HOST'] || 'localhost' %>
-  username: <%= ENV['POSTGRES_USER'] %>
+  username: <%= ENV.key?('CI') ? ENV['POSTGRES_USER'] : 'david_runger' %>
   password: <%= ENV['PGPASSWORD'] || '' %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
