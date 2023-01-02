@@ -1803,7 +1803,8 @@ chartjs-adapter-luxon@1.3.0:
 
 "chartkick@https://github.com/ankane/chartkick.js":
   version "4.2.0"
-  resolved "https://github.com/ankane/chartkick.js#945b170870410b64e6d51a3f0df7c46e7e869289"
+  uid "496528f68e7cc297d54b66e3383bd42ea98a8f95"
+  resolved "https://github.com/ankane/chartkick.js#496528f68e7cc297d54b66e3383bd42ea98a8f95"
   optionalDependencies:
     chart.js ">=3.0.2"
     chartjs-adapter-date-fns ">=2.0.0"
