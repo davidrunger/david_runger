@@ -161,8 +161,11 @@ const actions = {
         { json: { item: attributes } },
       ).json();
 
-    this.modifyItem({ item, attributes: updatedItemData });
     this.decrementPendingRequests();
+
+    if (!this.debouncingOrWaitingOnNetwork) {
+      this.modifyItem({ item, attributes: updatedItemData });
+    }
   },
 
   async updateStore({ store, attributes }) {
