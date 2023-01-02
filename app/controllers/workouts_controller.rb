@@ -8,7 +8,7 @@ class WorkoutsController < ApplicationController
     bootstrap(
       current_user: UserSerializer.new(current_user),
       workouts: WorkoutSerializer.new(
-        current_user.workouts.includes(:user).
+        current_user.workouts.
           order(created_at: :desc).
           limit(8),
       ),
