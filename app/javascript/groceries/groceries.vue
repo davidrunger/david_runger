@@ -12,6 +12,7 @@
 <script>
 import { mapState } from 'pinia';
 import { get } from 'lodash-es';
+import Cookies from 'js-cookie';
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
 import Sidebar from './components/sidebar.vue';
@@ -61,7 +62,10 @@ export default {
               this.groceriesStore.addItem({ itemData: data.model });
             } else if (data.action === 'destroyed') {
               this.groceriesStore.deleteItem({ item: data.model });
-            } else if (data.action === 'updated') {
+            } else if (
+              data.action === 'updated' &&
+                Cookies.get('browser_uuid') !== data.acting_browser_uuid
+            ) {
               this.groceriesStore.modifyItem({ attributes: data.model });
             }
           },

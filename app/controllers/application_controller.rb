@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   before_action :set_paper_trail_whodunnit
+  before_action :set_browser_uuid
 
   after_action :verify_authorized, unless: :skip_authorization?
 
@@ -42,6 +43,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_browser_uuid
+    cookies[:browser_uuid] ||= SecureRandom.uuid
+  end
 
   def _render_with_renderer_json(resource, options)
     if resource.is_a?(ApplicationRecord)
