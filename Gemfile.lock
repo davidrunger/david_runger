@@ -271,7 +271,7 @@ GEM
       hashids (~> 1.0)
     hashids (1.0.6)
     hashie (5.0.0)
-    hotwire-livereload (1.2.2)
+    hotwire-livereload (1.2.3)
       listen (>= 3.0.0)
       rails (>= 6.0.0)
     http_logger (0.7.0)
