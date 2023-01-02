@@ -11,7 +11,7 @@ class LogsController < ApplicationController
       logs = Log.where(id: shared_log)
     else
       current_user_logs = current_user.logs
-      logs = current_user_logs.order(:created_at).includes(:log_shares, :user)
+      logs = current_user_logs.order(:created_at).includes(:log_shares)
 
       new_entry = params[:new_entry].presence
       if slug_param && new_entry
