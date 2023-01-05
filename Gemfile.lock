@@ -28,17 +28,6 @@ GIT
     runger_style (0.2.22.alpha)
       rubocop (>= 1.38.0, < 2)
 
-GIT
-  remote: https://github.com/davidrunger/simple_cov-formatter-terminal.git
-  revision: 1cb2997cf04dfd624054abf1d932649886d83f00
-  specs:
-    simple_cov-formatter-terminal (0.1.0)
-      activesupport (>= 7.0.4, < 8)
-      memoist (>= 0.16.2, < 1)
-      rouge (>= 4.0.0, < 5)
-      rspec-core (>= 3.11.0, < 4)
-      simplecov (>= 0.21.2, < 1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -536,6 +525,12 @@ GEM
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.11.0)
+    simple_cov-formatter-terminal (0.2.0)
+      activesupport (>= 7.0.4, < 8)
+      memoist (>= 0.16.2, < 1)
+      rouge (>= 4.0.0, < 5)
+      rspec-core (>= 3.11.0, < 4)
+      simplecov (>= 0.21.2, < 1)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -683,7 +678,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   sidekiq
-  simple_cov-formatter-terminal!
+  simple_cov-formatter-terminal
   simplecov
   simplecov-cobertura
   spring
