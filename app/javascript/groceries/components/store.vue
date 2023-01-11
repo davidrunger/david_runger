@@ -67,7 +67,7 @@
   Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
     slot
       div
-        span Stores: {{groceriesStore.checkInStores.map(store => store.name).join(', ')}}
+        span Stores: {{checkInStoreNames}}
         el-button.choose-stores.ml1(
           link
           type='primary'
@@ -125,21 +125,22 @@
         ) Done
 </template>
 
-<script>
+<script lang='ts'>
+import { defineComponent } from 'vue';
+import { mapState, StoreDefinition } from 'pinia';
 import ClipboardJS from 'clipboard';
 import { EditIcon } from 'vue-tabler-icons';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
-import { mapState } from 'pinia';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import { useGroceriesStore, helpers } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
-
+import { Item as ItemType, Store } from '@/groceries/types';
 import CheckInStoreList from './check_in_store_list.vue';
 import Item from './item.vue';
 
-export default {
+export default defineComponent({
   components: {
     CheckInStoreList,
     EditIcon,
@@ -147,13 +148,16 @@ export default {
   },
 
   computed: {
-    ...mapState(useGroceriesStore, [
-      'current_user',
+    ...mapState(useGroceriesStore as StoreDefinition, [
       'debouncingOrWaitingOnNetwork',
       'neededCheckInItems',
     ]),
 
-    sortedItems() {
+    checkInStoreNames(): string {
+      return this.groceriesStore.checkInStores.map((store: Store) => store.name).join(', ');
+    },
+
+    sortedItems(): ItemType[] {
       return helpers.sortByName(this.store.items);
     },
   },
@@ -172,7 +176,11 @@ export default {
 
   mounted() {
     const clipboard = new ClipboardJS('.copy-to-clipboard', {
-      text: () => this.neededItems.map(item => `${item.name} (${item.needed})`).join('\n'),
+      text: () => (
+        this.neededCheckInItems.
+          map((item: ItemType) => `${item.name} (${item.needed})`).
+          join('\n')
+      ),
     });
     clipboard.on('success', () => {
       this.wasCopiedRecently = true;
@@ -196,7 +204,7 @@ export default {
     focusStoreNameInput(callsAlready = 0) {
       if (!this.editingName) return;
 
-      const storeNameInput = this.$refs['store-name-input'];
+      const storeNameInput = this.$refs['store-name-input'] as HTMLInputElement;
       if (storeNameInput) {
         storeNameInput.focus();
       } else if (callsAlready < 20) {
@@ -208,7 +216,7 @@ export default {
     focusStoreNotesInput(callsAlready = 0) {
       if (!this.editingNotes) return;
 
-      const storeNotesInput = this.$refs['store-notes-input'];
+      const storeNotesInput = this.$refs['store-notes-input'] as HTMLInputElement;
       if (storeNotesInput) {
         storeNotesInput.focus();
       } else if (callsAlready < 20) {
@@ -242,7 +250,7 @@ export default {
         itemAttributes: {
           name: this.newItemName,
         },
-      }).catch(async ({ response }) => {
+      }).catch(async ({ response }: { response: Response }) => {
         this.groceriesStore.decrementPendingRequests();
         const { errors } = await response.json();
         for (const errorMessage of errors) {
@@ -257,7 +265,7 @@ export default {
       this.newItemName = '';
     },
 
-    skip(item) {
+    skip(item: ItemType) {
       this.groceriesStore.skipItem({ item });
     },
 
@@ -305,7 +313,7 @@ export default {
       newItemName: { required },
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

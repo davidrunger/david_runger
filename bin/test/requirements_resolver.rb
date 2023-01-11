@@ -17,6 +17,7 @@ class Test::RequirementsResolver
         # Installation / Setup
         Test::Tasks::YarnInstall => nil,
         Test::Tasks::CompileJavaScript => Test::Tasks::YarnInstall,
+        Test::Tasks::CheckTypescript => Test::Tasks::YarnInstall,
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
@@ -46,6 +47,7 @@ class Test::RequirementsResolver
 
         # Exit depends on all tasks completing that are actual checks (as opposed to setup steps)
         Test::Tasks::Exit => [
+          Test::Tasks::CheckTypescript,
           Test::Tasks::CheckVersions,
           Test::Tasks::RunAnnotate,
           Test::Tasks::RunApiControllerTests,

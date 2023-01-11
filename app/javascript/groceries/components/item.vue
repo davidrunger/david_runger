@@ -40,25 +40,32 @@
   ) ×
 </template>
 
-<script>
-import { useGroceriesStore } from '@/groceries/store';
-import { debounce } from 'lodash-es';
+<script lang='ts'>
+import { defineComponent, PropType } from 'vue';
+import { debounce, noop } from 'lodash-es';
 import { EditIcon } from 'vue-tabler-icons';
+import { useGroceriesStore } from '@/groceries/store';
+import { Item } from '@/groceries/types';
 
-export default {
+export default defineComponent({
   components: {
     EditIcon,
   },
 
+  created() {
+    this.debouncedPatchItem = debounce(this.patchItem, 333);
+  },
+
   data() {
     return {
+      debouncedPatchItem: noop,
       editingName: false,
       groceriesStore: useGroceriesStore(),
     };
   },
 
   methods: {
-    decrement(item) {
+    decrement(item: Item) {
       const newNeededCount = item.needed - 1;
       if (newNeededCount >= 0) {
         this.setNeeded(item, newNeededCount);
@@ -68,10 +75,10 @@ export default {
     editItemName() {
       this.editingName = true;
       // wait a tick for input to render, then focus it
-      setTimeout(() => { this.$refs['item-name-input'].focus(); });
+      setTimeout(() => { (this.$refs['item-name-input'] as HTMLInputElement).focus(); });
     },
 
-    setNeeded(item, needed) {
+    setNeeded(item: Item, needed: number) {
       item.needed = needed;
       this.groceriesStore.setCollectingDebounces({ value: true });
       this.debouncedPatchItem(item);
@@ -84,26 +91,24 @@ export default {
       this.groceriesStore.updateItem({
         item: this.item,
         attributes: {
-          name: this.$refs['item-name-input'].value,
+          name: (this.$refs['item-name-input'] as HTMLInputElement).value,
         },
       });
     },
 
-    // we need `function` for correct `this`
-    // eslint-disable-next-line func-names
-    debouncedPatchItem: debounce(function (item) {
+    patchItem(item: Item) {
       this.groceriesStore.updateItem({ item, attributes: item });
       this.groceriesStore.setCollectingDebounces({ value: false });
-    }, 333),
+    },
 
-    unskip(item) {
+    unskip(item: Item) {
       this.groceriesStore.unskipItem({ item });
     },
   },
 
   props: {
     item: {
-      type: Object,
+      type: Object as PropType<Item>,
       required: true,
     },
 
@@ -112,7 +117,7 @@ export default {
       type: Boolean,
     },
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>
