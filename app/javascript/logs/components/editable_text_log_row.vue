@@ -65,10 +65,9 @@ export default {
 
   watch: {
     editing() {
-      const self = this;
       setTimeout(() => {
-        if (self.editing) {
-          self.$refs.textInput.$el.children[0].focus();
+        if (this.editing) {
+          this.$refs.textInput.$el.children[0].focus();
         }
       }, 0);
     },

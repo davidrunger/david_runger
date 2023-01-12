@@ -217,21 +217,20 @@ ${this.log.name}`,
 
     showInput() {
       this.inputVisible = true;
-      this.$nextTick(_ => {
+      this.$nextTick(() => {
         this.$refs.saveTagInput.$refs.input.focus();
       });
     },
 
     subscribeToLogEntriesChannel() {
-      const vm = this;
       actionCableConsumer.subscriptions.create(
         {
           channel: 'LogEntriesChannel',
-          log_id: vm.log.id,
+          log_id: this.log.id,
         },
         {
-          received(data) {
-            vm.logsStore.addLogEntry({ logId: vm.log.id, newLogEntry: data });
+          received: (data) => {
+            this.logsStore.addLogEntry({ logId: this.log.id, newLogEntry: data });
           },
         },
       );

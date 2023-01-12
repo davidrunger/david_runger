@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "lib": ["esnext", "dom"],
+    "types": [
+      "vite/client",
+      "vite-plugin-vue-component-preview/client"
+    ],
+    "paths": {
+      "@/*": ["./app/javascript/*"],
+      "css/*": ["./app/assets/stylesheets/*"]
+    }
+  },
+  "vueCompilerOptions": {
+    "plugins": [
+      "@volar/vue-language-plugin-pug"
+    ]
+  },
+  "include": [
+    "app/javascript/**/*.ts",
+    "app/javascript/**/*.d.ts",
+    "app/javascript/**/*.vue"
+  ]
+}
