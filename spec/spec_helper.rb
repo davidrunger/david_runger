@@ -46,7 +46,7 @@ require 'super_diff/rspec-rails'
 require 'rspec/retry'
 
 # w/o this, Sidekiq's `logger` prints to STDOUT (bad); with this, it prints to `log/test.log` (good)
-sidekiq_logger = ::Sidekiq::Logger.new(Rails.root.join('log/test.log').to_s)
+sidekiq_logger = Sidekiq::Logger.new(Rails.root.join('log/test.log').to_s)
 # `WithoutTimestamp` is the formatter that Sidekiq uses in production for us
 sidekiq_logger.formatter = Sidekiq::Logger::Formatters::WithoutTimestamp.new
 Sidekiq.default_configuration.logger = sidekiq_logger
