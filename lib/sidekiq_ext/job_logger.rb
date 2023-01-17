@@ -4,7 +4,7 @@ require 'sidekiq/job_logger'
 
 module SidekiqExt ; end
 
-class SidekiqExt::JobLogger < ::Sidekiq::JobLogger
+class SidekiqExt::JobLogger < Sidekiq::JobLogger
   # This is basically copy-pasted from the Sidekiq source code, but we are adding
   # `:queue` and `:args` to `Sidekiq::Context` so that they'll be logged.
   def call(item, queue)

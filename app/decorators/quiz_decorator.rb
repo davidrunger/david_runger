@@ -36,7 +36,9 @@ class QuizDecorator < Draper::Decorator
       decorate.
       sort_by do |participation|
         # list from high score to low score, then use name to sort ties
+        # rubocop:disable Style/YodaExpression
         [-1 * participation.correct_answer_count, participation.display_name.downcase]
+        # rubocop:enable Style/YodaExpression
       end
   end
 

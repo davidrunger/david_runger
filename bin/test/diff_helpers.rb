@@ -54,17 +54,17 @@ module DiffHelpers
 
   memoize \
   def files_with_css_changed?
-    (Dir['app/**/*.{css,scss,vue}'] & files_changed).any?
+    Dir['app/**/*.{css,scss,vue}'].intersect?(files_changed)
   end
 
   memoize \
   def files_with_js_changed?
-    (Dir['app/javascript/**/*.{js,vue}'] & files_changed).any?
+    Dir['app/javascript/**/*.{js,vue}'].intersect?(files_changed)
   end
 
   memoize \
   def haml_files_changed?
-    (Dir['app/**/*.haml'] & files_changed).any?
+    Dir['app/**/*.haml'].intersect?(files_changed)
   end
 
   memoize \
@@ -80,6 +80,6 @@ module DiffHelpers
         Dir["#{directory}/**/*.rb"] + Dir["#{directory}/**/*.rake"]
       end.flatten +
       SPECIAL_RUBY_FILES
-    (ruby_files & files_changed).any?
+    ruby_files.intersect?(files_changed)
   end
 end
