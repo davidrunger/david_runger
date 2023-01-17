@@ -96,19 +96,22 @@ const actions = {
   },
 
   pullStoreData() {
-    kyApi.get(Routes.api_stores_path()).json().
-      then(data => {
-        this.own_stores = data.own_stores.map(store => {
-          const preexistingStore = helpers.getById(this.own_stores, store.id);
-          store.viewed_at = get(preexistingStore, 'viewed_at');
-          return store;
-        });
-        this.spouse_stores = data.spouse_stores.map(store => {
-          const preexistingStore = helpers.getById(this.spouse_stores, store.id);
-          store.viewed_at = get(preexistingStore, 'viewed_at');
-          return store;
-        });
-      });
+    const addOrUpdateStores = (storeData, existingStores) => {
+      for (const storeDatum of storeData) {
+        const existingStore = helpers.getById(existingStores, storeDatum.id);
+        storeDatum.viewed_at = get(existingStore, 'viewed_at') ?? storeDatum.viewed_at;
+        if (existingStore) {
+          Object.assign(existingStore, storeDatum);
+        } else {
+          existingStores.push(storeDatum);
+        }
+      }
+    };
+
+    kyApi.get(Routes.api_stores_path()).json().then(data => {
+      addOrUpdateStores(data.own_stores, this.own_stores);
+      addOrUpdateStores(data.spouse_stores, this.spouse_stores);
+    });
   },
 
   incrementPendingRequests() {
