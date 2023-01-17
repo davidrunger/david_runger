@@ -50,7 +50,7 @@
     "luxon": "^3.2.1",
     "marked": "^4.2.5",
     "normalize.css": "^8.0.1",
-    "pinia": "^2.0.28",
+    "pinia": "^2.0.29",
     "pug": "^3.0.2",
     "strftime": "^0.10.1",
     "toastify-js": "^1.12.0",
