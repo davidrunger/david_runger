@@ -104,7 +104,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-cobertura'
-  gem 'simple_cov-formatter-terminal', github: 'davidrunger/simple_cov-formatter-terminal'
+  gem 'simple_cov-formatter-terminal'
   gem 'super_diff'
   gem 'webmock'
 end
