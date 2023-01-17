@@ -7,8 +7,8 @@ class ApplicationMailer < ActionMailer::Base
   layout 'mailer'
 
   default(
-    to: '"David Runger" <davidjrunger@gmail.com>',
-    from: '"DavidRunger.com" <reply@davidrunger.com>',
-    reply_to: '"DavidRunger.com" <reply@mg.davidrunger.com>',
+    to: email_address_with_name('davidjrunger@gmail.com', 'David Runger'),
+    from: email_address_with_name('reply@davidrunger.com', 'DavidRunger.com'),
+    reply_to: email_address_with_name('reply@mg.davidrunger.com', 'DavidRunger.com'),
   )
 end

@@ -7,9 +7,12 @@ class LogReminderMailer < ApplicationMailer
     mail(
       to: @log.user.email,
       subject: %(Submit a log entry for your "#{log_name}" log),
-      from: %("DavidRunger.com" <log-reminders@davidrunger.com>),
+      from: email_address_with_name('log-reminders@davidrunger.com', 'DavidRunger.com'),
       # ApplicationMailbox::LOG_ENTRIES_ROUTING_REGEX depends on the format of this `reply_to`
-      reply_to: %("#{log_name} Log Entries" <log-entries|log/#{@log.id}@mg.davidrunger.com>),
+      reply_to: email_address_with_name(
+        "log-entries|log/#{@log.id}@mg.davidrunger.com",
+        "#{log_name} Log Entries",
+      ),
     )
   end
 end
