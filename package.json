@@ -70,7 +70,7 @@
     "@volar/vue-language-plugin-pug": "^1.0.24",
     "@vue/eslint-config-typescript": "^11.0.2",
     "eslint-import-resolver-typescript": "^3.5.3",
-    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-import": "2.27.5",
     "postcss": "^8.4.21",
     "postcss-html": "^1.5.0",
     "sass": "^1.57.1",
