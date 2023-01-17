@@ -24,7 +24,6 @@ class ReplyForwardingMailer < ApplicationMailer
     end
 
     mail(
-      to: '"David Runger" <davidjrunger@gmail.com>',
       from: '"DavidRunger.com" <noreply@davidrunger.com>',
       reply_to: nil,
       subject: "#{from_email} wrote: #{subject}",
