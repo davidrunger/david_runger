@@ -43,7 +43,6 @@ require 'sidekiq/testing'
 require 'mail'
 require 'percy/capybara'
 require 'super_diff/rspec-rails'
-require 'rspec/retry'
 
 # w/o this, Sidekiq's `logger` prints to STDOUT (bad); with this, it prints to `log/test.log` (good)
 sidekiq_logger = Sidekiq::Logger.new(Rails.root.join('log/test.log').to_s)
@@ -152,20 +151,6 @@ RSpec.configure do |config|
   config.include(ActionMailbox::TestHelper, type: :mailer)
   config.include(MailSpecHelpers, type: :mailbox)
   config.include(MailSpecHelpers, type: :mailer)
-
-  # rspec-retry options
-  config.verbose_retry = true
-  config.display_try_failure_messages = true
-  config.around(:each, type: :feature) do |example|
-    example.run_with_retry(retry: 2) # this actually means 'try: 2', i.e. retry just once
-  end
-  config.retry_callback =
-    proc do |ex|
-      if ex.metadata[:type] == :feature
-        Capybara.reset!
-        page.driver.reset!
-      end
-    end
 
   config.before(:suite) do
     # Reset FactoryBot sequences to an arbitrarily high number to avoid collisions with

@@ -97,7 +97,6 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-instafail', require: false
   gem 'rspec-rails'
-  gem 'rspec-retry'
   gem 'rspec-wait'
   gem 'selenium-devtools'
   gem 'selenium-webdriver'
