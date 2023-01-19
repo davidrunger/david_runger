@@ -116,6 +116,8 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
+    anyway_config (2.3.1)
+      ruby-next-core (>= 0.14.0)
     arbre (1.5.0)
       activesupport (>= 3.0.0, < 7.1)
       ruby2_keywords (>= 0.0.2, < 1.0)
@@ -207,6 +209,7 @@ GEM
       request_store (>= 1.0)
       ruby2_keywords
     dry-cli (0.7.0)
+    dry-initializer (3.1.1)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -273,6 +276,8 @@ GEM
       has_scope (~> 0.6)
       railties (>= 5.2, < 7.1)
       responders (>= 2, < 4)
+    isolator (0.8.0)
+      sniffer (>= 0.3.1)
     jmespath (1.6.2)
     jquery-rails (4.5.0)
       rails-dom-testing (>= 1, < 3)
@@ -499,6 +504,7 @@ GEM
       rubocop (>= 1.33.0, < 2.0)
     rubocop-rspec (2.17.1)
       rubocop (~> 1.33)
+    ruby-next-core (0.15.3)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
@@ -541,6 +547,9 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
+    sniffer (0.5.0)
+      anyway_config (>= 1.0)
+      dry-initializer (~> 3)
     spring (4.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -634,6 +643,7 @@ DEPENDENCIES
   hotwire-livereload
   http_logger
   immigrant
+  isolator
   js-routes (= 2.2.4)
   json-schema
   jwt

@@ -58,6 +58,7 @@ group :development, :test do
   gem 'bullet'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'immigrant'
+  gem 'isolator'
   gem 'pry-byebug', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
