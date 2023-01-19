@@ -31,7 +31,7 @@ RSpec.describe 'Quizzes app' do
       expect(page).not_to have_text(participant_name)
 
       # a participant joins
-      Capybara.using_session('Quiz participant session') do
+      using_session('Quiz participant session') do
         wait(20.seconds).for do
           sign_in(participant)
           visit(quiz_path)
@@ -70,7 +70,7 @@ RSpec.describe 'Quizzes app' do
       first_question, second_question = QuizQuestion.order(:created_at).last(2)
 
       # participant chooses a correct answer
-      Capybara.using_session('Quiz participant session') do
+      using_session('Quiz participant session') do
         choose(first_question.answers.correct.first!.content)
         click_button('Submit')
       end
@@ -80,7 +80,7 @@ RSpec.describe 'Quizzes app' do
       click_button('Next question')
 
       # participant chooses an incorrect answer
-      Capybara.using_session('Quiz participant session') do
+      using_session('Quiz participant session') do
         choose(second_question.answers.first!.content)
         click_button('Submit')
       end
@@ -89,7 +89,7 @@ RSpec.describe 'Quizzes app' do
       click_button('Close question')
 
       # verify participant sees they got first question right and second question wrong
-      Capybara.using_session('Quiz participant session') do
+      using_session('Quiz participant session') do
         expect(page).to have_text(/✓ ×/, wait: 5)
       end
     end
