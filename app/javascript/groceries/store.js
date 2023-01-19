@@ -181,10 +181,8 @@ const actions = {
     Object.assign(store, updatedStoreData);
   },
 
-  zeroItems({ items }) {
-    for (const item of items) item.needed = 0;
-
-    kyApi.post(
+  async zeroItems({ items }) {
+    await kyApi.post(
       Routes.api_items_bulk_updates_path(),
       {
         json: {
@@ -195,6 +193,8 @@ const actions = {
         },
       },
     );
+
+    for (const item of items) item.needed = 0;
   },
 };
 
