@@ -5,6 +5,7 @@ class ApplicationCable::Connection < ActionCable::Connection::Base
 
   def connect
     self.current_user = find_verified_user
+    @ip = request.remote_ip
   end
 
   private
