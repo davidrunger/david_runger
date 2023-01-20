@@ -13,13 +13,14 @@
     ) &times;
 </template>
 
-<script>
+<script lang='ts'>
+import { defineComponent, PropType } from 'vue';
 import { mapState } from 'pinia';
 import { LockIcon } from 'vue-tabler-icons';
-
 import { useGroceriesStore } from '@/groceries/store';
+import { Store } from '@/groceries/types';
 
-export default {
+export default defineComponent({
   name: 'StoreListEntry',
 
   components: {
@@ -39,7 +40,7 @@ export default {
   },
 
   methods: {
-    destroyStore(store) {
+    destroyStore(store: Store) {
       const confirmation = window.confirm(
         `Are you sure that you want to delete the ${store.name} store and all of its items?`,
       );
@@ -53,10 +54,10 @@ export default {
   props: {
     store: {
       required: true,
-      type: Object,
+      type: Object as PropType<Store>,
     },
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

@@ -65,6 +65,7 @@
   },
   "devDependencies": {
     "@percy/cli": "^1.17.0",
+    "@types/js-cookie": "^3.0.2",
     "@types/toastify-js": "^1.11.1",
     "@typescript-eslint/parser": "^5.48.1",
     "@volar/vue-language-plugin-pug": "^1.0.24",

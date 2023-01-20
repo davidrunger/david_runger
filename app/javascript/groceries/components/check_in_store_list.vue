@@ -13,10 +13,12 @@ ul
     label.ml1(:for='`checkin-stores-${store.id}`') {{store.name}}
 </template>
 
-<script>
+<script lang='ts'>
+import { defineComponent, PropType } from 'vue';
 import { useGroceriesStore } from '@/groceries/store';
+import { Store } from '@/groceries/types';
 
-export default {
+export default defineComponent({
   data() {
     return {
       groceriesStore: useGroceriesStore(),
@@ -26,8 +28,8 @@ export default {
   props: {
     stores: {
       required: true,
-      type: Array,
+      type: Array as PropType<Array<Store>>,
     },
   },
-};
+});
 </script>

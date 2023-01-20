@@ -1,3 +1,10 @@
+export interface Bootstrap {
+  current_user: {
+    email: string
+    id: number
+  }
+}
+
 export interface Item {
   id: number
   name: string
@@ -6,5 +13,8 @@ export interface Item {
 }
 
 export interface Store {
+  id: number
   name: string
+  own_store: boolean
+  private: boolean
 }
