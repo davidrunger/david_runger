@@ -101,6 +101,17 @@ const actions = {
         const existingStore = helpers.getById(existingStores, storeDatum.id);
         storeDatum.viewed_at = get(existingStore, 'viewed_at') ?? storeDatum.viewed_at;
         if (existingStore) {
+          const items = [];
+          for (const itemDatum of storeDatum.items) {
+            const existingItem = helpers.getById(existingStore.items, itemDatum.id);
+            if (existingItem) {
+              Object.assign(existingItem, itemDatum);
+              items.push(existingItem);
+            } else {
+              items.push(itemDatum);
+            }
+          }
+          storeDatum.items = items;
           Object.assign(existingStore, storeDatum);
         } else {
           existingStores.push(storeDatum);
