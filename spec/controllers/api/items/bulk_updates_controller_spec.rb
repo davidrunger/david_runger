@@ -22,11 +22,11 @@ RSpec.describe Api::Items::BulkUpdatesController do
         expect(store.items.needed.size).to be >= 2
       end
 
-      context 'when the needed item ids are posted as `item_ids`' do
-        let(:item_ids) { store.items.needed.ids }
+      context 'when the `attributes_change` is `{ needed: 0 }`' do
+        let(:attributes_change) { { needed: 0 } }
 
-        context 'when the `attributes_change` is `{ needed: 0 }`' do
-          let(:attributes_change) { { needed: 0 } }
+        context 'when the needed item ids are posted as `item_ids`' do
+          let(:item_ids) { store.items.needed.ids }
 
           it 'changes `needed` for each needed item to zero' do
             expect {
@@ -34,6 +34,16 @@ RSpec.describe Api::Items::BulkUpdatesController do
             }.to change {
               store.items.needed.size
             }.to(0)
+          end
+        end
+
+        context 'when item_ids is an empty array' do
+          let(:item_ids) { [] }
+
+          it 'responds with no content' do
+            post_create
+
+            expect(response).to have_http_status(204)
           end
         end
       end
