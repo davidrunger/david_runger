@@ -22,10 +22,6 @@
       @click='initializeTripCheckIn'
       :size='$is_mobile_device ? "small" : null'
     ) Check in items
-    el-button.copy-to-clipboard.mt1(
-      :size='$is_mobile_device ? "small" : null'
-    ) Copy to clipboard
-    span(v-if='wasCopiedRecently') Copied!
 
   div.mb1
     el-input(
@@ -127,7 +123,6 @@
 <script lang='ts'>
 import { defineComponent } from 'vue';
 import { mapState, StoreDefinition } from 'pinia';
-import ClipboardJS from 'clipboard';
 import { EditIcon } from 'vue-tabler-icons';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
@@ -169,25 +164,7 @@ export default defineComponent({
       itemsToZero: [],
       modalStore: useModalStore(),
       newItemName: '',
-      wasCopiedRecently: false,
     };
-  },
-
-  mounted() {
-    const clipboard = new ClipboardJS('.copy-to-clipboard', {
-      text: () => {
-        // ensure that the current store is in the checkInStores
-        this.groceriesStore.addCheckInStore({ store: this.store });
-
-        return this.neededCheckInItems.
-          map((item: ItemType) => `${item.name} (${item.needed})`).
-          join('\n');
-      },
-    });
-    clipboard.on('success', () => {
-      this.wasCopiedRecently = true;
-      setTimeout(() => { this.wasCopiedRecently = false; }, 3000);
-    });
   },
 
   methods: {
@@ -329,11 +306,6 @@ button.choose-stores {
 // https://stackoverflow.com/a/30891910/4009384
 .buttons-container {
   margin-top: calc(-1 * var(--space-1));
-}
-
-// repeat class to increase specificity to override element plus default margin-left
-.copy-to-clipboard.copy-to-clipboard {
-  margin-left: 0;
 }
 
 .store-container {
