@@ -28,7 +28,6 @@
     span(v-if='wasCopiedRecently') Copied!
 
   div.mb1
-    h3.h3 Notes
     el-input(
       v-if='editingNotes'
       type='textarea'
