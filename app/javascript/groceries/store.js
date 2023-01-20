@@ -247,23 +247,8 @@ const getters = {
   },
 };
 
-// This allows us to do some initialization work (adding current store to check-in stores).
-// https://github.com/vuejs/pinia/discussions/1176#discussioncomment-2551258
-let store;
-export const useGroceriesStore = () => {
-  if (!store) {
-    const innerStore = defineStore('groceries', {
-      state,
-      actions,
-      getters,
-    });
-
-    store = innerStore();
-  }
-
-  if (!store.checkInStores.length) {
-    store.addCheckInStore({ store: store.currentStore });
-  }
-
-  return store;
-};
+export const useGroceriesStore = defineStore('groceries', {
+  state,
+  actions,
+  getters,
+});

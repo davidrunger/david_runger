@@ -176,11 +176,14 @@ export default defineComponent({
 
   mounted() {
     const clipboard = new ClipboardJS('.copy-to-clipboard', {
-      text: () => (
-        this.neededCheckInItems.
+      text: () => {
+        // ensure that the current store is in the checkInStores
+        this.groceriesStore.addCheckInStore({ store: this.store });
+
+        return this.neededCheckInItems.
           map((item: ItemType) => `${item.name} (${item.needed})`).
-          join('\n')
-      ),
+          join('\n');
+      },
     });
     clipboard.on('success', () => {
       this.wasCopiedRecently = true;
