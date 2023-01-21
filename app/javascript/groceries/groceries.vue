@@ -16,7 +16,7 @@ import { get } from 'lodash-es';
 import Cookies from 'js-cookie';
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
-import { JsonBroadcast } from '@/shared/types';
+import { ItemBroadcast } from '@/groceries/types';
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
 
@@ -62,15 +62,14 @@ export default defineComponent({
           channel: 'GroceriesChannel',
         },
         {
-          received: (data: JsonBroadcast) => {
+          received: (data: ItemBroadcast) => {
+            if (Cookies.get('browser_uuid') === data.acting_browser_uuid) return;
+
             if (data.action === 'created') {
               this.groceriesStore.addItem({ itemData: data.model });
             } else if (data.action === 'destroyed') {
               this.groceriesStore.deleteItem({ item: data.model });
-            } else if (
-              data.action === 'updated' &&
-                Cookies.get('browser_uuid') !== data.acting_browser_uuid
-            ) {
+            } else if (data.action === 'updated') {
               this.groceriesStore.modifyItem({ attributes: data.model });
             }
           },

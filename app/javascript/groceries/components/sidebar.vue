@@ -63,7 +63,6 @@ export default defineComponent({
     ...mapState(useGroceriesStore, [
       'postingStore',
       'spouse_stores',
-      'stores',
     ]),
 
     expanded(): boolean {
