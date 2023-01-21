@@ -3,3 +3,7 @@ export interface JsonBroadcast {
   action: string
   model: object
 }
+
+export interface IphoneTouchEvent extends TouchEvent {
+  scale: number
+}

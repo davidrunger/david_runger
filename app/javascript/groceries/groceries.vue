@@ -17,6 +17,7 @@ import Cookies from 'js-cookie';
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
 import { ItemBroadcast } from '@/groceries/types';
+import { IphoneTouchEvent } from '@/shared/types';
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
 
@@ -39,7 +40,11 @@ export default defineComponent({
     // https://stackoverflow.com/a/59492869/4009384
     document.addEventListener(
       'touchmove',
-      (event) => { event.preventDefault(); },
+      (event) => {
+        if ((event as IphoneTouchEvent).scale !== 1) {
+          event.preventDefault();
+        }
+      },
       { passive: false },
     );
 
