@@ -9,16 +9,18 @@
       )
 </template>
 
-<script>
+<script lang='ts'>
+import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
 import { get } from 'lodash-es';
 import Cookies from 'js-cookie';
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
+import { JsonBroadcast } from '@/shared/types';
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
 
-export default {
+export default defineComponent({
   components: {
     Sidebar,
     Store,
@@ -27,6 +29,7 @@ export default {
   computed: {
     ...mapState(useGroceriesStore, [
       'currentStore',
+      'debouncingOrWaitingOnNetwork',
     ]),
   },
 
@@ -34,9 +37,11 @@ export default {
     window.addEventListener('beforeunload', this.warnIfRequestPending);
 
     // https://stackoverflow.com/a/59492869/4009384
-    document.addEventListener('touchmove', (event) => {
-      if (event.scale !== 1) { event.preventDefault(); }
-    }, { passive: false });
+    document.addEventListener(
+      'touchmove',
+      (event) => { event.preventDefault(); },
+      { passive: false },
+    );
 
     const spouseId = get(window, 'davidrunger.bootstrap.spouse.id');
     if (spouseId) {
@@ -57,7 +62,7 @@ export default {
           channel: 'GroceriesChannel',
         },
         {
-          received: (data) => {
+          received: (data: JsonBroadcast) => {
             if (data.action === 'created') {
               this.groceriesStore.addItem({ itemData: data.model });
             } else if (data.action === 'destroyed') {
@@ -81,7 +86,7 @@ export default {
   },
 
   methods: {
-    warnIfRequestPending(event) {
+    warnIfRequestPending(event: BeforeUnloadEvent) {
       if (this.debouncingOrWaitingOnNetwork) {
         event.preventDefault();
         // Chrome requires returnValue to be set
@@ -90,7 +95,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style lang='scss'>

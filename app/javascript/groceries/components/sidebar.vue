@@ -5,7 +5,7 @@ aside.border-right.border-gray(
   .overflow-auto.dvh-100.hidden-scrollbars
     .sidebar-toggle__container.border-bottom
       button.sidebar-toggle(
-        @click='this.collapsed = !collapsed'
+        @click='collapsed = !collapsed'
         :class='{ "rotated-180": expanded }'
       )
         arrow-bar-right-icon(size='29')
@@ -38,8 +38,8 @@ aside.border-right.border-gray(
             )
 </template>
 
-<script>
-import { inject, ref } from 'vue';
+<script lang='ts'>
+import { defineComponent, inject, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
@@ -50,7 +50,7 @@ import { useSubscription } from '@/lib/composables/use_subscription';
 import LoggedInHeader from './logged_in_header.vue';
 import StoreListEntry from './store_list_entry.vue';
 
-export default {
+export default defineComponent({
   name: 'Sidebar',
 
   components: {
@@ -66,7 +66,7 @@ export default {
       'stores',
     ]),
 
-    expanded() {
+    expanded(): boolean {
       return !this.collapsed;
     },
   },
@@ -108,7 +108,7 @@ export default {
       newStoreName: { required },
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

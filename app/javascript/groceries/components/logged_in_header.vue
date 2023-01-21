@@ -5,21 +5,29 @@ el-menu.center
     el-menu-item.email(
       index='1-1'
       :disabled='true'
-    ) {{$bootstrap.current_user.email}}
-    a(:href="$routes.edit_user_path($bootstrap.current_user)")
+    ) {{currentUser.email}}
+    a(:href="$routes.edit_user_path(currentUser)")
       el-menu-item(index='1-2') Account Settings
     a.js-link(@click='signOut')
       el-menu-item(index='1-3') Sign Out
 </template>
 
-<script>
+<script lang='ts'>
+import { defineComponent } from 'vue';
 import { signOut } from '@/lib/sign_out';
+import { Bootstrap } from '@/groceries/types';
 
-export default {
+export default defineComponent({
+  data() {
+    return {
+      currentUser: (this.$bootstrap as Bootstrap).current_user,
+    };
+  },
+
   methods: {
     signOut,
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>
