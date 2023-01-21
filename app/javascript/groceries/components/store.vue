@@ -121,7 +121,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { mapState, StoreDefinition } from 'pinia';
 import { EditIcon } from 'vue-tabler-icons';
 import { required } from '@vuelidate/validators';
@@ -215,7 +215,7 @@ export default defineComponent({
     },
 
     initializeTripCheckIn() {
-      this.groceriesStore.addCheckInStore({ store: this.groceriesStore.currentStore });
+      this.groceriesStore.addCheckInStore({ store: this.groceriesStore.currentStore as Store });
       this.modalStore.showModal({ modalName: 'check-in-shopping-trip' });
     },
 
@@ -280,7 +280,7 @@ export default defineComponent({
 
   props: {
     store: {
-      type: Object,
+      type: Object as PropType<Store>,
       required: true,
     },
   },
