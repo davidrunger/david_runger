@@ -59,7 +59,7 @@ module DiffHelpers
 
   memoize \
   def files_with_js_changed?
-    Dir['app/javascript/**/*.{js,vue}'].intersect?(files_changed)
+    Dir['app/javascript/**/*.{js,ts,vue}'].intersect?(files_changed)
   end
 
   memoize \
