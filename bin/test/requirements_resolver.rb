@@ -16,8 +16,9 @@ class Test::RequirementsResolver
 
         # Installation / Setup
         Test::Tasks::YarnInstall => nil,
-        Test::Tasks::CompileJavaScript => Test::Tasks::YarnInstall,
-        Test::Tasks::CheckTypescript => Test::Tasks::YarnInstall,
+        Test::Tasks::BuildRouteHelpers => Test::Tasks::YarnInstall,
+        Test::Tasks::CheckTypescript => Test::Tasks::BuildRouteHelpers,
+        Test::Tasks::CompileJavaScript => Test::Tasks::BuildRouteHelpers,
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
