@@ -60,7 +60,7 @@
     "vue": "^3.2",
     "vue-chartjs": "^5.2",
     "vue-router": "^4.1",
-    "vue-tabler-icons": "^2.17.0",
+    "vue-tabler-icons": "^2.18.0",
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
