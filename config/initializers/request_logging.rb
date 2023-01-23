@@ -8,7 +8,9 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
 
   controller_klass = controller_name.constantize
   # We won't log requests to non-ApplicationController controllers (e.g. Flipper & Sidekiq engines)
+  # rubocop:disable Style/InvertibleUnlessCondition
   next unless controller_klass <= ApplicationController
+  # rubocop:enable Style/InvertibleUnlessCondition
 
   request_id = payload[:headers]['action_dispatch.request_id']
   if request_id.blank?
