@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 7a0df91bff07d5dfab52506e645b5343a14669ad
+  revision: b3a5a9a793c2f997150c3b4354e427fdc8e75757
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -422,7 +422,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.4)
+    rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
     railties (7.0.4.1)
       actionpack (= 7.0.4.1)
