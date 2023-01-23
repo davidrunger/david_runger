@@ -1,4 +1,4 @@
-import Chartkick from 'chartkick/src';
+import Chartkick from 'chartkick';
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-luxon';
 

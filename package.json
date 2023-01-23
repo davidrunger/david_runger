@@ -33,7 +33,7 @@
     "basscss-lighten": "^1.1.0",
     "chart.js": "^4.2.0",
     "chartjs-adapter-luxon": "1.3.0",
-    "chartkick": "https://github.com/ankane/chartkick.js",
+    "chartkick": "^5.0.1",
     "clipboard": "^2.0.11",
     "dompurify": "^2.4.3",
     "easytimer.js": "^4.5.4",
