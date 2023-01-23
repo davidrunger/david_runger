@@ -175,6 +175,12 @@ class Test::RequirementsResolver
     Test::Tasks::RunDatabaseConsistency => proc {
       !db_schema_changed? && !diff_mentions?('database_consistency')
     },
+    Test::Tasks::CheckTypescript => proc {
+      !files_with_js_changed? &&
+        !diff_mentions?('tsc|typescript') &&
+        !file_changed?('package.json') &&
+        !file_changed?('yarn.lock')
+    },
     Test::Tasks::RunEslint => proc {
       !files_with_js_changed? &&
         !diff_mentions?('eslint') &&
