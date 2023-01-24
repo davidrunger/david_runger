@@ -149,7 +149,7 @@ HomeSection(section='projects' title='Projects')
             #[a(href='https://activeadmin.info/') Active Admin] admin backend,
             #[a(href='https://github.com/drapergem/draper') Draper] decorators,
             #[a(href='https://github.com/varvet/pundit') Pundit] authorization,
-            #[a(href='https://github.com/rails-api/active_model_serializers') active_model_serializers] model-to-JSON serialization,
+            #[a(href='https://github.com/okuramasafumi/alba') alba] model-to-JSON serialization,
             #[a(href='https://guides.rubyonrails.org/action_mailer_basics.html') Action Mailer] outbound emails,
             #[a(href='https://guides.rubyonrails.org/action_mailbox_basics.html') Action Mailbox] inbound emails,
             #[a(href='https://guides.rubyonrails.org/security.html#custom-credentials') Rails encrypted credentials],
