@@ -134,6 +134,15 @@ HomeSection(section='skills', title='Skills')
         `
       )
       SkillRow(
+        name='TypeScript'
+        :wordmarkedIcon='false'
+        details=
+        `
+          I'm relatively new to TypeScript, but I can already see that it reduces the likelihood of
+          shipping frontend bugs.
+        `
+      )
+      SkillRow(
         name='VueJS'
       )
         template(v-slot:details)
