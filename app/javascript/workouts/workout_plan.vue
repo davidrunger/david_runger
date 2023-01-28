@@ -66,7 +66,7 @@
 
 <script>
 import { Timer } from 'easytimer.js';
-import { cloneDeep, includes } from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
 
 import { useModalStore } from '@/shared/modal/store';
 import ConfirmWorkoutModal from './confirm_workout_modal.vue';
@@ -176,7 +176,7 @@ export default {
       if (this.secondsElapsed >= this.nextRoundStartAtSeconds) {
         this.currentRoundIndex++;
         this.say('Go!');
-      } else if (includes([10, 20, 30], this.secondsUntilNextRound)) {
+      } else if ([10, 20, 30].includes(this.secondsUntilNextRound)) {
         this.say(`${this.secondsUntilNextRound} seconds`);
       }
     },
