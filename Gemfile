@@ -21,7 +21,7 @@ gem 'faraday-multipart'
 gem 'flipper'
 gem 'flipper-redis'
 gem 'flipper-ui'
-gem 'hamlit'
+gem 'haml'
 gem 'hashid-rails'
 gem 'js-routes', '2.2.4', require: false
 gem 'jwt'
