@@ -53,8 +53,8 @@ class DavidRunger::Application < Rails::Application
   # These settings can be overridden in specific environments using the files
   # in config/environments, which are processed later.
 
-  # Don't generate system test files.
-  config.generators.system_tests = nil
+  config.generators.helper = false
+  config.generators.system_tests = false
   config.generators do |g|
     g.factory_bot(dir: 'spec/factories')
   end
