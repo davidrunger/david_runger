@@ -22,6 +22,7 @@ gem 'flipper'
 gem 'flipper-redis'
 gem 'flipper-ui'
 gem 'haml'
+gem 'haml-rails'
 gem 'hashid-rails'
 gem 'js-routes', '2.2.4', require: false
 gem 'jwt'
