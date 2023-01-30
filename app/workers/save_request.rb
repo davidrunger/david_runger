@@ -23,7 +23,7 @@ class SaveRequest
     return if Request.exists?(request_id: @request_id)
 
     if can_save_request?
-      if uptime_robot_ping?
+      if !should_save_request?
         delete_request_data
       elsif ban_reasons.present?
         ban_requesting_ip
@@ -39,9 +39,11 @@ class SaveRequest
 
   private
 
-  memoize \
-  def uptime_robot_ping?
-    params['uptime_robot'].present?
+  def should_save_request?
+    return false if params['uptime_robot'].present?
+    return false if stashed_data['handler'] == 'blog#assets'
+
+    true
   end
 
   memoize \

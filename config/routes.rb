@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     named_routes['new_user_session'] = named_routes['login']
   end
 
+  get 'blog', to: 'blog#index'
+  get 'blog/:slug', to: 'blog#show'
+  get 'blog/*path' => 'blog#assets'
+
   get 'groceries', to: 'groceries#index'
   get 'workout', to: 'workouts#index'
   get 'workouts', to: redirect('workout')
