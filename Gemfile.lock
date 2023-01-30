@@ -429,6 +429,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
+    rails-reverse-proxy (0.11.0)
+      actionpack
+      addressable
     railties (7.0.4.1)
       actionpack (= 7.0.4.1)
       activesupport (= 7.0.4.1)
@@ -677,6 +680,7 @@ DEPENDENCIES
   rack-attack
   rails
   rails-controller-testing
+  rails-reverse-proxy
   redis
   redis-client
   redlock
