@@ -47,6 +47,7 @@ gem 'rollbar'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sprockets-rails'
+gem 'strip_attributes'
 gem 'vite_rails'
 
 group :production do

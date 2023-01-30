@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  using BlankParamsAsNil
-
   def edit
     @user = User.find(params[:id])
     authorize(@user)

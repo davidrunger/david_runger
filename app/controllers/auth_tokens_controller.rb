@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class AuthTokensController < ApplicationController
-  using BlankParamsAsNil
-
   before_action :set_auth_token, only: %i[destroy update]
 
   def create
@@ -27,7 +25,7 @@ class AuthTokensController < ApplicationController
   private
 
   def auth_token_params
-    params.require(:auth_token).permit(:name, :secret).blank_params_as_nil(%w[name secret])
+    params.require(:auth_token).permit(:name, :secret)
   end
 
   def set_auth_token
