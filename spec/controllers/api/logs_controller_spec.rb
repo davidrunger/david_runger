@@ -49,13 +49,18 @@ RSpec.describe Api::LogsController do
 
         post_create
 
+        checked_log_line_expectations = false
         expect(Rails.logger).to have_received(:info) do |logged_string|
+          # ignore an expected log line that we aren't interested in
           break if logged_string.include?('path=/api/logs method=POST')
 
+          # make sure that we get here at some point
+          checked_log_line_expectations = true
           expect(logged_string).to match(/Failed to create log\./)
           expect(logged_string).to match(/errors={.*:name=>\["can't be blank"\].*}/)
-          expect(logged_string).to match(/attributes={.*"name"=>"".*}/)
+          expect(logged_string).to match(/attributes={.*"name"=>nil.*}/)
         end
+        expect(checked_log_line_expectations).to eq(true)
       end
 
       it 'returns a 422 status code' do

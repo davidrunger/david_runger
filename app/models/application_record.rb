@@ -3,6 +3,9 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  # from the `strip_attributes` gem https://github.com/rmm5t/strip_attributes
+  strip_attributes
+
   class << self
     extend Memoist
 
