@@ -51,12 +51,14 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
     end
 
     context 'when Google responds with "This is Google OAuth."' do
+      let(:google_response_content) { 'This is Google OAuth.' }
+
       around do |spec|
         page.driver.browser.intercept do |request, &continue|
           continue.call(request) do |response|
             if request.url.start_with?('https://accounts.google.com/o/oauth2/auth?')
               response.code = 200
-              response.body = 'This is Google OAuth.'
+              response.body = google_response_content
             end
           end
         end
@@ -73,7 +75,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
         click_button(class: 'google-login')
 
-        expect(page).to have_text('This is Google OAuth.')
+        expect(page).to have_text(google_response_content)
       end
     end
   end
