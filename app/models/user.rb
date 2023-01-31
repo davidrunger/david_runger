@@ -70,4 +70,8 @@ class User < ApplicationRecord
     flush_cache # clear memoized methods
     super
   end
+
+  def display_name
+    email.split('@').first
+  end
 end

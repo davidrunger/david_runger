@@ -77,4 +77,16 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '#display_name' do
+    subject(:display_name) { user.display_name }
+
+    before { user.update!(email: "#{email_prefix}@gmail.com") }
+
+    let(:email_prefix) { 'tom.talbot' }
+
+    it 'returns the part of the email before "@"' do
+      expect(display_name).to eq(email_prefix)
+    end
+  end
 end
