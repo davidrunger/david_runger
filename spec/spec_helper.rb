@@ -59,12 +59,11 @@ WebMock.disable_net_connect!(
 OmniAuth.config.test_mode = true
 
 Capybara.register_driver(:chrome_headless) do |app|
-  options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu])
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 Capybara.register_driver(:chrome_headful) do |app|
-  options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox disable-gpu])
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [options])
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 unless use_headful_chrome
   Capybara::Screenshot.register_driver(:chrome_headless) do |driver, path|
