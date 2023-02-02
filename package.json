@@ -67,7 +67,7 @@
     "@percy/cli": "^1.18.0",
     "@types/js-cookie": "^3.0.2",
     "@types/toastify-js": "^1.11.1",
-    "@typescript-eslint/parser": "^5.49.0",
+    "@typescript-eslint/parser": "^5.50.0",
     "@volar/vue-language-plugin-pug": "^1.0.24",
     "@vue/eslint-config-typescript": "^11.0.2",
     "eslint-import-resolver-typescript": "^3.5.3",
