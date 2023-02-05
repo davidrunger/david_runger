@@ -9,6 +9,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://davidrunger.com/blog/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://davidrunger.com/login/</loc>
     <priority>0.5</priority>
   </url>
