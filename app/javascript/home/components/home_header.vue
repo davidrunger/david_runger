@@ -6,12 +6,12 @@ header#header.flex-grow-1.flex.justify-between.bg-black.col-12.relative
       :class='{ "opacity-0": homeIsVisible }'
     )
       | David Runger
-  nav#nav.sans-serif.flex.justify-around.absolute.mr4
+  nav#nav.sans-serif.flex.justify-around.absolute.mr3
     NavLink(section='about')
     NavLink(section='skills')
     NavLink(section='projects')
     NavLink(section='resume')
-    NavLink(section='contact')
+    NavLink(section='links' link-text='Contact/Links')
   .toggleable-menu
     .line-container(:class='{ "menu-open": homeStore.menuOpen }')
       .line

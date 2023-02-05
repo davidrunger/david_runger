@@ -4,7 +4,7 @@ a.nav-link(
   :class='{ active }'
   @click='homeStore.registerClickedSection(section)'
 )
-  span {{prettyName}}
+  span {{linkText || prettyName}}
 </template>
 
 <script>
@@ -29,6 +29,10 @@ export default {
   },
 
   props: {
+    linkText: {
+      type: String,
+      required: false,
+    },
     section: {
       type: String,
       required: true,
