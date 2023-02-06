@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: fab124bda5fd2337c4c9c9f4b32588dc494167ab
+  revision: 7b5677ec5d86ce8b0b18713f8648f794a543bb6f
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -321,7 +321,7 @@ GEM
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.8.0.1)
+    mail (2.8.1)
       mini_mime (>= 0.1.1)
       net-imap
       net-pop
