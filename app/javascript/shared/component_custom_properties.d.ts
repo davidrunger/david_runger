@@ -1,6 +1,6 @@
 import * as Routes from '@/rails_assets/routes';
 
-export {}
+export {};
 
 declare module 'vue' {
   interface ComponentCustomProperties {

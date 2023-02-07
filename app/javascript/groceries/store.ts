@@ -5,7 +5,7 @@ import { emit } from '@/lib/event_bus';
 import { Bootstrap, Item, Store } from '@/groceries/types';
 import * as RoutesType from '@/rails_assets/routes';
 
-declare var Routes: typeof RoutesType;
+declare const Routes: typeof RoutesType;
 
 interface State {
   own_stores: Array<Store>
@@ -32,8 +32,18 @@ interface StoreAttributes {
 }
 
 export const helpers = {
-  getById<T>(collection: Array<Identifiable & T>, id: number): T | undefined {
-    return collection.find(item => item.id === id);
+  getById<T>(collection: Array<Identifiable & T>, id: number): T {
+    const item = helpers.safeGetById(collection, id);
+
+    if (item === undefined) {
+      throw new TypeError(`Could not find item with id ${id} in collection ${collection}.`);
+    }
+
+    return item;
+  },
+
+  safeGetById<T>(collection: Array<Identifiable & T>, id: number): T | undefined {
+    return collection.find(collectionItem => collectionItem.id === id);
   },
 
   sortByName<T>(objects: Array<Nameable & T>): Array<T> {
@@ -63,14 +73,21 @@ export const useGroceriesStore = defineStore('groceries', {
       store = store || helpers.getById(this.allStores, itemData.store_id);
 
       // don't add item to store if it's already there
-      if (helpers.getById(store!.items, itemData.id)) return;
+      if (helpers.safeGetById(store.items, itemData.id)) return;
 
       itemData.newlyAdded = true;
-      store!.items.unshift(itemData);
+      store.items.unshift(itemData);
       setTimeout(() => { itemData.newlyAdded = false; }, 1000);
     },
 
-    async createItem({ store, itemAttributes }: { store: Store, itemAttributes: { name: string } }) {
+    async createItem(
+      {
+        store,
+        itemAttributes,
+      }: {
+        store: Store,
+        itemAttributes: { name: string },
+    }) {
       this.incrementPendingRequests();
 
       const itemData: Item = await kyApi.post(
@@ -106,7 +123,7 @@ export const useGroceriesStore = defineStore('groceries', {
 
     deleteItem({ item }: { item: Item }) {
       const store = helpers.getById(this.allStores, item.store_id);
-      store!.items = store!.items.filter(storeItem => storeItem.id !== item.id);
+      store.items = store.items.filter(storeItem => storeItem.id !== item.id);
     },
 
     async destroyItem({ item }: { item: Item }) {
@@ -154,7 +171,7 @@ export const useGroceriesStore = defineStore('groceries', {
         spouse_stores: Array<Store>
       }
 
-      const storesResponse: StoresResponse = await kyApi.get(Routes.api_stores_path()).json()
+      const storesResponse: StoresResponse = await kyApi.get(Routes.api_stores_path()).json();
       addOrUpdateStores(storesResponse.own_stores, this.own_stores);
       addOrUpdateStores(storesResponse.spouse_stores, this.spouse_stores);
     },
@@ -166,9 +183,9 @@ export const useGroceriesStore = defineStore('groceries', {
     modifyItem({ item, attributes }: { item?: Item, attributes: Item }) {
       if (!item) {
         const store = helpers.getById(this.allStores, attributes.store_id);
-        item = helpers.getById(store!.items, attributes.id);
+        item = helpers.getById(store.items, attributes.id);
       }
-      Object.assign(item!, attributes);
+      Object.assign(item, attributes);
     },
 
     selectStore({ store }: { store: Store }) {
