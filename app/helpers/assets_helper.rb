@@ -11,4 +11,8 @@ module AssetsHelper
   def js_tag(pack_name)
     vite_javascript_tag(pack_name, defer: 'defer', crossorigin: nil)
   end
+
+  def ts_tag(pack_name)
+    vite_typescript_tag(pack_name, defer: 'defer', crossorigin: nil)
+  end
 end
