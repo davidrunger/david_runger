@@ -54,7 +54,7 @@ class CheckHomeLinks::Checker
       request.options.timeout = 5
     end
   rescue => error
-    Rollbar.warn(error, url:)
+    Rollbar.info(error, url:)
     nil
   end
 end

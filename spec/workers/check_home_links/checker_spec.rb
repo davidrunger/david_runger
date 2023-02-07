@@ -44,6 +44,15 @@ RSpec.describe CheckHomeLinks::Checker do
           # rubocop:enable RSpec/AnyInstance
         end
 
+        it 'sends the error to Rollbar it info level' do
+          expect(Rollbar).
+            to receive(:info).
+            with(Faraday::ConnectionFailed, url:).
+            and_call_original
+
+          perform
+        end
+
         it 'sends an AdminMailer#bad_home_link email', queue_adapter: :test do
           expect { perform }.
             to enqueue_mail(AdminMailer, :bad_home_link).
