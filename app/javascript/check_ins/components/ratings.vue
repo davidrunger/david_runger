@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template lang='pug'>
 div.my2(
   v-for='needSatisfactionRating in needSatisfactionRatings'
@@ -23,10 +22,12 @@ div.my2(
 button.mt1.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
 </template>
 
-<script>
+<script lang='ts'>
+import { PropType } from 'vue';
 import { range } from 'lodash-es';
 import { mapState } from 'pinia';
 import { useCheckInsStore } from '@/check_ins/store';
+import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
 import EmojiButton from './emoji_button.vue';
 
 export default {
@@ -40,18 +41,15 @@ export default {
     ]),
   },
 
-  created() {
-    this.RATINGS_RANGE = range(-3, 4);
-  },
-
   data() {
     return {
       checkInsStore: useCheckInsStore(),
+      RATINGS_RANGE: range(-3, 4) as Array<Rating>,
     };
   },
 
   methods: {
-    graphLink(needSatisfactionRating) {
+    graphLink(needSatisfactionRating: NeedSatisfactionRating) {
       return this.$routes.
         history_emotional_need_path(
           needSatisfactionRating.emotional_need.id,
@@ -72,7 +70,7 @@ export default {
       required: true,
     },
     needSatisfactionRatings: {
-      type: Array,
+      type: Array as PropType<Array<NeedSatisfactionRating>>,
       required: true,
     },
     ratedUser: {

@@ -7,9 +7,12 @@ button(
   span(v-else) {{ratingValue}}
 </template>
 
-<script>
+<script lang='ts'>
+import { PropType } from 'vue';
 import { sample } from 'lodash-es';
+import { assert } from '@/shared/helpers';
 import { useCheckInsStore } from '@/check_ins/store';
+import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
 
 const EMOJIS = new Map([
   [-3, ['😢']],
@@ -23,11 +26,11 @@ const EMOJIS = new Map([
 
 export default {
   computed: {
-    emoji() {
-      return sample(EMOJIS.get(this.ratingValue));
+    emoji(): string {
+      return assert(sample(EMOJIS.get(this.ratingValue)));
     },
 
-    selected() {
+    selected(): boolean {
       return this.needSatisfactionRating.score === this.ratingValue;
     },
   },
@@ -55,11 +58,11 @@ export default {
       default: true,
     },
     needSatisfactionRating: {
-      type: Object,
+      type: Object as PropType<NeedSatisfactionRating>,
       required: true,
     },
     ratingValue: {
-      type: Number,
+      type: Number as PropType<Rating>,
       required: true,
     },
   },
