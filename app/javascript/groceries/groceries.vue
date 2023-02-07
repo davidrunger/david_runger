@@ -14,12 +14,17 @@ import { defineComponent } from 'vue';
 import { mapState } from 'pinia';
 import { get } from 'lodash-es';
 import Cookies from 'js-cookie';
+import { Connection } from '@rails/actioncable';
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
 import { ItemBroadcast } from '@/groceries/types';
 import { IphoneTouchEvent } from '@/shared/types';
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
+
+interface MonkeypatchableConnection extends Connection {
+  installEventHandlers(): void
+}
 
 export default defineComponent({
   components: {
@@ -54,9 +59,10 @@ export default defineComponent({
       // connection is re-established after having been broken (though it's also called when
       // first loading the page, which we don't need, so ignore that one)
       const originalInstallEventHandlers =
-        actionCableConsumer.connection.installEventHandlers.bind(actionCableConsumer.connection);
+        (actionCableConsumer.connection as MonkeypatchableConnection).installEventHandlers.
+          bind(actionCableConsumer.connection);
       let isFirstInstall = true;
-      actionCableConsumer.connection.installEventHandlers = () => {
+      (actionCableConsumer.connection as MonkeypatchableConnection).installEventHandlers = () => {
         if (!isFirstInstall) this.groceriesStore.pullStoreData();
         isFirstInstall = false;
         originalInstallEventHandlers();

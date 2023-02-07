@@ -17,16 +17,17 @@ class TrackAssetSizes
 
   def track_all_asset_sizes(dry_run: false)
     accumulator = {}
-    packs.each do |pack_name|
-      track_asset_sizes(pack_name, accumulator:, dry_run:)
+    packs.each do |pack|
+      track_asset_sizes(pack, accumulator:, dry_run:)
     end
     accumulator
   end
 
   private
 
-  def track_asset_sizes(pack_name, accumulator:, dry_run:)
-    asset_and_js_dependencies = asset_and_js_dependencies("packs/#{pack_name}.js")
+  def track_asset_sizes(pack, accumulator:, dry_run:)
+    pack_name = pack.gsub(/\.[jt]s\z/, '')
+    asset_and_js_dependencies = asset_and_js_dependencies("packs/#{pack}")
     total_js_files_size =
       asset_and_js_dependencies.
         sum { |asset| File.new("public/vite/#{file_name(asset)}").size }
@@ -57,7 +58,7 @@ class TrackAssetSizes
 
   memoize \
   def asset_and_js_dependencies(asset)
-    asset_manifest = manifest[asset]
+    asset_manifest = manifest.fetch(asset)
 
     ([asset] +
       ((asset_manifest['imports'] || []) + (asset_manifest['dynamicImports'] || [])).
@@ -73,7 +74,7 @@ class TrackAssetSizes
     manifest.
       filter_map do |path, info|
         if info['isEntry']
-          path.delete_prefix('packs/').delete_suffix('.js')
+          path.delete_prefix('packs/')
         end
       end.
       sort
