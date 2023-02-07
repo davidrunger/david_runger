@@ -1,13 +1,4 @@
-import { JsonBroadcast } from "@/shared/types"
-
-export interface Bootstrap {
-  current_user: {
-    email: string
-    id: number
-  }
-  own_stores: Array<Store>
-  spouse_stores: Array<Store>
-}
+import { JsonBroadcast } from '@/shared/types';
 
 export interface Item {
   id: number
@@ -29,4 +20,13 @@ export interface Store {
 
 export interface ItemBroadcast extends JsonBroadcast {
   model: Item
+}
+
+export interface Bootstrap {
+  current_user: {
+    email: string
+    id: number
+  }
+  own_stores: Array<Store>
+  spouse_stores: Array<Store>
 }
