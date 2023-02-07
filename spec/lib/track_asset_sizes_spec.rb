@@ -10,9 +10,9 @@ RSpec.describe TrackAssetSizes do
       before do
         expect(File).to receive(:read).and_return(<<~JSON)
           {
-            "packs/groceries_app.js": {
+            "packs/groceries_app.ts": {
               "file": "assets/groceries_app.e736a509.js",
-              "src": "packs/groceries_app.js",
+              "src": "packs/groceries_app.ts",
               "isEntry": true,
               "imports": [
                 "_modal_store.c843ae02.js",
