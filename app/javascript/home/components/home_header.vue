@@ -37,7 +37,7 @@ header#header.flex-grow-1.flex.justify-between.bg-black.col-12.relative
           NavLink(section='contact')
 </template>
 
-<script>
+<script lang='ts'>
 import { mapState } from 'pinia';
 import { useHomeStore } from '@/home/store';
 import NavLink from './nav_link.vue';
@@ -62,7 +62,7 @@ export default {
   methods: {
     collapseMobileMenu() {
       this.homeStore.menuOpen = false;
-      this.$refs['menu-toggle-checkbox'].checked = false;
+      (this.$refs['menu-toggle-checkbox'] as HTMLInputElement).checked = false;
     },
   },
 };

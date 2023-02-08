@@ -6,7 +6,7 @@ HomeSection(section='links', title='Contact me / Links')
   p #[b Blog:] #[a(href='https://davidrunger.com/blog/') my tech blog]
 </template>
 
-<script>
+<script lang='ts'>
 import HomeSection from './home_section.vue';
 
 export default {

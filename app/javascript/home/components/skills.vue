@@ -159,7 +159,7 @@ HomeSection(section='skills', title='Skills')
       )
 </template>
 
-<script>
+<script lang='ts'>
 import HomeSection from './home_section.vue';
 import SkillRow from './skill_row.vue';
 

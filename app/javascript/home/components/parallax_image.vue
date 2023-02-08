@@ -5,7 +5,7 @@
   .parallax-inner.parallax-inner--mobile(:class='variant')
 </template>
 
-<script>
+<script lang='ts'>
 export default {
   props: {
     variant: {

@@ -2,7 +2,7 @@
 .js-scroll-hook.absolute(ref='scrollHookRef')
 </template>
 
-<script>
+<script lang='ts'>
 import { ref } from 'vue';
 import { useIntersectionObserver } from '@vueuse/core';
 
