@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module AssetsHelper
-  def admin_js_tag(pack_name)
+  def admin_ts_tag(pack_name)
     js_file_path =
       JSON.parse(File.read('public/vite-admin/manifest.json')).
-        dig("admin_packs/#{pack_name}.js", 'file')
+        dig("admin_packs/#{pack_name}.ts", 'file')
     javascript_include_tag("/vite-admin/#{js_file_path}")
   end
 

@@ -4,7 +4,7 @@ ActiveAdmin.register_page('Graphs') do
   menu parent: 'Admin'
 
   content do
-    div(admin_js_tag('charts'))
+    div(admin_ts_tag('charts'))
 
     h2('home#index response times')
     home_index_response_times =
