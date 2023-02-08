@@ -67,6 +67,7 @@
     "@percy/cli": "^1.18.0",
     "@types/js-cookie": "^3.0.2",
     "@types/rails__actioncable": "^6.1.6",
+    "@types/rails__ujs": "^6.0.1",
     "@types/toastify-js": "^1.11.1",
     "@typescript-eslint/parser": "^5.50.0",
     "@volar/vue-language-plugin-pug": "^1.0.24",
