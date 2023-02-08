@@ -18,9 +18,10 @@ Ratings(
 div(v-else) {{checkInsStore.partner_ratings_hidden_reason}}
 </template>
 
-<script>
+<script lang='ts'>
 import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
+import { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
 import Ratings from './components/ratings.vue';
 
 export default {
@@ -35,7 +36,7 @@ export default {
       },
       {
         received: (data) => {
-          if (data.originating_user_id === this.$bootstrap.current_user.id) return;
+          if (data.originating_user_id === (this.$bootstrap as Bootstrap).current_user.id) return;
 
           if (data.event === 'check-in-submitted') {
             this.checkInsStore.setPartnerRatingsOfUser({
@@ -43,7 +44,7 @@ export default {
             });
           } else if (data.event === 'need-satisfaction-rating-updated') {
             this.checkInsStore.modifyRating({
-              attributes: data.rating,
+              attributes: data.rating as NeedSatisfactionRating,
             });
           }
         },

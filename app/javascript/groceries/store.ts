@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { filter, get, last, pick, sortBy } from 'lodash-es';
 import { kyApi } from '@/shared/ky';
+import { getById, safeGetById } from '@/shared/store_helpers';
 import { emit } from '@/lib/event_bus';
 import { Bootstrap, Item, Store } from '@/groceries/types';
 import * as RoutesType from '@/rails_assets/routes';
@@ -17,10 +18,6 @@ interface State {
   skippedItems: Item[]
 }
 
-interface Identifiable {
-  id: number
-}
-
 interface Nameable {
   name: string
 }
@@ -32,20 +29,6 @@ interface StoreAttributes {
 }
 
 export const helpers = {
-  getById<T>(collection: Array<Identifiable & T>, id: number): T {
-    const item = helpers.safeGetById(collection, id);
-
-    if (item === undefined) {
-      throw new TypeError(`Could not find item with id ${id} in collection ${collection}.`);
-    }
-
-    return item;
-  },
-
-  safeGetById<T>(collection: Array<Identifiable & T>, id: number): T | undefined {
-    return collection.find(collectionItem => collectionItem.id === id);
-  },
-
   sortByName<T>(objects: Array<Nameable & T>): Array<T> {
     return sortBy(objects, object => object.name.toLowerCase());
   },
@@ -70,10 +53,10 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     addItem({ store, itemData }: { store?: Store, itemData: Item }) {
-      store = store || helpers.getById(this.allStores, itemData.store_id);
+      store = store || getById(this.allStores, itemData.store_id);
 
       // don't add item to store if it's already there
-      if (helpers.safeGetById(store.items, itemData.id)) return;
+      if (safeGetById(store.items, itemData.id)) return;
 
       itemData.newlyAdded = true;
       store.items.unshift(itemData);
@@ -122,7 +105,7 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     deleteItem({ item }: { item: Item }) {
-      const store = helpers.getById(this.allStores, item.store_id);
+      const store = getById(this.allStores, item.store_id);
       store.items = store.items.filter(storeItem => storeItem.id !== item.id);
     },
 
@@ -145,12 +128,12 @@ export const useGroceriesStore = defineStore('groceries', {
     async pullStoreData() {
       const addOrUpdateStores = (storeData: Array<Store>, existingStores: Array<Store>) => {
         for (const storeDatum of storeData) {
-          const existingStore = helpers.getById(existingStores, storeDatum.id);
+          const existingStore = getById(existingStores, storeDatum.id);
           storeDatum.viewed_at = get(existingStore, 'viewed_at') ?? storeDatum.viewed_at;
           if (existingStore) {
             const items = [];
             for (const itemDatum of storeDatum.items) {
-              const existingItem = helpers.getById(existingStore.items, itemDatum.id);
+              const existingItem = getById(existingStore.items, itemDatum.id);
               if (existingItem) {
                 Object.assign(existingItem, itemDatum);
                 items.push(existingItem);
@@ -182,8 +165,8 @@ export const useGroceriesStore = defineStore('groceries', {
 
     modifyItem({ item, attributes }: { item?: Item, attributes: Item }) {
       if (!item) {
-        const store = helpers.getById(this.allStores, attributes.store_id);
-        item = helpers.getById(store.items, attributes.id);
+        const store = getById(this.allStores, attributes.store_id);
+        item = getById(store.items, attributes.id);
       }
       Object.assign(item, attributes);
     },
