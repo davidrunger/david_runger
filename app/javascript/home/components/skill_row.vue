@@ -9,7 +9,7 @@ tr
     span(v-else) {{ details }}
 </template>
 
-<script>
+<script lang='ts'>
 export default {
   props: {
     name: {

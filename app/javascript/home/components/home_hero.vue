@@ -16,7 +16,7 @@
       path(d='M0 0 L12 12 L24 0')
 </template>
 
-<script>
+<script lang='ts'>
 import { ref } from 'vue';
 import { useIntersectionObserver } from '@vueuse/core';
 

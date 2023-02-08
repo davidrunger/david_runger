@@ -25,7 +25,7 @@
   Contact
 </template>
 
-<script>
+<script lang='ts'>
 import About from './components/about.vue';
 import Contact from './components/contact.vue';
 import HomeHero from './components/home_hero.vue';

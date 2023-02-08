@@ -25,7 +25,7 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
           public bus driver, and a long haul truck driver.
 </template>
 
-<script>
+<script lang='ts'>
 import HomeSection, { SectionHeader } from './home_section.vue';
 
 export default {

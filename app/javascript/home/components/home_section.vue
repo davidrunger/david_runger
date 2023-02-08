@@ -7,12 +7,13 @@
     slot(:title='title')
 </template>
 
-<script>
+<script lang='ts'>
 import { h } from 'vue';
 
 import ScrollHook from './scroll_hook.vue';
 
-export const SectionHeader = props => h('h1', { class: 'h1 bold mt0 my2' }, props.title);
+export const SectionHeader =
+  (props: { title?: string }) => h('h1', { class: 'h1 bold mt0 my2' }, props.title);
 SectionHeader.props = ['title'];
 
 export default {
@@ -28,7 +29,7 @@ export default {
     },
     section: {
       type: String,
-      required: false,
+      required: true,
     },
     title: {
       type: String,

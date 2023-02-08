@@ -10,23 +10,23 @@
         .center.gray.mb1
           slot(name='technologies')
         .center(
-          v-if='this.$slots["links"]'
+          v-if='$slots["links"]'
           :class='linksContainerClass'
         )
           slot(name='links')
         .center(
-          v-if='this.$slots["image"]'
+          v-if='$slots["image"]'
           :class='imageContainerClass'
         )
           slot(name='image')
 
         slot(name='overview')
 
-        h3.h3.bold.mb1(v-if='this.$slots["tech-list"] && this.$slots["overview"]') Tech
+        h3.h3.bold.mb1(v-if='$slots["tech-list"] && $slots["overview"]') Tech
         slot(name='tech-list')
 </template>
 
-<script>
+<script lang='ts'>
 export default {
   props: {
     imageContainerClass: {

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe AssetsHelper do
-  describe '#js_tag' do
-    subject(:js_tag) { helper.js_tag(pack_name) }
+  describe '#ts_tag' do
+    subject(:ts_tag) { helper.ts_tag(pack_name) }
 
     let(:pack_name) { 'home_app' }
 
     it 'returns a deferred script tag for a JavaScript file' do
-      expect(js_tag).to match(
+      expect(ts_tag).to match(
         %r{
           <
             script\s

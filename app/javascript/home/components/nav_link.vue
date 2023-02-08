@@ -7,17 +7,17 @@ a.nav-link(
   span {{linkText || prettyName}}
 </template>
 
-<script>
+<script lang='ts'>
 import { capitalize } from 'lodash-es';
 import { useHomeStore } from '@/home/store';
 
 export default {
   computed: {
-    active() {
+    active(): boolean {
       return this.homeStore.activeSection === this.section;
     },
 
-    prettyName() {
+    prettyName(): string {
       return capitalize(this.section);
     },
   },

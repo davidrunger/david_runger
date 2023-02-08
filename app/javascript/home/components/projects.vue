@@ -316,7 +316,7 @@ HomeSection(section='projects' title='Projects')
 
 </template>
 
-<script>
+<script lang='ts'>
 import HomeSection from './home_section.vue';
 import Project from './project.vue';
 

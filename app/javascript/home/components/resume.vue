@@ -6,7 +6,7 @@ HomeSection.pb4(
   a.resume-button.block.center(href='/David-Runger-Resume.pdf') View Resume (pdf)
 </template>
 
-<script>
+<script lang='ts'>
 import HomeSection from './home_section.vue';
 
 export default {
