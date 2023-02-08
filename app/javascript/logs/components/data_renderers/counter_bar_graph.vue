@@ -6,8 +6,10 @@
   )
 </template>
 
-<script>
+<script lang='ts'>
 import BarGraph from '@/components/charts/bar_graph.vue';
+import { LogEntry } from '@/logs/types';
+import { PropType } from 'vue';
 
 export default {
   components: {
@@ -25,7 +27,7 @@ export default {
     },
 
     logEntriesToChartData() {
-      const countByDate = {};
+      const countByDate: { [key:string]: number } = {};
 
       for (const logEntry of this.log_entries) {
         const date = new Date(logEntry.created_at);
@@ -35,7 +37,7 @@ export default {
             slice(0, 10);
 
         countByDate[dateIsoStringInLocalTime] = countByDate[dateIsoStringInLocalTime] || 0;
-        countByDate[dateIsoStringInLocalTime] += logEntry.data;
+        countByDate[dateIsoStringInLocalTime] += logEntry.data as number;
       }
 
       return Object.entries(countByDate).
@@ -52,7 +54,7 @@ export default {
       required: true,
     },
     log_entries: {
-      type: Array,
+      type: Array as PropType<Array<LogEntry>>,
       required: true,
     },
   },

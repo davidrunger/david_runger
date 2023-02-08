@@ -21,7 +21,7 @@ Modal(
       ) {{log.name}}
 </template>
 
-<script>
+<script lang='ts'>
 import { ref } from 'vue';
 import FuzzySet from 'fuzzyset.js';
 import { mapState } from 'pinia';
@@ -29,28 +29,29 @@ import { mapState } from 'pinia';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
 import { useSubscription } from '@/lib/composables/use_subscription';
+import { assert } from '@/shared/helpers';
+import { Log } from '../types';
 
 export default {
   computed: {
     ...mapState(useLogsStore, [
-      'logByName',
       'logs',
     ]),
 
-    logNames() {
+    logNames(): Array<string> {
       return this.logs.map(log => log.name);
     },
 
-    orderedMatches() {
+    orderedMatches(): Array<Log> {
       if (!this.searchString) {
         return this.logs;
       }
 
       const matches = this.fuzzySet.get(this.searchString, '', 0) || [];
-      return matches.map(([_score, string]) => this.logs.find(log => log.name === string));
+      return matches.map(([_score, string]) => assert(this.logs.find(log => log.name === string)));
     },
 
-    showingLogSelector() {
+    showingLogSelector(): boolean {
       return this.modalStore.showingModal({ modalName: 'log-selector' });
     },
   },
@@ -60,6 +61,12 @@ export default {
     for (const logName of this.logNames) {
       this.fuzzySet.add(logName);
     }
+  },
+
+  data() {
+    return {
+      fuzzySet: null as unknown as FuzzySet,
+    };
   },
 
   methods: {
@@ -86,7 +93,7 @@ export default {
       this.selectLog(highlightedLog);
     },
 
-    selectLog(log) {
+    selectLog(log: Log) {
       this.$router.push({ name: 'log', params: { slug: log.slug } });
     },
   },
@@ -122,7 +129,7 @@ export default {
       setTimeout(() => {
         const logSearchInput = this.$refs['log-search-input'];
         if (logSearchInput) {
-          logSearchInput.focus();
+          (logSearchInput as HTMLInputElement).focus();
         }
       });
     },

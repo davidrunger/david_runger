@@ -7,7 +7,7 @@ section
   NewLogForm
 </template>
 
-<script>
+<script lang='ts'>
 import { mapState } from 'pinia';
 import { useLogsStore } from '@/logs/store';
 import NewLogForm from './new_log_form.vue';

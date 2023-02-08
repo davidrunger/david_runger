@@ -1,13 +1,13 @@
 <template lang='pug'>
 div
   header.flex.justify-between.p1
-    div {{$bootstrap.current_user.email}}
+    div {{currentUser.email}}
   .center
     LogSelector
     router-view(:key='$route.fullPath').m3
 </template>
 
-<script>
+<script lang='ts'>
 import { mapState } from 'pinia';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
@@ -15,6 +15,7 @@ import 'toastify-js/src/toastify.css';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
 import LogSelector from './components/log_selector.vue';
+import { Bootstrap, CurrentUser } from './types';
 
 export default {
   components: {
@@ -26,6 +27,10 @@ export default {
       'isSharedLog',
       'selectedLog',
     ]),
+
+    currentUser(): CurrentUser {
+      return (this.$bootstrap as Bootstrap).current_user;
+    },
   },
 
   created() {
@@ -46,7 +51,7 @@ export default {
     });
 
     // display any initial toast messages
-    const toastMessages = this.$bootstrap.toast_messages;
+    const toastMessages = (this.$bootstrap as Bootstrap).toast_messages;
     if (toastMessages) {
       for (const message of toastMessages) {
         Toastify({

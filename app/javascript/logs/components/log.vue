@@ -81,11 +81,13 @@ div
       LogReminderScheduleForm(:log='log')
 </template>
 
-<script>
+<script lang='ts'>
 import { mapState } from 'pinia';
 import ClipboardJS from 'clipboard';
 import { h } from 'vue';
+import { ElInput } from 'element-plus';
 
+import * as RoutesType from '@/rails_assets/routes';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
 import actionCableConsumer from '@/channels/consumer';
@@ -95,6 +97,9 @@ import IntegerTimeseries from './data_renderers/integer_timeseries.vue';
 import TextLog from './data_renderers/text_log.vue';
 import NewLogEntryForm from './new_log_entry_form.vue';
 import LogReminderScheduleForm from './log_reminder_schedule_form.vue';
+import { Bootstrap, Log, LogDataType, LogEntry, LogShare } from '../types';
+
+declare const Routes: typeof RoutesType;
 
 const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
   counter: CounterBarGraph,
@@ -103,7 +108,12 @@ const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
   text: TextLog,
 };
 
-const LogDataDisplay = props => {
+const LogDataDisplay = (props: {
+  data_type: LogDataType,
+  log: Log,
+  log_entries: Array<LogEntry>,
+  data_label: string,
+}) => {
   const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[props.data_type];
   return h(DataRenderer, {
     log: props.log,
@@ -123,23 +133,23 @@ export default {
   computed: {
     ...mapState(useLogsStore, {
       isOwnLog: 'isOwnLog',
-      log: 'selectedLog',
+      log: 'unsafeSelectedLog',
     }),
 
-    logSharesSortedByLowercasedEmail() {
+    logSharesSortedByLowercasedEmail(): Array<LogShare> {
       return this.log.log_shares.slice().
         sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()));
     },
 
-    renderInputAtTop() {
-      return ['text'].indexOf(this.log.data_type) >= 0;
+    renderInputAtTop(): boolean {
+      return this.log.data_type === 'text';
     },
 
-    shareableUrl() {
-      return window.location.origin + Routes.user_shared_log_path({
-        user_id: this.$bootstrap.current_user.id,
-        slug: this.log.slug,
-      });
+    shareableUrl(): string {
+      return window.location.origin + Routes.user_shared_log_path(
+        (this.$bootstrap as Bootstrap).current_user.id,
+        this.log.slug,
+      );
     },
   },
 
@@ -189,7 +199,7 @@ ${this.log.name}`,
       }
     },
 
-    handleLogShareDeletion(logShare) {
+    handleLogShareDeletion(logShare: LogShare) {
       this.logsStore.deleteLogShare({
         log: this.log,
         logShareId: logShare.id,
@@ -208,7 +218,7 @@ ${this.log.name}`,
       this.inputValue = '';
     },
 
-    savePubliclyViewableChange(newPubliclyViewableState) {
+    savePubliclyViewableChange(newPubliclyViewableState: boolean) {
       this.logsStore.updateLog({
         logId: this.log.id,
         updatedLogParams: { publicly_viewable: newPubliclyViewableState },
@@ -218,7 +228,7 @@ ${this.log.name}`,
     showInput() {
       this.inputVisible = true;
       this.$nextTick(() => {
-        this.$refs.saveTagInput.$refs.input.focus();
+        (this.$refs.saveTagInput as typeof ElInput).$refs.input.focus();
       });
     },
 

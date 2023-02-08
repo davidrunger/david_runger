@@ -11,9 +11,11 @@
       Show all entries
 </template>
 
-<script>
+<script lang='ts'>
 import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';
 import NewLogEntryForm from '@/logs/components/new_log_entry_form.vue';
+import { LogEntry } from '@/logs/types';
+import { PropType } from 'vue';
 
 export default {
   components: {
@@ -22,7 +24,7 @@ export default {
   },
 
   computed: {
-    sortedLogEntries() {
+    sortedLogEntries(): Array<LogEntry> {
       let logEntriesToShow;
       if (this.showAllEntries || (this.log_entries.length <= 3)) {
         logEntriesToShow = this.log_entries;
@@ -50,7 +52,7 @@ export default {
       required: true,
     },
     log_entries: {
-      type: Array,
+      type: Array as PropType<Array<LogEntry>>,
       required: true,
     },
   },
