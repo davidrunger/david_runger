@@ -11,10 +11,9 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
       slot
 </template>
 
-<script>
+<script lang='ts'>
 import { mapState } from 'pinia';
 import { useModalStore } from '@/shared/modal/store';
-import keycode from 'keycode';
 
 export default {
   computed: {
@@ -30,15 +29,15 @@ export default {
   },
 
   methods: {
-    handleClickMask(event) {
+    handleClickMask(event: MouseEvent) {
       // make sure we don't close the modal when clicks within the modal propagate up
       if (event.target === this.$refs.mask) {
         this.modalStore.hideModal({ modalName: this.name });
       }
     },
 
-    handleKeydown(e) {
-      if (e.which === keycode('escape')) {
+    handleKeydown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
         this.modalStore.hideTopModal();
       }
     },

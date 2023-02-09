@@ -1,22 +1,21 @@
-<template>
-  <Bar
-    :options="chartOptions"
-    :data="mergedChartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-  />
+<template lang='pug'>
+Bar(
+  :options="chartOptions"
+  :data="mergedChartData"
+  :chart-id="chartId"
+  :dataset-id-key="datasetIdKey"
+  :css-classes="cssClasses"
+  :styles="styles"
+  :width="width"
+  :height="height"
+)
 </template>
 
-<script>
+<script lang='ts'>
 import { Bar } from 'vue-chartjs';
 import {
   Chart as ChartJS,
-  Title, Tooltip, BarElement, LinearScale, TimeScale,
+  Title, Tooltip, BarElement, LinearScale, TimeScale, ChartData, ChartOptions,
 } from 'chart.js';
 import { merge } from 'lodash-es';
 
@@ -39,12 +38,41 @@ const datasetDefaults = {
 
 export default {
   name: 'BarChart',
+
   components: { Bar },
+
   computed: {
-    mergedChartData() {
-      return merge({}, datasetDefaults, this.chartData);
+    mergedChartData(): ChartData<'bar', (number | [number, number] | null)[], unknown> {
+      return merge(
+        {},
+        datasetDefaults,
+        this.chartData,
+      ) as ChartData<'bar', (number | [number, number] | null)[], unknown>;
     },
   },
+
+  data() {
+    return {
+      chartOptions: {
+        responsive: true,
+        scales: {
+          x: merge({}, commonAxisOptions, {
+            offset: true,
+            type: 'time',
+            time: {
+              minUnit: 'day',
+            },
+          }),
+          y: merge({}, commonAxisOptions, {
+            ticks: {
+              min: 0,
+            },
+          }),
+        },
+      } as ChartOptions<'bar'>,
+    };
+  },
+
   props: {
     chartData: {
       type: Object,
@@ -74,31 +102,6 @@ export default {
       type: Object,
       default: () => {},
     },
-    plugins: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  data() {
-    return {
-      chartOptions: {
-        responsive: true,
-        scales: {
-          x: merge({}, commonAxisOptions, {
-            offset: true,
-            type: 'time',
-            time: {
-              minUnit: 'day',
-            },
-          }),
-          y: merge({}, commonAxisOptions, {
-            ticks: {
-              min: 0,
-            },
-          }),
-        },
-      },
-    };
   },
 };
 </script>
