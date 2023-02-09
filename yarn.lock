@@ -1487,6 +1487,11 @@
   resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.16.tgz#1d12873a8e49567371f2a75fe3e7f7edca6662d8"
   integrity sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==
 
+"@types/when-dom-ready@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/when-dom-ready/-/when-dom-ready-1.2.0.tgz#5077c8e31f089f69e32614dd144bda42e7916030"
+  integrity sha512-+ZZcdwtGXSjjgpdEbCU9n91OOeFHZDFAyt98/yO8PUYZ4NJ46D/y9NFRIgsREXpmHFz7oZL5Bv9e515WynM4dQ==
+
 "@types/yauzl@^2.9.1":
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/@types/yauzl/-/yauzl-2.10.0.tgz#b3248295276cf8c6f153ebe6a9aba0c988cb2599"
