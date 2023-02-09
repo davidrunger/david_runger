@@ -6,8 +6,10 @@
   )
 </template>
 
-<script>
+<script lang='ts'>
 import LineChart from '@/components/charts/line_chart.vue';
+import { LogEntry } from '@/logs/types';
+import { PropType } from 'vue';
 
 export default {
   components: {
@@ -39,7 +41,7 @@ export default {
       required: true,
     },
     log_entries: {
-      type: Array,
+      type: Array as PropType<Array<LogEntry>>,
       required: true,
     },
   },

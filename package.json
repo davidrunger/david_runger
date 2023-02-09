@@ -65,9 +65,13 @@
   },
   "devDependencies": {
     "@percy/cli": "^1.18.0",
+    "@types/dompurify": "^2.4.0",
+    "@types/fuzzyset.js": "^0.0.2",
     "@types/js-cookie": "^3.0.2",
+    "@types/marked": "^4.0.8",
     "@types/rails__actioncable": "^6.1.6",
     "@types/rails__ujs": "^6.0.1",
+    "@types/strftime": "^0.9.4",
     "@types/toastify-js": "^1.11.1",
     "@typescript-eslint/parser": "^5.50.0",
     "@volar/vue-language-plugin-pug": "^1.0.24",

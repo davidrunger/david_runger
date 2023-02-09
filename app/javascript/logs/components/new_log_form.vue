@@ -29,7 +29,7 @@ div
             name='newLog.data_type'
           )
             el-option(
-              v-for='dataType in $bootstrap.log_input_types'
+              v-for='dataType in logInputTypes'
               :key='dataType.data_type'
               :label='dataType.label'
               :value='dataType.data_type'
@@ -40,34 +40,43 @@ div
         ) Create
 </template>
 
-<script>
+<script lang='ts'>
 import { mapState } from 'pinia';
 import { useLogsStore } from '@/logs/store';
+import { Bootstrap, LogInputType } from '@/logs/types';
 
 export default {
   computed: {
     ...mapState(useLogsStore, [
       'postingLog',
     ]),
+
+    logInputTypes(): Array<LogInputType> {
+      return (this.$bootstrap as Bootstrap).log_input_types;
+    },
   },
 
   data() {
     return {
       logsStore: useLogsStore(),
-      newLog: {
-        data_label: '',
-        data_type: '',
-        description: '',
-        name: '',
-      },
+      newLog: this.newLogGenerator(),
     };
   },
 
   methods: {
     async createLog() {
       const log = await this.logsStore.createLog({ log: this.newLog });
-      this.newLog = {};
+      this.newLog = this.newLogGenerator();
       this.$router.push({ name: 'log', params: { slug: log.slug } });
+    },
+
+    newLogGenerator() {
+      return {
+        data_label: '',
+        data_type: '',
+        description: '',
+        name: '',
+      };
     },
   },
 };

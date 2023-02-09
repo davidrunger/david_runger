@@ -39,10 +39,12 @@ div
       ) Add
 </template>
 
-<script>
+<script lang='ts'>
 import { useLogsStore } from '@/logs/store';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
+import { LogEntryDataValue } from '@/logs/types';
+import { ElInput } from 'element-plus';
 
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 
@@ -58,27 +60,27 @@ export default {
       }
     },
 
-    isCounter() {
+    isCounter(): boolean {
       return this.log.data_type === 'counter';
     },
 
-    isDuration() {
+    isDuration(): boolean {
       return this.log.data_type === 'duration';
     },
 
-    isNumber() {
+    isNumber(): boolean {
       return this.log.data_type === 'number';
     },
 
-    isNumeric() {
+    isNumeric(): boolean {
       return this.isCounter || this.isDuration || this.isNumber;
     },
 
-    isText() {
+    isText(): boolean {
       return this.log.data_type === 'text';
     },
 
-    mostRecentLogEntryValues() {
+    mostRecentLogEntryValues(): Array<LogEntryDataValue> {
       if (!this.log.log_entries) return [];
 
       const mostRecentLogEntryValues = [];
@@ -100,20 +102,22 @@ export default {
   data() {
     return {
       logsStore: useLogsStore(),
-      newLogEntryCreatedAt: null,
-      newLogEntryData: null,
-      newLogEntryNote: null,
+      newLogEntryCreatedAt: null as null | string,
+      newLogEntryData: null as null | LogEntryDataValue,
+      newLogEntryNote: null as null | string,
     };
   },
 
   methods: {
     focusLogEntryInput() {
       setTimeout(() => {
-        this.$refs['log-input'].focus();
+        (this.$refs['log-input'] as typeof ElInput).focus();
       });
     },
 
-    async postNewLogEntry(newLogEntryData) {
+    async postNewLogEntry(newLogEntryData: LogEntryDataValue | null) {
+      if (newLogEntryData === null) return;
+
       await this.logsStore.createLogEntry({
         logId: this.log.id,
         newLogEntryCreatedAt: this.newLogEntryCreatedAt,

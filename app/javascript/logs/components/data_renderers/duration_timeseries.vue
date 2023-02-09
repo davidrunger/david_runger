@@ -7,19 +7,22 @@
   )
 </template>
 
-<script>
+<script lang='ts'>
 import LineChart from '@/components/charts/line_chart.vue';
+import { LogEntry } from '@/logs/types';
+import { PropType } from 'vue';
+import { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
 
-function epochMsToHhMmSs(epochMs) {
+function epochMsToHhMmSs(epochMs: number) {
   return new Date(epochMs).
     toISOString().
-    substr(11, 8).
+    substring(11, 19).
     replace(/^00:/, '').
     replace(/^0+/, '').
     replace(/^:00$/, '0');
 }
 
-function shortTimeStringToHhMmSsString(timeString) {
+function shortTimeStringToHhMmSsString(timeString: string) {
   switch (timeString.length) {
     case 1:
       return `00:00:0${timeString}`;
@@ -36,13 +39,19 @@ function shortTimeStringToHhMmSsString(timeString) {
   }
 }
 
+type ChartData = {
+  x: string
+  y: Date
+  note: string | undefined
+}
+
 export default {
   components: {
     LineChart,
   },
 
   computed: {
-    chartMetadata() {
+    chartMetadata(): { datasets: Array<{ data: Array<ChartData> }> } {
       return {
         datasets: [{
           data: this.logEntriesToChartData,
@@ -50,37 +59,40 @@ export default {
       };
     },
 
-    logEntriesToChartData() {
-      return this.log_entries.map(logEntry => ({
+    logEntriesToChartData(): Array<ChartData> {
+      return this.log_entries.map((logEntry: LogEntry): ChartData => ({
         x: logEntry.created_at,
-        y: new Date(`1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data)}Z`),
+        y: new Date(`1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data as string)}Z`),
         note: logEntry.note,
       }));
     },
   },
 
-  created() {
-    this.CHART_OPTIONS = {
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label(tooltipItem) {
-              return epochMsToHhMmSs(tooltipItem.parsed.y);
+  data() {
+    return {
+      CHART_OPTIONS: {
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label(tooltipItem: TooltipItem<'line'>) {
+                return epochMsToHhMmSs(tooltipItem.parsed.y);
+              },
             },
           },
         },
-      },
-      scales: {
-        x: {
-          type: 'time',
-          ticks: {
-            minRotation: 52,
-            source: 'auto',
+        scales: {
+          x: {
+            type: 'time',
+            ticks: {
+              minRotation: 52,
+              source: 'auto',
+            },
           },
-        },
-        y: {
-          afterTickToLabelConversion(axis) {
-            axis.ticks = axis.ticks.map(tick => ({ ...tick, label: epochMsToHhMmSs(tick.value) }));
+          y: {
+            afterTickToLabelConversion(axis: Scale<CoreScaleOptions>) {
+              axis.ticks =
+                axis.ticks.map(tick => ({ ...tick, label: epochMsToHhMmSs(tick.value) }));
+            },
           },
         },
       },
@@ -93,7 +105,7 @@ export default {
       required: true,
     },
     log_entries: {
-      type: Array,
+      type: Array as PropType<Array<LogEntry>>,
       required: true,
     },
   },

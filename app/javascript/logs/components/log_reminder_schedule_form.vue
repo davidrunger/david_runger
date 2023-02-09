@@ -35,11 +35,13 @@ div
       ) Close
 </template>
 
-<script>
+<script lang='ts'>
+import { PropType } from 'vue';
 import { useModalStore } from '@/shared/modal/store';
 import { useLogsStore } from '@/logs/store';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+import { Log } from '@/logs/types';
 
 const TIME_UNIT_IN_SECONDS = {
   weeks: 7 * 24 * 60 * 60,
@@ -49,13 +51,13 @@ const TIME_UNIT_IN_SECONDS = {
 
 export default {
   computed: {
-    formSelectedReminderTimeInSeconds() {
-      if (!this.numberOfTimeUnits || !this.timeUnit) return undefined;
+    formSelectedReminderTimeInSeconds(): number | null {
+      if (!this.numberOfTimeUnits || !this.timeUnit) return null;
 
       return this.numberOfTimeUnits * TIME_UNIT_IN_SECONDS[this.timeUnit];
     },
 
-    reminderTimeInHours() {
+    reminderTimeInHours(): string {
       return (this.log.reminder_time_in_seconds / (60 * 60)).toFixed();
     },
 
@@ -111,7 +113,7 @@ export default {
 
   props: {
     log: {
-      type: Object,
+      type: Object as PropType<Log>,
       required: true,
     },
   },
