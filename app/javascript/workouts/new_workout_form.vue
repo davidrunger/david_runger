@@ -18,7 +18,7 @@ form
         name='numberOfSets'
         type='number'
       )
-  .my1.clearfix.flex(v-for='(exercise, index) in workout.exercises')
+  .my1.clearfix.flex(v-for='(exercise, index) in typedWorkout.exercises')
     .col.col-6
       label
         | Exercise
@@ -44,20 +44,25 @@ form
   .mt2.center
     el-button(
       type='primary'
-      @click='this.workoutsStore.initializeWorkout()'
+      @click='workoutsStore.initializeWorkout()'
     ) Initialize Workout!
 </template>
 
-<script>
+<script lang='ts'>
 import { mapState } from 'pinia';
 
 import { useWorkoutsStore } from '@/workouts/store';
+import { WorkoutPlan } from './types';
 
 export default {
   computed: {
     ...mapState(useWorkoutsStore, [
       'workout',
     ]),
+
+    typedWorkout(): WorkoutPlan {
+      return this.workout as WorkoutPlan;
+    },
   },
 
   data() {
@@ -67,7 +72,7 @@ export default {
   },
 
   methods: {
-    removeExercise(index) {
+    removeExercise(index: number) {
       this.workout.exercises.splice(index, 1);
     },
   },

@@ -1,6 +1,6 @@
 <template lang='pug'>
 div(v-if='workoutIsInProgress')
-  WorkoutPlan(v-bind='workout')
+  WorkoutPlan(v-bind='typedWorkoutPlan')
 .px3.py1(v-else)
   NewWorkoutForm
   div.my2
@@ -14,9 +14,10 @@ div(v-if='workoutIsInProgress')
     WorkoutsTable(:workouts='others_workouts')
 </template>
 
-<script>
+<script lang='ts'>
 import { mapState } from 'pinia';
 import { useWorkoutsStore } from '@/workouts/store';
+import { WorkoutPlan as WorkoutPlanType } from '@/workouts/types';
 import NewWorkoutForm from './new_workout_form.vue';
 import WorkoutPlan from './workout_plan.vue';
 import WorkoutsTable from './workouts_table.vue';
@@ -28,12 +29,18 @@ export default {
     WorkoutsTable,
   },
 
-  computed: mapState(useWorkoutsStore, [
-    'others_workouts',
-    'workout',
-    'workoutIsInProgress',
-    'workouts',
-  ]),
+  computed: {
+    ...mapState(useWorkoutsStore, [
+      'others_workouts',
+      'workout',
+      'workoutIsInProgress',
+      'workouts',
+    ]),
+
+    typedWorkoutPlan(): WorkoutPlanType {
+      return this.workout as WorkoutPlanType;
+    },
+  },
 };
 </script>
 
