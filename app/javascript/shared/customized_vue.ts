@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { Component, ComputedOptions, createApp, MethodOptions } from 'vue';
 import whenDomReady from 'when-dom-ready';
 
 import { isMobileDevice } from '@/lib/is_mobile_device';
@@ -7,10 +7,11 @@ import titleMixin from '@/lib/mixins/title_mixin';
 
 window.Routes = Routes;
 
-export function renderApp(vueApp, domTargetSelector = '#container') {
+export function renderApp(
+  vueApp: Component<unknown, unknown, unknown, ComputedOptions, MethodOptions>,
+  domTargetSelector = '#container',
+) {
   const app = createApp(vueApp);
-
-  app.config.devtools = window.davidrunger && (window.davidrunger.env === 'development');
 
   app.config.globalProperties.$routes = Routes;
   app.config.globalProperties.$bootstrap = window.davidrunger ? window.davidrunger.bootstrap : {};

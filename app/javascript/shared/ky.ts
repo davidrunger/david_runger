@@ -1,10 +1,11 @@
 import ky from 'ky';
+import { assert } from './helpers';
 
 let kyApi = ky; // eslint-disable-line import/no-mutable-exports
 
 const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
 if (csrfMetaTag) {
-  const csrfToken = csrfMetaTag.getAttribute('content');
+  const csrfToken = assert(csrfMetaTag.getAttribute('content'));
   kyApi = ky.extend({
     hooks: {
       beforeRequest: [

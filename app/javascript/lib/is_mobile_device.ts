@@ -1,3 +1,3 @@
-export function isMobileDevice() {
+export function isMobileDevice(): boolean {
   return 'ontouchstart' in document.documentElement;
 }

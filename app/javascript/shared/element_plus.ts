@@ -12,8 +12,9 @@ import {
   ElSwitch,
   ElTag,
 } from 'element-plus';
+import { App } from 'vue';
 
-export function useElementPlus(app) {
+export function useElementPlus(app: App<Element>) {
   app.use(ElButton);
   app.use(ElCard);
   app.use(ElCheckbox);
