@@ -21,16 +21,18 @@ table(v-if='workouts.length')
 div(v-else) None
 </template>
 
-<script>
+<script lang='ts'>
 import { useWorkoutsStore } from '@/workouts/store';
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+import { PropType } from 'vue';
+import { Workout } from './types';
 
 export default {
   computed: {
-    workoutsSortedByCreatedAtDesc() {
+    workoutsSortedByCreatedAtDesc(): Array<Workout> {
       return sortBy(this.workouts, 'created_at').reverse();
     },
   },
@@ -42,19 +44,20 @@ export default {
   },
 
   methods: {
-    prettyObject(object) {
+    prettyObject(object: object) {
       return JSON.stringify(object).
         replace(/{|}|"/g, '').
         replace(/,/g, ', ').
         replace(/:(?! )/g, ': ');
     },
 
-    prettyTime(timeString) {
+    prettyTime(timeString: string) {
       return strftime('%b %-d, %Y at %-l:%M%P', new Date(timeString));
     },
 
-    async savePubliclyViewableChange(workout) {
-      const responseData = await this.workoutsStore.updateWorkout({ workout, attributes: workout });
+    async savePubliclyViewableChange(workout: Workout) {
+      const responseData =
+        await this.workoutsStore.updateWorkout({ workout, attributes: workout }) as Workout;
       const message = responseData.publicly_viewable ?
         'Workout is now publicly viewable.' :
         'Workout is now private.';
@@ -72,7 +75,7 @@ export default {
       default: false,
     },
     workouts: {
-      type: Array,
+      type: Array as PropType<Array<Workout>>,
       required: true,
     },
   },

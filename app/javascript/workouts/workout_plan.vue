@@ -64,12 +64,20 @@
   )
 </template>
 
-<script>
+<script lang='ts'>
+import { PropType } from 'vue';
 import { Timer } from 'easytimer.js';
 import { cloneDeep } from 'lodash-es';
 
+import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
 import ConfirmWorkoutModal from './confirm_workout_modal.vue';
+import { Exercise } from './types';
+
+type SetObject = {
+  exercises: Array<Exercise>
+  timeAdjustment: number
+}
 
 export default {
   components: {
@@ -78,7 +86,7 @@ export default {
 
   computed: {
     cumulativeTimeAdjustment() {
-      return (index, timeAdjustments) => {
+      return (index: number, timeAdjustments: Array<number>) => {
         let cumulativeTotal = 0;
         for (let i = 0; i <= index; i++) {
           cumulativeTotal += timeAdjustments[i];
@@ -87,17 +95,17 @@ export default {
       };
     },
 
-    intervalInMinutes() {
+    intervalInMinutes(): number {
       if (this.numberOfSets === 1) return 0;
 
       return this.minutes / (this.numberOfSets - 1);
     },
 
-    intervalInSeconds() {
+    intervalInSeconds(): number {
       return this.intervalInMinutes * 60;
     },
 
-    nextRoundStartAtSeconds() {
+    nextRoundStartAtSeconds(): number {
       return (
         Math.floor((this.currentRoundIndex + 1) * this.intervalInSeconds) +
           this.cumulativeTimeAdjustment(this.currentRoundIndex + 1, this.timeAdjustments)
@@ -105,37 +113,38 @@ export default {
     },
 
     repTotalsAsOfCurrentRound() {
-      const repTotalsAsOfCurrentRound = {};
+      const repTotalsAsOfCurrentRound: { [key:string]: number } = {};
       for (const { name: exerciseName } of this.exercises) {
         repTotalsAsOfCurrentRound[exerciseName] =
-          this.setsArray.slice(0, this.currentRoundIndex + 1).reduce((total, setObject) => {
-            const exerciseObject =
-              setObject.exercises.find(exercise => exercise.name === exerciseName);
-            return total + exerciseObject.reps;
-          }, 0);
+          this.setsArray.slice(0, this.currentRoundIndex + 1).
+            reduce((total: number, setObject: SetObject) => {
+              const exerciseObject =
+                setObject.exercises.find((exercise: Exercise) => exercise.name === exerciseName);
+              return total + assert(exerciseObject).reps;
+            }, 0);
       }
       return repTotalsAsOfCurrentRound;
     },
 
     repTotalsForWorkout() {
-      const repTotalsForWorkout = {};
+      const repTotalsForWorkout: { [key:string]: number } = {};
       for (const { name: exerciseName } of this.exercises) {
         repTotalsForWorkout[exerciseName] =
-          this.setsArray.reduce((total, setObject) => {
+          this.setsArray.reduce((total: number, setObject: SetObject) => {
             const exerciseObject =
               setObject.exercises.find(exercise => exercise.name === exerciseName);
-            return total + exerciseObject.reps;
+            return total + assert(exerciseObject).reps;
           }, 0);
       }
       return repTotalsForWorkout;
     },
 
-    secondsUntilNextRound() {
+    secondsUntilNextRound(): number {
       return this.nextRoundStartAtSeconds - this.secondsElapsed;
     },
 
-    timeAdjustments() {
-      return this.setsArray.map(setObject => setObject.timeAdjustment);
+    timeAdjustments(): Array<number> {
+      return this.setsArray.map((setObject: SetObject) => setObject.timeAdjustment);
     },
   },
 
@@ -151,15 +160,16 @@ export default {
       secondsElapsed: 0,
       setsArray: this.initialSetsArray(),
       soundEnabled: true,
-      timer: null,
+      timer: null as null | Timer,
     };
   },
 
   methods: {
-    confirmUnloadWorkoutInProgress(event) {
+    confirmUnloadWorkoutInProgress(event: BeforeUnloadEvent) {
       if (
         (this.secondsElapsed > 0) &&
           (this.currentRoundIndex < (this.numberOfSets - 1)) &&
+          this.timer &&
           this.timer.isRunning()
       ) {
         // ask the user to confirm that they want to leave the page
@@ -188,7 +198,7 @@ export default {
       }));
     },
 
-    nextRoundCountdownClasses(index) {
+    nextRoundCountdownClasses(index: number) {
       if (index !== this.currentRoundIndex + 1) return '';
 
       const classes = ['bold'];
@@ -202,11 +212,11 @@ export default {
     },
 
     saveWorkout() {
-      this.timer.stop();
+      if (this.timer) this.timer.stop();
       this.modalStore.showModal({ modalName: 'confirm-workout' });
     },
 
-    say(message, volume = 1) {
+    say(message: string, volume = 1) {
       if (!this.soundEnabled) return;
 
       const utterance = new SpeechSynthesisUtterance(message);
@@ -214,7 +224,7 @@ export default {
       window.speechSynthesis.speak(utterance);
     },
 
-    secondsAsTime(seconds) {
+    secondsAsTime(seconds: number) {
       if (seconds <= 0) return '0:00';
 
       const minutesAsDecimal = seconds / 60;
@@ -232,12 +242,13 @@ export default {
       this.timer.start();
       this.say('Starting workout', 0); // "say" it silently to enable speech synthesis on iOS
       this.timer.addEventListener('secondsUpdated', () => {
+        if (!this.timer) return;
         this.secondsElapsed = this.timer.getTotalTimeValues().seconds;
         this.handleSecondElapsed();
       });
     },
 
-    tableRowClass(index) {
+    tableRowClass(index: number) {
       if (index < this.currentRoundIndex) {
         return 'bg-green'; // past round
       } else if (index === this.currentRoundIndex) {
@@ -247,7 +258,7 @@ export default {
       }
     },
 
-    timeColumnValue(index) {
+    timeColumnValue(index: number) {
       if (this.currentRoundIndex + 1 === index) {
         return `-${this.secondsAsTime(this.secondsUntilNextRound)}`;
       } else {
@@ -261,7 +272,7 @@ export default {
 
   props: {
     exercises: {
-      type: Array,
+      type: Array as PropType<Array<Exercise>>,
       required: true,
     },
     minutes: {
