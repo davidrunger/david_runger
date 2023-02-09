@@ -4,7 +4,6 @@ VueLine(
   :data="mergedChartData"
   :chart-id="chartId"
   :dataset-id-key="datasetIdKey"
-  :plugins="plugins"
   :css-classes="cssClasses"
   :styles="styles"
   :width="width"
@@ -12,11 +11,12 @@ VueLine(
 )
 </template>
 
-<script>
+<script lang='ts'>
 import { Line as VueLine } from 'vue-chartjs';
 import {
   Chart as ChartJS,
-  Tooltip, LineElement, LinearScale, PointElement, TimeScale,
+  Tooltip, LineElement, LinearScale, PointElement, TimeScale, ChartData, Point, TooltipItem,
+  ChartOptions,
 } from 'chart.js';
 import 'chartjs-adapter-luxon';
 import { merge } from 'lodash-es';
@@ -50,8 +50,8 @@ const chartOptionsDefaults = {
   plugins: {
     tooltip: {
       callbacks: {
-        afterBody(tooltipItems) {
-          return tooltipItems[0].raw.note;
+        afterBody(tooltipItems: Array<TooltipItem<'line'>>) {
+          return (tooltipItems[0].raw as { note: string }).note;
         },
       },
     },
@@ -70,15 +70,23 @@ const chartOptionsDefaults = {
 
 export default {
   name: 'LineChart',
+
   components: { VueLine },
+
   computed: {
     chartOptions() {
-      return merge({}, chartOptionsDefaults, this.options);
+      return merge({}, chartOptionsDefaults, this.options) as ChartOptions<'line'>;
     },
-    mergedChartData() {
-      return merge({}, datasetDefaults, this.chartData);
+
+    mergedChartData(): ChartData<'line', (number | Point | null)[], unknown> {
+      return merge(
+        {},
+        datasetDefaults,
+        this.chartData,
+      ) as ChartData<'line', (number | Point | null)[], unknown>;
     },
   },
+
   props: {
     chartData: {
       type: Object,
@@ -111,10 +119,6 @@ export default {
     styles: {
       type: Object,
       default: () => {},
-    },
-    plugins: {
-      type: Array,
-      default: () => [],
     },
   },
 };
