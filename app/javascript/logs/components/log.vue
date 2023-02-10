@@ -86,6 +86,7 @@ import { mapState } from 'pinia';
 import ClipboardJS from 'clipboard';
 import { h } from 'vue';
 import { ElInput } from 'element-plus';
+import { useTitle } from '@vueuse/core';
 
 import * as RoutesType from '@/rails_assets/routes';
 import { useLogsStore } from '@/logs/store';
@@ -133,7 +134,6 @@ export default {
   computed: {
     ...mapState(useLogsStore, {
       isOwnLog: 'isOwnLog',
-      log: 'unsafeSelectedLog',
     }),
 
     logSharesSortedByLowercasedEmail(): Array<LogShare> {
@@ -163,7 +163,6 @@ export default {
     return {
       inputVisible: false,
       inputValue: '',
-      logsStore: useLogsStore(),
       modalStore: useModalStore(),
       wasCopiedRecently: false,
       publiclyViewable: false,
@@ -257,8 +256,16 @@ ${this.log.name}`,
     });
   },
 
-  title() {
-    return `${this.log.name} - Logs - David Runger`;
+  setup() {
+    const logsStore = useLogsStore();
+    const log = logsStore.unsafeSelectedLog;
+
+    useTitle(`${log.name} - Logs - David Runger`);
+
+    return {
+      log,
+      logsStore,
+    };
   },
 };
 </script>
