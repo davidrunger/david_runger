@@ -42,7 +42,7 @@ runner.run_task('Running db:migrate') do
     print("attempt ##{attempt_number}... ")
     Rake::Task['db:migrate'].invoke
   rescue => error
-    pp(error)
+    pp(error) # rubocop:disable Lint/Debugger
     sleep(attempt_number)
   else
     break
