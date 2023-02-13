@@ -18,6 +18,6 @@ module Throttleable
 
   memoize \
   def lock_manager
-    Redlock::Client.new([$redis_rb_pool], retry_count: 0)
+    Redlock::Client.new([$redis_pool], retry_count: 0)
   end
 end
