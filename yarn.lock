@@ -1687,7 +1687,7 @@
   dependencies:
     "@volar/language-core" "1.0.24"
 
-"@volar/vue-language-core@1.0.24":
+"@volar/vue-language-core@1.0.24", "@volar/vue-language-core@^1.0.24":
   version "1.0.24"
   resolved "https://registry.yarnpkg.com/@volar/vue-language-core/-/vue-language-core-1.0.24.tgz#81d180a8e09a53cb575e83acb79a31493891a1a4"
   integrity sha512-2NTJzSgrwKu6uYwPqLiTMuAzi7fAY3yFy5PJ255bGJc82If0Xr+cW8pC80vpjG0D/aVLmlwAdO4+Ya2BI8GdDg==
@@ -5066,18 +5066,19 @@ vite-plugin-ruby@^3.1.3:
     debug "^4.3.4"
     fast-glob "^3.2.11"
 
-vite-plugin-vue-component-preview@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/vite-plugin-vue-component-preview/-/vite-plugin-vue-component-preview-0.3.4.tgz#370352496bd9378298c9a5819db75ab512d923cf"
-  integrity sha512-35Oy11DIe/owthbgSRSDVaIhtH1TyA7d90ibgjmfXcHdsa/1/t/Fsy6xceaQVz+10SrRFToSK4/iMFbBbA/i1Q==
+vite-plugin-vue-component-preview@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vite-plugin-vue-component-preview/-/vite-plugin-vue-component-preview-1.0.2.tgz#5593820404da8661c4bf466431fbb0eb9e09b4e3"
+  integrity sha512-CN609KNhZfc//XIQqa/R2LfjQfZjc19S9ObSN9i94CpAdkk8sboYW3gEXvrgzcHxd6sI+6w3/cayHyROHm1COQ==
   dependencies:
+    "@volar/vue-language-core" "^1.0.24"
     magic-string "^0.27.0"
-    vite-plugin-vue-markdown "^0.22.1"
+    vite-plugin-vue-markdown "^0.22.4"
 
-vite-plugin-vue-markdown@^0.22.1:
-  version "0.22.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-vue-markdown/-/vite-plugin-vue-markdown-0.22.2.tgz#3de71bc26a1ecd5948b26e0e5259d6961e11d5ba"
-  integrity sha512-MJ2cpEcI1ehfcQbpAMPA6ezhK2nrajL4q8999SXPbPMbRHB+gKoJvqrwei6QIdhCLkgwR1ZDEwigphtuoQAbbw==
+vite-plugin-vue-markdown@^0.22.4:
+  version "0.22.4"
+  resolved "https://registry.yarnpkg.com/vite-plugin-vue-markdown/-/vite-plugin-vue-markdown-0.22.4.tgz#90d0c2ce722de451f4c57b44bc1b5379438dae50"
+  integrity sha512-+kDzqGI5Lq0Wa6M4EJtV7cqOIHgGp6g4jcazXljQKLl9Og4fRs6FuGAPa2HiJ44Z9es85LAPiPbTjwrZEGEUKA==
   dependencies:
     "@antfu/utils" "^0.7.2"
     "@mdit-vue/plugin-component" "^0.11.2"
