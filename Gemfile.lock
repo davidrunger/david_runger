@@ -589,7 +589,7 @@ GEM
     unicode-display_width (2.4.2)
     uniform_notifier (1.16.0)
     version_gem (1.1.1)
-    vite_rails (3.0.13)
+    vite_rails (3.0.14)
       railties (>= 5.1, < 8)
       vite_ruby (~> 3.0, >= 3.2.2)
     vite_ruby (3.2.14)
