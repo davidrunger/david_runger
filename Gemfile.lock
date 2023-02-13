@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 0da872f983210c184b263ca39f3cd82d18009fc2
+  revision: 805f6213ac0cf5ec13812a04f2b9a735bd656d6b
   specs:
     runger_style (0.2.22.alpha)
       rubocop (>= 1.38.0, < 2)
@@ -378,7 +378,7 @@ GEM
       activerecord (>= 6.0)
       request_store (~> 1.4)
     parallel (1.22.1)
-    parser (3.2.0.0)
+    parser (3.2.1.0)
       ast (~> 2.4.1)
     patience_diff (1.2.0)
       optimist (~> 3.0)
@@ -454,7 +454,7 @@ GEM
       connection_pool
     redlock (1.3.2)
       redis (>= 3.0.0, < 6.0)
-    regexp_parser (2.6.2)
+    regexp_parser (2.7.0)
     request_store (1.5.1)
       rack (>= 1.4)
     request_store-sidekiq (0.1.0)
@@ -501,8 +501,8 @@ GEM
       rubocop-ast (>= 1.24.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.24.1)
-      parser (>= 3.1.1.0)
+    rubocop-ast (1.26.0)
+      parser (>= 3.2.1.0)
     rubocop-capybara (2.17.0)
       rubocop (~> 1.41)
     rubocop-performance (1.16.0)
