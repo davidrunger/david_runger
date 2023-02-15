@@ -13,7 +13,7 @@ Sidekiq.configure_server do |config|
   # Sidekiq Server Connection Pool size:
   # This is `(max_)concurrency + 5`.
   # For concurrency (3), see config/sidekiq.yml.
-  # For why we are adding 5, see https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control
+  # For why we are adding 5, see https://github.com/sidekiq/sidekiq/wiki/Using-Redis#complete-control
   # :nocov:
   config.redis = { url: redis_options.url }
 
