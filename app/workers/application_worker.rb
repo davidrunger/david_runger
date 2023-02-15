@@ -20,7 +20,7 @@ module ApplicationWorker
   end
 
   def self.prepended(base)
-    # borrowed from https://github.com/mperham/sidekiq/blob/v6.1.0/lib/sidekiq/worker.rb#L137-L142
+    # borrowed from https://github.com/sidekiq/sidekiq/blob/v6.1.0/lib/sidekiq/worker.rb#L137-L142
     base.include(Sidekiq::Worker::Options)
     base.extend(Sidekiq::Worker::ClassMethods)
 

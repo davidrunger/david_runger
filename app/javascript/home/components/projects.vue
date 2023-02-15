@@ -143,7 +143,7 @@ HomeSection(section='projects' title='Projects')
 
           Plus...
             #[a(href='https://router.vuejs.org/') Vue Router] client-side routing,
-            #[a(href='https://github.com/mperham/sidekiq') Sidekiq] background jobs,
+            #[a(href='https://github.com/sidekiq/sidekiq') Sidekiq] background jobs,
             #[a(href='https://github.com/jnunemaker/flipper') Flipper] feature flags,
             #[a(href='https://github.com/heartcombo/devise') Devise] authentication,
             #[a(href='https://activeadmin.info/') Active Admin] admin backend,
