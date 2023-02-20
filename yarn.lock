@@ -5081,10 +5081,10 @@ vite-plugin-ruby@^3.1.3:
     debug "^4.3.4"
     fast-glob "^3.2.11"
 
-vite-plugin-vue-component-preview@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-vue-component-preview/-/vite-plugin-vue-component-preview-1.0.2.tgz#5593820404da8661c4bf466431fbb0eb9e09b4e3"
-  integrity sha512-CN609KNhZfc//XIQqa/R2LfjQfZjc19S9ObSN9i94CpAdkk8sboYW3gEXvrgzcHxd6sI+6w3/cayHyROHm1COQ==
+vite-plugin-vue-component-preview@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/vite-plugin-vue-component-preview/-/vite-plugin-vue-component-preview-1.1.5.tgz#0cd508f1abdd495e690344fde48df2dc224805e9"
+  integrity sha512-5aSYDIM/e+JG4d3Rpgr6kS3zdD2fKmpYKs3BSuSyVZwcCY2XMRJj3GVCl4eM4UWqsLT2/z7T6Xpe8QADEJIiJg==
   dependencies:
     "@volar/vue-language-core" "^1.0.24"
     magic-string "^0.27.0"
