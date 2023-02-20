@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: b74012763d38075aaef14b9d1cc0c41d563e13ae
+  revision: 86d272f9dd415c2859fb430dfacce627a2c8cca0
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -583,7 +583,7 @@ GEM
     temple (0.10.0)
     thor (1.2.1)
     tilt (2.0.11)
-    timeout (0.3.1)
+    timeout (0.3.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
