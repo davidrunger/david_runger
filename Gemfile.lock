@@ -452,7 +452,7 @@ GEM
       redis-client (>= 0.9.0)
     redis-client (0.12.1)
       connection_pool
-    redlock (2.0.0)
+    redlock (2.0.1)
       redis-client
     regexp_parser (2.7.0)
     request_store (1.5.1)
