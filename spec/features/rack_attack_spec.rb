@@ -11,6 +11,7 @@ RSpec.describe 'Rack::Attack', :rack_test_driver do
 
       spec.run
 
+    ensure
       Rack::Attack.cache.store = original_rack_attack_store
       Rails.cache.clear
     end

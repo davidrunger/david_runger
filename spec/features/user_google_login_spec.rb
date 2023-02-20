@@ -47,6 +47,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
       spec.run
 
+    ensure
       OmniAuth.config.test_mode = original_omni_auth_test_mode
     end
 
@@ -65,6 +66,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
         spec.run
 
+      ensure
         page.driver.browser.devtools.callbacks.clear # might avoid slowing down subsequent requests?
         page.driver.browser.devtools.fetch.disable
       end
