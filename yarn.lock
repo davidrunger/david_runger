@@ -1892,7 +1892,7 @@ acorn@^8.8.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.1.tgz#0a3f9cbecc4ec3bea6f0a80b66ae8dd2da250b73"
   integrity sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==
 
-acorn@^8.8.1:
+acorn@^8.8.2:
   version "8.8.2"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.2.tgz#1b2f25db02af965399b9776b0c2c391276d37c4a"
   integrity sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==
@@ -2672,10 +2672,10 @@ es-abstract@^1.19.0, es-abstract@^1.20.4:
     string.prototype.trimstart "^1.0.6"
     unbox-primitive "^1.0.2"
 
-es-module-lexer@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-1.1.0.tgz#bf56a09b5f1c6aea6ba231b0a636a0f60c410b70"
-  integrity sha512-fJg+1tiyEeS8figV+fPcPpm8WqJEflG3yPU0NOm5xMvrNkuiy7HzX/Ljng4Y0hAoiw4/3hQTCFYw+ub8+a2pRA==
+es-module-lexer@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-1.1.1.tgz#d4fed363dcd94bf12586266f7b80bbee6d80ce6e"
+  integrity sha512-n3ruqU8Te7I5prBd6d0darM8ajFuVNhLWvgo04hN7goWSaSrxe7ENOZitac7akN0A2o+8fMomBDsNPvW/eE3CQ==
 
 es-shim-unscopables@^1.0.0:
   version "1.0.0"
@@ -3769,6 +3769,13 @@ magic-string@^0.27.0:
   version "0.27.0"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.27.0.tgz#e4a3413b4bab6d98d2becffd48b4a257effdbbf3"
   integrity sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==
+  dependencies:
+    "@jridgewell/sourcemap-codec" "^1.4.13"
+
+magic-string@^0.29.0:
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.29.0.tgz#f034f79f8c43dba4ae1730ffb5e8c4e084b16cf3"
+  integrity sha512-WcfidHrDjMY+eLjlU+8OvwREqHwpgCeKVBUpQ3OhYYuvfaYCUgcbuBzappNzZvg/v8onU3oQj+BYpkOJe9Iw4Q==
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.13"
 
@@ -5013,22 +5020,22 @@ unicode-property-aliases-ecmascript@^2.0.0:
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.1.0.tgz#43d41e3be698bd493ef911077c9b131f827e8ccd"
   integrity sha512-6t3foTQI9qne+OZoVQB/8x8rk2k1eVy1gRXhV3oFQ5T6R1dqQ1xtin3XqSlx3+ATBkliTaR/hHyJBm+LVPNM8w==
 
-unplugin-element-plus@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/unplugin-element-plus/-/unplugin-element-plus-0.6.0.tgz#53e33b4a05d68a843665da4e9452de7ab25be109"
-  integrity sha512-4UR25mjPFD2UKlY1F8H3/eFDjjhFYWb6z3b7i87ciN4kPnnBRYTzZBvSP/sdpiCNvKucXlwj77kdveFWUW8Egw==
+unplugin-element-plus@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/unplugin-element-plus/-/unplugin-element-plus-0.7.0.tgz#e834fa96331c81ce771a163ee7b69fdf476a6852"
+  integrity sha512-gbRIdZlXrWfIZkxLAiNZwUuLaLMYDTBBM51vLR6Um0F6fKhAmGak2uqVrUuvzk5FcqroJ1xKU/o8dEcpNDnLBA==
   dependencies:
     "@rollup/pluginutils" "^5.0.2"
-    es-module-lexer "^1.1.0"
-    magic-string "^0.27.0"
-    unplugin "^1.0.1"
+    es-module-lexer "^1.1.1"
+    magic-string "^0.29.0"
+    unplugin "^1.1.0"
 
-unplugin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-1.0.1.tgz#83b528b981cdcea1cad422a12cd02e695195ef3f"
-  integrity sha512-aqrHaVBWW1JVKBHmGo33T5TxeL0qWzfvjWokObHA9bYmN7eNDkwOxmLjhioHl9878qDFMAaT51XNroRyuz7WxA==
+unplugin@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-1.1.0.tgz#96a14aa52d7637a56a88dec6baf4a73902f2db87"
+  integrity sha512-I8obQ8Rs/hnkxokRV6g8JKOQFgYNnTd9DL58vcSt5IJ9AkK8wbrtsnzD5hi4BJlvcY536JzfEXj9L6h7j559/A==
   dependencies:
-    acorn "^8.8.1"
+    acorn "^8.8.2"
     chokidar "^3.5.3"
     webpack-sources "^3.2.3"
     webpack-virtual-modules "^0.5.0"
