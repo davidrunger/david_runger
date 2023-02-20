@@ -18,6 +18,7 @@ RSpec.describe Users::OmniauthCallbacksController do
 
         spec.run
 
+      ensure
         ActionController::Base.allow_forgery_protection = original_allow_forgery_protection
       end
 
