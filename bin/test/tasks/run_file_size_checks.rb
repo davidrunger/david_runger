@@ -35,7 +35,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
         check_for_file_size_violations
 
         puts('Bundle sizes (in kilobytes):')
-        pp(assets_and_size_in_kb) # rubocop:disable Lint/Debugger
+        pp(assets_and_size_in_kb)
       end.real
 
     if unspecified_files.none? && nonexistent_files.none? && file_size_violations.none?
