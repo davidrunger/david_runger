@@ -74,7 +74,7 @@
     "@types/toastify-js": "^1.11.1",
     "@types/when-dom-ready": "^1.2.0",
     "@typescript-eslint/parser": "^5.53.0",
-    "@volar/vue-language-plugin-pug": "^1.1.4",
+    "@volar/vue-language-plugin-pug": "^1.2.0",
     "@vue/eslint-config-typescript": "^11.0.2",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "2.27.5",
