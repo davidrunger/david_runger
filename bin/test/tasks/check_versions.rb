@@ -5,7 +5,7 @@ class Test::Tasks::CheckVersions < Pallets::Task
 
   def run
     execute_system_command(<<~COMMAND)
-      ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby 3.2.0 ' ]
+      ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby 3.2.1 ' ]
     COMMAND
     execute_system_command(<<~COMMAND)
       node --version && [ "$(node --version)" = 'v18.12.1' ]
