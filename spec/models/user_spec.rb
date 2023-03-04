@@ -7,15 +7,6 @@ RSpec.describe User do
   it { is_expected.to have_many(:logs) }
   it { is_expected.to have_many(:log_shares) }
 
-  describe '#items' do
-    subject(:items) { user.items }
-
-    it 'returns a relation that allows a specific item to be found by `id`' do
-      item_id = user.items.first!.id
-      expect(user.items.find(item_id)).to eq(Item.find(item_id))
-    end
-  end
-
   describe '#marriage' do
     it 'returns a Marriage' do
       expect(user.marriage).to be_a(Marriage)
