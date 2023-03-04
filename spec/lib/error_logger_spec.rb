@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe ErrorLogger do
-  subject(:error_logger) { ErrorLogger }
-
   let(:message) { 'Something went wrong' }
   let(:error_klass) { StandardError }
 
