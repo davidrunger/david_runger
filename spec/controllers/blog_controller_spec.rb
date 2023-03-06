@@ -18,7 +18,6 @@ RSpec.describe(BlogController) do
               'Accept' => '*/*',
               'Accept-Encoding' => 'gzip',
               'Connection' => 'keep-alive',
-              'Content-Length' => '0',
               'User-Agent' => 'Ruby',
             },
           ).
