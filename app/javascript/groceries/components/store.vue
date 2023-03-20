@@ -122,7 +122,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue';
-import { mapState, StoreDefinition } from 'pinia';
+import { mapState } from 'pinia';
 import { EditIcon } from 'vue-tabler-icons';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
@@ -142,7 +142,7 @@ export default defineComponent({
   },
 
   computed: {
-    ...mapState(useGroceriesStore as StoreDefinition, [
+    ...mapState(useGroceriesStore, [
       'debouncingOrWaitingOnNetwork',
       'neededCheckInItems',
     ]),
