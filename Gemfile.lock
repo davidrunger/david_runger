@@ -122,7 +122,7 @@ GEM
       activesupport (>= 3.0.0, < 7.1)
       ruby2_keywords (>= 0.0.2, < 1.0)
     ast (2.4.2)
-    attr_extras (7.0.0)
+    attr_extras (7.1.0)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
     aws-eventstream (1.2.0)
@@ -576,7 +576,7 @@ GEM
       sprockets (>= 3.0.0)
     strip_attributes (1.13.0)
       activemodel (>= 3.0, < 8.0)
-    super_diff (0.9.0)
+    super_diff (0.10.0)
       attr_extras (>= 6.2.4)
       diff-lcs
       patience_diff
