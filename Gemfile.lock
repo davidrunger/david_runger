@@ -658,7 +658,7 @@ DEPENDENCIES
   http_logger
   immigrant
   isolator
-  js-routes (= 2.2.5)
+  js-routes
   json-schema
   jwt
   launchy
