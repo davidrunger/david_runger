@@ -46,7 +46,7 @@ class BlogController < ApplicationController
   end
 
   def nilled_headers
-    http_headers.keys.map { [_1, nil] }.to_h
+    http_headers.keys.to_h { [_1, nil] }
   end
 
   def http_headers

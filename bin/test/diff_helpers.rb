@@ -23,7 +23,7 @@ module DiffHelpers
   memoize \
   def diff
     ensure_master_is_present
-    `git log master..HEAD --full-diff --source --format="" --unified=0 -p . \
+    `git log master..HEAD --full-diff --source --format="" --unified=0 -p .
       | grep -Ev "^(diff |index |--- a/|\\+\\+\\+ b/|@@ )"`
   end
 
