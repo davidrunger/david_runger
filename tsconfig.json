@@ -12,8 +12,7 @@
     "allowJs": true,
     "lib": ["esnext", "dom"],
     "types": [
-      "vite/client",
-      "vite-plugin-vue-component-preview/client"
+      "vite/client"
     ],
     "paths": {
       "@/*": ["./app/javascript/*"],
