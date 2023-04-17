@@ -454,7 +454,7 @@ GEM
       connection_pool
     redlock (2.0.1)
       redis-client
-    regexp_parser (2.7.0)
+    regexp_parser (2.8.0)
     request_store (1.5.1)
       rack (>= 1.4)
     request_store-sidekiq (0.1.0)
@@ -491,7 +491,7 @@ GEM
     rspec-support (3.12.0)
     rspec-wait (0.0.9)
       rspec (>= 3, < 4)
-    rubocop (1.49.0)
+    rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
