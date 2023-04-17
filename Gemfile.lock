@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 341f974bc8dda5f49effa3bcbd3fd9260c5b8abb
+  revision: ab02a74c5969a5df3a091661b4f2f7881fbe6ce2
   specs:
     runger_style (0.2.22.alpha)
       rubocop (>= 1.38.0, < 2)
