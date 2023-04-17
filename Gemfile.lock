@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style.git
-  revision: 341f974bc8dda5f49effa3bcbd3fd9260c5b8abb
+  revision: ab02a74c5969a5df3a091661b4f2f7881fbe6ce2
   specs:
     runger_style (0.2.22.alpha)
       rubocop (>= 1.38.0, < 2)
@@ -454,7 +454,7 @@ GEM
       connection_pool
     redlock (2.0.1)
       redis-client
-    regexp_parser (2.7.0)
+    regexp_parser (2.8.0)
     request_store (1.5.1)
       rack (>= 1.4)
     request_store-sidekiq (0.1.0)
