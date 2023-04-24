@@ -86,6 +86,6 @@
     "stylelint-config-standard-scss": "^6.1.0",
     "stylelint-scss": "^4.6.0",
     "typescript": "^5.0.4",
-    "vue-tsc": "^1.2.0"
+    "vue-tsc": "^1.4.4"
   }
 }
