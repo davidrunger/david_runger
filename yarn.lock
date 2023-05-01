@@ -1716,10 +1716,10 @@
     muggle-string "^0.2.2"
     vue-template-compiler "^2.7.14"
 
-"@volar/vue-language-plugin-pug@^1.4.4":
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/@volar/vue-language-plugin-pug/-/vue-language-plugin-pug-1.4.4.tgz#63a434cd470dfad51ed323c948670a64b35c2e35"
-  integrity sha512-a13RD6fKDCpPJedv8qbpj6w4MdfdkWX21Ghq6qVjdl3wqw48wqRd5112pDPUOPTERIs5CUWML5XPh6ynD9VbSA==
+"@volar/vue-language-plugin-pug@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@volar/vue-language-plugin-pug/-/vue-language-plugin-pug-1.6.1.tgz#bc2cf8df6dd7ac0753b8e8b75858b7a3105d5707"
+  integrity sha512-sWYj04ukFBiOaAu4fmGDxnVm/fODSJ2hQtEB0GTAUHGjz9EzaaBjV1gWd8sX6KnerWx6MxYQiy0LIK7z++3h2w==
   dependencies:
     "@volar-plugins/pug" "2.0.0"
     "@volar/language-service" "1.4.1"
