@@ -291,7 +291,7 @@ GEM
     js-routes (2.2.5)
       railties (>= 4)
     json (2.6.3)
-    json-schema (3.0.0)
+    json-schema (4.0.0)
       addressable (>= 2.8)
     jwt (2.7.0)
     kaminari (1.2.2)
