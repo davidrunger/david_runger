@@ -76,10 +76,6 @@ class DavidRunger::Application < Rails::Application
   ].map(&:to_s).map(&:freeze)
   config.eager_load_paths.concat(extra_load_paths)
   config.add_autoload_paths_to_load_path = false
-  # Hack (?) to avoid e.g. LoadError: cannot load such file -- devise_helper caused by rails
-  # 6.0.0.rc1 to 6.0.0.rc2 upgrade, probably due to `add_autoload_paths_to_load_path` config option
-  # now being respected.
-  $LOAD_PATH << File.join(Gem.loaded_specs['devise'].full_gem_path, 'app', 'helpers').to_s
 
   ENV['FIXTURES_PATH'] ||= 'spec/fixtures' if ENV.fetch('RAILS_ENV', nil) == 'test'
 
