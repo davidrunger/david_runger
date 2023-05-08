@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: 15213a37265276ba0e3b1c7b77cb96dd84461b8f
+  revision: f39972e176da14c7c6356e44ed773e9b82e52d1f
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -530,7 +530,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    shaped (0.9.0)
+    shaped (0.9.1)
       activemodel (>= 6, < 8)
       activesupport (>= 6, < 8)
     shoulda-matchers (5.3.0)
