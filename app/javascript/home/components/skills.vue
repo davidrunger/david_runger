@@ -79,11 +79,7 @@ HomeSection(section='skills', title='Skills')
           img(src='~img/lodash.svg' alt='Lodash')
       SkillRow(
         name='NodeJS'
-        details=
-        `
-          The JavaScript ecosystem is a bit too "Wild West" for my taste, but Node and its
-          ecosystem are essential parts of the modern web stack.
-        `
+        :details='nodeDetails'
       )
       SkillRow(
         name='PostgreSQL'
@@ -167,6 +163,15 @@ export default {
   components: {
     HomeSection,
     SkillRow,
+  },
+
+  data() {
+    return {
+      nodeDetails: `
+        The JavaScript ecosystem is a bit too "Wild West" for my taste, but Node and its ecosystem
+        are essential parts of the modern web stack.
+      `,
+    };
   },
 };
 </script>
