@@ -172,7 +172,7 @@ GEM
     capybara-screenshot (1.0.26)
       capybara (>= 1.0, < 4)
       launchy
-    chartkick (5.0.1)
+    chartkick (5.0.2)
     climate_control (1.2.0)
     cloudflare-rails (3.0.0)
       actionpack (>= 6.0, < 7.1.0)
