@@ -84,7 +84,7 @@ end
 group :test do
   gem 'addressable'
   gem 'brakeman', require: false
-  gem 'capybara'
+  gem 'capybara', github: 'teamcapybara/capybara'
   gem 'capybara-email'
   gem 'capybara-screenshot'
   gem 'climate_control'
