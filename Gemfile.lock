@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/active_actions.git
-  revision: d8b2eb129dd079f38d5e03d1151d2957c1f5de2c
+  revision: b0d2f90a1dbd57fe93a3690b0980d4d70e1bdd50
   specs:
     active_actions (0.17.2.alpha)
       memoist (~> 0.16)
@@ -316,9 +316,9 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.21.1)
+    loofah (2.21.2)
       crass (~> 1.0.2)
-      nokogiri (>= 1.5.9)
+      nokogiri (>= 1.12.0)
     mail (2.8.1)
       mini_mime (>= 0.1.1)
       net-imap
@@ -584,7 +584,7 @@ GEM
       diff-lcs
       patience_diff
     temple (0.10.0)
-    thor (1.2.1)
+    thor (1.2.2)
     tilt (2.1.0)
     timeout (0.3.2)
     tzinfo (2.0.6)
