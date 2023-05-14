@@ -88,6 +88,7 @@ group :test do
   gem 'capybara-email'
   gem 'capybara-screenshot'
   gem 'climate_control'
+  gem 'cuprite'
   gem 'database_consistency', require: false
   gem 'factory_bot_rails'
   gem 'faker'
@@ -101,8 +102,6 @@ group :test do
   gem 'rspec-instafail', require: false
   gem 'rspec-rails'
   gem 'rspec-wait'
-  gem 'selenium-devtools'
-  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-cobertura', require: false

@@ -22,7 +22,6 @@ class Test::RequirementsResolver
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
-        Test::Tasks::EnsureLatestChromedriver => nil,
         Test::Tasks::CheckVersions => nil,
 
         # Checks
@@ -39,7 +38,6 @@ class Test::RequirementsResolver
         Test::Tasks::RunFeatureTests => [
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
-          Test::Tasks::EnsureLatestChromedriver,
         ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,

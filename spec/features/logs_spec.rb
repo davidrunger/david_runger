@@ -65,8 +65,10 @@ RSpec.describe 'Logs app' do
           expect(last_log_entry.data).to eq(second_log_entry_text)
 
           # Edit second log entry (and verify that correct order is preserved)
+          wait_for { page.find_all('a', text: 'Edit').size }.to eq(2)
           first('a', text: 'Edit').click
           added_edit_text = ' Added text!'
+          expect(page).to have_css('.text-log-table textarea')
           first('.text-log-table textarea').send_keys(added_edit_text)
           first('button', text: 'Save').click
           expect(page).to have_text(
