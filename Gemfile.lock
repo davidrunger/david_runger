@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/davidrunger/active_actions.git
-  revision: c0475eee5f09e1ed1ace42386afbed2736a47146
-  specs:
-    active_actions (0.17.2.alpha)
-      memoist (~> 0.16)
-      rails (>= 6, < 8)
-      shaped (>= 0.9, < 0.11)
-
-GIT
   remote: https://github.com/davidrunger/email_reply_trimmer.git
   revision: 8e2bf196f8463da6c756f3a90cc92ab450e0004a
   specs:
@@ -520,6 +511,10 @@ GEM
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    runger_actions (0.19.0)
+      memoist (~> 0.16)
+      rails (>= 6, < 8)
+      shaped (>= 0.9, < 0.11)
     runger_style (0.2.22)
       rubocop (>= 1.38.0, < 2)
     sanitize (6.0.1)
@@ -618,7 +613,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_actions!
   activeadmin
   addressable
   alba
@@ -696,6 +690,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  runger_actions
   runger_style
   sassc
   selenium-devtools

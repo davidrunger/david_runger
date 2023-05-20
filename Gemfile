@@ -3,7 +3,6 @@
 source 'https://rubygems.org'
 ruby '3.2.2'
 
-gem 'active_actions', github: 'davidrunger/active_actions'
 gem 'activeadmin'
 gem 'alba'
 gem 'auto_strip_attributes'
@@ -44,6 +43,7 @@ gem 'redlock'
 gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'rollbar'
+gem 'runger_actions'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sprockets-rails'
