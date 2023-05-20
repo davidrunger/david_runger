@@ -29,7 +29,7 @@ RSpec.describe IpBlocks::StoreRequestBlockInRedis do
 
       it 'raises an error' do
         expect { store_request_block_action }.to raise_error(
-          ActiveActions::TypeMismatch,
+          RungerActions::TypeMismatch,
           <<~ERROR.squish)
             One or more required params are of the wrong type: `ip` is expected to be shaped like
             String validating {:format=>{:with=>/\\A[.:0-9a-f]{7,39}\\z/}}, but was `"this is not an

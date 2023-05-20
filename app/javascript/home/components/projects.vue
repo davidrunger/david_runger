@@ -153,7 +153,7 @@ HomeSection(section='projects' title='Projects')
             #[a(href='https://guides.rubyonrails.org/action_mailer_basics.html') Action Mailer] outbound emails,
             #[a(href='https://guides.rubyonrails.org/action_mailbox_basics.html') Action Mailbox] inbound emails,
             #[a(href='https://guides.rubyonrails.org/security.html#custom-credentials') Rails encrypted credentials],
-            #[a(href='https://github.com/davidrunger/active_actions') active_actions] form objects / command objects,
+            #[a(href='https://github.com/davidrunger/runger_actions') runger_actions] form objects / command objects,
             #[a(href='https://github.com/davidrunger/skedjewel') Skedjewel] Sidekiq job scheduling,
             #[a(href='https://github.com/paper-trail-gem/paper_trail') PaperTrail] model change tracking,
             #[a(href='https://github.com/rack/rack-attack') Rack::Attack] IP blocking and request throttling,
@@ -282,7 +282,7 @@ HomeSection(section='projects' title='Projects')
         ul
           li.
 
-            #[a(href='https://github.com/davidrunger/active_actions') #[code active_actions]]:
+            #[a(href='https://github.com/davidrunger/runger_actions') #[code runger_actions]]:
 
             The missing piece of Rails! Organize and validate the actions of your Rails
             application with this combined form object / command object.
@@ -292,7 +292,7 @@ HomeSection(section='projects' title='Projects')
             #[a(href='https://github.com/davidrunger/shaped') #[code shaped]]:
 
             Validate the shape of Ruby objects (hashes, arrays, and more). This is a dependency
-            used in #[code active_actions] (mentioned just above).
+            used in #[code runger_actions] (mentioned just above).
 
           li.
 
