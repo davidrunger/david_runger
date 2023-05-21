@@ -33,7 +33,7 @@ RSpec.describe RepliesMailbox do
 
     context 'when an error is raised while parsing the email body' do
       before do
-        expect(EmailReplyTrimmer).
+        expect(RungerEmailReplyTrimmer).
           to receive(:trim).
           and_raise(ArgumentError, 'invalid byte sequence in UTF-8')
       end

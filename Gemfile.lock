@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/davidrunger/email_reply_trimmer.git
-  revision: 8e2bf196f8463da6c756f3a90cc92ab450e0004a
-  specs:
-    email_reply_trimmer (0.1.13)
-
-GIT
   remote: https://github.com/davidrunger/pallets.git
   revision: d6419807481c368ce23d6f58db2765f317fbdc6a
   specs:
@@ -510,6 +504,7 @@ GEM
       memoist (~> 0.16)
       rails (>= 6, < 8)
       shaped (>= 0.9, < 0.11)
+    runger_email_reply_trimmer (0.2.1)
     runger_style (0.2.22)
       rubocop (>= 1.38.0, < 2)
     sanitize (6.0.1)
@@ -633,7 +628,6 @@ DEPENDENCIES
   devise
   dotenv-rails
   draper
-  email_reply_trimmer!
   factory_bot_rails
   faker
   faraday
@@ -686,6 +680,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   runger_actions
+  runger_email_reply_trimmer
   runger_style
   sassc
   selenium-devtools
