@@ -10,7 +10,7 @@ module ParsedMailBody
       # decode quoted-printable encoding
       unparsed_body = unparsed_body.unpack1('M').force_encoding('utf-8')
       # trim content from the end of the body ("On [date/time] [person/email] wrote:[...]")
-      trimmed_body = EmailReplyTrimmer.trim(unparsed_body)
+      trimmed_body = RungerEmailReplyTrimmer.trim(unparsed_body)
       return nil if trimmed_body.nil?
 
       trimmed_body.rstrip.
