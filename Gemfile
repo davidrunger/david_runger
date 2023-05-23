@@ -105,7 +105,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov'
-  gem 'simplecov-cobertura'
+  gem 'simplecov-cobertura', require: false
   gem 'simple_cov-formatter-terminal'
   gem 'super_diff'
   gem 'webmock'
