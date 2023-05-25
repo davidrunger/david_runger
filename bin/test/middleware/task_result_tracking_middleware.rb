@@ -17,7 +17,9 @@ class Test::Middleware::TaskResultTrackingMiddleware
       elapsed_time = stop_time - start_time
       @job_results[job_name][:run_time] = elapsed_time
     rescue => error
-      puts("Error occurred ('exited with 1') in Pallets runner: #{error.inspect}".red)
+      puts(AmazingPrint::Colors.red(
+        "Error occurred ('exited with 1') in Pallets runner: #{error.inspect}",
+      ))
       puts(error.backtrace)
       exit(1)
     end

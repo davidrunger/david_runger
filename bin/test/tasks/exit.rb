@@ -31,21 +31,26 @@ class Test::Tasks::Exit < Pallets::Task
         run_time = result_hash[:run_time]
         exit_message = "exited with #{exit_code}"
         exit_message_color = (exit_code == 0) ? :green : :red
-        colorized_exit_message = exit_message.public_send(exit_message_color)
+        colorized_exit_message = AmazingPrint::Colors.public_send(exit_message_color, exit_message)
         puts(
           "#{rjusted_short_name(task_name)} : " \
           "#{colorized_exit_message} " \
-          "(took #{run_time.round(3).to_s.yellow} seconds)",
+          "(took #{AmazingPrint::Colors.yellow(run_time.round(3).to_s)} seconds)",
         )
       end
   end
 
   def print_overall_time_and_parallelism
     puts("\n")
-    puts("Wall clock elapsed time: #{overall_wall_clock_time.round(3).to_s.yellow}")
+    puts(<<~LOG.squish)
+      Wall clock elapsed time: #{AmazingPrint::Colors.yellow(overall_wall_clock_time.round(3).to_s)}
+    LOG
     total_task_time = job_results.sum { |_key, value| value[:run_time] }
-    puts("Total task time: #{total_task_time.round(3).to_s.yellow}")
-    puts("Parallelism: #{total_task_time.fdiv(overall_wall_clock_time).round(3).to_s.yellow}")
+    puts("Total task time: #{AmazingPrint::Colors.yellow(total_task_time.round(3).to_s)}")
+    puts(<<~LOG.squish)
+      Parallelism:
+      #{AmazingPrint::Colors.yellow(total_task_time.fdiv(overall_wall_clock_time).round(3).to_s)}
+    LOG
   end
 
   def print_failed_commands
@@ -54,11 +59,14 @@ class Test::Tasks::Exit < Pallets::Task
       failed_commands = Array(result_hash[:failed_commands])
       next if failed_commands.empty?
 
-      puts("\n=== #{'Failed commands'.red} ===") if !printed_header
+      puts("\n=== #{AmazingPrint::Colors.red('Failed commands')} ===") if !printed_header
       printed_header = true
 
       failed_commands.each do |failed_command|
-        puts("#{rjusted_short_name(task_name, tasks_with_failed_commands)} : #{failed_command.red}")
+        puts(
+          "#{rjusted_short_name(task_name, tasks_with_failed_commands)} : " \
+          "#{AmazingPrint::Colors.red(failed_command)}",
+        )
       end
     end
   end

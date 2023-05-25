@@ -8,7 +8,9 @@ class Test::Middleware::ExitOnFailureMiddleware
   def self.call(_worker, _job, _context)
     yield
   rescue => error
-    puts("Error occurred ('exited with 1') in Pallets runner: #{error.inspect}".red)
+    puts(AmazingPrint::Colors.red(
+      "Error occurred ('exited with 1') in Pallets runner: #{error.inspect}",
+    ))
     puts(error.backtrace)
     exit(1)
   end

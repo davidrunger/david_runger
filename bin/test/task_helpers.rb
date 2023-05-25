@@ -5,20 +5,24 @@ require 'open3'
 module Test::TaskHelpers
   def execute_system_command(command, env_vars = {})
     command = command.squish
-    puts("Running system command '#{command.yellow}' with ENV vars #{env_vars.to_s.yellow} ...")
+    puts(<<~LOG.squish)
+      Running system command '#{AmazingPrint::Colors.yellow(command)}'
+      with ENV vars #{AmazingPrint::Colors.yellow(env_vars.to_s)} ...
+    LOG
     time = Benchmark.measure { system(env_vars, command) }.real
     exit_code = $CHILD_STATUS.exitstatus
     update_job_result_exit_code(exit_code)
     if exit_code == 0
       puts(<<~LOG.squish)
-        '#{command.green}' with ENV vars #{env_vars.to_s.green} succeeded
+        '#{AmazingPrint::Colors.green(command)}' with ENV vars #{AmazingPrint::Colors.green(env_vars.to_s)} succeeded
         (exited with #{exit_code}, took #{time.round(3)}).
       LOG
     else
       Test::Runner.exit_code = exit_code if Test::Runner.exit_code == 0
       record_failed_command(command)
-      puts(<<~LOG.squish.red)
-        '#{command.red}' with ENV vars #{env_vars.to_s.red} failed
+      puts(AmazingPrint::Colors.red(<<~LOG.squish))
+        '#{AmazingPrint::Colors.red(command)}' with ENV vars
+        #{AmazingPrint::Colors.red(env_vars.to_s)} failed
         (exited with #{exit_code}, took #{time.round(3)}).
       LOG
     end
@@ -26,7 +30,10 @@ module Test::TaskHelpers
 
   def execute_rspec_command(command, env_vars = {})
     command = command.squish
-    puts("Running system command '#{command.yellow}' with ENV vars #{env_vars.to_s.yellow} ...")
+    puts(<<~LOG.squish)
+      Running system command '#{AmazingPrint::Colors.yellow(command)}'
+      with ENV vars #{AmazingPrint::Colors.yellow(env_vars.to_s)} ...
+    LOG
     stdout, status = nil, nil # rubocop:disable Style/ParallelAssignment
     time =
       Benchmark.measure do
@@ -37,27 +44,32 @@ module Test::TaskHelpers
     update_job_result_exit_code(exit_code)
     if exit_code == 0
       puts(<<~LOG.squish)
-        '#{command.green}' with ENV vars #{env_vars.to_s.green} succeeded
+        '#{AmazingPrint::Colors.green(command)}' with ENV vars #{AmazingPrint::Colors.green(env_vars.to_s)} succeeded
         (exited with #{exit_code}, took #{time.round(3)}).
       LOG
     else
       Test::Runner.exit_code = exit_code if Test::Runner.exit_code == 0
       record_failed_tests(stdout)
-      puts(<<~LOG.squish.red)
-        '#{command.red}' with ENV vars #{env_vars.to_s.red} failed
+      puts(AmazingPrint::Colors.red(<<~LOG.squish))
+        '#{AmazingPrint::Colors.red(command)}' with ENV vars #{AmazingPrint::Colors.red(env_vars.to_s)} failed
         (exited with #{exit_code}, took #{time.round(3)}).
       LOG
     end
   end
 
   def execute_rake_task(task_name, *args)
-    puts("Running rake task '#{task_name.yellow}' with args #{args.inspect.yellow} ...")
+    puts(<<~LOG)
+      Running rake task '#{AmazingPrint::Colors.yellow(task_name)}'
+      with args #{AmazingPrint::Colors.yellow(args.inspect)} ...
+    LOG
     time = nil
     begin
       time = Benchmark.measure { Rake::Task[task_name].invoke(*args) }.real
     rescue SystemExit => error
       update_job_result_exit_code(1)
-      puts("'#{task_name}' failed ('exited with 1', raised #{error.inspect}).".red)
+      puts(AmazingPrint::Colors.red(
+        "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
+      ))
       raise # this will exit the program if it's a `SystemExit` exception
     rescue => error
       args_string = "[#{args.map(&:to_s).join(',')}]"
@@ -74,12 +86,12 @@ module Test::TaskHelpers
 
   def record_success_and_log_message(message)
     update_job_result_exit_code(0)
-    puts(message.green)
+    puts(AmazingPrint::Colors.green(message))
   end
 
   def record_failure_and_log_message(message)
     update_job_result_exit_code(1)
-    puts(message.red)
+    puts(AmazingPrint::Colors.red(message))
     Test::Runner.exit_code = 1 if Test::Runner.exit_code == 0
   end
 

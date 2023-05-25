@@ -24,6 +24,6 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
 
   def call
     log_message = super(@data)
-    Rails.env.development? ? "#{log_message.red}\n\n" : log_message
+    Rails.env.development? ? "#{AmazingPrint::Colors.red(log_message)}\n\n" : log_message
   end
 end

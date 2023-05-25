@@ -27,7 +27,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
   }.freeze
 
   def run
-    puts("Running '#{self.class.name.yellow}' ...")
+    puts("Running '#{AmazingPrint::Colors.yellow(self.class.name)}' ...")
 
     time =
       Benchmark.measure do
