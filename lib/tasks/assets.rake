@@ -2,7 +2,10 @@
 
 namespace :assets do
   def run_logged_system_command(command, env_vars = {})
-    puts "Running system command '#{command.blue}' with ENV vars #{env_vars.to_s.blue}..."
+    puts(<<~LOG.squish)
+      Running system command '#{AmazingPrint::Colors.blue(command)}'
+      with ENV vars #{AmazingPrint::Colors.blue(env_vars.to_s)}...
+    LOG
     if system(env_vars, command)
       puts '... success.'
     else
