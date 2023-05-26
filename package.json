@@ -2,9 +2,9 @@
   "name": "david_runger",
   "private": true,
   "engines": {
-    "node": "18.16.0",
-    "yarn": "1.22.x"
+    "node": "18.16.0"
   },
+  "packageManager": "pnpm@8.5.1",
   "browserslist": [
     ">10%"
   ],
@@ -16,6 +16,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-env": "^7.21.5",
     "@formkit/auto-animate": "^1.0.0-beta.6",
+    "@hotwired/turbo": "^7.3.0",
     "@hotwired/turbo-rails": "^7.3.0",
     "@rails/actioncable": "^7.0.5",
     "@rails/ujs": "^7.0.5",
@@ -67,6 +68,7 @@
     "@types/dompurify": "^3.0.2",
     "@types/fuzzyset.js": "^0.0.2",
     "@types/js-cookie": "^3.0.3",
+    "@types/lodash-es": "^4.17.7",
     "@types/marked": "^5.0.0",
     "@types/rails__actioncable": "^6.1.6",
     "@types/rails__ujs": "^6.0.1",

@@ -15,8 +15,8 @@ class Test::RequirementsResolver
         # NB: Tasks that are better to run earlier are listed first.
 
         # Installation / Setup
-        Test::Tasks::YarnInstall => nil,
-        Test::Tasks::BuildRouteHelpers => Test::Tasks::YarnInstall,
+        Test::Tasks::PnpmInstall => nil,
+        Test::Tasks::BuildRouteHelpers => Test::Tasks::PnpmInstall,
         Test::Tasks::CheckTypescript => Test::Tasks::BuildRouteHelpers,
         Test::Tasks::CompileJavaScript => Test::Tasks::BuildRouteHelpers,
         Test::Tasks::SetupDb => nil,
@@ -26,8 +26,8 @@ class Test::RequirementsResolver
         Test::Tasks::CheckVersions => nil,
 
         # Checks
-        Test::Tasks::RunStylelint => Test::Tasks::YarnInstall,
-        Test::Tasks::RunEslint => Test::Tasks::YarnInstall,
+        Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
+        Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
@@ -179,13 +179,13 @@ class Test::RequirementsResolver
       !files_with_js_changed? &&
         !diff_mentions?('tsc|typescript') &&
         !file_changed?('package.json') &&
-        !file_changed?('yarn.lock')
+        !file_changed?('pnpm-lock.yaml')
     },
     Test::Tasks::RunEslint => proc {
       !files_with_js_changed? &&
         !diff_mentions?('eslint') &&
         !file_changed?('package.json') &&
-        !file_changed?('yarn.lock')
+        !file_changed?('pnpm-lock.yaml')
     },
     Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
     Test::Tasks::RunRubocop => proc {
@@ -193,7 +193,7 @@ class Test::RequirementsResolver
     },
     Test::Tasks::RunStylelint => proc { !files_with_css_changed? && !diff_mentions?('stylelint') },
     Test::Tasks::SetupDb => proc { running_locally? },
-    Test::Tasks::YarnInstall => proc { running_locally? },
+    Test::Tasks::PnpmInstall => proc { running_locally? },
   }.freeze
 
   def required_tasks

@@ -15,7 +15,7 @@ class Test::Tasks::CheckVersions < Pallets::Task
     COMMAND
 
     execute_system_command(<<~COMMAND)
-      yarn --version && [ "$(yarn --version)" = '1.22.19' ]
+      pnpm --version && [ "$(pnpm --version)" = '8.5.1' ]
     COMMAND
   end
 end
