@@ -9,8 +9,9 @@ class Test::Tasks::CheckVersions < Pallets::Task
       ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby #{ruby_version} ' ]
     COMMAND
 
+    node_version = File.read('.nvmrc').rstrip
     execute_system_command(<<~COMMAND)
-      node --version && [ "$(node --version)" = 'v18.12.1' ]
+      node --version && [ "$(node --version)" = '#{node_version}' ]
     COMMAND
 
     execute_system_command(<<~COMMAND)
