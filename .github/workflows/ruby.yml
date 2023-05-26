@@ -44,16 +44,11 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
+    - uses: pnpm/action-setup@v2
     - uses: actions/setup-node@v3
       with:
         node-version-file: .nvmrc
-    - name: Cache node_modules
-      uses: actions/cache@v3
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-node_modules-
+        cache: pnpm
     - name: Run tests & linters
       run: bin/pallets --verbose -r ./bin/run-tests.rb
       env:

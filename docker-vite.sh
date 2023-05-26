@@ -1,4 +1,4 @@
 #!/bin/sh
 
-yarn install
+pnpm install
 bin/vite dev
