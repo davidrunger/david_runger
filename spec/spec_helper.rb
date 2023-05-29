@@ -34,6 +34,7 @@ Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/cuprite'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/email/rspec'
@@ -58,17 +59,12 @@ WebMock.disable_net_connect!(
 
 OmniAuth.config.test_mode = true
 
-Capybara.register_driver(:chrome_headless) do |app|
-  options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
-end
-Capybara.register_driver(:chrome_headful) do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-unless use_headful_chrome
-  Capybara::Screenshot.register_driver(:chrome_headless) do |driver, path|
-    driver.browser.save_screenshot(path)
-  end
+Capybara.register_driver(:cuprite) do |app|
+  Capybara::Cuprite::Driver.new(
+    app,
+    window_size: [1200, 800],
+    headless: !use_headful_chrome,
+  )
 end
 if is_ci
   Capybara::Screenshot.s3_configuration = {
@@ -82,9 +78,8 @@ if is_ci
     key_prefix: 'failure-screenshots/',
   }
 end
-browser_driver = use_headful_chrome ? :chrome_headful : :chrome_headless
-Capybara.default_driver = browser_driver
-Capybara.javascript_driver = browser_driver
+Capybara.default_driver = :cuprite
+Capybara.javascript_driver = :cuprite
 # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
 Capybara.asset_host = 'http://localhost:3000'
 Capybara.server = :puma, { Silent: true }

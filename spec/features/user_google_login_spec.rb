@@ -55,20 +55,17 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
       let(:google_response_content) { 'This is Google OAuth.' }
 
       around do |spec|
-        page.driver.browser.intercept do |request, &continue|
-          continue.call(request) do |response|
-            if request.url.start_with?('https://accounts.google.com/o/oauth2/auth?')
-              response.code = 200
-              response.body = google_response_content
-            end
+        browser = page.driver.browser
+        browser.network.intercept
+        browser.on(:request) do |request|
+          if request.match?(%r{\Ahttps://accounts.google.com/o/oauth2/auth\?})
+            request.respond(body: google_response_content)
+          else
+            request.continue
           end
         end
 
         spec.run
-
-      ensure
-        page.driver.browser.devtools.callbacks.clear # might avoid slowing down subsequent requests?
-        page.driver.browser.devtools.fetch.disable
       end
 
       it "renders Google's response" do

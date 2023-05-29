@@ -18,11 +18,14 @@ RSpec.describe 'Quizzes app' do
       # submit new quiz form
       new_quiz_name = 'Birthday Quiz'
       fill_in('quiz_name', with: new_quiz_name)
+      button_click_time = Time.current
       click_button('Create quiz')
 
       # quiz show page expectations
       expect(page).to have_css('h1', text: new_quiz_name)
-      new_quiz = Quiz.order(:created_at).last!
+      new_quizzes = Quiz.where('quizzes.created_at > ?', button_click_time)
+      expect(new_quizzes.size).to eq(1)
+      new_quiz = new_quizzes.first
       quiz_path = quiz_path(new_quiz)
       expect(page).to have_current_path(quiz_path)
 
@@ -46,6 +49,7 @@ RSpec.describe 'Quizzes app' do
 
       # add questions
       click_link('Add questions')
+      expect(page).to have_css('textarea#questions')
       fill_in('questions', with: <<~QUESTIONS)
         Which is biggest?
         The earth

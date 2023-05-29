@@ -12,7 +12,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
     # iff using Percy, make sure that devicon font has loaded, to keep screenshots consistent
     if ENV.fetch('PERCY_BUILD_ID', nil).present?
       wait_for do
-        page.execute_script('return document.fonts.check("65px devicon")')
+        page.evaluate_script('document.fonts.check("65px devicon")')
       end.to eq(true)
     end
 
