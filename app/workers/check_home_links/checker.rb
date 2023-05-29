@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckHomeLinks::Checker
-  extend Memoist
+  include Memery
   prepend ApplicationWorker
 
   # rubocop:disable Style/MutableConstant

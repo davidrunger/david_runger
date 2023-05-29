@@ -2,7 +2,7 @@
 
 module TokenAuthenticatable
   extend ActiveSupport::Concern
-  extend Memoist
+  include Memery
 
   class BlankToken < StandardError ; end
   class InvalidToken < StandardError ; end

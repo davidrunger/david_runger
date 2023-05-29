@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SaveRequest::RequestDataBuilder
-  extend Memoist
+  include Memery
 
   # params not worth logging in `Request`s
   BORING_PARAMS = %w[

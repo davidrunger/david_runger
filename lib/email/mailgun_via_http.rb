@@ -3,7 +3,7 @@
 # rubocop:disable Style/ClassAndModuleChildren
 module Email
   class MailgunViaHttp
-    extend Memoist
+    include Memery
 
     DEVELOPER_EMAILS = Set['davidjrunger@gmail.com'].freeze
     MAILGUN_URL = 'https://api.mailgun.net/v3/mg.davidrunger.com'

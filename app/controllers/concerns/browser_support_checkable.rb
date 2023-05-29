@@ -2,7 +2,7 @@
 
 module BrowserSupportCheckable
   extend ActiveSupport::Concern
-  extend Memoist
+  include Memery
 
   included do
     helper_method :browser_support_checker

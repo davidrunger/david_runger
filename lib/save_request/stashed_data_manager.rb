@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SaveRequest::StashedDataManager
-  extend Memoist
+  include Memery
 
   def initialize(request_id)
     @request_id = request_id

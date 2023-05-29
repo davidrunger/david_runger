@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FetchIpInfoForRequest
-  extend Memoist
+  include Memery
   prepend ApplicationWorker
 
   LOCAL_IPS = %w[::1 127.0.0.1].map(&:freeze).freeze

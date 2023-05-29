@@ -3,7 +3,7 @@
 require 'digest/sha1'
 
 module ApplicationWorker
-  extend Memoist
+  include Memery
   include Sidekiq::Worker # rubocop:disable CustomCops/DontIncludeSidekiqWorker
   include SpacedLaunching
 

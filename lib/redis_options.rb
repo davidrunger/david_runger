@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RedisOptions
-  extend Memoist
+  include Memery
 
   def initialize(db: nil)
     @db = db || default_db_number

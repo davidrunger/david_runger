@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckHomeLinks::Launcher
-  extend Memoist
+  include Memery
   prepend ApplicationWorker
 
   def perform

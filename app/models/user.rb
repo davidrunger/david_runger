@@ -16,7 +16,7 @@
 #
 
 class User < ApplicationRecord
-  extend Memoist
+  include Memery
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A\S+@\S+\.\S+\z/ }
 
@@ -67,7 +67,7 @@ class User < ApplicationRecord
   end
 
   def reload
-    flush_cache # clear memoized methods
+    clear_memery_cache! # clear memoized methods
     super
   end
 

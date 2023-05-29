@@ -3,7 +3,7 @@
 require Rails.root.join('lib/track_asset_sizes.rb')
 
 class Test::Tasks::RunFileSizeChecks < Pallets::Task
-  extend Memoist
+  include Memery
   include Test::TaskHelpers
 
   # file size constraints in kilobytes

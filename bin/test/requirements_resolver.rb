@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Test::RequirementsResolver
-  extend Memoist
+  include Memery
   include DiffHelpers
 
   class << self
-    extend Memoist
+    include Memery
 
     # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class TrackAssetSizes
-  extend Memoist
+  include Memery
 
   class << self
-    extend Memoist
+    include Memery
 
     def all_globs
       new.track_all_asset_sizes(dry_run: true).keys.sort
