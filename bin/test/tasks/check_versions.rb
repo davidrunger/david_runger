@@ -14,8 +14,9 @@ class Test::Tasks::CheckVersions < Pallets::Task
       node --version && [ "$(node --version)" = '#{node_version}' ]
     COMMAND
 
+    pnpm_version = JSON.parse(File.read('package.json'))['packageManager'].delete_prefix('pnpm@')
     execute_system_command(<<~COMMAND)
-      pnpm --version && [ "$(pnpm --version)" = '8.5.1' ]
+      pnpm --version && [ "$(pnpm --version)" = '#{pnpm_version}' ]
     COMMAND
   end
 end
