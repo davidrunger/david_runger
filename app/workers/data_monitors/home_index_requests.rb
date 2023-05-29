@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DataMonitors::HomeIndexRequests < DataMonitors::Base
-  extend Memoist
+  include Memery
   prepend ApplicationWorker
 
   def perform

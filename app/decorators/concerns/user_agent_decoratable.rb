@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UserAgentDecoratable
-  extend Memoist
+  include Memery
 
   def pretty_user_agent
     if good_browser_data?

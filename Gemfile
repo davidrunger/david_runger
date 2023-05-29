@@ -25,7 +25,7 @@ gem 'hashid-rails'
 gem 'js-routes', require: false
 gem 'jwt'
 gem 'lograge'
-gem 'memoist'
+gem 'memery'
 gem 'nokogiri'
 gem 'oj'
 gem 'omniauth-google-oauth2'

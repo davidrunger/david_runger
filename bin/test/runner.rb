@@ -16,7 +16,7 @@ Rails.application.load_tasks
 
 class Test::Runner < Pallets::Workflow
   class << self
-    extend Memoist
+    include Memery
 
     attr_accessor :exit_code
     attr_reader :start_time
@@ -71,8 +71,8 @@ class Test::Runner < Pallets::Workflow
         @listener =
           Listen.to("#{Dir.pwd}/bin/test/", only: /\A.tests.yml\z/) do |_modified, _added, _removed|
             # reset memoized methods
-            flush_cache
-            Test::RequirementsResolver.flush_cache
+            clear_memery_cache!
+            Test::RequirementsResolver.clear_memery_cache!
 
             print_config
 

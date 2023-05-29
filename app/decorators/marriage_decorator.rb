@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MarriageDecorator < Draper::Decorator
-  extend Memoist
+  include Memery
 
   delegate_all
 

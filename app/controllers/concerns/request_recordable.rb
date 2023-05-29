@@ -2,7 +2,7 @@
 
 module RequestRecordable
   extend ActiveSupport::Concern
-  extend Memoist
+  include Memery
 
   # The number of seconds to store request data in Redis (to later turn into a `Request`). Set to
   # 21.days because that's ~ how long Sidekiq (which processes this data) will attempt retries for.

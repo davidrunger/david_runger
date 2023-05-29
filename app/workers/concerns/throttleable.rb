@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Throttleable
-  extend Memoist
+  include Memery
 
   private
 

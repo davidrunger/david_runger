@@ -309,6 +309,8 @@ GEM
       net-smtp
     marcel (1.0.2)
     matrix (0.4.2)
+    memery (1.4.1)
+      ruby2_keywords (~> 0.0.2)
     memoist (0.16.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
@@ -647,7 +649,7 @@ DEPENDENCIES
   letter_opener
   listen
   lograge
-  memoist
+  memery
   nokogiri
   oj
   omniauth-google-oauth2

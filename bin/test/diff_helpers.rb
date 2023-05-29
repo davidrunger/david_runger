@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DiffHelpers
-  extend Memoist
+  include Memery
 
   SPECIAL_RUBY_FILES = %w[
     .irbrc

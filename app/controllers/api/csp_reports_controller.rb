@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::CspReportsController < ApplicationController
-  extend Memoist
+  include Memery
 
   IGNORED_USER_AGENTS = [
     /DuckDuckBot/,

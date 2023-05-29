@@ -14,7 +14,7 @@ class Rack::Attack
   # rubocop:enable Style/SymbolProc
 
   class << self
-    extend Memoist
+    include Memery
 
     memoize \
     def banned_path_fragments

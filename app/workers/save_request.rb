@@ -3,7 +3,7 @@
 # This Sidekiq worker class converts data that has been stashed in Redis at two stages in the
 # request lifecycle into `Request` records saved to the Postgres database.
 class SaveRequest
-  extend Memoist
+  include Memery
   prepend ApplicationWorker
 
   unique_while_executing!

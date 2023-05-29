@@ -7,7 +7,7 @@ class ApplicationRecord < ActiveRecord::Base
   strip_attributes
 
   class << self
-    extend Memoist
+    include Memery
 
     memoize \
     def serializer_class

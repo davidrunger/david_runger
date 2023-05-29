@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Proposals::Accept < ApplicationAction
-  extend Memoist
+  include Memery
 
   requires :encoded_token, String
   requires :proposee, User

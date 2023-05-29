@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuizzesController < ApplicationController
-  extend Memoist
+  include Memery
   include CspDisableable
 
   self.container_classes = %w[py1 px3]
