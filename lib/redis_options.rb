@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 class RedisOptions
-  include Memery
+  prepend MemoWise
 
   def initialize(db: nil)
     @db = db || default_db_number
   end
 
-  memoize \
+  memo_wise \
   def url
     "#{url_without_db}/#{@db}"
   end
 
   private
 
-  memoize \
+  memo_wise \
   def url_without_db
     case ENV.fetch('RAILS_ENV')
     when 'development', 'test' then ENV.fetch('REDIS_URL', 'redis://localhost:6379')
@@ -22,7 +22,7 @@ class RedisOptions
     end
   end
 
-  memoize \
+  memo_wise \
   def default_db_number
     if defined?(Rails) && Rails.env.test?
       # piggyback on the Postgres DB_SUFFIX ENV variable to choose a Redis DB number

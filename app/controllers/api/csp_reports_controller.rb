@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::CspReportsController < ApplicationController
-  include Memery
+  prepend MemoWise
 
   IGNORED_USER_AGENTS = [
     /DuckDuckBot/,
@@ -35,12 +35,12 @@ class Api::CspReportsController < ApplicationController
 
   private
 
-  memoize \
+  memo_wise \
   def csp_report_params
     JSON(request.raw_post)['csp-report']
   end
 
-  memoize \
+  memo_wise \
   def send_csp_violation_to_rollbar?
     IGNORED_USER_AGENTS.none? { request.user_agent.match?(_1) }
   end

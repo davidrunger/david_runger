@@ -16,7 +16,7 @@
 #
 
 class User < ApplicationRecord
-  include Memery
+  prepend MemoWise
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A\S+@\S+\.\S+\z/ }
 
@@ -56,18 +56,18 @@ class User < ApplicationRecord
     end
   end
 
-  memoize \
+  memo_wise \
   def marriage
     Marriage.where(partner_1_id: id).or(Marriage.where(partner_2_id: id)).first
   end
 
-  memoize \
+  memo_wise \
   def spouse
     [marriage&.partner_1, marriage&.partner_2].compact.reject { _1.id == id }.first
   end
 
   def reload
-    clear_memery_cache! # clear memoized methods
+    reset_memo_wise # clear memoized methods
     super
   end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FetchIpInfoForRequest
-  include Memery
+  prepend MemoWise
   prepend ApplicationWorker
 
   LOCAL_IPS = %w[::1 127.0.0.1].map(&:freeze).freeze
@@ -25,7 +25,7 @@ class FetchIpInfoForRequest
     "ip-info:#{ip}"
   end
 
-  memoize \
+  memo_wise \
   def ip_info_from_api(ip)
     Rails.logger.info("Querying ip-api.com for info about IP address '#{ip}'")
     # we'd have to pay to use https :( so just use http

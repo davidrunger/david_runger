@@ -2,7 +2,7 @@
 
 module RequestRecordable
   extend ActiveSupport::Concern
-  include Memery
+  prepend MemoWise
 
   # The number of seconds to store request data in Redis (to later turn into a `Request`). Set to
   # 21.days because that's ~ how long Sidekiq (which processes this data) will attempt retries for.
@@ -25,7 +25,7 @@ module RequestRecordable
     "request_data:#{request.request_id.presence!('No request_id')}:initial"
   end
 
-  memoize \
+  memo_wise \
   def request_data
     SaveRequest::RequestDataBuilder.new(
       request:,

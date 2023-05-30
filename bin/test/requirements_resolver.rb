@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class Test::RequirementsResolver
-  include Memery
+  prepend MemoWise
   include DiffHelpers
 
   class << self
-    include Memery
+    prepend MemoWise
 
     # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
-    memoize \
+    memo_wise \
     def dependency_map
       base_dependency_map = {
         # NB: Tasks that are better to run earlier are listed first.
@@ -116,7 +116,7 @@ class Test::RequirementsResolver
       global_config['run_all']
     end
 
-    memoize \
+    memo_wise \
     def config
       YAML.load_file('bin/test/.tests.yml') rescue Hash.new { |hash, key| hash[key] = {} }
     end
@@ -141,7 +141,7 @@ class Test::RequirementsResolver
       config['tasks'].transform_values { _1 || 'default' }
     end
 
-    memoize \
+    memo_wise \
     def task_config_groups
       task_config.group_by { |_key, value| value }.transform_values { _1.map(&:first) }
     end
@@ -258,7 +258,7 @@ class Test::RequirementsResolver
     end
   end
 
-  memoize \
+  memo_wise \
   def running_locally?
     !ENV.key?('CI')
   end

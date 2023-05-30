@@ -14,15 +14,15 @@ class Rack::Attack
   # rubocop:enable Style/SymbolProc
 
   class << self
-    include Memery
+    prepend MemoWise
 
-    memoize \
+    memo_wise \
     def banned_path_fragments
       # rescue because sometimes the database might not even exist yet, e.g. during tests
       Set.new((BannedPathFragment.pluck(:value) rescue []).map(&:freeze)).freeze
     end
 
-    memoize \
+    memo_wise \
     def blocked_ips
       # rescue because sometimes the database might not even exist yet, e.g. during tests
       Set.new((IpBlock.pluck(:ip) rescue []).map(&:freeze)).freeze

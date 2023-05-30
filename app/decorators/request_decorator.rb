@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RequestDecorator < Draper::Decorator
-  include Memery
+  prepend MemoWise
   include UserAgentDecoratable
 
   delegate_all

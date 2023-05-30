@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DataMonitors::HomeIndexRequests < DataMonitors::Base
-  include Memery
+  prepend MemoWise
   prepend ApplicationWorker
 
   def perform
@@ -26,7 +26,7 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
     home_requests_in_past_day.size
   end
 
-  memoize \
+  memo_wise \
   def median_response_time_in_past_day
     home_requests_in_past_day.
       where.not(total: nil).

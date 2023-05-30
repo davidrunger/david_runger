@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class TrackAssetSizes
-  include Memery
+  prepend MemoWise
 
   class << self
-    include Memery
+    prepend MemoWise
 
     def all_globs
       new.track_all_asset_sizes(dry_run: true).keys.sort
@@ -56,7 +56,7 @@ class TrackAssetSizes
     manifest[asset]['file']
   end
 
-  memoize \
+  memo_wise \
   def asset_and_js_dependencies(asset)
     asset_manifest = manifest.fetch(asset)
 
@@ -69,7 +69,7 @@ class TrackAssetSizes
     ).uniq
   end
 
-  memoize \
+  memo_wise \
   def packs
     manifest.
       filter_map do |path, info|
@@ -80,12 +80,12 @@ class TrackAssetSizes
       sort
   end
 
-  memoize \
+  memo_wise \
   def manifest
     JSON.parse(manifest_json)
   end
 
-  memoize \
+  memo_wise \
   def manifest_json
     File.read('public/vite/manifest.json')
   end

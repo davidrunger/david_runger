@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class MarriageDecorator < Draper::Decorator
-  include Memery
+  prepend MemoWise
 
   delegate_all
 
-  memoize \
+  memo_wise \
   def other_partner
     partners.where.not(id: h.current_user).first
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Throttleable
-  include Memery
+  prepend MemoWise
 
   private
 
@@ -16,7 +16,7 @@ module Throttleable
     end
   end
 
-  memoize \
+  memo_wise \
   def lock_manager
     Redlock::Client.new([$redis_pool], retry_count: 0)
   end

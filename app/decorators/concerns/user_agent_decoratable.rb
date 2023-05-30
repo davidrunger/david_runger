@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UserAgentDecoratable
-  include Memery
+  prepend MemoWise
 
   def pretty_user_agent
     if good_browser_data?
@@ -18,7 +18,7 @@ module UserAgentDecoratable
       browser_name != 'Unknown Browser'
   end
 
-  memoize \
+  memo_wise \
   def browser
     Browser.new(user_agent)
   end

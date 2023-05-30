@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class QuizParticipationDecorator < Draper::Decorator
-  include Memery
+  prepend MemoWise
 
   delegate_all
 
-  memoize \
+  memo_wise \
   def correct_answer_count
     correct_answer_selections.length
   end

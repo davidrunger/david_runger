@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckHomeLinks::Launcher
-  include Memery
+  prepend MemoWise
   prepend ApplicationWorker
 
   def perform
@@ -14,7 +14,7 @@ class CheckHomeLinks::Launcher
 
   private
 
-  memoize \
+  memo_wise \
   def linked_urls
     links.filter_map do |link|
       href = link.attr('href')
@@ -26,17 +26,17 @@ class CheckHomeLinks::Launcher
     href.match?(%r{\A(https?:)?//})
   end
 
-  memoize \
+  memo_wise \
   def links
     nokogiri_document.css('a')
   end
 
-  memoize \
+  memo_wise \
   def nokogiri_document
     Nokogiri::HTML(page_content)
   end
 
-  memoize \
+  memo_wise \
   def page_content
     Faraday.get(DavidRunger::CANONICAL_URL).body
   end
