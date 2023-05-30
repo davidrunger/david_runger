@@ -32,7 +32,7 @@ class Marriage < ApplicationRecord
 
   def flush_user_memoization
     # clear possibly memoized (and about-to-be-inaccurate) User #marriage and #spouse methods
-    partner_1.clear_memery_cache!
-    partner_2&.clear_memery_cache!
+    partner_1.reset_memo_wise
+    partner_2&.reset_memo_wise
   end
 end

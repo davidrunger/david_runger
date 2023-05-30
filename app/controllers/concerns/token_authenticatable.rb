@@ -2,21 +2,21 @@
 
 module TokenAuthenticatable
   extend ActiveSupport::Concern
-  include Memery
+  prepend MemoWise
 
   class BlankToken < StandardError ; end
   class InvalidToken < StandardError ; end
 
   private
 
-  memoize \
+  memo_wise \
   def auth_token
     return nil if auth_token_param.blank?
 
     AuthToken.find_by(secret: auth_token_param)
   end
 
-  memoize \
+  memo_wise \
   def auth_token_param
     auth_token_param = params[:auth_token]
     # For AuthTokensController requests, the top-level `auth_token` param might be a hash, which we
@@ -24,7 +24,7 @@ module TokenAuthenticatable
     auth_token_param.is_a?(String) ? auth_token_param : nil
   end
 
-  memoize \
+  memo_wise \
   def auth_token_user
     auth_token&.user
   end

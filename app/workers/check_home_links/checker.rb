@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckHomeLinks::Checker
-  include Memery
+  prepend MemoWise
   prepend ApplicationWorker
 
   # rubocop:disable Style/MutableConstant
@@ -42,12 +42,12 @@ class CheckHomeLinks::Checker
 
   private
 
-  memoize \
+  memo_wise \
   def redis_failure_key(url)
     "link_check:#{url}:failed"
   end
 
-  memoize \
+  memo_wise \
   def response(url)
     Faraday.new.get do |request|
       request.url(url)

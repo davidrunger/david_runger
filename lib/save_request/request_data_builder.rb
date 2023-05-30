@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SaveRequest::RequestDataBuilder
-  include Memery
+  prepend MemoWise
 
   # params not worth logging in `Request`s
   BORING_PARAMS = %w[
@@ -33,7 +33,7 @@ class SaveRequest::RequestDataBuilder
     @request_time = request_time
   end
 
-  memoize \
+  memo_wise \
   def request_data
     @request_data = {
       admin_user_id: @admin_user&.id,
@@ -53,7 +53,7 @@ class SaveRequest::RequestDataBuilder
 
   private
 
-  memoize \
+  memo_wise \
   def raw_user_agent
     @request.user_agent
   end

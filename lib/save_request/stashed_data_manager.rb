@@ -1,43 +1,43 @@
 # frozen_string_literal: true
 
 class SaveRequest::StashedDataManager
-  include Memery
+  prepend MemoWise
 
   def initialize(request_id)
     @request_id = request_id
   end
 
-  memoize \
+  memo_wise \
   def stashed_data
     initial_stashed_data.merge(final_stashed_data)
   end
 
-  memoize \
+  memo_wise \
   def initial_request_data_redis_key
     "request_data:#{@request_id}:initial"
   end
 
-  memoize \
+  memo_wise \
   def initial_stashed_json
     $redis_pool.with { |conn| conn.call('get', initial_request_data_redis_key) }
   end
 
-  memoize \
+  memo_wise \
   def initial_stashed_data
     JSON.parse(initial_stashed_json)
   end
 
-  memoize \
+  memo_wise \
   def final_request_data_redis_key
     "request_data:#{@request_id}:final"
   end
 
-  memoize \
+  memo_wise \
   def final_stashed_json
     $redis_pool.with { |conn| conn.call('get', final_request_data_redis_key) }
   end
 
-  memoize \
+  memo_wise \
   def final_stashed_data
     JSON.parse(final_stashed_json)
   end

@@ -2,7 +2,7 @@
 
 module BrowserSupportCheckable
   extend ActiveSupport::Concern
-  include Memery
+  prepend MemoWise
 
   included do
     helper_method :browser_support_checker
@@ -10,7 +10,7 @@ module BrowserSupportCheckable
 
   private
 
-  memoize \
+  memo_wise \
   def browser_support_checker
     BrowserSupportChecker.new(browser)
   end

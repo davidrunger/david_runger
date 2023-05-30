@@ -3,7 +3,7 @@
 require Rails.root.join('lib/track_asset_sizes.rb')
 
 class Test::Tasks::RunFileSizeChecks < Pallets::Task
-  include Memery
+  prepend MemoWise
   include Test::TaskHelpers
 
   # file size constraints in kilobytes
@@ -45,19 +45,19 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
 
   private
 
-  memoize \
+  memo_wise \
   def tracker
     TrackAssetSizes.new
   end
 
-  memoize \
+  memo_wise \
   def assets_and_size_in_kb
     tracker.
       track_all_asset_sizes(dry_run: true).
       transform_values { _1.fdiv(1024).round(2) }
   end
 
-  memoize \
+  memo_wise \
   def file_size_violations
     assets_and_size_in_kb.reject do |asset_name, file_size_in_kb|
       constraint = CONSTRAINTS[asset_name]
@@ -65,7 +65,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     end
   end
 
-  memoize \
+  memo_wise \
   def readable_file_size_violations
     file_size_violations.map do |file_name, actual_size|
       constraint = CONSTRAINTS[file_name]
@@ -78,12 +78,12 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     end.join(', ')
   end
 
-  memoize \
+  memo_wise \
   def unspecified_files
     assets_and_size_in_kb.keys - CONSTRAINTS.keys
   end
 
-  memoize \
+  memo_wise \
   def nonexistent_files
     CONSTRAINTS.keys - assets_and_size_in_kb.keys
   end

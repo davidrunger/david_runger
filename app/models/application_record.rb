@@ -7,9 +7,9 @@ class ApplicationRecord < ActiveRecord::Base
   strip_attributes
 
   class << self
-    include Memery
+    prepend MemoWise
 
-    memoize \
+    memo_wise \
     def serializer_class
       "#{name}Serializer".constantize
     end
