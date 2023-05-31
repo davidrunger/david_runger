@@ -64,6 +64,7 @@ Capybara.register_driver(:cuprite) do |app|
     app,
     window_size: [1200, 800],
     headless: !use_headful_chrome,
+    process_timeout: 20,
   )
 end
 if is_ci
