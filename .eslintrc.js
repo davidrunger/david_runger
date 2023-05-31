@@ -5,7 +5,6 @@ module.exports = {
     browser: true,
   },
   extends: [
-    'airbnb-base',
     'plugin:vue/vue3-essential',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -95,6 +94,7 @@ module.exports = {
     }],
     'operator-linebreak': 'off',
     quotes: ['warn', 'single', { avoidEscape: true }],
+    'require-await': 'error',
     semi: ['warn', 'always'],
     'space-before-function-paren': ['warn', {
       anonymous: 'always',
