@@ -34,7 +34,7 @@ export const useCheckInsStore = defineStore('check-ins', {
     },
 
     async submitCheckIn() {
-      kyApi.
+      await kyApi.
         post(
           Routes.api_check_in_check_in_submissions_path(
             this.check_in.id,
