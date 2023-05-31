@@ -157,7 +157,6 @@ class Test::RequirementsResolver
   end
 
   CHECK_CAN_BE_SKIPPED_CONDITIONS = {
-    Test::Tasks::BuildFixtures => proc { running_locally? },
     Test::Tasks::RunAnnotate => proc {
       !db_schema_changed? &&
         !diff_mentions?('annotate') &&
