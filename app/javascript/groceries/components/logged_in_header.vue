@@ -37,7 +37,7 @@ export default defineComponent({
 }
 
 :deep(.el-sub-menu .el-menu-item.el-menu-item.el-menu-item) {
-  @media screen and (max-width: 500px) {
+  @media screen and (width <= 500px) {
     padding-left: 15px;
   }
 }

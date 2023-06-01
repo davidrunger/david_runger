@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style>
-@media (min-width: 40em) {
+@media (width >= 40em) {
   .sm-flex {
     display: flex;
   }

@@ -78,11 +78,11 @@ export default {
   letter-spacing: 0.2px;
   font-weight: 300;
 
-  @media (max-width: 750px) {
+  @media (width <= 750px) {
     font-size: 15px;
   }
 
-  @media (max-width: 550px) {
+  @media (width <= 550px) {
     font-size: 14px;
   }
 }
