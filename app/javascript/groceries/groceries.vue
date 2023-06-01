@@ -128,7 +128,7 @@ main {
 }
 
 // https://stackoverflow.com/a/45769607/4009384
-@media screen and (max-width: 767px) {
+@media screen and (width <= 767px) {
   input[type="text"],
   input[type="number"],
   input[type="email"],

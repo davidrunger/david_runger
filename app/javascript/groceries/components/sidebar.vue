@@ -112,13 +112,13 @@ export default defineComponent({
 
 <style lang='scss' scoped>
 @mixin sidebar-width($padding: 0px) { /* stylelint-disable-line length-zero-no-unit */
-  @media screen and (max-width: 400px) {
+  @media screen and (width <= 400px) {
     min-width: calc(150px - $padding);
     width: calc(45vw - $padding);
     max-width: calc(180px - $padding);
   }
 
-  @media screen and (min-width: 400px) {
+  @media screen and (width >= 400px) {
     min-width: calc(180px - $padding);
     width: calc(35vw - $padding);
     max-width: calc(280px - $padding);

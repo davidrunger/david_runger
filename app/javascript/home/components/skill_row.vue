@@ -66,7 +66,7 @@ export default {
 i[class^="devicon-"] {
   font-size: 65px;
 
-  @media (max-width: 550px) {
+  @media (width <= 550px) {
     font-size: 45px;
   }
 }
@@ -84,7 +84,7 @@ td {
     width: 65px;
   }
 
-  @media (max-width: 550px) {
+  @media (width <= 550px) {
     padding: 10px 4px;
 
     :deep(img) {

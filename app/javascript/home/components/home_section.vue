@@ -46,7 +46,7 @@ section {
   width: 100%;
   max-width: 850px;
 
-  @media screen and (min-width: 600px) {
+  @media screen and (width >= 600px) {
     padding: var(--space-2) var(--space-3) 0 var(--space-3);
   }
 }
