@@ -46,7 +46,6 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
       OmniAuth.config.test_mode = false
 
       spec.run
-
     ensure
       OmniAuth.config.test_mode = original_omni_auth_test_mode
     end

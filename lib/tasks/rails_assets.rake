@@ -15,7 +15,7 @@ task build_js_routes: :environment do
 
   options = { exclude: /admin|google|login|rails|sidekiq/ }
   JsRoutes.generate!(routes_path, **options)
-  File.write(routes_full_path.sub(/\.js/, '.d.ts'), JsRoutes.definitions(**options))
+  File.write(routes_full_path.sub('.js', '.d.ts'), JsRoutes.definitions(**options))
 
   # HACK: fix a weird bug where `this` is somehow undefined when switching to Vite
   File.write(
