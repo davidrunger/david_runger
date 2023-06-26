@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :quiz_question_answer do
-    association :question
+    question
     content { Faker::Color.unique.color_name.titleize }
   end
 end

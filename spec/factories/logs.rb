@@ -25,7 +25,7 @@
 
 FactoryBot.define do
   factory :log do
-    association :user
+    user
     data_label { 'Weight (lbs)' }
     data_type { 'number' }
     description { 'Weight in pounds' }

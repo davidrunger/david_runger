@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :workout do
-    association :user
+    user
     time_in_seconds { Integer(45.minutes) }
     rep_totals { { chinups: 100, pushups: 300 } }
     publicly_viewable { false }

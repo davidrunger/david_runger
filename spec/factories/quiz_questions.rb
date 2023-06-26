@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :quiz_question do
-    association :quiz
+    quiz
     content { "What is the team color of the #{Faker::Team.unique.name.titleize}?" }
   end
 end

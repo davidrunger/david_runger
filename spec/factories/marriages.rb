@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :marriage do
-    association :partner_1
-    association :partner_2
+    partner_1
+    partner_2
   end
 end

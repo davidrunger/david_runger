@@ -17,7 +17,7 @@
 
 FactoryBot.define do
   factory :log_share do
-    association :log
+    log
     email { Faker::Internet.email }
   end
 end

@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :quiz_question_answer_selection do
-    association :answer
-    association :participation, factory: :quiz_participation
+    answer
+    participation factory: %i[quiz_participation]
   end
 end

@@ -17,7 +17,7 @@
 
 FactoryBot.define do
   factory :log_entry do
-    association :log
+    log
     data do
       if log.is_a?(LogEntries::NumberLogEntry)
         rand(200)

@@ -20,8 +20,8 @@
 #
 FactoryBot.define do
   factory :need_satisfaction_rating do
-    association :emotional_need
-    association :user
-    association :check_in
+    emotional_need
+    user
+    check_in
   end
 end

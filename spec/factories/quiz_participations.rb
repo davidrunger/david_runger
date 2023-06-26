@@ -19,8 +19,8 @@
 #
 FactoryBot.define do
   factory :quiz_participation do
-    association :participant, factory: :user
-    association :quiz
+    participant factory: %i[user]
+    quiz
     display_name { participant.email.split('@').first.titleize }
   end
 end

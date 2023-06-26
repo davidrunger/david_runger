@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :auth_token do
-    association :user
+    user
     secret { SecureRandom.uuid }
     name { 'browser shortcut' }
     last_used_at { 2.days.ago }
