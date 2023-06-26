@@ -6,6 +6,8 @@ updates:
     interval: daily
     time: "04:04"
     timezone: America/Chicago
+  allow:
+    - dependency-type: "all"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
   directory: "/"
