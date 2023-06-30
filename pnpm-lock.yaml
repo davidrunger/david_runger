@@ -33,8 +33,8 @@ dependencies:
     specifier: ^7.3.0
     version: 7.3.0
   '@rails/actioncable':
-    specifier: ^7.0.5
-    version: 7.0.5
+    specifier: ^7.0.6
+    version: 7.0.6
   '@rails/ujs':
     specifier: ^7.0.6
     version: 7.0.6
@@ -1792,7 +1792,7 @@ packages:
     resolution: {integrity: sha512-fvhO64vp/a2UVQ3jue9WTc2JisMv9XilIC7ViZmXAREVwiQ2S4UC7Go8f9A1j4Xu7DBI6SbFdqILk5ImqVoqyA==}
     dependencies:
       '@hotwired/turbo': 7.3.0
-      '@rails/actioncable': 7.0.5
+      '@rails/actioncable': 7.0.6
     dev: false
 
   /@hotwired/turbo@7.3.0:
@@ -2054,8 +2054,8 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.0
 
-  /@rails/actioncable@7.0.5:
-    resolution: {integrity: sha512-SOBA2heB9lTw0VYIx8M/ed7inSf4I9sR8OIlJprhgkfQ3WJtrxPJ6DDATR1Z3RYaIR7HlT2Olj08v1lfGIGuHA==}
+  /@rails/actioncable@7.0.6:
+    resolution: {integrity: sha512-ybBsUrIsu5geM8BtqnpM7ZA9D8uzSz+e1B4JR57NaCmasHKWap6AX5DT7NHIbp21opVet1qqoVSdsoLDqXeB2A==}
     dev: false
 
   /@rails/ujs@7.0.6:
