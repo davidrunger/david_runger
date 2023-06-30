@@ -45,8 +45,8 @@ dependencies:
     specifier: ^3.3.4
     version: 3.3.4
   '@vuelidate/core':
-    specifier: ^2.0.2
-    version: 2.0.2(vue@3.3.4)
+    specifier: ^2.0.3
+    version: 2.0.3(vue@3.3.4)
   '@vuelidate/validators':
     specifier: ^2.0.2
     version: 2.0.2(vue@3.3.4)
@@ -2532,8 +2532,8 @@ packages:
       - typescript
     dev: true
 
-  /@vuelidate/core@2.0.2(vue@3.3.4):
-    resolution: {integrity: sha512-aG1OZWv6xVws3ljyKy/pyxq1rdZZ2ryj+FEREcC9d4GP4qOvNHHZUl/NQxa0Bck3Ooc0RfXU8vwCA9piRoWy6w==}
+  /@vuelidate/core@2.0.3(vue@3.3.4):
+    resolution: {integrity: sha512-AN6l7KF7+mEfyWG0doT96z+47ljwPpZfi9/JrNMkOGLFv27XVZvKzRLXlmDPQjPl/wOB1GNnHuc54jlCLRNqGA==}
     peerDependencies:
       '@vue/composition-api': ^1.0.0-rc.1
       vue: ^2.0.0 || >=3.0.0
