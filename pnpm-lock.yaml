@@ -40,7 +40,7 @@ dependencies:
     version: 7.0.6
   '@vitejs/plugin-vue':
     specifier: ^4.2.3
-    version: 4.2.3(vite@4.4.0)(vue@3.3.4)
+    version: 4.2.3(vite@4.4.1)(vue@3.3.4)
   '@vue/compiler-sfc':
     specifier: ^3.3.4
     version: 3.3.4
@@ -141,11 +141,11 @@ dependencies:
     specifier: ^0.7.1
     version: 0.7.1
   vite:
-    specifier: ^4.4.0
-    version: 4.4.0(sass@1.63.6)
+    specifier: ^4.4.1
+    version: 4.4.1(sass@1.63.6)
   vite-plugin-ruby:
     specifier: ^3.2.2
-    version: 3.2.2(vite@4.4.0)
+    version: 3.2.2(vite@4.4.1)
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -2376,14 +2376,14 @@ packages:
       '@typescript-eslint/types': 5.61.0
       eslint-visitor-keys: 3.4.1
 
-  /@vitejs/plugin-vue@4.2.3(vite@4.4.0)(vue@3.3.4):
+  /@vitejs/plugin-vue@4.2.3(vite@4.4.1)(vue@3.3.4):
     resolution: {integrity: sha512-R6JDUfiZbJA9cMiguQ7jxALsgiprjBeHL5ikpXfJCH62pPHtI+JdJ5xWj6Ev73yXSlYl86+blXn1kZHQ7uElxw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.0(sass@1.63.6)
+      vite: 4.4.1(sass@1.63.6)
       vue: 3.3.4
     dev: false
 
@@ -5707,20 +5707,20 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-plugin-ruby@3.2.2(vite@4.4.0):
+  /vite-plugin-ruby@3.2.2(vite@4.4.1):
     resolution: {integrity: sha512-cuHG1MajRWPR8YdfF6lvgsQRnKFEBRwZF//asFbRiI1psacxB5aPlHSvYZYxAu5IflrAa0MdR0HxEq+g98M3iQ==}
     peerDependencies:
       vite: '>=4.0.0'
     dependencies:
       debug: 4.3.4
       fast-glob: 3.2.12
-      vite: 4.4.0(sass@1.63.6)
+      vite: 4.4.1(sass@1.63.6)
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /vite@4.4.0(sass@1.63.6):
-    resolution: {integrity: sha512-Wf+DCEjuM8aGavEYiF77hnbxEZ+0+/jC9nABR46sh5Xi+GYeSvkeEFRiVuI3x+tPjxgZeS91h1jTAQTPFgePpA==}
+  /vite@4.4.1(sass@1.63.6):
+    resolution: {integrity: sha512-8mmwPlsy7t+ZcTme7vdbVGuZ3Tri+lrLXr6hsF5UHdyYyARPPPMtM16QlqC9TZuCd5j3NmWs1rwka3cVSRHZTw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
