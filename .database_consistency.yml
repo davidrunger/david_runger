@@ -9,3 +9,5 @@ ActiveStorage::VariantRecord:
   enabled: false
 ActiveStorage::Attachment:
   enabled: false
+LogEntry:
+  enabled: false
