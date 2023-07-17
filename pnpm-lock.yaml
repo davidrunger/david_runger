@@ -191,8 +191,8 @@ devDependencies:
     specifier: ^0.9.4
     version: 0.9.4
   '@types/toastify-js':
-    specifier: ^1.11.1
-    version: 1.11.1
+    specifier: ^1.12.0
+    version: 1.12.0
   '@types/when-dom-ready':
     specifier: ^1.2.0
     version: 1.2.0
@@ -2171,8 +2171,8 @@ packages:
     resolution: {integrity: sha512-MlicGsqGq8pVXa0umCVrYvno0bNUH/JYGPtlAvV/oU0/0lGtAVs/EtbDi6rz3241K3MF7+l6fuXxb9Ae3nLhJQ==}
     dev: true
 
-  /@types/toastify-js@1.11.1:
-    resolution: {integrity: sha512-Ef03kGFWseAQYIQwN83WbhRxD+DOd+X6p22j9olA/TnvE0crDMc3fyoctKSpXgEDVWq5l3p98otIdpNX1pOYMA==}
+  /@types/toastify-js@1.12.0:
+    resolution: {integrity: sha512-fqpDHaKhFukN9KRm24bbH0wozvHmSwjvkaLjBUrWcSfSS4zysIwTYqNLG3XbSNhRlsTNRNLGS23tp/VhPwsfHQ==}
     dev: true
 
   /@types/trusted-types@2.0.3:
