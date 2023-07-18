@@ -50,7 +50,7 @@ class SaveRequest
   def ban_reasons
     ban_reasons = []
 
-    if params_keys_and_values.compact.any? { _1.include?("\u0000") }
+    if params_keys_and_values.compact.any? { _1.is_a?(String) && _1.include?("\u0000") }
       ban_reasons << JSON(params_keys_and_values)
     end
 
