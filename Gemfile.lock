@@ -217,8 +217,8 @@ GEM
       hashdiff
     flipper (0.28.1)
       concurrent-ruby (< 2)
-    flipper-redis (0.28.0)
-      flipper (~> 0.28.0)
+    flipper-redis (0.28.1)
+      flipper (~> 0.28.1)
       redis (>= 3.0, < 6)
     flipper-ui (0.28.1)
       erubi (>= 1.0.0, < 2.0.0)
