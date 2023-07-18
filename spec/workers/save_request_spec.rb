@@ -129,6 +129,14 @@ RSpec.describe SaveRequest do
             expect(request.auth_token).to eq(auth_token)
           end
         end
+
+        context 'when one of the params values is an integer' do
+          let(:stubbed_additional_data) { super().merge('params' => { 'hacking' => 0 }) }
+
+          it 'creates a request' do
+            expect { perform }.to change { Request.count }.by(1)
+          end
+        end
       end
     end
 
