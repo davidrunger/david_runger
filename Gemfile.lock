@@ -215,10 +215,10 @@ GEM
       activerecord (>= 2)
       activesupport (>= 2)
       hashdiff
-    flipper (0.28.2)
+    flipper (0.28.3)
       concurrent-ruby (< 2)
-    flipper-redis (0.28.2)
-      flipper (~> 0.28.2)
+    flipper-redis (0.28.3)
+      flipper (~> 0.28.3)
       redis (>= 3.0, < 6)
     flipper-ui (0.28.2)
       erubi (>= 1.0.0, < 2.0.0)
