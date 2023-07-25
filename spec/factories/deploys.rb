@@ -13,10 +13,9 @@
 #
 #  index_deploys_on_git_sha  (git_sha)
 #
-class Deploy < ApplicationRecord
-  validates :git_sha, presence: true
 
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at git_sha id updated_at]
+FactoryBot.define do
+  factory :deploy do
+    git_sha { SecureRandom.hex(20) }
   end
 end

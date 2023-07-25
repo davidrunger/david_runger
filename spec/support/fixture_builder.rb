@@ -115,5 +115,8 @@ FixtureBuilder.configure do |fbuilder|
 
     # csp reports
     name(:csp_report, create(:csp_report, ip: request.ip))
+
+    # Deploys
+    name(:deploy, create(:deploy))
   end
 end
