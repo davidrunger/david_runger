@@ -21,19 +21,4 @@ class CspReport < ApplicationRecord
   validates :original_policy, presence: true
   validates :ip, presence: true
   validates :user_agent, presence: true
-
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[
-      blocked_uri
-      created_at
-      document_uri
-      id
-      ip
-      original_policy
-      referrer
-      updated_at
-      user_agent
-      violated_directive
-    ]
-  end
 end

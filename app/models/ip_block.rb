@@ -20,8 +20,4 @@ class IpBlock < ApplicationRecord
     length: { maximum: 39 },
     format: { with: /\A[.:0-9a-f]{7,39}\z/ },
     uniqueness: true
-
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at id ip reason updated_at]
-  end
 end
