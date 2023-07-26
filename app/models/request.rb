@@ -45,4 +45,29 @@ class Request < ApplicationRecord
 
   validates :url, :handler, :method, :ip, :requested_at, :status, presence: true
   validates :request_id, presence: true, uniqueness: true
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      admin_user_id
+      auth_token_id
+      db
+      format
+      handler
+      id
+      ip
+      isp
+      location
+      method
+      params
+      referer
+      request_id
+      requested_at
+      status
+      total
+      url
+      user_agent
+      user_id
+      view
+    ]
+  end
 end
