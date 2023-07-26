@@ -56,10 +56,6 @@ class User < ApplicationRecord
     end
   end
 
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at email id updated_at]
-  end
-
   memo_wise \
   def marriage
     Marriage.where(partner_1_id: id).or(Marriage.where(partner_2_id: id)).first

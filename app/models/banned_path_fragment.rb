@@ -20,8 +20,4 @@ class BannedPathFragment < ApplicationRecord
     format: { with: /\A[a-z0-9%]+\z/ },
     uniqueness: true,
   )
-
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at id updated_at value]
-  end
 end
