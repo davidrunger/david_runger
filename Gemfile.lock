@@ -448,7 +448,7 @@ GEM
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.5)
+    rexml (3.2.6)
     rollbar (3.4.0)
     rouge (4.1.2)
     rspec (3.12.0)
