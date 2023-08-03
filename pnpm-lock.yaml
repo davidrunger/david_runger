@@ -138,8 +138,8 @@ dependencies:
     specifier: ^1.12.0
     version: 1.12.0
   unplugin-element-plus:
-    specifier: ^0.7.2
-    version: 0.7.2
+    specifier: ^0.8.0
+    version: 0.8.0
   vite:
     specifier: ^4.4.8
     version: 4.4.8(sass@1.64.2)
@@ -5761,8 +5761,8 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /unplugin-element-plus@0.7.2:
-    resolution: {integrity: sha512-A73dCu0fIMRodx1OoAZ4JruyAoenzTVFWMdukq3q7xR+vtcAy3B9uO1g3+WJMA1A9hWxo7iO5tVRGaD2lFNlWA==}
+  /unplugin-element-plus@0.8.0:
+    resolution: {integrity: sha512-jByUGY3FG2B8RJKFryqxx4eNtSTj+Hjlo8edcOdJymewndDQjThZ1pRUQHRjQsbKhTV2jEctJV7t7RJ405UL4g==}
     engines: {node: '>=14.19.0'}
     dependencies:
       '@rollup/pluginutils': 5.0.2
