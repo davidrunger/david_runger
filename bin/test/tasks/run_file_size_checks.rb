@@ -23,7 +23,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'styles*.css' => (15..25),
     'turbo*.js' => (70..80),
     'workout*.css' => (100..110),
-    'workout*.js' => (385..395),
+    'workout*.js' => (390..400),
   }.freeze
 
   def run
