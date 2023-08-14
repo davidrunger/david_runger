@@ -77,7 +77,7 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  extra_load_paths = [Rails.root.join('spec/support')].map(&:to_s).map(&:freeze)
+  extra_load_paths = [Rails.root.join('spec/support')].map { _1.to_s.freeze }
   config.eager_load_paths.concat(extra_load_paths)
 end
 
