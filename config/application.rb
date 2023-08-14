@@ -72,7 +72,7 @@ class DavidRunger::Application < Rails::Application
   extra_load_paths = [
     Rails.root.join('lib'),
     Rails.root.join(*%w[lib refinements]),
-  ].map(&:to_s).map(&:freeze)
+  ].map { _1.to_s.freeze }
   config.eager_load_paths.concat(extra_load_paths)
   config.add_autoload_paths_to_load_path = false
 
