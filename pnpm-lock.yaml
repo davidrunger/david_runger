@@ -90,8 +90,8 @@ dependencies:
     specifier: ^3.0.5
     version: 3.0.5
   easytimer.js:
-    specifier: ^4.5.4
-    version: 4.5.4
+    specifier: ^4.6.0
+    version: 4.6.0
   element-plus:
     specifier: ^2.3.12
     version: 2.3.12(vue@3.3.4)
@@ -3395,8 +3395,8 @@ packages:
       domhandler: 5.0.3
     dev: true
 
-  /easytimer.js@4.5.4:
-    resolution: {integrity: sha512-65STy2sW2z6e9XwfJqSa18JVNWuOu2cb/FXaZ/BbiDiPnTvC53njMS3oY1BsAIm/Dzt9c8YUvcgc8FoPttm1Gw==}
+  /easytimer.js@4.6.0:
+    resolution: {integrity: sha512-2kl/X/HnB5mKJ29x7N908CrNl5y8yDgDuD8U7TXTEHs/lBFVXT91DSoiXncYnwC1TPPDfomlLDKPaTSqT3dygQ==}
     dev: false
 
   /electron-to-chromium@1.4.441:
