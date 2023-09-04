@@ -120,8 +120,8 @@ dependencies:
     specifier: ^3.4.2
     version: 3.4.2
   marked:
-    specifier: ^7.0.5
-    version: 7.0.5
+    specifier: ^8.0.0
+    version: 8.0.0
   normalize.css:
     specifier: ^8.0.1
     version: 8.0.1
@@ -4452,8 +4452,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /marked@7.0.5:
-    resolution: {integrity: sha512-lwNAFTfXgqpt/XvK17a/8wY9/q6fcSPZT1aP6QW0u74VwaJF/Z9KbRcX23sWE4tODM+AolJNcUtErTkgOeFP/Q==}
+  /marked@8.0.0:
+    resolution: {integrity: sha512-RI/D5csFVreNrFchdKFSdV38GDHJdD7OdmbNWYzGvApPb0A9pyypgfHC/FBH4ugmRE8cr7yg/TH7tu8585eMhA==}
     engines: {node: '>= 16'}
     hasBin: true
     dev: false
