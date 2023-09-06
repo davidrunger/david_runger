@@ -3,7 +3,7 @@ FROM ruby:3.1.3
 # Install nodejs on the default ruby 3 image
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
       apt-get install -y nodejs build-essential && \
-      npm install -g pnpm@8.6.0
+      npm install -g pnpm@8.7.4
 
 WORKDIR /app
 
