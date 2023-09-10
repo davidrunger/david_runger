@@ -11,15 +11,15 @@ dependencies:
   '@babel/core':
     specifier: ^7.22.15
     version: 7.22.15
-  '@babel/plugin-proposal-object-rest-spread':
-    specifier: ^7.20.7
-    version: 7.20.7(@babel/core@7.22.15)
   '@babel/plugin-syntax-dynamic-import':
     specifier: ^7.8.3
     version: 7.8.3(@babel/core@7.22.15)
   '@babel/plugin-transform-class-properties':
     specifier: ^7.22.5
     version: 7.22.5(@babel/core@7.22.15)
+  '@babel/plugin-transform-object-rest-spread':
+    specifier: ^7.22.15
+    version: 7.22.15(@babel/core@7.22.15)
   '@babel/preset-env':
     specifier: ^7.22.15
     version: 7.22.15(@babel/core@7.22.15)
@@ -280,11 +280,6 @@ packages:
       '@babel/highlight': 7.22.13
       chalk: 2.4.2
 
-  /@babel/compat-data@7.22.5:
-    resolution: {integrity: sha512-4Jc/YuIaYqKnDDz892kPIledykKg12Aw1PYX5i/TY28anJtacvM1Rrr8wbieB9GfEJwlzqT0hUEao0CxEebiDA==}
-    engines: {node: '>=6.9.0'}
-    dev: false
-
   /@babel/compat-data@7.22.9:
     resolution: {integrity: sha512-5UamI7xkUcJ3i9qVDS+KFDEK8/7oJ55/sJMB1Ge7IEapr7KfdfV/HErR+koZwOfd+SgtFKOKRhRakdg++DcJpQ==}
     engines: {node: '>=6.9.0'}
@@ -342,20 +337,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/compat-data': 7.22.9
-      '@babel/helper-validator-option': 7.22.15
-      browserslist: 4.21.9
-      lru-cache: 5.1.1
-      semver: 6.3.1
-    dev: false
-
-  /@babel/helper-compilation-targets@7.22.5(@babel/core@7.22.15):
-    resolution: {integrity: sha512-Ji+ywpHeuqxB8WDxraCiqR0xfhYjiDE/e6k7FuIaANnoOFxAHskHChz4vA1mJC9Lbm01s1PVAGhQY4FUKSkGZw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-    dependencies:
-      '@babel/compat-data': 7.22.9
-      '@babel/core': 7.22.15
       '@babel/helper-validator-option': 7.22.15
       browserslist: 4.21.9
       lru-cache: 5.1.1
@@ -588,20 +569,6 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
       '@babel/plugin-transform-optional-chaining': 7.22.15(@babel/core@7.22.15)
-    dev: false
-
-  /@babel/plugin-proposal-object-rest-spread@7.20.7(@babel/core@7.22.15):
-    resolution: {integrity: sha512-d2S98yCiLxDVmBmE8UjGcfPvNEUbA1U5q5WxaWFUGRzJSVAZqm5W6MbPct0jxnegUZ0niLeNX+IOzEs7wYg9Dg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/compat-data': 7.22.5
-      '@babel/core': 7.22.15
-      '@babel/helper-compilation-targets': 7.22.5(@babel/core@7.22.15)
-      '@babel/helper-plugin-utils': 7.22.5
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.22.15)
-      '@babel/plugin-transform-parameters': 7.22.5(@babel/core@7.22.15)
     dev: false
 
   /@babel/plugin-proposal-private-property-in-object@7.21.0-placeholder-for-preset-env.2(@babel/core@7.22.15):
@@ -1157,16 +1124,6 @@ packages:
 
   /@babel/plugin-transform-parameters@7.22.15(@babel/core@7.22.15):
     resolution: {integrity: sha512-hjk7qKIqhyzhhUvRT683TYQOFa/4cQKwQy7ALvTpODswN40MljzNDa0YldevS6tGbxwaEKVn502JmY0dP7qEtQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.22.15
-      '@babel/helper-plugin-utils': 7.22.5
-    dev: false
-
-  /@babel/plugin-transform-parameters@7.22.5(@babel/core@7.22.15):
-    resolution: {integrity: sha512-AVkFUBurORBREOmHRKo06FjHYgjrabpdqRSwq6+C7R5iTCZOsM4QbcB27St0a4U6fffyAOqh3s/qEfybAhfivg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
