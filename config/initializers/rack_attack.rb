@@ -4,7 +4,13 @@ class Rack::Attack
   PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_|=}
   PENTESTERS_PREFIX = 'pentesters-'
   PENTESTING_FINDTIME = 1.day.freeze
-  WHITELISTED_PATH_PREFIXES = %w[/flipper/ /sidekiq/ /vite/ /vite-admin/].freeze
+  WHITELISTED_PATH_PREFIXES = %w[
+    /auth/google_oauth2?
+    /flipper/
+    /sidekiq/
+    /vite-admin/
+    /vite/
+  ].freeze
 
   # Limit all IPs to 60 requests per clock minute
   # rubocop:disable Style/SymbolProc
