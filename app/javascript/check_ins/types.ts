@@ -11,7 +11,7 @@ export interface EmotionalNeed {
 
 export type Rating = -3 | -2 | -1 | 0 | 1 | 2 | 3;
 
-export interface NeedSatisfactionRating extends Object {
+export interface NeedSatisfactionRating extends object {
   id: number
   score: Rating
   emotional_need: EmotionalNeed
