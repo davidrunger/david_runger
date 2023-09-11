@@ -98,7 +98,7 @@ module Test::TaskHelpers
   def update_job_result_exit_code(exit_code)
     preexisting_exit_code = job_result_hash[:exit_code]
     # a previous command in the same task might've exited with a non-zero status; don't overwrite it
-    unless preexisting_exit_code.present? && (preexisting_exit_code > exit_code)
+    if preexisting_exit_code.blank? || (preexisting_exit_code < exit_code)
       job_result_hash[:exit_code] = exit_code
     end
   end
