@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable RSpec/FilePath
-RSpec.describe(Rack::Attack) do
+RSpec.describe('Rack::Attack') do
   describe '::blocked_path?' do
     subject(:blocked_path?) { Rack::Attack.blocked_path?(request) }
 
@@ -51,4 +50,3 @@ RSpec.describe(Rack::Attack) do
     end
   end
 end
-# rubocop:enable RSpec/FilePath
