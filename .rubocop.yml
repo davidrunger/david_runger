@@ -2,6 +2,7 @@ inherit_gem:
   runger_style:
     - rulesets/capybara.yml
     - rulesets/default.yml
+    - rulesets/factory_bot.yml
     - rulesets/performance.yml
     - rulesets/rails.yml
     - rulesets/rspec.yml
