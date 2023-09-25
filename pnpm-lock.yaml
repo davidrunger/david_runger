@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@babel/cli':
-    specifier: ^7.22.15
-    version: 7.22.15(@babel/core@7.22.20)
+    specifier: ^7.23.0
+    version: 7.23.0(@babel/core@7.22.20)
   '@babel/core':
     specifier: ^7.22.20
     version: 7.22.20
@@ -253,8 +253,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.19
     dev: false
 
-  /@babel/cli@7.22.15(@babel/core@7.22.20):
-    resolution: {integrity: sha512-prtg5f6zCERIaECeTZzd2fMtVjlfjhUcO+fBLQ6DXXdq5FljN+excVitJ2nogsusdf31LeqkjAfXZ7Xq+HmN8g==}
+  /@babel/cli@7.23.0(@babel/core@7.22.20):
+    resolution: {integrity: sha512-17E1oSkGk2IwNILM4jtfAvgjt+ohmpfBky8aLerUfYZhiPNg7ca+CRCxZn8QDxwNhV/upsc2VHBCqGFIR+iBfA==}
     engines: {node: '>=6.9.0'}
     hasBin: true
     peerDependencies:
@@ -263,7 +263,7 @@ packages:
       '@babel/core': 7.22.20
       '@jridgewell/trace-mapping': 0.3.19
       commander: 4.1.1
-      convert-source-map: 1.9.0
+      convert-source-map: 2.0.0
       fs-readdir-recursive: 1.1.0
       glob: 7.2.3
       make-dir: 2.1.0
@@ -3068,6 +3068,10 @@ packages:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
     dev: false
 
+  /convert-source-map@2.0.0:
+    resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+    dev: false
+
   /core-js-compat@3.32.2:
     resolution: {integrity: sha512-+GjlguTDINOijtVRUxrQOv3kfu9rl+qPNdX2LTbJ/ZyVTuxK+ksVSAGX1nHstu4hrv1En/uPTtWgq2gI5wt4AQ==}
     dependencies:
@@ -4050,6 +4054,7 @@ packages:
   /is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
 
   /is-fullwidth-code-point@3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
