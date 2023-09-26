@@ -74,7 +74,7 @@
     "@types/strftime": "^0.9.4",
     "@types/toastify-js": "^1.12.1",
     "@types/when-dom-ready": "^1.2.0",
-    "@typescript-eslint/parser": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.3",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/language-plugin-pug": "^1.8.13",
     "eslint-import-resolver-typescript": "^3.6.1",
