@@ -176,7 +176,7 @@ GEM
     cuprite (0.14.3)
       capybara (~> 3.0)
       ferrum (~> 0.13.0)
-    dalli (3.2.5)
+    dalli (3.2.6)
     database_consistency (1.7.20)
       activerecord (>= 3.2)
     date (3.3.3)
