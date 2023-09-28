@@ -276,7 +276,7 @@ GEM
       has_scope (~> 0.6)
       railties (>= 5.2, < 7.1)
       responders (>= 2, < 4)
-    isolator (0.10.0)
+    isolator (0.11.0)
       sniffer (>= 0.5.0)
     jaro_winkler (1.5.6)
     jmespath (1.6.2)
