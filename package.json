@@ -68,7 +68,7 @@
     "@types/fuzzyset.js": "^0.0.3",
     "@types/js-cookie": "^3.0.4",
     "@types/lodash-es": "^4.17.9",
-    "@types/marked": "^5.0.1",
+    "@types/marked": "^5.0.2",
     "@types/rails__actioncable": "^6.1.7",
     "@types/rails__ujs": "^6.0.2",
     "@types/strftime": "^0.9.5",
