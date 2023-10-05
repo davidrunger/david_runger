@@ -19,7 +19,7 @@
     "@hotwired/turbo": "^7.3.0",
     "@hotwired/turbo-rails": "^7.3.0",
     "@rails/actioncable": "^7.0.8",
-    "@rails/ujs": "^7.0.8",
+    "@rails/ujs": "^7.1.0",
     "@vitejs/plugin-vue": "^4.4.0",
     "@vue/compiler-sfc": "^3.3.4",
     "@vuelidate/core": "^2.0.3",
