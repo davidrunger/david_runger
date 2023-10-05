@@ -33,8 +33,8 @@ dependencies:
     specifier: ^7.3.0
     version: 7.3.0
   '@rails/actioncable':
-    specifier: ^7.0.8
-    version: 7.0.8
+    specifier: ^7.1.0
+    version: 7.1.0
   '@rails/ujs':
     specifier: ^7.1.0
     version: 7.1.0
@@ -1768,7 +1768,7 @@ packages:
     resolution: {integrity: sha512-fvhO64vp/a2UVQ3jue9WTc2JisMv9XilIC7ViZmXAREVwiQ2S4UC7Go8f9A1j4Xu7DBI6SbFdqILk5ImqVoqyA==}
     dependencies:
       '@hotwired/turbo': 7.3.0
-      '@rails/actioncable': 7.0.8
+      '@rails/actioncable': 7.1.0
     dev: false
 
   /@hotwired/turbo@7.3.0:
@@ -2042,8 +2042,8 @@ packages:
       - typescript
     dev: true
 
-  /@rails/actioncable@7.0.8:
-    resolution: {integrity: sha512-GjYQv89ZOOfbFw8VMNUOG33GXzyAA/TCVoD+742Ob4svm1XXUkd+w+ewqUXd+7VHQtV35y1/O78AGIPeJDTy/g==}
+  /@rails/actioncable@7.1.0:
+    resolution: {integrity: sha512-MBGzAQHOk+sXblpCQsM0MPxQDzvTLFwaFu8jqYbfWDejpZPszo9xaAOF/3+iv7ab1o6PFiTpdbh+PR4osofIWw==}
     dev: false
 
   /@rails/ujs@7.1.0:
