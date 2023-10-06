@@ -2,9 +2,9 @@
   "name": "david_runger",
   "private": true,
   "engines": {
-    "node": "18.16.0"
+    "node": "18.16.0",
+    "pnpm": ">=8.8.0 <9"
   },
-  "packageManager": "pnpm@8.7.4",
   "browserslist": [
     ">10%"
   ],
