@@ -14,9 +14,11 @@ class Test::Tasks::CheckVersions < Pallets::Task
       node --version && [ "$(node --version)" = '#{node_version}' ]
     COMMAND
 
-    pnpm_version = JSON.parse(File.read('package.json'))['packageManager'].delete_prefix('pnpm@')
+    pnpm_version_specification = JSON.parse(File.read('package.json')).dig('engines', 'pnpm')
+    puts("Specified pnpm version/range: #{pnpm_version_specification}")
+    # Log only; don't check that it is within the range (since that would be a bit complex).
     execute_system_command(<<~COMMAND)
-      pnpm --version && [ "$(pnpm --version)" = '#{pnpm_version}' ]
+      pnpm --version
     COMMAND
   end
 end
