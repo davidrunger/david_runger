@@ -108,8 +108,6 @@ GEM
       ruby2_keywords (>= 0.0.2)
     ast (2.4.2)
     attr_extras (7.1.0)
-    auto_strip_attributes (2.6.0)
-      activerecord (>= 4.0)
     aws-eventstream (1.2.0)
     aws-partitions (1.834.0)
     aws-sdk-core (3.185.1)
@@ -646,7 +644,6 @@ DEPENDENCIES
   alba
   amazing_print
   annotate
-  auto_strip_attributes
   aws-sdk-s3
   better_errors
   binding_of_caller

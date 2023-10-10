@@ -24,8 +24,6 @@ class Item < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: :store_id }
 
-  auto_strip_attributes :name, squish: true
-
   has_paper_trail
 
   scope :needed, -> { where('items.needed > 0') }

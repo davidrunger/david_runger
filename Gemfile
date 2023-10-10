@@ -5,7 +5,6 @@ ruby File.read('.ruby-version').rstrip
 
 gem 'activeadmin'
 gem 'alba'
-gem 'auto_strip_attributes'
 gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
 gem 'browser'
