@@ -24,7 +24,7 @@ class Item < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: :store_id }
 
-  auto_strip_attributes :name, squish: true
+  strip_attributes collapse_spaces: true
 
   has_paper_trail
 

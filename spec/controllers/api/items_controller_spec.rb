@@ -24,12 +24,12 @@ RSpec.describe Api::ItemsController do
       end
 
       context 'when the item name contains leading or trailing whitespace' do
-        let(:params) { super().deep_merge(item: { name: ' cheese ' }) }
+        let(:params) { super().deep_merge(item: { name: " cheese \t puffs " }) }
 
         it 'strips the whitespace' do
           expect { post_create }.
             to change { store.reload.items.order(:created_at).last!.name }.
-            to('cheese')
+            to('cheese puffs')
         end
       end
     end
