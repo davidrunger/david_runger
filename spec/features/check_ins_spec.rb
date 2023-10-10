@@ -32,7 +32,9 @@ RSpec.describe 'Check-Ins app' do
           # Enable inline Sidekiq to send email. (Can't use block since sidekiq e9f21290.)
           Sidekiq::Testing.inline!
           activate_feature!(:disable_fetch_ip_info_for_request_worker)
+          num_emails_before = ActionMailer::Base.deliveries.size
           click_button('Submit')
+          wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 1)
           Sidekiq::Testing.disable!
 
           expect(page).to have_text('Invitation sent.')
