@@ -101,7 +101,7 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
-    anyway_config (2.5.3)
+    anyway_config (2.5.4)
       ruby-next-core (>= 0.14.0)
     arbre (1.7.0)
       activesupport (>= 3.0.0)
