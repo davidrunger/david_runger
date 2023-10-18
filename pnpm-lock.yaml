@@ -173,8 +173,8 @@ devDependencies:
     specifier: ^0.0.4
     version: 0.0.4
   '@types/js-cookie':
-    specifier: ^3.0.4
-    version: 3.0.4
+    specifier: ^3.0.5
+    version: 3.0.5
   '@types/lodash-es':
     specifier: ^4.17.10
     version: 4.17.10
@@ -2072,8 +2072,8 @@ packages:
     resolution: {integrity: sha512-Rt+QmPXmNuedKgHU+2D8KKa8+0fm+CAxfAR8zsTKvXKvqw31Cr2Jp2Zanx6xgS1O+M9/kTuKysbo/Of+bE3CPw==}
     dev: true
 
-  /@types/js-cookie@3.0.4:
-    resolution: {integrity: sha512-vMMnFF+H5KYqdd/myCzq6wLDlPpteJK+jGFgBus3Da7lw+YsDmx2C8feGTzY2M3Fo823yON+HC2CL240j4OV+w==}
+  /@types/js-cookie@3.0.5:
+    resolution: {integrity: sha512-dtLshqoiGRDHbHueIT9sjkd2F4tW1qPSX2xKAQK8p1e6pM+Z913GM1shv7dOqqasEMYbC5zEaClJomQe8OtQLA==}
     dev: true
 
   /@types/json-schema@7.0.12:
