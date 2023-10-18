@@ -44,7 +44,7 @@
     "eslint-plugin-vue": "^9.17.0",
     "fuzzyset.js": "^1.0.7",
     "js-cookie": "^3.0.5",
-    "ky": "^1.0.1",
+    "ky": "^1.1.0",
     "lodash-es": "^4.17.21",
     "luxon": "^3.4.3",
     "marked": "^9.1.2",
