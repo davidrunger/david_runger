@@ -194,8 +194,8 @@ devDependencies:
     specifier: ^1.12.1
     version: 1.12.1
   '@types/when-dom-ready':
-    specifier: ^1.2.0
-    version: 1.2.0
+    specifier: ^1.2.1
+    version: 1.2.1
   '@typescript-eslint/parser':
     specifier: ^6.8.0
     version: 6.8.0(eslint@8.51.0)(typescript@5.2.2)
@@ -2144,8 +2144,8 @@ packages:
     resolution: {integrity: sha512-v/ZHEj9xh82usl8LMR3GarzFY1IrbXJw5L4QfQhokjRV91q+SelFqxQWSep1ucXEZ22+dSTwLFkXeur25sPIbw==}
     dev: false
 
-  /@types/when-dom-ready@1.2.0:
-    resolution: {integrity: sha512-+ZZcdwtGXSjjgpdEbCU9n91OOeFHZDFAyt98/yO8PUYZ4NJ46D/y9NFRIgsREXpmHFz7oZL5Bv9e515WynM4dQ==}
+  /@types/when-dom-ready@1.2.1:
+    resolution: {integrity: sha512-wYSxre9xk8rzhyGbEPzk2DKeCXUFRFb+YSenkB/rhFtyH371bC0wVB4iETG0waA2he+syKXqofeNj8R9AODcmA==}
     dev: true
 
   /@types/yauzl@2.10.0:
