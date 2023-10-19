@@ -70,7 +70,7 @@
     "@types/lodash-es": "^4.17.10",
     "@types/marked": "^6.0.0",
     "@types/rails__actioncable": "^6.1.7",
-    "@types/rails__ujs": "^6.0.2",
+    "@types/rails__ujs": "^6.0.3",
     "@types/strftime": "^0.9.5",
     "@types/toastify-js": "^1.12.1",
     "@types/when-dom-ready": "^1.2.0",
