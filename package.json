@@ -71,7 +71,7 @@
     "@types/marked": "^6.0.0",
     "@types/rails__actioncable": "^6.1.8",
     "@types/rails__ujs": "^6.0.3",
-    "@types/strftime": "^0.9.5",
+    "@types/strftime": "^0.9.6",
     "@types/toastify-js": "^1.12.2",
     "@types/when-dom-ready": "^1.2.1",
     "@typescript-eslint/parser": "^6.8.0",
