@@ -76,7 +76,7 @@
     "@types/when-dom-ready": "^1.2.1",
     "@typescript-eslint/parser": "^6.9.0",
     "@vue/eslint-config-typescript": "^12.0.0",
-    "@vue/language-plugin-pug": "^1.8.20",
+    "@vue/language-plugin-pug": "^1.8.21",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.0",
     "postcss": "^8.4.31",
