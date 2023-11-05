@@ -1,0 +1,2 @@
+web: VITE_RUBY_HOST=0.0.0.0 bin/rails server -b 0.0.0.0 -p 3000
+js: VITE_RUBY_HOST=0.0.0.0 bin/vite dev
