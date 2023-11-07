@@ -186,7 +186,7 @@ GEM
     dalli (3.2.6)
     database_consistency (1.7.21)
       activerecord (>= 3.2)
-    date (3.3.3)
+    date (3.3.4)
     debug_inspector (1.1.0)
     devise (4.9.3)
       bcrypt (~> 3.0)
