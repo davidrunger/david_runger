@@ -170,8 +170,8 @@ devDependencies:
     specifier: ^3.0.5
     version: 3.0.5
   '@types/fuzzyset.js':
-    specifier: ^0.0.4
-    version: 0.0.4
+    specifier: ^0.0.5
+    version: 0.0.5
   '@types/js-cookie':
     specifier: ^3.0.6
     version: 3.0.6
@@ -2060,8 +2060,8 @@ packages:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
     dev: false
 
-  /@types/fuzzyset.js@0.0.4:
-    resolution: {integrity: sha512-Rt+QmPXmNuedKgHU+2D8KKa8+0fm+CAxfAR8zsTKvXKvqw31Cr2Jp2Zanx6xgS1O+M9/kTuKysbo/Of+bE3CPw==}
+  /@types/fuzzyset.js@0.0.5:
+    resolution: {integrity: sha512-AY1ONjlROTgY4YZ+JTupYxNxfXLy10/rmP5Mbb1wCFNGZogEsUe+3anBYE++sEDINTxuw/MduMLW+l3c+igj4A==}
     dev: true
 
   /@types/js-cookie@3.0.6:
