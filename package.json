@@ -67,7 +67,7 @@
     "@types/dompurify": "^3.0.4",
     "@types/fuzzyset.js": "^0.0.4",
     "@types/js-cookie": "^3.0.5",
-    "@types/lodash-es": "^4.17.10",
+    "@types/lodash-es": "^4.17.11",
     "@types/marked": "^6.0.0",
     "@types/rails__actioncable": "^6.1.8",
     "@types/rails__ujs": "^6.0.3",
