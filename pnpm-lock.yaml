@@ -185,8 +185,8 @@ devDependencies:
     specifier: ^6.1.8
     version: 6.1.8
   '@types/rails__ujs':
-    specifier: ^6.0.3
-    version: 6.0.3
+    specifier: ^6.0.4
+    version: 6.0.4
   '@types/strftime':
     specifier: ^0.9.6
     version: 0.9.6
@@ -2108,8 +2108,8 @@ packages:
     resolution: {integrity: sha512-nKdKS8K6asR5qdRw9M0vQjT84QCZut9SKavdxlMUERO2oz4PlC5ZPe0H15sbIURyGRwq5rVQHPpjgxEivI05qg==}
     dev: true
 
-  /@types/rails__ujs@6.0.3:
-    resolution: {integrity: sha512-QJHB/h77xJP30ZpM8F9cj9+hAI3jaafUMmtTRPYC8xRDX0oeFjgzQyAzJITD3LjqwgVJ5goKClZ64hPrYmLFdQ==}
+  /@types/rails__ujs@6.0.4:
+    resolution: {integrity: sha512-4A8+Xp+2bd4E/mLjfwldc46katQQJfLfwTRbhDBoQyj4timlpWfJ6uHqwyre/qwcapgjKtVd365pt9ovD/3tRw==}
     dev: true
 
   /@types/semver@7.5.1:
