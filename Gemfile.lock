@@ -184,7 +184,7 @@ GEM
       capybara (~> 3.0)
       ferrum (~> 0.14.0)
     dalli (3.2.6)
-    database_consistency (1.7.21)
+    database_consistency (1.7.22)
       activerecord (>= 3.2)
     date (3.3.4)
     debug_inspector (1.1.0)
