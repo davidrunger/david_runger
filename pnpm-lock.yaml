@@ -182,8 +182,8 @@ devDependencies:
     specifier: ^6.0.0
     version: 6.0.0
   '@types/rails__actioncable':
-    specifier: ^6.1.8
-    version: 6.1.8
+    specifier: ^6.1.9
+    version: 6.1.9
   '@types/rails__ujs':
     specifier: ^6.0.4
     version: 6.0.4
@@ -2104,8 +2104,8 @@ packages:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
     dev: true
 
-  /@types/rails__actioncable@6.1.8:
-    resolution: {integrity: sha512-nKdKS8K6asR5qdRw9M0vQjT84QCZut9SKavdxlMUERO2oz4PlC5ZPe0H15sbIURyGRwq5rVQHPpjgxEivI05qg==}
+  /@types/rails__actioncable@6.1.9:
+    resolution: {integrity: sha512-jgRBhXIt551LydwnT0t0NngV96hBsqF8lR1y37DtPzewlPUZCgDvv3NyZjj3gI3KpILC7i2/T/42h4mzNv52Lw==}
     dev: true
 
   /@types/rails__ujs@6.0.4:

@@ -69,7 +69,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/lodash-es": "^4.17.11",
     "@types/marked": "^6.0.0",
-    "@types/rails__actioncable": "^6.1.8",
+    "@types/rails__actioncable": "^6.1.9",
     "@types/rails__ujs": "^6.0.4",
     "@types/strftime": "^0.9.7",
     "@types/toastify-js": "^1.12.3",
