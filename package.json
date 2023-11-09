@@ -73,7 +73,7 @@
     "@types/rails__ujs": "^6.0.4",
     "@types/strftime": "^0.9.7",
     "@types/toastify-js": "^1.12.3",
-    "@types/when-dom-ready": "^1.2.1",
+    "@types/when-dom-ready": "^1.2.2",
     "@typescript-eslint/parser": "^6.10.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/language-plugin-pug": "^1.8.22",
