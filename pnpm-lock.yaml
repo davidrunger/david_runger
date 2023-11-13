@@ -36,8 +36,8 @@ dependencies:
     specifier: ^7.1.2
     version: 7.1.2
   '@rails/ujs':
-    specifier: ^7.1.1
-    version: 7.1.1
+    specifier: ^7.1.2
+    version: 7.1.2
   '@vitejs/plugin-vue':
     specifier: ^4.4.1
     version: 4.4.1(vite@4.5.0)(vue@3.3.8)
@@ -2033,8 +2033,8 @@ packages:
     resolution: {integrity: sha512-KGziTZfbmGm8/fHOpj515xupbYU+49hsp4etfdpoDJ/CEY2bRZR0cyFcJkpK6n0t/sxOHNWY6bo9vSgXZvT7Mg==}
     dev: false
 
-  /@rails/ujs@7.1.1:
-    resolution: {integrity: sha512-ywGwWNiqXN3Bb1BifVQTrkWEWcAGLHW3D0JNQMQeu57LsoluRzvnenNLPsmdoDPkrmSIASDXNsJiCIpUzFj8CA==}
+  /@rails/ujs@7.1.2:
+    resolution: {integrity: sha512-c5x02djEKEVVE4qfN4XgElJS4biM0xxtIVpcJ0ZHLK116U19rowTtmD0AJ/RCb3Xaewa4GPIWLlwgeC0dCQqzw==}
     dev: false
 
   /@rollup/pluginutils@5.0.4:
