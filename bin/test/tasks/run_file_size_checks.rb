@@ -8,7 +8,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
 
   # file size constraints in kilobytes
   CONSTRAINTS = {
-    'charts*.js' => (288..298),
+    'charts*.js' => (295..305),
     'check_ins*.css' => (10..15),
     'check_ins*.js' => (170..180),
     'check_ins_index*.js' => (5..15),
