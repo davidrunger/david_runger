@@ -10,7 +10,6 @@ require 'aws-sdk-s3'
 require 'dotenv/load' if ENV.fetch('CI', nil) != 'true'
 require 'ferrum'
 require 'nokogiri'
-require 'debug' if ENV.fetch('CI', nil) != 'true'
 
 class Prerenderer
   def initialize
