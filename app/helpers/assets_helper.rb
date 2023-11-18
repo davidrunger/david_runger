@@ -3,7 +3,7 @@
 module AssetsHelper
   def admin_ts_tag(pack_name)
     js_file_path =
-      JSON.parse(File.read('public/vite-admin/manifest.json')).
+      JSON.parse(File.read('public/vite-admin/.vite/manifest.json')).
         dig("admin_packs/#{pack_name}.ts", 'file')
     javascript_include_tag("/vite-admin/#{js_file_path}")
   end

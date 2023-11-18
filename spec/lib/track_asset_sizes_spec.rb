@@ -6,9 +6,9 @@ RSpec.describe TrackAssetSizes do
   describe '#perform' do
     subject(:perform) { worker.perform }
 
-    context 'when "public/vite/manifest.json" contains a JSON asset manifest' do
+    context 'when "public/vite/.vite/manifest.json" contains a JSON asset manifest' do
       before do
-        expect(File).to receive(:read).and_return(<<~JSON)
+        expect(File).to receive(:read).with('public/vite/.vite/manifest.json').and_return(<<~JSON)
           {
             "packs/groceries_app.ts": {
               "file": "assets/groceries_app.e736a509.js",

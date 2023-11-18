@@ -87,6 +87,6 @@ class TrackAssetSizes
 
   memo_wise \
   def manifest_json
-    File.read('public/vite/manifest.json')
+    File.read('public/vite/.vite/manifest.json')
   end
 end

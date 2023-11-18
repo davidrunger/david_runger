@@ -11,7 +11,7 @@ RSpec.describe AssetsHelper do
         %r{
           <
             script\s
-            src="/vite/assets/home_app.[a-z0-9]{8}.js"\s
+            src="/vite/assets/home_app-\w{8}\.js"\s
             type="module"\s
             defer="defer"
           ></script>
