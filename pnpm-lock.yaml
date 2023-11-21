@@ -182,8 +182,8 @@ devDependencies:
     specifier: ^6.0.4
     version: 6.0.4
   '@types/strftime':
-    specifier: ^0.9.7
-    version: 0.9.7
+    specifier: ^0.9.8
+    version: 0.9.8
   '@types/toastify-js':
     specifier: ^1.12.3
     version: 1.12.3
@@ -2183,8 +2183,8 @@ packages:
     resolution: {integrity: sha512-cJRQXpObxfNKkFAZbJl2yjWtJCqELQIdShsogr1d2MilP8dKD9TE/nEKHkJgUNHdGKCQaf9HbIynuV2csLGVLg==}
     dev: true
 
-  /@types/strftime@0.9.7:
-    resolution: {integrity: sha512-aNUoIKyw37sr5vtJR2wr+2oPafrtWPAYucB4U9TkoKBcHmtvsnz9T8kzoXt3KFt3xwTb6EAAAPiYWAy+PmyFrw==}
+  /@types/strftime@0.9.8:
+    resolution: {integrity: sha512-QIvDlGAKyF3YJbT3QZnfC+RIvV5noyDbi+ZJ5rkaSRqxCGrYJefgXm3leZAjtoQOutZe1hCXbAg+p89/Vj4HlQ==}
     dev: true
 
   /@types/toastify-js@1.12.3:
