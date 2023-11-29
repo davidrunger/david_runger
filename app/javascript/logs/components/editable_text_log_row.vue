@@ -29,7 +29,7 @@ export default {
     },
 
     html(): string {
-      return DOMPurify.sanitize(marked(this.logEntry.data));
+      return DOMPurify.sanitize(marked(this.logEntry.data, { async: false }) as string);
     },
   },
 
