@@ -29,7 +29,7 @@ module ApplicationWorker
 
   def perform(*args)
     with_lock_or_reschedule(args) do
-      disable_flag_name = "disable_#{self.class.name.underscore}_worker".to_sym
+      disable_flag_name = :"disable_#{self.class.name.underscore}_worker"
       if Flipper.enabled?(disable_flag_name)
         logger.info(<<~LOG.squish)
           Skipping #{self.class.name} job because the `#{disable_flag_name}` flag is enabled.
