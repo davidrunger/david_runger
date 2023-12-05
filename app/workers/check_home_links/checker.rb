@@ -11,6 +11,7 @@ class CheckHomeLinks::Checker
     'https://davidrunger.com/logs/' => 302,
     'https://davidrunger.com/quizzes/' => 302,
     'https://davidrunger.com/workout/' => 302,
+    'https://www.commonlit.org/' => [200, 403],
     'https://www.linkedin.com/in/davidrunger/' => [200, 999],
   }
   STATUS_EXPECTATIONS.default = 200
