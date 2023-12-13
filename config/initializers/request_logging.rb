@@ -32,7 +32,9 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
     total:
       # Dokku adds an `X-Request-Start` header which is the unix timestamp (in seconds with
       # milliseconds resolution) when the request was received by nginx)
+      # rubocop:disable Lint/NumberConversion
       if (request_start_time_in_seconds = payload[:headers]['HTTP_X_REQUEST_START'].presence&.to_f)
+        # rubocop:enable Lint/NumberConversion
         # number of milliseconds (rounded to integer) since the request was received by the router
         ((Time.current.to_f - request_start_time_in_seconds) * 1_000.0).round
       end,
