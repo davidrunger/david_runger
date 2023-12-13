@@ -70,4 +70,8 @@ class Request < ApplicationRecord
       view
     ]
   end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[admin_user auth_token user]
+  end
 end
