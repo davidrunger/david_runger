@@ -187,7 +187,7 @@ GEM
     database_consistency (1.7.22)
       activerecord (>= 3.2)
     date (3.3.4)
-    debug_inspector (1.1.0)
+    debug_inspector (1.2.0)
     devise (4.9.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
