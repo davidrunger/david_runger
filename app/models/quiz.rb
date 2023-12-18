@@ -56,7 +56,7 @@ class Quiz < ApplicationRecord
   )
 
   STATUSES.each do |status|
-    define_method("#{status}?") do
+    define_method(:"#{status}?") do
       self.status == status
     end
   end
