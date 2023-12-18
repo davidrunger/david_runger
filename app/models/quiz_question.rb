@@ -39,7 +39,7 @@ class QuizQuestion < ApplicationRecord
       scope status, -> { where(status:) }
     end
 
-    define_method("#{status}?") do
+    define_method(:"#{status}?") do
       self.status == status
     end
   end
