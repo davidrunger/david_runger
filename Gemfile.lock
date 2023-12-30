@@ -110,8 +110,6 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
-    anyway_config (2.6.1)
-      ruby-next-core (~> 1.0)
     arbre (1.7.0)
       activesupport (>= 3.0.0)
       ruby2_keywords (>= 0.0.2)
@@ -212,7 +210,6 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     dry-cli (1.0.0)
-    dry-initializer (3.1.1)
     e2mmap (0.1.0)
     erubi (1.12.0)
     factory_bot (6.4.4)
@@ -291,8 +288,6 @@ GEM
     irb (1.11.0)
       rdoc
       reline (>= 0.3.8)
-    isolator (1.0.1)
-      sniffer (>= 0.5.0)
     jaro_winkler (1.5.6)
     jmespath (1.6.2)
     jquery-rails (4.6.0)
@@ -554,14 +549,13 @@ GEM
       rubocop (~> 1.40)
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
-    ruby-next-core (1.0.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     runger_actions (0.19.2)
       memo_wise (>= 1.7, < 2)
       rails (>= 6, < 8)
       shaped (>= 0.9, < 0.11)
-    runger_config (4.0.0)
+    runger_config (5.0.0)
       activesupport (>= 7.1.2)
     runger_email_reply_trimmer (0.2.2)
     runger_style (0.6.0)
@@ -581,7 +575,7 @@ GEM
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.14.0)
-    simple_cov-formatter-terminal (0.3.1)
+    simple_cov-formatter-terminal (1.0.0)
       activesupport (>= 7.0.4, < 8)
       memo_wise (>= 1.7.0, < 2)
       rouge (>= 4.0.0, < 5)
@@ -600,9 +594,6 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sniffer (0.5.0)
-      anyway_config (>= 1.0)
-      dry-initializer (~> 3)
     solargraph (0.50.0)
       backport (~> 1.2)
       benchmark
@@ -714,7 +705,6 @@ DEPENDENCIES
   hotwire-livereload
   http_logger
   immigrant
-  isolator
   js-routes
   json-schema
   jwt
@@ -770,7 +760,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.3.0p0
 
 BUNDLED WITH
-   2.4.19
+   2.5.3
