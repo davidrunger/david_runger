@@ -120,8 +120,8 @@ dependencies:
     specifier: ^3.4.4
     version: 3.4.4
   marked:
-    specifier: ^11.1.0
-    version: 11.1.0
+    specifier: ^11.1.1
+    version: 11.1.1
   normalize.css:
     specifier: ^8.0.1
     version: 8.0.1
@@ -2151,7 +2151,7 @@ packages:
     resolution: {integrity: sha512-jmjpa4BwUsmhxcfsgUit/7A9KbrC48Q0q8KvnY107ogcjGgTFDlIL3RpihNpx2Mu1hM4mdFQjoVc4O6JoGKHsA==}
     deprecated: This is a stub types definition. marked provides its own type definitions, so you do not need this installed.
     dependencies:
-      marked: 11.1.0
+      marked: 11.1.1
     dev: true
 
   /@types/minimist@1.2.2:
@@ -4408,8 +4408,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /marked@11.1.0:
-    resolution: {integrity: sha512-fvKJWAPEafVj1dwGwcPI5mBB/0pvViL6NlCbNDG1HOIRwwAU/jeMoFxfbRLuirO1wRH7m4yPvBqD/O1wyWvayw==}
+  /marked@11.1.1:
+    resolution: {integrity: sha512-EgxRjgK9axsQuUa/oKMx5DEY8oXpKJfk61rT5iY3aRlgU6QJtUcxU5OAymdhCvWvhYcd9FKmO5eQoX8m9VGJXg==}
     engines: {node: '>= 18'}
     hasBin: true
 
