@@ -20,7 +20,7 @@ RSpec.describe 'Logs app' do
 
         log = user.logs.first!
         other_log = user.logs.second!
-        click_link(log.name)
+        click_on(log.name)
 
         expect(page).to have_current_path("/logs/#{log.slug}")
         expect(page).to have_text(log.name)
@@ -41,7 +41,7 @@ RSpec.describe 'Logs app' do
           first_log_entry_text = 'Some great text log entry content!'
           expect {
             first('.new-log-input textarea').native.send_keys(first_log_entry_text)
-            click_button('Add')
+            click_on('Add')
             expect(page).to have_text(first_log_entry_text) # wait for AJAX request to complete
           }.to change {
             log.reload.log_entries.count
@@ -54,7 +54,7 @@ RSpec.describe 'Logs app' do
           second_log_entry_text = 'Even more great content!'
           expect {
             first('.new-log-input textarea').native.send_keys(second_log_entry_text)
-            click_button('Add')
+            click_on('Add')
             expect(page).to have_text(second_log_entry_text) # wait for AJAX request to complete
             expect(page).to have_text(first_log_entry_text) # confirm first log entry's still there
           }.to change {

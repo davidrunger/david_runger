@@ -15,7 +15,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         visit(login_path)
         expect(page).to have_css('button.google-login')
 
-        expect { click_button(class: 'google-login') }.not_to change { User.count }
+        expect { click_on(class: 'google-login') }.not_to change { User.count }
 
         visit(logs_path)
         expect(page).to have_text(user.email)
@@ -31,7 +31,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         visit(login_path)
         expect(page).to have_css('button.google-login')
 
-        expect { click_button(class: 'google-login') }.to change { User.count }.by(1)
+        expect { click_on(class: 'google-login') }.to change { User.count }.by(1)
         user = User.find_by!(email: stubbed_user_email)
 
         visit(logs_path)
@@ -71,7 +71,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         visit(login_path)
         expect(page).to have_css('button.google-login')
 
-        click_button(class: 'google-login')
+        click_on(class: 'google-login')
 
         expect(page).to have_text(google_response_content)
       end

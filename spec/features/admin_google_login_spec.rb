@@ -11,7 +11,7 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
       visit(admin_login_path)
       expect(page).to have_css('button.google-login')
 
-      expect { click_button(class: 'google-login') }.not_to change { AdminUser.count }
+      expect { click_on(class: 'google-login') }.not_to change { AdminUser.count }
 
       visit(admin_root_path)
       expect(page).to have_text('David Runger')
@@ -29,7 +29,7 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
       visit(admin_login_path)
       expect(page).to have_css('button.google-login')
 
-      expect { click_button(class: 'google-login') }.not_to change { AdminUser.count }
+      expect { click_on(class: 'google-login') }.not_to change { AdminUser.count }
       expect(AdminUser.find_by(email: stubbed_admin_user_email)).to eq(nil)
 
       expect(page).to have_text("#{stubbed_admin_user_email} is not authorized to access admin")

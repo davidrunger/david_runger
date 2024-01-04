@@ -33,19 +33,19 @@ RSpec.describe 'Check-Ins app' do
           Sidekiq::Testing.inline!
           activate_feature!(:disable_fetch_ip_info_for_request_worker)
           num_emails_before = ActionMailer::Base.deliveries.size
-          click_button('Submit')
+          click_on('Submit')
           wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 1)
           Sidekiq::Testing.disable!
 
           expect(page).to have_text('Invitation sent.')
 
           # add an emotional need
-          click_link('Click here')
+          click_on('Click here')
           new_need_name = Faker::Emotion.unique.noun.capitalize
           new_need_description = Faker::Company.unique.bs.capitalize
           fill_in('Name', with: new_need_name)
           fill_in('Description', with: new_need_description)
-          click_button('Create Emotional need')
+          click_on('Create Emotional need')
 
           expect(page).to have_text("#{new_need_name} (#{new_need_description})")
 
@@ -58,7 +58,7 @@ RSpec.describe 'Check-Ins app' do
             end.to eq(true)
 
             open_email(proposee.email)
-            current_email.click_link('accept')
+            current_email.click_on('accept')
             expect(page).to have_content('Marriage created.')
           end
         end
@@ -82,7 +82,7 @@ RSpec.describe 'Check-Ins app' do
           expect(page).to have_text('Previous check-ins')
           expect(page).to have_text('Manage emotional needs')
 
-          click_button('Create a new check-in')
+          click_on('Create a new check-in')
 
           check_in = CheckIn.order(:created_at).last!
           expect(page).to have_current_path(check_in_path(check_in))
@@ -94,7 +94,7 @@ RSpec.describe 'Check-Ins app' do
               exists?(user:, score: nil)
           end.to eq(false)
           sleep(0.2) # this seems to be needed to ensure the rating update transaction is committed
-          click_button('Submit Check-in')
+          click_on('Submit Check-in')
           wait_for { CheckInSubmission.exists?(user:, check_in:) }.to eq(true)
           expect(page).to have_text("They didn't complete it yet.")
           sleep(0.2) # this might help to make switching to the other window more reliable
@@ -113,7 +113,7 @@ RSpec.describe 'Check-Ins app' do
                 exists?(user: spouse, score: nil)
             end.to eq(false)
             sleep(0.2) # this might help ensure the rating update transaction is committed
-            click_button('Submit Check-in')
+            click_on('Submit Check-in')
             expect(page).to have_text(
               /Their answers #{first_emotional_need.name}igraph -3-2-101😀3/,
             )
@@ -143,7 +143,7 @@ RSpec.describe 'Check-Ins app' do
           # view a graph
           first('a', text: 'graph').click
           # go back
-          click_link('Go back')
+          click_on('Go back')
           # check for link(s) to graph of partner's ratings of user
           expect(page).to have_link(
             'graph',
