@@ -19,7 +19,7 @@ RSpec.describe 'Quizzes app' do
       new_quiz_name = 'Birthday Quiz'
       fill_in('quiz_name', with: new_quiz_name)
       button_click_time = Time.current
-      click_button('Create quiz')
+      click_on('Create quiz')
 
       # quiz show page expectations
       expect(page).to have_css('h1', text: new_quiz_name)
@@ -41,14 +41,14 @@ RSpec.describe 'Quizzes app' do
           page.has_css?('input#display_name')
         end.to eq(true)
         fill_in('display_name', with: participant_name)
-        click_button('Join the quiz!')
+        click_on('Join the quiz!')
       end
 
       # expect participant is now listed
       expect(page).to have_text(participant_name)
 
       # add questions
-      click_link('Add questions')
+      click_on('Add questions')
       expect(page).to have_css('textarea#questions')
       fill_in('questions', with: <<~QUESTIONS)
         Which is biggest?
@@ -60,7 +60,7 @@ RSpec.describe 'Quizzes app' do
         Neptune
         -Pluto
       QUESTIONS
-      click_button('Save')
+      click_on('Save')
 
       # expect questions and answers are now listed on the show page
       expect(page).to have_text('Which is biggest?')
@@ -69,28 +69,28 @@ RSpec.describe 'Quizzes app' do
       expect(page).to have_text('Neptune')
 
       # start the quiz
-      click_button('Start quiz!')
+      click_on('Start quiz!')
 
       first_question, second_question = QuizQuestion.order(:created_at).last(2)
 
       # participant chooses a correct answer
       using_session('Quiz participant session') do
         choose(first_question.answers.correct.first!.content)
-        click_button('Submit')
+        click_on('Submit')
       end
 
       # close question (reveal answer) and move to next question
-      click_button('Close question')
-      click_button('Next question')
+      click_on('Close question')
+      click_on('Next question')
 
       # participant chooses an incorrect answer
       using_session('Quiz participant session') do
         choose(second_question.answers.first!.content)
-        click_button('Submit')
+        click_on('Submit')
       end
 
       # close question (reveal answer)
-      click_button('Close question')
+      click_on('Close question')
 
       # verify participant sees they got first question right and second question wrong
       using_session('Quiz participant session') do
