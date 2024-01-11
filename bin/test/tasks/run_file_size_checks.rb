@@ -10,7 +10,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
   CONSTRAINTS = {
     'charts*.js' => (295..305),
     'check_ins*.css' => (10..15),
-    'check_ins*.js' => (170..180),
+    'check_ins*.js' => (175..185),
     'check_ins_index*.js' => (5..15),
     'groceries*.css' => (100..110),
     'groceries*.js' => (395..405),
