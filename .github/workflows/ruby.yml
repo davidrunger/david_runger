@@ -44,13 +44,12 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 8
     - uses: actions/setup-node@v4
       with:
         node-version-file: .nvmrc
         cache: pnpm
+    - name: Install pnpm
+      run: npm install -g pnpm@8
     - name: Run tests & linters
       run: bin/pallets --verbose -r ./bin/run-tests.rb
       env:
