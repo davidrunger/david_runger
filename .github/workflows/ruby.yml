@@ -37,7 +37,7 @@ jobs:
         ports:
           - 6379:6379 # Maps port 6379 on service container to the host
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
     - name: Set up Ruby
@@ -47,7 +47,7 @@ jobs:
     - uses: pnpm/action-setup@v2
       with:
         version: 8
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version-file: .nvmrc
         cache: pnpm
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
