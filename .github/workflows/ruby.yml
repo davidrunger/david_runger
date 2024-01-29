@@ -47,7 +47,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version-file: .nvmrc
-        cache: pnpm
     - name: Install pnpm
       run: npm install -g pnpm@8
     - name: Run tests & linters
