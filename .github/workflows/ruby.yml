@@ -86,7 +86,7 @@ jobs:
         path: spec/fixtures/
         retention-days: 5
     - name: Upload Code Coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         directory: tmp/simple_cov
 
