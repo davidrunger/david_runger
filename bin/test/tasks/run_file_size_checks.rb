@@ -21,7 +21,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'marriage*.js' => (10..20),
     'quizzes*.js' => (123..133),
     'styles*.css' => (15..25),
-    'turbo*.js' => (70..80),
+    'turbo*.js' => (90..100),
     'workout*.css' => (93..103),
     'workout*.js' => (390..400),
   }.freeze
