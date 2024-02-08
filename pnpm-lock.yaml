@@ -27,8 +27,8 @@ dependencies:
     specifier: 1.0.0-beta.6
     version: 1.0.0-beta.6
   '@hotwired/turbo':
-    specifier: ^8.0.0
-    version: 8.0.0
+    specifier: ^8.0.1
+    version: 8.0.1
   '@hotwired/turbo-rails':
     specifier: ^8.0.0
     version: 8.0.0
@@ -1754,12 +1754,12 @@ packages:
   /@hotwired/turbo-rails@8.0.0:
     resolution: {integrity: sha512-5+yAKXFarExK3Q1oLYtqiunOgd8Rk9WiSy759MsujquUippgUZMBAfXjrYeRF/x8GslWJjvWZzpQsM5dzAwkOQ==}
     dependencies:
-      '@hotwired/turbo': 8.0.0
+      '@hotwired/turbo': 8.0.1
       '@rails/actioncable': 7.1.3
     dev: false
 
-  /@hotwired/turbo@8.0.0:
-    resolution: {integrity: sha512-9jjazHwVMwnCRPhQJ2uDvE6GbcIX4IplxJA102/xpwVYyrBhrJa5lqiVrHEFb0ehnZ79O9Rca1E/lJqTeNRRsw==}
+  /@hotwired/turbo@8.0.1:
+    resolution: {integrity: sha512-6DdRoFV8p1qM2YxieZ0McSzFfdKHH85FQn3C8UpLDgyD1UDb3ERhUsXg65M6nPuZeHtBZLY4hUumMdaAP0N1+w==}
     engines: {node: '>= 14'}
     dev: false
 
