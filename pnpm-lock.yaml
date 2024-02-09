@@ -30,8 +30,8 @@ dependencies:
     specifier: ^8.0.1
     version: 8.0.1
   '@hotwired/turbo-rails':
-    specifier: ^8.0.0
-    version: 8.0.0
+    specifier: ^8.0.1
+    version: 8.0.1
   '@rails/actioncable':
     specifier: ^7.1.3
     version: 7.1.3
@@ -1742,8 +1742,8 @@ packages:
     resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
     dev: false
 
-  /@hotwired/turbo-rails@8.0.0:
-    resolution: {integrity: sha512-5+yAKXFarExK3Q1oLYtqiunOgd8Rk9WiSy759MsujquUippgUZMBAfXjrYeRF/x8GslWJjvWZzpQsM5dzAwkOQ==}
+  /@hotwired/turbo-rails@8.0.1:
+    resolution: {integrity: sha512-E4um0sxC3d4Tts7HCDMjwFILs3FBsuv0hI7MU9srseFgOZLoRVJHI8aAa46ws9sdXOuOjbjeH38d5affhd7shg==}
     dependencies:
       '@hotwired/turbo': 8.0.1
       '@rails/actioncable': 7.1.3
@@ -2500,7 +2500,7 @@ packages:
       '@vue/shared': 3.4.16
       estree-walker: 2.0.2
       magic-string: 0.30.7
-      postcss: 8.4.34
+      postcss: 8.4.35
       source-map-js: 1.0.2
     dev: false
 
