@@ -5,8 +5,8 @@
         "type": "startup",
         "path": "/",
         "content": "David Runger",
-        "attempts": 60,
         "wait": 1,
+        "attempts": 60,
       }
     ]
   }
