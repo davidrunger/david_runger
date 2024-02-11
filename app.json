@@ -1,0 +1,13 @@
+{
+  "healthchecks": {
+    "web": [
+      {
+        "type": "startup",
+        "path": "/",
+        "content": "David Runger",
+        "attempts": 60,
+        "wait": 1,
+      }
+    ]
+  }
+}
