@@ -6,7 +6,7 @@
         "path": "/",
         "content": "David Runger",
         "wait": 1,
-        "attempts": 60,
+        "attempts": 60
       }
     ]
   }
