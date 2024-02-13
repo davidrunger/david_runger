@@ -6,13 +6,6 @@ GIT
       msgpack
       redis (~> 5.0)
 
-GIT
-  remote: https://github.com/davidrunger/redlock-rb.git
-  revision: 8bb0d526e0d88a5b08aca0ff36bcfee8cf7ba79c
-  specs:
-    redlock (2.0.2)
-      redis-client (>= 0.15.0, < 0.18.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -485,8 +478,10 @@ GEM
       psych (>= 4.0.0)
     redis (5.1.0)
       redis-client (>= 0.17.0)
-    redis-client (0.17.1)
+    redis-client (0.20.0)
       connection_pool
+    redlock (2.0.6)
+      redis-client (>= 0.14.1, < 1.0.0)
     regexp_parser (2.9.0)
     reline (0.4.2)
       io-console (~> 0.5)
@@ -743,7 +738,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-reverse-proxy
   redis-client
-  redlock!
+  redlock
   request_store
   request_store-sidekiq
   rollbar
