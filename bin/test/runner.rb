@@ -32,7 +32,7 @@ class Test::Runner < Pallets::Workflow
       if Test::RequirementsResolver.verify?
         confirm_config
       else
-        system('clear')
+        system('clear') if ENV['TERM']
         register_tasks_and_run
       end
     end
@@ -43,7 +43,7 @@ class Test::Runner < Pallets::Workflow
     end
 
     def print_config
-      system('clear')
+      system('clear') if ENV['TERM']
 
       ap('Running these tasks:')
       ap(required_tasks.map(&:name).map { _1.gsub('Test::Tasks::', '') }.sort)
