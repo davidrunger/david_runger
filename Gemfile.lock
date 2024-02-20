@@ -194,9 +194,6 @@ GEM
     diff-lcs (1.5.1)
     docile (1.4.0)
     dotenv (3.0.2)
-    dotenv-rails (3.0.2)
-      dotenv (= 3.0.2)
-      railties (>= 6.1)
     draper (4.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -698,7 +695,7 @@ DEPENDENCIES
   dalli
   database_consistency
   devise
-  dotenv-rails
+  dotenv
   draper
   factory_bot_rails
   faker
