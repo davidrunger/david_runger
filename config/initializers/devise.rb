@@ -8,9 +8,8 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # rubocop:disable Layout/LineLength
-  # config.secret_key = 'c6c04e70cbae96857368f659652a3a191466b9848f20923b5b8e65ac9c5eebd45b2d5e646cc071dd9ae87ad17e156117538c214cfdc272e837cbc5afffa799af'
-  # rubocop:enable Layout/LineLength
+  # https://github.com/heartcombo/devise/issues/ 5644#issuecomment-1804626431
+  config.secret_key = Rails.application.secret_key_base
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
