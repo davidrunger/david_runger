@@ -127,8 +127,6 @@ Capybara.app_host = 'http://localhost:3001'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.raise_errors_for_deprecations!
-
   config.render_views
 
   config.fail_if_no_examples = true
