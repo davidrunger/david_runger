@@ -36,10 +36,7 @@ gem 'puma'
 gem 'pundit'
 gem 'rack-attack'
 gem 'rails'
-gem 'rails-reverse-proxy',
-  # https://github.com/axsuul/rails-reverse-proxy/pull/76
-  github: 'davidrunger/rails-reverse-proxy',
-  ref: 'f801620d2c7b94bc7fbecebe3cdbae46aa021656'
+gem 'rails-reverse-proxy'
 gem 'redis-client'
 gem 'redlock'
 gem 'request_store'
