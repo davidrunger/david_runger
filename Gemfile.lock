@@ -518,7 +518,7 @@ GEM
       rspec-expectations (~> 3.12)
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
-    rspec-support (3.13.0)
+    rspec-support (3.13.1)
     rspec-wait (0.0.9)
       rspec (>= 3, < 4)
     rubocop (1.60.2)
