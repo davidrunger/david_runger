@@ -560,7 +560,7 @@ GEM
     runger_config (5.0.0)
       activesupport (>= 7.1.2)
     runger_email_reply_trimmer (0.2.2)
-    runger_style (1.6.0)
+    runger_style (1.7.0)
       rubocop (>= 1.38.0, < 2)
     sanitize (6.1.0)
       crass (~> 1.0.2)
