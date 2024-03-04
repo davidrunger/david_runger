@@ -332,7 +332,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.0.3)
+    marcel (1.0.4)
     matrix (0.4.2)
     memo_wise (1.8.0)
     method_source (1.0.0)
