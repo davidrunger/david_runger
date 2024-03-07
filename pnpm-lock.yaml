@@ -120,8 +120,8 @@ dependencies:
     specifier: ^3.4.4
     version: 3.4.4
   marked:
-    specifier: ^12.0.0
-    version: 12.0.0
+    specifier: ^12.0.1
+    version: 12.0.1
   normalize.css:
     specifier: ^8.0.1
     version: 8.0.1
@@ -2139,7 +2139,7 @@ packages:
     resolution: {integrity: sha512-jmjpa4BwUsmhxcfsgUit/7A9KbrC48Q0q8KvnY107ogcjGgTFDlIL3RpihNpx2Mu1hM4mdFQjoVc4O6JoGKHsA==}
     deprecated: This is a stub types definition. marked provides its own type definitions, so you do not need this installed.
     dependencies:
-      marked: 11.2.0
+      marked: 12.0.1
     dev: true
 
   /@types/minimist@1.2.2:
@@ -4461,17 +4461,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /marked@11.2.0:
-    resolution: {integrity: sha512-HR0m3bvu0jAPYiIvLUUQtdg1g6D247//lvcekpHO1WMvbwDlwSkZAX9Lw4F4YHE1T0HaaNve0tuAWuV1UJ6vtw==}
+  /marked@12.0.1:
+    resolution: {integrity: sha512-Y1/V2yafOcOdWQCX0XpAKXzDakPOpn6U0YLxTJs3cww6VxOzZV1BTOOYWLvH3gX38cq+iLwljHHTnMtlDfg01Q==}
     engines: {node: '>= 18'}
     hasBin: true
-    dev: true
-
-  /marked@12.0.0:
-    resolution: {integrity: sha512-Vkwtq9rLqXryZnWaQc86+FHLC6tr/fycMfYAhiOIXkrNmeGAyhSxjqu0Rs1i0bBqw5u0S7+lV9fdH2ZSVaoa0w==}
-    engines: {node: '>= 18'}
-    hasBin: true
-    dev: false
 
   /mathml-tag-names@2.1.3:
     resolution: {integrity: sha512-APMBEanjybaPzUrfqU0IMU5I0AswKMH7k8OTLs0vvV4KZpExkTkY87nR/zpbuTPj+gARop7aGUbl11pnDfW6xg==}
