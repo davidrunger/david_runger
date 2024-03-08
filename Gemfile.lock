@@ -6,6 +6,12 @@ GIT
       msgpack
       redis (~> 5.0)
 
+GIT
+  remote: https://github.com/ruby/prism.git
+  revision: 2e19b8f77d2155aa1163a2ba7a50466a24af133e
+  specs:
+    prism (0.24.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -559,7 +565,8 @@ GEM
     runger_config (5.0.0)
       activesupport (>= 7.1.2)
     runger_email_reply_trimmer (0.2.2)
-    runger_style (1.7.0)
+    runger_style (2.0.0)
+      prism (>= 0.24.0)
       rubocop (>= 1.38.0, < 2)
     sanitize (6.1.0)
       crass (~> 1.0.2)
@@ -727,6 +734,7 @@ DEPENDENCIES
   paper_trail
   percy-capybara
   pg
+  prism!
   pry-byebug
   puma
   pundit
