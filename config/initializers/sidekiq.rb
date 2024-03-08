@@ -2,8 +2,9 @@
 
 Sidekiq.strict_args!
 
-# We'll give Sidekiq db 1. The app uses db 0 for its direct uses.
-redis_options = RedisOptions.new(db: 1)
+# We'll give Sidekiq db 1 (by default). The app uses db 0 for its direct uses.
+db = Integer(ENV.fetch('REDIS_DATABASE_NUMBER', 1))
+redis_options = RedisOptions.new(db:)
 
 Sidekiq.configure_client do |config|
   config.redis = { url: redis_options.url }
