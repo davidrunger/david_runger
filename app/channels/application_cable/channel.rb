@@ -24,10 +24,11 @@ class ApplicationCable::Channel < ActionCable::Channel::Base
     policy_instance = policy_klass.new(current_user, record)
 
     if !policy_instance.public_send(policy_query)
-      raise(Pundit::NotAuthorizedError, <<~ERROR.squish)
-        #{policy_klass} says that #{current_user.class}:#{current_user.id}
-        is not authorized to #{policy_query} #{record.class}:#{record.id}
-      ERROR
+      raise(
+        Pundit::NotAuthorizedError,
+        "#{policy_klass} says that #{current_user.class}:#{current_user.id} " \
+        "is not authorized to #{policy_query} #{record.class}:#{record.id}",
+      )
     end
   end
 end
