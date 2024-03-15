@@ -9,3 +9,10 @@ inherit_gem:
 
 require:
   - ./tools/custom_cops/dont_include_sidekiq_worker.rb
+
+AllCops:
+  Exclude:
+  <% `git status --ignored --porcelain`.lines.grep(/^!! /).each do |path| %>
+    - <%= path.sub(/^!! /, '').sub(/\/$/, '/**/*').rstrip %>
+  <% end %>
+    - db/schema.rb
