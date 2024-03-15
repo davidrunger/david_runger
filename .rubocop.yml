@@ -15,4 +15,3 @@ AllCops:
   <% `git status --ignored --porcelain`.lines.grep(/^!! /).each do |path| %>
     - <%= path.sub(/^!! /, '').sub(/\/$/, '/**/*').rstrip %>
   <% end %>
-    - db/schema.rb
