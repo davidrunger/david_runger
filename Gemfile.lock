@@ -576,7 +576,7 @@ GEM
     shaped (0.10.0)
       activemodel (>= 6, < 8)
       activesupport (>= 6, < 8)
-    shoulda-matchers (6.1.0)
+    shoulda-matchers (6.2.0)
       activesupport (>= 5.2.0)
     sidekiq (7.2.2)
       concurrent-ruby (< 2)
