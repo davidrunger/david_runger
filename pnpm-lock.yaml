@@ -18,8 +18,8 @@ dependencies:
     specifier: ^7.23.3
     version: 7.23.3(@babel/core@7.24.3)
   '@babel/plugin-transform-object-rest-spread':
-    specifier: ^7.24.0
-    version: 7.24.0(@babel/core@7.24.3)
+    specifier: ^7.24.1
+    version: 7.24.1(@babel/core@7.24.3)
   '@babel/preset-env':
     specifier: ^7.24.1
     version: 7.24.1(@babel/core@7.24.3)
@@ -287,11 +287,6 @@ packages:
     dependencies:
       '@babel/highlight': 7.24.2
       picocolors: 1.0.0
-    dev: false
-
-  /@babel/compat-data@7.23.5:
-    resolution: {integrity: sha512-uU27kfDRlhfKl+w1U6vp16IuvSLtjAxdArVXPa9BvLkrr7CYIsxH5adpHObeAGY/41+syctUWOZ140a2Rvkgjw==}
-    engines: {node: '>=6.9.0'}
     dev: false
 
   /@babel/compat-data@7.24.1:
@@ -1163,20 +1158,6 @@ packages:
       '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.24.3)
     dev: false
 
-  /@babel/plugin-transform-object-rest-spread@7.24.0(@babel/core@7.24.3):
-    resolution: {integrity: sha512-y/yKMm7buHpFFXfxVFS4Vk1ToRJDilIa6fKRioB9Vjichv58TDGXTvqV0dN7plobAmTW5eSEGXDngE+Mm+uO+w==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/compat-data': 7.23.5
-      '@babel/core': 7.24.3
-      '@babel/helper-compilation-targets': 7.23.6
-      '@babel/helper-plugin-utils': 7.24.0
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.3)
-      '@babel/plugin-transform-parameters': 7.23.3(@babel/core@7.24.3)
-    dev: false
-
   /@babel/plugin-transform-object-rest-spread@7.24.1(@babel/core@7.24.3):
     resolution: {integrity: sha512-XjD5f0YqOtebto4HGISLNfiNMTTs6tbkFf2TOqJlYKYmbo+mN9Dnpl4SRoofiziuOWMIyq3sZEUqLo3hLITFEA==}
     engines: {node: '>=6.9.0'}
@@ -1222,16 +1203,6 @@ packages:
       '@babel/helper-plugin-utils': 7.24.0
       '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
       '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
-    dev: false
-
-  /@babel/plugin-transform-parameters@7.23.3(@babel/core@7.24.3):
-    resolution: {integrity: sha512-09lMt6UsUb3/34BbECKVbVwrT9bO6lILWln237z7sLaWnMsTi7Yc9fhX5DLpkJzAGfaReXI22wP41SZmnAA3Vw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.24.3
-      '@babel/helper-plugin-utils': 7.24.0
     dev: false
 
   /@babel/plugin-transform-parameters@7.24.1(@babel/core@7.24.3):
