@@ -13,6 +13,5 @@ module.exports = {
     'lodash',
     '@babel/syntax-dynamic-import',
     '@babel/proposal-object-rest-spread',
-    ['@babel/proposal-class-properties', { spec: true }],
   ],
 };
