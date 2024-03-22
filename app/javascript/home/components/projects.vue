@@ -46,8 +46,8 @@ HomeSection(section='projects' title='Projects')
           backend serves various
           #[a(href='https://vuejs.org/') Vue 3]
           front-end apps built with
-          #[a(href='https://pugjs.org') Pug] templates, ES6 (via
-          #[a(href='https://babeljs.io/') Babel]), and
+          #[a(href='https://pugjs.org') Pug] templates,
+          ES6, and
           #[a(href='https://sass-lang.com/') Sass].
 
         li.
