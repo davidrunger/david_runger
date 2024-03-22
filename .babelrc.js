@@ -12,6 +12,5 @@ module.exports = {
   plugins: [
     'lodash',
     '@babel/syntax-dynamic-import',
-    '@babel/proposal-object-rest-spread',
   ],
 };
