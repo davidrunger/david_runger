@@ -11,6 +11,5 @@ module.exports = {
 
   plugins: [
     'lodash',
-    '@babel/syntax-dynamic-import',
   ],
 };
