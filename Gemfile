@@ -76,7 +76,6 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'hotwire-livereload'
   gem 'http_logger'
   gem 'letter_opener'
   gem 'listen'
