@@ -76,14 +76,19 @@ RSpec.describe NullByteFinder do
       end
     end
 
-    context 'when the object is a symbol (or any other unsupported object type)' do
+    context 'when the object is a symbol' do
       let(:object) { :symbols_are_not_supported }
 
-      it 'raises an error' do
-        expect { has_null_byte? }.to raise_error(
-          RuntimeError,
-          'Do not know how to check for null bytes in object: :symbols_are_not_supported.',
-        )
+      it 'returns false' do
+        expect(has_null_byte?).to eq(false)
+      end
+    end
+
+    context 'when the object is an integer' do
+      let(:object) { 440 }
+
+      it 'returns false' do
+        expect(has_null_byte?).to eq(false)
       end
     end
   end

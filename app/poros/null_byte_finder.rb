@@ -6,17 +6,16 @@ class NullByteFinder
   end
 
   def has_null_byte?
-    if @object.blank?
-      false
-    elsif @object.is_a?(String)
+    case @object
+    when String
       @object.include?("\u0000")
-    elsif @object.is_a?(Array)
+    when Array
       @object.any? { NullByteFinder.new(_1).has_null_byte? }
-    elsif @object.is_a?(Hash)
+    when Hash
       @object.keys.any? { NullByteFinder.new(_1).has_null_byte? } ||
         @object.values.any? { NullByteFinder.new(_1).has_null_byte? }
     else
-      fail "Do not know how to check for null bytes in object: #{@object.inspect}."
+      false
     end
   end
 end
