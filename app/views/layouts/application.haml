@@ -38,7 +38,6 @@
 
     - if Rails.env.development? && !ENV['PRODUCTION_ASSET_CONFIG'].present?
       = vite_client_tag
-      = hotwire_livereload_tags
     = ts_tag('styles')
     = content_for(:extra_css)
     = content_for(:page_assets)
