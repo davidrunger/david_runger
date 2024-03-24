@@ -50,16 +50,11 @@ class SaveRequest
   def ban_reasons
     ban_reasons = []
 
-    if params_keys_and_values.compact.any? { _1.is_a?(String) && _1.include?("\u0000") }
-      ban_reasons << JSON(params_keys_and_values)
+    if NullByteFinder.new(params).has_null_byte?
+      ban_reasons << JSON(params)
     end
 
     ban_reasons
-  end
-
-  memo_wise \
-  def params_keys_and_values
-    params.keys + params.values
   end
 
   memo_wise \

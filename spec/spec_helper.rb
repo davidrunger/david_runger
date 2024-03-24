@@ -15,11 +15,10 @@ if is_ci
 elsif RSpec.configuration.files_to_run.one?
   require 'simple_cov/formatter/terminal'
   SimpleCov.formatter = SimpleCov::Formatter::Terminal
-  # rubocop:disable Performance/RedundantMerge
   SimpleCov::Formatter::Terminal.config.spec_to_app_file_map.merge!(
     %r{\Aspec/config/initializers/} => 'config/initializers/',
+    %r{\Aspec/poros/} => 'app/poros/',
   )
-  # rubocop:enable Performance/RedundantMerge
 end
 SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
 SimpleCov.start do
