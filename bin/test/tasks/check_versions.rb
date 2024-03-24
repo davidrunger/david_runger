@@ -11,7 +11,7 @@ class Test::Tasks::CheckVersions < Pallets::Task
 
     node_version = File.read('.nvmrc').rstrip
     execute_system_command(<<~COMMAND)
-      node --version && [ "$(node --version)" = '#{node_version}' ]
+      node --version && [ "$(node --version)" = 'v#{node_version}' ]
     COMMAND
 
     pnpm_version_specification = JSON.parse(File.read('package.json')).dig('engines', 'pnpm')
