@@ -104,7 +104,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
-    alba (3.0.3)
+    alba (3.1.0)
     amazing_print (1.6.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
