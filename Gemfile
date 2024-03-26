@@ -69,7 +69,6 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'runger_style', require: false
-  gem 'solargraph', require: false
   gem 'spring-commands-rspec'
 end
 
