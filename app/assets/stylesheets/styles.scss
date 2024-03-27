@@ -47,3 +47,15 @@ a {
 .hidden-scrollbars::-webkit-scrollbar {
   display: none;  /* Safari and Chrome https://stackoverflow.com/a/38994837/4009384 */
 }
+
+h1 {
+  font-size: 2rem;
+}
+
+.heading-2 {
+  font-size: 1.5rem;
+}
+
+.heading-3 {
+  font-size: 1.25rem;
+}

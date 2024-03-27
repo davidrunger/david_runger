@@ -1,16 +1,16 @@
 <template lang='pug'>
-#home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.bg-black(
+#home.flex.flex-col.relative.vh-100.items-center.justify-around.font-white-dark.p16.bg-dark-800(
   ref="homeRef"
 )
   .spacer.flex-grow-1
   #headline-container.flex-grow-1(data-section='home')
-    #headline-name.monospace.font-blue-light.border-bottom.border-gray.pb-2
+    #headline-name.monospace.font-blue-light.border.border-b-solid.border-zinc-500.pb-2
       span David Runger
-    #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
+    #headline-subtitle.sans-serif.font-size-10.light Full stack web developer
 
   HomeHeader
 
-  a.down-arrow-container.center.circle.mb3(href='#about')
+  a.down-arrow-container.text-center.rounded-full.mb3(href='#about')
     //- hat tip to https://codepen.io/postor/pen/mskxI for a starting point for this
     svg(class='arrow')
       path(d='M0 0 L12 12 L24 0')

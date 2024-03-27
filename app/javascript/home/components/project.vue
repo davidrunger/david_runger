@@ -1,20 +1,20 @@
 <template lang='pug'>
-.project-container.mt2
+.project-container.mt4
   .card
     .card__body
-      .project.p1
-        h2.center.mt0.mb1(
-          :class='$is_mobile_device ? "h3" : "h2"'
+      .project.p2
+        h2.text-center.mt0.mb2(
+          :class='$is_mobile_device ? "heading-3" : "heading-2"'
         )
           slot(name='title')
-        .center.gray.mb1
+        .text-center.mb2(class="text-[#aaa]")
           slot(name='technologies')
-        .center(
+        .text-center(
           v-if='$slots["links"]'
           :class='linksContainerClass'
         )
           slot(name='links')
-        .center(
+        .text-center(
           v-if='$slots["image"]'
           :class='imageContainerClass'
         )
@@ -22,7 +22,7 @@
 
         slot(name='overview')
 
-        h3.h3.bold.mb1(v-if='$slots["tech-list"] && $slots["overview"]') Tech
+        h3.heading-3.bold.mb2(v-if='$slots["tech-list"] && $slots["overview"]') Tech
         slot(name='tech-list')
 </template>
 
@@ -37,7 +37,7 @@ export default {
     linksContainerClass: {
       type: String,
       required: false,
-      default: 'mb2',
+      default: 'mb4',
     },
   },
 };

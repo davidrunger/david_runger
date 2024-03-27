@@ -1,12 +1,12 @@
 <template lang='pug'>
-header#header.flex-grow-1.flex.justify-between.bg-black.col-12.relative
-  .font-size-2.js-link.js-scroll-top.ml3
+header#header.flex-grow-1.flex.justify-between.bg-dark-800.w-full.relative
+  .font-size-5.js-link.js-scroll-top.ml-8
     a#logo.monospace.font-blue-light.opacity-animated(
       href='#home'
       :class='{ "opacity-0": homeIsVisible }'
     )
       | David Runger
-  nav#nav.sans-serif.flex.justify-around.absolute.mr3
+  nav#nav.sans-serif.flex.justify-around.absolute.mr8
     NavLink(section='about')
     NavLink(section='skills')
     NavLink(section='projects')
@@ -34,7 +34,7 @@ header#header.flex-grow-1.flex.justify-between.bg-black.col-12.relative
         li(@click='collapseMobileMenu')
           NavLink(section='resume')
         li(@click='collapseMobileMenu')
-          NavLink(section='contact')
+          NavLink(section='links' linkText='Contact')
 </template>
 
 <script lang='ts'>

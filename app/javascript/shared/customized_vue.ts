@@ -4,6 +4,8 @@ import whenDomReady from 'when-dom-ready';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 import * as Routes from '@/rails_assets/routes';
 
+import 'virtual:uno.css';
+
 window.Routes = Routes;
 
 export function renderApp(

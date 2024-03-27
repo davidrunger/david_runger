@@ -1,6 +1,6 @@
 <template lang='pug'>
 HomeSection(section='projects' title='Projects')
-  Project.mt3
+  Project.mt8
     template(v-slot:title)
       span DavidRunger.com
     template(v-slot:technologies)
@@ -123,11 +123,6 @@ HomeSection(section='projects' title='Projects')
           and
           #[a(href='https://github.com/jenseng/immigrant') Immigrant]
           help to ensure that the database is well-structured.
-
-        li.
-
-          #[a(href='https://basscss.com/') Basscss] provides CSS utility classes, so a
-          lot of styling can be done quickly and cleanly within the markup itself.
 
         li.
 

@@ -3,7 +3,7 @@ aside.border-right.border-gray(
   :class='{ collapsed }'
 )
   .overflow-auto.dvh-100.hidden-scrollbars
-    .sidebar-toggle__container.border-bottom
+    .sidebar-toggle__container.border-b
       button.sidebar-toggle(
         @click='collapsed = !collapsed'
         :class='{ "rotated-180": expanded }'

@@ -2,14 +2,14 @@
 HomeSection(section='about', title='About me', :renderHeadingManually='true')
   template(v-slot:default='slotProps')
     .sm-flex.row-reverse.items-center
-      .flex-2.mt1
-        .center.mt1.mb3
+      .flex-2.mt2
+        .text-center.mt2.mb8
           img.about-image.box-shadow(
             src='~img/david.webp'
             alt='A picture of me'
           )
 
-      .flex-3.p2.sm-px4
+      .flex-3.p-4.sm-px-16
         SectionHeader(:title='slotProps.title')
 
         p I'm a full stack web developer.
@@ -43,11 +43,6 @@ export default {
 @media (width >= 40em) {
   .sm-flex {
     display: flex;
-  }
-
-  .sm-px4 {
-    padding-left: var(--space-4);
-    padding-right: var(--space-4);
   }
 }
 

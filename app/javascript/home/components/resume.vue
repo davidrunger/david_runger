@@ -1,9 +1,9 @@
 <template lang='pug'>
-HomeSection.pb4(
+HomeSection.pb16(
   section='resume'
   title='Resume'
 )
-  a.resume-button.block.center(href='/David-Runger-Resume.pdf') View Resume (pdf)
+  a.resume-button.block.text-center(href='/David-Runger-Resume.pdf') View Resume (pdf)
 </template>
 
 <script lang='ts'>

@@ -3,6 +3,7 @@
 import { defineConfig } from 'vite';
 import RubyPlugin from 'vite-plugin-ruby';
 import ElementPlus from 'unplugin-element-plus/vite';
+import UnoCSS from 'unocss/vite'
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import FullReload from 'vite-plugin-full-reload';
@@ -16,6 +17,7 @@ export default defineConfig({
     ]),
     RubyPlugin(),
     ElementPlus(),
+    UnoCSS(),
     vue(),
   ],
   resolve: {
