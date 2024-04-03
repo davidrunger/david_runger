@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/ruby/prism.git
-  revision: fa4a1ee29e3f2ccd7f9b14a83924f3c73b7be798
+  revision: fc383255480f47ef7dfc63c2f8257a962819cb9a
   specs:
     prism (0.24.0)
 
