@@ -61,8 +61,6 @@ group :development, :test do
   gem 'dotenv'
   gem 'immigrant'
   gem 'isolator'
-  # Source prism from GitHub for unreleased fixes, e.g. https://github.com/ruby/prism/pull/ 2563 .
-  gem 'prism', github: 'ruby/prism', require: false
   gem 'pry-byebug', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
