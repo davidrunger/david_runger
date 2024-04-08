@@ -176,8 +176,8 @@ devDependencies:
     specifier: ^13.0.0
     version: 13.0.0(eslint-plugin-vue@9.24.0)(eslint@8.57.0)(typescript@5.4.4)
   '@vue/language-plugin-pug':
-    specifier: ^2.0.10
-    version: 2.0.10
+    specifier: ^2.0.11
+    version: 2.0.11
   eslint-import-resolver-typescript:
     specifier: ^3.6.1
     version: 3.6.1(@typescript-eslint/parser@7.5.0)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
@@ -1341,10 +1341,10 @@ packages:
       vue-template-compiler: 2.7.14
     dev: true
 
-  /@vue/language-plugin-pug@2.0.10:
-    resolution: {integrity: sha512-24sjtcUY7pAZBPRQSlWPkCZg7s5icr7ZyplbGikYhq92GNJGexP0beZQ/8GbzeqSWjv8xsN1uzTmNShztlB8+w==}
+  /@vue/language-plugin-pug@2.0.11:
+    resolution: {integrity: sha512-wVJbmeBx1Z5tF8j9V6BuJ/W/1Upniek3fhtwi+rZiiehyFtazZQSywYCjxzQ2P1fZM/Q9bBidLpX8m+P8yGObA==}
     dependencies:
-      '@volar/source-map': 2.2.0-alpha.5
+      '@volar/source-map': 2.2.0-alpha.6
       volar-service-pug: 0.0.38
     dev: true
 
