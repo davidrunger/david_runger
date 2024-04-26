@@ -15,3 +15,7 @@ AllCops:
   <% `git status --ignored --porcelain`.lines.grep(/^!! /).each do |path| %>
     - <%= path.sub(/^!! /, '').sub(/\/$/, '/**/*').rstrip %>
   <% end %>
+
+# Temporarily disable this cop because we are getting false positives with prism.
+Layout/HeredocIndentation:
+  Enabled: false
