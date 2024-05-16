@@ -176,8 +176,8 @@ devDependencies:
     specifier: ^13.0.0
     version: 13.0.0(eslint-plugin-vue@9.26.0)(eslint@8.57.0)(typescript@5.4.5)
   '@vue/language-plugin-pug':
-    specifier: ^2.0.17
-    version: 2.0.17
+    specifier: ^2.0.19
+    version: 2.0.19
   eslint-import-resolver-typescript:
     specifier: ^3.6.1
     version: 3.6.1(@typescript-eslint/parser@7.9.0)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
@@ -1218,37 +1218,19 @@ packages:
       vue: 3.4.27(typescript@5.4.5)
     dev: false
 
-  /@volar/language-core@2.2.0:
-    resolution: {integrity: sha512-a8WG9+4OdeNDW4ywABZIM6S6UN7em8uIlM/BZ2pWQUYrVmX+m8sj/X+QadvO+Li/t/LjAqbWJQtVgxdpEWLALQ==}
-    dependencies:
-      '@volar/source-map': 2.2.0
-    dev: true
-
   /@volar/language-core@2.2.4:
     resolution: {integrity: sha512-7As47GndxGxsqqYnbreLrfB5NDUeQioPM2LJKUuB4/34c0NpEJ2byVl3c9KYdjIdiEstWZ9JLtLKNTaPWb5jtA==}
     dependencies:
       '@volar/source-map': 2.2.4
     dev: true
 
-  /@volar/language-service@2.2.0:
-    resolution: {integrity: sha512-hLtIFpsOcfHJ7kllUDRU2Ap1IBGEnADyE7Ea3kPwvUHM43Qn+7lvpKXxX/UL2zVcQQrvHr0348Tfi9BF1aKD5A==}
+  /@volar/language-service@2.2.4:
+    resolution: {integrity: sha512-3OxJFADEsAZp1RoTS3SX2GY9SeVnB9mbd3N/Faz45IvnT2EFAyVJGPOyrz5bJDvKuCtjdoTNNWS1GX1bHGytrA==}
     dependencies:
-      '@volar/language-core': 2.2.0
+      '@volar/language-core': 2.2.4
       vscode-languageserver-protocol: 3.17.5
       vscode-languageserver-textdocument: 1.0.11
       vscode-uri: 3.0.8
-    dev: true
-
-  /@volar/source-map@2.2.0:
-    resolution: {integrity: sha512-HQlPRlHOVqCCHK8wI76ZldHkEwKsjp7E6idUc36Ekni+KJDNrqgSqPvyHQixybXPHNU7CI9Uxd9/IkxO7LuNBw==}
-    dependencies:
-      muggle-string: 0.4.1
-    dev: true
-
-  /@volar/source-map@2.2.2:
-    resolution: {integrity: sha512-vUwvZuSW6iN4JI9QRinh9EjFasx1TUtnaWMKwgWx08xz1PyYuNkLlWlrZXBZ5GGBhML0u230M/7X+AHY2h9yKg==}
-    dependencies:
-      muggle-string: 0.4.1
     dev: true
 
   /@volar/source-map@2.2.4:
@@ -1351,11 +1333,11 @@ packages:
       vue-template-compiler: 2.7.14
     dev: true
 
-  /@vue/language-plugin-pug@2.0.17:
-    resolution: {integrity: sha512-/okAMQWe3DuNQcAx4mL4LN073MHsCQbgujCZOnQBE/NJWU3YdEzqTDVP6qY1/5KoYquLV2tospRtRaWgzqOBtQ==}
+  /@vue/language-plugin-pug@2.0.19:
+    resolution: {integrity: sha512-Ee++xWL6/w9ImcYms5++lK5NXv4jxsTC6dtJgsNRYJh4jC3judGK4yEa7vryXaP/DaBxsCD1ihwi/CMUkTHuzg==}
     dependencies:
-      '@volar/source-map': 2.2.2
-      volar-service-pug: 0.0.44
+      '@volar/source-map': 2.2.4
+      volar-service-pug: 0.0.45
     dev: true
 
   /@vue/reactivity@3.4.27:
@@ -4236,27 +4218,27 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /volar-service-html@0.0.44(@volar/language-service@2.2.0):
-    resolution: {integrity: sha512-I6xSeixpZG0xbt1+EvuyDSLvEt8yM4B5S/oYgJo9lFa3wVVJN9Vjty5G1GFZav+FaYzUBe4VynvOPiYRwHlFUQ==}
+  /volar-service-html@0.0.45(@volar/language-service@2.2.4):
+    resolution: {integrity: sha512-tLTJqfy1v5C4nmeAsfekFIKPl4r4qDMyL0L9MWywr/EApZzPCsbeUGxCqdzxSMC2q7PMCfX2i167txDo+J0LVA==}
     peerDependencies:
-      '@volar/language-service': ~2.2.0
+      '@volar/language-service': ~2.2.3
     peerDependenciesMeta:
       '@volar/language-service':
         optional: true
     dependencies:
-      '@volar/language-service': 2.2.0
+      '@volar/language-service': 2.2.4
       vscode-html-languageservice: /@johnsoncodehk/vscode-html-languageservice@5.2.0-34a5462
       vscode-languageserver-textdocument: 1.0.11
       vscode-uri: 3.0.8
     dev: true
 
-  /volar-service-pug@0.0.44:
-    resolution: {integrity: sha512-iawFuax+vUfd8msZ0dvQKjw2A5pLNvf/Mq9umXe7Aoz1cuuIfYQX8hFQYFdwEagPjWha6QBeQnwxrAfSXNeZaA==}
+  /volar-service-pug@0.0.45:
+    resolution: {integrity: sha512-Xr45hVTMzt6NI2xgA69+Evzmes6pePqR2X4wl6io76M70M3W+QDbvHH3u8+5QrvVvbQGY0HledQcT29bCWRADQ==}
     dependencies:
-      '@volar/language-service': 2.2.0
+      '@volar/language-service': 2.2.4
       pug-lexer: 5.0.1
       pug-parser: 6.0.0
-      volar-service-html: 0.0.44(@volar/language-service@2.2.0)
+      volar-service-html: 0.0.45(@volar/language-service@2.2.4)
       vscode-html-languageservice: /@johnsoncodehk/vscode-html-languageservice@5.2.0-34a5462
       vscode-languageserver-textdocument: 1.0.11
     dev: true
