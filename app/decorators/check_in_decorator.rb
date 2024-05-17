@@ -7,7 +7,7 @@ class CheckInDecorator < Draper::Decorator
 
   memo_wise \
   def check_in_number
-    marriage.check_ins.where('check_ins.created_at <= ?', created_at).size
+    marriage.check_ins.where(check_ins: { created_at: ..created_at }).size
   end
 
   memo_wise \
@@ -32,7 +32,7 @@ class CheckInDecorator < Draper::Decorator
 
   memo_wise \
   def emotional_needs_for_check_in
-    marriage.emotional_needs.where('emotional_needs.created_at <= ?', created_at)
+    marriage.emotional_needs.where(emotional_needs: { created_at: ..created_at })
   end
 
   memo_wise \
