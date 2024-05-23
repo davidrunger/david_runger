@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
       resource = resource.serializer(current_user:)
     end
 
-    super(resource, options)
+    super
   end
 
   def skip_authorization?
@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
 
   # add additional data here for inclusion in logs
   def append_info_to_payload(payload)
-    super(payload)
+    super
     payload[:ip] = request.remote_ip
     payload[:admin_user_id] = current_admin_user.id if current_admin_user.present?
     payload[:user_id] = current_user.id if current_user.present?
