@@ -15,7 +15,7 @@ module QuietRoutingErrorsMonkeypatch
       formatted_message = Lograge.formatter.call(data)
       logger(request).public_send(Lograge.log_level, formatted_message)
     else
-      super(request, wrapper)
+      super
     end
   end
 end
