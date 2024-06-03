@@ -72,8 +72,8 @@ dependencies:
     specifier: ^4.6.0
     version: 4.6.0
   element-plus:
-    specifier: ^2.7.3
-    version: 2.7.3(vue@3.4.27)
+    specifier: ^2.7.4
+    version: 2.7.4(vue@3.4.27)
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -2054,8 +2054,8 @@ packages:
     resolution: {integrity: sha512-2kl/X/HnB5mKJ29x7N908CrNl5y8yDgDuD8U7TXTEHs/lBFVXT91DSoiXncYnwC1TPPDfomlLDKPaTSqT3dygQ==}
     dev: false
 
-  /element-plus@2.7.3(vue@3.4.27):
-    resolution: {integrity: sha512-OaqY1kQ2xzNyRFyge3fzM7jqMwux+464RBEqd+ybRV9xPiGxtgnj/sVK4iEbnKnzQIa9XK03DOIFzoToUhu1DA==}
+  /element-plus@2.7.4(vue@3.4.27):
+    resolution: {integrity: sha512-ADBN3zHdhg8R9m6IXR2B5txSWvCn1+nAD+aA9kaJ4rZHMr37DVX6EOdwUjqAMPKz2xC0tculgkJ5rh5zVNiDNQ==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
