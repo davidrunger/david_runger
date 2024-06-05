@@ -11,11 +11,11 @@
 .pt2
   %hr
   %h3 Respondents
-  .mb2{data: { async_partial_src: respondents_quiz_path(@quiz), delay: 750 }}
+  .mb-4{data: { async_partial_src: respondents_quiz_path(@quiz), delay: 750 }}
     .spinner--circle
   %hr
   %h3 Leaderboard
-  .mb2{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: 1000 }}
+  .mb-4{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: 1000 }}
     .spinner--circle
   - if !@quiz.owned_by_current_user?
     %hr

@@ -4,7 +4,7 @@ div
     @submit.prevent='postNewLogEntry(newLogEntryData)'
     :class='log.data_type'
   )
-    .mb1(v-if='isCounter')
+    .mb-2(v-if='isCounter')
       el-button(
         v-for='logEntryValue in mostRecentLogEntryValues'
         :key='logEntryValue'
@@ -12,7 +12,7 @@ div
       ) {{logEntryValue}}
     .flex.justify-center
       .container
-        el-input.new-log-input.mb1(
+        el-input.new-log-input.mb-2(
           :placeholder='log.data_label'
           v-model='newLogEntryData'
           name='log.data_label'

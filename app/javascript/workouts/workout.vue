@@ -4,13 +4,13 @@ div(v-if='workoutIsInProgress')
 .px3.py1(v-else)
   NewWorkoutForm
   div.my2
-    h2.h2 Previous workouts
+    h2.text-2xl Previous workouts
     WorkoutsTable(
       :isOwnWorkouts='true'
       :workouts='workouts'
     )
   div.my2
-    h2.h2 Others' workouts
+    h2.text-2xl Others' workouts
     WorkoutsTable(:workouts='others_workouts')
 </template>
 

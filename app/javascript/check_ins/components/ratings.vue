@@ -2,7 +2,7 @@
 div.my2(
   v-for='needSatisfactionRating in needSatisfactionRatings'
 )
-  .mb1
+  .mb-2
     strong {{needSatisfactionRating.emotional_need.name}}
     el-popover(
       placement='top-end'
@@ -11,7 +11,7 @@ div.my2(
     )
       template(#reference)
         span.circled-text.monospace.js-link i
-    a.ml1(:href='graphLink(needSatisfactionRating)') graph
+    a.ml-2(:href='graphLink(needSatisfactionRating)') graph
   div
     EmojiButton(
       v-for='ratingValue in RATINGS_RANGE'

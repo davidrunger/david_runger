@@ -1,19 +1,19 @@
 <template lang='pug'>
-aside.border-right.border-gray(
+aside.border-r.border-neutral-400(
   :class='{ collapsed }'
 )
   .overflow-auto.dvh-100.hidden-scrollbars
-    .sidebar-toggle__container.border-bottom
+    .sidebar-toggle__container.border-b
       button.sidebar-toggle(
         @click='collapsed = !collapsed'
         :class='{ "rotated-180": expanded }'
       )
         arrow-bar-right-icon(size='29')
-    LoggedInHeader.mb1
+    LoggedInHeader.mb-2
     nav
-      .store-lists-container.pb2
+      .store-lists-container.pb-4
         form.add-store.flex(@submit.prevent='handleNewStoreSubmission()')
-          .flex-1.mr1
+          .flex-1.mr-2
             el-input(
               type='text'
               v-model='newStoreName'
@@ -30,7 +30,7 @@ aside.border-right.border-gray(
             :store='store'
           )
         div(v-if='groceriesStore.sortedSpouseStores.length > 0')
-          .spouse-stores-header.h2 Spouse's Stores
+          .spouse-stores-header.text-2xl Spouse's Stores
           .stores-list
             StoreListEntry(
               v-for='store in groceriesStore.sortedSpouseStores'
@@ -158,7 +158,7 @@ aside {
 }
 
 nav {
-  @include sidebar-width($padding: calc(var(--space-2) * 2));
+  @include sidebar-width($padding: 32px);
 
   position: relative;
   top: 10px;
@@ -166,7 +166,7 @@ nav {
 
 .store-lists-container {
   position: relative;
-  left: var(--space-2);
+  left: 16px;
 }
 
 .sidebar-toggle__container {

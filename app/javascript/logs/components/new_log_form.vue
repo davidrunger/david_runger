@@ -1,28 +1,28 @@
 <template lang='pug'>
 div
   .h2.my2 New Log
-  .flex.justify-center.mb1
+  .flex.justify-center.mb-2
     div(style='width: 400px')
       form.px1(@submit.prevent='createLog')
-        .mb1
+        .mb-2
           el-input(
             placeholder='Name'
             v-model='newLog.name'
             name='newLog.name'
           )
-        el-input.mb1(
+        el-input.mb-2(
           type='textarea'
           placeholder='Details/Description (optional)'
           v-model='newLog.description'
           name='newLog.description'
         )
-        .mb1
+        .mb-2
           el-input(
             placeholder='Label (e.g. Weight, Run time, etc)'
             v-model='newLog.data_label'
             name='newLog.data_label'
           )
-        .mb1
+        .mb-2
           el-select(
             placeholder='Type'
             v-model='newLog.data_type'

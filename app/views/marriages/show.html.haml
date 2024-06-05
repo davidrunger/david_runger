@@ -24,16 +24,16 @@
         data: { confirm: "Are you sure you want to delete \"#{emotional_need.name}\"?" })
 %h2 Add an emotional need
 = form_with(model: @marriage.emotional_needs.build) do |form|
-  .mb2
+  .mb-4
     %div
       = form.label :name
     %div
       = form.text_field :name
-  .mb2
+  .mb-4
     %div
       = form.label :description
     %div
       = form.text_area :description, size: '50x8'
-  .mb2
+  .mb-4
     %div
       = form.submit

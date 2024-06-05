@@ -1,18 +1,19 @@
 <template lang='pug'>
-#home.flex.flex-column.relative.vh-100.items-center.justify-around.font-white-dark.p4.bg-black(
+#home.flex.flex-col.relative.vh-100.items-center.justify-around.p-16.bg-neutral-950(
   ref="homeRef"
 )
   .spacer.flex-grow-1
   #headline-container.flex-grow-1(data-section='home')
-    #headline-name.monospace.font-blue-light.border-bottom.border-gray.pb-2
-      span David Runger
-    #headline-subtitle.sans-serif.font-size-4.light Full stack web developer
+    #headline-name.monospace.text-blue-300.border-b-2.border-indigo-200
+      | David Runger
+    .pt-4.text-4xl.text-right.text-neutral-100
+      | Full stack web developer
 
   HomeHeader
 
-  a.down-arrow-container.center.circle.mb3(href='#about')
+  a.flex.justify-center.items-center.down-arrow-container.rounded-full.mb-8(href='#about')
     //- hat tip to https://codepen.io/postor/pen/mskxI for a starting point for this
-    svg(class='arrow')
+    svg(class='arrow' viewBox='0 0 24 14')
       path(d='M0 0 L12 12 L24 0')
 </template>
 
@@ -63,11 +64,6 @@ export default {
   }
 }
 
-#headline-subtitle {
-  text-align: right;
-  padding-top: 6px;
-}
-
 .down-arrow-container {
   $size: 50px;
 
@@ -83,9 +79,6 @@ export default {
 
 .arrow {
   width: 24px;
-  height: 24px;
-  position: relative;
-  top: 7px;
 }
 
 .arrow path {

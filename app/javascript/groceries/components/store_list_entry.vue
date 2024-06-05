@@ -1,11 +1,11 @@
 <template lang='pug'>
-.flex.js-link.stores-list__item.h3.my2.py1.px2.items-center.justify-between(
-  :class='{selected: store === currentStore}'
+.stores-list__item.flex.items-center.justify-between.my-4.py-2.px-4.js-link.text-xl(
+  :class='["leading-[1.15]", { selected: store === currentStore }]'
   @click='groceriesStore.selectStore({ store })'
 )
   div.store-name
     a {{store.name}}
-    lock-icon.ml1(v-if='store.private' size='22')
+    lock-icon.ml-2(v-if='store.private' size='22')
   div.delete-button
     a.js-link(
       v-if='store.own_store'

@@ -1,5 +1,5 @@
 <template lang='pug'>
-.section-container.relative.bg-white.flex.justify-center.p2(:class='section', ref='root')
+.section-container.relative.bg-white.flex.justify-center.p-4(:class='section', ref='root')
   .anchor-target(:id='section')
   section(:data-section='section')
     ScrollHook(:section='section')
@@ -13,7 +13,7 @@ import { h } from 'vue';
 import ScrollHook from './scroll_hook.vue';
 
 export const SectionHeader =
-  (props: { title?: string }) => h('h1', { class: 'h1 bold mt0 my2' }, props.title);
+  (props: { title?: string }) => h('h1', { class: 'text-3xl font-bold my-4' }, props.title);
 SectionHeader.props = ['title'];
 
 export default {
@@ -47,7 +47,7 @@ section {
   max-width: 850px;
 
   @media screen and (width >= 600px) {
-    padding: var(--space-2) var(--space-3) 0 var(--space-3);
+    padding: 1rem 2rem 0;
   }
 }
 

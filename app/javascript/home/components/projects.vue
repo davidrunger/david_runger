@@ -1,6 +1,6 @@
 <template lang='pug'>
 HomeSection(section='projects' title='Projects')
-  Project.mt3
+  Project.mt8
     template(v-slot:title)
       span DavidRunger.com
     template(v-slot:technologies)
@@ -36,7 +36,7 @@ HomeSection(section='projects' title='Projects')
           #[a(href='https://davidrunger.com/check_ins/') Check-ins]* -
           track how well your emotional needs are being met in your marriage/relationship
 
-      p *#[strong Google login required]
+      p #[i *Google login required]
 
     template(v-slot:tech-list)
       ul
@@ -126,8 +126,8 @@ HomeSection(section='projects' title='Projects')
 
         li.
 
-          #[a(href='https://basscss.com/') Basscss] provides CSS utility classes, so a
-          lot of styling can be done quickly and cleanly within the markup itself.
+          #[a(href='https://tailwindcss.com/') Tailwind] provides CSS utility classes, so a
+          lot of styling can be done within the markup itself.
 
         li.
 
@@ -220,7 +220,7 @@ HomeSection(section='projects' title='Projects')
 
         p.
           However, I couldn't find a way to get quick, detailed feedback about my app's code
-          coverage while working on tests &mdash; so I wrote
+          coverage while working on tests &ndash; so I wrote
           #[code SimpleCov::Formatter::Terminal].
           It prints line-by-line code coverage information to the
           terminal after every test run, and includes info about branch coverage, as well, making

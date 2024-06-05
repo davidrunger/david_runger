@@ -44,7 +44,7 @@ export default {
 <style lang='scss' scoped>
 @import "css/variables";
 
-a.nav-link {
+a.nav-link.nav-link {
   color: $gray-light;
 
   &:hover {

@@ -10,7 +10,7 @@
       outline: inherit;
     }
 
-%div.py4.center
+.py-16.text-center
   = form_tag("/auth/google_oauth2?redirect_uri=#{url_base}/admin_users/auth/google_oauth2/callback",
     method: :post) do
     = button_tag(image_tag('google-login.png'), type: :submit, class: 'google-login')

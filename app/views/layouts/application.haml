@@ -48,11 +48,11 @@
         = link_to('Unbecome', unbecome_admin_user_path(current_user))
         = current_user.email
     - if notice.present?
-      .m2
+      .m-4
         .flash__header--notice Notice
         .flash__message--notice= notice
     - if alert.present?
-      .m2
+      .m-4
         .flash__header--alert Alert
         .flash__message--alert= alert
     #container{class: container_classes}
