@@ -126,8 +126,8 @@ dependencies:
     specifier: ^5.3.1
     version: 5.3.1(chart.js@4.4.3)(vue@3.4.27)
   vue-router:
-    specifier: ^4.3.2
-    version: 4.3.2(vue@3.4.27)
+    specifier: ^4.3.3
+    version: 4.3.3(vue@3.4.27)
   vue-tabler-icons:
     specifier: ^2.21.0
     version: 2.21.0
@@ -4343,8 +4343,8 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /vue-router@4.3.2(vue@3.4.27):
-    resolution: {integrity: sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==}
+  /vue-router@4.3.3(vue@3.4.27):
+    resolution: {integrity: sha512-8Q+u+WP4N2SXY38FDcF2H1dUEbYVHVPtPCPZj/GTZx8RCbiB8AtJP9+YIxn4Vs0svMTNQcLIzka4GH7Utkx9xQ==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
