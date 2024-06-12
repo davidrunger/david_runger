@@ -5,6 +5,7 @@ inherit_gem:
     - rulesets/factory_bot.yml
     - rulesets/performance.yml
     - rulesets/rails.yml
+    - rulesets/rspec_rails.yml
     - rulesets/rspec.yml
 
 require:
