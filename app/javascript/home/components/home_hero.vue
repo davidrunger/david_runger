@@ -4,7 +4,7 @@
 )
   .spacer.flex-grow-1
   #headline-container.flex-grow-1(data-section='home')
-    #headline-name.monospace.text-blue-300.border-b-2.border-indigo-200
+    #headline-name.monospace.text-blue-300.border-b-2.border-indigo-200.leading-normal
       | David Runger
     .pt-4.text-4xl.text-right.text-neutral-100
       | Full stack web developer
