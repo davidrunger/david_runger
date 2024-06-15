@@ -2,6 +2,11 @@ html {
   line-height: 1.15;
 }
 
+// NOTE: We want this selector to be as unspecific as possible, to make it easier to override.
+[href] {
+  @apply text-blue-600 visited:text-purple-600
+}
+
 // NOTE: We nest the selectors within `body` to give them additional specificity.
 body {
   h2 {
@@ -11,10 +16,6 @@ body {
   img,
   svg {
     display:inline;
-  }
-
-  a[href] {
-    @apply text-blue-600 visited:text-purple-600
   }
 
   p {
