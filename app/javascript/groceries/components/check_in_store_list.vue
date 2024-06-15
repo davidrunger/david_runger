@@ -1,6 +1,6 @@
 <template lang='pug'>
 ul
-  li.block.mb1(
+  li.block.mb-2(
     v-for='(store, index) in stores'
     :key='store.id'
   )
@@ -10,7 +10,7 @@ ul
       :value='store'
       :id='`checkin-stores-${store.id}`'
     )
-    label.ml1(:for='`checkin-stores-${store.id}`') {{store.name}}
+    label.ml-2(:for='`checkin-stores-${store.id}`') {{store.name}}
 </template>
 
 <script lang='ts'>

@@ -1,0 +1,24 @@
+html {
+  line-height: 1.15;
+}
+
+// NOTE: We nest the selectors within `body` to give them additional specificity.
+body {
+  h2 {
+    @apply text-2xl font-bold;
+  }
+
+  img,
+  svg {
+    display:inline;
+  }
+
+  a[href] {
+    @apply text-blue-600 visited:text-purple-600
+  }
+
+  p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}

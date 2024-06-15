@@ -1,9 +1,9 @@
 <template lang='pug'>
-HomeSection.pb4(
+HomeSection.pb-16(
   section='resume'
   title='Resume'
 )
-  a.resume-button.block.center(href='/David-Runger-Resume.pdf') View Resume (pdf)
+  a.resume-button.block.text-center(href='/David-Runger-Resume.pdf') View Resume (pdf)
 </template>
 
 <script lang='ts'>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang='scss'>
-.resume-button {
+.resume-button.resume-button {
   width: 240px;
   height: 60px;
   line-height: 56px;

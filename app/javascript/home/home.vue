@@ -1,5 +1,5 @@
 <template lang='pug'>
-#app-root.sans-serif.mb3
+#app-root.sans-serif.mb-8
   HomeHero
 
   ParallaxImage(v-if='!$is_mobile_device' variant='macbook-1')

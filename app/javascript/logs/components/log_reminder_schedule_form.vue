@@ -1,9 +1,9 @@
 <template lang='pug'>
 div
-  h3.bold.mb2 Reminders
+  h3.bold.mb-4 Reminders
   div.my1(v-if='log.reminder_time_in_seconds')
     | Current setting: every {{reminderTimeInHours}} hours
-    span.ml1
+    span.ml-2
       el-button(
         @click="cancelReminders"
         type='primary'

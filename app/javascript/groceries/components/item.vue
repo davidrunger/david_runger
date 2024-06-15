@@ -3,9 +3,12 @@
   :class='{unneeded: item.needed <= 0, "appear-vertically": item.newlyAdded}'
 )
   .left.nowrap
-    button.increment.h2.js-link.olive(@click='setNeeded(item, item.needed + 1)' title='Increment')
+    button.increment.text-2xl.js-link.text-green-600.leading-unset(
+      @click='setNeeded(item, item.needed + 1)'
+      title='Increment'
+    )
       span +
-    button.decrement.h2.mx1.js-link.red(
+    button.decrement.text-2xl.mx-2.js-link.text-red-600.leading-unset(
       @click='decrement(item)'
       title='Decrement'
     )
@@ -23,7 +26,7 @@
     span.item-name(v-else)
       | {{item.name}}
       |
-      a.js-link.gray(@click='editItemName')
+      a.js-link.text-neutral-400(@click='editItemName')
         edit-icon(size='17')
     | &nbsp;
     span ({{item.needed}})
@@ -33,7 +36,7 @@
       @click='unskip(item)'
       v-if='groceriesStore.skippedItems.includes(item)'
     ) Unskip
-  .delete.h2.pl1.pr1.js-link.right.red(
+  .delete.text-2xl.px-2.js-link.right.text-red-600.leading-unset(
     v-if='ownStore'
     @click="groceriesStore.destroyItem({ item })"
     title='Delete item'

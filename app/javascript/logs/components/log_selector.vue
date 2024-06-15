@@ -5,7 +5,7 @@ Modal(
   maxWidth='400px'
   backgroundClass='bg-black'
 )
-  input.mb2(
+  input.mb-4(
     type='text'
     v-model='searchString'
     @keydown.enter='selectHighlightedLog'

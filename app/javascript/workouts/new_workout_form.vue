@@ -1,6 +1,6 @@
 <template lang='pug'>
 form
-  h2.h2 New Workout
+  h2.text-2xl New Workout
   .my1
     label
       | Minutes
@@ -35,7 +35,7 @@ form
           :name='`exercise-${index}-reps`'
           type='number'
         )
-    .col.col-1.flex.flex-column.items-center.justify-end
+    .col.col-1.flex.flex-col.items-center.justify-end
       el-button(@click='removeExercise(index)') X
   .my1.center
     el-button(

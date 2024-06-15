@@ -1,6 +1,6 @@
 <template lang="pug">
-.store-container.overflow-auto.hidden-scrollbars.pt1.pb2.pl3.pr2
-  h2.h2.store-name.bold.my2
+.store-container.overflow-auto.hidden-scrollbars.pt-2.pb-4.pl-8.pr-4
+  h2.store-name.bold.my-4
     input(
       v-if='editingName'
       type='text'
@@ -10,20 +10,20 @@
       ref='store-name-input'
     )
     span(v-if='!editingName') {{ store.name }}
-    a.edit-store.js-link.gray.ml1(@click='editStoreName')
+    a.edit-store.js-link.text-neutral-400.ml-2(@click='editStoreName')
       edit-icon(size='27')
     span(v-if='store.own_store')
-      el-button.ml1(v-if='store.private' size='small' @click='togglePrivacy') Make public
-      el-button.ml1(v-else size='small' @click='togglePrivacy') Make private
-    span.spinner--circle.ml1(v-if='debouncingOrWaitingOnNetwork')
-  div.buttons-container.mb2
+      el-button.ml-2(v-if='store.private' size='small' @click='togglePrivacy') Make public
+      el-button.ml-2(v-else size='small' @click='togglePrivacy') Make private
+    span.spinner--circle.ml-2(v-if='debouncingOrWaitingOnNetwork')
+  div.buttons-container.mb-4
     el-button.mr1.mt1(
       id="show-modal"
       @click='initializeTripCheckIn'
       :size='$is_mobile_device ? "small" : null'
     ) Check in items
 
-  div.mb1
+  div.mb-2
     el-input(
       v-if='editingNotes'
       type='textarea'
@@ -34,7 +34,7 @@
     )
     p.pre-wrap(v-else)
       | {{store.notes || 'No notes yet'}}
-      a.edit-store.js-link.gray.ml1(v-if='store.own_store' @click='editStoreNotes')
+      a.edit-store.js-link.text-neutral-400.ml-2(v-if='store.own_store' @click='editStoreNotes')
         edit-icon(size='18')
 
   form.flex(v-if='store.own_store' @submit.prevent='postNewItem')
@@ -45,7 +45,7 @@
         v-model='newItemName'
         name='newItemName'
       )
-    .ml1
+    .ml-2
       el-button.flex-0.button.button-outline(
         native-type='submit'
         :disabled='v$.$invalid'
@@ -63,15 +63,15 @@
     slot
       div
         span Stores: {{checkInStoreNames}}
-        el-button.choose-stores.ml1(
+        el-button.choose-stores.ml-2(
           link
           type='primary'
           @click='manageCheckInStores'
         ) Choose stores
-      h3.bold.mb2.
+      h3.bold.mb-4.
         What did you get? ({{itemsToZero.length}}/{{neededCheckInItems.length}})
       ul.check-in-items-list
-        li.flex.items-center.mb1(
+        li.flex.items-center.mb-2(
           v-for='(item, index) in neededCheckInItems'
           :key='item.id'
         )
@@ -81,7 +81,7 @@
             :value='item'
             :id='`trip-checkin-item-${item.id}`'
           )
-          label.ml1(:for='`trip-checkin-item-${item.id}`')
+          label.ml-2(:for='`trip-checkin-item-${item.id}`')
             span {{item.name}}
             span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
             el-button(
@@ -103,12 +103,12 @@
 
   Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
     slot
-      h4.bold.mt1.mb2.
+      h4.bold.mt1.mb-4.
         Which stores would you like to check in?
       CheckInStoreList(
         :stores='groceriesStore.sortedStores'
       )
-      h4.bold.mb2.
+      h4.bold.mb-4.
         Spouse's stores
       CheckInStoreList(
         :stores='groceriesStore.sortedSpouseStores'
