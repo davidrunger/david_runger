@@ -2,7 +2,7 @@
 .grocery-item.flex.items-center(
   :class='{unneeded: item.needed <= 0, "appear-vertically": item.newlyAdded}'
 )
-  .left.nowrap
+  .left.whitespace-nowrap
     button.increment.text-2xl.js-link.text-green-600.leading-unset(
       @click='setNeeded(item, item.needed + 1)'
       title='Increment'
