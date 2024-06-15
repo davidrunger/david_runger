@@ -19,7 +19,7 @@ class Test::Tasks::CompileJavaScript < Pallets::Task
         'VITE_RUBY_PUBLIC_OUTPUT_DIR' => 'vite-admin',
       },
     )
-    if ENV.fetch('CI', nil) == 'true' && ENV.fetch('GITHUB_REF_NAME') == 'master'
+    if ENV.fetch('CI', nil) == 'true' && ENV.fetch('GITHUB_REF_NAME') == 'main'
       execute_rake_task('assets:upload_vite_assets')
     end
   end

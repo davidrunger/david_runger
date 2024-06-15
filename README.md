@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/davidrunger/david_runger/branch/master/graph/badge.svg)](https://codecov.io/gh/davidrunger/david_runger)
+[![codecov](https://codecov.io/gh/davidrunger/david_runger/branch/main/graph/badge.svg)](https://codecov.io/gh/davidrunger/david_runger)
 [![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/David-Runger/david_runger)
 
 # [davidrunger.com](https://www.davidrunger.com/)
