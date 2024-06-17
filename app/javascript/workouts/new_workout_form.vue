@@ -41,7 +41,7 @@ form
     el-button(
       @click='workout.exercises.push({})'
     ) Add exercise
-  .mt2.center
+  .mt-4.center
     el-button(
       type='primary'
       @click='workoutsStore.initializeWorkout()'

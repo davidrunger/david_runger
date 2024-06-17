@@ -11,7 +11,7 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
       el-checkbox(
         v-model='publiclyViewable'
       ) Publicly viewable
-    div.flex.justify-around.mt2
+    div.flex.justify-around.mt-4
       el-button(
         @click="modalStore.hideModal({ modalName })"
         type='primary'

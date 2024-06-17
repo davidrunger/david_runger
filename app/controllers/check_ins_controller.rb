@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckInsController < ApplicationController
-  self.container_classes = %w[p3]
+  self.container_classes = %w[p-8]
 
   before_action :ensure_marriage, only: %i[index]
   before_action :set_check_in, only: %i[show]

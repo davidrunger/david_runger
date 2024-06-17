@@ -1,4 +1,4 @@
-.p3
+.p-8
   %div.my3
     %h2.h3 Auth tokens (advanced feature; safe to ignore)
     - current_user.auth_tokens.each do |auth_token|
@@ -18,5 +18,5 @@
         = button_to('Destroy Auth Token', auth_token_path(auth_token),
           method: :delete, form_class: 'inline')
 
-    %div.mt2
+    %div.mt-4
       = button_to('Create New Auth Token', auth_tokens_path(method: :post))

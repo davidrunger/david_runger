@@ -1,6 +1,6 @@
 <template lang="pug">
 .store-container.overflow-auto.hidden-scrollbars.pt-2.pb-4.pl-8.pr-4
-  h2.store-name.bold.my-4
+  h2.store-name.my-4
     input(
       v-if='editingName'
       type='text'
@@ -61,14 +61,14 @@
 
   Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
     slot
-      div
+      .flex.items-center.mb-3
         span Stores: {{checkInStoreNames}}
         el-button.choose-stores.ml-2(
           link
           type='primary'
           @click='manageCheckInStores'
         ) Choose stores
-      h3.bold.mb-4.
+      h3.font-bold.mb-3.
         What did you get? ({{itemsToZero.length}}/{{neededCheckInItems.length}})
       ul.check-in-items-list
         li.flex.items-center.mb-2(
@@ -84,12 +84,13 @@
           label.ml-2(:for='`trip-checkin-item-${item.id}`')
             span {{item.name}}
             span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
+            span.pr-1
             el-button(
               link
               type='primary'
               @click='skip(item)'
             ) Skip
-      div.flex.justify-around.mt2
+      div.flex.justify-around.mt-4
         el-button(
           @click='handleTripCheckinModalSubmit'
           type='primary'
@@ -103,17 +104,17 @@
 
   Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
     slot
-      h4.bold.mt1.mb-4.
+      h4.font-bold.mt1.mb-4.
         Which stores would you like to check in?
       CheckInStoreList(
         :stores='groceriesStore.sortedStores'
       )
-      h4.bold.mb-4.
+      h4.font-bold.mb-4.
         Spouse's stores
       CheckInStoreList(
         :stores='groceriesStore.sortedSpouseStores'
       )
-      div.flex.justify-around.mt2
+      div.flex.justify-around.mt-4
         el-button(
           @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })"
           type='primary'
@@ -331,5 +332,10 @@ button.choose-stores {
 .check-in-items-list {
   max-height: 50vh;
   overflow: auto;
+}
+
+.el-button.is-link {
+  padding: 0;
+  vertical-align: unset;
 }
 </style>
