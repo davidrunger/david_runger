@@ -53,7 +53,7 @@ HomeSection(section='projects' title='Projects')
         li.
 
           The app's 2,500+ lines of Ruby code are
-          #[a(href='https://app.codecov.io/gh/davidrunger/david_runger/tree/main') #[span.bold 100%] covered by tests]
+          #[a(href='https://app.codecov.io/gh/davidrunger/david_runger/tree/main') #[span.font-bold 100%] covered by tests]
           written with #[a(href='https://rspec.info/') RSpec].
 
         li.

@@ -43,7 +43,7 @@ div
 
   Modal(name='edit-log-shared-emails' width='85%' maxWidth='600px' backgroundClass='bg-black')
     slot
-      h3.bold.mb-4 Sharing
+      h3.font-bold.mb-4 Sharing
       div
         el-checkbox(
           v-model='publiclyViewable'

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EmotionalNeedsController < ApplicationController
-  self.container_classes = %w[p3]
+  self.container_classes = %w[p-8]
 
   before_action :set_emotional_need, only: %i[destroy edit history update]
 

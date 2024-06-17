@@ -4,7 +4,7 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
     ref='mask'
     @click='handleClickMask'
   )
-    div.modal-container.p3.rounded(
+    div.modal-container.p-8.rounded(
       :style='{ width: width, maxWidth: maxWidth }'
       :class='backgroundClass'
     )

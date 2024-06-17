@@ -2,8 +2,8 @@
 HomeSection(section='about', title='About me', :renderHeadingManually='true')
   template(v-slot:default='slotProps')
     .row-reverse.items-center(class='sm:flex')
-      .flex-2.mt2
-        .text-center.mt2.mb-8
+      .flex-2.mt-4
+        .text-center.mt-4.mb-8
           img.about-image.box-shadow(
             src='~img/david.webp'
             alt='A picture of me'
