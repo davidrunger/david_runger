@@ -5,6 +5,7 @@ export interface Item {
   name: string
   needed: number
   newlyAdded: boolean
+  skipped?: boolean
   store_id: number
 }
 
