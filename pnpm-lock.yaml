@@ -170,8 +170,8 @@ devDependencies:
     specifier: ^1.7.0
     version: 1.7.0
   sass:
-    specifier: ^1.77.5
-    version: 1.77.5
+    specifier: ^1.77.6
+    version: 1.77.6
   stylelint:
     specifier: ^15.11.0
     version: 15.11.0(typescript@5.4.5)
@@ -195,7 +195,7 @@ devDependencies:
     version: 5.4.5
   vite:
     specifier: ^5.3.1
-    version: 5.3.1(sass@1.77.5)
+    version: 5.3.1(sass@1.77.6)
   vite-plugin-full-reload:
     specifier: ^1.1.0
     version: 1.1.0
@@ -1261,7 +1261,7 @@ packages:
       vite: ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.3.1(sass@1.77.5)
+      vite: 5.3.1(sass@1.77.6)
       vue: 3.4.29(typescript@5.4.5)
     dev: false
 
@@ -4188,8 +4188,8 @@ packages:
       get-intrinsic: 1.2.1
       is-regex: 1.1.4
 
-  /sass@1.77.5:
-    resolution: {integrity: sha512-oDfX1mukIlxacPdQqNb6mV2tVCrnE+P3nVYioy72V5tlk56CPNcO4TCuFcaCRKKfJ1M3lH95CleRS+dVKL2qMg==}
+  /sass@1.77.6:
+    resolution: {integrity: sha512-ByXE1oLD79GVq9Ht1PeHWCPMPB8XHpBuz1r85oByKHjZY6qV6rWnQovQzXJXuQ/XyE1Oj3iPk3lo28uzaRA2/Q==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -4802,12 +4802,12 @@ packages:
     dependencies:
       debug: 4.3.4
       fast-glob: 3.3.2
-      vite: 5.3.1(sass@1.77.5)
+      vite: 5.3.1(sass@1.77.6)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@5.3.1(sass@1.77.5):
+  /vite@5.3.1(sass@1.77.6):
     resolution: {integrity: sha512-XBmSKRLXLxiaPYamLv3/hnP/KXDai1NDexN0FpkTaZXTfycHvkRHoenpgl/fvuK/kPbB6xAgoyiryAhQNxYmAQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -4838,7 +4838,7 @@ packages:
       esbuild: 0.21.5
       postcss: 8.4.38
       rollup: 4.13.0
-      sass: 1.77.5
+      sass: 1.77.6
     optionalDependencies:
       fsevents: 2.3.3
 
