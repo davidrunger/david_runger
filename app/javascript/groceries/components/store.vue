@@ -69,20 +69,27 @@
           @click='manageCheckInStores'
         ) Choose stores
 
-      h3.font-bold.mb-2
-        | What did you get? ({{itemsInCart.length}}/{{neededUnskippedCheckInItems.length}})
-      CheckInItemsList(:items="neededUnskippedCheckInItems")
+      CheckInItemsList(
+        title="Needed"
+        :items="neededUnskippedCheckInItemsNotInCart"
+      )
 
-      h3.font-bold.mb-2
-        | Skipped Items
-      CheckInItemsList(:items="neededSkippedCheckInItems")
+      CheckInItemsList(
+        title="In Cart"
+        :items="neededUnskippedCheckInItemsInCart"
+      )
+
+      CheckInItemsList(
+        title="Skipped"
+        :items="neededSkippedCheckInItems"
+      )
 
       div.flex.justify-around.mt-4
         el-button(
           @click='handleTripCheckinModalSubmit'
           type='primary'
           plain
-        ) Set checked items to 0 needed
+        ) Check in items in cart
         el-button(
           @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
           type='primary'
@@ -136,7 +143,8 @@ export default defineComponent({
       'debouncingOrWaitingOnNetwork',
       'itemsInCart',
       'neededSkippedCheckInItems',
-      'neededUnskippedCheckInItems',
+      'neededUnskippedCheckInItemsInCart',
+      'neededUnskippedCheckInItemsNotInCart',
     ]),
 
     checkInStoreNames(): string {
