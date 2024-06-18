@@ -34,7 +34,7 @@
       link
       type='primary'
       @click='unskip(item)'
-      v-if='groceriesStore.skippedItems.includes(item)'
+      v-if='item.skipped'
     ) Unskip
   .delete.text-2xl.px-2.js-link.right.text-red-600.leading-unset(
     v-if='ownStore'

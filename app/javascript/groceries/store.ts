@@ -15,7 +15,6 @@ interface State {
   pendingRequests: number
   postingStore: boolean
   checkInStores: Store[]
-  skippedItems: Item[]
 }
 
 interface Nameable {
@@ -42,7 +41,6 @@ export const useGroceriesStore = defineStore('groceries', {
     pendingRequests: 0,
     postingStore: false,
     checkInStores: [],
-    skippedItems: [],
   }),
 
   actions: {
@@ -191,13 +189,11 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     skipItem({ item }: { item: Item }) {
-      if (this.skippedItems.includes(item)) return;
-
-      this.skippedItems = [...this.skippedItems, item];
+      item.skipped = true;
     },
 
-    unskipItem({ item: itemToUnskip }: { item: Item }) {
-      this.skippedItems = this.skippedItems.filter(item => item.id !== itemToUnskip.id);
+    unskipItem({ item }: { item: Item }) {
+      item.skipped = false;
     },
 
     async updateItem({ item, attributes }: { item: Item, attributes: { name: string } }) {
@@ -266,7 +262,7 @@ export const useGroceriesStore = defineStore('groceries', {
         this.checkInStores.
           map(store => (
             store.items.filter(item => (
-              item.needed > 0 && !this.skippedItems.includes(item)
+              item.needed > 0 && !item.skipped
             ))
           )).flat(),
       );
