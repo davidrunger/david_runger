@@ -1,10 +1,10 @@
 <template lang='pug'>
 div
-  header.flex.justify-between.p1
+  header.flex.justify-between.p-2
     div {{currentUser.email}}
-  .center
+  .text-center
     LogSelector
-    router-view(:key='$route.fullPath').m3
+    router-view(:key='$route.fullPath').m-8
 </template>
 
 <script lang='ts'>
@@ -105,7 +105,7 @@ a {
   color: #5aa8ed;
 }
 
-a.log-link {
+a.log-link.log-link {
   color: #e0e0e0;
   font-size: 100%;
   transition: 0.2s;

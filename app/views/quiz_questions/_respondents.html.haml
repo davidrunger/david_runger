@@ -1,4 +1,4 @@
-%ol#quiz_participations#quiz_question_answer_selections.mt0.pl3
+%ol#quiz_participations#quiz_question_answer_selections.mt-0.pl-8
   - @quiz.participations.each do |participation|
     %li{id: dom_id(participation),
     class: @quiz.participation_answered_current_question?(participation) ? 'bold' : ''}

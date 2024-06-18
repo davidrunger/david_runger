@@ -2,6 +2,10 @@ html {
   line-height: 1.15;
 }
 
+hr {
+  margin: auto;
+}
+
 // NOTE: We want this selector to be as unspecific as possible, to make it easier to override.
 [href] {
   @apply text-blue-600 visited:text-purple-600

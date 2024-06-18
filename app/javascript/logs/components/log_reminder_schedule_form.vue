@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   h3.font-bold.mb-4 Reminders
-  div.my1(v-if='log.reminder_time_in_seconds')
+  div.my-2(v-if='log.reminder_time_in_seconds')
     | Current setting: every {{reminderTimeInHours}} hours
     span.ml-2
       el-button(
@@ -21,7 +21,7 @@ div
     |
     | to create a log entry (if I haven't already done so).
   div.flex.justify-center.mt-4
-    .mr2
+    .mr-8
       el-button(
         @click='updateLog'
         type='primary'

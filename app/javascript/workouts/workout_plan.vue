@@ -1,16 +1,16 @@
 <template lang='pug'>
-.center.pb3
-  .py2
+.text-center.pb-8
+  .py-8
     el-switch(
       v-model='editMode'
       active-text='Edit mode'
     )
-    el-switch.ml2(
+    el-switch.ml-8(
       v-model='soundEnabled'
       active-text='Sound'
     )
     .h1(v-if='timer') Time Elapsed: {{secondsAsTime(secondsElapsed)}}
-    .mt1(v-else)
+    .mt-2(v-else)
       button(
         @click='startWorkout'
       ) Start timer
@@ -55,7 +55,7 @@
           td(v-if='editMode')
           td
           td(v-for='exercise in exercises') {{repTotalsForWorkout[exercise.name]}}
-  .my2
+  .my-8
     button(@click='saveWorkout') Mark workout as complete!
 
   ConfirmWorkoutModal(

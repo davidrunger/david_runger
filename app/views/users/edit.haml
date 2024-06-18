@@ -1,18 +1,18 @@
 .p-8
-  %div.my3
+  %div.my-8
     %h2.h3 Auth tokens (advanced feature; safe to ignore)
     - current_user.auth_tokens.each do |auth_token|
-      %div.mt1
+      %div.mt-2
         = form_with(model: auth_token, class: 'inline') do |form|
           %span
             = form.text_field :secret
             = form.label :secret, 'Secret (required)'
 
-          %span.ml2
+          %span.ml-8
             = form.text_field :name
             = form.label :name, 'Name (optional)'
 
-          %span.ml2
+          %span.ml-8
             = form.submit 'Update Auth Token'
 
         = button_to('Destroy Auth Token', auth_token_path(auth_token),

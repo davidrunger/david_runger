@@ -4,7 +4,7 @@ class QuizzesController < ApplicationController
   prepend MemoWise
   include CspDisableable
 
-  self.container_classes = %w[py1 px3]
+  self.container_classes = %w[py-2 px-8]
 
   before_action :set_quiz, only: %i[respondents leaderboard progress]
 

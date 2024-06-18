@@ -8,7 +8,7 @@
     = render(partial: 'quiz_questions/participant_view',
       locals: { question: @quiz.current_question })
 
-.pt2
+.pt-8
   %hr
   %h3 Respondents
   .mb-4{data: { async_partial_src: respondents_quiz_path(@quiz), delay: 750 }}

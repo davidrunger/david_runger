@@ -197,8 +197,8 @@ HomeSection(section='projects' title='Projects')
           toward the apple at all times
 
   Project(
-    image-container-class='mb0'
-    links-container-class='mb0'
+    image-container-class='mb-0'
+    links-container-class='mb-0'
   )
     template(v-slot:title)
       span SimpleCov::Formatter::Terminal

@@ -1,7 +1,7 @@
 <template lang='pug'>
 form
   h2.text-2xl New Workout
-  .my1
+  .my-2
     label
       | Minutes
       el-input(
@@ -10,7 +10,7 @@ form
         type='number'
         step='0.1'
       )
-  .my1
+  .my-2
     label
       | Sets
       el-input(
@@ -18,7 +18,7 @@ form
         name='numberOfSets'
         type='number'
       )
-  .my1.clearfix.flex(v-for='(exercise, index) in typedWorkout.exercises')
+  .my-2.clearfix.flex(v-for='(exercise, index) in typedWorkout.exercises')
     .col.col-6
       label
         | Exercise
@@ -37,11 +37,11 @@ form
         )
     .col.col-1.flex.flex-col.items-center.justify-end
       el-button(@click='removeExercise(index)') X
-  .my1.center
+  .my-2.text-center
     el-button(
       @click='workout.exercises.push({})'
     ) Add exercise
-  .mt-4.center
+  .mt-4.text-center
     el-button(
       type='primary'
       @click='workoutsStore.initializeWorkout()'

@@ -1,5 +1,5 @@
 <template lang='pug'>
-div.my2(
+.my-8(
   v-for='needSatisfactionRating in needSatisfactionRatings'
 )
   .mb-2
@@ -19,7 +19,7 @@ div.my2(
       :ratingValue='ratingValue'
       :editable='editable'
     )
-button.mt1.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
+button.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
 </template>
 
 <script lang='ts'>

@@ -1,5 +1,5 @@
 <template lang="pug">
-el-menu.center
+el-menu
   el-sub-menu(index='1')
     template(v-slot:title) Account
     el-menu-item.email(

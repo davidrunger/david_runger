@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  h1.text-2xl.mt3.mb-2 {{log.name}}
+  h1.text-2xl.mb-2 {{log.name}}
   h2.h5.text-neutral-400(v-if='!isOwnLog') shared by {{log.user.email}}
   p.h5.mb-4.description {{log.description}}
   NewLogEntryForm(:log='log' v-if='renderInputAtTop')
@@ -13,15 +13,15 @@ div
     :log='log'
     :log_entries='log.log_entries'
   )
-  div.my2(v-else) There are no log entries for this log.
+  .my-8(v-else) There are no log entries for this log.
   .controls(v-if='isOwnLog')
     NewLogEntryForm(
       v-if='!renderInputAtTop'
       :log='log'
     )
-    .mt1
+    .mt-2
       el-button(@click='destroyLastEntry') Delete last entry
-    .mt1
+    .mt-2
       el-button.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-shared-emails' })"
       )
@@ -29,7 +29,7 @@ div
         div.h6
           span(v-if='publiclyViewable') Viewable by any user
           span(v-else) Shared with {{log.log_shares.length}} emails
-    .mt1
+    .mt-2
       el-button.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-reminder-schedule' })"
       )
@@ -38,7 +38,7 @@ div
           span(v-if='log.reminder_time_in_seconds')
             | {{(log.reminder_time_in_seconds / (60 * 60)).toFixed()}} hours
           span(v-else) No reminders
-    .mt1
+    .mt-2
       el-button(@click='destroyLog') Delete log
 
   Modal(name='edit-log-shared-emails' width='85%' maxWidth='600px' backgroundClass='bg-black')
@@ -66,12 +66,12 @@ div
           @blur='handleLogShareCreation'
         )
         el-button(v-else class='button-new-tag' size='small' @click='showInput') + Share with email
-      div.mt1 Shareable link: {{shareableUrl}}
+      div.mt-2 Shareable link: {{shareableUrl}}
       div
         el-button.copy-to-clipboard(size='small')
           span(v-if='wasCopiedRecently') Copied!
           span(v-else) Copy to clipboard
-      div.mt1
+      div.mt-2
         a.js-link(
           @click="modalStore.hideModal({ modalName: 'edit-log-shared-emails' })"
         ) Close

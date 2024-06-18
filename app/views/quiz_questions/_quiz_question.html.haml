@@ -1,5 +1,5 @@
 - if quiz_question.open?
-  %li.p1{id: dom_id(quiz_question)}
+  %li.p-2{id: dom_id(quiz_question)}
     = render partial: 'quiz_questions/owner_view', locals: { question: quiz_question }
 - else
   = render partial: 'quiz_questions/closed', locals: { question: quiz_question }

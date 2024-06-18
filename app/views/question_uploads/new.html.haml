@@ -8,13 +8,13 @@
   -# in the quiz show view after submitting this form (Turbo bug?)
   = form_with(url: quiz_question_uploads_path) do |form|
     - if @error_message
-      .my2
+      .my-8
         .flash__header--alert Error
         .flash__message--alert= @error_message
 
     %div= form.label :questions
     %div= form.text_area :questions, size: '60x12'
-    %div.pt2= form.submit
+    .pt-8= form.submit
 
 %section
   %h2 Instructions
