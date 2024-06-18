@@ -3,7 +3,7 @@
   "private": true,
   "engines": {
     "node": "20.8.0",
-    "pnpm": ">=8.8.0 <9"
+    "pnpm": ">=9.4.0 <10"
   },
   "browserslist": [
     ">10%"
