@@ -48,7 +48,7 @@ jobs:
       with:
         node-version-file: .nvmrc
     - name: Install pnpm
-      run: npm install -g pnpm@8
+      run: npm install -g pnpm@9
     - name: Set pnpm store directory
       run: echo "PNPM_STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
     - uses: actions/cache@v4
