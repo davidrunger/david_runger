@@ -6,15 +6,22 @@ ul.check-in-items-list.mb-2
   )
     input(
       type='checkbox'
-      v-model='itemsToZero'
-      :value='item'
+      v-model='item.in_cart'
+      :disabled='item.skipped'
       :id='`trip-checkin-item-${item.id}`'
     )
     label.ml-2(:for='`trip-checkin-item-${item.id}`')
-      span {{item.name}}
-      span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
-      span.pr-1
+      span.mr-1(:class='{ "text-gray-500": item.skipped }')
+        span {{item.name}}
+        span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
       el-button(
+        v-if="item.skipped"
+        link
+        type='primary'
+        @click='unskip(item)'
+      ) Unskip
+      el-button(
+        v-else
         link
         type='primary'
         @click='skip(item)'
@@ -24,8 +31,25 @@ ul.check-in-items-list.mb-2
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { Item } from '@/groceries/types';
+import { useGroceriesStore } from '@/groceries/store';
 
 export default defineComponent({
+  data() {
+    return {
+      groceriesStore: useGroceriesStore(),
+    };
+  },
+
+  methods: {
+    skip(item: Item) {
+      this.groceriesStore.skipItem({ item });
+    },
+
+    unskip(item: Item) {
+      this.groceriesStore.unskipItem({ item });
+    },
+  },
+
   props: {
     items: {
       type: Array as PropType<Array<Item>>,
@@ -34,3 +58,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.el-button.is-link {
+  padding: 0;
+  vertical-align: unset;
+}
+</style>

@@ -2,6 +2,7 @@ import { JsonBroadcast } from '@/shared/types';
 
 export interface Item {
   id: number
+  in_cart?: boolean
   name: string
   needed: number
   newlyAdded: boolean

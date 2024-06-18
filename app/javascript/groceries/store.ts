@@ -189,6 +189,7 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     skipItem({ item }: { item: Item }) {
+      item.in_cart = false;
       item.skipped = true;
     },
 
@@ -222,7 +223,9 @@ export const useGroceriesStore = defineStore('groceries', {
       Object.assign(store, updatedStoreData);
     },
 
-    async zeroItems({ items }: { items: Array<Item> }) {
+    async zeroItemsInCart() {
+      const items = this.itemsInCart;
+
       await kyApi.post(
         Routes.api_items_bulk_updates_path(),
         {
@@ -235,7 +238,10 @@ export const useGroceriesStore = defineStore('groceries', {
         },
       );
 
-      for (const item of items) item.needed = 0;
+      for (const item of items) {
+        item.needed = 0;
+        item.in_cart = false;
+      }
     },
   },
 
@@ -257,14 +263,30 @@ export const useGroceriesStore = defineStore('groceries', {
       return this.collectingDebounces || (this.pendingRequests > 0);
     },
 
+    itemsInCart(): Array<Item> {
+      return this.neededCheckInItems.filter(item => item.in_cart);
+    },
+
     neededCheckInItems(): Array<Item> {
       return helpers.sortByName(
         this.checkInStores.
           map(store => (
             store.items.filter(item => (
-              item.needed > 0 && !item.skipped
+              item.needed > 0
             ))
           )).flat(),
+      );
+    },
+
+    neededSkippedCheckInItems(): Array<Item> {
+      return helpers.sortByName(
+        this.neededCheckInItems.filter(item => item.skipped),
+      );
+    },
+
+    neededUnskippedCheckInItems(): Array<Item> {
+      return helpers.sortByName(
+        this.neededCheckInItems.filter(item => !item.skipped),
       );
     },
 
