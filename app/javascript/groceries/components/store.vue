@@ -85,16 +85,18 @@
       )
 
       div.flex.justify-around.mt-4
-        el-button(
-          @click='handleTripCheckinModalSubmit'
-          type='primary'
-          plain
-        ) Check in items in cart
+
         el-button(
           @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
           type='primary'
           link
         ) Cancel
+
+        el-button(
+          @click='handleTripCheckinModalSubmit'
+          type='primary'
+          plain
+        ) Check in items in cart
 
   Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
     slot
