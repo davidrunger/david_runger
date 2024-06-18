@@ -70,8 +70,12 @@
         ) Choose stores
 
       h3.font-bold.mb-2
-        | What did you get? ({{itemsToZero.length}}/{{neededCheckInItems.length}})
-      CheckInItemsList(:items="neededCheckInItems")
+        | What did you get? ({{itemsInCart.length}}/{{neededUnskippedCheckInItems.length}})
+      CheckInItemsList(:items="neededUnskippedCheckInItems")
+
+      h3.font-bold.mb-2
+        | Skipped Items
+      CheckInItemsList(:items="neededSkippedCheckInItems")
 
       div.flex.justify-around.mt-4
         el-button(
@@ -130,7 +134,9 @@ export default defineComponent({
   computed: {
     ...mapState(useGroceriesStore, [
       'debouncingOrWaitingOnNetwork',
-      'neededCheckInItems',
+      'itemsInCart',
+      'neededSkippedCheckInItems',
+      'neededUnskippedCheckInItems',
     ]),
 
     checkInStoreNames(): string {
@@ -147,7 +153,6 @@ export default defineComponent({
       editingName: false,
       editingNotes: false,
       groceriesStore: useGroceriesStore(),
-      itemsToZero: [],
       modalStore: useModalStore(),
       newItemName: '',
     };
@@ -191,12 +196,7 @@ export default defineComponent({
     },
 
     handleTripCheckinModalSubmit() {
-      this.groceriesStore.zeroItems({
-        items:
-          this.itemsToZero.slice().
-            filter(item => this.groceriesStore.neededCheckInItems.includes(item)),
-      });
-      this.itemsToZero = [];
+      this.groceriesStore.zeroItemsInCart();
       this.modalStore.hideModal({ modalName: 'check-in-shopping-trip' });
     },
 
@@ -228,10 +228,6 @@ export default defineComponent({
         }
       });
       this.newItemName = '';
-    },
-
-    skip(item: ItemType) {
-      this.groceriesStore.skipItem({ item });
     },
 
     stopEditingAndUpdateStoreName() {
@@ -317,10 +313,5 @@ button.choose-stores {
 .check-in-items-list {
   max-height: 50vh;
   overflow: auto;
-}
-
-.el-button.is-link {
-  padding: 0;
-  vertical-align: unset;
 }
 </style>

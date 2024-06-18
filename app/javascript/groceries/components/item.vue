@@ -30,12 +30,6 @@
         edit-icon(size='17')
     | &nbsp;
     span ({{item.needed}})
-    el-button(
-      link
-      type='primary'
-      @click='unskip(item)'
-      v-if='item.skipped'
-    ) Unskip
   .delete.text-2xl.px-2.js-link.right.text-red-600.leading-unset(
     v-if='ownStore'
     @click="groceriesStore.destroyItem({ item })"
@@ -102,10 +96,6 @@ export default defineComponent({
     patchItem(item: Item) {
       this.groceriesStore.updateItem({ item, attributes: item });
       this.groceriesStore.setCollectingDebounces({ value: false });
-    },
-
-    unskip(item: Item) {
-      this.groceriesStore.unskipItem({ item });
     },
   },
 
