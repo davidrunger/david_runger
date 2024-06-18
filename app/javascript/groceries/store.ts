@@ -290,6 +290,18 @@ export const useGroceriesStore = defineStore('groceries', {
       );
     },
 
+    neededUnskippedCheckInItemsInCart(): Array<Item> {
+      return helpers.sortByName(
+        this.neededUnskippedCheckInItems.filter(item => item.in_cart),
+      );
+    },
+
+    neededUnskippedCheckInItemsNotInCart(): Array<Item> {
+      return helpers.sortByName(
+        this.neededUnskippedCheckInItems.filter(item => !item.in_cart),
+      );
+    },
+
     sortedSpouseStores(): Array<Store> {
       return helpers.sortByName(this.spouse_stores);
     },
