@@ -68,28 +68,11 @@
           type='primary'
           @click='manageCheckInStores'
         ) Choose stores
-      h3.font-bold.mb-3.
-        What did you get? ({{itemsToZero.length}}/{{neededCheckInItems.length}})
-      ul.check-in-items-list
-        li.flex.items-center.mb-2(
-          v-for='(item, index) in neededCheckInItems'
-          :key='item.id'
-        )
-          input(
-            type='checkbox'
-            v-model='itemsToZero'
-            :value='item'
-            :id='`trip-checkin-item-${item.id}`'
-          )
-          label.ml-2(:for='`trip-checkin-item-${item.id}`')
-            span {{item.name}}
-            span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
-            span.pr-1
-            el-button(
-              link
-              type='primary'
-              @click='skip(item)'
-            ) Skip
+
+      h3.font-bold.mb-2
+        | What did you get? ({{itemsToZero.length}}/{{neededCheckInItems.length}})
+      CheckInItemsList(:items="neededCheckInItems")
+
       div.flex.justify-around.mt-4
         el-button(
           @click='handleTripCheckinModalSubmit'
@@ -132,11 +115,13 @@ import 'toastify-js/src/toastify.css';
 import { useGroceriesStore, helpers } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
 import { Item as ItemType, Store } from '@/groceries/types';
+import CheckInItemsList from './check_in_items_list.vue';
 import CheckInStoreList from './check_in_store_list.vue';
 import Item from './item.vue';
 
 export default defineComponent({
   components: {
+    CheckInItemsList,
     CheckInStoreList,
     EditIcon,
     Item,
