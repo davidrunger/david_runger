@@ -2,7 +2,7 @@
   = render partial: 'quiz_questions/owner_view', locals: { question: @quiz.current_question }
   = form_with(model: @quiz.current_question) do |form|
     = form.hidden_field(:status, value: QuizQuestion::CLOSED)
-    = form.submit('Close question')
+    = form.submit('Close question', class: 'btn-primary mt-2')
 - else
   = content_tag('turbo-frame', id: 'quiz-question-participant-view') do
     = render(partial: 'quiz_questions/participant_view',

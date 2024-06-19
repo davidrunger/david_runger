@@ -32,7 +32,7 @@
       @blur='stopEditingAndUpdateStoreNotes()'
       ref='store-notes-input'
     )
-    p.pre-wrap(v-else)
+    p.whitespace-pre-wrap(v-else)
       | {{store.notes || 'No notes yet'}}
       a.edit-store.js-link.text-neutral-400.ml-2(v-if='store.own_store' @click='editStoreNotes')
         edit-icon(size='18')

@@ -8,7 +8,7 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
         span
           | {{exercise}}:
           |
-        input.input(v-model.number='repTotals[exercise]')
+        input(v-model.number='repTotals[exercise]')
     div
       el-checkbox(
         v-model='publiclyViewable'

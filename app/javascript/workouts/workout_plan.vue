@@ -202,11 +202,11 @@ export default {
     nextRoundCountdownClasses(index: number) {
       if (index !== this.currentRoundIndex + 1) return '';
 
-      const classes = ['bold'];
+      const classes = ['font-bold'];
       if (this.secondsUntilNextRound <= 10) {
-        classes.push('red');
+        classes.push('text-red-600');
       } else if (this.secondsUntilNextRound <= 30) {
-        classes.push('orange');
+        classes.push('text-orange-600');
       }
 
       return classes;

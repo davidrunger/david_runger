@@ -14,7 +14,7 @@
 
     %div= form.label :questions
     %div= form.text_area :questions, size: '60x12'
-    .pt-8= form.submit
+    .pt-8= form.submit(class: 'btn-primary')
 
 %section
   %h2 Instructions
@@ -27,7 +27,7 @@
 
   %h3 Example
 
-  %code.pre-wrap
+  %code.whitespace-pre-wrap
     :preserve
       Which is biggest?
       The earth

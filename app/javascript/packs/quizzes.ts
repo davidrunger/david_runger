@@ -71,7 +71,7 @@ function addNewAnswerer(newAnswererName: string) {
   const matchedLi = assert(Array.from(el.querySelectorAll('li')).
     find(li => li.innerText === newAnswererName));
 
-  matchedLi.classList.add('bold');
+  matchedLi.classList.add('font-bold');
 }
 
 function addNewParticipant(newParticipantName: string) {

@@ -10,9 +10,10 @@ import FullReload from 'vite-plugin-full-reload';
 export default defineConfig({
   plugins: [
     FullReload([
-      'app/views/**/*',
-      'app/helpers/**/*',
       'app/assets/stylesheets/**/*',
+      'app/decorators/**/*',
+      'app/helpers/**/*',
+      'app/views/**/*',
     ]),
     RubyPlugin(),
     ElementPlus(),

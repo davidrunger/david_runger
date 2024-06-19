@@ -7,8 +7,8 @@
     - if @quiz.current_question_number < @quiz.questions.size
       = form_with(model: @quiz) do |form|
         = form.hidden_field(:current_question_number, value: @quiz.current_question_number + 1)
-        = form.submit('Next question')
+        = form.submit('Next question', class: 'btn-primary')
     - else
       = form_with(model: @quiz) do |form|
         = form.hidden_field(:status, value: 'closed')
-        = form.submit('Close quiz')
+        = form.submit('Close quiz', class: 'btn-primary')

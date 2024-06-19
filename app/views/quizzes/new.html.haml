@@ -1,6 +1,8 @@
 %h1 New Quiz
 
 = form_with model: @quiz do |form|
-  = form.label :name, 'Quiz name'
-  = form.text_field :name
-  = form.submit('Create quiz')
+  .my-3
+    = form.label :name, 'Quiz name'
+    = form.text_field :name, class: 'input'
+  .my-3
+    = form.submit('Create quiz', class: 'btn-primary')
