@@ -5,18 +5,18 @@
       %div.mt-2
         = form_with(model: auth_token, class: 'inline') do |form|
           %span
-            = form.text_field :secret
             = form.label :secret, 'Secret (required)'
+            = form.text_field :secret
 
           %span.ml-8
-            = form.text_field :name
             = form.label :name, 'Name (optional)'
+            = form.text_field :name
 
           %span.ml-8
-            = form.submit 'Update Auth Token'
+            = form.submit('Update Auth Token', class: 'btn-primary')
 
         = button_to('Destroy Auth Token', auth_token_path(auth_token),
-          method: :delete, form_class: 'inline')
+          method: :delete, form_class: 'inline', class: 'btn-danger')
 
     %div.mt-4
-      = button_to('Create New Auth Token', auth_tokens_path(method: :post))
+      = button_to('Create New Auth Token', auth_tokens_path(method: :post), class: 'btn-primary')

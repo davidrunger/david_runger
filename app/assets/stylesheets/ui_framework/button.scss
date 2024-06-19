@@ -1,3 +1,7 @@
 .btn-primary {
   @apply p-2 font-bold text-white bg-sky-600 rounded-md;
 }
+
+.btn-danger {
+  @apply p-2 font-bold text-white bg-red-700 rounded-md;
+}
