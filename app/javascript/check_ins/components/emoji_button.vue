@@ -1,5 +1,5 @@
 <template lang="pug">
-button(
+button.bg-slate-200(
   :class='{editable, selected}'
   @click='handleClick'
 )
