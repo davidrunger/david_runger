@@ -19,7 +19,8 @@
       :ratingValue='ratingValue'
       :editable='editable'
     )
-button.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
+
+button.btn-primary.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
 </template>
 
 <script lang='ts'>

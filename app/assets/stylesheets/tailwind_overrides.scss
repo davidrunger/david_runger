@@ -36,8 +36,10 @@ body {
   }
 
   ol {
+    @apply pl-8;
+
     list-style-type: decimal;
-    list-style-position: inside;
+    list-style-position: outside;
   }
 
   [type='text'],

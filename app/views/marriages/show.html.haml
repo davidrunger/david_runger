@@ -13,7 +13,8 @@
 %ol
   - @marriage.emotional_needs.each do |emotional_need|
     %li
-      #{emotional_need.name} (#{emotional_need.description})
+      %b #{emotional_need.name}
+      %span (#{emotional_need.description})
       = link_to('Edit', edit_emotional_need_path(emotional_need))
       |
       = button_to('Delete',
@@ -36,4 +37,4 @@
       = form.text_area :description, size: '50x8'
   .mb-4
     %div
-      = form.submit
+      = form.submit(class: 'btn-primary')

@@ -15,5 +15,6 @@
 #
 class CheckIn < ApplicationRecord
   belongs_to :marriage
+  has_many :check_in_submissions, dependent: :destroy
   has_many :need_satisfaction_ratings, dependent: :destroy
 end
