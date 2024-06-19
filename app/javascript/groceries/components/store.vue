@@ -17,7 +17,7 @@
       el-button.ml-2(v-else size='small' @click='togglePrivacy') Make private
     span.spinner--circle.ml-2(v-if='debouncingOrWaitingOnNetwork')
   div.buttons-container.mb-4
-    el-button.mr1.mt1(
+    el-button.mr-2.mt-2(
       id="show-modal"
       @click='initializeTripCheckIn'
       :size='$is_mobile_device ? "small" : null'
@@ -51,7 +51,7 @@
         :disabled='v$.$invalid'
       ) Add
 
-  .items-list.mt0.mb0
+  .items-list.mt-0.mb-0
     Item(
       v-for='item in sortedItems'
       :item="item"
@@ -100,7 +100,7 @@
 
   Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
     slot
-      h4.font-bold.mt1.mb-4.
+      h4.font-bold.mt-2.mb-4.
         Which stores would you like to check in?
       CheckInStoreList(
         :stores='groceriesStore.sortedStores'

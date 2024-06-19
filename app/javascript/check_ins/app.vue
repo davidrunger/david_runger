@@ -6,7 +6,7 @@ Ratings(
   ratedUser='partner'
 )
 
-hr.my4
+hr.my-8
 
 h2 Their answers
 Ratings(

@@ -2,7 +2,7 @@
 Modal(:name='modalName' width='85%', maxWidth='400px')
   slot
     div #[b Minutes:] {{(timeInSeconds / 60).toFixed(1)}}
-    div.my2
+    .my-8
       h3.h3 Rep totals
       div(v-for='(count, exercise) in repTotals')
         span {{exercise}}:
@@ -11,7 +11,7 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
       el-checkbox(
         v-model='publiclyViewable'
       ) Publicly viewable
-    div.flex.justify-around.mt-4
+    .flex.justify-around.mt-4
       el-button(
         @click="modalStore.hideModal({ modalName })"
         type='primary'

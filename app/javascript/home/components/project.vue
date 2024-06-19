@@ -3,7 +3,7 @@
   .card
     .card__body
       .project.p-4
-        h2.text-center.mt0.mb-1.font-bold(
+        h2.text-center.mt-0.mb-1.font-bold(
           :class='$is_mobile_device ? "text-xl" : "text-2xl"'
         )
           slot(name='title')
@@ -37,7 +37,7 @@ export default {
     linksContainerClass: {
       type: String,
       required: false,
-      default: 'mb4',
+      default: 'mb-4',
     },
   },
 };

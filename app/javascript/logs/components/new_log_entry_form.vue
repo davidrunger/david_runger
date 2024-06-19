@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  form.px1(
+  form.px-2(
     @submit.prevent='postNewLogEntry(newLogEntryData)'
     :class='log.data_type'
   )
@@ -19,15 +19,15 @@ div
           ref='log-input'
           :type='inputType'
         )
-    div(:class='{mt1: isText}')
+    div(:class='{"mt-2": isText}')
       el-date-picker(
-        :class='{mb1: isNumeric}'
+        :class='{"mb-2": isNumeric}'
         v-model='newLogEntryCreatedAt'
         type='datetime'
         placeholder='Backdate (optional)'
       )
       el-input.new-log-input(
-        :class='{mb1: isNumeric}'
+        :class='{"mb-2": isNumeric}'
         v-if='isDuration || isNumber'
         placeholder='Note (optional)'
         v-model='newLogEntryNote'

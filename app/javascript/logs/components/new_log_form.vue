@@ -1,9 +1,9 @@
 <template lang='pug'>
 div
-  .h2.my2 New Log
+  .h2.my-8 New Log
   .flex.justify-center.mb-2
     div(style='width: 400px')
-      form.px1(@submit.prevent='createLog')
+      form.px-2(@submit.prevent='createLog')
         .mb-2
           el-input(
             placeholder='Name'
