@@ -3,6 +3,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    './app/decorators/**/*.rb',
     './app/javascript/**/*.vue',
     './app/views/**/*.{erb,haml}',
     './public/*.html',

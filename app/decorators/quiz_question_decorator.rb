@@ -7,9 +7,9 @@ class QuizQuestionDecorator < Draper::Decorator
     return '' if current_user_answer.blank? || open?
 
     if current_user_answer.is_correct?
-      h.tag.span('✓', class: 'green')
+      h.tag.span('✓', class: 'text-lime-600')
     else
-      h.tag.span('×', class: 'red')
+      h.tag.span('×', class: 'text-red-600')
     end
   end
 
