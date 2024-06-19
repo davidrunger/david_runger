@@ -1,6 +1,6 @@
 <template lang='pug'>
 .text-center.pb-8
-  .py-8
+  .pt-6.pb-4
     el-switch(
       v-model='editMode'
       active-text='Edit mode'
@@ -11,9 +11,9 @@
     )
     .h1(v-if='timer') Time Elapsed: {{secondsAsTime(secondsElapsed)}}
     .mt-2(v-else)
-      button(
+      button.btn-primary(
         @click='startWorkout'
-      ) Start timer
+      ) Start!
   .flex.justify-center
     table
       thead
@@ -56,7 +56,8 @@
           td
           td(v-for='exercise in exercises') {{repTotalsForWorkout[exercise.name]}}
   .my-8
-    button(@click='saveWorkout') Mark workout as complete!
+    button.btn-primary(@click='saveWorkout')
+      | Mark workout as complete!
 
   ConfirmWorkoutModal(
     :timeInSeconds='secondsElapsed'
@@ -250,9 +251,9 @@ export default {
 
     tableRowClass(index: number) {
       if (index < this.currentRoundIndex) {
-        return 'bg-green'; // past round
+        return 'bg-lime-200'; // past round
       } else if (index === this.currentRoundIndex) {
-        return 'bg-aqua'; // active round
+        return 'bg-sky-200'; // active round
       } else {
         return ''; // future round
       }

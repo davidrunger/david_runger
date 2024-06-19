@@ -2,11 +2,13 @@
 Modal(:name='modalName' width='85%', maxWidth='400px')
   slot
     div #[b Minutes:] {{(timeInSeconds / 60).toFixed(1)}}
-    .my-8
-      h3.h3 Rep totals
+    .my-4
+      h3 Rep totals
       div(v-for='(count, exercise) in repTotals')
-        span {{exercise}}:
-        input(v-model.number='repTotals[exercise]')
+        span
+          | {{exercise}}:
+          |
+        input.input(v-model.number='repTotals[exercise]')
     div
       el-checkbox(
         v-model='publiclyViewable'
