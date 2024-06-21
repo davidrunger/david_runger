@@ -1,3 +1,7 @@
 %p
-  Accept the invitation by clicking this link:
-  #{link_to('accept', accept_proposals_url(token: @token))}.
+  #{@proposer.email} wants you to join their marriage on davidrunger.com.
+
+%p
+  %b= link_to('Click here', accept_proposals_url(token: @token))
+
+  to accept the invitation.
