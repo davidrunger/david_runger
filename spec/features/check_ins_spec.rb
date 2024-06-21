@@ -58,7 +58,9 @@ RSpec.describe 'Check-Ins app' do
             end.to eq(true)
 
             open_email(proposee.email)
-            current_email.click_on('accept')
+            # rubocop:disable Capybara/ClickLinkOrButtonStyle
+            current_email.click_link('Click here', href: %r{/proposals/accept\?token=.+})
+            # rubocop:enable Capybara/ClickLinkOrButtonStyle
             expect(page).to have_content('Marriage created.')
           end
         end
