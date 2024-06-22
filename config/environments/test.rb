@@ -82,3 +82,4 @@ Rails.application.configure do
 end
 
 Rails.autoloaders.main.do_not_eager_load(Rails.root.join('spec/support/matchers/'))
+Rails.autoloaders.main.do_not_eager_load(Rails.root.join('spec/support/selectors/'))

@@ -18,8 +18,8 @@ RSpec.describe 'Groceries app' do
         expect(page).to have_text(store.name)
         expect(page).to have_button('Check in items')
 
-        item = store.items.first!
-        expect(page).to have_text(/#{item.name} +\(#{item.needed}\)/)
+        needed_item = store.items.needed.first!
+        expect(page).to have_text(/#{needed_item.name} +\(#{needed_item.needed}\)/)
 
         fill_in('newItemName', with: new_item_name)
         first('.store-container button', text: 'Add').click
@@ -27,6 +27,47 @@ RSpec.describe 'Groceries app' do
         sleep(1)
         # verify that the item is listed only once
         expect(page.body.scan(new_item_name).size).to eq(1)
+
+        click_on('Check in items')
+
+        within_section('Needed') do
+          expect(page).to have_text(needed_item.name)
+          expect(page).to have_text(new_item_name)
+        end
+        expect(page).not_to have_section(/in cart/i)
+        expect(page).not_to have_section(/skipped/i)
+
+        check(new_item_name)
+
+        within_section('Needed') do
+          expect(page).to have_text(needed_item.name)
+          expect(page).not_to have_text(new_item_name)
+        end
+        within_section('In Cart') do
+          expect(page).not_to have_text(needed_item.name)
+          expect(page).to have_text(new_item_name)
+        end
+        expect(page).not_to have_section(/skipped/i)
+
+        within_section('Needed') do
+          needed_item_li =
+            find('label', text: "#{needed_item.name} (#{needed_item.needed})").
+              ancestor('li')
+
+          within(needed_item_li) do
+            click_on('Skip')
+          end
+        end
+
+        expect(page).not_to have_section(/needed/i)
+        within_section('In Cart') do
+          expect(page).not_to have_text(needed_item.name)
+          expect(page).to have_text(new_item_name)
+        end
+        within_section('Skipped') do
+          expect(page).to have_text(needed_item.name)
+          expect(page).not_to have_text(new_item_name)
+        end
       end
     end
   end
