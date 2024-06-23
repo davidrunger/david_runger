@@ -42,8 +42,30 @@ RSpec.describe SaveRequest do
         expect(stubbed_final_stashed_json).to be_blank
       end
 
-      it 'sends some messages to the ErrorLogger' do
-        expect(ErrorLogger).to receive(:warn).at_least(1)
+      it 'reports the missing data problems via the Rails error reporter' do
+        expect(Rails.error).
+          to receive(:report).
+          once.
+          ordered.
+          and_wrap_original do |method, error, context:|
+            expect(error).to be_a(Request::CreateRequestError)
+            expect(error.message).to match(/Initial stashed JSON .* was blank/)
+            expect(context).to be_a(Hash)
+
+            method.call(error, context:)
+          end
+
+        expect(Rails.error).
+          to receive(:report).
+          once.
+          ordered.
+          and_wrap_original do |method, error, context:|
+            expect(error).to be_a(Request::CreateRequestError)
+            expect(error.message).to match(/Final stashed JSON .* was blank/)
+            expect(context).to be_a(Hash)
+
+            method.call(error, context:)
+          end
 
         perform
       end
