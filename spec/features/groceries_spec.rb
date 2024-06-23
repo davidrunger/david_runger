@@ -50,9 +50,14 @@ RSpec.describe 'Groceries app' do
         expect(page).not_to have_section(/skipped/i)
 
         within_section('Needed') do
-          needed_item_li =
-            find('label', text: "#{needed_item.name} (#{needed_item.needed})").
-              ancestor('li')
+          expected_label_text =
+            if needed_item.needed > 1
+              "#{needed_item.name} (#{needed_item.needed})"
+            else
+              needed_item.name
+            end
+
+          needed_item_li = find('label', text: expected_label_text).ancestor('li')
 
           within(needed_item_li) do
             click_on('Skip')
