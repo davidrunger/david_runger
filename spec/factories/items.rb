@@ -22,7 +22,7 @@ FactoryBot.define do
     needed { rand(2) }
 
     trait :needed do
-      needed { rand(1..8) }
+      needed { rand(1..2) }
     end
 
     trait :unneeded do
