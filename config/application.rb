@@ -64,6 +64,12 @@ class DavidRunger::Application < Rails::Application
   config.active_record.default_timezone = :utc
 
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
+  initializer(
+    'move Browser middleware after Rack::Attack',
+    after: 'rack-attack.middleware',
+  ) do |app|
+    app.middleware.move_after(Rack::Attack, Browser::Middleware)
+  end
 
   errors_file = Rails.root.join('lib/errors.rb')
   Rails.autoloaders.main.ignore(errors_file) # must do this bc. `errors.rb` does not define `Error`
@@ -85,11 +91,4 @@ class DavidRunger::Application < Rails::Application
   config.action_view.form_with_generates_remote_forms = false
 
   config.action_controller.wrap_parameters_by_default = false
-
-  initializer(
-    'move Browser middleware after Rack::Attack',
-    after: 'rack-attack.middleware',
-  ) do |app|
-    app.middleware.move_after(Rack::Attack, Browser::Middleware)
-  end
 end

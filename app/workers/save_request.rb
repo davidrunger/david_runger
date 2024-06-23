@@ -89,10 +89,9 @@ class SaveRequest
 
   def log_unexpected_reasons_not_to_save_request
     unexpected_reasons_not_to_save_request.each do |error_message|
-      ErrorLogger.warn(
-        message: error_message,
-        error_klass: Request::CreateRequestError,
-        data: {
+      Rails.error.report(
+        Error.new(Request::CreateRequestError, error_message),
+        context: {
           initial_stashed_json:,
           final_stashed_json:,
           request_id: @request_id,
