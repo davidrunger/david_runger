@@ -9,7 +9,7 @@ RSpec.describe 'Groceries app' do
     context 'when the user has a spouse' do
       before { expect(user.spouse).to be_present }
 
-      let(:new_item_name) { "#{Faker::Food.unique.ingredient}-#{SecureRandom.alphanumeric(5)}" }
+      let(:new_item_name) { generate(:item_name) }
 
       it 'allows adding an item' do
         visit groceries_path

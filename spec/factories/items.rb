@@ -18,7 +18,7 @@
 
 FactoryBot.define do
   factory :item do
-    name { "#{Faker::Food.unique.ingredient}-#{SecureRandom.alphanumeric(5)}" }
+    name { generate(:item_name) }
     needed { rand(2) }
 
     trait :needed do
