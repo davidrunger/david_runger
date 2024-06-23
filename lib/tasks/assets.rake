@@ -98,7 +98,7 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
       (use_fallback_until = ENV.fetch('USE_PRECOMPILED_ASSETS_FALLBACK_UNTIL', nil)) &&
         Time.current <= Time.zone.at(Integer(use_fallback_until))
     )
-      Rollbar.warn(error, git_sha:)
+      Rails.error.report(error, context: { git_sha: })
       most_recent_object = s3_bucket.objects(prefix: 'compiled-assets/').max_by(&:last_modified)
       git_sha = most_recent_object.key.delete_prefix('compiled-assets/').remove(%r{/vite[^/]*\z})
       Rails.logger.info("Attempting to fetch fallback precompiled assets (git sha #{git_sha}).")

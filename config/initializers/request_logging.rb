@@ -13,15 +13,13 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
   # rubocop:enable Style/InvertibleUnlessCondition
 
   request_id = payload[:headers]['action_dispatch.request_id']
+
   if request_id.blank?
-    Rails.logger.warn(<<-LOG.squish)
-      Request UUID for request logging was blank.
-      request_id=#{request_id.inspect}
-    LOG
-    Rollbar.warn(
-      Request::CreateRequestError.new('Request UUID for request logging was blank'),
-      request_id:,
+    Rails.error.report(
+      Error.new(Request::CreateRequestError, 'Request UUID for request logging was blank'),
+      context: { request_id: },
     )
+
     next
   end
 

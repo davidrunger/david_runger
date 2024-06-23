@@ -17,12 +17,15 @@ module SpacedLaunching
 
   def warn_if_total_spacing_too_large(arguments_list:, spacing_seconds:)
     total_spacing = arguments_list.size * spacing_seconds
+
     if total_spacing > MAX_TOTAL_SPACING
-      Rollbar.warn(
+      Rails.error.report(
         Error.new(ApplicationWorker::MaxSpacingTimeExceeded),
-        max_total_spacing: MAX_TOTAL_SPACING,
-        spacing_seconds:,
-        arguments_list:,
+        context: {
+          max_total_spacing: MAX_TOTAL_SPACING,
+          spacing_seconds:,
+          arguments_list:,
+        },
       )
     end
   end

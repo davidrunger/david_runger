@@ -11,20 +11,10 @@ class RepliesMailbox < ApplicationMailbox
     has_attachments = mail.has_attachments?
     mail.without_attachments!
     body =
-      begin
-        if is_attachment
-          '[no body (just an attachment)]'
-        else
-          mail.parsed_body || '[no body]'
-        end
-      rescue => error
-        Rollbar.error(
-          error,
-          from_email:,
-          subject:,
-          body: ((mail.text_part.presence || mail.body).to_s.dup rescue '[error reading raw body]'),
-        )
-        '[error reading parsed body]'
+      if is_attachment
+        '[no body (just an attachment)]'
+      else
+        mail.parsed_body || '[no body]'
       end
 
     ReplyForwardingMailer.reply_received(

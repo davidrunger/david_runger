@@ -8,6 +8,9 @@ class ErrorSubscriber
   }.freeze
 
   def report(error, **kwargs)
+    # Instead, we'll use the controller_action (set via set_controller_action_in_context).
+    kwargs[:context] = kwargs[:context].except(:controller)
+
     if error.class.name.start_with?('Sidekiq::JobRetry::')
       # Only write a log line because the Rollbar integration will automatically send to Rollbar.
       write_log_line(error.cause, **kwargs)

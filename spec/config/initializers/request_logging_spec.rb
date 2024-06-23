@@ -15,10 +15,10 @@ RSpec.describe 'request logging', type: :controller do
         # rubocop:enable RSpec/AnyInstance
       end
 
-      it 'sends a warning to Rollbar' do
-        expect(Rollbar).
-          to receive(:warn).
-          with(Request::CreateRequestError, { request_id: nil }).
+      it 'reports via Rails.error' do
+        expect(Rails.error).
+          to receive(:report).
+          with(Request::CreateRequestError, context: { request_id: nil }).
           and_call_original
 
         get(:upgrade_browser)

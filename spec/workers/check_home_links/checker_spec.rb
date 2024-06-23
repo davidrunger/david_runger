@@ -44,10 +44,16 @@ RSpec.describe CheckHomeLinks::Checker do
           # rubocop:enable RSpec/AnyInstance
         end
 
-        it 'sends the error to Rollbar it info level' do
-          expect(Rollbar).
-            to receive(:info).
-            with(Faraday::ConnectionFailed, url:).
+        it 'reports via Rails.error at info level' do
+          expect(Rails.error).
+            to receive(:report).
+            with(
+              Faraday::ConnectionFailed,
+              severity: :info,
+              handled: true,
+              context: { url: },
+              source: 'application',
+            ).
             and_call_original
 
           perform

@@ -50,10 +50,11 @@ module Prerenderable
       nil
     rescue => error
       case Rails.env
-      when 'production' then Rollbar.error(error, filename:)
+      when 'production' then Rails.error.report(error, severity: :error, context: { filename: })
       when 'test' then raise(error)
       else log_warning(error)
       end
+
       nil
     end
   end

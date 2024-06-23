@@ -15,7 +15,11 @@ class Api::CspReportsController < ApplicationController
     skip_authorization
 
     if send_csp_violation_to_rollbar?
-      Rollbar.info(Error.new(CspViolation), csp_report_params:)
+      Rails.error.report(
+        Error.new(CspViolation),
+        severity: :info,
+        context: { csp_report_params: },
+      )
     end
 
     csp_report =

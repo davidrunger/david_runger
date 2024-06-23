@@ -24,12 +24,12 @@ RSpec.describe SpacedLaunching do
     context 'when the total spaced launch period exceeds the default maximum' do
       let(:spacing_seconds) { 1.hour + 1.second }
 
-      it 'sends a warning to Rollbar' do
-        expect(Rollbar).
-          to receive(:warn).
+      it 'reports via Rails.error' do
+        expect(Rails.error).
+          to receive(:report).
           with(
             ApplicationWorker::MaxSpacingTimeExceeded,
-            hash_including(:arguments_list, :max_total_spacing, :spacing_seconds),
+            context: hash_including(:arguments_list, :max_total_spacing, :spacing_seconds),
           ).
           and_call_original
 
