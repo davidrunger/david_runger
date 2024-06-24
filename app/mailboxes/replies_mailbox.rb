@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RepliesMailbox < ApplicationMailbox
-  using ParsedMailBody
+  using Refinements::ParsedMailBody
 
   def process
     from_email = mail['From'].to_s.presence!

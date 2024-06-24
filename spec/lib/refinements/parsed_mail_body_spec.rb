@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe ParsedMailBody do
+RSpec.describe Refinements::ParsedMailBody do
   include MailSpecHelpers
-  using ParsedMailBody
+  using Refinements::ParsedMailBody
 
   let(:mail) { Mail::Message.new }
 

@@ -34,6 +34,11 @@ class DavidRunger::Application < Rails::Application
   # Initialize configuration defaults for originally generated Rails version.
   config.load_defaults(7.0)
 
+  # Please, add to the `ignore` list any other `lib` subdirectories that do
+  # not contain `.rb` files, or that should not be reloaded or eager loaded.
+  # Common ones are `templates`, `generators`, or `middleware`, for example.
+  config.autoload_lib(ignore: %w[tasks])
+
   # ActiveJob/Sidekiq
   config.active_job.queue_adapter = :sidekiq
 
@@ -59,9 +64,10 @@ class DavidRunger::Application < Rails::Application
     g.factory_bot(dir: 'spec/factories')
   end
 
-  # Time zone
   config.time_zone = ENV.fetch('TIME_ZONE', 'America/Chicago')
   config.active_record.default_timezone = :utc
+
+  # config.eager_load_paths << Rails.root.join("extras")
 
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
   initializer(
@@ -74,13 +80,6 @@ class DavidRunger::Application < Rails::Application
   errors_file = Rails.root.join('lib/errors.rb')
   Rails.autoloaders.main.ignore(errors_file) # must do this bc. `errors.rb` does not define `Error`
   require errors_file
-
-  extra_load_paths = [
-    Rails.root.join('lib'),
-    Rails.root.join(*%w[lib refinements]),
-  ].map { _1.to_s.freeze }
-  config.eager_load_paths.concat(extra_load_paths)
-  config.add_autoload_paths_to_load_path = false
 
   ENV['FIXTURES_PATH'] ||= 'spec/fixtures' if ENV.fetch('RAILS_ENV', nil) == 'test'
 

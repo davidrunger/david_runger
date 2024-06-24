@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LogEntriesMailbox < ApplicationMailbox
-  using ParsedMailBody
+  using Refinements::ParsedMailBody
 
   def process
     log_id = mail.to.first.presence!.match(ApplicationMailbox::LOG_ENTRIES_ROUTING_REGEX)[:log_id]
