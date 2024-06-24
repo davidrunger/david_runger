@@ -54,8 +54,14 @@ RSpec.describe Api::CspReportsController do
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) Gecko/20100101 Firefox/105.0'
       end
 
-      it 'sends an exception to Rollbar at info level' do
-        expect(Rollbar).to receive(:info).with(CspViolation, hash_including(:csp_report_params))
+      it 'reports via Rails.error at info level' do
+        expect(Rails.error).
+          to receive(:report).
+          with(
+            CspViolation,
+            severity: :info,
+            context: hash_including(:csp_report_params),
+          )
 
         post_create
       end

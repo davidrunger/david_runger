@@ -125,11 +125,15 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
         end
 
         context 'when Rails.env is "production"', rails_env: :production do
-          it 'logs to Rollbar' do
-            expect(Rollbar).to receive(:error).with(
-              Aws::Sigv4::Errors::MissingCredentialsError,
-              filename: 'home.html',
-            ).and_call_original
+          it 'reports via Rails.error' do
+            expect(Rails.error).
+              to receive(:report).
+              with(
+                Aws::Sigv4::Errors::MissingCredentialsError,
+                severity: :error,
+                context: { filename: 'home.html' },
+              ).and_call_original
+
             get_index
           end
         end

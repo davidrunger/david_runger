@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_paper_trail_whodunnit
   before_action :set_browser_uuid
+  before_action :set_controller_action_in_context
 
   after_action :verify_authorized, unless: :skip_authorization?
 
@@ -43,6 +44,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_controller_action_in_context
+    ActiveSupport::ExecutionContext[:controller_action] =
+      "#{params['controller']}##{params['action']}"
+  end
 
   def set_browser_uuid
     cookies[:browser_uuid] ||= SecureRandom.uuid

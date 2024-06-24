@@ -38,20 +38,12 @@ RSpec.describe RepliesMailbox do
           and_raise(ArgumentError, 'invalid byte sequence in UTF-8')
       end
 
-      it 'sends an error to Rollbar' do
-        expect(Rollbar).to receive(:error).with(
-          instance_of(ArgumentError),
-          from_email:,
-          subject: email_subject,
-          body: email_body,
-        ).and_call_original
-
-        processed_mail
+      it 'does not catch the exception' do
+        expect { processed_mail }.to raise_error(ArgumentError)
       end
 
-      it 'sends the email with a body indicating an error occurred', queue_adapter: :test do
-        expect { processed_mail }.to enqueue_mail(ReplyForwardingMailer, :reply_received).
-          with(String, from_email, email_subject, '[error reading parsed body]', false, false)
+      it 'does not send an email', queue_adapter: :test do
+        expect { processed_mail rescue nil }.not_to enqueue_mail
       end
     end
 

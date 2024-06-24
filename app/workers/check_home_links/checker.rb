@@ -50,12 +50,11 @@ class CheckHomeLinks::Checker
 
   memo_wise \
   def response(url)
-    Faraday.new.get do |request|
-      request.url(url)
-      request.options.timeout = 5
+    Rails.error.handle(severity: :info, context: { url: }) do
+      Faraday.new.get do |request|
+        request.url(url)
+        request.options.timeout = 5
+      end
     end
-  rescue => error
-    Rollbar.info(error, url:)
-    nil
   end
 end
