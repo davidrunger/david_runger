@@ -20,7 +20,7 @@ aside.border-r.border-neutral-400(
               name='newStoreName'
               placeholder='Add a store'
             )
-          el-button.flex-0(
+          el-button(
             native-type='submit'
             :disabled='postingStore || v$.$invalid'
           ) Add
