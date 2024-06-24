@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ParsedMailBody
+module Refinements::ParsedMailBody
   refine Mail::Message do
     def parsed_body
       # call #dup because ::trim modifies the string (via at least one `#gsub!` call)
