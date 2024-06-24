@@ -32,7 +32,7 @@ end
 
 class DavidRunger::Application < Rails::Application
   # Initialize configuration defaults for originally generated Rails version.
-  config.load_defaults(7.0)
+  config.load_defaults(7.1)
 
   # Please, add to the `ignore` list any other `lib` subdirectories that do
   # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -90,4 +90,8 @@ class DavidRunger::Application < Rails::Application
   config.action_view.form_with_generates_remote_forms = false
 
   config.action_controller.wrap_parameters_by_default = false
+
+  # The log size limit causes tailing a log file to stop working when the limit
+  # is reached, which is annoying, so disable the limit.
+  config.log_file_size = nil
 end
