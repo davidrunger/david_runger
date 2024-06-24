@@ -118,7 +118,7 @@ class Test::RequirementsResolver
 
     memo_wise \
     def config
-      YAML.load_file('bin/test/.tests.yml') rescue Hash.new { |hash, key| hash[key] = {} }
+      YAML.load_file('lib/test/.tests.yml') rescue Hash.new { |hash, key| hash[key] = {} }
     end
 
     def forces

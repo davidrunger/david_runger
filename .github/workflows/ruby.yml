@@ -59,7 +59,7 @@ jobs:
         key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: ${{ runner.os }}-pnpm-store-
     - name: Run tests & linters
-      run: bin/pallets --verbose -r ./bin/run-tests.rb
+      run: bin/run-tests
       env:
         CI: true
         AWS_EC2_METADATA_DISABLED: true

@@ -66,10 +66,10 @@ class Test::Runner < Pallets::Workflow
       elsif response.gsub(/\n|\r/, '').downcase.in?(['', 'y'])
         puts
       else
-        system('$EDITOR bin/test/.tests.yml')
+        system('$EDITOR lib/test/.tests.yml')
 
         @listener =
-          Listen.to("#{Dir.pwd}/bin/test/", only: /\A.tests.yml\z/) do |_modified, _added, _removed|
+          Listen.to("#{Dir.pwd}/lib/test/", only: /\A.tests.yml\z/) do |_modified, _added, _removed|
             # reset memoized methods
             reset_memo_wise
             Test::RequirementsResolver.reset_memo_wise
