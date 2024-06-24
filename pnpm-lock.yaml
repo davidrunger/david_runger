@@ -187,8 +187,8 @@ importers:
         specifier: ^5.3.2
         version: 5.3.2(stylelint@15.11.0(typescript@5.5.2))
       tailwind-config-viewer:
-        specifier: ^2.0.3
-        version: 2.0.3(tailwindcss@3.4.4)
+        specifier: ^2.0.4
+        version: 2.0.4(tailwindcss@3.4.4)
       tailwindcss:
         specifier: ^3.4.4
         version: 3.4.4
@@ -2674,8 +2674,8 @@ packages:
     resolution: {integrity: sha512-Y4X9zqrCftUhMeH2EptSSERdVKt/nEdijTOacGD/97EKjhQ/Qs8RTlEGABSJNNN8lac9kheH+af7yAkEWlgneA==}
     engines: {node: '>=10.0.0'}
 
-  tailwind-config-viewer@2.0.3:
-    resolution: {integrity: sha512-UxeBz6Q0XLCmVcJ2IiYqM1vuxjIkGTf0idxpwb7LkCb/FEebEmUGqwE7XSGPrD8uL7bmCfWskyPGiwNtzMmrJw==}
+  tailwind-config-viewer@2.0.4:
+    resolution: {integrity: sha512-icvcmdMmt9dphvas8wL40qttrHwAnW3QEN4ExJ2zICjwRsPj7gowd1cOceaWG3IfTuM/cTNGQcx+bsjMtmV+cw==}
     engines: {node: '>=13'}
     hasBin: true
     peerDependencies:
@@ -5762,7 +5762,7 @@ snapshots:
       string-width: 4.2.3
       strip-ansi: 6.0.1
 
-  tailwind-config-viewer@2.0.3(tailwindcss@3.4.4):
+  tailwind-config-viewer@2.0.4(tailwindcss@3.4.4):
     dependencies:
       '@koa/router': 12.0.1
       commander: 6.2.1
