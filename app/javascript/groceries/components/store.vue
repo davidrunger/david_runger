@@ -46,7 +46,7 @@
         name='newItemName'
       )
     .ml-2
-      el-button.flex-0.button.button-outline(
+      el-button.button.button-outline(
         native-type='submit'
         :disabled='v$.$invalid'
       ) Add
