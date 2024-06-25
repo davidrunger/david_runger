@@ -53,6 +53,18 @@ module DiffHelpers
   end
 
   memo_wise \
+  def file_extensions_changed
+    files_changed.filter_map do |file_name|
+      file_name.include?('.') && file_name.split('.').last
+    end.uniq.sort
+  end
+
+  memo_wise \
+  def all_changed_file_extensions_are_among?(file_extensions)
+    (file_extensions_changed - file_extensions).empty?
+  end
+
+  memo_wise \
   def files_with_css_changed?
     Dir['app/**/*.{css,scss,vue}'].intersect?(files_changed)
   end

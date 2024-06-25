@@ -25,6 +25,7 @@ class Test::RequirementsResolver
         Test::Tasks::CheckVersions => nil,
 
         # Checks
+        Test::Tasks::RunPrettier => Test::Tasks::PnpmInstall,
         Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
@@ -57,6 +58,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunFileSizeChecks,
           Test::Tasks::RunHtmlControllerTests,
           Test::Tasks::RunImmigrant,
+          Test::Tasks::RunPrettier,
           Test::Tasks::RunRubocop,
           Test::Tasks::RunStylelint,
           Test::Tasks::RunUnitTests,
@@ -185,6 +187,9 @@ class Test::RequirementsResolver
         !file_changed?('pnpm-lock.yaml')
     },
     Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
+    Test::Tasks::RunPrettier => proc {
+      all_changed_file_extensions_are_among?(%w[rb]) && !diff_mentions?('prettier')
+    },
     Test::Tasks::RunRubocop => proc {
       !ruby_files_changed? && !rubocop_files_changed? && !diff_mentions?('rubocop')
     },
