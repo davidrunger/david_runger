@@ -10,6 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
     '@vue/eslint-config-typescript',
+    'prettier',
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -33,8 +34,6 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-empty-function': 'off',
     'arrow-parens': 'off',
-    'comma-dangle': ['warn', 'always-multiline'],
-    'dot-location': ['error', 'object'],
     'function-paren-newline': 'off',
     // https://github.com/import-js/eslint-import-resolver-typescript/issues/39#issuecomment-571489805
     'import/extensions': [
@@ -58,7 +57,6 @@ module.exports = {
     'no-console': env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-else-return': 'off',
-    'no-multiple-empty-lines': ['error', { max: 1 }],
     'no-new': 'off',
     'no-param-reassign': 'off',
     'no-plusplus': 'off',
@@ -92,25 +90,9 @@ module.exports = {
         caughtErrorsIgnorePattern: '^_',
       },
     ],
-    'object-curly-newline': [
-      'error',
-      {
-        consistent: true,
-        minProperties: 99,
-      },
-    ],
     'operator-linebreak': 'off',
     quotes: ['warn', 'single', { avoidEscape: true }],
     'require-await': 'error',
-    semi: ['warn', 'always'],
-    'space-before-function-paren': [
-      'warn',
-      {
-        anonymous: 'always',
-        named: 'never',
-        asyncArrow: 'always',
-      },
-    ],
     'vue/multi-word-component-names': 'off',
   },
 };
