@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 table(v-if='workouts.length')
   thead
     tr
@@ -21,17 +21,13 @@ table(v-if='workouts.length')
 div(v-else) None
 </template>
 
-<script lang="ts">
+<script lang='ts'>
+import { useWorkoutsStore } from '@/workouts/store';
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
 import Toastify from 'toastify-js';
-
-import { useWorkoutsStore } from '@/workouts/store';
-
 import 'toastify-js/src/toastify.css';
-
 import { PropType } from 'vue';
-
 import { Workout } from './types';
 
 export default {
@@ -49,10 +45,10 @@ export default {
 
   methods: {
     prettyObject(object: object) {
-      return JSON.stringify(object)
-        .replace(/{|}|"/g, '')
-        .replace(/,/g, ', ')
-        .replace(/:(?! )/g, ': ');
+      return JSON.stringify(object).
+        replace(/{|}|"/g, '').
+        replace(/,/g, ', ').
+        replace(/:(?! )/g, ': ');
     },
 
     prettyTime(timeString: string) {
@@ -60,14 +56,11 @@ export default {
     },
 
     async savePubliclyViewableChange(workout: Workout) {
-      const responseData = (await this.workoutsStore.updateWorkout({
-        workout,
-        attributes: workout,
-      })) as Workout;
-      const message =
-        responseData.publicly_viewable ?
-          'Workout is now publicly viewable.'
-        : 'Workout is now private.';
+      const responseData =
+        await this.workoutsStore.updateWorkout({ workout, attributes: workout }) as Workout;
+      const message = responseData.publicly_viewable ?
+        'Workout is now publicly viewable.' :
+        'Workout is now private.';
       Toastify({
         text: message,
         position: 'center',

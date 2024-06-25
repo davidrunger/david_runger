@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 form
   h2.text-2xl New Workout
   .my-2
@@ -48,16 +48,17 @@ form
     ) Initialize Workout!
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { mapState } from 'pinia';
 
 import { useWorkoutsStore } from '@/workouts/store';
-
 import { WorkoutPlan } from './types';
 
 export default {
   computed: {
-    ...mapState(useWorkoutsStore, ['workout']),
+    ...mapState(useWorkoutsStore, [
+      'workout',
+    ]),
 
     typedWorkout(): WorkoutPlan {
       return this.workout as WorkoutPlan;

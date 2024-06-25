@@ -13,8 +13,7 @@ export function renderApp(
   const app = createApp(vueApp);
 
   app.config.globalProperties.$routes = Routes;
-  app.config.globalProperties.$bootstrap =
-    window.davidrunger ? window.davidrunger.bootstrap : {};
+  app.config.globalProperties.$bootstrap = window.davidrunger ? window.davidrunger.bootstrap : {};
 
   const mobileDeviceBoolean = isMobileDevice();
   app.config.globalProperties.$is_mobile_device = mobileDeviceBoolean;

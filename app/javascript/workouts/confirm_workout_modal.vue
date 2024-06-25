@@ -25,14 +25,11 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
       ) Save workout
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import Toastify from 'toastify-js';
-
 import 'toastify-js/src/toastify.css';
-
 import { useModalStore } from '@/shared/modal/store';
 import { useWorkoutsStore } from '@/workouts/store';
-
 import { Workout } from './types';
 
 export default {
@@ -48,13 +45,12 @@ export default {
   methods: {
     async saveWorkout() {
       try {
-        const completedWorkout = (await this.workoutsStore.createWorkout({
-          workout: {
+        const completedWorkout =
+          await this.workoutsStore.createWorkout({ workout: {
             publiclyViewable: this.publiclyViewable,
             repTotals: this.repTotals,
             timeInSeconds: this.timeInSeconds,
-          },
-        })) as Workout;
+          } }) as Workout;
 
         Toastify({
           text: 'Workout completion logged successfully!',

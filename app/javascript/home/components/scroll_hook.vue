@@ -1,10 +1,10 @@
-<template lang="pug">
+<template lang='pug'>
 .js-scroll-hook.absolute(ref='scrollHookRef')
 </template>
 
-<script lang="ts">
-import { useIntersectionObserver } from '@vueuse/core';
+<script lang='ts'>
 import { ref } from 'vue';
+import { useIntersectionObserver } from '@vueuse/core';
 
 import { useHomeStore } from '@/home/store';
 
@@ -20,13 +20,16 @@ export default {
     const scrollHookRef = ref(null);
     const homeStore = useHomeStore();
 
-    useIntersectionObserver(scrollHookRef, ([{ isIntersecting }]) => {
-      if (isIntersecting) {
-        homeStore.addSectionShowing(props.section);
-      } else {
-        homeStore.removeSectionShowing(props.section);
-      }
-    });
+    useIntersectionObserver(
+      scrollHookRef,
+      ([{ isIntersecting }]) => {
+        if (isIntersecting) {
+          homeStore.addSectionShowing(props.section);
+        } else {
+          homeStore.removeSectionShowing(props.section);
+        }
+      },
+    );
 
     return {
       scrollHookRef,

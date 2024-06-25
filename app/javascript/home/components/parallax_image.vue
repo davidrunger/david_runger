@@ -1,11 +1,11 @@
-<template lang="pug">
+<template lang='pug'>
 .parallax-outer.parallax-outer--desktop(v-if='!$is_mobile_device')
   .parallax-inner.parallax-inner--desktop(:class='variant')
 .parallax-outer.parallax-outer--mobile(v-else)
   .parallax-inner.parallax-inner--mobile(:class='variant')
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 export default {
   props: {
     variant: {
@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .parallax-outer {
   position: relative;
 }
@@ -27,24 +27,24 @@ export default {
 
 .macbook-1 {
   &::before {
-    background-image: url('img/macbook-1.webp');
+    background-image: url("img/macbook-1.webp");
   }
 }
 
 .macbook-2 {
   &::before {
-    background-image: url('img/macbook-2.webp');
+    background-image: url("img/macbook-2.webp");
   }
 }
 
 .parallax-inner {
   &::before {
-    content: '';
+    content: "";
   }
 
   // lighten the image with a semi-transparent white mask
   &::after {
-    content: '';
+    content: "";
     top: 0;
     width: 100%;
     height: 100%;

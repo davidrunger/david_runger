@@ -11,14 +11,18 @@
     "skipLibCheck": true,
     "allowJs": true,
     "lib": ["esnext", "dom"],
-    "types": ["vite/client"],
+    "types": [
+      "vite/client"
+    ],
     "paths": {
       "@/*": ["./app/javascript/*"],
       "css/*": ["./app/assets/stylesheets/*"]
     }
   },
   "vueCompilerOptions": {
-    "plugins": ["@volar/vue-language-plugin-pug"]
+    "plugins": [
+      "@volar/vue-language-plugin-pug"
+    ]
   },
   "include": [
     "app/javascript/**/*.ts",

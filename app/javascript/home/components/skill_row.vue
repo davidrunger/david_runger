@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 tr
   td
     slot(v-if='$slots.image' name='image')
@@ -9,7 +9,7 @@ tr
     span(v-else) {{ details }}
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 export default {
   props: {
     name: {
@@ -60,10 +60,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import 'css/variables';
+<style lang='scss' scoped>
+@import "css/variables";
 
-i[class^='devicon-'] {
+i[class^="devicon-"] {
   font-size: 65px;
 
   @media (width <= 550px) {

@@ -9,23 +9,21 @@
       )
 </template>
 
-<script lang="ts">
-import { Connection } from '@rails/actioncable';
-import Cookies from 'js-cookie';
-import { get } from 'lodash-es';
-import { mapState } from 'pinia';
+<script lang='ts'>
 import { defineComponent } from 'vue';
-
+import { mapState } from 'pinia';
+import { get } from 'lodash-es';
+import Cookies from 'js-cookie';
+import { Connection } from '@rails/actioncable';
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
 import { ItemBroadcast } from '@/groceries/types';
 import { IphoneTouchEvent } from '@/shared/types';
-
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
 
 interface MonkeypatchableConnection extends Connection {
-  installEventHandlers(): void;
+  installEventHandlers(): void
 }
 
 export default defineComponent({
@@ -60,13 +58,11 @@ export default defineComponent({
       // HACK: add on to the installEventHandlers method because it's called when the ActionCable
       // connection is re-established after having been broken (though it's also called when
       // first loading the page, which we don't need, so ignore that one)
-      const originalInstallEventHandlers = (
-        actionCableConsumer.connection as MonkeypatchableConnection
-      ).installEventHandlers.bind(actionCableConsumer.connection);
+      const originalInstallEventHandlers =
+        (actionCableConsumer.connection as MonkeypatchableConnection).installEventHandlers.
+          bind(actionCableConsumer.connection);
       let isFirstInstall = true;
-      (
-        actionCableConsumer.connection as MonkeypatchableConnection
-      ).installEventHandlers = () => {
+      (actionCableConsumer.connection as MonkeypatchableConnection).installEventHandlers = () => {
         if (!isFirstInstall) this.groceriesStore.pullStoreData();
         isFirstInstall = false;
         originalInstallEventHandlers();
@@ -78,8 +74,7 @@ export default defineComponent({
         },
         {
           received: (data: ItemBroadcast) => {
-            if (Cookies.get('browser_uuid') === data.acting_browser_uuid)
-              return;
+            if (Cookies.get('browser_uuid') === data.acting_browser_uuid) return;
 
             if (data.action === 'created') {
               this.groceriesStore.addItem({ itemData: data.model });
@@ -113,7 +108,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 // Disable mobile double-click zooming https://stackoverflow.com/a/54207844/4009384
 * {
   touch-action: manipulation;
@@ -124,7 +119,7 @@ export default defineComponent({
 }
 
 main {
-  background-image: url('../../assets/images/beach-background.webp');
+  background-image: url("../../assets/images/beach-background.webp");
   z-index: 5;
 }
 
@@ -134,11 +129,11 @@ main {
 
 // https://stackoverflow.com/a/45769607/4009384
 @media screen and (width <= 767px) {
-  input[type='text'],
-  input[type='number'],
-  input[type='email'],
-  input[type='tel'],
-  input[type='password'] {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"] {
     font-size: 16px;
   }
 }

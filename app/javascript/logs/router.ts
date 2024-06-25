@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { emit } from '@/lib/event_bus';
-
 import Log from './components/log.vue';
 import LogsIndex from './components/logs_index.vue';
 

@@ -1,5 +1,5 @@
-import * as RoutesType from '@/rails_assets/routes';
 import { kyApi } from '@/shared/ky';
+import * as RoutesType from '@/rails_assets/routes';
 
 declare const Routes: typeof RoutesType;
 

@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .my-8(
   v-for='needSatisfactionRating in needSatisfactionRatings'
 )
@@ -23,14 +23,12 @@
 button.btn-primary.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
 </template>
 
-<script lang="ts">
+<script lang='ts'>
+import { PropType } from 'vue';
 import { range } from 'lodash-es';
 import { mapState } from 'pinia';
-import { PropType } from 'vue';
-
 import { useCheckInsStore } from '@/check_ins/store';
 import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
-
 import EmojiButton from './emoji_button.vue';
 
 export default {
@@ -39,7 +37,9 @@ export default {
   },
 
   computed: {
-    ...mapState(useCheckInsStore, ['submitted']),
+    ...mapState(useCheckInsStore, [
+      'submitted',
+    ]),
   },
 
   data() {
@@ -51,10 +51,11 @@ export default {
 
   methods: {
     graphLink(needSatisfactionRating: NeedSatisfactionRating) {
-      return this.$routes.history_emotional_need_path(
-        needSatisfactionRating.emotional_need.id,
-        { rated_user: this.ratedUser },
-      );
+      return this.$routes.
+        history_emotional_need_path(
+          needSatisfactionRating.emotional_need.id,
+          { rated_user: this.ratedUser },
+        );
     },
 
     async submitCheckIn() {

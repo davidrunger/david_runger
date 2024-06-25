@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .project-container.mt-8
   .card
     .card__body
@@ -26,7 +26,7 @@
         slot(name='tech-list')
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 export default {
   props: {
     imageContainerClass: {
@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .card {
   border-radius: 4px;
   border: 1px solid #ebeef5;

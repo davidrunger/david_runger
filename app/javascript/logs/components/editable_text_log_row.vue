@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 tr
   td(v-html='formattedCreatedAt')
 
@@ -13,29 +13,23 @@ tr
     a.js-link(@click='editing = true') Edit
 </template>
 
-<script lang="ts">
+<script lang='ts'>
+import { useLogsStore } from '@/logs/store';
 import createDOMPurify from 'dompurify';
 import { ElInput } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
-
-import { useLogsStore } from '@/logs/store';
 
 const DOMPurify = createDOMPurify(window);
 
 export default {
   computed: {
     formattedCreatedAt(): string {
-      return strftime(
-        '%b %-d, %Y at&nbsp;%-l:%M%P',
-        new Date(this.logEntry.created_at),
-      );
+      return strftime('%b %-d, %Y at&nbsp;%-l:%M%P', new Date(this.logEntry.created_at));
     },
 
     html(): string {
-      return DOMPurify.sanitize(
-        marked(this.logEntry.data, { async: false }) as string,
-      );
+      return DOMPurify.sanitize(marked(this.logEntry.data, { async: false }) as string);
     },
   },
 
@@ -74,10 +68,7 @@ export default {
     editing() {
       setTimeout(() => {
         if (this.editing) {
-          (
-            (this.$refs.textInput as typeof ElInput).$el
-              .children[0] as HTMLInputElement
-          ).focus();
+          ((this.$refs.textInput as typeof ElInput).$el.children[0] as HTMLInputElement).focus();
         }
       }, 0);
     },

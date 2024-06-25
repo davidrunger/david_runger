@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 HomeSection(section='projects' title='Projects')
   Project.mt8
     template(v-slot:title)
@@ -316,7 +316,7 @@ HomeSection(section='projects' title='Projects')
 
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import HomeSection from './home_section.vue';
 import Project from './project.vue';
 

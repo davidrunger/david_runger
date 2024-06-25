@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .flex.justify-center
   .container
     table.text-log-table(v-auto-animate)
@@ -11,12 +11,11 @@
       Show all entries
 </template>
 
-<script lang="ts">
-import { PropType } from 'vue';
-
+<script lang='ts'>
 import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';
 import NewLogEntryForm from '@/logs/components/new_log_entry_form.vue';
 import { LogEntry } from '@/logs/types';
+import { PropType } from 'vue';
 
 export default {
   components: {
@@ -27,7 +26,7 @@ export default {
   computed: {
     sortedLogEntries(): Array<LogEntry> {
       let logEntriesToShow;
-      if (this.showAllEntries || this.log_entries.length <= 3) {
+      if (this.showAllEntries || (this.log_entries.length <= 3)) {
         logEntriesToShow = this.log_entries;
       } else {
         logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
@@ -60,15 +59,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 // (re-)set some default styles for markdown formatting
-em {
-  font-style: italic;
-}
-
-strong {
-  font-weight: bold;
-}
+em { font-style: italic; }
+strong { font-weight: bold; }
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.17em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.83em; }
+h6 { font-size: 0.75em; }
 
 ol {
   counter-reset: item;
@@ -82,7 +82,7 @@ ol {
 
     &::before {
       margin-left: -1 * $li-indent;
-      content: counter(item) '. ';
+      content: counter(item) ". ";
       counter-increment: item;
       position: absolute;
     }

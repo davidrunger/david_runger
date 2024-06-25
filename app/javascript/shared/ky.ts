@@ -1,5 +1,4 @@
 import ky from 'ky';
-
 import { assert } from './helpers';
 
 let kyApi = ky; // eslint-disable-line import/no-mutable-exports
@@ -10,9 +9,7 @@ if (csrfMetaTag) {
   kyApi = ky.extend({
     hooks: {
       beforeRequest: [
-        (request) => {
-          request.headers.set('X-CSRF-Token', csrfToken);
-        },
+        request => { request.headers.set('X-CSRF-Token', csrfToken); },
       ],
     },
   });

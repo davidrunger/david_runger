@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 a.nav-link(
   :href='`#${section}`'
   :class='{ active }'
@@ -7,9 +7,8 @@ a.nav-link(
   span {{linkText || prettyName}}
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { capitalize } from 'lodash-es';
-
 import { useHomeStore } from '@/home/store';
 
 export default {
@@ -42,8 +41,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import 'css/variables';
+<style lang='scss' scoped>
+@import "css/variables";
 
 a.nav-link.nav-link {
   color: $gray-light;

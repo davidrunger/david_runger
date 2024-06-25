@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 HomeSection.pb-16(
   section='resume'
   title='Resume'
@@ -6,7 +6,7 @@ HomeSection.pb-16(
   a.resume-button.block.text-center(href='/David-Runger-Resume.pdf') View Resume (pdf)
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import HomeSection from './home_section.vue';
 
 export default {
@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .resume-button.resume-button {
   width: 240px;
   height: 60px;

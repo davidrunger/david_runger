@@ -7,13 +7,12 @@ button.bg-slate-200(
   span(v-else) {{ratingValue}}
 </template>
 
-<script lang="ts">
-import { sample } from 'lodash-es';
+<script lang='ts'>
 import { PropType } from 'vue';
-
+import { sample } from 'lodash-es';
+import { assert } from '@/shared/helpers';
 import { useCheckInsStore } from '@/check_ins/store';
 import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
-import { assert } from '@/shared/helpers';
 
 const EMOJIS = new Map([
   [-3, ['😢']],
@@ -70,7 +69,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 button {
   width: 40px;
   height: 30px;

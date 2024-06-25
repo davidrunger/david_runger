@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 div
   h1.text-2xl.mb-2 {{log.name}}
   h2.h5.text-neutral-400(v-if='!isOwnLog') shared by {{log.user.email}}
@@ -81,25 +81,24 @@ div
       LogReminderScheduleForm(:log='log')
 </template>
 
-<script lang="ts">
-import { useTitle } from '@vueuse/core';
-import ClipboardJS from 'clipboard';
-import { ElInput } from 'element-plus';
+<script lang='ts'>
 import { mapState } from 'pinia';
+import ClipboardJS from 'clipboard';
 import { h } from 'vue';
+import { ElInput } from 'element-plus';
+import { useTitle } from '@vueuse/core';
 
-import actionCableConsumer from '@/channels/consumer';
-import { useLogsStore } from '@/logs/store';
 import * as RoutesType from '@/rails_assets/routes';
+import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
-
-import { Bootstrap, Log, LogDataType, LogEntry, LogShare } from '../types';
+import actionCableConsumer from '@/channels/consumer';
 import CounterBarGraph from './data_renderers/counter_bar_graph.vue';
 import DurationTimeseries from './data_renderers/duration_timeseries.vue';
 import IntegerTimeseries from './data_renderers/integer_timeseries.vue';
 import TextLog from './data_renderers/text_log.vue';
-import LogReminderScheduleForm from './log_reminder_schedule_form.vue';
 import NewLogEntryForm from './new_log_entry_form.vue';
+import LogReminderScheduleForm from './log_reminder_schedule_form.vue';
+import { Bootstrap, Log, LogDataType, LogEntry, LogShare } from '../types';
 
 declare const Routes: typeof RoutesType;
 
@@ -111,10 +110,10 @@ const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
 };
 
 const LogDataDisplay = (props: {
-  data_type: LogDataType;
-  log: Log;
-  log_entries: Array<LogEntry>;
-  data_label: string;
+  data_type: LogDataType,
+  log: Log,
+  log_entries: Array<LogEntry>,
+  data_label: string,
 }) => {
   const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[props.data_type];
   return h(DataRenderer, {
@@ -138,11 +137,8 @@ export default {
     }),
 
     logSharesSortedByLowercasedEmail(): Array<LogShare> {
-      return this.log.log_shares
-        .slice()
-        .sort((a, b) =>
-          a.email.toLowerCase().localeCompare(b.email.toLowerCase()),
-        );
+      return this.log.log_shares.slice().
+        sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()));
     },
 
     renderInputAtTop(): boolean {
@@ -150,12 +146,9 @@ export default {
     },
 
     shareableUrl(): string {
-      return (
-        window.location.origin +
-        Routes.user_shared_log_path(
-          (this.$bootstrap as Bootstrap).current_user.id,
-          this.log.slug,
-        )
+      return window.location.origin + Routes.user_shared_log_path(
+        (this.$bootstrap as Bootstrap).current_user.id,
+        this.log.slug,
       );
     },
   },
@@ -191,7 +184,8 @@ export default {
       const promptResponse =
         prompt(`Are you sure you want to delete this log and all of its entries?
 If so, enter the name of this log:
-${this.log.name}`);
+${this.log.name}`,
+        );
 
       if (promptResponse === this.log.name) {
         this.logsStore.deleteLog({ log: this.log });
@@ -245,10 +239,7 @@ ${this.log.name}`);
         },
         {
           received: (data) => {
-            this.logsStore.addLogEntry({
-              logId: this.log.id,
-              newLogEntry: data,
-            });
+            this.logsStore.addLogEntry({ logId: this.log.id, newLogEntry: data });
           },
         },
       );
@@ -261,9 +252,7 @@ ${this.log.name}`);
     });
     clipboard.on('success', () => {
       this.wasCopiedRecently = true;
-      setTimeout(() => {
-        this.wasCopiedRecently = false;
-      }, 1800);
+      setTimeout(() => { this.wasCopiedRecently = false; }, 1800);
     });
   },
 

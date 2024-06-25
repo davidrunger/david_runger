@@ -1,11 +1,11 @@
 /* eslint-env node */
 
-import path from 'path';
-import vue from '@vitejs/plugin-vue';
-import ElementPlus from 'unplugin-element-plus/vite';
 import { defineConfig } from 'vite';
-import FullReload from 'vite-plugin-full-reload';
 import RubyPlugin from 'vite-plugin-ruby';
+import ElementPlus from 'unplugin-element-plus/vite';
+import vue from '@vitejs/plugin-vue';
+import path from 'path';
+import FullReload from 'vite-plugin-full-reload';
 
 export default defineConfig({
   plugins: [
