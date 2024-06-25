@@ -5,5 +5,5 @@
 Opt in to our git hooks by executing in this repository:
 
 ```sh
-git config core.hooksPath tools/githooks
+git config core.hooksPath bin/githooks
 ```
