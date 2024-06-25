@@ -6,6 +6,7 @@
 
 if (
   ENV['SKIP_GITHOOKS_CHECK'].blank? &&
+    ENV['CI'].blank? &&
     `git config core.hooksPath`.strip != 'tools/githooks'
 )
   $stderr.puts(AmazingPrint::Colors.red(<<~ERROR))
