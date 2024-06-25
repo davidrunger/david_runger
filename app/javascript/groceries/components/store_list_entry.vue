@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .stores-list__item.flex.items-center.justify-between.my-4.py-2.px-4.js-link.text-xl(
   :class='["leading-[1.15]", { selected: store === currentStore }]'
   @click='groceriesStore.selectStore({ store })'
@@ -13,7 +13,7 @@
     ) &times;
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { mapState } from 'pinia';
 import { LockIcon } from 'vue-tabler-icons';
@@ -28,9 +28,7 @@ export default defineComponent({
   },
 
   computed: {
-    ...mapState(useGroceriesStore, [
-      'currentStore',
-    ]),
+    ...mapState(useGroceriesStore, ['currentStore']),
   },
 
   data() {
@@ -60,7 +58,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .stores-list__item {
   background: rgba(255, 255, 255, 50%);
 

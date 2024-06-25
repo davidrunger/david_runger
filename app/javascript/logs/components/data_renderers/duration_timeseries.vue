@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .chart-container
   LineChart(
     :chart-data='chartMetadata'
@@ -7,19 +7,19 @@
   )
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import LineChart from '@/components/charts/line_chart.vue';
 import { LogEntry } from '@/logs/types';
 import { PropType } from 'vue';
 import { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
 
 function epochMsToHhMmSs(epochMs: number) {
-  return new Date(epochMs).
-    toISOString().
-    substring(11, 19).
-    replace(/^00:/, '').
-    replace(/^0+/, '').
-    replace(/^:00$/, '0');
+  return new Date(epochMs)
+    .toISOString()
+    .substring(11, 19)
+    .replace(/^00:/, '')
+    .replace(/^0+/, '')
+    .replace(/^:00$/, '0');
 }
 
 function shortTimeStringToHhMmSsString(timeString: string) {
@@ -40,10 +40,10 @@ function shortTimeStringToHhMmSsString(timeString: string) {
 }
 
 type ChartData = {
-  x: string
-  y: Date
-  note: string | undefined
-}
+  x: string;
+  y: Date;
+  note: string | undefined;
+};
 
 export default {
   components: {
@@ -53,18 +53,24 @@ export default {
   computed: {
     chartMetadata(): { datasets: Array<{ data: Array<ChartData> }> } {
       return {
-        datasets: [{
-          data: this.logEntriesToChartData,
-        }],
+        datasets: [
+          {
+            data: this.logEntriesToChartData,
+          },
+        ],
       };
     },
 
     logEntriesToChartData(): Array<ChartData> {
-      return this.log_entries.map((logEntry: LogEntry): ChartData => ({
-        x: logEntry.created_at,
-        y: new Date(`1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data as string)}Z`),
-        note: logEntry.note,
-      }));
+      return this.log_entries.map(
+        (logEntry: LogEntry): ChartData => ({
+          x: logEntry.created_at,
+          y: new Date(
+            `1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data as string)}Z`,
+          ),
+          note: logEntry.note,
+        }),
+      );
     },
   },
 
@@ -90,8 +96,10 @@ export default {
           },
           y: {
             afterTickToLabelConversion(axis: Scale<CoreScaleOptions>) {
-              axis.ticks =
-                axis.ticks.map(tick => ({ ...tick, label: epochMsToHhMmSs(tick.value) }));
+              axis.ticks = axis.ticks.map((tick) => ({
+                ...tick,
+                label: epochMsToHhMmSs(tick.value),
+              }));
             },
           },
         },

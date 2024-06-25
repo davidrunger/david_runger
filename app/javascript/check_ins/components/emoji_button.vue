@@ -7,7 +7,7 @@ button.bg-slate-200(
   span(v-else) {{ratingValue}}
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { PropType } from 'vue';
 import { sample } from 'lodash-es';
 import { assert } from '@/shared/helpers';
@@ -69,7 +69,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 button {
   width: 40px;
   height: 30px;

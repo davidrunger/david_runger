@@ -1,24 +1,24 @@
 version: 2
 updates:
-- package-ecosystem: github-actions
-  directory: /
-  schedule:
-    interval: daily
-    time: "04:04"
-    timezone: America/Chicago
-- package-ecosystem: bundler
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:04"
-    timezone: America/Chicago
-  allow:
-    - dependency-type: "all"
-  open-pull-requests-limit: 20
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:04"
-    timezone: America/Chicago
-  open-pull-requests-limit: 20
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+      time: '04:04'
+      timezone: America/Chicago
+  - package-ecosystem: bundler
+    directory: '/'
+    schedule:
+      interval: daily
+      time: '04:04'
+      timezone: America/Chicago
+    allow:
+      - dependency-type: 'all'
+    open-pull-requests-limit: 20
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: daily
+      time: '04:04'
+      timezone: America/Chicago
+    open-pull-requests-limit: 20

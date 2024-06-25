@@ -16,11 +16,10 @@ export const useHomeStore = defineStore('home', {
     addSectionShowing(section: string) {
       if (this.visibleSections.includes(section)) return;
 
-      this.visibleSections =
-        sortBy(
-          [...this.visibleSections, section],
-          sectionName => SECTION_ORDER.indexOf(sectionName),
-        );
+      this.visibleSections = sortBy(
+        [...this.visibleSections, section],
+        (sectionName) => SECTION_ORDER.indexOf(sectionName),
+      );
     },
 
     registerClickedSection(section: string) {

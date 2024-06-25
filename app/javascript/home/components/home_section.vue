@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .section-container.relative.bg-white.flex.justify-center.p-4(:class='section', ref='root')
   .anchor-target(:id='section')
   section(:data-section='section')
@@ -7,13 +7,13 @@
     slot(:title='title')
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { h } from 'vue';
 
 import ScrollHook from './scroll_hook.vue';
 
-export const SectionHeader =
-  (props: { title?: string }) => h('h1', { class: 'text-3xl font-bold my-4' }, props.title);
+export const SectionHeader = (props: { title?: string }) =>
+  h('h1', { class: 'text-3xl font-bold my-4' }, props.title);
 SectionHeader.props = ['title'];
 
 export default {
@@ -39,8 +39,8 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-@import "css/variables";
+<style lang="scss" scoped>
+@import 'css/variables';
 
 section {
   width: 100%;

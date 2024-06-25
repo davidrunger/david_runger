@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 div
   h1.text-2xl.mb-2 {{log.name}}
   h2.h5.text-neutral-400(v-if='!isOwnLog') shared by {{log.user.email}}
@@ -81,7 +81,7 @@ div
       LogReminderScheduleForm(:log='log')
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { mapState } from 'pinia';
 import ClipboardJS from 'clipboard';
 import { h } from 'vue';
@@ -110,10 +110,10 @@ const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
 };
 
 const LogDataDisplay = (props: {
-  data_type: LogDataType,
-  log: Log,
-  log_entries: Array<LogEntry>,
-  data_label: string,
+  data_type: LogDataType;
+  log: Log;
+  log_entries: Array<LogEntry>;
+  data_label: string;
 }) => {
   const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[props.data_type];
   return h(DataRenderer, {
@@ -137,8 +137,11 @@ export default {
     }),
 
     logSharesSortedByLowercasedEmail(): Array<LogShare> {
-      return this.log.log_shares.slice().
-        sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()));
+      return this.log.log_shares
+        .slice()
+        .sort((a, b) =>
+          a.email.toLowerCase().localeCompare(b.email.toLowerCase()),
+        );
     },
 
     renderInputAtTop(): boolean {
@@ -146,9 +149,12 @@ export default {
     },
 
     shareableUrl(): string {
-      return window.location.origin + Routes.user_shared_log_path(
-        (this.$bootstrap as Bootstrap).current_user.id,
-        this.log.slug,
+      return (
+        window.location.origin +
+        Routes.user_shared_log_path(
+          (this.$bootstrap as Bootstrap).current_user.id,
+          this.log.slug,
+        )
       );
     },
   },
@@ -184,8 +190,7 @@ export default {
       const promptResponse =
         prompt(`Are you sure you want to delete this log and all of its entries?
 If so, enter the name of this log:
-${this.log.name}`,
-        );
+${this.log.name}`);
 
       if (promptResponse === this.log.name) {
         this.logsStore.deleteLog({ log: this.log });
@@ -239,7 +244,10 @@ ${this.log.name}`,
         },
         {
           received: (data) => {
-            this.logsStore.addLogEntry({ logId: this.log.id, newLogEntry: data });
+            this.logsStore.addLogEntry({
+              logId: this.log.id,
+              newLogEntry: data,
+            });
           },
         },
       );
@@ -252,7 +260,9 @@ ${this.log.name}`,
     });
     clipboard.on('success', () => {
       this.wasCopiedRecently = true;
-      setTimeout(() => { this.wasCopiedRecently = false; }, 1800);
+      setTimeout(() => {
+        this.wasCopiedRecently = false;
+      }, 1800);
     });
   },
 

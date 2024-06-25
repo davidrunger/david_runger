@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 HomeSection(section='about', title='About me', :renderHeadingManually='true')
   template(v-slot:default='slotProps')
     .row-reverse.items-center(class='sm:flex')
@@ -29,7 +29,7 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
           public bus driver, and a long haul truck driver.
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import HomeSection, { SectionHeader } from './home_section.vue';
 
 export default {

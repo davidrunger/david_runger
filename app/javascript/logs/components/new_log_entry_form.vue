@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 div
   form.px-2(
     @submit.prevent='postNewLogEntry(newLogEntryData)'
@@ -39,7 +39,7 @@ div
       ) Add
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { useLogsStore } from '@/logs/store';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
@@ -86,7 +86,8 @@ export default {
       const mostRecentLogEntryValues = [];
 
       for (const logEntry of this.log.log_entries.slice().reverse()) {
-        if (mostRecentLogEntryValues.length >= MAX_RECENT_LOG_ENTRY_VALUES) break;
+        if (mostRecentLogEntryValues.length >= MAX_RECENT_LOG_ENTRY_VALUES)
+          break;
 
         const value = logEntry.data;
         const isAlreadyInList = mostRecentLogEntryValues.indexOf(value) !== -1;
@@ -152,7 +153,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 :deep(form.number),
 form.duration {
   margin: 0 auto;

@@ -12,7 +12,7 @@ el-menu
       el-menu-item(index='1-3') Sign Out
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import { signOut } from '@/lib/sign_out';
 import { Bootstrap } from '@/groceries/types';
@@ -30,7 +30,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .email {
   font-size: 10px;
   height: 30px;

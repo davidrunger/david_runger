@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 Modal(
   name='log-selector'
   width='85%'
@@ -21,7 +21,7 @@ Modal(
       ) {{log.name}}
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { ref } from 'vue';
 import FuzzySet from 'fuzzyset.js';
 import { mapState } from 'pinia';
@@ -34,12 +34,10 @@ import { Log } from '../types';
 
 export default {
   computed: {
-    ...mapState(useLogsStore, [
-      'logs',
-    ]),
+    ...mapState(useLogsStore, ['logs']),
 
     logNames(): Array<string> {
-      return this.logs.map(log => log.name);
+      return this.logs.map((log) => log.name);
     },
 
     orderedMatches(): Array<Log> {
@@ -48,7 +46,9 @@ export default {
       }
 
       const matches = this.fuzzySet.get(this.searchString, '', 0) || [];
-      return matches.map(([_score, string]) => assert(this.logs.find(log => log.name === string)));
+      return matches.map(([_score, string]) =>
+        assert(this.logs.find((log) => log.name === string)),
+      );
     },
 
     showingLogSelector(): boolean {
@@ -137,8 +137,8 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-:deep(input[type="text"]) {
+<style lang="scss" scoped>
+:deep(input[type='text']) {
   max-width: 60%;
   border-radius: 4px;
   border: 1px solid #dcdfe6;

@@ -11,29 +11,36 @@ VueLine(
 )
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { Line as VueLine } from 'vue-chartjs';
 import {
   Chart as ChartJS,
-  Tooltip, LineElement, LinearScale, PointElement, TimeScale, ChartData, Point, TooltipItem,
+  Tooltip,
+  LineElement,
+  LinearScale,
+  PointElement,
+  TimeScale,
+  ChartData,
+  Point,
+  TooltipItem,
   ChartOptions,
 } from 'chart.js';
 import 'chartjs-adapter-luxon';
 import { merge } from 'lodash-es';
 
-ChartJS.register(
-  Tooltip, LineElement, LinearScale, PointElement, TimeScale,
-);
+ChartJS.register(Tooltip, LineElement, LinearScale, PointElement, TimeScale);
 
 const datasetDefaults = {
-  datasets: [{
-    borderColor: '#1c76c4',
-    borderWidth: 2,
-    fill: false,
-    pointBackgroundColor: 'rgba(90, 168, 237, 0.65)',
-    pointBorderColor: 'rgba(90, 168, 237, 0.65)',
-    pointRadius: 2,
-  }],
+  datasets: [
+    {
+      borderColor: '#1c76c4',
+      borderWidth: 2,
+      fill: false,
+      pointBackgroundColor: 'rgba(90, 168, 237, 0.65)',
+      pointBorderColor: 'rgba(90, 168, 237, 0.65)',
+      pointRadius: 2,
+    },
+  ],
 };
 
 const axisOptions = {
@@ -75,15 +82,19 @@ export default {
 
   computed: {
     chartOptions() {
-      return merge({}, chartOptionsDefaults, this.options) as ChartOptions<'line'>;
+      return merge(
+        {},
+        chartOptionsDefaults,
+        this.options,
+      ) as ChartOptions<'line'>;
     },
 
     mergedChartData(): ChartData<'line', (number | Point | null)[], unknown> {
-      return merge(
-        {},
-        datasetDefaults,
-        this.chartData,
-      ) as ChartData<'line', (number | Point | null)[], unknown>;
+      return merge({}, datasetDefaults, this.chartData) as ChartData<
+        'line',
+        (number | Point | null)[],
+        unknown
+      >;
     },
   },
 

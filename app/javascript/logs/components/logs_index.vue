@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 section
   div
     .log-link-container.m-2.text-2xl(v-for='log in logs')
@@ -7,7 +7,7 @@ section
   NewLogForm
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { mapState } from 'pinia';
 import { useTitle } from '@vueuse/core';
 
@@ -20,9 +20,7 @@ export default {
   },
 
   computed: {
-    ...mapState(useLogsStore, [
-      'logs',
-    ]),
+    ...mapState(useLogsStore, ['logs']),
   },
 
   setup() {

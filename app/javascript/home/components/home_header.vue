@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
   .flex.items-center.text-xl.js-link.js-scroll-top.ml-8
     a#logo.monospace.opacity-animated(
@@ -37,7 +37,7 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
           NavLink(section='links' linkText='Contact')
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { mapState } from 'pinia';
 import { useHomeStore } from '@/home/store';
 import NavLink from './nav_link.vue';
@@ -48,9 +48,7 @@ export default {
   },
 
   computed: {
-    ...mapState(useHomeStore, [
-      'homeIsVisible',
-    ]),
+    ...mapState(useHomeStore, ['homeIsVisible']),
   },
 
   data() {
@@ -68,8 +66,8 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-@import "css/variables";
+<style lang="scss" scoped>
+@import 'css/variables';
 
 #header {
   position: fixed;
@@ -114,7 +112,9 @@ export default {
     height: 2px;
     margin: 7px 0;
     background-color: white;
-    transition: transform 0.3s linear, width 0.3s linear;
+    transition:
+      transform 0.3s linear,
+      width 0.3s linear;
   }
 
   &.menu-open {
@@ -137,7 +137,7 @@ export default {
   }
 }
 
-input.menu-toggle[type="checkbox"] {
+input.menu-toggle[type='checkbox'] {
   position: absolute;
   top: 8px;
   right: 12px;

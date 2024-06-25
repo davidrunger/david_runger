@@ -6,24 +6,54 @@ import { loadAsyncPartials } from '@/lib/async_partial';
 import { assert } from '@/shared/helpers';
 
 // https://github.com/hotwired/turbo-rails/issues/135#issuecomment-814413558
-Rails.delegate(document, Rails.linkDisableSelector, 'turbo:before-cache', Rails.enableElement);
-Rails.delegate(document, Rails.buttonDisableSelector, 'turbo:before-cache', Rails.enableElement);
-Rails.delegate(document, Rails.buttonDisableSelector, 'turbo:submit-end', Rails.enableElement);
-Rails.delegate(document, Rails.formSubmitSelector, 'turbo:submit-start', Rails.disableElement);
-Rails.delegate(document, Rails.formSubmitSelector, 'turbo:submit-end', Rails.enableElement);
-Rails.delegate(document, Rails.formSubmitSelector, 'turbo:before-cache', Rails.enableElement);
+Rails.delegate(
+  document,
+  Rails.linkDisableSelector,
+  'turbo:before-cache',
+  Rails.enableElement,
+);
+Rails.delegate(
+  document,
+  Rails.buttonDisableSelector,
+  'turbo:before-cache',
+  Rails.enableElement,
+);
+Rails.delegate(
+  document,
+  Rails.buttonDisableSelector,
+  'turbo:submit-end',
+  Rails.enableElement,
+);
+Rails.delegate(
+  document,
+  Rails.formSubmitSelector,
+  'turbo:submit-start',
+  Rails.disableElement,
+);
+Rails.delegate(
+  document,
+  Rails.formSubmitSelector,
+  'turbo:submit-end',
+  Rails.enableElement,
+);
+Rails.delegate(
+  document,
+  Rails.formSubmitSelector,
+  'turbo:before-cache',
+  Rails.enableElement,
+);
 
 document.documentElement.addEventListener('turbo:load', loadAsyncPartials);
 
 type Bootstrap = {
   current_user: {
-    id: number
-  }
+    id: number;
+  };
   quiz: {
-    hashid: string
-    owner_id: number
-  }
-}
+    hashid: string;
+    owner_id: number;
+  };
+};
 
 const bootstrap = window.davidrunger.bootstrap as Bootstrap;
 
@@ -55,7 +85,8 @@ actionCableConsumer.subscriptions.create(
 function getDangerouslyById(id: string) {
   const el = assert(document.getElementById(id));
 
-  if (el === null) throw new Error(`Element with id '${id}' could not be found!`);
+  if (el === null)
+    throw new Error(`Element with id '${id}' could not be found!`);
 
   return el;
 }
@@ -68,8 +99,11 @@ function refresh() {
 function addNewAnswerer(newAnswererName: string) {
   const el = getDangerouslyById('quiz_question_answer_selections');
 
-  const matchedLi = assert(Array.from(el.querySelectorAll('li')).
-    find(li => li.innerText === newAnswererName));
+  const matchedLi = assert(
+    Array.from(el.querySelectorAll('li')).find(
+      (li) => li.innerText === newAnswererName,
+    ),
+  );
 
   matchedLi.classList.add('font-bold');
 }
@@ -77,9 +111,9 @@ function addNewAnswerer(newAnswererName: string) {
 function addNewParticipant(newParticipantName: string) {
   const quizParticipationsList = getDangerouslyById('quiz_participations');
 
-  const existingListing =
-    Array.from(quizParticipationsList.querySelectorAll('li')).
-      find(el => el.innerText === newParticipantName);
+  const existingListing = Array.from(
+    quizParticipationsList.querySelectorAll('li'),
+  ).find((el) => el.innerText === newParticipantName);
   if (!existingListing) {
     const newListItem = document.createElement('li');
     newListItem.innerHTML = newParticipantName;

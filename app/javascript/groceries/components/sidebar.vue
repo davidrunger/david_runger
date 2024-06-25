@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 aside.border-r.border-neutral-400(
   :class='{ collapsed }'
 )
@@ -38,7 +38,7 @@ aside.border-r.border-neutral-400(
             )
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, inject, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
@@ -60,10 +60,7 @@ export default defineComponent({
   },
 
   computed: {
-    ...mapState(useGroceriesStore, [
-      'postingStore',
-      'spouse_stores',
-    ]),
+    ...mapState(useGroceriesStore, ['postingStore', 'spouse_stores']),
 
     expanded(): boolean {
       return !this.collapsed;
@@ -110,8 +107,9 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
-@mixin sidebar-width($padding: 0px) { /* stylelint-disable-line length-zero-no-unit */
+<style lang="scss" scoped>
+@mixin sidebar-width($padding: 0px) {
+  /* stylelint-disable-line length-zero-no-unit */
   @media screen and (width <= 400px) {
     min-width: calc(150px - $padding);
     width: calc(45vw - $padding);
@@ -129,7 +127,10 @@ aside {
   @include sidebar-width;
 
   background: linear-gradient(to bottom, #458fc0 0%, #a8b2ce 50%, #b6bcd5 100%);
-  transition: min-width 0.7s, width 0.7s, max-width 0.7s;
+  transition:
+    min-width 0.7s,
+    width 0.7s,
+    max-width 0.7s;
 
   .spouse-stores-header,
   :deep(.stores-list__item) {
@@ -191,7 +192,9 @@ button.sidebar-toggle {
   outline: inherit;
   height: 50px;
   width: 50px;
-  transition: transform 0.7s, left 0.7s;
+  transition:
+    transform 0.7s,
+    left 0.7s;
 
   &.rotated-180 {
     transform: rotate(180deg);

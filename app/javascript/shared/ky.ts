@@ -9,7 +9,9 @@ if (csrfMetaTag) {
   kyApi = ky.extend({
     hooks: {
       beforeRequest: [
-        request => { request.headers.set('X-CSRF-Token', csrfToken); },
+        (request) => {
+          request.headers.set('X-CSRF-Token', csrfToken);
+        },
       ],
     },
   });

@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .chart-container
   BarGraph(
     :chart-data='chartMetadata'
@@ -6,7 +6,7 @@
   )
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import BarGraph from '@/components/charts/bar_graph.vue';
 import { LogEntry } from '@/logs/types';
 import { PropType } from 'vue';
@@ -19,32 +19,35 @@ export default {
   computed: {
     chartMetadata() {
       return {
-        datasets: [{
-          label: this.data_label,
-          data: this.logEntriesToChartData,
-        }],
+        datasets: [
+          {
+            label: this.data_label,
+            data: this.logEntriesToChartData,
+          },
+        ],
       };
     },
 
     logEntriesToChartData() {
-      const countByDate: { [key:string]: number } = {};
+      const countByDate: { [key: string]: number } = {};
 
       for (const logEntry of this.log_entries) {
         const date = new Date(logEntry.created_at);
-        const dateIsoStringInLocalTime =
-          (new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000)).
-            toISOString().
-            slice(0, 10);
+        const dateIsoStringInLocalTime = new Date(
+          date.getTime() - date.getTimezoneOffset() * 60 * 1000,
+        )
+          .toISOString()
+          .slice(0, 10);
 
-        countByDate[dateIsoStringInLocalTime] = countByDate[dateIsoStringInLocalTime] || 0;
+        countByDate[dateIsoStringInLocalTime] =
+          countByDate[dateIsoStringInLocalTime] || 0;
         countByDate[dateIsoStringInLocalTime] += logEntry.data as number;
       }
 
-      return Object.entries(countByDate).
-        map(([date, count]) => ({
-          x: date,
-          y: count,
-        }));
+      return Object.entries(countByDate).map(([date, count]) => ({
+        x: date,
+        y: count,
+      }));
     },
   },
 

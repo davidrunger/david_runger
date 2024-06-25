@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 div
   .h2.my-8 New Log
   .flex.justify-center.mb-2
@@ -40,16 +40,14 @@ div
         ) Create
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { mapState } from 'pinia';
 import { useLogsStore } from '@/logs/store';
 import { Bootstrap, LogInputType } from '@/logs/types';
 
 export default {
   computed: {
-    ...mapState(useLogsStore, [
-      'postingLog',
-    ]),
+    ...mapState(useLogsStore, ['postingLog']),
 
     logInputTypes(): Array<LogInputType> {
       return (this.$bootstrap as Bootstrap).log_input_types;

@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 #app-root.sans-serif.mb-8
   HomeHero
 
@@ -25,7 +25,7 @@
   Contact
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import About from './components/about.vue';
 import Contact from './components/contact.vue';
 import HomeHero from './components/home_hero.vue';
@@ -48,7 +48,9 @@ export default {
   methods: {
     setScrollToFragmentTimeouts() {
       if (window.location.hash) {
-        const fragmentTarget = document.getElementById(window.location.hash.slice(1));
+        const fragmentTarget = document.getElementById(
+          window.location.hash.slice(1),
+        );
         if (fragmentTarget) {
           // retarget scrolling to the element several times. earlier timeouts are so that we
           // scroll there as quickly as possible. later timeouts are because adjustments to the DOM
@@ -71,8 +73,8 @@ export default {
 };
 </script>
 
-<style lang='scss'>
-@import "css/variables";
+<style lang="scss">
+@import 'css/variables';
 
 #app-root {
   letter-spacing: 0.2px;
