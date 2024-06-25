@@ -21,6 +21,11 @@ module DiffHelpers
   end
 
   memo_wise \
+  def dotfile_changed?
+    files_changed.any? { _1.match?(/(^|\/)\./) }
+  end
+
+  memo_wise \
   def diff
     ensure_master_is_present
     `git log main..HEAD --full-diff --source --format="" --unified=0 -p . \
@@ -50,6 +55,18 @@ module DiffHelpers
   def files_changed
     ensure_master_is_present
     `git diff --name-only $(git merge-base HEAD main)`.rstrip.split("\n")
+  end
+
+  memo_wise \
+  def file_extensions_changed
+    files_changed.filter_map do |file_name|
+      file_name.include?('.') && file_name.split('.').last
+    end.uniq.sort
+  end
+
+  memo_wise \
+  def all_changed_file_extensions_are_among?(file_extensions)
+    (file_extensions_changed - file_extensions).empty?
   end
 
   memo_wise \
