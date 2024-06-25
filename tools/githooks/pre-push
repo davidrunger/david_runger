@@ -3,4 +3,6 @@
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
 # Use gitleaks to protect against committed secrets.
-gitleaks detect --log-opts="origin/main...HEAD" --verbose &> /dev/null
+if ! gitleaks detect --log-opts="origin/main..." &> /dev/null ; then
+  gitleaks detect --log-opts="origin/main..." --verbose
+fi
