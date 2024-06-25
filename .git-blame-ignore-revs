@@ -1,3 +1,6 @@
 # (The following commit only touched one line and is basically just an example.)
 # Autocorrect rubocop Style/ParenthesesAroundCondition offenses
 cb2e57260b704c6230d173cb9e901b75531694f0
+
+# Apply Prettier formatting (#4464)
+34eaefc553c57f31247f27aac7abce36df1b034d
