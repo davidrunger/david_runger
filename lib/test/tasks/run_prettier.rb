@@ -5,7 +5,7 @@ class Test::Tasks::RunPrettier < Pallets::Task
 
   def run
     execute_system_command(
-      './node_modules/.bin/prettier . --write',
+      './node_modules/.bin/prettier . --check',
     )
   end
 end
