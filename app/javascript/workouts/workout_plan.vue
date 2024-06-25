@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .text-center.pb-8
   .pt-6.pb-4
     el-switch(
@@ -65,20 +65,21 @@
   )
 </template>
 
-<script lang='ts'>
-import { PropType } from 'vue';
+<script lang="ts">
 import { Timer } from 'easytimer.js';
 import { cloneDeep } from 'lodash-es';
+import { PropType } from 'vue';
 
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
+
 import ConfirmWorkoutModal from './confirm_workout_modal.vue';
 import { Exercise } from './types';
 
 type SetObject = {
-  exercises: Array<Exercise>
-  timeAdjustment: number
-}
+  exercises: Array<Exercise>;
+  timeAdjustment: number;
+};
 
 export default {
   components: {
@@ -109,33 +110,40 @@ export default {
     nextRoundStartAtSeconds(): number {
       return (
         Math.floor((this.currentRoundIndex + 1) * this.intervalInSeconds) +
-          this.cumulativeTimeAdjustment(this.currentRoundIndex + 1, this.timeAdjustments)
+        this.cumulativeTimeAdjustment(
+          this.currentRoundIndex + 1,
+          this.timeAdjustments,
+        )
       );
     },
 
     repTotalsAsOfCurrentRound() {
-      const repTotalsAsOfCurrentRound: { [key:string]: number } = {};
+      const repTotalsAsOfCurrentRound: { [key: string]: number } = {};
       for (const { name: exerciseName } of this.exercises) {
-        repTotalsAsOfCurrentRound[exerciseName] =
-          this.setsArray.slice(0, this.currentRoundIndex + 1).
-            reduce((total: number, setObject: SetObject) => {
-              const exerciseObject =
-                setObject.exercises.find((exercise: Exercise) => exercise.name === exerciseName);
-              return total + assert(exerciseObject).reps;
-            }, 0);
+        repTotalsAsOfCurrentRound[exerciseName] = this.setsArray
+          .slice(0, this.currentRoundIndex + 1)
+          .reduce((total: number, setObject: SetObject) => {
+            const exerciseObject = setObject.exercises.find(
+              (exercise: Exercise) => exercise.name === exerciseName,
+            );
+            return total + assert(exerciseObject).reps;
+          }, 0);
       }
       return repTotalsAsOfCurrentRound;
     },
 
     repTotalsForWorkout() {
-      const repTotalsForWorkout: { [key:string]: number } = {};
+      const repTotalsForWorkout: { [key: string]: number } = {};
       for (const { name: exerciseName } of this.exercises) {
-        repTotalsForWorkout[exerciseName] =
-          this.setsArray.reduce((total: number, setObject: SetObject) => {
-            const exerciseObject =
-              setObject.exercises.find(exercise => exercise.name === exerciseName);
+        repTotalsForWorkout[exerciseName] = this.setsArray.reduce(
+          (total: number, setObject: SetObject) => {
+            const exerciseObject = setObject.exercises.find(
+              (exercise) => exercise.name === exerciseName,
+            );
             return total + assert(exerciseObject).reps;
-          }, 0);
+          },
+          0,
+        );
       }
       return repTotalsForWorkout;
     },
@@ -145,12 +153,17 @@ export default {
     },
 
     timeAdjustments(): Array<number> {
-      return this.setsArray.map((setObject: SetObject) => setObject.timeAdjustment);
+      return this.setsArray.map(
+        (setObject: SetObject) => setObject.timeAdjustment,
+      );
     },
   },
 
   created() {
-    window.addEventListener('beforeunload', this.confirmUnloadWorkoutInProgress);
+    window.addEventListener(
+      'beforeunload',
+      this.confirmUnloadWorkoutInProgress,
+    );
   },
 
   data() {
@@ -168,10 +181,10 @@ export default {
   methods: {
     confirmUnloadWorkoutInProgress(event: BeforeUnloadEvent) {
       if (
-        (this.secondsElapsed > 0) &&
-          (this.currentRoundIndex < (this.numberOfSets - 1)) &&
-          this.timer &&
-          this.timer.isRunning()
+        this.secondsElapsed > 0 &&
+        this.currentRoundIndex < this.numberOfSets - 1 &&
+        this.timer &&
+        this.timer.isRunning()
       ) {
         // ask the user to confirm that they want to leave the page
         event.preventDefault();
@@ -193,7 +206,7 @@ export default {
     },
 
     initialSetsArray() {
-      return Array(...Array(this.numberOfSets)).map(_ => ({
+      return Array(...Array(this.numberOfSets)).map((_) => ({
         timeAdjustment: 0,
         exercises: cloneDeep(this.exercises),
       }));
@@ -230,9 +243,9 @@ export default {
 
       const minutesAsDecimal = seconds / 60;
       const wholeMinutes = Math.floor(minutesAsDecimal);
-      const secondsRemainder = Math.floor(seconds - (60 * wholeMinutes));
+      const secondsRemainder = Math.floor(seconds - 60 * wholeMinutes);
       const paddedSeconds =
-        (secondsRemainder < 10) ? `0${secondsRemainder}` : `${secondsRemainder}`;
+        secondsRemainder < 10 ? `0${secondsRemainder}` : `${secondsRemainder}`;
       return `${wholeMinutes}:${paddedSeconds}`;
     },
 

@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .flex.justify-center
   .container
     table.text-log-table(v-auto-animate)
@@ -11,11 +11,12 @@
       Show all entries
 </template>
 
-<script lang='ts'>
+<script lang="ts">
+import { PropType } from 'vue';
+
 import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';
 import NewLogEntryForm from '@/logs/components/new_log_entry_form.vue';
 import { LogEntry } from '@/logs/types';
-import { PropType } from 'vue';
 
 export default {
   components: {
@@ -26,7 +27,7 @@ export default {
   computed: {
     sortedLogEntries(): Array<LogEntry> {
       let logEntriesToShow;
-      if (this.showAllEntries || (this.log_entries.length <= 3)) {
+      if (this.showAllEntries || this.log_entries.length <= 3) {
         logEntriesToShow = this.log_entries;
       } else {
         logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
@@ -72,7 +73,7 @@ ol {
 
     &::before {
       margin-left: -1 * $li-indent;
-      content: counter(item) ". ";
+      content: counter(item) '. ';
       counter-increment: item;
       position: absolute;
     }

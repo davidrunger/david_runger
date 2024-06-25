@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 h2 Your answers
 Ratings(
   :needSatisfactionRatings='checkInsStore.user_ratings_of_partner'
@@ -18,10 +18,11 @@ Ratings(
 div(v-else) {{checkInsStore.partner_ratings_hidden_reason}}
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
 import { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
+
 import Ratings from './components/ratings.vue';
 
 export default {
@@ -36,7 +37,11 @@ export default {
       },
       {
         received: (data) => {
-          if (data.originating_user_id === (this.$bootstrap as Bootstrap).current_user.id) return;
+          if (
+            data.originating_user_id ===
+            (this.$bootstrap as Bootstrap).current_user.id
+          )
+            return;
 
           if (data.event === 'check-in-submitted') {
             this.checkInsStore.setPartnerRatingsOfUser({

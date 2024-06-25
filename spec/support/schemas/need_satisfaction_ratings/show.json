@@ -6,10 +6,10 @@
     "emotional_need": {
       "type": "object",
       "properties": {
-          "description": { "type": "string" },
-          "id": { "type": "number" },
-          "name": { "type": "string" }
-        },
+        "description": { "type": "string" },
+        "id": { "type": "number" },
+        "name": { "type": "string" }
+      },
       "additionalProperties": false
     }
   }

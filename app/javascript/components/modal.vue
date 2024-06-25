@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 transition(name='modal' v-if="showingModal({ modalName: name })")
   div.modal-mask.fixed.flex.flex-col.items-center.justify-center.w-full.top-0.left-0.vh-100.z1(
     ref='mask'
@@ -11,15 +11,14 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
       slot
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { mapState } from 'pinia';
+
 import { useModalStore } from '@/shared/modal/store';
 
 export default {
   computed: {
-    ...mapState(useModalStore, [
-      'showingModal',
-    ]),
+    ...mapState(useModalStore, ['showingModal']),
   },
 
   data() {
@@ -77,7 +76,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .modal-mask {
   background-color: rgba(0, 0, 0, 50%);
   transition: opacity 0.3s ease;
@@ -85,12 +84,12 @@ export default {
   // use pseudo elements to have 1/3 space above the modal and 2/3 space below the modal. so sort of
   // centered, but nudged up.
   &::before {
-    content: "";
+    content: '';
     flex-grow: 1;
   }
 
   &::after {
-    content: "";
+    content: '';
     flex-grow: 2;
   }
 }

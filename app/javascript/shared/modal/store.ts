@@ -7,7 +7,9 @@ export const useModalStore = defineStore('modal', {
 
   actions: {
     hideModal({ modalName }: { modalName: string }) {
-      this.modalsShowing = this.modalsShowing.filter(showingModal => showingModal !== modalName);
+      this.modalsShowing = this.modalsShowing.filter(
+        (showingModal) => showingModal !== modalName,
+      );
     },
 
     hideTopModal() {
@@ -23,7 +25,8 @@ export const useModalStore = defineStore('modal', {
 
   getters: {
     showingModal() {
-      return ({ modalName }: { modalName: string }) => this.modalsShowing.indexOf(modalName) !== -1;
+      return ({ modalName }: { modalName: string }) =>
+        this.modalsShowing.indexOf(modalName) !== -1;
     },
   },
 });

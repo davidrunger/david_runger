@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 ul
   li.block.mb-2(
     v-for='(store, index) in stores'
@@ -13,8 +13,9 @@ ul
     label.ml-2(:for='`checkin-stores-${store.id}`') {{store.name}}
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, PropType } from 'vue';
+
 import { useGroceriesStore } from '@/groceries/store';
 import { Store } from '@/groceries/types';
 

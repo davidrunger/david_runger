@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .grocery-item.flex.items-center(
   :class='{unneeded: item.needed <= 0, "appear-vertically": item.newlyAdded}'
 )
@@ -37,10 +37,11 @@
   ) ×
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType } from 'vue';
+<script lang="ts">
 import { debounce, noop } from 'lodash-es';
+import { defineComponent, PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
+
 import { useGroceriesStore } from '@/groceries/store';
 import { Item } from '@/groceries/types';
 
@@ -72,7 +73,9 @@ export default defineComponent({
     editItemName() {
       this.editingName = true;
       // wait a tick for input to render, then focus it
-      setTimeout(() => { (this.$refs['item-name-input'] as HTMLInputElement).focus(); });
+      setTimeout(() => {
+        (this.$refs['item-name-input'] as HTMLInputElement).focus();
+      });
     },
 
     setNeeded(item: Item, needed: number) {
@@ -113,7 +116,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .decrement,
 .increment,
 .delete {

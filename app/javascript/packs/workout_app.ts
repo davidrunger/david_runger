@@ -1,7 +1,8 @@
 import { createPinia } from 'pinia';
+
+import Modal from '@/components/modal.vue';
 import { renderApp } from '@/shared/customized_vue';
 import { useElementPlus } from '@/shared/element_plus';
-import Modal from '@/components/modal.vue';
 import WorkoutApp from '@/workouts/workout.vue';
 
 const app = renderApp(WorkoutApp);
