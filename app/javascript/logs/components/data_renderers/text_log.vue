@@ -59,17 +59,7 @@ export default {
 };
 </script>
 
-<style lang='scss'>
-// (re-)set some default styles for markdown formatting
-em { font-style: italic; }
-strong { font-weight: bold; }
-h1 { font-size: 2em; }
-h2 { font-size: 1.5em; }
-h3 { font-size: 1.17em; }
-h4 { font-size: 1em; }
-h5 { font-size: 0.83em; }
-h6 { font-size: 0.75em; }
-
+<style lang="scss">
 ol {
   counter-reset: item;
 
