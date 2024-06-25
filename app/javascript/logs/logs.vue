@@ -10,7 +10,6 @@ div
 <script lang='ts'>
 import { mapState } from 'pinia';
 import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
 
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
