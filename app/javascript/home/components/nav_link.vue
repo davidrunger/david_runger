@@ -9,6 +9,7 @@ a.nav-link(
 
 <script lang="ts">
 import { capitalize } from 'lodash-es';
+
 import { useHomeStore } from '@/home/store';
 
 export default {

@@ -27,9 +27,12 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
 
 <script lang="ts">
 import Toastify from 'toastify-js';
+
 import 'toastify-js/src/toastify.css';
+
 import { useModalStore } from '@/shared/modal/store';
 import { useWorkoutsStore } from '@/workouts/store';
+
 import { Workout } from './types';
 
 export default {

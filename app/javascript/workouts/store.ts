@@ -1,7 +1,9 @@
-import { defineStore } from 'pinia';
-import { kyApi } from '@/shared/ky';
-import * as RoutesType from '@/rails_assets/routes';
 import { get } from 'lodash-es';
+import { defineStore } from 'pinia';
+
+import * as RoutesType from '@/rails_assets/routes';
+import { kyApi } from '@/shared/ky';
+
 import { Bootstrap, NewWorkoutAttributes, Workout, WorkoutPlan } from './types';
 
 declare const Routes: typeof RoutesType;

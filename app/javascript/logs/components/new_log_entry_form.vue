@@ -40,11 +40,12 @@ div
 </template>
 
 <script lang="ts">
-import { useLogsStore } from '@/logs/store';
-import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
-import { LogEntryDataValue } from '@/logs/types';
+import { required } from '@vuelidate/validators';
 import { ElInput } from 'element-plus';
+
+import { useLogsStore } from '@/logs/store';
+import { LogEntryDataValue } from '@/logs/types';
 
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 

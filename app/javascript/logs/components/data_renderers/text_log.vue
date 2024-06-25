@@ -12,10 +12,11 @@
 </template>
 
 <script lang="ts">
+import { PropType } from 'vue';
+
 import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';
 import NewLogEntryForm from '@/logs/components/new_log_entry_form.vue';
 import { LogEntry } from '@/logs/types';
-import { PropType } from 'vue';
 
 export default {
   components: {

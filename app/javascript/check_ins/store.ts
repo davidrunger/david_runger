@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
+
 import * as RoutesType from '@/rails_assets/routes';
+import { assert } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
 import { getById } from '@/shared/store_helpers';
-import { assert } from '@/shared/helpers';
+
 import { Bootstrap, NeedSatisfactionRating } from './types';
 
 declare const Routes: typeof RoutesType;

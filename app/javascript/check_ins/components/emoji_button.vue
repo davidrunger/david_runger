@@ -8,11 +8,12 @@ button.bg-slate-200(
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
 import { sample } from 'lodash-es';
-import { assert } from '@/shared/helpers';
+import { PropType } from 'vue';
+
 import { useCheckInsStore } from '@/check_ins/store';
 import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
+import { assert } from '@/shared/helpers';
 
 const EMOJIS = new Map([
   [-3, ['😢']],

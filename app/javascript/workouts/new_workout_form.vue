@@ -52,6 +52,7 @@ form
 import { mapState } from 'pinia';
 
 import { useWorkoutsStore } from '@/workouts/store';
+
 import { WorkoutPlan } from './types';
 
 export default {

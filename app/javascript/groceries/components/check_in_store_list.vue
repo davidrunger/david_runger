@@ -15,6 +15,7 @@ ul
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+
 import { useGroceriesStore } from '@/groceries/store';
 import { Store } from '@/groceries/types';
 

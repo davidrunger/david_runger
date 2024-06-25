@@ -39,7 +39,9 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
 
 <script lang="ts">
 import { mapState } from 'pinia';
+
 import { useHomeStore } from '@/home/store';
+
 import NavLink from './nav_link.vue';
 
 export default {

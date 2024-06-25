@@ -1,4 +1,5 @@
 import 'pinia';
+
 import type { Router } from 'vue-router';
 
 // This declares a `router` property for all Pinia stores, even though not all have one.

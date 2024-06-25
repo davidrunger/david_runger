@@ -1,7 +1,8 @@
-import { createPinia } from 'pinia';
-import { renderApp } from '@/shared/customized_vue';
-import CheckIns from '@/check_ins/app.vue';
 import { ElPopover } from 'element-plus';
+import { createPinia } from 'pinia';
+
+import CheckIns from '@/check_ins/app.vue';
+import { renderApp } from '@/shared/customized_vue';
 
 const app = renderApp(CheckIns, '#check_ins_app');
 const pinia = createPinia();

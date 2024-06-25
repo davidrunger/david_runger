@@ -1,4 +1,5 @@
 import ky from 'ky';
+
 import { assert } from './helpers';
 
 let kyApi = ky; // eslint-disable-line import/no-mutable-exports

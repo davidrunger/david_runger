@@ -13,6 +13,7 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
 
 <script lang="ts">
 import { mapState } from 'pinia';
+
 import { useModalStore } from '@/shared/modal/store';
 
 export default {

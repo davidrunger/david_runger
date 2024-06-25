@@ -12,20 +12,22 @@ VueLine(
 </template>
 
 <script lang="ts">
-import { Line as VueLine } from 'vue-chartjs';
 import {
+  ChartData,
   Chart as ChartJS,
-  Tooltip,
-  LineElement,
+  ChartOptions,
   LinearScale,
+  LineElement,
+  Point,
   PointElement,
   TimeScale,
-  ChartData,
-  Point,
+  Tooltip,
   TooltipItem,
-  ChartOptions,
 } from 'chart.js';
+import { Line as VueLine } from 'vue-chartjs';
+
 import 'chartjs-adapter-luxon';
+
 import { merge } from 'lodash-es';
 
 ChartJS.register(Tooltip, LineElement, LinearScale, PointElement, TimeScale);

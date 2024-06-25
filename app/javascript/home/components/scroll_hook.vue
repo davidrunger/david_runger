@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
 import { useIntersectionObserver } from '@vueuse/core';
+import { ref } from 'vue';
 
 import { useHomeStore } from '@/home/store';
 

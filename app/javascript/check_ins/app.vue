@@ -22,6 +22,7 @@ div(v-else) {{checkInsStore.partner_ratings_hidden_reason}}
 import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
 import { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
+
 import Ratings from './components/ratings.vue';
 
 export default {

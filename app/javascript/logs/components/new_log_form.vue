@@ -42,6 +42,7 @@ div
 
 <script lang="ts">
 import { mapState } from 'pinia';
+
 import { useLogsStore } from '@/logs/store';
 import { Bootstrap, LogInputType } from '@/logs/types';
 

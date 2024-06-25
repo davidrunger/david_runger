@@ -14,8 +14,9 @@ el-menu
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { signOut } from '@/lib/sign_out';
+
 import { Bootstrap } from '@/groceries/types';
+import { signOut } from '@/lib/sign_out';
 
 export default defineComponent({
   data() {

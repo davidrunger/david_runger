@@ -33,8 +33,9 @@ section(v-if="items.length > 0")
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { Item } from '@/groceries/types';
+
 import { useGroceriesStore } from '@/groceries/store';
+import { Item } from '@/groceries/types';
 
 export default defineComponent({
   data() {

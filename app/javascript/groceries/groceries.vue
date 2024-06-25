@@ -10,15 +10,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapState } from 'pinia';
-import { get } from 'lodash-es';
-import Cookies from 'js-cookie';
 import { Connection } from '@rails/actioncable';
+import Cookies from 'js-cookie';
+import { get } from 'lodash-es';
+import { mapState } from 'pinia';
+import { defineComponent } from 'vue';
+
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
 import { ItemBroadcast } from '@/groceries/types';
 import { IphoneTouchEvent } from '@/shared/types';
+
 import Sidebar from './components/sidebar.vue';
 import Store from './components/store.vue';
 

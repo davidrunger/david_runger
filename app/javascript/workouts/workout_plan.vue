@@ -66,12 +66,13 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
 import { Timer } from 'easytimer.js';
 import { cloneDeep } from 'lodash-es';
+import { PropType } from 'vue';
 
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
+
 import ConfirmWorkoutModal from './confirm_workout_modal.vue';
 import { Exercise } from './types';
 

@@ -1,5 +1,5 @@
-import Rails from '@rails/ujs';
 import { Turbo } from '@hotwired/turbo-rails';
+import Rails from '@rails/ujs';
 
 import actionCableConsumer from '@/channels/consumer';
 import { loadAsyncPartials } from '@/lib/async_partial';

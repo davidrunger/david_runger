@@ -14,9 +14,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
 import { mapState } from 'pinia';
+import { defineComponent, PropType } from 'vue';
 import { LockIcon } from 'vue-tabler-icons';
+
 import { useGroceriesStore } from '@/groceries/store';
 import { Store } from '@/groceries/types';
 

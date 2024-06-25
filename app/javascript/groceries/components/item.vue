@@ -38,9 +38,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
 import { debounce, noop } from 'lodash-es';
+import { defineComponent, PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
+
 import { useGroceriesStore } from '@/groceries/store';
 import { Item } from '@/groceries/types';
 

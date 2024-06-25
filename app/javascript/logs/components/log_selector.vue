@@ -22,14 +22,15 @@ Modal(
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
 import FuzzySet from 'fuzzyset.js';
 import { mapState } from 'pinia';
+import { ref } from 'vue';
 
-import { useLogsStore } from '@/logs/store';
-import { useModalStore } from '@/shared/modal/store';
 import { useSubscription } from '@/lib/composables/use_subscription';
+import { useLogsStore } from '@/logs/store';
 import { assert } from '@/shared/helpers';
+import { useModalStore } from '@/shared/modal/store';
+
 import { Log } from '../types';
 
 export default {

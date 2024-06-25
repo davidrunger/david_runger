@@ -14,11 +14,12 @@ tr
 </template>
 
 <script lang="ts">
-import { useLogsStore } from '@/logs/store';
 import createDOMPurify from 'dompurify';
 import { ElInput } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
+
+import { useLogsStore } from '@/logs/store';
 
 const DOMPurify = createDOMPurify(window);
 

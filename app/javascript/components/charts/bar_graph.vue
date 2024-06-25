@@ -12,18 +12,18 @@ Bar(
 </template>
 
 <script lang="ts">
-import { Bar } from 'vue-chartjs';
 import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
   BarElement,
+  ChartData,
+  Chart as ChartJS,
+  ChartOptions,
   LinearScale,
   TimeScale,
-  ChartData,
-  ChartOptions,
+  Title,
+  Tooltip,
 } from 'chart.js';
 import { merge } from 'lodash-es';
+import { Bar } from 'vue-chartjs';
 
 ChartJS.register(Title, Tooltip, BarElement, LinearScale, TimeScale);
 

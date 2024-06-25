@@ -118,16 +118,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { mapState } from 'pinia';
-import { EditIcon } from 'vue-tabler-icons';
-import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
+import { mapState } from 'pinia';
 import Toastify from 'toastify-js';
+import { defineComponent, PropType } from 'vue';
+import { EditIcon } from 'vue-tabler-icons';
+
 import 'toastify-js/src/toastify.css';
-import { useGroceriesStore, helpers } from '@/groceries/store';
-import { useModalStore } from '@/shared/modal/store';
+
+import { helpers, useGroceriesStore } from '@/groceries/store';
 import { Item as ItemType, Store } from '@/groceries/types';
+import { useModalStore } from '@/shared/modal/store';
+
 import CheckInItemsList from './check_in_items_list.vue';
 import CheckInStoreList from './check_in_store_list.vue';
 import Item from './item.vue';

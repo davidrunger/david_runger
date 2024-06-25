@@ -39,14 +39,15 @@ aside.border-r.border-neutral-400(
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-import { ArrowBarRightIcon } from 'vue-tabler-icons';
 import { mapState } from 'pinia';
+import { defineComponent, inject, ref } from 'vue';
+import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
 import { useSubscription } from '@/lib/composables/use_subscription';
+
 import LoggedInHeader from './logged_in_header.vue';
 import StoreListEntry from './store_list_entry.vue';
 

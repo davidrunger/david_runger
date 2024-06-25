@@ -7,9 +7,10 @@
 </template>
 
 <script lang="ts">
+import { PropType } from 'vue';
+
 import BarGraph from '@/components/charts/bar_graph.vue';
 import { LogEntry } from '@/logs/types';
-import { PropType } from 'vue';
 
 export default {
   components: {

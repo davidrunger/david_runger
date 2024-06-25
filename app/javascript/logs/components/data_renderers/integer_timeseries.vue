@@ -7,9 +7,10 @@
 </template>
 
 <script lang="ts">
+import { PropType } from 'vue';
+
 import LineChart from '@/components/charts/line_chart.vue';
 import { LogEntry } from '@/logs/types';
-import { PropType } from 'vue';
 
 export default {
   components: {

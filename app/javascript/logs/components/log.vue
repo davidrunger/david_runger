@@ -82,23 +82,24 @@ div
 </template>
 
 <script lang="ts">
-import { mapState } from 'pinia';
-import ClipboardJS from 'clipboard';
-import { h } from 'vue';
-import { ElInput } from 'element-plus';
 import { useTitle } from '@vueuse/core';
+import ClipboardJS from 'clipboard';
+import { ElInput } from 'element-plus';
+import { mapState } from 'pinia';
+import { h } from 'vue';
 
-import * as RoutesType from '@/rails_assets/routes';
-import { useLogsStore } from '@/logs/store';
-import { useModalStore } from '@/shared/modal/store';
 import actionCableConsumer from '@/channels/consumer';
+import { useLogsStore } from '@/logs/store';
+import * as RoutesType from '@/rails_assets/routes';
+import { useModalStore } from '@/shared/modal/store';
+
+import { Bootstrap, Log, LogDataType, LogEntry, LogShare } from '../types';
 import CounterBarGraph from './data_renderers/counter_bar_graph.vue';
 import DurationTimeseries from './data_renderers/duration_timeseries.vue';
 import IntegerTimeseries from './data_renderers/integer_timeseries.vue';
 import TextLog from './data_renderers/text_log.vue';
-import NewLogEntryForm from './new_log_entry_form.vue';
 import LogReminderScheduleForm from './log_reminder_schedule_form.vue';
-import { Bootstrap, Log, LogDataType, LogEntry, LogShare } from '../types';
+import NewLogEntryForm from './new_log_entry_form.vue';
 
 declare const Routes: typeof RoutesType;
 

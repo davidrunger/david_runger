@@ -8,10 +8,11 @@
 </template>
 
 <script lang="ts">
+import { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
+import { PropType } from 'vue';
+
 import LineChart from '@/components/charts/line_chart.vue';
 import { LogEntry } from '@/logs/types';
-import { PropType } from 'vue';
-import { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
 
 function epochMsToHhMmSs(epochMs: number) {
   return new Date(epochMs)
