@@ -25,6 +25,18 @@ body {
     @apply my-2 text-xl font-bold;
   }
 
+  h4 {
+    @apply my-1 text-lg font-bold;
+  }
+
+  h5 {
+    @apply my-1 text-base font-bold;
+  }
+
+  h6 {
+    @apply my-1 text-sm font-bold;
+  }
+
   img,
   svg {
     display:inline;
