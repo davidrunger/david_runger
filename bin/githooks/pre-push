@@ -6,3 +6,5 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 if ! gitleaks detect --log-opts="origin/main..." &> /dev/null ; then
   gitleaks detect --log-opts="origin/main..." --verbose
 fi
+
+bin/lint/prettier

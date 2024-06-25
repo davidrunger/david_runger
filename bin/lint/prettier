@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Run Prettier.
+
+set -uo pipefail # don't allow undefined variables, pipes don't swallow errors
+
+# Every file must have a period somewhere (either a dotfile or file extension).
+# Ruby files aren't linted by Prettier.
+files_for_prettier=$(
+  changed-not-deleted-files | \
+    rg '\.' | \
+    rg -v '\.rb$'
+)
+
+set -e # exit on any error
+set -x # print executed commands
+
+if [[ $files_for_prettier != "" ]]; then
+  # shellcheck disable=SC2086
+  if ! prettier --check $files_for_prettier ; then
+    set +e
+    files_to_autocorrect=$(prettier --list-different $files_for_prettier)
+    set -e
+
+    prettier --write $files_to_autocorrect
+
+    set +x
+    blue "Autocorrected:"
+    echo "$files_to_autocorrect" | tr ' ' '\n' | blue
+    set -x
+
+    exit 1
+  fi
+fi
