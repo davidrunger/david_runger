@@ -59,7 +59,7 @@ export default defineComponent({
       debouncedPatchItem: noop,
       editingName: false,
       groceriesStore: useGroceriesStore(),
-    };
+    }
   },
 
   methods: {
