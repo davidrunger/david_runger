@@ -6,7 +6,8 @@
 
 # :nocov:
 if (
-  ENV['SKIP_GITHOOKS_CHECK'].blank? &&
+  Rails.env.local? &&
+    ENV['SKIP_GITHOOKS_CHECK'].blank? &&
     ENV['CI'].blank? &&
     `git config core.hooksPath`.strip != 'tools/githooks'
 )
