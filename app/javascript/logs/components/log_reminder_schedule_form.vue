@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 div
   h3.font-bold.mb-4 Reminders
   div.my-2(v-if='log.reminder_time_in_seconds')
@@ -35,12 +35,13 @@ div
       ) Close
 </template>
 
-<script lang='ts'>
-import { PropType } from 'vue';
-import { useModalStore } from '@/shared/modal/store';
-import { useLogsStore } from '@/logs/store';
+<script lang="ts">
 import Toastify from 'toastify-js';
+import { PropType } from 'vue';
+
+import { useLogsStore } from '@/logs/store';
 import { Log } from '@/logs/types';
+import { useModalStore } from '@/shared/modal/store';
 
 const TIME_UNIT_IN_SECONDS = {
   weeks: 7 * 24 * 60 * 60,
@@ -99,7 +100,9 @@ export default {
 
       await this.logsStore.updateLog({
         logId: this.log.id,
-        updatedLogParams: { reminder_time_in_seconds: this.formSelectedReminderTimeInSeconds },
+        updatedLogParams: {
+          reminder_time_in_seconds: this.formSelectedReminderTimeInSeconds,
+        },
       });
 
       Toastify({

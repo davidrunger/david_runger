@@ -1,7 +1,9 @@
 import { assert } from '@/shared/helpers';
 
 export function loadAsyncPartials() {
-  for (const asyncPartialEl of Array.from(document.querySelectorAll('[data-async-partial-src]'))) {
+  for (const asyncPartialEl of Array.from(
+    document.querySelectorAll('[data-async-partial-src]'),
+  )) {
     if (asyncPartialEl instanceof HTMLElement) {
       const delay = parseInt(asyncPartialEl.dataset.delay || '0', 10);
       setTimeout(fetchPartial.bind(null, asyncPartialEl), delay);

@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 Bar(
   :options="chartOptions"
   :data="mergedChartData"
@@ -11,17 +11,21 @@ Bar(
 )
 </template>
 
-<script lang='ts'>
-import { Bar } from 'vue-chartjs';
+<script lang="ts">
 import {
+  BarElement,
+  ChartData,
   Chart as ChartJS,
-  Title, Tooltip, BarElement, LinearScale, TimeScale, ChartData, ChartOptions,
+  ChartOptions,
+  LinearScale,
+  TimeScale,
+  Title,
+  Tooltip,
 } from 'chart.js';
 import { merge } from 'lodash-es';
+import { Bar } from 'vue-chartjs';
 
-ChartJS.register(
-  Title, Tooltip, BarElement, LinearScale, TimeScale,
-);
+ChartJS.register(Title, Tooltip, BarElement, LinearScale, TimeScale);
 
 const commonAxisOptions = {
   grid: {
@@ -31,9 +35,11 @@ const commonAxisOptions = {
 };
 
 const datasetDefaults = {
-  datasets: [{
-    backgroundColor: 'rgba(90, 168, 237, 0.85)',
-  }],
+  datasets: [
+    {
+      backgroundColor: 'rgba(90, 168, 237, 0.85)',
+    },
+  ],
 };
 
 export default {
@@ -42,12 +48,16 @@ export default {
   components: { Bar },
 
   computed: {
-    mergedChartData(): ChartData<'bar', (number | [number, number] | null)[], unknown> {
-      return merge(
-        {},
-        datasetDefaults,
-        this.chartData,
-      ) as ChartData<'bar', (number | [number, number] | null)[], unknown>;
+    mergedChartData(): ChartData<
+      'bar',
+      (number | [number, number] | null)[],
+      unknown
+    > {
+      return merge({}, datasetDefaults, this.chartData) as ChartData<
+        'bar',
+        (number | [number, number] | null)[],
+        unknown
+      >;
     },
   },
 

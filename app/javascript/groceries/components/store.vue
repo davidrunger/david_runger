@@ -117,16 +117,18 @@
         ) Done
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType } from 'vue';
-import { mapState } from 'pinia';
-import { EditIcon } from 'vue-tabler-icons';
-import { required } from '@vuelidate/validators';
+<script lang="ts">
 import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
+import { mapState } from 'pinia';
 import Toastify from 'toastify-js';
-import { useGroceriesStore, helpers } from '@/groceries/store';
-import { useModalStore } from '@/shared/modal/store';
+import { defineComponent, PropType } from 'vue';
+import { EditIcon } from 'vue-tabler-icons';
+
+import { helpers, useGroceriesStore } from '@/groceries/store';
 import { Item as ItemType, Store } from '@/groceries/types';
+import { useModalStore } from '@/shared/modal/store';
+
 import CheckInItemsList from './check_in_items_list.vue';
 import CheckInStoreList from './check_in_store_list.vue';
 import Item from './item.vue';
@@ -149,7 +151,9 @@ export default defineComponent({
     ]),
 
     checkInStoreNames(): string {
-      return this.groceriesStore.checkInStores.map((store: Store) => store.name).join(', ');
+      return this.groceriesStore.checkInStores
+        .map((store: Store) => store.name)
+        .join(', ');
     },
 
     sortedItems(): ItemType[] {
@@ -188,19 +192,25 @@ export default defineComponent({
         storeNameInput.focus();
       } else if (callsAlready < 20) {
         // the storeNameInput hasn't had time to render yet; retry later
-        setTimeout(() => { this.focusStoreNameInput(callsAlready + 1); }, 50);
+        setTimeout(() => {
+          this.focusStoreNameInput(callsAlready + 1);
+        }, 50);
       }
     },
 
     focusStoreNotesInput(callsAlready = 0) {
       if (!this.editingNotes) return;
 
-      const storeNotesInput = this.$refs['store-notes-input'] as HTMLInputElement;
+      const storeNotesInput = this.$refs[
+        'store-notes-input'
+      ] as HTMLInputElement;
       if (storeNotesInput) {
         storeNotesInput.focus();
       } else if (callsAlready < 20) {
         // the storeNotesInput hasn't had time to render yet; retry later
-        setTimeout(() => { this.focusStoreNotesInput(callsAlready + 1); }, 50);
+        setTimeout(() => {
+          this.focusStoreNotesInput(callsAlready + 1);
+        }, 50);
       }
     },
 
@@ -210,7 +220,9 @@ export default defineComponent({
     },
 
     initializeTripCheckIn() {
-      this.groceriesStore.addCheckInStore({ store: this.groceriesStore.currentStore as Store });
+      this.groceriesStore.addCheckInStore({
+        store: this.groceriesStore.currentStore as Store,
+      });
       this.modalStore.showModal({ modalName: 'check-in-shopping-trip' });
     },
 
@@ -219,23 +231,25 @@ export default defineComponent({
     },
 
     postNewItem() {
-      this.groceriesStore.createItem({
-        store: this.store,
-        itemAttributes: {
-          name: this.newItemName,
-        },
-      }).catch(async ({ response }: { response: Response }) => {
-        this.groceriesStore.decrementPendingRequests();
-        const { errors } = await response.json();
-        for (const errorMessage of errors) {
-          Toastify({
-            text: errorMessage,
-            className: 'error',
-            position: 'center',
-            duration: 2500,
-          }).showToast();
-        }
-      });
+      this.groceriesStore
+        .createItem({
+          store: this.store,
+          itemAttributes: {
+            name: this.newItemName,
+          },
+        })
+        .catch(async ({ response }: { response: Response }) => {
+          this.groceriesStore.decrementPendingRequests();
+          const { errors } = await response.json();
+          for (const errorMessage of errors) {
+            Toastify({
+              text: errorMessage,
+              className: 'error',
+              position: 'center',
+              duration: 2500,
+            }).showToast();
+          }
+        });
       this.newItemName = '';
     },
 
@@ -286,7 +300,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 button.choose-stores {
   font-size: inherit;
   padding: 0;

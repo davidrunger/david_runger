@@ -2,20 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 /* stylelint-disable no-invalid-position-at-import-rule */
-@import "tailwind_overrides";
-@import "variables";
-@import "animations/appear_vertically";
-@import "components/spinner";
-@import "components/toastify";
-@import "elements/input";
-@import "flash";
-@import "utils/flex";
-@import "utils/font_family";
-@import "utils/font_size";
-@import "utils/font_weight";
-@import "utils/height";
-@import "utils/opacity";
-@import "ui_framework/button";
+@import 'tailwind_overrides';
+@import 'variables';
+@import 'animations/appear_vertically';
+@import 'components/spinner';
+@import 'components/toastify';
+@import 'elements/input';
+@import 'flash';
+@import 'utils/flex';
+@import 'utils/font_family';
+@import 'utils/font_size';
+@import 'utils/font_weight';
+@import 'utils/height';
+@import 'utils/opacity';
+@import 'ui_framework/button';
 /* stylelint-enable no-invalid-position-at-import-rule */
 
 html,
@@ -46,9 +46,9 @@ a {
 }
 
 .hidden-scrollbars {
-  scrollbar-width: none;  /* Firefox https://stackoverflow.com/a/38994837/4009384 */
+  scrollbar-width: none; /* Firefox https://stackoverflow.com/a/38994837/4009384 */
 }
 
 .hidden-scrollbars::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome https://stackoverflow.com/a/38994837/4009384 */
+  display: none; /* Safari and Chrome https://stackoverflow.com/a/38994837/4009384 */
 }

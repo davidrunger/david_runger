@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .chart-container
   LineChart(
     :chart-data='chartMetadata'
@@ -6,10 +6,11 @@
   )
 </template>
 
-<script lang='ts'>
+<script lang="ts">
+import { PropType } from 'vue';
+
 import LineChart from '@/components/charts/line_chart.vue';
 import { LogEntry } from '@/logs/types';
-import { PropType } from 'vue';
 
 export default {
   components: {
@@ -19,15 +20,17 @@ export default {
   computed: {
     chartMetadata() {
       return {
-        datasets: [{
-          label: this.data_label,
-          data: this.logEntriesToChartData,
-        }],
+        datasets: [
+          {
+            label: this.data_label,
+            data: this.logEntriesToChartData,
+          },
+        ],
       };
     },
 
     logEntriesToChartData() {
-      return this.log_entries.map(logEntry => ({
+      return this.log_entries.map((logEntry) => ({
         x: logEntry.created_at,
         y: logEntry.data,
         note: logEntry.note,

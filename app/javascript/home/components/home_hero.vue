@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 #home.flex.flex-col.relative.vh-100.items-center.justify-around.p-16.bg-neutral-950(
   ref="homeRef"
 )
@@ -17,11 +17,12 @@
       path(d='M0 0 L12 12 L24 0')
 </template>
 
-<script lang='ts'>
-import { ref } from 'vue';
+<script lang="ts">
 import { useIntersectionObserver } from '@vueuse/core';
+import { ref } from 'vue';
 
 import { useHomeStore } from '@/home/store';
+
 import HomeHeader from './home_header.vue';
 
 export default {
@@ -39,12 +40,9 @@ export default {
     const homeRef = ref(null);
     const homeStore = useHomeStore();
 
-    useIntersectionObserver(
-      homeRef,
-      ([{ isIntersecting }]) => {
-        homeStore.homeIsVisible = isIntersecting;
-      },
-    );
+    useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
+      homeStore.homeIsVisible = isIntersecting;
+    });
 
     return {
       homeRef,
@@ -53,8 +51,8 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-@import "css/variables";
+<style lang="scss" scoped>
+@import 'css/variables';
 
 #headline-name {
   font-size: 80px;

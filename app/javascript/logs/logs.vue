@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 div
   header.flex.justify-between.p-2
     div {{currentUser.email}}
@@ -7,12 +7,13 @@ div
     router-view(:key='$route.fullPath').m-8
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { mapState } from 'pinia';
 import Toastify from 'toastify-js';
 
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
+
 import LogSelector from './components/log_selector.vue';
 import { Bootstrap, CurrentUser } from './types';
 
@@ -22,10 +23,7 @@ export default {
   },
 
   computed: {
-    ...mapState(useLogsStore, [
-      'isSharedLog',
-      'selectedLog',
-    ]),
+    ...mapState(useLogsStore, ['isSharedLog', 'selectedLog']),
 
     currentUser(): CurrentUser {
       return (this.$bootstrap as Bootstrap).current_user;
@@ -44,7 +42,7 @@ export default {
     }
 
     document.addEventListener('keydown', (event) => {
-      if ((event.key === 'k') && (event.metaKey === true)) {
+      if (event.key === 'k' && event.metaKey === true) {
         this.modalStore.showModal({ modalName: 'log-selector' });
       }
     });
@@ -74,7 +72,7 @@ export default {
 };
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 :root {
   --main-bg-color: #111;
 
@@ -114,7 +112,7 @@ a.log-link.log-link {
   }
 }
 
-input[type="text"],
+input[type='text'],
 textarea.el-textarea__inner,
 .el-input input.el-input__inner,
 .el-input.is-disabled input.el-input__inner {
@@ -135,7 +133,7 @@ textarea.el-textarea__inner {
 }
 </style>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 :deep(.el-button) {
   background: var(--main-bg-color);
 
