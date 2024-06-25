@@ -21,6 +21,11 @@ module DiffHelpers
   end
 
   memo_wise \
+  def dotfile_changed?
+    files_changed.any? { _1.match?(/(^|\/)\./) }
+  end
+
+  memo_wise \
   def diff
     ensure_master_is_present
     `git log main..HEAD --full-diff --source --format="" --unified=0 -p . \

@@ -188,7 +188,9 @@ class Test::RequirementsResolver
     },
     Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
     Test::Tasks::RunPrettier => proc {
-      all_changed_file_extensions_are_among?(%w[rb]) && !diff_mentions?('prettier')
+      all_changed_file_extensions_are_among?(%w[rb]) &&
+        !dotfile_changed? &&
+        !diff_mentions?('prettier')
     },
     Test::Tasks::RunRubocop => proc {
       !ruby_files_changed? && !rubocop_files_changed? && !diff_mentions?('rubocop')
