@@ -18,8 +18,8 @@ import {
   Tooltip, LineElement, LinearScale, PointElement, TimeScale, ChartData, Point, TooltipItem,
   ChartOptions,
 } from 'chart.js';
-import 'chartjs-adapter-luxon';
 import { merge } from 'lodash-es';
+import 'chartjs-adapter-luxon';
 
 ChartJS.register(
   Tooltip, LineElement, LinearScale, PointElement, TimeScale,
