@@ -124,7 +124,6 @@ import { EditIcon } from 'vue-tabler-icons';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
 import { useGroceriesStore, helpers } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
 import { Item as ItemType, Store } from '@/groceries/types';

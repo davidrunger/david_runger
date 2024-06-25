@@ -40,7 +40,6 @@ import { PropType } from 'vue';
 import { useModalStore } from '@/shared/modal/store';
 import { useLogsStore } from '@/logs/store';
 import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
 import { Log } from '@/logs/types';
 
 const TIME_UNIT_IN_SECONDS = {

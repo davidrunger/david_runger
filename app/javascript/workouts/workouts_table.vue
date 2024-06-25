@@ -26,7 +26,6 @@ import { useWorkoutsStore } from '@/workouts/store';
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
 import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
 import { PropType } from 'vue';
 import { Workout } from './types';
 
