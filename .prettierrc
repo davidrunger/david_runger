@@ -1,4 +1,7 @@
 {
   "experimentalTernaries": true,
-  "singleQuote": true
+  "singleQuote": true,
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": ["^(?!(@/|\\.))(.*)", "", "^@.*/(.*)$", "", "^\\."],
+  "importOrderTypeScriptVersion": "5.5.2"
 }
