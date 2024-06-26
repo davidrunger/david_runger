@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Run Gitleaks.
+
+set -uo pipefail # don't allow undefined variables, pipes don't swallow errors
+
+# Use gitleaks to protect against committed secrets.
+if ! gitleaks detect --log-opts="origin/main..." &> /dev/null ; then
+  gitleaks detect --log-opts="origin/main..." --verbose
+fi
