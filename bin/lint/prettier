@@ -17,7 +17,7 @@ set -x # print executed commands
 
 if [[ $files_for_prettier != "" ]]; then
   # shellcheck disable=SC2086
-  if ! prettier --check $files_for_prettier ; then
+  if ! prettier --check --ignore-unknown $files_for_prettier ; then
     set +e
     files_to_autocorrect=$(prettier --list-different $files_for_prettier)
     set -e
