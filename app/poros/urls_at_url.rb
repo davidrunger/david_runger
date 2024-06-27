@@ -1,29 +1,24 @@
 # frozen_string_literal: true
 
-class CheckHomeLinks::Launcher
+class UrlsAtUrl
   prepend MemoWise
-  prepend ApplicationWorker
 
-  def perform
-    launch_with_spacing(
-      worker_name: CheckHomeLinks::Checker.name,
-      arguments_list: linked_urls,
-      spacing_seconds: Rails.env.development? ? 1 : 10,
-    )
+  def initialize(page_url)
+    @page_url = page_url
+  end
+
+  memo_wise \
+  def urls
+    links.filter_map do |link|
+      href = link.attr('href')
+      href if url?(href)
+    end.uniq.sort
   end
 
   private
 
-  memo_wise \
-  def linked_urls
-    links.filter_map do |link|
-      href = link.attr('href')
-      href if url?(href)
-    end.uniq
-  end
-
   def url?(href)
-    href.match?(%r{\A(https?:)?//})
+    href&.match?(%r{\A(https?:)?//})
   end
 
   memo_wise \
@@ -38,6 +33,6 @@ class CheckHomeLinks::Launcher
 
   memo_wise \
   def page_content
-    Faraday.get(DavidRunger::CANONICAL_URL).body
+    Faraday.get(@page_url).body
   end
 end

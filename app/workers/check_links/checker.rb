@@ -1,24 +1,48 @@
 # frozen_string_literal: true
 
-class CheckHomeLinks::Checker
+class CheckLinks::Checker
   prepend MemoWise
   prepend ApplicationWorker
 
+  LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX = %r{
+    \A
+    https://davidrunger.com/
+    (?:
+      check_ins
+      | groceries
+      | logs
+      | quizzes
+      | workout
+    )
+    /
+    \z
+  }x
+  redirecting_url_prefixes = %w[
+    https://gem.wtf/
+    https://ghub.io/
+    https://github.com/davidrunger/blog/edit/main/src/_posts/
+  ].map(&:freeze).freeze
+  REDIRECTING_URL_REGEX = /\A(#{redirecting_url_prefixes.map { Regexp.escape(_1) }.join('|')}).+/
   # rubocop:disable Style/MutableConstant
   STATUS_EXPECTATIONS = {
-    'https://davidrunger.com/check_ins/' => 302,
-    'https://davidrunger.com/groceries/' => 302,
-    'https://davidrunger.com/logs/' => 302,
-    'https://davidrunger.com/quizzes/' => 302,
-    'https://davidrunger.com/workout/' => 302,
     'https://www.commonlit.org/' => [200, 403],
     'https://www.linkedin.com/in/davidrunger/' => [200, 999],
   }
-  STATUS_EXPECTATIONS.default = 200
+  STATUS_EXPECTATIONS.default_proc =
+    proc do |_hash, url|
+      if (
+        url.match?(LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX) ||
+          url.match?(REDIRECTING_URL_REGEX)
+      )
+        302
+      else
+        200
+      end
+    end
   STATUS_EXPECTATIONS.freeze
   # rubocop:enable Style/MutableConstant
 
-  def perform(url)
+  def perform(url, page_source_url)
     status = response(url)&.status
     expected_statuses = Array(STATUS_EXPECTATIONS[url])
 
@@ -30,13 +54,15 @@ class CheckHomeLinks::Checker
     if !status.in?(expected_statuses)
       previous_failure_count =
         Integer($redis_pool.with { _1.call('get', redis_failure_key(url)) } || 0)
-      new_failure_count = previous_failure_count + 1
 
-      $redis_pool.
-        with { _1.call('setex', redis_failure_key(url), Integer(2.days), new_failure_count) }
+      failure_count = previous_failure_count + 1
 
-      if new_failure_count >= 2
-        AdminMailer.bad_home_link(url, status, expected_statuses).deliver_later
+      $redis_pool.with { _1.call('setex', redis_failure_key(url), Integer(2.days), failure_count) }
+
+      if failure_count >= 2
+        AdminMailer.
+          broken_link(url, page_source_url, status, expected_statuses).
+          deliver_later
       end
     end
   end
