@@ -188,7 +188,7 @@ class Test::RequirementsResolver
     },
     Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
     Test::Tasks::RunPrettier => proc {
-      all_changed_file_extensions_are_among?(%w[lock rb]) &&
+      all_changed_file_extensions_are_among?(%w[haml lock rb]) &&
         !dotfile_changed? &&
         !diff_mentions?('prettier')
     },
