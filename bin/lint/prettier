@@ -9,7 +9,7 @@ set -uo pipefail # don't allow undefined variables, pipes don't swallow errors
 files_for_prettier=$(
   changed-not-deleted-files | \
     rg '\.' | \
-    rg -v '\.rb$'
+    rg -v '\.(haml|lock|rb)$'
 )
 
 set -e # exit on any error
