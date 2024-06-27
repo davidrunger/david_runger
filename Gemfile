@@ -103,6 +103,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-instafail', require: false
   gem 'rspec-rails'
+  gem 'rspec-sidekiq'
   gem 'rspec-wait'
   gem 'shoulda-matchers'
   gem 'simplecov'

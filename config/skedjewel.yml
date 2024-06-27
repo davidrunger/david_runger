@@ -8,4 +8,4 @@ jobs:
   SendLogReminderEmails: '**:**' # every minute
   # Avoid 2:32am - 3:56am Central Time (plus padding) because we do restarts then.
   TruncateTables: '01:58' # daily at 1:58am Central Time
-  CheckHomeLinks::Launcher: '04:16' # daily at 4:16am Central Time
+  CheckLinks::LaunchPageFetches: '04:16' # daily at 4:16am Central Time

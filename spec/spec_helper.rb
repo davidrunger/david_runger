@@ -39,7 +39,6 @@ require 'capybara/rspec'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec' unless use_headful_chrome
 require 'active_support/cache/mem_cache_store'
-require 'sidekiq/testing'
 require 'mail'
 require 'percy/capybara'
 require 'super_diff/rspec-rails'
@@ -412,4 +411,8 @@ Shoulda::Matchers.configure do |config|
     with.test_framework(:rspec)
     with.library(:rails)
   end
+end
+
+RSpec::Sidekiq.configure do |config|
+  config.warn_when_jobs_not_processed_by_sidekiq = false
 end
