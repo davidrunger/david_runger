@@ -13,9 +13,10 @@ files_for_prettier=$(
 )
 
 set -e # exit on any error
-set -x # print executed commands
 
 if [[ $files_for_prettier != "" ]]; then
+  set -x # print executed commands
+
   # shellcheck disable=SC2086
   if ! prettier --check --ignore-unknown $files_for_prettier ; then
     set +e
