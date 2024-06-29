@@ -17,23 +17,23 @@ HomeSection(section='projects' title='Projects')
       ul
 
         li.
-          #[a(href='https://davidrunger.com/groceries/') Groceries]* -
+          #[a(:href='this.$routes.groceries_path()') Groceries]* -
           the collaborative family grocery list, built to be mobile-friendly for use on-the-go
 
         li.
-          #[a(href='https://davidrunger.com/workout/') Workout]* -
+          #[a(:href='this.$routes.workout_path()') Workout]* -
           an app for tracking workouts over time, and to stay on-pace within a workout
 
         li.
-          #[a(href='https://davidrunger.com/logs/') Logs]* -
+          #[a(:href='this.$routes.logs_path()') Logs]* -
           track whatever you want with various log types (text, number, duration, and/or counter)
 
         li.
-          #[a(href='https://davidrunger.com/quizzes/') Quizzes]* -
+          #[a(:href='this.$routes.quizzes_path()') Quizzes]* -
           a multi-person quiz app that uses ActionCable websockets for real-time interactivity
 
         li.
-          #[a(href='https://davidrunger.com/check_ins/') Check-ins]* -
+          #[a(:href='this.$routes.check_ins_path()') Check-ins]* -
           track how well your emotional needs are being met in your marriage/relationship
 
       p #[i *Google login required]
