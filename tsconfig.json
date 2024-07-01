@@ -18,7 +18,7 @@
     }
   },
   "vueCompilerOptions": {
-    "plugins": ["@volar/vue-language-plugin-pug"]
+    "plugins": ["@vue/language-plugin-pug"]
   },
   "include": [
     "app/javascript/**/*.ts",
