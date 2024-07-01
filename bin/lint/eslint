@@ -25,15 +25,15 @@ if [[ $files_for_eslint != "" ]]; then
     git_diff_hash_after=$(git diff | sha1sum | choose 0)
 
     if [ "$git_diff_hash_before" == "$git_diff_hash_after" ] ; then
-      echo 'ESLint passed.'
+      write-background-notification 'Changed files satisfy ESLint.'
     else
-      blue 'There were ESLint violation(s). They were all autocorrected.'
+      write-background-notification 'There were ESLint violation(s). They were all autocorrected.'
       exit 1
     fi
   else
-    red 'There were ESLint error(s) that could not be autocorrected.'
+    write-background-notification 'There were ESLint violations(s) that could not be autocorrected.'
     exit 1
   fi
 else
-  echo 'No files need to be linted by ESLint.'
+  write-background-notification 'No files need to be linted by ESLint.'
 fi

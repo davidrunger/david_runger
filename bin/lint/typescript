@@ -12,7 +12,12 @@ files_for_typescript=$(
 
 if [[ $files_for_typescript != "" ]]; then
   set -x
-  ./node_modules/.bin/vue-tsc --noEmit
+  if ./node_modules/.bin/vue-tsc --noEmit ; then
+    write-background-notification 'Changed files satisfy TypeScript.'
+  else
+    write-background-notification 'There were TypeScript error(s).'
+    exit 1
+  fi
 else
-  echo 'No files need to be checked by TypeScript.'
+  write-background-notification 'No files need to be checked by TypeScript.'
 fi
