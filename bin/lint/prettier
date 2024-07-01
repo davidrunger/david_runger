@@ -2,17 +2,17 @@
 
 # Run Prettier.
 
-set -uo pipefail # don't allow undefined variables, pipes don't swallow errors
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
 # Every file must have a period somewhere (either a dotfile or file extension).
 # Ruby files aren't linted by Prettier.
 files_for_prettier=$(
   changed-not-deleted-files | \
     rg '\.' | \
-    rg -v '\.(haml|lock|rb)$'
+    rg -v '\.(haml|lock|rb)$' || \
+    true
 )
 
-set -e # exit on any error
 
 if [[ $files_for_prettier != "" ]]; then
   set -x # print executed commands
@@ -32,4 +32,6 @@ if [[ $files_for_prettier != "" ]]; then
 
     exit 1
   fi
+else
+  echo 'No files needed to be linted by Prettier.'
 fi
