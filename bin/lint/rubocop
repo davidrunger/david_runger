@@ -13,34 +13,30 @@ files_for_rubocop=$(
     true
 )
 
+git_diff_hash_before=$(git diff | sha1sum | choose 0)
+
 if [[ $files_for_rubocop != "" ]]; then
   set +e
   (
     set -x
-    bin/rubocop --color --only-recognized-file-types --force-exclusion $files_for_rubocop
+    bin/rubocop \
+      --only-recognized-file-types --force-exclusion --autocorrect-all \
+      $files_for_rubocop
   )
   rubocop_status=$?
   set -e
 
   if [ $rubocop_status -eq 0 ]; then
-    : # (RuboCop printed a success message, so we don't need to do so here.)
-  else
-    red 'RuboCop failed. Retrying with autocorrect.'
-    set +e
-    (
-      set -x
-      bin/rubocop --color --only-recognized-file-types --force-exclusion -A $files_for_rubocop
-    )
-    rubocop_autocorrect_status=$?
-    set -e
+    git_diff_hash_after=$(git diff | sha1sum | choose 0)
 
-    if [ $rubocop_autocorrect_status -eq 0 ]; then
-      blue 'RuboCop autocorrected all errors. Git status:'
+    if [ "$git_diff_hash_before" == "$git_diff_hash_after" ] ; then
+      : # (RuboCop printed a success message, so we don't need to do so here.)
     else
-      red 'RuboCop failed to autocorrect some error(s), but might have fixed some. Git status:'
+      blue 'There were RuboCop violation(s). They were all autocorrected.'
+      exit 1
     fi
-    gst
-
+  else
+    red 'There were RuboCop error(s) that could not be autocorrected.'
     exit 1
   fi
 else
