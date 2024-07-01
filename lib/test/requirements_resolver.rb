@@ -178,7 +178,8 @@ class Test::RequirementsResolver
       !files_with_js_changed? &&
         !diff_mentions?('tsc|typescript') &&
         !file_changed?('package.json') &&
-        !file_changed?('pnpm-lock.yaml')
+        !file_changed?('pnpm-lock.yaml') &&
+        !file_changed?('tsconfig.json')
     },
     Test::Tasks::RunEslint => proc {
       !files_with_js_changed? &&
