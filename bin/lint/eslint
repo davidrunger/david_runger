@@ -20,7 +20,7 @@ if [[ $files_for_eslint != "" ]]; then
   set -e
 
   if [ $eslint_status -eq 0 ]; then
-    echo 'ESLint linting passed.'
+    echo 'ESLint passed.'
   else
     red 'ESLint failed. Retrying with autocorrect.'
     set +e
