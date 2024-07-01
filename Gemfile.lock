@@ -673,6 +673,7 @@ DEPENDENCIES
   climate_control
   cloudflare-rails
   connection_pool
+  csv
   cuprite
   dalli
   database_consistency

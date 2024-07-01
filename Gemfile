@@ -10,6 +10,7 @@ gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
 gem 'browser'
 gem 'chartkick'
+gem 'csv'
 gem 'connection_pool'
 gem 'dalli'
 gem 'devise'
