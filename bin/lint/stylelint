@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# Run Stylelint.
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+files_for_stylelint=$(
+  changed-not-deleted-files | \
+    rg "app/.*\.(css|scss|vue)$" || \
+    true
+)
+
+if [[ $files_for_stylelint != "" ]]; then
+  set +e
+  (
+    set -x
+    ./node_modules/.bin/stylelint --max-warnings 0 $files_for_stylelint
+  )
+  stylelint_status=$?
+  set -e
+
+  if [ $stylelint_status -eq 0 ]; then
+    echo 'Stylelint passed.'
+  else
+    red 'Stylelint failed. Retrying with autocorrect.'
+    set +e
+    (
+      set -x
+      ./node_modules/.bin/stylelint --max-warnings 0 --fix $files_for_stylelint
+    )
+    stylelint_fix_status=$?
+    set -e
+
+    if [ $stylelint_fix_status -eq 0 ]; then
+      blue 'Stylelint autocorrected all errors. Git status:'
+    else
+      red 'Stylelint failed to autocorrect some error(s), but might have fixed some. Git status:'
+    fi
+    gst
+
+    exit 1
+  fi
+else
+  echo 'No files need to be linted by Stylelint.'
+fi
