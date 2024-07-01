@@ -11,6 +11,7 @@ gem 'bootsnap', require: false
 gem 'browser'
 gem 'chartkick'
 gem 'connection_pool'
+gem 'csv'
 gem 'dalli'
 gem 'devise'
 gem 'draper'
