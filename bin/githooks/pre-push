@@ -2,9 +2,10 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-bin/lint/eslint
 bin/lint/gitleaks
-bin/lint/prettier
-bin/lint/rubocop
-bin/lint/stylelint
-bin/lint/typescript
+
+background-and-notify bin/lint/eslint
+background-and-notify bin/lint/prettier
+background-and-notify bin/lint/rubocop
+background-and-notify bin/lint/stylelint
+background-and-notify bin/lint/typescript

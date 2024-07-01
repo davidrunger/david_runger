@@ -31,15 +31,15 @@ if [[ $files_for_rubocop != "" ]]; then
     git_diff_hash_after=$(git diff | sha1sum | choose 0)
 
     if [ "$git_diff_hash_before" == "$git_diff_hash_after" ] ; then
-      : # (RuboCop printed a success message, so we don't need to do so here.)
+      write-background-notification 'Changed files satisfy RuboCop.'
     else
-      blue 'There were RuboCop violation(s). They were all autocorrected.'
+      write-background-notification 'There were RuboCop violation(s). They were all autocorrected.'
       exit 1
     fi
   else
-    red 'There were RuboCop error(s) that could not be autocorrected.'
+    write-background-notification 'There were RuboCop violation(s) that could not be autocorrected.'
     exit 1
   fi
 else
-  echo 'No files need to be linted by RuboCop.'
+  write-background-notification 'No files need to be linted by RuboCop.'
 fi

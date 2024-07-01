@@ -27,11 +27,11 @@ if [[ $files_for_prettier != "" ]]; then
   git_diff_hash_after=$(git diff | sha1sum | choose 0)
 
   if [ "$git_diff_hash_before" == "$git_diff_hash_after" ] ; then
-    echo 'All files are Prettier-compliant.'
+    write-background-notification 'Changed files satisfy Prettier.'
   else
-    blue 'There were Prettier violation(s). They were all corrected.'
+    write-background-notification 'There were Prettier violation(s). They were all corrected.'
     exit 1
   fi
 else
-  echo 'No files need to be linted by Prettier.'
+  write-background-notification 'No files need to be linted by Prettier.'
 fi
