@@ -11,9 +11,35 @@ files_for_eslint=$(
 )
 
 if [[ $files_for_eslint != "" ]]; then
-  set -x # print executed commands
+  set +e
+  (
+    set -x
+    ./node_modules/.bin/eslint --max-warnings 0 $files_for_eslint
+  )
+  eslint_status=$?
+  set -e
 
-  ./node_modules/.bin/eslint --max-warnings 0 $files_for_eslint
+  if [ $eslint_status -eq 0 ]; then
+    echo 'ESLint linting passed.'
+  else
+    red 'ESLint failed. Retrying with autocorrect.'
+    set +e
+    (
+      set -x
+      ./node_modules/.bin/eslint --max-warnings 0 --fix $files_for_eslint
+    )
+    eslint_fix_status=$?
+    set -e
+
+    if [ $eslint_fix_status -eq 0 ]; then
+      blue 'ESLint autocorrected all errors. Git status:'
+    else
+      red 'ESLint failed to autocorrect some error(s), but might have fixed some. Git status:'
+    fi
+    gst
+
+    exit 1
+  fi
 else
-  echo 'No files needed to be linted by ESLint.'
+  echo 'No files need to be linted by ESLint.'
 fi

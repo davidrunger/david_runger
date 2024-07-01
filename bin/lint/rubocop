@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# Run RuboCop.
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+# Either:
+# 1. filename ends with .arb, .rake, .rb, or .ru.
+# 2. filename has no extension (e.g. `Gemfile` or `.irbrc`)
+files_for_rubocop=$(
+  changed-not-deleted-files | \
+    rg '^(.*\.(arb|rake|rb|ru)|[^.]*|\.[^.]+)$' || \
+    true
+)
+
+if [[ $files_for_rubocop != "" ]]; then
+  set +e
+  (
+    set -x
+    bin/rubocop --color --only-recognized-file-types --force-exclusion $files_for_rubocop
+  )
+  rubocop_status=$?
+  set -e
+
+  if [ $rubocop_status -eq 0 ]; then
+    echo 'RuboCop linting passed.'
+  else
+    red 'RuboCop failed. Retrying with autocorrect.'
+    set +e
+    (
+      set -x
+      bin/rubocop --color --only-recognized-file-types --force-exclusion -A $files_for_rubocop
+    )
+    rubocop_autocorrect_status=$?
+    set -e
+
+    if [ $rubocop_autocorrect_status -eq 0 ]; then
+      blue 'RuboCop autocorrected all errors. Git status:'
+    else
+      red 'RuboCop failed to autocorrect some error(s), but might have fixed some. Git status:'
+    fi
+    gst
+
+    exit 1
+  fi
+else
+  echo 'No files need to be linted by RuboCop.'
+fi
