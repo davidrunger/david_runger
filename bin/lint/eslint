@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Run ESLint.
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+files_for_eslint=$(
+  changed-not-deleted-files | \
+    rg "app/javascript/.*\.(js|ts|vue)$" || \
+    true
+)
+
+if [[ $files_for_eslint != "" ]]; then
+  set -x # print executed commands
+
+  ./node_modules/.bin/eslint --max-warnings 0 $files_for_eslint
+else
+  echo 'No files needed to be linted by ESLint.'
+fi
