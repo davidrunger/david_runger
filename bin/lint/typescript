@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Check TypeScript types.
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+files_for_typescript=$(
+  changed-not-deleted-files | \
+    rg '\.(ts|vue)$' || \
+    true
+)
+
+if [[ $files_for_typescript != "" ]]; then
+  set -x
+  ./node_modules/.bin/vue-tsc --noEmit
+else
+  echo 'No files need to be checked by TypeScript.'
+fi

@@ -6,3 +6,4 @@ bin/lint/eslint
 bin/lint/gitleaks
 bin/lint/prettier
 bin/lint/rubocop
+bin/lint/typescript
