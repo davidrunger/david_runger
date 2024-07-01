@@ -9,7 +9,8 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 # 2. filename has no extension (e.g. `Gemfile` or `.irbrc`)
 files_for_rubocop=$(
   changed-not-deleted-files | \
-    rg '^(.*\.(arb|rake|rb|ru)|[^.]*|\.[^.]+)$' || \
+    rg '^(.*\.(arb|rake|rb|ru)|[^.]*|\.[^.]+)$' | \
+    xargs -r rg --files-without-match '^#!/usr/bin/env (bash|sh|zsh)' || \
     true
 )
 
