@@ -23,7 +23,7 @@ if [[ $files_for_rubocop != "" ]]; then
   set -e
 
   if [ $rubocop_status -eq 0 ]; then
-    echo 'RuboCop linting passed.'
+    : # (RuboCop printed a success message, so we don't need to do so here.)
   else
     red 'RuboCop failed. Retrying with autocorrect.'
     set +e
