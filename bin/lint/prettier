@@ -18,7 +18,7 @@ if [[ $files_for_prettier != "" ]]; then
 
   # shellcheck disable=SC2086
   if prettier --check --ignore-unknown $files_for_prettier ; then
-    echo 'Prettier linting passed.'
+    : # (Prettier will print a success message, so we don't need to do so here.)
   else
     set +e
     files_to_autocorrect=$(prettier --list-different $files_for_prettier)
