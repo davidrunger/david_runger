@@ -10,34 +10,28 @@ files_for_stylelint=$(
     true
 )
 
+git_diff_hash_before=$(git diff | sha1sum | choose 0)
+
 if [[ $files_for_stylelint != "" ]]; then
   set +e
   (
     set -x
-    ./node_modules/.bin/stylelint --max-warnings 0 $files_for_stylelint
+    ./node_modules/.bin/stylelint --max-warnings 0 --fix $files_for_stylelint
   )
   stylelint_status=$?
   set -e
 
   if [ $stylelint_status -eq 0 ]; then
-    echo 'Stylelint passed.'
-  else
-    red 'Stylelint failed. Retrying with autocorrect.'
-    set +e
-    (
-      set -x
-      ./node_modules/.bin/stylelint --max-warnings 0 --fix $files_for_stylelint
-    )
-    stylelint_fix_status=$?
-    set -e
+    git_diff_hash_after=$(git diff | sha1sum | choose 0)
 
-    if [ $stylelint_fix_status -eq 0 ]; then
-      blue 'Stylelint autocorrected all errors. Git status:'
+    if [ "$git_diff_hash_before" == "$git_diff_hash_after" ] ; then
+      echo 'Stylelint passed.'
     else
-      red 'Stylelint failed to autocorrect some error(s), but might have fixed some. Git status:'
+      blue 'There were Stylelint violation(s). They were all autocorrected.'
+      exit 1
     fi
-    gst
-
+  else
+    red 'There were Stylelint error(s) that could not be autocorrected.'
     exit 1
   fi
 else

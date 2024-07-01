@@ -13,29 +13,23 @@ files_for_prettier=$(
     true
 )
 
+git_diff_hash_before=$(git diff | sha1sum | choose 0)
+
 if [[ $files_for_prettier != "" ]]; then
   set +e
   (
     set -x
-    prettier --check --ignore-unknown $files_for_prettier
+    ./node_modules/.bin/prettier --write --log-level=error $files_for_prettier
   )
   prettier_status=$?
   set -e
 
-  if [ $prettier_status -eq 0 ]; then
-    : # (Prettier printed a success message, so we don't need to do so here.)
+  git_diff_hash_after=$(git diff | sha1sum | choose 0)
+
+  if [ "$git_diff_hash_before" == "$git_diff_hash_after" ] ; then
+    echo 'All files are Prettier-compliant.'
   else
-    set +e
-    files_to_autocorrect=$(prettier --list-different $files_for_prettier)
-    set -e
-
-    set -x
-    prettier --write $files_to_autocorrect
-    { set +x; } 2>/dev/null
-
-    blue "Autocorrected:"
-    echo "$files_to_autocorrect" | tr ' ' '\n' | blue
-
+    blue 'There were Prettier violation(s). They were all corrected.'
     exit 1
   fi
 else
