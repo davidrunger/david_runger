@@ -59,14 +59,7 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Run ShellCheck
-        uses: reviewdog/action-shellcheck@v1
-        with:
-          level: info
-          reporter: github-pr-check
-          fail_on_error: true
-          path: 'bin'
-          pattern: '*'
-          check_all_files_with_shebangs: false
+        uses: ludeeus/action-shellcheck@master
       - name: Run tests & linters
         run: bin/run-tests
         env:
