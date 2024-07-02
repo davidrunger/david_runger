@@ -15,7 +15,7 @@ readarray -t files_for_prettier < <(
 
 git_diff_hash_before=$(git diff | sha1sum | choose 0)
 
-if [ ${#files_for_prettier} -eq 0 ]; then
+if [ ${#files_for_prettier[@]} -eq 0 ]; then
   write-background-notification 'No files need to be linted by Prettier.'
 else
   set +e
