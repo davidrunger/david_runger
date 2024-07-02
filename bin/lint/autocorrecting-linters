@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Executes linters that might make autocorrections.
+#
+# NOTE: These need to be run in sequence in order to avoid possible concurrency
+# bugs re: reporting whether files were changed or not.
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+bin/lint/eslint
+bin/lint/prettier
+bin/lint/rubocop
+bin/lint/stylelint
