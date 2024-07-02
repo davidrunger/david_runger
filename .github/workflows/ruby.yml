@@ -60,6 +60,8 @@ jobs:
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './bin'
       - name: Run tests & linters
         run: bin/run-tests
         env:
