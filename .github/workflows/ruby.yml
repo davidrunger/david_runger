@@ -58,6 +58,15 @@ jobs:
           path: ${{ env.PNPM_STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: ${{ runner.os }}-pnpm-store-
+      - name: Run ShellCheck
+        uses: reviewdog/action-shellcheck@v1
+        with:
+          level: info
+          reporter: github-pr-check
+          fail_on_error: true
+          path: 'bin'
+          pattern: '*'
+          check_all_files_with_shebangs: true
       - name: Run tests & linters
         run: bin/run-tests
         env:
@@ -79,15 +88,6 @@ jobs:
           PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
           CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
           RAILS_MASTER_KEY: '${{secrets.RAILS_MASTER_KEY}}'
-      - name: Run ShellCheck
-        uses: reviewdog/action-shellcheck@v1
-        with:
-          level: info
-          reporter: github-pr-check
-          fail_on_error: true
-          path: 'bin'
-          pattern: '*'
-          check_all_files_with_shebangs: true
       - name: Save fixtures artifact
         uses: actions/upload-artifact@v4
         if: failure()
