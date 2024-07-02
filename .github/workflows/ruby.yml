@@ -86,7 +86,8 @@ jobs:
           reporter: github-pr-check
           fail_on_error: true
           path: 'bin'
-          check_all_files_with_shebangs: false
+          pattern: '*'
+          check_all_files_with_shebangs: true
       - name: Save fixtures artifact
         uses: actions/upload-artifact@v4
         if: failure()
