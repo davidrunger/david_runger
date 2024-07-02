@@ -7,14 +7,10 @@ if (
     ENV['CI'].blank? &&
     `git config core.hooksPath`.strip != 'bin/githooks'
 )
-  $stderr.puts(AmazingPrint::Colors.red(<<~ERROR))
+  $stderr.puts(<<~ERROR)
     You have not configured the git hooks for this repo! To do so, run:
-
-      #{AmazingPrint::Colors.blue('git config core.hooksPath bin/githooks')}
-  ERROR
-
-  $stderr.puts(AmazingPrint::Colors.red(<<~ERROR))
-    Or, if you must, you can set `SKIP_GITHOOKS_CHECK=1` in `.env.development.local`.
+        git config core.hooksPath bin/githooks
+    Or, if you must, you can put SKIP_GITHOOKS_CHECK=1 in your .env file.
   ERROR
 
   exit(1) # rubocop:disable Rails/Exit
