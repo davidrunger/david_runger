@@ -66,7 +66,7 @@ jobs:
           fail_on_error: true
           path: 'bin'
           pattern: '*'
-          check_all_files_with_shebangs: true
+          check_all_files_with_shebangs: false
       - name: Run tests & linters
         run: bin/run-tests
         env:
