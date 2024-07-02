@@ -147,7 +147,7 @@ export default defineComponent({
       'itemsInCart',
       'neededSkippedCheckInItems',
       'neededUnskippedCheckInItemsInCart',
-      'neededUnskippedCheckInItemsNotInCart'
+      'neededUnskippedCheckInItemsNotInCart',
     ]),
 
     checkInStoreNames(): string {
@@ -187,7 +187,7 @@ export default defineComponent({
     focusStoreNameInput(callsAlready = 0) {
       if (!this.editingName) return;
 
-      const storeNameInput = this.$refs[`store-name-input`] as HTMLInputElement;
+      const storeNameInput = this.$refs['store-name-input'] as HTMLInputElement;
       if (storeNameInput) {
         storeNameInput.focus();
       } else if (callsAlready < 20) {
