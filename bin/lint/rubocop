@@ -7,7 +7,7 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 # Either:
 # 1. filename ends with .arb, .rake, .rb, or .ru.
 # 2. filename has no extension (e.g. `Gemfile` or `.irbrc`)
-files_for_rubocop=$(
+readarray -t files_for_rubocop < <(
   changed-not-deleted-files | \
     rg '^(.*\.(arb|rake|rb|ru)|[^.]*|\.[^.]+)$' | \
     xargs -r rg --files-without-match '^#!/usr/bin/env (bash|sh|zsh)' || \
@@ -16,13 +16,15 @@ files_for_rubocop=$(
 
 git_diff_hash_before=$(git diff | sha1sum | choose 0)
 
-if [[ $files_for_rubocop != "" ]]; then
+if [ ${#files_for_rubocop[@]} -eq 0 ] ; then
+  write-background-notification 'No files need to be linted by RuboCop.'
+else
   set +e
   (
     set -x
     bin/rubocop \
       --only-recognized-file-types --force-exclusion --autocorrect-all \
-      $files_for_rubocop
+      "${files_for_rubocop[@]}"
   )
   rubocop_status=$?
   set -e
@@ -40,6 +42,4 @@ if [[ $files_for_rubocop != "" ]]; then
     write-background-notification 'There were RuboCop violation(s) that could not be autocorrected.'
     exit 1
   fi
-else
-  write-background-notification 'No files need to be linted by RuboCop.'
 fi

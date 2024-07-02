@@ -5,4 +5,5 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 bin/lint/gitleaks
 
 background-and-silence bin/lint/autocorrecting-linters
+background-and-notify bin/lint/shellcheck
 background-and-notify bin/lint/typescript
