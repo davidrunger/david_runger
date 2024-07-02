@@ -79,6 +79,15 @@ jobs:
           PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
           CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
           RAILS_MASTER_KEY: '${{secrets.RAILS_MASTER_KEY}}'
+      - name: Run ShellCheck
+        uses: reviewdog/action-shellcheck@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          level: info
+          reporter: github-pr-check
+          fail_on_error: true
+          path: "bin"
+          check_all_files_with_shebangs: false
       - name: Save fixtures artifact
         uses: actions/upload-artifact@v4
         if: failure()
