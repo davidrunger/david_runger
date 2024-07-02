@@ -6,7 +6,7 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 
 # Every file must have a period somewhere (either a dotfile or file extension).
 # Ruby files aren't linted by Prettier.
-files_for_prettier=$(
+readarray -t files_for_prettier < <(
   changed-not-deleted-files | \
     rg '\.' | \
     rg -v '\.(haml|lock|rb)$' || \
@@ -15,13 +15,14 @@ files_for_prettier=$(
 
 git_diff_hash_before=$(git diff | sha1sum | choose 0)
 
-if [[ $files_for_prettier != "" ]]; then
+if [ ${#files_for_prettier} -eq 0 ]; then
+  write-background-notification 'No files need to be linted by Prettier.'
+else
   set +e
   (
     set -x
-    ./node_modules/.bin/prettier --write --log-level=error $files_for_prettier
+    ./node_modules/.bin/prettier --write --log-level=error "${files_for_prettier[@]}"
   )
-  prettier_status=$?
   set -e
 
   git_diff_hash_after=$(git diff | sha1sum | choose 0)
@@ -32,6 +33,4 @@ if [[ $files_for_prettier != "" ]]; then
     write-background-notification 'There were Prettier violation(s). They were all corrected.'
     exit 1
   fi
-else
-  write-background-notification 'No files need to be linted by Prettier.'
 fi

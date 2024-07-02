@@ -4,7 +4,7 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-files_for_stylelint=$(
+readarray -t files_for_stylelint < <(
   changed-not-deleted-files | \
     rg "app/.*\.(css|scss|vue)$" || \
     true
@@ -12,11 +12,13 @@ files_for_stylelint=$(
 
 git_diff_hash_before=$(git diff | sha1sum | choose 0)
 
-if [[ $files_for_stylelint != "" ]]; then
+if [ ${#files_for_stylelint} -eq 0 ]; then
+  write-background-notification 'No files need to be linted by Stylelint.'
+else
   set +e
   (
     set -x
-    ./node_modules/.bin/stylelint --max-warnings 0 --fix $files_for_stylelint
+    ./node_modules/.bin/stylelint --max-warnings 0 --fix "${files_for_stylelint[@]}"
   )
   stylelint_status=$?
   set -e
@@ -34,6 +36,4 @@ if [[ $files_for_stylelint != "" ]]; then
     write-background-notification 'There were Stylelint violation(s) that could not be autocorrected.'
     exit 1
   fi
-else
-  write-background-notification 'No files need to be linted by Stylelint.'
 fi
