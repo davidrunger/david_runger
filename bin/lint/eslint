@@ -24,7 +24,7 @@ if [[ $files_for_eslint != "" ]]; then
   if [ $eslint_status -eq 0 ]; then
     git_diff_hash_after=$(git diff | sha1sum | choose 0)
 
-    if [ "$git_diff_hash_before" == "$git_diff_hash_after" ] ; then
+    if [ $git_diff_hash_before == "$git_diff_hash_after" ] ; then
       write-background-notification 'Changed files satisfy ESLint.'
     else
       write-background-notification 'There were ESLint violation(s). They were all autocorrected.'
