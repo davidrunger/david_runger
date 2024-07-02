@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Run ShellCheck on relevant changed files.
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+readarray -t files_for_shellcheck < <(
+  changed-not-deleted-files | \
+    xargs -r rg --files-with-matches '^#!/usr/bin/env (bash|sh|zsh)' || \
+    true
+)
+
+if [ ${#files_for_shellcheck[@]} -eq 0 ] ; then
+  write-background-notification 'No files need to be checked by ShellCheck.'
+else
+  set +e
+  (
+    set -x
+    shellcheck "${files_for_shellcheck[@]}"
+  )
+  shellcheck_status=$?
+  set -e
+
+  if [ $shellcheck_status -eq 0 ]; then
+    write-background-notification 'Changed files satisfy ShellCheck.'
+  else
+    write-background-notification 'There were ShellCheck error(s).'
+    exit 1
+  fi
+fi
