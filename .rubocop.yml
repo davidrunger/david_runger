@@ -9,7 +9,7 @@ inherit_gem:
     - rulesets/rspec.yml
 
 require:
-  - ./tools/custom_cops/dont_include_sidekiq_worker.rb
+  - ./tools/custom_cops/require_all_custom_cops.rb
 
 AllCops:
   Exclude:
