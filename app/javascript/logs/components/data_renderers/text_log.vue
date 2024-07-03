@@ -1,7 +1,7 @@
 <template lang="pug">
 .flex.justify-center
   .container
-    table.text-log-table(v-auto-animate)
+    table.text-log-table
       EditableTextLogRow(
         v-for='logEntry in sortedLogEntries'
         :key='logEntry.id'

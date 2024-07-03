@@ -9,7 +9,6 @@
     ">10%"
   ],
   "dependencies": {
-    "@formkit/auto-animate": "1.0.0-beta.6",
     "@hotwired/turbo": "^8.0.4",
     "@hotwired/turbo-rails": "^8.0.4",
     "@rails/actioncable": "^7.1.3",
