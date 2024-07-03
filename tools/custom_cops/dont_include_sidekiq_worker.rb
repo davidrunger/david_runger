@@ -5,7 +5,7 @@ module CustomCops
   class DontIncludeSidekiqWorker < RuboCop::Cop::Cop
     MSG =
       'Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` ' \
-        'or `include Sidekiq::Job`'
+      'or `include Sidekiq::Job`'
 
     def_node_matcher :including_sidekiq_worker?, <<~PATTERN
       (send ... :include (const (const ... :Sidekiq) ${:Worker :Job}))
