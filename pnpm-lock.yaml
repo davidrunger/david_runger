@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@formkit/auto-animate':
-        specifier: 1.0.0-beta.6
-        version: 1.0.0-beta.6
       '@hotwired/turbo':
         specifier: ^8.0.4
         version: 8.0.4
@@ -518,9 +515,6 @@ packages:
 
   '@floating-ui/utils@0.1.1':
     resolution: {integrity: sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==}
-
-  '@formkit/auto-animate@1.0.0-beta.6':
-    resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
 
   '@hotwired/turbo-rails@8.0.4':
     resolution: {integrity: sha512-GHCv5+B2VzYZZvMFpg/g9JLx/8pl/8chcubSB7T+Xn1zYOMqAKB6cT80vvWUzxdwfm/2KfaRysfDz+BmvtjFaw==}
@@ -3461,8 +3455,6 @@ snapshots:
       '@floating-ui/utils': 0.1.1
 
   '@floating-ui/utils@0.1.1': {}
-
-  '@formkit/auto-animate@1.0.0-beta.6': {}
 
   '@hotwired/turbo-rails@8.0.4':
     dependencies:

@@ -1,4 +1,3 @@
-import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import { createPinia } from 'pinia';
 import { markRaw } from 'vue';
 
@@ -17,4 +16,3 @@ app.use(pinia);
 app.component('Modal', Modal);
 useElementPlus(app);
 app.use(router);
-app.use(autoAnimatePlugin);
