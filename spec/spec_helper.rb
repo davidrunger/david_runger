@@ -26,6 +26,7 @@ elsif RSpec.configuration.files_to_run.one?
   SimpleCov::Formatter::Terminal.config.spec_to_app_file_map.merge!(
     %r{\Aspec/config/initializers/} => 'config/initializers/',
     %r{\Aspec/poros/} => 'app/poros/',
+    %r{\Aspec/tools/} => 'tools/',
   )
 end
 require Rails.root.join('spec/support/fixture_builder.rb').to_s
