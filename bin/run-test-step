@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # https://stackoverflow.com/a/77655338/4009384
-if not defined?(Rails) then
+if !defined?(Rails)
   exec('bin/rails', 'runner', __FILE__, *ARGV)
 end
 
