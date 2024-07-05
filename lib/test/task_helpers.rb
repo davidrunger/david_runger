@@ -119,6 +119,15 @@ module Test::TaskHelpers
   end
 
   def job_result_hash
-    Test::Middleware::TaskResultTrackingMiddleware.job_results[self.class.name]
+    job_results[self.class.name]
+  end
+
+  def job_results
+    if $PROGRAM_NAME.end_with?('bin/run-test-step')
+      # This allows bin/run-test-step to work without the pallets middleware loaded.
+      Hash.new { |hash, key| hash[key] = {} }
+    else
+      Test::Middleware::TaskResultTrackingMiddleware.job_results
+    end
   end
 end
