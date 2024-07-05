@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe SidekiqExt::JobLogger do
-  subject(:logger) { SidekiqExt::JobLogger.new(Sidekiq.default_configuration.logger) }
+  subject(:logger) { SidekiqExt::JobLogger.new(Sidekiq.default_configuration) }
 
   describe '#call' do
     subject(:call) { logger.call(item, queue, &job_block) }

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'sidekiq/component'
 require 'sidekiq/job_logger'
 
 module SidekiqExt ; end
