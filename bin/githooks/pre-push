@@ -6,4 +6,4 @@ lint gitleaks
 
 background-and-silence bin/lint/autocorrecting-linters
 background-and-notify lint shellcheck
-background-and-notify bin/lint/typescript
+background-and-notify lint typescript
