@@ -4,6 +4,6 @@ class Test::Tasks::PnpmInstall < Pallets::Task
   include Test::TaskHelpers
 
   def run
-    execute_system_command('pnpm install --frozen-lockfile --silent')
+    execute_system_command('pnpm install --frozen-lockfile')
   end
 end
