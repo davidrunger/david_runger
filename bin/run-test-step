@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+# https://stackoverflow.com/a/77655338/4009384
+if not defined?(Rails) then
+  exec('bin/rails', 'runner', __FILE__, *ARGV)
+end
+
+require 'pallets'
+require './lib/test/runner.rb'
+"Test::Tasks::#{ARGV[0]}".safe_constantize.new.run
