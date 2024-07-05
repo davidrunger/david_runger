@@ -7,7 +7,7 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-perform-background-step bin/lint/eslint
-perform-background-step bin/lint/prettier
-perform-background-step bin/lint/rubocop
-perform-background-step bin/lint/stylelint
+perform-background-step lint eslint
+perform-background-step lint prettier
+perform-background-step lint rubocop
+perform-background-step lint stylelint
