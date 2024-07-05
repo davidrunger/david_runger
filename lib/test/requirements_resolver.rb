@@ -194,7 +194,10 @@ class Test::RequirementsResolver
         !diff_mentions?('prettier')
     },
     Test::Tasks::RunRubocop => proc {
-      !ruby_files_changed? && !rubocop_files_changed? && !diff_mentions?('rubocop')
+      !ruby_files_changed? &&
+        !rubocop_files_changed? &&
+        !diff_mentions?('rubocop') &&
+        !diff_mentions?('runger_style')
     },
     Test::Tasks::RunStylelint => proc { !files_with_css_changed? && !diff_mentions?('stylelint') },
     Test::Tasks::SetupDb => proc { running_locally? },
