@@ -1,0 +1,7 @@
+%h1 Upload a public file
+
+= form_with(url: public_files_path, method: :post) do |form|
+  .my-1= form.label(:public_file, 'File to upload for public access', class: 'font-bold')
+  .my-1= form.file_field(:public_file)
+
+  .mt-3= form.submit('Upload file', class: 'btn-primary')

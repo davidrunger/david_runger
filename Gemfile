@@ -23,6 +23,7 @@ gem 'flipper-ui'
 gem 'haml'
 gem 'haml-rails'
 gem 'hashid-rails'
+gem 'image_processing'
 gem 'js-routes', require: false
 gem 'jwt'
 gem 'lograge'

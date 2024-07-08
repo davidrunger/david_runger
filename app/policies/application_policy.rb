@@ -11,7 +11,7 @@ class ApplicationPolicy
   def index?
     # Generally, any logged-in user should be able to access an index action.
     # The records actually available in the index will be limited by the policy scope.
-    @user.is_a?(User)
+    @user.present?
   end
 
   def show?

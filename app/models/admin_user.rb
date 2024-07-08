@@ -16,6 +16,13 @@
 class AdminUser < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
+  has_many_attached(
+    :public_files,
+    service: Rails.env.production? || ENV.key?('AWS_ACCESS_KEY_ID') ? :amazon_public : :local,
+  ) do |attachable|
+    attachable.variant(:thumb, resize_to_limit: [100, 100])
+  end
+
   devise
 
   has_paper_trail

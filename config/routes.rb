@@ -100,6 +100,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   authenticate :admin_user do
+    resources :public_files, only: %i[new create index]
     mount Sidekiq::Web => '/sidekiq'
     mount Flipper::UI.app(Flipper) => '/flipper'
   end

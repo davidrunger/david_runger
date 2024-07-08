@@ -1,0 +1,10 @@
+%h1 Public Files
+
+- if @public_files.any?
+  %ul
+    - @public_files.each do |public_file|
+      %li
+        = image_tag public_file.variant(:thumb)
+        = link_to(public_file.filename.to_s, Addressable::URI.parse(public_file.url).tap { _1.query = nil }.to_s)
+- else
+  %p You don't have any public files yet.
