@@ -1,5 +1,6 @@
-pnpm-lock.yaml
-/app/javascript/rails_assets
 /.rubocop.yml
+/app/javascript/rails_assets
 /config/database.yml
+/config/storage.yml
 /vendor/bundle/
+/pnpm-lock.yaml
