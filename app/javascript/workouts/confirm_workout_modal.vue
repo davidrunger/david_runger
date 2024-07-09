@@ -4,7 +4,7 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
     div #[b Minutes:] {{(timeInSeconds / 60).toFixed(1)}}
     .my-4
       h3 Rep totals
-      div(v-for='(count, exercise) in repTotals')
+      div(v-for='(_count, exercise) in repTotals')
         span
           | {{exercise}}:
           |

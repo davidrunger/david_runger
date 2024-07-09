@@ -4,7 +4,7 @@ section(v-if="items.length > 0")
 
   ul.check-in-items-list.mb-2
     li.flex.items-center.mb-2(
-      v-for='(item, index) in items'
+      v-for='item in items'
       :key='item.id'
     )
       input(
