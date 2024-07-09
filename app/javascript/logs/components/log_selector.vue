@@ -17,7 +17,7 @@ Modal(
     .log-link-container(v-for='(log, index) in orderedMatches')
       router-link.log-link(
         :to='{ name: "log", params: { slug: log.slug }}'
-        :class='{bold: (index === highlightedLogIndex)}'
+        :class='{"font-bold": (index === highlightedLogIndex)}'
       ) {{log.name}}
 </template>
 
