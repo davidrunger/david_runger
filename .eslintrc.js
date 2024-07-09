@@ -33,6 +33,8 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-empty-function': 'off',
+    // https://github.com/vuejs/language-tools/issues/ 47#issuecomment-765562095
+    '@typescript-eslint/no-unused-vars': 'off',
     'arrow-parens': 'off',
     'function-paren-newline': 'off',
     // https://github.com/import-js/eslint-import-resolver-typescript/issues/39#issuecomment-571489805
@@ -82,14 +84,6 @@ module.exports = {
     'no-use-before-define': ['error', { functions: false }],
     // https://stackoverflow.com/a/64067915/4009384
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        caughtErrorsIgnorePattern: '^_',
-      },
-    ],
     'operator-linebreak': 'off',
     quotes: ['warn', 'single', { avoidEscape: true }],
     'require-await': 'error',
