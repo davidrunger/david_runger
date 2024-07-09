@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get 'blog/:slug', to: 'blog#show'
   get 'blog/*path' => 'blog#assets'
 
+  get 'emoji-picker', to: 'emoji_picker#index'
+
   get 'groceries', to: 'groceries#index'
   get 'workout', to: 'workouts#index'
   get 'workouts', to: redirect('workout')
