@@ -47,21 +47,7 @@ class Test::RequirementsResolver
 
         # Exit depends on all tasks completing that are actual checks (as opposed to setup steps)
         Test::Tasks::Exit => [
-          Test::Tasks::CheckTypescript,
-          Test::Tasks::CheckVersions,
-          Test::Tasks::RunAnnotate,
-          Test::Tasks::RunApiControllerTests,
-          Test::Tasks::RunBrakeman,
-          Test::Tasks::RunDatabaseConsistency,
-          Test::Tasks::RunEslint,
-          Test::Tasks::RunFeatureTests,
-          Test::Tasks::RunFileSizeChecks,
-          Test::Tasks::RunHtmlControllerTests,
-          Test::Tasks::RunImmigrant,
-          Test::Tasks::RunPrettier,
-          Test::Tasks::RunRubocop,
-          Test::Tasks::RunStylelint,
-          Test::Tasks::RunUnitTests,
+          Test::Tasks::PnpmInstall,
         ],
       }
 
