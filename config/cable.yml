@@ -8,7 +8,7 @@ development:
 
 test:
   <<: *default
-  channel_prefix: david_runger_test
+  channel_prefix: david_runger_test<%= ENV['DB_SUFFIX'] %>
   url: redis://localhost:6379
 
 production:
