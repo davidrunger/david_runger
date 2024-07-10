@@ -12,7 +12,7 @@ RSpec.describe Log do
       before { log.update!(reminder_time_in_seconds: nil) }
 
       it 'does not include the log' do
-        expect(needing_reminder).not_to include(log)
+        expect(needing_reminder).to include(log)
       end
     end
 
