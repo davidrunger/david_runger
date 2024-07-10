@@ -28,7 +28,7 @@ RSpec.describe 'Groceries app' do
         # verify that the item is listed only once
         expect(page.body.scan(new_item_name).size).to eq(1)
 
-        click_on('Check in itemsz')
+        click_on('Check in items')
 
         within_section('Needed') do
           expect(page).to have_text(needed_item.name)
