@@ -118,7 +118,7 @@ module Test::TaskHelpers
   def record_failed_tests(stdout)
     job_result_hash[:failed_commands] ||= []
     stdout.
-      match(%r{\nFailed examples:\n\n(^\S+rspec\S+ ./.+$)+\n\n}m).[](1).
+      match(%r{\nFailed examples:\n{1,2}(^\S+rspec\S+ ./.+$)+\n{1,2}}m).[](1).
       split("\n").
       each do |failed_test|
         job_result_hash[:failed_commands] << failed_test.sub(%r{\A\e\[31mrspec ./}, '')
