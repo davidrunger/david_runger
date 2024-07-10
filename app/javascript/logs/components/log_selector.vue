@@ -23,8 +23,8 @@ Modal(
 </template>
 
 <script lang="ts">
-import { storeToRefs } from 'pinia'
 import { refDebounced } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 
 import { useFuzzyTypeahead } from '@/lib/composables/fuzzy_typeahead';
