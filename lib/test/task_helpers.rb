@@ -3,14 +3,21 @@
 require 'open3'
 
 module Test::TaskHelpers
-  def execute_system_command(command, env_vars = {})
+  def execute_system_command(command, env_vars = {}, log_stdout_only_on_failure: false)
     command = command.squish
     puts(<<~LOG.squish)
       Running system command '#{AmazingPrint::Colors.yellow(command)}'
       with ENV vars #{AmazingPrint::Colors.yellow(env_vars.to_s)} ...
     LOG
-    time = Benchmark.measure { system(env_vars, command) }.real
-    exit_code = $CHILD_STATUS.exitstatus
+    stdout, status = nil, nil # rubocop:disable Style/ParallelAssignment
+    time =
+      Benchmark.measure do
+        stdout, status = Open3.capture2(env_vars, command)
+      end.real
+    if !status.success? || !log_stdout_only_on_failure
+      puts(stdout)
+    end
+    exit_code = status.success? ? 0 : 1
     update_job_result_exit_code(exit_code)
     if exit_code == 0
       puts(<<~LOG.squish)
