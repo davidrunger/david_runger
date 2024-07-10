@@ -7,91 +7,42 @@ Modal(
 )
   input.mb-4(
     type='text'
-    v-model='searchString'
-    @keydown.enter='selectHighlightedLog'
-    @keydown.up='decrementHighlightedLogIndex'
-    @keydown.down='incrementHighlightedLogIndex'
+    v-model='query'
     ref='log-search-input'
+    @keydown.enter='selectHighlightedLog'
+    @keydown.up='onArrowUp'
+    @keydown.down='onArrowDown'
   )
   div
-    .log-link-container(v-for='(log, index) in orderedMatches')
+    .log-link-container(v-for='log in rankedMatches')
       router-link.log-link(
         :to='{ name: "log", params: { slug: log.slug }}'
-        :class='{"font-bold": (index === highlightedLogIndex)}'
+        :class='{"font-bold": (log === highlightedSearchable)}'
       ) {{log.name}}
 </template>
 
 <script lang="ts">
-import FuzzySet from 'fuzzyset.js';
-import { mapState } from 'pinia';
+import { refDebounced } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 
+import { useFuzzyTypeahead } from '@/lib/composables/fuzzy_typeahead';
 import { useSubscription } from '@/lib/composables/use_subscription';
 import { useLogsStore } from '@/logs/store';
-import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
 
 import { Log } from '../types';
 
 export default {
   computed: {
-    ...mapState(useLogsStore, ['logs']),
-
-    logNames(): Array<string> {
-      return this.logs.map((log) => log.name);
-    },
-
-    orderedMatches(): Array<Log> {
-      if (!this.searchString) {
-        return this.logs;
-      }
-
-      const matches = this.fuzzySet.get(this.searchString, '', 0) || [];
-      return matches.map(([_score, string]) =>
-        assert(this.logs.find((log) => log.name === string)),
-      );
-    },
-
     showingLogSelector(): boolean {
       return this.modalStore.showingModal({ modalName: 'log-selector' });
     },
   },
 
-  created() {
-    this.fuzzySet = FuzzySet();
-    for (const logName of this.logNames) {
-      this.fuzzySet.add(logName);
-    }
-  },
-
-  data() {
-    return {
-      fuzzySet: null as unknown as FuzzySet,
-    };
-  },
-
   methods: {
-    decrementHighlightedLogIndex() {
-      if (this.highlightedLogIndex > 0) {
-        this.highlightedLogIndex--;
-      } else {
-        // wrap around from the top of the list to the bottom
-        this.highlightedLogIndex = this.orderedMatches.length - 1;
-      }
-    },
-
-    incrementHighlightedLogIndex() {
-      if (this.highlightedLogIndex < this.orderedMatches.length - 1) {
-        this.highlightedLogIndex++;
-      } else {
-        // wrap back around to the top of the list
-        this.highlightedLogIndex = 0;
-      }
-    },
-
     selectHighlightedLog() {
-      const highlightedLog = this.orderedMatches[this.highlightedLogIndex];
-      this.selectLog(highlightedLog);
+      this.selectLog(this.highlightedSearchable);
     },
 
     selectLog(log: Log) {
@@ -100,33 +51,38 @@ export default {
   },
 
   setup() {
+    const logsStore = useLogsStore();
+    const { logs } = storeToRefs(logsStore);
     const modalStore = useModalStore();
-    const highlightedLogIndex = ref(0);
-    const searchString = ref('');
+    const query = ref('');
+    const queryDebounced = refDebounced(query, 60, { maxWait: 180 });
+    const { highlightedSearchable, onArrowDown, onArrowUp, rankedMatches } =
+      useFuzzyTypeahead({
+        searchables: logs.value,
+        query: queryDebounced,
+        propertyToSearch: 'name',
+      });
 
     function resetQuickSelector() {
       modalStore.hideModal({ modalName: 'log-selector' });
-      highlightedLogIndex.value = 0;
-      searchString.value = '';
+      query.value = '';
     }
 
     useSubscription('logs:route-changed', resetQuickSelector);
 
     return {
       modalStore,
-      highlightedLogIndex,
-      searchString,
+      query,
+      highlightedSearchable,
+      onArrowDown,
+      onArrowUp,
+      rankedMatches,
     };
   },
 
   watch: {
-    // reset highlightedLogIndex to 0 whenever the matched logs changes (e.g. the user types more)
-    orderedMatches() {
-      this.highlightedLogIndex = 0;
-    },
-
     showingLogSelector() {
-      // wait a tick for input to render, then focus it
+      // Wait a tick for input to render, then focus it. Autofocus only works once, so we need this.
       setTimeout(() => {
         const logSearchInput = this.$refs['log-search-input'];
         if (logSearchInput) {

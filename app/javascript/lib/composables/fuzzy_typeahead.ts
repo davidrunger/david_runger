@@ -22,6 +22,7 @@ export function useFuzzyTypeahead<T extends object>({
     }
   });
 
+  // reset highlightedLogIndex to 0 whenever the matched logs changes (e.g. the user types more)
   watch(rankedMatches, () => {
     highlightedIndex.value = 0;
   });

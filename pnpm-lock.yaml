@@ -71,9 +71,6 @@ importers:
       fuse.js:
         specifier: ^7.0.0
         version: 7.0.0
-      fuzzyset.js:
-        specifier: ^1.0.7
-        version: 1.0.7
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -129,9 +126,6 @@ importers:
       '@types/dompurify':
         specifier: ^3.0.5
         version: 3.0.5
-      '@types/fuzzyset.js':
-        specifier: ^0.0.5
-        version: 0.0.5
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -749,9 +743,6 @@ packages:
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
-
-  '@types/fuzzyset.js@0.0.5':
-    resolution: {integrity: sha512-AY1ONjlROTgY4YZ+JTupYxNxfXLy10/rmP5Mbb1wCFNGZogEsUe+3anBYE++sEDINTxuw/MduMLW+l3c+igj4A==}
 
   '@types/js-cookie@3.0.6':
     resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
@@ -1675,10 +1666,6 @@ packages:
   fuse.js@7.0.0:
     resolution: {integrity: sha512-14F4hBIxqKvD4Zz/XjDc3y94mNZN6pRv3U13Udo0lNLCWRBUsrMv2xwcF/y/Z5sV6+FQW+/ow68cHpm4sunt8Q==}
     engines: {node: '>=10'}
-
-  fuzzyset.js@1.0.7:
-    resolution: {integrity: sha512-SmfOVSiPjbyC17m1i86wFq+jmkGioqlY/amT6RZzq4hPTGJFWFF2voUe88zrq/zDbehFnSJFtu6kqTUCw1caKQ==}
-    engines: {node: '>= 0.4.0'}
 
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
@@ -3757,8 +3744,6 @@ snapshots:
 
   '@types/estree@1.0.5': {}
 
-  '@types/fuzzyset.js@0.0.5': {}
-
   '@types/js-cookie@3.0.6': {}
 
   '@types/json-schema@7.0.12': {}
@@ -4874,8 +4859,6 @@ snapshots:
   functions-have-names@1.2.3: {}
 
   fuse.js@7.0.0: {}
-
-  fuzzyset.js@1.0.7: {}
 
   gensync@1.0.0-beta.2: {}
 
