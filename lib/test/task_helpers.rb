@@ -3,14 +3,21 @@
 require 'open3'
 
 module Test::TaskHelpers
-  def execute_system_command(command, env_vars = {})
+  def execute_system_command(command, env_vars = {}, log_stdout_only_on_failure: false)
     command = command.squish
     puts(<<~LOG.squish)
       Running system command '#{AmazingPrint::Colors.yellow(command)}'
       with ENV vars #{AmazingPrint::Colors.yellow(env_vars.to_s)} ...
     LOG
-    time = Benchmark.measure { system(env_vars, command) }.real
-    exit_code = $CHILD_STATUS.exitstatus
+    stdout, status = nil, nil # rubocop:disable Style/ParallelAssignment
+    time =
+      Benchmark.measure do
+        stdout, status = Open3.capture2(env_vars, command)
+      end.real
+    if !status.success? || !log_stdout_only_on_failure
+      puts(stdout)
+    end
+    exit_code = status.success? ? 0 : 1
     update_job_result_exit_code(exit_code)
     if exit_code == 0
       puts(<<~LOG.squish)
@@ -125,7 +132,7 @@ module Test::TaskHelpers
   def job_results
     if $PROGRAM_NAME.end_with?('bin/run-test-step')
       # This allows bin/run-test-step to work without the pallets middleware loaded.
-      Hash.new { |hash, key| hash[key] = {} }
+      Hash.new { |hash, key| hash[key] = Hash.new { |h, k| h[k] = [] } }
     else
       Test::Middleware::TaskResultTrackingMiddleware.job_results
     end
