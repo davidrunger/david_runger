@@ -29,17 +29,12 @@ import { ref } from 'vue';
 import { useFuzzyTypeahead } from '@/lib/composables/fuzzy_typeahead';
 import { useSubscription } from '@/lib/composables/use_subscription';
 import { useLogsStore } from '@/logs/store';
-import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
 
 import { Log } from '../types';
 
 export default {
   computed: {
-    logNames(): Array<string> {
-      return this.logs.map((log) => log.name);
-    },
-
     showingLogSelector(): boolean {
       return this.modalStore.showingModal({ modalName: 'log-selector' });
     },
