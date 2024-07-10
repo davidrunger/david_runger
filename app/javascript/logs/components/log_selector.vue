@@ -7,7 +7,6 @@ Modal(
 )
   input.mb-4(
     type='text'
-    autofocus
     v-model='query'
     ref='log-search-input'
     @keydown.enter='selectHighlightedLog'
