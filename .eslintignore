@@ -1,2 +1,4 @@
-/node_modules
-/app/javascript/rails_assets
+/app/javascript/rails_assets/
+/node_modules/
+/public/vite/
+/public/vite-admin/
