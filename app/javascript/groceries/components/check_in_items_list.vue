@@ -1,6 +1,6 @@
 <template lang="pug">
 section(v-if="items.length > 0")
-  h3.font-bold.mb-2 {{ title }}
+  h3.font-bold.mb-2 {{ title }} ({{ items.length }})
 
   ul.check-in-items-list.mb-2
     li.flex.items-center.mb-2(
