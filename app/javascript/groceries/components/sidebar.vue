@@ -130,6 +130,7 @@ aside {
     min-width 0.7s,
     width 0.7s,
     max-width 0.7s;
+
   @include sidebar-width;
 
   .spouse-stores-header,
@@ -161,6 +162,7 @@ aside {
 nav {
   position: relative;
   top: 10px;
+
   @include sidebar-width($padding: 32px);
 }
 
