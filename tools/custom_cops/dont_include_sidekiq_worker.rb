@@ -2,7 +2,7 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 module CustomCops
-  class DontIncludeSidekiqWorker < RuboCop::Cop::Cop
+  class DontIncludeSidekiqWorker < RuboCop::Cop::Base
     MSG =
       'Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` ' \
       'or `include Sidekiq::Job`'
