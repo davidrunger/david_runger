@@ -23,7 +23,7 @@ import { ref } from 'vue';
 
 import { useHomeStore } from '@/home/store';
 
-import HomeHeader from './home_header.vue';
+import HomeHeader from './HomeHeader.vue';
 
 export default {
   components: {

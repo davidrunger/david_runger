@@ -31,7 +31,7 @@ import { PropType } from 'vue';
 import { useCheckInsStore } from '@/check_ins/store';
 import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
 
-import EmojiButton from './emoji_button.vue';
+import EmojiButton from './EmojiButton.vue';
 
 export default {
   components: {

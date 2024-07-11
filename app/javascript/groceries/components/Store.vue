@@ -129,9 +129,9 @@ import { helpers, useGroceriesStore } from '@/groceries/store';
 import { Item as ItemType, Store } from '@/groceries/types';
 import { useModalStore } from '@/shared/modal/store';
 
-import CheckInItemsList from './check_in_items_list.vue';
-import CheckInStoreList from './check_in_store_list.vue';
-import Item from './item.vue';
+import CheckInItemsList from './CheckInItemsList.vue';
+import CheckInStoreList from './CheckInStoreList.vue';
+import Item from './Item.vue';
 
 export default defineComponent({
   components: {

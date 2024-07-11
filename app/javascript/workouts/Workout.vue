@@ -20,9 +20,9 @@ import { mapState } from 'pinia';
 import { useWorkoutsStore } from '@/workouts/store';
 import { WorkoutPlan as WorkoutPlanType } from '@/workouts/types';
 
-import NewWorkoutForm from './new_workout_form.vue';
-import WorkoutPlan from './workout_plan.vue';
-import WorkoutsTable from './workouts_table.vue';
+import NewWorkoutForm from './NewWorkoutForm.vue';
+import WorkoutPlan from './WorkoutPlan.vue';
+import WorkoutsTable from './WorkoutsTable.vue';
 
 export default {
   components: {

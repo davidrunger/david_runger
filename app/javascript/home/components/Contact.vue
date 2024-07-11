@@ -7,7 +7,7 @@ HomeSection(section='links', title='Contact me / Links')
 </template>
 
 <script lang="ts">
-import HomeSection from './home_section.vue';
+import HomeSection from './HomeSection.vue';
 
 export default {
   components: {

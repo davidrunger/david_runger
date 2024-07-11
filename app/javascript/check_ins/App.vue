@@ -23,7 +23,7 @@ import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
 import { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
 
-import Ratings from './components/ratings.vue';
+import Ratings from './components/Ratings.vue';
 
 export default {
   components: {

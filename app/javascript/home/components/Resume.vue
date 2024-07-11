@@ -7,7 +7,7 @@ HomeSection.pb-16(
 </template>
 
 <script lang="ts">
-import HomeSection from './home_section.vue';
+import HomeSection from './HomeSection.vue';
 
 export default {
   components: {

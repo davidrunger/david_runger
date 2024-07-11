@@ -1,6 +1,6 @@
 import { createPinia } from 'pinia';
 
-import Home from '@/home/home.vue';
+import Home from '@/home/Home.vue';
 import { renderApp } from '@/shared/customized_vue';
 
 const app = renderApp(Home);

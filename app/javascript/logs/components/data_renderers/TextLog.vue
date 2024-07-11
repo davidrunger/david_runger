@@ -14,8 +14,8 @@
 <script lang="ts">
 import { PropType } from 'vue';
 
-import EditableTextLogRow from '@/logs/components/editable_text_log_row.vue';
-import NewLogEntryForm from '@/logs/components/new_log_entry_form.vue';
+import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
+import NewLogEntryForm from '@/logs/components/NewLogEntryForm.vue';
 import { LogEntry } from '@/logs/types';
 
 export default {

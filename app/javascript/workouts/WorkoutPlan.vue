@@ -73,7 +73,7 @@ import { PropType } from 'vue';
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
 
-import ConfirmWorkoutModal from './confirm_workout_modal.vue';
+import ConfirmWorkoutModal from './ConfirmWorkoutModal.vue';
 import { Exercise } from './types';
 
 type SetObject = {

@@ -316,8 +316,8 @@ HomeSection(section='projects' title='Projects')
 </template>
 
 <script lang="ts">
-import HomeSection from './home_section.vue';
-import Project from './project.vue';
+import HomeSection from './HomeSection.vue';
+import Project from './Project.vue';
 
 export default {
   components: {

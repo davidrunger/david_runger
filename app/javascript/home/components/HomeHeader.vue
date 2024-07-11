@@ -42,7 +42,7 @@ import { mapState } from 'pinia';
 
 import { useHomeStore } from '@/home/store';
 
-import NavLink from './nav_link.vue';
+import NavLink from './NavLink.vue';
 
 export default {
   components: {
