@@ -14,6 +14,10 @@ require 'nokogiri'
 class Prerenderer
   def initialize
     @browser = Ferrum::Browser.new(process_timeout: 20, timeout: 60)
+  rescue Ferrum::ProcessTimeoutError => error
+    puts("Rescued error: #{error}.")
+    puts('Retrying...')
+    retry
   end
 
   def prerender(url:, filename:, expected_text:)
