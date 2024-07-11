@@ -16,7 +16,7 @@ class Prerenderer
     @browser = Ferrum::Browser.new(process_timeout: 20, timeout: 60)
   rescue Ferrum::ProcessTimeoutError => error
     puts("Rescued error: #{error}.")
-    puts("Retrying...")
+    puts('Retrying...')
     retry
   end
 
