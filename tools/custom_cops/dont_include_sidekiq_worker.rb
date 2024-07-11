@@ -2,7 +2,9 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 module CustomCops
-  class DontIncludeSidekiqWorker < RuboCop::Cop::Cop
+  class DontIncludeSidekiqWorker < RuboCop::Cop::Base
+    extend RuboCop::Cop::AutoCorrector
+
     MSG =
       'Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` ' \
       'or `include Sidekiq::Job`'
@@ -14,11 +16,7 @@ module CustomCops
     def on_send(node)
       return unless including_sidekiq_worker?(node)
 
-      add_offense(node)
-    end
-
-    def autocorrect(node)
-      lambda do |corrector|
+      add_offense(node) do |corrector|
         corrector.replace(node, 'prepend ApplicationWorker')
       end
     end
