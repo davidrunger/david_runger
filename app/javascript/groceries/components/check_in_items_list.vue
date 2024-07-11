@@ -3,7 +3,7 @@ section(v-if="items.length > 0")
   h3.font-bold.mb-2 {{ title }} ({{ items.length }})
 
   ul.check-in-items-list.text-base.mb-2
-    li.flex.items-center.mb-2(
+    li.flex.items-center.break-word.mb-2(
       v-for='item in items'
       :key='item.id'
     )
@@ -14,9 +14,10 @@ section(v-if="items.length > 0")
         :id='`trip-checkin-item-${item.id}`'
       )
       label.ml-2(:for='`trip-checkin-item-${item.id}`')
-        span.mr-1(:class='{ "text-gray-500": item.skipped }')
+        span(:class='{ "text-gray-500": item.skipped }')
           span {{item.name}}
           span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
+        span {{ ' ' }}
         el-button(
           v-if="item.skipped"
           link
@@ -68,7 +69,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.el-button.is-link {
+// double class in selector to increase specificity of this override
+.el-button.el-button.is-link {
   padding: 0;
   vertical-align: unset;
 }
