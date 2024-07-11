@@ -35,7 +35,7 @@ class Test::Tasks::Exit < Pallets::Task
         puts(
           "#{rjusted_short_name(task_name)} : " \
           "#{colorized_exit_message} " \
-          "(took #{AmazingPrint::Colors.yellow(run_time.round(3).to_s)} seconds)",
+          "(took #{AmazingPrint::Colors.yellow(('%0.3f' % run_time)[0, 6].rjust(6, ' '))} seconds)",
         )
       end
   end
