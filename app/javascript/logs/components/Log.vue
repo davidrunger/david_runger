@@ -165,6 +165,18 @@ export default {
     this.publiclyViewable = this.log.publicly_viewable;
   },
 
+  setup() {
+    const logsStore = useLogsStore();
+    const log = logsStore.unsafeSelectedLog;
+
+    useTitle(`${log.name} - Logs - David Runger`);
+
+    return {
+      log,
+      logsStore,
+    };
+  },
+
   data() {
     return {
       inputVisible: false,
@@ -262,18 +274,6 @@ ${this.log.name}`);
         },
       );
     },
-  },
-
-  setup() {
-    const logsStore = useLogsStore();
-    const log = logsStore.unsafeSelectedLog;
-
-    useTitle(`${log.name} - Logs - David Runger`);
-
-    return {
-      log,
-      logsStore,
-    };
   },
 };
 </script>

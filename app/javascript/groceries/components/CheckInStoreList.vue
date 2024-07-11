@@ -20,17 +20,17 @@ import { useGroceriesStore } from '@/groceries/store';
 import { Store } from '@/groceries/types';
 
 export default defineComponent({
-  data() {
-    return {
-      groceriesStore: useGroceriesStore(),
-    };
-  },
 
   props: {
     stores: {
       required: true,
       type: Array as PropType<Array<Store>>,
     },
+  },
+  data() {
+    return {
+      groceriesStore: useGroceriesStore(),
+    };
   },
 });
 </script>

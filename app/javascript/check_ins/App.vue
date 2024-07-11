@@ -30,6 +30,12 @@ export default {
     Ratings,
   },
 
+  data() {
+    return {
+      checkInsStore: useCheckInsStore(),
+    };
+  },
+
   created() {
     actionCableConsumer.subscriptions.create(
       {
@@ -55,12 +61,6 @@ export default {
         },
       },
     );
-  },
-
-  data() {
-    return {
-      checkInsStore: useCheckInsStore(),
-    };
   },
 };
 </script>

@@ -39,6 +39,17 @@ import { useGroceriesStore } from '@/groceries/store';
 import { Item } from '@/groceries/types';
 
 export default defineComponent({
+
+  props: {
+    items: {
+      type: Array as PropType<Array<Item>>,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       groceriesStore: useGroceriesStore(),
@@ -52,17 +63,6 @@ export default defineComponent({
 
     unskip(item: Item) {
       this.groceriesStore.unskipItem({ item });
-    },
-  },
-
-  props: {
-    items: {
-      type: Array as PropType<Array<Item>>,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
     },
   },
 });

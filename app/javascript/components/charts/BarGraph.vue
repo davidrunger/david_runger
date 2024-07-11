@@ -47,42 +47,6 @@ export default {
 
   components: { Bar },
 
-  computed: {
-    mergedChartData(): ChartData<
-      'bar',
-      (number | [number, number] | null)[],
-      unknown
-    > {
-      return merge({}, datasetDefaults, this.chartData) as ChartData<
-        'bar',
-        (number | [number, number] | null)[],
-        unknown
-      >;
-    },
-  },
-
-  data() {
-    return {
-      chartOptions: {
-        responsive: true,
-        scales: {
-          x: merge({}, commonAxisOptions, {
-            offset: true,
-            type: 'time',
-            time: {
-              minUnit: 'day',
-            },
-          }),
-          y: merge({}, commonAxisOptions, {
-            ticks: {
-              min: 0,
-            },
-          }),
-        },
-      } as ChartOptions<'bar'>,
-    };
-  },
-
   props: {
     chartData: {
       type: Object,
@@ -111,6 +75,42 @@ export default {
     styles: {
       type: Object,
       default: () => {},
+    },
+  },
+
+  data() {
+    return {
+      chartOptions: {
+        responsive: true,
+        scales: {
+          x: merge({}, commonAxisOptions, {
+            offset: true,
+            type: 'time',
+            time: {
+              minUnit: 'day',
+            },
+          }),
+          y: merge({}, commonAxisOptions, {
+            ticks: {
+              min: 0,
+            },
+          }),
+        },
+      } as ChartOptions<'bar'>,
+    };
+  },
+
+  computed: {
+    mergedChartData(): ChartData<
+      'bar',
+      (number | [number, number] | null)[],
+      unknown
+    > {
+      return merge({}, datasetDefaults, this.chartData) as ChartData<
+        'bar',
+        (number | [number, number] | null)[],
+        unknown
+      >;
     },
   },
 };

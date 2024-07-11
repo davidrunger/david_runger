@@ -17,6 +17,17 @@ export default {
     BarGraph,
   },
 
+  props: {
+    data_label: {
+      type: String,
+      required: true,
+    },
+    log_entries: {
+      type: Array as PropType<Array<LogEntry>>,
+      required: true,
+    },
+  },
+
   computed: {
     chartMetadata() {
       return {
@@ -49,17 +60,6 @@ export default {
         x: date,
         y: count,
       }));
-    },
-  },
-
-  props: {
-    data_label: {
-      type: String,
-      required: true,
-    },
-    log_entries: {
-      type: Array as PropType<Array<LogEntry>>,
-      required: true,
     },
   },
 };

@@ -24,25 +24,6 @@ export default {
     NewLogEntryForm,
   },
 
-  computed: {
-    sortedLogEntries(): Array<LogEntry> {
-      let logEntriesToShow;
-      if (this.showAllEntries || this.log_entries.length <= 3) {
-        logEntriesToShow = this.log_entries;
-      } else {
-        logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
-      }
-
-      return logEntriesToShow.slice().reverse();
-    },
-  },
-
-  data() {
-    return {
-      showAllEntries: false,
-    };
-  },
-
   props: {
     data_label: {
       type: String,
@@ -55,6 +36,25 @@ export default {
     log_entries: {
       type: Array as PropType<Array<LogEntry>>,
       required: true,
+    },
+  },
+
+  data() {
+    return {
+      showAllEntries: false,
+    };
+  },
+
+  computed: {
+    sortedLogEntries(): Array<LogEntry> {
+      let logEntriesToShow;
+      if (this.showAllEntries || this.log_entries.length <= 3) {
+        logEntriesToShow = this.log_entries;
+      } else {
+        logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
+      }
+
+      return logEntriesToShow.slice().reverse();
     },
   },
 };

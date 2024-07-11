@@ -68,19 +68,6 @@ export default defineComponent({
     },
   },
 
-  data() {
-    return {
-      newStoreName: '',
-    };
-  },
-
-  methods: {
-    async handleNewStoreSubmission() {
-      await this.groceriesStore.createStore(this.newStoreName);
-      this.newStoreName = '';
-    },
-  },
-
   setup() {
     const isMobileDevice = inject('isMobileDevice');
     const collapsed = ref(isMobileDevice);
@@ -98,6 +85,19 @@ export default defineComponent({
       groceriesStore: useGroceriesStore(),
       v$: useVuelidate(),
     };
+  },
+
+  data() {
+    return {
+      newStoreName: '',
+    };
+  },
+
+  methods: {
+    async handleNewStoreSubmission() {
+      await this.groceriesStore.createStore(this.newStoreName);
+      this.newStoreName = '';
+    },
   },
 
   validations() {

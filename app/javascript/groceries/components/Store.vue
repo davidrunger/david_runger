@@ -161,6 +161,15 @@ export default defineComponent({
     },
   },
 
+  props: {
+    store: {
+      type: Object as PropType<Store>,
+      required: true,
+    },
+  },
+
+  setup: () => ({ v$: useVuelidate() }),
+
   data() {
     return {
       editingName: false,
@@ -282,15 +291,6 @@ export default defineComponent({
       });
     },
   },
-
-  props: {
-    store: {
-      type: Object as PropType<Store>,
-      required: true,
-    },
-  },
-
-  setup: () => ({ v$: useVuelidate() }),
 
   validations() {
     return {

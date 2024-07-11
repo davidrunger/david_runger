@@ -42,6 +42,21 @@ export default {
     ...mapState(useCheckInsStore, ['submitted']),
   },
 
+  props: {
+    editable: {
+      type: Boolean,
+      required: true,
+    },
+    needSatisfactionRatings: {
+      type: Array as PropType<Array<NeedSatisfactionRating>>,
+      required: true,
+    },
+    ratedUser: {
+      type: String,
+      required: true,
+    },
+  },
+
   data() {
     return {
       checkInsStore: useCheckInsStore(),
@@ -61,21 +76,6 @@ export default {
       await this.checkInsStore.submitCheckIn();
       // refresh page to load spouse's answers (if available)
       window.location.reload();
-    },
-  },
-
-  props: {
-    editable: {
-      type: Boolean,
-      required: true,
-    },
-    needSatisfactionRatings: {
-      type: Array as PropType<Array<NeedSatisfactionRating>>,
-      required: true,
-    },
-    ratedUser: {
-      type: String,
-      required: true,
     },
   },
 };

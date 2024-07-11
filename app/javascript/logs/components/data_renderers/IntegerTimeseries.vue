@@ -17,6 +17,17 @@ export default {
     LineChart,
   },
 
+  props: {
+    data_label: {
+      type: String,
+      required: true,
+    },
+    log_entries: {
+      type: Array as PropType<Array<LogEntry>>,
+      required: true,
+    },
+  },
+
   computed: {
     chartMetadata() {
       return {
@@ -35,17 +46,6 @@ export default {
         y: logEntry.data,
         note: logEntry.note,
       }));
-    },
-  },
-
-  props: {
-    data_label: {
-      type: String,
-      required: true,
-    },
-    log_entries: {
-      type: Array as PropType<Array<LogEntry>>,
-      required: true,
     },
   },
 };

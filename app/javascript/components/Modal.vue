@@ -21,39 +21,6 @@ export default {
     ...mapState(useModalStore, ['showingModal']),
   },
 
-  data() {
-    return {
-      modalStore: useModalStore(),
-    };
-  },
-
-  methods: {
-    handleClickMask(event: MouseEvent) {
-      // make sure we don't close the modal when clicks within the modal propagate up
-      if (event.target === this.$refs.mask) {
-        this.modalStore.hideModal({ modalName: this.name });
-      }
-    },
-
-    handleKeydown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        this.modalStore.hideTopModal();
-      }
-    },
-  },
-
-  created() {
-    // since there might be multiple modals, ensure we only register the keydown listener once
-    if (!window.davidrunger.modalKeydownListenerRegistered) {
-      window.addEventListener('keydown', this.handleKeydown);
-      window.davidrunger.modalKeydownListenerRegistered = true;
-    }
-  },
-
-  unmounted() {
-    window.removeEventListener('keydown', this.handleKeydown);
-  },
-
   props: {
     backgroundClass: {
       type: String,
@@ -71,6 +38,39 @@ export default {
     maxWidth: {
       type: String,
       required: true,
+    },
+  },
+
+  data() {
+    return {
+      modalStore: useModalStore(),
+    };
+  },
+
+  created() {
+    // since there might be multiple modals, ensure we only register the keydown listener once
+    if (!window.davidrunger.modalKeydownListenerRegistered) {
+      window.addEventListener('keydown', this.handleKeydown);
+      window.davidrunger.modalKeydownListenerRegistered = true;
+    }
+  },
+
+  unmounted() {
+    window.removeEventListener('keydown', this.handleKeydown);
+  },
+
+  methods: {
+    handleClickMask(event: MouseEvent) {
+      // make sure we don't close the modal when clicks within the modal propagate up
+      if (event.target === this.$refs.mask) {
+        this.modalStore.hideModal({ modalName: this.name });
+      }
+    },
+
+    handleKeydown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.modalStore.hideTopModal();
+      }
     },
   },
 };

@@ -30,12 +30,6 @@ export default {
     HomeHeader,
   },
 
-  data() {
-    return {
-      homeStore: useHomeStore(),
-    };
-  },
-
   setup() {
     const homeRef = ref(null);
     const homeStore = useHomeStore();
@@ -46,6 +40,12 @@ export default {
 
     return {
       homeRef,
+    };
+  },
+
+  data() {
+    return {
+      homeStore: useHomeStore(),
     };
   },
 };

@@ -32,6 +32,13 @@ export default defineComponent({
     ...mapState(useGroceriesStore, ['currentStore']),
   },
 
+  props: {
+    store: {
+      required: true,
+      type: Object as PropType<Store>,
+    },
+  },
+
   data() {
     return {
       groceriesStore: useGroceriesStore(),
@@ -47,13 +54,6 @@ export default defineComponent({
       if (confirmation === true) {
         this.groceriesStore.deleteStore({ store });
       }
-    },
-  },
-
-  props: {
-    store: {
-      required: true,
-      type: Object as PropType<Store>,
     },
   },
 });

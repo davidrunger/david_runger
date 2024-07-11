@@ -34,21 +34,6 @@ import { useModalStore } from '@/shared/modal/store';
 import { Log } from '../types';
 
 export default {
-  computed: {
-    showingLogSelector(): boolean {
-      return this.modalStore.showingModal({ modalName: 'log-selector' });
-    },
-  },
-
-  methods: {
-    selectHighlightedLog() {
-      this.selectLog(this.highlightedSearchable);
-    },
-
-    selectLog(log: Log) {
-      this.$router.push({ name: 'log', params: { slug: log.slug } });
-    },
-  },
 
   setup() {
     const logsStore = useLogsStore();
@@ -79,6 +64,11 @@ export default {
       rankedMatches,
     };
   },
+  computed: {
+    showingLogSelector(): boolean {
+      return this.modalStore.showingModal({ modalName: 'log-selector' });
+    },
+  },
 
   watch: {
     showingLogSelector() {
@@ -89,6 +79,16 @@ export default {
           (logSearchInput as HTMLInputElement).focus();
         }
       });
+    },
+  },
+
+  methods: {
+    selectHighlightedLog() {
+      this.selectLog(this.highlightedSearchable);
+    },
+
+    selectLog(log: Log) {
+      this.$router.push({ name: 'log', params: { slug: log.slug } });
     },
   },
 };
