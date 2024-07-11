@@ -4,7 +4,7 @@
 # request lifecycle into `Request` records saved to the Postgres database.
 class SaveRequest
   prepend MemoWise
-  include Sidekiq::Worker
+  prepend ApplicationWorker
 
   unique_while_executing!
 
