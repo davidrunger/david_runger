@@ -61,42 +61,42 @@
 
   Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
     slot
-      .flex.items-center.mb-3
-        span Stores: {{checkInStoreNames}}
-        el-button.choose-stores.ml-2(
-          link
-          type='primary'
-          @click='manageCheckInStores'
-        ) Choose stores
+      .flex.flex-col.max-h-full
+        .shrink-0.flex.items-center.mb-3
+          span Stores: {{checkInStoreNames}}
+          el-button.choose-stores.ml-2(
+            link
+            type='primary'
+            @click='manageCheckInStores'
+          ) Choose stores
 
-      CheckInItemsList(
-        title="Needed"
-        :items="neededUnskippedCheckInItemsNotInCart"
-      )
+        .flex-1.overflow-y-auto
+          CheckInItemsList(
+            title="Needed"
+            :items="neededUnskippedCheckInItemsNotInCart"
+          )
 
-      CheckInItemsList(
-        title="In Cart"
-        :items="neededUnskippedCheckInItemsInCart"
-      )
+          CheckInItemsList(
+            title="In Cart"
+            :items="neededUnskippedCheckInItemsInCart"
+          )
 
-      CheckInItemsList(
-        title="Skipped"
-        :items="neededSkippedCheckInItems"
-      )
+          CheckInItemsList(
+            title="Skipped"
+            :items="neededSkippedCheckInItems"
+          )
 
-      div.flex.justify-around.mt-4
-
-        el-button(
-          @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
-          type='primary'
-          link
-        ) Cancel
-
-        el-button(
-          @click='handleTripCheckinModalSubmit'
-          type='primary'
-          plain
-        ) Check in items in cart
+        .shrink-0.flex.justify-around.mt-4
+          el-button(
+            @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
+            type='primary'
+            link
+          ) Cancel
+          el-button(
+            @click='handleTripCheckinModalSubmit'
+            type='primary'
+            plain
+          ) Check in items in cart
 
   Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
     slot
