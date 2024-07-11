@@ -65,7 +65,7 @@ module Test::TaskHelpers
   end
 
   def execute_rake_task(task_name, *args)
-    puts(<<~LOG)
+    puts(<<~LOG.squish)
       Running rake task '#{AmazingPrint::Colors.yellow(task_name)}'
       with args #{AmazingPrint::Colors.yellow(args.inspect)} ...
     LOG
