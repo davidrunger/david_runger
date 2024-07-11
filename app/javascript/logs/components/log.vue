@@ -68,7 +68,7 @@ div
         el-button(v-else class='button-new-tag' size='small' @click='showInput') + Share with email
       div.mt-2 Shareable link: {{shareableUrl}}
       div
-        el-button.copy-to-clipboard(size='small')
+        el-button(size='small' @click='copyShareableUrlToClipboard')
           span(v-if='wasCopiedRecently') Copied!
           span(v-else) Copy to clipboard
       div.mt-2
@@ -83,7 +83,6 @@ div
 
 <script lang="ts">
 import { useTitle } from '@vueuse/core';
-import ClipboardJS from 'clipboard';
 import { ElInput } from 'element-plus';
 import { mapState } from 'pinia';
 import { h } from 'vue';
@@ -177,6 +176,16 @@ export default {
   },
 
   methods: {
+    copyShareableUrlToClipboard() {
+      navigator.clipboard.writeText(this.shareableUrl);
+
+      this.wasCopiedRecently = true;
+
+      setTimeout(() => {
+        this.wasCopiedRecently = false;
+      }, 1800);
+    },
+
     destroyLastEntry() {
       const confirmation = window.confirm(
         `Are you sure that you want to delete the last entry from the ${this.log.name} log?`,
@@ -253,18 +262,6 @@ ${this.log.name}`);
         },
       );
     },
-  },
-
-  mounted() {
-    const clipboard = new ClipboardJS('.copy-to-clipboard', {
-      text: () => this.shareableUrl,
-    });
-    clipboard.on('success', () => {
-      this.wasCopiedRecently = true;
-      setTimeout(() => {
-        this.wasCopiedRecently = false;
-      }, 1800);
-    });
   },
 
   setup() {
