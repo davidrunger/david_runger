@@ -1,7 +1,7 @@
 import { createPinia } from 'pinia';
 
-import Modal from '@/components/modal.vue';
-import Groceries from '@/groceries/groceries.vue';
+import Modal from '@/components/Modal.vue';
+import Groceries from '@/groceries/Groceries.vue';
 import { renderApp } from '@/shared/customized_vue';
 import { useElementPlus } from '@/shared/element_plus';
 

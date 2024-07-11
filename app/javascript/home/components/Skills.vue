@@ -156,8 +156,8 @@ HomeSection(section='skills', title='Skills')
 </template>
 
 <script lang="ts">
-import HomeSection from './home_section.vue';
-import SkillRow from './skill_row.vue';
+import HomeSection from './HomeSection.vue';
+import SkillRow from './SkillRow.vue';
 
 export default {
   components: {

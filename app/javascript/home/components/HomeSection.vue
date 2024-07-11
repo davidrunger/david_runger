@@ -10,7 +10,7 @@
 <script lang="ts">
 import { h } from 'vue';
 
-import ScrollHook from './scroll_hook.vue';
+import ScrollHook from './ScrollHook.vue';
 
 export const SectionHeader = (props: { title?: string }) =>
   h('h1', { class: 'text-3xl font-bold my-4' }, props.title);

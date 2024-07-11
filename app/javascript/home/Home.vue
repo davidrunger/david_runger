@@ -26,13 +26,13 @@
 </template>
 
 <script lang="ts">
-import About from './components/about.vue';
-import Contact from './components/contact.vue';
-import HomeHero from './components/home_hero.vue';
-import ParallaxImage from './components/parallax_image.vue';
-import Projects from './components/projects.vue';
-import Resume from './components/resume.vue';
-import Skills from './components/skills.vue';
+import About from './components/About.vue';
+import Contact from './components/Contact.vue';
+import HomeHero from './components/HomeHero.vue';
+import ParallaxImage from './components/ParallaxImage.vue';
+import Projects from './components/Projects.vue';
+import Resume from './components/Resume.vue';
+import Skills from './components/Skills.vue';
 
 export default {
   components: {

@@ -48,8 +48,8 @@ import { ArrowBarRightIcon } from 'vue-tabler-icons';
 import { useGroceriesStore } from '@/groceries/store';
 import { useSubscription } from '@/lib/composables/use_subscription';
 
-import LoggedInHeader from './logged_in_header.vue';
-import StoreListEntry from './store_list_entry.vue';
+import LoggedInHeader from './LoggedInHeader.vue';
+import StoreListEntry from './StoreListEntry.vue';
 
 export default defineComponent({
   name: 'Sidebar',

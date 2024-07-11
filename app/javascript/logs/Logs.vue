@@ -14,7 +14,7 @@ import Toastify from 'toastify-js';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
 
-import LogSelector from './components/log_selector.vue';
+import LogSelector from './components/LogSelector.vue';
 import { Bootstrap, CurrentUser } from './types';
 
 export default {

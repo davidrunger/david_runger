@@ -93,12 +93,12 @@ import * as RoutesType from '@/rails_assets/routes';
 import { useModalStore } from '@/shared/modal/store';
 
 import { Bootstrap, Log, LogDataType, LogEntry, LogShare } from '../types';
-import CounterBarGraph from './data_renderers/counter_bar_graph.vue';
-import DurationTimeseries from './data_renderers/duration_timeseries.vue';
-import IntegerTimeseries from './data_renderers/integer_timeseries.vue';
-import TextLog from './data_renderers/text_log.vue';
-import LogReminderScheduleForm from './log_reminder_schedule_form.vue';
-import NewLogEntryForm from './new_log_entry_form.vue';
+import CounterBarGraph from './data_renderers/CounterBarGraph.vue';
+import DurationTimeseries from './data_renderers/DurationTimeseries.vue';
+import IntegerTimeseries from './data_renderers/IntegerTimeseries.vue';
+import TextLog from './data_renderers/TextLog.vue';
+import LogReminderScheduleForm from './LogReminderScheduleForm.vue';
+import NewLogEntryForm from './NewLogEntryForm.vue';
 
 declare const Routes: typeof RoutesType;
 

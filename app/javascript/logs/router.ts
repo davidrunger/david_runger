@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import { emit } from '@/lib/event_bus';
 
-import Log from './components/log.vue';
-import LogsIndex from './components/logs_index.vue';
+import Log from './components/Log.vue';
+import LogsIndex from './components/LogsIndex.vue';
 
 const routes = [
   { path: '/logs', name: 'logs-index', component: LogsIndex },

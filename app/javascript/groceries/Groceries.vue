@@ -21,8 +21,8 @@ import { useGroceriesStore } from '@/groceries/store';
 import { ItemBroadcast } from '@/groceries/types';
 import { IphoneTouchEvent } from '@/shared/types';
 
-import Sidebar from './components/sidebar.vue';
-import Store from './components/store.vue';
+import Sidebar from './components/Sidebar.vue';
+import Store from './components/Store.vue';
 
 interface MonkeypatchableConnection extends Connection {
   installEventHandlers(): void;

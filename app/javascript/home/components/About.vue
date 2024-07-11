@@ -30,7 +30,7 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
 </template>
 
 <script lang="ts">
-import HomeSection, { SectionHeader } from './home_section.vue';
+import HomeSection, { SectionHeader } from './HomeSection.vue';
 
 export default {
   components: {

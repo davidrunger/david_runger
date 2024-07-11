@@ -1,8 +1,8 @@
 import { createPinia } from 'pinia';
 import { markRaw } from 'vue';
 
-import Modal from '@/components/modal.vue';
-import LogApp from '@/logs/logs.vue';
+import Modal from '@/components/Modal.vue';
+import LogApp from '@/logs/Logs.vue';
 import router from '@/logs/router';
 import { renderApp } from '@/shared/customized_vue';
 import { useElementPlus } from '@/shared/element_plus';
