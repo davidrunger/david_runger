@@ -125,13 +125,13 @@ export default defineComponent({
 }
 
 aside {
-  @include sidebar-width;
-
   background: linear-gradient(to bottom, #458fc0 0%, #a8b2ce 50%, #b6bcd5 100%);
   transition:
     min-width 0.7s,
     width 0.7s,
     max-width 0.7s;
+
+  @include sidebar-width;
 
   .spouse-stores-header,
   :deep(.stores-list__item) {
@@ -160,10 +160,10 @@ aside {
 }
 
 nav {
-  @include sidebar-width($padding: 32px);
-
   position: relative;
   top: 10px;
+
+  @include sidebar-width($padding: 32px);
 }
 
 .store-lists-container {
