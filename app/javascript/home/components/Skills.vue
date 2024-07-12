@@ -3,13 +3,6 @@ HomeSection(section='skills', title='Skills')
   table
     tbody
       SkillRow(
-        name='Babel'
-        details='Allowing us to safely use modern JavaScript features.'
-        devIconStyle='background: #f5db55'
-        :wordmarkedIcon='false'
-        :coloredIcon='false'
-      )
-      SkillRow(
         name='Confluence / JIRA'
         details='A quality tool for organizing an agile team.'
         iconIdentifier='confluence'

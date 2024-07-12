@@ -2,7 +2,7 @@
 tr
   td
     slot(v-if='$slots.image' name='image')
-    i(v-else :class='devIconClass' :style='devIconStyle')
+    i(v-else :class='devIconClass')
   td {{ name }}
   td
     slot(v-if='$slots.details' name='details')
@@ -19,11 +19,6 @@ export default {
     details: {
       type: String,
       required: true,
-    },
-    devIconStyle: {
-      type: String,
-      required: false,
-      default: {},
     },
     iconIdentifier: {
       type: String,
