@@ -5,7 +5,6 @@ export interface Item {
   in_cart?: boolean;
   name: string;
   needed: number;
-  newlyAdded: boolean;
   skipped?: boolean;
   store_id: number;
 }
