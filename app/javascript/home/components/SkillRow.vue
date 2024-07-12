@@ -23,7 +23,7 @@ export default {
     iconIdentifier: {
       type: String,
       required: false,
-      default: 'confluence',
+      default: null,
     },
     plainIcon: {
       type: Boolean,
