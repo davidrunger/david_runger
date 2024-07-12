@@ -3,9 +3,9 @@ HomeSection(section='skills', title='Skills')
   table
     tbody
       SkillRow(
-        name='Confluence / JIRA'
-        details='A quality tool for organizing an agile team.'
-        iconIdentifier='confluence'
+        name='Cloudflare'
+        details="A capable CDN and a vital protection against DDoS."
+        :wordmarkedIcon='false'
       )
       SkillRow(
         name='CSS3'
@@ -18,17 +18,18 @@ HomeSection(section='skills', title='Skills')
         template(v-slot:image)
           img(src='~img/dokku.svg' alt='Dokku')
       SkillRow(
-        name='Elasticsearch'
+        name='Elasticsearch / OpenSearch'
         details='A fast, powerful, and flexible search backend.'
       )
         template(v-slot:image)
-          img(src='~img/elasticsearch.svg' alt='Elasticsearch')
+          img(src='~img/elasticsearch.svg' alt='Elasticsearch' class='w-10/12')
       SkillRow(
         name='Git'
         details='The standard in version control.'
       )
       SkillRow(
         name='GitHub'
+        :wordmarkedIcon='false'
         details=
         `
           Where software teams and the open source community collaborate. GitHub Actions are
@@ -44,10 +45,6 @@ HomeSection(section='skills', title='Skills')
         details='The building block of the Internet!'
       )
       SkillRow(
-        name='Jasmine'
-        details='I love testing, and Jasmine is a great JavaScript testing framework.'
-      )
-      SkillRow(
         name='JavaScript'
         details=
         `
@@ -57,39 +54,52 @@ HomeSection(section='skills', title='Skills')
         :wordmarkedIcon='false'
       )
       SkillRow(
-        name='jQuery'
-        details='DOM querying and manipulation made easy, with a huge plugin ecosystem.'
+        name='Jest'
+        details='A fast and effective JavaScript unit testing library.'
+        :wordmarkedIcon='false'
+      )
+      SkillRow(
+        name='Jira'
+        details=
+        `
+          A quality tool for organizing software teams. I like Jira so much that
+          I use it to plan and track work on my personal projects!
+        `
       )
       SkillRow(
         name='Lodash'
         details=
         `
-          Lodash brings a lot of the concision, convenience, and clarity that I love about Ruby to
-          the front end.
+          Lodash brings a lot of the conciseness, convenience, and clarity that
+          I love about Ruby to the front end.
         `
       )
         template(v-slot:image)
           img(src='~img/lodash.svg' alt='Lodash')
       SkillRow(
         name='NodeJS'
-        :details='nodeDetails'
+        details=
+        `
+          Node and its package managers and frontend libraries are essential
+          parts of the modern web stack.
+        `
       )
       SkillRow(
         name='PostgreSQL'
-        details='A fast, rock-solid, open source SQL database.'
+        details='A fast, rock-solid, open source, and richly featured SQL database.'
       )
       SkillRow(
         name='React'
         details=
         `
-          Declarative rendering, component-based development, and one-way data flow make React a
-          superior alternative to direct DOM manipulation for moderately (or highly) complex
-          client-side apps.
+          Declarative, reactive rendering and component-based development make
+          React a superior alternative to direct DOM manipulation for
+          client-side applications of more than trivial complexity.
         `
       )
       SkillRow(
         name='Redis'
-        details='A fast in-memory database.'
+        details='A fast, in-memory database.'
       )
       SkillRow(
         name='RSpec'
@@ -118,33 +128,32 @@ HomeSection(section='skills', title='Skills')
         :wordmarkedIcon='false'
         details=
         `
-          It's in the name - syntactically awesome style sheets. Why write CSS when you can write
-          Sass? :)
+          It's in the name - syntactically awesome style sheets. Why write CSS, when you can write
+          Sass?
         `
+      )
+      SkillRow(
+        name='Tailwind CSS'
+        iconIdentifier='tailwindcss'
+        details='A utility-first CSS framework that makes styling quick and easy.'
+        :wordmarkedIcon='false'
       )
       SkillRow(
         name='TypeScript'
         :wordmarkedIcon='false'
         details=
         `
-          I'm relatively new to TypeScript, but I can already see that it reduces the likelihood of
-          shipping frontend bugs.
+          The guarantees provided by types reduce the likelihood of bugs and
+          enable tooling that can make the development process relatively
+          efficient and even enjoyable compared to more dynamic languages.
         `
       )
       SkillRow(
         name='VueJS'
         details=
         `
-          VueJS is a great library for building front-end UX, and it has a great supporting
+          A great framework for building front-end UX with a great supporting
           ecosystem. I hope that its popularity continues to grow.
-        `
-      )
-      SkillRow(
-        name='Webpack'
-        details=
-        `
-          A versatile and powerful build tool for all-things client-side. Hot code reloading
-          really enhances the development experience.
         `
       )
 </template>
@@ -157,15 +166,6 @@ export default {
   components: {
     HomeSection,
     SkillRow,
-  },
-
-  data() {
-    return {
-      nodeDetails: `
-        The JavaScript ecosystem is a bit too "Wild West" for my taste, but Node and its ecosystem
-        are essential parts of the modern web stack.
-      `,
-    };
   },
 };
 </script>

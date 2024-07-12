@@ -1,7 +1,7 @@
 - content_for(:extra_css) do
   -# Always load `devicons` (in a nonblocking way (https://web.dev/defer-non-critical-css/)).
   -# This modification complies with our CSP: https://stackoverflow.com/a/56400044/4009384
-  - devicon_href = 'https://cdn.jsdelivr.net/gh/konpa/devicon@df6431e323547add1b4cf45992913f15286456d3/devicon.min.css'
+  - devicon_href = 'https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css'
   = javascript_tag(nonce: true) do
     link = document.createElement('link');
     link.rel = 'preload'
