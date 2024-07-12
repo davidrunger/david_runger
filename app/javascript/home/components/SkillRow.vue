@@ -1,6 +1,6 @@
 <template lang="pug">
 tr
-  td
+  td.text-center
     slot(v-if='$slots.image' name='image')
     i(v-else :class='devIconClass')
   td {{ name }}
@@ -74,7 +74,7 @@ td {
   vertical-align: middle;
 
   :deep(img) {
-    width: 65px;
+    max-width: 65px;
   }
 
   @media (width <= 550px) {
