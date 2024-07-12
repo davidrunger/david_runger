@@ -66,6 +66,7 @@ export default {
       timeUnit: null,
     };
   },
+
   computed: {
     formSelectedReminderTimeInSeconds(): number | null {
       if (!this.numberOfTimeUnits || !this.timeUnit) return null;

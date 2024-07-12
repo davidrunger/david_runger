@@ -27,6 +27,7 @@ export default defineComponent({
       type: Array as PropType<Array<Store>>,
     },
   },
+
   data() {
     return {
       groceriesStore: useGroceriesStore(),

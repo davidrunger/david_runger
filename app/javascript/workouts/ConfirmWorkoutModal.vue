@@ -45,6 +45,7 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       modalName: 'confirm-workout',

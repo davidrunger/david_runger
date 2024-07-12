@@ -47,6 +47,7 @@ export default {
       checkInsStore: useCheckInsStore(),
     };
   },
+
   computed: {
     emoji(): string {
       return assert(sample(EMOJIS.get(this.ratingValue)));

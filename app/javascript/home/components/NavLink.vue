@@ -30,6 +30,7 @@ export default {
       homeStore: useHomeStore(),
     };
   },
+
   computed: {
     active(): boolean {
       return this.homeStore.activeSection === this.section;

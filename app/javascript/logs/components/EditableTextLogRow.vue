@@ -39,6 +39,7 @@ export default {
       newPlaintext: this.logEntry.data.slice(),
     };
   },
+
   computed: {
     formattedCreatedAt(): string {
       return strftime(

@@ -68,6 +68,7 @@ export default {
       newLogEntryNote: null as null | string,
     };
   },
+
   computed: {
     inputType() {
       if (this.isText) {

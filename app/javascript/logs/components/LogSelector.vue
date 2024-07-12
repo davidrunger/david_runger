@@ -64,6 +64,7 @@ export default {
       rankedMatches,
     };
   },
+
   computed: {
     showingLogSelector(): boolean {
       return this.modalStore.showingModal({ modalName: 'log-selector' });

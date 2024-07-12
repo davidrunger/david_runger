@@ -49,6 +49,7 @@ export default {
       workoutsStore: useWorkoutsStore(),
     };
   },
+
   computed: {
     workoutsSortedByCreatedAtDesc(): Array<Workout> {
       return sortBy(this.workouts, 'created_at').reverse();
