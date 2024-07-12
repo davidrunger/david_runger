@@ -22,6 +22,13 @@ export default {
     LogSelector,
   },
 
+  data() {
+    return {
+      logsStore: useLogsStore(),
+      modalStore: useModalStore(),
+    };
+  },
+
   computed: {
     ...mapState(useLogsStore, ['isSharedLog', 'selectedLog']),
 
@@ -61,13 +68,6 @@ export default {
 
     // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
     window.history.replaceState({}, document.title, window.location.pathname);
-  },
-
-  data() {
-    return {
-      logsStore: useLogsStore(),
-      modalStore: useModalStore(),
-    };
   },
 };
 </script>

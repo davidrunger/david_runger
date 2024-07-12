@@ -15,25 +15,19 @@
 import { PropType } from 'vue';
 
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
-import NewLogEntryForm from '@/logs/components/NewLogEntryForm.vue';
 import { LogEntry } from '@/logs/types';
 
 export default {
   components: {
     EditableTextLogRow,
-    NewLogEntryForm,
   },
 
   props: {
-    data_label: {
-      type: String,
-      required: true,
-    },
     log: {
       type: Object,
       required: true,
     },
-    log_entries: {
+    logEntries: {
       type: Array as PropType<Array<LogEntry>>,
       required: true,
     },
@@ -48,10 +42,10 @@ export default {
   computed: {
     sortedLogEntries(): Array<LogEntry> {
       let logEntriesToShow;
-      if (this.showAllEntries || this.log_entries.length <= 3) {
-        logEntriesToShow = this.log_entries;
+      if (this.showAllEntries || this.logEntries.length <= 3) {
+        logEntriesToShow = this.logEntries;
       } else {
-        logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
+        logEntriesToShow = this.logEntries.slice(this.logEntries.length - 3);
       }
 
       return logEntriesToShow.slice().reverse();

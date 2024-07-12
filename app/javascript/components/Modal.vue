@@ -17,10 +17,6 @@ import { mapState } from 'pinia';
 import { useModalStore } from '@/shared/modal/store';
 
 export default {
-  computed: {
-    ...mapState(useModalStore, ['showingModal']),
-  },
-
   props: {
     backgroundClass: {
       type: String,
@@ -45,6 +41,10 @@ export default {
     return {
       modalStore: useModalStore(),
     };
+  },
+
+  computed: {
+    ...mapState(useModalStore, ['showingModal']),
   },
 
   created() {

@@ -18,11 +18,11 @@ export default {
   },
 
   props: {
-    data_label: {
+    dataLabel: {
       type: String,
       required: true,
     },
-    log_entries: {
+    logEntries: {
       type: Array as PropType<Array<LogEntry>>,
       required: true,
     },
@@ -33,7 +33,7 @@ export default {
       return {
         datasets: [
           {
-            label: this.data_label,
+            label: this.dataLabel,
             data: this.logEntriesToChartData,
           },
         ],
@@ -43,7 +43,7 @@ export default {
     logEntriesToChartData() {
       const countByDate: { [key: string]: number } = {};
 
-      for (const logEntry of this.log_entries) {
+      for (const logEntry of this.logEntries) {
         const date = new Date(logEntry.created_at);
         const dateIsoStringInLocalTime = new Date(
           date.getTime() - date.getTimezoneOffset() * 60 * 1000,

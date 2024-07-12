@@ -8,10 +8,10 @@ div
     Loading...
   LogDataDisplay(
     v-else-if='log.log_entries.length'
-    :data_label='log.data_label'
-    :data_type='log.data_type'
+    :dataLabel='log.data_label'
+    :dataType='log.data_type'
     :log='log'
-    :log_entries='log.log_entries'
+    :logEntries='log.log_entries'
   )
   .my-8(v-else) There are no log entries for this log.
   .controls(v-if='isOwnLog')
@@ -110,16 +110,16 @@ const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
 };
 
 const LogDataDisplay = (props: {
-  data_type: LogDataType;
+  dataType: LogDataType;
   log: Log;
-  log_entries: Array<LogEntry>;
-  data_label: string;
+  logEntries: Array<LogEntry>;
+  dataLabel: string;
 }) => {
-  const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[props.data_type];
+  const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[props.dataType];
   return h(DataRenderer, {
     log: props.log,
-    log_entries: props.log_entries,
-    data_label: props.data_label,
+    logEntries: props.logEntries,
+    dataLabel: props.dataLabel,
   });
 };
 LogDataDisplay.props = ['data_type', 'log', 'log_entries', 'data_label'];
@@ -129,6 +129,28 @@ export default {
     LogDataDisplay,
     NewLogEntryForm,
     LogReminderScheduleForm,
+  },
+
+  setup() {
+    const logsStore = useLogsStore();
+    const log = logsStore.unsafeSelectedLog;
+
+    useTitle(`${log.name} - Logs - David Runger`);
+
+    return {
+      log,
+      logsStore,
+    };
+  },
+
+  data() {
+    return {
+      inputVisible: false,
+      inputValue: '',
+      modalStore: useModalStore(),
+      wasCopiedRecently: false,
+      publiclyViewable: false,
+    };
   },
 
   computed: {
@@ -163,28 +185,6 @@ export default {
     this.ensureLogEntriesHaveBeenFetched();
     this.subscribeToLogEntriesChannel();
     this.publiclyViewable = this.log.publicly_viewable;
-  },
-
-  setup() {
-    const logsStore = useLogsStore();
-    const log = logsStore.unsafeSelectedLog;
-
-    useTitle(`${log.name} - Logs - David Runger`);
-
-    return {
-      log,
-      logsStore,
-    };
-  },
-
-  data() {
-    return {
-      inputVisible: false,
-      inputValue: '',
-      modalStore: useModalStore(),
-      wasCopiedRecently: false,
-      publiclyViewable: false,
-    };
   },
 
   methods: {

@@ -38,10 +38,6 @@ export default {
     EmojiButton,
   },
 
-  computed: {
-    ...mapState(useCheckInsStore, ['submitted']),
-  },
-
   props: {
     editable: {
       type: Boolean,
@@ -62,6 +58,10 @@ export default {
       checkInsStore: useCheckInsStore(),
       RATINGS_RANGE: range(-3, 4) as Array<Rating>,
     };
+  },
+
+  computed: {
+    ...mapState(useCheckInsStore, ['submitted']),
   },
 
   methods: {

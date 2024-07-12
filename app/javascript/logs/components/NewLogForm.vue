@@ -47,19 +47,19 @@ import { useLogsStore } from '@/logs/store';
 import { Bootstrap, LogInputType } from '@/logs/types';
 
 export default {
+  data() {
+    return {
+      logsStore: useLogsStore(),
+      newLog: this.newLogGenerator(),
+    };
+  },
+
   computed: {
     ...mapState(useLogsStore, ['postingLog']),
 
     logInputTypes(): Array<LogInputType> {
       return (this.$bootstrap as Bootstrap).log_input_types;
     },
-  },
-
-  data() {
-    return {
-      logsStore: useLogsStore(),
-      newLog: this.newLogGenerator(),
-    };
   },
 
   methods: {

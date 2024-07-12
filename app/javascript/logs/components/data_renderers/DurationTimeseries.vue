@@ -52,11 +52,7 @@ export default {
   },
 
   props: {
-    data_label: {
-      type: String,
-      required: true,
-    },
-    log_entries: {
+    logEntries: {
       type: Array as PropType<Array<LogEntry>>,
       required: true,
     },
@@ -107,7 +103,7 @@ export default {
     },
 
     logEntriesToChartData(): Array<ChartData> {
-      return this.log_entries.map(
+      return this.logEntries.map(
         (logEntry: LogEntry): ChartData => ({
           x: logEntry.created_at,
           y: new Date(

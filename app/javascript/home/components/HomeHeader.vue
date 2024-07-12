@@ -49,14 +49,14 @@ export default {
     NavLink,
   },
 
-  computed: {
-    ...mapState(useHomeStore, ['homeIsVisible']),
-  },
-
   data() {
     return {
       homeStore: useHomeStore(),
     };
+  },
+
+  computed: {
+    ...mapState(useHomeStore, ['homeIsVisible']),
   },
 
   methods: {

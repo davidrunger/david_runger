@@ -28,10 +28,6 @@ export default defineComponent({
     LockIcon,
   },
 
-  computed: {
-    ...mapState(useGroceriesStore, ['currentStore']),
-  },
-
   props: {
     store: {
       required: true,
@@ -43,6 +39,10 @@ export default defineComponent({
     return {
       groceriesStore: useGroceriesStore(),
     };
+  },
+
+  computed: {
+    ...mapState(useGroceriesStore, ['currentStore']),
   },
 
   methods: {

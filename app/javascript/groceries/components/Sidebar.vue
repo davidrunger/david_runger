@@ -60,14 +60,6 @@ export default defineComponent({
     StoreListEntry,
   },
 
-  computed: {
-    ...mapState(useGroceriesStore, ['postingStore', 'spouse_stores']),
-
-    expanded(): boolean {
-      return !this.collapsed;
-    },
-  },
-
   setup() {
     const isMobileDevice = inject('isMobileDevice');
     const collapsed = ref(isMobileDevice);
@@ -91,6 +83,14 @@ export default defineComponent({
     return {
       newStoreName: '',
     };
+  },
+
+  computed: {
+    ...mapState(useGroceriesStore, ['postingStore', 'spouse_stores']),
+
+    expanded(): boolean {
+      return !this.collapsed;
+    },
   },
 
   methods: {

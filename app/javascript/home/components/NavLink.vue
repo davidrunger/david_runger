@@ -18,6 +18,7 @@ export default {
     linkText: {
       type: String,
       required: false,
+      default: null,
     },
     section: {
       type: String,

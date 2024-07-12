@@ -18,19 +18,17 @@ export default {
     },
     details: {
       type: String,
-      required: false,
-    },
-    imageSource: {
-      type: String,
-      required: false,
+      required: true,
     },
     devIconStyle: {
       type: String,
       required: false,
+      default: {},
     },
     iconIdentifier: {
       type: String,
       required: false,
+      default: 'confluence',
     },
     plainIcon: {
       type: Boolean,

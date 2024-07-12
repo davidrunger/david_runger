@@ -20,12 +20,12 @@ export default {
     NewLogForm,
   },
 
-  computed: {
-    ...mapState(useLogsStore, ['logs']),
-  },
-
   setup() {
     useTitle('Logs - David Runger');
+  },
+
+  computed: {
+    ...mapState(useLogsStore, ['logs']),
   },
 };
 </script>

@@ -33,7 +33,7 @@ export default {
     },
     title: {
       type: String,
-      required: false,
+      required: true,
     },
   },
 };
