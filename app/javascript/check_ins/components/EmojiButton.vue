@@ -26,7 +26,6 @@ const EMOJIS = new Map([
 ]);
 
 export default {
-
   props: {
     editable: {
       type: Boolean,

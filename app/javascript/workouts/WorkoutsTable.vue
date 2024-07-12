@@ -32,7 +32,6 @@ import { useWorkoutsStore } from '@/workouts/store';
 import { Workout } from './types';
 
 export default {
-
   props: {
     isOwnWorkouts: {
       type: Boolean,

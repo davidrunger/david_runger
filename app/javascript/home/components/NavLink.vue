@@ -13,7 +13,6 @@ import { capitalize } from 'lodash-es';
 import { useHomeStore } from '@/home/store';
 
 export default {
-
   props: {
     linkText: {
       type: String,

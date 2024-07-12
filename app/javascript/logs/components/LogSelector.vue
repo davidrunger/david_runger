@@ -34,7 +34,6 @@ import { useModalStore } from '@/shared/modal/store';
 import { Log } from '../types';
 
 export default {
-
   setup() {
     const logsStore = useLogsStore();
     const { logs } = storeToRefs(logsStore);

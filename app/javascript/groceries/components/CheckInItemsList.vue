@@ -39,7 +39,6 @@ import { useGroceriesStore } from '@/groceries/store';
 import { Item } from '@/groceries/types';
 
 export default defineComponent({
-
   props: {
     items: {
       type: Array as PropType<Array<Item>>,

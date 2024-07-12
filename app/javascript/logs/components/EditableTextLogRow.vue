@@ -24,7 +24,6 @@ import { useLogsStore } from '@/logs/store';
 const DOMPurify = createDOMPurify(window);
 
 export default {
-
   props: {
     logEntry: {
       type: Object,

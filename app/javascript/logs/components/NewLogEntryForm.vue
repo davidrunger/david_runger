@@ -50,7 +50,6 @@ import { LogEntryDataValue } from '@/logs/types';
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 
 export default {
-
   props: {
     log: {
       type: Object,

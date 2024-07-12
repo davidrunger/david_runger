@@ -20,7 +20,6 @@ import { useGroceriesStore } from '@/groceries/store';
 import { Store } from '@/groceries/types';
 
 export default defineComponent({
-
   props: {
     stores: {
       required: true,

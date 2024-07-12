@@ -50,7 +50,6 @@ const TIME_UNIT_IN_SECONDS = {
 };
 
 export default {
-
   props: {
     log: {
       type: Object as PropType<Log>,
