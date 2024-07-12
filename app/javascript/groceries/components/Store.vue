@@ -51,7 +51,11 @@
         :disabled='v$.$invalid'
       ) Add
 
-  .items-list.mt-0.mb-0
+  TransitionGroup(
+    name='appear-and-disappear-vertically-list'
+    tag='div'
+    class='items-list relative mt-0 mb-0'
+  )
     Item(
       v-for='item in sortedItems'
       :item="item"

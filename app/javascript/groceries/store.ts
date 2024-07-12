@@ -57,11 +57,7 @@ export const useGroceriesStore = defineStore('groceries', {
       // don't add item to store if it's already there
       if (safeGetById(store.items, itemData.id)) return;
 
-      itemData.newlyAdded = true;
-      store.items.unshift(itemData);
-      setTimeout(() => {
-        itemData.newlyAdded = false;
-      }, 1000);
+      store.items.push(itemData);
     },
 
     async createItem({

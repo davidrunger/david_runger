@@ -1,6 +1,6 @@
 <template lang="pug">
-.grocery-item.flex.items-center(
-  :class='{unneeded: item.needed <= 0, "appear-vertically": item.newlyAdded}'
+.grocery-item.flex.items-center.w-full(
+  :class='{ unneeded: item.needed <= 0 }'
 )
   .left.whitespace-nowrap
     button.increment.text-2xl.js-link.text-green-600.leading-unset(
