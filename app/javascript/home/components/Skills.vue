@@ -133,11 +133,12 @@ HomeSection(section='skills', title='Skills')
       )
       SkillRow(
         name='VueJS'
+        details=
+        `
+          VueJS is a great library for building front-end UX, and it has a great supporting
+          ecosystem. I hope that its popularity continues to grow.
+        `
       )
-        template(v-slot:details)
-          span.
-            VueJS is a great library for building front-end UX, and it has a great supporting
-            ecosystem. I hope that its popularity continues to grow.
       SkillRow(
         name='Webpack'
         details=
