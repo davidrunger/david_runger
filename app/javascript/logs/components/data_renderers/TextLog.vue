@@ -2,11 +2,12 @@
 .flex.justify-center
   .container
     table.text-log-table
-      EditableTextLogRow(
-        v-for='logEntry in sortedLogEntries'
-        :key='logEntry.id'
-        :logEntry='logEntry'
-      )
+      TransitionGroup(name='appear-vertically-list')
+        EditableTextLogRow(
+          v-for='logEntry in sortedLogEntries'
+          :key='logEntry.id'
+          :logEntry='logEntry'
+        )
     el-button(v-if='!showAllEntries' @click='showAllEntries = true').
       Show all entries
 </template>
@@ -89,10 +90,10 @@ table.text-log-table {
   font-size: 14px;
 
   tr {
-    border-bottom: 1px solid #999;
+    border-top: 1px solid #999;
 
-    &:last-of-type {
-      border-bottom: none;
+    &:first-of-type {
+      border-top: none;
     }
   }
 
