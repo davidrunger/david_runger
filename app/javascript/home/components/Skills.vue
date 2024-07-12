@@ -3,13 +3,6 @@ HomeSection(section='skills', title='Skills')
   table
     tbody
       SkillRow(
-        name='Babel'
-        details='Allowing us to safely use modern JavaScript features.'
-        devIconStyle='background: #f5db55'
-        :wordmarkedIcon='false'
-        :coloredIcon='false'
-      )
-      SkillRow(
         name='Confluence / JIRA'
         details='A quality tool for organizing an agile team.'
         iconIdentifier='confluence'
@@ -140,11 +133,12 @@ HomeSection(section='skills', title='Skills')
       )
       SkillRow(
         name='VueJS'
+        details=
+        `
+          VueJS is a great library for building front-end UX, and it has a great supporting
+          ecosystem. I hope that its popularity continues to grow.
+        `
       )
-        template(v-slot:details)
-          span.
-            VueJS is a great library for building front-end UX, and it has a great supporting
-            ecosystem. I hope that its popularity continues to grow.
       SkillRow(
         name='Webpack'
         details=

@@ -34,6 +34,17 @@ import { useWorkoutsStore } from '@/workouts/store';
 import { Workout } from './types';
 
 export default {
+  props: {
+    repTotals: {
+      type: Object,
+      required: true,
+    },
+    timeInSeconds: {
+      type: Number,
+      required: true,
+    },
+  },
+
   data() {
     return {
       modalName: 'confirm-workout',
@@ -70,17 +81,6 @@ export default {
           duration: 2500,
         }).showToast();
       }
-    },
-  },
-
-  props: {
-    repTotals: {
-      type: Object,
-      required: true,
-    },
-    timeInSeconds: {
-      type: Number,
-      required: true,
     },
   },
 };

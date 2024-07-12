@@ -51,27 +51,10 @@ export default {
     LineChart,
   },
 
-  computed: {
-    chartMetadata(): { datasets: Array<{ data: Array<ChartData> }> } {
-      return {
-        datasets: [
-          {
-            data: this.logEntriesToChartData,
-          },
-        ],
-      };
-    },
-
-    logEntriesToChartData(): Array<ChartData> {
-      return this.log_entries.map(
-        (logEntry: LogEntry): ChartData => ({
-          x: logEntry.created_at,
-          y: new Date(
-            `1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data as string)}Z`,
-          ),
-          note: logEntry.note,
-        }),
-      );
+  props: {
+    logEntries: {
+      type: Array as PropType<Array<LogEntry>>,
+      required: true,
     },
   },
 
@@ -108,14 +91,27 @@ export default {
     };
   },
 
-  props: {
-    data_label: {
-      type: String,
-      required: true,
+  computed: {
+    chartMetadata(): { datasets: Array<{ data: Array<ChartData> }> } {
+      return {
+        datasets: [
+          {
+            data: this.logEntriesToChartData,
+          },
+        ],
+      };
     },
-    log_entries: {
-      type: Array as PropType<Array<LogEntry>>,
-      required: true,
+
+    logEntriesToChartData(): Array<ChartData> {
+      return this.logEntries.map(
+        (logEntry: LogEntry): ChartData => ({
+          x: logEntry.created_at,
+          y: new Date(
+            `1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data as string)}Z`,
+          ),
+          note: logEntry.note,
+        }),
+      );
     },
   },
 };

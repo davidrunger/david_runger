@@ -13,13 +13,15 @@ import { capitalize } from 'lodash-es';
 import { useHomeStore } from '@/home/store';
 
 export default {
-  computed: {
-    active(): boolean {
-      return this.homeStore.activeSection === this.section;
+  props: {
+    linkText: {
+      type: String,
+      required: false,
+      default: null,
     },
-
-    prettyName(): string {
-      return capitalize(this.section);
+    section: {
+      type: String,
+      required: true,
     },
   },
 
@@ -29,14 +31,13 @@ export default {
     };
   },
 
-  props: {
-    linkText: {
-      type: String,
-      required: false,
+  computed: {
+    active(): boolean {
+      return this.homeStore.activeSection === this.section;
     },
-    section: {
-      type: String,
-      required: true,
+
+    prettyName(): string {
+      return capitalize(this.section);
     },
   },
 };

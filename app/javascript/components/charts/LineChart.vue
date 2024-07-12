@@ -81,24 +81,6 @@ export default {
 
   components: { VueLine },
 
-  computed: {
-    chartOptions() {
-      return merge(
-        {},
-        chartOptionsDefaults,
-        this.options,
-      ) as ChartOptions<'line'>;
-    },
-
-    mergedChartData(): ChartData<'line', (number | Point | null)[], unknown> {
-      return merge({}, datasetDefaults, this.chartData) as ChartData<
-        'line',
-        (number | Point | null)[],
-        unknown
-      >;
-    },
-  },
-
   props: {
     chartData: {
       type: Object,
@@ -131,6 +113,24 @@ export default {
     styles: {
       type: Object,
       default: () => {},
+    },
+  },
+
+  computed: {
+    chartOptions() {
+      return merge(
+        {},
+        chartOptionsDefaults,
+        this.options,
+      ) as ChartOptions<'line'>;
+    },
+
+    mergedChartData(): ChartData<'line', (number | Point | null)[], unknown> {
+      return merge({}, datasetDefaults, this.chartData) as ChartData<
+        'line',
+        (number | Point | null)[],
+        unknown
+      >;
     },
   },
 };

@@ -86,6 +86,33 @@ export default {
     ConfirmWorkoutModal,
   },
 
+  props: {
+    exercises: {
+      type: Array as PropType<Array<Exercise>>,
+      required: true,
+    },
+    minutes: {
+      type: Number,
+      required: true,
+    },
+    numberOfSets: {
+      type: Number,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      currentRoundIndex: 0,
+      editMode: false,
+      modalStore: useModalStore(),
+      secondsElapsed: 0,
+      setsArray: this.initialSetsArray(),
+      soundEnabled: true,
+      timer: null as null | Timer,
+    };
+  },
+
   computed: {
     cumulativeTimeAdjustment() {
       return (index: number, timeAdjustments: Array<number>) => {
@@ -164,18 +191,6 @@ export default {
       'beforeunload',
       this.confirmUnloadWorkoutInProgress,
     );
-  },
-
-  data() {
-    return {
-      currentRoundIndex: 0,
-      editMode: false,
-      modalStore: useModalStore(),
-      secondsElapsed: 0,
-      setsArray: this.initialSetsArray(),
-      soundEnabled: true,
-      timer: null as null | Timer,
-    };
   },
 
   methods: {
@@ -281,21 +296,6 @@ export default {
             this.cumulativeTimeAdjustment(index, this.timeAdjustments),
         );
       }
-    },
-  },
-
-  props: {
-    exercises: {
-      type: Array as PropType<Array<Exercise>>,
-      required: true,
-    },
-    minutes: {
-      type: Number,
-      required: true,
-    },
-    numberOfSets: {
-      type: Number,
-      required: true,
     },
   },
 };

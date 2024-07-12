@@ -28,14 +28,21 @@ export default defineComponent({
     LockIcon,
   },
 
-  computed: {
-    ...mapState(useGroceriesStore, ['currentStore']),
+  props: {
+    store: {
+      required: true,
+      type: Object as PropType<Store>,
+    },
   },
 
   data() {
     return {
       groceriesStore: useGroceriesStore(),
     };
+  },
+
+  computed: {
+    ...mapState(useGroceriesStore, ['currentStore']),
   },
 
   methods: {
@@ -47,13 +54,6 @@ export default defineComponent({
       if (confirmation === true) {
         this.groceriesStore.deleteStore({ store });
       }
-    },
-  },
-
-  props: {
-    store: {
-      required: true,
-      type: Object as PropType<Store>,
     },
   },
 });

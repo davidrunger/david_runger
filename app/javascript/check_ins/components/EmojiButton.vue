@@ -26,33 +26,6 @@ const EMOJIS = new Map([
 ]);
 
 export default {
-  computed: {
-    emoji(): string {
-      return assert(sample(EMOJIS.get(this.ratingValue)));
-    },
-
-    selected(): boolean {
-      return this.needSatisfactionRating.score === this.ratingValue;
-    },
-  },
-
-  data() {
-    return {
-      checkInsStore: useCheckInsStore(),
-    };
-  },
-
-  methods: {
-    handleClick() {
-      if (this.editable) {
-        this.checkInsStore.updateRating({
-          needSatisfactionRating: this.needSatisfactionRating,
-          attributes: { score: this.ratingValue },
-        });
-      }
-    },
-  },
-
   props: {
     editable: {
       type: Boolean,
@@ -65,6 +38,33 @@ export default {
     ratingValue: {
       type: Number as PropType<Rating>,
       required: true,
+    },
+  },
+
+  data() {
+    return {
+      checkInsStore: useCheckInsStore(),
+    };
+  },
+
+  computed: {
+    emoji(): string {
+      return assert(sample(EMOJIS.get(this.ratingValue)));
+    },
+
+    selected(): boolean {
+      return this.needSatisfactionRating.score === this.ratingValue;
+    },
+  },
+
+  methods: {
+    handleClick() {
+      if (this.editable) {
+        this.checkInsStore.updateRating({
+          needSatisfactionRating: this.needSatisfactionRating,
+          attributes: { score: this.ratingValue },
+        });
+      }
     },
   },
 };

@@ -50,6 +50,22 @@ const TIME_UNIT_IN_SECONDS = {
 };
 
 export default {
+  props: {
+    log: {
+      type: Object as PropType<Log>,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      logsStore: useLogsStore(),
+      modalStore: useModalStore(),
+      numberOfTimeUnits: null,
+      timeUnit: null,
+    };
+  },
+
   computed: {
     formSelectedReminderTimeInSeconds(): number | null {
       if (!this.numberOfTimeUnits || !this.timeUnit) return null;
@@ -64,15 +80,6 @@ export default {
     timeUnitOptions() {
       return Object.keys(TIME_UNIT_IN_SECONDS);
     },
-  },
-
-  data() {
-    return {
-      logsStore: useLogsStore(),
-      modalStore: useModalStore(),
-      numberOfTimeUnits: null,
-      timeUnit: null,
-    };
   },
 
   methods: {
@@ -110,13 +117,6 @@ export default {
         position: 'center',
         duration: 1800,
       }).showToast();
-    },
-  },
-
-  props: {
-    log: {
-      type: Object as PropType<Log>,
-      required: true,
     },
   },
 };

@@ -60,27 +60,6 @@ export default defineComponent({
     StoreListEntry,
   },
 
-  computed: {
-    ...mapState(useGroceriesStore, ['postingStore', 'spouse_stores']),
-
-    expanded(): boolean {
-      return !this.collapsed;
-    },
-  },
-
-  data() {
-    return {
-      newStoreName: '',
-    };
-  },
-
-  methods: {
-    async handleNewStoreSubmission() {
-      await this.groceriesStore.createStore(this.newStoreName);
-      this.newStoreName = '';
-    },
-  },
-
   setup() {
     const isMobileDevice = inject('isMobileDevice');
     const collapsed = ref(isMobileDevice);
@@ -98,6 +77,27 @@ export default defineComponent({
       groceriesStore: useGroceriesStore(),
       v$: useVuelidate(),
     };
+  },
+
+  data() {
+    return {
+      newStoreName: '',
+    };
+  },
+
+  computed: {
+    ...mapState(useGroceriesStore, ['postingStore', 'spouse_stores']),
+
+    expanded(): boolean {
+      return !this.collapsed;
+    },
+  },
+
+  methods: {
+    async handleNewStoreSubmission() {
+      await this.groceriesStore.createStore(this.newStoreName);
+      this.newStoreName = '';
+    },
   },
 
   validations() {

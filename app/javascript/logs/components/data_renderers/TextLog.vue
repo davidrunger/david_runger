@@ -15,25 +15,21 @@
 import { PropType } from 'vue';
 
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
-import NewLogEntryForm from '@/logs/components/NewLogEntryForm.vue';
 import { LogEntry } from '@/logs/types';
 
 export default {
   components: {
     EditableTextLogRow,
-    NewLogEntryForm,
   },
 
-  computed: {
-    sortedLogEntries(): Array<LogEntry> {
-      let logEntriesToShow;
-      if (this.showAllEntries || this.log_entries.length <= 3) {
-        logEntriesToShow = this.log_entries;
-      } else {
-        logEntriesToShow = this.log_entries.slice(this.log_entries.length - 3);
-      }
-
-      return logEntriesToShow.slice().reverse();
+  props: {
+    log: {
+      type: Object,
+      required: true,
+    },
+    logEntries: {
+      type: Array as PropType<Array<LogEntry>>,
+      required: true,
     },
   },
 
@@ -43,18 +39,16 @@ export default {
     };
   },
 
-  props: {
-    data_label: {
-      type: String,
-      required: true,
-    },
-    log: {
-      type: Object,
-      required: true,
-    },
-    log_entries: {
-      type: Array as PropType<Array<LogEntry>>,
-      required: true,
+  computed: {
+    sortedLogEntries(): Array<LogEntry> {
+      let logEntriesToShow;
+      if (this.showAllEntries || this.logEntries.length <= 3) {
+        logEntriesToShow = this.logEntries;
+      } else {
+        logEntriesToShow = this.logEntries.slice(this.logEntries.length - 3);
+      }
+
+      return logEntriesToShow.slice().reverse();
     },
   },
 };

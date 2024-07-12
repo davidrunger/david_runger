@@ -38,8 +38,19 @@ export default {
     EmojiButton,
   },
 
-  computed: {
-    ...mapState(useCheckInsStore, ['submitted']),
+  props: {
+    editable: {
+      type: Boolean,
+      required: true,
+    },
+    needSatisfactionRatings: {
+      type: Array as PropType<Array<NeedSatisfactionRating>>,
+      required: true,
+    },
+    ratedUser: {
+      type: String,
+      required: true,
+    },
   },
 
   data() {
@@ -47,6 +58,10 @@ export default {
       checkInsStore: useCheckInsStore(),
       RATINGS_RANGE: range(-3, 4) as Array<Rating>,
     };
+  },
+
+  computed: {
+    ...mapState(useCheckInsStore, ['submitted']),
   },
 
   methods: {
@@ -61,21 +76,6 @@ export default {
       await this.checkInsStore.submitCheckIn();
       // refresh page to load spouse's answers (if available)
       window.location.reload();
-    },
-  },
-
-  props: {
-    editable: {
-      type: Boolean,
-      required: true,
-    },
-    needSatisfactionRatings: {
-      type: Array as PropType<Array<NeedSatisfactionRating>>,
-      required: true,
-    },
-    ratedUser: {
-      type: String,
-      required: true,
     },
   },
 };

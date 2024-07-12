@@ -50,8 +50,16 @@ export default defineComponent({
     EditIcon,
   },
 
-  created() {
-    this.debouncedPatchItem = debounce(this.patchItem, 333);
+  props: {
+    item: {
+      type: Object as PropType<Item>,
+      required: true,
+    },
+
+    ownStore: {
+      required: true,
+      type: Boolean,
+    },
   },
 
   data() {
@@ -60,6 +68,10 @@ export default defineComponent({
       editingName: false,
       groceriesStore: useGroceriesStore(),
     };
+  },
+
+  created() {
+    this.debouncedPatchItem = debounce(this.patchItem, 333);
   },
 
   methods: {
@@ -99,18 +111,6 @@ export default defineComponent({
     patchItem(item: Item) {
       this.groceriesStore.updateItem({ item, attributes: item });
       this.groceriesStore.setCollectingDebounces({ value: false });
-    },
-  },
-
-  props: {
-    item: {
-      type: Object as PropType<Item>,
-      required: true,
-    },
-
-    ownStore: {
-      required: true,
-      type: Boolean,
     },
   },
 });

@@ -50,6 +50,24 @@ import { LogEntryDataValue } from '@/logs/types';
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 
 export default {
+  props: {
+    log: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: () => ({ v$: useVuelidate() }),
+
+  data() {
+    return {
+      logsStore: useLogsStore(),
+      newLogEntryCreatedAt: null as null | string,
+      newLogEntryData: null as null | LogEntryDataValue,
+      newLogEntryNote: null as null | string,
+    };
+  },
+
   computed: {
     inputType() {
       if (this.isText) {
@@ -101,13 +119,8 @@ export default {
     },
   },
 
-  data() {
-    return {
-      logsStore: useLogsStore(),
-      newLogEntryCreatedAt: null as null | string,
-      newLogEntryData: null as null | LogEntryDataValue,
-      newLogEntryNote: null as null | string,
-    };
+  mounted() {
+    this.focusLogEntryInput();
   },
 
   methods: {
@@ -132,19 +145,6 @@ export default {
       this.newLogEntryNote = null;
     },
   },
-
-  mounted() {
-    this.focusLogEntryInput();
-  },
-
-  props: {
-    log: {
-      type: Object,
-      required: true,
-    },
-  },
-
-  setup: () => ({ v$: useVuelidate() }),
 
   validations() {
     return {

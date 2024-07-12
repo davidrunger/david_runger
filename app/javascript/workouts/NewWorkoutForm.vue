@@ -56,18 +56,18 @@ import { useWorkoutsStore } from '@/workouts/store';
 import { WorkoutPlan } from './types';
 
 export default {
+  data() {
+    return {
+      workoutsStore: useWorkoutsStore(),
+    };
+  },
+
   computed: {
     ...mapState(useWorkoutsStore, ['workout']),
 
     typedWorkout(): WorkoutPlan {
       return this.workout as WorkoutPlan;
     },
-  },
-
-  data() {
-    return {
-      workoutsStore: useWorkoutsStore(),
-    };
   },
 
   methods: {

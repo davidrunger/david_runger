@@ -45,6 +45,10 @@ export default {
     Skills,
   },
 
+  mounted() {
+    this.setScrollToFragmentTimeouts();
+  },
+
   methods: {
     setScrollToFragmentTimeouts() {
       if (window.location.hash) {
@@ -65,10 +69,6 @@ export default {
         }
       }
     },
-  },
-
-  mounted() {
-    this.setScrollToFragmentTimeouts();
   },
 };
 </script>

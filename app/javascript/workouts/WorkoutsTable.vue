@@ -32,9 +32,14 @@ import { useWorkoutsStore } from '@/workouts/store';
 import { Workout } from './types';
 
 export default {
-  computed: {
-    workoutsSortedByCreatedAtDesc(): Array<Workout> {
-      return sortBy(this.workouts, 'created_at').reverse();
+  props: {
+    isOwnWorkouts: {
+      type: Boolean,
+      default: false,
+    },
+    workouts: {
+      type: Array as PropType<Array<Workout>>,
+      required: true,
     },
   },
 
@@ -42,6 +47,12 @@ export default {
     return {
       workoutsStore: useWorkoutsStore(),
     };
+  },
+
+  computed: {
+    workoutsSortedByCreatedAtDesc(): Array<Workout> {
+      return sortBy(this.workouts, 'created_at').reverse();
+    },
   },
 
   methods: {
@@ -70,17 +81,6 @@ export default {
         position: 'center',
         duration: 1800,
       }).showToast();
-    },
-  },
-
-  props: {
-    isOwnWorkouts: {
-      type: Boolean,
-      default: false,
-    },
-    workouts: {
-      type: Array as PropType<Array<Workout>>,
-      required: true,
     },
   },
 };

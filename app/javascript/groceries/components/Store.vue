@@ -141,6 +141,25 @@ export default defineComponent({
     Item,
   },
 
+  props: {
+    store: {
+      type: Object as PropType<Store>,
+      required: true,
+    },
+  },
+
+  setup: () => ({ v$: useVuelidate() }),
+
+  data() {
+    return {
+      editingName: false,
+      editingNotes: false,
+      groceriesStore: useGroceriesStore(),
+      modalStore: useModalStore(),
+      newItemName: '',
+    };
+  },
+
   computed: {
     ...mapState(useGroceriesStore, [
       'debouncingOrWaitingOnNetwork',
@@ -159,16 +178,6 @@ export default defineComponent({
     sortedItems(): ItemType[] {
       return helpers.sortByName(this.store.items);
     },
-  },
-
-  data() {
-    return {
-      editingName: false,
-      editingNotes: false,
-      groceriesStore: useGroceriesStore(),
-      modalStore: useModalStore(),
-      newItemName: '',
-    };
   },
 
   methods: {
@@ -282,15 +291,6 @@ export default defineComponent({
       });
     },
   },
-
-  props: {
-    store: {
-      type: Object as PropType<Store>,
-      required: true,
-    },
-  },
-
-  setup: () => ({ v$: useVuelidate() }),
 
   validations() {
     return {

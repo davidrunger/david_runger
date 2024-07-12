@@ -17,12 +17,23 @@ export default {
     LineChart,
   },
 
+  props: {
+    dataLabel: {
+      type: String,
+      required: true,
+    },
+    logEntries: {
+      type: Array as PropType<Array<LogEntry>>,
+      required: true,
+    },
+  },
+
   computed: {
     chartMetadata() {
       return {
         datasets: [
           {
-            label: this.data_label,
+            label: this.dataLabel,
             data: this.logEntriesToChartData,
           },
         ],
@@ -30,22 +41,11 @@ export default {
     },
 
     logEntriesToChartData() {
-      return this.log_entries.map((logEntry) => ({
+      return this.logEntries.map((logEntry) => ({
         x: logEntry.created_at,
         y: logEntry.data,
         note: logEntry.note,
       }));
-    },
-  },
-
-  props: {
-    data_label: {
-      type: String,
-      required: true,
-    },
-    log_entries: {
-      type: Array as PropType<Array<LogEntry>>,
-      required: true,
     },
   },
 };

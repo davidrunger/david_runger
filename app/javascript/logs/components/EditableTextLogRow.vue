@@ -24,6 +24,21 @@ import { useLogsStore } from '@/logs/store';
 const DOMPurify = createDOMPurify(window);
 
 export default {
+  props: {
+    logEntry: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      editing: false,
+      logsStore: useLogsStore(),
+      newPlaintext: this.logEntry.data.slice(),
+    };
+  },
+
   computed: {
     formattedCreatedAt(): string {
       return strftime(
@@ -39,12 +54,17 @@ export default {
     },
   },
 
-  data() {
-    return {
-      editing: false,
-      logsStore: useLogsStore(),
-      newPlaintext: this.logEntry.data.slice(),
-    };
+  watch: {
+    editing() {
+      setTimeout(() => {
+        if (this.editing) {
+          (
+            (this.$refs.textInput as typeof ElInput).$el
+              .children[0] as HTMLInputElement
+          ).focus();
+        }
+      }, 0);
+    },
   },
 
   methods: {
@@ -60,26 +80,6 @@ export default {
         updatedLogEntryParams,
       });
       this.editing = false;
-    },
-  },
-
-  props: {
-    logEntry: {
-      type: Object,
-      required: true,
-    },
-  },
-
-  watch: {
-    editing() {
-      setTimeout(() => {
-        if (this.editing) {
-          (
-            (this.$refs.textInput as typeof ElInput).$el
-              .children[0] as HTMLInputElement
-          ).focus();
-        }
-      }, 0);
     },
   },
 };

@@ -34,6 +34,12 @@ export default defineComponent({
     Store,
   },
 
+  data() {
+    return {
+      groceriesStore: useGroceriesStore(),
+    };
+  },
+
   computed: {
     ...mapState(useGroceriesStore, [
       'currentStore',
@@ -92,12 +98,6 @@ export default defineComponent({
         },
       );
     }
-  },
-
-  data() {
-    return {
-      groceriesStore: useGroceriesStore(),
-    };
   },
 
   methods: {

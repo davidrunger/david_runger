@@ -16,7 +16,6 @@
 .gemtags
 .tags
 .tags_sorted_by_file
-/public/assets
 spec/fixtures/*.yml
 /app/javascript/rails_assets
 coverage/
