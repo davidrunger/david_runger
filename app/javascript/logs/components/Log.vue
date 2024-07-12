@@ -122,7 +122,7 @@ const LogDataDisplay = (props: {
     dataLabel: props.dataLabel,
   });
 };
-LogDataDisplay.props = ['data_type', 'log', 'log_entries', 'data_label'];
+LogDataDisplay.props = ['dataType', 'log', 'logEntries', 'dataLabel'];
 
 export default {
   components: {
