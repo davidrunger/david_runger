@@ -26,7 +26,7 @@ class CheckLinks::Checker
   # rubocop:disable Style/MutableConstant
   STATUS_EXPECTATIONS = {
     'https://www.commonlit.org/' => [200, 403],
-    'https://www.linkedin.com/in/davidrunger/' => [200, 999],
+    'https://www.linkedin.com/in/davidrunger/' => [200, 429, 999],
   }
   STATUS_EXPECTATIONS.default_proc =
     proc do |_hash, url|
