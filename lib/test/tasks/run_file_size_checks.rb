@@ -14,7 +14,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'check_ins_index*.js' => (5..15),
     'emoji_picker*.js' => (235..245),
     'groceries*.css' => (100..110),
-    'groceries*.js' => (400..410),
+    'groceries*.js' => (405..415),
     'home*.css' => (0..10),
     'home*.js' => (136..146),
     'logs*.css' => (95..105),
@@ -24,7 +24,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'styles*.css' => (9..19),
     'turbo*.js' => (90..100),
     'workout*.css' => (93..103),
-    'workout*.js' => (390..400),
+    'workout*.js' => (395..405),
   }.freeze
 
   def run
