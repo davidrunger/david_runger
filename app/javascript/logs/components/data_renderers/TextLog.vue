@@ -4,10 +4,11 @@
     table.text-log-table
       TransitionGroup(name='appear-vertically-list')
         EditableTextLogRow(
-          v-for='logEntry in sortedLogEntries'
+          v-for='(logEntry, index) in sortedLogEntries'
           :key='logEntry.id'
           :log='log'
           :logEntry='logEntry'
+          :class="{ '!transition-none': index !== 0 }"
         )
     el-button(v-if='!showAllEntries' @click='showAllEntries = true').
       Show all entries
