@@ -22,9 +22,9 @@ FixtureBuilder.configure do |fbuilder|
     name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com'))
 
     # groceries
-    store = name(:store, create(:store, user:)).first
-    name(:item, create(:item, :needed, store:))
-    create(:item, :unneeded, store:)
+    store = name(:store, create(:store, user:, name: 'Target')).first
+    name(:item, create(:item, :needed, store:, name: 'olive oil'))
+    create(:item, :unneeded, store:, name: 'apples')
 
     # number logs
     number_log = name(:number_log, create(:log, user:, data_type: 'number')).first
