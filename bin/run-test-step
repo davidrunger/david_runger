@@ -11,6 +11,8 @@ if !defined?(Rails)
   exec('bin/rails', 'runner', __FILE__, *ARGV)
 end
 
+require 'dotenv'
+Dotenv.load('.env', '.env.test', '.env.test.local')
 require 'pallets'
 require './lib/test/runner.rb'
 "Test::Tasks::#{ARGV[0]}".safe_constantize.new.run
