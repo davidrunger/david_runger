@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_browser_uuid
+    # NOTE: This cookie cannot be HTTP-only because we read it in JavaScript code.
     cookies[:browser_uuid] ||= SecureRandom.uuid
   end
 
