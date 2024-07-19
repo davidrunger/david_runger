@@ -28,6 +28,8 @@ RSpec.describe 'Groceries app' do
         # verify that the item is listed only once
         expect(page.body.scan(new_item_name).size).to eq(1)
 
+        page.percy_snapshot('Groceries')
+
         click_on('Check in items')
 
         within_section('Needed') do
