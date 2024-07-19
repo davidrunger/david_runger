@@ -7,11 +7,11 @@ export interface LogEntry {
   data: LogEntryDataValue;
   log_id: number;
   note?: string;
-};
+}
 
 export interface TextLogEntry extends LogEntry {
   data: string;
-};
+}
 
 export type LogShare = {
   email: string;

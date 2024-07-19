@@ -148,7 +148,7 @@ export const useLogsStore = defineStore('logs', {
       );
     },
 
-    async destroyLogEntry({ logEntry, log }: { logEntry: LogEntry, log: Log }) {
+    async destroyLogEntry({ logEntry, log }: { logEntry: LogEntry; log: Log }) {
       await kyApi.delete(
         Routes.api_log_entry_path({ id: logEntry.id }, { log_id: log.id }),
       );
