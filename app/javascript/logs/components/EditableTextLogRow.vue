@@ -10,7 +10,16 @@ tr
     el-button(@click='updateLogEntry' size='small') Save
     el-button(@click='cancelEditing' size='small') Cancel
   td(v-else)
-    a.js-link(@click='editing = true') Edit
+    el-button(
+      @click='editing = true'
+      link
+      type='primary'
+    ) Edit
+    el-button(
+      @click='destroyLogEntry'
+      link
+      type='danger'
+    ) Delete
 </template>
 
 <script lang="ts">
@@ -18,15 +27,21 @@ import createDOMPurify from 'dompurify';
 import { ElInput } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
+import { PropType } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
+import type { Log, TextLogEntry } from '@/logs/types';
 
 const DOMPurify = createDOMPurify(window);
 
 export default {
   props: {
+    log: {
+      type: Object as PropType<Log>,
+      required: true,
+    },
     logEntry: {
-      type: Object,
+      type: Object as PropType<TextLogEntry>,
       required: true,
     },
   },
@@ -71,6 +86,13 @@ export default {
     cancelEditing() {
       this.newPlaintext = this.logEntry.data.slice(); // undo any changes made
       this.editing = false;
+    },
+
+    destroyLogEntry() {
+      this.logsStore.destroyLogEntry({
+        logEntry: this.logEntry,
+        log: this.log,
+      });
     },
 
     async updateLogEntry() {

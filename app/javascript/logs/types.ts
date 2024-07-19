@@ -1,13 +1,17 @@
 export type LogEntryDataValue = string | number;
 export type LogDataType = 'counter' | 'duration' | 'number' | 'text';
 
-export type LogEntry = {
+export interface LogEntry {
   id: number;
   created_at: string;
   data: LogEntryDataValue;
   log_id: number;
   note?: string;
-};
+}
+
+export interface TextLogEntry extends LogEntry {
+  data: string;
+}
 
 export type LogShare = {
   email: string;

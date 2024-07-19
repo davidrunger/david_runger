@@ -6,6 +6,8 @@ RSpec.describe 'Logs app' do
   context 'when user is signed in' do
     before { sign_in(user) }
 
+    let(:delete_last_entry_text) { 'Delete last entry' }
+
     context 'when user has multiple logs' do
       before { expect(user.logs.size).to be >= 2 }
 
@@ -28,13 +30,29 @@ RSpec.describe 'Logs app' do
       end
     end
 
+    context 'when the user has a number log' do
+      before { expect(number_log).to be_present }
+
+      let(:number_log) { user.logs.number.first! }
+
+      context 'when the number log has at least one entry' do
+        before { expect(number_log.log_entries).to exist }
+
+        it 'shows a button to delete the most recent entry' do
+          visit(log_path(slug: number_log.slug))
+
+          expect(page).to have_button(delete_last_entry_text)
+        end
+      end
+    end
+
     context 'when user has a text log' do
       let(:log) { user.logs.text.first! }
 
       context 'when there are no entries yet for the text log' do
         before { log.log_entries.find_each(&:destroy!) }
 
-        it 'allows the user to submit log entries and edit them' do
+        it 'allows the user to submit log entries, edit them, and delete them' do
           visit(log_path(slug: log.slug))
 
           # Add first log entry
@@ -65,8 +83,8 @@ RSpec.describe 'Logs app' do
           expect(last_log_entry.data).to eq(second_log_entry_text)
 
           # Edit second log entry (and verify that correct order is preserved)
-          wait_for { page.find_all('a', text: 'Edit').size }.to eq(2)
-          first('a', text: 'Edit').click
+          wait_for { page.find_all('button', text: 'Edit').size }.to eq(2)
+          first('button', text: 'Edit').click
           added_edit_text = ' Added text!'
           expect(page).to have_css('.text-log-table textarea')
           first('.text-log-table textarea').send_keys(added_edit_text)
@@ -74,6 +92,11 @@ RSpec.describe 'Logs app' do
           expect(page).to have_text(
             /#{second_log_entry_text}#{added_edit_text}.*#{first_log_entry_text}/,
           )
+
+          expect(page).not_to have_text(delete_last_entry_text)
+          # Click the delete button for the oldest text log entry.
+          page.find_all('button', text: /\ADelete\z/)[1].click
+          expect(page).not_to have_text(first_log_entry_text)
         end
       end
 

@@ -104,12 +104,9 @@ export const useLogsStore = defineStore('logs', {
       this.addLogEntry({ logId, newLogEntry: data });
     },
 
-    async deleteLastLogEntry({ log }: { log: Log }) {
+    deleteLastLogEntry({ log }: { log: Log }) {
       const lastLogEntry = assert(last(sortBy(log.log_entries, 'created_at')));
-      await kyApi.delete(
-        Routes.api_log_entry_path({ id: lastLogEntry.id }, { log_id: log.id }),
-      );
-      this.deleteLogEntry({ log, logEntry: lastLogEntry });
+      this.destroyLogEntry({ log, logEntry: lastLogEntry });
     },
 
     async deleteLog({ log: logToDelete }: { log: Log }) {
@@ -149,6 +146,13 @@ export const useLogsStore = defineStore('logs', {
       log.log_shares = log.log_shares.filter(
         (logShare) => logShare.id !== logShareId,
       );
+    },
+
+    async destroyLogEntry({ logEntry, log }: { logEntry: LogEntry; log: Log }) {
+      await kyApi.delete(
+        Routes.api_log_entry_path({ id: logEntry.id }, { log_id: log.id }),
+      );
+      this.deleteLogEntry({ log, logEntry });
     },
 
     async fetchAllLogEntries() {
