@@ -6,6 +6,7 @@
         EditableTextLogRow(
           v-for='logEntry in sortedLogEntries'
           :key='logEntry.id'
+          :log='log'
           :logEntry='logEntry'
         )
     el-button(v-if='!showAllEntries' @click='showAllEntries = true').
@@ -16,7 +17,7 @@
 import { PropType } from 'vue';
 
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
-import { LogEntry } from '@/logs/types';
+import { Log, TextLogEntry } from '@/logs/types';
 
 export default {
   components: {
@@ -25,11 +26,11 @@ export default {
 
   props: {
     log: {
-      type: Object,
+      type: Object as PropType<Log>,
       required: true,
     },
     logEntries: {
-      type: Array as PropType<Array<LogEntry>>,
+      type: Array as PropType<Array<TextLogEntry>>,
       required: true,
     },
   },
@@ -41,7 +42,7 @@ export default {
   },
 
   computed: {
-    sortedLogEntries(): Array<LogEntry> {
+    sortedLogEntries(): Array<TextLogEntry> {
       let logEntriesToShow;
       if (this.showAllEntries || this.logEntries.length <= 3) {
         logEntriesToShow = this.logEntries;

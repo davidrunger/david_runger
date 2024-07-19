@@ -19,7 +19,7 @@ div
       v-if='!renderInputAtTop'
       :log='log'
     )
-    .mt-2
+    .mt-2(v-if='showDeleteLastEntryButton')
       el-button(@click='destroyLastEntry') Delete last entry
     .mt-2
       el-button.multi-line(
@@ -178,6 +178,10 @@ export default {
           this.log.slug,
         )
       );
+    },
+
+    showDeleteLastEntryButton(): boolean {
+      return !['text'].includes(this.log.data_type);
     },
   },
 
