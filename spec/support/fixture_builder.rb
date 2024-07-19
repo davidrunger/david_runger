@@ -23,8 +23,8 @@ FixtureBuilder.configure do |fbuilder|
 
     # groceries
     store = name(:store, create(:store, user:)).first
-    name(:item, create(:item, :needed, store:))
-    create(:item, :unneeded, store:)
+    name(:item, create(:item, :needed, store:, name: 'olive oil'))
+    create(:item, :unneeded, store:, name: 'apples')
 
     # number logs
     number_log = name(:number_log, create(:log, user:, data_type: 'number')).first
