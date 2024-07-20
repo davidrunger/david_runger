@@ -81,18 +81,25 @@ div
       LogReminderScheduleForm(:log='log')
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useTitle } from '@vueuse/core';
 import { ElInput } from 'element-plus';
-import { mapState } from 'pinia';
-import { h } from 'vue';
+import { storeToRefs } from 'pinia';
+import { computed, h, nextTick, ref } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
+import { useBootstrap } from '@/lib/composables/useBootstrap';
 import { useLogsStore } from '@/logs/store';
+import type {
+  Bootstrap,
+  Log,
+  LogDataType,
+  LogEntry,
+  LogShare,
+} from '@/logs/types';
 import * as RoutesType from '@/rails_assets/routes';
 import { useModalStore } from '@/shared/modal/store';
 
-import { Bootstrap, Log, LogDataType, LogEntry, LogShare } from '../types';
 import CounterBarGraph from './data_renderers/CounterBarGraph.vue';
 import DurationTimeseries from './data_renderers/DurationTimeseries.vue';
 import IntegerTimeseries from './data_renderers/IntegerTimeseries.vue';
@@ -124,162 +131,133 @@ const LogDataDisplay = (props: {
 };
 LogDataDisplay.props = ['dataType', 'log', 'logEntries', 'dataLabel'];
 
-export default {
-  components: {
-    LogDataDisplay,
-    NewLogEntryForm,
-    LogReminderScheduleForm,
-  },
+const logsStore = useLogsStore();
+const modalStore = useModalStore();
+const log = logsStore.unsafeSelectedLog;
+const bootstrap = useBootstrap();
 
-  setup() {
-    const logsStore = useLogsStore();
-    const log = logsStore.unsafeSelectedLog;
+useTitle(`${log.name} - Logs - David Runger`);
 
-    useTitle(`${log.name} - Logs - David Runger`);
+const publiclyViewable = ref(log.publicly_viewable);
+const inputVisible = ref(false);
+const inputValue = ref('');
+const wasCopiedRecently = ref(false);
+const saveTagInput = ref(null);
 
-    return {
-      log,
-      logsStore,
-    };
-  },
+const { isOwnLog } = storeToRefs(logsStore);
 
-  data() {
-    return {
-      inputVisible: false,
-      inputValue: '',
-      modalStore: useModalStore(),
-      wasCopiedRecently: false,
-      publiclyViewable: false,
-    };
-  },
+const logSharesSortedByLowercasedEmail = computed((): Array<LogShare> => {
+  return log.log_shares
+    .slice()
+    .sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()));
+});
 
-  computed: {
-    ...mapState(useLogsStore, {
-      isOwnLog: 'isOwnLog',
-    }),
+const renderInputAtTop = computed((): boolean => {
+  return log.data_type === 'text';
+});
 
-    logSharesSortedByLowercasedEmail(): Array<LogShare> {
-      return this.log.log_shares
-        .slice()
-        .sort((a, b) =>
-          a.email.toLowerCase().localeCompare(b.email.toLowerCase()),
-        );
-    },
+const shareableUrl = computed((): string => {
+  return (
+    window.location.origin +
+    Routes.user_shared_log_path(
+      (bootstrap as Bootstrap).current_user.id,
+      log.slug,
+    )
+  );
+});
 
-    renderInputAtTop(): boolean {
-      return this.log.data_type === 'text';
-    },
+const showDeleteLastEntryButton = computed((): boolean => {
+  return !['text'].includes(log.data_type);
+});
 
-    shareableUrl(): string {
-      return (
-        window.location.origin +
-        Routes.user_shared_log_path(
-          (this.$bootstrap as Bootstrap).current_user.id,
-          this.log.slug,
-        )
-      );
-    },
+function copyShareableUrlToClipboard() {
+  navigator.clipboard.writeText(shareableUrl.value);
 
-    showDeleteLastEntryButton(): boolean {
-      return !['text'].includes(this.log.data_type);
-    },
-  },
+  wasCopiedRecently.value = true;
 
-  created() {
-    this.ensureLogEntriesHaveBeenFetched();
-    this.subscribeToLogEntriesChannel();
-    this.publiclyViewable = this.log.publicly_viewable;
-  },
+  setTimeout(() => {
+    wasCopiedRecently.value = false;
+  }, 1800);
+}
 
-  methods: {
-    copyShareableUrlToClipboard() {
-      navigator.clipboard.writeText(this.shareableUrl);
+function destroyLastEntry() {
+  const confirmation = window.confirm(
+    `Are you sure that you want to delete the last entry from the ${log.name} log?`,
+  );
 
-      this.wasCopiedRecently = true;
+  if (confirmation === true) {
+    logsStore.deleteLastLogEntry({ log: log });
+  }
+}
 
-      setTimeout(() => {
-        this.wasCopiedRecently = false;
-      }, 1800);
-    },
-
-    destroyLastEntry() {
-      const confirmation = window.confirm(
-        `Are you sure that you want to delete the last entry from the ${this.log.name} log?`,
-      );
-
-      if (confirmation === true) {
-        this.logsStore.deleteLastLogEntry({ log: this.log });
-      }
-    },
-
-    destroyLog() {
-      const promptResponse =
-        prompt(`Are you sure you want to delete this log and all of its entries?
+function destroyLog() {
+  const promptResponse =
+    prompt(`Are you sure you want to delete this log and all of its entries?
 If so, enter the name of this log:
-${this.log.name}`);
+${log.name}`);
 
-      if (promptResponse === this.log.name) {
-        this.logsStore.deleteLog({ log: this.log });
-      }
+  if (promptResponse === log.name) {
+    logsStore.deleteLog({ log: log });
+  }
+}
+
+function ensureLogEntriesHaveBeenFetched() {
+  if (!log.log_entries) {
+    logsStore.fetchLogEntries({ logId: log.id });
+  }
+}
+
+function handleLogShareDeletion(logShare: LogShare) {
+  logsStore.deleteLogShare({
+    log: log,
+    logShareId: logShare.id,
+  });
+}
+
+function handleLogShareCreation() {
+  if (inputValue.value) {
+    logsStore.addLogShare({
+      logId: log.id,
+      newLogShareEmail: inputValue.value,
+    });
+  }
+  inputVisible.value = false;
+  inputValue.value = '';
+}
+
+function savePubliclyViewableChange(newPubliclyViewableState: boolean) {
+  logsStore.updateLog({
+    logId: log.id,
+    updatedLogParams: { publicly_viewable: newPubliclyViewableState },
+  });
+}
+
+function showInput() {
+  inputVisible.value = true;
+  nextTick(() => {
+    (saveTagInput.value as unknown as typeof ElInput).$refs.input.focus();
+  });
+}
+
+function subscribeToLogEntriesChannel() {
+  actionCableConsumer.subscriptions.create(
+    {
+      channel: 'LogEntriesChannel',
+      log_id: log.id,
     },
-
-    ensureLogEntriesHaveBeenFetched() {
-      if (!this.log.log_entries) {
-        this.logsStore.fetchLogEntries({ logId: this.log.id });
-      }
-    },
-
-    handleLogShareDeletion(logShare: LogShare) {
-      this.logsStore.deleteLogShare({
-        log: this.log,
-        logShareId: logShare.id,
-      });
-    },
-
-    handleLogShareCreation() {
-      const { inputValue } = this;
-      if (inputValue) {
-        this.logsStore.addLogShare({
-          logId: this.log.id,
-          newLogShareEmail: inputValue,
+    {
+      received: (data) => {
+        logsStore.addLogEntry({
+          logId: log.id,
+          newLogEntry: data,
         });
-      }
-      this.inputVisible = false;
-      this.inputValue = '';
+      },
     },
+  );
+}
 
-    savePubliclyViewableChange(newPubliclyViewableState: boolean) {
-      this.logsStore.updateLog({
-        logId: this.log.id,
-        updatedLogParams: { publicly_viewable: newPubliclyViewableState },
-      });
-    },
-
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick(() => {
-        (this.$refs.saveTagInput as typeof ElInput).$refs.input.focus();
-      });
-    },
-
-    subscribeToLogEntriesChannel() {
-      actionCableConsumer.subscriptions.create(
-        {
-          channel: 'LogEntriesChannel',
-          log_id: this.log.id,
-        },
-        {
-          received: (data) => {
-            this.logsStore.addLogEntry({
-              logId: this.log.id,
-              newLogEntry: data,
-            });
-          },
-        },
-      );
-    },
-  },
-};
+ensureLogEntriesHaveBeenFetched();
+subscribeToLogEntriesChannel();
 </script>
 
 <style scoped>
