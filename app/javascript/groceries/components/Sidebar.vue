@@ -16,7 +16,7 @@ aside.border-r.border-neutral-400(
           .flex-1.mr-2
             el-input(
               type='text'
-              v-model='newStoreName'
+              v-model='formData.newStoreName'
               name='newStoreName'
               placeholder='Add a store'
             )
@@ -38,11 +38,11 @@ aside.border-r.border-neutral-400(
             )
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-import { mapState } from 'pinia';
-import { defineComponent, inject, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { computed, inject, reactive, ref } from 'vue';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
@@ -51,61 +51,33 @@ import { useSubscription } from '@/lib/composables/use_subscription';
 import LoggedInHeader from './LoggedInHeader.vue';
 import StoreListEntry from './StoreListEntry.vue';
 
-export default defineComponent({
-  name: 'Sidebar',
-
-  components: {
-    ArrowBarRightIcon,
-    LoggedInHeader,
-    StoreListEntry,
-  },
-
-  setup() {
-    const isMobileDevice = inject('isMobileDevice');
-    const collapsed = ref(isMobileDevice);
-
-    function handleStoreSelected() {
-      if (isMobileDevice) {
-        collapsed.value = true;
-      }
-    }
-
-    useSubscription('groceries:store-selected', handleStoreSelected);
-
-    return {
-      collapsed,
-      groceriesStore: useGroceriesStore(),
-      v$: useVuelidate(),
-    };
-  },
-
-  data() {
-    return {
-      newStoreName: '',
-    };
-  },
-
-  computed: {
-    ...mapState(useGroceriesStore, ['postingStore', 'spouse_stores']),
-
-    expanded(): boolean {
-      return !this.collapsed;
-    },
-  },
-
-  methods: {
-    async handleNewStoreSubmission() {
-      await this.groceriesStore.createStore(this.newStoreName);
-      this.newStoreName = '';
-    },
-  },
-
-  validations() {
-    return {
-      newStoreName: { required },
-    };
-  },
+const formData = reactive({
+  newStoreName: '',
 });
+const isMobileDevice = inject('isMobileDevice');
+const collapsed = ref(isMobileDevice);
+const groceriesStore = useGroceriesStore();
+const vuelidateRules = {
+  newStoreName: { required },
+};
+const v$ = useVuelidate(vuelidateRules, formData);
+
+function handleStoreSelected() {
+  if (isMobileDevice) {
+    collapsed.value = true;
+  }
+}
+
+useSubscription('groceries:store-selected', handleStoreSelected);
+
+const { postingStore } = storeToRefs(groceriesStore);
+
+const expanded = computed(() => !collapsed.value);
+
+async function handleNewStoreSubmission() {
+  await groceriesStore.createStore(formData.newStoreName);
+  formData.newStoreName = '';
+}
 </script>
 
 <style lang="scss" scoped>
