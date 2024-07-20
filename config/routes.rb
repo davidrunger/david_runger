@@ -102,6 +102,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   authenticate :admin_user do
+    get 'vue-playground', to: 'vue_playground#index'
     mount Sidekiq::Web => '/sidekiq'
     mount Flipper::UI.app(Flipper) => '/flipper'
   end
