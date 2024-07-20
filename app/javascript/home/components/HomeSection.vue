@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { h } from 'vue';
+import { defineComponent, h } from 'vue';
 
 import ScrollHook from './ScrollHook.vue';
 
@@ -16,7 +16,7 @@ export const SectionHeader = (props: { title?: string }) =>
   h('h1', { class: 'text-3xl font-bold my-4' }, props.title);
 SectionHeader.props = ['title'];
 
-export default {
+export default defineComponent({
   components: {
     ScrollHook,
     SectionHeader,
@@ -36,7 +36,7 @@ export default {
       required: true,
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -26,6 +26,8 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import About from './components/About.vue';
 import Contact from './components/Contact.vue';
 import HomeHero from './components/HomeHero.vue';
@@ -34,7 +36,7 @@ import Projects from './components/Projects.vue';
 import Resume from './components/Resume.vue';
 import Skills from './components/Skills.vue';
 
-export default {
+export default defineComponent({
   components: {
     About,
     Contact,
@@ -70,7 +72,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style lang="scss">

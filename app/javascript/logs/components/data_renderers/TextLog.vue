@@ -15,12 +15,12 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
 import { Log, TextLogEntry } from '@/logs/types';
 
-export default {
+export default defineComponent({
   components: {
     EditableTextLogRow,
   },
@@ -54,7 +54,7 @@ export default {
       return logEntriesToShow.slice().reverse();
     },
   },
-};
+});
 </script>
 
 <style lang="scss">

@@ -6,14 +6,16 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   props: {
     variant: {
       type: String,
       required: true,
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

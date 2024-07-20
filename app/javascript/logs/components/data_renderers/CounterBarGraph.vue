@@ -7,12 +7,12 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import BarGraph from '@/components/charts/BarGraph.vue';
 import { LogEntry } from '@/logs/types';
 
-export default {
+export default defineComponent({
   components: {
     BarGraph,
   },
@@ -62,5 +62,5 @@ export default {
       }));
     },
   },
-};
+});
 </script>

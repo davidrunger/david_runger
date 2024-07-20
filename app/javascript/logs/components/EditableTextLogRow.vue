@@ -27,14 +27,14 @@ import createDOMPurify from 'dompurify';
 import { ElInput } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
 import type { Log, TextLogEntry } from '@/logs/types';
 
 const DOMPurify = createDOMPurify(window);
 
-export default {
+export default defineComponent({
   props: {
     log: {
       type: Object as PropType<Log>,
@@ -104,7 +104,7 @@ export default {
       this.editing = false;
     },
   },
-};
+});
 </script>
 
 <style scoped>

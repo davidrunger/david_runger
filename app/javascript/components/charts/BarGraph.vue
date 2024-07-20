@@ -23,6 +23,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { merge } from 'lodash-es';
+import { defineComponent } from 'vue';
 import { Bar } from 'vue-chartjs';
 
 ChartJS.register(Title, Tooltip, BarElement, LinearScale, TimeScale);
@@ -42,7 +43,7 @@ const datasetDefaults = {
   ],
 };
 
-export default {
+export default defineComponent({
   name: 'BarChart',
 
   components: { Bar },
@@ -113,5 +114,5 @@ export default {
       >;
     },
   },
-};
+});
 </script>

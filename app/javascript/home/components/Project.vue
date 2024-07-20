@@ -27,7 +27,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   props: {
     imageContainerClass: {
       type: String,
@@ -40,7 +42,7 @@ export default {
       default: 'mb-4',
     },
   },
-};
+});
 </script>
 
 <style lang="scss">

@@ -30,14 +30,16 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import HomeSection, { SectionHeader } from './HomeSection.vue';
 
-export default {
+export default defineComponent({
   components: {
     HomeSection,
     SectionHeader,
   },
-};
+});
 </script>
 
 <style>

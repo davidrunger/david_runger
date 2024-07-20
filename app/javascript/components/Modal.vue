@@ -13,10 +13,11 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
 
 <script lang="ts">
 import { mapState } from 'pinia';
+import { defineComponent } from 'vue';
 
 import { useModalStore } from '@/shared/modal/store';
 
-export default {
+export default defineComponent({
   props: {
     backgroundClass: {
       type: String,
@@ -73,7 +74,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

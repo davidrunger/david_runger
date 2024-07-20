@@ -7,11 +7,13 @@ HomeSection(section='links', title='Contact me / Links')
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import HomeSection from './HomeSection.vue';
 
-export default {
+export default defineComponent({
   components: {
     HomeSection,
   },
-};
+});
 </script>

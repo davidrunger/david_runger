@@ -37,7 +37,7 @@ div
 
 <script lang="ts">
 import Toastify from 'toastify-js';
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
 import { Log } from '@/logs/types';
@@ -49,7 +49,7 @@ const TIME_UNIT_IN_SECONDS = {
   hours: 60 * 60,
 };
 
-export default {
+export default defineComponent({
   props: {
     log: {
       type: Object as PropType<Log>,
@@ -119,7 +119,7 @@ export default {
       }).showToast();
     },
   },
-};
+});
 </script>
 
 <style scoped>
