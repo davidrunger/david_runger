@@ -7,7 +7,7 @@ section
   NewLogForm
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useTitle } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 
