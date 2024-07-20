@@ -17,7 +17,7 @@
       path(d='M0 0 L12 12 L24 0')
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useIntersectionObserver } from '@vueuse/core';
 import { ref } from 'vue';
 
@@ -25,30 +25,12 @@ import { useHomeStore } from '@/home/store';
 
 import HomeHeader from './HomeHeader.vue';
 
-export default {
-  components: {
-    HomeHeader,
-  },
+const homeRef = ref(null);
+const homeStore = useHomeStore();
 
-  setup() {
-    const homeRef = ref(null);
-    const homeStore = useHomeStore();
-
-    useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
-      homeStore.homeIsVisible = isIntersecting;
-    });
-
-    return {
-      homeRef,
-    };
-  },
-
-  data() {
-    return {
-      homeStore: useHomeStore(),
-    };
-  },
-};
+useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
+  homeStore.homeIsVisible = isIntersecting;
+});
 </script>
 
 <style lang="scss" scoped>
