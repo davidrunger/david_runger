@@ -22,11 +22,11 @@ div(v-else) {{checkInsStore.partner_ratings_hidden_reason}}
 import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
 import { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
-
-import Ratings from './components/Ratings.vue';
 import { useBootstrap } from '@/lib/composables/useBootstrap';
 
-const checkInsStore = useCheckInsStore()
+import Ratings from './components/Ratings.vue';
+
+const checkInsStore = useCheckInsStore();
 
 actionCableConsumer.subscriptions.create(
   {
