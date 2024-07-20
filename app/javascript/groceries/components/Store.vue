@@ -126,8 +126,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { storeToRefs } from 'pinia';
 import Toastify from 'toastify-js';
-import { computed, reactive, ref, toRefs } from 'vue';
-import type { PropType } from 'vue';
+import { computed, reactive, ref, toRefs, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
@@ -158,7 +157,7 @@ const v$ = useVuelidate(vuelidateRules, formData);
 const editingName = ref(false);
 const editingNotes = ref(false);
 const storeNameInput = ref(null);
-const storeNotesInput = ref(null)
+const storeNotesInput = ref(null);
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
 
