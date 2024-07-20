@@ -13,16 +13,16 @@ VueLine(
 
 <script setup lang="ts">
 import {
-  ChartData,
   Chart as ChartJS,
-  ChartOptions,
   LinearScale,
   LineElement,
-  Point,
   PointElement,
   TimeScale,
   Tooltip,
-  TooltipItem,
+  type ChartData,
+  type ChartOptions,
+  type Point,
+  type TooltipItem,
 } from 'chart.js';
 import { merge } from 'lodash-es';
 import { Line as VueLine } from 'vue-chartjs';
@@ -78,7 +78,7 @@ const chartOptionsDefaults = {
   },
 };
 
-defineProps({
+const props = defineProps({
   chartData: {
     type: Object,
     required: true,
@@ -114,12 +114,12 @@ defineProps({
 });
 
 const chartOptions = computed(() => {
-  return merge({}, chartOptionsDefaults, this.options) as ChartOptions<'line'>;
+  return merge({}, chartOptionsDefaults, props.options) as ChartOptions<'line'>;
 });
 
 const mergedChartData = computed(
   (): ChartData<'line', (number | Point | null)[], unknown> => {
-    return merge({}, datasetDefaults, this.chartData) as ChartData<
+    return merge({}, datasetDefaults, props.chartData) as ChartData<
       'line',
       (number | Point | null)[],
       unknown

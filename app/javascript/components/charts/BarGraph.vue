@@ -14,13 +14,13 @@ Bar(
 <script setup lang="ts">
 import {
   BarElement,
-  ChartData,
   Chart as ChartJS,
-  ChartOptions,
   LinearScale,
   TimeScale,
   Title,
   Tooltip,
+  type ChartData,
+  type ChartOptions,
 } from 'chart.js';
 import { merge } from 'lodash-es';
 import { computed } from 'vue';
@@ -43,7 +43,7 @@ const datasetDefaults = {
   ],
 };
 
-defineProps({
+const props = defineProps({
   chartData: {
     type: Object,
     required: true,
@@ -94,7 +94,7 @@ const chartOptions = {
 
 const mergedChartData = computed(
   (): ChartData<'bar', (number | [number, number] | null)[], unknown> => {
-    return merge({}, datasetDefaults, this.chartData) as ChartData<
+    return merge({}, datasetDefaults, props.chartData) as ChartData<
       'bar',
       (number | [number, number] | null)[],
       unknown
