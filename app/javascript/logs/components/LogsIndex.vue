@@ -7,27 +7,18 @@ section
   NewLogForm
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useTitle } from '@vueuse/core';
-import { mapState } from 'pinia';
+import { storeToRefs } from 'pinia';
 
 import { useLogsStore } from '@/logs/store';
 
 import NewLogForm from './NewLogForm.vue';
 
-export default {
-  components: {
-    NewLogForm,
-  },
+useTitle('Logs - David Runger');
 
-  setup() {
-    useTitle('Logs - David Runger');
-  },
-
-  computed: {
-    ...mapState(useLogsStore, ['logs']),
-  },
-};
+const logsStore = useLogsStore();
+const { logs } = storeToRefs(logsStore);
 </script>
 
 <style scoped>
