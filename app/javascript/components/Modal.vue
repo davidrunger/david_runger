@@ -11,70 +11,58 @@ transition(name='modal' v-if="showingModal({ modalName: name })")
       slot
 </template>
 
-<script lang="ts">
-import { mapState } from 'pinia';
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { onUnmounted, ref } from 'vue';
 
 import { useModalStore } from '@/shared/modal/store';
 
-export default defineComponent({
-  props: {
-    backgroundClass: {
-      type: String,
-      required: false,
-      default: 'bg-white',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    width: {
-      type: String,
-      required: true,
-    },
-    maxWidth: {
-      type: String,
-      required: true,
-    },
+const props = defineProps({
+  backgroundClass: {
+    type: String,
+    required: false,
+    default: 'bg-white',
   },
-
-  data() {
-    return {
-      modalStore: useModalStore(),
-    };
+  name: {
+    type: String,
+    required: true,
   },
-
-  computed: {
-    ...mapState(useModalStore, ['showingModal']),
+  width: {
+    type: String,
+    required: true,
   },
-
-  created() {
-    // since there might be multiple modals, ensure we only register the keydown listener once
-    if (!window.davidrunger.modalKeydownListenerRegistered) {
-      window.addEventListener('keydown', this.handleKeydown);
-      window.davidrunger.modalKeydownListenerRegistered = true;
-    }
-  },
-
-  unmounted() {
-    window.removeEventListener('keydown', this.handleKeydown);
-  },
-
-  methods: {
-    handleClickMask(event: MouseEvent) {
-      // make sure we don't close the modal when clicks within the modal propagate up
-      if (event.target === this.$refs.mask) {
-        this.modalStore.hideModal({ modalName: this.name });
-      }
-    },
-
-    handleKeydown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        this.modalStore.hideTopModal();
-      }
-    },
+  maxWidth: {
+    type: String,
+    required: true,
   },
 });
+
+const modalStore = useModalStore();
+const mask = ref(null);
+
+const { showingModal } = storeToRefs(modalStore);
+
+if (!window.davidrunger.modalKeydownListenerRegistered) {
+  window.addEventListener('keydown', handleKeydown);
+  window.davidrunger.modalKeydownListenerRegistered = true;
+}
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown);
+});
+
+function handleClickMask(event: MouseEvent) {
+  // make sure we don't close the modal when clicks within the modal propagate up
+  if (event.target === mask.value) {
+    modalStore.hideModal({ modalName: props.name });
+  }
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape') {
+    modalStore.hideTopModal();
+  }
+}
 </script>
 
 <style lang="scss" scoped>

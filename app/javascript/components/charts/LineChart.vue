@@ -11,7 +11,7 @@ VueLine(
 )
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {
   ChartData,
   Chart as ChartJS,
@@ -29,7 +29,7 @@ import { Line as VueLine } from 'vue-chartjs';
 
 import 'chartjs-adapter-luxon';
 
-import { defineComponent } from 'vue';
+import { computed } from 'vue';
 
 ChartJS.register(Tooltip, LineElement, LinearScale, PointElement, TimeScale);
 
@@ -78,62 +78,52 @@ const chartOptionsDefaults = {
   },
 };
 
-export default defineComponent({
-  name: 'LineChart',
-
-  components: { VueLine },
-
-  props: {
-    chartData: {
-      type: Object,
-      required: true,
-    },
-    options: {
-      type: Object,
-      default: () => {},
-    },
-    chartId: {
-      type: String,
-      default: 'line-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
-      type: Object,
-      default: () => {},
-    },
+defineProps({
+  chartData: {
+    type: Object,
+    required: true,
   },
-
-  computed: {
-    chartOptions() {
-      return merge(
-        {},
-        chartOptionsDefaults,
-        this.options,
-      ) as ChartOptions<'line'>;
-    },
-
-    mergedChartData(): ChartData<'line', (number | Point | null)[], unknown> {
-      return merge({}, datasetDefaults, this.chartData) as ChartData<
-        'line',
-        (number | Point | null)[],
-        unknown
-      >;
-    },
+  options: {
+    type: Object,
+    default: () => {},
+  },
+  chartId: {
+    type: String,
+    default: 'line-chart',
+  },
+  datasetIdKey: {
+    type: String,
+    default: 'label',
+  },
+  width: {
+    type: Number,
+    default: 400,
+  },
+  height: {
+    type: Number,
+    default: 400,
+  },
+  cssClasses: {
+    default: '',
+    type: String,
+  },
+  styles: {
+    type: Object,
+    default: () => {},
   },
 });
+
+const chartOptions = computed(() => {
+  return merge({}, chartOptionsDefaults, this.options) as ChartOptions<'line'>;
+});
+
+const mergedChartData = computed(
+  (): ChartData<'line', (number | Point | null)[], unknown> => {
+    return merge({}, datasetDefaults, this.chartData) as ChartData<
+      'line',
+      (number | Point | null)[],
+      unknown
+    >;
+  },
+);
 </script>
