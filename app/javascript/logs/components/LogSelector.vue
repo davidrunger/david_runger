@@ -8,7 +8,7 @@ Modal(
   input.mb-4(
     type='text'
     v-model='query'
-    ref='log-search-input'
+    ref='logSearchInput'
     @keydown.enter='selectHighlightedLog'
     @keydown.up='onArrowUp'
     @keydown.down='onArrowDown'
@@ -21,77 +21,59 @@ Modal(
       ) {{log.name}}
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { refDebounced } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { useFuzzyTypeahead } from '@/lib/composables/fuzzy_typeahead';
 import { useSubscription } from '@/lib/composables/use_subscription';
 import { useLogsStore } from '@/logs/store';
+import type { Log } from '@/logs/types';
 import { useModalStore } from '@/shared/modal/store';
 
-import { Log } from '../types';
+const router = useRouter();
+const logsStore = useLogsStore();
+const { logs } = storeToRefs(logsStore);
+const modalStore = useModalStore();
+const query = ref('');
+const queryDebounced = refDebounced(query, 60, { maxWait: 180 });
+const logSearchInput = ref(null);
+const { highlightedSearchable, onArrowDown, onArrowUp, rankedMatches } =
+  useFuzzyTypeahead({
+    searchables: logs.value,
+    query: queryDebounced,
+    propertyToSearch: 'name',
+  });
 
-export default {
-  setup() {
-    const logsStore = useLogsStore();
-    const { logs } = storeToRefs(logsStore);
-    const modalStore = useModalStore();
-    const query = ref('');
-    const queryDebounced = refDebounced(query, 60, { maxWait: 180 });
-    const { highlightedSearchable, onArrowDown, onArrowUp, rankedMatches } =
-      useFuzzyTypeahead({
-        searchables: logs.value,
-        query: queryDebounced,
-        propertyToSearch: 'name',
-      });
+function resetQuickSelector() {
+  modalStore.hideModal({ modalName: 'log-selector' });
+  query.value = '';
+}
 
-    function resetQuickSelector() {
-      modalStore.hideModal({ modalName: 'log-selector' });
-      query.value = '';
+useSubscription('logs:route-changed', resetQuickSelector);
+
+const showingLogSelector = computed(() => {
+  return modalStore.showingModal({ modalName: 'log-selector' });
+});
+
+watch(showingLogSelector, () => {
+  // Wait a tick for input to render, then focus it. Autofocus only works once, so we need this.
+  setTimeout(() => {
+    if (logSearchInput.value) {
+      (logSearchInput.value as HTMLInputElement).focus();
     }
+  });
+});
 
-    useSubscription('logs:route-changed', resetQuickSelector);
+function selectHighlightedLog() {
+  selectLog(highlightedSearchable.value);
+}
 
-    return {
-      modalStore,
-      query,
-      highlightedSearchable,
-      onArrowDown,
-      onArrowUp,
-      rankedMatches,
-    };
-  },
-
-  computed: {
-    showingLogSelector(): boolean {
-      return this.modalStore.showingModal({ modalName: 'log-selector' });
-    },
-  },
-
-  watch: {
-    showingLogSelector() {
-      // Wait a tick for input to render, then focus it. Autofocus only works once, so we need this.
-      setTimeout(() => {
-        const logSearchInput = this.$refs['log-search-input'];
-        if (logSearchInput) {
-          (logSearchInput as HTMLInputElement).focus();
-        }
-      });
-    },
-  },
-
-  methods: {
-    selectHighlightedLog() {
-      this.selectLog(this.highlightedSearchable);
-    },
-
-    selectLog(log: Log) {
-      this.$router.push({ name: 'log', params: { slug: log.slug } });
-    },
-  },
-};
+function selectLog(log: Log) {
+  router.push({ name: 'log', params: { slug: log.slug } });
+}
 </script>
 
 <style lang="scss" scoped>
