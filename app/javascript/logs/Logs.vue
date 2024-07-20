@@ -10,6 +10,7 @@ div
 <script lang="ts">
 import { mapState } from 'pinia';
 import Toastify from 'toastify-js';
+import { defineComponent } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
@@ -17,7 +18,7 @@ import { useModalStore } from '@/shared/modal/store';
 import LogSelector from './components/LogSelector.vue';
 import { Bootstrap, CurrentUser } from './types';
 
-export default {
+export default defineComponent({
   components: {
     LogSelector,
   },
@@ -69,7 +70,7 @@ export default {
     // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
     window.history.replaceState({}, document.title, window.location.pathname);
   },
-};
+});
 </script>
 
 <style lang="scss">

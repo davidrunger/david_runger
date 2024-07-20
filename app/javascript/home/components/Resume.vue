@@ -7,13 +7,15 @@ HomeSection.pb-16(
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import HomeSection from './HomeSection.vue';
 
-export default {
+export default defineComponent({
   components: {
     HomeSection,
   },
-};
+});
 </script>
 
 <style lang="scss">

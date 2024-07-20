@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
 import { LogEntry } from '@/logs/types';
@@ -46,7 +46,7 @@ type ChartData = {
   note: string | undefined;
 };
 
-export default {
+export default defineComponent({
   components: {
     LineChart,
   },
@@ -114,5 +114,5 @@ export default {
       );
     },
   },
-};
+});
 </script>

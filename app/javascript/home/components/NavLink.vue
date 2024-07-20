@@ -9,10 +9,11 @@ a.nav-link(
 
 <script lang="ts">
 import { capitalize } from 'lodash-es';
+import { defineComponent } from 'vue';
 
 import { useHomeStore } from '@/home/store';
 
-export default {
+export default defineComponent({
   props: {
     linkText: {
       type: String,
@@ -40,7 +41,7 @@ export default {
       return capitalize(this.section);
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

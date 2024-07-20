@@ -16,6 +16,7 @@ div(v-if='workoutIsInProgress')
 
 <script lang="ts">
 import { mapState } from 'pinia';
+import { defineComponent } from 'vue';
 
 import { useWorkoutsStore } from '@/workouts/store';
 import { WorkoutPlan as WorkoutPlanType } from '@/workouts/types';
@@ -24,7 +25,7 @@ import NewWorkoutForm from './NewWorkoutForm.vue';
 import WorkoutPlan from './WorkoutPlan.vue';
 import WorkoutsTable from './WorkoutsTable.vue';
 
-export default {
+export default defineComponent({
   components: {
     NewWorkoutForm,
     WorkoutPlan,
@@ -43,7 +44,7 @@ export default {
       return this.workout as WorkoutPlanType;
     },
   },
-};
+});
 </script>
 
 <style>

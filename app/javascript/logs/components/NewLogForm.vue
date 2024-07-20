@@ -42,11 +42,12 @@ div
 
 <script lang="ts">
 import { mapState } from 'pinia';
+import { defineComponent } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
 import { Bootstrap, LogInputType } from '@/logs/types';
 
-export default {
+export default defineComponent({
   data() {
     return {
       logsStore: useLogsStore(),
@@ -78,5 +79,5 @@ export default {
       };
     },
   },
-};
+});
 </script>

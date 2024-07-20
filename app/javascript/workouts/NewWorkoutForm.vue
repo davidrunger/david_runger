@@ -50,12 +50,13 @@ form
 
 <script lang="ts">
 import { mapState } from 'pinia';
+import { defineComponent } from 'vue';
 
 import { useWorkoutsStore } from '@/workouts/store';
 
 import { WorkoutPlan } from './types';
 
-export default {
+export default defineComponent({
   data() {
     return {
       workoutsStore: useWorkoutsStore(),
@@ -75,7 +76,7 @@ export default {
       this.workout.exercises.splice(index, 1);
     },
   },
-};
+});
 </script>
 
 <style>

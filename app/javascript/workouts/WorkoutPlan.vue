@@ -68,7 +68,7 @@
 <script lang="ts">
 import { Timer } from 'easytimer.js';
 import { cloneDeep } from 'lodash-es';
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
@@ -81,7 +81,7 @@ type SetObject = {
   timeAdjustment: number;
 };
 
-export default {
+export default defineComponent({
   components: {
     ConfirmWorkoutModal,
   },
@@ -298,7 +298,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style scoped>

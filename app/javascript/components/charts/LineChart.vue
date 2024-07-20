@@ -29,6 +29,8 @@ import { Line as VueLine } from 'vue-chartjs';
 
 import 'chartjs-adapter-luxon';
 
+import { defineComponent } from 'vue';
+
 ChartJS.register(Tooltip, LineElement, LinearScale, PointElement, TimeScale);
 
 const datasetDefaults = {
@@ -76,7 +78,7 @@ const chartOptionsDefaults = {
   },
 };
 
-export default {
+export default defineComponent({
   name: 'LineChart',
 
   components: { VueLine },
@@ -133,5 +135,5 @@ export default {
       >;
     },
   },
-};
+});
 </script>

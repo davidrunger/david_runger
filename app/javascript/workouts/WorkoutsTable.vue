@@ -25,13 +25,13 @@ div(v-else) None
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
 import Toastify from 'toastify-js';
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import { useWorkoutsStore } from '@/workouts/store';
 
 import { Workout } from './types';
 
-export default {
+export default defineComponent({
   props: {
     isOwnWorkouts: {
       type: Boolean,
@@ -83,5 +83,5 @@ export default {
       }).showToast();
     },
   },
-};
+});
 </script>

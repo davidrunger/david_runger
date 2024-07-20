@@ -27,13 +27,14 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
 
 <script lang="ts">
 import Toastify from 'toastify-js';
+import { defineComponent } from 'vue';
 
 import { useModalStore } from '@/shared/modal/store';
 import { useWorkoutsStore } from '@/workouts/store';
 
 import { Workout } from './types';
 
-export default {
+export default defineComponent({
   props: {
     repTotals: {
       type: Object,
@@ -83,5 +84,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

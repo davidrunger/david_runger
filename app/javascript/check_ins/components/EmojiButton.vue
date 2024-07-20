@@ -9,7 +9,7 @@ button.bg-slate-200(
 
 <script lang="ts">
 import { sample } from 'lodash-es';
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import { useCheckInsStore } from '@/check_ins/store';
 import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
@@ -25,7 +25,7 @@ const EMOJIS = new Map([
   [3, ['🥰', '😍', '🤩', '😇', '🥳']],
 ]);
 
-export default {
+export default defineComponent({
   props: {
     editable: {
       type: Boolean,
@@ -67,7 +67,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

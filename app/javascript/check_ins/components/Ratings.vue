@@ -26,14 +26,14 @@ button.btn-primary.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn')
 <script lang="ts">
 import { range } from 'lodash-es';
 import { mapState } from 'pinia';
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import { useCheckInsStore } from '@/check_ins/store';
 import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
 
 import EmojiButton from './EmojiButton.vue';
 
-export default {
+export default defineComponent({
   components: {
     EmojiButton,
   },
@@ -78,7 +78,7 @@ export default {
       window.location.reload();
     },
   },
-};
+});
 </script>
 
 <style scoped>

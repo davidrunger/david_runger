@@ -19,13 +19,15 @@ div(v-else) {{checkInsStore.partner_ratings_hidden_reason}}
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
 import { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
 
 import Ratings from './components/Ratings.vue';
 
-export default {
+export default defineComponent({
   components: {
     Ratings,
   },
@@ -62,5 +64,5 @@ export default {
       },
     );
   },
-};
+});
 </script>
