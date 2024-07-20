@@ -18,51 +18,38 @@ Ratings(
 div(v-else) {{checkInsStore.partner_ratings_hidden_reason}}
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
 import { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
+import { useBootstrap } from '@/lib/composables/useBootstrap';
 
 import Ratings from './components/Ratings.vue';
 
-export default defineComponent({
-  components: {
-    Ratings,
-  },
+const checkInsStore = useCheckInsStore();
 
-  data() {
-    return {
-      checkInsStore: useCheckInsStore(),
-    };
+actionCableConsumer.subscriptions.create(
+  {
+    channel: 'CheckInsChannel',
   },
+  {
+    received: (data) => {
+      if (
+        data.originating_user_id ===
+        (useBootstrap() as Bootstrap).current_user.id
+      )
+        return;
 
-  created() {
-    actionCableConsumer.subscriptions.create(
-      {
-        channel: 'CheckInsChannel',
-      },
-      {
-        received: (data) => {
-          if (
-            data.originating_user_id ===
-            (this.$bootstrap as Bootstrap).current_user.id
-          )
-            return;
-
-          if (data.event === 'check-in-submitted') {
-            this.checkInsStore.setPartnerRatingsOfUser({
-              ratings: data.ratings,
-            });
-          } else if (data.event === 'need-satisfaction-rating-updated') {
-            this.checkInsStore.modifyRating({
-              attributes: data.rating as NeedSatisfactionRating,
-            });
-          }
-        },
-      },
-    );
+      if (data.event === 'check-in-submitted') {
+        checkInsStore.setPartnerRatingsOfUser({
+          ratings: data.ratings,
+        });
+      } else if (data.event === 'need-satisfaction-rating-updated') {
+        checkInsStore.modifyRating({
+          attributes: data.rating as NeedSatisfactionRating,
+        });
+      }
+    },
   },
-});
+);
 </script>

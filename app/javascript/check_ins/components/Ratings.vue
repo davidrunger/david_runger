@@ -23,62 +23,48 @@
 button.btn-primary.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { range } from 'lodash-es';
-import { mapState } from 'pinia';
-import { defineComponent, PropType } from 'vue';
+import { storeToRefs } from 'pinia';
+import { PropType } from 'vue';
 
 import { useCheckInsStore } from '@/check_ins/store';
 import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
 
 import EmojiButton from './EmojiButton.vue';
 
-export default defineComponent({
-  components: {
-    EmojiButton,
+const props = defineProps({
+  editable: {
+    type: Boolean,
+    required: true,
   },
-
-  props: {
-    editable: {
-      type: Boolean,
-      required: true,
-    },
-    needSatisfactionRatings: {
-      type: Array as PropType<Array<NeedSatisfactionRating>>,
-      required: true,
-    },
-    ratedUser: {
-      type: String,
-      required: true,
-    },
+  needSatisfactionRatings: {
+    type: Array as PropType<Array<NeedSatisfactionRating>>,
+    required: true,
   },
-
-  data() {
-    return {
-      checkInsStore: useCheckInsStore(),
-      RATINGS_RANGE: range(-3, 4) as Array<Rating>,
-    };
-  },
-
-  computed: {
-    ...mapState(useCheckInsStore, ['submitted']),
-  },
-
-  methods: {
-    graphLink(needSatisfactionRating: NeedSatisfactionRating) {
-      return this.$routes.history_emotional_need_path(
-        needSatisfactionRating.emotional_need.id,
-        { rated_user: this.ratedUser },
-      );
-    },
-
-    async submitCheckIn() {
-      await this.checkInsStore.submitCheckIn();
-      // refresh page to load spouse's answers (if available)
-      window.location.reload();
-    },
+  ratedUser: {
+    type: String,
+    required: true,
   },
 });
+
+const checkInsStore = useCheckInsStore();
+const RATINGS_RANGE = range(-3, 4) as Array<Rating>;
+
+const { submitted } = storeToRefs(checkInsStore);
+
+function graphLink(needSatisfactionRating: NeedSatisfactionRating) {
+  return window.Routes.history_emotional_need_path(
+    needSatisfactionRating.emotional_need.id,
+    { rated_user: props.ratedUser },
+  );
+}
+
+async function submitCheckIn() {
+  await checkInsStore.submitCheckIn();
+  // refresh page to load spouse's answers (if available)
+  window.location.reload();
+}
 </script>
 
 <style scoped>
