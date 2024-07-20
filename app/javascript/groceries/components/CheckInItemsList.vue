@@ -66,8 +66,8 @@ export default defineComponent({
       if (item.aboutToMoveTo) {
         return {
           'in-cart': 'bg-green-300',
-          'needed': 'bg-orange-200',
-          'skipped': 'bg-red-400',
+          needed: 'bg-orange-200',
+          skipped: 'bg-red-400',
         }[item.aboutToMoveTo];
       }
     },
