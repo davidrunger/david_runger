@@ -1,6 +1,7 @@
 import { JsonBroadcast } from '@/shared/types';
 
 export interface Item {
+  aboutToMoveTo?: 'needed' | 'in-cart' | 'skipped' | null;
   id: number;
   in_cart?: boolean;
   name: string;
