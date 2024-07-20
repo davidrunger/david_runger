@@ -41,6 +41,11 @@ import { useGroceriesStore } from '@/groceries/store';
 import { Item } from '@/groceries/types';
 
 const MOVE_TIMEOUT = 500;
+const MOVING_TO_STATUS_TO_CLASS_MAP = {
+  'in-cart': 'bg-green-300',
+  needed: 'bg-orange-200',
+  skipped: 'bg-red-400',
+};
 const CLEAR_BACKGROUND_COLOR_TIMEOUT = 1200;
 
 export default defineComponent({
@@ -64,11 +69,7 @@ export default defineComponent({
   methods: {
     aboutToMoveToClass(item: Item) {
       if (item.aboutToMoveTo) {
-        return {
-          'in-cart': 'bg-green-300',
-          needed: 'bg-orange-200',
-          skipped: 'bg-red-400',
-        }[item.aboutToMoveTo];
+        return MOVING_TO_STATUS_TO_CLASS_MAP[item.aboutToMoveTo];
       }
     },
 
