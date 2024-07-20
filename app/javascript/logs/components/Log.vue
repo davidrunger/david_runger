@@ -88,8 +88,15 @@ import { storeToRefs } from 'pinia';
 import { computed, h, nextTick, ref } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
+import { useBootstrap } from '@/lib/composables/useBootstrap';
 import { useLogsStore } from '@/logs/store';
-import type { Bootstrap, Log, LogDataType, LogEntry, LogShare } from '@/logs/types';
+import type {
+  Bootstrap,
+  Log,
+  LogDataType,
+  LogEntry,
+  LogShare,
+} from '@/logs/types';
 import * as RoutesType from '@/rails_assets/routes';
 import { useModalStore } from '@/shared/modal/store';
 
@@ -99,7 +106,6 @@ import IntegerTimeseries from './data_renderers/IntegerTimeseries.vue';
 import TextLog from './data_renderers/TextLog.vue';
 import LogReminderScheduleForm from './LogReminderScheduleForm.vue';
 import NewLogEntryForm from './NewLogEntryForm.vue';
-import { useBootstrap } from '@/lib/composables/useBootstrap';
 
 declare const Routes: typeof RoutesType;
 
@@ -229,7 +235,6 @@ function savePubliclyViewableChange(newPubliclyViewableState: boolean) {
 function showInput() {
   inputVisible.value = true;
   nextTick(() => {
-    console.log('SHOWING INPUT!');
     (saveTagInput.value as unknown as typeof ElInput).$refs.input.focus();
   });
 }
