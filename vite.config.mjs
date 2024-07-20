@@ -8,7 +8,7 @@ import FullReload from 'vite-plugin-full-reload';
 import RubyPlugin from 'vite-plugin-ruby';
 
 export default defineConfig({
-  logLevel: 'warn',
+  logLevel: process.env.CI ? 'warn' : undefined,
   plugins: [
     FullReload([
       'app/assets/stylesheets/**/*',
