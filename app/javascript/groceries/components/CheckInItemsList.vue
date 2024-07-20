@@ -74,6 +74,8 @@ export default defineComponent({
     },
 
     skip(item: Item) {
+      if (item.aboutToMoveTo) return;
+
       item.aboutToMoveTo = 'skipped';
 
       setTimeout(() => {
@@ -86,6 +88,8 @@ export default defineComponent({
     },
 
     toggleItemInCart(item: Item) {
+      if (item.aboutToMoveTo) return;
+
       item.aboutToMoveTo = item.in_cart ? 'needed' : 'in-cart';
 
       setTimeout(() => {
@@ -98,6 +102,8 @@ export default defineComponent({
     },
 
     unskip(item: Item) {
+      if (item.aboutToMoveTo) return;
+
       item.aboutToMoveTo = 'needed';
 
       setTimeout(() => {
