@@ -23,6 +23,8 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'quizzes*.js' => (123..133),
     'styles*.css' => (9..19),
     'turbo*.js' => (90..100),
+    'vue_playground*.css' => (0..10),
+    'vue_playground*.js' => (80..90),
     'workout*.css' => (93..103),
     'workout*.js' => (395..405),
   }.freeze
