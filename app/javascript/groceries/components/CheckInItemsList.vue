@@ -6,10 +6,12 @@ section(v-if="items.length > 0")
     li.flex.items-center.break-word.mb-2(
       v-for='item in items'
       :key='item.id'
+      :class='aboutToMoveToClass(item)'
     )
       input(
         type='checkbox'
-        v-model='item.in_cart'
+        :checked='item.in_cart'
+        @change='toggleItemInCart(item)'
         :disabled='item.skipped'
         :id='`trip-checkin-item-${item.id}`'
       )
@@ -38,6 +40,9 @@ import { defineComponent, PropType } from 'vue';
 import { useGroceriesStore } from '@/groceries/store';
 import { Item } from '@/groceries/types';
 
+const MOVE_TIMEOUT = 500;
+const CLEAR_BACKGROUND_COLOR_TIMEOUT = 1200;
+
 export default defineComponent({
   props: {
     items: {
@@ -57,12 +62,50 @@ export default defineComponent({
   },
 
   methods: {
+    aboutToMoveToClass(item: Item) {
+      if (item.aboutToMoveTo) {
+        return {
+          'in-cart': 'bg-green-300',
+          'needed': 'bg-orange-200',
+          'skipped': 'bg-red-400',
+        }[item.aboutToMoveTo];
+      }
+    },
+
     skip(item: Item) {
-      this.groceriesStore.skipItem({ item });
+      item.aboutToMoveTo = 'skipped';
+
+      setTimeout(() => {
+        this.groceriesStore.skipItem({ item });
+      }, MOVE_TIMEOUT);
+
+      setTimeout(() => {
+        item.aboutToMoveTo = null;
+      }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
+    },
+
+    toggleItemInCart(item: Item) {
+      item.aboutToMoveTo = item.in_cart ? 'needed' : 'in-cart';
+
+      setTimeout(() => {
+        item.in_cart = !item.in_cart;
+      }, MOVE_TIMEOUT);
+
+      setTimeout(() => {
+        item.aboutToMoveTo = null;
+      }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
     },
 
     unskip(item: Item) {
-      this.groceriesStore.unskipItem({ item });
+      item.aboutToMoveTo = 'needed';
+
+      setTimeout(() => {
+        this.groceriesStore.unskipItem({ item });
+      }, MOVE_TIMEOUT);
+
+      setTimeout(() => {
+        item.aboutToMoveTo = null;
+      }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
     },
   },
 });
@@ -73,5 +116,9 @@ export default defineComponent({
 .el-button.el-button.is-link {
   padding: 0;
   vertical-align: unset;
+}
+
+li {
+  transition: all 0.15s ease-out;
 }
 </style>
