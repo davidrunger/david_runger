@@ -7,12 +7,12 @@ button.bg-slate-200(
   span(v-else) {{ratingValue}}
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { sample } from 'lodash-es';
-import { defineComponent, PropType } from 'vue';
+import { computed, type PropType } from 'vue';
 
 import { useCheckInsStore } from '@/check_ins/store';
-import { NeedSatisfactionRating, Rating } from '@/check_ins/types';
+import type { NeedSatisfactionRating, Rating } from '@/check_ins/types';
 import { assert } from '@/shared/helpers';
 
 const EMOJIS = new Map([
@@ -25,49 +25,39 @@ const EMOJIS = new Map([
   [3, ['🥰', '😍', '🤩', '😇', '🥳']],
 ]);
 
-export default defineComponent({
-  props: {
-    editable: {
-      type: Boolean,
-      default: true,
-    },
-    needSatisfactionRating: {
-      type: Object as PropType<NeedSatisfactionRating>,
-      required: true,
-    },
-    ratingValue: {
-      type: Number as PropType<Rating>,
-      required: true,
-    },
+const props = defineProps({
+  editable: {
+    type: Boolean,
+    default: true,
   },
-
-  data() {
-    return {
-      checkInsStore: useCheckInsStore(),
-    };
+  needSatisfactionRating: {
+    type: Object as PropType<NeedSatisfactionRating>,
+    required: true,
   },
-
-  computed: {
-    emoji(): string {
-      return assert(sample(EMOJIS.get(this.ratingValue)));
-    },
-
-    selected(): boolean {
-      return this.needSatisfactionRating.score === this.ratingValue;
-    },
-  },
-
-  methods: {
-    handleClick() {
-      if (this.editable) {
-        this.checkInsStore.updateRating({
-          needSatisfactionRating: this.needSatisfactionRating,
-          attributes: { score: this.ratingValue },
-        });
-      }
-    },
+  ratingValue: {
+    type: Number as PropType<Rating>,
+    required: true,
   },
 });
+
+const checkInsStore = useCheckInsStore();
+
+const emoji = computed((): string => {
+  return assert(sample(EMOJIS.get(props.ratingValue)));
+});
+
+const selected = computed((): boolean => {
+  return props.needSatisfactionRating.score === props.ratingValue;
+});
+
+function handleClick() {
+  if (props.editable) {
+    checkInsStore.updateRating({
+      needSatisfactionRating: props.needSatisfactionRating,
+      attributes: { score: props.ratingValue },
+    });
+  }
+}
 </script>
 
 <style lang="scss" scoped>
