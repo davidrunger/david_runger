@@ -7,7 +7,7 @@
       v-model='store.name'
       @blur='stopEditingAndUpdateStoreName()'
       @keydown.enter='stopEditingAndUpdateStoreName()'
-      ref='store-name-input'
+      ref='storeNameInput'
     )
     span(v-if='!editingName') {{ store.name }}
     a.edit-store.js-link.text-neutral-400.ml-2(@click='editStoreName')
@@ -30,7 +30,7 @@
       placeholder='Member phone number: 619-867-5309'
       v-model='store.notes'
       @blur='stopEditingAndUpdateStoreNotes()'
-      ref='store-notes-input'
+      ref='storeNotesInput'
     )
     p.whitespace-pre-wrap(v-else)
       | {{store.notes || 'No notes yet'}}
@@ -42,7 +42,7 @@
       el-input.item-name-input(
         placeholder='Add an item'
         type='text'
-        v-model='newItemName'
+        v-model='formData.newItemName'
         name='newItemName'
       )
     .ml-2
@@ -121,187 +121,168 @@
         ) Done
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-import { mapState } from 'pinia';
+import { storeToRefs } from 'pinia';
 import Toastify from 'toastify-js';
-import { defineComponent, PropType } from 'vue';
+import { computed, reactive, ref, toRefs, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
-import { Item as ItemType, Store } from '@/groceries/types';
+import type { Item as ItemType, Store } from '@/groceries/types';
 import { useModalStore } from '@/shared/modal/store';
 
 import CheckInItemsList from './CheckInItemsList.vue';
 import CheckInStoreList from './CheckInStoreList.vue';
 import Item from './Item.vue';
 
-export default defineComponent({
-  components: {
-    CheckInItemsList,
-    CheckInStoreList,
-    EditIcon,
-    Item,
-  },
-
-  props: {
-    store: {
-      type: Object as PropType<Store>,
-      required: true,
-    },
-  },
-
-  setup: () => ({ v$: useVuelidate() }),
-
-  data() {
-    return {
-      editingName: false,
-      editingNotes: false,
-      groceriesStore: useGroceriesStore(),
-      modalStore: useModalStore(),
-      newItemName: '',
-    };
-  },
-
-  computed: {
-    ...mapState(useGroceriesStore, [
-      'debouncingOrWaitingOnNetwork',
-      'itemsInCart',
-      'neededSkippedCheckInItems',
-      'neededUnskippedCheckInItemsInCart',
-      'neededUnskippedCheckInItemsNotInCart',
-    ]),
-
-    checkInStoreNames(): string {
-      return this.groceriesStore.checkInStores
-        .map((store: Store) => store.name)
-        .join(', ');
-    },
-
-    sortedItems(): ItemType[] {
-      return helpers.sortByName(this.store.items);
-    },
-  },
-
-  methods: {
-    editStoreName() {
-      this.editingName = true;
-      // wait a tick for input to render, then focus it
-      setTimeout(this.focusStoreNameInput);
-    },
-
-    editStoreNotes() {
-      this.editingNotes = true;
-      // wait a tick for input to render, then focus it
-      setTimeout(this.focusStoreNotesInput);
-    },
-
-    focusStoreNameInput(callsAlready = 0) {
-      if (!this.editingName) return;
-
-      const storeNameInput = this.$refs['store-name-input'] as HTMLInputElement;
-      if (storeNameInput) {
-        storeNameInput.focus();
-      } else if (callsAlready < 20) {
-        // the storeNameInput hasn't had time to render yet; retry later
-        setTimeout(() => {
-          this.focusStoreNameInput(callsAlready + 1);
-        }, 50);
-      }
-    },
-
-    focusStoreNotesInput(callsAlready = 0) {
-      if (!this.editingNotes) return;
-
-      const storeNotesInput = this.$refs[
-        'store-notes-input'
-      ] as HTMLInputElement;
-      if (storeNotesInput) {
-        storeNotesInput.focus();
-      } else if (callsAlready < 20) {
-        // the storeNotesInput hasn't had time to render yet; retry later
-        setTimeout(() => {
-          this.focusStoreNotesInput(callsAlready + 1);
-        }, 50);
-      }
-    },
-
-    handleTripCheckinModalSubmit() {
-      this.groceriesStore.zeroItemsInCart();
-      this.modalStore.hideModal({ modalName: 'check-in-shopping-trip' });
-    },
-
-    initializeTripCheckIn() {
-      this.groceriesStore.addCheckInStore({
-        store: this.groceriesStore.currentStore as Store,
-      });
-      this.modalStore.showModal({ modalName: 'check-in-shopping-trip' });
-    },
-
-    manageCheckInStores() {
-      this.modalStore.showModal({ modalName: 'manage-check-in-stores' });
-    },
-
-    postNewItem() {
-      this.groceriesStore
-        .createItem({
-          store: this.store,
-          itemAttributes: {
-            name: this.newItemName,
-          },
-        })
-        .catch(async ({ response }: { response: Response }) => {
-          this.groceriesStore.decrementPendingRequests();
-          const { errors } = await response.json();
-          for (const errorMessage of errors) {
-            Toastify({
-              text: errorMessage,
-              className: 'error',
-              position: 'center',
-              duration: 2500,
-            }).showToast();
-          }
-        });
-      this.newItemName = '';
-    },
-
-    stopEditingAndUpdateStoreName() {
-      this.editingName = false;
-      this.groceriesStore.updateStore({
-        store: this.store,
-        attributes: {
-          name: this.store.name,
-        },
-      });
-    },
-
-    stopEditingAndUpdateStoreNotes() {
-      this.editingNotes = false;
-      this.groceriesStore.updateStore({
-        store: this.store,
-        attributes: {
-          notes: this.store.notes,
-        },
-      });
-    },
-
-    togglePrivacy() {
-      this.groceriesStore.updateStore({
-        store: this.store,
-        attributes: {
-          private: !this.store.private,
-        },
-      });
-    },
-  },
-
-  validations() {
-    return {
-      newItemName: { required },
-    };
+const props = defineProps({
+  store: {
+    type: Object as PropType<Store>,
+    required: true,
   },
 });
+
+const { store } = toRefs(props);
+
+const vuelidateRules = {
+  newItemName: { required },
+};
+const formData = reactive({
+  newItemName: '',
+});
+const v$ = useVuelidate(vuelidateRules, formData);
+
+const editingName = ref(false);
+const editingNotes = ref(false);
+const storeNameInput = ref(null);
+const storeNotesInput = ref(null);
+const groceriesStore = useGroceriesStore();
+const modalStore = useModalStore();
+
+const {
+  debouncingOrWaitingOnNetwork,
+  neededSkippedCheckInItems,
+  neededUnskippedCheckInItemsInCart,
+  neededUnskippedCheckInItemsNotInCart,
+} = storeToRefs(groceriesStore);
+
+const checkInStoreNames = computed((): string => {
+  return groceriesStore.checkInStores
+    .map((store: Store) => store.name)
+    .join(', ');
+});
+
+const sortedItems = computed((): ItemType[] => {
+  return helpers.sortByName(store.value.items);
+});
+
+function editStoreName() {
+  editingName.value = true;
+  // wait a tick for input to render, then focus it
+  setTimeout(focusStoreNameInput);
+}
+
+function editStoreNotes() {
+  editingNotes.value = true;
+  // wait a tick for input to render, then focus it
+  setTimeout(focusStoreNotesInput);
+}
+
+function focusStoreNameInput(callsAlready = 0) {
+  if (!editingName.value) return;
+
+  if (storeNameInput.value) {
+    (storeNameInput.value as HTMLInputElement).focus();
+  } else if (callsAlready < 20) {
+    // the storeNameInput hasn't had time to render yet; retry later
+    setTimeout(() => {
+      focusStoreNameInput(callsAlready + 1);
+    }, 50);
+  }
+}
+
+function focusStoreNotesInput(callsAlready = 0) {
+  if (!editingNotes.value) return;
+
+  if (storeNotesInput.value) {
+    (storeNotesInput.value as HTMLInputElement).focus();
+  } else if (callsAlready < 20) {
+    // the storeNotesInput hasn't had time to render yet; retry later
+    setTimeout(() => {
+      focusStoreNotesInput(callsAlready + 1);
+    }, 50);
+  }
+}
+
+function handleTripCheckinModalSubmit() {
+  groceriesStore.zeroItemsInCart();
+  modalStore.hideModal({ modalName: 'check-in-shopping-trip' });
+}
+
+function initializeTripCheckIn() {
+  groceriesStore.addCheckInStore({
+    store: groceriesStore.currentStore as Store,
+  });
+  modalStore.showModal({ modalName: 'check-in-shopping-trip' });
+}
+
+function manageCheckInStores() {
+  modalStore.showModal({ modalName: 'manage-check-in-stores' });
+}
+
+function postNewItem() {
+  groceriesStore
+    .createItem({
+      store: store.value,
+      itemAttributes: {
+        name: formData.newItemName,
+      },
+    })
+    .catch(async ({ response }: { response: Response }) => {
+      groceriesStore.decrementPendingRequests();
+      const { errors } = await response.json();
+      for (const errorMessage of errors) {
+        Toastify({
+          text: errorMessage,
+          className: 'error',
+          position: 'center',
+          duration: 2500,
+        }).showToast();
+      }
+    });
+  formData.newItemName = '';
+}
+
+function stopEditingAndUpdateStoreName() {
+  editingName.value = false;
+  groceriesStore.updateStore({
+    store: store.value,
+    attributes: {
+      name: store.value.name,
+    },
+  });
+}
+
+function stopEditingAndUpdateStoreNotes() {
+  editingNotes.value = false;
+  groceriesStore.updateStore({
+    store: store.value,
+    attributes: {
+      notes: store.value.notes,
+    },
+  });
+}
+
+function togglePrivacy() {
+  groceriesStore.updateStore({
+    store: store.value,
+    attributes: {
+      private: !store.value.private,
+    },
+  });
+}
 </script>
 
 <style lang="scss" scoped>
