@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   form.px-2(
-    @submit.prevent='postNewLogEntry(newLogEntryData)'
+    @submit.prevent='postNewLogEntry(formData.newLogEntryData)'
     :class='log.data_type'
   )
     .mb-2(v-if='isCounter')
@@ -14,15 +14,15 @@ div
       .container
         el-input.new-log-input.mb-2(
           :placeholder='log.data_label'
-          v-model='newLogEntryData'
+          v-model='formData.newLogEntryData'
           name='log.data_label'
-          ref='log-input'
+          ref='logInput'
           :type='inputType'
         )
     div(:class='{"mt-2": isText}')
       el-date-picker(
         :class='{"mb-2": isNumeric}'
-        v-model='newLogEntryCreatedAt'
+        v-model='formData.newLogEntryCreatedAt'
         type='datetime'
         placeholder='Backdate (optional)'
       )
@@ -30,7 +30,7 @@ div
         :class='{"mb-2": isNumeric}'
         v-if='isDuration || isNumber'
         placeholder='Note (optional)'
-        v-model='newLogEntryNote'
+        v-model='formData.newLogEntryNote'
         type='text'
       )
       el-button(
@@ -39,119 +39,114 @@ div
       ) Add
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ElInput } from 'element-plus';
+import { computed, onMounted, reactive, ref, toRefs } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
-import { LogEntryDataValue } from '@/logs/types';
+import type { LogEntryDataValue } from '@/logs/types';
 
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 
-export default {
-  props: {
-    log: {
-      type: Object,
-      required: true,
-    },
+const logInput = ref(null);
+
+const props = defineProps({
+  log: {
+    type: Object,
+    required: true,
   },
+});
 
-  setup: () => ({ v$: useVuelidate() }),
+const { log } = toRefs(props);
 
-  data() {
-    return {
-      logsStore: useLogsStore(),
-      newLogEntryCreatedAt: null as null | string,
-      newLogEntryData: null as null | LogEntryDataValue,
-      newLogEntryNote: null as null | string,
-    };
-  },
-
-  computed: {
-    inputType() {
-      if (this.isText) {
-        return 'textarea';
-      } else if (this.isCounter) {
-        return 'number';
-      } else {
-        return 'text';
-      }
-    },
-
-    isCounter(): boolean {
-      return this.log.data_type === 'counter';
-    },
-
-    isDuration(): boolean {
-      return this.log.data_type === 'duration';
-    },
-
-    isNumber(): boolean {
-      return this.log.data_type === 'number';
-    },
-
-    isNumeric(): boolean {
-      return this.isCounter || this.isDuration || this.isNumber;
-    },
-
-    isText(): boolean {
-      return this.log.data_type === 'text';
-    },
-
-    mostRecentLogEntryValues(): Array<LogEntryDataValue> {
-      if (!this.log.log_entries) return [];
-
-      const mostRecentLogEntryValues = [];
-
-      for (const logEntry of this.log.log_entries.slice().reverse()) {
-        if (mostRecentLogEntryValues.length >= MAX_RECENT_LOG_ENTRY_VALUES)
-          break;
-
-        const value = logEntry.data;
-        const isAlreadyInList = mostRecentLogEntryValues.indexOf(value) !== -1;
-        if (!isAlreadyInList) {
-          mostRecentLogEntryValues.push(value);
-        }
-      }
-
-      return mostRecentLogEntryValues.sort((a, b) => a - b);
-    },
-  },
-
-  mounted() {
-    this.focusLogEntryInput();
-  },
-
-  methods: {
-    focusLogEntryInput() {
-      setTimeout(() => {
-        (this.$refs['log-input'] as typeof ElInput).focus();
-      });
-    },
-
-    async postNewLogEntry(newLogEntryData: LogEntryDataValue | null) {
-      if (newLogEntryData === null) return;
-
-      await this.logsStore.createLogEntry({
-        logId: this.log.id,
-        newLogEntryCreatedAt: this.newLogEntryCreatedAt,
-        newLogEntryData,
-        newLogEntryNote: this.newLogEntryNote,
-      });
-
-      this.newLogEntryCreatedAt = null;
-      this.newLogEntryData = null;
-      this.newLogEntryNote = null;
-    },
-  },
-
-  validations() {
-    return {
-      newLogEntryData: { required },
-    };
-  },
+const vuelidateRules = {
+  newLogEntryData: { required },
 };
+
+const formData = reactive({
+  newLogEntryCreatedAt: null as null | string,
+  newLogEntryData: null as null | LogEntryDataValue,
+  newLogEntryNote: null as null | string,
+});
+
+const v$ = useVuelidate(vuelidateRules, formData);
+
+const logsStore = useLogsStore();
+
+const isCounter = computed((): boolean => {
+  return log.value.data_type === 'counter';
+});
+
+const isDuration = computed((): boolean => {
+  return log.value.data_type === 'duration';
+});
+
+const isNumber = computed((): boolean => {
+  return log.value.data_type === 'number';
+});
+
+const isNumeric = computed((): boolean => {
+  return isCounter.value || isDuration.value || isNumber.value;
+});
+
+const isText = computed((): boolean => {
+  return log.value.data_type === 'text';
+});
+
+const inputType = computed(() => {
+  if (isText.value) {
+    return 'textarea';
+  } else if (isCounter.value) {
+    return 'number';
+  } else {
+    return 'text';
+  }
+});
+
+const mostRecentLogEntryValues = computed((): Array<LogEntryDataValue> => {
+  if (!log.value.log_entries) return [];
+
+  const mostRecentLogEntryValues = [];
+
+  for (const logEntry of log.value.log_entries.slice().reverse()) {
+    if (mostRecentLogEntryValues.length >= MAX_RECENT_LOG_ENTRY_VALUES) break;
+
+    const value = logEntry.data;
+    const isAlreadyInList = mostRecentLogEntryValues.indexOf(value) !== -1;
+    if (!isAlreadyInList) {
+      mostRecentLogEntryValues.push(value);
+    }
+  }
+
+  return mostRecentLogEntryValues.sort((a, b) => a - b);
+});
+
+onMounted(() => {
+  focusLogEntryInput();
+});
+
+function focusLogEntryInput() {
+  setTimeout(() => {
+    (logInput.value as unknown as typeof ElInput).focus();
+  });
+}
+
+async function postNewLogEntry(newLogEntryData: LogEntryDataValue | null) {
+  if (newLogEntryData === null) return;
+
+  await logsStore.createLogEntry({
+    logId: log.value.id,
+    newLogEntryCreatedAt: formData.newLogEntryCreatedAt,
+    newLogEntryData,
+    newLogEntryNote: formData.newLogEntryNote,
+  });
+
+  formData.newLogEntryCreatedAt = null;
+  formData.newLogEntryData = null;
+  formData.newLogEntryNote = null;
+}
 </script>
 
 <style lang="scss" scoped>
