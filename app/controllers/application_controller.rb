@@ -24,6 +24,19 @@ class ApplicationController < ActionController::Base
     with: :user_not_authorized,
   )
 
+  def self.require_admin_user!
+    skip_before_action(:authenticate_user!)
+    before_action(:authenticate_admin_user!)
+
+    class_eval do
+      private
+
+      def pundit_user
+        current_admin_user
+      end
+    end
+  end
+
   def current_user
     if Rails.env.development? && Flipper.enabled?(:automatic_user_login)
       super || User.find_by!(email: 'davidjrunger@gmail.com').tap { |user| sign_in(user) }
