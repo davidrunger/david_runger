@@ -48,35 +48,24 @@ form
     ) Initialize Workout!
 </template>
 
-<script lang="ts">
-import { mapState } from 'pinia';
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
-import { useWorkoutsStore } from '@/workouts/store';
+import { useWorkoutsStore } from '@/workout/store';
+import type { WorkoutPlan } from '@/workout/types';
 
-import { WorkoutPlan } from './types';
+const workoutsStore = useWorkoutsStore();
 
-export default defineComponent({
-  data() {
-    return {
-      workoutsStore: useWorkoutsStore(),
-    };
-  },
+const { workout } = storeToRefs(workoutsStore);
 
-  computed: {
-    ...mapState(useWorkoutsStore, ['workout']),
-
-    typedWorkout(): WorkoutPlan {
-      return this.workout as WorkoutPlan;
-    },
-  },
-
-  methods: {
-    removeExercise(index: number) {
-      this.workout.exercises.splice(index, 1);
-    },
-  },
+const typedWorkout = computed((): WorkoutPlan => {
+  return workout.value as WorkoutPlan;
 });
+
+function removeExercise(index: number) {
+  workout.value.exercises.splice(index, 1);
+}
 </script>
 
 <style>
