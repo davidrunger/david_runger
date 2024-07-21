@@ -25,7 +25,7 @@ const props = defineProps({
 });
 
 const logEntriesToChartData = computed(() => {
-  return sortBy(props.logEntries, ['created_at']).map((logEntry) => ({
+  return sortBy(props.logEntries, 'created_at').map((logEntry) => ({
     x: logEntry.created_at,
     y: logEntry.data,
     note: logEntry.note,

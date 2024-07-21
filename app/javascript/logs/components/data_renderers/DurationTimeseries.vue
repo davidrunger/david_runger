@@ -84,7 +84,7 @@ const CHART_OPTIONS = {
 };
 
 const logEntriesToChartData = computed((): Array<ChartData> => {
-  return sortBy(props.logEntries, ['created_at']).map(
+  return sortBy(props.logEntries, 'created_at').map(
     (logEntry: LogEntry): ChartData => ({
       x: logEntry.created_at,
       y: new Date(
