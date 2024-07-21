@@ -1,7 +1,9 @@
 import { JsonBroadcast } from '@/shared/types';
 
+export type CheckInStatus = 'needed' | 'in-cart' | 'skipped';
+
 export interface Item {
-  aboutToMoveTo?: 'needed' | 'in-cart' | 'skipped' | null;
+  aboutToMoveTo?: CheckInStatus | null;
   id: number;
   in_cart?: boolean;
   name: string;
