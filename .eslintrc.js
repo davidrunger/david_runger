@@ -84,6 +84,7 @@ module.exports = {
     'no-use-before-define': ['error', { functions: false }],
     // https://stackoverflow.com/a/64067915/4009384
     'no-unused-vars': 'off',
+    'object-shorthand': ['error', 'always'],
     'operator-linebreak': 'off',
     quotes: ['warn', 'single', { avoidEscape: true }],
     'require-await': 'error',

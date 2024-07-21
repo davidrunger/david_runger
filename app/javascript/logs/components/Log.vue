@@ -186,7 +186,7 @@ function destroyLastEntry() {
   );
 
   if (confirmation === true) {
-    logsStore.deleteLastLogEntry({ log: log });
+    logsStore.deleteLastLogEntry({ log });
   }
 }
 
@@ -197,7 +197,7 @@ If so, enter the name of this log:
 ${log.name}`);
 
   if (promptResponse === log.name) {
-    logsStore.deleteLog({ log: log });
+    logsStore.deleteLog({ log });
   }
 }
 
@@ -209,7 +209,7 @@ function ensureLogEntriesHaveBeenFetched() {
 
 function handleLogShareDeletion(logShare: LogShare) {
   logsStore.deleteLogShare({
-    log: log,
+    log,
     logShareId: logShare.id,
   });
 }
