@@ -82,9 +82,9 @@ function moveTo(checkInStatus: CheckInStatus) {
 
 function toggleItemInCart() {
   if (props.item.checkInStatus === 'in-cart') {
-    moveTo('needed')
+    moveTo('needed');
   } else {
-    moveTo('in-cart')
+    moveTo('in-cart');
   }
 }
 </script>
