@@ -13,50 +13,34 @@
     ) &times;
 </template>
 
-<script lang="ts">
-import { mapState } from 'pinia';
-import { defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import type { PropType } from 'vue';
 import { LockIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
-import { Store } from '@/groceries/types';
+import type { Store } from '@/groceries/types';
 
-export default defineComponent({
-  name: 'StoreListEntry',
-
-  components: {
-    LockIcon,
-  },
-
-  props: {
-    store: {
-      required: true,
-      type: Object as PropType<Store>,
-    },
-  },
-
-  data() {
-    return {
-      groceriesStore: useGroceriesStore(),
-    };
-  },
-
-  computed: {
-    ...mapState(useGroceriesStore, ['currentStore']),
-  },
-
-  methods: {
-    destroyStore(store: Store) {
-      const confirmation = window.confirm(
-        `Are you sure that you want to delete the ${store.name} store and all of its items?`,
-      );
-
-      if (confirmation === true) {
-        this.groceriesStore.deleteStore({ store });
-      }
-    },
+defineProps({
+  store: {
+    required: true,
+    type: Object as PropType<Store>,
   },
 });
+
+const groceriesStore = useGroceriesStore();
+
+const { currentStore } = storeToRefs(groceriesStore);
+
+function destroyStore(store: Store) {
+  const confirmation = window.confirm(
+    `Are you sure that you want to delete the ${store.name} store and all of its items?`,
+  );
+
+  if (confirmation === true) {
+    groceriesStore.deleteStore({ store });
+  }
+}
 </script>
 
 <style lang="scss" scoped>

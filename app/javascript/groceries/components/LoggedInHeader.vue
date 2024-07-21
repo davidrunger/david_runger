@@ -12,23 +12,12 @@ el-menu
       el-menu-item(index='1-3') Sign Out
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-import { Bootstrap } from '@/groceries/types';
+<script setup lang="ts">
+import type { Bootstrap } from '@/groceries/types';
+import { useBootstrap } from '@/lib/composables/useBootstrap';
 import { signOut } from '@/lib/sign_out';
 
-export default defineComponent({
-  data() {
-    return {
-      currentUser: (this.$bootstrap as Bootstrap).current_user,
-    };
-  },
-
-  methods: {
-    signOut,
-  },
-});
+const currentUser = (useBootstrap() as Bootstrap).current_user
 </script>
 
 <style lang="scss" scoped>

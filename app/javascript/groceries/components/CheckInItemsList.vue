@@ -34,11 +34,11 @@ section(v-if="items.length > 0")
         ) Skip
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+import type { PropType } from 'vue';
 
 import { useGroceriesStore } from '@/groceries/store';
-import { Item } from '@/groceries/types';
+import type { Item } from '@/groceries/types';
 
 const MOVE_TIMEOUT = 500;
 const MOVING_TO_STATUS_TO_CLASS_MAP = {
@@ -48,74 +48,66 @@ const MOVING_TO_STATUS_TO_CLASS_MAP = {
 };
 const CLEAR_BACKGROUND_COLOR_TIMEOUT = 1200;
 
-export default defineComponent({
-  props: {
-    items: {
-      type: Array as PropType<Array<Item>>,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
+defineProps({
+  items: {
+    type: Array as PropType<Array<Item>>,
+    required: true,
   },
-
-  data() {
-    return {
-      groceriesStore: useGroceriesStore(),
-    };
-  },
-
-  methods: {
-    aboutToMoveToClass(item: Item) {
-      if (item.aboutToMoveTo) {
-        return MOVING_TO_STATUS_TO_CLASS_MAP[item.aboutToMoveTo];
-      }
-    },
-
-    skip(item: Item) {
-      if (item.aboutToMoveTo) return;
-
-      item.aboutToMoveTo = 'skipped';
-
-      setTimeout(() => {
-        this.groceriesStore.skipItem({ item });
-      }, MOVE_TIMEOUT);
-
-      setTimeout(() => {
-        item.aboutToMoveTo = null;
-      }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
-    },
-
-    toggleItemInCart(item: Item) {
-      if (item.aboutToMoveTo) return;
-
-      item.aboutToMoveTo = item.in_cart ? 'needed' : 'in-cart';
-
-      setTimeout(() => {
-        item.in_cart = !item.in_cart;
-      }, MOVE_TIMEOUT);
-
-      setTimeout(() => {
-        item.aboutToMoveTo = null;
-      }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
-    },
-
-    unskip(item: Item) {
-      if (item.aboutToMoveTo) return;
-
-      item.aboutToMoveTo = 'needed';
-
-      setTimeout(() => {
-        this.groceriesStore.unskipItem({ item });
-      }, MOVE_TIMEOUT);
-
-      setTimeout(() => {
-        item.aboutToMoveTo = null;
-      }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
-    },
+  title: {
+    type: String,
+    required: true,
   },
 });
+
+const groceriesStore = useGroceriesStore();
+
+function aboutToMoveToClass(item: Item) {
+  if (item.aboutToMoveTo) {
+    return MOVING_TO_STATUS_TO_CLASS_MAP[item.aboutToMoveTo];
+  }
+}
+
+function skip(item: Item) {
+  if (item.aboutToMoveTo) return;
+
+  item.aboutToMoveTo = 'skipped';
+
+  setTimeout(() => {
+    groceriesStore.skipItem({ item });
+  }, MOVE_TIMEOUT);
+
+  setTimeout(() => {
+    item.aboutToMoveTo = null;
+  }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
+}
+
+function toggleItemInCart(item: Item) {
+  if (item.aboutToMoveTo) return;
+
+  item.aboutToMoveTo = item.in_cart ? 'needed' : 'in-cart';
+
+  setTimeout(() => {
+    item.in_cart = !item.in_cart;
+  }, MOVE_TIMEOUT);
+
+  setTimeout(() => {
+    item.aboutToMoveTo = null;
+  }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
+}
+
+function unskip(item: Item) {
+  if (item.aboutToMoveTo) return;
+
+  item.aboutToMoveTo = 'needed';
+
+  setTimeout(() => {
+    groceriesStore.unskipItem({ item });
+  }, MOVE_TIMEOUT);
+
+  setTimeout(() => {
+    item.aboutToMoveTo = null;
+  }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
+}
 </script>
 
 <style lang="scss">
