@@ -7,11 +7,14 @@ document.addEventListener('click', (event: MouseEvent) => {
     const textToCopy = target.getAttribute('data-clipboard-text');
 
     if (textToCopy) {
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        toast(`Copied '${textToCopy}' to clipboard.`);
-      }).catch(() => {
-        toast('Something went wrong.', { type: 'error' });
-      });
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          toast(`Copied '${textToCopy}' to clipboard.`);
+        })
+        .catch(() => {
+          toast('Something went wrong.', { type: 'error' });
+        });
     }
   }
 });
