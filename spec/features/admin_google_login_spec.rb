@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Logging in as an AdminUser via Google auth' do
   before { MockOmniAuth.google_oauth2(email: stubbed_admin_user_email) }
 

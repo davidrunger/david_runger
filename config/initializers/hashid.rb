@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Hashid::Rails.configure do |config|
   config.salt = Rails.application.credentials.hashid_salt
   # we'll only use lowercase letters (default setting is to use capitals, as well)

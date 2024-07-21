@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe TruncateTables do
   subject(:worker) { TruncateTables.new }
 

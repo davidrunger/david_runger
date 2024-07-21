@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 def populate_banned_path_fragments
   %w[
     administrator

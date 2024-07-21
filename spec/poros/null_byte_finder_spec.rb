@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe NullByteFinder do
   subject(:null_byte_finder) { NullByteFinder.new(object) }
 

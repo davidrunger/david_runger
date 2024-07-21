@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe UrlsAtUrl do
   subject(:urls_at_url) { UrlsAtUrl.new(page_url) }
 

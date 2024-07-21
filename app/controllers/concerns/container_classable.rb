@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ContainerClassable
   extend ActiveSupport::Concern
 

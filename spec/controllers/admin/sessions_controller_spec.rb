@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Admin::SessionsController do
   describe '#new' do
     subject(:get_new) { get(:new) }

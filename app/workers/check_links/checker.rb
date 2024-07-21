@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CheckLinks::Checker
   prepend MemoWise
   prepend ApplicationWorker

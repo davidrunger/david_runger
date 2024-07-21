@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
   context 'when OmniAuth test mode is enabled and OmniAuth is mocked' do
     before do

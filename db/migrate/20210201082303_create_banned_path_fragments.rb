@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require Rails.root.join('db/datamigrate/populate_banned_path_fragments.rb')
 
 class CreateBannedPathFragments < ActiveRecord::Migration[6.1]

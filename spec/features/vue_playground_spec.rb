@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Vue Playground', :prerendering_disabled do
   subject(:visit_vue_playground_path) { visit vue_playground_path }
 

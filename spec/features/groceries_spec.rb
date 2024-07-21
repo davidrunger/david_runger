@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Groceries app' do
   let(:user) { users(:user) }
 

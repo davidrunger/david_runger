@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe RequestRecordable, :without_verifying_authorization do
   controller(ApplicationController) do
     def index

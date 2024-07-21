@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class QuizQuestionAnswerSelections::Create < ApplicationAction
   requires :quiz_participation, QuizParticipation
   requires :params, ActionController::Parameters

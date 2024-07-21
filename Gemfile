@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ruby file: '.ruby-version'
 
 source 'https://rubygems.org'
@@ -20,6 +18,7 @@ gem 'faraday-multipart'
 gem 'flipper'
 gem 'flipper-redis'
 gem 'flipper-ui'
+gem 'freezolite'
 gem 'haml'
 gem 'haml-rails'
 gem 'hashid-rails'

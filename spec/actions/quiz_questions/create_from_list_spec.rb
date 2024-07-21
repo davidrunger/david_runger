@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe QuizQuestions::CreateFromList do
   subject(:action) { QuizQuestions::CreateFromList.new!(action_inputs) }
 

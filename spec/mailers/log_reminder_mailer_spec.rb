@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe LogReminderMailer do
   describe '#reminder' do
     subject(:mail) { LogReminderMailer.reminder(log.id) }

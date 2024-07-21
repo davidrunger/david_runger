@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe DataMonitorMailer do
   describe '#expectation_not_met' do
     subject(:mail) do

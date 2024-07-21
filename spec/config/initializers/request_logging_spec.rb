@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'request logging', type: :controller do
   describe HomeController do
     context 'when request_id somehow is not set' do

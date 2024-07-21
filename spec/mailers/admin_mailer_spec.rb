@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe AdminMailer do
   describe '#broken_link' do
     subject(:mail) do

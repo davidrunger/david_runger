@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Test::Tasks::CompileJavaScript < Pallets::Task
   include Test::TaskHelpers
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class QuizQuestionPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve

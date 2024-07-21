@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DataMonitors::HomeIndexRequests < DataMonitors::Base
   prepend MemoWise
   prepend ApplicationWorker

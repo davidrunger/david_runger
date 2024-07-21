@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe IpBlock do
   subject(:ip_block) { IpBlock.new }
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe BannedPathFragment do
   subject(:banned_path_fragment) { BannedPathFragment.new }
 

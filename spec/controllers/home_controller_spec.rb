@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe HomeController do
   describe '#upgrade_browser' do
     subject(:get_upgrade_browser) { get(:upgrade_browser) }

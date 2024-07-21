@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe RedisOptions do
   describe '#url' do
     subject(:url) { redis_options.url }

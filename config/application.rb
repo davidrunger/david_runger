@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'boot'
 
 require 'rails'
@@ -18,8 +16,10 @@ require 'sprockets/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require 'freezolite/auto'
+
 module DavidRunger
-  CANONICAL_DOMAIN = 'davidrunger.com'
+  CANONICAL_DOMAIN = 'davidrunger.com'.freeze
 
   class << self
     def canonical_url(path)

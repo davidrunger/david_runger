@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe SaveRequest do
   subject(:worker) { SaveRequest.new }
 

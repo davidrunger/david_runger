@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class NeedSatisfactionRatings::Update < ApplicationAction
   requires :need_satisfaction_rating, NeedSatisfactionRating
   requires :attributes, Hash

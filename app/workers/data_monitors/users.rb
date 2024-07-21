@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DataMonitors::Users < DataMonitors::Base
   prepend ApplicationWorker
 

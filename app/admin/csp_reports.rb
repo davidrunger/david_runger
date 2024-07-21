@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register(CspReport) do
   decorate_with CspReportDecorator
   menu parent: 'Admin'

@@ -16,3 +16,6 @@ AllCops:
   <% `git status --ignored --porcelain`.lines.grep(/^!! /).each do |path| %>
     - <%= path.sub(/^!! /, '').sub(/\/$/, '/**/*').rstrip %>
   <% end %>
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never

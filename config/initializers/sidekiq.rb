@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Sidekiq.strict_args!
 
 # We'll give Sidekiq db 1 (by default). The app uses db 0 for its direct uses.

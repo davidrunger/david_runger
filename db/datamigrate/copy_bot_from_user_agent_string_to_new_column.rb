@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 def backfill_requests_bot_column
   Request.find_each do |request|
     user_agent = request.user_agent

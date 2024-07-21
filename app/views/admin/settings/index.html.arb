@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 table_for(settings, class: 'index_table index') do
   column(:name) { |setting| link_to(setting.name, admin_settings_show_path(name: setting.name)) }
   column :type

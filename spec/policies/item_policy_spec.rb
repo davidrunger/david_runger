@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(ItemPolicy) do
   subject(:policy) { ItemPolicy.new(user, item) }
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Items::BulkUpdate::Create < ApplicationAction
   BULK_UPDATABLE_ATTRIBUTES = %w[needed].map(&:freeze).freeze
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register_page('Graphs') do
   menu parent: 'Admin'
 

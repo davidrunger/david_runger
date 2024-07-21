@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateWeightLogs < ActiveRecord::Migration[5.2]
   def change
     create_table :weight_logs do |t|

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe IpBlocks::StoreRequestBlockInRedis do
   subject(:store_request_block_action) do
     IpBlocks::StoreRequestBlockInRedis.new(store_request_block_params)

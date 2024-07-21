@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DisablePgStatStatementsExtension < ActiveRecord::Migration[6.1]
   def up
     ApplicationRecord.connection.execute('DROP EXTENSION IF EXISTS pg_stat_statements CASCADE;')

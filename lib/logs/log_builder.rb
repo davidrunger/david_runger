@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Logs::LogBuilder
   # these params are logged already or unimportant
   OMITTED_PARAMS = %w[controller action format].map(&:freeze).freeze

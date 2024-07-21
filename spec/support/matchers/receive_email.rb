@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Define a custom matcher because the `receive_inbound_email` one provided by `rspec-rails` is
 # broken. (It still references a `match_to_mailbox` method that's been deleted from Action Mailbox.)
 RSpec::Matchers.define(:receive_email) do |email_options|

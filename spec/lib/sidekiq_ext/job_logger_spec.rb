@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe SidekiqExt::JobLogger do
   subject(:logger) { SidekiqExt::JobLogger.new(Sidekiq.default_configuration) }
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe RepliesMailbox do
   let(:to_email) { 'reply@mg.davidrunger.com' }
   let(:from_email) { user.email }

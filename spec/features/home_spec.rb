@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Home page', :prerendering_disabled do
   it 'says "David Runger / Full stack web developer"' do
     visit root_path

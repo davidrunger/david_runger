@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe User do
   subject(:user) { users(:user) }
 

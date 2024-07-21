@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe ApplicationWorker do
   before do
     stub_const('StubbedTestJob', Class.new)

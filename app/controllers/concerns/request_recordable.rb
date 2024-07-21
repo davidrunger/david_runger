@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module RequestRecordable
   extend ActiveSupport::Concern
   prepend MemoWise

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Test::Tasks::RunBrakeman < Pallets::Task
   include Test::TaskHelpers
 

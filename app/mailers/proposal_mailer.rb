@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ProposalMailer < ApplicationMailer
   def proposal_created(proposer_id, proposee_email)
     @proposer = User.find(proposer_id)

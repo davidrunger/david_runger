@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'lograge'
 require 'lograge/rails_ext/action_cable/connection/base'
 

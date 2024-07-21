@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'site ownership verification', :rack_test_driver do
   describe 'Google' do
     it 'responds with the Google site verification code' do

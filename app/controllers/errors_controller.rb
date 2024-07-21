@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Inspired by https://www.marcelofossrj.com/recipe/2019/04/14/custom-errors.html
 class ErrorsController < ApplicationController
   skip_before_action :authenticate_user!

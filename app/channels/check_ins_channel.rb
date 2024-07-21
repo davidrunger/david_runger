@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CheckInsChannel < ApplicationCable::Channel
   def subscribed
     marriage = current_user.marriage.presence!

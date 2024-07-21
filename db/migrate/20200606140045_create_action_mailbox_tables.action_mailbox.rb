@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This migration comes from action_mailbox (originally 20180917164000)
 class CreateActionMailboxTables < ActiveRecord::Migration[6.0]
   def change

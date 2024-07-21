@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Logs app' do
   let(:user) { users(:user) }
 

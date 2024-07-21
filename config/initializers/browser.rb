@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.configuration.middleware.use(Browser::Middleware) do
   if !BrowserSupportChecker.new(browser).supported?
     http_method = request.env['REQUEST_METHOD']

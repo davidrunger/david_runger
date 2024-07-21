@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Admin asset sizes' do
   subject(:visit_admin_asset_sizes) { visit('/admin/asset_sizes') }
 

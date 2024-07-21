@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe ErrorsController do
   describe '#not_found' do
     subject(:get_not_found) { get(:not_found) }

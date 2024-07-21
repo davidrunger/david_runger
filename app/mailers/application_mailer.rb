@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ApplicationMailer < ActionMailer::Base
   # https://boringrails.com/articles/writing-better-action-mailers/
   prepend_view_path 'app/views/mailers'

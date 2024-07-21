@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Api::StoresController < ApplicationController
   before_action :set_store, only: %i[destroy update]
 

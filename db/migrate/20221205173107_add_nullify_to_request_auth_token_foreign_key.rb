@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddNullifyToRequestAuthTokenForeignKey < ActiveRecord::Migration[7.0]
   def change
     revert { add_foreign_key :requests, :auth_tokens }

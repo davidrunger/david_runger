@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Timeseries do
   subject(:timeseries) { Timeseries[timeseries_name] }
 

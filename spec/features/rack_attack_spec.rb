@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Rack::Attack', :rack_test_driver do
   context 'when Rails cacheing is enabled/functional & Rack::Attack uses the Rails cache', :cache do
     around do |spec|

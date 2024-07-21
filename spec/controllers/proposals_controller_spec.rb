@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(ProposalsController) do
   describe '#accept' do
     subject(:get_accept) { get(:accept, params:) }

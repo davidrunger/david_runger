@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SpecHelpers
   def json_response
     JSON(response.body)

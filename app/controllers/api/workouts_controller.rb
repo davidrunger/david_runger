@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Api::WorkoutsController < ApplicationController
   def create
     authorize(Workout)

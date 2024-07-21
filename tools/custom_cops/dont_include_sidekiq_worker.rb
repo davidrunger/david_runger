@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Style/ClassAndModuleChildren
 module CustomCops
   class DontIncludeSidekiqWorker < RuboCop::Cop::Base
@@ -7,7 +5,7 @@ module CustomCops
 
     MSG =
       'Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` ' \
-      'or `include Sidekiq::Job`'
+      'or `include Sidekiq::Job`'.freeze
 
     def_node_matcher :including_sidekiq_worker?, <<~PATTERN
       (send ... :include (const (const ... :Sidekiq) ${:Worker :Job}))

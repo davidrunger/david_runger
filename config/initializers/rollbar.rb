@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rollbar.configure do |config|
   code_version = ENV.fetch('GIT_REV', nil)
 

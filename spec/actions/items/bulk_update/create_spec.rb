@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(Items::BulkUpdate::Create) do
   subject(:action) { Items::BulkUpdate::Create.new!(items:, attributes_change:) }
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AdminApplicationPolicy < ApplicationPolicy
   def index?
     # Generally, any logged-in AdminUser should be able to access an index action.

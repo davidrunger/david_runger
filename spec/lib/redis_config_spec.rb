@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe RedisConfig do
   describe '::add' do # rubocop:disable Style/IpAddresses
     subject(:add) { RedisConfig.add(key_name, type) }

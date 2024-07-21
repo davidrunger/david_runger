@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe('Rack::Attack') do
   describe '::blocked_path?' do
     subject(:blocked_path?) { Rack::Attack.blocked_path?(request) }

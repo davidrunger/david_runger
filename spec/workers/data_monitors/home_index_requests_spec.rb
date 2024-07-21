@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe DataMonitors::HomeIndexRequests do
   subject(:worker) { DataMonitors::HomeIndexRequests.new }
 

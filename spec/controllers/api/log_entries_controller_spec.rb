@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Api::LogEntriesController do
   before { sign_in(user) }
 

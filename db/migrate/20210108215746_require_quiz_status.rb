@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RequireQuizStatus < ActiveRecord::Migration[6.1]
   def change
     # rubocop:disable Rails/ReversibleMigration

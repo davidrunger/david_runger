@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddIndexOnSmsRecordsNexmoId < ActiveRecord::Migration[6.0]
   disable_ddl_transaction!
 

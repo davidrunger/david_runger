@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddReminderColumnsToLogs < ActiveRecord::Migration[6.1]
   def change
     add_column :logs, :reminder_time_in_seconds, :integer, comment: <<~COMMENT.squish

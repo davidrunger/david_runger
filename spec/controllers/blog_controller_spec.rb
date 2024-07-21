@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(BlogController) do
   context 'when a BLOG_ROOT_URL env var is set' do
     let(:blog_host_url) { 'https://my-blog.static-host.com' }

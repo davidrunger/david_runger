@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(ApplicationCable::Channel) do
   subject(:channel) { ApplicationCable::Channel.new(connection, :current_user) }
 

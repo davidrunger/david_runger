@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Logs::LogFormatter < Lograge::Formatters::KeyValue
   def initialize(data)
     controller = data.delete(:controller) # e.g. 'Api::LogEntriesController'

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Flipper web UI', :rack_test_driver do
   subject(:visit_flipper_web_ui) { visit('/flipper') }
 

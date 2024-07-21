@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe QuizQuestionAnswerSelection do
   context 'when a participant has not yet answered a question' do
     before { question.answer_selections.where(participation:).find_each(&:destroy!) }

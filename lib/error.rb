@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Errors created via `MyErrorClass.new('a message')` don't have a backtrace.
 # This enables conveniently creating errors w/ a backtrace:
 #

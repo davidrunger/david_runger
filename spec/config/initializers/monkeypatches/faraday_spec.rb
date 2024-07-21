@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(Faraday) do
   describe '::json_connection' do
     subject(:json_connection) { Faraday.json_connection }

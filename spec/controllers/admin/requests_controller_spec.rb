@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Admin::RequestsController do
   let(:admin_user) { admin_users(:admin_user) }
 

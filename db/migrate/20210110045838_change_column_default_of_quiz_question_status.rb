@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ChangeColumnDefaultOfQuizQuestionStatus < ActiveRecord::Migration[6.1]
   def up
     change_column_default :quiz_questions, :status, 'open'

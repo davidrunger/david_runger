@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Test ; end
 module Test::Middleware ; end
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateCheckInSubmissions < ActiveRecord::Migration[7.0]
   def change
     create_table :check_in_submissions do |t|

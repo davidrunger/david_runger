@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Api::LogEntriesController < ApplicationController
   def create
     authorize(LogEntry)

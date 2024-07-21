@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe CheckInDecorator do
   subject(:decorated_check_in) { check_in.decorate }
 

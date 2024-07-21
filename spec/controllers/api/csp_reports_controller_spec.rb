@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Api::CspReportsController do
   describe '#create' do
     subject(:post_create) { post(:create, params:) }

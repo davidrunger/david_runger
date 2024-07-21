@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class LogShareMailer < ApplicationMailer
   def log_shared(log_share_id)
     log_share = LogShare.find(log_share_id)

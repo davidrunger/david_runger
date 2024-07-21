@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Api::LogSharesController < ApplicationController
   def create
     authorize(LogShare)

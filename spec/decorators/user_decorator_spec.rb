@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe UserDecorator do
   subject(:decorated_user) { user.decorate }
 

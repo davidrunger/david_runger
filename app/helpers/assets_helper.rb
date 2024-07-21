@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module AssetsHelper
   def admin_ts_tag(pack_name)
     js_file_path =

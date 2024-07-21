@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe ErrorSubscriber do
   subject(:error_subscriber) { ErrorSubscriber.new }
 

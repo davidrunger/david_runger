@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe CheckLinks::Checker do
   subject(:worker) { CheckLinks::Checker.new }
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module MailSpecHelpers
   def mail_from_raw_email_fixture(fixture_name)
     Mail.new(File.read("spec/fixtures/raw_emails/#{fixture_name}.eml"))
