@@ -8,7 +8,7 @@ class CheckInsController < ApplicationController
 
   def index
     authorize(CheckIn)
-    @title = 'Marriage check-ins'
+    @title = 'Check-ins'
     @marriage = current_user.marriage.decorate
     render :index
   end
@@ -21,7 +21,7 @@ class CheckInsController < ApplicationController
 
   def show
     authorize(@check_in, :show?)
-    @title = "Marriage Check-In ##{@check_in.check_in_number}"
+    @title = "Check-In ##{@check_in.check_in_number}"
     bootstrap(show_bootstrap_data)
   end
 
