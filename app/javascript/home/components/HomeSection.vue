@@ -7,34 +7,23 @@
     slot(:title='title')
 </template>
 
-<script lang="ts">
-import { defineComponent, h } from 'vue';
+<script setup lang="ts">
+import SectionHeader from '@/home/components/SectionHeader.vue';
 
 import ScrollHook from './ScrollHook.vue';
 
-export const SectionHeader = (props: { title?: string }) =>
-  h('h1', { class: 'text-3xl font-bold my-4' }, props.title);
-SectionHeader.props = ['title'];
-
-export default defineComponent({
-  components: {
-    ScrollHook,
-    SectionHeader,
+defineProps({
+  renderHeadingManually: {
+    type: Boolean,
+    default: false,
   },
-
-  props: {
-    renderHeadingManually: {
-      type: Boolean,
-      default: false,
-    },
-    section: {
-      type: String,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
+  section: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
   },
 });
 </script>

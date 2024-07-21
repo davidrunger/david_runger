@@ -158,16 +158,7 @@ HomeSection(section='skills', title='Skills')
       )
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import HomeSection from './HomeSection.vue';
 import SkillRow from './SkillRow.vue';
-
-export default defineComponent({
-  components: {
-    HomeSection,
-    SkillRow,
-  },
-});
 </script>

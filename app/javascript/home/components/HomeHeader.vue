@@ -20,7 +20,7 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
     .clearfix.header-height-spacer
     input.menu-toggle(
       type='checkbox'
-      ref='menu-toggle-checkbox'
+      ref='menuToggleCheckbox'
       @click='homeStore.menuOpen = !homeStore.menuOpen'
     )
     .mobile-nav.dvh-100
@@ -37,36 +37,23 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
           NavLink(section='links' linkText='Contact')
 </template>
 
-<script lang="ts">
-import { mapState } from 'pinia';
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
 
 import { useHomeStore } from '@/home/store';
 
 import NavLink from './NavLink.vue';
 
-export default defineComponent({
-  components: {
-    NavLink,
-  },
+const homeStore = useHomeStore();
+const menuToggleCheckbox = ref(null);
 
-  data() {
-    return {
-      homeStore: useHomeStore(),
-    };
-  },
+const { homeIsVisible } = storeToRefs(homeStore);
 
-  computed: {
-    ...mapState(useHomeStore, ['homeIsVisible']),
-  },
-
-  methods: {
-    collapseMobileMenu() {
-      this.homeStore.menuOpen = false;
-      (this.$refs['menu-toggle-checkbox'] as HTMLInputElement).checked = false;
-    },
-  },
-});
+function collapseMobileMenu() {
+  homeStore.menuOpen = false;
+  (menuToggleCheckbox.value as unknown as HTMLInputElement).checked = false;
+}
 </script>
 
 <style lang="scss" scoped>

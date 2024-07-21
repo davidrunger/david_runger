@@ -9,49 +9,45 @@ tr
     span(v-else) {{ details }}
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 
-export default defineComponent({
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    details: {
-      type: String,
-      required: true,
-    },
-    iconIdentifier: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    plainIcon: {
-      type: Boolean,
-      default: true,
-    },
-    coloredIcon: {
-      type: Boolean,
-      default: true,
-    },
-    wordmarkedIcon: {
-      type: Boolean,
-      default: true,
-    },
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
   },
-
-  computed: {
-    devIconClass() {
-      const iconIdentifier = this.iconIdentifier || this.name.toLowerCase();
-      let iconClass = `devicon-${iconIdentifier}`;
-      if (this.plainIcon) iconClass = `${iconClass}-plain`;
-      if (this.wordmarkedIcon) iconClass = `${iconClass}-wordmark`;
-      if (this.coloredIcon) iconClass = `${iconClass} colored`;
-
-      return iconClass;
-    },
+  details: {
+    type: String,
+    required: true,
   },
+  iconIdentifier: {
+    type: String,
+    required: false,
+    default: null,
+  },
+  plainIcon: {
+    type: Boolean,
+    default: true,
+  },
+  coloredIcon: {
+    type: Boolean,
+    default: true,
+  },
+  wordmarkedIcon: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+const devIconClass = computed(() => {
+  const iconIdentifier = props.iconIdentifier || props.name.toLowerCase();
+  let iconClass = `devicon-${iconIdentifier}`;
+  if (props.plainIcon) iconClass = `${iconClass}-plain`;
+  if (props.wordmarkedIcon) iconClass = `${iconClass}-wordmark`;
+  if (props.coloredIcon) iconClass = `${iconClass} colored`;
+
+  return iconClass;
 });
 </script>
 
