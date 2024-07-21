@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Quizzes::Update < ApplicationAction
   requires :quiz, Quiz
   requires :params, ActionController::Parameters

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe DataMonitors::Base do
   subject(:data_monitor) { DataMonitors::Base.new }
 

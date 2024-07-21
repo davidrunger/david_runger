@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe LogShareMailer do
   describe '#log_shared' do
     subject(:mail) { LogShareMailer.log_shared(log_share.id) }

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # this quiets logging of 404s
 # modified from https://github.com/roidrage/lograge/issues/146#issuecomment-255337408
 module QuietRoutingErrorsMonkeypatch

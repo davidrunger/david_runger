@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class LogEntries::Save < ApplicationAction
   requires :log_entry, Shaped::Shapes::All.new(LogEntry, :valid?)
 

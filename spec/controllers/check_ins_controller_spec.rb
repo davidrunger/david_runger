@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe CheckInsController do
   before { sign_in(user) }
 

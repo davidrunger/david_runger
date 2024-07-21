@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 desc 'Build named-routes JavaScript helper script'
 task build_js_routes: :environment do
   require 'js-routes'

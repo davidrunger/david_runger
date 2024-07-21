@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 redis_options = RedisOptions.new
 
 redis_config = RedisClient.config(url: redis_options.url)

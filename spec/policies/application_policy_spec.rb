@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe ApplicationPolicy do
   subject(:policy) { ApplicationPolicy.new(user, workout) }
 

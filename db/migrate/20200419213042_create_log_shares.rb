@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateLogShares < ActiveRecord::Migration[6.1]
   def change
     create_table :log_shares do |t|

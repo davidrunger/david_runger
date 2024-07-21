@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require Rails.root.join('db/datamigrate/convert_weight_logs_to_general_logs')
 
 class CreateTablesForArbitraryLogging < ActiveRecord::Migration[5.2]

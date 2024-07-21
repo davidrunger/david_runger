@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class LogReminderMailer < ApplicationMailer
   def reminder(log_id)
     @log = Log.find(log_id)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 TrackAssetSizes.all_globs.each do |glob|
   measurements = RedisTimeseries[glob].to_h.to_a
   measurements_to_transfer =

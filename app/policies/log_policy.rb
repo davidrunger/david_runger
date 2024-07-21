@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class LogPolicy < ApplicationPolicy
   def show?
     own_record? || log.publicly_viewable? || LogShare.exists?(log:, email: @user.email)

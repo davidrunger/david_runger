@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class FetchIpInfoForRequest
   prepend MemoWise
   prepend ApplicationWorker

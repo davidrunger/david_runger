@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DataMonitorMailer < ApplicationMailer
   def expectation_not_met(check_name, actual_value, expected_range_string, check_run_at)
     @check_name = check_name

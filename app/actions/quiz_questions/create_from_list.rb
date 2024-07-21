@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class QuizQuestions::CreateFromList < ApplicationAction
   class InvalidAnswers < StandardError ; end
 

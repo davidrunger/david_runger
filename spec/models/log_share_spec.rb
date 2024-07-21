@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe LogShare do
   subject(:log_share) { log_shares(:log_share) }
 

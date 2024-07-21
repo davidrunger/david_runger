@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This is a monkeypatch to respect the `redirect_uri` query param in an OAuth flow in tests.
 #
 # If provided in the real OAuth flow, then our `omniauth` gem will pass such a query param to

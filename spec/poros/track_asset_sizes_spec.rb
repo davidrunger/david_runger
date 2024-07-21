@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe TrackAssetSizes do
   subject(:worker) { TrackAssetSizes.new }
 

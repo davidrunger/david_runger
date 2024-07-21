@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CheckInsController < ApplicationController
   self.container_classes = %w[p-8]
 

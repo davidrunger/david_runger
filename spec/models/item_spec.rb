@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Item do
   subject(:item) { items(:item) }
 

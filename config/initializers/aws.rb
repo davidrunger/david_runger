@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Rails/SaveBang
 Aws.config.update(
   credentials: Aws::Credentials.new(

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rubocop'
 require 'rubocop/rspec/support'
 require Rails.root.join('tools/custom_cops/dont_include_sidekiq_worker.rb')

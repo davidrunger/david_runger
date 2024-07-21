@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Users::OmniauthCallbacksController do
   # Make sure that https://nvd.nist.gov/vuln/detail/CVE-2015-9284 is mitigated.
   # Specs borrowed with modification from

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe AuthToken do
   subject(:auth_token) { AuthToken.first! }
 

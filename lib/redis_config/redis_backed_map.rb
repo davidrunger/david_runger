@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RedisConfig::RedisBackedMap
   delegate :[], :key?, :map, to: :memory_store
 

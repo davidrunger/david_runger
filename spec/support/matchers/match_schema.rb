@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec::Matchers.define(:match_schema) do |schema|
   schema_path = "spec/support/schemas/#{schema}.json"
   match do |json|

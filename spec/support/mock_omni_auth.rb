@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module MockOmniAuth
   def self.google_oauth2(email:)
     OmniAuth.config.add_mock(

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class MarriagesController < ApplicationController
   self.container_classes = CheckInsController.container_classes
 

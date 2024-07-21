@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Quizzes app' do
   let(:quiz_owner) { users(:admin) }
   let(:participant) { users(:user) }

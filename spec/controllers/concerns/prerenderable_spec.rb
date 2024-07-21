@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Prerenderable, :without_verifying_authorization do
   before { stub_const('LIVE_RENDERED_PAGE_TEXT', 'Good morning, Vietnam!') }
 

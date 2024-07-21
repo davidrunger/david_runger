@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class QuizQuestionsController < ApplicationController
   before_action :set_quiz_question, only: %i[update]
 

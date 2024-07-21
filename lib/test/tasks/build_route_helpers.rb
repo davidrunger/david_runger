@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Test::Tasks::BuildRouteHelpers < Pallets::Task
   include Test::TaskHelpers
 

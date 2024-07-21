@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Style/MixinUsage
 include FactoryBot::Syntax::Methods
 # rubocop:enable Style/MixinUsage

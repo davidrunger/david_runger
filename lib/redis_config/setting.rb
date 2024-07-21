@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RedisConfig::Setting
   attr_reader :name, :type, :value
 

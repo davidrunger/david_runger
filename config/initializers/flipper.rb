@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Flipper.configure do |config|
   config.default do
     # Use a separate redis DB in test so settings don't mix with development config.

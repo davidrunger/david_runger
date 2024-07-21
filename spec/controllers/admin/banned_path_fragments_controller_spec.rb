@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Admin::BannedPathFragmentsController do
   context 'when logged in as an AdminUser' do
     before { sign_in(admin_users(:admin_user)) }

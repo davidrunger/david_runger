@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(AdminUser) do
   subject(:admin_user) { AdminUser.first! }
 

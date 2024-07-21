@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class BackfillCheckinSubmissions
   Helper = Struct.new(:current_user)
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe SpacedLaunching do
   subject(:worker) { StubbedWorker.new }
 

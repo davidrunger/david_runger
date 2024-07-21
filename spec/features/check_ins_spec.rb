@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Check-Ins app' do
   context 'when user is signed in' do
     before { sign_in(user) }

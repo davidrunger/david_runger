@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Api::Items::BulkUpdatesController < ApplicationController
   before_action :ensure_items_present, only: %i[create]
 

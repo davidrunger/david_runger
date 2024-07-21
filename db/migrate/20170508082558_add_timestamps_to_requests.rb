@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddTimestampsToRequests < ActiveRecord::Migration[5.1]
   def up
     change_table(:requests, &:timestamps)

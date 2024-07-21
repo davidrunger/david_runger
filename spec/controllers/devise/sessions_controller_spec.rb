@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Devise::SessionsController do
   describe '#destroy' do
     subject(:delete_destroy) { delete(:destroy) }

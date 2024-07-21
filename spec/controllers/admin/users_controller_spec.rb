@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Admin::UsersController do
   let(:user) { users(:user) }
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Api::ItemsController < ApplicationController
   before_action :set_item, only: %i[destroy update]
 

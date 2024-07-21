@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(EmojiPickerController) do
   describe '#index' do
     subject(:get_index) { get(:index) }

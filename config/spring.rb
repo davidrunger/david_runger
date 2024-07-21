@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # https://github.com/rails/spring-watcher-listen/issues/15#issuecomment-567603693
 module SpringWatcherListenIgnorer
   def start

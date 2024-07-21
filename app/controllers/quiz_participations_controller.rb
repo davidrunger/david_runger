@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class QuizParticipationsController < ApplicationController
   def create
     authorize(QuizParticipation, :create?)

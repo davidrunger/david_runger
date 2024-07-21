@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe ReplyForwardingMailer do
   describe '#reply_received' do
     subject(:mail) do

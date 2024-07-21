@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Api::NeedSatisfactionRatingsController < ApplicationController
   before_action :set_need_satisfaction_rating, only: %i[update]
 

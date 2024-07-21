@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This Sidekiq worker class converts data that has been stashed in Redis at two stages in the
 # request lifecycle into `Request` records saved to the Postgres database.
 class SaveRequest

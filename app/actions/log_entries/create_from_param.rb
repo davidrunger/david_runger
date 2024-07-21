@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class LogEntries::CreateFromParam < ApplicationAction
   requires :log, Log
   requires :param, String

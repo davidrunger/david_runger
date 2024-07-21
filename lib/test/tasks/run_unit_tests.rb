@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Test::Tasks::RunUnitTests < Pallets::Task
   include Test::TaskHelpers
 

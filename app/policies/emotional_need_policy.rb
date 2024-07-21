@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class EmotionalNeedPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve

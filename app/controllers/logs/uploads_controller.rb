@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Logs::UploadsController < ApplicationController
   def new
     authorize(LogEntry, :new?)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ReplyForwardingMailer < ApplicationMailer
   # rubocop:disable Metrics/ParameterLists
   def reply_received(message_id, from_email, subject, body, is_attachment, has_attachments)

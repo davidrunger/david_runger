@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RepliesMailbox < ApplicationMailbox
   using Refinements::ParsedMailBody
 

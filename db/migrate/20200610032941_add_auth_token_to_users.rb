@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require Rails.root.join('db/datamigrate/set_auth_token_for_users.rb')
 
 class AddAuthTokenToUsers < ActiveRecord::Migration[6.1]

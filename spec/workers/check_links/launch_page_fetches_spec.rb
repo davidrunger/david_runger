@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe CheckLinks::LaunchPageFetches do
   subject(:launch_page_fetches) { CheckLinks::LaunchPageFetches.new }
 

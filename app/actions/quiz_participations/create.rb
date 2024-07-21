@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class QuizParticipations::Create < ApplicationAction
   requires :display_name, String
   requires :quiz, Quiz

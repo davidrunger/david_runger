@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Faraday
   class << self
     def json_connection

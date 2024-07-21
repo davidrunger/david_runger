@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
-
 # Run one of the test steps in our Pallets spec suite.
 
 # Example:

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module PresenceBangMonkeypatch
   def presence!(error_message = nil)
     if present?

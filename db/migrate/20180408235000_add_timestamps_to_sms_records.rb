@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require Rails.root.join('db/datamigrate/set_timestamps_for_old_sms_records')
 
 class AddTimestampsToSmsRecords < ActiveRecord::Migration[5.2]

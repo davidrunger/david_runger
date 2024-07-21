@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe AuthTokensController do
   before { sign_in(user) }
 

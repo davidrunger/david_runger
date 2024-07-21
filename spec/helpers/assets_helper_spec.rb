@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe AssetsHelper do
   describe '#ts_tag' do
     subject(:ts_tag) { helper.ts_tag(pack_name) }

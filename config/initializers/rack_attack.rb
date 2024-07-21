@@ -1,8 +1,6 @@
-# frozen_string_literal: true
-
 class Rack::Attack
   PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_|=}
-  PENTESTERS_PREFIX = 'pentesters-'
+  PENTESTERS_PREFIX = 'pentesters-'.freeze
   PENTESTING_FINDTIME = 1.day.freeze
   WHITELISTED_PATH_PREFIXES = %w[
     /auth/google_oauth2?

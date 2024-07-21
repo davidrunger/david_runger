@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe SidekiqExt::ServerMiddleware::Bullet do
   subject(:middleware_instance) { SidekiqExt::ServerMiddleware::Bullet.new }
 

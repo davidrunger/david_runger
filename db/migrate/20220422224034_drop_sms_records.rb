@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DropSmsRecords < ActiveRecord::Migration[6.1]
   def change
     drop_table(:sms_records) do |t|

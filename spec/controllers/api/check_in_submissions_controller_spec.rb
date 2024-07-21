@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe(Api::CheckInSubmissionsController) do
   let(:check_in) { CheckIn.first! }
   let(:user) { check_in.marriage.partner_1 }

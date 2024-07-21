@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RemoveUnusedIndexes < ActiveRecord::Migration[6.0]
   def change
     # rubocop:disable Rails/ReversibleMigration

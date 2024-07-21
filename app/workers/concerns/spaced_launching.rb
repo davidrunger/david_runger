@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SpacedLaunching
   class ApplicationWorker::MaxSpacingTimeExceeded < StandardError ; end
 

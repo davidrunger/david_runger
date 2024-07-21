@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ApplicationCable::Connection < ActionCable::Connection::Base
   identified_by :current_user
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # much of this is borrowed from https://stackoverflow.com/a/24958513/4009384
 ActiveAdmin.register_page('Settings') do
   menu parent: 'Admin'

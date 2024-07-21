@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Test::Middleware::TaskResultTrackingMiddleware
   class << self
     attr_reader :job_results

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe FetchIpInfoForRequest do
   subject(:worker) { FetchIpInfoForRequest.new }
 

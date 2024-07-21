@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AuthTokens::Create < ApplicationAction
   requires :user, User
 

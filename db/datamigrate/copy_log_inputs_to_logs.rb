@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 def copy_log_inputs_to_logs!
   LogInput.find_each do |log_input|
     log = log_input.log

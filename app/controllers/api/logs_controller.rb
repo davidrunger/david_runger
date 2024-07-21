@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Api::LogsController < ApplicationController
   before_action :set_log, only: %i[destroy update]
 

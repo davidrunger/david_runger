@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe ActiveStorage::Service::NamespacedS3Service do
   subject(:service) do
     ActiveStorage::Service::NamespacedS3Service.new(

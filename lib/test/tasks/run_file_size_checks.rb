@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require Rails.root.join('app/poros/track_asset_sizes.rb')
 
 class Test::Tasks::RunFileSizeChecks < Pallets::Task

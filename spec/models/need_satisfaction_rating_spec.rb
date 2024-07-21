@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe NeedSatisfactionRating do
   subject(:need_satisfaction_rating) { build(:need_satisfaction_rating) }
 

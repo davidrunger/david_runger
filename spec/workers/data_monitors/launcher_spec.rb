@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe DataMonitors::Launcher do
   subject(:worker) { DataMonitors::Launcher.new }
 

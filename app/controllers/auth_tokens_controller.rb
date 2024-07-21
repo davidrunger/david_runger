@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AuthTokensController < ApplicationController
   before_action :set_auth_token, only: %i[destroy update]
 

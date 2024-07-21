@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register_page('Asset Sizes') do
   menu parent: 'Admin'
 

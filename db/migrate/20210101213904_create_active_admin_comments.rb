@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Rails/ReversibleMigrationMethodDefinition
 class CreateActiveAdminComments < ActiveRecord::Migration[6.1]
   def self.up

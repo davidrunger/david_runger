@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AdminMailer < ApplicationMailer
   def broken_link(url, page_source_url, status, expected_statuses)
     @url = url

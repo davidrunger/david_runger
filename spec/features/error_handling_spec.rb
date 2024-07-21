@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe 'Handling exceptions', :rack_test_driver do
   context 'when production-like error handling is in effect', :production_like_error_handling do
     context 'when visiting a path that is not defined' do

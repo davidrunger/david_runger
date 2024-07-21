@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe LogEntriesMailbox do
   let(:to_email) { "log-entries|log/#{log.id}@mg.davidrunger.com" }
   let(:user) { users(:user) }

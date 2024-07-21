@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :assets do
   def run_logged_system_command(command, env_vars = {})
     puts(<<~LOG.squish)
