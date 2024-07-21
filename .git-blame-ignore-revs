@@ -4,3 +4,6 @@ cb2e57260b704c6230d173cb9e901b75531694f0
 
 # Apply Prettier formatting (#4464)
 34eaefc553c57f31247f27aac7abce36df1b034d
+
+# Use freezolite (no more frozen_string_literal comments) [DEV-2] (#4679)
+1bde9063bbb1f097efd4674009d744bb22de6d5c
