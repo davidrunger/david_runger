@@ -43,7 +43,7 @@ div
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ElInput } from 'element-plus';
-import { computed, onMounted, reactive, ref, toRefs } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
 import type { LogEntryDataValue } from '@/logs/types';
@@ -58,8 +58,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-const { log } = toRefs(props);
 
 const vuelidateRules = {
   newLogEntryData: { required },
@@ -76,15 +74,15 @@ const v$ = useVuelidate(vuelidateRules, formData);
 const logsStore = useLogsStore();
 
 const isCounter = computed((): boolean => {
-  return log.value.data_type === 'counter';
+  return props.log.data_type === 'counter';
 });
 
 const isDuration = computed((): boolean => {
-  return log.value.data_type === 'duration';
+  return props.log.data_type === 'duration';
 });
 
 const isNumber = computed((): boolean => {
-  return log.value.data_type === 'number';
+  return props.log.data_type === 'number';
 });
 
 const isNumeric = computed((): boolean => {
@@ -92,7 +90,7 @@ const isNumeric = computed((): boolean => {
 });
 
 const isText = computed((): boolean => {
-  return log.value.data_type === 'text';
+  return props.log.data_type === 'text';
 });
 
 const inputType = computed(() => {
@@ -106,11 +104,11 @@ const inputType = computed(() => {
 });
 
 const mostRecentLogEntryValues = computed((): Array<LogEntryDataValue> => {
-  if (!log.value.log_entries) return [];
+  if (!props.log.log_entries) return [];
 
   const mostRecentLogEntryValues = [];
 
-  for (const logEntry of log.value.log_entries.slice().reverse()) {
+  for (const logEntry of props.log.log_entries.slice().reverse()) {
     if (mostRecentLogEntryValues.length >= MAX_RECENT_LOG_ENTRY_VALUES) break;
 
     const value = logEntry.data;
@@ -137,7 +135,7 @@ async function postNewLogEntry(newLogEntryData: LogEntryDataValue | null) {
   if (newLogEntryData === null) return;
 
   await logsStore.createLogEntry({
-    logId: log.value.id,
+    logId: props.log.id,
     newLogEntryCreatedAt: formData.newLogEntryCreatedAt,
     newLogEntryData,
     newLogEntryNote: formData.newLogEntryNote,
