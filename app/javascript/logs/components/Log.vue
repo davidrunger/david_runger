@@ -43,9 +43,7 @@ div
 
   EditLogSharingSettingsModal
 
-  Modal(name='edit-log-reminder-schedule' width='85%' maxWidth='600px' backgroundClass='bg-black')
-    slot
-      LogReminderScheduleForm(:log='log')
+  EditLogRemindersModal(:log='log')
 </template>
 
 <script setup lang="ts">
@@ -63,8 +61,8 @@ import CounterBarGraph from './data_renderers/CounterBarGraph.vue';
 import DurationTimeseries from './data_renderers/DurationTimeseries.vue';
 import IntegerTimeseries from './data_renderers/IntegerTimeseries.vue';
 import TextLog from './data_renderers/TextLog.vue';
+import EditLogRemindersModal from './EditLogRemindersModal.vue';
 import EditLogSharingSettingsModal from './EditLogSharingSettingsModal.vue';
-import LogReminderScheduleForm from './LogReminderScheduleForm.vue';
 import NewLogEntryForm from './NewLogEntryForm.vue';
 
 declare const Routes: typeof RoutesType;
