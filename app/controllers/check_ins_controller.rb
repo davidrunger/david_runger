@@ -21,7 +21,7 @@ class CheckInsController < ApplicationController
 
   def show
     authorize(@check_in, :show?)
-    @title = "Check-In ##{@check_in.check_in_number}"
+    @title = "Check-in ##{@check_in.check_in_number}"
     bootstrap(show_bootstrap_data)
   end
 
