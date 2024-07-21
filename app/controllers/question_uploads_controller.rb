@@ -10,6 +10,7 @@ class QuestionUploadsController < ApplicationController
   def new
     authorize(QuizQuestion, :new?)
     authorize(@quiz, :show?)
+    @title = 'Upload questions'
   end
 
   def create
