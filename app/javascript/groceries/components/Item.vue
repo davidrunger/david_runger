@@ -21,7 +21,7 @@
       @blur='stopEditingAndUpdateItemName'
       @keydown.enter='stopEditingAndUpdateItemName'
       @keydown.escape='editingName = false;'
-      ref='item-name-input'
+      ref='itemNameInput'
     )
     span.item-name(v-else)
       | {{item.name}}
@@ -37,83 +37,68 @@
   ) ×
 </template>
 
-<script lang="ts">
-import { debounce, noop } from 'lodash-es';
-import { defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+import { debounce } from 'lodash-es';
+import { ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
-import { Item } from '@/groceries/types';
+import type { Item } from '@/groceries/types';
 
-export default defineComponent({
-  components: {
-    EditIcon,
+const props = defineProps({
+  item: {
+    type: Object as PropType<Item>,
+    required: true,
   },
-
-  props: {
-    item: {
-      type: Object as PropType<Item>,
-      required: true,
-    },
-
-    ownStore: {
-      required: true,
-      type: Boolean,
-    },
-  },
-
-  data() {
-    return {
-      debouncedPatchItem: noop,
-      editingName: false,
-      groceriesStore: useGroceriesStore(),
-    };
-  },
-
-  created() {
-    this.debouncedPatchItem = debounce(this.patchItem, 333);
-  },
-
-  methods: {
-    decrement(item: Item) {
-      const newNeededCount = item.needed - 1;
-      if (newNeededCount >= 0) {
-        this.setNeeded(item, newNeededCount);
-      }
-    },
-
-    editItemName() {
-      this.editingName = true;
-      // wait a tick for input to render, then focus it
-      setTimeout(() => {
-        (this.$refs['item-name-input'] as HTMLInputElement).focus();
-      });
-    },
-
-    setNeeded(item: Item, needed: number) {
-      item.needed = needed;
-      this.groceriesStore.setCollectingDebounces({ value: true });
-      this.debouncedPatchItem(item);
-    },
-
-    stopEditingAndUpdateItemName() {
-      if (!this.$refs['item-name-input']) return; // was happening for me in Chrome in development
-
-      this.editingName = false;
-      this.groceriesStore.updateItem({
-        item: this.item,
-        attributes: {
-          name: (this.$refs['item-name-input'] as HTMLInputElement).value,
-        },
-      });
-    },
-
-    patchItem(item: Item) {
-      this.groceriesStore.updateItem({ item, attributes: item });
-      this.groceriesStore.setCollectingDebounces({ value: false });
-    },
+  ownStore: {
+    required: true,
+    type: Boolean,
   },
 });
+
+const editingName = ref(false);
+const groceriesStore = useGroceriesStore();
+const itemNameInput = ref(null);
+
+const debouncedPatchItem = debounce(patchItem, 333);
+
+function decrement(item: Item) {
+  const newNeededCount = item.needed - 1;
+  if (newNeededCount >= 0) {
+    setNeeded(item, newNeededCount);
+  }
+}
+
+function editItemName() {
+  editingName.value = true;
+  // wait a tick for input to render, then focus it
+  setTimeout(() => {
+    (itemNameInput.value as unknown as HTMLInputElement).focus();
+  });
+}
+
+function patchItem(item: Item) {
+  groceriesStore.updateItem({ item, attributes: item });
+  groceriesStore.setCollectingDebounces({ value: false });
+}
+
+function setNeeded(item: Item, needed: number) {
+  item.needed = needed;
+  groceriesStore.setCollectingDebounces({ value: true });
+  debouncedPatchItem(item);
+}
+
+function stopEditingAndUpdateItemName() {
+  if (!itemNameInput.value) return; // was happening for me in Chrome in development
+
+  editingName.value = false;
+  groceriesStore.updateItem({
+    item: props.item,
+    attributes: {
+      name: (itemNameInput.value as HTMLInputElement).value,
+    },
+  });
+}
 </script>
 
 <style lang="scss" scoped>

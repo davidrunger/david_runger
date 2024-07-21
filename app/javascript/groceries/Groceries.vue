@@ -9,108 +9,90 @@
       )
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { Connection } from '@rails/actioncable';
 import Cookies from 'js-cookie';
 import { get } from 'lodash-es';
-import { mapState } from 'pinia';
-import { defineComponent } from 'vue';
+import { storeToRefs } from 'pinia';
+import { onBeforeMount } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
-import { ItemBroadcast } from '@/groceries/types';
-import { IphoneTouchEvent } from '@/shared/types';
+import type { ItemBroadcast } from '@/groceries/types';
+import type { IphoneTouchEvent } from '@/shared/types';
 
 import Sidebar from './components/Sidebar.vue';
 import Store from './components/Store.vue';
 
-interface MonkeypatchableConnection extends Connection {
+interface MonkeypatchedConnection extends Connection {
   installEventHandlers(): void;
 }
 
-export default defineComponent({
-  components: {
-    Sidebar,
-    Store,
-  },
+const groceriesStore = useGroceriesStore();
 
-  data() {
-    return {
-      groceriesStore: useGroceriesStore(),
-    };
-  },
+const { currentStore, debouncingOrWaitingOnNetwork } =
+  storeToRefs(groceriesStore);
 
-  computed: {
-    ...mapState(useGroceriesStore, [
-      'currentStore',
-      'debouncingOrWaitingOnNetwork',
-    ]),
-  },
+onBeforeMount(() => {
+  window.addEventListener('beforeunload', warnIfRequestPending);
 
-  created() {
-    window.addEventListener('beforeunload', this.warnIfRequestPending);
-
-    // https://stackoverflow.com/a/59492869/4009384
-    document.addEventListener(
-      'touchmove',
-      (event) => {
-        if ((event as IphoneTouchEvent).scale !== 1) {
-          event.preventDefault();
-        }
-      },
-      { passive: false },
-    );
-
-    const spouseId = get(window, 'davidrunger.bootstrap.spouse.id');
-    if (spouseId) {
-      // HACK: add on to the installEventHandlers method because it's called when the ActionCable
-      // connection is re-established after having been broken (though it's also called when
-      // first loading the page, which we don't need, so ignore that one)
-      const originalInstallEventHandlers = (
-        actionCableConsumer.connection as MonkeypatchableConnection
-      ).installEventHandlers.bind(actionCableConsumer.connection);
-      let isFirstInstall = true;
-      (
-        actionCableConsumer.connection as MonkeypatchableConnection
-      ).installEventHandlers = () => {
-        if (!isFirstInstall) this.groceriesStore.pullStoreData();
-        isFirstInstall = false;
-        originalInstallEventHandlers();
-      };
-
-      actionCableConsumer.subscriptions.create(
-        {
-          channel: 'GroceriesChannel',
-        },
-        {
-          received: (data: ItemBroadcast) => {
-            if (Cookies.get('browser_uuid') === data.acting_browser_uuid)
-              return;
-
-            if (data.action === 'created') {
-              this.groceriesStore.addItem({ itemData: data.model });
-            } else if (data.action === 'destroyed') {
-              this.groceriesStore.deleteItem({ item: data.model });
-            } else if (data.action === 'updated') {
-              this.groceriesStore.modifyItem({ attributes: data.model });
-            }
-          },
-        },
-      );
-    }
-  },
-
-  methods: {
-    warnIfRequestPending(event: BeforeUnloadEvent) {
-      if (this.debouncingOrWaitingOnNetwork) {
+  // https://stackoverflow.com/a/59492869/4009384
+  document.addEventListener(
+    'touchmove',
+    (event) => {
+      if ((event as IphoneTouchEvent).scale !== 1) {
         event.preventDefault();
-        // Chrome requires returnValue to be set
-        // https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
-        event.returnValue = '';
       }
     },
-  },
+    { passive: false },
+  );
+
+  const spouseId = get(window, 'davidrunger.bootstrap.spouse.id');
+  if (spouseId) {
+    // HACK: add on to the installEventHandlers method because it's called when the ActionCable
+    // connection is re-established after having been broken (though it's also called when
+    // first loading the page, which we don't need, so ignore that one)
+    const originalInstallEventHandlers = (
+      actionCableConsumer.connection as MonkeypatchedConnection
+    ).installEventHandlers.bind(actionCableConsumer.connection);
+    let isFirstInstall = true;
+    (
+      actionCableConsumer.connection as MonkeypatchedConnection
+    ).installEventHandlers = () => {
+      if (!isFirstInstall) groceriesStore.pullStoreData();
+      isFirstInstall = false;
+      originalInstallEventHandlers();
+    };
+
+    actionCableConsumer.subscriptions.create(
+      {
+        channel: 'GroceriesChannel',
+      },
+      {
+        received: (data: ItemBroadcast) => {
+          if (Cookies.get('browser_uuid') === data.acting_browser_uuid) return;
+
+          if (data.action === 'created') {
+            groceriesStore.addItem({ itemData: data.model });
+          } else if (data.action === 'destroyed') {
+            groceriesStore.deleteItem({ item: data.model });
+          } else if (data.action === 'updated') {
+            groceriesStore.modifyItem({ attributes: data.model });
+          }
+        },
+      },
+    );
+  }
 });
+
+function warnIfRequestPending(event: BeforeUnloadEvent) {
+  if (debouncingOrWaitingOnNetwork.value) {
+    event.preventDefault();
+    // Chrome requires returnValue to be set
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
+    event.returnValue = '';
+  }
+}
 </script>
 
 <style lang="scss">
