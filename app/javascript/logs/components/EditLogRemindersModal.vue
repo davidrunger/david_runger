@@ -118,4 +118,9 @@ async function updateLog() {
 input {
   width: 30px;
 }
+
+input,
+select {
+  background: inherit;
+}
 </style>
