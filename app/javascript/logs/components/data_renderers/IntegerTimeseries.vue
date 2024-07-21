@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+import { sortBy } from 'lodash-es';
 import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
@@ -24,7 +25,7 @@ const props = defineProps({
 });
 
 const logEntriesToChartData = computed(() => {
-  return props.logEntries.map((logEntry) => ({
+  return sortBy(props.logEntries, 'created_at').map((logEntry) => ({
     x: logEntry.created_at,
     y: logEntry.data,
     note: logEntry.note,
