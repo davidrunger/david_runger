@@ -126,7 +126,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { storeToRefs } from 'pinia';
 import Toastify from 'toastify-js';
-import { computed, reactive, ref, toRefs, type PropType } from 'vue';
+import { computed, reactive, ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
@@ -143,8 +143,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-const { store } = toRefs(props);
 
 const vuelidateRules = {
   newItemName: { required },
@@ -175,7 +173,7 @@ const checkInStoreNames = computed((): string => {
 });
 
 const sortedItems = computed((): ItemType[] => {
-  return helpers.sortByName(store.value.items);
+  return helpers.sortByName(props.store.items);
 });
 
 function editStoreName() {
@@ -235,7 +233,7 @@ function manageCheckInStores() {
 function postNewItem() {
   groceriesStore
     .createItem({
-      store: store.value,
+      store: props.store,
       itemAttributes: {
         name: formData.newItemName,
       },
@@ -258,9 +256,9 @@ function postNewItem() {
 function stopEditingAndUpdateStoreName() {
   editingName.value = false;
   groceriesStore.updateStore({
-    store: store.value,
+    store: props.store,
     attributes: {
-      name: store.value.name,
+      name: props.store.name,
     },
   });
 }
@@ -268,18 +266,18 @@ function stopEditingAndUpdateStoreName() {
 function stopEditingAndUpdateStoreNotes() {
   editingNotes.value = false;
   groceriesStore.updateStore({
-    store: store.value,
+    store: props.store,
     attributes: {
-      notes: store.value.notes,
+      notes: props.store.notes,
     },
   });
 }
 
 function togglePrivacy() {
   groceriesStore.updateStore({
-    store: store.value,
+    store: props.store,
     attributes: {
-      private: !store.value.private,
+      private: !props.store.private,
     },
   });
 }
