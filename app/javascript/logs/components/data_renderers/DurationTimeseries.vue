@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
+import type { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
 import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
