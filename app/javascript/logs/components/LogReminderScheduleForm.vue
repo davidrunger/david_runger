@@ -35,12 +35,12 @@ div
       ) Close
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import Toastify from 'toastify-js';
-import { defineComponent, PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
-import { Log } from '@/logs/types';
+import type { Log } from '@/logs/types';
 import { useModalStore } from '@/shared/modal/store';
 
 const TIME_UNIT_IN_SECONDS = {
@@ -49,77 +49,67 @@ const TIME_UNIT_IN_SECONDS = {
   hours: 60 * 60,
 };
 
-export default defineComponent({
-  props: {
-    log: {
-      type: Object as PropType<Log>,
-      required: true,
-    },
-  },
-
-  data() {
-    return {
-      logsStore: useLogsStore(),
-      modalStore: useModalStore(),
-      numberOfTimeUnits: null,
-      timeUnit: null,
-    };
-  },
-
-  computed: {
-    formSelectedReminderTimeInSeconds(): number | null {
-      if (!this.numberOfTimeUnits || !this.timeUnit) return null;
-
-      return this.numberOfTimeUnits * TIME_UNIT_IN_SECONDS[this.timeUnit];
-    },
-
-    reminderTimeInHours(): string {
-      return (this.log.reminder_time_in_seconds / (60 * 60)).toFixed();
-    },
-
-    timeUnitOptions() {
-      return Object.keys(TIME_UNIT_IN_SECONDS);
-    },
-  },
-
-  methods: {
-    async cancelReminders() {
-      this.hideReminderSchedulingModal();
-
-      await this.logsStore.updateLog({
-        logId: this.log.id,
-        updatedLogParams: { reminder_time_in_seconds: null },
-      });
-
-      Toastify({
-        text: 'Reminders cancelled!',
-        position: 'center',
-        duration: 1800,
-      }).showToast();
-    },
-
-    hideReminderSchedulingModal() {
-      this.modalStore.hideModal({ modalName: 'edit-log-reminder-schedule' });
-    },
-
-    async updateLog() {
-      this.hideReminderSchedulingModal();
-
-      await this.logsStore.updateLog({
-        logId: this.log.id,
-        updatedLogParams: {
-          reminder_time_in_seconds: this.formSelectedReminderTimeInSeconds,
-        },
-      });
-
-      Toastify({
-        text: 'Reminder time updated!',
-        position: 'center',
-        duration: 1800,
-      }).showToast();
-    },
+const props = defineProps({
+  log: {
+    type: Object as PropType<Log>,
+    required: true,
   },
 });
+
+const logsStore = useLogsStore();
+const modalStore = useModalStore();
+const numberOfTimeUnits = ref(null);
+const timeUnit = ref(null);
+
+const formSelectedReminderTimeInSeconds = computed((): number | null => {
+  if (!numberOfTimeUnits.value || !timeUnit.value) return null;
+
+  return numberOfTimeUnits.value * TIME_UNIT_IN_SECONDS[timeUnit.value];
+});
+
+const reminderTimeInHours = computed((): string => {
+  return (props.log.reminder_time_in_seconds / (60 * 60)).toFixed();
+});
+
+const timeUnitOptions = computed(() => {
+  return Object.keys(TIME_UNIT_IN_SECONDS);
+});
+
+async function cancelReminders() {
+  hideReminderSchedulingModal();
+
+  await logsStore.updateLog({
+    logId: props.log.id,
+    updatedLogParams: { reminder_time_in_seconds: null },
+  });
+
+  Toastify({
+    text: 'Reminders cancelled!',
+    position: 'center',
+    duration: 1800,
+  }).showToast();
+}
+
+function hideReminderSchedulingModal() {
+  modalStore.hideModal({ modalName: 'edit-log-reminder-schedule' });
+}
+
+async function updateLog() {
+  hideReminderSchedulingModal();
+
+  await logsStore.updateLog({
+    logId: props.log.id,
+    updatedLogParams: {
+      reminder_time_in_seconds: formSelectedReminderTimeInSeconds.value,
+    },
+  });
+
+  Toastify({
+    text: 'Reminder time updated!',
+    position: 'center',
+    duration: 1800,
+  }).showToast();
+}
 </script>
 
 <style scoped>

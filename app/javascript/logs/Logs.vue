@@ -7,69 +7,58 @@ div
     router-view(:key='$route.fullPath').m-8
 </template>
 
-<script lang="ts">
-import { mapState } from 'pinia';
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import Toastify from 'toastify-js';
-import { defineComponent } from 'vue';
+import { computed, onMounted } from 'vue';
 
+import { useBootstrap } from '@/lib/composables/useBootstrap';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
 
 import LogSelector from './components/LogSelector.vue';
-import { Bootstrap, CurrentUser } from './types';
+import type { Bootstrap, CurrentUser } from './types';
 
-export default defineComponent({
-  components: {
-    LogSelector,
-  },
+const logsStore = useLogsStore();
+const modalStore = useModalStore();
 
-  data() {
-    return {
-      logsStore: useLogsStore(),
-      modalStore: useModalStore(),
-    };
-  },
+const { isSharedLog, selectedLog } = storeToRefs(logsStore);
 
-  computed: {
-    ...mapState(useLogsStore, ['isSharedLog', 'selectedLog']),
+const currentUser = computed((): CurrentUser => {
+  return (useBootstrap() as Bootstrap).current_user;
+});
 
-    currentUser(): CurrentUser {
-      return (this.$bootstrap as Bootstrap).current_user;
-    },
-  },
+onMounted(() => {
+  if (!isSharedLog.value) {
+    // If we are viewing a specific log, we want to ensure that the log entries for that log are
+    // fetched first, so delay 10ms.
+    // Otherwise (i.e. if viewing index), fetch all entries immediately.
+    const delayBeforeFetchingAllLogs = selectedLog.value ? 10 : 0;
+    setTimeout(() => {
+      logsStore.fetchAllLogEntries();
+    }, delayBeforeFetchingAllLogs);
+  }
 
-  created() {
-    if (!this.isSharedLog) {
-      // If we are viewing a specific log, we want to ensure that the log entries for that log are
-      // fetched first, so delay 10ms.
-      // Otherwise (i.e. if viewing index), fetch all entries immediately.
-      const delayBeforeFetchingAllLogs = this.selectedLog ? 10 : 0;
-      setTimeout(() => {
-        this.logsStore.fetchAllLogEntries();
-      }, delayBeforeFetchingAllLogs);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'k' && event.metaKey === true) {
+      modalStore.showModal({ modalName: 'log-selector' });
     }
+  });
 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'k' && event.metaKey === true) {
-        this.modalStore.showModal({ modalName: 'log-selector' });
-      }
-    });
-
-    // display any initial toast messages
-    const toastMessages = (this.$bootstrap as Bootstrap).toast_messages;
-    if (toastMessages) {
-      for (const message of toastMessages) {
-        Toastify({
-          text: message,
-          position: 'center',
-          duration: 1800,
-        }).showToast();
-      }
+  // display any initial toast messages
+  const toastMessages = (useBootstrap() as Bootstrap).toast_messages;
+  if (toastMessages) {
+    for (const message of toastMessages) {
+      Toastify({
+        text: message,
+        position: 'center',
+        duration: 1800,
+      }).showToast();
     }
+  }
 
-    // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
-    window.history.replaceState({}, document.title, window.location.pathname);
-  },
+  // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
+  window.history.replaceState({}, document.title, window.location.pathname);
 });
 </script>
 

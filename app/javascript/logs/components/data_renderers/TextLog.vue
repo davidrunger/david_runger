@@ -14,46 +14,34 @@
       Show all entries
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+import { computed, ref, type PropType } from 'vue';
 
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
-import { Log, TextLogEntry } from '@/logs/types';
+import type { Log, TextLogEntry } from '@/logs/types';
 
-export default defineComponent({
-  components: {
-    EditableTextLogRow,
+const props = defineProps({
+  log: {
+    type: Object as PropType<Log>,
+    required: true,
   },
-
-  props: {
-    log: {
-      type: Object as PropType<Log>,
-      required: true,
-    },
-    logEntries: {
-      type: Array as PropType<Array<TextLogEntry>>,
-      required: true,
-    },
+  logEntries: {
+    type: Array as PropType<Array<TextLogEntry>>,
+    required: true,
   },
+});
 
-  data() {
-    return {
-      showAllEntries: false,
-    };
-  },
+const showAllEntries = ref(false);
 
-  computed: {
-    sortedLogEntries(): Array<TextLogEntry> {
-      let logEntriesToShow;
-      if (this.showAllEntries || this.logEntries.length <= 3) {
-        logEntriesToShow = this.logEntries;
-      } else {
-        logEntriesToShow = this.logEntries.slice(this.logEntries.length - 3);
-      }
+const sortedLogEntries = computed((): Array<TextLogEntry> => {
+  let logEntriesToShow;
+  if (showAllEntries.value || props.logEntries.length <= 3) {
+    logEntriesToShow = props.logEntries;
+  } else {
+    logEntriesToShow = props.logEntries.slice(props.logEntries.length - 3);
+  }
 
-      return logEntriesToShow.slice().reverse();
-    },
-  },
+  return logEntriesToShow.slice().reverse();
 });
 </script>
 
