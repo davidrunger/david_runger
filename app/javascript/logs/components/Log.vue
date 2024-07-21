@@ -23,11 +23,11 @@ div
       el-button(@click='destroyLastEntry') Delete last entry
     .mt-2
       el-button.multi-line(
-        @click="modalStore.showModal({ modalName: 'edit-log-shared-emails' })"
+        @click="modalStore.showModal({ modalName: 'edit-log-sharing-settings' })"
       )
         div.h4 Sharing settings
         div.h6
-          span(v-if='publiclyViewable') Viewable by any user
+          span(v-if='log.publicly_viewable') Viewable by any user
           span(v-else) Shared with {{log.log_shares.length}} emails
     .mt-2
       el-button.multi-line(
@@ -41,40 +41,7 @@ div
     .mt-2
       el-button(@click='destroyLog') Delete log
 
-  Modal(name='edit-log-shared-emails' width='85%' maxWidth='600px' backgroundClass='bg-black')
-    slot
-      h3.font-bold.mb-4 Sharing
-      div
-        el-checkbox(
-          v-model='publiclyViewable'
-          @change='savePubliclyViewableChange'
-        ) Publicly viewable
-      div(v-if='isOwnLog && !publiclyViewable')
-        el-tag(
-          :key='logShare.email'
-          v-for='logShare in logSharesSortedByLowercasedEmail'
-          closable
-          :disable-transitions='false'
-          @close='handleLogShareDeletion(logShare)'
-        ) {{logShare.email}}
-        el-input(
-          class='input-new-tag'
-          v-if='inputVisible'
-          v-model='inputValue'
-          ref='saveTagInput'
-          @keyup.enter.native='handleLogShareCreation'
-          @blur='handleLogShareCreation'
-        )
-        el-button(v-else class='button-new-tag' size='small' @click='showInput') + Share with email
-      div.mt-2 Shareable link: {{shareableUrl}}
-      div
-        el-button(size='small' @click='copyShareableUrlToClipboard')
-          span(v-if='wasCopiedRecently') Copied!
-          span(v-else) Copy to clipboard
-      div.mt-2
-        a.js-link(
-          @click="modalStore.hideModal({ modalName: 'edit-log-shared-emails' })"
-        ) Close
+  EditLogSharingSettingsModal
 
   Modal(name='edit-log-reminder-schedule' width='85%' maxWidth='600px' backgroundClass='bg-black')
     slot
@@ -83,20 +50,12 @@ div
 
 <script setup lang="ts">
 import { useTitle } from '@vueuse/core';
-import { ElInput } from 'element-plus';
 import { storeToRefs } from 'pinia';
-import { computed, h, nextTick, ref } from 'vue';
+import { computed, h } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
-import { useBootstrap } from '@/lib/composables/useBootstrap';
 import { useLogsStore } from '@/logs/store';
-import type {
-  Bootstrap,
-  Log,
-  LogDataType,
-  LogEntry,
-  LogShare,
-} from '@/logs/types';
+import type { Log, LogDataType, LogEntry } from '@/logs/types';
 import * as RoutesType from '@/rails_assets/routes';
 import { useModalStore } from '@/shared/modal/store';
 
@@ -104,6 +63,7 @@ import CounterBarGraph from './data_renderers/CounterBarGraph.vue';
 import DurationTimeseries from './data_renderers/DurationTimeseries.vue';
 import IntegerTimeseries from './data_renderers/IntegerTimeseries.vue';
 import TextLog from './data_renderers/TextLog.vue';
+import EditLogSharingSettingsModal from './EditLogSharingSettingsModal.vue';
 import LogReminderScheduleForm from './LogReminderScheduleForm.vue';
 import NewLogEntryForm from './NewLogEntryForm.vue';
 
@@ -134,51 +94,18 @@ LogDataDisplay.props = ['dataType', 'log', 'logEntries', 'dataLabel'];
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
 const log = logsStore.unsafeSelectedLog;
-const bootstrap = useBootstrap();
 
 useTitle(`${log.name} - Logs - David Runger`);
 
-const publiclyViewable = ref(log.publicly_viewable);
-const inputVisible = ref(false);
-const inputValue = ref('');
-const wasCopiedRecently = ref(false);
-const saveTagInput = ref(null);
-
 const { isOwnLog } = storeToRefs(logsStore);
-
-const logSharesSortedByLowercasedEmail = computed((): Array<LogShare> => {
-  return log.log_shares
-    .slice()
-    .sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()));
-});
 
 const renderInputAtTop = computed((): boolean => {
   return log.data_type === 'text';
 });
 
-const shareableUrl = computed((): string => {
-  return (
-    window.location.origin +
-    Routes.user_shared_log_path(
-      (bootstrap as Bootstrap).current_user.id,
-      log.slug,
-    )
-  );
-});
-
 const showDeleteLastEntryButton = computed((): boolean => {
   return !['text'].includes(log.data_type);
 });
-
-function copyShareableUrlToClipboard() {
-  navigator.clipboard.writeText(shareableUrl.value);
-
-  wasCopiedRecently.value = true;
-
-  setTimeout(() => {
-    wasCopiedRecently.value = false;
-  }, 1800);
-}
 
 function destroyLastEntry() {
   const confirmation = window.confirm(
@@ -207,38 +134,6 @@ function ensureLogEntriesHaveBeenFetched() {
   }
 }
 
-function handleLogShareDeletion(logShare: LogShare) {
-  logsStore.deleteLogShare({
-    log,
-    logShareId: logShare.id,
-  });
-}
-
-function handleLogShareCreation() {
-  if (inputValue.value) {
-    logsStore.addLogShare({
-      logId: log.id,
-      newLogShareEmail: inputValue.value,
-    });
-  }
-  inputVisible.value = false;
-  inputValue.value = '';
-}
-
-function savePubliclyViewableChange(newPubliclyViewableState: boolean) {
-  logsStore.updateLog({
-    logId: log.id,
-    updatedLogParams: { publicly_viewable: newPubliclyViewableState },
-  });
-}
-
-function showInput() {
-  inputVisible.value = true;
-  nextTick(() => {
-    (saveTagInput.value as unknown as typeof ElInput).$refs.input.focus();
-  });
-}
-
 function subscribeToLogEntriesChannel() {
   actionCableConsumer.subscriptions.create(
     {
@@ -263,16 +158,6 @@ subscribeToLogEntriesChannel();
 <style scoped>
 .description {
   font-weight: 200;
-}
-
-.el-tag:not(:first-of-type),
-.button-new-tag {
-  margin-top: 10px;
-}
-
-.el-tag + .el-tag,
-.el-tag + .button-new-tag {
-  margin-left: 10px;
 }
 
 .el-button {
