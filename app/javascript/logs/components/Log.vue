@@ -61,8 +61,8 @@ import CounterBarGraph from './data_renderers/CounterBarGraph.vue';
 import DurationTimeseries from './data_renderers/DurationTimeseries.vue';
 import IntegerTimeseries from './data_renderers/IntegerTimeseries.vue';
 import TextLog from './data_renderers/TextLog.vue';
-import EditLogSharingSettingsModal from './EditLogSharingSettingsModal.vue';
 import EditLogRemindersModal from './EditLogRemindersModal.vue';
+import EditLogSharingSettingsModal from './EditLogSharingSettingsModal.vue';
 import NewLogEntryForm from './NewLogEntryForm.vue';
 
 declare const Routes: typeof RoutesType;
