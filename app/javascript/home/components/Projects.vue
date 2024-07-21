@@ -315,18 +315,9 @@ HomeSection(section='projects' title='Projects')
 
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import HomeSection from './HomeSection.vue';
 import Project from './Project.vue';
-
-export default defineComponent({
-  components: {
-    HomeSection,
-    Project,
-  },
-});
 </script>
 
 <style>

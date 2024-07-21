@@ -6,16 +6,8 @@ HomeSection.pb-16(
   a.resume-button.block.text-center(href='/David-Runger-Resume.pdf') View Resume (pdf)
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import HomeSection from './HomeSection.vue';
-
-export default defineComponent({
-  components: {
-    HomeSection,
-  },
-});
 </script>
 
 <style lang="scss">

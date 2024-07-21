@@ -25,8 +25,8 @@
   Contact
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { onMounted } from 'vue';
 
 import About from './components/About.vue';
 import Contact from './components/Contact.vue';
@@ -36,43 +36,29 @@ import Projects from './components/Projects.vue';
 import Resume from './components/Resume.vue';
 import Skills from './components/Skills.vue';
 
-export default defineComponent({
-  components: {
-    About,
-    Contact,
-    HomeHero,
-    ParallaxImage,
-    Projects,
-    Resume,
-    Skills,
-  },
-
-  mounted() {
-    this.setScrollToFragmentTimeouts();
-  },
-
-  methods: {
-    setScrollToFragmentTimeouts() {
-      if (window.location.hash) {
-        const fragmentTarget = document.getElementById(
-          window.location.hash.slice(1),
-        );
-        if (fragmentTarget) {
-          // retarget scrolling to the element several times. earlier timeouts are so that we
-          // scroll there as quickly as possible. later timeouts are because adjustments to the DOM
-          // might be changing the scroll position of the target element as the page renders. stop
-          // after 850 ms because at that point the user has a reasonable expectation to have full
-          // control over their scroll position.
-          for (const timeoutMilliseconds of [0, 150, 320, 500, 850]) {
-            setTimeout(() => {
-              fragmentTarget.scrollIntoView();
-            }, timeoutMilliseconds);
-          }
-        }
-      }
-    },
-  },
+onMounted(() => {
+  setScrollToFragmentTimeouts();
 });
+
+function setScrollToFragmentTimeouts() {
+  if (window.location.hash) {
+    const fragmentTarget = document.getElementById(
+      window.location.hash.slice(1),
+    );
+    if (fragmentTarget) {
+      // retarget scrolling to the element several times. earlier timeouts are so that we
+      // scroll there as quickly as possible. later timeouts are because adjustments to the DOM
+      // might be changing the scroll position of the target element as the page renders. stop
+      // after 850 ms because at that point the user has a reasonable expectation to have full
+      // control over their scroll position.
+      for (const timeoutMilliseconds of [0, 150, 320, 500, 850]) {
+        setTimeout(() => {
+          fragmentTarget.scrollIntoView();
+        }, timeoutMilliseconds);
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss">

@@ -5,15 +5,11 @@
   .parallax-inner.parallax-inner--mobile(:class='variant')
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  props: {
-    variant: {
-      type: String,
-      required: true,
-    },
+<script setup lang="ts">
+defineProps({
+  variant: {
+    type: String,
+    required: true,
   },
 });
 </script>

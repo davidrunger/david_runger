@@ -26,21 +26,17 @@
         slot(name='tech-list')
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  props: {
-    imageContainerClass: {
-      type: String,
-      required: false,
-      default: 'mb-8',
-    },
-    linksContainerClass: {
-      type: String,
-      required: false,
-      default: 'mb-4',
-    },
+<script setup lang="ts">
+defineProps({
+  imageContainerClass: {
+    type: String,
+    required: false,
+    default: 'mb-8',
+  },
+  linksContainerClass: {
+    type: String,
+    required: false,
+    default: 'mb-4',
   },
 });
 </script>

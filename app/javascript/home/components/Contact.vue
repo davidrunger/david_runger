@@ -6,14 +6,6 @@ HomeSection(section='links', title='Contact me / Links')
   p #[b Blog:] #[a(href='https://davidrunger.com/blog/') my tech blog]
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import HomeSection from './HomeSection.vue';
-
-export default defineComponent({
-  components: {
-    HomeSection,
-  },
-});
 </script>

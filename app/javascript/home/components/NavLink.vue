@@ -7,40 +7,32 @@ a.nav-link(
   span {{linkText || prettyName}}
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { capitalize } from 'lodash-es';
-import { defineComponent } from 'vue';
+import { computed } from 'vue';
 
 import { useHomeStore } from '@/home/store';
 
-export default defineComponent({
-  props: {
-    linkText: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    section: {
-      type: String,
-      required: true,
-    },
+const props = defineProps({
+  linkText: {
+    type: String,
+    required: false,
+    default: null,
   },
-
-  data() {
-    return {
-      homeStore: useHomeStore(),
-    };
+  section: {
+    type: String,
+    required: true,
   },
+});
 
-  computed: {
-    active(): boolean {
-      return this.homeStore.activeSection === this.section;
-    },
+const homeStore = useHomeStore();
 
-    prettyName(): string {
-      return capitalize(this.section);
-    },
-  },
+const active = computed((): boolean => {
+  return homeStore.activeSection === props.section;
+});
+
+const prettyName = computed((): string => {
+  return capitalize(props.section);
 });
 </script>
 
