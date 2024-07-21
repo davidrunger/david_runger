@@ -4,27 +4,27 @@ li.flex.items-center.break-word.mb-2(
 )
   input(
     type='checkbox'
-    :checked='item.in_cart'
+    :checked="item.checkInStatus === 'in-cart'"
     @change='toggleItemInCart'
-    :disabled='item.skipped'
+    :disabled="item.checkInStatus === 'skipped'"
     :id='`trip-checkin-item-${item.id}`'
   )
   label.ml-2(:for='`trip-checkin-item-${item.id}`')
-    span(:class='{ "text-gray-500": item.skipped }')
+    span(:class='{ "text-gray-500": item.checkInStatus === "skipped" }')
       span {{item.name}}
       span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
     span {{ ' ' }}
     el-button(
-      v-if="item.skipped"
+      v-if="item.checkInStatus === 'skipped'"
       link
       type='primary'
-      @click='unskip'
+      @click="moveTo('needed')"
     ) Unskip
     el-button(
       v-else
       link
       type='primary'
-      @click='skip'
+      @click="moveTo('skipped')"
     ) Skip
 </template>
 
@@ -32,7 +32,7 @@ li.flex.items-center.break-word.mb-2(
 import type { PropType } from 'vue';
 
 import { useGroceriesStore } from '@/groceries/store';
-import type { Item } from '@/groceries/types';
+import type { CheckInStatus, Item } from '@/groceries/types';
 
 const props = defineProps({
   item: {
@@ -57,16 +57,19 @@ function aboutToMoveToClass() {
   }
 }
 
-function skip() {
+function moveTo(checkInStatus: CheckInStatus) {
   if (props.item.aboutToMoveTo) return;
 
   groceriesStore.setItemAboutToMoveTo({
     item: props.item,
-    aboutToMoveTo: 'skipped',
+    aboutToMoveTo: checkInStatus,
   });
 
   setTimeout(() => {
-    groceriesStore.skipItem({ item: props.item });
+    groceriesStore.setItemCheckInStatus({
+      item: props.item,
+      checkInStatus,
+    });
   }, MOVE_TIMEOUT);
 
   setTimeout(() => {
@@ -78,46 +81,11 @@ function skip() {
 }
 
 function toggleItemInCart() {
-  if (props.item.aboutToMoveTo) return;
-
-  groceriesStore.setItemAboutToMoveTo({
-    item: props.item,
-    aboutToMoveTo: props.item.in_cart ? 'needed' : 'in-cart',
-  });
-
-  setTimeout(() => {
-    groceriesStore.setItemInCart({
-      item: props.item,
-      inCart: !props.item.in_cart,
-    });
-  }, MOVE_TIMEOUT);
-
-  setTimeout(() => {
-    groceriesStore.setItemAboutToMoveTo({
-      item: props.item,
-      aboutToMoveTo: null,
-    });
-  }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
-}
-
-function unskip() {
-  if (props.item.aboutToMoveTo) return;
-
-  groceriesStore.setItemAboutToMoveTo({
-    item: props.item,
-    aboutToMoveTo: 'needed',
-  });
-
-  setTimeout(() => {
-    groceriesStore.unskipItem({ item: props.item });
-  }, MOVE_TIMEOUT);
-
-  setTimeout(() => {
-    groceriesStore.setItemAboutToMoveTo({
-      item: props.item,
-      aboutToMoveTo: null,
-    });
-  }, CLEAR_BACKGROUND_COLOR_TIMEOUT);
+  if (props.item.checkInStatus === 'in-cart') {
+    moveTo('needed')
+  } else {
+    moveTo('in-cart')
+  }
 }
 </script>
 

@@ -4,11 +4,10 @@ export type CheckInStatus = 'needed' | 'in-cart' | 'skipped';
 
 export interface Item {
   aboutToMoveTo?: CheckInStatus | null;
+  checkInStatus?: CheckInStatus;
   id: number;
-  in_cart?: boolean;
   name: string;
   needed: number;
-  skipped?: boolean;
   store_id: number;
 }
 

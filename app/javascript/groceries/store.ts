@@ -201,17 +201,14 @@ export const useGroceriesStore = defineStore('groceries', {
       item.aboutToMoveTo = aboutToMoveTo;
     },
 
-    setItemInCart({ item, inCart }: { item: Item; inCart: boolean }) {
-      item.in_cart = inCart;
-    },
-
-    skipItem({ item }: { item: Item }) {
-      item.in_cart = false;
-      item.skipped = true;
-    },
-
-    unskipItem({ item }: { item: Item }) {
-      item.skipped = false;
+    setItemCheckInStatus({
+      item,
+      checkInStatus,
+    }: {
+      item: Item;
+      checkInStatus: CheckInStatus;
+    }) {
+      item.checkInStatus = checkInStatus;
     },
 
     async updateItem({
@@ -262,7 +259,7 @@ export const useGroceriesStore = defineStore('groceries', {
 
       for (const item of items) {
         item.needed = 0;
-        item.in_cart = false;
+        item.checkInStatus = undefined;
       }
     },
   },
@@ -286,7 +283,9 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     itemsInCart(): Array<Item> {
-      return this.neededCheckInItems.filter((item) => item.in_cart);
+      return this.neededCheckInItems.filter(
+        (item) => item.checkInStatus === 'in-cart',
+      );
     },
 
     neededCheckInItems(): Array<Item> {
@@ -299,25 +298,33 @@ export const useGroceriesStore = defineStore('groceries', {
 
     neededSkippedCheckInItems(): Array<Item> {
       return helpers.sortByName(
-        this.neededCheckInItems.filter((item) => item.skipped),
+        this.neededCheckInItems.filter(
+          (item) => item.checkInStatus === 'skipped',
+        ),
       );
     },
 
     neededUnskippedCheckInItems(): Array<Item> {
       return helpers.sortByName(
-        this.neededCheckInItems.filter((item) => !item.skipped),
+        this.neededCheckInItems.filter(
+          (item) => item.checkInStatus !== 'skipped',
+        ),
       );
     },
 
     neededUnskippedCheckInItemsInCart(): Array<Item> {
       return helpers.sortByName(
-        this.neededUnskippedCheckInItems.filter((item) => item.in_cart),
+        this.neededUnskippedCheckInItems.filter(
+          (item) => item.checkInStatus === 'in-cart',
+        ),
       );
     },
 
     neededUnskippedCheckInItemsNotInCart(): Array<Item> {
       return helpers.sortByName(
-        this.neededUnskippedCheckInItems.filter((item) => !item.in_cart),
+        this.neededUnskippedCheckInItems.filter(
+          (item) => item.checkInStatus !== 'in-cart',
+        ),
       );
     },
 
