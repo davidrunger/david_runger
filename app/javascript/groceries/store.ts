@@ -1,7 +1,7 @@
 import { filter, get, last, pick, sortBy } from 'lodash-es';
 import { defineStore } from 'pinia';
 
-import { Bootstrap, Item, Store } from '@/groceries/types';
+import { Bootstrap, CheckInStatus, Item, Store } from '@/groceries/types';
 import { emit } from '@/lib/event_bus';
 import * as RoutesType from '@/rails_assets/routes';
 import { kyApi } from '@/shared/ky';
@@ -189,6 +189,20 @@ export const useGroceriesStore = defineStore('groceries', {
 
     setCollectingDebounces({ value }: { value: boolean }) {
       this.collectingDebounces = value;
+    },
+
+    setItemAboutToMoveTo({
+      item,
+      aboutToMoveTo,
+    }: {
+      item: Item;
+      aboutToMoveTo: CheckInStatus | null;
+    }) {
+      item.aboutToMoveTo = aboutToMoveTo;
+    },
+
+    setItemInCart({ item, inCart }: { item: Item; inCart: boolean }) {
+      item.in_cart = inCart;
     },
 
     skipItem({ item }: { item: Item }) {
