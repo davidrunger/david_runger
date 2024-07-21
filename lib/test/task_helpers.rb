@@ -128,7 +128,7 @@ module Test::TaskHelpers
   end
 
   def job_results
-    if $PROGRAM_NAME.end_with?('bin/run-test-step')
+    if $PROGRAM_NAME.end_with?('bin/run-test-steps')
       # This allows bin/run-test-step to work without the pallets middleware loaded.
       Hash.new { |hash, key| hash[key] = Hash.new { |h, k| h[k] = [] } }
     else

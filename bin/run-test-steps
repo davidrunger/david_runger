@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
 # Run one of the test steps in our Pallets spec suite.
 
-# Example:
-#   bin/run-test-step RunUnitTests
+# Example 1:
+#   bin/run-test-steps RunUnitTests
+#
+# Example 2:
+#   bin/run-test-steps CompileJavaScript RunFileSizeChecks
 
 # https://stackoverflow.com/a/77655338/4009384
 if !defined?(Rails)
@@ -13,4 +16,7 @@ require 'dotenv'
 Dotenv.load('.env', '.env.test', '.env.test.local')
 require 'pallets'
 require './lib/test/runner.rb'
-"Test::Tasks::#{ARGV[0]}".safe_constantize.new.run
+
+ARGV.each do |test_step|
+  "Test::Tasks::#{test_step}".safe_constantize.new.run
+end
