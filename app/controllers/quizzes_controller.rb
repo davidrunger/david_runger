@@ -10,6 +10,7 @@ class QuizzesController < ApplicationController
 
   def index
     authorize(Quiz, :index?)
+    @title = 'Quizzes'
     render :index
   end
 
@@ -25,6 +26,7 @@ class QuizzesController < ApplicationController
 
   def new
     authorize(Quiz, :new?)
+    @title = 'New Quiz'
     @quiz = current_user.quizzes.build
     render :new
   end
