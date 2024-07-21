@@ -14,10 +14,11 @@
         .my-3
           = form.submit('Join the quiz!', class: 'btn-primary')
 
-%p<>
-  Share this page's URL to invite
-  #{@quiz.owned_by_current_user? ? '' : 'other'}
-  participants!
+%p
+  Share this link with others whom you want to participate: #{link_to(request.original_url)}.
+  %button.btn-primary.copy-to-clipboard{data: {clipboard_text: request.original_url}}
+    Copy link to clipboard
+</button>
 
 - if @quiz.owned_by_current_user? && @quiz.questions.exists?
   = form_with(model: @quiz) do |form|
