@@ -40,44 +40,37 @@ div
         ) Create
 </template>
 
-<script lang="ts">
-import { mapState } from 'pinia';
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+import { useBootstrap } from '@/lib/composables/useBootstrap';
 import { useLogsStore } from '@/logs/store';
-import { Bootstrap, LogInputType } from '@/logs/types';
+import type { Bootstrap, LogInputType } from '@/logs/types';
 
-export default defineComponent({
-  data() {
-    return {
-      logsStore: useLogsStore(),
-      newLog: this.newLogGenerator(),
-    };
-  },
+const router = useRouter();
+const logsStore = useLogsStore();
+const newLog = ref(newLogGenerator());
 
-  computed: {
-    ...mapState(useLogsStore, ['postingLog']),
+const { postingLog } = storeToRefs(logsStore);
 
-    logInputTypes(): Array<LogInputType> {
-      return (this.$bootstrap as Bootstrap).log_input_types;
-    },
-  },
-
-  methods: {
-    async createLog() {
-      const log = await this.logsStore.createLog({ log: this.newLog });
-      this.newLog = this.newLogGenerator();
-      this.$router.push({ name: 'log', params: { slug: log.slug } });
-    },
-
-    newLogGenerator() {
-      return {
-        data_label: '',
-        data_type: '',
-        description: '',
-        name: '',
-      };
-    },
-  },
+const logInputTypes = computed((): Array<LogInputType> => {
+  return (useBootstrap() as Bootstrap).log_input_types;
 });
+
+async function createLog() {
+  const log = await logsStore.createLog({ log: newLog.value });
+  newLog.value = newLogGenerator();
+  router.push({ name: 'log', params: { slug: log.slug } });
+}
+
+function newLogGenerator() {
+  return {
+    data_label: '',
+    data_type: '',
+    description: '',
+    name: '',
+  };
+}
 </script>

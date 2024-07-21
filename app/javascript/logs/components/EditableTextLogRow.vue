@@ -3,7 +3,11 @@ tr
   td(v-html='formattedCreatedAt')
 
   td(v-if='editing')
-    el-input(v-model='newPlaintext' type='textarea' ref='textInput')
+    el-input(
+      v-model='newPlaintext'
+      type='textarea'
+      ref='textInput'
+    )
   td.left-align(v-else v-html='html')
 
   td(v-if='editing')
@@ -22,89 +26,78 @@ tr
     ) Delete
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import createDOMPurify from 'dompurify';
 import { ElInput } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
-import { defineComponent, PropType } from 'vue';
+import { computed, ref, watch, type PropType } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
 import type { Log, TextLogEntry } from '@/logs/types';
 
 const DOMPurify = createDOMPurify(window);
 
-export default defineComponent({
-  props: {
-    log: {
-      type: Object as PropType<Log>,
-      required: true,
-    },
-    logEntry: {
-      type: Object as PropType<TextLogEntry>,
-      required: true,
-    },
+const props = defineProps({
+  log: {
+    type: Object as PropType<Log>,
+    required: true,
   },
-
-  data() {
-    return {
-      editing: false,
-      logsStore: useLogsStore(),
-      newPlaintext: this.logEntry.data.slice(),
-    };
-  },
-
-  computed: {
-    formattedCreatedAt(): string {
-      return strftime(
-        '%b %-d, %Y at&nbsp;%-l:%M%P',
-        new Date(this.logEntry.created_at),
-      );
-    },
-
-    html(): string {
-      return DOMPurify.sanitize(
-        marked(this.logEntry.data, { async: false }) as string,
-      );
-    },
-  },
-
-  watch: {
-    editing() {
-      setTimeout(() => {
-        if (this.editing) {
-          (
-            (this.$refs.textInput as typeof ElInput).$el
-              .children[0] as HTMLInputElement
-          ).focus();
-        }
-      }, 0);
-    },
-  },
-
-  methods: {
-    cancelEditing() {
-      this.newPlaintext = this.logEntry.data.slice(); // undo any changes made
-      this.editing = false;
-    },
-
-    destroyLogEntry() {
-      this.logsStore.destroyLogEntry({
-        logEntry: this.logEntry,
-        log: this.log,
-      });
-    },
-
-    async updateLogEntry() {
-      const updatedLogEntryParams = { data: this.newPlaintext };
-      await this.logsStore.updateLogEntry({
-        logEntryId: this.logEntry.id,
-        updatedLogEntryParams,
-      });
-      this.editing = false;
-    },
+  logEntry: {
+    type: Object as PropType<TextLogEntry>,
+    required: true,
   },
 });
+
+const logsStore = useLogsStore();
+const editing = ref(false);
+const textInput = ref(null);
+const newPlaintext = ref(props.logEntry.data.slice());
+
+const formattedCreatedAt = computed((): string => {
+  return strftime(
+    '%b %-d, %Y at&nbsp;%-l:%M%P',
+    new Date(props.logEntry.created_at),
+  );
+});
+
+const html = computed((): string => {
+  return DOMPurify.sanitize(
+    marked(props.logEntry.data, { async: false }) as string,
+  );
+});
+
+watch(editing, () => {
+  setTimeout(() => {
+    if (editing.value) {
+      (
+        (textInput as unknown as typeof ElInput).$el
+          .children[0] as HTMLInputElement
+      ).focus();
+    }
+  }, 0);
+});
+
+function cancelEditing() {
+  newPlaintext.value = props.logEntry.data.slice(); // undo any changes made
+  editing.value = false;
+}
+
+function destroyLogEntry() {
+  logsStore.destroyLogEntry({
+    logEntry: props.logEntry,
+    log: props.log,
+  });
+}
+
+async function updateLogEntry() {
+  const updatedLogEntryParams = { data: newPlaintext.value };
+  await logsStore.updateLogEntry({
+    logEntryId: props.logEntry.id,
+    updatedLogEntryParams,
+  });
+  editing.value = false;
+}
 </script>
 
 <style scoped>

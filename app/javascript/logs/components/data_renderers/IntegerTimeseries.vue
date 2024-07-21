@@ -6,47 +6,39 @@
   )
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
-import { LogEntry } from '@/logs/types';
+import type { LogEntry } from '@/logs/types';
 
-export default defineComponent({
-  components: {
-    LineChart,
+const props = defineProps({
+  dataLabel: {
+    type: String,
+    required: true,
   },
-
-  props: {
-    dataLabel: {
-      type: String,
-      required: true,
-    },
-    logEntries: {
-      type: Array as PropType<Array<LogEntry>>,
-      required: true,
-    },
+  logEntries: {
+    type: Array as PropType<Array<LogEntry>>,
+    required: true,
   },
+});
 
-  computed: {
-    chartMetadata() {
-      return {
-        datasets: [
-          {
-            label: this.dataLabel,
-            data: this.logEntriesToChartData,
-          },
-        ],
-      };
-    },
+const logEntriesToChartData = computed(() => {
+  return props.logEntries.map((logEntry) => ({
+    x: logEntry.created_at,
+    y: logEntry.data,
+    note: logEntry.note,
+  }));
+});
 
-    logEntriesToChartData() {
-      return this.logEntries.map((logEntry) => ({
-        x: logEntry.created_at,
-        y: logEntry.data,
-        note: logEntry.note,
-      }));
-    },
-  },
+const chartMetadata = computed(() => {
+  return {
+    datasets: [
+      {
+        label: props.dataLabel,
+        data: logEntriesToChartData.value,
+      },
+    ],
+  };
 });
 </script>

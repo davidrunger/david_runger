@@ -7,12 +7,12 @@
   )
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
-import { defineComponent, PropType } from 'vue';
+import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
-import { LogEntry } from '@/logs/types';
+import type { LogEntry } from '@/logs/types';
 
 function epochMsToHhMmSs(epochMs: number) {
   return new Date(epochMs)
@@ -46,73 +46,63 @@ type ChartData = {
   note: string | undefined;
 };
 
-export default defineComponent({
-  components: {
-    LineChart,
-  },
-
-  props: {
-    logEntries: {
-      type: Array as PropType<Array<LogEntry>>,
-      required: true,
-    },
-  },
-
-  data() {
-    return {
-      CHART_OPTIONS: {
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label(tooltipItem: TooltipItem<'line'>) {
-                return epochMsToHhMmSs(tooltipItem.parsed.y);
-              },
-            },
-          },
-        },
-        scales: {
-          x: {
-            type: 'time',
-            ticks: {
-              minRotation: 52,
-              source: 'auto',
-            },
-          },
-          y: {
-            afterTickToLabelConversion(axis: Scale<CoreScaleOptions>) {
-              axis.ticks = axis.ticks.map((tick) => ({
-                ...tick,
-                label: epochMsToHhMmSs(tick.value),
-              }));
-            },
-          },
-        },
-      },
-    };
-  },
-
-  computed: {
-    chartMetadata(): { datasets: Array<{ data: Array<ChartData> }> } {
-      return {
-        datasets: [
-          {
-            data: this.logEntriesToChartData,
-          },
-        ],
-      };
-    },
-
-    logEntriesToChartData(): Array<ChartData> {
-      return this.logEntries.map(
-        (logEntry: LogEntry): ChartData => ({
-          x: logEntry.created_at,
-          y: new Date(
-            `1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data as string)}Z`,
-          ),
-          note: logEntry.note,
-        }),
-      );
-    },
+const props = defineProps({
+  logEntries: {
+    type: Array as PropType<Array<LogEntry>>,
+    required: true,
   },
 });
+
+const CHART_OPTIONS = {
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label(tooltipItem: TooltipItem<'line'>) {
+          return epochMsToHhMmSs(tooltipItem.parsed.y);
+        },
+      },
+    },
+  },
+  scales: {
+    x: {
+      type: 'time',
+      ticks: {
+        minRotation: 52,
+        source: 'auto',
+      },
+    },
+    y: {
+      afterTickToLabelConversion(axis: Scale<CoreScaleOptions>) {
+        axis.ticks = axis.ticks.map((tick) => ({
+          ...tick,
+          label: epochMsToHhMmSs(tick.value),
+        }));
+      },
+    },
+  },
+};
+
+const logEntriesToChartData = computed((): Array<ChartData> => {
+  return props.logEntries.map(
+    (logEntry: LogEntry): ChartData => ({
+      x: logEntry.created_at,
+      y: new Date(
+        `1970-01-01T${shortTimeStringToHhMmSsString(logEntry.data as string)}Z`,
+      ),
+      note: logEntry.note,
+    }),
+  );
+});
+
+const chartMetadata = computed(
+  (): { datasets: Array<{ data: Array<ChartData> }> } => {
+    return {
+      datasets: [
+        {
+          data: logEntriesToChartData.value,
+        },
+      ],
+    };
+  },
+);
 </script>
