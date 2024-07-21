@@ -111,6 +111,8 @@ Rails.application.routes.draw do
     to: ->(_env) { [200, {}, ['google-site-verification: google83c07e1014ea4a70.html']] },
   )
 
+  get('sha', to: ->(_env) { [200, {}, [ENV.fetch('GIT_REV').first(8)]] })
+
   get '/404', to: 'errors#not_found', via: :all
   get '/422', to: 'errors#unacceptable', via: :all
   get '/500', to: 'errors#internal_error', via: :all
