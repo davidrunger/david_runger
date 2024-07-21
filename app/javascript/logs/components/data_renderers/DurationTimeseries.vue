@@ -9,6 +9,7 @@
 
 <script setup lang="ts">
 import type { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
+import { sortBy } from 'lodash-es';
 import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
@@ -83,7 +84,7 @@ const CHART_OPTIONS = {
 };
 
 const logEntriesToChartData = computed((): Array<ChartData> => {
-  return props.logEntries.map(
+  return sortBy(props.logEntries, ['created_at']).map(
     (logEntry: LogEntry): ChartData => ({
       x: logEntry.created_at,
       y: new Date(
