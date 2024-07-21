@@ -11,19 +11,19 @@ Bar(
 )
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {
   BarElement,
-  ChartData,
   Chart as ChartJS,
-  ChartOptions,
   LinearScale,
   TimeScale,
   Title,
   Tooltip,
+  type ChartData,
+  type ChartOptions,
 } from 'chart.js';
 import { merge } from 'lodash-es';
-import { defineComponent } from 'vue';
+import { computed } from 'vue';
 import { Bar } from 'vue-chartjs';
 
 ChartJS.register(Title, Tooltip, BarElement, LinearScale, TimeScale);
@@ -43,76 +43,62 @@ const datasetDefaults = {
   ],
 };
 
-export default defineComponent({
-  name: 'BarChart',
-
-  components: { Bar },
-
-  props: {
-    chartData: {
-      type: Object,
-      required: true,
-    },
-    chartId: {
-      type: String,
-      default: 'bar-chart',
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label',
-    },
-    width: {
-      type: Number,
-      default: 400,
-    },
-    height: {
-      type: Number,
-      default: 400,
-    },
-    cssClasses: {
-      default: '',
-      type: String,
-    },
-    styles: {
-      type: Object,
-      default: () => {},
-    },
+const props = defineProps({
+  chartData: {
+    type: Object,
+    required: true,
   },
-
-  data() {
-    return {
-      chartOptions: {
-        responsive: true,
-        scales: {
-          x: merge({}, commonAxisOptions, {
-            offset: true,
-            type: 'time',
-            time: {
-              minUnit: 'day',
-            },
-          }),
-          y: merge({}, commonAxisOptions, {
-            ticks: {
-              min: 0,
-            },
-          }),
-        },
-      } as ChartOptions<'bar'>,
-    };
+  chartId: {
+    type: String,
+    default: 'bar-chart',
   },
+  datasetIdKey: {
+    type: String,
+    default: 'label',
+  },
+  width: {
+    type: Number,
+    default: 400,
+  },
+  height: {
+    type: Number,
+    default: 400,
+  },
+  cssClasses: {
+    default: '',
+    type: String,
+  },
+  styles: {
+    type: Object,
+    default: () => {},
+  },
+});
 
-  computed: {
-    mergedChartData(): ChartData<
+const chartOptions = {
+  responsive: true,
+  scales: {
+    x: merge({}, commonAxisOptions, {
+      offset: true,
+      type: 'time',
+      time: {
+        minUnit: 'day',
+      },
+    }),
+    y: merge({}, commonAxisOptions, {
+      ticks: {
+        min: 0,
+      },
+    }),
+  },
+} as ChartOptions<'bar'>;
+
+const mergedChartData = computed(
+  (): ChartData<'bar', (number | [number, number] | null)[], unknown> => {
+    return merge({}, datasetDefaults, props.chartData) as ChartData<
       'bar',
       (number | [number, number] | null)[],
       unknown
-    > {
-      return merge({}, datasetDefaults, this.chartData) as ChartData<
-        'bar',
-        (number | [number, number] | null)[],
-        unknown
-      >;
-    },
+    >;
   },
-});
+);
 </script>
