@@ -188,5 +188,32 @@ RSpec.describe Refinements::ParsedMailBody do
         expect(parsed_body).to eq(nil)
       end
     end
+
+    context 'when the email body has lines that get split up' do
+      before { RSpec::Mocks.space.proxy_for(mail).reset }
+
+      let(:mail) { mail_from_raw_email_fixture('multiline') }
+
+      it 'parses the email into the correct lines' do
+        parsed_lines = parsed_body.split("\n")
+
+        expect(parsed_lines.size).to eq(3)
+
+        expect(parsed_lines[0]).to eq(<<~LINE.squish)
+          1. my work monitor is working pretty well
+        LINE
+        expect(parsed_lines[1]).to eq(<<~LINE.squish)
+          2. we haven't had any major maintenance issues with the house we're renting
+        LINE
+        expect(parsed_lines[2]).to eq(<<~LINE.squish)
+          3. Mom and Dad came to visit and were very generous with their time and decently generous
+          with their money
+        LINE
+      end
+
+      it 'does not include info about the original email' do
+        expect(parsed_body).not_to include('wrote:')
+      end
+    end
   end
 end
