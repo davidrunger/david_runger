@@ -54,11 +54,11 @@ function resetQuickSelector() {
 
 useSubscription('logs:route-changed', resetQuickSelector);
 
-const showingLogSelector = computed(() => {
+const showingLogSelectorModal = computed(() => {
   return modalStore.showingModal({ modalName: 'log-selector' });
 });
 
-watch(showingLogSelector, () => {
+watch(showingLogSelectorModal, () => {
   // Wait a tick for input to render, then focus it. Autofocus only works once, so we need this.
   setTimeout(() => {
     if (logSearchInput.value) {
