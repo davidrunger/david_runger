@@ -7,6 +7,8 @@ module Refinements::ParsedMailBody
       unparsed_body.sub!(/\A[\s\S]*^Content-Transfer-Encoding:.+\n+/, '')
       # decode quoted-printable encoding
       unparsed_body = unparsed_body.unpack1('M').force_encoding('utf-8')
+      # Clean up "\r\r\n" sequences to "\r\n".
+      unparsed_body.gsub!("\r\r\n", "\r\n")
       # trim content from the end of the body ("On [date/time] [person/email] wrote:[...]")
       trimmed_body = RungerEmailReplyTrimmer.trim(unparsed_body)
       return nil if trimmed_body.nil?
