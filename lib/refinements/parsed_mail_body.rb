@@ -15,16 +15,17 @@ module Refinements::ParsedMailBody
 
       trimmed_body.rstrip.
         # remove newlines that were added just to break up long lines
-        gsub(/\S+\n\S+/) do |match|
-          word_before_newline = match.split("\n").first
+        gsub(/\S+\r?\n\S+/) do |match|
+          word_before_newline = match.split(/\r?\n/).first
           if word_before_newline.in?(words_truly_before_newlines)
             # leave the newline in if the user intends for the word to be followed by a newline
             match
           else
             # otherwise, change the newline to a space (i.e. recombine the wrapped lines)
-            match.tr("\n", ' ')
+            match.gsub(/\r?\n/, ' ')
           end
-        end
+        end.
+        gsub("\r\n", "\n")
     end
 
     private
