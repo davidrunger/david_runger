@@ -3,8 +3,9 @@ div
   header.flex.justify-between.p-2
     div {{currentUser.email}}
   .text-center
-    LogSelector
+    LogSelectorModal
     router-view(:key='$route.fullPath').m-8
+    footer.mb-4 Tip: Super+k will open the log selector.
 </template>
 
 <script setup lang="ts">
@@ -16,7 +17,7 @@ import { useBootstrap } from '@/lib/composables/useBootstrap';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
 
-import LogSelector from './components/LogSelector.vue';
+import LogSelectorModal from './components/LogSelectorModal.vue';
 import type { Bootstrap, CurrentUser } from './types';
 
 const logsStore = useLogsStore();
