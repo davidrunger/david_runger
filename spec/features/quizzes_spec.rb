@@ -1,5 +1,6 @@
 RSpec.describe 'Quizzes app' do
   let(:quiz_owner) { users(:admin) }
+  let(:existing_quiz) { quiz_owner.quizzes.first! }
   let(:participant) { users(:user) }
 
   context 'when user is signed in' do
@@ -94,6 +95,17 @@ RSpec.describe 'Quizzes app' do
       using_session('Quiz participant session') do
         expect(page).to have_text(/✓ ×/, wait: 5)
       end
+    end
+
+    it 'allows destroying a quiz' do
+      visit quizzes_path
+
+      quiz_to_destroy = existing_quiz
+
+      accept_confirm { click_on('Delete') }
+
+      expect(page).to have_text("Destroyed quiz '#{quiz_to_destroy.name}'.")
+      expect(Quiz.find_by(id: quiz_to_destroy.id)).to eq(nil)
     end
   end
 end

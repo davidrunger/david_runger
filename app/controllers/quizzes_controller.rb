@@ -42,6 +42,25 @@ class QuizzesController < ApplicationController
     redirect_to(@quiz)
   end
 
+  def destroy
+    # rubocop:disable Rails/DynamicFindBy
+    @quiz =
+      policy_scope(Quiz).
+        includes(
+          participations: :quiz_question_answer_selections,
+          questions: { answers: :selections },
+        ).
+        find_by_hashid!(params[:id])
+    # rubocop:enable Rails/DynamicFindBy
+    authorize(@quiz)
+
+    @quiz.destroy!
+
+    flash[:notice] = "Destroyed quiz '#{@quiz.name}'."
+
+    redirect_to(quizzes_path)
+  end
+
   def respondents
     authorize(@quiz, :show?)
     render partial: 'quiz_questions/respondents', locals: { question: @quiz.current_question }
@@ -67,6 +86,7 @@ class QuizzesController < ApplicationController
         merge(current_user.quiz_participations).
         find_by_hashid(id_param) ||
       current_user.quizzes.find_by_hashid(id_param) # rubocop:disable Rails/DynamicFindBy
+
     @quiz = quiz.presence!.decorate
   end
 
