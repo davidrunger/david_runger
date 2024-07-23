@@ -1,8 +1,15 @@
+- content_for(:page_assets) do
+  = ts_tag('turbo')
+
 %h1 Your quizzes
 
 %ol
   - policy_scope(Quiz).each do |quiz|
-    %li= link_to(quiz.name, quiz)
+    %li.mt-2
+      = link_to(quiz.name, quiz)
+      = button_to('×', quiz_path(quiz), method: :delete,
+        class: 'btn-danger btn-small', title: 'Delete',
+        form: { data: { turbo_confirm: "Are you sure that you want to delete quiz '#{quiz.name}'? All quiz questions and answers will be deleted and thereafter inaccessible to any user." } })
 
 .mt-4
   %strong= link_to('Create new quiz', new_quiz_path)

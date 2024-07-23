@@ -36,10 +36,21 @@ class QuizzesController < ApplicationController
   end
 
   def update
-    @quiz = policy_scope(Quiz).find_by_hashid!(params[:id]) # rubocop:disable Rails/DynamicFindBy
+    set_quiz_from_policy_scope
     authorize(@quiz, :update?)
     Quizzes::Update.run!(quiz: @quiz, params: quiz_params)
     redirect_to(@quiz)
+  end
+
+  def destroy
+    set_quiz_from_policy_scope
+    authorize(@quiz)
+
+    @quiz.destroy!
+
+    flash[:notice] = "Destroyed quiz '#{@quiz.name}'."
+
+    redirect_to(quizzes_path)
   end
 
   def respondents
@@ -67,7 +78,12 @@ class QuizzesController < ApplicationController
         merge(current_user.quiz_participations).
         find_by_hashid(id_param) ||
       current_user.quizzes.find_by_hashid(id_param) # rubocop:disable Rails/DynamicFindBy
+
     @quiz = quiz.presence!.decorate
+  end
+
+  def set_quiz_from_policy_scope
+    @quiz = policy_scope(Quiz).find_by_hashid!(params[:id]) # rubocop:disable Rails/DynamicFindBy
   end
 
   def quiz_params

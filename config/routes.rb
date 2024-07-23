@@ -53,7 +53,7 @@ Rails.application.routes.draw do
 
   resources :auth_tokens, only: %i[create destroy update]
 
-  resources :quizzes, only: %i[index new create show update] do
+  resources :quizzes, only: %i[index new create show update destroy] do
     member do
       get :respondents
       get :leaderboard
