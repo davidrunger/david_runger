@@ -1,12 +1,11 @@
 <template lang="pug">
-#groceries-app
-  #page.flex.dvh-100
-    Sidebar
-    main.flex-1.bg-cover
-      Store(
-        v-if='currentStore'
-        :store='currentStore'
-      )
+#groceries-app.flex.dvh-100
+  Sidebar
+  main.flex-1.bg-cover
+    Store(
+      v-if='currentStore'
+      :store='currentStore'
+    )
 </template>
 
 <script setup lang="ts">
