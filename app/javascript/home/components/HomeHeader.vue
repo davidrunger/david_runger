@@ -23,7 +23,7 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
       ref='menuToggleCheckbox'
       @click='homeStore.menuOpen = !homeStore.menuOpen'
     )
-    .mobile-nav.dvh-100
+    .mobile-nav.h-dvh
       ul
         li(@click='collapseMobileMenu')
           NavLink(section='about')

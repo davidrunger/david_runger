@@ -1,5 +1,5 @@
 <template lang="pug">
-#home.flex.flex-col.relative.vh-100.items-center.justify-around.p-16.bg-neutral-950(
+#home.flex.flex-col.relative.h-screen.items-center.justify-around.p-16.bg-neutral-950(
   ref="homeRef"
 )
   .spacer.grow
