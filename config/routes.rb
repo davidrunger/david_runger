@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       get :accept
     end
   end
-  resource :marriage, only: %i[show]
+  resource :marriage, only: %i[new show]
   resources :emotional_needs, only: %i[create destroy edit update] do
     member do
       get :history

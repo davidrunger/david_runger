@@ -135,6 +135,7 @@ RSpec.configure do |config|
   config.include(SpecHelpers)
   config.include(ActiveSupport::Testing::TimeHelpers)
   config.include(FactoryBot::Syntax::Methods)
+  config.include(SidekiqSpecHelpers)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
   config.include(Monkeypatches::MakeAllRequestsAsJson, request_format: :json)
