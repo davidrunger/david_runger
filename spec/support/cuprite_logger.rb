@@ -42,7 +42,8 @@ class CupriteLogger
         stack_trace.map do |function, url|
           path = url.match(%r{http://.*/vite/(.+)(\?t=\d{10,})?})&.[](1)
 
-          "    from #{function.presence || '[anonymous function]'} in #{path || url}"
+          "    from #{function.presence || '[anonymous function]'} in " \
+            "#{path ? "app/javascript/#{path}" : url}"
         end
 
       $stdout.puts("  JavaScript error: #{exception_message}".red)
