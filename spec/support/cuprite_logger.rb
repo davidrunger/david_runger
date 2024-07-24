@@ -42,10 +42,10 @@ class CupriteLogger
           "    from #{function.presence || '[anonymous function]'} in #{path || url}"
         end
 
-      self.class.javascript_errors << exception_message
-
       $stdout.puts("  JavaScript error: #{exception_message}".red)
       $stdout.puts(formatted_stack_trace)
+
+      self.class.javascript_errors << exception_message
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
