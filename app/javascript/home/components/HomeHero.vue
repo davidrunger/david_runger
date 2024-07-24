@@ -25,8 +25,6 @@ import { useHomeStore } from '@/home/store';
 
 import HomeHeader from './HomeHeader.vue';
 
-const something = window.notThere.someProperty;
-
 const homeRef = ref(null);
 const homeStore = useHomeStore();
 
