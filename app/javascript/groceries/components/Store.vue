@@ -96,6 +96,7 @@ import { helpers, useGroceriesStore } from '@/groceries/store';
 import type { Item as ItemType, Store } from '@/groceries/types';
 import { useModalStore } from '@/shared/modal/store';
 
+import CheckInModal from './CheckInModal.vue';
 import CheckInStoreList from './CheckInStoreList.vue';
 import Item from './Item.vue';
 
