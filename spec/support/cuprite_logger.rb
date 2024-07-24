@@ -38,6 +38,7 @@ class CupriteLogger
       formatted_stack_trace =
         stack_trace.map do |function, url|
           path = url.match(%r{http://.*/vite/(.+)(\?t=\d{10,})?})&.[](1)
+
           "    from #{function.presence || '[anonymous function]'} in #{path || url}"
         end
 
