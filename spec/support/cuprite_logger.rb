@@ -24,7 +24,7 @@ class CupriteLogger
       exception_message =
         exception_description.
           split("\n").
-          take_while { !_1.match?(%r{at .*localhost:\d+/vite/}) }.
+          take_while { !_1.match?(%r{at .*localhost:\d+/vite(-admin)?/}) }.
           join("\n")
 
       full_stack_trace = parsed_json.dig(
