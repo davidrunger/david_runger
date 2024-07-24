@@ -80,8 +80,9 @@ const { postingStore } = storeToRefs(groceriesStore);
 const expanded = computed(() => !collapsed.value);
 
 async function handleNewStoreSubmission() {
-  await groceriesStore.createStore(formData.newStoreName);
-  formData.newStoreName = '';
+  if (await groceriesStore.createStore(formData.newStoreName)) {
+    formData.newStoreName = '';
+  }
 }
 </script>
 
