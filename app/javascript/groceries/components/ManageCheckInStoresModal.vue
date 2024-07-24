@@ -20,6 +20,7 @@ Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
 
 <script setup lang="ts">
 import { useModalStore } from '@/shared/modal/store';
+
 import { useGroceriesStore } from '../store';
 import CheckInStoreList from './CheckInStoreList.vue';
 
