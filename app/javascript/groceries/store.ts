@@ -76,7 +76,11 @@ export const useGroceriesStore = defineStore('groceries', {
       );
 
       this.decrementPendingRequests();
-      this.addItem({ store, itemData });
+
+      if (itemData) {
+        this.addItem({ store, itemData });
+        return true;
+      }
     },
 
     async createStore(newStoreName: string) {
