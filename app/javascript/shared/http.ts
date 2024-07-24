@@ -4,12 +4,17 @@ import { toast } from '@/lib/toast';
 import { assert } from '@/shared/helpers';
 
 const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
-const csrfToken = assert(csrfMetaTag?.getAttribute('content'));
+const csrfToken = csrfMetaTag?.getAttribute('content');
+
+const headers =
+  csrfToken ?
+    {
+      'X-CSRF-Token': csrfToken,
+    }
+  : {};
 
 export const http = xior.create({
-  headers: {
-    'X-CSRF-Token': csrfToken,
-  },
+  headers,
 });
 
 http.interceptors.response.use(
