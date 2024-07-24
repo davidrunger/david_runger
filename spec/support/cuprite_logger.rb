@@ -10,6 +10,7 @@ class CupriteLogger
     @javascript_errors ||= []
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def puts(message)
     if message.include?(RUNTIME_EXCEPTION_THROWN) && (match = message.match(JSON_EXTRACTION_REGEX))
       parsed_json = JSON.parse(match[1])
@@ -28,9 +29,8 @@ class CupriteLogger
         'exceptionDetails',
         'stackTrace',
         'callFrames',
-      ).map {
-        _1.values_at('functionName', 'url')
-      }
+      ).map { _1.values_at('functionName', 'url') }
+
       own_stack_trace = full_stack_trace.filter { _1[1].exclude?('/vite/@fs/') }
 
       stack_trace = own_stack_trace.presence || full_stack_trace
@@ -46,4 +46,5 @@ class CupriteLogger
       $stdout.puts(formatted_stack_trace)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
