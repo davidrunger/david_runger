@@ -11,8 +11,9 @@ class CupriteLogger
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def puts(message)
-    if message.include?(RUNTIME_EXCEPTION_THROWN) && (match = message.match(JSON_EXTRACTION_REGEX))
+    if message&.include?(RUNTIME_EXCEPTION_THROWN) && (match = message.match(JSON_EXTRACTION_REGEX))
       parsed_json = JSON.parse(match[1])
       exception_preview_properties = parsed_json.dig(
         'params',
@@ -48,5 +49,6 @@ class CupriteLogger
       self.class.javascript_errors << exception_message
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
 end
