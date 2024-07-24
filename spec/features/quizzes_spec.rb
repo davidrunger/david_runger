@@ -104,7 +104,7 @@ RSpec.describe 'Quizzes app' do
 
       accept_confirm { click_on('Delete') }
 
-      expect(page).to have_text("Destroyed quiz '#{quiz_to_destroy.name}'.")
+      expect(page).to have_flash_message("Destroyed quiz '#{quiz_to_destroy.name}'.", type: :notice)
       expect(Quiz.find_by(id: quiz_to_destroy.id)).to eq(nil)
     end
   end

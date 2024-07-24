@@ -65,7 +65,7 @@ RSpec.describe QuestionUploadsController do
       it 'renders the new form with an error message' do
         post_create
         expect(response.body).to have_css('form textarea[name="questions"]')
-        expect(response.body).to have_text(<<~TEXT.squish)
+        expect(response.body).to have_flash_message(<<~TEXT.squish, type: :alert)
           Wrong number of correct answers for question 'Do you think that smarter people are usually
           capable of deeper love?'!
         TEXT
