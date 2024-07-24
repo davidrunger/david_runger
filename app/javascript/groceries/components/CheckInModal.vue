@@ -73,5 +73,3 @@ function manageCheckInStores() {
   modalStore.showModal({ modalName: 'manage-check-in-stores' });
 }
 </script>
-
-<style scoped lang="scss"></style>
