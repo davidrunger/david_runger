@@ -12,7 +12,7 @@ const hooks: Hooks = {
           toast(error, { type: 'error' });
         }
 
-        return new Response(undefined, {status: response.status});
+        return new Response(undefined, { status: response.status });
       }
     },
   ],
