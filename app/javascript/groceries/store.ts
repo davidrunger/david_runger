@@ -70,11 +70,10 @@ export const useGroceriesStore = defineStore('groceries', {
     }) {
       this.incrementPendingRequests();
 
-      const itemData: Item = await kyApi
-        .post(Routes.api_store_items_path(store.id), {
-          json: { item: itemAttributes },
-        })
-        .json();
+      const itemData = await http.post<Item>(
+        Routes.api_store_items_path(store.id),
+        { item: itemAttributes },
+      );
 
       this.decrementPendingRequests();
       this.addItem({ store, itemData });

@@ -158,25 +158,12 @@ function initializeTripCheckIn() {
 }
 
 function postNewItem() {
-  groceriesStore
-    .createItem({
-      store: props.store,
-      itemAttributes: {
-        name: formData.newItemName,
-      },
-    })
-    .catch(async ({ response }: { response: Response }) => {
-      groceriesStore.decrementPendingRequests();
-      const { errors } = await response.json();
-      for (const errorMessage of errors) {
-        Toastify({
-          text: errorMessage,
-          className: 'error',
-          position: 'center',
-          duration: 2500,
-        }).showToast();
-      }
-    });
+  groceriesStore.createItem({
+    store: props.store,
+    itemAttributes: {
+      name: formData.newItemName,
+    },
+  });
   formData.newItemName = '';
 }
 
