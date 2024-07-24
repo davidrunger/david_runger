@@ -1,39 +1,41 @@
-import xior from 'xior';
+import ky, { type Hooks } from 'ky';
 
 import { toast } from '@/lib/toast';
+
+const hooks: Hooks = {
+  afterResponse: [
+    async (_request, _options, response) => {
+      if (response.status === 422) {
+        const { errors } = await response.json();
+
+        for (const error of errors) {
+          toast(error, { type: 'error' });
+        }
+
+        return new Response(undefined, { status: response.status });
+      }
+    },
+  ],
+};
 
 const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
 const csrfToken = csrfMetaTag?.getAttribute('content');
 
-const headers =
-  csrfToken ?
-    {
-      'X-CSRF-Token': csrfToken,
-    }
-  : {};
+if (csrfToken) {
+  hooks['beforeRequest'] = [
+    (request) => {
+      request.headers.set('X-CSRF-Token', csrfToken);
+    },
+  ];
+}
 
-const xiorInstance = xior.create({
-  headers,
+const kyApi = ky.extend({
+  hooks,
+  throwHttpErrors: false,
 });
-
-xiorInstance.interceptors.response.use(
-  (successfulResponse) => successfulResponse,
-  (error) => {
-    if (error?.response?.status === 422) {
-      const { errors } = error.response.data;
-
-      for (const error of errors) {
-        toast(error, { type: 'error' });
-      }
-    }
-
-    return false;
-  },
-);
 
 export const http = {
   async post<T>(url: string, data: object) {
-    const response = await xiorInstance.post<T>(url, data);
-    return response.data;
+    return (await kyApi.post(url, { json: data }).json()) as T;
   },
 };
