@@ -36,4 +36,4 @@ export const http = {
     const response = await xiorInstance.post<T>(url, data);
     return response.data;
   },
-}
+};
