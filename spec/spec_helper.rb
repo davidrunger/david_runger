@@ -213,6 +213,7 @@ RSpec.configure do |config|
     activate_feature!(:disable_prerendering)
   end
 
+  # NOTE: Using `CupriteLogger.javascript_errors` like this is not thread-safe.
   config.around(:each, type: :feature) do |example|
     CupriteLogger.javascript_errors.clear
 
