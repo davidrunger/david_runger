@@ -258,9 +258,4 @@ button.choose-stores {
     color: black;
   }
 }
-
-.check-in-items-list {
-  max-height: 50vh;
-  overflow: auto;
-}
 </style>
