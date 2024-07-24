@@ -13,11 +13,24 @@ class CupriteLogger
   def puts(message)
     if message.include?(RUNTIME_EXCEPTION_THROWN) && (match = message.match(JSON_EXTRACTION_REGEX))
       parsed_json = JSON.parse(match[1])
-      exception_preview_properties = parsed_json.dig('params', 'exceptionDetails', 'exception', 'preview', 'properties')
+      exception_preview_properties = parsed_json.dig(
+        'params',
+        'exceptionDetails',
+        'exception',
+        'preview',
+        'properties',
+      )
       exception_message_data = exception_preview_properties.detect { _1['name'] == 'message' }
       exception_message = exception_message_data['value']
 
-      full_stack_trace = parsed_json.dig('params', 'exceptionDetails', 'stackTrace', 'callFrames').map { _1.values_at('functionName', 'url') }
+      full_stack_trace = parsed_json.dig(
+        'params',
+        'exceptionDetails',
+        'stackTrace',
+        'callFrames',
+      ).map {
+        _1.values_at('functionName', 'url')
+      }
       own_stack_trace = full_stack_trace.filter { _1[1].exclude?('/vite/@fs/') }
 
       stack_trace = own_stack_trace.presence || full_stack_trace
