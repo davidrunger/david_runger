@@ -3,7 +3,7 @@ require 'rainbow/refinement'
 using Rainbow
 
 class CupriteLogger
-  JSON_EXTRACTION_REGEX = /\A\s*[▶◀]\s+\d+.\d+ ({.*})\n?\z/
+  JSON_EXTRACTION_REGEX = /\A\s*[▶◀]\s+\d+\.\d+ ({.*})\n?\z/
   RUNTIME_EXCEPTION_THROWN = '"Runtime.exceptionThrown"'.freeze
 
   def self.javascript_errors
