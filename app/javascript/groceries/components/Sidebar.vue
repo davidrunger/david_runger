@@ -1,8 +1,8 @@
 <template lang="pug">
-aside.border-r.border-neutral-400(
+aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
   :class='{ collapsed }'
 )
-  .overflow-auto.h-dvh.hidden-scrollbars
+  .flex.flex-col.min-h-full
     .sidebar-toggle__container.border-b
       button.sidebar-toggle(
         @click='collapsed = !collapsed'
@@ -36,6 +36,11 @@ aside.border-r.border-neutral-400(
               v-for='store in groceriesStore.sortedSpouseStores'
               :store='store'
             )
+    .mt-auto.text-center.p-3(
+      v-if='!groceriesStore.sortedSpouseStores.length && !collapsed'
+    )
+      | Tip: You and your partner can automatically view each other's lists.
+      | #[a(:href='$routes.new_marriage_path()') Click here] to invite them to join.
 </template>
 
 <script setup lang="ts">

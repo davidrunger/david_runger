@@ -1,5 +1,5 @@
 <template lang="pug">
-.store-container.overflow-auto.hidden-scrollbars.pt-2.pb-4.pl-8.pr-4
+.store-container.overflow-auto.hidden-scrollbars.pt-2.pl-8.pr-4
   h2.store-name.my-4
     input(
       v-if='editingName'
