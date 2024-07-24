@@ -12,11 +12,11 @@ const headers =
     }
   : {};
 
-export const http = xior.create({
+const xiorInstance = xior.create({
   headers,
 });
 
-http.interceptors.response.use(
+xiorInstance.interceptors.response.use(
   (successfulResponse) => successfulResponse,
   (error) => {
     if (error?.response?.status === 422) {
@@ -30,3 +30,10 @@ http.interceptors.response.use(
     return false;
   },
 );
+
+export const http = {
+  async post<T>(url: string, data: object) {
+    const response = await xiorInstance.post<T>(url, data);
+    return response.data;
+  },
+}

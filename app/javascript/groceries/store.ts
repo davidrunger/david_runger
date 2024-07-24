@@ -88,7 +88,7 @@ export const useGroceriesStore = defineStore('groceries', {
         },
       };
 
-      const { data: newStoreData } = await http.post<Store>(
+      const newStoreData = await http.post<Store>(
         Routes.api_stores_path(),
         payload,
       );
