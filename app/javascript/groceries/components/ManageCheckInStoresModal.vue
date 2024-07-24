@@ -27,6 +27,3 @@ import CheckInStoreList from './CheckInStoreList.vue';
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
 </script>
-
-<style scoped lang="scss">
-</style>
