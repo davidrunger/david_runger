@@ -72,7 +72,6 @@
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { storeToRefs } from 'pinia';
-import Toastify from 'toastify-js';
 import { computed, reactive, ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
