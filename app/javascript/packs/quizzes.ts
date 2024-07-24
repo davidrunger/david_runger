@@ -97,15 +97,17 @@ function refresh() {
 }
 
 function addNewAnswerer(newAnswererName: string) {
-  const el = getDangerouslyById('quiz_question_answer_selections');
+  const el = document.getElementById('quiz_question_answer_selections');
 
-  const matchedLi = assert(
-    Array.from(el.querySelectorAll('li')).find(
-      (li) => li.innerText === newAnswererName,
-    ),
-  );
+  if (el) {
+    const matchedLi = assert(
+      Array.from(el.querySelectorAll('li')).find(
+        (li) => li.innerText === newAnswererName,
+      ),
+    );
 
-  matchedLi.classList.add('font-bold');
+    matchedLi.classList.add('font-bold');
+  }
 }
 
 function addNewParticipant(newParticipantName: string) {

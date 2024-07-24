@@ -62,6 +62,7 @@ Capybara.register_driver(:cuprite) do |app|
     window_size: [1200, 800],
     headless: !use_headful_chrome,
     process_timeout: 20,
+    logger: CupriteLogger.new,
   )
 end
 if is_ci
@@ -210,6 +211,15 @@ RSpec.configure do |config|
 
   config.before(:each, :prerendering_disabled) do
     activate_feature!(:disable_prerendering)
+  end
+
+  # NOTE: Using `CupriteLogger.javascript_errors` like this is not thread-safe.
+  config.around(:each, type: :feature) do |example|
+    CupriteLogger.javascript_errors.clear
+
+    example.run
+
+    expect(CupriteLogger.javascript_errors).to be_empty
   end
 
   config.before(:each, :rails_env) do |example|
