@@ -69,10 +69,9 @@ const html = computed((): string => {
 
 watch(editing, () => {
   setTimeout(() => {
-    if (editing.value) {
+    if (editing.value && textInput.value) {
       (
-        (textInput as unknown as typeof ElInput).$el
-          .children[0] as HTMLInputElement
+        (textInput.value as typeof ElInput).$el.children[0] as HTMLInputElement
       ).focus();
     }
   }, 0);
