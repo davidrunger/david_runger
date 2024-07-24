@@ -1,5 +1,5 @@
 <template lang="pug">
-#groceries-app.flex.dvh-100
+#groceries-app.flex.h-dvh
   Sidebar
   main.flex-1.bg-cover
     Store(

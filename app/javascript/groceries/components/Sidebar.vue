@@ -2,7 +2,7 @@
 aside.border-r.border-neutral-400(
   :class='{ collapsed }'
 )
-  .overflow-auto.dvh-100.hidden-scrollbars
+  .overflow-auto.h-dvh.hidden-scrollbars
     .sidebar-toggle__container.border-b
       button.sidebar-toggle(
         @click='collapsed = !collapsed'

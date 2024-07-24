@@ -1,6 +1,6 @@
 <template lang="pug">
 transition(name='modal' v-if="showingModal({ modalName: name })")
-  div.modal-mask.fixed.flex.flex-col.items-center.justify-center.w-full.top-0.left-0.vh-100.z-10(
+  div.modal-mask.fixed.flex.flex-col.items-center.justify-center.w-full.top-0.left-0.h-screen.z-10(
     ref='mask'
     @click='handleClickMask'
   )
