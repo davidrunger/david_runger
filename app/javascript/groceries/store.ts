@@ -6,6 +6,7 @@ import { emit } from '@/lib/event_bus';
 import * as RoutesType from '@/rails_assets/routes';
 import { kyApi } from '@/shared/ky';
 import { getById, safeGetById } from '@/shared/store_helpers';
+import { http } from '@/shared/http';
 
 declare const Routes: typeof RoutesType;
 
@@ -87,12 +88,17 @@ export const useGroceriesStore = defineStore('groceries', {
         },
       };
 
-      const newStoreData: Store = await kyApi
-        .post(Routes.api_stores_path(), { json: payload })
-        .json();
+      const { data: newStoreData } = await http.post<Store>(
+        Routes.api_stores_path(),
+        payload,
+      );
 
       this.postingStore = false;
-      this.own_stores.unshift(newStoreData);
+
+      if (newStoreData) {
+        this.own_stores.unshift(newStoreData);
+        return true;
+      }
     },
 
     decrementPendingRequests() {
