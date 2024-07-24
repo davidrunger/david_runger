@@ -4,9 +4,9 @@ import { defineStore } from 'pinia';
 import { Bootstrap, CheckInStatus, Item, Store } from '@/groceries/types';
 import { emit } from '@/lib/event_bus';
 import * as RoutesType from '@/rails_assets/routes';
+import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
 import { getById, safeGetById } from '@/shared/store_helpers';
-import { http } from '@/shared/http';
 
 declare const Routes: typeof RoutesType;
 
