@@ -72,7 +72,6 @@
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { storeToRefs } from 'pinia';
-import Toastify from 'toastify-js';
 import { computed, reactive, ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
@@ -157,27 +156,17 @@ function initializeTripCheckIn() {
   modalStore.showModal({ modalName: 'check-in-shopping-trip' });
 }
 
-function postNewItem() {
-  groceriesStore
-    .createItem({
-      store: props.store,
-      itemAttributes: {
-        name: formData.newItemName,
-      },
-    })
-    .catch(async ({ response }: { response: Response }) => {
-      groceriesStore.decrementPendingRequests();
-      const { errors } = await response.json();
-      for (const errorMessage of errors) {
-        Toastify({
-          text: errorMessage,
-          className: 'error',
-          position: 'center',
-          duration: 2500,
-        }).showToast();
-      }
-    });
-  formData.newItemName = '';
+async function postNewItem() {
+  const success = await groceriesStore.createItem({
+    store: props.store,
+    itemAttributes: {
+      name: formData.newItemName,
+    },
+  });
+
+  if (success) {
+    formData.newItemName = '';
+  }
 }
 
 function stopEditingAndUpdateStoreName() {
