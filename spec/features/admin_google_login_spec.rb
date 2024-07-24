@@ -30,7 +30,10 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
       expect { click_on(class: 'google-login') }.not_to change { AdminUser.count }
       expect(AdminUser.find_by(email: stubbed_admin_user_email)).to eq(nil)
 
-      expect(page).to have_text("#{stubbed_admin_user_email} is not authorized to access admin")
+      expect(page).to have_flash_message(
+        "#{stubbed_admin_user_email} is not authorized to access admin",
+        type: :alert,
+      )
       expect(page).to have_current_path('/admin/login')
     end
   end
