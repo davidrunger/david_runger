@@ -156,14 +156,17 @@ function initializeTripCheckIn() {
   modalStore.showModal({ modalName: 'check-in-shopping-trip' });
 }
 
-function postNewItem() {
-  groceriesStore.createItem({
+async function postNewItem() {
+  const success = await groceriesStore.createItem({
     store: props.store,
     itemAttributes: {
       name: formData.newItemName,
     },
   });
-  formData.newItemName = '';
+
+  if (success) {
+    formData.newItemName = '';
+  }
 }
 
 function stopEditingAndUpdateStoreName() {
