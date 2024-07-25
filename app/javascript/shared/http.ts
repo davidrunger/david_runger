@@ -1,15 +1,18 @@
 import ky, { type Hooks } from 'ky';
 
 import { toast } from '@/lib/toasts';
+import { isArrayOfStrings } from '@/lib/type_predicates';
 
 const hooks: Hooks = {
   afterResponse: [
     async (_request, _options, response) => {
       if (response.status === 422) {
-        const { errors } = await response.json();
+        const { errors } = (await response.json()) as { errors?: unknown };
 
-        for (const error of errors) {
-          toast(error, { type: 'error' });
+        if (isArrayOfStrings(errors)) {
+          for (const error of errors) {
+            toast(error, { type: 'error' });
+          }
         }
 
         return new Response(undefined, { status: response.status });
