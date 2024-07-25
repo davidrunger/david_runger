@@ -18,7 +18,7 @@ export function toast(message: string, options?: { type: ToastType }) {
 }
 
 export function renderBootstrappedToasts() {
-  const toastMessages = (bootstrap() as { toast_messages?: Array<string> })
+  const toastMessages = (bootstrap as { toast_messages?: Array<string> })
     .toast_messages;
 
   if (toastMessages) {

@@ -1,3 +1,1 @@
-export function bootstrap() {
-  return window.davidrunger ? window.davidrunger.bootstrap : {};
-}
+export const bootstrap = window.davidrunger ? window.davidrunger.bootstrap : {};

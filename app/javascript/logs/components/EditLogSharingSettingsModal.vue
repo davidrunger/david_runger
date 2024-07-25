@@ -68,7 +68,7 @@ const shareableUrl = computed((): string => {
   return (
     window.location.origin +
     window.Routes.user_shared_log_path(
-      (bootstrap() as Bootstrap).current_user.id,
+      (bootstrap as Bootstrap).current_user.id,
       log.slug,
     )
   );

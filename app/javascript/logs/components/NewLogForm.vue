@@ -56,7 +56,7 @@ const newLog = ref(newLogGenerator());
 const { postingLog } = storeToRefs(logsStore);
 
 const logInputTypes = computed((): Array<LogInputType> => {
-  return (bootstrap() as Bootstrap).log_input_types;
+  return (bootstrap as Bootstrap).log_input_types;
 });
 
 async function createLog() {

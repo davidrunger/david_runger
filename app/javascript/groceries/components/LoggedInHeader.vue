@@ -17,7 +17,7 @@ import type { Bootstrap } from '@/groceries/types';
 import { bootstrap } from '@/lib/bootstrap';
 import { signOut } from '@/lib/sign_out';
 
-const currentUser = (bootstrap() as Bootstrap).current_user;
+const currentUser = (bootstrap as Bootstrap).current_user;
 </script>
 
 <style lang="scss" scoped>
