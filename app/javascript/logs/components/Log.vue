@@ -148,10 +148,21 @@ function subscribeToLogEntriesChannel() {
       received: (data: LogEntryBroadcast) => {
         if (Cookies.get('browser_uuid') === data.acting_browser_uuid) return;
 
-        if (data.action === 'created') {
+        const { action, model } = data;
+
+        if (action === 'created') {
           logsStore.addLogEntry({
             logId: log.id,
-            newLogEntry: data.model,
+            newLogEntry: model,
+          });
+        } else if (action === 'updated') {
+          logsStore.modifyLogEntry({
+            logEntry: model,
+          })
+        } else if (action === 'destroyed') {
+          logsStore.deleteLogEntry({
+            log,
+            logEntry: model,
           });
         }
       },

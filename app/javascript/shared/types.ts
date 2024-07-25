@@ -1,6 +1,6 @@
 export interface JsonBroadcast {
   acting_browser_uuid: string;
-  action: string;
+  action: 'created' | 'updated' | 'destroyed';
   model: object;
 }
 
