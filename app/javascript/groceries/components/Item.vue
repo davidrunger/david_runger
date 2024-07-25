@@ -73,7 +73,9 @@ function editItemName() {
   editingName.value = true;
   // wait a tick for input to render, then focus it
   setTimeout(() => {
-    (itemNameInput.value as unknown as HTMLInputElement).focus();
+    if (itemNameInput.value) {
+      (itemNameInput.value as HTMLInputElement).focus();
+    }
   });
 }
 
