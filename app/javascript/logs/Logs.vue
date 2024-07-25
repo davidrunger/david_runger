@@ -10,7 +10,6 @@ div
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import Toastify from 'toastify-js';
 import { computed, onMounted } from 'vue';
 
 import { useBootstrap } from '@/lib/composables/useBootstrap';
