@@ -1,3 +1,5 @@
+import { JsonBroadcast } from '@/shared/types';
+
 export type LogEntryDataValue = string | number;
 export type LogDataType = 'counter' | 'duration' | 'number' | 'text';
 
@@ -51,3 +53,7 @@ export type Bootstrap = {
   log_input_types: Array<LogInputType>;
   toast_messages: Array<string>;
 };
+
+export interface LogEntryBroadcast extends JsonBroadcast {
+  model: LogEntry;
+}

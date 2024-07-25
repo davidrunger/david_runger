@@ -14,10 +14,14 @@
 #
 
 class LogEntry < ApplicationRecord
+  include JsonBroadcastable
+
   belongs_to :log
   has_one :user, through: :log
 
   validates :data, presence: true
+
+  broadcasts_json_to(LogEntriesChannel, ->(log_entry) { log_entry.log })
 
   def self.policy_class
     LogEntryPolicy
