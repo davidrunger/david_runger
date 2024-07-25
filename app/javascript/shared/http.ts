@@ -1,6 +1,6 @@
 import ky, { type Hooks } from 'ky';
 
-import { toast } from '@/lib/toast';
+import { toast } from '@/lib/toasts';
 
 const hooks: Hooks = {
   afterResponse: [
