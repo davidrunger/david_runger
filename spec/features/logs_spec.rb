@@ -137,7 +137,9 @@ RSpec.describe 'Logs app' do
           and_return(Time.current)
         LogEntriesChannel.broadcast_to(
           log_entry.log,
-          LogEntrySerializer.new(log_entry).as_json.merge(
+          acting_browser_uuid: SecureRandom.uuid,
+          action: 'created',
+          model: LogEntrySerializer.new(log_entry).as_json.merge(
             id: LogEntries::TextLogEntry.maximum(:id) + 1,
           ),
         )
