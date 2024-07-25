@@ -131,7 +131,7 @@ export const useLogsStore = defineStore('logs', {
       logEntry: LogEntry;
     }) {
       log.log_entries = log.log_entries.filter(
-        (logEntry) => logEntry !== logEntryToDelete,
+        (logEntry) => logEntry.id !== logEntryToDelete.id,
       );
     },
 
@@ -186,6 +186,18 @@ export const useLogsStore = defineStore('logs', {
       });
     },
 
+    modifyLogEntry({ logEntry }: { logEntry: LogEntry }) {
+      const log = this.logById({ logId: logEntry.log_id });
+
+      log.log_entries = log.log_entries.map((loopLogEntry) => {
+        if (loopLogEntry.id === logEntry.id) {
+          return logEntry;
+        } else {
+          return loopLogEntry;
+        }
+      });
+    },
+
     setLogEntries({
       log,
       logEntries,
@@ -233,14 +245,8 @@ export const useLogsStore = defineStore('logs', {
         .patch(Routes.api_log_entry_path(logEntryId), { json: payload })
         .json()) as LogEntry;
 
-      const logId = updatedLogEntryData.log_id;
-      const log = this.logById({ logId });
-      log.log_entries = log.log_entries.map((logEntry) => {
-        if (logEntry.id === logEntryId) {
-          return updatedLogEntryData;
-        } else {
-          return logEntry;
-        }
+      this.modifyLogEntry({
+        logEntry: updatedLogEntryData,
       });
     },
   },
