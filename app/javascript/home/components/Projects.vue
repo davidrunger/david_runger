@@ -175,6 +175,7 @@ HomeSection(section='projects' title='Projects')
         a(href='https://github.com/davidrunger/serpent') GitHub
     template(v-slot:image)
       img.box-shadow(
+        loading='lazy'
         src='~img/serpent.webp'
         alt='Serpent Game'
       )
@@ -208,6 +209,7 @@ HomeSection(section='projects' title='Projects')
         a(href='https://github.com/davidrunger/simple_cov-formatter-terminal') GitHub
     template(v-slot:image)
       img(
+        loading='lazy'
         src='~img/simplecov-terminal.webp'
         alt='SimpleCov::Formatter::Terminal'
       )
@@ -243,6 +245,7 @@ HomeSection(section='projects' title='Projects')
         a(href='https://github.com/davidrunger/skedjewel') GitHub
     template(v-slot:image)
       img.box-shadow(
+        loading='lazy'
         src='~img/skedjewel.webp'
         alt='skedjewel.yml'
       )

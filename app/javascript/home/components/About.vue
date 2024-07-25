@@ -5,6 +5,7 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
       .flex-2.mt-4
         .text-center.mt-4.mb-8
           img.about-image.box-shadow(
+            loading='lazy'
             src='~img/david.webp'
             alt='A picture of me'
           )
