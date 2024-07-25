@@ -23,7 +23,7 @@ export function renderBootstrappedToasts() {
 
   if (toastMessages) {
     for (const message of toastMessages) {
-      toast(message)
+      toast(message);
     }
   }
 }
