@@ -22,7 +22,7 @@ div(v-else) {{checkInsStore.partner_ratings_hidden_reason}}
 import actionCableConsumer from '@/channels/consumer';
 import { useCheckInsStore } from '@/check_ins/store';
 import type { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
-import { useBootstrap } from '@/lib/composables/useBootstrap';
+import { bootstrap } from '@/lib/bootstrap';
 
 import Ratings from './components/Ratings.vue';
 
@@ -36,7 +36,7 @@ actionCableConsumer.subscriptions.create(
     received: (data) => {
       if (
         data.originating_user_id ===
-        (useBootstrap() as Bootstrap).current_user.id
+        (bootstrap() as Bootstrap).current_user.id
       )
         return;
 

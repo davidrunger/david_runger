@@ -1,6 +1,6 @@
 import Toastify from 'toastify-js';
 
-import { useBootstrap } from '@/lib/composables/useBootstrap';
+import { bootstrap } from '@/lib/bootstrap';
 
 type ToastType = 'error';
 
@@ -18,7 +18,7 @@ export function toast(message: string, options?: { type: ToastType }) {
 }
 
 export function renderBootstrappedToasts() {
-  const toastMessages = (useBootstrap() as { toast_messages?: Array<string> })
+  const toastMessages = (bootstrap() as { toast_messages?: Array<string> })
     .toast_messages;
 
   if (toastMessages) {

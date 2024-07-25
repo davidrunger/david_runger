@@ -40,7 +40,7 @@ import { ElInput } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { computed, nextTick, ref } from 'vue';
 
-import { useBootstrap } from '@/lib/composables/useBootstrap';
+import { bootstrap } from '@/lib/bootstrap';
 import { useModalStore } from '@/shared/modal/store';
 
 import { useLogsStore } from '../store';
@@ -68,7 +68,7 @@ const shareableUrl = computed((): string => {
   return (
     window.location.origin +
     window.Routes.user_shared_log_path(
-      (useBootstrap() as Bootstrap).current_user.id,
+      (bootstrap() as Bootstrap).current_user.id,
       log.slug,
     )
   );

@@ -12,7 +12,7 @@ div
 import { storeToRefs } from 'pinia';
 import { computed, onMounted } from 'vue';
 
-import { useBootstrap } from '@/lib/composables/useBootstrap';
+import { bootstrap } from '@/lib/bootstrap';
 import { removeQueryParams } from '@/lib/remove_query_params';
 import { renderBootstrappedToasts } from '@/lib/toasts';
 import { useLogsStore } from '@/logs/store';
@@ -27,7 +27,7 @@ const modalStore = useModalStore();
 const { isSharedLog, selectedLog } = storeToRefs(logsStore);
 
 const currentUser = computed((): CurrentUser => {
-  return (useBootstrap() as Bootstrap).current_user;
+  return (bootstrap() as Bootstrap).current_user;
 });
 
 removeQueryParams(); // remove query params such as `new_entry` and `auth_token`
