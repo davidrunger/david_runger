@@ -13,6 +13,7 @@ import { storeToRefs } from 'pinia';
 import { computed, onMounted } from 'vue';
 
 import { useBootstrap } from '@/lib/composables/useBootstrap';
+import { removeQueryParams } from '@/lib/remove_query_params';
 import { renderBootstrappedToasts } from '@/lib/toasts';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
@@ -29,6 +30,7 @@ const currentUser = computed((): CurrentUser => {
   return (useBootstrap() as Bootstrap).current_user;
 });
 
+removeQueryParams(); // remove query params such as `new_entry` and `auth_token`
 renderBootstrappedToasts();
 
 onMounted(() => {
@@ -47,9 +49,6 @@ onMounted(() => {
       modalStore.showModal({ modalName: 'log-selector' });
     }
   });
-
-  // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
-  window.history.replaceState({}, document.title, window.location.pathname);
 });
 </script>
 
