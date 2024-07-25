@@ -52,7 +52,10 @@ const { homeIsVisible } = storeToRefs(homeStore);
 
 function collapseMobileMenu() {
   homeStore.menuOpen = false;
-  (menuToggleCheckbox.value as unknown as HTMLInputElement).checked = false;
+
+  if (menuToggleCheckbox.value) {
+    (menuToggleCheckbox.value as HTMLInputElement).checked = false;
+  }
 }
 </script>
 

@@ -112,7 +112,9 @@ function savePubliclyViewableChange(newPubliclyViewableState: boolean) {
 function showInput() {
   inputVisible.value = true;
   nextTick(() => {
-    (saveTagInput.value as unknown as typeof ElInput).$refs.input.focus();
+    if (saveTagInput.value) {
+      (saveTagInput.value as typeof ElInput).$refs.input.focus();
+    }
   });
 }
 </script>
