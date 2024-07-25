@@ -23,11 +23,7 @@ export function renderBootstrappedToasts() {
 
   if (toastMessages) {
     for (const message of toastMessages) {
-      Toastify({
-        text: message,
-        position: 'center',
-        duration: 1800,
-      }).showToast();
+      toast(message)
     }
   }
 }
