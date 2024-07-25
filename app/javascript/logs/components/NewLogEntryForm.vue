@@ -127,7 +127,9 @@ onMounted(() => {
 
 function focusLogEntryInput() {
   setTimeout(() => {
-    (logInput.value as unknown as typeof ElInput).focus();
+    if (logInput.value) {
+      (logInput.value as typeof ElInput).focus();
+    }
   });
 }
 
