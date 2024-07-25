@@ -36,7 +36,7 @@ RSpec.describe LogEntriesMailbox do
     it 'broadcasts the creation of the new log entry', :action_cable_test_adapter do
       expect { processed_mail }.
         to broadcast_to(LogEntriesChannel.broadcasting_for(log)).
-        with(hash_including(data: Float(body)))
+        with(hash_including(model: hash_including(data: Float(body))))
     end
   end
 end

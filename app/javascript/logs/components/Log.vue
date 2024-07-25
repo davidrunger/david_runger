@@ -48,12 +48,18 @@ div
 
 <script setup lang="ts">
 import { useTitle } from '@vueuse/core';
+import Cookies from 'js-cookie';
 import { storeToRefs } from 'pinia';
 import { computed, h } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
 import { useLogsStore } from '@/logs/store';
-import type { Log, LogDataType, LogEntry } from '@/logs/types';
+import type {
+  Log,
+  LogDataType,
+  LogEntry,
+  LogEntryBroadcast,
+} from '@/logs/types';
 import * as RoutesType from '@/rails_assets/routes';
 import { useModalStore } from '@/shared/modal/store';
 
@@ -139,11 +145,15 @@ function subscribeToLogEntriesChannel() {
       log_id: log.id,
     },
     {
-      received: (data) => {
-        logsStore.addLogEntry({
-          logId: log.id,
-          newLogEntry: data,
-        });
+      received: (data: LogEntryBroadcast) => {
+        if (Cookies.get('browser_uuid') === data.acting_browser_uuid) return;
+
+        if (data.action === 'created') {
+          logsStore.addLogEntry({
+            logId: log.id,
+            newLogEntry: data.model,
+          });
+        }
       },
     },
   );
