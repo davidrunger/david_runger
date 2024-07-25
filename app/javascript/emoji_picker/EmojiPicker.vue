@@ -28,7 +28,7 @@ import { flatMap } from 'lodash-es';
 import { ref } from 'vue';
 
 import { useFuzzyTypeahead } from '@/lib/composables/use_fuzzy_typeahead';
-import { toast } from '@/lib/toast';
+import { toast } from '@/lib/toasts';
 
 interface EmojiData {
   symbol: string;

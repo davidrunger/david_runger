@@ -14,6 +14,7 @@ import Toastify from 'toastify-js';
 import { computed, onMounted } from 'vue';
 
 import { useBootstrap } from '@/lib/composables/useBootstrap';
+import { renderBootstrappedToasts } from '@/lib/toasts';
 import { useLogsStore } from '@/logs/store';
 import { useModalStore } from '@/shared/modal/store';
 
@@ -28,6 +29,8 @@ const { isSharedLog, selectedLog } = storeToRefs(logsStore);
 const currentUser = computed((): CurrentUser => {
   return (useBootstrap() as Bootstrap).current_user;
 });
+
+renderBootstrappedToasts();
 
 onMounted(() => {
   if (!isSharedLog.value) {
@@ -45,18 +48,6 @@ onMounted(() => {
       modalStore.showModal({ modalName: 'log-selector' });
     }
   });
-
-  // display any initial toast messages
-  const toastMessages = (useBootstrap() as Bootstrap).toast_messages;
-  if (toastMessages) {
-    for (const message of toastMessages) {
-      Toastify({
-        text: message,
-        position: 'center',
-        duration: 1800,
-      }).showToast();
-    }
-  }
 
   // remove any query params that might be present (e.g. `new_entry` and `auth_token`)
   window.history.replaceState({}, document.title, window.location.pathname);

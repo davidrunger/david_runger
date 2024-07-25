@@ -1,4 +1,4 @@
-import { toast } from '@/lib/toast';
+import { toast } from '@/lib/toasts';
 
 document.addEventListener('click', (event: MouseEvent) => {
   const target = event.target as HTMLElement;
