@@ -158,7 +158,7 @@ function subscribeToLogEntriesChannel() {
         } else if (action === 'updated') {
           logsStore.modifyLogEntry({
             logEntry: model,
-          })
+          });
         } else if (action === 'destroyed') {
           logsStore.deleteLogEntry({
             log,
