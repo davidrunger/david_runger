@@ -35,8 +35,7 @@ actionCableConsumer.subscriptions.create(
   {
     received: (data) => {
       if (
-        data.originating_user_id ===
-        (bootstrap() as Bootstrap).current_user.id
+        data.originating_user_id === (bootstrap() as Bootstrap).current_user.id
       )
         return;
 
