@@ -217,7 +217,7 @@ GEM
       logger
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
-    faraday-net_http (3.1.0)
+    faraday-net_http (3.1.1)
       net-http
     ferrum (0.15)
       addressable (~> 2.5)
