@@ -1,4 +1,5 @@
 class Logs::LogFormatter < Lograge::Formatters::KeyValue
+  # rubocop:disable Metrics/CyclomaticComplexity
   def initialize(data)
     controller = data.delete(:controller) # e.g. 'Api::LogEntriesController'
     action = data[:action] # e.g. 'index'
@@ -30,6 +31,7 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
           end
         end.to_h
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def call
     fields_to_display(@data).
@@ -60,6 +62,8 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
 
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Lint/DuplicateBranch
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
   def color_background_and_style(key, value)
     case key.to_sym
     when :action
@@ -104,6 +108,8 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
       :default
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Lint/DuplicateBranch
   # rubocop:enable Metrics/CyclomaticComplexity
 end
