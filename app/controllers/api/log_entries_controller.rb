@@ -3,7 +3,6 @@ class Api::LogEntriesController < ApplicationController
     authorize(LogEntry)
     log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
     @log_entry = log.log_entries.build(log_entry_params)
-    @log_entry.acting_browser_uuid = cookies[:browser_uuid]
 
     if @log_entry.valid?
       LogEntries::Save.run!(log_entry: @log_entry)

@@ -1,10 +1,6 @@
 module JsonBroadcastable
   extend ActiveSupport::Concern
 
-  included do
-    attr_accessor :acting_browser_uuid
-  end
-
   module ClassMethods
     def broadcasts_json_to(channel, channel_target_proc)
       after_create_commit(
@@ -30,7 +26,7 @@ module JsonBroadcastable
     channel.broadcast_to(
       channel_target,
       action:,
-      acting_browser_uuid:,
+      acting_browser_uuid: Current.browser_uuid,
       model: as_json,
     )
   end

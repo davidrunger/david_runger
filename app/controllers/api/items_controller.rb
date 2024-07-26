@@ -14,7 +14,6 @@ class Api::ItemsController < ApplicationController
 
   def update
     authorize(@item)
-    @item.acting_browser_uuid = cookies[:browser_uuid]
     if @item.update(item_params)
       render json: @item
     else
