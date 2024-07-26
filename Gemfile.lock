@@ -725,6 +725,7 @@ DEPENDENCIES
   rails
   rails-controller-testing
   rails-reverse-proxy
+  rainbow
   redis-client
   redlock
   request_store
