@@ -64,7 +64,7 @@ class CupriteLogger
         (match = message.match(JSON_EXTRACTION_REGEX))
       parsed_json = JSON.parse(match[1])
       type, args = parsed_json['params'].values_at('type', 'args')
-      args_values = args.pluck('value')
+      args_values = args.map { extract_arg_from_data(_1) }
 
       if LOG_MESSAGES_TO_IGNORE.none? { _1.match?(args_values.first.to_s) }
         $stdout.send(:print, "JavaScript console.#{type} argument(s): ")
@@ -75,4 +75,25 @@ class CupriteLogger
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  private
+
+  # rubocop:disable Metrics/PerceivedComplexity
+  def extract_arg_from_data(arg_data)
+    if (value = arg_data['value'])
+      if value.is_a?(String) && value.match?(/\A{.*}\z/)
+        JSON.parse(value) rescue value
+      else
+        value
+      end
+    elsif (properties = arg_data.dig('preview', 'properties'))
+      properties.to_h do |property|
+        [
+          property['name'],
+          property['value']&.gsub(/\AObject\z/, 'Object (serialize to JSON to view)'),
+        ]
+      end
+    end
+  end
+  # rubocop:enable Metrics/PerceivedComplexity
 end
