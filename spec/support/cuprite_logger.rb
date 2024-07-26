@@ -91,7 +91,11 @@ class CupriteLogger
       properties.to_h do |property|
         [
           property['name'],
-          property['value']&.gsub(/\AObject\z/, 'Object (serialize to JSON to view)'),
+          if property['value'] == 'Object' && property['type'] == 'object'
+            'Object (serialize to JSON to view)'
+          else
+            property['value']
+          end,
         ]
       end
     end
