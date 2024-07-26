@@ -62,6 +62,7 @@ group :development, :test do
   gem 'immigrant'
   gem 'isolator'
   gem 'pry-byebug', require: false
+  gem 'rainbow'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
