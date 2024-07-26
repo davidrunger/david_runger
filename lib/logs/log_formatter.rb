@@ -51,7 +51,8 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
 
         key_value_string
       end.
-      join(' ').tap do |log_line|
+      join(' ').
+      tap do |log_line|
         if Rails.env.local?
           log_line << "\n\n"
         end
