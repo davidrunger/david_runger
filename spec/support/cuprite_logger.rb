@@ -4,6 +4,10 @@ using Rainbow
 
 class CupriteLogger
   JSON_EXTRACTION_REGEX = /\A\s*[▶◀]\s+\d+\.\d+ ({.*})\n?\z/
+  LOG_MESSAGES_TO_IGNORE = [
+    /\A\[vite\] connecting\.\.\.\z/,
+  ].freeze
+  RUNTIME_CONSOLE_API_CALLED = '"Runtime.consoleAPICalled"'.freeze
   RUNTIME_EXCEPTION_THROWN = '"Runtime.exceptionThrown"'.freeze
 
   def self.javascript_errors
@@ -14,6 +18,11 @@ class CupriteLogger
   # rubocop:disable Metrics/PerceivedComplexity
   # rubocop:disable Metrics/MethodLength
   def puts(message)
+    # The message can be an Integer if an integer is logged in JavaScript.
+    if !message.is_a?(String)
+      return
+    end
+
     if message&.include?(RUNTIME_EXCEPTION_THROWN) && (match = message.match(JSON_EXTRACTION_REGEX))
       parsed_json = JSON.parse(match[1])
       exception_description = parsed_json.dig(
@@ -41,19 +50,56 @@ class CupriteLogger
 
       formatted_stack_trace =
         stack_trace.map do |function, url|
-          path = url.match(%r{http://.*/vite/(.+)(\?t=\d{10,})?})&.[](1)
+          path = url.match(%r{http://.*/vite/([^?]+)})&.[](1)
 
-          "    from #{function.presence || '[anonymous function]'} in " \
+          "  from #{function.presence || '[anonymous function]'} in " \
             "#{path ? "app/javascript/#{path}" : url}"
         end
 
-      $stdout.puts("  JavaScript error: #{exception_message}".red)
+      $stdout.puts("JavaScript error: #{exception_message}".red)
       $stdout.puts(formatted_stack_trace)
 
       self.class.javascript_errors << exception_message
+    elsif message&.include?(RUNTIME_CONSOLE_API_CALLED) &&
+        (match = message.match(JSON_EXTRACTION_REGEX))
+      parsed_json = JSON.parse(match[1])
+      type, args = parsed_json['params'].values_at('type', 'args')
+      args_values = args.map { extract_arg_from_data(_1) }
+
+      if LOG_MESSAGES_TO_IGNORE.none? { _1.match?(args_values.first.to_s) }
+        $stdout.send(:print, "JavaScript console.#{type} argument(s): ")
+        $stdout.send(:ap, args_values)
+      end
     end
   end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  private
+
+  # rubocop:disable Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def extract_arg_from_data(arg_data)
+    if (value = arg_data['value'])
+      if value.is_a?(String) && value.match?(/\A{.*}\z/)
+        JSON.parse(value) rescue value
+      else
+        value
+      end
+    elsif (properties = arg_data.dig('preview', 'properties'))
+      properties.to_h do |property|
+        [
+          property['name'],
+          if property['value'] == 'Object' && property['type'] == 'object'
+            'Object (serialize to JSON to view)'
+          else
+            property['value']
+          end,
+        ]
+      end
+    end
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 end
