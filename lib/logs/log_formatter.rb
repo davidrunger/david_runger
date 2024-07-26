@@ -86,7 +86,7 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
     when :allocations
       if value < 20_000
         :green
-      elsif value < 100_000
+      elsif value < 80_000
         :yellow
       else
         :red
@@ -94,7 +94,7 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
     when :duration, :view, :db
       if value < 100
         :green
-      elsif value < 1_000
+      elsif value < 500
         :yellow
       else
         :red
