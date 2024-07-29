@@ -20,7 +20,7 @@
     el-button.mr-2.mt-2(
       id="show-modal"
       @click='initializeTripCheckIn'
-      :size='$is_mobile_device ? "small" : null'
+      :size='isMobileDevice() ? "small" : null'
     ) Check in items
 
   div.mb-2
@@ -77,6 +77,7 @@ import { EditIcon } from 'vue-tabler-icons';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
 import type { Item as ItemType, Store } from '@/groceries/types';
+import { isMobileDevice } from '@/lib/is_mobile_device';
 import { useModalStore } from '@/shared/modal/store';
 
 import CheckInModal from './CheckInModal.vue';

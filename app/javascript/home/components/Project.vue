@@ -4,7 +4,7 @@
     .card__body
       .project.p-4
         h2.text-center.mt-0.mb-1.font-bold(
-          :class='$is_mobile_device ? "text-xl" : "text-2xl"'
+          :class='isMobileDevice() ? "text-xl" : "text-2xl"'
         )
           slot(name='title')
         .text-center.mb-1(class="text-[#aaa]")
@@ -27,6 +27,8 @@
 </template>
 
 <script setup lang="ts">
+import { isMobileDevice } from '@/lib/is_mobile_device';
+
 defineProps({
   imageContainerClass: {
     type: String,

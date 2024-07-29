@@ -40,27 +40,28 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
       v-if='!groceriesStore.sortedSpouseStores.length && !collapsed'
     )
       | Tip: You and your partner can automatically view each other's lists.
-      | #[a(:href='$routes.new_marriage_path()') Click here] to invite them to join.
+      | #[a(:href='routes.new_marriage_path()') Click here] to invite them to join.
 </template>
 
 <script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { storeToRefs } from 'pinia';
-import { computed, inject, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
 import { useSubscription } from '@/lib/composables/use_subscription';
+import { routes } from '@/lib/routes';
 
 import LoggedInHeader from './LoggedInHeader.vue';
 import StoreListEntry from './StoreListEntry.vue';
+import { isMobileDevice } from '@/lib/is_mobile_device';
 
 const formData = reactive({
   newStoreName: '',
 });
-const isMobileDevice = inject('isMobileDevice');
-const collapsed = ref(isMobileDevice);
+const collapsed = ref(isMobileDevice());
 const groceriesStore = useGroceriesStore();
 const vuelidateRules = {
   newStoreName: { required },
@@ -68,7 +69,7 @@ const vuelidateRules = {
 const v$ = useVuelidate(vuelidateRules, formData);
 
 function handleStoreSelected() {
-  if (isMobileDevice) {
+  if (isMobileDevice()) {
     collapsed.value = true;
   }
 }
