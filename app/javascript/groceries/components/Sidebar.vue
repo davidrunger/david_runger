@@ -52,11 +52,11 @@ import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
 import { useSubscription } from '@/lib/composables/use_subscription';
+import { isMobileDevice } from '@/lib/is_mobile_device';
 import { routes } from '@/lib/routes';
 
 import LoggedInHeader from './LoggedInHeader.vue';
 import StoreListEntry from './StoreListEntry.vue';
-import { isMobileDevice } from '@/lib/is_mobile_device';
 
 const formData = reactive({
   newStoreName: '',
