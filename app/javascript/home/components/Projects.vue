@@ -17,23 +17,23 @@ HomeSection(section='projects' title='Projects')
       ul
 
         li.
-          #[a(:href='$routes.groceries_path()') Groceries]* -
+          #[a(:href='routes.groceries_path()') Groceries]* -
           the collaborative family grocery list, built to be mobile-friendly for use on-the-go
 
         li.
-          #[a(:href='$routes.workout_path()') Workout]* -
+          #[a(:href='routes.workout_path()') Workout]* -
           an app for tracking workouts over time, and to stay on-pace within a workout
 
         li.
-          #[a(:href='$routes.logs_path()') Logs]* -
+          #[a(:href='routes.logs_path()') Logs]* -
           track whatever you want with various log types (text, number, duration, and/or counter)
 
         li.
-          #[a(:href='$routes.quizzes_path()') Quizzes]* -
+          #[a(:href='routes.quizzes_path()') Quizzes]* -
           a multi-person quiz app that uses ActionCable websockets for real-time interactivity
 
         li.
-          #[a(:href='$routes.check_ins_path()') Check-ins]* -
+          #[a(:href='routes.check_ins_path()') Check-ins]* -
           track how well your emotional needs are being met in your marriage/relationship
 
       p #[i *Google login required]
@@ -319,6 +319,8 @@ HomeSection(section='projects' title='Projects')
 </template>
 
 <script setup lang="ts">
+import { routes } from '@/lib/routes';
+
 import HomeSection from './HomeSection.vue';
 import Project from './Project.vue';
 </script>

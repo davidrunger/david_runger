@@ -1,7 +1,6 @@
 import { Component, ComputedOptions, createApp, MethodOptions } from 'vue';
 import whenDomReady from 'when-dom-ready';
 
-import { isMobileDevice } from '@/lib/is_mobile_device';
 import * as Routes from '@/rails_assets/routes';
 
 window.Routes = Routes;
@@ -11,14 +10,6 @@ export function renderApp(
   domTargetSelector = '#container',
 ) {
   const app = createApp(vueApp);
-
-  app.config.globalProperties.$routes = Routes;
-  app.config.globalProperties.$bootstrap =
-    window.davidrunger ? window.davidrunger.bootstrap : {};
-
-  const mobileDeviceBoolean = isMobileDevice();
-  app.config.globalProperties.$is_mobile_device = mobileDeviceBoolean;
-  app.provide('isMobileDevice', mobileDeviceBoolean);
 
   const _renderApp = () => {
     app.mount(domTargetSelector);

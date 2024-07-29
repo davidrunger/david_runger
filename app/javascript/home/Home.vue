@@ -2,7 +2,7 @@
 #app-root.sans-serif.mb-8
   HomeHero
 
-  ParallaxImage(v-if='!$is_mobile_device' variant='macbook-1')
+  ParallaxImage(v-if='!isMobileDevice()' variant='macbook-1')
   //- this is necessary so that the #home section will scroll out of page when clicking down arrow
   .bg-black(v-else style='height: 40px')
 
@@ -27,6 +27,8 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
+
+import { isMobileDevice } from '@/lib/is_mobile_device';
 
 import About from './components/About.vue';
 import Contact from './components/Contact.vue';

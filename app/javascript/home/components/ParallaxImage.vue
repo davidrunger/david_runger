@@ -1,11 +1,13 @@
 <template lang="pug">
-.parallax-outer.parallax-outer--desktop(v-if='!$is_mobile_device')
+.parallax-outer.parallax-outer--desktop(v-if='!isMobileDevice()')
   .parallax-inner.parallax-inner--desktop(:class='variant')
 .parallax-outer.parallax-outer--mobile(v-else)
   .parallax-inner.parallax-inner--mobile(:class='variant')
 </template>
 
 <script setup lang="ts">
+import { isMobileDevice } from '@/lib/is_mobile_device';
+
 defineProps({
   variant: {
     type: String,
