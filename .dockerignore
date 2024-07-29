@@ -1,0 +1,16 @@
+.env*
+.git
+.github
+.ruby-lsp
+app/javascript/rails_assets
+bin/skedjewel
+config/credentials/production.key
+config/initializers/z.rb
+docs
+log
+node_modules
+personal
+spec
+tmp
+!tmp/cache/bootsnap
+tools
