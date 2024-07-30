@@ -6,20 +6,13 @@ RUN test -n "$RUBY_VERSION"
 WORKDIR /app
 
 # Install base packages
-RUN --mount=type=cache,target=/var/lib/apt/lists \
-  --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
+  --mount=type=cache,sharing=private,target=/var/cache/apt \
   apt-get update -qq && \
   apt-get install --no-install-recommends -y \
   libjemalloc2 postgresql-client
-RUN rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# DUPLICATION: /usr/local/bundle is duplicated below in the cache declaration.
-# (Apparently, we can't use variable expansion there.)
-ENV RAILS_ENV="production" \
-  BUNDLE_CLEAN="1" \
-  BUNDLE_DEPLOYMENT="1" \
-  BUNDLE_PATH="/usr/local/bundle" \
-  BUNDLE_WITHOUT="development test"
+ENV RAILS_ENV="production"
 
 # Use jemalloc for memory savings.
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
@@ -30,18 +23,26 @@ ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 FROM base AS build
 
 # Install packages needed to build gems
-RUN --mount=type=cache,target=/var/lib/apt/lists \
-  --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
+  --mount=type=cache,sharing=private,target=/var/cache/apt \
   apt-get update -qq && \
   apt-get install --no-install-recommends -y \
   build-essential curl git libpq-dev unzip
 
-# Install application gems
+# Configure bundler and install application gems
+ARG GEMS_DIRECTORY=vendor/bundle
+RUN \
+  bundle config set --local clean 1 && \
+  bundle config set --local deployment 1 && \
+  bundle config set --local path /app/.cache/bundle && \
+  bundle config set --local without development:test
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN --mount=type=cache,target=/usr/local/bundle \
+RUN --mount=type=cache,sharing=private,target=/app/.cache/bundle \
+  mkdir vendor && \
   bundle install && \
+  cp -ar /app/.cache/bundle "${GEMS_DIRECTORY}" && \
+  bundle config set path "${GEMS_DIRECTORY}" && \
   bundle exec bootsnap precompile --gemfile
-RUN rm -rf "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
 # Copy application code and compiled assets
 COPY . .
@@ -67,7 +68,7 @@ RUN bin/bootsnap precompile app/ lib/
 FROM base
 
 # Copy built artifacts: gems, application code, compiled assets
-COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
+COPY --from=build "${GEMS_DIRECTORY}" "${GEMS_DIRECTORY}"
 COPY --from=build /app /app
 
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
