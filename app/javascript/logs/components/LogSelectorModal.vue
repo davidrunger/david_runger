@@ -73,6 +73,7 @@ function selectHighlightedLog() {
 
 function selectLog(log: Log) {
   router.push({ name: 'log', params: { slug: log.slug } });
+  resetQuickSelector();
 }
 </script>
 
