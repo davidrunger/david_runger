@@ -8,7 +8,7 @@ WORKDIR /app
 # Install base packages
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-  libjemalloc2 postgresql-client unzip && \
+  libjemalloc2 postgresql-client && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -28,7 +28,7 @@ FROM base AS build
 # Install packages needed to build gems
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-  build-essential curl git libpq-dev && \
+  build-essential curl git libpq-dev unzip && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
