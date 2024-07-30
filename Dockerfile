@@ -47,8 +47,8 @@ RUN --mount=type=cache,sharing=private,target=/app/.cache/bundle \
   bundle install && \
   mkdir vendor && \
   cp -ar /app/.cache/bundle "${GEMS_DIRECTORY}"
-
 RUN bundle config set --local path "${GEMS_DIRECTORY}"
+
 RUN bundle exec bootsnap precompile --gemfile
 
 # Copy application code and compiled assets
