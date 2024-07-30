@@ -16,11 +16,12 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
   libjemalloc2 postgresql-client
 
 ENV RAILS_ENV="production"
-ARG GEMS_DIRECTORY=vendor/bundle
 
 # Use jemalloc for memory savings.
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
+# Set up for gem installation.
+ARG GEMS_DIRECTORY=vendor/bundle
 RUN bundle config set path "${GEMS_DIRECTORY}" && \
   bundle config set without development:test
 
