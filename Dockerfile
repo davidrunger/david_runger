@@ -41,10 +41,7 @@ ARG GIT_REV
 ARG RAILS_MASTER_KEY
 
 ENV GIT_REV=${GIT_REV} \
-  MEMCACHED_PASSWORD="" \
-  MEMCACHED_URL="memcached://dummy:11211" \
   RAILS_MASTER_KEY=${RAILS_MASTER_KEY} \
-  REDIS_URL="redis://dummy:6379" \
   DOCKER_BUILD="true"
 
 # Build public/assets/, download public/vite/ and public/vite-admin/, and download skedjewel.
