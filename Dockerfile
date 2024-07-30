@@ -68,7 +68,6 @@ RUN bin/bootsnap precompile app/ lib/
 FROM base
 
 # Copy built artifacts: gems, application code, compiled assets
-COPY --from=build "${GEMS_DIRECTORY}" "${GEMS_DIRECTORY}"
 COPY --from=build /app /app
 
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
