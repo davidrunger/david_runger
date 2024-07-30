@@ -28,7 +28,9 @@ ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 FROM base AS build
 
 # Install packages needed to build gems
-RUN apt-get update -qq && \
+RUN --mount=type=cache,target=/var/lib/apt/lists \
+  --mount=type=cache,target=/var/cache/apt \
+  apt-get update -qq && \
   apt-get install --no-install-recommends -y \
   build-essential curl git libpq-dev unzip
 
