@@ -5,6 +5,9 @@ RUN test -n "$RUBY_VERSION"
 
 WORKDIR /app
 
+# Don't automatically delete packages after installing them. (We want to cache them via Docker.)
+RUN rm /etc/apt/apt.conf.d/docker-clean
+
 # Install base packages
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
