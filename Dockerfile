@@ -36,6 +36,7 @@ RUN apt-get update -qq && \
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN --mount=type=cache,target=${BUNDLE_PATH} \
   bundle install && \
+  bundle clean --force && \
   bundle exec bootsnap precompile --gemfile
 RUN rm -rf "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
