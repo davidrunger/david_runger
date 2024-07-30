@@ -9,7 +9,9 @@ WORKDIR /app
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 # Install base packages
-RUN apt-get update -qq && \
+RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
+  --mount=type=cache,sharing=private,target=/var/cache/apt \
+  apt-get update && \
   apt-get install --no-install-recommends -y \
   libjemalloc2 postgresql-client
 
