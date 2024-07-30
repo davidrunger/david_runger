@@ -6,10 +6,12 @@ RUN test -n "$RUBY_VERSION"
 WORKDIR /app
 
 # Install base packages
-RUN apt-get update -qq && \
+RUN --mount=type=cache,target=/var/lib/apt/lists \
+  --mount=type=cache,target=/var/cache/apt \
+  apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-  libjemalloc2 postgresql-client && \
-  rm -rf /var/lib/apt/lists /var/cache/apt/archives
+  libjemalloc2 postgresql-client
+RUN rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
 ENV RAILS_ENV="production" \
@@ -28,14 +30,14 @@ FROM base AS build
 # Install packages needed to build gems
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-  build-essential curl git libpq-dev unzip && \
-  rm -rf /var/lib/apt/lists /var/cache/apt/archives
+  build-essential curl git libpq-dev unzip
 
 # Install application gems
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN bundle install && \
-  rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+RUN --mount=type=cache,target="${BUNDLE_PATH}" \
+  bundle install && \
   bundle exec bootsnap precompile --gemfile
+RUN rm -rf "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
 # Copy application code and compiled assets
 COPY . .
