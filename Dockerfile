@@ -17,6 +17,9 @@ ENV RAILS_ENV="production" \
   BUNDLE_PATH="/usr/local/bundle" \
   BUNDLE_WITHOUT="development test"
 
+# Use jemalloc for memory savings.
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
 
 # BEGIN build step: Create throw-away build stage to reduce size of final image
 # \/ \/ \/ \/ \/ \/ \/ \/ \/
@@ -60,8 +63,5 @@ FROM base
 # Copy built artifacts: gems, application code, compiled assets
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /app /app
-
-# Use jemalloc for memory savings.
-ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
