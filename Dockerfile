@@ -18,6 +18,8 @@ ARG GEMS_DIRECTORY=vendor/bundle
 # Use jemalloc for memory savings.
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
+RUN bundle config set path "${GEMS_DIRECTORY}"
+
 
 # BEGIN build step: Create throw-away build stage to reduce size of final image
 # \/ \/ \/ \/ \/ \/ \/ \/ \/
@@ -38,11 +40,12 @@ RUN \
   bundle config set --local without development:test
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN --mount=type=cache,sharing=private,target=/app/.cache/bundle \
-  mkdir vendor && \
   bundle install && \
-  cp -ar /app/.cache/bundle "${GEMS_DIRECTORY}" && \
-  bundle config set path "${GEMS_DIRECTORY}" && \
-  bundle exec bootsnap precompile --gemfile
+  mkdir -p "${GEMS_DIRECTORY}" && \
+  cp -ar /app/.cache/bundle "${GEMS_DIRECTORY}"
+
+RUN bundle config set --local path "${GEMS_DIRECTORY}"
+RUN bundle exec bootsnap precompile --gemfile
 
 # Copy application code and compiled assets
 COPY . .
