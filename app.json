@@ -9,10 +9,5 @@
         "attempts": 60
       }
     ]
-  },
-  "scripts": {
-    "dokku": {
-      "predeploy": "bundle exec rails assets:precompile"
-    }
   }
 }
