@@ -13,7 +13,7 @@ export function useFuzzyTypeahead<T extends object>({
 }) {
   const highlightedIndex = ref(0);
   const fuse = computed(() => {
-    return new Fuse(searchables, { keys: [propertyToSearch] })
+    return new Fuse(searchables, { keys: [propertyToSearch] });
   });
 
   const rankedMatches: ComputedRef<Array<T>> = computed(() => {
