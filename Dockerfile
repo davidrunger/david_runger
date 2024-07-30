@@ -39,10 +39,11 @@ RUN \
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN --mount=type=cache,sharing=private,target=/app/.cache/bundle \
   bundle install && \
-  mkdir -p "${GEMS_DIRECTORY}" && \
+  mkdir vendor && \
   cp -ar /app/.cache/bundle "${GEMS_DIRECTORY}"
 
 RUN bundle config set --local path "${GEMS_DIRECTORY}"
+RUN ls vendor/bundle
 RUN bundle exec bootsnap precompile --gemfile
 
 # Copy application code and compiled assets
