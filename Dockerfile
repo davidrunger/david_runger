@@ -13,6 +13,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
   libjemalloc2 postgresql-client
 RUN rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# DUPLICATION: /usr/local/bundle is duplicated below in the cache declaration.
+# (Apparently, we can't use variable expansion there.)
 ENV RAILS_ENV="production" \
   BUNDLE_CLEAN="1" \
   BUNDLE_DEPLOYMENT="1" \
@@ -36,7 +38,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
 
 # Install application gems
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN bundle install && \
+RUN --mount=type=cache,target=/usr/local/bundle \
+  bundle install && \
   bundle exec bootsnap precompile --gemfile
 RUN rm -rf "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
