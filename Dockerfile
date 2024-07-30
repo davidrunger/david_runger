@@ -13,8 +13,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
   libjemalloc2 postgresql-client
 RUN rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Set production environment
 ENV RAILS_ENV="production" \
+  BUNDLE_CLEAN="1" \
   BUNDLE_DEPLOYMENT="1" \
   BUNDLE_PATH="/usr/local/bundle" \
   BUNDLE_WITHOUT="development test"
@@ -37,7 +37,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
 # Install application gems
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN bundle install && \
-  bundle clean --force && \
   bundle exec bootsnap precompile --gemfile
 RUN rm -rf "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
