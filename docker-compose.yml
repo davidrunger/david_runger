@@ -11,7 +11,7 @@ services:
       - '11211:11211'
   postgres:
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: ['CMD', 'pg_isready', '-U', 'postgres']
       interval: 2s
       timeout: 1s
       retries: 10
