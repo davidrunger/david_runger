@@ -32,6 +32,9 @@ RUN bundle install && \
   rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
   bundle exec bootsnap precompile --gemfile
 
+# Copy application code
+COPY . .
+
 ARG GIT_REV
 ARG RAILS_MASTER_KEY
 
@@ -41,9 +44,6 @@ ENV GIT_REV=${GIT_REV} \
   RAILS_MASTER_KEY=${RAILS_MASTER_KEY} \
   REDIS_URL="redis://dummy:6379" \
   DOCKER_BUILD="true"
-
-# Copy application code
-COPY . .
 
 # Build public/assets/ and also download public/vite/ and public/vite-admin/
 RUN VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
