@@ -17,6 +17,9 @@ ENV RAILS_ENV="production" \
   BUNDLE_PATH="/usr/local/bundle" \
   BUNDLE_WITHOUT="development test"
 
+
+
+
 # Create throw-away build stage to reduce size of final image
 FROM base AS build
 
