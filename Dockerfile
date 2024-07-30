@@ -8,7 +8,7 @@ WORKDIR /app
 # Install base packages
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-  libjemalloc2 netcat-traditional postgresql-client unzip && \
+  libjemalloc2 postgresql-client unzip && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
