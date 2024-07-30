@@ -110,6 +110,8 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   FileUtils.rm_rf('public/vite-admin/')
   system('unzip -d public/ tmp/vite.zip')
   system('unzip -d public/ tmp/vite-admin.zip')
+  FileUtils.rm('tmp/vite.zip')
+  FileUtils.rm('tmp/vite-admin.zip')
 
   # install skedjewel
   bin_path = Rails.root.join('bin')

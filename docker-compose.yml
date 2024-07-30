@@ -1,51 +1,61 @@
-version: '3.9'
-
 services:
   memcached:
-    image: memcached:1.6.17-alpine
+    healthcheck:
+      # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
+      test: ['CMD-SHELL', 'echo "version" | nc -vn -w 1 127.0.0.1 11211']
+      interval: 2s
+      timeout: 1s
+      retries: 10
+    image: memcached:1.6.29-alpine
     ports:
       - '11211:11211'
   postgres:
-    image: postgres:15.1-alpine
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'postgres']
+      interval: 2s
+      timeout: 1s
+      retries: 10
+    image: postgres:16.3-alpine
     volumes:
-      - postgresql:/var/lib/postgresql/data:delegated
+      - postgresql:/var/lib/postgresql/data
     ports:
       - '5432:5432'
     environment:
       POSTGRES_USER: david_runger
       POSTGRES_HOST_AUTH_METHOD: trust
   rails:
-    build: .
+    build:
+      context: .
     depends_on:
-      - vite
-    entrypoint: ./docker-rails.sh
+      memcached:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env.development.local
     environment:
+      DATABASE_URL: postgres://david_runger:@postgres:5432/david_runger_production
+      MEMCACHED_PASSWORD: ''
+      MEMCACHED_URL: memcached://memcached:11211
       POSTGRES_HOST: postgres
-      RAILS_ENV: development
+      RAILS_ENV: production
       REDIS_URL: redis://redis:6379
-      VITE_RUBY_HOST: vite
     ports:
       - '3000:3000'
-    volumes:
-      - .:/app
   redis:
-    image: redis:7.0.7-alpine
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 2s
+      timeout: 1s
+      retries: 10
+    image: redis:7.2.5-alpine
     ports:
       - '6379:6379'
     command: redis-server
     volumes:
-      - redis:/data:delegated
-  vite:
-    build: .
-    entrypoint: ./docker-vite.sh
-    environment:
-      DEBUG: '*vite*'
-      RAILS_ENV: development
-      VITE_RUBY_HOST: 0.0.0.0
-    ports:
-      - '3036:3036'
-    volumes:
-      - .:/app
+      - redis:/data
 
 volumes:
   postgresql:

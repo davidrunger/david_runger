@@ -56,10 +56,10 @@ Rails.application.configure do
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
-  config.assume_ssl = true
+  config.assume_ssl = ENV.key?('DOKKU_PROXY_SSL_PORT')
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = ENV.key?('DOKKU_PROXY_SSL_PORT')
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT).
@@ -74,11 +74,13 @@ Rails.application.configure do
   # you want to log everything, set the level to "debug".
   config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
-  # Use a different cache store in production.
-  config.cache_store =
-    :mem_cache_store,
-    ENV.fetch('MEMCACHED_URL'),
-    { password: ENV.fetch('MEMCACHED_PASSWORD') }
+  unless ENV.key?('DOCKER_BUILD')
+    # Use a different cache store in production.
+    config.cache_store =
+      :mem_cache_store,
+      ENV.fetch('MEMCACHED_URL'),
+      { password: ENV.fetch('MEMCACHED_PASSWORD') }
+  end
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque

@@ -8,12 +8,8 @@ module UrlBaseable
   private
 
   def url_base
-    host = request.host
-
     @url_base ||=
-      case Rails.env
-      when 'development' then "http://#{host}:#{request.port}"
-      else "https://#{host}"
-      end
+      "#{request.scheme}://#{request.host}:#{request.port}".
+        gsub(/:(80|443)\z/, '')
   end
 end

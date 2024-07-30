@@ -28,15 +28,29 @@ RSpec.describe SessionsController do
   describe '#url_base' do
     subject(:url_base) { controller.send(:url_base) }
 
-    context 'when Rails.env is "development"', rails_env: :development do
-      it 'returns a URL including the port number' do
-        expect(url_base).to eq('http://test.host:80')
+    before { expect(controller.request).to receive(:port).and_return(port) }
+
+    context 'when the port is 80' do
+      let(:port) { 80 }
+
+      it 'returns a URL that does not include a port number' do
+        expect(url_base).to eq('http://test.host')
       end
     end
 
-    context 'when Rails.env is "production"', rails_env: :production do
+    context 'when the port is 443' do
+      let(:port) { 443 }
+
       it 'returns a URL that does not include a port number' do
-        expect(url_base).to eq('https://test.host')
+        expect(url_base).to eq('http://test.host')
+      end
+    end
+
+    context 'when the port is not 80 or 443' do
+      let(:port) { 3000 }
+
+      it 'returns a URL including the port number' do
+        expect(url_base).to eq("http://test.host:#{port}")
       end
     end
   end

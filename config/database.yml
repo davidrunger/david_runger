@@ -24,14 +24,16 @@ default: &default
 
 development:
   <<: *default
-  database: david_runger_development
-  host: <%= ENV.fetch('POSTGRES_HOST', '127.0.0.1') %>
+  # Allow e.g. DATABASE_NAME=david_runger_production to use Docker postgres DB.
+  database: <%= ENV.fetch('DATABASE_NAME', 'david_runger_development') %>
+  host: <%= ENV.fetch('POSTGRES_HOST', 'localhost') %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  # username: david_runger
+  # Create with: `createuser -s -i -d -r -l -w david_runger`.
+  username: david_runger
 
   # The password associated with the postgres role (username).
   #password:
