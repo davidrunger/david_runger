@@ -12,13 +12,15 @@ export function useFuzzyTypeahead<T extends object>({
   propertyToSearch: keyof T & string;
 }) {
   const highlightedIndex = ref(0);
-  const fuse = new Fuse(searchables, { keys: [propertyToSearch] });
+  const fuse = computed(() => {
+    return new Fuse(searchables, { keys: [propertyToSearch] });
+  });
 
   const rankedMatches: ComputedRef<Array<T>> = computed(() => {
     if (query.value === '') {
       return searchables;
     } else {
-      return map(fuse.search(query.value), 'item');
+      return map(fuse.value.search(query.value), 'item');
     }
   });
 

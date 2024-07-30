@@ -73,7 +73,7 @@ export const useLogsStore = defineStore('logs', {
         .json()) as Log;
 
       this.postingLog = false;
-      this.logs = this.logs.concat(logData);
+      this.logs.push(logData);
       return logData;
     },
 
