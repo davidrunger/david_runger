@@ -6,9 +6,7 @@ RUN test -n "$RUBY_VERSION"
 WORKDIR /app
 
 # Install base packages
-RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
-  --mount=type=cache,sharing=private,target=/var/cache/apt \
-  apt-get update -qq && \
+RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
   libjemalloc2 postgresql-client
 
