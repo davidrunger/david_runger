@@ -69,6 +69,3 @@ COPY --from=build /app /app
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
-
-# Dummy command; Dokku will run the image with other commands (web, sidekiq, etc).
-CMD ["sleep", "infinity"]
