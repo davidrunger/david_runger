@@ -18,9 +18,8 @@ ENV RAILS_ENV="production" \
   BUNDLE_WITHOUT="development test"
 
 
-
-
-# Create throw-away build stage to reduce size of final image
+# BEGIN build step: Create throw-away build stage to reduce size of final image
+# \/ \/ \/ \/ \/ \/ \/ \/ \/
 FROM base AS build
 
 # Install packages needed to build gems
@@ -35,7 +34,7 @@ RUN bundle install && \
   rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
   bundle exec bootsnap precompile --gemfile
 
-# Copy application code
+# Copy application code and compiled assets
 COPY . .
 
 ARG GIT_REV
@@ -48,20 +47,20 @@ ENV GIT_REV=${GIT_REV} \
   REDIS_URL="redis://dummy:6379" \
   DOCKER_BUILD="true"
 
-# Build public/assets/ and also download public/vite/ and public/vite-admin/
+# Build public/assets/, download public/vite/ and public/vite-admin/, and download skedjewel.
 RUN VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
   bundle exec rails assets:precompile
 
 # Precompile bootsnap code for faster boot times
 RUN bin/bootsnap precompile app/ lib/
-
-
+# ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+# END build step
 
 
 # Return to base image for final stage of app image build
 FROM base
 
-# Copy built artifacts: gems, application
+# Copy built artifacts: gems, application code, compiled assets
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /app /app
 
