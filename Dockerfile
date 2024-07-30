@@ -13,6 +13,7 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
   libjemalloc2 postgresql-client
 
 ENV RAILS_ENV="production"
+ARG GEMS_DIRECTORY=vendor/bundle
 
 # Use jemalloc for memory savings.
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
@@ -30,7 +31,6 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
   build-essential curl git libpq-dev unzip
 
 # Configure bundler and install application gems
-ARG GEMS_DIRECTORY=vendor/bundle
 RUN \
   bundle config set --local clean 1 && \
   bundle config set --local deployment 1 && \
