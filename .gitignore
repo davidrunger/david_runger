@@ -44,3 +44,6 @@ export
 
 # Skedjewel
 /bin/skedjewel
+
+# SSL
+/ssl-data/

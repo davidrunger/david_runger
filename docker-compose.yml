@@ -1,4 +1,10 @@
 services:
+  certbot:
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    image: certbot/certbot
+    volumes:
+      - ./ssl-data/certbot/conf:/etc/letsencrypt
+      - ./ssl-data/certbot/www:/var/www/_letsencrypt
   memcached:
     healthcheck:
       # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
@@ -9,6 +15,16 @@ services:
     image: memcached:1.6.29-alpine
     ports:
       - '11211:11211'
+  nginx:
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    image: nginx:1.27.0-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./config/nginx/:/etc/nginx/
+      - ./ssl-data/certbot/conf:/etc/letsencrypt
+      - ./ssl-data/certbot/www:/var/www/_letsencrypt
   postgres:
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'postgres']
