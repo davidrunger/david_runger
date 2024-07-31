@@ -74,4 +74,8 @@ FROM base
 # Copy built artifacts: gems, application code, compiled assets
 COPY --from=build /app /app
 
+# Add GIT_REV env var permanently to the image
+ARG GIT_REV
+ENV GIT_REV=${GIT_REV}
+
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
