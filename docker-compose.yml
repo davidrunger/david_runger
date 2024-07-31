@@ -16,7 +16,7 @@ services:
     ports:
       - '11211:11211'
   nginx:
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     image: nginx:1.27.0-alpine
     ports:
       - 80:80
