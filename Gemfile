@@ -12,6 +12,7 @@ gem 'connection_pool'
 gem 'csv'
 gem 'dalli'
 gem 'devise'
+gem 'dotenv'
 gem 'draper'
 gem 'faraday'
 gem 'faraday-multipart'
@@ -58,7 +59,6 @@ group :development, :test do
   gem 'amazing_print'
   gem 'annotate', require: false
   gem 'bullet'
-  gem 'dotenv'
   gem 'immigrant'
   gem 'isolator'
   gem 'pry-byebug', require: false

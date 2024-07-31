@@ -1,5 +1,5 @@
 # ENV secrets
-.env.development.local
+.env.*.local
 
 # Gems
 /.bundle

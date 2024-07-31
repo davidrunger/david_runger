@@ -34,7 +34,7 @@ services:
       redis:
         condition: service_healthy
     env_file:
-      - .env.development.local
+      - .env.production.local
     environment:
       DATABASE_URL: postgres://david_runger:@postgres:5432/david_runger_production
       MEMCACHED_PASSWORD: ''
