@@ -55,14 +55,11 @@ RUN bundle exec bootsnap precompile --gemfile
 COPY . .
 
 ARG GIT_REV
-ARG RAILS_MASTER_KEY
-
-ENV GIT_REV=${GIT_REV} \
-  RAILS_MASTER_KEY=${RAILS_MASTER_KEY} \
-  DOCKER_BUILD="true"
 
 # Build public/assets/, download public/vite/ and public/vite-admin/, and download skedjewel.
-RUN VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
+RUN DOCKER_BUILD=true \
+  GIT_REV=${GIT_REV} \
+  VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
   bundle exec rails assets:precompile
 
 # Precompile bootsnap code for faster boot times
