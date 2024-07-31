@@ -10,6 +10,9 @@ docs
 log
 node_modules
 personal
+public/assets
+public/vite
+public/vite-admin
 spec
 tmp
 !tmp/cache/bootsnap
