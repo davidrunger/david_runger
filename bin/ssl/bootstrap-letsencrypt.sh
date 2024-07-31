@@ -3,6 +3,8 @@
 # From script linked at (plus some modifications):
 # https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71
 
+# shellcheck disable=SC2128
+
 domains=(davidrunger.com www.davidrunger.com)
 rsa_key_size=4096
 data_path="./ssl-data/certbot"
@@ -10,7 +12,7 @@ email="davidjrunger@gmail.com" # Adding a valid address is strongly recommended
 staging=1 # Set to 1 if you're testing your setup to avoid hitting request limits
 
 if [ -d "$data_path" ]; then
-  read -p "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
+  read -pr "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
   if [ "$decision" != "Y" ] && [ "$decision" != "y" ]; then
     exit
   fi
