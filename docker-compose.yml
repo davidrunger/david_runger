@@ -66,7 +66,7 @@ services:
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
   postgres:
     healthcheck:
-      test: ['CMD', 'pg_isready']
+      test: ['CMD', 'pg_isready', '-U', 'david_runger']
       interval: 2s
       timeout: 1s
       retries: 10
