@@ -2,6 +2,11 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-bin/rails db:prepare
+if ! ( psql -U david_runger -h postgres -XtAc \
+  "SELECT 1 FROM pg_database WHERE datname='david_runger_production'" | \
+  grep -q 1
+) ; then
+  bin/rails db:prepare
+fi
 
 exec "${@}"
