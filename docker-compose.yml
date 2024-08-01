@@ -1,3 +1,24 @@
+x-rails-config: &default-rails-config
+  build:
+    context: .
+  depends_on:
+    memcached:
+      condition: service_healthy
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+  env_file:
+    - .env.production.local
+  environment:
+    DATABASE_URL: postgres://david_runger:@postgres:5432/david_runger_production
+    MEMCACHED_PASSWORD: ''
+    MEMCACHED_URL: memcached://memcached:11211
+    RAILS_ENV: production
+    REDIS_URL: redis://redis:6379
+  networks:
+    - internal
+
 services:
   certbot:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
@@ -5,6 +26,9 @@ services:
     volumes:
       - ./ssl-data/certbot/conf:/etc/letsencrypt
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
+  clock:
+    <<: *default-rails-config
+    command: ["bin/skedjewel"]
   memcached:
     healthcheck:
       # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
@@ -42,27 +66,6 @@ services:
     environment:
       POSTGRES_USER: david_runger
       POSTGRES_HOST_AUTH_METHOD: trust
-  rails:
-    build:
-      context: .
-    depends_on:
-      memcached:
-        condition: service_healthy
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    env_file:
-      - .env.production.local
-    environment:
-      DATABASE_URL: postgres://david_runger:@postgres:5432/david_runger_production
-      MEMCACHED_PASSWORD: ''
-      MEMCACHED_URL: memcached://memcached:11211
-      POSTGRES_HOST: postgres
-      RAILS_ENV: production
-      REDIS_URL: redis://redis:6379
-    networks:
-      - internal
   redis:
     command: redis-server
     healthcheck:
@@ -75,6 +78,14 @@ services:
       - internal
     volumes:
       - redis:/data
+  web:
+    <<: *default-rails-config
+    command: ["bin/rails", "server"]
+    expose:
+      - "3000"
+  worker:
+    <<: *default-rails-config
+    command: ["bin/sidekiq"]
 
 networks:
   external:
