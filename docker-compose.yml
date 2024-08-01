@@ -29,6 +29,14 @@ services:
   clock:
     <<: *default-rails-config
     command: ['bin/skedjewel']
+    depends_on:
+      initialize_database:
+        condition: service_completed_successfully
+      worker:
+        condition: service_started
+  initialize_database:
+    <<: *default-rails-config
+    command: ['bin/docker-entrypoint']
   memcached:
     healthcheck:
       # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
@@ -41,6 +49,11 @@ services:
       - internal
   nginx:
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    depends_on:
+      certbot:
+        condition: service_started
+      web:
+        condition: service_started
     image: nginx:1.27.0-alpine
     networks:
       - external
@@ -81,11 +94,17 @@ services:
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server']
+    depends_on:
+      initialize_database:
+        condition: service_completed_successfully
     expose:
       - '3000'
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
+    depends_on:
+      initialize_database:
+        condition: service_completed_successfully
 
 networks:
   external:
