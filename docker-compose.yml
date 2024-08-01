@@ -35,11 +35,11 @@ services:
       worker:
         condition: service_started
     networks:
-    - internal
+      - internal
   initialize_database:
     <<: *default-rails-config
     networks:
-    - internal
+      - internal
   memcached:
     healthcheck:
       # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
@@ -103,8 +103,8 @@ services:
     expose:
       - '3000'
     networks:
-    - external
-    - internal
+      - external
+      - internal
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
@@ -112,8 +112,8 @@ services:
       initialize_database:
         condition: service_completed_successfully
     networks:
-    - external
-    - internal
+      - external
+      - internal
 
 networks:
   external:
