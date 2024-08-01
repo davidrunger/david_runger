@@ -36,7 +36,6 @@ services:
         condition: service_started
   initialize_database:
     <<: *default-rails-config
-    command: ['bin/docker-entrypoint']
   memcached:
     healthcheck:
       # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
