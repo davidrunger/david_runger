@@ -16,13 +16,13 @@ x-rails-config: &default-rails-config
     MEMCACHED_URL: memcached://memcached:11211
     RAILS_ENV: production
     REDIS_URL: redis://redis:6379
-  networks:
-    - internal
 
 services:
   certbot:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     image: certbot/certbot
+    networks:
+      - external
     volumes:
       - ./ssl-data/certbot/conf:/etc/letsencrypt
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
@@ -34,8 +34,12 @@ services:
         condition: service_completed_successfully
       worker:
         condition: service_started
+    networks:
+    - internal
   initialize_database:
     <<: *default-rails-config
+    networks:
+    - internal
   memcached:
     healthcheck:
       # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
@@ -98,12 +102,18 @@ services:
         condition: service_completed_successfully
     expose:
       - '3000'
+    networks:
+    - external
+    - internal
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
     depends_on:
       initialize_database:
         condition: service_completed_successfully
+    networks:
+    - external
+    - internal
 
 networks:
   external:
