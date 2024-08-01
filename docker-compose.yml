@@ -28,7 +28,7 @@ services:
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
   clock:
     <<: *default-rails-config
-    command: ["bin/skedjewel"]
+    command: ['bin/skedjewel']
   memcached:
     healthcheck:
       # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
@@ -80,12 +80,12 @@ services:
       - redis:/data
   web:
     <<: *default-rails-config
-    command: ["bin/rails", "server"]
+    command: ['bin/rails', 'server']
     expose:
-      - "3000"
+      - '3000'
   worker:
     <<: *default-rails-config
-    command: ["bin/sidekiq"]
+    command: ['bin/sidekiq']
 
 networks:
   external:
