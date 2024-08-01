@@ -13,11 +13,14 @@ services:
       timeout: 1s
       retries: 10
     image: memcached:1.6.29-alpine
-    ports:
-      - '11211:11211'
+    networks:
+      - internal
   nginx:
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     image: nginx:1.27.0-alpine
+    networks:
+      - external
+      - internal
     ports:
       - 80:80
       - 443:443
@@ -32,10 +35,10 @@ services:
       timeout: 1s
       retries: 10
     image: postgres:16.3-alpine
+    networks:
+      - internal
     volumes:
       - postgresql:/var/lib/postgresql/data
-    ports:
-      - '5432:5432'
     environment:
       POSTGRES_USER: david_runger
       POSTGRES_HOST_AUTH_METHOD: trust
@@ -58,20 +61,27 @@ services:
       POSTGRES_HOST: postgres
       RAILS_ENV: production
       REDIS_URL: redis://redis:6379
-    ports:
-      - '3000:3000'
+    networks:
+      - internal
   redis:
+    command: redis-server
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
       interval: 2s
       timeout: 1s
       retries: 10
     image: redis:7.2.5-alpine
-    ports:
-      - '6379:6379'
-    command: redis-server
+    networks:
+      - internal
     volumes:
       - redis:/data
+
+networks:
+  external:
+    driver: bridge
+  internal:
+    driver: bridge
+    internal: true
 
 volumes:
   postgresql:
