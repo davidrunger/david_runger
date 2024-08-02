@@ -101,6 +101,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Write secrets to ~/.ssh/ files
         run: |
           mkdir -p ~/.ssh/
@@ -110,11 +115,6 @@ jobs:
 
       - name: Run deploy script on server
         run: ssh "${{secrets.SERVER_IP}}" < bin/server/deploy.sh
-
-      # - name: Clone repo
-      #   uses: actions/checkout@v4
-      #   with:
-      #     fetch-depth: 0
 
       # - name: Set up Ruby
       #   uses: ruby/setup-ruby@v1
