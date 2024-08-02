@@ -16,7 +16,7 @@ fi
 # Rebuild the app.
 docker compose build \
   --build-arg "GIT_REV=$GIT_REV" \
-  --build-arg RUBY_VERSION=$(cat .ruby-version) \
+  --build-arg "RUBY_VERSION=$(cat .ruby-version)" \
   --progress=plain
 
 rails_services=(clock web worker)
