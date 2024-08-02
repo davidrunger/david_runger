@@ -1,9 +1,9 @@
+# https://stackoverflow.com/a/74887073/4009384
 name: 'Set GIT_REV environment variable'
 description: ''
 runs:
   using: 'composite'
   steps:
-    # https://stackoverflow.com/a/74887073/4009384
     - name: Export GIT_REV (PR)
       if: ${{ github.event_name == 'pull_request' }}
       shell: bash
