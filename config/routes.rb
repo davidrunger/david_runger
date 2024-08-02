@@ -108,10 +108,25 @@ Rails.application.routes.draw do
   # Google periodically re-verifies this route, so we need to leave it here indefinitely
   get(
     'google83c07e1014ea4a70',
-    to: ->(_env) { [200, {}, ['google-site-verification: google83c07e1014ea4a70.html']] },
+    to: ->(_env) do
+      [
+        200,
+        { 'Content-Type' => 'text/plain' },
+        ['google-site-verification: google83c07e1014ea4a70.html'],
+      ]
+    end,
   )
 
-  get('sha', to: ->(_env) { [200, {}, [ENV.fetch('GIT_REV').first(8)]] })
+  get(
+    'sha',
+    to: ->(_env) do
+      [
+        200,
+        { 'Content-Type' => 'text/plain' },
+        [ENV.fetch('GIT_REV')],
+      ]
+    end,
+  )
 
   get '/404', to: 'errors#not_found', via: :all
   get '/422', to: 'errors#unacceptable', via: :all
