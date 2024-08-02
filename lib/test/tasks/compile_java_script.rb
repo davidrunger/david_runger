@@ -3,12 +3,14 @@ class Test::Tasks::CompileJavaScript < Pallets::Task
 
   def run
     execute_system_command('rm -rf public/vite/ public/vite-admin/')
+
     execute_system_command(
       'bin/vite build --force',
       {
         'NODE_ENV' => 'production',
       },
     )
+
     execute_system_command(
       'bin/vite build --force',
       {
@@ -17,6 +19,7 @@ class Test::Tasks::CompileJavaScript < Pallets::Task
         'VITE_RUBY_PUBLIC_OUTPUT_DIR' => 'vite-admin',
       },
     )
+
     if ENV.fetch('CI', nil) == 'true' && ENV.fetch('GITHUB_REF_NAME') == 'main'
       execute_rake_task('assets:upload_vite_assets')
     end

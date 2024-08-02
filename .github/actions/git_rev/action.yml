@@ -1,0 +1,14 @@
+# https://stackoverflow.com/a/74887073/4009384
+name: 'Set GIT_REV environment variable'
+description: ''
+runs:
+  using: 'composite'
+  steps:
+    - name: Export GIT_REV (PR)
+      if: ${{ github.event_name == 'pull_request' }}
+      shell: bash
+      run: echo "GIT_REV=${{ github.event.pull_request.head.sha }}" >> ${GITHUB_ENV}
+    - name: Export GIT_REV (Push)
+      if: ${{ github.event_name == 'push' }}
+      shell: bash
+      run: echo "GIT_REV=${GITHUB_SHA}" >> ${GITHUB_ENV}
