@@ -27,5 +27,6 @@ docker compose down "${services_to_restart[@]}"
 # Launch new Rails services.
 docker compose up --detach "${services_to_restart[@]}"
 
-# Check out main branch.
+# Check out and update main branch.
 git checkout main
+git reset --hard origin/main
