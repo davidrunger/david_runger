@@ -63,7 +63,7 @@ jobs:
         with:
           scandir: './bin'
       - name: Set GIT_REV environment variable
-        uses: .github/actions/git_rev
+        uses: ./.github/actions/git_rev
       - name: Run tests & linters
         run: bin/run-tests
         env:
@@ -119,7 +119,7 @@ jobs:
           ssh-add ~/.ssh/id_ed25519
 
       - name: Set GIT_REV environment variable
-        uses: .github/actions/git_rev
+        uses: ./.github/actions/git_rev
 
       - name: Run deploy script on server
         run: ssh "${{secrets.SERVER_USER_AND_IP}}" "GIT_REV='$GIT_REV' bash -s" < bin/server/deploy.sh
