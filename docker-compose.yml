@@ -80,7 +80,6 @@ services:
       - postgresql:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: david_runger
-      POSTGRES_HOST_AUTH_METHOD: trust
   redis:
     command: redis-server
     healthcheck:
