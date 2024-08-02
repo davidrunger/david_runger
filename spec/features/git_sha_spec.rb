@@ -10,10 +10,10 @@ RSpec.describe 'Git SHA endpoint', :rack_test_driver do
 
     let(:git_sha) { 'b18d253eab03e0eb8d7f7dc995ececd326ad9fd5' }
 
-    it 'renders the first 8 characters of the Git SHA' do
+    it 'renders the full Git SHA' do
       visit_git_sha_path
 
-      expect(page.text).to eq(git_sha.first(8))
+      expect(page.text).to eq(git_sha)
     end
   end
 end
