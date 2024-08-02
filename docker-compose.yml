@@ -68,6 +68,8 @@ services:
       - ./ssl-data/certbot/conf:/etc/letsencrypt
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
   postgres:
+    env_file:
+      - .env.postgres.local
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'david_runger']
       interval: 2s
@@ -79,6 +81,7 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql/data
     environment:
+      POSTGRES_INITDB_ARGS: --auth=scram-sha-256
       POSTGRES_USER: david_runger
   redis:
     command: redis-server
