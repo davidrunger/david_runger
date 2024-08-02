@@ -19,13 +19,13 @@ docker compose build \
   --build-arg "RUBY_VERSION=$(cat .ruby-version)" \
   --progress=plain
 
-rails_services=(clock web worker)
+services_to_restart=(clock nginx web worker)
 
 # Stop old Rails services.
-docker compose down "${rails_services[@]}"
+docker compose down "${services_to_restart[@]}"
 
 # Launch new Rails services.
-docker compose up --detach "${rails_services[@]}"
+docker compose up --detach "${services_to_restart[@]}"
 
 # Check out main branch.
 git checkout main
