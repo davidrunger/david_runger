@@ -11,7 +11,6 @@ x-rails-config: &default-rails-config
   env_file:
     - .env.production.local
   environment:
-    DATABASE_URL: postgres://david_runger:@postgres:5432/david_runger_production
     MEMCACHED_PASSWORD: ''
     MEMCACHED_URL: memcached://memcached:11211
     RAILS_ENV: production
