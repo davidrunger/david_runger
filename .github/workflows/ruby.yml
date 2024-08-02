@@ -62,6 +62,8 @@ jobs:
         uses: ludeeus/action-shellcheck@master
         with:
           scandir: './bin'
+      - name: Set GIT_REV environment variable
+        uses: ./.github/actions/git_rev
       - name: Run tests & linters
         run: bin/run-tests
         env:
@@ -116,13 +118,8 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_ed25519
 
-      # https://stackoverflow.com/a/74887073/4009384
-      - name: Export GIT_REV (PR)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: echo "GIT_REV=${{ github.event.pull_request.head.sha }}" >> ${GITHUB_ENV}
-      - name: Export GIT_REV (Push)
-        if: ${{ github.event_name == 'push' }}
-        run: echo "GIT_REV=${GITHUB_SHA}" >> ${GITHUB_ENV}
+      - name: Set GIT_REV environment variable
+        uses: ./.github/actions/git_rev
 
       - name: Run deploy script on server
         run: ssh "${{secrets.SERVER_USER_AND_IP}}" "GIT_REV='$GIT_REV' bash -s" < bin/server/deploy.sh

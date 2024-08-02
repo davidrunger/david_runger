@@ -57,8 +57,7 @@ namespace :assets do
 
   desc 'Upload Vite assets to S3'
   task :upload_vite_assets do
-    git_sha = `git rev-parse HEAD`.strip
-    raise('Could not determine git SHA!') if git_sha.empty?
+    git_sha = ENV.fetch('GIT_REV')
 
     upload_zipped_assets(git_sha, 'vite')
     upload_zipped_assets(git_sha, 'vite-admin')
