@@ -97,7 +97,7 @@ jobs:
 
   deploy-and-prerender:
     # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
