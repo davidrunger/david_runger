@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   end
 
   def plain_text_response(text)
-    [200, { 'Content-Type' => 'text/plain' }, [text]]
+    [200, { 'Content-Disposition' => 'inline', 'Content-Type' => 'text/plain' }, [text]]
   end
 
   # Google periodically re-verifies this route, so we need to leave it here indefinitely
