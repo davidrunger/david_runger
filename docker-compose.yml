@@ -14,7 +14,6 @@ x-rails-config: &default-rails-config
     MEMCACHED_PASSWORD: ''
     MEMCACHED_URL: memcached://memcached:11211
     RAILS_ENV: production
-    REDIS_URL: redis://redis:6379
   networks:
     - external
     - internal
@@ -83,7 +82,17 @@ services:
       POSTGRES_INITDB_ARGS: --auth=scram-sha-256
       POSTGRES_USER: david_runger
   redis:
-    command: redis-server
+    # https://stackoverflow.com/a/72593084/4009384
+    command:
+      - /bin/sh
+      - -c
+      # - Double dollars, so that the variable is not expanded by Docker Compose
+      # - Surround by quotes, so that the shell does not split the password
+      # - The ${variable:?message} syntax causes shell to exit with a non-zero
+      #   code and print a message, when the variable is not set or empty
+      - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
+    env_file:
+      - .env.redis.local
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
       interval: 2s
