@@ -106,13 +106,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Write secrets to ~/.ssh/ files
+      - name: Set up key for SSHing to server
         run: |
           mkdir -p ~/.ssh/
           echo "${{secrets.SSH_KNOWN_HOSTS}}" > ~/.ssh/known_hosts
           echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
           echo "${{secrets.SSH_PUBLIC_KEY}}" > ~/.ssh/id_ed25519.pub
           sudo chmod 600 ~/.ssh/id_ed25519
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519
 
       - name: Run deploy script on server
         run: ssh "${{secrets.SERVER_IP}}" < bin/server/deploy.sh
