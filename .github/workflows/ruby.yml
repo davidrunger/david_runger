@@ -117,7 +117,7 @@ jobs:
           ssh-add ~/.ssh/id_ed25519
 
       - name: Run deploy script on server
-        run: ssh "${{secrets.SERVER_IP}}" < bin/server/deploy.sh
+        run: ssh "${{secrets.SERVER_USER_AND_IP}}" < bin/server/deploy.sh
 
       # - name: Set up Ruby
       #   uses: ruby/setup-ruby@v1
