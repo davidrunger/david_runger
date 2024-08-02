@@ -98,6 +98,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   deploy-and-prerender:
+    concurrency:
+      group: deploy-and-prerender
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: test
     runs-on: ubuntu-latest
