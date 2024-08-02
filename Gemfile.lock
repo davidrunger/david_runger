@@ -582,7 +582,7 @@ GEM
       logger
       rack (>= 2.2.4)
       redis-client (>= 0.22.2)
-    simple_cov-formatter-terminal (1.5.0)
+    simple_cov-formatter-terminal (1.6.0)
       activesupport (>= 7.0.4, < 8)
       memo_wise (>= 1.7.0, < 2)
       rouge (>= 4.0.0, < 5)
