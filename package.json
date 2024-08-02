@@ -41,7 +41,7 @@
     "unplugin-element-plus": "^0.8.0",
     "vue": "^3.4.34",
     "vue-chartjs": "^5.3.1",
-    "vue-router": "^4.4.0",
+    "vue-router": "^4.4.2",
     "vue-tabler-icons": "^2.21.0",
     "when-dom-ready": "^1.2.12"
   },
