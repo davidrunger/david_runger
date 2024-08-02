@@ -118,6 +118,8 @@ jobs:
 
       - name: Run deploy script on server
         run: ssh "${{secrets.SERVER_USER_AND_IP}}" < bin/server/deploy.sh
+        env:
+          GIT_REV: '${{github.sha}}'
 
       # - name: Set up Ruby
       #   uses: ruby/setup-ruby@v1
