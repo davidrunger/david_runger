@@ -13,6 +13,9 @@ if [ "$current_commit" != "$GIT_REV" ] ; then
   exit 1
 fi
 
+# Run the install script.
+bin/server/install.sh
+
 # Rebuild the app.
 docker compose build \
   --build-arg "GIT_REV=$GIT_REV" \
