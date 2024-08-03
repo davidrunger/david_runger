@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# `qr` stands for [q]uick [r]estore. It:
+# 1. copies a backup of the production database to S3
+# 2. downloads and extracts that copy of the production database locally
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+echo "Creating new backup..."
+ssh "$(runger-config user-at-server)" bin/server/back-up-db-to-s3.sh
+
+BACKUPS_BUCKET=$(parse-env BUCKET_NAME .env.s3_db_backup.local)
+LATEST_BACKUP_FILENAME=$(aws s3 ls "$BACKUPS_BUCKET" | sort | tail -1 | awk '{print $4}')
+
+echo "Downloading and unzipping latest backup $LATEST_BACKUP_FILENAME..."
+aws s3 cp "s3://$BACKUPS_BUCKET/$LATEST_BACKUP_FILENAME" tmp/ &&
+  tar zxvf "tmp/$LATEST_BACKUP_FILENAME" -C tmp/
+
+
+development_database=david_runger_development
+echo "Restoring $development_database database from backup..."
+pg_restore \
+  --verbose --clean --no-owner -h localhost -d "$development_database" \
+  tmp/backup/export
+
+echo "Removing dump files..."
+rm "tmp/$LATEST_BACKUP_FILENAME"
+rm -rf tmp/backup/
+echo "Done."
+
+echo "Setting ar_internal_metadata environment to development."
+RAILS_ENV=development bin/rails db:environment:set
+echo "Done."

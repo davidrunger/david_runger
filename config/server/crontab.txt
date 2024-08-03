@@ -1,12 +1,15 @@
-# reboot server every saturday at 08:56 UTC (2:56am or 3:56am CT)
+# reboot server (saturday at 08:56 UTC, 2:56am or 3:56am CT)
 56 8 * * 6  reboot
 
-# restart dokku app daily at 08:32 UTC (2:32am or 3:32am CT)
+# restart dokku app (daily at 08:32 UTC, 2:32am or 3:32am CT)
 32 8 * * *  docker compose restart
 
-# renice puma and nginx to have maximum CPU priority, each every other minute
+# renice puma and nginx to have maximum CPU priority (each every other minute)
 */2 * * * *  ps aux | grep [p]uma | awk {'print $2'} | xargs renice -n -20 -p
 1-59/2 * * * *  ps aux | grep -E '[n]ginx.*process' | awk {'print $2'} | xargs renice -n -20 -p
 
-# trim docker images (07:42 UTC, 1:42am or 2:42am CT)
+# trim docker images (daily at 07:42 UTC, 1:42am or 2:42am CT)
 42 7 * * *  docker system prune --all --force
+
+# back up database (daily at 06:10 UTC, 12:10am or 1:10am CT)
+10 6 * * *  /root/david_runger/bin/server/back-up-db-to-s3.sh
