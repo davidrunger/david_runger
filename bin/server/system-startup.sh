@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-# This script (startup.sh in the david_runger repo) is not intended to be
+# This script (system-startup.sh in the david_runger repo) is not intended to be
 # executed directly, but rather to be symlinked to `/etc/rc.local`, so that it's
 # contents will be executed at system startup.
 
