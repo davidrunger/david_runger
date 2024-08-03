@@ -1,0 +1,12 @@
+# reboot server every saturday at 08:56 UTC (2:56am or 3:56am CT)
+56 8 * * 6  reboot
+
+# restart dokku app daily at 08:32 UTC (2:32am or 3:32am CT)
+32 8 * * *  docker compose restart
+
+# renice puma and nginx to have maximum CPU priority, each every other minute
+*/2 * * * *  ps aux | grep [p]uma | awk {'print $2'} | xargs renice -n -20 -p
+1-59/2 * * * *  ps aux | grep -E '[n]ginx.*process' | awk {'print $2'} | xargs renice -n -20 -p
+
+# trim docker images (07:42 UTC, 1:42am or 2:42am CT)
+42 7 * * *  docker system prune --all --force

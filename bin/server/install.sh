@@ -5,3 +5,5 @@
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
 ln -sf "$HOME/david_runger/bin/server/system-startup.sh" /etc/rc.local
+
+crontab config/server/crontab.txt
