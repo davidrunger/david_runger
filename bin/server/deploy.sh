@@ -23,7 +23,7 @@ docker compose build \
 docker compose up --detach clock nginx web worker
 
 # Run release tasks.
-docker compose exec web bin/server/release-tasks
+docker compose exec web bin/rails runner bin/server/release-tasks.rb
 
 # Check out and update main branch.
 git checkout main

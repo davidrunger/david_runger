@@ -1,10 +1,5 @@
 #!/usr/bin/env ruby
 
-# https://stackoverflow.com/a/77655338/4009384
-if !defined?(Rails)
-  exec('bin/rails', 'runner', __FILE__, *ARGV)
-end
-
 class Runner
   def run_task(task_description)
     print("#{task_description}... ")
