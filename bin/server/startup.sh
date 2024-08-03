@@ -6,12 +6,14 @@
 
 docker_startup_log=/tmp/docker-compose.log
 
-# Log the script execution start time
-echo "Startup script executed at: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> "$docker_startup_log"
+{
+  # Log the script execution start time
+  echo "Startup script executed at: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
-# Log current directory and user
-echo "Current directory: $(pwd)" >> "$docker_startup_log"
-echo "Current user: $(whoami)" >> "$docker_startup_log"
+  # Log current directory and user
+  echo "Current directory: $(pwd)"
+  echo "Current user: $(whoami)"
+}  >> "$docker_startup_log"
 
 # Wait for Docker to be active
 while ! systemctl is-active --quiet docker; do
