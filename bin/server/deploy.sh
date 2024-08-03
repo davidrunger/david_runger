@@ -2,6 +2,11 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
+if [[ -n $(git status --porcelain) ]] ; then
+  echo 'The working directory is not clean. Aborting.'
+  exit 1
+fi
+
 git fetch
 git checkout "$GIT_REV"
 
