@@ -129,7 +129,8 @@ jobs:
       - name: Copy deploy script to server and execute it
         run: |
           scp bin/server/deploy.sh "${{secrets.SERVER_USER_AND_IP}}:/tmp/"
-          ssh "${{secrets.SERVER_USER_AND_IP}}" "bash /tmp/deploy.sh && rm /tmp/deploy.sh"
+          ssh "${{secrets.SERVER_USER_AND_IP}}" \
+            "GIT_REV='$GIT_REV' bash /tmp/deploy.sh && rm /tmp/deploy.sh"
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
