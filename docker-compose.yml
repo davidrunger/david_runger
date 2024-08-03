@@ -103,6 +103,12 @@ services:
       - internal
     volumes:
       - redis:/data
+  s3_db_backup:
+    env_file:
+      - .env.s3_db_backup.local
+    image: dokku/s3backup
+    networks:
+      - external
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server']
