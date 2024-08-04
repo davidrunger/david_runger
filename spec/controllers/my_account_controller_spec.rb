@@ -1,8 +1,8 @@
-RSpec.describe UsersController do
+RSpec.describe MyAccountController do
   let(:user) { users(:user) }
 
   describe '#destroy' do
-    subject(:delete_destroy) { delete(:destroy, params: { id: user_to_destroy.id }) }
+    subject(:delete_destroy) { delete(:destroy) }
 
     let(:user_to_destroy) { users(:user) }
 
@@ -44,7 +44,7 @@ RSpec.describe UsersController do
   end
 
   describe '#edit' do
-    subject(:get_edit) { get(:edit, params: { id: user.id }) }
+    subject(:get_edit) { get(:edit) }
 
     context 'when signed in' do
       before { sign_in(user) }

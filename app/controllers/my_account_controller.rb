@@ -1,11 +1,11 @@
-class UsersController < ApplicationController
+class MyAccountController < ApplicationController
   self.container_classes = %w[p-8]
 
   def destroy
     @user =
       User.includes(
         logs: %i[log_shares number_log_entries text_log_entries],
-      ).find(params[:id])
+      ).find(current_user.id)
     authorize(@user)
 
     @user.destroy!
@@ -15,8 +15,14 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
     authorize(@user)
     render :edit
+  end
+
+  def show
+    @user = current_user
+    authorize(@user)
+    render :show
   end
 end

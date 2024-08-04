@@ -5,7 +5,7 @@ RSpec.describe 'Account deletion' do
     let(:user) { users(:user) }
 
     it 'allows the user to delete their account and redirects to the homepage with a flash message', :prerendering_disabled do
-      visit edit_user_path(user)
+      visit edit_my_account_path
 
       accept_confirm { click_on('Delete Account') }
 

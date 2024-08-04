@@ -1,0 +1,16 @@
+- content_for(:page_assets) do
+  = ts_tag('ujs')
+
+%h1 My Account
+
+%div.mt-4
+  %b Email:
+  = @user.email
+
+%div.mt-4
+  = link_to('Manage Auth Tokens', edit_my_account_path)
+
+%div.mt-4
+  = button_to('Delete Account', my_account_path,
+    method: :delete, class: 'btn-danger',
+    data: { confirm: "Are you sure that you want to completely and permanently delete your account (#{current_user.email})?" })

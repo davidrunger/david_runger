@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     named_routes['new_session'] = named_routes['login']
     named_routes['new_user_session'] = named_routes['login']
   end
+  resource :my_account, controller: :my_account, only: %i[destroy edit show]
 
   get 'blog', to: 'blog#index'
   get 'blog/:slug', to: 'blog#show'
@@ -31,7 +32,7 @@ Rails.application.routes.draw do
   end
   get 'logs/:slug', to: 'logs#index', as: :log # routing to specific log will be done by Vue Router
 
-  resources :users, only: %i[destroy edit] do
+  resources :users, only: [] do
     get 'logs/:slug', to: 'logs#index', as: :shared_log
   end
 

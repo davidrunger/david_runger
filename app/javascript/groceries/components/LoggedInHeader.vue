@@ -6,7 +6,7 @@ el-menu
       index='1-1'
       :disabled='true'
     ) {{currentUser.email}}
-    a(:href="routes.edit_user_path(currentUser)")
+    a(:href="routes.my_account_path()")
       el-menu-item(index='1-2') My Account
     a.js-link(@click='signOut')
       el-menu-item(index='1-3') Sign Out
