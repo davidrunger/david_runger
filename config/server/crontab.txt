@@ -11,5 +11,5 @@
 # trim docker images (daily at 07:42 UTC, 1:42am or 2:42am CT)
 42 7 * * *  docker system prune --all --force
 
-# back up database (daily at 06:10 UTC, 12:10am or 1:10am CT)
-10 6 * * *  /root/david_runger/bin/server/back-up-db-to-s3.sh
+# back up database (daily at 07:32 UTC, 1:32am or 2:32am CT)
+32 7 * * *  /root/david_runger/bin/server/back-up-db-to-s3.sh
