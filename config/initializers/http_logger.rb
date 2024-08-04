@@ -1,4 +1,4 @@
-if Rails.env.development?
+if Rails.env.development? && !IS_DOCKER
   # :nocov:
   HttpLogger.log_headers = true
   # :nocov:

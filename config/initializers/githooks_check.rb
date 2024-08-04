@@ -3,6 +3,7 @@ if (
   Rails.env.local? &&
     ENV['SKIP_GITHOOKS_CHECK'].blank? &&
     ENV['CI'].blank? &&
+    !IS_DOCKER &&
     `git config core.hooksPath`.strip != 'bin/githooks'
 )
   $stderr.puts(<<~ERROR)
