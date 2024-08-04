@@ -2,6 +2,9 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
+# Move to the application directory
+cd /root/david_runger
+
 # Clean up from previous runs
 rm -rf tmp/backup
 
