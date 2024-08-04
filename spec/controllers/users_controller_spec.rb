@@ -7,6 +7,8 @@ RSpec.describe UsersController do
     let(:user_to_destroy) { users(:user) }
 
     context 'when not logged in' do
+      before { Devise.sign_out_all_scopes }
+
       it 'does not delete the specified user' do
         delete_destroy
 
