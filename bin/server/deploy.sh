@@ -22,11 +22,7 @@ fi
 bin/server/install.sh
 
 # Rebuild the app.
-docker compose build \
-  --build-arg "GIT_REV=$GIT_REV" \
-  --build-arg "RUBY_VERSION=$(cat .ruby-version)" \
-  --build-arg "RAILS_ENV=production" \
-  --progress=plain
+bin/build-docker production
 
 # Launch new Rails services.
 docker compose up --detach clock nginx web worker
