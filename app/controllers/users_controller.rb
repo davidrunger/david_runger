@@ -7,7 +7,9 @@ class UsersController < ApplicationController
         logs: %i[log_shares number_log_entries text_log_entries],
       ).find(params[:id])
     authorize(@user)
+
     @user.destroy!
+
     flash[:notice] = 'We have deleted your account.'
     redirect_to(root_path)
   end
