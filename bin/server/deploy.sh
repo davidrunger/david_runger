@@ -25,6 +25,7 @@ bin/server/install.sh
 docker compose build \
   --build-arg "GIT_REV=$GIT_REV" \
   --build-arg "RUBY_VERSION=$(cat .ruby-version)" \
+  --build-arg "RAILS_ENV=production" \
   --progress=plain
 
 # Launch new Rails services.

@@ -15,7 +15,9 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
   apt-get install --no-install-recommends -y \
   libjemalloc2 postgresql-client
 
-ENV RAILS_ENV="production"
+ARG RAILS_ENV
+RUN test -n "$RAILS_ENV"
+ENV RAILS_ENV=${RAILS_ENV}
 
 # Use jemalloc for memory savings.
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
@@ -77,5 +79,8 @@ COPY --from=build /app /app
 # Add GIT_REV env var permanently to the image
 ARG GIT_REV
 ENV GIT_REV=${GIT_REV}
+
+# Add ENV var to indicate that this is a Docker-built image.
+ENV DOCKER_BUILT=true
 
 ENTRYPOINT ["/app/bin/docker-entrypoint"]

@@ -1,11 +1,13 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.rails_logger = true
-    Bullet.raise = true
-    Bullet.counter_cache_enable = false
+  if !IS_DOCKER
+    config.after_initialize do
+      Bullet.enable = true
+      Bullet.rails_logger = true
+      Bullet.raise = true
+      Bullet.counter_cache_enable = false
+    end
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -83,7 +85,9 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  if !IS_DOCKER
+    config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  end
 
   # Email
   config.action_mailer.perform_deliveries = true
