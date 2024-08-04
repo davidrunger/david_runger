@@ -8,6 +8,7 @@ x-rails-config: &default-rails-config
       condition: service_healthy
     redis:
       condition: service_healthy
+  # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
   env_file:
     - .env.production.local
   environment:
