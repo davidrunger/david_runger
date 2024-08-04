@@ -240,11 +240,16 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :no_bullet) do |example|
-    previous_value = Bullet.enable?
+    original_enable = Bullet.enable?
+    original_counter_cache_enable = Bullet.counter_cache_enable?
+
     Bullet.enable = false
+    Bullet.counter_cache_enable = false
+
     example.run
   ensure
-    Bullet.enable = previous_value
+    Bullet.enable = original_enable
+    Bullet.counter_cache_enable = original_counter_cache_enable
   end
 
   config.before(:each, type: :controller) do
