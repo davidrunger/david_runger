@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   end
   get 'logs/:slug', to: 'logs#index', as: :log # routing to specific log will be done by Vue Router
 
-  resources :users, only: %i[edit] do
+  resources :users, only: %i[destroy edit] do
     get 'logs/:slug', to: 'logs#index', as: :shared_log
   end
 

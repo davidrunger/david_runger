@@ -1,4 +1,4 @@
-RSpec.describe 'Vue Playground', :prerendering_disabled do
+RSpec.describe 'Vue Playground' do
   subject(:visit_vue_playground_path) { visit vue_playground_path }
 
   context 'when signed in as an AdminUser' do

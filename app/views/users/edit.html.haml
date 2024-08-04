@@ -1,22 +1,31 @@
-.p-8
-  %div.my-8
-    %h2.h3 Auth tokens (advanced feature; safe to ignore)
-    - current_user.auth_tokens.each do |auth_token|
-      %div.mt-2
-        = form_with(model: auth_token, class: 'inline') do |form|
-          %span
-            = form.label :secret, 'Secret (required)'
-            = form.text_field :secret
+- content_for(:page_assets) do
+  = ts_tag('ujs')
 
-          %span.ml-8
-            = form.label :name, 'Name (optional)'
-            = form.text_field :name
+%div.my-8
+  %h2.h3 Auth tokens (advanced feature; safe to ignore)
+  - current_user.auth_tokens.each do |auth_token|
+    %div.mt-2
+      = form_with(model: auth_token, class: 'inline') do |form|
+        %span
+          = form.label :secret, 'Secret (required)'
+          = form.text_field :secret
 
-          %span.ml-8
-            = form.submit('Update Auth Token', class: 'btn-primary')
+        %span.ml-8
+          = form.label :name, 'Name (optional)'
+          = form.text_field :name
 
-        = button_to('Destroy Auth Token', auth_token_path(auth_token),
-          method: :delete, class: 'btn-danger')
+        %span.ml-8
+          = form.submit('Update Auth Token', class: 'btn-primary')
 
-    %div.mt-4
-      = button_to('Create New Auth Token', auth_tokens_path(method: :post), class: 'btn-primary')
+      = button_to('Destroy Auth Token', auth_token_path(auth_token),
+        method: :delete, class: 'btn-danger')
+
+  %div.mt-4
+    = button_to('Create New Auth Token', auth_tokens_path(method: :post), class: 'btn-primary')
+
+%div.my-8
+  %h2.h3 My Account
+  %div
+    = button_to('Delete Account', user_path(current_user),
+      method: :delete, class: 'btn-danger',
+      data: { confirm: "Are you sure that you want to completely and permanently delete your account (#{current_user.email})?" })

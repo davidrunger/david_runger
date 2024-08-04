@@ -239,6 +239,19 @@ RSpec.configure do |config|
     end
   end
 
+  config.around(:each, :no_bullet) do |example|
+    original_enable = Bullet.enable?
+    original_counter_cache_enable = Bullet.counter_cache_enable?
+
+    Bullet.enable = false
+    Bullet.counter_cache_enable = false
+
+    example.run
+  ensure
+    Bullet.enable = original_enable
+    Bullet.counter_cache_enable = original_counter_cache_enable
+  end
+
   config.before(:each, type: :controller) do
     # When executed, a Rails middleware will ensure that a `request_id` is set for each request.
     # However, middleware does not run for controller tests.
