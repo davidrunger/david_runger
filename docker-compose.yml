@@ -8,6 +8,8 @@ x-rails-config: &default-rails-config
       condition: service_healthy
     redis:
       condition: service_healthy
+  env_file:
+    - .env.production.local
   environment:
     MEMCACHED_PASSWORD: ''
     MEMCACHED_URL: memcached://memcached:11211
