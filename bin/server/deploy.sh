@@ -24,8 +24,8 @@ bin/server/install.sh
 # Rebuild the app.
 bin/build-docker production
 
-# Launch new Rails services.
-docker compose up --detach clock nginx web worker
+# Launch fresh services.
+docker compose up --detach
 
 # Run release tasks.
 docker compose exec web bin/server/release-tasks

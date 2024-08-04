@@ -2,12 +2,8 @@ x-rails-config: &default-rails-config
   build:
     context: .
   depends_on:
-    memcached:
-      condition: service_healthy
-    postgres:
-      condition: service_healthy
-    redis:
-      condition: service_healthy
+    initialize_database:
+      condition: service_completed_successfully
   # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
   env_file:
     - .env.production.local
@@ -31,13 +27,15 @@ services:
   clock:
     <<: *default-rails-config
     command: ['bin/skedjewel']
-    depends_on:
-      initialize_database:
-        condition: service_completed_successfully
-      worker:
-        condition: service_started
   initialize_database:
     <<: *default-rails-config
+    depends_on:
+      memcached:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
   memcached:
     healthcheck:
       # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
@@ -113,17 +111,11 @@ services:
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server']
-    depends_on:
-      initialize_database:
-        condition: service_completed_successfully
     expose:
       - '3000'
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
-    depends_on:
-      initialize_database:
-        condition: service_completed_successfully
 
 networks:
   external:
