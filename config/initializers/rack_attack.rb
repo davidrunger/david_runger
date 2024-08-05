@@ -77,7 +77,14 @@ Rack::Attack.blocklist('fail2ban pentesters') do |request|
     is_blocked_path = Rack::Attack.blocked_path?(request)
 
     if is_blocked_path
-      # store request data in Redis so that we can store a block reason if/when we create an IpBlock
+      Rails.logger.info([
+        'rack-attack-blocked-request-info',
+        request.get_header('action_dispatch.request_id'),
+        request.fullpath,
+        request.each_header.select do |key, _v|
+          key.start_with?('HTTP_')
+        end.sort.to_h,
+      ])
       IpBlocks::StoreRequestBlockInRedis.run!(ip: request.ip, path: request.path)
     end
 
