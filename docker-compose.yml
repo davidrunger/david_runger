@@ -107,6 +107,8 @@ services:
     image: dokku/s3backup
     networks:
       - external
+    profiles:
+      - nondefault
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server', '--binding', '0.0.0.0']
