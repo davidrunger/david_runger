@@ -13,6 +13,8 @@ for expected_service in "${expected_running_services[@]}" ; do
   fi
 done
 
-if [ "${#expected_services_not_running[@]}" -ne 0 ] ; then
+if [ "${#expected_services_not_running[@]}" -eq 0 ] ; then
+  echo 'All expected services are running.'
+else
   exit 1
 fi
