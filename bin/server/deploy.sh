@@ -35,4 +35,4 @@ git checkout main
 git reset --hard origin/main
 
 # Verify that all expected services are running.
-bin/server/verify-expected-services.sh && echo 'All expected services are running.'
+bin/server/verify-expected-services.sh
