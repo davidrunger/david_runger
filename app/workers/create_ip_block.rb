@@ -5,6 +5,7 @@ class CreateIpBlock
 
   def perform(ip, reason = nil)
     ip_block = IpBlock.find_or_initialize_by(ip:)
+
     if ip_block.new_record?
       block_reason =
         reason ||
@@ -17,6 +18,7 @@ class CreateIpBlock
           join("\n")
 
       ip_block.update!(reason: block_reason)
+      FetchIpInfoForRecord.perform_async(ip_block.class.name, ip_block.id)
     end
   end
 end

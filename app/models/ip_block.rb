@@ -5,12 +5,15 @@
 #  created_at :datetime         not null
 #  id         :bigint           not null, primary key
 #  ip         :string           not null
+#  isp        :string
+#  location   :string
 #  reason     :text
 #  updated_at :datetime         not null
 #
 # Indexes
 #
-#  index_ip_blocks_on_ip  (ip) UNIQUE
+#  index_ip_blocks_on_ip   (ip) UNIQUE
+#  index_ip_blocks_on_isp  (isp)
 #
 class IpBlock < ApplicationRecord
   validates :ip,
