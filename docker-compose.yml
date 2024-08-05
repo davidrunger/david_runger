@@ -10,7 +10,6 @@ x-rails-config: &default-rails-config
   environment:
     MEMCACHED_PASSWORD: ''
     MEMCACHED_URL: memcached://memcached:11211
-    RAILS_ENV: production
   networks:
     - external
     - internal
