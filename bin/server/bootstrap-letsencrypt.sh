@@ -9,7 +9,12 @@ domains=(davidrunger.com www.davidrunger.com)
 rsa_key_size=4096
 data_path="./ssl-data/certbot"
 email="davidjrunger@gmail.com" # Adding a valid address is strongly recommended
-staging=1 # Default to staging to avoid rate limits. Set to 0 (false) once ready to go for real.
+
+if [ "$staging" != "0" ] && [ "$staging" != "1" ] ; then
+  echo 'Specify either staging=1 (to test with less rate limiting)'
+  echo 'or staging=0 (to go for real) as an env var prefix.'
+  exit 1
+fi
 
 if [ -d "$data_path" ]; then
   read -r -p "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
