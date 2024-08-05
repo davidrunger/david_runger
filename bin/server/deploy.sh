@@ -25,7 +25,7 @@ bin/server/install.sh
 bin/build-docker production
 
 # Launch fresh services.
-docker compose up --detach
+docker compose up --detach --remove-orphans
 
 # Run release tasks.
 docker compose exec web bin/server/release-tasks
