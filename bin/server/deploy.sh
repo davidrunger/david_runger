@@ -24,7 +24,10 @@ bin/server/install.sh
 # Rebuild the app.
 bin/build-docker production
 
-# Launch fresh services.
+# Perform zero downtime, rolling deploy of web/nginx.
+bin/server/roll-out-web.sh
+
+# Launch fresh versions of all other services.
 docker compose up --detach --remove-orphans
 
 # Run release tasks.
