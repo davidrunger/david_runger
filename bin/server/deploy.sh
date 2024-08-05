@@ -33,3 +33,6 @@ docker compose exec web bin/server/release-tasks
 # Check out and update main branch.
 git checkout main
 git reset --hard origin/main
+
+# Verify that all expected services are running.
+bin/server/verify-expected-services.sh
