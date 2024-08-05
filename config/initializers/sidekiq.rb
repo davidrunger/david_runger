@@ -24,7 +24,9 @@ unless ENV.key?('DOCKER_BUILD')
       require 'sidekiq_ext/server_middleware/bullet'
 
       config.server_middleware do |chain|
-        chain.add(SidekiqExt::ServerMiddleware::Bullet)
+        if !IS_DOCKER
+          chain.add(SidekiqExt::ServerMiddleware::Bullet)
+        end
       end
     end
     # :nocov:
