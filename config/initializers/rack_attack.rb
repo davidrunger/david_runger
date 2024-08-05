@@ -87,7 +87,7 @@ Rack::Attack.blocklist('fail2ban pentesters') do |request|
           key.start_with?('HTTP_')
         end.sort.to_h,
       ])
-      IpBlocks::StoreRequestBlockInRedis.run!(ip: request.ip, path: request.path)
+      IpBlocks::StoreRequestBlockInRedis.run!(ip: request.ip, path: request.fullpath)
     end
 
     is_blocked_path
