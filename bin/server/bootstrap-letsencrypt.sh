@@ -10,7 +10,7 @@ rsa_key_size=4096
 data_path="./ssl-data/certbot"
 email="davidjrunger@gmail.com" # Adding a valid address is strongly recommended
 
-if [ "$staging" != "0" ] && [ "$staging" != "1" ] ; then
+if [ -z "$staging" ] || { [ "$staging" != "0" ] && [ "$staging" != "1" ] ; } ; then
   echo 'Specify either staging=1 (to test with less rate limiting)'
   echo 'or staging=0 (to go for real) as an env var prefix.'
   exit 1
@@ -69,7 +69,7 @@ case "$email" in
 esac
 
 # Enable staging mode if needed
-if [ $staging != "0" ]; then staging_arg="--test-cert"; fi
+if [ "$staging" != "0" ]; then staging_arg="--test-cert"; fi
 
 docker compose run --rm --entrypoint "\
   certbot certonly --webroot -w /var/www/_letsencrypt \
