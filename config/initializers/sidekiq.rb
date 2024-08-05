@@ -24,7 +24,7 @@ unless ENV.key?('DOCKER_BUILD')
       require 'sidekiq_ext/server_middleware/bullet'
 
       config.server_middleware do |chain|
-        if !IS_DOCKER
+        unless IS_DOCKER
           chain.add(SidekiqExt::ServerMiddleware::Bullet)
         end
       end
