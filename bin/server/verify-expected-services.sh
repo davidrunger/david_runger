@@ -7,7 +7,7 @@ expected_running_services=(certbot clock memcached nginx postgres redis web work
 expected_services_not_running=()
 
 for expected_service in "${expected_running_services[@]}"; do
-  if ! grep -q -E "^david_runger-$expected_service-[0-9]+$" <<< "$running_services"; then
+  if ! grep -q -P "^david_runger-$expected_service-\d+$" <<< "$running_services"; then
     echo "$expected_service is not running!"
     expected_services_not_running+=("$expected_service")
   fi
