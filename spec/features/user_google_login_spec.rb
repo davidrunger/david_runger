@@ -15,6 +15,9 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
         expect { click_on(class: 'google-login') }.not_to change { User.count }
 
+        expect(page).to have_current_path(root_path)
+        expect(page).to have_text('David Runger Full stack web developer')
+
         visit(logs_path)
         expect(page).to have_text(user.email)
       end
