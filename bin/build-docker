@@ -12,8 +12,18 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 
 rails_env=$1
 
-docker compose build \
-  --build-arg GIT_REV="$(git rev-parse origin/main)" \
-  --build-arg RUBY_VERSION="$(cat .ruby-version)" \
-  --build-arg RAILS_ENV="$rails_env" \
-  --progress=plain
+build() {
+  # Quotes would break this when there is no argument.
+  # shellcheck disable=SC2086
+  docker compose build ${1:-} \
+    --build-arg GIT_REV="$(git rev-parse origin/main)" \
+    --build-arg RUBY_VERSION="$(cat .ruby-version)" \
+    --build-arg RAILS_ENV="$rails_env" \
+    --progress=plain
+}
+
+# Build web. (We must invoke it specifically because it's in the `nondefault` compose profile.)
+build web
+
+# Build non-web images. (The build steps should all be cached, since they're no different from web).
+build

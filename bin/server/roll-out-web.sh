@@ -19,7 +19,7 @@ reload_nginx() {
 scale_web() {
   scale=$1
   echo_iso8601 "Scaling web to $scale."
-  docker compose up --detach --no-deps --scale web="$scale" --no-recreate web
+  docker compose up --detach --no-deps --scale web="$scale" --no-recreate --remove-orphans web
 }
 
 old_container_id=$(docker ps --filter name=web --quiet | tail -1)
