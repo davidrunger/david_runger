@@ -9,10 +9,11 @@ class CheckLinks::Checker
       check_ins
       | groceries
       | logs
+      | my_account
       | quizzes
       | workout
     )
-    /
+    /?
     \z
   }x
   redirecting_url_prefixes = %w[
