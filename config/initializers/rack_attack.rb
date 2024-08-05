@@ -80,6 +80,9 @@ Rack::Attack.blocklist('fail2ban pentesters') do |request|
       Rails.logger.info([
         'rack-attack-blocked-request-info',
         request.get_header('action_dispatch.request_id'),
+        request.get_header('REMOTE_ADDR'),
+        request.ip,
+        request.remote_ip,
         request.fullpath,
         request.each_header.select do |key, _v|
           key.start_with?('HTTP_')
