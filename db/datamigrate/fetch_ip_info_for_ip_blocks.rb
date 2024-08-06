@@ -1,4 +1,4 @@
-Rails.logger.info("Starting datamigration #{__FILE__.delete_prefix("#{Rails.root}/")} .")
+Rails.logger.info("Starting datamigration #{__FILE__.delete_prefix(Rails.root.join('').to_s)} .")
 
 ip_blocks_with_missing_info =
   IpBlock.where(isp: nil).or(
@@ -11,4 +11,4 @@ ip_blocks_with_missing_info.find_each.with_index do |ip_block, index|
   FetchIpInfoForRecord.perform_in(index * 5, ip_block.class.name, ip_block.id)
 end
 
-Rails.logger.info("Datamigration #{__FILE__.delete_prefix("#{Rails.root}/")} complete.")
+Rails.logger.info("Datamigration #{__FILE__.delete_prefix(Rails.root.join('').to_s)} complete.")
