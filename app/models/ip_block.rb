@@ -23,6 +23,6 @@ class IpBlock < ApplicationRecord
     uniqueness: true
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at id ip reason updated_at]
+    %w[created_at id ip isp location reason updated_at]
   end
 end
