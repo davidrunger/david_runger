@@ -29,7 +29,15 @@ RSpec.describe 'Home page', :prerendering_disabled do
       let(:user_agent) { 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)' }
 
       context 'when Sidekiq jobs are executed', :inline_sidekiq do
-        let!(:ip_info_request_stub) { MockIpApi.stub_request(ip_address) }
+        let!(:ip_info_request_stub) do
+          MockIpApi.stub_request(
+            ip_address,
+            city: 'San Diego',
+            country: 'US',
+            isp: 'Spectrum',
+            state: 'CA',
+          )
+        end
 
         context 'when the request has a non-localhost IP address' do
           before do
