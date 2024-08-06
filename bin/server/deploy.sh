@@ -24,14 +24,14 @@ bin/server/install.sh
 # Rebuild the app.
 bin/build-docker production
 
+# Run release tasks.
+docker compose exec web bin/server/release-tasks
+
 # Perform zero downtime, rolling deploy of web/nginx.
 bin/server/roll-out-web.sh
 
 # Launch fresh versions of all other services.
 docker compose up --detach --remove-orphans
-
-# Run release tasks.
-docker compose exec web bin/server/release-tasks
 
 # Check out and update main branch.
 git checkout main
