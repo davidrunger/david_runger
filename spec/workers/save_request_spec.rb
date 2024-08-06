@@ -172,11 +172,15 @@ RSpec.describe SaveRequest do
       let(:request_ip) { Faker::Internet.ip_v4_address }
 
       context 'when Sidekiq executes jobs', :inline_sidekiq do
-        it 'creates an IpBlock' do
-          expect { perform }.to change { IpBlock.count }.by(1)
-          ip_block = IpBlock.last!
-          expect(ip_block.ip).to eq(request_ip)
-          expect(ip_block.reason).to eq(JSON.dump(params))
+        context 'when ip-api.com responds with info about the requesting IP' do
+          before { MockIpApi.stub_request(request_ip) }
+
+          it 'creates an IpBlock' do
+            expect { perform }.to change { IpBlock.count }.by(1)
+            ip_block = IpBlock.last!
+            expect(ip_block.ip).to eq(request_ip)
+            expect(ip_block.reason).to eq(JSON.dump(params))
+          end
         end
       end
     end
