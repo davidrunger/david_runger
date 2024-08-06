@@ -34,6 +34,15 @@ RSpec.describe CreateIpBlock do
             %r{#{blocked_path_1} \(at .+\)\n#{blocked_path_2} \(at .+\)},
           )
         end
+
+        it 'enqueues a FetchIpInfoForRecord job for the created IpBlock' do
+          perform
+
+          ip_block = IpBlock.reorder(:created_at).last!
+          expect(FetchIpInfoForRecord).
+            to have_enqueued_sidekiq_job.
+            with(IpBlock.name, ip_block.id)
+        end
       end
     end
   end

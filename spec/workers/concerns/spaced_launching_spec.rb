@@ -13,8 +13,8 @@ RSpec.describe SpacedLaunching do
     subject(:launch_with_spacing) do
       worker.send(
         :launch_with_spacing,
-        worker_name: 'FetchIpInfoForRequest',
-        arguments_list: [Faker::Internet.ip_v4_address] * 3,
+        worker_name: 'FetchIpInfoForRecord',
+        arguments_list: ['Request', Faker::Internet.ip_v4_address] * 3,
         spacing_seconds:,
       )
     end

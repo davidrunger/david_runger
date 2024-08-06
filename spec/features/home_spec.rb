@@ -30,27 +30,13 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
       context 'when Sidekiq jobs are executed', :inline_sidekiq do
         let!(:ip_info_request_stub) do
-          stub_request(:get, "http://ip-api.com/json/#{ip_address}").
-            to_return(
-              status: 200,
-              body: {
-                'status' => 'success',
-                'country' => 'United States',
-                'countryCode' => 'US',
-                'region' => 'CA',
-                'regionName' => 'California',
-                'city' => 'San Diego',
-                'zip' => '92123',
-                'lat' => 32.7967,
-                'lon' => -117.1367,
-                'timezone' => 'America/Los_Angeles',
-                'isp' => 'Spectrum',
-                'org' => 'Charter Communications',
-                'as' => 'AS20001 Charter Communications Inc',
-                'query' => '76.167.213.95', # rubocop:disable Style/IpAddresses
-              }.to_json,
-              headers: { 'content-type' => 'application/json; charset=utf-8' },
-            )
+          MockIpApi.stub_request(
+            ip_address,
+            city: 'San Diego',
+            country: 'US',
+            isp: 'Spectrum',
+            state: 'CA',
+          )
         end
 
         context 'when the request has a non-localhost IP address' do

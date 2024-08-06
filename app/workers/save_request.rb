@@ -74,7 +74,7 @@ class SaveRequest
   rescue => error
     handle_error_saving_request(error)
   else
-    FetchIpInfoForRequest.perform_async(request.id)
+    FetchIpInfoForRecord.perform_async(request.class.name, request.id)
     delete_request_data
   end
 

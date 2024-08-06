@@ -1,22 +1,23 @@
-class FetchIpInfoForRequest
+class FetchIpInfoForRecord
   prepend MemoWise
   prepend ApplicationWorker
 
   LOCAL_IPS = %w[::1 127.0.0.1].map(&:freeze).freeze
 
-  def perform(request_id)
-    request = Request.find(request_id)
-    write_location_info(request)
+  def perform(class_name, record_id)
+    record = class_name.safe_constantize.find(record_id)
+    write_location_info(record)
   end
 
   private
 
-  def write_location_info(request)
-    ip = request.ip
+  def write_location_info(record)
+    ip = record.ip
+
     return if ip.in?(LOCAL_IPS)
 
     ip_info = Rails.cache.fetch(cache_key(ip), expires_in: 4.weeks) { ip_info_from_api(ip) }
-    request.update!(ip_info)
+    record.update!(ip_info)
   end
 
   def cache_key(ip)
