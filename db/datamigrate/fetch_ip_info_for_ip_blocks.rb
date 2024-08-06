@@ -1,6 +1,6 @@
 ip_blocks_with_missing_info =
   IpBlock.where(isp: nil).or(
-    IpBlock.where(location: nil)
+    IpBlock.where(location: nil),
   )
 
 ip_blocks_with_missing_info.find_each.with_index do |ip_block, index|
