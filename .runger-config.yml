@@ -1,1 +1,2 @@
+expected-num-github-checks: 4
 javascript-watch-command: bin/vite dev
