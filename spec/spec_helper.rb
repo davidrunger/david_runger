@@ -151,7 +151,7 @@ RSpec.configure do |config|
   config.display_try_failure_messages = true
   config.around(:each, type: :feature) do |example|
     example.run_with_retry(
-      # This actually means 'try: 2', i.e. retry just once
+      # This actually means 'try: 2', i.e. retry just once.
       retry: 2,
       exceptions_to_retry: [
         Ferrum::ProcessTimeoutError,
