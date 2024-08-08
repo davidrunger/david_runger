@@ -145,7 +145,12 @@ function subscribeToLogEntriesChannel() {
       log_id: log.id,
     },
     {
-      received: (data: LogEntryBroadcast) => {
+      connected() {
+        // NOTE: This is for tests, so that we can wait until the WebSocket is connected.
+        window.davidrunger.connectedToLogEntriesChannel = true;
+      },
+
+      received(data: LogEntryBroadcast) {
         if (Cookies.get('browser_uuid') === data.acting_browser_uuid) return;
 
         const { action, model } = data;
