@@ -174,13 +174,14 @@ RSpec.describe 'Logs app' do
 
           expect(page).to have_text(log.log_entries.first!.data)
 
-          # Unfortunately, we need to sleep to give websockets/JavaScript enough time to put the new
-          # log entry into the page. If we don't wait long enough for the new text to appear, then
-          # this test can be a false positive (wrongly passing) / false negative (not failing).
-          # Fortunately, a wait time of 1 second, which isn't too long, seems to be long enough to
-          # make the test consitently fail if the code does the wrong thing.
+          # Unfortunately, we need to sleep to give WebSockets/JavaScript enough
+          # time to put the new log entry into the page. If we don't wait long
+          # enough for the new text to appear, then this test can be a false
+          # negative (not failing). A wait time of 1 second seems to be long
+          # enough to make the test consistently fail if this is broken.
           publish_new_log_entry
           sleep(1)
+
           expect(page).not_to have_text(new_log_entry_text)
         end
       end
@@ -194,6 +195,7 @@ RSpec.describe 'Logs app' do
           expect(page).to have_text(log.log_entries.first!.data)
 
           publish_new_log_entry
+
           expect(page).to have_text(new_log_entry_text)
         end
       end
