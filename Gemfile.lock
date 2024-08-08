@@ -518,6 +518,8 @@ GEM
       rspec-expectations (~> 3.13)
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
+    rspec-retry (0.6.2)
+      rspec-core (> 3.3)
     rspec-sidekiq (5.0.0)
       rspec-core (~> 3.0)
       rspec-expectations (~> 3.0)
@@ -736,6 +738,7 @@ DEPENDENCIES
   rollbar
   rspec-instafail
   rspec-rails
+  rspec-retry
   rspec-sidekiq
   rspec-wait
   rubocop
