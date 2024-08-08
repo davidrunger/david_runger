@@ -37,6 +37,10 @@ export
 /public/vite/
 /public/vite-admin/
 
+# Blog
+# NOTE: blog/ is populated via the GitHub Actions deployment of davidrunger/blog.
+/blog/
+
 # Credentials
 /config/credentials/development.key
 /config/credentials/test.key

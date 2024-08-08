@@ -1,58 +1,83 @@
 class BlogController < ApplicationController
-  include ReverseProxy::Controller
+  class InvalidShowRequestFormat < StandardError ; end
+  class UnauthorizedBlogFileRequest < StandardError ; end
 
-  REQUEST_HEADER_KEYS_TO_FORWARD = %w[
-    accept
-    accept-language
-  ].freeze
-  REQUEST_HEADERS_TO_ADD = {
-    'accept-encoding' => 'gzip',
-    'connection' => 'keep-alive',
-  }.freeze
+  BLOG_DIRECTORY = Rails.root.join('blog').to_s.freeze
+  SHOW_ACTION_PRESUMED_HTML_REQUEST_FORMATS = [nil, :html].freeze
+  VALID_SHOW_ACTION_REQUEST_TYPES = [*SHOW_ACTION_PRESUMED_HTML_REQUEST_FORMATS, :xml].freeze
 
-  skip_before_action :authenticate_user!, only: %i[assets index show]
+  all_actions = %i[assets index show]
+  skip_before_action :authenticate_user!, only: all_actions
+  before_action :skip_authorization, only: all_actions
+
+  def assets
+    send_blog_file(request.path)
+  end
 
   def index
-    skip_authorization
-    reverse_proxy(*proxy_arguments)
+    send_blog_file('/blog/index.html', disposition: 'inline')
   end
 
   def show
-    skip_authorization
-    reverse_proxy(*proxy_arguments)
-  end
+    request_format_symbol = request.format.symbol
 
-  def assets
-    skip_authorization
-    reverse_proxy(*proxy_arguments)
+    if request_format_symbol.in?(VALID_SHOW_ACTION_REQUEST_TYPES)
+      file_path = request.path
+
+      if (
+        request_format_symbol.in?(SHOW_ACTION_PRESUMED_HTML_REQUEST_FORMATS) &&
+          !file_path.end_with?('.html')
+      )
+        file_path << '.html'
+      end
+
+      send_blog_file(file_path, disposition: 'inline')
+    else
+      Rails.error.report(
+        Error.new(InvalidShowRequestFormat),
+        context: { request_format_symbol: },
+      )
+
+      head :not_found
+    end
   end
 
   private
 
-  def proxy_arguments
-    [ENV.fetch('BLOG_ROOT_URL'), { headers: proxy_request_headers }]
+  def send_blog_file(relative_path, **kwargs)
+    absolute_path =
+      Rails.root.join(
+        relative_path.to_s.sub(%r{\A/*}, ''),
+      ).realpath.to_s
+
+    if (
+      absolute_path.start_with?(BLOG_DIRECTORY) &&
+        absolute_path.match?(/\.(css|html|jpg|png|xml)\z/)
+    )
+      send_file(absolute_path, **kwargs)
+    else
+      Rails.error.report(
+        Error.new(UnauthorizedBlogFileRequest),
+        context: {
+          absolute_path:,
+          relative_path:,
+        },
+      )
+
+      render_blog_404
+    end
+  rescue Errno::ENOENT
+    Rails.error.report(
+      Error.new(ActionController::RoutingError),
+      context: {
+        relative_path:,
+      },
+    )
+
+    render_blog_404
   end
 
-  def proxy_request_headers
-    nilled_headers.
-      merge(request_headers_to_forward).
-      merge(REQUEST_HEADERS_TO_ADD)
-  end
-
-  def request_headers_to_forward
-    http_headers.select { |key, _value| key.in?(REQUEST_HEADER_KEYS_TO_FORWARD) }.to_h
-  end
-
-  def nilled_headers
-    http_headers.keys.to_h { [_1, nil] }
-  end
-
-  def http_headers
-    # https://stackoverflow.com/a/32405432/4009384
-    request.headers.env.filter_map do |key, value|
-      if key.in?(ActionDispatch::Http::Headers::CGI_VARIABLES) || key.start_with?('HTTP_')
-        [key.delete_prefix('HTTP_').tr('_', '-').downcase, value]
-      end
-    end.sort.to_h
+  def render_blog_404
+    send_file(Rails.root.join('blog/404.html'), status: 404, disposition: :inline)
   end
 end
