@@ -146,6 +146,27 @@ RSpec.configure do |config|
   config.include(MailSpecHelpers, type: :mailbox)
   config.include(MailSpecHelpers, type: :mailer)
 
+  # rspec-retry options >>>
+  config.verbose_retry = true
+  config.display_try_failure_messages = true
+  config.around(:each, type: :feature) do |example|
+    example.run_with_retry(
+      # This actually means 'try: 2', i.e. retry just once.
+      retry: 2,
+      exceptions_to_retry: [
+        Ferrum::ProcessTimeoutError,
+      ],
+    )
+  end
+  config.retry_callback =
+    proc do |ex|
+      if ex.metadata[:type] == :feature
+        Capybara.reset!
+        page.driver.reset!
+      end
+    end
+  # <<< rspec-retry options
+
   config.before(:suite) do
     # Reset FactoryBot sequences to an arbitrarily high number to avoid collisions with
     # fixture_builder-built fixtures.
