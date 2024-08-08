@@ -194,6 +194,12 @@ RSpec.describe 'Logs app' do
 
           expect(page).to have_text(log.log_entries.first!.data)
 
+          wait_for do
+            page.evaluate_script('window.davidrunger?.connectedToLogEntriesChannel')
+          end.to eq(true)
+
+          sleep(0.5) # Give JavaScript even more time to be ready to receive WebSocket events.
+
           publish_new_log_entry
 
           expect(page).to have_text(new_log_entry_text)
