@@ -113,6 +113,8 @@ services:
       - '3000'
     profiles:
       - nondefault
+    volumes:
+      - ./blog:/app/blog
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
