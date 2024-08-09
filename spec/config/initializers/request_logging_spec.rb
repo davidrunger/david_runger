@@ -5,8 +5,8 @@ RSpec.describe 'request logging', type: :controller do
         # rubocop:disable RSpec/AnyInstance
         allow_any_instance_of(ActionController::TestRequest).
           to receive(:headers).
-          and_wrap_original do |request|
-            headers = request.call
+          and_wrap_original do |original_headers_method|
+            headers = original_headers_method.call
             headers['action_dispatch.request_id'] = nil
             headers
           end
