@@ -32,10 +32,13 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
-  config.action_controller.perform_caching = false
-  config.cache_store = :null_store
+  # Render exceptions via ErrorsController
+  config.exceptions_app = routes
 
   config.action_dispatch.show_exceptions = :none
+
+  config.action_controller.perform_caching = false
+  config.cache_store = :null_store
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
