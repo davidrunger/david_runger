@@ -39,6 +39,13 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
   apt-get install --no-install-recommends -y \
   build-essential curl git libpq-dev unzip
 
+# Download skedjewel binary.
+ARG SKEDJEWEL_VERSION=v0.0.13
+RUN curl --fail -L "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" > skedjewel && \
+  mkdir -p /app/bin && \
+  mv skedjewel /app/bin/ && \
+  chmod a+x /app/bin/skedjewel
+
 # Configure bundler and install application gems
 RUN \
   bundle config set --local clean 1 && \
@@ -58,7 +65,7 @@ COPY . .
 
 ARG GIT_REV
 
-# Build public/assets/, download public/vite/ and public/vite-admin/, and download skedjewel.
+# Build public/assets/, download public/vite/ and public/vite-admin/.
 RUN DOCKER_BUILD=true \
   GIT_REV=${GIT_REV} \
   SECRET_KEY_BASE_DUMMY=1 \
@@ -74,7 +81,7 @@ RUN bin/bootsnap precompile app/ lib/
 # Return to base image for final stage of app image build
 FROM base
 
-# Copy built artifacts: gems, application code, compiled assets
+# Copy everything added to the app WORKDIR: gems, application code, skedjewel, compiled assets.
 COPY --from=build /app /app
 
 # Add GIT_REV env var permanently to the image
