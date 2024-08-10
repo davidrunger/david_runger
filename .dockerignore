@@ -1,6 +1,4 @@
 .env*
-!.env.development.local
-!.env.production.local
 .git
 .github
 .ruby-lsp
