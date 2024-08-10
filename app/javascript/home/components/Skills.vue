@@ -4,7 +4,7 @@ HomeSection(section='skills', title='Skills')
     tbody
       SkillRow(
         name='Cloudflare'
-        details="A capable CDN and a vital protection against DDoS."
+        details="A capable CDN and a vital layer of protection against DDoS attacks."
         :wordmarkedIcon='false'
       )
       SkillRow(
@@ -12,11 +12,13 @@ HomeSection(section='skills', title='Skills')
         details='Because looking good is half the battle!'
       )
       SkillRow(
-        name='Dokku'
-        details='An open-source alternative to Heroku. (This site runs on Dokku!)'
+        name='Docker'
+        details=
+        `
+          A powerful tool for deploying web applications reliably and quickly.
+          (This site is deployed using Docker Compose.)
+        `
       )
-        template(v-slot:image)
-          img(src='~img/dokku.svg' alt='Dokku')
       SkillRow(
         name='Elasticsearch / OpenSearch'
         details='A fast, powerful, and flexible search backend.'
