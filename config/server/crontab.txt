@@ -5,9 +5,6 @@
 # back up database (daily at 07:32 UTC, 1:32am or 2:32am CT)
 32 7 * * *  /root/david_runger/bin/server/back-up-db-to-s3.sh
 
-# restart dokku app (daily at 08:26 UTC, 2:26am or 3:26am CT)
-26 8 * * *  docker compose restart
-
 # trim docker images (Saturday at 08:55 UTC, 2:55am or 3:55am CT)
 55 8 * * 6  docker system prune --all --force
 

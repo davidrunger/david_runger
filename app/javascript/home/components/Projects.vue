@@ -94,7 +94,7 @@ HomeSection(section='projects' title='Projects')
           #[a(href='https://github.com/features/actions') GitHub Actions] provides continuous
           integration (CI) testing and linting, as well as
           continuous deployment (CD) via integration with
-          #[a(href='https://dokku.com/') Dokku] on a
+          #[a(href='https://docs.docker.com/compose/') Docker Compose] on a
           #[a(href='https://www.digitalocean.com/') DigitalOcean] host.
 
         li.
