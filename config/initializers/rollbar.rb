@@ -4,7 +4,12 @@ Rollbar.configure do |config|
   access_token =
     case Rails.env
     # :nocov:
-    when 'production' then Rails.application.credentials.rollbar!.access_token!
+    when 'production'
+      if IS_DOCKER_BUILD
+        nil
+      else
+        Rails.application.credentials.rollbar!.access_token!
+      end
     # :nocov:
     else ENV.fetch('ROLLBAR_ACCESS_TOKEN', nil)
     end

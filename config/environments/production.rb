@@ -45,7 +45,7 @@ Rails.application.configure do
     Rails.application.credentials.aws&.dig(:secret_access_key),
   ].all?(&:present?)
     config.active_storage.service = :amazon
-  else
+  elsif !IS_DOCKER_BUILD
     raise(':amazon storage cannot be enabled because not all required credentials are present')
   end
 
