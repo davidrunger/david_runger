@@ -70,7 +70,7 @@ Rollbar.configure do |config|
   config.environment = ENV.fetch('ROLLBAR_ENV', Rails.env)
 
   client_token = Rails.application.credentials.rollbar&.dig(:post_client_item_access_token)
-  config.js_enabled = ENV.key?('DOCKER_BUILD') ? false : Flipper.enabled?(:rollbar_js)
+  config.js_enabled = IS_DOCKER_BUILD ? false : Flipper.enabled?(:rollbar_js)
   config.js_options = {
     accessToken: client_token,
     captureUncaught: true,

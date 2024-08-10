@@ -23,7 +23,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  config.require_master_key = true
+  config.require_master_key = !IS_DOCKER_BUILD
 
   config.public_file_server.enabled = true
 
@@ -74,7 +74,7 @@ Rails.application.configure do
   # you want to log everything, set the level to "debug".
   config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
-  unless ENV.key?('DOCKER_BUILD')
+  unless IS_DOCKER_BUILD
     # Use a different cache store in production.
     config.cache_store =
       :mem_cache_store,
