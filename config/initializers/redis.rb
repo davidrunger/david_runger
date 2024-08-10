@@ -1,4 +1,4 @@
-unless ENV.key?('DOCKER_BUILD')
+unless IS_DOCKER_BUILD
   redis_options = RedisOptions.new
 
   redis_config = RedisClient.config(url: redis_options.url)

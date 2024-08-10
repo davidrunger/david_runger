@@ -1,4 +1,4 @@
-unless ENV.key?('DOCKER_BUILD')
+unless IS_DOCKER_BUILD
   Sidekiq.strict_args!
 
   # We'll give Sidekiq db 1 (by default). The app uses db 0 for its direct uses.

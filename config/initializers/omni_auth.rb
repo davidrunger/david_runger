@@ -2,7 +2,7 @@
 OmniAuth.config.logger = Rails.logger
 
 Rails.application.config.middleware.use(OmniAuth::Builder) do
-  unless ENV.key?('DOCKER_BUILD')
+  unless IS_DOCKER_BUILD
     provider(
       :google_oauth2,
       ENV.fetch('GOOGLE_OAUTH_CLIENT_ID'),
