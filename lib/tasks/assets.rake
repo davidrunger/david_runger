@@ -80,7 +80,16 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   end
 
   def s3_bucket
-    @s3_bucket ||= Aws::S3::Resource.new(region: 'us-east-1').bucket('david-runger-test-uploads')
+    @s3_bucket ||=
+      Aws::S3::Resource.new(
+        region: 'us-east-1',
+        # NOTE: Here we are using the undocumented `unsigned_operations` feature
+        # (subject to breaking changes) to request public resources in this
+        # bucket without needing an AWS access key and secret.
+        # https://github.com/aws/aws-sdk-ruby/issues/
+        # 1149#issuecomment-2007175332
+        unsigned_operations: [:get_object],
+      ).bucket('david-runger-test-uploads')
   end
 
   begin
