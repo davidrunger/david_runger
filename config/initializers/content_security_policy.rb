@@ -6,7 +6,7 @@
 
 Rails.application.configure do
   config.content_security_policy do |policy|
-    extra_sources = [ENV.fetch('BLOG_ROOT_URL', nil)].compact # bridgetown blog server
+    extra_sources = []
     extra_connect_sources = []
     # :nocov:
     if Rails.env.development?
