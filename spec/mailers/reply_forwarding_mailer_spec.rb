@@ -57,7 +57,7 @@ RSpec.describe ReplyForwardingMailer do
           filename: 'a_file.txt',
           byte_size: 298,
         )
-        inbound_email.create_raw_email_attachment!(blob:, content_type: 'text/plain')
+        inbound_email.raw_email_attachment.update!(blob:, content_type: 'text/plain')
 
         # rubocop:disable RSpec/AnyInstance
         expect_any_instance_of(ActiveStorage::Blob).to receive(:download).and_return(
