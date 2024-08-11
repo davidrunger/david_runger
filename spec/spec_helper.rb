@@ -1,16 +1,15 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
-require 'factory_bot_rails'
-require 'webmock'
-require 'webmock/rspec'
-require 'pundit/rspec'
 is_ci = (ENV.fetch('CI', nil) == 'true')
-use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
 require 'simplecov'
 SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
 SimpleCov.start do
   db_suffix = ENV.fetch('DB_SUFFIX', nil)
-  command_name("#{db_suffix.delete_prefix('_').capitalize} Tests") if db_suffix.present?
+  # rubocop:disable Rails/Present (At this point, we have not yet loaded Rails.)
+  if !db_suffix.nil? && !db_suffix.empty?
+    command_name("#{db_suffix.delete_prefix('_').capitalize} Tests")
+  end
+  # rubocop:enable Rails/Present
   add_filter(%r{^/spec/})
   enable_coverage(:branch) if !is_ci # Codecov doesn't respect `nocov-else` etc comments
 end
@@ -27,6 +26,11 @@ elsif RSpec.configuration.files_to_run.one?
     %r{\Aspec/tools/} => 'tools/',
   )
 end
+use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
+require 'factory_bot_rails'
+require 'webmock'
+require 'webmock/rspec'
+require 'pundit/rspec'
 require Rails.root.join('spec/support/fixture_builder.rb').to_s
 Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 # Prevent database truncation if the environment is production
