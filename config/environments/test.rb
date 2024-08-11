@@ -25,20 +25,19 @@ Rails.application.configure do
   config.eager_load = ENV['CI'].present?
 
   # Configure public file server for tests with Cache-Control for performance.
-  config.public_file_server.enabled = true
   config.public_file_server.headers = {
     'Cache-Control' => "public, max-age=#{Integer(1.hour)}",
   }
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
+  config.action_controller.perform_caching = false
+  config.cache_store = :null_store
+
   # Render exceptions via ErrorsController
   config.exceptions_app = routes
 
   config.action_dispatch.show_exceptions = :none
-
-  config.action_controller.perform_caching = false
-  config.cache_store = :null_store
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
@@ -46,12 +45,17 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :local
 
+  # Disable caching for Action Mailer templates even if Action Controller
+  # caching is enabled.
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+
+  # Unlike controllers, the mailer instance doesn't have any context about the
+  # incoming request so you'll need to provide the :host parameter yourself.
   # https://github.com/DavyJonesLocker/capybara-email#setting-your-test-host
   config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
 
@@ -80,7 +84,7 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  # Raise error when a before_action's only/except options reference missing actions
+  # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
   extra_load_paths = [Rails.root.join('spec/support')].map { _1.to_s.freeze }

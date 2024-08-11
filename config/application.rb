@@ -45,32 +45,22 @@ class DavidRunger::Application < Rails::Application
   # ActiveJob/Sidekiq
   config.active_job.queue_adapter = :sidekiq
 
-  # ActionMailer
-  config.action_mailer.default_url_options =
-    case Rails.env
-    when 'production'
-      # :nocov:
-      { host: DavidRunger::CANONICAL_DOMAIN, protocol: 'https' }
-      # :nocov:
-    else
-      { host: 'localhost:3000', protocol: 'http' }
-    end
-
   # Configuration for the application, engines, and railties goes here.
   #
   # These settings can be overridden in specific environments using the files
   # in config/environments, which are processed later.
 
-  config.generators.helper = false
-  config.generators.system_tests = false
-  config.generators do |g|
-    g.factory_bot(dir: 'spec/factories')
-  end
-
   config.time_zone = ENV.fetch('TIME_ZONE', 'America/Chicago')
   config.active_record.default_timezone = :utc
 
   # config.eager_load_paths << Rails.root.join("extras")
+
+  config.generators.helper = nil
+  # Don't generate system test files.
+  config.generators.system_tests = nil
+  config.generators do |g|
+    g.factory_bot(dir: 'spec/factories')
+  end
 
   config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
   initializer(
@@ -81,7 +71,7 @@ class DavidRunger::Application < Rails::Application
   end
 
   errors_file = Rails.root.join('lib/errors.rb')
-  Rails.autoloaders.main.ignore(errors_file) # must do this bc. `errors.rb` does not define `Error`
+  Rails.autoloaders.main.ignore(errors_file) # must do this bc. `errors.rb` does not define `Errors`
   require errors_file
 
   ENV['FIXTURES_PATH'] ||= 'spec/fixtures' if ENV.fetch('RAILS_ENV', nil) == 'test'
