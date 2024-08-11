@@ -9,6 +9,8 @@
 # Read the Guide for Upgrading Ruby on Rails for more info on each option.
 # https://guides.rubyonrails.org/upgrading_ruby_on_rails.html
 
+# rubocop:disable Layout/LineLength
+
 ###
 # Controls whether Active Job's `#perform_later` and similar methods automatically defer
 # the job queuing to after the current Active Record transaction is committed.
@@ -68,3 +70,5 @@
 # deploying to a memory constrained environment you may want to set this to `false`.
 #++
 # Rails.application.config.yjit = true
+
+# rubocop:enable Layout/LineLength

@@ -21,8 +21,10 @@ Rails.application.configure do
   # Render exceptions via ErrorsController.
   config.exceptions_app = routes
 
+  # rubocop:disable Layout/LineLength
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
+  # rubocop:enable Layout/LineLength
   config.require_master_key = !IS_DOCKER_BUILD
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
@@ -73,9 +75,11 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
+  # rubocop:disable Layout/LineLength
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
+  # rubocop:enable Layout/LineLength
   config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
   unless IS_DOCKER_BUILD

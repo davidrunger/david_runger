@@ -31,8 +31,8 @@ port(ENV.fetch('PORT', 3000))
 plugin(:tmp_restart)
 
 # Only use a pidfile when requested
-if ENV["PIDFILE"]
-  pidfile(ENV["PIDFILE"])
+if ENV['PIDFILE']
+  pidfile(ENV['PIDFILE'])
 end
 
 # Specifies the `environment` that Puma will run in.
