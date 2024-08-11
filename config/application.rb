@@ -62,6 +62,7 @@ class DavidRunger::Application < Rails::Application
     g.factory_bot(dir: 'spec/factories')
   end
 
+  config.middleware.insert_after(ActionDispatch::Static, Rack::Deflater) # gzip all responses
   initializer(
     'move Browser middleware after Rack::Attack',
     after: 'rack-attack.middleware',
