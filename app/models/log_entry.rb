@@ -16,6 +16,8 @@
 class LogEntry < ApplicationRecord
   include JsonBroadcastable
 
+  self.abstract_class = true
+
   belongs_to :log
   has_one :user, through: :log
 
