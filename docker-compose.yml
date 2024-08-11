@@ -57,9 +57,7 @@ services:
     profiles:
       - nondefault
     volumes:
-      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./config/nginx/nginxconfig.io/:/etc/nginx/nginxconfig.io/:ro
-      - ./config/nginx/sites-enabled/:/etc/nginx/sites-enabled/:ro
+      - ./config/nginx/:/etc/nginx/:ro
       - ./ssl-data/certbot/conf:/etc/letsencrypt
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
       - app-public:/var/www/david-runger-public:ro
