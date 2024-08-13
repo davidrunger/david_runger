@@ -126,6 +126,7 @@ jobs:
           images: |
             davidrunger/david_runger
           tags: |
+            type=raw,value=latest
             type=sha
 
       - name: Store build context
