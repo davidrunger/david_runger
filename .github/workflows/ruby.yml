@@ -125,7 +125,7 @@ jobs:
           RUBY_VERSION=$(cat .ruby-version)
           echo "RUBY_VERSION=${RUBY_VERSION}" >> $GITHUB_OUTPUT
 
-          GIT_REV="$(git rev-parse origin/main)"
+          GIT_REV="$(git rev-parse HEAD)"
           echo "GIT_REV=${GIT_REV}" >> $GITHUB_OUTPUT
 
       - name: Build Docker image and push to Docker Hub
