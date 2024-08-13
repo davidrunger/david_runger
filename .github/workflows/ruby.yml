@@ -9,102 +9,102 @@ on:
       - main
 
 jobs:
-  # test:
-  #   concurrency:
-  #     cancel-in-progress: true
-  #     group: test-${{ github.ref_name }}
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   services:
-  #     # https://stackoverflow.com/q/57915791/4009384
-  #     postgres:
-  #       image: postgres
-  #       env:
-  #         POSTGRES_USER: postgres
-  #         POSTGRES_PASSWORD: postgres
-  #       # Set health checks to wait until postgres has started
-  #       options: >-
-  #         --health-cmd pg_isready
-  #         --health-interval 10s
-  #         --health-timeout 5s
-  #         --health-retries 5
-  #       ports:
-  #         - 5432:5432 # Maps port 5432 on service container to the host
-  #     redis:
-  #       image: redis
-  #       # Set health checks to wait until redis has started
-  #       options: >-
-  #         --health-cmd "redis-cli ping"
-  #         --health-interval 10s
-  #         --health-timeout 5s
-  #         --health-retries 5
-  #       ports:
-  #         - 6379:6379 # Maps port 6379 on service container to the host
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
-  #     - name: Set up Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         bundler-cache: true
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version-file: .nvmrc
-  #     - name: Install pnpm
-  #       run: npm install -g pnpm@9
-  #     - name: Set pnpm store directory
-  #       run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
-  #     - uses: actions/cache@v4
-  #       name: Set up pnpm cache
-  #       with:
-  #         path: ${{ env.PNPM_STORE_PATH }}
-  #         key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-  #         restore-keys: ${{ runner.os }}-pnpm-store-
-  #     - name: Run ShellCheck
-  #       uses: ludeeus/action-shellcheck@master
-  #       with:
-  #         scandir: './bin'
-  #     - name: Set GIT_REV environment variable
-  #       uses: ./.github/actions/git_rev
-  #     - name: Run tests & linters
-  #       run: bin/run-tests
-  #       env:
-  #         CI: true
-  #         AWS_EC2_METADATA_DISABLED: true
-  #         RAILS_ENV: test
-  #         DISABLE_SPRING: 1
-  #         PERCY_SKIP_UPDATE_CHECK: 1
-  #         VITE_RUBY_AUTO_BUILD: false
-  #         SECRET_KEY_BASE: 0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b # gitleaks:allow This is just for the test environment; not a real secret.
-  #         # The hostname used to communicate with the PostgreSQL service container
-  #         POSTGRES_HOST: 127.0.0.1
-  #         POSTGRES_USER: postgres
-  #         PGPASSWORD: postgres # https://www.postgresql.org/docs/current/libpq-envars.html
-  #         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-  #         # The hostname used to communicate with the Redis service container
-  #         REDIS_HOST: redis
-  #         REDIS_PORT: 6379
-  #         PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
-  #         CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
-  #         RAILS_MASTER_KEY: '${{secrets.RAILS_MASTER_KEY}}'
-  #     - name: Save fixtures artifact
-  #       uses: actions/upload-artifact@v4
-  #       if: failure()
-  #       with:
-  #         name: fixtures
-  #         path: spec/fixtures/
-  #         retention-days: 5
-  #     - name: Upload Code Coverage
-  #       uses: codecov/codecov-action@v4
-  #       with:
-  #         token: ${{ secrets.CODECOV_TOKEN }}
+  test:
+    concurrency:
+      cancel-in-progress: true
+      group: test-${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      # https://stackoverflow.com/q/57915791/4009384
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432 # Maps port 5432 on service container to the host
+      redis:
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379 # Maps port 6379 on service container to the host
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install pnpm
+        run: npm install -g pnpm@9
+      - name: Set pnpm store directory
+        run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
+      - uses: actions/cache@v4
+        name: Set up pnpm cache
+        with:
+          path: ${{ env.PNPM_STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-store-
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './bin'
+      - name: Set GIT_REV environment variable
+        uses: ./.github/actions/git_rev
+      - name: Run tests & linters
+        run: bin/run-tests
+        env:
+          CI: true
+          AWS_EC2_METADATA_DISABLED: true
+          RAILS_ENV: test
+          DISABLE_SPRING: 1
+          PERCY_SKIP_UPDATE_CHECK: 1
+          VITE_RUBY_AUTO_BUILD: false
+          SECRET_KEY_BASE: 0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b # gitleaks:allow This is just for the test environment; not a real secret.
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_USER: postgres
+          PGPASSWORD: postgres # https://www.postgresql.org/docs/current/libpq-envars.html
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+          # The hostname used to communicate with the Redis service container
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
+          PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
+          CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
+          RAILS_MASTER_KEY: '${{secrets.RAILS_MASTER_KEY}}'
+      - name: Save fixtures artifact
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: fixtures
+          path: spec/fixtures/
+          retention-days: 5
+      - name: Upload Code Coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   deploy-and-prerender:
     concurrency:
       group: deploy-and-prerender
-    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    # needs: test
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -154,33 +154,33 @@ jobs:
           push: true
           tags: ${{ steps.docker_metadata.outputs.tags }}
 
-      # - name: Set up key for SSHing to server
-      #   run: |
-      #     mkdir -p ~/.ssh/
-      #     echo "${{secrets.SSH_KNOWN_HOSTS}}" > ~/.ssh/known_hosts
-      #     echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
-      #     echo "${{secrets.SSH_PUBLIC_KEY}}" > ~/.ssh/id_ed25519.pub
-      #     sudo chmod 600 ~/.ssh/id_ed25519
-      #     eval "$(ssh-agent -s)"
-      #     ssh-add ~/.ssh/id_ed25519
+      - name: Set up key for SSHing to server
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{secrets.SSH_KNOWN_HOSTS}}" > ~/.ssh/known_hosts
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
+          echo "${{secrets.SSH_PUBLIC_KEY}}" > ~/.ssh/id_ed25519.pub
+          sudo chmod 600 ~/.ssh/id_ed25519
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519
 
-      # - name: Set GIT_REV environment variable
-      #   uses: ./.github/actions/git_rev
+      - name: Set GIT_REV environment variable
+        uses: ./.github/actions/git_rev
 
-      # - name: Copy deploy script to server and execute it
-      #   run: |
-      #     scp bin/server/deploy.sh "${{secrets.SERVER_USER_AND_IP}}:/tmp/"
-      #     ssh "${{secrets.SERVER_USER_AND_IP}}" \
-      #       "GIT_REV='$GIT_REV' bash /tmp/deploy.sh && rm /tmp/deploy.sh"
+      - name: Copy deploy script to server and execute it
+        run: |
+          scp bin/server/deploy.sh "${{secrets.SERVER_USER_AND_IP}}:/tmp/"
+          ssh "${{secrets.SERVER_USER_AND_IP}}" \
+            "GIT_REV='$GIT_REV' bash /tmp/deploy.sh && rm /tmp/deploy.sh"
 
-      # - name: Set up Ruby
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     bundler-cache: true
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
-      # - name: Prerender page(s) and upload them to S3
-      #   run: bin/prerender
-      #   env:
-      #     CI: true
-      #     AWS_ACCESS_KEY_ID: '${{secrets.AWS_ACCESS_KEY_ID}}'
-      #     AWS_SECRET_ACCESS_KEY: '${{secrets.AWS_SECRET_ACCESS_KEY}}'
+      - name: Prerender page(s) and upload them to S3
+        run: bin/prerender
+        env:
+          CI: true
+          AWS_ACCESS_KEY_ID: '${{secrets.AWS_ACCESS_KEY_ID}}'
+          AWS_SECRET_ACCESS_KEY: '${{secrets.AWS_SECRET_ACCESS_KEY}}'
