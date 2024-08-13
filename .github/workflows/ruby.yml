@@ -122,6 +122,10 @@ jobs:
       - name: Build Docker image and push to Docker Hub
         uses: docker/build-push-action@v6
         with:
+          build-args: |
+            GIT_REV="$(git rev-parse origin/main)"
+            RAILS_ENV=production
+            RUBY_VERSION=$(cat .ruby-version)
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
 
