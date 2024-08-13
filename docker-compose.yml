@@ -1,6 +1,4 @@
 x-rails-config: &default-rails-config
-  build:
-    context: .
   depends_on:
     initialize_database:
       condition: service_completed_successfully
@@ -10,6 +8,7 @@ x-rails-config: &default-rails-config
   environment:
     MEMCACHED_PASSWORD: ''
     MEMCACHED_URL: memcached://memcached:11211
+  image: davidrunger/david_runger
   networks:
     - external
     - internal

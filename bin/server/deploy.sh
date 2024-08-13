@@ -21,8 +21,10 @@ fi
 # Run the install script.
 bin/server/install.sh
 
-# Rebuild the app.
-bin/build-docker production
+# Pull the Docker image for the currently checked out Git SHA, and tag it as 'latest'.
+image_tag_for_sha="davidrunger/david_runger:sha-$(git rev-parse HEAD)"
+docker pull "$image_tag_for_sha"
+docker tag "$image_tag_for_sha" davidrunger/david_runger:latest
 
 # Run release tasks.
 docker compose run --rm web bin/server/release-tasks

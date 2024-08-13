@@ -113,6 +113,47 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: davidrunger
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker metadata
+        id: docker_metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            davidrunger/david_runger
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,format=long
+
+      - name: Store build context
+        id: build_context
+        run: |
+          RUBY_VERSION=$(cat .ruby-version)
+          echo "RUBY_VERSION=${RUBY_VERSION}" >> $GITHUB_OUTPUT
+
+          GIT_REV="$(git rev-parse origin/main)"
+          echo "GIT_REV=${GIT_REV}" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image and push to Docker Hub
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+            GIT_REV=${{ steps.build_context.outputs.GIT_REV }}
+            RAILS_ENV=production
+            RUBY_VERSION=${{ steps.build_context.outputs.RUBY_VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+          tags: ${{ steps.docker_metadata.outputs.tags }}
+
       - name: Set up key for SSHing to server
         run: |
           mkdir -p ~/.ssh/
