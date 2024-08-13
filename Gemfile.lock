@@ -277,7 +277,7 @@ GEM
     irb (1.14.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    isolator (1.0.1)
+    isolator (1.1.0)
       sniffer (>= 0.5.0)
     jmespath (1.6.2)
     jquery-rails (4.6.0)
