@@ -1,9 +1,4 @@
-# Automatically enable YJIT as of Ruby 3.3, as it brings very
-# sizeable performance improvements.
-
-# If you are deploying to a memory constrained environment
-# you may want to delete this file, but otherwise it's free
-# performance.
+# Enable YJIT on the server (for performance gains), but not on the worker (for memory savings).
 if defined?(RubyVM::YJIT.enable) && defined?(Rails::Server)
   Rails.application.config.after_initialize do
     RubyVM::YJIT.enable
