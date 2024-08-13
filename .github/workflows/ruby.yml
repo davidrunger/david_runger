@@ -119,6 +119,15 @@ jobs:
           username: davidrunger
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set up Docker metadata
+        id: docker_metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            davidrunger/david_runger
+          tags: |
+            type=sha
+
       - name: Store build context
         id: build_context
         run: |
@@ -140,8 +149,9 @@ jobs:
             RUBY_VERSION=${{ steps.build_context.outputs.RUBY_VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          labels: ${{ steps.meta.outputs.labels }}
           push: true
-          tags: davidrunger/david_runger:latest
+          tags: ${{ steps.docker_metadata.outputs.tags }}
 
       # - name: Set up key for SSHing to server
       #   run: |
