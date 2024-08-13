@@ -138,6 +138,8 @@ jobs:
             GIT_REV=${{ steps.build_context.outputs.GIT_REV }}
             RAILS_ENV=production
             RUBY_VERSION=${{ steps.build_context.outputs.RUBY_VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
           tags: davidrunger/david_runger:latest
 
