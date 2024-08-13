@@ -127,7 +127,7 @@ jobs:
             davidrunger/david_runger
           tags: |
             type=raw,value=latest
-            type=sha
+            type=sha,format=long
 
       - name: Store build context
         id: build_context
