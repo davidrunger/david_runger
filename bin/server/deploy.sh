@@ -22,8 +22,9 @@ fi
 bin/server/install.sh
 
 # Pull the Docker image for the currently checked out Git SHA, and tag it as 'latest'.
-docker pull "davidrunger/david_runger:sha-$(git rev-parse HEAD)"
-docker tag "davidrunger/david_runger:sha-$(git rev-parse HEAD)" davidrunger/david_runger:latest
+sha_image_tag="davidrunger/david_runger:sha-$(git rev-parse HEAD)"
+docker pull "$sha_image_tag"
+docker tag "$sha_image_tag" davidrunger/david_runger:latest
 
 # Run release tasks.
 docker compose run --rm web bin/server/release-tasks
