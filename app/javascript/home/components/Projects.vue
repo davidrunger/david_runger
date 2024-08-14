@@ -17,6 +17,11 @@ HomeSection(section='projects' title='Projects')
       ul
 
         li.
+          #[a(:href='routes.emoji_picker_path()') Emoji Picker] -
+          I couldn't find an emoji picker with the functionality I wanted, so I
+          #[a(href='https://github.com/davidrunger/david_runger/blob/main/app/javascript/emoji_picker/EmojiPicker.vue') built my own]
+
+        li.
           #[a(:href='routes.groceries_path()') Groceries]* -
           the collaborative family grocery list, built to be mobile-friendly for use on-the-go
 
