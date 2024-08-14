@@ -4,8 +4,15 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
+boot_services() {
+  services=("$@")
+
+  bin/server/with-docker-compose-env \
+    docker compose up --detach --remove-orphans "${services[@]}"
+}
+
 # Boot default services.
-docker compose up --detach --remove-orphans
+boot_services
 
 # Boot web-related services (which are in nondefault group).
-docker compose up --detach --remove-orphans web nginx
+boot_services web nginx

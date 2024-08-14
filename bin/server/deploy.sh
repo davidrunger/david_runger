@@ -21,6 +21,12 @@ fi
 # Run the install script.
 bin/server/install.sh
 
+# Source environment variables needed in docker-compose.yml.
+set -a
+# shellcheck disable=SC1091
+. .env.papertrail.local
+set +a
+
 # Rebuild the app.
 bin/build-docker production
 

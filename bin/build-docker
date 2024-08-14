@@ -13,9 +13,10 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 rails_env=$1
 
 build() {
-  # Quotes would break this when there is no argument.
-  # shellcheck disable=SC2086
-  docker compose build ${1:-} \
+  services=("$@")
+
+  bin/server/with-docker-compose-env \
+    docker compose build "${services[@]}" \
     --build-arg GIT_REV="$(git rev-parse origin/main)" \
     --build-arg RUBY_VERSION="$(cat .ruby-version)" \
     --build-arg RAILS_ENV="$rails_env" \
