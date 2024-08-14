@@ -28,7 +28,7 @@ RSpec.describe CheckLinks::LaunchPageFetches do
                 <priority>1.0</priority>
               </url>
               <url>
-                <loc>https://davidrunger.com/David-Runger-Resume.pdf</loc>
+                <loc>https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf</loc>
                 <priority>0.8</priority>
               </url>
             </urlset>
@@ -56,7 +56,7 @@ RSpec.describe CheckLinks::LaunchPageFetches do
         expected_page_urls_to_check =
           %w[
             https://davidrunger.com/
-            https://davidrunger.com/David-Runger-Resume.pdf
+            https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf
             https://davidrunger.com/blog/using-vs-code-as-a-rails-app-update-merge-tool
             https://davidrunger.com/blog/
           ]

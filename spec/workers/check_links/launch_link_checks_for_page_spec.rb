@@ -57,7 +57,7 @@ RSpec.describe CheckLinks::LaunchLinkChecksForPage do
     end
 
     context 'when davidrunger.com returns a HEAD request indicating a non-HTML content type' do
-      let(:url) { 'https://davidrunger.com/David-Runger-Resume.pdf' }
+      let(:url) { 'https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf' }
       let(:paths) { ['/relative_path', '#fragment', '#about'] }
       let(:urls) { ['https://davidrunger.com/groceries/', 'https://davidrunger.com/logs/'] }
       let(:links) { (paths + urls).shuffle }
