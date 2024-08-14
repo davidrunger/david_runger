@@ -22,6 +22,10 @@ scale_web() {
   docker compose up --detach --no-deps --scale web="$scale" --no-recreate --remove-orphans web
 }
 
+set -a
+. .env.papertrail.local
+set +a
+
 old_container_id=$(docker ps --filter name=web --quiet | tail -1)
 
 # Bring a new container online, running new code.
