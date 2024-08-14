@@ -33,6 +33,11 @@ bin/build-docker production
 # Run release tasks.
 docker compose run --rm web bin/server/release-tasks
 
+# Copy fully built out public/ directory from web to nginx via app-public volume.
+docker run --rm \
+  --mount source=david_runger_app-public,target=/app-public \
+  --entrypoint cp david_runger-web -r /app/public/. /app-public/
+
 # Perform zero downtime, rolling deploy of web/nginx.
 bin/server/roll-out-web.sh
 
