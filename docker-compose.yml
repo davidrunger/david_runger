@@ -122,7 +122,6 @@ services:
       - nondefault
     volumes:
       - ./blog:/app/blog
-      - app-public:/app/public
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
