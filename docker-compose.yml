@@ -4,12 +4,18 @@ x-rails-config: &default-rails-config
   depends_on:
     initialize_database:
       condition: service_completed_successfully
-  # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
   env_file:
+    # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local
   environment:
     MEMCACHED_PASSWORD: ''
     MEMCACHED_URL: memcached://memcached:11211
+  logging:
+    driver: syslog
+    options:
+      # NOTE: The syslog-address value will be built into the image.
+      syslog-address: ${PAPERTRAIL_URL}
+      tag: "{{.Name}}/{{.ID}}"
   networks:
     - external
     - internal
