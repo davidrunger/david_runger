@@ -7,7 +7,8 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 boot_services() {
   services=("$@")
 
-  docker compose up --detach --remove-orphans "${services[@]}"
+  bin/server/with-docker-compose-env \
+    docker compose up --detach --remove-orphans "${services[@]}"
 }
 
 # Boot default services.
