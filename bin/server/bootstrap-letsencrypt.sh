@@ -42,6 +42,9 @@ docker compose run --rm --entrypoint "\
     -subj '/CN=localhost'" certbot
 echo
 
+echo "### Temporarily commenting out problematic line ..."
+sed -i 's|^\s\+\(ssl_trusted_certificate\s\)|    # \1|' config/nginx/sites-enabled/davidrunger.com.conf
+echo
 
 echo "### Starting nginx ..."
 docker compose up --force-recreate -d nginx
@@ -79,6 +82,10 @@ docker compose run --rm --entrypoint "\
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --force-renewal" certbot
+echo
+
+echo "### Uncommenting temporarily commented-out line ..."
+sed -i 's|^\s\+# \(ssl_trusted_certificate\s\)|    \1|' config/nginx/sites-enabled/davidrunger.com.conf
 echo
 
 echo "### Reloading nginx ..."
