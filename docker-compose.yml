@@ -15,7 +15,7 @@ x-rails-config: &default-rails-config
     options:
       # NOTE: The syslog-address value will be built into the image.
       syslog-address: ${PAPERTRAIL_URL}
-      tag: "{{.Name}}/{{.ID}}"
+      tag: '{{.Name}}/{{.ID}}'
   networks:
     - external
     - internal
