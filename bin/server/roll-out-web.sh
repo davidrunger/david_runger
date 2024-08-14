@@ -23,6 +23,7 @@ scale_web() {
 }
 
 set -a
+# shellcheck disable=SC1091
 . .env.papertrail.local
 set +a
 
