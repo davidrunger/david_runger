@@ -62,6 +62,12 @@ function listItemClasses(emojiData: EmojiData) {
 function selectEmoji() {
   const symbol = highlightedSearchable.value.symbol;
   navigator.clipboard.writeText(symbol);
-  toast(`Copied ${symbol}`);
+  toast(
+    /*html*/ `
+      <span class="align-middle font-bold">Copied:</span>
+      <span class="align-middle text-4xl">${symbol}</span>
+    `,
+    { html: true },
+  );
 }
 </script>
