@@ -1,9 +1,8 @@
 <template lang="pug">
-.section-container.relative.bg-white.flex.justify-center.p-4(:class='section', ref='root')
-  .anchor-target(:id='section')
+.relative.bg-white.flex.justify-center.p-4.scroll-mt-14(:id='section' :class='section' ref='root')
   section(:data-section='section')
     ScrollHook(:section='section')
-    SectionHeader(v-if='!renderHeadingManually', :title='title')
+    SectionHeader(v-if='!renderHeadingManually' :title='title')
     slot(:title='title')
 </template>
 
@@ -38,11 +37,5 @@ section {
   @media screen and (width >= 600px) {
     padding: 1rem 2rem 0;
   }
-}
-
-// semi-hacky way to make scroll position account for header space
-.anchor-target {
-  position: relative;
-  bottom: $header-height;
 }
 </style>
