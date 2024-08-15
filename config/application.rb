@@ -65,6 +65,14 @@ class DavidRunger::Application < Rails::Application
     g.factory_bot(dir: 'spec/factories')
   end
 
+  if Rails.env.local?
+    require Rails.root.join('lib/middleware/early')
+
+    initializer('insert early middleware', after: 'vite_rails.proxy') do |app|
+      app.middleware.insert_before(0, Middleware::Early)
+    end
+  end
+
   initializer(
     'move Browser middleware after Rack::Attack',
     after: 'rack-attack.middleware',
