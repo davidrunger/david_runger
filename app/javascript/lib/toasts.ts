@@ -8,12 +8,16 @@ const TYPE_TO_CLASS_MAP = {
   error: 'error',
 };
 
-export function toast(message: string, options?: { type: ToastType }) {
+export function toast(
+  message: string,
+  options?: { html: boolean, type: ToastType },
+) {
   Toastify({
     text: message,
     position: 'center',
     duration: 3000,
     className: options?.type && TYPE_TO_CLASS_MAP[options?.type],
+    escapeMarkup: !options?.html,
   }).showToast();
 }
 
