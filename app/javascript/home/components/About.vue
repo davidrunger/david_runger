@@ -8,6 +8,8 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
             loading='lazy'
             src='~img/david.webp'
             alt='A picture of me'
+            width='235'
+            height='353'
           )
 
       .flex-3.p-4(class='sm:px-16')

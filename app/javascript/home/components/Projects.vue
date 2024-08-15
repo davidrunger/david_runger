@@ -183,6 +183,8 @@ HomeSection(section='projects' title='Projects')
         loading='lazy'
         src='~img/serpent.webp'
         alt='Serpent Game'
+        width='239'
+        height='300'
       )
     template(v-slot:overview)
       div(slot='overview')
@@ -217,6 +219,8 @@ HomeSection(section='projects' title='Projects')
         loading='lazy'
         src='~img/simplecov-terminal.webp'
         alt='SimpleCov::Formatter::Terminal'
+        width='640'
+        height='386'
       )
     template(v-slot:overview)
       div(slot='overview')
@@ -253,6 +257,8 @@ HomeSection(section='projects' title='Projects')
         loading='lazy'
         src='~img/skedjewel.webp'
         alt='skedjewel.yml'
+        width='583'
+        height='208'
       )
     template(v-slot:overview)
       div(slot='overview')
