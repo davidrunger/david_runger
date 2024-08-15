@@ -10,7 +10,7 @@ const TYPE_TO_CLASS_MAP = {
 
 export function toast(
   message: string,
-  options?: { html: boolean; type: ToastType },
+  options?: { html?: boolean; type?: ToastType },
 ) {
   Toastify({
     text: message,
