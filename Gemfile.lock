@@ -177,7 +177,6 @@ GEM
     cuprite (0.15.1)
       capybara (~> 3.0)
       ferrum (~> 0.15.0)
-    dalli (3.2.8)
     database_consistency (1.7.23)
       activerecord (>= 3.2)
     date (3.3.4)
@@ -680,7 +679,6 @@ DEPENDENCIES
   connection_pool
   csv
   cuprite
-  dalli
   database_consistency
   devise
   dotenv

@@ -32,7 +32,9 @@ Rails.application.configure do
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
-    config.cache_store = :mem_cache_store
+    config.cache_store =
+      :redis_cache_store,
+      { url: ENV.fetch('REDIS_CACHE_URL', nil) }
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{Integer(2.days)}",
     }

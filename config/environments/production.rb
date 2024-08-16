@@ -85,9 +85,8 @@ Rails.application.configure do
   unless IS_DOCKER_BUILD
     # Use a different cache store in production.
     config.cache_store =
-      :mem_cache_store,
-      ENV.fetch('MEMCACHED_URL'),
-      { password: ENV.fetch('MEMCACHED_PASSWORD') }
+      :redis_cache_store,
+      { url: ENV.fetch('REDIS_CACHE_URL') }
   end
 
   # Use a real queuing backend for Active Job (and separate queues per environment).

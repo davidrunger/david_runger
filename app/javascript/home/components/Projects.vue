@@ -63,11 +63,9 @@ HomeSection(section='projects' title='Projects')
 
         li.
 
-          The primary database is
-          #[a(href='https://www.postgresql.org/') PostgreSQL],
-          plus some use of
-          #[a(href='https://redis.io/') Redis], and
-          #[a(href='https://memcached.org/') Memcached] for cacheing.
+          The primary database is #[a(href='https://www.postgresql.org/') PostgreSQL],
+          plus #[a(href='https://redis.io/') Redis] for Sidekiq, caching, and
+          some direct use by the app.
 
         li.
           #[a(href='https://pinia.vuejs.org/') Pinia] provides client-side state management.
