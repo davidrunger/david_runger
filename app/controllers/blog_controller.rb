@@ -68,7 +68,10 @@ class BlogController < ApplicationController
     end
   rescue Errno::ENOENT
     Rails.error.report(
-      Error.new(ActionController::RoutingError),
+      Error.new(
+        ActionController::RoutingError,
+        %([blog] No route matches "#{request.fullpath}"),
+      ),
       context: {
         relative_path:,
       },
