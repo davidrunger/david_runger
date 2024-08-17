@@ -15,10 +15,6 @@
 # JavaScript packages
 /node_modules
 
-# Console/debugger history
-.byebug_history
-.irb_history
-
 # Docker
 docker-compose.override.yml
 
