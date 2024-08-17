@@ -1,0 +1,13 @@
+x-rails-json-file-logging: &json-file-logging
+  logging:
+    driver: local
+
+services:
+  clock:
+    <<: *json-file-logging
+  initialize_database:
+    <<: *json-file-logging
+  web:
+    <<: *json-file-logging
+  worker:
+    <<: *json-file-logging

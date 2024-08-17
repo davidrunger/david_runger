@@ -15,8 +15,7 @@ rails_env=$1
 build() {
   services=("$@")
 
-  bin/server/with-docker-compose-env \
-    docker compose build "${services[@]}" \
+  docker compose build "${services[@]}" \
     --build-arg GIT_REV="$(git rev-parse origin/main)" \
     --build-arg RUBY_VERSION="$(cat .ruby-version)" \
     --build-arg RAILS_ENV="$rails_env" \
