@@ -19,6 +19,9 @@
 .byebug_history
 .irb_history
 
+# Docker
+docker-compose.override.yml
+
 # Generated JavaScript path helpers
 /app/javascript/rails_assets
 
