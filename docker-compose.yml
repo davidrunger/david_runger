@@ -7,9 +7,6 @@ x-rails-config: &default-rails-config
   env_file:
     # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local
-  environment:
-    MEMCACHED_PASSWORD: ''
-    MEMCACHED_URL: memcached://memcached:11211
   logging:
     driver: syslog
     options:
@@ -18,6 +15,16 @@ x-rails-config: &default-rails-config
       tag: '{{.Name}}/{{.ID}}'
   networks:
     - external
+    - internal
+
+x-redis-config: &redis
+  healthcheck:
+    test: ['CMD', 'redis-cli', 'ping']
+    interval: 2s
+    timeout: 1s
+    retries: 10
+  image: redis:7.2.5-alpine
+  networks:
     - internal
 
 services:
@@ -35,22 +42,12 @@ services:
   initialize_database:
     <<: *default-rails-config
     depends_on:
-      memcached:
-        condition: service_healthy
       postgres:
         condition: service_healthy
-      redis:
+      redis-app:
         condition: service_healthy
-  memcached:
-    healthcheck:
-      # https://github.com/docker-library/memcached/issues/ 91#issuecomment-1733748674
-      test: ['CMD-SHELL', 'echo "version" | nc -vn -w 1 127.0.0.1 11211']
-      interval: 2s
-      timeout: 1s
-      retries: 10
-    image: memcached:1.6.29-alpine
-    networks:
-      - internal
+      redis-cache:
+        condition: service_healthy
   nginx:
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     image: nginx:1.27.0-alpine
@@ -83,7 +80,8 @@ services:
     environment:
       POSTGRES_INITDB_ARGS: --auth=scram-sha-256
       POSTGRES_USER: david_runger
-  redis:
+  redis-app:
+    <<: *redis
     # https://stackoverflow.com/a/72593084/4009384
     command:
       - /bin/sh
@@ -94,17 +92,24 @@ services:
       #   code and print a message, when the variable is not set or empty
       - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
     env_file:
-      - .env.redis.local
-    healthcheck:
-      test: ['CMD', 'redis-cli', 'ping']
-      interval: 2s
-      timeout: 1s
-      retries: 10
-    image: redis:7.2.5-alpine
-    networks:
-      - internal
+      - .env.redis-app.local
     volumes:
       - redis:/data
+  redis-cache:
+    <<: *redis
+    # https://stackoverflow.com/a/72593084/4009384
+    command:
+      - /bin/sh
+      - -c
+      # - Double dollars, so that the variable is not expanded by Docker Compose
+      # - Surround by quotes, so that the shell does not split the password
+      # - The ${variable:?message} syntax causes shell to exit with a non-zero
+      #   code and print a message, when the variable is not set or empty
+      - redis-server /usr/local/etc/redis/redis.conf --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
+    env_file:
+      - .env.redis-cache.local
+    volumes:
+      - ./redis/redis-cache.conf:/usr/local/etc/redis/redis.conf
   s3_db_backup:
     env_file:
       - .env.s3_db_backup.local

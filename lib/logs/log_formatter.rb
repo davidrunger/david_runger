@@ -42,11 +42,13 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
         if Rails.env.local?
           color, background, style = color_background_and_style(key, value)
 
-          key_value_string =
-            Rainbow(key_value_string).
-              color(color).
-              background(background || :default).
-              public_send(style || :itself)
+          if defined?(Rainbow) # Rainbow won't be defined when running w/ Docker
+            key_value_string =
+              Rainbow(key_value_string).
+                color(color).
+                background(background || :default).
+                public_send(style || :itself)
+          end
         end
 
         key_value_string

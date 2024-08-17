@@ -41,7 +41,6 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec' unless use_headful_chrome
-require 'active_support/cache/mem_cache_store'
 require 'mail'
 require 'percy/capybara'
 require 'super_diff/rspec-rails'
