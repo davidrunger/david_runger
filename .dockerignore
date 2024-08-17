@@ -5,7 +5,6 @@
 app/javascript/rails_assets
 bin/skedjewel
 config/credentials/production.key
-config/initializers/z.rb
 docs
 log
 node_modules
