@@ -20,9 +20,11 @@ x-rails-config: &default-rails-config
 x-redis-config: &redis
   healthcheck:
     test: ['CMD', 'redis-cli', 'ping']
-    interval: 2s
+    start_period: 20s
+    start_interval: 1s
+    interval: 10s
     timeout: 1s
-    retries: 10
+    retries: 1
   image: redis:7.2.5-alpine
   networks:
     - internal
@@ -69,9 +71,11 @@ services:
       - .env.postgres.local
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'david_runger']
-      interval: 2s
+      start_period: 20s
+      start_interval: 1s
+      interval: 10s
       timeout: 1s
-      retries: 10
+      retries: 1
     image: postgres:16.3-alpine
     networks:
       - internal
@@ -123,6 +127,13 @@ services:
     command: ['bin/rails', 'server', '--binding', '0.0.0.0']
     expose:
       - '3000'
+    healthcheck:
+      test: curl --silent --output /dev/null --fail localhost:3000/up
+      start_period: 30s
+      start_interval: 1s
+      interval: 10s
+      timeout: 1s
+      retries: 1
     profiles:
       - nondefault
     volumes:
