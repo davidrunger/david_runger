@@ -1,4 +1,5 @@
 # ENV secrets
+.env
 .env.*.local
 
 # Gems
