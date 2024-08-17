@@ -27,7 +27,7 @@ class ErrorSubscriber
 
   def write_log_line(error, handled:, severity:, context:, source: nil)
     log_line =
-      "[error-report] #{error.class.name} : #{error.message} | " \
+      "[error-report:#{severity}] #{error.class.name} : #{error.message} | " \
       "handled=#{handled.present?} source=#{source}"
 
     if context.respond_to?(:map) && context.all? { _1.size == 2 }
