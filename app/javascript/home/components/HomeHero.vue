@@ -3,10 +3,10 @@
   ref="homeRef"
 )
   .spacer.grow
-  h1#headline-container.grow(data-section='home')
-    #headline-name.monospace.font-normal.text-blue-300.border-b-2.border-indigo-200.leading-normal
+  hgroup#headline-container.grow(data-section='home')
+    h1#headline-name.monospace.font-normal.text-blue-300.border-b-2.border-indigo-200.leading-normal
       | David Runger
-    .pt-4.text-4xl.text-right.text-neutral-100
+    p.pt-4.text-4xl.text-right.text-neutral-100
       | Full stack web developer
 
   HomeHeader
