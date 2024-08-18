@@ -5,7 +5,7 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 expected_running_services=(certbot clock nginx postgres redis-app redis-cache web worker)
 expected_services_not_running=()
 max_retries=30
-retry_delay=1
+retry_delay=2
 
 check_services() {
   running_services=$(docker ps --filter='status=running' --format='table {{.Names}} {{.Status}}' | tail -n +2)
