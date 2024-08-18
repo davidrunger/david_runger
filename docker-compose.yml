@@ -41,6 +41,13 @@ services:
   clock:
     <<: *default-rails-config
     command: ['bin/skedjewel']
+    healthcheck:
+      test: ps -eo cmd | grep -P '^[b]in/skedjewel$'
+      start_period: 10s
+      start_interval: 1s
+      interval: 10s
+      timeout: 1s
+      retries: 1
   initialize_database:
     <<: *default-rails-config
     depends_on:
