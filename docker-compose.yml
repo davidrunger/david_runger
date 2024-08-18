@@ -32,6 +32,13 @@ x-redis-config: &redis
 services:
   certbot:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    healthcheck:
+      test: certbot --version
+      start_period: 10s
+      start_interval: 1s
+      interval: 1h
+      timeout: 1s
+      retries: 1
     image: certbot/certbot
     networks:
       - external
