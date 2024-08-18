@@ -13,7 +13,7 @@ check_services() {
 
   for expected_service in "${expected_running_services[@]}" ; do
     # Make sure that the service is running and that the healthcheck (if there is one) is healthy.
-    if ! grep -q -P "^david_runger-$expected_service-\d+ Up [^(]+($| \(healthy\)$)" <<< "$running_services" ; then
+    if ! grep -q -P "^david_runger-$expected_service-\d+ Up [^(]+ \(healthy\)$" <<< "$running_services" ; then
       echo "$expected_service is not running!"
       expected_services_not_running+=("$expected_service")
     fi
