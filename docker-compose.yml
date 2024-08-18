@@ -141,6 +141,13 @@ services:
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
+    healthcheck:
+      test: REDIS_URL="$$REDIS_URL/1" bin/sidekiqmon | grep --quiet "$$(hostname)"
+      start_period: 30s
+      start_interval: 5s
+      interval: 60s
+      timeout: 5s
+      retries: 1
 
 networks:
   external:
