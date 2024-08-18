@@ -106,6 +106,8 @@ Rails.application.routes.draw do
     mount Flipper::UI.app(Flipper) => '/flipper'
   end
 
+  get 'up', to: 'health_checks#index'
+
   def plain_text_response(text)
     [200, { 'Content-Disposition' => 'inline', 'Content-Type' => 'text/plain' }, [text]]
   end

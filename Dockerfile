@@ -13,7 +13,7 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
   --mount=type=cache,sharing=private,target=/var/cache/apt \
   apt-get update && \
   apt-get install --no-install-recommends -y \
-  libjemalloc2 postgresql-client
+  curl libjemalloc2 postgresql-client
 
 ARG RAILS_ENV
 RUN test -n "$RAILS_ENV"

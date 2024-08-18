@@ -2,7 +2,11 @@ ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*
   payload = args.extract_options!
 
   controller_name = payload[:controller]
-  next if controller_name == 'AnonymousController' # this occurs in tests
+
+  next if controller_name.in?([
+    'AnonymousController', # this occurs in tests
+    'HealthChecksController', # don't log these frequent, low-value requests
+  ])
 
   controller_klass = controller_name.constantize
   # We won't log requests to non-ApplicationController controllers (e.g. Flipper & Sidekiq engines)
