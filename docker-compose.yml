@@ -34,10 +34,10 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     healthcheck:
       test: certbot --version
-      start_period: 10s
-      start_interval: 1s
+      start_period: 30s
+      start_interval: 3s
       interval: 1h
-      timeout: 1s
+      timeout: 3s
       retries: 1
     image: certbot/certbot
     networks:
