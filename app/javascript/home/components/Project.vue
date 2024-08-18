@@ -3,7 +3,7 @@
   .card
     .card__body
       .project.p-4
-        h2.text-center.mt-0.mb-1.font-bold(
+        h3.text-center.mt-0.mb-1.font-bold(
           :class='isMobileDevice() ? "text-xl" : "text-2xl"'
         )
           slot(name='title')
@@ -22,7 +22,7 @@
 
         slot(name='overview')
 
-        h3.text-xl.font-bold.mb-4(v-if='$slots["tech-list"] && $slots["overview"]') Tech
+        h4.text-xl.font-bold.mb-4(v-if='$slots["tech-list"] && $slots["overview"]') Tech
         slot(name='tech-list')
 </template>
 
