@@ -259,7 +259,7 @@ function startWorkout() {
   timer.value = new Timer();
   currentRoundIndex.value = 0;
 
-  requestWakeLock();
+  requestWakeLock('screen');
 
   timer.value.start();
   say('Starting workout', 0); // "say" it silently to enable speech synthesis on iOS
