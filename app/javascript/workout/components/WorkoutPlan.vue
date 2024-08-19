@@ -66,6 +66,7 @@
 </template>
 
 <script setup lang="ts">
+import { useWakeLock } from '@vueuse/core';
 import { Timer } from 'easytimer.js';
 import { cloneDeep } from 'lodash-es';
 import { computed, onBeforeMount, ref, type PropType } from 'vue';
@@ -95,6 +96,8 @@ const props = defineProps({
     required: true,
   },
 });
+
+const { request: requestWakeLock, release: releaseWakeLock } = useWakeLock();
 
 const modalStore = useModalStore();
 
@@ -227,6 +230,9 @@ function nextRoundCountdownClasses(index: number) {
 
 function saveWorkout() {
   if (timer.value) timer.value.stop();
+
+  releaseWakeLock();
+
   modalStore.showModal({ modalName: 'confirm-workout' });
 }
 
@@ -252,6 +258,8 @@ function secondsAsTime(seconds: number) {
 function startWorkout() {
   timer.value = new Timer();
   currentRoundIndex.value = 0;
+
+  requestWakeLock('screen');
 
   timer.value.start();
   say('Starting workout', 0); // "say" it silently to enable speech synthesis on iOS
