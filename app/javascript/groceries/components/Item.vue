@@ -30,11 +30,13 @@
         edit-icon(size='17')
     | &nbsp;
     span ({{item.needed}})
-  .delete.text-2xl.px-2.js-link.right.text-red-600.leading-unset(
+  .delete.text-2xl.js-link.right.text-red-600.leading-unset(
     v-if='ownStore'
-    @click="groceriesStore.destroyItem({ item })"
-    title='Delete item'
-  ) ×
+  )
+    button.px-2(
+      @click="groceriesStore.destroyItem({ item })"
+      title='Delete item'
+    ) ×
 </template>
 
 <script setup lang="ts">

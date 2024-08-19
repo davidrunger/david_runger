@@ -69,13 +69,17 @@ onBeforeMount(() => {
       },
       {
         received: (data: ItemBroadcast) => {
-          if (Cookies.get('browser_uuid') === data.acting_browser_uuid) return;
+          const initiatedByOwnBrowser =
+            Cookies.get('browser_uuid') === data.acting_browser_uuid;
 
+          // NOTE: We try to addItem even if initiatedByOwnBrowser because we
+          // might need to re-add the item to the store if it was created by
+          // undoing a deletion.
           if (data.action === 'created') {
             groceriesStore.addItem({ itemData: data.model });
-          } else if (data.action === 'destroyed') {
+          } else if (data.action === 'destroyed' && !initiatedByOwnBrowser) {
             groceriesStore.deleteItem({ item: data.model });
-          } else if (data.action === 'updated') {
+          } else if (data.action === 'updated' && !initiatedByOwnBrowser) {
             groceriesStore.modifyItem({ attributes: data.model });
           }
         },

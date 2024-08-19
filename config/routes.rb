@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :log_entries, only: %i[create destroy index update]
     resources :log_shares, only: %i[create destroy]
     resources :logs, only: %i[create destroy update]
+    resources :reifications, only: %i[create]
     resources :stores, only: %i[index create update destroy] do
       resources :items, only: %i[create]
     end

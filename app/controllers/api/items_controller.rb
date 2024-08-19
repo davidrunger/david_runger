@@ -23,8 +23,15 @@ class Api::ItemsController < ApplicationController
 
   def destroy
     authorize(@item)
+
     @item.destroy!
-    head :no_content
+
+    render json: {
+      restore_item_path:
+        api_reifications_path(
+          paper_trail_version_id: @item.versions.destroys.last!.id,
+        ),
+    }
   end
 
   private

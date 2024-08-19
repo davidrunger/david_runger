@@ -33,11 +33,18 @@ if (csrfToken) {
 }
 
 const kyApi = ky.extend({
+  headers: {
+    'Content-Type': 'application/json',
+  },
   hooks,
   throwHttpErrors: false,
 });
 
 export const http = {
+  async delete<T>(url: string) {
+    return (await kyApi.delete(url).json()) as T;
+  },
+
   async post<T>(url: string, data: object) {
     return (await kyApi.post(url, { json: data }).json()) as T;
   },

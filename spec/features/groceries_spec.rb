@@ -9,7 +9,7 @@ RSpec.describe 'Groceries app' do
 
       let(:new_item_name) { 'blueberries' }
 
-      it 'allows adding an item' do
+      it 'allows adding an item, deleting an item, undoing the deletion, and checking in a shopping trip' do
         visit groceries_path
 
         store = user.stores.reorder(viewed_at: :desc).first!
@@ -17,8 +17,13 @@ RSpec.describe 'Groceries app' do
         expect(page).to have_button('Check in items')
 
         needed_item = store.items.needed.first!
+        unneeded_item = store.items.unneeded.first!
         expect(page).to have_text(/#{needed_item.name} +\(#{needed_item.needed}\)/)
 
+        # NOTE: When running specs with the development vite server, the
+        # following line triggers two warnings, which I'm pretty sure are caused
+        # by a bug in cuprite (namely that focus and blur events are of type
+        # `Event` rather than `FocusEvent`).
         fill_in('newItemName', with: new_item_name)
         first('.store-container button', text: 'Add').click
 
@@ -27,6 +32,21 @@ RSpec.describe 'Groceries app' do
         expect(page.body.scan(new_item_name).size).to eq(1)
 
         page.percy_snapshot('Groceries')
+
+        # Confirm expected item is on list.
+        expect(page).to have_css('.grocery-item', text: unneeded_item.name)
+
+        # Delete the item.
+        within('.grocery-item', text: unneeded_item.name) { click_on('Delete item') }
+
+        # Confirm that the deleted item is no longer listed.
+        expect(page).not_to have_css('.grocery-item', text: unneeded_item.name)
+
+        # Undo the deletion
+        click_on('Undo')
+
+        # Confirm that the item is listed again.
+        expect(page).to have_css('.grocery-item', text: unneeded_item.name)
 
         click_on('Check in items')
 
