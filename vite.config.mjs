@@ -18,7 +18,13 @@ export default defineConfig({
     ]),
     RubyPlugin(),
     ElementPlus(),
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          whitespace: 'preserve',
+        },
+      },
+    }),
   ],
   resolve: {
     alias: {
