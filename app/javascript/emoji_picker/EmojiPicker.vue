@@ -7,9 +7,6 @@
       type='text'
       autofocus
       v-model='query'
-      @keydown.up='onArrowUp'
-      @keydown.down='onArrowDown'
-      @keydown.enter='selectEmoji(highlightedSearchable)'
     )
 
   ul.mx-auto.max-w-sm
@@ -27,7 +24,7 @@
 import { refDebounced } from '@vueuse/core';
 import EmojiLibData from 'emojilib';
 import { flatMap } from 'lodash-es';
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import CopiedEmojiToast from '@/emoji_picker/components/CopiedEmojiToast.vue';
 import { useFuzzyTypeahead } from '@/lib/composables/use_fuzzy_typeahead';
@@ -56,6 +53,28 @@ const { highlightedSearchable, onArrowDown, onArrowUp, topRankedMatches } =
     propertyToSearch: 'name',
     maxMatches: 10,
   });
+
+function handleKeydown(event: KeyboardEvent) {
+  switch (event.key) {
+    case 'Enter':
+      selectEmoji(highlightedSearchable.value);
+      break;
+    case 'ArrowUp':
+      onArrowUp();
+      break;
+    case 'ArrowDown':
+      onArrowDown();
+      break;
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown);
+});
 
 function listItemClasses(emojiData: EmojiData) {
   const isSelected = emojiData === highlightedSearchable.value;
