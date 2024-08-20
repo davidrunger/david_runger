@@ -1,4 +1,4 @@
-import Fuse from 'fuse.js';
+import Fuse, { IFuseOptions } from 'fuse.js';
 import { map } from 'lodash-es';
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 
@@ -7,15 +7,20 @@ export function useFuzzyTypeahead<T extends object>({
   query,
   propertyToSearch,
   maxMatches,
+  fuseOptions,
 }: {
   searchables: Array<T>;
   query: Ref<string>;
   propertyToSearch: keyof T & string;
   maxMatches?: number;
+  fuseOptions?: IFuseOptions<T>;
 }) {
   const highlightedIndex = ref(0);
   const fuse = computed(() => {
-    return new Fuse(searchables, { keys: [propertyToSearch] });
+    return new Fuse(
+      searchables,
+      Object.assign({ keys: [propertyToSearch] }, fuseOptions),
+    );
   });
 
   const rankedMatches: ComputedRef<Array<T>> = computed(() => {
