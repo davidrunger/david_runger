@@ -27,7 +27,13 @@ export function useFuzzyTypeahead<T extends object>({
     if (query.value === '') {
       return searchables;
     } else {
-      return map(fuse.value.search(query.value), 'item');
+      const andSearch = {
+        $and: query.value
+          .split(/\s+/)
+          .map((word) => ({ [propertyToSearch]: word })),
+      };
+      const searchResult = fuse.value.search(andSearch);
+      return map(searchResult, 'item');
     }
   });
 
