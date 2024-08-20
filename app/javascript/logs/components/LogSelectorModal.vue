@@ -44,7 +44,9 @@ const { highlightedSearchable, onArrowDown, onArrowUp, rankedMatches } =
   useFuzzyTypeahead({
     searchables: logs.value,
     query: queryDebounced,
-    propertyToSearch: 'name',
+    fuseOptions: {
+      keys: ['name'],
+    },
   });
 
 function resetQuickSelector() {
