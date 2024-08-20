@@ -54,6 +54,7 @@ const { highlightedSearchable, onArrowDown, onArrowUp, topRankedMatches } =
     maxMatches: 10,
     fuseOptions: {
       threshold: 0.35,
+      useExtendedSearch: true,
     },
   });
 
