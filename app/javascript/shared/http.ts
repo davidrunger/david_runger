@@ -1,4 +1,5 @@
 import ky, { type Hooks } from 'ky';
+import { identity, pickBy } from 'lodash-es';
 
 import { toast } from '@/lib/toasts';
 import { isArrayOfStrings } from '@/lib/type_predicates';
@@ -33,12 +34,24 @@ if (csrfToken) {
 }
 
 const kyApi = ky.extend({
+  headers: {
+    'Content-Type': 'application/json',
+  },
   hooks,
   throwHttpErrors: false,
 });
 
 export const http = {
-  async post<T>(url: string, data: object) {
-    return (await kyApi.post(url, { json: data }).json()) as T;
+  async delete<T>(url: string) {
+    return (await kyApi.delete(url).json()) as T;
+  },
+
+  async post<T>(url: string, data?: object) {
+    return (
+      (await kyApi
+        // NOTE: Only include payload if one is provided.
+        .post(url, pickBy({ json: data }, identity))
+        .json()) as T
+    );
   },
 };

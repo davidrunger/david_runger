@@ -1,8 +1,11 @@
 import { filter, get, last, pick, sortBy } from 'lodash-es';
 import { defineStore } from 'pinia';
+import { POSITION } from 'vue-toastification';
 
+import DeletedItemToast from '@/groceries/components/DeletedItemToast.vue';
 import { Bootstrap, CheckInStatus, Item, Store } from '@/groceries/types';
 import { emit } from '@/lib/event_bus';
+import { vueToast } from '@/lib/vue_toasts';
 import * as RoutesType from '@/rails_assets/routes';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
@@ -58,7 +61,9 @@ export const useGroceriesStore = defineStore('groceries', {
       // don't add item to store if it's already there
       if (safeGetById(store.items, itemData.id)) return;
 
-      store.items.push(itemData);
+      if (!store.items.find((item) => item.id === itemData.id)) {
+        store.items.push(itemData);
+      }
     },
 
     async createItem({
@@ -115,9 +120,23 @@ export const useGroceriesStore = defineStore('groceries', {
 
     async destroyItem({ item }: { item: Item }) {
       this.incrementPendingRequests();
-      await kyApi.delete(Routes.api_item_path(item.id), {
-        headers: { 'content-type': 'application/json' },
-      });
+
+      const { restore_item_path: restoreItemPath } = await http.delete<{
+        restore_item_path: string;
+      }>(Routes.api_item_path(item.id));
+
+      vueToast(
+        {
+          component: DeletedItemToast,
+          props: {
+            deletedItemName: item.name,
+            restoreItemPath,
+          },
+        },
+        {
+          position: POSITION.BOTTOM_RIGHT,
+        },
+      );
 
       this.decrementPendingRequests();
       this.deleteItem({ item });

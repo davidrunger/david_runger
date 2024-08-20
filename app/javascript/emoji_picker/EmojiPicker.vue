@@ -27,8 +27,9 @@ import EmojiLibData from 'emojilib';
 import { flatMap } from 'lodash-es';
 import { ref } from 'vue';
 
+import CopiedEmojiToast from '@/emoji_picker/components/CopiedEmojiToast.vue';
 import { useFuzzyTypeahead } from '@/lib/composables/use_fuzzy_typeahead';
-import { toast } from '@/lib/toasts';
+import { vueToast } from '@/lib/vue_toasts';
 
 interface EmojiData {
   symbol: string;
@@ -62,12 +63,16 @@ function listItemClasses(emojiData: EmojiData) {
 function selectEmoji() {
   const symbol = highlightedSearchable.value.symbol;
   navigator.clipboard.writeText(symbol);
-  toast(
-    /*html*/ `
-      <span class="align-middle font-bold">Copied:</span>
-      <span class="align-middle text-4xl">${symbol}</span>
-    `,
-    { html: true },
+  vueToast(
+    {
+      component: CopiedEmojiToast,
+      props: {
+        symbol,
+      },
+    },
+    {
+      icon: false,
+    },
   );
 }
 </script>

@@ -27,6 +27,7 @@ class Item < ApplicationRecord
   has_paper_trail
 
   scope :needed, -> { where('items.needed > 0') }
+  scope :unneeded, -> { where(needed: 0) }
 
   broadcasts_json_to(GroceriesChannel, ->(item) { item.user&.marriage })
 end

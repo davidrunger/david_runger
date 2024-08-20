@@ -128,9 +128,16 @@ RSpec.describe Api::ItemsController do
         expect { delete_destroy }.to change { Item.find_by(id: item.id) }.from(Item).to(nil)
       end
 
-      it 'returns a 204 status code' do
+      it 'responds with a 200 status code and restore_item_path in JSON' do
         delete_destroy
-        expect(response).to have_http_status(204)
+
+        expect(response).to have_http_status(200)
+        expect(response.parsed_body).to eq(
+          'restore_item_path' =>
+            api_reifications_path(
+              paper_trail_version_id: item.versions.last!,
+            ),
+        )
       end
     end
   end
