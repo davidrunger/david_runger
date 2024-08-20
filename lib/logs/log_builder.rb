@@ -12,6 +12,8 @@ class Logs::LogBuilder
       exception: exception_log,
       params: params_log,
       status: status_code_log,
+      queries: payload[:queries_count],
+      cached_queries: payload[:cached_queries_count],
       ip: payload[:ip], # comes from ApplicationController#append_info_to_payload
       admin_user_id: payload[:admin_user_id], # from ApplicationController#append_info_to_payload
       user_id: payload[:user_id], # from ApplicationController#append_info_to_payload
