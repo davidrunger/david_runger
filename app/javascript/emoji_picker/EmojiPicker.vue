@@ -14,7 +14,7 @@
 
   ul.mx-auto.max-w-sm
     li.py-1(
-      v-for='emojiData in rankedMatches.slice(0, 10)'
+      v-for='emojiData in topRankedMatches'
       :class='listItemClasses(emojiData)'
     )
       span.align-middle.text-4xl {{ emojiData.symbol }}
@@ -47,11 +47,12 @@ const EMOJI_DATA: Array<EmojiData> = flatMap(EmojiLibData, (names, symbol) => {
 
 const query = ref('');
 const queryDebounced = refDebounced(query, 60, { maxWait: 180 });
-const { highlightedSearchable, onArrowDown, onArrowUp, rankedMatches } =
+const { highlightedSearchable, onArrowDown, onArrowUp, topRankedMatches } =
   useFuzzyTypeahead({
     searchables: EMOJI_DATA,
     query: queryDebounced,
     propertyToSearch: 'name',
+    maxMatches: 10,
   });
 
 function listItemClasses(emojiData: EmojiData) {

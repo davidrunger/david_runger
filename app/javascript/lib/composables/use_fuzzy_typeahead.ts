@@ -6,10 +6,12 @@ export function useFuzzyTypeahead<T extends object>({
   searchables,
   query,
   propertyToSearch,
+  maxMatches,
 }: {
   searchables: Array<T>;
   query: Ref<string>;
   propertyToSearch: keyof T & string;
+  maxMatches?: number;
 }) {
   const highlightedIndex = ref(0);
   const fuse = computed(() => {
@@ -24,13 +26,21 @@ export function useFuzzyTypeahead<T extends object>({
     }
   });
 
+  const topRankedMatches: ComputedRef<Array<T>> = computed(() => {
+    if (maxMatches) {
+      return rankedMatches.value.slice(0, maxMatches);
+    } else {
+      return rankedMatches.value;
+    }
+  });
+
   // reset highlightedLogIndex to 0 whenever the matched logs changes (e.g. the user types more)
-  watch(rankedMatches, () => {
+  watch(topRankedMatches, () => {
     highlightedIndex.value = 0;
   });
 
   const highlightedSearchable = computed<T>(() => {
-    return rankedMatches.value[highlightedIndex.value];
+    return topRankedMatches.value[highlightedIndex.value];
   });
 
   function onArrowUp() {
@@ -38,12 +48,12 @@ export function useFuzzyTypeahead<T extends object>({
       highlightedIndex.value--;
     } else {
       // wrap around from the top of the list to the bottom
-      highlightedIndex.value = rankedMatches.value.length - 1;
+      highlightedIndex.value = topRankedMatches.value.length - 1;
     }
   }
 
   function onArrowDown() {
-    if (highlightedIndex.value < rankedMatches.value.length - 1) {
+    if (highlightedIndex.value < topRankedMatches.value.length - 1) {
       highlightedIndex.value++;
     } else {
       // wrap back around to the top of the list
@@ -56,5 +66,6 @@ export function useFuzzyTypeahead<T extends object>({
     onArrowDown,
     onArrowUp,
     rankedMatches,
+    topRankedMatches,
   };
 }
