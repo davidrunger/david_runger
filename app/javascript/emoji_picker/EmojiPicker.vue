@@ -67,7 +67,7 @@ function listItemClasses(emojiData: EmojiData) {
   ];
 }
 
-function selectEmoji(emojiData) {
+function selectEmoji(emojiData: EmojiData) {
   const symbol = emojiData.symbol;
 
   navigator.clipboard.writeText(symbol);
