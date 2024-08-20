@@ -7,7 +7,7 @@ class EmojiPickerController < ApplicationController
 
     @title = 'Emoji Picker'
     @description = <<~DESCRIPTION.squish
-      A fast and simple emoji selector with an autofocused search field and
+      A fast and simple emoji selector with an auto-focused search field and
       keyboard selection.
     DESCRIPTION
 
