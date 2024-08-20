@@ -52,6 +52,9 @@ const { highlightedSearchable, onArrowDown, onArrowUp, topRankedMatches } =
     query: queryDebounced,
     propertyToSearch: 'name',
     maxMatches: 10,
+    fuseOptions: {
+      threshold: 0.35,
+    },
   });
 
 function handleKeydown(event: KeyboardEvent) {
