@@ -11,7 +11,7 @@ export function useFuzzyTypeahead<T extends object>({
   searchables: Array<T>;
   query: Ref<string>;
   propertyToSearch: keyof T & string;
-  maxMatches: number;
+  maxMatches?: number;
 }) {
   const highlightedIndex = ref(0);
   const fuse = computed(() => {
@@ -26,9 +26,13 @@ export function useFuzzyTypeahead<T extends object>({
     }
   });
 
-  const topRankedMatches: ComputedRef<Array<T>> = computed(() =>
-    rankedMatches.value.slice(0, maxMatches),
-  );
+  const topRankedMatches: ComputedRef<Array<T>> = computed(() => {
+    if (maxMatches) {
+      return rankedMatches.value.slice(0, maxMatches);
+    } else {
+      return rankedMatches.value;
+    }
+  });
 
   // reset highlightedLogIndex to 0 whenever the matched logs changes (e.g. the user types more)
   watch(topRankedMatches, () => {
@@ -61,6 +65,7 @@ export function useFuzzyTypeahead<T extends object>({
     highlightedSearchable,
     onArrowDown,
     onArrowUp,
+    rankedMatches,
     topRankedMatches,
   };
 }
