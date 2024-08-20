@@ -5,22 +5,17 @@ import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 export function useFuzzyTypeahead<T extends object>({
   searchables,
   query,
-  propertyToSearch,
   maxMatches,
   fuseOptions,
 }: {
   searchables: Array<T>;
   query: Ref<string>;
-  propertyToSearch: keyof T & string;
   maxMatches?: number;
-  fuseOptions?: IFuseOptions<T>;
+  fuseOptions: IFuseOptions<T>;
 }) {
   const highlightedIndex = ref(0);
   const fuse = computed(() => {
-    return new Fuse(
-      searchables,
-      Object.assign({ keys: [propertyToSearch] }, fuseOptions),
-    );
+    return new Fuse(searchables, fuseOptions);
   });
 
   const rankedMatches: ComputedRef<Array<T>> = computed(() => {
