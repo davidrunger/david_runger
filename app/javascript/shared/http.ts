@@ -47,9 +47,11 @@ export const http = {
   },
 
   async post<T>(url: string, data?: object) {
-    return (await kyApi
-      // NOTE: Only include payload if one is provided.
-      .post(url, pickBy({ json: data }, identity))
-      .json()) as T;
+    return (
+      (await kyApi
+        // NOTE: Only include payload if one is provided.
+        .post(url, pickBy({ json: data }, identity))
+        .json()) as T
+    );
   },
 };
