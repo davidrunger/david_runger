@@ -74,7 +74,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown);
-})
+});
 
 function listItemClasses(emojiData: EmojiData) {
   const isSelected = emojiData === highlightedSearchable.value;
