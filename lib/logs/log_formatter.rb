@@ -20,6 +20,8 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
           when :format then 3
           when :params then 4
           when :status then 5
+          when :queries then 5.3
+          when :cached_queries then 5.6
           when :allocations then 6
           when :duration then 7
           when :db then 8
@@ -85,6 +87,16 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
       when 3 then :yellow
       else %i[black red]
       end
+    when :queries
+      if value < 5
+        :green
+      elsif value < 12
+        :yellow
+      else
+        :red
+      end
+    when :cached_queries
+      :white
     when :allocations
       if value < 20_000
         :green

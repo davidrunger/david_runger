@@ -5,6 +5,11 @@ class MarriageDecorator < Draper::Decorator
 
   memo_wise \
   def other_partner
-    partners.where.not(id: h.current_user).first
+    partner_ids = [partner_1_id, partner_2_id]
+    partner_id = (partner_ids - [h.current_user.id]).first
+
+    if partner_id
+      User.find(partner_id)
+    end
   end
 end
