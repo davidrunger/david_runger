@@ -18,7 +18,12 @@ class QuizzesController < ApplicationController
     authorize(@quiz, :show?)
 
     @title = @quiz.name
-    bootstrap(current_user: UserSerializer.new(current_user), quiz: QuizSerializer.new(@quiz))
+
+    bootstrap(
+      current_user: UserSerializer::Basic.new(current_user),
+      quiz: QuizSerializer.new(@quiz),
+    )
+
     render :show
   end
 

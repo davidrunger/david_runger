@@ -42,7 +42,7 @@ const queryDebounced = refDebounced(query, 60, { maxWait: 180 });
 const logSearchInput = ref(null);
 const { highlightedSearchable, onArrowDown, onArrowUp, rankedMatches } =
   useFuzzyTypeahead({
-    searchables: logs.value,
+    searchables: logs,
     query: queryDebounced,
     fuseOptions: {
       keys: ['name'],

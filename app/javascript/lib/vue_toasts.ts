@@ -3,7 +3,7 @@ import { POSITION, useToast } from 'vue-toastification';
 import 'css/vue_toastification_with_overrides.scss';
 
 const DEFAULT_VUE_TOASTIFICATION_OPTIONS = Object.freeze({
-  position: POSITION.TOP_CENTER,
+  position: POSITION.TOP_RIGHT,
 });
 
 type ComponentOptions = {

@@ -36,6 +36,17 @@ class User < ApplicationRecord
   has_many :workouts, dependent: :destroy
   has_many :need_satisfaction_ratings, dependent: :destroy
   has_many :check_in_submissions, dependent: :destroy
+  has_many :json_preferences, dependent: :destroy
+
+  JsonPreference::Types.constants.each do |constant_name|
+    scope_name = JsonPreference::Types.const_get(constant_name).to_sym
+
+    has_one scope_name,
+      ->(user) { user.json_preferences.public_send(scope_name) },
+      class_name: 'JsonPreference',
+      inverse_of: :user,
+      dependent: :destroy
+  end
 
   devise
 

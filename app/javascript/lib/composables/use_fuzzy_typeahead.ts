@@ -8,19 +8,19 @@ export function useFuzzyTypeahead<T extends object>({
   maxMatches,
   fuseOptions,
 }: {
-  searchables: Array<T>;
+  searchables: Ref<Array<T>>;
   query: Ref<string>;
   maxMatches?: number;
   fuseOptions: IFuseOptions<T>;
 }) {
   const highlightedIndex = ref(0);
   const fuse = computed(() => {
-    return new Fuse(searchables, fuseOptions);
+    return new Fuse(searchables.value, fuseOptions);
   });
 
   const rankedMatches: ComputedRef<Array<T>> = computed(() => {
     if (query.value === '') {
-      return searchables;
+      return searchables.value;
     } else {
       const searchResult = fuse.value.search(query.value);
       return map(searchResult, 'item');
