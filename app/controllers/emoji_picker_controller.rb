@@ -4,7 +4,13 @@ class EmojiPickerController < ApplicationController
 
   def index
     skip_authorization
+
     @title = 'Emoji Picker'
+    @description = <<~DESCRIPTION.squish
+      A fast and simple emoji selector with an auto-focused search field and
+      keyboard selection.
+    DESCRIPTION
+
     render :index
   end
 end
