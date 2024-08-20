@@ -1,7 +1,7 @@
 import { last, sortBy } from 'lodash-es';
 import { defineStore } from 'pinia';
-import Toastify from 'toastify-js';
 
+import { toast } from '@/lib/toasts';
 import * as RoutesType from '@/rails_assets/routes';
 import { assert } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
@@ -111,11 +111,7 @@ export const useLogsStore = defineStore('logs', {
 
     async deleteLog({ log: logToDelete }: { log: Log }) {
       await kyApi.delete(Routes.api_log_path({ id: logToDelete.id }));
-      Toastify({
-        text: `Deleted "${logToDelete.name}" log.`,
-        position: 'center',
-        duration: 1800,
-      }).showToast();
+      toast(`Deleted "${logToDelete.name}" log.`);
       this.router.push({ name: 'logs-index' });
       // we need to wait a tick so we don't remove the log while still on the log show page
       setTimeout(() => {

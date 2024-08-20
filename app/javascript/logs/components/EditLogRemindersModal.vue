@@ -38,9 +38,9 @@ Modal(name='edit-log-reminder-schedule' width='85%' maxWidth='600px' backgroundC
 </template>
 
 <script setup lang="ts">
-import Toastify from 'toastify-js';
 import { computed, ref, type PropType } from 'vue';
 
+import { toast } from '@/lib/toasts';
 import { useLogsStore } from '@/logs/store';
 import type { Log } from '@/logs/types';
 import { useModalStore } from '@/shared/modal/store';
@@ -85,11 +85,7 @@ async function cancelReminders() {
     updatedLogParams: { reminder_time_in_seconds: null },
   });
 
-  Toastify({
-    text: 'Reminders cancelled!',
-    position: 'center',
-    duration: 1800,
-  }).showToast();
+  toast('Reminders cancelled!');
 }
 
 function hideReminderSchedulingModal() {
@@ -106,11 +102,7 @@ async function updateLog() {
     },
   });
 
-  Toastify({
-    text: 'Reminder time updated!',
-    position: 'center',
-    duration: 1800,
-  }).showToast();
+  toast('Reminder time updated!');
 }
 </script>
 
