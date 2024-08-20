@@ -26,9 +26,9 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
 </template>
 
 <script setup lang="ts">
-import Toastify from 'toastify-js';
 import { ref } from 'vue';
 
+import { toast } from '@/lib/toasts';
 import { useModalStore } from '@/shared/modal/store';
 import { useWorkoutsStore } from '@/workout/store';
 import type { Workout } from '@/workout/types';
@@ -61,21 +61,12 @@ async function saveWorkout() {
       },
     })) as Workout;
 
-    Toastify({
-      text: 'Workout completion logged successfully!',
-      position: 'center',
-      duration: 2500,
-    }).showToast();
+    toast('Workout completion logged successfully!');
 
     modalStore.hideModal({ modalName });
     workoutsStore.completeWorkout({ completedWorkout });
   } catch (error) {
-    Toastify({
-      text: 'Something went wrong',
-      className: 'error',
-      position: 'center',
-      duration: 2500,
-    }).showToast();
+    toast('Something went wrong', { type: 'error' });
   }
 }
 </script>

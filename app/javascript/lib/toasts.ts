@@ -2,6 +2,8 @@ import Toastify from 'toastify-js';
 
 import { bootstrap } from '@/lib/bootstrap';
 
+import 'toastify-js/src/toastify.css';
+
 type ToastType = 'error';
 
 const TYPE_TO_CLASS_MAP = {

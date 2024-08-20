@@ -24,9 +24,9 @@ div(v-else) None
 <script setup lang="ts">
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
-import Toastify from 'toastify-js';
 import { computed, type PropType } from 'vue';
 
+import { toast } from '@/lib/toasts';
 import { useWorkoutsStore } from '@/workout/store';
 import type { Workout } from '@/workout/types';
 
@@ -63,14 +63,12 @@ async function savePubliclyViewableChange(workout: Workout) {
     workout,
     attributes: workout,
   })) as Workout;
+
   const message =
     responseData.publicly_viewable ?
       'Workout is now publicly viewable.'
     : 'Workout is now private.';
-  Toastify({
-    text: message,
-    position: 'center',
-    duration: 1800,
-  }).showToast();
+
+  toast(message);
 }
 </script>
