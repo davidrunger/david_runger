@@ -9,16 +9,18 @@
       v-model='query'
       @keydown.up='onArrowUp'
       @keydown.down='onArrowDown'
-      @keydown.enter='selectEmoji'
+      @keydown.enter='selectEmoji(highlightedSearchable)'
     )
 
   ul.mx-auto.max-w-sm
     li.py-1(
       v-for='emojiData in topRankedMatches'
       :class='listItemClasses(emojiData)'
+      @click='selectEmoji(emojiData)'
     )
-      span.align-middle.text-4xl {{ emojiData.symbol }}
-      span.ml-1.align-middle.text-xl {{ emojiData.name }}
+      button
+        span.align-middle.text-4xl {{ emojiData.symbol }}
+        span.ml-1.align-middle.text-xl {{ emojiData.name }}
 </template>
 
 <script setup lang="ts">
@@ -58,11 +60,16 @@ const { highlightedSearchable, onArrowDown, onArrowUp, topRankedMatches } =
 function listItemClasses(emojiData: EmojiData) {
   const isSelected = emojiData === highlightedSearchable.value;
 
-  return { 'font-bold bg-sky-200': isSelected };
+  return [
+    'cursor-pointer',
+    'hover:bg-sky-100',
+    { 'font-bold bg-sky-200': isSelected },
+  ];
 }
 
-function selectEmoji() {
-  const symbol = highlightedSearchable.value.symbol;
+function selectEmoji(emojiData: EmojiData) {
+  const symbol = emojiData.symbol;
+
   navigator.clipboard.writeText(symbol);
   vueToast(
     {
