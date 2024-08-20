@@ -7,6 +7,9 @@ class MarriageDecorator < Draper::Decorator
   def other_partner
     partner_ids = [partner_1_id, partner_2_id]
     partner_id = (partner_ids - [h.current_user.id]).first
-    User.find(partner_id)
+
+    if partner_id
+      User.find(partner_id)
+    end
   end
 end
