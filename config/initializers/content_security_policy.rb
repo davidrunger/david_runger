@@ -7,7 +7,9 @@
 Rails.application.configure do
   # Allow disabling CSP in development because it breaks Vue devtools in Firefox.
   if Rails.env.development? && ENV.key?('DISABLE_CSP')
+    # :nocov:
     next
+    # :nocov:
   end
 
   config.content_security_policy do |policy|
