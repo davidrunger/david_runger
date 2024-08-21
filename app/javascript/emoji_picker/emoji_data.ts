@@ -1,11 +1,14 @@
 import EmojiLibData from 'emojilib';
 import { flatMap, isEqual, remove } from 'lodash-es';
+import { computed, reactive } from 'vue';
 
 import {
-  EmojiData,
-  EmojiDataWithBoostedName,
-  EmojiDataWithName,
+  type Bootstrap,
+  type EmojiData,
+  type EmojiDataWithBoostedName,
+  type EmojiDataWithName,
 } from '@/emoji_picker/types';
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 
 const emojilibData: Array<EmojiDataWithName> = flatMap(
   EmojiLibData,
@@ -19,9 +22,11 @@ const emojilibData: Array<EmojiDataWithName> = flatMap(
   },
 );
 
-const boosts: Array<EmojiDataWithBoostedName> = [
-  { symbol: '🙂', boostedName: 'smile' },
-];
+const bootstrap = untypedBootstrap as Bootstrap;
+
+export const boosts = reactive<Array<EmojiDataWithBoostedName>>(
+  bootstrap.current_user?.emoji_boosts || [],
+);
 
 const possibleDuplicatesToRemoveFromEmojiData = boosts.map((boost) => ({
   symbol: boost.symbol,
@@ -34,4 +39,7 @@ remove(emojilibData, (item) =>
   ),
 );
 
-export const EMOJI_DATA: Array<EmojiData> = [...emojilibData, ...boosts];
+export const emojiData = computed<Array<EmojiData>>(() => [
+  ...emojilibData,
+  ...boosts,
+]);

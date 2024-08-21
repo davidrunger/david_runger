@@ -5,6 +5,27 @@ RSpec.describe User do
   it { is_expected.to have_many(:logs) }
   it { is_expected.to have_many(:log_shares) }
 
+  describe '#emoji_boosts' do
+    subject(:emoji_boosts) { user.emoji_boosts }
+
+    context 'when the user has an emoji_boosts JsonPreference' do
+      before { expect(emoji_boosts).to be_present }
+
+      it 'returns an EMOJI_BOOSTS JsonPreference' do
+        expect(emoji_boosts).to be_a(JsonPreference)
+        expect(emoji_boosts.preference_type).to eq(JsonPreference::Types::EMOJI_BOOSTS)
+      end
+    end
+
+    context 'when the user does not have emoji_boosts JsonPreference' do
+      before { user.emoji_boosts&.destroy! && user.reload }
+
+      it 'returns nil' do
+        expect(emoji_boosts).to eq(nil)
+      end
+    end
+  end
+
   describe '#marriage' do
     it 'returns a Marriage' do
       expect(user.marriage).to be_a(Marriage)

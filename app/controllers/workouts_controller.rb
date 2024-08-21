@@ -4,7 +4,7 @@ class WorkoutsController < ApplicationController
     @title = 'Workout'
     @description = 'Plan and execute a timed workout'
     bootstrap(
-      current_user: UserSerializer.new(current_user),
+      current_user: UserSerializer::WithPreferences.new(current_user),
       workouts: WorkoutSerializer.new(
         current_user.workouts.
           order(created_at: :desc).

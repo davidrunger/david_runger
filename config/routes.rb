@@ -76,6 +76,7 @@ Rails.application.routes.draw do
     namespace :items do
       resources :bulk_updates, only: %i[create]
     end
+    resource :json_preferences, only: %i[update]
     resources :log_entries, only: %i[create destroy index update]
     resources :log_shares, only: %i[create destroy]
     resources :logs, only: %i[create destroy update]

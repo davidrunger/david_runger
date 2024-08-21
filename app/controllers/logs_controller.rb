@@ -22,7 +22,7 @@ class LogsController < ApplicationController
 
     @title = 'Logs'
     bootstrap(
-      current_user: UserSerializer.new(current_user),
+      current_user: UserSerializer::Basic.new(current_user),
       logs: LogSerializer.new(logs, params: { own_log: !shared_log? }),
       log_input_types:,
     )

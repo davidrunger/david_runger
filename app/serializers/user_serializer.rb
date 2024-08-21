@@ -14,9 +14,17 @@
 #
 
 class UserSerializer < ApplicationSerializer
-  attributes(*%i[email id preferences])
-
   class Basic < UserSerializer
-    filtered_attributes(*%i[email id])
+    attributes(*%i[email id])
+  end
+
+  class WithEmojiBoosts < Basic
+    attribute(:emoji_boosts) do |user|
+      user.emoji_boosts&.json || []
+    end
+  end
+
+  class WithPreferences < Basic
+    attributes :preferences
   end
 end

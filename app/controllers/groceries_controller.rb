@@ -6,7 +6,7 @@ class GroceriesController < ApplicationController
     spouse = current_user.spouse
 
     bootstrap(
-      current_user: UserSerializer.new(current_user),
+      current_user: UserSerializer::Basic.new(current_user),
       spouse: spouse && UserSerializer::Basic.new(spouse),
       own_stores:
         StoreSerializer.new(

@@ -46,6 +46,12 @@ export const http = {
     return (await kyApi.delete(url).json()) as T;
   },
 
+  async patch<T>(url: string, data?: object) {
+    return (await kyApi
+      .patch(url, pickBy({ json: data }, identity))
+      .json()) as T;
+  },
+
   async post<T>(url: string, data?: object) {
     return (
       (await kyApi

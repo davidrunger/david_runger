@@ -11,6 +11,10 @@ class EmojiPickerController < ApplicationController
       keyboard selection.
     DESCRIPTION
 
+    if current_user
+      bootstrap(current_user: UserSerializer::WithEmojiBoosts.new(current_user))
+    end
+
     render :index
   end
 end

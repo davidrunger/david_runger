@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_05_234012) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_21_031606) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -152,6 +152,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_05_234012) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["store_id", "name"], name: "index_items_on_store_id_and_name", unique: true
+  end
+
+  create_table "json_preferences", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "preference_type", null: false
+    t.jsonb "json", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "preference_type"], name: "index_json_preferences_on_user_id_and_preference_type", unique: true
   end
 
   create_table "log_shares", force: :cascade do |t|
@@ -349,6 +358,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_05_234012) do
   add_foreign_key "check_ins", "marriages"
   add_foreign_key "emotional_needs", "marriages"
   add_foreign_key "items", "stores"
+  add_foreign_key "json_preferences", "users"
   add_foreign_key "log_shares", "logs"
   add_foreign_key "logs", "users"
   add_foreign_key "marriages", "users", column: "partner_1_id"

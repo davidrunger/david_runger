@@ -13,3 +13,9 @@ export interface EmojiDataWithBoostedName extends EmojiDataBase {
 }
 
 export type EmojiData = EmojiDataWithName | EmojiDataWithBoostedName;
+
+export interface Bootstrap {
+  current_user?: {
+    emoji_boosts: Array<EmojiDataWithBoostedName>;
+  };
+}
