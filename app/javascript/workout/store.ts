@@ -2,6 +2,7 @@ import { get } from 'lodash-es';
 import { defineStore } from 'pinia';
 
 import * as RoutesType from '@/rails_assets/routes';
+import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
 
 import { Bootstrap, NewWorkoutAttributes, Workout, WorkoutPlan } from './types';
@@ -12,7 +13,7 @@ export const useWorkoutsStore = defineStore('workouts', {
   state: () => {
     const workout = get(
       window,
-      'davidrunger.bootstrap.current_user.preferences.default_workout',
+      'davidrunger.bootstrap.current_user.default_workout',
     ) || {
       minutes: null as null | number,
       numberOfSets: null as null | number,
@@ -48,8 +49,9 @@ export const useWorkoutsStore = defineStore('workouts', {
 
     initializeWorkout() {
       this.workoutIsInProgress = true;
-      kyApi.patch(Routes.api_user_path({ id: this.current_user.id }), {
-        json: { user: { preferences: { default_workout: this.workout } } },
+      http.patch(Routes.api_json_preferences_path(), {
+        preference_type: 'default_workout',
+        json: this.workout,
       });
     },
 

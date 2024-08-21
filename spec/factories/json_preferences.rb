@@ -25,8 +25,12 @@ FactoryBot.define do
       ]
     end
 
-    trait(:emoji_boosts) do
-      preference_type { JsonPreference::Types::EMOJI_BOOSTS }
+    JsonPreference::Types.constants.each do |constant_name|
+      constant_value = JsonPreference::Types.const_get(constant_name)
+
+      trait(constant_value) do
+        preference_type { constant_value }
+      end
     end
   end
 end

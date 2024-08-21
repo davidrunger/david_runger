@@ -9,5 +9,9 @@ ActiveStorage::VariantRecord:
   enabled: false
 ActiveStorage::Attachment:
   enabled: false
+JsonPreference:
+  json:
+    NullConstraintChecker:
+      enabled: false # We don't want to require presence, just not nil.
 LogEntry:
   enabled: false
