@@ -15,6 +15,7 @@
 #
 class JsonPreference < ApplicationRecord
   module Types
+    DEFAULT_WORKOUT = 'default_workout'.freeze
     EMOJI_BOOSTS = 'emoji_boosts'.freeze
   end
 
@@ -27,6 +28,6 @@ class JsonPreference < ApplicationRecord
   belongs_to :user
 
   validates :preference_type, presence: true
-  validates :json, presence: true
+  validates :json, length: { minimum: 0, allow_nil: false }
   validates :preference_type, uniqueness: { scope: :user_id }
 end

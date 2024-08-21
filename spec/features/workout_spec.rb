@@ -28,18 +28,15 @@ RSpec.describe 'Workout app' do
 
     context 'when the user has a default workout saved in their preferences' do
       before do
-        user.update(
-          preferences: {
-            'default_workout' => {
-              'minutes' => minutes,
-              'exercises' => [
-                { 'name' => exercise_1_name, 'reps' => exercise_1_reps },
-                { 'name' => exercise_2_name, 'reps' => exercise_2_reps },
-              ],
-              'numberOfSets' => sets,
-            },
-          },
-        )
+        user.default_workout ||= build(:json_preference, :default_workout, user:)
+        user.default_workout.update!(json: {
+          'minutes' => minutes,
+          'exercises' => [
+            { 'name' => exercise_1_name, 'reps' => exercise_1_reps },
+            { 'name' => exercise_2_name, 'reps' => exercise_2_reps },
+          ],
+          'numberOfSets' => sets,
+        })
       end
 
       let(:minutes) { 20 }
