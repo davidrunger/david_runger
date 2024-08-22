@@ -1,26 +1,25 @@
+import { watchDebounced } from '@vueuse/core';
 import EmojiLibData from 'emojilib';
-import { flatMap, isEqual, remove } from 'lodash-es';
-import { computed, reactive } from 'vue';
+import { flatMap, isEqual } from 'lodash-es';
+import { computed, reactive, ref } from 'vue';
 
 import {
   type Bootstrap,
   type EmojiData,
   type EmojiDataWithBoostedName,
-  type EmojiDataWithName,
 } from '@/emoji_picker/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 
-const emojilibData: Array<EmojiDataWithName> = flatMap(
-  EmojiLibData,
-  (names, symbol) => {
-    return names.map((name) => {
-      return {
-        symbol,
-        name: name.replace(/_/g, ' '),
-      };
-    });
-  },
-);
+const originalEmojilibData = flatMap(EmojiLibData, (names, symbol) => {
+  return names.map((name) => {
+    return {
+      symbol,
+      name: name.replace(/_/g, ' '),
+    };
+  });
+});
+
+const emojilibData = ref(originalEmojilibData);
 
 const bootstrap = untypedBootstrap as Bootstrap;
 
@@ -28,18 +27,25 @@ export const boosts = reactive<Array<EmojiDataWithBoostedName>>(
   bootstrap.current_user?.emoji_boosts || [],
 );
 
-const possibleDuplicatesToRemoveFromEmojiData = boosts.map((boost) => ({
-  symbol: boost.symbol,
-  name: boost.boostedName,
-}));
+watchDebounced(
+  boosts,
+  () => {
+    const possibleDuplicatesToRemoveFromEmojiData = boosts.map((boost) => ({
+      symbol: boost.symbol,
+      name: boost.boostedName,
+    }));
 
-remove(emojilibData, (item) =>
-  possibleDuplicatesToRemoveFromEmojiData.some((otherItem) =>
-    isEqual(item, otherItem),
-  ),
+    emojilibData.value = originalEmojilibData.filter(
+      (item) =>
+        !possibleDuplicatesToRemoveFromEmojiData.some((possibleDuplicate) =>
+          isEqual(item, possibleDuplicate),
+        ),
+    );
+  },
+  { debounce: 800, immediate: true },
 );
 
 export const emojiData = computed<Array<EmojiData>>(() => [
-  ...emojilibData,
+  ...emojilibData.value,
   ...boosts,
 ]);
