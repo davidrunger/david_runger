@@ -4,7 +4,7 @@ class Test::Tasks::RunTypelizer < Pallets::Task
   def run
     pp(Rake::Task.tasks)
     begin
-      execute_rake_task('typelizer:generate', quiet: true)
+      execute_rake_task('typelizer:generate')
     rescue => error
       pp(error)
       puts(error.backtrace)
