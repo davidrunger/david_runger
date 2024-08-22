@@ -70,6 +70,7 @@ group :development, :test do
   gem 'rubocop-rspec_rails', require: false
   gem 'runger_style', require: false
   gem 'spring-commands-rspec'
+  gem 'typelizer'
 end
 
 group :development do

@@ -54,7 +54,7 @@
           td(v-if='editMode')
           td(v-if='editMode')
           td
-          td(v-for='exercise in exercises') {{repTotalsForWorkout[exercise.name]}}
+          td(v-for='exercise in exercises') {{repTotalsForWorkout[assert(exercise.name)]}}
   .my-8
     button.btn-primary(@click='saveWorkout')
       | Mark workout as complete!
@@ -73,7 +73,7 @@ import { computed, onBeforeMount, ref, type PropType } from 'vue';
 
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
-import type { Exercise } from '@/workout/types';
+import { Exercise } from '@/types';
 
 import ConfirmWorkoutModal from './ConfirmWorkoutModal.vue';
 
@@ -132,13 +132,13 @@ const intervalInSeconds = computed((): number => {
 const repTotalsAsOfCurrentRound = computed(() => {
   const repTotalsAsOfCurrentRound: { [key: string]: number } = {};
   for (const { name: exerciseName } of props.exercises) {
-    repTotalsAsOfCurrentRound[exerciseName] = setsArray
+    repTotalsAsOfCurrentRound[assert(exerciseName)] = setsArray
       .slice(0, currentRoundIndex.value + 1)
       .reduce((total: number, setObject: SetObject) => {
         const exerciseObject = setObject.exercises.find(
           (exercise: Exercise) => exercise.name === exerciseName,
         );
-        return total + assert(exerciseObject).reps;
+        return total + assert(assert(exerciseObject).reps);
       }, 0);
   }
   return repTotalsAsOfCurrentRound;
@@ -147,12 +147,12 @@ const repTotalsAsOfCurrentRound = computed(() => {
 const repTotalsForWorkout = computed(() => {
   const repTotalsForWorkout: { [key: string]: number } = {};
   for (const { name: exerciseName } of props.exercises) {
-    repTotalsForWorkout[exerciseName] = setsArray.reduce(
+    repTotalsForWorkout[assert(exerciseName)] = setsArray.reduce(
       (total: number, setObject: SetObject) => {
         const exerciseObject = setObject.exercises.find(
           (exercise) => exercise.name === exerciseName,
         );
-        return total + assert(exerciseObject).reps;
+        return total + assert(assert(exerciseObject).reps);
       },
       0,
     );

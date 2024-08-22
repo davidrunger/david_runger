@@ -3,12 +3,9 @@ import EmojiLibData from 'emojilib';
 import { flatMap, isEqual } from 'lodash-es';
 import { computed, reactive, ref } from 'vue';
 
-import {
-  type Bootstrap,
-  type EmojiData,
-  type EmojiDataWithBoostedName,
-} from '@/emoji_picker/types';
+import { type Bootstrap } from '@/emoji_picker/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { EmojiData, EmojiDataWithBoostedName } from '@/types';
 
 const originalEmojilibData = flatMap(EmojiLibData, (names, symbol) => {
   return names.map((name) => {

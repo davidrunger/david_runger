@@ -19,7 +19,7 @@ import type { PropType } from 'vue';
 import { LockIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
-import type { Store } from '@/groceries/types';
+import { Store } from '@/types';
 
 defineProps({
   store: {

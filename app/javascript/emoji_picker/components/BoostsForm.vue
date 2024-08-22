@@ -39,14 +39,12 @@ div.mt-8(v-if='bootstrap.current_user')
 import { remove } from 'lodash-es';
 
 import { boosts } from '@/emoji_picker/emoji_data';
-import {
-  type Bootstrap,
-  type EmojiDataWithBoostedName,
-} from '@/emoji_picker/types';
+import { type Bootstrap } from '@/emoji_picker/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { routes } from '@/lib/routes';
 import { vueToast } from '@/lib/vue_toasts';
 import { http } from '@/shared/http';
+import { EmojiDataWithBoostedName } from '@/types';
 
 const bootstrap = untypedBootstrap as Bootstrap;
 

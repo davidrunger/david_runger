@@ -28,7 +28,7 @@ div
         div.h4 Sharing settings
         div.h6
           span(v-if='log.publicly_viewable') Viewable by any user
-          span(v-else) Shared with {{log.log_shares.length}} emails
+          span(v-else) Shared with {{assert(log.log_shares).length}} emails
     .mt-2
       el-button.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-reminder-schedule' })"
@@ -61,6 +61,7 @@ import type {
   LogEntryBroadcast,
 } from '@/logs/types';
 import * as RoutesType from '@/rails_assets/routes';
+import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
 
 import CounterBarGraph from './data_renderers/CounterBarGraph.vue';

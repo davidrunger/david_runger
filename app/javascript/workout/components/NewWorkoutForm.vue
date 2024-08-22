@@ -18,7 +18,7 @@ form
         name='numberOfSets'
         type='number'
       )
-  .my-2.clearfix.flex(v-for='(exercise, index) in typedWorkout.exercises')
+  .my-2.clearfix.flex(v-for='(exercise, index) in workout.exercises')
     .col.col-6
       label
         | Exercise
@@ -50,18 +50,12 @@ form
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
 
 import { useWorkoutsStore } from '@/workout/store';
-import type { WorkoutPlan } from '@/workout/types';
 
 const workoutsStore = useWorkoutsStore();
 
 const { workout } = storeToRefs(workoutsStore);
-
-const typedWorkout = computed((): WorkoutPlan => {
-  return workout.value as WorkoutPlan;
-});
 
 function removeExercise(index: number) {
   workout.value.exercises.splice(index, 1);

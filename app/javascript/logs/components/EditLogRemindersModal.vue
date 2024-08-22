@@ -70,7 +70,13 @@ const formSelectedReminderTimeInSeconds = computed((): number | null => {
 });
 
 const reminderTimeInHours = computed((): string => {
-  return (props.log.reminder_time_in_seconds / (60 * 60)).toFixed();
+  const reminderTimeInSeconds = props.log.reminder_time_in_seconds;
+
+  if (reminderTimeInSeconds) {
+    return (reminderTimeInSeconds / (60 * 60)).toFixed();
+  } else {
+    return '[none]';
+  }
 });
 
 const timeUnitOptions = computed(() => {

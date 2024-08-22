@@ -18,11 +18,13 @@
 class WorkoutSerializer < ApplicationSerializer
   attributes :created_at, :id, :publicly_viewable, :time_in_seconds
 
+  typelize 'RepTotals'
   attribute(:rep_totals) do |workout|
     # alphabetize keys (workout names)
     workout.rep_totals.sort.to_h
   end
 
+  typelize 'string'
   attribute(:username) do |workout|
     workout.user.decorate.partially_anonymized_username
   end

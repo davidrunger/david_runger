@@ -1,4 +1,5 @@
 import { JsonBroadcast } from '@/shared/types';
+import { Log as TypelizerLog, UserSerializerBasic } from '@/types';
 
 export type LogEntryDataValue = string | number;
 export type LogDataType = 'counter' | 'duration' | 'number' | 'text';
@@ -15,42 +16,20 @@ export interface TextLogEntry extends LogEntry {
   data: string;
 }
 
-export type LogShare = {
-  email: string;
-  id: number;
-};
-
-export type Log = {
-  id: number;
-  data_label: string;
+export interface Log extends TypelizerLog {
   data_type: LogDataType;
-  description: string;
-  log_entries: Array<LogEntry>;
-  log_shares: Array<LogShare>;
-  name: string;
-  publicly_viewable: boolean;
-  reminder_time_in_seconds: number;
-  slug: string;
-  user: {
-    email: string;
-    id: number;
-  };
-};
+  log_entries?: Array<LogEntry>;
+}
 
-export type LogInputType = {
+export type LogInput = {
   data_type: LogDataType;
   label: string;
 };
 
-export type CurrentUser = {
-  id: number;
-  email: string;
-};
-
 export type Bootstrap = {
-  current_user: CurrentUser;
+  current_user: UserSerializerBasic;
   logs: Array<Log>;
-  log_input_types: Array<LogInputType>;
+  log_input_types: Array<LogInput>;
   toast_messages: Array<string>;
 };
 

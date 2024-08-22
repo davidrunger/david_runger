@@ -27,6 +27,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
+        Test::Tasks::RunTypelizer => Test::Tasks::SetupDb,
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
@@ -59,6 +60,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunPrettier,
           Test::Tasks::RunRubocop,
           Test::Tasks::RunStylelint,
+          Test::Tasks::RunTypelizer,
           Test::Tasks::RunUnitTests,
         ],
       }

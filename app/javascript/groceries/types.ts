@@ -1,24 +1,11 @@
 import { JsonBroadcast } from '@/shared/types';
+import { Store, Item as TypelizerItem, UserSerializerBasic } from '@/types';
 
 export type CheckInStatus = 'needed' | 'in-cart' | 'skipped';
 
-export interface Item {
+export interface Item extends TypelizerItem {
   aboutToMoveTo?: CheckInStatus | null;
   checkInStatus?: CheckInStatus;
-  id: number;
-  name: string;
-  needed: number;
-  store_id: number;
-}
-
-export interface Store {
-  id: number;
-  items: Array<Item>;
-  name: string;
-  notes: string;
-  own_store: boolean;
-  private: boolean;
-  viewed_at: string;
 }
 
 export interface ItemBroadcast extends JsonBroadcast {
@@ -26,10 +13,7 @@ export interface ItemBroadcast extends JsonBroadcast {
 }
 
 export interface Bootstrap {
-  current_user: {
-    email: string;
-    id: number;
-  };
+  current_user: UserSerializerBasic;
   own_stores: Array<Store>;
   spouse_stores: Array<Store>;
 }

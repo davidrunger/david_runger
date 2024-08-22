@@ -1,21 +1,5 @@
-interface EmojiDataBase {
-  symbol: string;
-}
-
-export interface EmojiDataWithName extends EmojiDataBase {
-  name: string;
-  boostedName?: never;
-}
-
-export interface EmojiDataWithBoostedName extends EmojiDataBase {
-  name?: never;
-  boostedName: string;
-}
-
-export type EmojiData = EmojiDataWithName | EmojiDataWithBoostedName;
+import { UserSerializerWithEmojiBoosts } from '@/types';
 
 export interface Bootstrap {
-  current_user?: {
-    emoji_boosts: Array<EmojiDataWithBoostedName>;
-  };
+  current_user?: UserSerializerWithEmojiBoosts;
 }
