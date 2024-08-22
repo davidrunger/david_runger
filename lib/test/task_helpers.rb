@@ -71,7 +71,7 @@ module Test::TaskHelpers
     begin
       time =
         Benchmark.measure do
-          maybe_suppress_output(quiet) do
+          maybe_suppress_stdout(quiet) do
             Rake::Task[task_name].invoke(*args)
           end
         end.real
@@ -95,19 +95,16 @@ module Test::TaskHelpers
   private
 
   # https://gist.github.com/moertel/11091573
-  def maybe_suppress_output(suppress_output)
-    original_stderr = $stderr.clone
+  def maybe_suppress_stdout(suppress_stdout)
     original_stdout = $stdout.clone
 
-    if suppress_output
-      $stderr.reopen(File::NULL)
+    if suppress_stdout
       $stdout.reopen(File::NULL)
     end
 
     yield
   ensure
     $stdout.reopen(original_stdout)
-    $stderr.reopen(original_stderr)
   end
 
   def record_success_and_log_message(message)
