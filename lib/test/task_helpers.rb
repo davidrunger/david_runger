@@ -1,6 +1,8 @@
 require 'open3'
 
 module Test::TaskHelpers
+  private
+
   def execute_system_command(command, env_vars = {}, log_stdout_only_on_failure: false)
     command = command.squish
     puts(<<~LOG.squish)
@@ -90,8 +92,6 @@ module Test::TaskHelpers
       record_success_and_log_message("'#{task_name}' succeeded (took #{time.round(3)}).")
     end
   end
-
-  private
 
   def record_success_and_log_message(message)
     update_job_result_exit_code(0)

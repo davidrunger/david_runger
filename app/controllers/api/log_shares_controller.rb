@@ -1,4 +1,4 @@
-class Api::LogSharesController < ApplicationController
+class Api::LogSharesController < Api::BaseController
   def create
     authorize(LogShare)
     log = current_user.logs.find(log_share_params[:log_id])

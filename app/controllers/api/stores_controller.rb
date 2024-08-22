@@ -1,4 +1,4 @@
-class Api::StoresController < ApplicationController
+class Api::StoresController < Api::BaseController
   before_action :set_store, only: %i[destroy update]
 
   def index

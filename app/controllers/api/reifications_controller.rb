@@ -1,4 +1,4 @@
-class Api::ReificationsController < ApplicationController
+class Api::ReificationsController < Api::BaseController
   def create
     @version = PaperTrail::Version.find(params[:paper_trail_version_id])
 

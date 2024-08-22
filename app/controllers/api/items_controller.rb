@@ -1,4 +1,4 @@
-class Api::ItemsController < ApplicationController
+class Api::ItemsController < Api::BaseController
   before_action :set_item, only: %i[destroy update]
 
   def create
@@ -26,12 +26,12 @@ class Api::ItemsController < ApplicationController
 
     @item.destroy!
 
-    render json: {
+    render_schema_json({
       restore_item_path:
         api_reifications_path(
           paper_trail_version_id: @item.versions.destroys.last!.id,
         ),
-    }
+    })
   end
 
   private
