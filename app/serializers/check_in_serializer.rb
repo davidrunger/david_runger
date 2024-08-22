@@ -14,6 +14,7 @@
 class CheckInSerializer < ApplicationSerializer
   attributes :id
 
+  typelize 'boolean'
   attribute(:submitted) do |check_in|
     check_in.decorate.submitted_by_self?
   end

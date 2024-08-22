@@ -4,6 +4,7 @@ import Rails from '@rails/ujs';
 import actionCableConsumer from '@/channels/consumer';
 import { loadAsyncPartials } from '@/lib/async_partial';
 import { assert } from '@/shared/helpers';
+import { Quiz, UserSerializerBasic } from '@/types';
 
 // https://github.com/hotwired/turbo-rails/issues/135#issuecomment-814413558
 Rails.delegate(
@@ -46,13 +47,8 @@ Rails.delegate(
 document.documentElement.addEventListener('turbo:load', loadAsyncPartials);
 
 type Bootstrap = {
-  current_user: {
-    id: number;
-  };
-  quiz: {
-    hashid: string;
-    owner_id: number;
-  };
+  current_user: UserSerializerBasic;
+  quiz: Quiz;
 };
 
 const bootstrap = window.davidrunger.bootstrap as Bootstrap;

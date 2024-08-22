@@ -41,10 +41,12 @@ import { storeToRefs } from 'pinia';
 import { computed, nextTick, ref } from 'vue';
 
 import { bootstrap } from '@/lib/bootstrap';
+import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
+import { LogShare } from '@/types';
 
 import { useLogsStore } from '../store';
-import type { Bootstrap, LogShare } from '../types';
+import type { Bootstrap } from '../types';
 
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
@@ -59,7 +61,7 @@ const saveTagInput = ref(null);
 const wasCopiedRecently = ref(false);
 
 const logSharesSortedByLowercasedEmail = computed((): Array<LogShare> => {
-  return log.log_shares
+  return assert(log.log_shares)
     .slice()
     .sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()));
 });

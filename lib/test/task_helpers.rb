@@ -62,14 +62,19 @@ module Test::TaskHelpers
     end
   end
 
-  def execute_rake_task(task_name, *args)
+  def execute_rake_task(task_name, *args, quiet: false)
     puts(<<~LOG.squish)
       Running rake task '#{AmazingPrint::Colors.yellow(task_name)}'
       with args #{AmazingPrint::Colors.yellow(args.inspect)} ...
     LOG
     time = nil
     begin
-      time = Benchmark.measure { Rake::Task[task_name].invoke(*args) }.real
+      time =
+        Benchmark.measure do
+          maybe_suppress_output(quiet) do
+            Rake::Task[task_name].invoke(*args)
+          end
+        end.real
     rescue SystemExit => error
       update_job_result_exit_code(1)
       puts(AmazingPrint::Colors.red(
@@ -88,6 +93,22 @@ module Test::TaskHelpers
   end
 
   private
+
+  # https://gist.github.com/moertel/11091573
+  def maybe_suppress_output(suppress_output)
+    original_stderr = $stderr.clone
+    original_stdout = $stdout.clone
+
+    if suppress_output
+      $stderr.reopen(File::NULL)
+      $stdout.reopen(File::NULL)
+    end
+
+    yield
+  ensure
+    $stdout.reopen(original_stdout)
+    $stderr.reopen(original_stderr)
+  end
 
   def record_success_and_log_message(message)
     update_job_result_exit_code(0)

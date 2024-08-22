@@ -27,8 +27,8 @@ import strftime from 'strftime';
 import { computed, type PropType } from 'vue';
 
 import { toast } from '@/lib/toasts';
+import { Workout } from '@/types';
 import { useWorkoutsStore } from '@/workout/store';
-import type { Workout } from '@/workout/types';
 
 const props = defineProps({
   isOwnWorkouts: {

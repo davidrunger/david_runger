@@ -3,13 +3,14 @@ import { defineStore } from 'pinia';
 import { POSITION } from 'vue-toastification';
 
 import DeletedItemToast from '@/groceries/components/DeletedItemToast.vue';
-import { Bootstrap, CheckInStatus, Item, Store } from '@/groceries/types';
+import { Bootstrap, CheckInStatus, Item } from '@/groceries/types';
 import { emit } from '@/lib/event_bus';
 import { vueToast } from '@/lib/vue_toasts';
 import * as RoutesType from '@/rails_assets/routes';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
 import { getById, safeGetById } from '@/shared/store_helpers';
+import { Store } from '@/types';
 
 declare const Routes: typeof RoutesType;
 
@@ -24,12 +25,6 @@ interface State {
 
 interface Nameable {
   name: string;
-}
-
-interface StoreAttributes {
-  name?: string;
-  notes?: string;
-  private?: boolean;
 }
 
 export const helpers = {
@@ -177,13 +172,11 @@ export const useGroceriesStore = defineStore('groceries', {
         }
       };
 
-      interface StoresResponse {
-        own_stores: Array<Store>;
-        spouse_stores: Array<Store>;
-      }
-
-      const storesResponse: StoresResponse = await kyApi
-        .get(Routes.api_stores_path())
+      const storesResponse = await kyApi
+        .get<{
+          own_stores: Array<Store>;
+          spouse_stores: Array<Store>;
+        }>(Routes.api_stores_path())
         .json();
       addOrUpdateStores(storesResponse.own_stores, this.own_stores);
       addOrUpdateStores(storesResponse.spouse_stores, this.spouse_stores);
@@ -264,7 +257,11 @@ export const useGroceriesStore = defineStore('groceries', {
       attributes,
     }: {
       store: Store;
-      attributes: StoreAttributes;
+      attributes: {
+        name?: string;
+        notes?: string | null;
+        private?: boolean;
+      };
     }) {
       const updatedStoreData = await kyApi
         .patch(Routes.api_store_path(store.id), { json: { store: attributes } })

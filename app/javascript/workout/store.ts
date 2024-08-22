@@ -1,20 +1,20 @@
-import { get } from 'lodash-es';
 import { defineStore } from 'pinia';
 
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import * as RoutesType from '@/rails_assets/routes';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
+import { Workout, WorkoutPlan } from '@/types';
 
-import { Bootstrap, NewWorkoutAttributes, Workout, WorkoutPlan } from './types';
+import { Bootstrap, NewWorkoutAttributes } from './types';
 
 declare const Routes: typeof RoutesType;
 
+const bootstrap = untypedBootstrap as Bootstrap;
+
 export const useWorkoutsStore = defineStore('workouts', {
   state: () => {
-    const workout = get(
-      window,
-      'davidrunger.bootstrap.current_user.default_workout',
-    ) || {
+    const workout = bootstrap.current_user.default_workout || {
       minutes: null as null | number,
       numberOfSets: null as null | number,
       exercises: [{}],

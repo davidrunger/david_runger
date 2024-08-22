@@ -76,9 +76,10 @@ import { computed, reactive, ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
-import type { Item as ItemType, Store } from '@/groceries/types';
+import type { Item as ItemType } from '@/groceries/types';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 import { useModalStore } from '@/shared/modal/store';
+import { Store } from '@/types';
 
 import CheckInModal from './CheckInModal.vue';
 import Item from './Item.vue';

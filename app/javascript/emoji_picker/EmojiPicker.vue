@@ -31,9 +31,9 @@ import { POSITION } from 'vue-toastification';
 import BoostsForm from '@/emoji_picker/components/BoostsForm.vue';
 import CopiedEmojiToast from '@/emoji_picker/components/CopiedEmojiToast.vue';
 import { emojiData } from '@/emoji_picker/emoji_data';
-import { type EmojiData } from '@/emoji_picker/types';
 import { useFuzzyTypeahead } from '@/lib/composables/use_fuzzy_typeahead';
 import { vueToast } from '@/lib/vue_toasts';
+import { EmojiData } from '@/types';
 
 const query = ref('');
 const queryDebounced = refDebounced(query, 60, { maxWait: 180 });

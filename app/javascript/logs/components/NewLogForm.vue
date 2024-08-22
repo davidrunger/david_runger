@@ -47,7 +47,7 @@ import { useRouter } from 'vue-router';
 
 import { bootstrap } from '@/lib/bootstrap';
 import { useLogsStore } from '@/logs/store';
-import type { Bootstrap, LogInputType } from '@/logs/types';
+import type { Bootstrap, LogInput } from '@/logs/types';
 
 const router = useRouter();
 const logsStore = useLogsStore();
@@ -55,7 +55,7 @@ const newLog = ref(newLogGenerator());
 
 const { postingLog } = storeToRefs(logsStore);
 
-const logInputTypes = computed((): Array<LogInputType> => {
+const logInputTypes = computed((): Array<LogInput> => {
   return (bootstrap as Bootstrap).log_input_types;
 });
 

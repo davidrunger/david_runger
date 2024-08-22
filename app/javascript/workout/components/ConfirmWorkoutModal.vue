@@ -30,8 +30,8 @@ import { ref } from 'vue';
 
 import { toast } from '@/lib/toasts';
 import { useModalStore } from '@/shared/modal/store';
+import type { Workout } from '@/types';
 import { useWorkoutsStore } from '@/workout/store';
-import type { Workout } from '@/workout/types';
 
 const props = defineProps({
   repTotals: {

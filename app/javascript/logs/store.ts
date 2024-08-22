@@ -6,8 +6,9 @@ import * as RoutesType from '@/rails_assets/routes';
 import { assert } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
 import { getById } from '@/shared/store_helpers';
+import { LogShare } from '@/types';
 
-import { Bootstrap, Log, LogEntry, LogEntryDataValue, LogShare } from './types';
+import { Bootstrap, Log, LogEntry, LogEntryDataValue } from './types';
 
 declare const Routes: typeof RoutesType;
 
@@ -26,12 +27,12 @@ export const useLogsStore = defineStore('logs', {
       newLogEntry: LogEntry;
     }) {
       const log = this.logById({ logId });
-      const existingLogEntry = log.log_entries.find(
+      const existingLogEntry = log.log_entries?.find(
         (logEntry) => logEntry.id === newLogEntry.id,
       );
       if (existingLogEntry) return;
 
-      log.log_entries.push(newLogEntry);
+      log.log_entries?.push(newLogEntry);
     },
 
     async addLogShare({
@@ -53,7 +54,7 @@ export const useLogsStore = defineStore('logs', {
         .json()) as LogShare;
 
       const log = this.logById({ logId });
-      log.log_shares.push(logShareData);
+      log.log_shares?.push(logShareData);
     },
 
     async createLog({
@@ -126,7 +127,7 @@ export const useLogsStore = defineStore('logs', {
       log: Log;
       logEntry: LogEntry;
     }) {
-      log.log_entries = log.log_entries.filter(
+      log.log_entries = log.log_entries?.filter(
         (logEntry) => logEntry.id !== logEntryToDelete.id,
       );
     },
@@ -139,7 +140,7 @@ export const useLogsStore = defineStore('logs', {
       logShareId: number;
     }) {
       await kyApi.delete(Routes.api_log_share_path({ id: logShareId }));
-      log.log_shares = log.log_shares.filter(
+      log.log_shares = log.log_shares?.filter(
         (logShare) => logShare.id !== logShareId,
       );
     },
@@ -185,7 +186,7 @@ export const useLogsStore = defineStore('logs', {
     modifyLogEntry({ logEntry }: { logEntry: LogEntry }) {
       const log = this.logById({ logId: logEntry.log_id });
 
-      log.log_entries = log.log_entries.map((loopLogEntry) => {
+      log.log_entries = log.log_entries?.map((loopLogEntry) => {
         if (loopLogEntry.id === logEntry.id) {
           return logEntry;
         } else {

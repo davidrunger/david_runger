@@ -20,10 +20,12 @@ class StoreSerializer < ApplicationSerializer
   attributes :id, :name, :notes, :own_store, :private, :viewed_at
   many :items, resource: ItemSerializer
 
+  typelize 'boolean'
   attribute(:own_store) do |store|
     own_store?(store)
   end
 
+  typelize 'string | null'
   attribute(:viewed_at) do |store|
     # match time format to the JavaScript one
     own_store?(store) ? store.viewed_at.utc.iso8601(3) : nil

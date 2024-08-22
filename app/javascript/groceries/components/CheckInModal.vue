@@ -44,8 +44,8 @@ import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 
 import { useGroceriesStore } from '@/groceries/store';
-import type { Store } from '@/groceries/types';
 import { useModalStore } from '@/shared/modal/store';
+import { Store } from '@/types';
 
 import CheckInItemsList from './CheckInItemsList.vue';
 

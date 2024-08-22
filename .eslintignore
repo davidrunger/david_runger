@@ -1,4 +1,5 @@
 /app/javascript/rails_assets/
+/app/javascript/types/serializers/
 /node_modules/
-/public/vite/
 /public/vite-admin/
+/public/vite/
