@@ -1,10 +1,10 @@
 {
   "type": "object",
-  "additionalProperties": false,
+  "additionalProperties": true,
   "properties": {
-    "restore_item_pathz": {
+    "restore_item_path": {
       "type": "string"
     }
   },
-  "required": ["restore_item_pathz"]
+  "required": ["restore_item_path"]
 }
