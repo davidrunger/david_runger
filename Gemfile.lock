@@ -6,6 +6,13 @@ GIT
       msgpack
       redis (~> 5.0)
 
+GIT
+  remote: https://github.com/davidrunger/typelizer.git
+  revision: fc68af77ad08c84472567ff1f8050679793c74a1
+  specs:
+    typelizer (0.1.0)
+      railties (>= 6.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -626,8 +633,6 @@ GEM
     thor (1.3.1)
     tilt (2.4.0)
     timeout (0.4.1)
-    typelizer (0.1.0)
-      railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
@@ -756,7 +761,7 @@ DEPENDENCIES
   sprockets-rails
   strip_attributes
   super_diff
-  typelizer
+  typelizer!
   vite_rails
   webmock
 
