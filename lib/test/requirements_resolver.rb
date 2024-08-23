@@ -28,6 +28,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
         Test::Tasks::RunTypelizer => Test::Tasks::BuildFixtures,
+        Test::Tasks::ConvertSchemasToTs => nil,
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
@@ -48,6 +49,7 @@ class Test::RequirementsResolver
         Test::Tasks::Exit => [
           Test::Tasks::CheckTypescript,
           Test::Tasks::CheckVersions,
+          Test::Tasks::ConvertSchemasToTs,
           Test::Tasks::RunAnnotate,
           Test::Tasks::RunApiControllerTests,
           Test::Tasks::RunBrakeman,
