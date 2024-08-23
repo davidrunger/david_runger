@@ -10,7 +10,7 @@ import * as RoutesType from '@/rails_assets/routes';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
 import { getById, safeGetById } from '@/shared/store_helpers';
-import { Store } from '@/types';
+import type { Store } from '@/types';
 
 declare const Routes: typeof RoutesType;
 

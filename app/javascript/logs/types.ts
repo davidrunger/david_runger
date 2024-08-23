@@ -1,5 +1,5 @@
 import { JsonBroadcast } from '@/shared/types';
-import { Log as TypelizerLog, UserSerializerBasic } from '@/types';
+import type { Log as TypelizerLog, UserSerializerBasic } from '@/types';
 
 export type LogEntryDataValue = string | number;
 export type LogDataType = 'counter' | 'duration' | 'number' | 'text';

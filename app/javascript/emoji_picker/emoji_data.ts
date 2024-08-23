@@ -5,7 +5,7 @@ import { computed, reactive, ref } from 'vue';
 
 import { type Bootstrap } from '@/emoji_picker/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
-import { EmojiData, EmojiDataWithBoostedName } from '@/types';
+import type { EmojiData, EmojiDataWithBoostedName } from '@/types';
 
 const originalEmojilibData = flatMap(EmojiLibData, (names, symbol) => {
   return names.map((name) => {
