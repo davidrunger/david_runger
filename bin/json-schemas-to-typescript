@@ -5,6 +5,6 @@ if !defined?(Rails)
   exec('bin/rails', 'runner', __FILE__, '-e', 'test', *ARGV)
 end
 
-require './lib/json_schemas_to_typescript.rb'
+require './tools/json_schemas_to_typescript.rb'
 
 JsonSchemasToTypescript.write_files

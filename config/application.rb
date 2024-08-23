@@ -71,7 +71,7 @@ class DavidRunger::Application < Rails::Application
       app.middleware.insert_before(0, Middleware::Early)
     end
 
-    require Rails.root.join('lib/json_schemas_to_typescript')
+    require Rails.root.join('tools/json_schemas_to_typescript')
     initializer 'listen to (re)generate JSON-schema-to-TypeScript-types files' do |app|
       JsonSchemasToTypescript.initialize_listener(app)
     end
