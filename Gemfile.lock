@@ -177,7 +177,7 @@ GEM
     cuprite (0.15.1)
       capybara (~> 3.0)
       ferrum (~> 0.15.0)
-    database_consistency (1.7.23)
+    database_consistency (1.7.24)
       activerecord (>= 3.2)
     date (3.3.4)
     debug_inspector (1.2.0)
