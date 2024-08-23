@@ -1,4 +1,4 @@
-require Rails.root.join('lib/json_schema_to_typescript.rb')
+require Rails.root.join('lib/json_schemas_to_typescript.rb')
 
 class Test::Tasks::ConvertSchemasToTs < Pallets::Task
   include Test::TaskHelpers
