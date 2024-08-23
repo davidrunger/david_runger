@@ -11,11 +11,12 @@ class Test::Tasks::ConvertSchemasToTs < Pallets::Task
         JsonSchemasToTypescript.write_files
       end.real
 
-    if system('[ -z "$(git status --porcelain)" ]')
+    if execute_system_command('test -z "$(git status --porcelain)"')
       record_success_and_log_message("'#{self.class.name}' succeeded (took #{time.round(3)}).")
     else
-      system('git diff')
-      system('git checkout .') # Reset the git state, so it's clean for other test tasks.
+      execute_system_command('git diff')
+      # Reset the git state, so it's clean for other test tasks.
+      execute_system_command('git checkout .', log_stdout_only_on_failure: true)
       record_failed_command('bin/json-schemas-to-typescript')
       record_failure_and_log_message(<<~LOG.squish)
         Executing JsonSchemasToTypescript.write_files introduced a diff.
