@@ -47,6 +47,7 @@ gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sprockets-rails'
 gem 'strip_attributes'
+gem 'typelizer', github: 'davidrunger/typelizer'
 gem 'vite_rails'
 
 group :production do
@@ -70,7 +71,6 @@ group :development, :test do
   gem 'rubocop-rspec_rails', require: false
   gem 'runger_style', require: false
   gem 'spring-commands-rspec'
-  gem 'typelizer', github: 'davidrunger/typelizer'
 end
 
 group :development do
