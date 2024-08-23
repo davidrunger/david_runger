@@ -33,6 +33,8 @@ module Test::TaskHelpers
         (exited with #{exit_code}, took #{time.round(3)}).
       LOG
     end
+
+    status.success?
   end
 
   def execute_rspec_command(command, env_vars = {})

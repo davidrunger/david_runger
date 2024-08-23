@@ -4,10 +4,12 @@ class Test::Tasks::ConvertSchemasToTs < Pallets::Task
   def run
     puts("Running '#{AmazingPrint::Colors.yellow(self.class.name)}' ...")
 
-    execute_system_command(<<~COMMAND)
-      bin/json-schemas-to-typescript && { test -z "$(git status --porcelain)" || git diff }
+    if !execute_system_command(<<~COMMAND)
+      bin/json-schemas-to-typescript && test -z "$(git status --porcelain)"
     COMMAND
-    # Reset the git state, so it's clean for other test tasks.
-    execute_system_command('git checkout .', log_stdout_only_on_failure: true)
+      execute_system_command('git diff', log_stdout_only_on_failure: true)
+      # Reset the git state, so it's clean for other test tasks.
+      execute_system_command('git checkout .', log_stdout_only_on_failure: true)
+    end
   end
 end
