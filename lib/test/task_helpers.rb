@@ -85,6 +85,7 @@ module Test::TaskHelpers
       record_failure_and_log_message(
         "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
       )
+      puts(error.backtrace)
     else
       record_success_and_log_message("'#{task_name}' succeeded (took #{time.round(3)}).")
     end
