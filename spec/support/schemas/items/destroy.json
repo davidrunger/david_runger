@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "properties": {
     "restore_item_path": {
       "type": "string"
