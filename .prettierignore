@@ -1,5 +1,6 @@
 /.rubocop.yml
 /app/javascript/rails_assets/
+/app/javascript/types/responses/
 /app/javascript/types/serializers/
 /config/database.yml
 /config/storage.yml

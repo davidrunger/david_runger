@@ -1,4 +1,4 @@
-class Api::LogsController < ApplicationController
+class Api::LogsController < Api::BaseController
   before_action :set_log, only: %i[destroy update]
 
   def create

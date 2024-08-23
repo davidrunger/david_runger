@@ -11,6 +11,7 @@ SimpleCov.start do
   end
   # rubocop:enable Rails/Present
   add_filter(%r{^/spec/})
+  add_filter(%r{^/tools/(?!custom_cops/)})
   enable_coverage(:branch) if !is_ci # Codecov doesn't respect `nocov-else` etc comments
 end
 require File.expand_path('../config/environment', __dir__)

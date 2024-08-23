@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "restore_item_path": {
+      "type": "string"
+    }
+  },
+  "required": ["restore_item_path"]
+}

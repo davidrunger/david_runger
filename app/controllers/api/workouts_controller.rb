@@ -1,8 +1,8 @@
-class Api::WorkoutsController < ApplicationController
+class Api::WorkoutsController < Api::BaseController
   def create
     authorize(Workout)
     @workout = current_user.workouts.create!(workout_params)
-    render json: @workout, status: :created
+    render_schema_json(@workout, status: :created, schema: 'workouts/show')
   end
 
   def update

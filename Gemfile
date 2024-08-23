@@ -60,6 +60,7 @@ group :development, :test do
   gem 'bullet'
   gem 'immigrant'
   gem 'isolator'
+  gem 'json-schema'
   gem 'pry-byebug', require: false
   gem 'rainbow'
   gem 'rubocop', require: false
@@ -96,7 +97,6 @@ group :test do
   gem 'faker'
   gem 'ferrum'
   gem 'fixture_builder'
-  gem 'json-schema'
   gem 'launchy'
   gem 'pallets', github: 'davidrunger/pallets'
   gem 'percy-capybara'

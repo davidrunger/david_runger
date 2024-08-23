@@ -1,4 +1,4 @@
-class Api::LogEntriesController < ApplicationController
+class Api::LogEntriesController < Api::BaseController
   def create
     authorize(LogEntry)
     log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
@@ -6,7 +6,7 @@ class Api::LogEntriesController < ApplicationController
 
     if @log_entry.valid?
       LogEntries::Save.run!(log_entry: @log_entry)
-      render json: @log_entry, status: :created
+      render_schema_json(@log_entry, status: :created, schema: 'log_entries/show')
     else
       render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
     end
@@ -23,7 +23,7 @@ class Api::LogEntriesController < ApplicationController
 
     authorize(@log_entry)
     if @log_entry.update(log_entry_params)
-      render json: @log_entry, status: :ok
+      render_schema_json(@log_entry, status: :ok, schema: 'log_entries/show')
     else
       render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
     end

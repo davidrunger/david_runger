@@ -1,4 +1,4 @@
-class Api::JsonPreferencesController < ApplicationController
+class Api::JsonPreferencesController < Api::BaseController
   def update
     @preference =
       current_user.

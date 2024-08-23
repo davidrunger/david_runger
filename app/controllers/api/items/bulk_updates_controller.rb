@@ -1,4 +1,4 @@
-class Api::Items::BulkUpdatesController < ApplicationController
+class Api::Items::BulkUpdatesController < Api::BaseController
   before_action :ensure_items_present, only: %i[create]
 
   def create

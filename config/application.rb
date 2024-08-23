@@ -67,9 +67,15 @@ class DavidRunger::Application < Rails::Application
 
   if Rails.env.local?
     require Rails.root.join('lib/middleware/early')
-
     initializer('insert early middleware', after: 'vite_rails.proxy') do |app|
       app.middleware.insert_before(0, Middleware::Early)
+    end
+
+    if !IS_DOCKER
+      require Rails.root.join('tools/json_schemas_to_typescript')
+      initializer 'listen to (re)generate JSON-schema-to-TypeScript-types files' do |app|
+        JsonSchemasToTypescript.initialize_listener(app)
+      end
     end
   end
 

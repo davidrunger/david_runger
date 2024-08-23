@@ -1,4 +1,4 @@
-class Api::CspReportsController < ApplicationController
+class Api::CspReportsController < Api::BaseController
   prepend MemoWise
 
   IGNORED_USER_AGENTS = [

@@ -1,4 +1,4 @@
-class Api::CheckInSubmissionsController < ApplicationController
+class Api::CheckInSubmissionsController < Api::BaseController
   def create
     authorize(CheckInSubmission)
     check_in = policy_scope(CheckIn).find(params[:check_in_id])

@@ -1,4 +1,4 @@
-class Api::NeedSatisfactionRatingsController < ApplicationController
+class Api::NeedSatisfactionRatingsController < Api::BaseController
   before_action :set_need_satisfaction_rating, only: %i[update]
 
   def update

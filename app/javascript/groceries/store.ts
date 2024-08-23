@@ -11,6 +11,7 @@ import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
 import { getById, safeGetById } from '@/shared/store_helpers';
 import type { Store } from '@/types';
+import { ItemDestroyResponse } from '@/types/responses/ItemDestroyResponse';
 
 declare const Routes: typeof RoutesType;
 
@@ -116,9 +117,8 @@ export const useGroceriesStore = defineStore('groceries', {
     async destroyItem({ item }: { item: Item }) {
       this.incrementPendingRequests();
 
-      const { restore_item_path: restoreItemPath } = await http.delete<{
-        restore_item_path: string;
-      }>(Routes.api_item_path(item.id));
+      const { restore_item_path: restoreItemPath } =
+        await http.delete<ItemDestroyResponse>(Routes.api_item_path(item.id));
 
       vueToast(
         {
