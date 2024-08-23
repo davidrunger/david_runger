@@ -18,7 +18,7 @@ div(v-if='workoutIsInProgress')
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 
-import { WorkoutPlan as WorkoutPlanType } from '@/types';
+import type { WorkoutPlan as WorkoutPlanType } from '@/types';
 import NewWorkoutForm from '@/workout/components/NewWorkoutForm.vue';
 import WorkoutPlan from '@/workout/components/WorkoutPlan.vue';
 import WorkoutsTable from '@/workout/components/WorkoutsTable.vue';

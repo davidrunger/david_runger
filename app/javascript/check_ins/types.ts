@@ -1,4 +1,4 @@
-import {
+import type {
   CheckIn,
   NeedSatisfactionRating as TypelizerNeedSatisfactionRating,
   UserSerializerBasic,

@@ -43,7 +43,7 @@ import { computed, nextTick, ref } from 'vue';
 import { bootstrap } from '@/lib/bootstrap';
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
-import { LogShare } from '@/types';
+import type { LogShare } from '@/types';
 
 import { useLogsStore } from '../store';
 import type { Bootstrap } from '../types';

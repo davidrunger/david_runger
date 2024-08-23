@@ -44,7 +44,7 @@ import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { routes } from '@/lib/routes';
 import { vueToast } from '@/lib/vue_toasts';
 import { http } from '@/shared/http';
-import { EmojiDataWithBoostedName } from '@/types';
+import type { EmojiDataWithBoostedName } from '@/types';
 
 const bootstrap = untypedBootstrap as Bootstrap;
 

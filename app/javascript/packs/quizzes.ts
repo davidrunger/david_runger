@@ -4,7 +4,7 @@ import Rails from '@rails/ujs';
 import actionCableConsumer from '@/channels/consumer';
 import { loadAsyncPartials } from '@/lib/async_partial';
 import { assert } from '@/shared/helpers';
-import { Quiz, UserSerializerBasic } from '@/types';
+import type { Quiz, UserSerializerBasic } from '@/types';
 
 // https://github.com/hotwired/turbo-rails/issues/135#issuecomment-814413558
 Rails.delegate(

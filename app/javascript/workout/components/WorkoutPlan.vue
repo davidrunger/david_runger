@@ -73,7 +73,7 @@ import { computed, onBeforeMount, ref, type PropType } from 'vue';
 
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
-import { Exercise } from '@/types';
+import type { Exercise } from '@/types';
 
 import ConfirmWorkoutModal from './ConfirmWorkoutModal.vue';
 

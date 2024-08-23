@@ -45,7 +45,7 @@ import { computed } from 'vue';
 
 import { useGroceriesStore } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
-import { Store } from '@/types';
+import type { Store } from '@/types';
 
 import CheckInItemsList from './CheckInItemsList.vue';
 

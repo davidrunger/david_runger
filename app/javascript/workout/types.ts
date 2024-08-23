@@ -1,4 +1,8 @@
-import { RepTotals, UserSerializerWithDefaultWorkout, Workout } from '@/types';
+import type {
+  RepTotals,
+  UserSerializerWithDefaultWorkout,
+  Workout,
+} from '@/types';
 
 export type NewWorkoutAttributes = {
   publiclyViewable: boolean;

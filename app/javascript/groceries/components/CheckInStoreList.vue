@@ -17,7 +17,7 @@ ul
 import type { PropType } from 'vue';
 
 import { useGroceriesStore } from '@/groceries/store';
-import { Store } from '@/types';
+import type { Store } from '@/types';
 
 defineProps({
   stores: {

@@ -1,5 +1,9 @@
 import { JsonBroadcast } from '@/shared/types';
-import { Store, Item as TypelizerItem, UserSerializerBasic } from '@/types';
+import type {
+  Store,
+  Item as TypelizerItem,
+  UserSerializerBasic,
+} from '@/types';
 
 export type CheckInStatus = 'needed' | 'in-cart' | 'skipped';
 

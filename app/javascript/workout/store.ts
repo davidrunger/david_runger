@@ -4,7 +4,7 @@ import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import * as RoutesType from '@/rails_assets/routes';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
-import { Workout, WorkoutPlan } from '@/types';
+import type { Workout, WorkoutPlan } from '@/types';
 
 import { Bootstrap, NewWorkoutAttributes } from './types';
 

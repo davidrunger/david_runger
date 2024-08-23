@@ -79,7 +79,7 @@ import { helpers, useGroceriesStore } from '@/groceries/store';
 import type { Item as ItemType } from '@/groceries/types';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 import { useModalStore } from '@/shared/modal/store';
-import { Store } from '@/types';
+import type { Store } from '@/types';
 
 import CheckInModal from './CheckInModal.vue';
 import Item from './Item.vue';

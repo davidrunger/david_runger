@@ -6,7 +6,7 @@ import * as RoutesType from '@/rails_assets/routes';
 import { assert } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
 import { getById } from '@/shared/store_helpers';
-import { LogShare } from '@/types';
+import type { LogShare } from '@/types';
 
 import { Bootstrap, Log, LogEntry, LogEntryDataValue } from './types';
 
