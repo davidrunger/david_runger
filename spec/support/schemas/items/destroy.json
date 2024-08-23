@@ -3,7 +3,7 @@
   "additionalProperties": false,
   "properties": {
     "restore_item_path": {
-      "type": "string"
+      "type": "string | null"
     }
   },
   "required": ["restore_item_path"]
