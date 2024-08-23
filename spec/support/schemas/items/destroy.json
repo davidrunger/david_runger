@@ -2,9 +2,9 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "restore_item_path": {
-      "type": "string | null"
+    "restore_item_pathz": {
+      "type": "string"
     }
   },
-  "required": ["restore_item_path"]
+  "required": ["restore_item_pathz"]
 }
