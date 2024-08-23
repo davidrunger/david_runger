@@ -16,7 +16,8 @@ const schema = {
       },
       "additionalProperties": false
     }
-  }
+  },
+  "additionalProperties": false
 } as const;
 
 export type NeedSatisfactionRatingShowResponse = FromSchema<typeof schema>;
