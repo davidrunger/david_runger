@@ -15,6 +15,7 @@ class Test::Tasks::ConvertSchemasToTs < Pallets::Task
       record_success_and_log_message("'#{self.class.name}' succeeded (took #{time.round(3)}).")
     else
       system('git diff')
+      system('git checkout .') # Reset the git state, so it's clean for other test tasks.
       record_failed_command('bin/json-schemas-to-typescript')
       record_failure_and_log_message(<<~LOG.squish)
         Executing JsonSchemasToTypescript.write_files introduced a diff.
