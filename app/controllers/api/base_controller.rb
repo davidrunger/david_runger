@@ -31,10 +31,12 @@ class Api::BaseController < ApplicationController
           JSON::Schema::SchemaParseError,
         ]
           if Rails.env.development?
+            # :nocov:
             FileUtils.mkdir_p(File.dirname(full_schema_path))
             FileUtils.touch(full_schema_path)
             system("$EDITOR '#{full_schema_path}'", exception: true)
             copy_to_clipboard(data)
+            # :nocov:
           end
 
           raise
@@ -58,6 +60,7 @@ class Api::BaseController < ApplicationController
       return
     end
 
+    # :nocov:
     string_to_copy =
       if data.is_a?(String)
         data
@@ -70,5 +73,6 @@ class Api::BaseController < ApplicationController
 
       puts('Copied JSON to clipboard.'.yellow)
     end
+    # :nocov:
   end
 end
