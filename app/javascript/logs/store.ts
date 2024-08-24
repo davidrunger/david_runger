@@ -3,10 +3,16 @@ import { defineStore } from 'pinia';
 
 import { toast } from '@/lib/toasts';
 import * as RoutesType from '@/rails_assets/routes';
-import { assert } from '@/shared/helpers';
+import { assert, typesafeAssign } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
 import { getById } from '@/shared/store_helpers';
-import type { LogShare } from '@/types';
+import type { Intersection, LogShare } from '@/types';
+import { LogCreateResponse } from '@/types/responses/LogCreateResponse';
+import { LogEntriesIndexResponse } from '@/types/responses/LogEntriesIndexResponse';
+import { LogEntryCreateResponse } from '@/types/responses/LogEntryCreateResponse';
+import { LogEntryUpdateResponse } from '@/types/responses/LogEntryUpdateResponse';
+import { LogShareCreateResponse } from '@/types/responses/LogShareCreateResponse';
+import { LogUpdateResponse } from '@/types/responses/LogUpdateResponse';
 
 import { Bootstrap, Log, LogEntry, LogEntryDataValue } from './types';
 
@@ -49,9 +55,11 @@ export const useLogsStore = defineStore('logs', {
         },
       };
 
-      const logShareData = (await kyApi
-        .post(Routes.api_log_shares_path(), { json: payload })
-        .json()) as LogShare;
+      const logShareData = await kyApi
+        .post<
+          Intersection<LogShare, LogShareCreateResponse>
+        >(Routes.api_log_shares_path(), { json: payload })
+        .json();
 
       const log = this.logById({ logId });
       log.log_shares?.push(logShareData);
@@ -69,9 +77,11 @@ export const useLogsStore = defineStore('logs', {
     }) {
       this.postingLog = true;
 
-      const logData = (await kyApi
-        .post(Routes.api_logs_path(), { json: { log } })
-        .json()) as Log;
+      const logData = await kyApi
+        .post<
+          Intersection<Log, LogCreateResponse>
+        >(Routes.api_logs_path(), { json: { log } })
+        .json();
 
       this.postingLog = false;
       this.logs.push(logData);
@@ -98,9 +108,11 @@ export const useLogsStore = defineStore('logs', {
         },
       };
 
-      const data = (await kyApi
-        .post(Routes.api_log_entries_path(), { json: payload })
-        .json()) as LogEntry;
+      const data = await kyApi
+        .post<
+          Intersection<LogEntry, LogEntryCreateResponse>
+        >(Routes.api_log_entries_path(), { json: payload })
+        .json();
 
       this.addLogEntry({ logId, newLogEntry: data });
     },
@@ -153,9 +165,11 @@ export const useLogsStore = defineStore('logs', {
     },
 
     async fetchAllLogEntries() {
-      const data = (await kyApi
-        .get(Routes.api_log_entries_path())
-        .json()) as Array<LogEntry>;
+      const data = await kyApi
+        .get<
+          Intersection<Array<LogEntry>, LogEntriesIndexResponse>
+        >(Routes.api_log_entries_path())
+        .json();
       const entriesByLogId: { [key: string]: Array<LogEntry> } = {};
       for (const logEntry of data) {
         const { log_id: logId } = logEntry;
@@ -173,9 +187,11 @@ export const useLogsStore = defineStore('logs', {
     },
 
     async fetchLogEntries({ logId }: { logId: number }) {
-      const data = (await kyApi
-        .get(Routes.api_log_entries_path({ log_id: logId }))
-        .json()) as Array<LogEntry>;
+      const data = await kyApi
+        .get<
+          Intersection<Array<LogEntry>, LogEntriesIndexResponse>
+        >(Routes.api_log_entries_path({ log_id: logId }))
+        .json();
 
       this.setLogEntries({
         log: this.logById({ logId }),
@@ -218,11 +234,14 @@ export const useLogsStore = defineStore('logs', {
       const payload = { log: updatedLogParams };
 
       const updatedLogData = await kyApi
-        .patch(Routes.api_log_path(logId), { json: payload })
+        .patch<
+          Intersection<Log, LogUpdateResponse>
+        >(Routes.api_log_path(logId), { json: payload })
         .json();
 
       const log = this.logById({ logId });
-      Object.assign(log, updatedLogData);
+
+      typesafeAssign(log, updatedLogData);
     },
 
     async updateLogEntry({
@@ -238,9 +257,11 @@ export const useLogsStore = defineStore('logs', {
         log_entry: updatedLogEntryParams,
       };
 
-      const updatedLogEntryData = (await kyApi
-        .patch(Routes.api_log_entry_path(logEntryId), { json: payload })
-        .json()) as LogEntry;
+      const updatedLogEntryData = await kyApi
+        .patch<
+          Intersection<LogEntry, LogEntryUpdateResponse>
+        >(Routes.api_log_entry_path(logEntryId), { json: payload })
+        .json();
 
       this.modifyLogEntry({
         logEntry: updatedLogEntryData,

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Root"
+  },
+  "definitions": {
+    "Root": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": ["number", "string"]
+        },
+        "log_id": {
+          "type": "integer"
+        },
+        "note": {
+          "type": ["null", "string"]
+        }
+      },
+      "required": ["created_at", "data", "id", "log_id", "note"],
+      "title": "Root"
+    }
+  }
+}

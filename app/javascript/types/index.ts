@@ -1,5 +1,9 @@
 export * from '@/types/serializers';
 
+export type Intersection<T, U> = {
+  [K in Extract<keyof T, keyof U>]: T[K];
+};
+
 // begin emoji picker >>
 interface EmojiDataBase {
   symbol: string;

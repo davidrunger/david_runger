@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Root",
+  "definitions": {
+    "Root": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "needed": {
+          "type": "integer"
+        },
+        "store_id": {
+          "type": "integer"
+        }
+      },
+      "required": ["id", "name", "needed", "store_id"],
+      "title": "Root"
+    }
+  }
+}

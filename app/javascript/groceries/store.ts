@@ -7,11 +7,17 @@ import { Bootstrap, CheckInStatus, Item } from '@/groceries/types';
 import { emit } from '@/lib/event_bus';
 import { vueToast } from '@/lib/vue_toasts';
 import * as RoutesType from '@/rails_assets/routes';
+import { typesafeAssign } from '@/shared/helpers';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
 import { getById, safeGetById } from '@/shared/store_helpers';
-import type { Store } from '@/types';
+import type { Intersection, Store } from '@/types';
+import { ItemCreateResponse } from '@/types/responses/ItemCreateResponse';
 import { ItemDestroyResponse } from '@/types/responses/ItemDestroyResponse';
+import { ItemUpdateResponse } from '@/types/responses/ItemUpdateResponse';
+import { StoreCreateResponse } from '@/types/responses/StoreCreateResponse';
+import { StoresIndexResponse } from '@/types/responses/StoresIndexResponse';
+import { StoreUpdateResponse } from '@/types/responses/StoreUpdateResponse';
 
 declare const Routes: typeof RoutesType;
 
@@ -71,7 +77,7 @@ export const useGroceriesStore = defineStore('groceries', {
     }) {
       this.incrementPendingRequests();
 
-      const itemData = await http.post<Item>(
+      const itemData = await http.post<Intersection<Item, ItemCreateResponse>>(
         Routes.api_store_items_path(store.id),
         { item: itemAttributes },
       );
@@ -92,10 +98,9 @@ export const useGroceriesStore = defineStore('groceries', {
         },
       };
 
-      const newStoreData = await http.post<Store>(
-        Routes.api_stores_path(),
-        payload,
-      );
+      const newStoreData = await http.post<
+        Intersection<Store, StoreCreateResponse>
+      >(Routes.api_stores_path(), payload);
 
       this.postingStore = false;
 
@@ -173,10 +178,15 @@ export const useGroceriesStore = defineStore('groceries', {
       };
 
       const storesResponse = await kyApi
-        .get<{
-          own_stores: Array<Store>;
-          spouse_stores: Array<Store>;
-        }>(Routes.api_stores_path())
+        .get<
+          Intersection<
+            {
+              own_stores: Array<Store>;
+              spouse_stores: Array<Store>;
+            },
+            StoresIndexResponse
+          >
+        >(Routes.api_stores_path())
         .json();
       addOrUpdateStores(storesResponse.own_stores, this.own_stores);
       addOrUpdateStores(storesResponse.spouse_stores, this.spouse_stores);
@@ -241,8 +251,10 @@ export const useGroceriesStore = defineStore('groceries', {
     }) {
       this.incrementPendingRequests();
 
-      const updatedItemData: Item = await kyApi
-        .patch(Routes.api_item_path(item.id), { json: { item: attributes } })
+      const updatedItemData = await kyApi
+        .patch<
+          Intersection<Item, ItemUpdateResponse>
+        >(Routes.api_item_path(item.id), { json: { item: attributes } })
         .json();
 
       this.decrementPendingRequests();
@@ -264,10 +276,12 @@ export const useGroceriesStore = defineStore('groceries', {
       };
     }) {
       const updatedStoreData = await kyApi
-        .patch(Routes.api_store_path(store.id), { json: { store: attributes } })
+        .patch<
+          Intersection<Store, StoreUpdateResponse>
+        >(Routes.api_store_path(store.id), { json: { store: attributes } })
         .json();
 
-      Object.assign(store, updatedStoreData);
+      typesafeAssign(store, updatedStoreData);
     },
 
     async zeroItemsInCart() {

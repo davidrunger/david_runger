@@ -9,3 +9,10 @@ export function assert<T>(value: T | undefined | null): T {
 
   return value;
 }
+
+export function typesafeAssign<T extends object>(
+  model: T,
+  attributes: Partial<T>,
+): T {
+  return Object.assign(model, attributes);
+}

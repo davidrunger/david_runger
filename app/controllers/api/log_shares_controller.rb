@@ -6,7 +6,7 @@ class Api::LogSharesController < Api::BaseController
 
     if @log_share.save
       LogShareMailer.log_shared(@log_share.id).deliver_later
-      render json: @log_share, status: :created
+      render_schema_json(@log_share, status: :created)
     else
       render json: { errors: @log_share.errors.to_hash }, status: :unprocessable_entity
     end
