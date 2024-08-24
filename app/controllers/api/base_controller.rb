@@ -69,8 +69,10 @@ class Api::BaseController < ApplicationController
         JSON.pretty_generate(data.as_json)
       end
 
-    string_to_copy.cpp
+    if string_to_copy.respond_to?(:cpp)
+      string_to_copy.cpp
 
-    puts('Copied JSON to clipboard.'.yellow)
+      puts('Copied JSON to clipboard.'.yellow)
+    end
   end
 end
