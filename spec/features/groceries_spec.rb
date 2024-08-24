@@ -27,7 +27,13 @@ RSpec.describe 'Groceries app' do
         fill_in('newItemName', with: new_item_name)
         first('.store-container button', text: 'Add').click
 
-        sleep(1)
+        expect(page).not_to have_spinner
+        expect(find(:fillable_field, 'newItemName').value).to eq('')
+        within(find('.item-name-input').ancestor('form')) do
+          expect(find(:link_or_button, 'Add', disabled: true)).to be_disabled
+        end
+
+        sleep(0.5)
         # verify that the item is listed only once
         expect(page.body.scan(new_item_name).size).to eq(1)
 
