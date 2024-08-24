@@ -68,11 +68,15 @@ class ApplicationController < ActionController::Base
   end
 
   def _render_with_renderer_json(resource, options)
-    if resource.is_a?(ApplicationRecord)
-      resource = resource.serializer(current_user:)
-    end
+    super(resource_for_json_rendering(resource), options)
+  end
 
-    super
+  def resource_for_json_rendering(resource)
+    if resource.is_a?(ApplicationRecord)
+      resource.serializer(current_user:)
+    else
+      resource
+    end
   end
 
   def skip_authorization?

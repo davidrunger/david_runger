@@ -28,10 +28,10 @@ RSpec.describe Api::JsonPreferencesController do
           to(emoji_boosts_array)
       end
 
-      it 'responds with the JsonPreference#json as JSON' do
+      it 'responds with no content' do
         patch_update
 
-        expect(response.parsed_body).to eq(emoji_boosts_array)
+        expect(response.body).to eq('')
       end
     end
 

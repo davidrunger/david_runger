@@ -1,8 +1,9 @@
-import ky, { type Hooks } from 'ky';
+import { type Hooks } from 'ky';
 import { identity, pickBy } from 'lodash-es';
 
 import { toast } from '@/lib/toasts';
 import { isArrayOfStrings } from '@/lib/type_predicates';
+import { kyApi as generalKyApi } from '@/shared/ky';
 
 const hooks: Hooks = {
   afterResponse: [
@@ -22,18 +23,7 @@ const hooks: Hooks = {
   ],
 };
 
-const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
-const csrfToken = csrfMetaTag?.getAttribute('content');
-
-if (csrfToken) {
-  hooks['beforeRequest'] = [
-    (request) => {
-      request.headers.set('X-CSRF-Token', csrfToken);
-    },
-  ];
-}
-
-const kyApi = ky.extend({
+const kyApi = generalKyApi.extend({
   headers: {
     'Content-Type': 'application/json',
   },

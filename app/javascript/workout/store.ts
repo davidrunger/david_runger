@@ -4,7 +4,9 @@ import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import * as RoutesType from '@/rails_assets/routes';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
-import type { Workout, WorkoutPlan } from '@/types';
+import type { Intersection, Workout, WorkoutPlan } from '@/types';
+import { WorkoutCreateResponse } from '@/types/responses/WorkoutCreateResponse';
+import { WorkoutUpdateResponse } from '@/types/responses/WorkoutUpdateResponse';
 
 import { Bootstrap, NewWorkoutAttributes } from './types';
 
@@ -33,17 +35,20 @@ export const useWorkoutsStore = defineStore('workouts', {
       this.workoutIsInProgress = false;
     },
 
-    createWorkout({ workout }: { workout: NewWorkoutAttributes }) {
-      return kyApi
-        .post(Routes.api_workouts_path(), {
-          json: {
-            workout: {
-              publicly_viewable: workout.publiclyViewable,
-              rep_totals: workout.repTotals,
-              time_in_seconds: workout.timeInSeconds,
+    async createWorkout({ workout }: { workout: NewWorkoutAttributes }) {
+      return await kyApi
+        .post<Intersection<Workout, WorkoutCreateResponse>>(
+          Routes.api_workouts_path(),
+          {
+            json: {
+              workout: {
+                publicly_viewable: workout.publiclyViewable,
+                rep_totals: workout.repTotals,
+                time_in_seconds: workout.timeInSeconds,
+              },
             },
           },
-        })
+        )
         .json();
     },
 
@@ -59,17 +64,20 @@ export const useWorkoutsStore = defineStore('workouts', {
       this.workout = workout;
     },
 
-    updateWorkout({
+    async updateWorkout({
       workout,
       attributes,
     }: {
       workout: Workout;
       attributes: Workout;
     }) {
-      return kyApi
-        .patch(Routes.api_workout_path(workout.id), {
-          json: { workout: attributes },
-        })
+      return await kyApi
+        .patch<Intersection<Workout, WorkoutUpdateResponse>>(
+          Routes.api_workout_path(workout.id),
+          {
+            json: { workout: attributes },
+          },
+        )
         .json();
     },
   },

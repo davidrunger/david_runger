@@ -6,7 +6,7 @@ class Api::LogEntriesController < Api::BaseController
 
     if @log_entry.valid?
       LogEntries::Save.run!(log_entry: @log_entry)
-      render_schema_json(@log_entry, status: :created, schema: 'log_entries/show')
+      render_schema_json(@log_entry, status: :created)
     else
       render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
     end
@@ -23,7 +23,7 @@ class Api::LogEntriesController < Api::BaseController
 
     authorize(@log_entry)
     if @log_entry.update(log_entry_params)
-      render_schema_json(@log_entry, status: :ok, schema: 'log_entries/show')
+      render_schema_json(@log_entry, status: :ok)
     else
       render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
     end
@@ -64,7 +64,7 @@ class Api::LogEntriesController < Api::BaseController
           )
       end
 
-    render(json: "[#{log_entry_json_strings.join(',')}]")
+    render_schema_json("[#{log_entry_json_strings.join(',')}]")
   end
 
   private

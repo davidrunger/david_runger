@@ -10,7 +10,7 @@ class Api::JsonPreferencesController < Api::BaseController
     authorize(@preference)
 
     if @preference.update(json: params[:json])
-      render json: @preference.json
+      head :ok
     else
       head :unprocessable_entity
     end

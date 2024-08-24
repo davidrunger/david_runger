@@ -6,7 +6,7 @@ class Api::StoresController < Api::BaseController
 
     spouse = current_user.spouse
 
-    render json: {
+    render_schema_json({
       own_stores:
         StoreSerializer.new(
           current_user.stores.includes(:items),
@@ -21,14 +21,14 @@ class Api::StoresController < Api::BaseController
         else
           []
         end,
-    }
+    })
   end
 
   def create
     authorize(Store)
     @store = current_user.stores.build(store_params.merge(viewed_at: Time.current))
     if @store.save
-      render json: @store, status: :created
+      render_schema_json(@store, status: :created)
     else
       render json: { errors: @store.errors.full_messages }, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class Api::StoresController < Api::BaseController
   def update
     authorize(@store)
     if @store.update(store_params)
-      render json: @store
+      render_schema_json(@store)
     else
       render json: { errors: @store.errors.to_hash }, status: :unprocessable_entity
     end

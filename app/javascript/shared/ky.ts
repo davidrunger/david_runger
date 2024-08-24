@@ -15,6 +15,7 @@ if (csrfMetaTag) {
         },
       ],
     },
+    retry: 0,
   });
 }
 

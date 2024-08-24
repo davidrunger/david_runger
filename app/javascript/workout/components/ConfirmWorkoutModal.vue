@@ -30,7 +30,6 @@ import { ref } from 'vue';
 
 import { toast } from '@/lib/toasts';
 import { useModalStore } from '@/shared/modal/store';
-import type { Workout } from '@/types';
 import { useWorkoutsStore } from '@/workout/store';
 
 const props = defineProps({
@@ -53,13 +52,13 @@ const modalName = 'confirm-workout';
 
 async function saveWorkout() {
   try {
-    const completedWorkout = (await workoutsStore.createWorkout({
+    const completedWorkout = await workoutsStore.createWorkout({
       workout: {
         publiclyViewable: publiclyViewable.value,
         repTotals: props.repTotals,
         timeInSeconds: props.timeInSeconds,
       },
-    })) as Workout;
+    });
 
     toast('Workout completion logged successfully!');
 

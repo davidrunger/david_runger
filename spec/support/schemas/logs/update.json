@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Root",
+  "definitions": {
+    "Root": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data_label": {
+          "type": "string"
+        },
+        "data_type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "publicly_viewable": {
+          "type": "boolean"
+        },
+        "reminder_time_in_seconds": {
+          "type": "integer"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "log_shares": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "data_label",
+        "data_type",
+        "description",
+        "id",
+        "log_shares",
+        "name",
+        "publicly_viewable",
+        "reminder_time_in_seconds",
+        "slug",
+        "user"
+      ],
+      "title": "Root"
+    },
+    "User": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": ["email", "id"],
+      "title": "User"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Root",
+  "definitions": {
+    "Root": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "notes": {
+          "type": ["null", "string"]
+        },
+        "own_store": {
+          "type": "boolean"
+        },
+        "private": {
+          "type": "boolean"
+        },
+        "viewed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "id",
+        "items",
+        "name",
+        "notes",
+        "own_store",
+        "private",
+        "viewed_at"
+      ],
+      "title": "Root"
+    }
+  }
+}

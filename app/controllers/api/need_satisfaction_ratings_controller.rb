@@ -3,12 +3,14 @@ class Api::NeedSatisfactionRatingsController < Api::BaseController
 
   def update
     authorize(@need_satisfaction_rating)
+
     NeedSatisfactionRatings::Update.run!(
       need_satisfaction_rating: @need_satisfaction_rating,
       attributes: need_satisfaction_rating_params.to_h,
       current_user:,
     )
-    render json: @need_satisfaction_rating
+
+    head :ok
   end
 
   private

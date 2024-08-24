@@ -34,7 +34,13 @@ module JsonSchemasToTypescript
             delete_prefix("#{SCHEMA_DIRECTORY}/").
             delete_suffix('.json').
             split('/').
-            map(&:singularize).
+            then do |path_fragments|
+              if path_fragments[-1] == 'index'
+                [*path_fragments[0..-3].map(&:singularize), *path_fragments[-2..]]
+              else
+                path_fragments.map(&:singularize)
+              end
+            end.
             join('/').
             camelize.
             gsub('::', '')

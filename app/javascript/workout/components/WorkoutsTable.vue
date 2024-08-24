@@ -59,10 +59,10 @@ function prettyTime(timeString: string) {
 }
 
 async function savePubliclyViewableChange(workout: Workout) {
-  const responseData = (await workoutsStore.updateWorkout({
+  const responseData = await workoutsStore.updateWorkout({
     workout,
     attributes: workout,
-  })) as Workout;
+  });
 
   const message =
     responseData.publicly_viewable ?

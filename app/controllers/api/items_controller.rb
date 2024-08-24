@@ -6,7 +6,7 @@ class Api::ItemsController < Api::BaseController
     store = current_user.stores.find(params[:store_id])
     @item = store.items.build(item_params)
     if @item.save
-      render json: @item, status: :created
+      render_schema_json(@item, status: :created)
     else
       render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
     end
@@ -15,7 +15,7 @@ class Api::ItemsController < Api::BaseController
   def update
     authorize(@item)
     if @item.update(item_params)
-      render json: @item
+      render_schema_json(@item)
     else
       render json: { errors: @item.errors.to_hash }, status: :unprocessable_entity
     end
