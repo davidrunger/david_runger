@@ -58,6 +58,10 @@ class Api::BaseController < ApplicationController
   private
 
   def copy_to_clipboard(data)
+    if !Rails.env.development?
+      return
+    end
+
     string_to_copy =
       if data.is_a?(String)
         data
