@@ -3,16 +3,13 @@ class Api::BaseController < ApplicationController
 
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def render_schema_json(data, **kwargs)
     data = resource_for_json_rendering(data)
 
     if Rails.env.local? && !(defined?(Runger.config) && Runger.config.skip_schema_validation?)
       # TIP: Generate the schema from sample response data using
       # https://jsonformatter.org/json-to-jsonschema .
-      partial_schema_path =
-        schema ||
-        "#{params[:controller]}/#{params[:action]}".delete_prefix('api/')
+      partial_schema_path = "#{params[:controller]}/#{params[:action]}".delete_prefix('api/')
 
       full_schema_path =
         Rails.root.join(
@@ -51,7 +48,6 @@ class Api::BaseController < ApplicationController
 
     render(json: data, **kwargs)
   end
-  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength
 
