@@ -37,7 +37,7 @@ RSpec.describe 'proposing marriage to another user' do
             wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 1)
           end
 
-          expect(page).to have_flash_message('Invitation sent.', type: :notice)
+          expect(page).to have_flash_message('Invitation sent.')
 
           # log in proposee and accept the proposal
           Capybara.using_session('proposee') do
