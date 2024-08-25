@@ -6,6 +6,8 @@ RSpec.describe 'Quizzes app' do
   context 'when user is signed in' do
     before { sign_in(quiz_owner) }
 
+    let(:participant_name) { 'Jessica' }
+
     it 'allows creating a new quiz, joining the quiz, answering questions, etc', wait_time: 10 do
       # visit new quiz page
       visit(new_quiz_path)
@@ -29,7 +31,6 @@ RSpec.describe 'Quizzes app' do
       expect(page).to have_current_path(quiz_path)
 
       # quiz show page expectations without participant
-      participant_name = 'Jessica'
       expect(page).not_to have_text(participant_name)
 
       # a participant joins
@@ -77,31 +78,31 @@ RSpec.describe 'Quizzes app' do
       using_session('Quiz participant session') do
         choose(first_question.answers.correct.first!.content)
         click_on('Submit')
-        expect(page).to have_css('.font-bold', text: 'Jessica')
+        expect(page).to have_css('.font-bold', text: participant_name)
         expect(page).to have_css('ol li:nth-of-type(1)', text: /\A\z/)
       end
 
       # close question (reveal answer) and move to next question
       click_on('Close question')
-      expect(page).to have_css('.text-lime-600', text: '(Jessica)')
-      expect(page).to have_text('Jessica (1/2)')
+      expect(page).to have_css('.text-lime-600', text: "(#{participant_name})")
+      expect(page).to have_text("#{participant_name} (1/2)")
 
       click_on('Next question')
       expect(page).to have_text('Question 2')
-      expect(page).to have_text('Jessica (1/2)')
+      expect(page).to have_text("#{participant_name} (1/2)")
 
       # participant chooses an incorrect answer
       using_session('Quiz participant session') do
         choose(second_question.answers.incorrect.first!.content)
         click_on('Submit')
-        expect(page).to have_css('.font-bold', text: 'Jessica')
+        expect(page).to have_css('.font-bold', text: participant_name)
         expect(page).to have_css('ol li:nth-of-type(1)', text: /\A✓\z/)
       end
 
       # close question (reveal answer)
       click_on('Close question')
-      expect(page).to have_css('.text-red-600', text: '(Jessica)')
-      expect(page).to have_text('Jessica (1/2)')
+      expect(page).to have_css('.text-red-600', text: "(#{participant_name})")
+      expect(page).to have_text("#{participant_name} (1/2)")
 
       # verify participant sees they got first question right and second question wrong
       using_session('Quiz participant session') do
