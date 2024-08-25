@@ -33,6 +33,10 @@ RSpec.describe 'Quizzes app' do
       # quiz show page expectations without participant
       expect(page).not_to have_text(participant_name)
 
+      # NOTE: Sleeping for 1 second here makes the login below about 10 seconds
+      # faster, and it might also help these specs not to flake on my machine.
+      sleep(1)
+
       # a participant joins
       using_session('Quiz participant session') do
         wait(20.seconds).for do
