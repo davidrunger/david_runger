@@ -16,7 +16,7 @@ Rails.application.configure do
     extra_sources = []
     extra_connect_sources = []
     # :nocov:
-    if Rails.env.development?
+    if Rails.env.development? || (Rails.env.test? && !ENV.key?('CI'))
       extra_sources << DavidRunger::CANONICAL_URL # allow assets from prod for local prerenders
       extra_connect_sources << 'ws://localhost:3000' # actioncable connections
       local_hostname = ENV.fetch('LOCAL_HOSTNAME', nil)
