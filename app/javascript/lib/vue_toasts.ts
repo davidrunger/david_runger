@@ -1,4 +1,4 @@
-import { POSITION, useToast } from 'vue-toastification';
+import { POSITION, TYPE, useToast } from 'vue-toastification';
 
 import 'css/vue_toastification_with_overrides.scss';
 
@@ -14,6 +14,7 @@ type ComponentOptions = {
 type VueToastificationOptions = {
   icon?: boolean;
   position?: POSITION;
+  type?: TYPE;
 };
 
 export function vueToast(

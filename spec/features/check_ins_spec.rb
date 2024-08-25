@@ -35,7 +35,7 @@ RSpec.describe 'Check-Ins app' do
             wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 1)
           end
 
-          expect(page).to have_flash_message('Invitation sent.', type: :notice)
+          expect(page).to have_flash_message('Invitation sent.')
 
           # add an emotional need
           click_on('Click here')

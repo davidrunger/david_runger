@@ -36,14 +36,19 @@ Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
           @click='handleTripCheckinModalSubmit'
           type='primary'
           plain
-        ) Check in items in cart
+          :disabled="checkingIn"
+        )
+          span(v-if="checkingIn") Checking in...
+          span(v-else) Check in items in cart
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { TYPE } from 'vue-toastification';
 
 import { useGroceriesStore } from '@/groceries/store';
+import { vueToast } from '@/lib/vue_toasts';
 import { useModalStore } from '@/shared/modal/store';
 import type { Store } from '@/types';
 
@@ -51,6 +56,8 @@ import CheckInItemsList from './CheckInItemsList.vue';
 
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
+
+const checkingIn = ref(false);
 
 const {
   neededSkippedCheckInItems,
@@ -64,8 +71,17 @@ const checkInStoreNames = computed((): string => {
     .join(', ');
 });
 
-function handleTripCheckinModalSubmit() {
-  groceriesStore.zeroItemsInCart();
+async function handleTripCheckinModalSubmit() {
+  checkingIn.value = true;
+
+  try {
+    await groceriesStore.zeroItemsInCart();
+    vueToast('Check-in successful!');
+  } catch {
+    vueToast('Something went wrong.', { type: TYPE.ERROR });
+  }
+
+  checkingIn.value = false;
   modalStore.hideModal({ modalName: 'check-in-shopping-trip' });
 }
 

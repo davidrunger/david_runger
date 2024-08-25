@@ -99,7 +99,16 @@ RSpec.describe 'Groceries app' do
           expect(page).to have_text(needed_item.name)
           expect(page).not_to have_text(new_item_name)
         end
+
+        click_on('Check in items in cart')
+
+        expect(page).to have_vue_toast('Check-in successful!')
+        expect_needed(new_item_name, 0)
       end
     end
+  end
+
+  def expect_needed(item_name, needed)
+    expect(page).to have_text("#{item_name} (#{needed})")
   end
 end
