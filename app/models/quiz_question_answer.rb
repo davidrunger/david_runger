@@ -28,4 +28,5 @@ class QuizQuestionAnswer < ApplicationRecord
   has_many(:answering_participations, through: :selections, source: :participation)
 
   scope :correct, -> { where(is_correct: true) }
+  scope :incorrect, -> { where(is_correct: false) }
 end

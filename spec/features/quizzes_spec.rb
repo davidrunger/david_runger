@@ -69,6 +69,7 @@ RSpec.describe 'Quizzes app' do
 
       # start the quiz
       click_on('Start quiz!')
+      expect(page).to have_text('Question 1')
 
       first_question, second_question = QuizQuestion.order(:created_at).last(2)
 
@@ -76,20 +77,31 @@ RSpec.describe 'Quizzes app' do
       using_session('Quiz participant session') do
         choose(first_question.answers.correct.first!.content)
         click_on('Submit')
+        expect(page).to have_css('.font-bold', text: 'Jessica')
+        expect(page).to have_css('ol li:nth-of-type(1)', text: /\A\z/)
       end
 
       # close question (reveal answer) and move to next question
       click_on('Close question')
+      expect(page).to have_css('.text-lime-600', text: '(Jessica)')
+      expect(page).to have_text('Jessica (1/2)')
+
       click_on('Next question')
+      expect(page).to have_text('Question 2')
+      expect(page).to have_text('Jessica (1/2)')
 
       # participant chooses an incorrect answer
       using_session('Quiz participant session') do
-        choose(second_question.answers.first!.content)
+        choose(second_question.answers.incorrect.first!.content)
         click_on('Submit')
+        expect(page).to have_css('.font-bold', text: 'Jessica')
+        expect(page).to have_css('ol li:nth-of-type(1)', text: /\A✓\z/)
       end
 
       # close question (reveal answer)
       click_on('Close question')
+      expect(page).to have_css('.text-red-600', text: '(Jessica)')
+      expect(page).to have_text('Jessica (1/2)')
 
       # verify participant sees they got first question right and second question wrong
       using_session('Quiz participant session') do
