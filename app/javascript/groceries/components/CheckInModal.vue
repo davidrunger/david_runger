@@ -37,6 +37,7 @@ Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
           type='primary'
           plain
           :disabled="checkingIn"
+          :class="{ pulsing: neededUnskippedCheckInItemsNotInCart.length === 0 }"
         )
           span(v-if="checkingIn") Checking in...
           span(v-else) Check in items in cart
@@ -89,3 +90,32 @@ function manageCheckInStores() {
   modalStore.showModal({ modalName: 'manage-check-in-stores' });
 }
 </script>
+
+<style lang="scss">
+.pulsing.pulsing {
+  animation: pulsing 1s ease infinite;
+
+  &:not(:hover) {
+    color: rgb(0, 109, 218);
+    background-color: white;
+  }
+}
+
+@keyframes pulsing {
+  $box-shadow-min-width: 4px;
+  $box-shadow-max-width: 8px;
+  $shadow-color: rgb(210, 231, 250);
+
+  0% {
+    box-shadow: 0 0 0 $box-shadow-min-width $shadow-color;
+  }
+
+  50% {
+    box-shadow: 0 0 0 $box-shadow-max-width $shadow-color;
+  }
+
+  100% {
+    box-shadow: 0 0 0 $box-shadow-min-width $shadow-color;
+  }
+}
+</style>
