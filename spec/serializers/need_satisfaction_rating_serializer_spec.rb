@@ -23,6 +23,6 @@ RSpec.describe NeedSatisfactionRatingSerializer do
   let(:need_satisfaction_rating) { NeedSatisfactionRating.first! }
 
   specify do
-    expect(serializer.to_json).to match_schema('need_satisfaction_ratings/show')
+    expect(serializer.to_json).to match_schema('api/need_satisfaction_ratings/show')
   end
 end

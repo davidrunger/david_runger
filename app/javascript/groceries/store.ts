@@ -4,6 +4,7 @@ import { POSITION } from 'vue-toastification';
 
 import DeletedItemToast from '@/groceries/components/DeletedItemToast.vue';
 import { Bootstrap, CheckInStatus, Item } from '@/groceries/types';
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { emit } from '@/lib/event_bus';
 import { vueToast } from '@/lib/vue_toasts';
 import * as RoutesType from '@/rails_assets/routes';
@@ -40,10 +41,12 @@ export const helpers = {
   },
 };
 
+const bootstrap = untypedBootstrap as Bootstrap;
+
 export const useGroceriesStore = defineStore('groceries', {
   state: (): State => ({
-    own_stores: (window.davidrunger.bootstrap as Bootstrap).own_stores,
-    spouse_stores: (window.davidrunger.bootstrap as Bootstrap).spouse_stores,
+    own_stores: bootstrap.own_stores,
+    spouse_stores: bootstrap.spouse_stores,
     collectingDebounces: false,
     pendingRequests: 0,
     postingStore: false,

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import * as RoutesType from '@/rails_assets/routes';
 import { assert } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
@@ -9,9 +10,11 @@ import { Bootstrap, NeedSatisfactionRating } from './types';
 
 declare const Routes: typeof RoutesType;
 
+const bootstrap = untypedBootstrap as Bootstrap;
+
 export const useCheckInsStore = defineStore('check-ins', {
   state: () => ({
-    ...(window.davidrunger.bootstrap as Bootstrap),
+    ...bootstrap,
   }),
 
   actions: {

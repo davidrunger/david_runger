@@ -17,6 +17,6 @@ RSpec.describe LogEntrySerializer do
   let(:log_entry) { LogEntries::NumberLogEntry.first! }
 
   specify do
-    expect(LogEntrySerializer.new(log_entry).to_json).to match_schema('log_entries/show')
+    expect(LogEntrySerializer.new(log_entry).to_json).to match_schema('api/log_entries/show')
   end
 end

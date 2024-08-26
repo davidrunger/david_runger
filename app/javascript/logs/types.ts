@@ -1,5 +1,10 @@
 import { JsonBroadcast } from '@/shared/types';
-import type { Log as TypelizerLog, UserSerializerBasic } from '@/types';
+import type {
+  Intersection,
+  Log as TypelizerLog,
+  UserSerializerBasic,
+} from '@/types';
+import { LogsIndexBootstrap } from '@/types/bootstrap/LogsIndexBootstrap';
 
 export type LogEntryDataValue = string | number;
 export type LogDataType = 'counter' | 'duration' | 'number' | 'text';
@@ -26,12 +31,15 @@ export type LogInput = {
   label: string;
 };
 
-export type Bootstrap = {
-  current_user: UserSerializerBasic;
-  logs: Array<Log>;
-  log_input_types: Array<LogInput>;
-  toast_messages: Array<string>;
-};
+export type Bootstrap = Intersection<
+  {
+    current_user: UserSerializerBasic;
+    logs: Array<Log>;
+    log_input_types: Array<LogInput>;
+    toast_messages: Array<string>;
+  },
+  LogsIndexBootstrap
+>;
 
 export interface LogEntryBroadcast extends JsonBroadcast {
   model: LogEntry;

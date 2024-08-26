@@ -1,5 +1,9 @@
-import type { UserSerializerWithEmojiBoosts } from '@/types';
+import type { Intersection, UserSerializerWithEmojiBoosts } from '@/types';
+import { EmojiPickerIndexBootstrap } from '@/types/bootstrap/EmojiPickerIndexBootstrap';
 
-export interface Bootstrap {
-  current_user?: UserSerializerWithEmojiBoosts;
-}
+export type Bootstrap = Intersection<
+  {
+    current_user?: UserSerializerWithEmojiBoosts;
+  },
+  EmojiPickerIndexBootstrap
+>;

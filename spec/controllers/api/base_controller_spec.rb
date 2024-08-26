@@ -19,8 +19,8 @@ RSpec.describe Api::BaseController, :without_verifying_authorization do
     context 'when there is a JSON schema for the action' do
       before do
         allow(Rails.root).to receive(:join).and_wrap_original do |original_method, *args|
-          if args == ['spec/support/schemas/base/index.json']
-            Rails.root.join('spec/support/schemas/items/create.json')
+          if args == ['spec/support/schemas/api/base/index.json']
+            Rails.root.join('spec/support/schemas/api/items/create.json')
           else
             original_method.call(*args)
           end
@@ -28,8 +28,8 @@ RSpec.describe Api::BaseController, :without_verifying_authorization do
       end
 
       context 'when the rendered data does not conform to the JSON schema' do
-        it 'raises an Api::BaseController::SchemaValidationError' do
-          expect { get_index }.to raise_error(Api::BaseController::SchemaValidationError)
+        it 'raises a JsonSchemaValidator::NonconformingData' do
+          expect { get_index }.to raise_error(JsonSchemaValidator::NonconformingData)
         end
       end
     end
