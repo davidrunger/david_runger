@@ -11,13 +11,13 @@
 <script setup lang="ts">
 import { Connection } from '@rails/actioncable';
 import Cookies from 'js-cookie';
-import { get } from 'lodash-es';
 import { storeToRefs } from 'pinia';
 import { onBeforeMount } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
-import type { ItemBroadcast } from '@/groceries/types';
+import type { Bootstrap, ItemBroadcast } from '@/groceries/types';
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import type { IphoneTouchEvent } from '@/shared/types';
 
 import Sidebar from './components/Sidebar.vue';
@@ -31,6 +31,8 @@ const groceriesStore = useGroceriesStore();
 
 const { currentStore, debouncingOrWaitingOnNetwork } =
   storeToRefs(groceriesStore);
+
+const bootstrap = untypedBootstrap as Bootstrap;
 
 onBeforeMount(() => {
   window.addEventListener('beforeunload', warnIfRequestPending);
@@ -46,7 +48,7 @@ onBeforeMount(() => {
     { passive: false },
   );
 
-  const spouseId = get(window, 'davidrunger.bootstrap.spouse.id');
+  const spouseId = bootstrap.spouse?.id;
   if (spouseId) {
     // HACK: add on to the installEventHandlers method because it's called when the ActionCable
     // connection is re-established after having been broken (though it's also called when

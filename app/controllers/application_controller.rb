@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include ContainerClassable
   include Pundit::Authorization
   include RequestRecordable
+  include SchemaValidatable
   include TokenAuthenticatable
 
   protect_from_forgery with: :exception

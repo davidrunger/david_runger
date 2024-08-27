@@ -15,14 +15,18 @@ class Test::RequirementsResolver
         # Installation / Setup
         Test::Tasks::PnpmInstall => nil,
         Test::Tasks::BuildRouteHelpers => Test::Tasks::PnpmInstall,
-        Test::Tasks::CheckTypescript => Test::Tasks::BuildRouteHelpers,
         Test::Tasks::CompileJavaScript => Test::Tasks::BuildRouteHelpers,
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
-        Test::Tasks::CheckVersions => nil,
 
         # Checks
+        Test::Tasks::CheckVersions => nil,
+        Test::Tasks::CheckTypescript => [
+          Test::Tasks::BuildRouteHelpers,
+          Test::Tasks::ConvertSchemasToTs,
+          Test::Tasks::RunTypelizer,
+        ],
         Test::Tasks::RunPrettier => Test::Tasks::PnpmInstall,
         Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,

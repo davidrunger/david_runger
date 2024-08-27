@@ -22,6 +22,6 @@ RSpec.describe WorkoutSerializer do
   let(:workout) { workouts(:workout) }
 
   specify do
-    expect(serializer.to_json).to match_schema('workouts/show')
+    expect(serializer.to_json).to match_schema('api/workouts/show')
   end
 end

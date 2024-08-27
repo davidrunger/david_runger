@@ -23,7 +23,7 @@ export const useWorkoutsStore = defineStore('workouts', {
     };
 
     return {
-      ...(window.davidrunger.bootstrap as Bootstrap),
+      ...bootstrap,
       workout,
       workoutIsInProgress: false,
     };

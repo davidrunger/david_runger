@@ -1,6 +1,7 @@
 import { last, sortBy } from 'lodash-es';
 import { defineStore } from 'pinia';
 
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { toast } from '@/lib/toasts';
 import * as RoutesType from '@/rails_assets/routes';
 import { assert, typesafeAssign } from '@/shared/helpers';
@@ -18,10 +19,12 @@ import { Bootstrap, Log, LogEntry, LogEntryDataValue } from './types';
 
 declare const Routes: typeof RoutesType;
 
+const bootstrap = untypedBootstrap as Bootstrap;
+
 export const useLogsStore = defineStore('logs', {
   state: () => ({
+    ...bootstrap,
     postingLog: false,
-    ...(window.davidrunger.bootstrap as Bootstrap),
   }),
 
   actions: {

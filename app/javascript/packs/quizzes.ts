@@ -3,8 +3,10 @@ import Rails from '@rails/ujs';
 
 import actionCableConsumer from '@/channels/consumer';
 import { loadAsyncPartials } from '@/lib/async_partial';
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { assert } from '@/shared/helpers';
-import type { Quiz, UserSerializerBasic } from '@/types';
+import type { Intersection, Quiz, UserSerializerBasic } from '@/types';
+import { QuizShowBootstrap } from '@/types/bootstrap/QuizShowBootstrap';
 
 // https://github.com/hotwired/turbo-rails/issues/135#issuecomment-814413558
 Rails.delegate(
@@ -46,12 +48,15 @@ Rails.delegate(
 
 document.documentElement.addEventListener('turbo:load', loadAsyncPartials);
 
-type Bootstrap = {
-  current_user: UserSerializerBasic;
-  quiz: Quiz;
-};
+type Bootstrap = Intersection<
+  {
+    current_user: UserSerializerBasic;
+    quiz: Quiz;
+  },
+  QuizShowBootstrap
+>;
 
-const bootstrap = window.davidrunger.bootstrap as Bootstrap;
+const bootstrap = untypedBootstrap as Bootstrap;
 
 actionCableConsumer.subscriptions.create(
   {
