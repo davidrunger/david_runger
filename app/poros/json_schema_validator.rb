@@ -71,13 +71,13 @@ class JsonSchemaValidator
   end
 
   def create_and_open_schema_file_in_editor
+    # :nocov:
     if Rails.env.development?
-      # :nocov:
       FileUtils.mkdir_p(File.dirname(absolute_schema_path))
       FileUtils.touch(absolute_schema_path)
       system("$EDITOR '#{absolute_schema_path}'", exception: true)
-      # :nocov:
     end
+    # :nocov:
   end
 
   def copy_data_to_clipboard
