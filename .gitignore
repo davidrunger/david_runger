@@ -6,12 +6,10 @@
 /.bundle
 
 # Logs
-/log/*
-!/log/.keep
+/log/
 
 # Temp
-/tmp/*
-!/tmp/.keep
+/tmp/
 
 # JavaScript packages
 /node_modules
