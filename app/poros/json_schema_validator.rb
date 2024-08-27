@@ -52,10 +52,6 @@ class JsonSchemaValidator
     @data.is_a?(String) ? @data : @data.to_json
   end
 
-  def data_matches_schema?(schema_path)
-    validator_errors(schema_path).empty?
-  end
-
   memo_wise \
   def absolute_schema_path
     if api?
@@ -74,35 +70,32 @@ class JsonSchemaValidator
     @controller_action.start_with?('api/')
   end
 
-  memo_wise \
-  def bootstrap?
-    !api?
-  end
-
   def create_and_open_schema_file_in_editor
-    FileUtils.mkdir_p(File.dirname(absolute_schema_path))
-    FileUtils.touch(absolute_schema_path)
-    system("$EDITOR '#{absolute_schema_path}'", exception: true)
+    if Rails.env.development?
+      # :nocov:
+      FileUtils.mkdir_p(File.dirname(absolute_schema_path))
+      FileUtils.touch(absolute_schema_path)
+      system("$EDITOR '#{absolute_schema_path}'", exception: true)
+      # :nocov:
+    end
   end
 
   def copy_data_to_clipboard
-    if !Rails.env.development?
-      return
-    end
+    if Rails.env.development?
+      # :nocov:
+      string_to_copy =
+        if @data.is_a?(String)
+          @data
+        else
+          JSON.pretty_generate(@data.as_json)
+        end
 
-    # :nocov:
-    string_to_copy =
-      if @data.is_a?(String)
-        @data
-      else
-        JSON.pretty_generate(@data.as_json)
+      if string_to_copy.respond_to?(:cpp)
+        string_to_copy.cpp
+
+        puts('Copied JSON to clipboard.'.yellow)
       end
-
-    if string_to_copy.respond_to?(:cpp)
-      string_to_copy.cpp
-
-      puts('Copied JSON to clipboard.'.yellow)
+      # :nocov:
     end
-    # :nocov:
   end
 end
