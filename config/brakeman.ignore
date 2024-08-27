@@ -1,6 +1,29 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "0876877479e8eabc4b454d7e2d6439f449e68d59787a1a465b21a468a3db0ea9",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/poros/json_schema_validator.rb",
+      "line": 85,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "system(\"$EDITOR '#{absolute_schema_path}'\", :exception => true)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "JsonSchemaValidator",
+        "method": "create_and_open_schema_file_in_editor"
+      },
+      "user_input": "absolute_schema_path",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "`absolute_schema_path` is not really user-controllable, and this is only accessible in development"
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "6ec98885fe4746f341dec349efa9b844cd8bb007dea972105df6b963feae95e7",
@@ -70,29 +93,6 @@
       "note": "False positive"
     },
     {
-      "warning_type": "Path Traversal",
-      "warning_code": 125,
-      "fingerprint": "e04044305fb471efa48a9222947de19a9241ab6263f447902bda91f51de12c2a",
-      "check_name": "Pathname",
-      "message": "Absolute paths in `Pathname#join` cause the entire path to be relative to the absolute path, ignoring any prior values",
-      "file": "app/controllers/api/base_controller.rb",
-      "line": 16,
-      "link": "https://brakemanscanner.org/docs/warning_types/path_traversal/",
-      "code": "Rails.root.join(\"spec/support/schemas/#{\"#{params[:controller]}/#{params[:action]}\".delete_prefix(\"api/\")}.json\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Api::BaseController",
-        "method": "render_schema_json"
-      },
-      "user_input": "params[:controller]",
-      "confidence": "High",
-      "cwe_id": [
-        22
-      ],
-      "note": "(1) This code is only accessible in development and test (2) The code is not vulnerable to paths starting with a '/` because we only provide one argument to #join and it is hardcoded not to start with a slash (3) The user cannot provide arbitrary input; the only interpolated params are the controller and action name (4) The path is not read, executed, or sent to the requesting user; it's only touched and opened in the editor (5) The file must end with .json, limiting the attack options."
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "e75cbe5dade3e44cda6c326df9b399f7f658553364bdabdfdf55f142a476d6cb",
@@ -139,6 +139,6 @@
       "note": "False positive"
     }
   ],
-  "updated": "2024-08-24 02:33:09 -0500",
+  "updated": "2024-08-27 06:54:09 -0500",
   "brakeman_version": "6.2.1"
 }
