@@ -36,6 +36,7 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
   # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def call
     fields_to_display(@data).
       map do |key|
@@ -63,6 +64,7 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
         end
       end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private
