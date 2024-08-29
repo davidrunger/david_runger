@@ -42,7 +42,7 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
         value = @data[key]
         key_value_string = format(key, value)
 
-        if Rails.env.development? || !Rainbow.enabled
+        if Rails.env.development? || (Rails.env.test? && !Rainbow.enabled)
           color, background, style = color_background_and_style(key, value)
 
           if defined?(Rainbow) # Rainbow won't be defined when running w/ Docker
