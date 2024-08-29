@@ -36,13 +36,14 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
   # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def call
     fields_to_display(@data).
       map do |key|
         value = @data[key]
         key_value_string = format(key, value)
 
-        if Rails.env.development? || !Rainbow.enabled
+        if Rails.env.development? || (Rails.env.test? && !Rainbow.enabled)
           color, background, style = color_background_and_style(key, value)
 
           if defined?(Rainbow) # Rainbow won't be defined when running w/ Docker
@@ -63,6 +64,7 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
         end
       end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private
