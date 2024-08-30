@@ -41,12 +41,11 @@ import { storeToRefs } from 'pinia';
 import { computed, nextTick, ref } from 'vue';
 
 import { bootstrap } from '@/lib/bootstrap';
+import { useLogsStore } from '@/logs/store';
+import type { Bootstrap } from '@/logs/types';
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
 import type { LogShare } from '@/types';
-
-import { useLogsStore } from '../store';
-import type { Bootstrap } from '../types';
 
 const logsStore = useLogsStore();
 const modalStore = useModalStore();

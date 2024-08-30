@@ -19,9 +19,9 @@ Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
 </template>
 
 <script setup lang="ts">
+import { useGroceriesStore } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
 
-import { useGroceriesStore } from '../store';
 import CheckInStoreList from './CheckInStoreList.vue';
 
 const groceriesStore = useGroceriesStore();
