@@ -1,5 +1,5 @@
 Rollbar.configure do |config|
-  code_version = ENV.fetch('GIT_REV', nil)
+  code_version = ENV.fetch('GIT_REV', `git log --format=format:%H | head -n 1`.rstrip)
 
   access_token =
     case Rails.env
@@ -22,6 +22,10 @@ Rollbar.configure do |config|
   if Rails.env.in?(%w[development test])
     config.enabled = access_token.present?
   end
+
+  # NOTE: Instead of having Rollbar send uncaught errors on its own, we will
+  # send them to Rollbar via our Rails ErrorSubscriber.
+  config.capture_uncaught = false
 
   # By default, Rollbar will try to call the `current_user` controller method
   # to fetch the logged-in user object, and then call that object's `id`,
