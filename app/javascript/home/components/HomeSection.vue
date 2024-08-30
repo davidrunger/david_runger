@@ -7,9 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import SectionHeader from '@/home/components/SectionHeader.vue';
-
 import ScrollHook from './ScrollHook.vue';
+import SectionHeader from './SectionHeader.vue';
 
 defineProps({
   renderHeadingManually: {
