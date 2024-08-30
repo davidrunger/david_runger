@@ -14,12 +14,7 @@ class ErrorSubscriber
       write_log_line(error.cause, **kwargs)
     else
       write_log_line(error, **kwargs)
-
-      # Unhandled errors will be picked up by Rollbar integrations, so don't send them here, too.
-      # Here, we will only report _handled_ (manually sent) errors.
-      if kwargs[:handled]
-        send_to_rollbar(error, **kwargs)
-      end
+      send_to_rollbar(error, **kwargs)
     end
   end
 
