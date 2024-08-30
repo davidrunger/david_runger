@@ -63,9 +63,14 @@ RSpec.describe ErrorSubscriber do
         context 'when the error class is StandardError' do
           let(:error_class) { StandardError }
 
-          it 'does not send anything to Rollbar' do
-            expect(Rollbar).not_to receive(:log)
-            expect(Rollbar).not_to receive(:error)
+          it 'sends the error to Rollbar' do
+            expect(Rollbar).
+              to receive(:log).with(
+                :error,
+                an_instance_of(StandardError),
+                { handled: false },
+              ).
+              exactly(:once)
 
             report
           end
