@@ -37,17 +37,13 @@ class Prerenderer
   private
 
   def render_page_content(url:, expected_text:)
-    # Try a fresh full page load up to 20 times, since the new server might not
-    # yet be booted when making the initial requests.
-    20.times do
-      @browser.goto(url)
+    @browser.goto(url)
 
-      # Give Chrome some time to parse the JavaScript and render the page content.
-      15.times do
-        return if @browser.body.include?(expected_text)
+    # Give Chrome some time to parse the JavaScript and render the page content.
+    15.times do
+      return if @browser.body.include?(expected_text)
 
-        sleep(0.2)
-      end
+      sleep(0.2)
     end
 
     fail('Could not find expected content!')
