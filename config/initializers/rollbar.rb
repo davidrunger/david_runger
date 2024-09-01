@@ -1,5 +1,5 @@
 Rollbar.configure do |config|
-  code_version = ENV.fetch('GIT_REV', `git log --format=format:%H | head -n 1`.rstrip)
+  code_version = ENV.fetch('GIT_REV') { `git log --format=format:%H | head -n 1`.rstrip }
 
   access_token =
     case Rails.env
