@@ -17,7 +17,7 @@
 #
 
 class StoreSerializer < ApplicationSerializer
-  attributes :id, :name, :notes, :own_store, :private, :viewed_at
+  attributes :id, :name, :notes, :private
   many :items, resource: ItemSerializer
 
   typelize 'boolean'
