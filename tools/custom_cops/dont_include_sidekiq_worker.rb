@@ -5,7 +5,7 @@ module CustomCops
 
     MSG =
       'Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` ' \
-      'or `include Sidekiq::Job`'.freeze
+      'or `include Sidekiq::Job`'
 
     def_node_matcher :including_sidekiq_worker?, <<~PATTERN
       (send ... :include (const (const ... :Sidekiq) ${:Worker :Job}))

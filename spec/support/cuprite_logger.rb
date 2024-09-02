@@ -8,8 +8,8 @@ class CupriteLogger
     /\A\[vite\] connecting\.\.\.\z/,
     /\A\[vite\] connected\.\z/,
   ].freeze
-  RUNTIME_CONSOLE_API_CALLED = '"Runtime.consoleAPICalled"'.freeze
-  RUNTIME_EXCEPTION_THROWN = '"Runtime.exceptionThrown"'.freeze
+  RUNTIME_CONSOLE_API_CALLED = '"Runtime.consoleAPICalled"'
+  RUNTIME_EXCEPTION_THROWN = '"Runtime.exceptionThrown"'
 
   def self.javascript_errors
     @javascript_errors ||= []

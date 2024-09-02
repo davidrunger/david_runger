@@ -1,5 +1,5 @@
 module RedisConfig
-  REDIS_NAMESPACE = 'redis-config'.freeze
+  REDIS_NAMESPACE = 'redis-config'
   TYPES = %w[integer].map(&:freeze).freeze
 
   def add(key_name, type)

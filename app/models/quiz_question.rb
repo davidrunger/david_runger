@@ -14,8 +14,8 @@
 #  index_quiz_questions_on_quiz_id  (quiz_id)
 #
 class QuizQuestion < ApplicationRecord
-  OPEN = 'open'.freeze
-  CLOSED = 'closed'.freeze
+  OPEN = 'open'
+  CLOSED = 'closed'
   STATUSES = [OPEN, CLOSED].freeze
 
   validates :content, presence: true

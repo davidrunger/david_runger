@@ -1,7 +1,7 @@
 class CheckLinks::LaunchPageFetches
   prepend ApplicationWorker
 
-  SITEMAP_URL = 'https://davidrunger.com/sitemap.xml'.freeze
+  SITEMAP_URL = 'https://davidrunger.com/sitemap.xml'
 
   def perform
     sitemap_urls.each do |url|

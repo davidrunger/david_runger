@@ -1,5 +1,5 @@
 module JsonSchemasToTypescript
-  SCHEMA_DIRECTORY = 'spec/support/schemas'.freeze
+  SCHEMA_DIRECTORY = 'spec/support/schemas'
   API_SCHEMA_DIRECTORY = "#{SCHEMA_DIRECTORY}/api".freeze
   BOOTSTRAP_SCHEMA_DIRECTORY = "#{SCHEMA_DIRECTORY}/bootstrap".freeze
 

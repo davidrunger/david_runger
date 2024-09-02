@@ -22,7 +22,7 @@ IS_DOCKER_BUILD = ENV.key?('DOCKER_BUILD')
 IS_DOCKER = IS_DOCKER_BUILD || ENV.key?('DOCKER_BUILT')
 
 module DavidRunger
-  CANONICAL_DOMAIN = 'davidrunger.com'.freeze
+  CANONICAL_DOMAIN = 'davidrunger.com'
 
   class << self
     def canonical_url(path)
