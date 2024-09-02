@@ -157,8 +157,8 @@ importers:
         specifier: ^13.0.0
         version: 13.0.0(eslint-plugin-vue@9.27.0(eslint@8.57.0))(eslint@8.57.0)(typescript@5.5.4)
       '@vue/language-plugin-pug':
-        specifier: ^2.1.2
-        version: 2.1.2
+        specifier: ^2.1.4
+        version: 2.1.4
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.0)
@@ -989,8 +989,8 @@ packages:
       typescript:
         optional: true
 
-  '@vue/language-plugin-pug@2.1.2':
-    resolution: {integrity: sha512-bue1Cs8wWg8WlbU9x9LxEeH7u/laxDHaKRF+9mITlCsZHhl70rHZhI/9dhScfRvqc1wiPsoMWOcf5CuG2t4LNw==}
+  '@vue/language-plugin-pug@2.1.4':
+    resolution: {integrity: sha512-zGu21pneTOm92SLcbRnrM3MLZe83qJoJhHFQKGVH1KkgJJcvTO5e7OM4XYsaXpBTcjpcaGDZJa9ZP2e2ojQAAg==}
 
   '@vue/reactivity@3.4.38':
     resolution: {integrity: sha512-4vl4wMMVniLsSYYeldAKzbk72+D3hUnkw9z8lDeJacTxAkXeDAP1uE9xr2+aKIN0ipOL8EG2GPouVTH6yF7Gnw==}
@@ -4112,7 +4112,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.4
 
-  '@vue/language-plugin-pug@2.1.2':
+  '@vue/language-plugin-pug@2.1.4':
     dependencies:
       '@volar/source-map': 2.4.1
       volar-service-pug: 0.0.62
