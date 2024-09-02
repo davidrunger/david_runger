@@ -60,7 +60,7 @@
     "@types/when-dom-ready": "^1.2.2",
     "@typescript-eslint/parser": "^8.3.0",
     "@vue/eslint-config-typescript": "^13.0.0",
-    "@vue/language-plugin-pug": "^2.1.2",
+    "@vue/language-plugin-pug": "^2.1.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.29.1",
