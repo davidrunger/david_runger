@@ -15,8 +15,8 @@
 #
 class JsonPreference < ApplicationRecord
   module Types
-    DEFAULT_WORKOUT = 'default_workout'.freeze
-    EMOJI_BOOSTS = 'emoji_boosts'.freeze
+    DEFAULT_WORKOUT = 'default_workout'
+    EMOJI_BOOSTS = 'emoji_boosts'
   end
 
   JsonPreference::Types.constants.each do |constant_name|

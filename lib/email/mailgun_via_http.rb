@@ -4,9 +4,9 @@ module Email
     prepend MemoWise
 
     DEVELOPER_EMAILS = Set['davidjrunger@gmail.com'].freeze
-    MAILGUN_URL = 'https://api.mailgun.net/v3/mg.davidrunger.com'.freeze
+    MAILGUN_URL = 'https://api.mailgun.net/v3/mg.davidrunger.com'
     # must _not_ start with a slash! ( https://github.com/lostisland/faraday/issues/293/ )
-    MESSAGES_PATH = 'messages'.freeze
+    MESSAGES_PATH = 'messages'
 
     # rubocop:disable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
     # rubocop:disable Style/RedundantInitialize
