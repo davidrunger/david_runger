@@ -238,12 +238,15 @@ RSpec.configure do |config|
   end
 
   # NOTE: Using `CupriteLogger.javascript_errors` like this is not thread-safe.
+  # For now, that's okay, because our tests only run in a single thread.
   config.around(:each, type: :feature) do |example|
     CupriteLogger.javascript_errors.clear
+    CupriteLogger.javascript_logs.clear
 
     example.run
 
     expect(CupriteLogger.javascript_errors).to be_empty
+    expect(CupriteLogger.javascript_logs).to be_empty
   end
 
   config.before(:each, :rails_env) do |example|
