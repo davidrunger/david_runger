@@ -75,7 +75,7 @@ class Api::LogEntriesController < Api::BaseController
   end
 
   def log_entry_json_strings_for_log(log)
-    datum_class = log.log_entries_datum_class
+    datum_class = log.log_entry_datum_class
     table_name = datum_class.table_name
     class_name = datum_class.name
 

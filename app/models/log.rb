@@ -80,7 +80,7 @@ class Log < ApplicationRecord
     slug
   end
 
-  def log_entries_datum_class
+  def log_entry_datum_class
     DATA_TYPES[data_type][:datum_class]
   end
 
@@ -91,7 +91,7 @@ class Log < ApplicationRecord
       end
 
       log_entry.assign_attributes(params.except(:data))
-      log_entry.log_entry_datum = log_entries_datum_class.new(data: params[:data])
+      log_entry.log_entry_datum = log_entry_datum_class.new(data: params[:data])
     end
   end
 end
