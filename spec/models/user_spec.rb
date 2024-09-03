@@ -60,7 +60,7 @@ RSpec.describe User do
       User.
         includes(
           :quizzes,
-          logs: %i[log_shares number_log_entries text_log_entries],
+          logs: %i[log_shares log_entries],
           quiz_participations: :quiz_question_answer_selections,
           stores: :items,
         ).

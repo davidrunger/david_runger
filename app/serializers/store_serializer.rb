@@ -15,7 +15,6 @@
 #
 #  index_stores_on_user_id_and_name  (user_id,name) UNIQUE
 #
-
 class StoreSerializer < ApplicationSerializer
   attributes :id, :name, :notes, :private
   many :items, resource: ItemSerializer

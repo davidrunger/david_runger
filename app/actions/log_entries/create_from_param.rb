@@ -9,7 +9,7 @@ class LogEntries::CreateFromParam < ApplicationAction
       data = param
     end
 
-    log_entry = log.log_entries.build(data:, note:)
+    log_entry = log.build_log_entry_with_datum(data:, note:)
     LogEntries::Save.run!(log_entry:)
   end
 end

@@ -11,7 +11,6 @@
 #
 #  index_banned_path_fragments_on_value  (value) UNIQUE
 #
-
 FactoryBot.define do
   factory :banned_path_fragment do
     value { "/#{Faker::Internet.unique.slug}.php" }

@@ -11,7 +11,6 @@
 #
 #  index_users_on_email  (email) UNIQUE
 #
-
 class User < ApplicationRecord
   prepend MemoWise
 
@@ -30,8 +29,11 @@ class User < ApplicationRecord
   has_many :requests, dependent: :destroy
   has_many :stores, dependent: :destroy
   has_many :items, through: :stores # must come after has_many :stores declaration
-  has_many :number_log_entries, through: :logs
-  has_many :text_log_entries, through: :logs
+  has_many :log_entries, through: :logs
+  has_many :text_log_entry_data,
+    through: :log_entries,
+    source: :log_entry_datum,
+    source_type: 'TextLogEntryDatum'
   has_many :workouts, dependent: :destroy
   has_many :need_satisfaction_ratings, dependent: :destroy
   has_many :check_in_submissions, dependent: :destroy

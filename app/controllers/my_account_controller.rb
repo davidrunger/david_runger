@@ -4,7 +4,7 @@ class MyAccountController < ApplicationController
   def destroy
     @user =
       User.includes(
-        logs: %i[log_shares number_log_entries text_log_entries],
+        logs: %i[log_entries log_shares],
       ).find(current_user.id)
     authorize(@user)
 

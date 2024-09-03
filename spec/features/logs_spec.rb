@@ -130,7 +130,7 @@ RSpec.describe 'Logs app' do
         # don't actually create the log entry, because we don't want the log entry to be returned
         # via an API call (by virtue of having been persisted to the database). we'll _only_ publish
         # the log entry via websockets (which requires stubbing `id` and `created_at` values).
-        log_entry = log.log_entries.build(data: new_log_entry_text)
+        log_entry = log.build_log_entry_with_datum(data: new_log_entry_text)
         expect(log_entry).
           to receive(:read_attribute_before_type_cast).
           with('created_at').
@@ -140,7 +140,7 @@ RSpec.describe 'Logs app' do
           acting_browser_uuid: SecureRandom.uuid,
           action: 'created',
           model: LogEntrySerializer.new(log_entry).as_json.merge(
-            id: LogEntries::TextLogEntry.maximum(:id) + 1,
+            id: LogEntry.maximum(:id) + 1,
           ),
         )
       end

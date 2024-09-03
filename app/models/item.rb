@@ -13,7 +13,6 @@
 #
 #  index_items_on_store_id_and_name  (store_id,name) UNIQUE
 #
-
 class Item < ApplicationRecord
   include JsonBroadcastable
 

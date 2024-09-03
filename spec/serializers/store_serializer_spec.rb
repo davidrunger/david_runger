@@ -15,7 +15,6 @@
 #
 #  index_stores_on_user_id_and_name  (user_id,name) UNIQUE
 #
-
 RSpec.describe(StoreSerializer) do
   subject(:store_serializer) do
     StoreSerializer.new(store, params: { current_user: })

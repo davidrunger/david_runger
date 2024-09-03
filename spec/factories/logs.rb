@@ -20,7 +20,6 @@
 #  index_logs_on_user_id_and_name  (user_id,name) UNIQUE
 #  index_logs_on_user_id_and_slug  (user_id,slug) UNIQUE
 #
-
 FactoryBot.define do
   factory :log do
     association :user
