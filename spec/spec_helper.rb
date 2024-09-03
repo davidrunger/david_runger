@@ -221,7 +221,6 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Rack::Attack.reset!
-    RedisConfig.clear!
     $redis_pool.with { |conn| conn.call('flushdb', 'sync') }
     Sidekiq.redis { |conn| conn.call('flushdb', 'sync') }
   end
