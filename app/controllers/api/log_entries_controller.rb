@@ -12,9 +12,8 @@ class Api::LogEntriesController < Api::BaseController
     end
   end
 
-  # currently only works for `TextLogEntry`s
   def update
-    @log_entry ||= current_user.log_entries.text_log_entry_data.find_by(id: params['id'])
+    @log_entry ||= current_user.log_entries.find_by(id: params['id'])
     if @log_entry.nil?
       head(:not_found)
       skip_authorization
