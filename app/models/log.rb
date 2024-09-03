@@ -90,8 +90,11 @@ class Log < ApplicationRecord
         params = params.symbolize_keys
       end
 
-      log_entry.assign_attributes(params.except(:data))
-      log_entry.log_entry_datum = log_entry_datum_class.new(data: params[:data])
+      data_params, non_data_params =
+        params.partition { |key, _value| key.to_sym == :data }.map(&:to_h)
+
+      log_entry.assign_attributes(non_data_params)
+      log_entry.log_entry_datum = log_entry_datum_class.new(data_params)
     end
   end
 end
