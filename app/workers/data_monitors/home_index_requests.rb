@@ -5,10 +5,9 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
   def perform
     verify_data_expectation(check_name: :number_of_requests_in_past_day, expectation: (5..500))
 
-    accessor = RedisConfig::Accessor.new("#{self.class.name}.median_response_time_in_past_day")
     verify_data_expectation(
       check_name: :median_response_time_in_past_day,
-      expectation: (accessor.get('min', 10)..accessor.get('max', 100)),
+      expectation: (10..100),
     )
   end
 
