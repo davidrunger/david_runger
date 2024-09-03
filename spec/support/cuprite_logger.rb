@@ -15,6 +15,10 @@ class CupriteLogger
     @javascript_errors ||= []
   end
 
+  def self.javascript_logs
+    @javascript_logs ||= []
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
   # rubocop:disable Metrics/MethodLength
@@ -70,6 +74,8 @@ class CupriteLogger
       if LOG_MESSAGES_TO_IGNORE.none? { _1.match?(args_values.first.to_s) }
         $stdout.send(:print, "JavaScript console.#{type} argument(s): ")
         $stdout.send(:ap, args_values)
+
+        self.class.javascript_logs << args_values
       end
     end
   end
