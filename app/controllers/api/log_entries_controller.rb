@@ -4,7 +4,7 @@ class Api::LogEntriesController < Api::BaseController
     log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
     @log_entry = log.build_log_entry_with_datum(log_entry_params)
 
-    if @log_entry.valid? && @log_entry.log_entry_datum.valid?
+    if @log_entry.valid?
       LogEntries::Save.run!(log_entry: @log_entry)
       render_schema_json(@log_entry, status: :created)
     else

@@ -25,6 +25,7 @@ class LogEntry < ApplicationRecord
     inverse_of: :log_entry
 
   validates :log_entry_datum, presence: true
+  validates_associated :log_entry_datum
 
   delegate :data, to: :log_entry_datum
 
