@@ -4,6 +4,16 @@ class ErrorsController < ApplicationController
   before_action :skip_authorization
 
   def not_found
+    if (exception = request.env['action_dispatch.exception'])
+      Rails.error.report(
+        exception,
+        context: {
+          path: request.env['REQUEST_URI'],
+          request: request.env.dig('rollbar.scope', :request)&.call,
+        },
+      )
+    end
+
     respond_to do |format|
       format.html { render file: 'public/404.html', status: :not_found, layout: false }
       format.json { render json: { error: 'Resource not found' }, status: :not_found }
