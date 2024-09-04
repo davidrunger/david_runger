@@ -15,7 +15,6 @@
 #
 #  index_stores_on_user_id_and_name  (user_id,name) UNIQUE
 #
-
 FactoryBot.define do
   factory :store do
     name { Faker::Company.name }

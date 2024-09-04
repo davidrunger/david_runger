@@ -20,7 +20,7 @@ RSpec.describe Log do
       let(:reminder_time_interval) { 3.days }
 
       context 'when the log has at least one log entry' do
-        let(:log) { Log.joins(:text_log_entries).first! }
+        let(:log) { Log.joins(:log_entries).first! }
 
         context 'when all log entries were created long enough ago that a reminder is needed' do
           before do
@@ -113,6 +113,49 @@ RSpec.describe Log do
             expect(needing_reminder).not_to include(log)
           end
         end
+      end
+    end
+  end
+
+  describe '#build_log_entry_with_datum' do
+    subject(:build_log_entry_with_datum) { log.build_log_entry_with_datum(params) }
+
+    let(:params) { { note:, data: } }
+    let(:note) { 'Noted!' }
+
+    context 'when the log is a number log' do
+      let(:log) { logs(:number_log) }
+      let(:data) { 417 }
+
+      it 'returns an unpersisted LogEntry with an associated unpersisted NumberLogEntryDatum' do
+        log_entry = build_log_entry_with_datum
+
+        expect(log_entry).to be_a(LogEntry)
+        expect(log_entry).to be_new_record
+        expect(log_entry.note).to eq(note)
+
+        log_entry_datum = log_entry.log_entry_datum
+        expect(log_entry_datum).to be_a(NumberLogEntryDatum)
+        expect(log_entry_datum).to be_new_record
+        expect(log_entry_datum.data).to eq(data)
+      end
+    end
+
+    context 'when the log is a text log' do
+      let(:log) { logs(:text_log) }
+      let(:data) { 'Data!' }
+
+      it 'returns an unpersisted LogEntry with an associated unpersisted NumberLogEntryDatum' do
+        log_entry = build_log_entry_with_datum
+
+        expect(log_entry).to be_a(LogEntry)
+        expect(log_entry).to be_new_record
+        expect(log_entry.note).to eq(note)
+
+        log_entry_datum = log_entry.log_entry_datum
+        expect(log_entry_datum).to be_a(TextLogEntryDatum)
+        expect(log_entry_datum).to be_new_record
+        expect(log_entry_datum.data).to eq(data)
       end
     end
   end

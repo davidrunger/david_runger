@@ -1,27 +1,27 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "0876877479e8eabc4b454d7e2d6439f449e68d59787a1a465b21a468a3db0ea9",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/poros/json_schema_validator.rb",
-      "line": 85,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "system(\"$EDITOR '#{absolute_schema_path}'\", :exception => true)",
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "27d323ac7559eda6810bc2031e39dbdba22c04ef4ddea098aff30cab28151043",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/log_entries_controller.rb",
+      "line": 94,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ApplicationRecord.connection.select_values(\"SELECT row_to_json(log_entry)\\nFROM (\\n  SELECT\\n    log_entries.id,\\n    to_char(log_entries.created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD\\\"T\\\"HH24:MI:SS\\\"Z\\\"') AS created_at,\\n    data,\\n    log_entries.log_id,\\n    log_entries.note\\n  FROM #{log.log_entry_datum_class.table_name}\\n  INNER JOIN log_entries\\n    ON log_entries.log_entry_datum_id = #{log.log_entry_datum_class.table_name}.id\\n    AND log_entries.log_entry_datum_type = '#{log.log_entry_datum_class.name}'\\n  WHERE log_entries.log_id = #{log.id}\\n) log_entry;\\n\".squish)",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "JsonSchemaValidator",
-        "method": "create_and_open_schema_file_in_editor"
+        "class": "Api::LogEntriesController",
+        "method": "log_entry_json_strings_for_log"
       },
-      "user_input": "absolute_schema_path",
+      "user_input": "log.log_entry_datum_class.name",
       "confidence": "Medium",
       "cwe_id": [
-        77
+        89
       ],
-      "note": "`absolute_schema_path` is not really user-controllable, and this is only accessible in development"
+      "note": "User has no control over any of the interpolated values"
     },
     {
       "warning_type": "Redirect",
@@ -45,6 +45,29 @@
         601
       ],
       "note": "False positive"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "891991462a96f82b2cba077cb953a657e4f0f6102d8b400604826b82c2bec89c",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/log_entries_controller.rb",
+      "line": 119,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ApplicationRecord.connection.select_values(\"SELECT row_to_json(log_entry)\\nFROM (\\n  SELECT\\n    log_entries.id,\\n    to_char(\\n      log_entries.created_at AT TIME ZONE 'UTC',\\n      'YYYY-MM-DD\\\"T\\\"HH24:MI:SS\\\"Z\\\"'\\n    ) AS created_at,\\n    #{datum_class.table_name}.data,\\n    log_entries.log_id,\\n    log_entries.note\\n  FROM #{datum_class.table_name}\\n  INNER JOIN log_entries\\n    ON log_entries.log_entry_datum_id = #{datum_class.table_name}.id\\n    AND log_entries.log_entry_datum_type = '#{datum_class.name}'\\n  INNER JOIN logs\\n    ON logs.id = log_entries.log_id\\n  WHERE logs.user_id = #{user.id}\\n) log_entry;\\n\".squish)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::LogEntriesController",
+        "method": "log_entry_json_strings_for_user_and_datum_class"
+      },
+      "user_input": "datum_class.name",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "User has no control over any of the interpolated values"
     },
     {
       "warning_type": "Redirect",
@@ -72,29 +95,6 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "c4d98d8b128881441391541128a15dcad245c56aa7689794ba9cc674ce90211f",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/controllers/api/log_entries_controller.rb",
-      "line": 99,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.select_values(\"SELECT row_to_json(log_entry)\\nFROM (\\n  SELECT\\n    #{table_name}.id,\\n    to_char(\\n      #{table_name}.created_at AT TIME ZONE 'UTC',\\n      'YYYY-MM-DD\\\"T\\\"HH24:MI:SS\\\"Z\\\"'\\n    ) AS created_at,\\n    #{table_name}.data,\\n    #{table_name}.log_id,\\n    #{table_name}.note\\n  FROM #{table_name}\\n  INNER JOIN logs ON logs.id = #{table_name}.log_id\\n  WHERE logs.user_id = #{user.id}\\n) log_entry;\\n\".squish)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Api::LogEntriesController",
-        "method": "log_entry_json_strings_for_user_and_table"
-      },
-      "user_input": "table_name",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": "False positive"
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
       "fingerprint": "e75cbe5dade3e44cda6c326df9b399f7f658553364bdabdfdf55f142a476d6cb",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -114,31 +114,8 @@
         89
       ],
       "note": "False positive"
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "ee8da255976e57b16f2a4d99b376976ee79f419e74c2a6259118655395db94aa",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/controllers/api/log_entries_controller.rb",
-      "line": 88,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.select_values(\"SELECT row_to_json(log_entry)\\nFROM (\\n  SELECT\\n    id,\\n    to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD\\\"T\\\"HH24:MI:SS\\\"Z\\\"') AS created_at,\\n    data,\\n    log_id,\\n    note\\n  FROM #{log.log_entries_table_name}\\n  WHERE #{log.log_entries_table_name}.log_id = #{log.id}\\n) log_entry;\\n\".squish)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Api::LogEntriesController",
-        "method": "log_entry_json_strings_for_log"
-      },
-      "user_input": "log.log_entries_table_name",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": "False positive"
     }
   ],
-  "updated": "2024-08-27 06:54:09 -0500",
+  "updated": "2024-09-03 21:47:17 -0500",
   "brakeman_version": "6.2.1"
 }

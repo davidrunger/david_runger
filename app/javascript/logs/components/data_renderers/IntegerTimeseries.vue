@@ -11,7 +11,7 @@ import { sortBy } from 'lodash-es';
 import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
-import type { LogEntry } from '@/logs/types';
+import type { LogEntry } from '@/types';
 
 const props = defineProps({
   dataLabel: {

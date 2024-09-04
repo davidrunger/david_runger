@@ -2,7 +2,7 @@ class Api::LogEntriesController < Api::BaseController
   def create
     authorize(LogEntry)
     log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
-    @log_entry = log.log_entries.build(log_entry_params)
+    @log_entry = log.build_log_entry_with_datum(log_entry_params)
 
     if @log_entry.valid?
       LogEntries::Save.run!(log_entry: @log_entry)
@@ -12,9 +12,9 @@ class Api::LogEntriesController < Api::BaseController
     end
   end
 
-  # currently only works for `TextLogEntry`s
   def update
-    @log_entry ||= current_user.text_log_entries.find_by(id: params['id'])
+    @log_entry ||= current_user.log_entries.find_by(id: params['id'])
+
     if @log_entry.nil?
       head(:not_found)
       skip_authorization
@@ -22,7 +22,8 @@ class Api::LogEntriesController < Api::BaseController
     end
 
     authorize(@log_entry)
-    if @log_entry.update(log_entry_params)
+
+    if LogEntries::Update.new!(log_entry: @log_entry, params: log_entry_params).run.success?
       render_schema_json(@log_entry, status: :ok)
     else
       render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
@@ -54,13 +55,13 @@ class Api::LogEntriesController < Api::BaseController
         authorize(log, :show?)
         log_entry_json_strings_for_log(log)
       else
-        log_entry_json_strings_for_user_and_table(
+        log_entry_json_strings_for_user_and_datum_class(
           user: current_user,
-          table_name: LogEntries::NumberLogEntry.table_name,
+          datum_class: NumberLogEntryDatum,
         ) +
-          log_entry_json_strings_for_user_and_table(
+          log_entry_json_strings_for_user_and_datum_class(
             user: current_user,
-            table_name: LogEntries::TextLogEntry.table_name,
+            datum_class: TextLogEntryDatum,
           )
       end
 
@@ -74,38 +75,50 @@ class Api::LogEntriesController < Api::BaseController
   end
 
   def log_entry_json_strings_for_log(log)
-    table_name = log.log_entries_table_name
+    datum_class = log.log_entry_datum_class
+    datum_table_name = datum_class.table_name
+    datum_class_name = datum_class.name
 
-    ActiveRecord::Base.connection.select_values(<<~SQL.squish)
+    ApplicationRecord.connection.select_values(<<~SQL.squish)
       SELECT row_to_json(log_entry)
       FROM (
         SELECT
-          id,
-          to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"') AS created_at,
+          log_entries.id,
+          to_char(log_entries.created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"') AS created_at,
           data,
-          log_id,
-          note
-        FROM #{table_name}
-        WHERE #{table_name}.log_id = #{log.id}
+          log_entries.log_id,
+          log_entries.note
+        FROM #{datum_table_name}
+        INNER JOIN log_entries
+          ON log_entries.log_entry_datum_id = #{datum_table_name}.id
+          AND log_entries.log_entry_datum_type = '#{datum_class_name}'
+        WHERE log_entries.log_id = #{log.id}
       ) log_entry;
     SQL
   end
 
-  def log_entry_json_strings_for_user_and_table(user:, table_name:)
-    ActiveRecord::Base.connection.select_values(<<~SQL.squish)
+  def log_entry_json_strings_for_user_and_datum_class(user:, datum_class:)
+    datum_table_name = datum_class.table_name
+    datum_class_name = datum_class.name
+
+    ApplicationRecord.connection.select_values(<<~SQL.squish)
       SELECT row_to_json(log_entry)
       FROM (
         SELECT
-          #{table_name}.id,
+          log_entries.id,
           to_char(
-            #{table_name}.created_at AT TIME ZONE 'UTC',
+            log_entries.created_at AT TIME ZONE 'UTC',
             'YYYY-MM-DD"T"HH24:MI:SS"Z"'
           ) AS created_at,
-          #{table_name}.data,
-          #{table_name}.log_id,
-          #{table_name}.note
-        FROM #{table_name}
-        INNER JOIN logs ON logs.id = #{table_name}.log_id
+          #{datum_table_name}.data,
+          log_entries.log_id,
+          log_entries.note
+        FROM #{datum_table_name}
+        INNER JOIN log_entries
+          ON log_entries.log_entry_datum_id = #{datum_table_name}.id
+          AND log_entries.log_entry_datum_type = '#{datum_class_name}'
+        INNER JOIN logs
+          ON logs.id = log_entries.log_id
         WHERE logs.user_id = #{user.id}
       ) log_entry;
     SQL

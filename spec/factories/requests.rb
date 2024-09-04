@@ -32,7 +32,6 @@
 #  index_requests_on_requested_at   (requested_at)
 #  index_requests_on_user_id        (user_id)
 #
-
 FactoryBot.define do
   factory :request do
     request_id { SecureRandom.uuid }

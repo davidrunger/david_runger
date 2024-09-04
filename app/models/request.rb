@@ -32,7 +32,6 @@
 #  index_requests_on_requested_at   (requested_at)
 #  index_requests_on_user_id        (user_id)
 #
-
 class Request < ApplicationRecord
   # error class for Rollbar logging
   class CreateRequestError < StandardError ; end

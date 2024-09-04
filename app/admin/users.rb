@@ -9,7 +9,7 @@ ActiveAdmin.register(User) do
       if params[:action] == 'destroy'
         collection =
           collection.includes(
-            logs: %i[log_shares number_log_entries text_log_entries],
+            logs: %i[log_entries log_shares],
             stores: %i[items],
           )
       end

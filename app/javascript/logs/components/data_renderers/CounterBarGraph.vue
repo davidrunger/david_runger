@@ -10,7 +10,7 @@
 import { computed, type PropType } from 'vue';
 
 import BarGraph from '@/components/charts/BarGraph.vue';
-import type { LogEntry } from '@/logs/types';
+import type { LogEntry } from '@/types';
 
 const props = defineProps({
   dataLabel: {

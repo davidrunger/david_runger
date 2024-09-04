@@ -13,7 +13,6 @@
 #
 #  index_items_on_store_id_and_name  (store_id,name) UNIQUE
 #
-
 FactoryBot.define do
   factory :item do
     name { generate(:item_name) }

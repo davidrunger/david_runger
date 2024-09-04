@@ -16,7 +16,6 @@
 #  index_need_satisfaction_ratings_on_emotional_need_id  (emotional_need_id)
 #  index_need_satisfaction_ratings_on_user_id            (user_id)
 #
-
 class NeedSatisfactionRatingSerializer < ApplicationSerializer
   attributes :id, :score
 

@@ -11,7 +11,6 @@
 #
 #  index_deploys_on_git_sha  (git_sha)
 #
-
 FactoryBot.define do
   factory :deploy do
     git_sha { SecureRandom.hex(20) }

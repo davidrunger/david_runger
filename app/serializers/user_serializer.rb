@@ -11,7 +11,6 @@
 #
 #  index_users_on_email  (email) UNIQUE
 #
-
 class UserSerializer < ApplicationSerializer
   typelize_from User
 

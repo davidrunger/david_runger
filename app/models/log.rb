@@ -20,20 +20,19 @@
 #  index_logs_on_user_id_and_name  (user_id,name) UNIQUE
 #  index_logs_on_user_id_and_slug  (user_id,slug) UNIQUE
 #
-
 class Log < ApplicationRecord
   DATA_TYPES = {
     'counter' => {
-      association: :number_log_entries,
+      datum_class: NumberLogEntryDatum,
     },
     'duration' => {
-      association: :text_log_entries,
+      datum_class: TextLogEntryDatum,
     },
     'number' => {
-      association: :number_log_entries,
+      datum_class: NumberLogEntryDatum,
     },
     'text' => {
-      association: :text_log_entries,
+      datum_class: TextLogEntryDatum,
     },
   }.transform_keys(&:freeze).transform_values(&:freeze).freeze
 
@@ -44,17 +43,8 @@ class Log < ApplicationRecord
 
   belongs_to :user
 
-  has_many :number_log_entries,
-    class_name: 'LogEntries::NumberLogEntry',
-    dependent: :destroy,
-    inverse_of: :log
-
-  has_many :text_log_entries,
-    class_name: 'LogEntries::TextLogEntry',
-    dependent: :destroy,
-    inverse_of: :log
-
-  has_many :log_shares, dependent: :destroy
+  has_many :log_entries, dependent: :destroy, inverse_of: :log
+  has_many :log_shares, dependent: :destroy, inverse_of: :log
 
   before_validation :set_slug, if: -> { name_changed? }
 
@@ -64,35 +54,23 @@ class Log < ApplicationRecord
 
   scope :needing_reminder,
     -> {
-      left_joins(:number_log_entries).
-        left_joins(:text_log_entries).
+      left_joins(:log_entries).
         where.not(reminder_time_in_seconds: nil).
         group('logs.id').
         having(<<~SQL.squish)
           (
-            MAX(number_log_entries.created_at) IS NULL
-            AND MAX(text_log_entries.created_at) IS NULL
+            MAX(log_entries.created_at) IS NULL
             AND logs.reminder_last_sent_at IS NULL
             AND EXTRACT(EPOCH FROM (NOW() - logs.created_at)) > logs.reminder_time_in_seconds
           )
           OR
           (
-            MAX(number_log_entries.created_at) IS NOT NULL
-            AND (logs.reminder_last_sent_at IS NULL OR logs.reminder_last_sent_at < MAX(number_log_entries.created_at))
-            AND EXTRACT(EPOCH FROM (NOW() - MAX(number_log_entries.created_at))) >= logs.reminder_time_in_seconds
-          )
-          OR
-          (
-            MAX(text_log_entries.created_at) IS NOT NULL
-            AND (logs.reminder_last_sent_at IS NULL OR logs.reminder_last_sent_at < MAX(text_log_entries.created_at))
-            AND EXTRACT(EPOCH FROM (NOW() - MAX(text_log_entries.created_at))) >= logs.reminder_time_in_seconds
+            MAX(log_entries.created_at) IS NOT NULL
+            AND (logs.reminder_last_sent_at IS NULL OR logs.reminder_last_sent_at < MAX(log_entries.created_at))
+            AND EXTRACT(EPOCH FROM (NOW() - MAX(log_entries.created_at))) >= logs.reminder_time_in_seconds
           )
         SQL
     }
-
-  def log_entries
-    public_send(DATA_TYPES[data_type][:association])
-  end
 
   def set_slug
     self.slug = name.downcase.gsub(%r{\s+|\.+|\\|/}, '-').gsub(/[^[:alnum:]\-_]/, '')
@@ -102,7 +80,17 @@ class Log < ApplicationRecord
     slug
   end
 
-  def log_entries_table_name
-    DATA_TYPES[data_type][:association]
+  def log_entry_datum_class
+    DATA_TYPES[data_type][:datum_class]
+  end
+
+  def build_log_entry_with_datum(params)
+    log_entries.build.tap do |log_entry|
+      data_params, non_data_params =
+        params.to_h.partition { |key, _value| key.to_sym == :data }.map(&:to_h)
+
+      log_entry.assign_attributes(non_data_params)
+      log_entry.log_entry_datum = log_entry_datum_class.new(data_params)
+    end
   end
 end

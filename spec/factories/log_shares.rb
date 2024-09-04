@@ -12,7 +12,6 @@
 #
 #  index_log_shares_on_log_id_and_email  (log_id,email) UNIQUE
 #
-
 FactoryBot.define do
   factory :log_share do
     association :log

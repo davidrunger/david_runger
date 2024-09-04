@@ -15,7 +15,6 @@
 #  index_workouts_on_created_at  (created_at)
 #  index_workouts_on_user_id     (user_id)
 #
-
 RSpec.describe WorkoutSerializer do
   subject(:serializer) { WorkoutSerializer.new(workout) }
 

@@ -98,7 +98,7 @@ RSpec.describe Api::LogEntriesController do
     end
 
     context 'when the log entry is being updated with invalid params' do
-      let(:invalid_params) { { log_entry: { data: '' } } }
+      let(:invalid_params) { { log_entry: { created_at: 8.months.ago, data: '' } } }
       let(:params) { base_params.merge(invalid_params) }
 
       it 'does not update the log_entry' do
@@ -159,8 +159,8 @@ RSpec.describe Api::LogEntriesController do
 
       it 'destroys the log_entry' do
         expect { delete_destroy }.to change {
-          LogEntries::NumberLogEntry.find_by(id: log_entry.id)
-        }.from(LogEntries::NumberLogEntry).to(nil)
+          LogEntry.find_by(id: log_entry.id)
+        }.from(LogEntry).to(nil)
       end
 
       it 'returns a 204 status code' do
@@ -202,7 +202,7 @@ RSpec.describe Api::LogEntriesController do
             log_entry.slice('id')
           end
         expected_simplified_response_data =
-          user.logs.includes(:number_log_entries, :text_log_entries).
+          user.logs.includes(:log_entries).
             map(&:log_entries).flatten.
             map { |log_entry| { 'id' => log_entry.id } }
 

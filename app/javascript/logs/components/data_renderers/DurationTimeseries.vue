@@ -13,7 +13,7 @@ import { sortBy } from 'lodash-es';
 import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
-import type { LogEntry } from '@/logs/types';
+import type { LogEntry } from '@/types';
 
 function epochMsToHhMmSs(epochMs: number) {
   return new Date(epochMs)
@@ -44,7 +44,7 @@ function shortTimeStringToHhMmSsString(timeString: string) {
 type ChartData = {
   x: string;
   y: Date;
-  note: string | undefined;
+  note: string | null;
 };
 
 const props = defineProps({

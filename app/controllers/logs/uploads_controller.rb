@@ -4,6 +4,7 @@ class Logs::UploadsController < ApplicationController
     render :new
   end
 
+  # rubocop:disable Metrics/MethodLength
   def create
     authorize(LogEntry)
     log = current_user.logs.find(params['log_id'])
@@ -14,12 +15,24 @@ class Logs::UploadsController < ApplicationController
         created_at = (Time.iso8601(created_at_string) rescue Date.iso8601(created_at_string))
         attributes['created_at'] = created_at
         attributes['updated_at'] = created_at
-        log.log_entries.new(attributes)
+        log.build_log_entry_with_datum(attributes)
       end
 
     if log_entries.all?(&:valid?)
       log_entries.each do |log_entry|
-        CreateLogEntry.perform_async(log_entry.class.name, log_entry.attributes.compact.to_json)
+        CreateLogEntry.
+          perform_async(
+            log_entry.
+              attributes.
+              merge(
+                log_entry.
+                  log_entry_datum.
+                  attributes.
+                  slice('data'),
+              ).
+              compact.
+              to_json,
+          )
       end
       flash[:notice] = 'Data uploaded successfully! Give it a moment to enter the database.'
       redirect_to(log_path(slug: log.slug))
@@ -28,4 +41,5 @@ class Logs::UploadsController < ApplicationController
       redirect_to(logs_uploads_path)
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end

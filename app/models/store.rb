@@ -15,7 +15,6 @@
 #
 #  index_stores_on_user_id_and_name  (user_id,name) UNIQUE
 #
-
 class Store < ApplicationRecord
   belongs_to :user
   has_many :items, dependent: :destroy
