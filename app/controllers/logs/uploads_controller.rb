@@ -21,8 +21,16 @@ class Logs::UploadsController < ApplicationController
       log_entries.each do |log_entry|
         CreateLogEntry.
           perform_async(
-            log_entry.attributes.merge(log_entry.log_entry_datum.attributes.slice('data')).
-              compact.to_json,
+            log_entry.
+              attributes.
+              merge(
+                log_entry.
+                  log_entry_datum.
+                  attributes.
+                  slice('data'),
+              ).
+              compact.
+              to_json,
           )
       end
       flash[:notice] = 'Data uploaded successfully! Give it a moment to enter the database.'
