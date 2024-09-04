@@ -13,7 +13,7 @@ import { sortBy } from 'lodash-es';
 import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
-import { LogEntry } from '@/types';
+import type { LogEntry } from '@/types';
 
 function epochMsToHhMmSs(epochMs: number) {
   return new Date(epochMs)

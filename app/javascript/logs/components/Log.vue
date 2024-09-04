@@ -58,7 +58,7 @@ import type { Log, LogDataType, LogEntryBroadcast } from '@/logs/types';
 import * as RoutesType from '@/rails_assets/routes';
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
-import { LogEntry } from '@/types';
+import type { LogEntry } from '@/types';
 
 import CounterBarGraph from './data_renderers/CounterBarGraph.vue';
 import DurationTimeseries from './data_renderers/DurationTimeseries.vue';
