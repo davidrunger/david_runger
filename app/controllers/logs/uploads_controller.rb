@@ -17,7 +17,7 @@ class Logs::UploadsController < ApplicationController
         log.build_log_entry_with_datum(attributes)
       end
 
-    if log_entries.all? { |log_entry| log_entry.valid? && log_entry.log_entry_datum.valid? }
+    if log_entries.all?(&:valid?)
       log_entries.each do |log_entry|
         CreateLogEntry.
           perform_async(
