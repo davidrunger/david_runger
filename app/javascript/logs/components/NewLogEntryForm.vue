@@ -46,7 +46,7 @@ import { ElInput } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
-import type { LogEntryDataValue } from '@/logs/types';
+import { LogEntryDataValue } from '@/types';
 
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 
