@@ -79,7 +79,7 @@ class Api::LogEntriesController < Api::BaseController
     table_name = datum_class.table_name
     class_name = datum_class.name
 
-    ActiveRecord::Base.connection.select_values(<<~SQL.squish)
+    ApplicationRecord.connection.select_values(<<~SQL.squish)
       SELECT row_to_json(log_entry)
       FROM (
         SELECT
@@ -101,7 +101,7 @@ class Api::LogEntriesController < Api::BaseController
     table_name = datum_class.table_name
     class_name = datum_class.name
 
-    ActiveRecord::Base.connection.select_values(<<~SQL.squish)
+    ApplicationRecord.connection.select_values(<<~SQL.squish)
       SELECT row_to_json(log_entry)
       FROM (
         SELECT
