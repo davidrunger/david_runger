@@ -120,10 +120,11 @@ RSpec.describe Log do
   describe '#build_log_entry_with_datum' do
     subject(:build_log_entry_with_datum) { log.build_log_entry_with_datum(params) }
 
+    let(:params) { { note:, data: } }
+    let(:note) { 'Noted!' }
+
     context 'when the log is a number log' do
       let(:log) { logs(:number_log) }
-      let(:params) { { note:, data: } }
-      let(:note) { 'Noted!' }
       let(:data) { 417 }
 
       it 'returns an unpersisted LogEntry with an associated unpersisted NumberLogEntryDatum' do
@@ -140,8 +141,6 @@ RSpec.describe Log do
 
     context 'when the log is a text log' do
       let(:log) { logs(:text_log) }
-      let(:params) { { note:, data: } }
-      let(:note) { 'Noted!' }
       let(:data) { 'Data!' }
 
       it 'returns an unpersisted LogEntry with an associated unpersisted NumberLogEntryDatum' do
