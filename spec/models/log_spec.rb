@@ -128,11 +128,13 @@ RSpec.describe Log do
       let(:data) { 417 }
 
       it 'returns an unpersisted LogEntry with an associated unpersisted NumberLogEntryDatum' do
-        expect(build_log_entry_with_datum).to be_a(LogEntry)
-        expect(build_log_entry_with_datum).to be_new_record
-        expect(build_log_entry_with_datum.note).to eq(note)
+        log_entry = build_log_entry_with_datum
 
-        log_entry_datum = build_log_entry_with_datum.log_entry_datum
+        expect(log_entry).to be_a(LogEntry)
+        expect(log_entry).to be_new_record
+        expect(log_entry.note).to eq(note)
+
+        log_entry_datum = log_entry.log_entry_datum
         expect(log_entry_datum).to be_a(NumberLogEntryDatum)
         expect(log_entry_datum).to be_new_record
         expect(log_entry_datum.data).to eq(data)
@@ -144,11 +146,13 @@ RSpec.describe Log do
       let(:data) { 'Data!' }
 
       it 'returns an unpersisted LogEntry with an associated unpersisted NumberLogEntryDatum' do
-        expect(build_log_entry_with_datum).to be_a(LogEntry)
-        expect(build_log_entry_with_datum).to be_new_record
-        expect(build_log_entry_with_datum.note).to eq(note)
+        log_entry = build_log_entry_with_datum
 
-        log_entry_datum = build_log_entry_with_datum.log_entry_datum
+        expect(log_entry).to be_a(LogEntry)
+        expect(log_entry).to be_new_record
+        expect(log_entry.note).to eq(note)
+
+        log_entry_datum = log_entry.log_entry_datum
         expect(log_entry_datum).to be_a(TextLogEntryDatum)
         expect(log_entry_datum).to be_new_record
         expect(log_entry_datum.data).to eq(data)
