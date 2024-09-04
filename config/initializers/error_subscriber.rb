@@ -38,7 +38,11 @@ class ErrorSubscriber
   def send_to_rollbar(error, handled:, severity:, context:, source: nil)
     context = { handled: handled.present?, source: }.compact.merge(context)
 
-    Rollbar.log(severity_method(severity), error, context)
+    scope = { request: context.delete(:request) }.compact
+
+    Rollbar.scoped(scope) do
+      Rollbar.log(severity_method(severity), error, context)
+    end
   end
 
   def severity_method(severity)
