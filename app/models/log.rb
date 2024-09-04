@@ -86,15 +86,8 @@ class Log < ApplicationRecord
 
   def build_log_entry_with_datum(params)
     log_entries.build.tap do |log_entry|
-      params =
-        if params.respond_to?(:symbolize_keys)
-          params.symbolize_keys
-        else
-          params.to_h
-        end
-
       data_params, non_data_params =
-        params.partition { |key, _value| key.to_sym == :data }.map(&:to_h)
+        params.to_h.partition { |key, _value| key.to_sym == :data }.map(&:to_h)
 
       log_entry.assign_attributes(non_data_params)
       log_entry.log_entry_datum = log_entry_datum_class.new(data_params)
