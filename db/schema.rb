@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_03_063822) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_04_034053) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -220,12 +220,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_063822) do
   end
 
   create_table "number_log_entry_data", force: :cascade do |t|
-    t.bigint "log_id"
     t.float "data", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "note"
-    t.index ["log_id"], name: "index_number_log_entry_data_on_log_id"
   end
 
   create_table "quiz_participations", force: :cascade do |t|
@@ -316,12 +313,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_063822) do
   end
 
   create_table "text_log_entry_data", force: :cascade do |t|
-    t.bigint "log_id"
     t.text "data", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "note"
-    t.index ["log_id"], name: "index_text_log_entry_data_on_log_id"
   end
 
   create_table "timeseries", force: :cascade do |t|
@@ -377,7 +371,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_063822) do
   add_foreign_key "need_satisfaction_ratings", "check_ins"
   add_foreign_key "need_satisfaction_ratings", "emotional_needs"
   add_foreign_key "need_satisfaction_ratings", "users"
-  add_foreign_key "number_log_entry_data", "logs"
   add_foreign_key "quiz_participations", "quizzes"
   add_foreign_key "quiz_participations", "users", column: "participant_id"
   add_foreign_key "quiz_question_answer_selections", "quiz_participations", column: "participation_id"
@@ -389,6 +382,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_063822) do
   add_foreign_key "requests", "auth_tokens", on_delete: :nullify
   add_foreign_key "requests", "users"
   add_foreign_key "stores", "users"
-  add_foreign_key "text_log_entry_data", "logs"
   add_foreign_key "workouts", "users"
 end
