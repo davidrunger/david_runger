@@ -1,21 +1,13 @@
 import { JsonBroadcast } from '@/shared/types';
 import type {
   Intersection,
+  LogEntry,
   Log as TypelizerLog,
   UserSerializerBasic,
 } from '@/types';
 import { LogsIndexBootstrap } from '@/types/bootstrap/LogsIndexBootstrap';
 
-export type LogEntryDataValue = string | number;
 export type LogDataType = 'counter' | 'duration' | 'number' | 'text';
-
-export interface LogEntry {
-  id: number;
-  created_at: string;
-  data: LogEntryDataValue;
-  log_id: number;
-  note?: string;
-}
 
 export interface TextLogEntry extends LogEntry {
   data: string;

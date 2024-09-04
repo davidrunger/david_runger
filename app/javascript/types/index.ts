@@ -4,6 +4,10 @@ export type Intersection<T, U> = {
   [K in Extract<keyof T, keyof U>]: T[K];
 };
 
+// begin logs >>
+export type LogEntryDataValue = string | number;
+// << end logs
+
 // begin emoji picker >>
 interface EmojiDataBase {
   symbol: string;

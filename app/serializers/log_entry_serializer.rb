@@ -18,10 +18,12 @@
 class LogEntrySerializer < ApplicationSerializer
   attributes :id, :log_id, :note
 
+  typelize 'string'
   attribute(:created_at) do |log_entry|
     log_entry.read_attribute_before_type_cast('created_at').iso8601
   end
 
+  typelize 'LogEntryDataValue'
   attribute(:data) do |log_entry|
     log_entry.log_entry_datum.data
   end

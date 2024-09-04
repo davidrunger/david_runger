@@ -7,7 +7,12 @@ import * as RoutesType from '@/rails_assets/routes';
 import { assert, typesafeAssign } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
 import { getById } from '@/shared/store_helpers';
-import type { Intersection, LogShare } from '@/types';
+import type {
+  Intersection,
+  LogEntry,
+  LogEntryDataValue,
+  LogShare,
+} from '@/types';
 import { LogCreateResponse } from '@/types/responses/LogCreateResponse';
 import { LogEntriesIndexResponse } from '@/types/responses/LogEntriesIndexResponse';
 import { LogEntryCreateResponse } from '@/types/responses/LogEntryCreateResponse';
@@ -15,7 +20,7 @@ import { LogEntryUpdateResponse } from '@/types/responses/LogEntryUpdateResponse
 import { LogShareCreateResponse } from '@/types/responses/LogShareCreateResponse';
 import { LogUpdateResponse } from '@/types/responses/LogUpdateResponse';
 
-import { Bootstrap, Log, LogEntry, LogEntryDataValue } from './types';
+import { Bootstrap, Log } from './types';
 
 declare const Routes: typeof RoutesType;
 
