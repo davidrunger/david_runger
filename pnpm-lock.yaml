@@ -208,8 +208,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       vite-plugin-ruby:
-        specifier: ^5.0.0
-        version: 5.0.0(vite@5.4.3(@types/node@20.6.0)(sass@1.78.0))
+        specifier: ^5.1.0
+        version: 5.1.0(vite@5.4.3(@types/node@20.6.0)(sass@1.78.0))
       vue-tsc:
         specifier: ^2.1.6
         version: 2.1.6(typescript@5.5.4)
@@ -3224,8 +3224,8 @@ packages:
   vite-plugin-full-reload@1.2.0:
     resolution: {integrity: sha512-kz18NW79x0IHbxRSHm0jttP4zoO9P9gXh+n6UTwlNKnviTTEpOlum6oS9SmecrTtSr+muHEn5TUuC75UovQzcA==}
 
-  vite-plugin-ruby@5.0.0:
-    resolution: {integrity: sha512-c8PjTp21Ah/ttgnNUyu0qvCXZI08Jr9I24oUKg3TRIRhF5GcOZ++6wtlTCrNFd9COEQbpXHxlRIXd/MEg0iZJw==}
+  vite-plugin-ruby@5.1.0:
+    resolution: {integrity: sha512-Dgd/dCvb/8GYxZx2NEgxygEoUpHz9vfad7itlO4fXqYwdfAEwFwwOohC630yf/+kxIGBZXI5yk+Y3WkL9VkwcA==}
     peerDependencies:
       vite: '>=5.0.0'
 
@@ -6904,9 +6904,9 @@ snapshots:
       picocolors: 1.0.1
       picomatch: 2.3.1
 
-  vite-plugin-ruby@5.0.0(vite@5.4.3(@types/node@20.6.0)(sass@1.78.0)):
+  vite-plugin-ruby@5.1.0(vite@5.4.3(@types/node@20.6.0)(sass@1.78.0)):
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.6
       fast-glob: 3.3.2
       vite: 5.4.3(@types/node@20.6.0)(sass@1.78.0)
     transitivePeerDependencies:
