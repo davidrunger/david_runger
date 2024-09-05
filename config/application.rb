@@ -56,6 +56,8 @@ class DavidRunger::Application < Rails::Application
   config.time_zone = ENV.fetch('TIME_ZONE', 'America/Chicago')
   config.active_record.default_timezone = :utc
 
+  config.active_record.permanent_connection_checkout = :deprecated
+
   # config.eager_load_paths << Rails.root.join("extras")
 
   config.generators.helper = nil
