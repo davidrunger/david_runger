@@ -12,7 +12,9 @@ class TruncateTables
   end
 
   def self.execute_sql(sql)
-    ApplicationRecord.connection.execute(sql)
+    ApplicationRecord.with_connection do |connection|
+      connection.execute(sql)
+    end
   end
 
   def self.print_row_counts

@@ -96,7 +96,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'ferrum'
-  gem 'fixture_builder'
+  gem 'fixture_builder', github: 'davidrunger/fixture_builder'
   gem 'launchy'
   gem 'pallets', github: 'davidrunger/pallets'
   gem 'percy-capybara'
