@@ -37,7 +37,7 @@ Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
           type='primary'
           plain
           :disabled="checkingIn"
-          :class="{ pulsing: neededUnskippedCheckInItemsNotInCart.length === 0 }"
+          :class="{ pulsing: noMoreNeededItems() }"
         )
           span(v-if="checkingIn") Checking in...
           span(v-else) Check in items in cart
@@ -71,6 +71,17 @@ const checkInStoreNames = computed((): string => {
     .map((store: Store) => store.name)
     .join(', ');
 });
+
+function noMoreNeededItems() {
+  const itemsStillNeeded = groceriesStore.neededCheckInItems.filter(
+    (item) =>
+      ((item.checkInStatus === 'needed' || !item.checkInStatus) &&
+        !item.aboutToMoveTo) ||
+      item.aboutToMoveTo === 'needed',
+  );
+
+  return itemsStillNeeded.length === 0;
+}
 
 async function handleTripCheckinModalSubmit() {
   checkingIn.value = true;
