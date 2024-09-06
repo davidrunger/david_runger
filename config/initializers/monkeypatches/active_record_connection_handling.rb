@@ -5,11 +5,13 @@ if Rails.env.test?
     def connection
       pool = connection_pool
       check_calling_connection_allowed
+      # :nocov:
       if pool.permanent_lease?
         pool.lease_connection
       else
         pool.active_connection
       end
+      # :nocov:
     end
 
     def check_calling_connection_allowed
