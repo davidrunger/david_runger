@@ -15,11 +15,13 @@ if Rails.env.test?
     def check_calling_connection_allowed
       case ActiveRecord.permanent_connection_checkout
       when :deprecated
+        # :nocov:
         ActiveRecord.deprecator.warn(<<~MESSAGE)
           Called deprecated `ActiveRecord::Base.connection` method.
 
           Either use `with_connection` or `lease_connection`.
         MESSAGE
+        # :nocov:
       when :disallowed
         raise(ActiveRecord::ActiveRecordError, <<~MESSAGE)
           Called deprecated `ActiveRecord::Base.connection` method.
