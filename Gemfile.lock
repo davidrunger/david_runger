@@ -31,6 +31,15 @@ GIT
       redis (~> 5.0)
 
 GIT
+  remote: https://github.com/davidrunger/ransack.git
+  revision: b27d833b4745496f73cfcf49f34b5ffb8e99b83f
+  specs:
+    ransack (4.2.1)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
+
+GIT
   remote: https://github.com/davidrunger/typelizer.git
   revision: b58ce4f7429039e5d8bb4910d4c81a00c084d415
   specs:
@@ -473,10 +482,6 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
-    ransack (4.2.1)
-      activerecord (>= 6.1.5)
-      activesupport (>= 6.1.5)
-      i18n
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
@@ -736,6 +741,7 @@ DEPENDENCIES
   rails
   rails-controller-testing
   rainbow
+  ransack!
   redis-client
   redlock
   request_store

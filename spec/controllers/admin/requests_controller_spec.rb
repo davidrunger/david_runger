@@ -2,13 +2,16 @@ RSpec.describe Admin::RequestsController do
   let(:admin_user) { admin_users(:admin_user) }
 
   describe '#index' do
-    subject(:get_index) { get(:index) }
+    subject(:get_index) { get(:index, params:) }
+
+    let(:params) { {} }
 
     context 'when logged in as an AdminUser' do
       before { sign_in(admin_user) }
 
       it 'responds with 200' do
         get_index
+
         expect(response).to have_http_status(200)
       end
 
@@ -23,6 +26,7 @@ RSpec.describe Admin::RequestsController do
 
         it 'displays the parsed user agent' do
           get_index
+
           expect(response.body).to have_text('Firefox 84 on macOS')
         end
       end
@@ -35,7 +39,18 @@ RSpec.describe Admin::RequestsController do
 
         it 'displays the raw user agent' do
           get_index
+
           expect(response.body).to have_text(user_agent)
+        end
+      end
+
+      context 'when applying a filter' do
+        let(:params) { { q: { handler_eq: 'blog#show' } } }
+
+        it 'responds with 200' do
+          get_index
+
+          expect(response).to have_http_status(200)
         end
       end
     end
@@ -51,6 +66,7 @@ RSpec.describe Admin::RequestsController do
 
       it 'responds with 200' do
         get_show
+
         expect(response).to have_http_status(200)
       end
     end
