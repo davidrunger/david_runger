@@ -1,4 +1,19 @@
 GIT
+  remote: https://github.com/davidrunger/activeadmin.git
+  revision: ccbbe57a903fe6a6d5a804951a73d89b1a54db38
+  specs:
+    activeadmin (3.2.5)
+      arbre (~> 1.2, >= 1.2.1)
+      csv
+      formtastic (>= 3.1)
+      formtastic_i18n (>= 0.4)
+      inherited_resources (~> 1.7)
+      jquery-rails (>= 4.2)
+      kaminari (>= 1.2.1)
+      railties (>= 6.1)
+      ransack (>= 4.0)
+
+GIT
   remote: https://github.com/davidrunger/fixture_builder.git
   revision: 06ec00445196d4382e301e4e0b22aec2822ddc52
   specs:
@@ -69,16 +84,6 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activeadmin (3.2.4)
-      arbre (~> 1.2, >= 1.2.1)
-      csv
-      formtastic (>= 3.1)
-      formtastic_i18n (>= 0.4)
-      inherited_resources (~> 1.7)
-      jquery-rails (>= 4.2)
-      kaminari (>= 1.2.1)
-      railties (>= 6.1)
-      ransack (>= 4.0)
     activejob (7.2.1)
       activesupport (= 7.2.1)
       globalid (>= 0.3.6)
@@ -667,7 +672,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activeadmin
+  activeadmin!
   addressable
   alba
   amazing_print

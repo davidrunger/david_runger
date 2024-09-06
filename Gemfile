@@ -2,7 +2,7 @@ ruby file: '.ruby-version'
 
 source 'https://rubygems.org'
 
-gem 'activeadmin'
+gem 'activeadmin', github: 'davidrunger/activeadmin'
 gem 'alba'
 gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
