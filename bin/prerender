@@ -68,13 +68,11 @@ class Prerenderer
   end
 
   def remove_devicon_stylesheet!
-    # rubocop:disable Layout/LineLength
-    @html_doc.css(
-      'link[rel="stylesheet"]' \
-      '[href="https://cdn.jsdelivr.net/gh/konpa/devicon@df6431e323547add1b4cf45992913f15286456d3/devicon.min.css"]' \
-      '[data-lazyloader-state="spent"]',
-    ).remove
-    # rubocop:enable Layout/LineLength
+    @html_doc.
+      css(
+        'link[rel="stylesheet"][href*="devicon"][data-lazyloader-state="spent"]',
+      ).
+      remove
   end
 end
 
