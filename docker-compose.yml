@@ -7,12 +7,13 @@ x-rails-config: &default-rails-config
   env_file:
     # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local
-  logging:
-    driver: syslog
-    options:
-      # NOTE: The syslog-address value will be built into the image.
-      syslog-address: ${PAPERTRAIL_URL:-setpapertrailurl://it-was-not-set}
-      tag: '{{.Name}}/{{.ID}}'
+  # Uncomment this on 2024-09-17 or after.
+  # logging:
+  #   driver: syslog
+  #   options:
+  #     # NOTE: The syslog-address value will be built into the image.
+  #     syslog-address: ${PAPERTRAIL_URL:-setpapertrailurl://it-was-not-set}
+  #     tag: '{{.Name}}/{{.ID}}'
   networks:
     - external
     - internal
