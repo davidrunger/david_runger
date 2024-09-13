@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "@hotwired/turbo": "^8.0.6",
-    "@hotwired/turbo-rails": "^8.0.5",
+    "@hotwired/turbo-rails": "^8.0.9",
     "@rails/actioncable": "^7.2.100",
     "@rails/ujs": "^7.1.400",
     "@vitejs/plugin-vue": "^5.1.3",
