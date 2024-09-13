@@ -12,8 +12,8 @@ importers:
         specifier: ^8.0.5
         version: 8.0.5
       '@hotwired/turbo-rails':
-        specifier: ^8.0.5
-        version: 8.0.5
+        specifier: ^8.0.8
+        version: 8.0.8
       '@rails/actioncable':
         specifier: ^7.2.100
         version: 7.2.100
@@ -532,11 +532,15 @@ packages:
   '@floating-ui/utils@0.1.1':
     resolution: {integrity: sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==}
 
-  '@hotwired/turbo-rails@8.0.5':
-    resolution: {integrity: sha512-1A9G9u28IRAl0C57z8Ka3AhNPyJdwfOrbjr+ABZk2ZEUw2QO7cJ0pgs77asUj2E/tzn1PgrxrSVu24W+1Q5uBA==}
+  '@hotwired/turbo-rails@8.0.8':
+    resolution: {integrity: sha512-zxobisqRqU9hwV3e353xFgPcoYn8r792hu0ko80iKhxeUGinPDYWCbwd1PopCiwHa/7x9yETzm35HUaVYX+wIA==}
 
   '@hotwired/turbo@8.0.5':
     resolution: {integrity: sha512-TdZDA7fxVQ2ZycygvpnzjGPmFq4sO/E2QVg+2em/sJ3YTSsIWVEis8HmWlumz+c9DjWcUkcCuB+muF08TInpAQ==}
+    engines: {node: '>= 14'}
+
+  '@hotwired/turbo@8.0.6':
+    resolution: {integrity: sha512-mwZRfwcJ4yatUnW5tcCY9NDvo0kjuuLQF/y8pXigHhS+c/JY/ccNluVyuERR9Sraqx0qdpenkO3pNeSWz1mE3w==}
     engines: {node: '>= 14'}
 
   '@humanwhocodes/config-array@0.11.14':
@@ -3654,12 +3658,14 @@ snapshots:
 
   '@floating-ui/utils@0.1.1': {}
 
-  '@hotwired/turbo-rails@8.0.5':
+  '@hotwired/turbo-rails@8.0.8':
     dependencies:
-      '@hotwired/turbo': 8.0.5
+      '@hotwired/turbo': 8.0.6
       '@rails/actioncable': 7.2.100
 
   '@hotwired/turbo@8.0.5': {}
+
+  '@hotwired/turbo@8.0.6': {}
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
