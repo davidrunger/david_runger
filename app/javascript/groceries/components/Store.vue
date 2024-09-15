@@ -2,7 +2,7 @@
 .store-container.overflow-auto.hidden-scrollbars.pt-2.pl-8.pr-4
   StoreHeader(:store="store")
 
-  el-button.mr-2.mt-2.mb-4(
+  el-button.mr-2.mt-2(
     @click='initializeTripCheckIn'
     :size='isMobileDevice() ? "small" : null'
   ) Check in items
