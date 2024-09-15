@@ -26,8 +26,8 @@
     span.item-name(v-else)
       | {{item.name}}
       |
-      a.js-link.text-neutral-400(@click='editItemName')
-        edit-icon(size='17')
+      a.js-link.text-neutral-400(@click='editItemName' class="hover:text-black")
+        EditIcon(size='17')
     | &nbsp;
     span ({{item.needed}})
   .delete.text-2xl.js-link.right.text-red-600.leading-unset(
