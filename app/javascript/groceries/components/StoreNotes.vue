@@ -66,5 +66,3 @@ function stopEditingAndUpdateStoreNotes() {
   });
 }
 </script>
-
-<style scoped lang="scss"></style>

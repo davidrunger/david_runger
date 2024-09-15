@@ -52,5 +52,3 @@ async function postNewItem() {
   }
 }
 </script>
-
-<style scoped lang="scss"></style>
