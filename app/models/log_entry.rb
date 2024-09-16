@@ -30,12 +30,4 @@ class LogEntry < ApplicationRecord
   delegate :data, to: :log_entry_datum
 
   broadcasts_json_to(LogEntriesChannel, ->(log_entry) { log_entry.log })
-
-  def self.policy_class
-    LogEntryPolicy
-  end
-
-  def self.serializer_class
-    LogEntrySerializer
-  end
 end
