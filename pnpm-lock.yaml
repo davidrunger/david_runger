@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@hotwired/turbo':
-        specifier: ^8.0.6
-        version: 8.0.6
+        specifier: ^8.0.10
+        version: 8.0.10
       '@hotwired/turbo-rails':
         specifier: ^8.0.10
         version: 8.0.10
@@ -535,8 +535,8 @@ packages:
   '@hotwired/turbo-rails@8.0.10':
     resolution: {integrity: sha512-BkERfjTbNwMb9/YQi0RL9+f9zkD+dZH2klEONtGwXrIE3O9BE1937Nn9++koZpDryD4XN3zE5U5ibyWoYJAWBg==}
 
-  '@hotwired/turbo@8.0.6':
-    resolution: {integrity: sha512-mwZRfwcJ4yatUnW5tcCY9NDvo0kjuuLQF/y8pXigHhS+c/JY/ccNluVyuERR9Sraqx0qdpenkO3pNeSWz1mE3w==}
+  '@hotwired/turbo@8.0.10':
+    resolution: {integrity: sha512-xen1YhNQirAHlA8vr/444XsTNITC1Il2l/Vx4w8hAWPpI5nQO78mVHNsmFuayETodzPwh25ob2TgfCEV/Loiog==}
     engines: {node: '>= 14'}
 
   '@humanwhocodes/config-array@0.13.0':
@@ -3644,10 +3644,10 @@ snapshots:
 
   '@hotwired/turbo-rails@8.0.10':
     dependencies:
-      '@hotwired/turbo': 8.0.6
+      '@hotwired/turbo': 8.0.10
       '@rails/actioncable': 7.2.100
 
-  '@hotwired/turbo@8.0.6': {}
+  '@hotwired/turbo@8.0.10': {}
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
