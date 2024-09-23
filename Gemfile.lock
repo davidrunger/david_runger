@@ -191,7 +191,7 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     climate_control (1.2.0)
-    cloudflare-rails (6.0.0)
+    cloudflare-rails (6.1.0)
       actionpack (>= 7.1.0, < 8.1.0)
       activesupport (>= 7.1.0, < 8.1.0)
       railties (>= 7.1.0, < 8.1.0)
