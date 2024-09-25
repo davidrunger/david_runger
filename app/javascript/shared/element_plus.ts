@@ -11,6 +11,7 @@ import {
   ElSubMenu,
   ElSwitch,
   ElTag,
+  ElTooltip,
 } from 'element-plus';
 import { App } from 'vue';
 
@@ -27,4 +28,5 @@ export function useElementPlus(app: App<Element>) {
   app.use(ElSubMenu);
   app.use(ElSwitch);
   app.use(ElTag);
+  app.use(ElTooltip);
 }

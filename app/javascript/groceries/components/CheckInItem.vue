@@ -14,6 +14,12 @@ li.flex.items-center.break-word.mb-2(
       span {{item.name}}
       span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
     span {{ ' ' }}
+    ElTooltip(
+      content="Spouse item"
+      placement="top"
+    )
+      HeartFilledIcon.text-red-500(v-if="isSpouseItem(item)")
+    span {{ ' ' }}
     el-button(
       v-if="item.checkInStatus === 'skipped'"
       link
@@ -29,7 +35,9 @@ li.flex.items-center.break-word.mb-2(
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import type { PropType } from 'vue';
+import { HeartFilledIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { CheckInStatus, Item } from '@/groceries/types';
@@ -50,6 +58,8 @@ const MOVING_TO_STATUS_TO_CLASS_MAP = {
 const CLEAR_BACKGROUND_COLOR_TIMEOUT = 1200;
 
 const groceriesStore = useGroceriesStore();
+
+const { isSpouseItem } = storeToRefs(groceriesStore);
 
 function aboutToMoveToClass() {
   if (props.item.aboutToMoveTo) {
