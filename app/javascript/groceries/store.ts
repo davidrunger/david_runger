@@ -326,7 +326,7 @@ export const useGroceriesStore = defineStore('groceries', {
 
     isSpouseItem() {
       return (item: Item) => {
-        const store = getById(this.allStores, item.store_id)
+        const store = getById(this.allStores, item.store_id);
 
         return !store.own_store;
       };
