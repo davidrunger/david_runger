@@ -324,6 +324,14 @@ export const useGroceriesStore = defineStore('groceries', {
       return this.collectingDebounces || this.pendingRequests > 0;
     },
 
+    isSpouseItem() {
+      return (item: Item) => {
+        const store = getById(this.allStores, item.store_id)
+
+        return !store.own_store;
+      };
+    },
+
     itemsInCart(): Array<Item> {
       return this.neededCheckInItems.filter(
         (item) => item.checkInStatus === 'in-cart',
