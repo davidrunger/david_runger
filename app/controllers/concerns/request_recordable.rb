@@ -17,6 +17,9 @@ module RequestRecordable
     $redis_pool.with do |conn|
       conn.call('setex', initial_request_data_redis_key, REQUEST_DATA_TTL, request_data.to_json)
     end
+  rescue JSON::GeneratorError
+    Rails.logger.info("[RequestRecordable][JSON::GeneratorError] #{request_data.inspect}")
+    raise
   end
 
   def initial_request_data_redis_key
