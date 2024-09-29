@@ -38,7 +38,7 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
         it 'logs the hash and re-raises the error' do
           allow(Rails.logger).to receive(:info).and_call_original
 
-          expect { subject }.to raise_error(JSON::GeneratorError)
+          expect { data_stashed_in_redis_after_request }.to raise_error(JSON::GeneratorError)
 
           expect(Rails.logger).
             to have_received(:info).
