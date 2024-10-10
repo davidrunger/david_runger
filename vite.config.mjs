@@ -8,6 +8,14 @@ import FullReload from 'vite-plugin-full-reload';
 import RubyPlugin from 'vite-plugin-ruby';
 
 export default defineConfig({
+  // https://github.com/vitejs/vite/issues/ 18164#issuecomment-2365310242
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler',
+      },
+    },
+  },
   logLevel: process.env.CI ? 'warn' : undefined,
   plugins: [
     FullReload([
