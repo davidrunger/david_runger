@@ -1,0 +1,5 @@
+// double class in selector to increase specificity of this override
+.el-button.el-button.is-link {
+  padding: 0;
+  vertical-align: unset;
+}

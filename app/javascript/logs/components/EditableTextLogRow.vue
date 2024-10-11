@@ -14,16 +14,17 @@ tr
     el-button(@click='updateLogEntry' size='small') Save
     el-button(@click='cancelEditing' size='small') Cancel
   td(v-else)
-    el-button(
-      @click='editing = true'
-      link
-      type='primary'
-    ) Edit
-    el-button(
-      @click='destroyLogEntry'
-      link
-      type='danger'
-    ) Delete
+    .flex.flex-wrap.items-center.justify-center.gap-1
+      el-button(
+        @click='editing = true'
+        link
+        type='primary'
+      ) Edit
+      el-button(
+        @click='destroyLogEntry'
+        link
+        type='danger'
+      ) Delete
 </template>
 
 <script setup lang="ts">
@@ -104,5 +105,16 @@ async function updateLogEntry() {
   width: 100%;
   resize: vertical;
   height: 12rem;
+}
+
+@media screen and (width <= 500px) {
+  table.text-log-table.text-log-table td {
+    min-width: 32px;
+    width: initial;
+  }
+
+  .el-button.el-button + .el-button {
+    margin-left: 0;
+  }
 }
 </style>

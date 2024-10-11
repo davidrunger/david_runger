@@ -103,10 +103,4 @@ function toggleItemInCart() {
 li {
   transition: all 0.15s ease-out;
 }
-
-// double class in selector to increase specificity of this override
-.el-button.el-button.is-link {
-  padding: 0;
-  vertical-align: unset;
-}
 </style>
