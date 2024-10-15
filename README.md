@@ -3,7 +3,7 @@
 
 # [davidrunger.com](https://www.davidrunger.com/)
 
-This is a Ruby on Rails web app that powers my personal website and some small web applications.
+This is a Ruby on Rails web app (with a primarily Vue-based frontend) that runs some small, personal web applications hosted at [davidrunger.com](https://www.davidrunger.com/).
 
 ## Setup
 
