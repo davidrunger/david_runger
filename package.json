@@ -9,7 +9,7 @@
     ">10%"
   ],
   "dependencies": {
-    "@hotwired/turbo": "^8.0.10",
+    "@hotwired/turbo": "^8.0.12",
     "@hotwired/turbo-rails": "^8.0.10",
     "@rails/actioncable": "^7.2.100",
     "@rails/ujs": "^7.1.400",
