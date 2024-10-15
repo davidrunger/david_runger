@@ -12,8 +12,8 @@ importers:
         specifier: ^8.0.12
         version: 8.0.12
       '@hotwired/turbo-rails':
-        specifier: ^8.0.10
-        version: 8.0.10
+        specifier: ^8.0.12
+        version: 8.0.12
       '@rails/actioncable':
         specifier: ^7.2.100
         version: 7.2.100
@@ -532,8 +532,8 @@ packages:
   '@floating-ui/utils@0.1.1':
     resolution: {integrity: sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==}
 
-  '@hotwired/turbo-rails@8.0.10':
-    resolution: {integrity: sha512-BkERfjTbNwMb9/YQi0RL9+f9zkD+dZH2klEONtGwXrIE3O9BE1937Nn9++koZpDryD4XN3zE5U5ibyWoYJAWBg==}
+  '@hotwired/turbo-rails@8.0.12':
+    resolution: {integrity: sha512-ZXwu9ez+Gd4RQNeHIitqOQgi/LyqY8J4JqsUN0nnYiZDBRq7IreeFdMbz29VdJpIsmYqwooE4cFzPU7QvJkQkA==}
 
   '@hotwired/turbo@8.0.12':
     resolution: {integrity: sha512-l3BiQRkD7qrnQv6ms6sqPLczvwbQpXt5iAVwjDvX0iumrz6yEonQkNAzNjeDX25/OJMFDTxpHjkJZHGpM9ikWw==}
@@ -3632,7 +3632,7 @@ snapshots:
 
   '@floating-ui/utils@0.1.1': {}
 
-  '@hotwired/turbo-rails@8.0.10':
+  '@hotwired/turbo-rails@8.0.12':
     dependencies:
       '@hotwired/turbo': 8.0.12
       '@rails/actioncable': 7.2.100
