@@ -15,8 +15,8 @@ importers:
         specifier: ^8.0.12
         version: 8.0.12
       '@rails/actioncable':
-        specifier: ^7.2.100
-        version: 7.2.100
+        specifier: ^7.2.101
+        version: 7.2.101
       '@rails/ujs':
         specifier: ^7.1.401
         version: 7.1.401
@@ -755,8 +755,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@rails/actioncable@7.2.100':
-    resolution: {integrity: sha512-7xtIENf0Yw59AFDM3+xqxPCZxev3QVAqjPmUzmgsB9eL8S/zTpB0IU9srNc7XknzJI4e09XKNnCaJRx3gfYzXA==}
+  '@rails/actioncable@7.2.101':
+    resolution: {integrity: sha512-YgFCyD+9mBhpJdfgf4QtJwk+vZbByVMXsEGREM6GrPk9A1pYXkkIpzYd3+843E+33e3S81yywhqZc3DyrZGPSg==}
 
   '@rails/ujs@7.1.401':
     resolution: {integrity: sha512-vyBrYC+3wY3Sb6kcTeFG2L18jygcB27sv50tGGFONwOoMcmlltLm/2J8wB9KifQkRl87B86kLmyFywvhELcnTQ==}
@@ -3635,7 +3635,7 @@ snapshots:
   '@hotwired/turbo-rails@8.0.12':
     dependencies:
       '@hotwired/turbo': 8.0.12
-      '@rails/actioncable': 7.2.100
+      '@rails/actioncable': 7.2.101
 
   '@hotwired/turbo@8.0.12': {}
 
@@ -3923,7 +3923,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@rails/actioncable@7.2.100': {}
+  '@rails/actioncable@7.2.101': {}
 
   '@rails/ujs@7.1.401': {}
 
