@@ -18,8 +18,8 @@ importers:
         specifier: ^7.2.100
         version: 7.2.100
       '@rails/ujs':
-        specifier: ^7.1.400
-        version: 7.1.400
+        specifier: ^7.1.401
+        version: 7.1.401
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
         version: 5.1.4(vite@5.4.9(@types/node@22.5.4)(sass@1.79.5))(vue@3.5.12(typescript@5.6.3))
@@ -758,8 +758,8 @@ packages:
   '@rails/actioncable@7.2.100':
     resolution: {integrity: sha512-7xtIENf0Yw59AFDM3+xqxPCZxev3QVAqjPmUzmgsB9eL8S/zTpB0IU9srNc7XknzJI4e09XKNnCaJRx3gfYzXA==}
 
-  '@rails/ujs@7.1.400':
-    resolution: {integrity: sha512-YwvXm3BR5tn+VCAKYGycLejMRVZE3Ionj5gFjEeGXCZnI0Rpi+7dKpmyu90kdUY7dRUFpHTdu9zZceEzFLl38w==}
+  '@rails/ujs@7.1.401':
+    resolution: {integrity: sha512-vyBrYC+3wY3Sb6kcTeFG2L18jygcB27sv50tGGFONwOoMcmlltLm/2J8wB9KifQkRl87B86kLmyFywvhELcnTQ==}
 
   '@rollup/pluginutils@5.0.4':
     resolution: {integrity: sha512-0KJnIoRI8A+a1dqOYLxH8vBf8bphDmty5QvIm2hqm7oFCFYKCAZWWd2hXgMibaPsNDhI0AtpYfQZJG47pt/k4g==}
@@ -3925,7 +3925,7 @@ snapshots:
 
   '@rails/actioncable@7.2.100': {}
 
-  '@rails/ujs@7.1.400': {}
+  '@rails/ujs@7.1.401': {}
 
   '@rollup/pluginutils@5.0.4':
     dependencies:
