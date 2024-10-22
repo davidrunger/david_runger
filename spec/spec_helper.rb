@@ -159,6 +159,7 @@ RSpec.configure do |config|
       retry: 2,
       exceptions_to_retry: [
         Ferrum::ProcessTimeoutError,
+        Ferrum::TimeoutError,
       ],
     )
   end
