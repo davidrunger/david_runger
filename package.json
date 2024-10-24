@@ -12,7 +12,7 @@
     "@hotwired/turbo": "^8.0.12",
     "@hotwired/turbo-rails": "^8.0.12",
     "@rails/actioncable": "^7.2.102",
-    "@rails/ujs": "^7.1.401",
+    "@rails/ujs": "^7.1.402",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue/compiler-sfc": "^3.5.12",
     "@vuelidate/core": "^2.0.3",
