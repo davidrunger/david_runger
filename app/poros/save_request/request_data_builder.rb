@@ -53,6 +53,6 @@ class SaveRequest::RequestDataBuilder
 
   memo_wise \
   def raw_user_agent
-    @request.user_agent
+    @request.user_agent.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
   end
 end
