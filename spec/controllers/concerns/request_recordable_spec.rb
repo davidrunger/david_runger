@@ -7,6 +7,7 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
 
   describe '#store_initial_request_data_in_redis' do
     subject(:data_stashed_in_redis_after_request) do
+      request.headers['User-Agent'] = user_agent
       get(:index, params:)
 
       $redis_pool.with do |conn|
@@ -15,6 +16,7 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
     end
 
     let(:params) { {} }
+    let(:user_agent) { 'RequestRecordable spec user agent' }
 
     context 'when a user is not logged in' do
       before { controller.sign_out_all_scopes }
@@ -25,6 +27,22 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
 
         it 'includes the auth token id' do
           expect(data_stashed_in_redis_after_request).to include('auth_token_id' => auth_token.id)
+        end
+      end
+
+      context 'when the user agent has an invalid byte sequence' do
+        let(:user_agent) { "valid bytes\xA1\xE5)" }
+
+        it 'saves the data to Redis with the user agent string sanitized' do
+          expect(data_stashed_in_redis_after_request).to include('user_agent' => 'valid bytes)')
+        end
+      end
+
+      context 'when the user agent is nil' do
+        let(:user_agent) { nil }
+
+        it 'saves the data to Redis with the user agent as nil' do
+          expect(data_stashed_in_redis_after_request).to include('user_agent' => nil)
         end
       end
 
