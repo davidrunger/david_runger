@@ -52,7 +52,7 @@ const devIconClass = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import 'css/variables';
+@use 'css/variables' as *;
 
 i[class^='devicon-'] {
   font-size: 65px;
