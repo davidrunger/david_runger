@@ -60,7 +60,7 @@ function collapseMobileMenu() {
 </script>
 
 <style lang="scss" scoped>
-@import 'css/variables';
+@use 'css/variables' as *;
 
 #header {
   position: fixed;

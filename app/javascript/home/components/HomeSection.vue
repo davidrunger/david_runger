@@ -27,7 +27,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import 'css/variables';
+@use 'css/variables' as *;
 
 section {
   width: 100%;

@@ -37,7 +37,7 @@ const prettyName = computed((): string => {
 </script>
 
 <style lang="scss" scoped>
-@import 'css/variables';
+@use 'css/variables' as *;
 
 a.nav-link.nav-link {
   color: $gray-light;
