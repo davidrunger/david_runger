@@ -38,6 +38,14 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
         end
       end
 
+      context 'when the user agent is nil' do
+        let(:user_agent) { nil }
+
+        it 'saves the data to Redis with the user agent as nil' do
+          expect(data_stashed_in_redis_after_request).to include('user_agent' => nil)
+        end
+      end
+
       context 'when a JSON::GeneratorError is raised' do
         before do
           # rubocop:disable RSpec/AnyInstance
