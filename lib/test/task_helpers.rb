@@ -66,7 +66,7 @@ module Test::TaskHelpers
     end
   end
 
-  def execute_rake_task(task_name, *args)
+  def execute_rake_task(task_name, *args, suppress_stdout: false)
     puts(<<~LOG.squish)
       Running rake task '#{AmazingPrint::Colors.yellow(task_name)}'
       with args #{AmazingPrint::Colors.yellow(args.inspect)} ...
@@ -75,7 +75,9 @@ module Test::TaskHelpers
     begin
       time =
         Benchmark.measure do
-          Rake::Task[task_name].invoke(*args)
+          with_stdout(suppressed: suppress_stdout) do
+            Rake::Task[task_name].invoke(*args)
+          end
         end.real
     rescue SystemExit => error
       update_job_result_exit_code(1)
@@ -93,6 +95,18 @@ module Test::TaskHelpers
     else
       record_success_and_log_message("'#{task_name}' succeeded (took #{time.round(3)}).")
     end
+  end
+
+  def with_stdout(suppressed:)
+    original_stdout = $stdout
+
+    if suppressed
+      $stdout = File.open(File::NULL, 'w')
+    end
+
+    yield
+  ensure
+    $stdout = original_stdout
   end
 
   def record_success_and_log_message(message)
