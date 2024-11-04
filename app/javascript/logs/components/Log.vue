@@ -94,7 +94,7 @@ LogDataDisplay.props = ['dataType', 'log', 'logEntries', 'dataLabel'];
 
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
-const log = logsStore.unsafeSelectedLog;
+const log = assert(logsStore.selectedLog);
 
 useTitle(`${log.name} - Logs - David Runger`);
 

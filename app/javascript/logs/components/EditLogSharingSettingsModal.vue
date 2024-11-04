@@ -50,7 +50,7 @@ import type { LogShare } from '@/types';
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
 
-const log = logsStore.unsafeSelectedLog;
+const log = assert(logsStore.selectedLog);
 const { isOwnLog } = storeToRefs(logsStore);
 
 const inputValue = ref('');
