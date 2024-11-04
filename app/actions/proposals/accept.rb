@@ -29,7 +29,7 @@ class Proposals::Accept < ApplicationAction
   def proposer_id
     JWT.decode(
       encoded_token,
-      Rails.application.credentials.jwt_secret!,
+      ENV.fetch('JWT_SECRET'),
       true,
       { algorithm: 'HS512' },
     ).dig(0, 'proposer_id')
