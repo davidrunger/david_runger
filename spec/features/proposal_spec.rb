@@ -15,12 +15,11 @@ RSpec.describe 'proposing marriage to another user' do
 
       let(:proposee) { User.where.not(id: user).first! }
 
-      context 'when a jwt_secret credential is available' do
-        before do
-          expect(Rails.application.credentials).
-            to receive(:jwt_secret!).
-            at_least(:once).
-            and_return('xyz248')
+      context 'when JWT_SECRET is set' do
+        around do |spec|
+          ClimateControl.modify(JWT_SECRET: 'xyza2481') do
+            spec.run
+          end
         end
 
         it 'allows inviting a spouse and allows the spouse to accept the proposal' do

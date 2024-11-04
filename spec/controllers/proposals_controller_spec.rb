@@ -6,7 +6,7 @@ RSpec.describe(ProposalsController) do
       {
         token: JWT.encode(
           { proposer_id: proposer.id },
-          Rails.application.credentials.jwt_secret!,
+          ENV.fetch('JWT_SECRET'),
           'HS512',
         ),
       }
@@ -14,12 +14,11 @@ RSpec.describe(ProposalsController) do
     let(:proposer) { users(:admin) }
     let(:proposee) { users(:user) }
 
-    context 'when a jwt_secret credential is available' do
-      before do
-        expect(Rails.application.credentials).
-          to receive(:jwt_secret!).
-          at_least(:once).
-          and_return('xyzdef2481632')
+    context 'when JWT_SECRET is set' do
+      around do |spec|
+        ClimateControl.modify(JWT_SECRET: 'zyx432') do
+          spec.run
+        end
       end
 
       context 'when the proposer and proposee each have their own (unpartnered) marriages' do
