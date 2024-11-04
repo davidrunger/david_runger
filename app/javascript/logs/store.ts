@@ -299,10 +299,5 @@ export const useLogsStore = defineStore('logs', {
       const { slug } = this.router.currentRoute.value.params;
       return this.logs.find((log) => log.slug === slug);
     },
-
-    unsafeSelectedLog(): Log {
-      const { slug } = this.router.currentRoute.value.params;
-      return assert(this.logs.find((log) => log.slug === slug));
-    },
   },
 });
