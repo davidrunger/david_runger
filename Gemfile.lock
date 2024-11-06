@@ -656,7 +656,7 @@ GEM
     uri (0.13.1)
     useragent (0.16.10)
     version_gem (1.1.4)
-    vite_rails (3.0.18)
+    vite_rails (3.0.19)
       railties (>= 5.1, < 9)
       vite_ruby (~> 3.0, >= 3.2.2)
     vite_ruby (3.9.0)
