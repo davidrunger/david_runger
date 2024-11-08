@@ -51,8 +51,8 @@ Rails.application.configure do
   # https://github.com/DavyJonesLocker/capybara-email#setting-your-test-host
   config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
 
-  # Print deprecation notices to the stderr.
-  config.active_support.deprecation = :stderr
+  # Raise exceptions on deprecation notices.
+  config.active_support.deprecation = :raise
 
   if ENV.fetch('TEST_LOGGING', nil) == '1'
     # :nocov:

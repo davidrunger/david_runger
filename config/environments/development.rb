@@ -55,7 +55,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Raise exceptions on deprecation notices.
-  config.active_support.deprecation = :log
+  config.active_support.deprecation = :raise
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
