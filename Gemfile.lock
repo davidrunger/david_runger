@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/davidrunger/active_attr.git
+  revision: d744e06d895f557dcdc6a14f96533c3bb7fc8a99
+  branch: leoarnold/rails-8
+  specs:
+    active_attr (0.17.0)
+      actionpack (>= 3.0.2, < 8.1)
+      activemodel (>= 3.0.2, < 8.1)
+      activesupport (>= 3.0.2, < 8.1)
+
+GIT
   remote: https://github.com/davidrunger/fixture_builder.git
   revision: b7b486c53e8c16904259ad176808ca37e2649c48
   specs:
@@ -16,6 +26,14 @@ GIT
       redis (~> 5.0)
 
 GIT
+  remote: https://github.com/davidrunger/strip_attributes.git
+  revision: b1a40de70c0e3360b761f82dbfb3bfdd40e2b539
+  branch: leoarnold/rails-8
+  specs:
+    strip_attributes (1.13.0)
+      activemodel (>= 3.0, < 8.1)
+
+GIT
   remote: https://github.com/davidrunger/typelizer.git
   revision: b58ce4f7429039e5d8bb4910d4c81a00c084d415
   specs:
@@ -25,46 +43,45 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actioncable (7.2.2)
-      actionpack (= 7.2.2)
-      activesupport (= 7.2.2)
+    actioncable (8.0.0)
+      actionpack (= 8.0.0)
+      activesupport (= 8.0.0)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
       zeitwerk (~> 2.6)
-    actionmailbox (7.2.2)
-      actionpack (= 7.2.2)
-      activejob (= 7.2.2)
-      activerecord (= 7.2.2)
-      activestorage (= 7.2.2)
-      activesupport (= 7.2.2)
+    actionmailbox (8.0.0)
+      actionpack (= 8.0.0)
+      activejob (= 8.0.0)
+      activerecord (= 8.0.0)
+      activestorage (= 8.0.0)
+      activesupport (= 8.0.0)
       mail (>= 2.8.0)
-    actionmailer (7.2.2)
-      actionpack (= 7.2.2)
-      actionview (= 7.2.2)
-      activejob (= 7.2.2)
-      activesupport (= 7.2.2)
+    actionmailer (8.0.0)
+      actionpack (= 8.0.0)
+      actionview (= 8.0.0)
+      activejob (= 8.0.0)
+      activesupport (= 8.0.0)
       mail (>= 2.8.0)
       rails-dom-testing (~> 2.2)
-    actionpack (7.2.2)
-      actionview (= 7.2.2)
-      activesupport (= 7.2.2)
+    actionpack (8.0.0)
+      actionview (= 8.0.0)
+      activesupport (= 8.0.0)
       nokogiri (>= 1.8.5)
-      racc
-      rack (>= 2.2.4, < 3.2)
+      rack (>= 2.2.4)
       rack-session (>= 1.0.1)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
       useragent (~> 0.16)
-    actiontext (7.2.2)
-      actionpack (= 7.2.2)
-      activerecord (= 7.2.2)
-      activestorage (= 7.2.2)
-      activesupport (= 7.2.2)
+    actiontext (8.0.0)
+      actionpack (= 8.0.0)
+      activerecord (= 8.0.0)
+      activestorage (= 8.0.0)
+      activesupport (= 8.0.0)
       globalid (>= 0.6.0)
       nokogiri (>= 1.8.5)
-    actionview (7.2.2)
-      activesupport (= 7.2.2)
+    actionview (8.0.0)
+      activesupport (= 8.0.0)
       builder (~> 3.1)
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
@@ -79,26 +96,26 @@ GEM
       kaminari (>= 1.2.1)
       railties (>= 6.1)
       ransack (>= 4.0)
-    activejob (7.2.2)
-      activesupport (= 7.2.2)
+    activejob (8.0.0)
+      activesupport (= 8.0.0)
       globalid (>= 0.3.6)
-    activemodel (7.2.2)
-      activesupport (= 7.2.2)
+    activemodel (8.0.0)
+      activesupport (= 8.0.0)
     activemodel-serializers-xml (1.0.3)
       activemodel (>= 5.0.0.a)
       activesupport (>= 5.0.0.a)
       builder (~> 3.1)
-    activerecord (7.2.2)
-      activemodel (= 7.2.2)
-      activesupport (= 7.2.2)
+    activerecord (8.0.0)
+      activemodel (= 8.0.0)
+      activesupport (= 8.0.0)
       timeout (>= 0.4.0)
-    activestorage (7.2.2)
-      actionpack (= 7.2.2)
-      activejob (= 7.2.2)
-      activerecord (= 7.2.2)
-      activesupport (= 7.2.2)
+    activestorage (8.0.0)
+      actionpack (= 8.0.0)
+      activejob (= 8.0.0)
+      activerecord (= 8.0.0)
+      activesupport (= 8.0.0)
       marcel (~> 1.0)
-    activesupport (7.2.2)
+    activesupport (8.0.0)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -110,6 +127,7 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
+      uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     alba (3.3.2)
@@ -435,20 +453,20 @@ GEM
       rack (>= 1.3)
     rackup (2.2.0)
       rack (>= 3)
-    rails (7.2.2)
-      actioncable (= 7.2.2)
-      actionmailbox (= 7.2.2)
-      actionmailer (= 7.2.2)
-      actionpack (= 7.2.2)
-      actiontext (= 7.2.2)
-      actionview (= 7.2.2)
-      activejob (= 7.2.2)
-      activemodel (= 7.2.2)
-      activerecord (= 7.2.2)
-      activestorage (= 7.2.2)
-      activesupport (= 7.2.2)
+    rails (8.0.0)
+      actioncable (= 8.0.0)
+      actionmailbox (= 8.0.0)
+      actionmailer (= 8.0.0)
+      actionpack (= 8.0.0)
+      actiontext (= 8.0.0)
+      actionview (= 8.0.0)
+      activejob (= 8.0.0)
+      activemodel (= 8.0.0)
+      activerecord (= 8.0.0)
+      activestorage (= 8.0.0)
+      activesupport (= 8.0.0)
       bundler (>= 1.15.0)
-      railties (= 7.2.2)
+      railties (= 8.0.0)
     rails-controller-testing (1.0.5)
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
@@ -460,9 +478,9 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    railties (7.2.2)
-      actionpack (= 7.2.2)
-      activesupport (= 7.2.2)
+    railties (8.0.0)
+      actionpack (= 8.0.0)
+      activesupport (= 8.0.0)
       irb (~> 1.13)
       rackup (>= 1.0.0)
       rake (>= 12.2)
@@ -580,9 +598,9 @@ GEM
     sassc (2.4.0)
       ffi (~> 1.9)
     securerandom (0.3.1)
-    shaped (0.13.0)
-      activemodel (>= 6, < 8)
-      activesupport (>= 6, < 8)
+    shaped (0.14.0)
+      activemodel (>= 6)
+      activesupport (>= 6)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
     sidekiq (7.3.5)
@@ -627,8 +645,6 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     stringio (3.1.2)
-    strip_attributes (1.13.0)
-      activemodel (>= 3.0, < 8.0)
     super_diff (0.13.0)
       attr_extras (>= 6.2.4)
       diff-lcs
@@ -670,6 +686,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_attr!
   activeadmin
   addressable
   alba
@@ -765,7 +782,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen
   sprockets-rails
-  strip_attributes
+  strip_attributes!
   super_diff
   typelizer!
   vite_rails

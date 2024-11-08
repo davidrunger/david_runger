@@ -3,6 +3,8 @@ ruby file: '.ruby-version'
 source 'https://rubygems.org'
 
 gem 'activeadmin'
+# Remove 'active_attr' after https://github.com/cgriego/active_attr/pull/ 205 is released.
+gem 'active_attr', github: 'davidrunger/active_attr', branch: 'leoarnold/rails-8'
 gem 'alba'
 gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
@@ -47,7 +49,8 @@ gem 'runger_email_reply_trimmer'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
 gem 'sprockets-rails'
-gem 'strip_attributes'
+# Source from RubyGems after https://github.com/rmm5t/strip_attributes/pull/ 73 is released.
+gem 'strip_attributes', github: 'davidrunger/strip_attributes', branch: 'leoarnold/rails-8'
 gem 'typelizer', github: 'davidrunger/typelizer'
 gem 'vite_rails'
 
