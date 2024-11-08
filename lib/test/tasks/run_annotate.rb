@@ -3,7 +3,7 @@ class Test::Tasks::RunAnnotate < Pallets::Task
 
   def run
     execute_system_command(<<~COMMAND)
-      bin/annotate --models --show-indexes --sort --exclude fixtures,tests
+      bin/annotaterb models
     COMMAND
 
     if !execute_system_command('git diff --exit-code')

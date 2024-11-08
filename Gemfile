@@ -57,7 +57,7 @@ end
 
 group :development, :test do
   gem 'amazing_print'
-  gem 'annotate', require: false
+  gem 'annotaterb', require: false
   gem 'bullet'
   gem 'immigrant'
   gem 'isolator'
