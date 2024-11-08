@@ -61,7 +61,8 @@ end
 group :development, :test do
   gem 'amazing_print'
   gem 'annotaterb', require: false
-  gem 'bullet'
+  # Source from RubyGems after https://github.com/flyerhzm/bullet/pull/ 721 is released.
+  gem 'bullet', github: 'davidrunger/bullet'
   gem 'immigrant'
   gem 'isolator'
   gem 'json-schema'
