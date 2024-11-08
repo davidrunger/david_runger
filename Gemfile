@@ -2,7 +2,7 @@ ruby file: '.ruby-version'
 
 source 'https://rubygems.org'
 
-gem 'activeadmin', github: 'davidrunger/activeadmin'
+gem 'activeadmin'
 gem 'alba'
 gem 'aws-sdk-s3'
 gem 'bootsnap', require: false
@@ -36,7 +36,7 @@ gem 'puma'
 gem 'pundit'
 gem 'rack-attack'
 gem 'rails'
-gem 'ransack', github: 'davidrunger/ransack'
+gem 'ransack'
 gem 'redis-client'
 gem 'redlock'
 gem 'request_store'
