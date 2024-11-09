@@ -35,7 +35,7 @@ end
 
 class DavidRunger::Application < Rails::Application
   # Initialize configuration defaults for originally generated Rails version.
-  config.load_defaults(7.2)
+  config.load_defaults(8.0)
 
   # We enable YJIT for the web server only in config/initializers/enable_yjit.rb.
   config.yjit = false
@@ -55,6 +55,10 @@ class DavidRunger::Application < Rails::Application
 
   config.time_zone = ENV.fetch('TIME_ZONE', 'America/Chicago')
   config.active_record.default_timezone = :utc
+
+  # Append comments with runtime information tags to SQL queries in logs.
+  config.active_record.query_log_tags_enabled = true
+  config.active_record.query_log_tags = %i[namespaced_controller action job]
 
   # config.eager_load_paths << Rails.root.join("extras")
 
