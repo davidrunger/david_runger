@@ -99,7 +99,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Only use :id for inspections in production.
+  # Use all attributes for inspections in production.
   config.active_record.attributes_for_inspect = :all
 
   # Enable DNS rebinding protection and other `Host` header attacks.
