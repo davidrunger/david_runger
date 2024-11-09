@@ -56,6 +56,10 @@ class DavidRunger::Application < Rails::Application
   config.time_zone = ENV.fetch('TIME_ZONE', 'America/Chicago')
   config.active_record.default_timezone = :utc
 
+  # Append comments with runtime information tags to SQL queries in logs.
+  config.active_record.query_log_tags_enabled = true
+  config.active_record.query_log_tags = %i[namespaced_controller action job]
+
   # config.eager_load_paths << Rails.root.join("extras")
 
   config.generators.helper = nil
