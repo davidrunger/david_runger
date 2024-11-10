@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/davidrunger/active_attr.git
-  revision: d744e06d895f557dcdc6a14f96533c3bb7fc8a99
-  branch: leoarnold/rails-8
-  specs:
-    active_attr (0.17.0)
-      actionpack (>= 3.0.2, < 8.1)
-      activemodel (>= 3.0.2, < 8.1)
-      activesupport (>= 3.0.2, < 8.1)
-
-GIT
   remote: https://github.com/davidrunger/fixture_builder.git
   revision: b7b486c53e8c16904259ad176808ca37e2649c48
   specs:
@@ -24,14 +14,6 @@ GIT
     pallets (0.11.0)
       msgpack
       redis (~> 5.0)
-
-GIT
-  remote: https://github.com/davidrunger/strip_attributes.git
-  revision: b1a40de70c0e3360b761f82dbfb3bfdd40e2b539
-  branch: leoarnold/rails-8
-  specs:
-    strip_attributes (1.13.0)
-      activemodel (>= 3.0, < 8.1)
 
 GIT
   remote: https://github.com/davidrunger/typelizer.git
@@ -645,6 +627,8 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     stringio (3.1.2)
+    strip_attributes (1.14.0)
+      activemodel (>= 3.0, < 9.0)
     super_diff (0.13.0)
       attr_extras (>= 6.2.4)
       diff-lcs
@@ -686,7 +670,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_attr!
   activeadmin
   addressable
   alba
@@ -782,7 +765,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen
   sprockets-rails
-  strip_attributes!
+  strip_attributes
   super_diff
   typelizer!
   vite_rails
