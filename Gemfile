@@ -46,7 +46,6 @@ gem 'runger_actions'
 gem 'runger_email_reply_trimmer'
 gem 'sassc' # used by ActiveAdmin asset pipeline
 gem 'sidekiq'
-gem 'sprockets-rails'
 gem 'strip_attributes'
 gem 'typelizer', github: 'davidrunger/typelizer'
 gem 'vite_rails'
