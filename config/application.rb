@@ -9,7 +9,6 @@ require 'action_mailer/railtie'
 require 'action_view/railtie'
 require 'active_job/railtie'
 require 'active_record/railtie'
-require 'sprockets/railtie'
 # rubocop:enable Style/RequireOrder
 
 # Require the gems listed in Gemfile, including any gems
