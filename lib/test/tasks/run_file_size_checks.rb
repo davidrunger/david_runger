@@ -15,7 +15,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'emoji_picker*.css' => (8..18),
     'emoji_picker*.js' => (331..341),
     'groceries*.css' => (108..118),
-    'groceries*.js' => (435..445),
+    'groceries*.js' => (441..451),
     'home*.css' => (0..10),
     'home*.js' => (146..156),
     'logs*.css' => (95..105),
