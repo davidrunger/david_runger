@@ -96,7 +96,7 @@ jobs:
           path: spec/fixtures/
           retention-days: 5
       - name: Upload Code Coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
