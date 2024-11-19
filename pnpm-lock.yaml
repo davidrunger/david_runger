@@ -1373,8 +1373,8 @@ packages:
       typescript:
         optional: true
 
-  cross-spawn@7.0.3:
-    resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
+  cross-spawn@7.0.6:
+    resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
 
   css-functions-list@3.2.3:
@@ -3660,7 +3660,7 @@ snapshots:
     dependencies:
       '@percy/cli-command': 1.30.2(typescript@5.6.3)
       '@percy/logger': 1.30.2
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       which: 2.0.2
     transitivePeerDependencies:
       - bufferutil
@@ -3729,7 +3729,7 @@ snapshots:
       '@percy/logger': 1.30.2
       '@percy/webdriver-utils': 1.30.2(typescript@5.6.3)
       content-disposition: 0.5.4
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       extract-zip: 2.0.1
       fast-glob: 3.3.2
       micromatch: 4.0.8
@@ -4495,7 +4495,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
 
-  cross-spawn@7.0.3:
+  cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
       shebang-command: 2.0.0
@@ -4904,7 +4904,7 @@ snapshots:
       '@ungap/structured-clone': 1.2.0
       ajv: 6.12.6
       chalk: 4.1.2
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       debug: 4.3.6
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
@@ -5027,7 +5027,7 @@ snapshots:
 
   foreground-child@3.2.0:
     dependencies:
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
   fresh@0.5.2: {}
