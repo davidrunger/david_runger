@@ -127,8 +127,8 @@ importers:
         specifier: ^1.30.2
         version: 1.30.2(typescript@5.6.3)
       '@types/dompurify':
-        specifier: ^3.0.5
-        version: 3.0.5
+        specifier: ^3.2.0
+        version: 3.2.0
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -808,8 +808,9 @@ packages:
   '@sxzz/popperjs-es@2.11.7':
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
 
-  '@types/dompurify@3.0.5':
-    resolution: {integrity: sha512-1Wg0g3BtQF7sSb27fJQAKck1HECM6zV1EB66j8JH9i3LCjYabJa0FSdiSgsD5K/RbrsR0SiraKacLB+T8ZVYAg==}
+  '@types/dompurify@3.2.0':
+    resolution: {integrity: sha512-Fgg31wv9QbLDA0SpTOXO3MaxySc4DKGLi8sna4/Utjo4r3ZRPdCt4UQee8BWr+Q5z21yifghREPJGYaEOEIACg==}
+    deprecated: This is a stub types definition. dompurify provides its own type definitions, so you do not need this installed.
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -849,9 +850,6 @@ packages:
 
   '@types/toastify-js@1.12.3':
     resolution: {integrity: sha512-9RjLlbAHMSaae/KZNHGv19VG4gcLIm3YjvacCXBtfMfYn26h76YP5oxXI8k26q4iKXCB9LNfv18lsoS0JnFPTg==}
-
-  '@types/trusted-types@2.0.3':
-    resolution: {integrity: sha512-NfQ4gyz38SL8sDNrSixxU2Os1a5xcdFxipAFxYEuLUlvU2uDwS4NUpsImcf1//SlWItCVMMLiylsxbmNMToV/g==}
 
   '@types/web-bluetooth@0.0.16':
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
@@ -3824,9 +3822,9 @@ snapshots:
 
   '@sxzz/popperjs-es@2.11.7': {}
 
-  '@types/dompurify@3.0.5':
+  '@types/dompurify@3.2.0':
     dependencies:
-      '@types/trusted-types': 2.0.3
+      dompurify: 3.2.0
 
   '@types/estree@1.0.5': {}
 
@@ -3858,8 +3856,6 @@ snapshots:
   '@types/strftime@0.9.8': {}
 
   '@types/toastify-js@1.12.3': {}
-
-  '@types/trusted-types@2.0.3': {}
 
   '@types/web-bluetooth@0.0.16': {}
 
