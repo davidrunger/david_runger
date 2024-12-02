@@ -51,8 +51,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0
       element-plus:
-        specifier: ^2.8.8
-        version: 2.8.8(vue@3.5.13(typescript@5.6.3))
+        specifier: ^2.9.0
+        version: 2.9.0(vue@3.5.13(typescript@5.6.3))
       emojilib:
         specifier: ^4.0.0
         version: 4.0.0
@@ -1521,8 +1521,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  element-plus@2.8.8:
-    resolution: {integrity: sha512-MLAH1x2PGTnOT7Iwqh9ASgfZhvgqQqrdbxuJH0w2fGjzE4ZjryyLQj24HXoQO7Zon66U3lrYxbdLI57M6OX0qw==}
+  element-plus@2.9.0:
+    resolution: {integrity: sha512-ccOFXKsauo2dtokAr4OX7gZsb7TuAoVxA2zGRZo5o2yyDDBLBaZxOoFQPoxITSLcHbBfQuNDGK5Iag5hnyKkZA==}
     peerDependencies:
       vue: ^3.2.0
 
@@ -4630,7 +4630,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  element-plus@2.8.8(vue@3.5.13(typescript@5.6.3)):
+  element-plus@2.9.0(vue@3.5.13(typescript@5.6.3)):
     dependencies:
       '@ctrl/tinycolor': 3.6.1
       '@element-plus/icons-vue': 2.3.1(vue@3.5.13(typescript@5.6.3))
