@@ -300,7 +300,7 @@ GEM
     js-routes (2.3.1)
       railties (>= 5)
       sorbet-runtime
-    json (2.8.2)
+    json (2.9.0)
     json-schema (5.1.1)
       addressable (~> 2.8)
       bigdecimal (~> 3.1)
