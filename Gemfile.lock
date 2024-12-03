@@ -532,7 +532,7 @@ GEM
       rspec-expectations (~> 3.0)
       rspec-mocks (~> 3.0)
       sidekiq (>= 5, < 8)
-    rspec-support (3.13.1)
+    rspec-support (3.13.2)
     rspec-wait (1.0.1)
       rspec (>= 3.4)
     rubocop (1.66.1)
