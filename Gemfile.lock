@@ -646,7 +646,7 @@ GEM
     unicode-display_width (2.6.0)
     uniform_notifier (1.16.0)
     uri (1.0.2)
-    useragent (0.16.10)
+    useragent (0.16.11)
     version_gem (1.1.4)
     vite_rails (3.0.19)
       railties (>= 5.1, < 9)
