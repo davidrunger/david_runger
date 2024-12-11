@@ -22,6 +22,21 @@ GIT
     typelizer (0.1.0)
       railties (>= 6.0.0)
 
+GIT
+  remote: https://github.com/rubocop/rubocop.git
+  revision: 8820445a95bfdfb82e1e29b679aaba23245975b4
+  specs:
+    rubocop (1.69.1)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 2.9.3, < 3.0)
+      rubocop-ast (>= 1.36.2, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -536,16 +551,6 @@ GEM
     rspec-support (3.13.2)
     rspec-wait (1.0.1)
       rspec (>= 3.4)
-    rubocop (1.66.1)
-      json (~> 2.3)
-      language_server-protocol (>= 3.17.0)
-      parallel (~> 1.10)
-      parser (>= 3.3.0.2)
-      rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 2.4, < 3.0)
-      rubocop-ast (>= 1.32.2, < 2.0)
-      ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.36.2)
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
@@ -643,7 +648,9 @@ GEM
     timeout (0.4.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (2.6.0)
+    unicode-display_width (3.1.2)
+      unicode-emoji (~> 4.0, >= 4.0.4)
+    unicode-emoji (4.0.4)
     uniform_notifier (1.16.0)
     uri (1.0.2)
     useragent (0.16.11)
@@ -750,7 +757,7 @@ DEPENDENCIES
   rspec-retry
   rspec-sidekiq
   rspec-wait
-  rubocop
+  rubocop!
   rubocop-capybara
   rubocop-factory_bot
   rubocop-performance
