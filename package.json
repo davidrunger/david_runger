@@ -11,7 +11,7 @@
   "dependencies": {
     "@hotwired/turbo": "^8.0.12",
     "@hotwired/turbo-rails": "^8.0.12",
-    "@rails/actioncable": "^8.0.0",
+    "@rails/actioncable": "^8.0.1",
     "@rails/ujs": "^7.1.500",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/compiler-sfc": "^3.5.13",
