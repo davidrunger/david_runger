@@ -64,8 +64,7 @@ group :development, :test do
   gem 'json-schema'
   gem 'pry-byebug', require: false
   gem 'rainbow'
-  # Source from GitHub until https://github.com/rubocop/rubocop/pull/ 13559 is released.
-  gem 'rubocop', github: 'rubocop/rubocop', require: false
+  gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
   gem 'rubocop-performance', require: false
