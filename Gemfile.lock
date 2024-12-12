@@ -24,9 +24,9 @@ GIT
 
 GIT
   remote: https://github.com/rubocop/rubocop.git
-  revision: 4618790e21b2a8f654398da1c4e5b618a9daa23b
+  revision: cb6fa9fec2a711142607f75c4808f12d726a9c63
   specs:
-    rubocop (1.69.1)
+    rubocop (1.69.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
