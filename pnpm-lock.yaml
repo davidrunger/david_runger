@@ -15,8 +15,8 @@ importers:
         specifier: ^8.0.12
         version: 8.0.12
       '@rails/actioncable':
-        specifier: ^8.0.1
-        version: 8.0.1
+        specifier: ^8.0.100
+        version: 8.0.100
       '@rails/ujs':
         specifier: ^7.1.501
         version: 7.1.501
@@ -705,8 +705,8 @@ packages:
   '@rails/actioncable@7.2.200':
     resolution: {integrity: sha512-gVmi3MabEa+Bkatvw0/k1Y3WTidcIf3qNbb9L8qc+AmT2UmkVqUZhJpSLvKmH10twCYIGzn7yySW/lOpg81Duw==}
 
-  '@rails/actioncable@8.0.1':
-    resolution: {integrity: sha512-gxRd3OnXm6IB4YxOJE6a6A+5ArQMzOKorceMTaIjiemCfWbJCMNZjXDKfIvgNff52x4vSLd1JQCcXtV4pVTJ1w==}
+  '@rails/actioncable@8.0.100':
+    resolution: {integrity: sha512-/vXTG6gzSW0CDqmA0hWasZ1UAGZC7g5NGM21jowh58rCCeTHAGbWwKExHn49VDuYXz+cHbL4MGfc5LMdTp9m3A==}
 
   '@rails/ujs@7.1.501':
     resolution: {integrity: sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==}
@@ -3691,7 +3691,7 @@ snapshots:
 
   '@rails/actioncable@7.2.200': {}
 
-  '@rails/actioncable@8.0.1': {}
+  '@rails/actioncable@8.0.100': {}
 
   '@rails/ujs@7.1.501': {}
 
