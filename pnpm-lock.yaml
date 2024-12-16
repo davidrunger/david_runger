@@ -54,8 +54,8 @@ importers:
         specifier: ^2.9.1
         version: 2.9.1(vue@3.5.13(typescript@5.6.3))
       emojilib:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.0.1
+        version: 4.0.1
       eslint:
         specifier: ^8.57.1
         version: 8.57.1
@@ -1502,8 +1502,8 @@ packages:
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
-  emojilib@4.0.0:
-    resolution: {integrity: sha512-nHdbvbIuWi/KrZESwJw5meOSK6S3uokcvBooIpNp9leDtVJWW091drLm8pwF2B7JrMq0UPgGJ7Haw+myeRaU8g==}
+  emojilib@4.0.1:
+    resolution: {integrity: sha512-zVY5JGxycujUimHkBn2lg5NCVwASJiQA2fhKfDPgyDFmNTftiw6KdOcq2fQt1HCVw0YeYW/ccYxQHQNjZpNeuw==}
 
   encodeurl@1.0.2:
     resolution: {integrity: sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==}
@@ -4542,7 +4542,7 @@ snapshots:
 
   emoji-regex@9.2.2: {}
 
-  emojilib@4.0.0: {}
+  emojilib@4.0.1: {}
 
   encodeurl@1.0.2: {}
 

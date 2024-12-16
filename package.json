@@ -24,7 +24,7 @@
     "dompurify": "^3.2.3",
     "easytimer.js": "^4.6.0",
     "element-plus": "^2.9.1",
-    "emojilib": "^4.0.0",
+    "emojilib": "^4.0.1",
     "eslint": "^8.57.1",
     "eslint-import-resolver-custom-alias": "^1.3.2",
     "eslint-plugin-vue": "^9.32.0",
