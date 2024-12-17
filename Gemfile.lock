@@ -490,7 +490,7 @@ GEM
     redlock (2.0.6)
       redis-client (>= 0.14.1, < 1.0.0)
     regexp_parser (2.9.3)
-    reline (0.5.12)
+    reline (0.6.0)
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
