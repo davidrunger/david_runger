@@ -1,1 +1,1 @@
-Alba.backend = :oj_rails
+Alba.backend = :active_support
