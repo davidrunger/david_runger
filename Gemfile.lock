@@ -716,6 +716,7 @@ DEPENDENCIES
   immigrant
   isolator
   js-routes
+  json
   json-schema
   jwt
   launchy
