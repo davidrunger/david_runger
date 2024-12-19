@@ -22,6 +22,7 @@ gem 'freezolite'
 gem 'haml'
 gem 'haml-rails'
 gem 'hashid-rails'
+gem 'json'
 gem 'js-routes', require: false
 gem 'jwt'
 gem 'lograge'
