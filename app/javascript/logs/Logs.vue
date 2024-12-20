@@ -5,14 +5,14 @@ div
   .text-center
     LogSelectorModal
     router-view(:key='$route.fullPath').m-8
-    footer.mb-4 Tip: Super+k will open the log selector.
+    footer.mb-4 Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the log selector.
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { computed, onMounted } from 'vue';
 
-import { bootstrap } from '@/lib/bootstrap';
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { removeQueryParams } from '@/lib/remove_query_params';
 import { renderBootstrappedToasts } from '@/lib/toasts';
 import { useLogsStore } from '@/logs/store';
@@ -21,13 +21,14 @@ import { useModalStore } from '@/shared/modal/store';
 import LogSelectorModal from './components/LogSelectorModal.vue';
 import type { Bootstrap } from './types';
 
+const bootstrap = untypedBootstrap as Bootstrap;
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
 
 const { isSharedLog, selectedLog } = storeToRefs(logsStore);
 
 const currentUser = computed(() => {
-  return (bootstrap as Bootstrap).current_user;
+  return bootstrap.current_user;
 });
 
 removeQueryParams(); // remove query params such as `new_entry` and `auth_token`
@@ -45,7 +46,11 @@ onMounted(() => {
   }
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'k' && event.metaKey === true) {
+    if (
+      event.key === 'k' &&
+      (event.metaKey === true || event.ctrlKey === true) // Meta for macOS, Ctrl for Windows/Linux
+    ) {
+      event.preventDefault(); // Prevent default behavior for the shortcut
       modalStore.showModal({ modalName: 'log-selector' });
     }
   });

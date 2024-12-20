@@ -28,6 +28,7 @@ export type Bootstrap = Intersection<
     current_user: UserSerializerBasic;
     logs: Array<Log>;
     log_input_types: Array<LogInput>;
+    log_selector_keyboard_shortcut: string;
     toast_messages: Array<string>;
   },
   LogsIndexBootstrap

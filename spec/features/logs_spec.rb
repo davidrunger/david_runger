@@ -18,6 +18,9 @@ RSpec.describe 'Logs app' do
         end
         expect(page).to have_text('New Log')
 
+        # Check for (platform-specific) keyboard shortcut to open log-selector modal
+        expect(page).to have_text('Tip: Ctrl+K will open the log selector.')
+
         log = user.logs.first!
         other_log = user.logs.second!
         click_on(log.name)
