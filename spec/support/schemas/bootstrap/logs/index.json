@@ -30,9 +30,18 @@
           "items": {
             "$ref": "#/definitions/LogInputType"
           }
+        },
+        "log_selector_keyboard_shortcut": {
+          "type": "string"
         }
       },
-      "required": ["current_user", "log_input_types", "logs", "nonce"],
+      "required": [
+        "current_user",
+        "log_input_types",
+        "log_selector_keyboard_shortcut",
+        "logs",
+        "nonce"
+      ],
       "title": "Root"
     },
     "User": {

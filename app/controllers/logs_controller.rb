@@ -25,6 +25,7 @@ class LogsController < ApplicationController
       current_user: UserSerializer::Basic.new(current_user),
       logs: LogSerializer.new(logs, params: { own_log: !shared_log? }),
       log_input_types:,
+      log_selector_keyboard_shortcut: LogSelectorKeyboardShortcut.new(browser).shortcut,
     )
     render :index
   end
