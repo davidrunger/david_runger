@@ -55,8 +55,8 @@ RSpec.describe Api::LogsController do
           # make sure that we get here at some point
           checked_log_line_expectations = true
           expect(logged_string).to match(/Failed to create log\./)
-          expect(logged_string).to match(/errors={.*:name=>\["can't be blank"\].*}/)
-          expect(logged_string).to match(/attributes={.*"name"=>nil.*}/)
+          expect(logged_string).to match(/errors={.*name: \["can't be blank"\].*}/)
+          expect(logged_string).to match(/attributes={.*"name" => nil\b.*}/)
         end
         expect(checked_log_line_expectations).to eq(true)
       end

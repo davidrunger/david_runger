@@ -30,9 +30,9 @@ RSpec.describe IpBlocks::StoreRequestBlockInRedis do
           RungerActions::TypeMismatch,
           <<~ERROR.squish)
             One or more required params are of the wrong type: `ip` is expected to be shaped like
-            String validating {:format=>{:with=>/\\A[.:0-9a-f]{7,39}\\z/}}, but was `"this is not an
+            String validating {format: {with: /\\A[.:0-9a-f]{7,39}\\z/}}, but was `"this is not an
             IP"` ; `path` is expected to be shaped like String validating
-            {:format=>{:with=>/\\A\\//}}, but was `"this is not a path"`.
+            {format: {with: /\\A\\//}}, but was `"this is not a path"`.
           ERROR
       end
     end

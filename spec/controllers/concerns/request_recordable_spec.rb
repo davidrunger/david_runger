@@ -61,7 +61,7 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
           expect(Rails.logger).
             to have_received(:info).
             with(
-              /\[RequestRecordable\]\[JSON::GeneratorError\].*:format=>:html/,
+              /\[RequestRecordable\]\[JSON::GeneratorError\].*format: :html/,
             )
         end
       end
