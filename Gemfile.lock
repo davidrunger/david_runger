@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/fixture_builder.git
-  revision: b7b486c53e8c16904259ad176808ca37e2649c48
+  revision: 1edc864a575cddbae6d7ab473f567dc57e3dca03
   specs:
     fixture_builder (0.5.3.rc3)
       activerecord (>= 2)
