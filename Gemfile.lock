@@ -114,7 +114,7 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     alba (3.5.0)
       ostruct (~> 0.6)
-    amazing_print (1.6.0)
+    amazing_print (1.7.2)
     annotaterb (4.13.0)
     anyway_config (2.6.4)
       ruby-next-core (~> 1.0)
