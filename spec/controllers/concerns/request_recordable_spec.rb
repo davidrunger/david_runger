@@ -8,7 +8,7 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
   describe '#store_initial_request_data_in_redis' do
     subject(:data_stashed_in_redis_after_request) do
       request.headers['User-Agent'] = user_agent
-      get(:index, params:)
+      perform_request
 
       $redis_pool.with do |conn|
         JSON(conn.call('get', controller.send(:initial_request_data_redis_key)))
@@ -65,6 +65,25 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
             )
         end
       end
+
+      context 'when the controller name is in CONTROLLERS_NOT_TO_RECORD' do
+        before do
+          stub_const(
+            'RequestRecordable::CONTROLLERS_NOT_TO_RECORD',
+            ["#{controller.controller_name.capitalize}Controller"],
+          )
+        end
+
+        it 'does not stash initial request data in Redis' do
+          perform_request
+
+          expect($redis_pool.with { it.call('KEYS', 'request_data:*:initial') }).to eq([])
+        end
+      end
     end
+  end
+
+  def perform_request
+    get(:index, params:)
   end
 end

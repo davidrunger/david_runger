@@ -2,6 +2,9 @@ module RequestRecordable
   extend ActiveSupport::Concern
   prepend MemoWise
 
+  CONTROLLERS_NOT_TO_RECORD = [
+    'HealthChecksController', # don't log these frequent, low-value requests
+  ].freeze
   # The number of seconds to store request data in Redis (to later turn into a `Request`). Set to
   # 21.days because that's ~ how long Sidekiq (which processes this data) will attempt retries for.
   REQUEST_DATA_TTL = Integer(21.days)
@@ -14,8 +17,10 @@ module RequestRecordable
   private
 
   def store_initial_request_data_in_redis
-    $redis_pool.with do |conn|
-      conn.call('setex', initial_request_data_redis_key, REQUEST_DATA_TTL, request_data.to_json)
+    unless self.class.name.in?(CONTROLLERS_NOT_TO_RECORD)
+      $redis_pool.with do |conn|
+        conn.call('setex', initial_request_data_redis_key, REQUEST_DATA_TTL, request_data.to_json)
+      end
     end
   rescue JSON::GeneratorError
     Rails.logger.info("[RequestRecordable][JSON::GeneratorError] #{request_data.inspect}")
