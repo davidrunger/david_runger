@@ -119,6 +119,15 @@ Rails.application.routes.draw do
     to: ->(_env) { plain_text_response('google-site-verification: google83c07e1014ea4a70.html') },
   )
 
+  get '/.well-known/traffic-advice',
+    to: (lambda do |_env|
+      [
+        200,
+        { 'Content-Type' => 'application/trafficadvice+json' },
+        [JSON.generate([{ user_agent: 'prefetch-proxy', fraction: 1.0 }])],
+      ]
+    end)
+
   get('sha', to: ->(_env) { plain_text_response(ENV.fetch('GIT_REV')) })
 
   get '/404', to: 'errors#not_found', via: :all
