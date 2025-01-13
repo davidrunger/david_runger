@@ -168,12 +168,12 @@ services:
     profiles:
       - nondefault
   vector:
+    env_file:
+      - .env.vector.local
     image: timberio/vector:latest-alpine
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
-    environment:
-      - PAPERTRAIL_PORT=${PAPERTRAIL_PORT:?PAPERTRAIL_PORT is required}
     command:
       ['--config', '/etc/vector/vector.yaml', '--require-healthy', 'true']
   web:

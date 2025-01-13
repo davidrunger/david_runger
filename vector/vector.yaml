@@ -28,7 +28,7 @@ sinks:
     type: papertrail
     inputs:
       - papertrail_services_with_brief_service_name
-    endpoint: logs.papertrailapp.com:${PAPERTRAIL_PORT}
+    endpoint: '${PAPERTRAIL_HOST_AND_PORT}'
     encoding:
       codec: text
     process: '{{ .brief_service_name }}'
