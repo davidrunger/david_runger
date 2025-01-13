@@ -13,11 +13,16 @@ transforms:
       match(string!(.container_name), r'-(clock|initialize_database|web|worker)-\d+')
 
   # Add brief service name to log data
-  papertrail_services_with_brief_service_name:
+  papertrail_services_remapped:
     type: remap
     inputs:
       - papertrail_services
     source: |
+      .host = slice(string!(.container_id), 0, 12) ?? null
+      if .host == null {
+          del(.host)
+      }
+
       name_without_prefix = replace(string!(.container_name), r'^david_runger-', "")
       name_without_prefix_or_suffix = replace(name_without_prefix, r'-\d+$', "")
       .brief_service_name = name_without_prefix_or_suffix
@@ -27,7 +32,7 @@ sinks:
   papertrail:
     type: papertrail
     inputs:
-      - papertrail_services_with_brief_service_name
+      - papertrail_services_remapped
     endpoint: '${PAPERTRAIL_HOST_AND_PORT}'
     encoding:
       codec: text
