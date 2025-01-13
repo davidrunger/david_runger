@@ -120,7 +120,7 @@ Rails.application.configure do
   # https://old.reddit.com/r/rails/comments/zmznbi/is_there_a_gem_for_tracking_adhoc_rails_console/j0e6ffu/
   console do
     PaperTrail.request.whodunnit =
-      -> {
+      -> do
         @paper_trail_whodunnit ||=
           begin
             name = nil
@@ -131,6 +131,6 @@ Rails.application.configure do
             puts "Thank you, #{name}! Be safe!"
             name
           end
-      }
+      end
   end
 end

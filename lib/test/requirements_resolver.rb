@@ -165,46 +165,46 @@ class Test::RequirementsResolver
   end
 
   CHECK_CAN_BE_SKIPPED_CONDITIONS = {
-    Test::Tasks::RunAnnotate => proc {
+    Test::Tasks::RunAnnotate => proc do
       !db_schema_changed? &&
         !diff_mentions?('annotate') &&
         !files_added_in?('app/models') &&
         !files_added_in?('app/serializers') &&
         !files_added_in?('spec/factories') &&
         !files_added_in?('spec/serializers')
-    },
-    Test::Tasks::RunBrakeman => proc {
+    end,
+    Test::Tasks::RunBrakeman => proc do
       (!(haml_files_changed? || ruby_files_changed?) || running_locally?) &&
         !diff_mentions?('brakeman')
-    },
-    Test::Tasks::RunDatabaseConsistency => proc {
+    end,
+    Test::Tasks::RunDatabaseConsistency => proc do
       !db_schema_changed? && !diff_mentions?('database_consistency')
-    },
-    Test::Tasks::CheckTypescript => proc {
+    end,
+    Test::Tasks::CheckTypescript => proc do
       !files_with_js_changed? &&
         !diff_mentions?('tsc|typescript') &&
         !file_changed?('package.json') &&
         !file_changed?('pnpm-lock.yaml') &&
         !file_changed?('tsconfig.json')
-    },
-    Test::Tasks::RunEslint => proc {
+    end,
+    Test::Tasks::RunEslint => proc do
       !files_with_js_changed? &&
         !diff_mentions?('eslint') &&
         !file_changed?('package.json') &&
         !file_changed?('pnpm-lock.yaml')
-    },
+    end,
     Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
-    Test::Tasks::RunPrettier => proc {
+    Test::Tasks::RunPrettier => proc do
       all_changed_file_extensions_are_among?(%w[haml lock rb]) &&
         !dotfile_changed? &&
         !diff_mentions?('prettier')
-    },
-    Test::Tasks::RunRubocop => proc {
+    end,
+    Test::Tasks::RunRubocop => proc do
       !ruby_files_changed? &&
         !rubocop_files_changed? &&
         !diff_mentions?('rubocop') &&
         !diff_mentions?('runger_style')
-    },
+    end,
     Test::Tasks::RunStylelint => proc { !files_with_css_changed? && !diff_mentions?('stylelint') },
     Test::Tasks::SetupDb => proc { running_locally? },
     Test::Tasks::PnpmInstall => proc { running_locally? },
