@@ -1,3 +1,10 @@
+x-logging-config: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '100m'
+    max-file: '5'
+    compress: 'true'
+
 x-rails-config: &default-rails-config
   build:
     context: .
@@ -7,17 +14,15 @@ x-rails-config: &default-rails-config
   env_file:
     # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local
-  logging:
-    driver: syslog
-    options:
-      # NOTE: The syslog-address value will be built into the image.
-      syslog-address: ${PAPERTRAIL_URL:-setpapertrailurl://it-was-not-set}
-      tag: '{{.Name}}/{{.ID}}'
+  logging: *default-logging
   networks:
     - external
     - internal
 
 x-redis-config: &redis
+  depends_on:
+    vector:
+      condition: service_started
   healthcheck:
     test: ['CMD', 'redis-cli', 'ping']
     start_period: 20s
@@ -26,11 +31,15 @@ x-redis-config: &redis
     timeout: 1s
     retries: 1
   image: redis:7.2.5-alpine
+  logging: *default-logging
   networks:
     - internal
 
 services:
   certbot:
+    depends_on:
+      vector:
+        condition: service_started
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     healthcheck:
       test: certbot --version
@@ -40,6 +49,7 @@ services:
       timeout: 3s
       retries: 1
     image: certbot/certbot
+    logging: *default-logging
     networks:
       - external
     volumes:
@@ -64,8 +74,13 @@ services:
         condition: service_healthy
       redis-cache:
         condition: service_healthy
+      vector:
+        condition: service_started
   nginx:
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    depends_on:
+      vector:
+        condition: service_started
     healthcheck:
       test: curl --fail http://localhost/
       start_period: 20s
@@ -74,6 +89,7 @@ services:
       timeout: 1s
       retries: 1
     image: nginx:1.27.0-alpine
+    logging: *default-logging
     networks:
       - external
       - internal
@@ -88,6 +104,9 @@ services:
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
       - app-public:/var/www/david-runger-public:ro
   postgres:
+    depends_on:
+      vector:
+        condition: service_started
     env_file:
       - .env.postgres.local
     healthcheck:
@@ -98,6 +117,7 @@ services:
       timeout: 1s
       retries: 1
     image: postgres:16.3-alpine
+    logging: *default-logging
     networks:
       - internal
     volumes:
@@ -136,13 +156,26 @@ services:
     volumes:
       - ./redis/redis-cache.conf:/usr/local/etc/redis/redis.conf
   s3_db_backup:
+    depends_on:
+      vector:
+        condition: service_started
     env_file:
       - .env.s3_db_backup.local
     image: dokku/s3backup
+    logging: *default-logging
     networks:
       - external
     profiles:
       - nondefault
+  vector:
+    env_file:
+      - .env.vector.local
+    image: timberio/vector:latest-alpine
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
+    command:
+      ['--config', '/etc/vector/vector.yaml', '--require-healthy', 'true']
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server', '--binding', '0.0.0.0']
