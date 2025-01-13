@@ -29,11 +29,11 @@ class QuizParticipation < ApplicationRecord
   # We don't need `:dependent` option because this is a subset of `quiz_question_answer_selections`
   has_many(
     :correct_answer_selections,
-    -> {
+    -> do
       joins(answer: :question).
         merge(QuizQuestion.closed).
         where(quiz_question_answers: { is_correct: true })
-    },
+    end,
     class_name: 'QuizQuestionAnswerSelection',
     foreign_key: :participation_id,
     inverse_of: :participation,
