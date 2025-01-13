@@ -1,0 +1,34 @@
+sources:
+  # Read Docker container logs
+  docker:
+    type: docker_logs
+
+transforms:
+  # Filter to only the services that we want to send to Papertrail
+  papertrail_services:
+    type: filter
+    inputs:
+      - docker
+    condition: |
+      match(string!(.container_name), r'-(clock|initialize_database|web|worker)-\d+')
+
+  # Add brief service name to log data
+  papertrail_services_with_brief_service_name:
+    type: remap
+    inputs:
+      - papertrail_services
+    source: |
+      name_without_prefix = replace(string!(.container_name), r'^david_runger-', "")
+      name_without_prefix_or_suffix = replace(name_without_prefix, r'-\d+$', "")
+      .brief_service_name = name_without_prefix_or_suffix
+
+sinks:
+  # Send logs to Papertrail
+  papertrail:
+    type: papertrail
+    inputs:
+      - papertrail_services_with_brief_service_name
+    endpoint: logs.papertrailapp.com:${PAPERTRAIL_PORT}
+    encoding:
+      codec: text
+    process: '{{ .brief_service_name }}'
