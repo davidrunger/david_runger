@@ -573,7 +573,7 @@ GEM
     runger_config (5.2.0)
       activesupport (>= 7.1.2)
     runger_email_reply_trimmer (0.3.0)
-    runger_style (4.0.1)
+    runger_style (4.1.0)
       prism (>= 0.24.0)
       rubocop (>= 1.68.0)
     sanitize (6.1.3)
