@@ -174,7 +174,8 @@ services:
       - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
     environment:
       - PAPERTRAIL_PORT=${PAPERTRAIL_PORT:?PAPERTRAIL_PORT is required}
-    command: ["--config", "/etc/vector/vector.yaml", "--require-healthy", "true"]
+    command:
+      ['--config', '/etc/vector/vector.yaml', '--require-healthy', 'true']
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server', '--binding', '0.0.0.0']
