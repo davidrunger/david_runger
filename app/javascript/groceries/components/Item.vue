@@ -145,7 +145,7 @@ button.increment {
 }
 
 .item-name {
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .grocery-item {
@@ -154,6 +154,7 @@ button.increment {
   padding: 6px;
   min-height: 30px;
 
+  /* stylelint-disable media-feature-name-value-no-unknown */
   &:not(.unneeded):hover {
     background: rgba(255, 255, 255, 80%);
 
@@ -174,5 +175,6 @@ button.increment {
       }
     }
   }
+  /* stylelint-enable media-feature-name-value-no-unknown */
 }
 </style>
