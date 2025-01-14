@@ -1,4 +1,5 @@
-.env*
+.env
+.env.*.local
 .git
 .github
 .ruby-lsp
