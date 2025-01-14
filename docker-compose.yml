@@ -27,7 +27,7 @@ x-redis-config: &redis
     test: ['CMD', 'redis-cli', 'ping']
     start_period: 20s
     start_interval: 1s
-    interval: 10s
+    interval: 5m
     timeout: 1s
     retries: 1
   image: redis:7.2.5-alpine
@@ -61,8 +61,8 @@ services:
     healthcheck:
       test: ps -eo cmd | grep -P '^[b]in/skedjewel$'
       start_period: 10s
-      start_interval: 1s
-      interval: 10s
+      start_interval: 2s
+      interval: 5m
       timeout: 1s
       retries: 1
   initialize_database:
@@ -113,7 +113,7 @@ services:
       test: ['CMD', 'pg_isready', '-U', 'david_runger']
       start_period: 20s
       start_interval: 1s
-      interval: 10s
+      interval: 5m
       timeout: 1s
       retries: 1
     image: postgres:16.3-alpine
@@ -189,7 +189,7 @@ services:
       test: curl --silent --output /dev/null --fail localhost:3000/up
       start_period: 30s
       start_interval: 1s
-      interval: 10s
+      interval: 1m
       timeout: 1s
       retries: 1
     profiles:
@@ -203,7 +203,7 @@ services:
       test: REDIS_URL="$$REDIS_URL/1" bin/sidekiqmon | grep --quiet "$$(hostname)"
       start_period: 60s
       start_interval: 10s
-      interval: 60s
+      interval: 5m
       timeout: 10s
       retries: 1
 
