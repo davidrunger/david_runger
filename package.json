@@ -61,7 +61,7 @@
     "@typescript-eslint/parser": "^8.19.1",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/language-plugin-pug": "^2.2.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-import": "^2.31.0",
     "postcss": "^8.5.0",
