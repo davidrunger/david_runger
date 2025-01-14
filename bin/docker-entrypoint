@@ -6,7 +6,7 @@ if ! ( psql "$DATABASE_URL" -XtAc \
   "SELECT 1 FROM pg_database WHERE datname='david_runger_production'" | \
   grep -q 1
 ) ; then
-  bin/rails db:prepare
+  RAILS_MAX_THREADS=1 bin/rails db:prepare
 fi
 
 exec "${@}"
