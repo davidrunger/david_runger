@@ -37,7 +37,7 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
   --mount=type=cache,sharing=private,target=/var/cache/apt \
   apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-  build-essential git libpq-dev unzip
+  build-essential git libpq-dev libyaml-dev unzip
 
 # Download skedjewel binary.
 ARG SKEDJEWEL_VERSION=v0.0.13
