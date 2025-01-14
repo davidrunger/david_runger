@@ -70,6 +70,7 @@ RUN DOCKER_BUILD=true \
   GIT_REV=${GIT_REV} \
   SECRET_KEY_BASE_DUMMY=1 \
   VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
+  RAILS_MAX_THREADS=1 \
   bundle exec rails assets:precompile
 
 # Precompile bootsnap code for faster boot times
