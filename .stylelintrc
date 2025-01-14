@@ -8,8 +8,15 @@
   ],
   "plugins": ["stylelint-scss"],
   "rules": {
+    "at-rule-no-deprecated": [
+      true,
+      {
+        "ignoreAtRules": ["apply"]
+      }
+    ],
     "at-rule-no-unknown": null,
     "color-function-notation": null,
+    "declaration-property-value-no-unknown": null,
     "keyframes-name-pattern": null,
     "media-query-no-invalid": null,
     "no-descending-specificity": null,
