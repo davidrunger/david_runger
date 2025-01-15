@@ -27,10 +27,11 @@ transforms:
 sinks:
   # Send logs to Papertrail
   papertrail:
-    type: papertrail
-    inputs:
-      - papertrail_services_remapped
-    endpoint: '${PAPERTRAIL_HOST_AND_PORT}'
     encoding:
       codec: text
+    endpoint: '${PAPERTRAIL_HOST_AND_PORT}'
+    if: '${PAPERTRAIL_HOST_AND_PORT:-false}' # Defaults to false if env var not set.
+    inputs:
+      - papertrail_services_remapped
     process: '{{ .brief_service_name }}'
+    type: papertrail
