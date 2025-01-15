@@ -10,9 +10,9 @@ transforms:
     inputs:
       - docker
     condition: |
-      _, env_var_error = get_env_var("PAPERTRAIL_HOST_AND_PORT")
+      papertrail_address, env_var_error = get_env_var("PAPERTRAIL_HOST_AND_PORT")
 
-      env_var_error == null && match(string!(.container_name), r'-(clock|initialize_database|web|worker)-\d+')
+      env_var_error == null && contains(papertrail_address, "papertrail") && match(string!(.container_name), r'-(clock|initialize_database|web|worker)-\d+')
 
   # Add brief service name to log data
   papertrail_services_remapped:
@@ -31,7 +31,9 @@ sinks:
   papertrail:
     encoding:
       codec: text
-    endpoint: '${PAPERTRAIL_HOST_AND_PORT}'
+    endpoint: '${PAPERTRAIL_HOST_AND_PORT:-davidrunger.com:12345}'
+    healthcheck:
+      enabled: false
     inputs:
       - papertrail_services_remapped
     process: '{{ .brief_service_name }}'
