@@ -12,7 +12,9 @@ class JsonSchemaValidator
   # https://jsonformatter.org/json-to-jsonschema .
   def validated_data
     if (
-      Rails.env.local? && !(defined?(Runger.config) && Runger.config.skip_schema_validation?) &&
+      Rails.env.local? &&
+        !IS_DOCKER &&
+        !(defined?(Runger.config) && Runger.config.skip_schema_validation?) &&
         schema_validation_errors.present?
     )
       copy_data_to_clipboard
