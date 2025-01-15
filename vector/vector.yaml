@@ -30,7 +30,7 @@ sinks:
     encoding:
       codec: text
     endpoint: '${PAPERTRAIL_HOST_AND_PORT}'
-    if: '${PAPERTRAIL_HOST_AND_PORT:-false}' # Defaults to false if env var not set.
+    if: '${PAPERTRAIL_HOST_AND_PORT:-false}'
     inputs:
       - papertrail_services_remapped
     process: '{{ .brief_service_name }}'
