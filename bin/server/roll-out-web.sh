@@ -52,15 +52,15 @@ while [ $attempt -le $max_attempts ] ; do
 
   # Validate status code is a number and in range
   if [ $exit_code -eq 0 ] && [[ "$status_code" =~ ^[0-9]+$ ]] && [ "$status_code" -ge 200 ] && [ "$status_code" -lt 300 ] ; then
-    echo_iso8601 "status=success attempt=$attempt status_code=$status_code"
+    echo_iso8601 "attempt=$attempt status=success status_code=$status_code"
     break
   else
     if [ $exit_code -eq 7 ] ; then
-      echo_iso8601 "status=error attempt=$attempt error=connection_refused"
+      echo_iso8601 "attempt=$attempt status=error error=connection_refused"
     elif [ $exit_code -eq 28 ] ; then
-      echo_iso8601 "status=error attempt=$attempt error=connection_timeout"
+      echo_iso8601 "attempt=$attempt status=error error=connection_timeout"
     else
-      echo_iso8601 "status=error attempt=$attempt status_code=$status_code error_msg=\"$error_msg\" exit_code=$exit_code"
+      echo_iso8601 "attempt=$attempt status=error status_code=$status_code error_msg=\"$error_msg\" exit_code=$exit_code"
     fi
 
     if [ $attempt -eq $max_attempts ] ; then
