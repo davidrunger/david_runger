@@ -90,7 +90,13 @@ Rails.application.configure do
   # Email
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method =
+    if Rails.env.development? && IS_DOCKER
+      # Merely log, because letter_opener is a development dependency (so not available in Docker).
+      Mail::LoggerDelivery
+    else
+      :letter_opener
+    end
 
   local_hostname = ENV.fetch('LOCAL_HOSTNAME', nil)
   if local_hostname && !local_hostname.empty? # rubocop:disable Rails/Present
