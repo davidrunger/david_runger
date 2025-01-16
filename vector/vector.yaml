@@ -4,6 +4,15 @@ sources:
     type: docker_logs
 
 transforms:
+  docker_with_grafana_nginx_separated:
+    type: remap
+    inputs:
+      - docker
+    source: |
+      if .label."com.docker.compose.service" == "nginx" && match(string!(.message), r'^\[grafana\]') {
+        .label."com.docker.compose.service" = "nginx-grafana"
+      }
+
   # Filter to only the services that we want to send to Papertrail
   papertrail_services_filtered:
     type: filter
@@ -27,6 +36,18 @@ transforms:
       .brief_service_name = name_without_prefix_or_suffix
 
 sinks:
+  loki:
+    type: loki
+    inputs:
+      - docker_with_grafana_nginx_separated
+    endpoint: http://loki:3100
+    encoding:
+      codec: json
+    healthcheck:
+      enabled: false
+    labels:
+      service_name: '{{ .label."com.docker.compose.service" }}'
+
   # Send logs to Papertrail
   papertrail:
     encoding:

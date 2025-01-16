@@ -65,6 +65,18 @@ services:
       interval: 5m
       timeout: 1s
       retries: 1
+  grafana:
+    depends_on:
+      - loki
+    env_file:
+      - .env.grafana.local
+    expose:
+      - '3000'
+    image: grafana/grafana:latest
+    networks:
+      - internal
+    volumes:
+      - grafana-data:/var/lib/grafana
   initialize_database:
     <<: *default-rails-config
     depends_on:
@@ -76,6 +88,14 @@ services:
         condition: service_healthy
       vector:
         condition: service_started
+  loki:
+    image: grafana/loki:latest
+    expose:
+      - '3100'
+    networks:
+      - internal
+    volumes:
+      - loki-data:/loki
   nginx:
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     depends_on:
@@ -177,6 +197,9 @@ services:
     env_file:
       - .env.vector.local
     image: timberio/vector:latest-alpine
+    networks:
+      - external
+      - internal
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
@@ -216,5 +239,7 @@ networks:
 
 volumes:
   app-public:
+  grafana-data:
+  loki-data:
   postgresql:
   redis:

@@ -5,7 +5,7 @@
 
 # shellcheck disable=SC2128
 
-domains=(davidrunger.com www.davidrunger.com)
+domains=(davidrunger.com grafana.davidrunger.com www.davidrunger.com)
 rsa_key_size=4096
 data_path="./ssl-data/certbot"
 email="davidjrunger@gmail.com" # Adding a valid address is strongly recommended
