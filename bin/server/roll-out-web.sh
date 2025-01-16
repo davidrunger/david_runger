@@ -68,7 +68,6 @@ while [ $attempt -le $max_attempts ] ; do
       exit 1
     fi
 
-    echo_iso8601 "status=waiting delay=$delay"
     sleep $delay
     attempt=$((attempt + 1))
   fi
