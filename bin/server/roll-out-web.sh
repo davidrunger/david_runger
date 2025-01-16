@@ -32,7 +32,47 @@ scale_web 2
 new_container_id=$(docker ps --filter name=web --quiet | head -1)
 new_container_ip=$(docker inspect --format '{{.NetworkSettings.Networks.david_runger_internal.IPAddress}}' "$new_container_id")
 echo_iso8601 "Curling new container IP until success."
-curl --silent --output /dev/null --retry-connrefused --retry 30 --retry-delay 1 --fail "http://$new_container_ip:3000/" || exit 1
+attempt=1
+max_attempts=30
+delay=2
+url="http://$new_container_ip:3000/"
+
+while [ $attempt -le $max_attempts ] ; do
+  echo_iso8601 "attempt=$attempt max_attempts=$max_attempts url=$url"
+
+  # Capture both stdout and stderr, along with exit code
+  set +e
+  response=$(curl --silent --output /dev/null --write-out "%{http_code}\n%{errormsg}" "$url" 2>&1)
+  exit_code=$?
+  set -e
+
+  # Parse response - last line is error message, second to last is status code
+  error_msg=$(echo "$response" | tail -n1)
+  status_code=$(echo "$response" | tail -n2 | head -n1)
+
+  # Validate status code is a number and in range
+  if [ $exit_code -eq 0 ] && [[ "$status_code" =~ ^[0-9]+$ ]] && [ "$status_code" -ge 200 ] && [ "$status_code" -lt 300 ] ; then
+    echo_iso8601 "status=success attempt=$attempt status_code=$status_code"
+    break
+  else
+    if [ $exit_code -eq 7 ] ; then
+      echo_iso8601 "status=error attempt=$attempt error=connection_refused"
+    elif [ $exit_code -eq 28 ] ; then
+      echo_iso8601 "status=error attempt=$attempt error=connection_timeout"
+    else
+      echo_iso8601 "status=error attempt=$attempt status_code=$status_code error_msg=\"$error_msg\" exit_code=$exit_code"
+    fi
+
+    if [ $attempt -eq $max_attempts ] ; then
+      echo_iso8601 "status=error message=\"all_retry_attempts_failed\""
+      exit 1
+    fi
+
+    echo_iso8601 "status=waiting delay=$delay"
+    sleep $delay
+    attempt=$((attempt + 1))
+  fi
+done
 
 # Start routing requests to the new container instead of the old.
 reload_nginx
