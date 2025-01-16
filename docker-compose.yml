@@ -168,18 +168,18 @@ services:
     profiles:
       - nondefault
   vector:
-    env_file:
-      - .env.vector.local
-    image: timberio/vector:latest-alpine
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
     command:
       - '--config'
       - '/etc/vector/vector.yaml'
       - '--require-healthy'
       - 'true'
       - '--watch-config'
+    env_file:
+      - .env.vector.local
+    image: timberio/vector:latest-alpine
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server', '--binding', '0.0.0.0']
