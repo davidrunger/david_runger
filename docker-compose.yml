@@ -82,7 +82,7 @@ services:
       vector:
         condition: service_started
     healthcheck:
-      test: curl --fail http://localhost/
+      test: curl --insecure -s -o /dev/null -w "%{http_code}" https://localhost/up | grep -q "^200$" || false
       start_period: 20s
       start_interval: 1s
       interval: 60s
