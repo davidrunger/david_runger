@@ -735,7 +735,6 @@ DEPENDENCIES
   rails
   rails-controller-testing
   rainbow
-  ransack
   redis-client
   redlock
   request_store
