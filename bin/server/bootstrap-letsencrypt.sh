@@ -43,7 +43,7 @@ docker compose run --rm --entrypoint "\
 echo
 
 echo "### Temporarily commenting out problematic line ..."
-sed -i 's|^\s\+\(ssl_trusted_certificate\s\)|    # \1|' config/nginx/sites-enabled/davidrunger.com.conf
+sed -i 's|^\s\+\(ssl_trusted_certificate\s\)|    # \1|' config/nginx/sites-enabled/*davidrunger.com.conf
 echo
 
 echo "### Starting nginx ..."
@@ -85,7 +85,7 @@ docker compose run --rm --entrypoint "\
 echo
 
 echo "### Uncommenting temporarily commented-out line ..."
-sed -i 's|^\s\+# \(ssl_trusted_certificate\s\)|    \1|' config/nginx/sites-enabled/davidrunger.com.conf
+sed -i 's|^\s\+# \(ssl_trusted_certificate\s\)|    \1|' config/nginx/sites-enabled/*davidrunger.com.conf
 echo
 
 echo "### Reloading nginx ..."
