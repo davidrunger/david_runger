@@ -21,6 +21,8 @@ x-rails-config: &default-rails-config
 
 x-redis-config: &redis
   depends_on:
+    redis-overcommit:
+      condition: service_started
     vector:
       condition: service_started
   healthcheck:
@@ -178,6 +180,11 @@ services:
       - .env.redis-cache.local
     volumes:
       - ./redis/redis-cache.conf:/usr/local/etc/redis/redis.conf
+  redis-overcommit:
+    build: https://raw.githubusercontent.com/bkuhl/redis-overcommit-on-host/09215f160d59a7289ab3f4734f235659cdb8d269/Dockerfile
+    restart: 'no'
+    volumes:
+      - /proc/sys/vm:/mnt/vm
   s3_db_backup:
     depends_on:
       vector:
