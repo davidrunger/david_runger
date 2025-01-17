@@ -49,3 +49,6 @@ export
 
 # SSL
 /ssl-data/
+
+# NGINX
+config/nginx/conf.d/require-valid-host.conf

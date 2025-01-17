@@ -1,0 +1,4 @@
+# Define whether hostname enforcement is enabled
+map $host $require_valid_host {
+  default  "$REQUIRE_VALID_HOST";
+}
