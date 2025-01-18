@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 20s
+  evaluation_interval: 20s
+
+scrape_configs:
+  # NOTE: This name is required for this dashboard:
+  # https://grafana.com/grafana/dashboards/1860-node-exporter-full/ .
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node_exporter:9100']
