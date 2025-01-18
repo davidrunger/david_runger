@@ -220,7 +220,7 @@ services:
       - '3000'
     healthcheck:
       test: curl --silent --output /dev/null --fail localhost:3000/up
-      start_period: 30s
+      start_period: 60s
       start_interval: 1s
       interval: 1m
       timeout: 1s
