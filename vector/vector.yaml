@@ -9,7 +9,7 @@ transforms:
     inputs:
       - docker
     source: |
-      if .label."com.docker.compose.service" == "nginx" && match(string!(.message), r'^\[grafana\]') {
+      if .label."com.docker.compose.service" == "nginx" && contains(string!(.message), " subdomain=grafana ") {
         .label."com.docker.compose.service" = "nginx-grafana"
       }
 
@@ -42,11 +42,15 @@ sinks:
       - docker_with_grafana_nginx_separated
     endpoint: http://loki:3100
     encoding:
-      codec: json
+      codec: text
     healthcheck:
       enabled: false
     labels:
       service_name: '{{ .label."com.docker.compose.service" }}'
+    structured_metadata:
+      container_id: '{{ .container_id }}'
+      container_name: '{{ .container_name }}'
+      oneoff: '{{ .label."com.docker.compose.oneoff" }}'
 
   # Send logs to Papertrail
   papertrail:
