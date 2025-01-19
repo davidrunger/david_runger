@@ -14,6 +14,8 @@ x-rails-config: &default-rails-config
   env_file:
     # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local
+  environment:
+    PROMETHEUS_EXPORTER_HOST: rails_metrics
   logging: *default-logging
   networks:
     - external
@@ -181,6 +183,13 @@ services:
       - internal
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  rails_metrics:
+    <<: *default-rails-config
+    entrypoint: bin/prometheus_exporter --bind 0.0.0.0
+    expose:
+      - '9394'
+    networks:
+      - internal
   redis-app:
     <<: *redis
     # https://stackoverflow.com/a/72593084/4009384
