@@ -38,6 +38,22 @@ x-redis-config: &redis
     - internal
 
 services:
+  cadvisor:
+    command:
+      # Add options to lower CPU/memory use. https://github.com/google/cadvisor/issues/ 2523
+      - '--docker_only'
+      - '--housekeeping_interval=30s'
+      - '--enable_metrics'
+      - 'cpu,diskIO,memory,network'
+    expose:
+      - '8080'
+    image: gcr.io/cadvisor/cadvisor:v0.49.2
+    networks:
+      - internal
+    volumes:
+      - /sys:/sys:ro # Seems to be needed for CPU and Disk I/O usage.
+      - /var/lib/docker/:/var/lib/docker:ro # Seems to be needed for memory usage.
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Seems to be needed for anything to work.
   certbot:
     depends_on:
       vector:
