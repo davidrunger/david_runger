@@ -3,6 +3,10 @@ global:
   evaluation_interval: 20s
 
 scrape_configs:
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
   # NOTE: This name is required for this dashboard:
   # https://grafana.com/grafana/dashboards/1860-node-exporter-full/ .
   - job_name: 'node'
