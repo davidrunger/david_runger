@@ -70,6 +70,7 @@ services:
   grafana:
     depends_on:
       - loki
+      - prometheus
     env_file:
       - .env.grafana.local
     expose:
@@ -128,6 +129,12 @@ services:
       - ./ssl-data/certbot/conf:/etc/letsencrypt
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
       - app-public:/var/www/david-runger-public:ro
+  node_exporter:
+    expose:
+      - '9100'
+    image: prom/node-exporter:latest
+    networks:
+      - internal
   postgres:
     depends_on:
       vector:
@@ -150,6 +157,14 @@ services:
     environment:
       POSTGRES_INITDB_ARGS: --auth=scram-sha-256
       POSTGRES_USER: david_runger
+  prometheus:
+    expose:
+      - '9090'
+    image: prom/prometheus:latest
+    networks:
+      - internal
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
   redis-app:
     <<: *redis
     # https://stackoverflow.com/a/72593084/4009384
