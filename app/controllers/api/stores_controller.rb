@@ -58,7 +58,6 @@ class Api::StoresController < Api::BaseController
 
   def store_params
     params.
-      require(:store).
-      permit(:name, :notes, :private, :viewed_at)
+      expect(store: %i[name notes private viewed_at])
   end
 end

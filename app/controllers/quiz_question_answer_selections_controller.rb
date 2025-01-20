@@ -30,6 +30,6 @@ class QuizQuestionAnswerSelectionsController < ApplicationController
   private
 
   def quiz_question_answer_selection_params
-    params.require(:quiz_question_answer_selection).permit(:answer_id)
+    params.expect(quiz_question_answer_selection: [:answer_id])
   end
 end

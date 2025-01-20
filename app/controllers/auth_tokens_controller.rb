@@ -23,7 +23,7 @@ class AuthTokensController < ApplicationController
   private
 
   def auth_token_params
-    params.require(:auth_token).permit(:name, :secret)
+    params.expect(auth_token: %i[name secret])
   end
 
   def set_auth_token

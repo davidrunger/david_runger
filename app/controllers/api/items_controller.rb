@@ -37,7 +37,7 @@ class Api::ItemsController < Api::BaseController
   private
 
   def item_params
-    params.require(:item).permit(:name, :needed, :store_id)
+    params.expect(item: %i[name needed store_id])
   end
 
   def set_item

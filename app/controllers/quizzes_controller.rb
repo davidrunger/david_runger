@@ -96,7 +96,7 @@ class QuizzesController < ApplicationController
   end
 
   def quiz_params
-    params.require(:quiz).permit(:current_question_number, :name, :status)
+    params.expect(quiz: %i[current_question_number name status])
   end
 
   # rubocop:disable Style/MethodCallWithArgsParentheses
