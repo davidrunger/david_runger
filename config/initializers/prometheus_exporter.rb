@@ -1,4 +1,4 @@
-unless Rails.env.test?
+if IS_DOCKER_BUILT
   # :nocov:
   require 'prometheus_exporter/middleware'
 
