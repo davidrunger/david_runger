@@ -17,19 +17,21 @@ unless IS_DOCKER_BUILD
     config[:job_logger] = SidekiqExt::JobLogger
 
     # Prometheus Exporter >>>
-    require 'prometheus_exporter/instrumentation'
+    if IS_DOCKER_BUILT
+      require 'prometheus_exporter/instrumentation'
 
-    config.server_middleware do |chain|
-      chain.add(PrometheusExporter::Instrumentation::Sidekiq)
-    end
+      config.server_middleware do |chain|
+        chain.add(PrometheusExporter::Instrumentation::Sidekiq)
+      end
 
-    config.death_handlers << PrometheusExporter::Instrumentation::Sidekiq.death_handler
+      config.death_handlers << PrometheusExporter::Instrumentation::Sidekiq.death_handler
 
-    config.on(:startup) do
-      PrometheusExporter::Instrumentation::Process.start(type: 'sidekiq')
-      PrometheusExporter::Instrumentation::SidekiqProcess.start
-      PrometheusExporter::Instrumentation::SidekiqQueue.start
-      PrometheusExporter::Instrumentation::SidekiqStats.start
+      config.on(:startup) do
+        PrometheusExporter::Instrumentation::Process.start(type: 'sidekiq')
+        PrometheusExporter::Instrumentation::SidekiqProcess.start
+        PrometheusExporter::Instrumentation::SidekiqQueue.start
+        PrometheusExporter::Instrumentation::SidekiqStats.start
+      end
     end
     # <<< Prometheus Exporter
 

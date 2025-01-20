@@ -19,7 +19,8 @@ Bundler.require(*Rails.groups)
 require 'freezolite/auto'
 
 IS_DOCKER_BUILD = ENV.key?('DOCKER_BUILD')
-IS_DOCKER = IS_DOCKER_BUILD || ENV.key?('DOCKER_BUILT')
+IS_DOCKER_BUILT = ENV.key?('DOCKER_BUILT')
+IS_DOCKER = IS_DOCKER_BUILD || IS_DOCKER_BUILT
 
 module DavidRunger
   CANONICAL_DOMAIN = 'davidrunger.com'
