@@ -71,7 +71,7 @@ class Api::LogEntriesController < Api::BaseController
   private
 
   def log_entry_params
-    params.require(:log_entry).permit(:created_at, :data, :note)
+    params.expect(log_entry: %i[created_at data note])
   end
 
   def log_entry_json_strings_for_log(log)

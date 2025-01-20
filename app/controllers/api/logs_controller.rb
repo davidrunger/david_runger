@@ -33,13 +33,15 @@ class Api::LogsController < Api::BaseController
   private
 
   def log_params
-    params.require(:log).permit(
-      :data_label,
-      :data_type,
-      :description,
-      :name,
-      :publicly_viewable,
-      :reminder_time_in_seconds,
+    params.expect(
+      log: %i[
+        data_label
+        data_type
+        description
+        name
+        publicly_viewable
+        reminder_time_in_seconds
+      ],
     )
   end
 

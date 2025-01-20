@@ -46,7 +46,7 @@ class EmotionalNeedsController < ApplicationController
   private
 
   def emotional_need_params
-    params.require(:emotional_need).permit(:name, :description)
+    params.expect(emotional_need: %i[name description])
   end
 
   def set_emotional_need

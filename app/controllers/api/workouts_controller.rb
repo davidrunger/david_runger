@@ -15,6 +15,6 @@ class Api::WorkoutsController < Api::BaseController
   private
 
   def workout_params
-    params.require(:workout).permit(:publicly_viewable, :time_in_seconds, rep_totals: {})
+    params.expect(workout: [:publicly_viewable, :time_in_seconds, { rep_totals: {} }])
   end
 end

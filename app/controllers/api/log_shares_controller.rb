@@ -28,6 +28,6 @@ class Api::LogSharesController < Api::BaseController
   private
 
   def log_share_params
-    params.require(:log_share).permit(:log_id, :email)
+    params.expect(log_share: %i[log_id email])
   end
 end

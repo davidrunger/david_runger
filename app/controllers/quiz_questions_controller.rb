@@ -14,6 +14,6 @@ class QuizQuestionsController < ApplicationController
   end
 
   def quiz_question_params
-    params.require(:quiz_question).permit(:status)
+    params.expect(quiz_question: [:status])
   end
 end

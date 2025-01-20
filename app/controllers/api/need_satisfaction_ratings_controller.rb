@@ -20,6 +20,6 @@ class Api::NeedSatisfactionRatingsController < Api::BaseController
   end
 
   def need_satisfaction_rating_params
-    params.require(:need_satisfaction_rating).permit(:score)
+    params.expect(need_satisfaction_rating: [:score])
   end
 end
