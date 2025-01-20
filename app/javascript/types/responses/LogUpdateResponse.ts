@@ -17,7 +17,7 @@ const schema = {
           "type": "string"
         },
         "description": {
-          "type": "string"
+          "type": ["null", "string"]
         },
         "id": {
           "type": "integer"
@@ -32,7 +32,7 @@ const schema = {
           "type": "boolean"
         },
         "reminder_time_in_seconds": {
-          "type": "integer"
+          "type": ["null", "integer"]
         },
         "user": {
           "$ref": "#/definitions/User"
