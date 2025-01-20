@@ -400,8 +400,8 @@ GEM
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
-    omniauth-google-oauth2 (1.2.0)
-      jwt (>= 2.9)
+    omniauth-google-oauth2 (1.2.1)
+      jwt (>= 2.9.2)
       oauth2 (~> 2.0)
       omniauth (~> 2.0)
       omniauth-oauth2 (~> 1.8)
@@ -962,7 +962,7 @@ CHECKSUMS
   nokogiri (1.18.1-x86_64-linux-musl) sha256=f2c389bc100541247edaeaabc6d875b31d72e897471b66a67987b2e4df0192d6
   oauth2 (2.0.9) sha256=b21f9defcf52dc1610e0dfab4c868342173dcd707fd15c777d9f4f04e153f7fb
   omniauth (2.1.2) sha256=def03277298b8f8a5d3ff16cdb2eb5edb9bffed60ee7dda24cc0c89b3ae6a0ce
-  omniauth-google-oauth2 (1.2.0) sha256=88d5d8e6a4d8cc28c560913ec2d4e71a765ce181915e02a218aadc31b4d895a2
+  omniauth-google-oauth2 (1.2.1) sha256=c81c50b680fc3372d0c18147cdaf9764a67ace9e7e4e6afe7b869a01fa1aaedd
   omniauth-oauth2 (1.8.0) sha256=b2f8e9559cc7e2d4efba57607691d6d2b634b879fc5b5b6ccfefa3da85089e78
   omniauth-rails_csrf_protection (1.0.2) sha256=1170fd672aff092b9b7ebebc1453559f073ed001e3ce62a1df616e32f8dc5fe0
   optimist (3.2.0) sha256=01c9e4826bbcae048f96ce079eef662564829016b08f1f1bdc024b0fb398771c
