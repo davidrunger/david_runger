@@ -43,7 +43,7 @@ class LogSerializer < ApplicationSerializer
 
   private
 
-  def own_log?
-    params[:own_log]
+  def own_log?(log)
+    log.user_id == current_user.id
   end
 end
