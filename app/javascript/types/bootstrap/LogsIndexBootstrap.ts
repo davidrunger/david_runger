@@ -40,7 +40,6 @@ const schema = {
         }
       },
       "required": [
-        "current_user",
         "log_input_types",
         "log_selector_keyboard_shortcut",
         "logs",

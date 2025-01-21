@@ -44,7 +44,7 @@ class LogSerializer < ApplicationSerializer
   private
 
   def own_logs?
-    logs.map(&:user_id).uniq == [current_user.id]
+    logs.map(&:user_id).uniq == [current_user&.id]
   end
 
   def logs
