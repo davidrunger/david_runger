@@ -610,7 +610,8 @@ GEM
       activesupport (>= 6)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.3.7)
+    sidekiq (7.3.8)
+      base64
       connection_pool (>= 2.3.0)
       logger
       rack (>= 2.2.4)
@@ -1044,7 +1045,7 @@ CHECKSUMS
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   shaped (0.14.0) sha256=c976615a8c1b129e61c153f1b60f03d2350627cf4a4ad0ecd3f88610e09df426
   shoulda-matchers (6.4.0) sha256=9055bb7f4bb342125fb860809798855c630e05ef5e75837b3168b8e6ee1608b0
-  sidekiq (7.3.7) sha256=5eb29c9431562f97cd82022a1588d5852142ac72cad59627ae04a4e28cdeca16
+  sidekiq (7.3.8) sha256=766173cd223fc03d2476a95b0ba72d86941c4f1dba2274fa6ae06472764d381c
   simple_cov-formatter-terminal (1.7.0) sha256=40fb956c9462172b1220ce70c9a80fee0a678d4d83347b59cffd1e61f69b575c
   simplecov (0.22.0) sha256=fe2622c7834ff23b98066bb0a854284b2729a569ac659f82621fc22ef36213a5
   simplecov-cobertura (2.1.0) sha256=2c6532e34df2e38a379d72cef9a05c3b16c64ce90566beebc6887801c4ad3f02
