@@ -1,4 +1,6 @@
 class Api::LogEntriesController < Api::BaseController
+  skip_before_action :authenticate_user!, only: %i[index]
+
   def create
     authorize(LogEntry)
     log = (current_user || auth_token_user).logs.find(params.dig(:log_entry, :log_id))
@@ -46,15 +48,23 @@ class Api::LogEntriesController < Api::BaseController
   end
 
   def index
-    authorize(LogEntry)
     log_id = params['log_id']
 
     log_entry_json_strings =
       if log_id.present?
         log = Log.find(log_id)
+
         authorize(log, :show?)
+
+        if !log.publicly_viewable?
+          authenticate_user!
+        end
+
         log_entry_json_strings_for_log(log)
       else
+        authenticate_user!
+        authorize(LogEntry)
+
         log_entry_json_strings_for_user_and_datum_class(
           user: current_user,
           datum_class: NumberLogEntryDatum,

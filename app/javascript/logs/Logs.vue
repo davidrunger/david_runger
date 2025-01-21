@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  header.flex.justify-between.p-2
+  header.flex.justify-between.p-2(v-if='currentUser')
     div {{currentUser.email}}
   .text-center
     LogSelectorModal

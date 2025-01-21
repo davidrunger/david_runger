@@ -1,16 +1,21 @@
 class LogsController < ApplicationController
+  skip_before_action(
+    :authenticate_user!,
+    if: -> { action_name == 'index' && shared_log&.publicly_viewable? },
+  )
+
   def index
     @title = 'Logs'
 
-    bootstrap(
-      current_user: UserSerializer::Basic.new(current_user),
+    bootstrap(**{
+      current_user: current_user && UserSerializer::Basic.new(current_user),
       logs: LogSerializer.new(
         authorized_logs_with_ordering_and_eager_loading,
         params: { current_user: },
       ),
       log_input_types:,
       log_selector_keyboard_shortcut: LogSelectorKeyboardShortcut.new(browser).shortcut,
-    )
+    }.compact)
 
     render :index
   end
@@ -21,7 +26,7 @@ class LogsController < ApplicationController
     authorized_logs.
       order(:name).
       then do |logs|
-        if user_id_param.present? && Integer(user_id_param) != current_user.id
+        if user_id_param.present? && Integer(user_id_param) != current_user&.id
           logs
         else
           logs.includes(:log_shares)
