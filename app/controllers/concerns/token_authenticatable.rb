@@ -2,7 +2,6 @@ module TokenAuthenticatable
   extend ActiveSupport::Concern
   prepend MemoWise
 
-  class BlankToken < StandardError ; end
   class InvalidToken < StandardError ; end
 
   private
@@ -28,10 +27,6 @@ module TokenAuthenticatable
   end
 
   def verify_valid_auth_token!
-    if auth_token_param.blank?
-      raise(BlankToken)
-    end
-
     if auth_token.blank?
       raise(InvalidToken)
     end
