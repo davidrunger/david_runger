@@ -292,7 +292,7 @@ export const useLogsStore = defineStore('logs', {
     },
 
     isSharedLogView(): boolean {
-      return !!this.router.currentRoute.value.meta.sharedView
+      return !!this.router.currentRoute.value.meta.sharedView;
     },
 
     logById() {
