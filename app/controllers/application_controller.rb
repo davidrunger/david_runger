@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   include TokenAuthenticatable
 
   AUTHORIZATION_ERROR_MESSAGES = {
-    Pundit::NotAuthorizedError => 'You are not authorized.',
+    Pundit::NotAuthorizedError => 'You are not authorized to perform this action.',
     TokenAuthenticatable::BlankToken => 'You did not provide a token.',
     TokenAuthenticatable::InvalidToken => 'Your token is not valid.',
   }.freeze
