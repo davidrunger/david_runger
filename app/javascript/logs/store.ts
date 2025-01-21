@@ -284,13 +284,6 @@ export const useLogsStore = defineStore('logs', {
       return this.selectedLog.user.id === this.current_user.id;
     },
 
-    // eslint-disable-next-line no-shadow
-    isSharedLog() {
-      const logIsPresent = !!this.selectedLog;
-      const isNotOwnLog = !this.isOwnLog;
-      return logIsPresent && isNotOwnLog;
-    },
-
     isSharedLogView(): boolean {
       return !!this.router.currentRoute.value.meta.sharedView;
     },
