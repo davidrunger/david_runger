@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   after_action :verify_authorized, unless: :skip_authorization?
 
-  rescue_from(AUTHORIZATION_ERROR_MESSAGES.keys, with: :user_not_authorized)
+  rescue_from(*AUTHORIZATION_ERROR_MESSAGES.keys, with: :user_not_authorized)
 
   def self.require_admin_user!
     skip_before_action(:authenticate_user!)
