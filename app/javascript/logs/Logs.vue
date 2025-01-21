@@ -5,7 +5,8 @@ div
   .text-center
     LogSelectorModal
     router-view(:key='$route.fullPath').m-8
-    footer.mb-4 Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the log selector.
+    footer.mb-4(v-if="!isSharedLogView")
+      | Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the log selector.
 </template>
 
 <script setup lang="ts">
@@ -25,7 +26,7 @@ const bootstrap = untypedBootstrap as Bootstrap;
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
 
-const { isSharedLog, selectedLog } = storeToRefs(logsStore);
+const { isSharedLog, isSharedLogView, selectedLog } = storeToRefs(logsStore);
 
 const currentUser = computed(() => {
   return bootstrap.current_user;

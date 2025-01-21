@@ -291,6 +291,10 @@ export const useLogsStore = defineStore('logs', {
       return logIsPresent && isNotOwnLog;
     },
 
+    isSharedLogView(): boolean {
+      return !!this.router.currentRoute.value.meta.sharedView;
+    },
+
     logById() {
       return ({ logId }: { logId: number }): Log => getById(this.logs, logId);
     },
