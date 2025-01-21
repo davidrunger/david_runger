@@ -43,7 +43,11 @@ class LogSerializer < ApplicationSerializer
 
   private
 
-  def own_log?(log)
+  def own_log?
     log.user_id == current_user.id
+  end
+
+  def log
+    object
   end
 end
