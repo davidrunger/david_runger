@@ -26,7 +26,7 @@ const bootstrap = untypedBootstrap as Bootstrap;
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
 
-const { isSharedLog, isSharedLogView, selectedLog } = storeToRefs(logsStore);
+const { isSharedLogView, selectedLog } = storeToRefs(logsStore);
 
 const currentUser = computed(() => {
   return bootstrap.current_user;
@@ -36,7 +36,7 @@ removeQueryParams(); // remove query params such as `new_entry` and `auth_token`
 renderBootstrappedToasts();
 
 onMounted(() => {
-  if (!isSharedLog.value) {
+  if (!isSharedLogView.value) {
     // If we are viewing a specific log, we want to ensure that the log entries for that log are
     // fetched first, so delay 10ms.
     // Otherwise (i.e. if viewing index), fetch all entries immediately.
@@ -44,17 +44,17 @@ onMounted(() => {
     setTimeout(() => {
       logsStore.fetchAllLogEntries();
     }, delayBeforeFetchingAllLogs);
-  }
 
-  document.addEventListener('keydown', (event) => {
-    if (
-      event.key === 'k' &&
-      (event.metaKey === true || event.ctrlKey === true) // Meta for macOS, Ctrl for Windows/Linux
-    ) {
-      event.preventDefault(); // Prevent default behavior for the shortcut
-      modalStore.showModal({ modalName: 'log-selector' });
-    }
-  });
+    document.addEventListener('keydown', (event) => {
+      if (
+        event.key === 'k' &&
+        (event.metaKey === true || event.ctrlKey === true) // Meta for macOS, Ctrl for Windows/Linux
+      ) {
+        event.preventDefault(); // Prevent default behavior for the shortcut
+        modalStore.showModal({ modalName: 'log-selector' });
+      }
+    });
+  }
 });
 </script>
 

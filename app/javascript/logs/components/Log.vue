@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   h1.text-2xl.mb-2 {{log.name}}
-  h2.h5.text-neutral-400(v-if='!isOwnLog') shared by {{log.user.email}}
+  h2.h5.text-neutral-400(v-if='isSharedLogView') shared by {{log.user.email}}
   p.h5.mb-4.description {{log.description}}
   NewLogEntryForm(:log='log' v-if='renderInputAtTop')
   div.mb-4(v-if='log.log_entries === undefined').
@@ -14,7 +14,7 @@ div
     :logEntries='log.log_entries'
   )
   .my-8(v-else) There are no log entries for this log.
-  .controls(v-if='isOwnLog')
+  .controls(v-if='!isSharedLogView')
     NewLogEntryForm(
       v-if='!renderInputAtTop'
       :log='log'
@@ -98,7 +98,7 @@ const log = assert(logsStore.selectedLog);
 
 useTitle(`${log.name} - Logs - David Runger`);
 
-const { isOwnLog } = storeToRefs(logsStore);
+const { isSharedLogView } = storeToRefs(logsStore);
 
 const renderInputAtTop = computed((): boolean => {
   return log.data_type === 'text';

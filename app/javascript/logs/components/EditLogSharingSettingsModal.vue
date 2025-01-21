@@ -7,7 +7,7 @@ Modal(name='edit-log-sharing-settings' width='85%' maxWidth='600px' backgroundCl
         v-model='publiclyViewable'
         @change='savePubliclyViewableChange'
       ) Publicly viewable
-    div(v-if='isOwnLog && !publiclyViewable')
+    div(v-if='!publiclyViewable')
       el-tag(
         :key='logShare.email'
         v-for='logShare in logSharesSortedByLowercasedEmail'
@@ -37,7 +37,6 @@ Modal(name='edit-log-sharing-settings' width='85%' maxWidth='600px' backgroundCl
 
 <script setup lang="ts">
 import { ElInput } from 'element-plus';
-import { storeToRefs } from 'pinia';
 import { computed, nextTick, ref } from 'vue';
 
 import { bootstrap } from '@/lib/bootstrap';
@@ -51,7 +50,6 @@ const logsStore = useLogsStore();
 const modalStore = useModalStore();
 
 const log = assert(logsStore.selectedLog);
-const { isOwnLog } = storeToRefs(logsStore);
 
 const inputValue = ref('');
 const inputVisible = ref(false);

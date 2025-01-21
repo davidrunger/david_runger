@@ -6,6 +6,51 @@ RSpec.describe 'Logs app' do
 
     let(:delete_last_entry_text) { 'Delete last entry' }
 
+    context 'when user has at least one log' do
+      let(:log) { user.logs.first! }
+
+      describe 'aspects of the view pertaining to sharing or not sharing' do
+        before do
+          visit(page_path)
+        end
+
+        let(:shared_by_text) { "shared by #{user.email}" }
+        let(:log_control_text_fragments) do
+          [
+            'Delete last entry',
+            'Sharing settings',
+            'Reminder settings',
+            'Delete log',
+            'open the log selector',
+          ]
+        end
+
+        context 'when user is not viewing a log sharing preview' do
+          let(:page_path) { log_path(slug: log.slug) }
+
+          it 'does not mention the email of the sharing user and shows log control buttons' do
+            expect(page).not_to have_text(shared_by_text)
+
+            log_control_text_fragments.each do |log_control_text_fragment|
+              expect(page).to have_text(log_control_text_fragment)
+            end
+          end
+        end
+
+        context 'when user views a log sharing preview' do
+          let(:page_path) { user_shared_log_path(user_id: user.id, slug: log.slug) }
+
+          it 'mentions the email of the sharing user and does not show log control buttons' do
+            expect(page).to have_text(shared_by_text)
+
+            log_control_text_fragments.each do |log_control_text_fragment|
+              expect(page).not_to have_text(log_control_text_fragment)
+            end
+          end
+        end
+      end
+    end
+
     context 'when user has multiple logs' do
       before { expect(user.logs.size).to be >= 2 }
 
