@@ -44,10 +44,10 @@ class LogSerializer < ApplicationSerializer
   private
 
   def own_logs?
-    logs.reorder(nil).distinct.pluck(:user_id) == [current_user.id]
+    logs.map(&:user_id) == [current_user.id]
   end
 
   def logs
-    object
+    Array(object)
   end
 end
