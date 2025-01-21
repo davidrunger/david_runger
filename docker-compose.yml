@@ -64,9 +64,9 @@ services:
     healthcheck:
       test: certbot --version
       start_period: 30s
-      start_interval: 3s
-      interval: 1h
-      timeout: 3s
+      start_interval: 5s
+      interval: 1m
+      timeout: 10s
       retries: 1
     image: certbot/certbot
     logging: *default-logging
