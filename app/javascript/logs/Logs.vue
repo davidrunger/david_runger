@@ -46,14 +46,14 @@ onMounted(() => {
     }, delayBeforeFetchingAllLogs);
 
     document.addEventListener('keydown', (event) => {
-    if (
-      event.key === 'k' &&
-      (event.metaKey === true || event.ctrlKey === true) // Meta for macOS, Ctrl for Windows/Linux
-    ) {
-      event.preventDefault(); // Prevent default behavior for the shortcut
-      modalStore.showModal({ modalName: 'log-selector' });
-    }
-  });
+      if (
+        event.key === 'k' &&
+        (event.metaKey === true || event.ctrlKey === true) // Meta for macOS, Ctrl for Windows/Linux
+      ) {
+        event.preventDefault(); // Prevent default behavior for the shortcut
+        modalStore.showModal({ modalName: 'log-selector' });
+      }
+    });
   }
 });
 </script>
