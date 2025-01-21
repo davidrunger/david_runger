@@ -98,7 +98,7 @@ const log = assert(logsStore.selectedLog);
 
 useTitle(`${log.name} - Logs - David Runger`);
 
-const { isOwnLog, isSharedLogView } = storeToRefs(logsStore);
+const { isSharedLogView } = storeToRefs(logsStore);
 
 const renderInputAtTop = computed((): boolean => {
   return log.data_type === 'text';

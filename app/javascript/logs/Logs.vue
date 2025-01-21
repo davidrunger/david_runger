@@ -26,7 +26,7 @@ const bootstrap = untypedBootstrap as Bootstrap;
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
 
-const { isSharedLog, isSharedLogView, selectedLog } = storeToRefs(logsStore);
+const { isSharedLogView, selectedLog } = storeToRefs(logsStore);
 
 const currentUser = computed(() => {
   return bootstrap.current_user;
