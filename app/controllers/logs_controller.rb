@@ -5,7 +5,7 @@ class LogsController < ApplicationController
     bootstrap(
       current_user: UserSerializer::Basic.new(current_user),
       logs: LogSerializer.new(
-        authorized_logs.order(:name).includes(:log_shares),
+        authorized_logs_with_ordering_and_eager_loading,
         params: { current_user: },
       ),
       log_input_types:,
@@ -16,6 +16,18 @@ class LogsController < ApplicationController
   end
 
   private
+
+  def authorized_logs_with_ordering_and_eager_loading
+    authorized_logs.
+      order(:name).
+      then do |logs|
+        if user_id_param.present? && Integer(user_id_param) != current_user.id
+          logs
+        else
+          logs.includes(:log_shares)
+        end
+      end
+  end
 
   def authorized_logs
     if shared_log_path?
