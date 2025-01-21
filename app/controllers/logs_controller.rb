@@ -10,14 +10,6 @@ class LogsController < ApplicationController
     else
       current_user_logs = current_user.logs
       logs = current_user_logs.order(:created_at).includes(:log_shares)
-
-      new_entry = params[:new_entry].presence
-      if slug_param && new_entry
-        verify_valid_auth_token!
-        log = current_user_logs.find_by!(slug: slug_param)
-        LogEntries::CreateFromParam.run!(log:, param: new_entry)
-        bootstrap(toast_messages: ['New Log entry created!'])
-      end
     end
 
     @title = 'Logs'

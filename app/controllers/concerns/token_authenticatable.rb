@@ -37,6 +37,7 @@ module TokenAuthenticatable
     end
 
     auth_token.update!(last_used_at: Time.current)
+
     true
   end
 end

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :uploads, only: %i[new create]
   end
   get 'logs/:slug', to: 'logs#index', as: :log # routing to specific log will be done by Vue Router
+  get 'logs/:slug/log_entries/create', to: 'log_entries#create', as: :log_log_entries_create
 
   resources :users, only: [] do
     get 'logs/:slug', to: 'logs#index', as: :shared_log

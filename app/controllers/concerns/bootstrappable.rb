@@ -13,9 +13,10 @@ module Bootstrappable
       # is useful because that ensures that turbo will always evaluate the
       # `<script>` tag(s) within which it's wrapped.
       @bootstrap_data ||= {
-        nonce: SecureRandom.uuid,
         current_user: current_user && UserSerializer::Basic.new(current_user),
-      }
+        nonce: SecureRandom.uuid,
+        toast_messages: flash[:toast_messages],
+      }.compact
 
       @bootstrap_data.merge!(data)
     end
