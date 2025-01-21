@@ -278,12 +278,6 @@ export const useLogsStore = defineStore('logs', {
   },
 
   getters: {
-    isOwnLog(): boolean {
-      if (!this.selectedLog) return false;
-
-      return this.selectedLog.user.id === this.current_user.id;
-    },
-
     isSharedLogView(): boolean {
       return !!this.router.currentRoute.value.meta.sharedView;
     },
