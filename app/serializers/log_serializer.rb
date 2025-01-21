@@ -35,15 +35,19 @@ class LogSerializer < ApplicationSerializer
       publicly_viewable
       reminder_time_in_seconds
     ],
-    if: :own_log?,
+    if: :own_logs?,
   )
 
   one :user, resource: UserSerializer::Basic
-  many :log_shares, resource: LogShareSerializer, if: :own_log?
+  many :log_shares, resource: LogShareSerializer, if: :own_logs?
 
   private
 
-  def own_log?
-    params[:own_log]
+  def own_logs?
+    logs.map(&:user_id).uniq == [current_user.id]
+  end
+
+  def logs
+    Array(object)
   end
 end
