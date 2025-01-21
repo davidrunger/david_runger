@@ -9,7 +9,7 @@ class LogsController < ApplicationController
       logs = Log.where(id: shared_log)
     else
       current_user_logs = current_user.logs
-      logs = current_user_logs.order(:created_at).includes(:log_shares)
+      logs = current_user_logs.order(:name).includes(:log_shares)
     end
 
     @title = 'Logs'
