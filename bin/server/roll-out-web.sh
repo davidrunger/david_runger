@@ -35,7 +35,7 @@ echo_iso8601 "Curling new container IP until success."
 attempt=1
 max_attempts=30
 delay=2
-url="http://$new_container_ip:3000/"
+url="http://$new_container_ip:3000/up"
 
 while [ $attempt -le $max_attempts ] ; do
   echo_iso8601 "attempt=$attempt max_attempts=$max_attempts url=$url"

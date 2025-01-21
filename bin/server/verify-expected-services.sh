@@ -2,7 +2,7 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-expected_running_services=(certbot clock nginx postgres redis-app redis-cache web worker)
+expected_running_services=(clock postgres redis-app redis-cache web worker)
 expected_services_not_running=()
 max_retries=30
 retry_delay=2
