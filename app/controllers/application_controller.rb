@@ -7,6 +7,12 @@ class ApplicationController < ActionController::Base
   include SchemaValidatable
   include TokenAuthenticatable
 
+  AUTHORIZATION_ERROR_MESSAGES = {
+    Pundit::NotAuthorizedError => 'You are not authorized to perform this action.',
+    TokenAuthenticatable::BlankToken => 'You did not provide a token.',
+    TokenAuthenticatable::InvalidToken => 'Your token is not valid.',
+  }.freeze
+
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
@@ -16,12 +22,7 @@ class ApplicationController < ActionController::Base
 
   after_action :verify_authorized, unless: :skip_authorization?
 
-  rescue_from(
-    Pundit::NotAuthorizedError,
-    TokenAuthenticatable::BlankToken,
-    TokenAuthenticatable::InvalidToken,
-    with: :user_not_authorized,
-  )
+  rescue_from(*AUTHORIZATION_ERROR_MESSAGES.keys, with: :user_not_authorized)
 
   def self.require_admin_user!
     skip_before_action(:authenticate_user!)
@@ -132,14 +133,19 @@ class ApplicationController < ActionController::Base
     render json: { error: message }, status:
   end
 
-  def user_not_authorized
+  def user_not_authorized(exception)
+    message = AUTHORIZATION_ERROR_MESSAGES.fetch(
+      exception.class,
+      'You are not authorized.',
+    )
+
     respond_to do |format|
       format.html do
-        flash[:alert] = 'You are not authorized to perform this action.'
+        flash[:alert] = message
         redirect_to(request.referer || root_path)
       end
       format.json do
-        render_json_error('You are not authorized.', 403)
+        render_json_error(message, 403)
       end
     end
   end
