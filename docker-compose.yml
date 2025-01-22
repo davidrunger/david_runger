@@ -78,6 +78,10 @@ services:
   clock:
     <<: *default-rails-config
     command: ['bin/skedjewel']
+    deploy:
+      resources:
+        reservations:
+          memory: 6M
     healthcheck:
       test: ps -eo cmd | grep -P '^[b]in/skedjewel$'
       start_period: 10s
@@ -122,6 +126,10 @@ services:
     depends_on:
       vector:
         condition: service_started
+    deploy:
+      resources:
+        reservations:
+          memory: 10M
     entrypoint: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & /docker-entrypoint.sh nginx -g "daemon off;"'''
     env_file:
       - .env.nginx.local
@@ -158,6 +166,10 @@ services:
     depends_on:
       vector:
         condition: service_started
+    deploy:
+      resources:
+        reservations:
+          memory: 50M
     env_file:
       - .env.postgres.local
     healthcheck:
@@ -202,6 +214,10 @@ services:
       # - The ${variable:?message} syntax causes shell to exit with a non-zero
       #   code and print a message, when the variable is not set or empty
       - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
+    deploy:
+      resources:
+        reservations:
+          memory: 12M
     env_file:
       - .env.redis-app.local
     volumes:
@@ -217,6 +233,10 @@ services:
       # - The ${variable:?message} syntax causes shell to exit with a non-zero
       #   code and print a message, when the variable is not set or empty
       - redis-server /usr/local/etc/redis/redis.conf --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
+    deploy:
+      resources:
+        reservations:
+          memory: 6M
     env_file:
       - .env.redis-cache.local
     volumes:
@@ -257,6 +277,10 @@ services:
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server', '--binding', '0.0.0.0']
+    deploy:
+      resources:
+        reservations:
+          memory: 230M
     expose:
       - '3000'
     healthcheck:
@@ -273,6 +297,10 @@ services:
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
+    deploy:
+      resources:
+        reservations:
+          memory: 36M
     healthcheck:
       test: REDIS_URL="$$REDIS_URL/1" bin/sidekiqmon | grep --quiet "$$(hostname)"
       start_period: 60s
