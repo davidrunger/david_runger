@@ -80,6 +80,8 @@ services:
     command: ['bin/skedjewel']
     deploy:
       resources:
+        limits:
+          memory: 99G
         reservations:
           memory: 6M
     healthcheck:
@@ -89,6 +91,7 @@ services:
       interval: 5m
       timeout: 1s
       retries: 1
+    memswap_limit: 99G
   grafana:
     depends_on:
       - loki
@@ -128,6 +131,8 @@ services:
         condition: service_started
     deploy:
       resources:
+        limits:
+          memory: 99G
         reservations:
           memory: 10M
     entrypoint: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & /docker-entrypoint.sh nginx -g "daemon off;"'''
@@ -143,6 +148,7 @@ services:
       retries: 1
     image: nginx:1.27.0-alpine
     logging: *default-logging
+    memswap_limit: 99G
     networks:
       - external
       - internal
@@ -168,10 +174,15 @@ services:
         condition: service_started
     deploy:
       resources:
+        limits:
+          memory: 99G
         reservations:
           memory: 50M
     env_file:
       - .env.postgres.local
+    environment:
+      POSTGRES_INITDB_ARGS: --auth=scram-sha-256
+      POSTGRES_USER: david_runger
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'david_runger']
       start_period: 20s
@@ -181,13 +192,11 @@ services:
       retries: 1
     image: postgres:16.3-alpine
     logging: *default-logging
+    memswap_limit: 99G
     networks:
       - internal
     volumes:
       - postgresql:/var/lib/postgresql/data
-    environment:
-      POSTGRES_INITDB_ARGS: --auth=scram-sha-256
-      POSTGRES_USER: david_runger
   prometheus:
     expose:
       - '9090'
@@ -216,10 +225,13 @@ services:
       - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
     deploy:
       resources:
+        limits:
+          memory: 99G
         reservations:
           memory: 12M
     env_file:
       - .env.redis-app.local
+    memswap_limit: 99G
     volumes:
       - redis:/data
   redis-cache:
@@ -235,10 +247,13 @@ services:
       - redis-server /usr/local/etc/redis/redis.conf --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
     deploy:
       resources:
+        limits:
+          memory: 99G
         reservations:
           memory: 6M
     env_file:
       - .env.redis-cache.local
+    memswap_limit: 99G
     volumes:
       - ./redis/redis-cache.conf:/usr/local/etc/redis/redis.conf
   redis-overcommit:
@@ -279,6 +294,8 @@ services:
     command: ['bin/rails', 'server', '--binding', '0.0.0.0']
     deploy:
       resources:
+        limits:
+          memory: 99G
         reservations:
           memory: 230M
     expose:
@@ -290,6 +307,7 @@ services:
       interval: 5m
       timeout: 5s
       retries: 1
+    memswap_limit: 99G
     profiles:
       - nondefault
     volumes:
