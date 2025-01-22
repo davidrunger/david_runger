@@ -10,7 +10,7 @@ RSpec.describe CheckLinks::Checker do
     let(:status) { 200 }
     let(:redis_failure_key) { worker.send(:redis_failure_key, url) }
 
-    before do
+    let!(:stubbed_request) do
       stub_request(:get, url).
         to_return(status:, body: '', headers: {})
     end
@@ -98,6 +98,45 @@ RSpec.describe CheckLinks::Checker do
           expect { perform }.to change {
             $redis_pool.with { _1.call('get', redis_failure_key) }
           }.from(nil).to('1')
+        end
+      end
+    end
+
+    describe 'cacheing', :cache do
+      before do
+        stub_request(:get, 'https://davidrunger.com/a-different-checked-url').
+          to_return(status: 200, body: '', headers: {})
+
+        CheckLinks::Checker.new.perform(previously_checked_url, 'https://davidrunger.com/blog')
+
+        expect(stubbed_request).
+          to have_been_requested.
+          times(number_of_requests_for_url_before_perform)
+      end
+
+      context 'when another CheckLinks::Checker ran recently for the same URL' do
+        let(:previously_checked_url) { url }
+        let(:number_of_requests_for_url_before_perform) { 1 }
+
+        it 'does not request the URL again' do
+          perform
+
+          expect(stubbed_request).
+            to have_been_requested.
+            times(number_of_requests_for_url_before_perform)
+        end
+      end
+
+      context 'when another CheckLinks::Checker has not run recently for the same URL' do
+        let(:previously_checked_url) { 'https://davidrunger.com/a-different-checked-url' }
+        let(:number_of_requests_for_url_before_perform) { 0 }
+
+        it 'requests the URL' do
+          perform
+
+          expect(stubbed_request).
+            to have_been_requested.
+            times(number_of_requests_for_url_before_perform + 1)
         end
       end
     end
