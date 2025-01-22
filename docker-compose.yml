@@ -47,6 +47,7 @@ services:
       - '--housekeeping_interval=30s'
       - '--enable_metrics'
       - 'cpu,diskIO,memory,network'
+    cpu_shares: 512
     expose:
       - '8080'
     image: gcr.io/cadvisor/cadvisor:v0.49.2
@@ -57,6 +58,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro # Seems to be needed for memory usage.
       - /var/run/docker.sock:/var/run/docker.sock:ro # Seems to be needed for anything to work.
   certbot:
+    cpu_shares: 256
     depends_on:
       vector:
         condition: service_started
@@ -78,6 +80,7 @@ services:
   clock:
     <<: *default-rails-config
     command: ['bin/skedjewel']
+    cpu_shares: 1024
     deploy:
       resources:
         limits:
@@ -93,6 +96,7 @@ services:
       retries: 1
     memswap_limit: 99G
   grafana:
+    cpu_shares: 512
     depends_on:
       - loki
       - prometheus
@@ -108,6 +112,7 @@ services:
       - grafana-data:/var/lib/grafana
   initialize_database:
     <<: *default-rails-config
+    cpu_shares: 256
     depends_on:
       postgres:
         condition: service_healthy
@@ -118,6 +123,7 @@ services:
       vector:
         condition: service_started
   loki:
+    cpu_shares: 512
     image: grafana/loki:latest
     expose:
       - '3100'
@@ -126,6 +132,7 @@ services:
     volumes:
       - loki-data:/loki
   nginx:
+    cpu_shares: 4096
     depends_on:
       vector:
         condition: service_started
@@ -163,12 +170,14 @@ services:
       - ./ssl-data/certbot/www:/var/www/_letsencrypt
       - app-public:/var/www/david-runger-public:ro
   node_exporter:
+    cpu_shares: 512
     expose:
       - '9100'
     image: prom/node-exporter:latest
     networks:
       - internal
   postgres:
+    cpu_shares: 2048
     depends_on:
       vector:
         condition: service_started
@@ -198,6 +207,7 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql/data
   prometheus:
+    cpu_shares: 512
     expose:
       - '9090'
     image: prom/prometheus:latest
@@ -207,6 +217,7 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
   rails_metrics:
     <<: *default-rails-config
+    cpu_shares: 512
     entrypoint: bin/prometheus_exporter --bind 0.0.0.0
     expose:
       - '9394'
@@ -223,6 +234,7 @@ services:
       # - The ${variable:?message} syntax causes shell to exit with a non-zero
       #   code and print a message, when the variable is not set or empty
       - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
+    cpu_shares: 2048
     deploy:
       resources:
         limits:
@@ -245,6 +257,7 @@ services:
       # - The ${variable:?message} syntax causes shell to exit with a non-zero
       #   code and print a message, when the variable is not set or empty
       - redis-server /usr/local/etc/redis/redis.conf --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD is required}"
+    cpu_shares: 2048
     deploy:
       resources:
         limits:
@@ -258,10 +271,12 @@ services:
       - ./redis/redis-cache.conf:/usr/local/etc/redis/redis.conf
   redis-overcommit:
     build: https://raw.githubusercontent.com/bkuhl/redis-overcommit-on-host/09215f160d59a7289ab3f4734f235659cdb8d269/Dockerfile
+    cpu_shares: 256
     restart: 'no'
     volumes:
       - /proc/sys/vm:/mnt/vm
   s3_db_backup:
+    cpu_shares: 256
     depends_on:
       vector:
         condition: service_started
@@ -280,6 +295,7 @@ services:
       - '--require-healthy'
       - 'true'
       - '--watch-config'
+    cpu_shares: 512
     image: timberio/vector:latest-alpine
     networks:
       - internal
@@ -289,6 +305,7 @@ services:
   web:
     <<: *default-rails-config
     command: ['bin/rails', 'server', '--binding', '0.0.0.0']
+    cpu_shares: 4096
     deploy:
       resources:
         limits:
@@ -312,6 +329,7 @@ services:
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']
+    cpu_shares: 1024
     deploy:
       resources:
         reservations:
