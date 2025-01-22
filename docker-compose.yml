@@ -280,11 +280,8 @@ services:
       - '--require-healthy'
       - 'true'
       - '--watch-config'
-    env_file:
-      - .env.vector.local
     image: timberio/vector:latest-alpine
     networks:
-      - external
       - internal
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro

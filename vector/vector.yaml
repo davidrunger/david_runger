@@ -1,5 +1,4 @@
 sources:
-  # Read Docker container logs
   docker:
     type: docker_logs
 
@@ -12,28 +11,6 @@ transforms:
       if .label."com.docker.compose.service" == "nginx" && contains(string!(.message), " subdomain=grafana ") {
         .label."com.docker.compose.service" = "nginx-grafana"
       }
-
-  # Filter to only the services that we want to send to Papertrail
-  papertrail_services_filtered:
-    type: filter
-    inputs:
-      - docker
-    condition: |
-      papertrail_address, env_var_error = get_env_var("PAPERTRAIL_HOST_AND_PORT")
-
-      env_var_error == null && contains(papertrail_address, "papertrail") && match(string!(.container_name), r'-(clock|initialize_database|web|worker)-\d+')
-
-  # Add brief service name to log data
-  papertrail_services_remapped:
-    type: remap
-    inputs:
-      - papertrail_services_filtered
-    source: |
-      del(.host)
-
-      name_without_prefix = replace(string!(.container_name), r'^david_runger-', "")
-      name_without_prefix_or_suffix = replace(name_without_prefix, r'-\d+$', "")
-      .brief_service_name = name_without_prefix_or_suffix
 
 sinks:
   loki:
@@ -51,15 +28,3 @@ sinks:
       container_id: '{{ .container_id }}'
       container_name: '{{ .container_name }}'
       oneoff: '{{ .label."com.docker.compose.oneoff" }}'
-
-  # Send logs to Papertrail
-  papertrail:
-    encoding:
-      codec: text
-    endpoint: '${PAPERTRAIL_HOST_AND_PORT:-davidrunger.com:12345}'
-    healthcheck:
-      enabled: false
-    inputs:
-      - papertrail_services_remapped
-    process: '{{ .brief_service_name }}'
-    type: papertrail
