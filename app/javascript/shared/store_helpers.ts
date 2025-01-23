@@ -7,7 +7,9 @@ export function getById<T>(collection: Array<Identifiable & T>, id: number): T {
 
   if (item === undefined) {
     throw new TypeError(
-      `Could not find item with id ${id} in collection ${collection}.`,
+      `Could not find item with id ${id} ` +
+        `in collection of length ${collection.length} ` +
+        `with first item ${JSON.stringify(collection[0])}.`,
     );
   }
 
