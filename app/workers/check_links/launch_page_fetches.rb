@@ -4,9 +4,11 @@ class CheckLinks::LaunchPageFetches
   SITEMAP_URL = 'https://davidrunger.com/sitemap.xml'
 
   def perform
-    sitemap_urls.each do |url|
-      CheckLinks::LaunchLinkChecksForPage.perform_async(url)
-    end
+    launch_with_spacing(
+      worker: CheckLinks::LaunchLinkChecksForPage,
+      arguments_list: sitemap_urls.map { [it] },
+      spacing_seconds: Rails.env.development? ? 10.seconds : 5.minutes,
+    )
   end
 
   private
