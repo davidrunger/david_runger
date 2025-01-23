@@ -3,11 +3,14 @@ import { fileURLToPath } from 'node:url';
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import _import from 'eslint-plugin-import';
-import vue from 'eslint-plugin-vue';
 import globals from 'globals';
 import parser from 'vue-eslint-parser';
+import {
+  defineConfigWithVueTs,
+  vueTsConfigs,
+} from '@vue/eslint-config-typescript';
+import pluginVue from 'eslint-plugin-vue';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,34 +20,33 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-export default [
+export default defineConfigWithVueTs(
+  pluginVue.configs['flat/recommended'],
+  vueTsConfigs.recommendedTypeChecked,
   {
     files: ['**/*.js', '**/*.ts', '**/*.vue'],
+  },
+  {
     ignores: [
-      'app/javascript/rails_assets/',
-      'app/javascript/types/bootstrap/',
-      'app/javascript/types/responses/',
-      'app/javascript/types/serializers/',
-      'node_modules/',
-      'public/vite-admin/',
-      'public/vite/',
+      'app/javascript/rails_assets/*',
+      'app/javascript/types/bootstrap/*',
+      'app/javascript/types/responses/*',
+      'app/javascript/types/serializers/*',
+      'node_modules/*',
+      'public/vite-admin/*',
+      'public/vite/*',
     ],
   },
   ...fixupConfigRules(
     compat.extends(
-      'plugin:vue/vue3-recommended',
       'eslint:recommended',
-      'plugin:@typescript-eslint/recommended',
       'plugin:import/typescript',
-      '@vue/eslint-config-typescript',
       'prettier',
     ),
   ),
   {
     plugins: {
       import: fixupPluginRules(_import),
-      '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      vue: fixupPluginRules(vue),
     },
 
     languageOptions: {
@@ -161,4 +163,4 @@ export default [
       'vue/multi-word-component-names': 'off',
     },
   },
-];
+);
