@@ -78,6 +78,7 @@ export default defineConfigWithVueTs(
 
     rules: {
       '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       'arrow-parens': 'off',
       'function-paren-newline': 'off',
