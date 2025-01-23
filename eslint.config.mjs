@@ -7,10 +7,12 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import pluginVue from 'eslint-plugin-vue';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 import parser from 'vue-eslint-parser';
 
 export default defineConfigWithVueTs(
   js.configs.recommended,
+  tseslint.configs.recommended,
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   pluginVue.configs['flat/recommended'],
