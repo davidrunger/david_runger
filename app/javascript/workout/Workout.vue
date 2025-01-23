@@ -30,7 +30,7 @@ const { others_workouts, workout, workoutIsInProgress, workouts } =
   storeToRefs(workoutsStore);
 
 const typedWorkoutPlan = computed((): WorkoutPlanType => {
-  return workout.value as WorkoutPlanType;
+  return workout.value;
 });
 </script>
 
