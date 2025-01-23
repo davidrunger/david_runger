@@ -2,6 +2,7 @@ class CheckLinks::Checker
   prepend MemoWise
   prepend ApplicationWorker
 
+  LINK_CHECK_CACHE_KEY_PREFIX = 'link-check'
   LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX = %r{
     \A
     https://davidrunger.com/
@@ -77,11 +78,18 @@ class CheckLinks::Checker
 
   memo_wise \
   def response(url)
-    Rails.error.handle(severity: :info, context: { url: }) do
-      Faraday.new.get do |request|
-        request.url(url)
-        request.options.timeout = 5
+    Rails.cache.fetch(cache_key(url), expires_in: 6.hours) do
+      Rails.error.handle(severity: :info, context: { url: }) do
+        Faraday.new.get do |request|
+          request.url(url)
+          request.options.timeout = 5
+        end
       end
     end
+  end
+
+  memo_wise \
+  def cache_key(url)
+    [LINK_CHECK_CACHE_KEY_PREFIX, url]
   end
 end
