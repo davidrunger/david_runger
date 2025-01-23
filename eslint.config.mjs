@@ -1,28 +1,21 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
-import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
 import {
   defineConfigWithVueTs,
   vueTsConfigs,
 } from '@vue/eslint-config-typescript';
-import _import from 'eslint-plugin-import';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import importPlugin from 'eslint-plugin-import';
 import pluginVue from 'eslint-plugin-vue';
 import globals from 'globals';
 import parser from 'vue-eslint-parser';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
 export default defineConfigWithVueTs(
+  js.configs.recommended,
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.typescript,
   pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommendedTypeChecked,
+  eslintConfigPrettier,
   {
     files: ['**/*.js', '**/*.ts', '**/*.vue'],
   },
@@ -37,25 +30,14 @@ export default defineConfigWithVueTs(
       'public/vite/*',
     ],
   },
-  ...fixupConfigRules(
-    compat.extends(
-      'eslint:recommended',
-      'plugin:import/typescript',
-      'prettier',
-    ),
-  ),
   {
-    plugins: {
-      import: fixupPluginRules(_import),
-    },
-
     languageOptions: {
       globals: {
         ...globals.browser,
         Routes: false,
       },
 
-      parser: parser,
+      parser,
       ecmaVersion: 5,
       sourceType: 'module',
 
