@@ -19,6 +19,7 @@ const compat = new FlatCompat({
 
 export default [
   {
+    files: ['**/*.js', '**/*.ts', '**/*.vue'],
     ignores: [
       'app/javascript/rails_assets/',
       'app/javascript/types/bootstrap/',
