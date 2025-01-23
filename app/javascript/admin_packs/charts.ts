@@ -1,4 +1,4 @@
-import Chart from 'chart.js/auto';
+import ChartJSAuto from 'chart.js/auto';
 import Chartkick from 'chartkick';
 
 import 'chartjs-adapter-luxon';
@@ -7,4 +7,4 @@ import 'chartjs-adapter-luxon';
 // Chartkick's `Chart` object, which is minified as `$`? Undo this.
 window.$ = window.jQuery;
 
-Chartkick.use(Chart);
+Chartkick.use(ChartJSAuto);
