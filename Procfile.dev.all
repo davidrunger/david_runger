@@ -1,4 +1,4 @@
 web: bin/rails server -p 3000
 js: bin/vite dev
 worker: bin/sidekiq
-clock: /Users/david/code/skedjewel/skedjewel
+clock: $HOME/code/skedjewel/bin/skedjewel
