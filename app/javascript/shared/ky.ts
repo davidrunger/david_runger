@@ -2,7 +2,7 @@ import ky from 'ky';
 
 import { assert } from './helpers';
 
-let kyApi = ky;  
+let kyApi = ky;
 
 const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
 if (csrfMetaTag) {

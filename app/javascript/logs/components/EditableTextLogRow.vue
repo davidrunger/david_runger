@@ -63,9 +63,7 @@ const formattedCreatedAt = computed((): string => {
 });
 
 const html = computed((): string => {
-  return DOMPurify.sanitize(
-    marked(props.logEntry.data, { async: false }),
-  );
+  return DOMPurify.sanitize(marked(props.logEntry.data, { async: false }));
 });
 
 watch(editing, () => {

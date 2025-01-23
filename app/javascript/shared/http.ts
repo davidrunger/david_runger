@@ -9,7 +9,7 @@ const hooks: Hooks = {
   afterResponse: [
     async (_request, _options, response) => {
       if (response.status === 422) {
-        const { errors } = (await response.json());
+        const { errors } = await response.json();
 
         if (isArrayOfStrings(errors)) {
           for (const error of errors) {
