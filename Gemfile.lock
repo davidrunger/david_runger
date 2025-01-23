@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/typelizer.git
-  revision: 9e25653a61e7cfd4732c862455a2a28a40b9ca83
+  revision: 147c27dea7de09e4514db0785e59564c6fa8134b
   specs:
     typelizer (0.1.0)
       railties (>= 6.0.0)
