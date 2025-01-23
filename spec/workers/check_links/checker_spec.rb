@@ -103,8 +103,10 @@ RSpec.describe CheckLinks::Checker do
     end
 
     describe 'cacheing', :cache do
+      let(:different_target_url) { 'https://davidrunger.com/a-different-checked-url' }
+
       before do
-        stub_request(:get, 'https://davidrunger.com/a-different-checked-url').
+        stub_request(:get, different_target_url).
           to_return(status: 200, body: '', headers: {})
 
         CheckLinks::Checker.new.perform(previously_checked_url, 'https://davidrunger.com/blog')
@@ -128,7 +130,7 @@ RSpec.describe CheckLinks::Checker do
       end
 
       context 'when another CheckLinks::Checker has not run recently for the same URL' do
-        let(:previously_checked_url) { 'https://davidrunger.com/a-different-checked-url' }
+        let(:previously_checked_url) { different_target_url }
         let(:number_of_requests_for_url_before_perform) { 0 }
 
         it 'requests the URL' do
