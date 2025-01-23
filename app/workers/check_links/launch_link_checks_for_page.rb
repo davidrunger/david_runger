@@ -6,7 +6,7 @@ class CheckLinks::LaunchLinkChecksForPage
 
     if Faraday.head(url).headers['content-type'].include?('text/html')
       launch_with_spacing(
-        worker_name: CheckLinks::Checker.name,
+        worker: CheckLinks::Checker,
         arguments_list:,
         spacing_seconds: Rails.env.development? ? 1 : 10,
       )
