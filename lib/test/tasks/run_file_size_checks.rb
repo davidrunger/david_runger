@@ -41,8 +41,6 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
         puts("Bundle sizes (in kilobytes): #{assets_and_size_in_kb.inspect}")
       end.real
 
-    system('cat public/vite/assets/styles-*.css', exception: true)
-
     if unspecified_files.none? && nonexistent_files.none? && file_size_violations.none?
       record_success_and_log_message("'#{self.class.name}' succeeded (took #{time.round(3)}).")
     end
