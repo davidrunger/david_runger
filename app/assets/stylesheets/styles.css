@@ -1,4 +1,4 @@
-@import "tailwindcss" source(none);
+@import 'tailwindcss' source(none);
 @import 'tailwind_overrides';
 @import 'rails_overrides';
 @import 'element_plus_overrides';
