@@ -63,7 +63,7 @@ i[class^='devicon-'] {
 }
 
 tr:not(:first-child) td {
-  border-top: 1px solid $gray-lighter;
+  border-top: 1px solid var(--gray-lighter);
 }
 
 td {

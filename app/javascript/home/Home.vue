@@ -95,6 +95,6 @@ p:first-of-type {
 }
 
 .box-shadow {
-  box-shadow: $gray-light 0 2px 5px;
+  box-shadow: var(--gray-light) 0 2px 5px;
 }
 </style>

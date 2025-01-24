@@ -68,14 +68,14 @@ function collapseMobileMenu() {
   will-change: transform;
   top: 0;
   z-index: 1;
-  height: $header-height;
-  line-height: $header-height;
+  height: var(--header-height);
+  line-height: var(--header-height);
 
   #nav {
     width: 500px;
     right: 0;
 
-    @media screen and (max-width: $small-screen-breakpoint) {
+    @media screen and (max-width: var(--small-screen-breakpoint)) {
       display: none;
     }
   }
@@ -84,13 +84,13 @@ function collapseMobileMenu() {
 .toggleable-menu {
   display: none;
 
-  @media screen and (max-width: $small-screen-breakpoint) {
+  @media screen and (max-width: var(--small-screen-breakpoint)) {
     display: block;
   }
 }
 
 .header-height-spacer {
-  height: $header-height;
+  height: var(--header-height);
 }
 
 .line-container {

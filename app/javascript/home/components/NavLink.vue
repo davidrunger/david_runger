@@ -40,22 +40,22 @@ const prettyName = computed((): string => {
 @use 'css/variables' as *;
 
 a.nav-link.nav-link {
-  color: $gray-light;
+  color: var(--gray-light);
 
   &:hover {
     color: white;
   }
 
   &.active {
-    color: $white-dark;
+    color: var(--white-dark);
 
     span {
-      border-bottom-color: rgba($white-dark, 80%);
+      border-bottom-color: rgba(var(--white-dark), 80%);
     }
   }
 
   span {
-    border-bottom: 2px solid rgba($white-dark, 0%);
+    border-bottom: 2px solid rgba(var(--white-dark), 0%);
     transition: border-bottom-color 0.5s;
   }
 }
