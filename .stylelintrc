@@ -1,12 +1,11 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-standard-scss"],
+  "extends": ["stylelint-config-standard"],
   "overrides": [
     {
       "files": ["**/*.vue"],
       "customSyntax": "postcss-html"
     }
   ],
-  "plugins": ["stylelint-scss"],
   "rules": {
     "at-rule-no-deprecated": [
       true,
@@ -20,14 +19,6 @@
     "keyframes-name-pattern": null,
     "media-query-no-invalid": null,
     "no-descending-specificity": null,
-    "scss/at-rule-no-unknown": [
-      true,
-      {
-        "ignoreAtRules": ["tailwind"]
-      }
-    ],
-    "scss/comment-no-empty": null,
-    "scss/double-slash-comment-empty-line-before": null,
     "selector-class-pattern": null,
     "selector-pseudo-class-no-unknown": null
   }
