@@ -69,7 +69,7 @@
 import { useWakeLock } from '@vueuse/core';
 import { Timer } from 'easytimer.js';
 import { cloneDeep } from 'lodash-es';
-import { computed, onBeforeMount, ref, type PropType } from 'vue';
+import { computed, onBeforeMount, reactive, ref, type PropType } from 'vue';
 
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
@@ -107,7 +107,7 @@ const secondsElapsed = ref(0);
 const soundEnabled = ref(true);
 const timer = ref(null as null | Timer);
 
-const setsArray = initialSetsArray();
+const setsArray = reactive(initialSetsArray());
 
 const cumulativeTimeAdjustment = computed(() => {
   return (index: number, timeAdjustments: Array<number>) => {

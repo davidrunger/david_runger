@@ -24,6 +24,30 @@ RSpec::Matchers.define(:have_flash_message) do |expected_text, type: :notice|
   end
 end
 
+RSpec::Matchers.define(:have_toastify_toast) do |expected_text|
+  match do |actual_page|
+    expect(actual_page).to have_css('.toastify', text: expected_text)
+  end
+
+  match_when_negated do |actual_page|
+    expect(actual_page).not_to have_css('.toastify', text: expected_text)
+  end
+
+  failure_message do |actual_page|
+    <<~MESSAGE.squish
+      expected page ('#{actual_page.text}') to have a Toastify toast with text
+      '#{expected_text}'
+    MESSAGE
+  end
+
+  failure_message_when_negated do |actual_page|
+    <<~MESSAGE.squish
+      expected page ('#{actual_page.text}') not to have a Toastify toast with text
+      '#{expected_text}'
+    MESSAGE
+  end
+end
+
 RSpec::Matchers.define(:have_vue_toast) do |expected_text|
   match do |actual_page|
     expect(actual_page).to have_css('.Vue-Toastification__toast-body', text: expected_text)
