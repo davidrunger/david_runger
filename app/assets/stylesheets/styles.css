@@ -36,8 +36,6 @@
   }
 }
 
-@use 'sass:meta';
-
 html,
 body {
   height: 100%;

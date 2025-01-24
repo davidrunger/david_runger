@@ -34,8 +34,6 @@ useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
 </script>
 
 <style lang="scss" scoped>
-@use 'css/variables' as *;
-
 #headline-name {
   font-size: 80px;
 

@@ -64,8 +64,6 @@ function setScrollToFragmentTimeouts() {
 </script>
 
 <style lang="scss">
-@use 'css/variables' as *;
-
 #app-root {
   letter-spacing: 0.2px;
   font-weight: 300;

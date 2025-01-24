@@ -60,8 +60,6 @@ function collapseMobileMenu() {
 </script>
 
 <style lang="scss" scoped>
-@use 'css/variables' as *;
-
 #header {
   position: fixed;
   // performance hint to create a new compositor layer, so we don't re-paint on scroll
