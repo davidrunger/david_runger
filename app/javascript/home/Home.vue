@@ -83,11 +83,13 @@ b {
   font-weight: 600;
 }
 
-p,
-ul,
-td {
-  margin: 15px auto;
-  line-height: 25px;
+@layer base {
+  p,
+  ul,
+  td {
+    margin: 15px auto;
+    line-height: 25px;
+  }
 }
 
 p:first-of-type {
