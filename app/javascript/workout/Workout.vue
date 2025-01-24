@@ -1,15 +1,15 @@
 <template lang="pug">
-div(v-if='workoutIsInProgress')
+section(v-if='workoutIsInProgress')
   WorkoutPlan(v-bind='typedWorkoutPlan')
 .px-8.py-2(v-else)
   NewWorkoutForm
-  div.my-8
+  section.my-8
     h2.text-2xl Previous workouts
     WorkoutsTable(
       :isOwnWorkouts='true'
       :workouts='workouts'
     )
-  div.my-8
+  section.my-8
     h2.text-2xl Others' workouts
     WorkoutsTable(:workouts='others_workouts')
 </template>

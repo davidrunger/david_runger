@@ -126,16 +126,9 @@ const schema = {
     },
     "RepTotals": {
       "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "chinups": {
-          "type": "integer"
-        },
-        "pushups": {
-          "type": "integer"
-        }
-      },
-      "required": ["chinups", "pushups"],
+      "additionalProperties": true,
+      "properties": {},
+      "required": [],
       "title": "RepTotals"
     }
   }
