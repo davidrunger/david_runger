@@ -9,8 +9,7 @@ const hooks: Hooks = {
   afterResponse: [
     async (_request, _options, response) => {
       if (response.status === 422) {
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        const { errors } = (await response.json()) as { errors?: unknown };
+        const { errors } = await response.json<{ errors?: unknown }>();
 
         if (isArrayOfStrings(errors)) {
           for (const error of errors) {
