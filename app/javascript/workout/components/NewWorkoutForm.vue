@@ -36,7 +36,10 @@ form
           type='number'
         )
     .col.col-1.flex.flex-col.items-center.justify-end
-      el-button(@click='removeExercise(index)') X
+      el-button(
+        type='danger'
+        @click='removeExercise(index)'
+      ) X
   .my-2.text-center
     el-button(
       @click='workout.exercises.push({})'
