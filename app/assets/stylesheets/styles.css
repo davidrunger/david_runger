@@ -59,7 +59,6 @@ html {
   cursor: pointer;
 }
 
-// apparently the default textarea font on Firefox is monospace
 textarea {
   font-family: sans-serif;
 }
