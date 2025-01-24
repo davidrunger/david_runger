@@ -47,15 +47,15 @@ a.nav-link.nav-link {
   }
 
   &.active {
-    color: var(--white-dark);
+    color: rgb(var(--white-dark-rgb));
 
     span {
-      border-bottom-color: rgba(var(--white-dark), 80%);
+      border-bottom-color: rgba(var(--white-dark-rgb), 0.8);
     }
   }
 
   span {
-    border-bottom: 2px solid rgba(var(--white-dark), 0%);
+    border-bottom: 2px solid rgba(var(--white-dark-rgb), 0);
     transition: border-bottom-color 0.5s;
   }
 }
