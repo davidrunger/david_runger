@@ -74,12 +74,12 @@ function handleKeydown(event: KeyboardEvent) {
   // centered, but nudged up.
   &::before {
     content: '';
-    grow: 1;
+    flex-grow: 1;
   }
 
   &::after {
     content: '';
-    grow: 2;
+    flex-grow: 2;
   }
 }
 
