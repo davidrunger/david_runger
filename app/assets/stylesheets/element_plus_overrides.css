@@ -2,3 +2,7 @@
   padding: 0;
   vertical-align: unset;
 }
+
+.el-input__inner.el-input__inner {
+  border: none;
+}
