@@ -19,7 +19,10 @@ class JsonSchemaValidator
     )
       copy_data_to_clipboard
 
-      raise(NonconformingData, schema_validation_errors.to_s)
+      raise(
+        NonconformingData,
+        "Violation of #{relative_schema_path} : #{schema_validation_errors}",
+      )
     else
       @data
     end
@@ -56,14 +59,15 @@ class JsonSchemaValidator
 
   memo_wise \
   def absolute_schema_path
+    Rails.root.join(relative_schema_path).to_s
+  end
+
+  memo_wise \
+  def relative_schema_path
     if api?
-      Rails.root.join(
-        "spec/support/schemas/#{@controller_action}.json",
-      ).to_s
+      "spec/support/schemas/#{@controller_action}.json"
     else
-      Rails.root.join(
-        "spec/support/schemas/bootstrap/#{@controller_action}.json",
-      ).to_s
+      "spec/support/schemas/bootstrap/#{@controller_action}.json"
     end
   end
 

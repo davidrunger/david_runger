@@ -62,7 +62,7 @@ const schema = {
       "additionalProperties": false,
       "properties": {
         "minutes": {
-          "type": "integer"
+          "type": "number"
         },
         "exercises": {
           "type": "array",
