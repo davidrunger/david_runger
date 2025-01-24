@@ -66,7 +66,6 @@ export default defineConfigWithVueTs(
       '@typescript-eslint/no-unused-vars': 'off',
       'arrow-parens': 'off',
       'function-paren-newline': 'off',
-
       'import/extensions': [
         'error',
         'ignorePackages',
@@ -75,18 +74,14 @@ export default defineConfigWithVueTs(
           ts: 'never',
         },
       ],
-
       'import/no-extraneous-dependencies': 'off',
-
       'import/no-unresolved': [
         'error',
         {
           ignore: ['chartjs-adapter-luxon', 'vue-chartjs'],
         },
       ],
-
       'import/prefer-default-export': 'off',
-
       'max-len': [
         'warn',
         {
@@ -94,7 +89,6 @@ export default defineConfigWithVueTs(
           ignoreUrls: true,
         },
       ],
-
       'newline-per-chained-call': 'off',
       'no-alert': 'off',
       'no-console': 'warn',
@@ -103,7 +97,6 @@ export default defineConfigWithVueTs(
       'no-new': 'off',
       'no-param-reassign': 'off',
       'no-plusplus': 'off',
-
       'no-restricted-imports': [
         'error',
         {
@@ -115,7 +108,6 @@ export default defineConfigWithVueTs(
           ],
         },
       ],
-
       'no-restricted-syntax': [
         'error',
         'ForInStatement',
@@ -124,18 +116,15 @@ export default defineConfigWithVueTs(
       ],
       'no-underscore-dangle': 'off',
       'no-unreachable': 'warn',
-
       'no-use-before-define': [
         'error',
         {
           functions: false,
         },
       ],
-
       'no-unused-vars': 'off',
       'object-shorthand': ['error', 'always'],
       'operator-linebreak': 'off',
-
       quotes: [
         'warn',
         'single',
@@ -143,7 +132,6 @@ export default defineConfigWithVueTs(
           avoidEscape: true,
         },
       ],
-
       'require-await': 'error',
       'vue/multi-word-component-names': 'off',
     },
