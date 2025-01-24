@@ -1,10 +1,12 @@
 RSpec::Matchers.define(:have_flash_message) do |expected_text, type: :notice|
+  class_for_type = ".flash__message.flash__message--#{type}"
+
   match do |actual_page|
-    expect(actual_page).to have_css(".flash__message--#{type}", text: expected_text)
+    expect(actual_page).to have_css(class_for_type, text: expected_text)
   end
 
   match_when_negated do |actual_page|
-    expect(actual_page).not_to have_css(".flash__message--#{type}", text: expected_text)
+    expect(actual_page).not_to have_css(class_for_type, text: expected_text)
   end
 
   failure_message do |actual_page|

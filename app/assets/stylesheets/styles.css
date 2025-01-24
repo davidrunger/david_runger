@@ -1,0 +1,77 @@
+@import 'tailwindcss' source(none);
+@import 'tailwind_overrides';
+@import 'rails_overrides';
+@import 'element_plus_overrides';
+@import 'variables';
+@import 'animations/appear_vertically';
+@import 'components/spinner';
+@import 'components/toastify';
+@import 'elements/input';
+@import 'flash';
+@import 'utils/flex';
+@import 'utils/font_family';
+@import 'utils/font_weight';
+@import 'utils/opacity';
+@import 'ui_framework/button';
+
+/* Specify sources manually, because otherwise classes are pulled from vendor/bundle/ in CI. */
+@source '../../../app/decorators';
+@source '../../../app/javascript';
+@source '../../../app/views';
+@source '../../../public';
+
+@theme {
+  --leading-unset: unset;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.js-link {
+  cursor: pointer;
+}
+
+textarea {
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hidden-scrollbars {
+  scrollbar-width: none; /* Firefox https://stackoverflow.com/a/38994837/4009384 */
+}
+
+.hidden-scrollbars::-webkit-scrollbar {
+  display: none; /* Safari and Chrome https://stackoverflow.com/a/38994837/4009384 */
+}

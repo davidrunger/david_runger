@@ -34,7 +34,7 @@ useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
 </script>
 
 <style lang="scss" scoped>
-@use 'css/variables' as *;
+@use 'css/sass_variables' as *;
 
 #headline-name {
   font-size: 80px;
@@ -52,7 +52,7 @@ useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
   width: $size;
   height: $size;
   line-height: $size;
-  background: $gray-light;
+  background: var(--gray-light);
   font-size: 30px;
   padding: 2px 0 0 2px; // nudges the arrow icon into the right place
 }

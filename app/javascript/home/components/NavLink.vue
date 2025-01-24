@@ -37,25 +37,23 @@ const prettyName = computed((): string => {
 </script>
 
 <style lang="scss" scoped>
-@use 'css/variables' as *;
-
 a.nav-link.nav-link {
-  color: $gray-light;
+  color: var(--gray-light);
 
   &:hover {
     color: white;
   }
 
   &.active {
-    color: $white-dark;
+    color: rgb(var(--white-dark-rgb));
 
     span {
-      border-bottom-color: rgba($white-dark, 80%);
+      border-bottom-color: rgba(var(--white-dark-rgb), 0.8);
     }
   }
 
   span {
-    border-bottom: 2px solid rgba($white-dark, 0%);
+    border-bottom: 2px solid rgba(var(--white-dark-rgb), 0);
     transition: border-bottom-color 0.5s;
   }
 }

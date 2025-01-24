@@ -1,6 +1,6 @@
 import { POSITION, TYPE, useToast } from 'vue-toastification';
 
-import 'css/vue_toastification_with_overrides.scss';
+import 'css/vue_toastification_with_overrides.css';
 
 const DEFAULT_VUE_TOASTIFICATION_OPTIONS = Object.freeze({
   position: POSITION.TOP_RIGHT,

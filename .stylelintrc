@@ -1,6 +1,10 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-standard-scss"],
+  "extends": ["stylelint-config-standard"],
   "overrides": [
+    {
+      "files": ["**/*.scss"],
+      "extends": ["stylelint-config-standard", "stylelint-config-standard-scss"]
+    },
     {
       "files": ["**/*.vue"],
       "customSyntax": "postcss-html"
@@ -18,12 +22,13 @@
     "color-function-notation": null,
     "declaration-property-value-no-unknown": null,
     "keyframes-name-pattern": null,
+    "import-notation": null,
     "media-query-no-invalid": null,
     "no-descending-specificity": null,
     "scss/at-rule-no-unknown": [
       true,
       {
-        "ignoreAtRules": ["tailwind"]
+        "ignoreAtRules": ["source", "theme"]
       }
     ],
     "scss/comment-no-empty": null,

@@ -1,5 +1,8 @@
-// double class in selector to increase specificity of this override
 .el-button.el-button.is-link {
   padding: 0;
   vertical-align: unset;
+}
+
+.el-input__inner.el-input__inner {
+  border: none;
 }

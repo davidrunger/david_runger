@@ -1,5 +1,4 @@
-// https://codepen.io/hugodf/pen/dyojOoO
-@mixin flash-header {
+.flash__header {
   color: #fff;
   padding: 0.5rem 1rem;
   font-weight: 700;
@@ -8,7 +7,7 @@
   border-width: 0;
 }
 
-@mixin flash-message {
+.flash__message {
   padding: 0.75rem 1rem;
   border-width: 1px;
   border-top-width: 0;
@@ -18,28 +17,20 @@
 }
 
 .flash__header--notice {
-  @include flash-header;
-
   background-color: #4299e1;
 }
 
 .flash__message--notice {
-  @include flash-message;
-
   color: #2b6cb0;
   border-color: #63b3ed;
   background-color: #ebf8ff;
 }
 
 .flash__header--alert {
-  @include flash-header;
-
   background-color: #f56565;
 }
 
 .flash__message--alert {
-  @include flash-message;
-
   color: #c53030;
   border-color: #fc8181;
   background-color: #fff5f5;

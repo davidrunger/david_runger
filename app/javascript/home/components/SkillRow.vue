@@ -52,8 +52,6 @@ const devIconClass = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@use 'css/variables' as *;
-
 i[class^='devicon-'] {
   font-size: 65px;
 
@@ -63,7 +61,7 @@ i[class^='devicon-'] {
 }
 
 tr:not(:first-child) td {
-  border-top: 1px solid $gray-lighter;
+  border-top: 1px solid var(--gray-lighter);
 }
 
 td {

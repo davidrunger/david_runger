@@ -3,7 +3,7 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
   .flex.items-center.text-xl.js-link.js-scroll-top.ml-8
     a#logo.monospace.opacity-animated(
       href='#home'
-      :class='["!text-blue-300", { "opacity-0": homeIsVisible }]'
+      :class='["text-blue-300!", { "opacity-0": homeIsVisible }]'
     )
       | David Runger
   nav#nav.sans-serif.flex.justify-around.absolute.mr-8
@@ -60,7 +60,7 @@ function collapseMobileMenu() {
 </script>
 
 <style lang="scss" scoped>
-@use 'css/variables' as *;
+@use 'css/sass_variables' as *;
 
 #header {
   position: fixed;
@@ -68,8 +68,8 @@ function collapseMobileMenu() {
   will-change: transform;
   top: 0;
   z-index: 1;
-  height: $header-height;
-  line-height: $header-height;
+  height: var(--header-height);
+  line-height: var(--header-height);
 
   #nav {
     width: 500px;
@@ -90,7 +90,7 @@ function collapseMobileMenu() {
 }
 
 .header-height-spacer {
-  height: $header-height;
+  height: var(--header-height);
 }
 
 .line-container {

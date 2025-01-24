@@ -64,8 +64,6 @@ function setScrollToFragmentTimeouts() {
 </script>
 
 <style lang="scss">
-@use 'css/variables' as *;
-
 #app-root {
   letter-spacing: 0.2px;
   font-weight: 300;
@@ -83,11 +81,13 @@ b {
   font-weight: 600;
 }
 
-p,
-ul,
-td {
-  margin: 15px auto;
-  line-height: 25px;
+@layer base {
+  p,
+  ul,
+  td {
+    margin: 15px auto;
+    line-height: 25px;
+  }
 }
 
 p:first-of-type {
@@ -95,6 +95,6 @@ p:first-of-type {
 }
 
 .box-shadow {
-  box-shadow: $gray-light 0 2px 5px;
+  box-shadow: var(--gray-light) 0 2px 5px;
 }
 </style>
