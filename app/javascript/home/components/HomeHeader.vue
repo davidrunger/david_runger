@@ -60,6 +60,8 @@ function collapseMobileMenu() {
 </script>
 
 <style lang="scss" scoped>
+@use 'css/sass_variables' as *;
+
 #header {
   position: fixed;
   // performance hint to create a new compositor layer, so we don't re-paint on scroll
@@ -73,7 +75,7 @@ function collapseMobileMenu() {
     width: 500px;
     right: 0;
 
-    @media screen and (max-width: var(--small-screen-breakpoint)) {
+    @media screen and (max-width: $small-screen-breakpoint) {
       display: none;
     }
   }
@@ -82,7 +84,7 @@ function collapseMobileMenu() {
 .toggleable-menu {
   display: none;
 
-  @media screen and (max-width: var(--small-screen-breakpoint)) {
+  @media screen and (max-width: $small-screen-breakpoint) {
     display: block;
   }
 }

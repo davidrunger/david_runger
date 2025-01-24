@@ -34,10 +34,12 @@ useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
 </script>
 
 <style lang="scss" scoped>
+@use 'css/sass_variables' as *;
+
 #headline-name {
   font-size: 80px;
 
-  @media screen and (max-width: var(--small-screen-breakpoint)) {
+  @media screen and (max-width: $small-screen-breakpoint) {
     font-size: 65px;
   }
 }
