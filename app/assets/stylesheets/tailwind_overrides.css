@@ -1,75 +1,75 @@
-html {
-  line-height: 1.15;
-}
-
-hr {
-  margin: auto;
-}
-
-// NOTE: We want this selector to be as unspecific as possible, to make it easier to override.
-[href] {
-  @apply text-blue-600 visited:text-purple-600;
-}
-
-// NOTE: We nest the selectors within `body` to give them additional specificity.
-body {
-  h1 {
-    @apply my-4 text-3xl font-bold;
+@layer base {
+  html {
+    line-height: 1.15;
   }
 
-  h2 {
-    @apply my-3 text-2xl font-bold;
+  hr {
+    margin: auto;
   }
 
-  h3 {
-    @apply my-2 text-xl font-bold;
+  [href] {
+    @apply text-blue-600 visited:text-purple-600;
   }
 
-  h4 {
-    @apply my-1 text-lg font-bold;
-  }
+  body {
+    h1 {
+      @apply my-4 text-3xl font-bold;
+    }
 
-  h5 {
-    @apply my-1 text-base font-bold;
-  }
+    h2 {
+      @apply my-3 text-2xl font-bold;
+    }
 
-  h6 {
-    @apply my-1 text-sm font-bold;
-  }
+    h3 {
+      @apply my-2 text-xl font-bold;
+    }
 
-  img,
-  svg {
-    display: inline;
-  }
+    h4 {
+      @apply my-1 text-lg font-bold;
+    }
 
-  p {
-    margin-top: 1em;
-    margin-bottom: 1em;
-  }
+    h5 {
+      @apply my-1 text-base font-bold;
+    }
 
-  ol {
-    @apply pl-8;
+    h6 {
+      @apply my-1 text-sm font-bold;
+    }
 
-    list-style-type: decimal;
-    list-style-position: outside;
-  }
+    img,
+    svg {
+      display: inline;
+    }
 
-  [type='text'],
-  input:where(:not([type])),
-  [type='email'],
-  [type='url'],
-  [type='password'],
-  [type='number'],
-  [type='date'],
-  [type='datetime-local'],
-  [type='month'],
-  [type='search'],
-  [type='tel'],
-  [type='time'],
-  [type='week'],
-  [multiple],
-  textarea,
-  select {
-    @apply border;
+    p {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    ol {
+      @apply pl-8;
+
+      list-style-type: decimal;
+      list-style-position: outside;
+    }
+
+    [type='text'],
+    input:where(:not([type])),
+    [type='email'],
+    [type='url'],
+    [type='password'],
+    [type='number'],
+    [type='date'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='search'],
+    [type='tel'],
+    [type='time'],
+    [type='week'],
+    [multiple],
+    textarea,
+    select {
+      @apply border;
+    }
   }
 }
