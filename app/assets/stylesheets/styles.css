@@ -1,4 +1,18 @@
 @import 'tailwindcss';
+@import 'tailwind_overrides';
+@import 'rails_overrides';
+@import 'element_plus_overrides';
+@import 'variables';
+@import 'animations/appear_vertically';
+@import 'components/spinner';
+@import 'components/toastify';
+@import 'elements/input';
+@import 'flash';
+@import 'utils/flex';
+@import 'utils/font_family';
+@import 'utils/font_weight';
+@import 'utils/opacity';
+@import 'ui_framework/button';
 
 @theme {
   --leading-unset: unset;
@@ -23,23 +37,6 @@
 }
 
 @use 'sass:meta';
-/* stylelint-disable no-invalid-position-at-import-rule */
-@include meta.load-css('tailwind_overrides');
-@include meta.load-css('rails_overrides');
-@include meta.load-css('element_plus_overrides');
-@include meta.load-css('variables');
-@include meta.load-css('animations/appear_vertically');
-@include meta.load-css('components/spinner');
-@include meta.load-css('components/toastify');
-@include meta.load-css('elements/input');
-@include meta.load-css('flash');
-@include meta.load-css('utils/flex');
-@include meta.load-css('utils/font_family');
-@include meta.load-css('utils/font_size');
-@include meta.load-css('utils/font_weight');
-@include meta.load-css('utils/opacity');
-@include meta.load-css('ui_framework/button');
-/* stylelint-enable no-invalid-position-at-import-rule */
 
 html,
 body {
