@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss" source(none);
 @import 'tailwind_overrides';
 @import 'rails_overrides';
 @import 'element_plus_overrides';
@@ -13,6 +13,11 @@
 @import 'utils/font_weight';
 @import 'utils/opacity';
 @import 'ui_framework/button';
+
+@source '../../../app/decorators';
+@source '../../../app/javascript';
+@source '../../../app/views';
+@source '../../../public';
 
 @theme {
   --leading-unset: unset;

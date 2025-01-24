@@ -28,7 +28,7 @@
     "scss/at-rule-no-unknown": [
       true,
       {
-        "ignoreAtRules": ["theme"]
+        "ignoreAtRules": ["source", "theme"]
       }
     ],
     "scss/comment-no-empty": null,
