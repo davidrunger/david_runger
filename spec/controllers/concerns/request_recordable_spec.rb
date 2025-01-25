@@ -1,5 +1,5 @@
 RSpec.describe RequestRecordable, :without_verifying_authorization do
-  controller(ApplicationController) do
+  controller(HomeController) do
     def index
       render(plain: 'This is the #index action.')
     end
@@ -66,13 +66,8 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
         end
       end
 
-      context 'when the controller name is in CONTROLLERS_NOT_TO_RECORD' do
-        before do
-          stub_const(
-            'RequestRecordable::CONTROLLERS_NOT_TO_RECORD',
-            ["#{controller.controller_name.capitalize}Controller"],
-          )
-        end
+      context 'when there is an uptime_robot param' do
+        let(:params) { { 'uptime_robot' => '1' } }
 
         it 'does not stash initial request data in Redis' do
           perform_request
