@@ -25,20 +25,18 @@ const props = defineProps({
     type: Object as PropType<Log>,
     required: true,
   },
-  logEntries: {
-    type: Array as PropType<Array<TextLogEntry>>,
-    required: true,
-  },
 });
 
 const showAllEntries = ref(false);
 
 const sortedLogEntries = computed((): Array<TextLogEntry> => {
+  const logEntries = props.log.log_entries;
   let logEntriesToShow;
-  if (showAllEntries.value || props.logEntries.length <= 3) {
-    logEntriesToShow = props.logEntries;
+
+  if (showAllEntries.value || logEntries.length <= 3) {
+    logEntriesToShow = logEntries;
   } else {
-    logEntriesToShow = props.logEntries.slice(props.logEntries.length - 3);
+    logEntriesToShow = logEntries.slice(logEntries.length - 3);
   }
 
   return logEntriesToShow.slice().reverse();

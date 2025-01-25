@@ -11,21 +11,17 @@ import { sortBy } from 'lodash-es';
 import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
-import type { LogEntry } from '@/types';
+import type { Log } from '@/logs/types';
 
 const props = defineProps({
-  dataLabel: {
-    type: String,
-    required: true,
-  },
-  logEntries: {
-    type: Array as PropType<Array<LogEntry>>,
+  log: {
+    type: Object as PropType<Log>,
     required: true,
   },
 });
 
 const logEntriesToChartData = computed(() => {
-  return sortBy(props.logEntries, 'created_at').map((logEntry) => ({
+  return sortBy(props.log.log_entries, 'created_at').map((logEntry) => ({
     x: logEntry.created_at,
     y: logEntry.data,
     note: logEntry.note,
@@ -36,7 +32,7 @@ const chartMetadata = computed(() => {
   return {
     datasets: [
       {
-        label: props.dataLabel,
+        label: props.log.data_label,
         data: logEntriesToChartData.value,
       },
     ],

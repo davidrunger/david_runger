@@ -13,6 +13,7 @@ import { sortBy } from 'lodash-es';
 import { computed, type PropType } from 'vue';
 
 import LineChart from '@/components/charts/LineChart.vue';
+import type { Log } from '@/logs/types';
 import type { LogEntry } from '@/types';
 
 function epochMsToHhMmSs(epochMs: number) {
@@ -48,8 +49,8 @@ type ChartData = {
 };
 
 const props = defineProps({
-  logEntries: {
-    type: Array as PropType<Array<LogEntry>>,
+  log: {
+    type: Object as PropType<Log>,
     required: true,
   },
 });
@@ -84,7 +85,7 @@ const CHART_OPTIONS = {
 };
 
 const logEntriesToChartData = computed((): Array<ChartData> => {
-  return sortBy(props.logEntries, 'created_at').map(
+  return sortBy(props.log.log_entries, 'created_at').map(
     (logEntry: LogEntry): ChartData => ({
       x: logEntry.created_at,
       y: new Date(

@@ -8,10 +8,7 @@ div
     Loading...
   LogDataDisplay(
     v-else-if='log.log_entries.length'
-    :dataLabel='log.data_label'
-    :dataType='log.data_type'
     :log='log'
-    :logEntries='log.log_entries'
   )
   .my-8(v-else) There are no log entries for this log.
   .controls(v-if='!isSharedLogView')
@@ -77,20 +74,14 @@ const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
   text: TextLog,
 };
 
-const LogDataDisplay = (props: {
-  dataType: LogDataType;
-  log: Log;
-  logEntries: Array<LogEntry>;
-  dataLabel: string;
-}) => {
-  const DataRenderer = PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[props.dataType];
+const LogDataDisplay = (props: { log: Log }) => {
+  const DataRenderer =
+    PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING[props.log.data_type];
   return h(DataRenderer, {
     log: props.log,
-    logEntries: props.logEntries,
-    dataLabel: props.dataLabel,
   });
 };
-LogDataDisplay.props = ['dataType', 'log', 'logEntries', 'dataLabel'];
+LogDataDisplay.props = ['log'];
 
 const logsStore = useLogsStore();
 const modalStore = useModalStore();

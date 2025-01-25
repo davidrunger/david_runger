@@ -10,15 +10,12 @@
 import { computed, type PropType } from 'vue';
 
 import BarGraph from '@/components/charts/BarGraph.vue';
-import type { LogEntry } from '@/types';
+import type { Log } from '@/logs/types';
+import { assert } from '@/shared/helpers';
 
 const props = defineProps({
-  dataLabel: {
-    type: String,
-    required: true,
-  },
-  logEntries: {
-    type: Array as PropType<Array<LogEntry>>,
+  log: {
+    type: Object as PropType<Log>,
     required: true,
   },
 });
@@ -26,7 +23,7 @@ const props = defineProps({
 const logEntriesToChartData = computed(() => {
   const countByDate: { [key: string]: number } = {};
 
-  for (const logEntry of props.logEntries) {
+  for (const logEntry of assert(props.log.log_entries)) {
     const date = new Date(logEntry.created_at);
     const dateIsoStringInLocalTime = new Date(
       date.getTime() - date.getTimezoneOffset() * 60 * 1000,
@@ -49,7 +46,7 @@ const chartMetadata = computed(() => {
   return {
     datasets: [
       {
-        label: props.dataLabel,
+        label: props.log.data_label,
         data: logEntriesToChartData.value,
       },
     ],
