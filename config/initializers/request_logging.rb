@@ -1,10 +1,11 @@
 ActiveSupport::Notifications.subscribe('process_action.action_controller') do |*args|
   payload = args.extract_options!
 
-  controller_name = payload[:controller]
+  controller_name, params = payload.values_at(:controller, :params)
 
-  next if controller_name.in?(RequestRecordable::CONTROLLERS_NOT_TO_RECORD)
-  next if controller_name == 'AnonymousController' # This occurs in tests.
+  if SaveRequest::SkipChecker.new(params:).skip?
+    next
+  end
 
   controller_klass = controller_name.constantize
   # We won't log requests to non-ApplicationController controllers (e.g. Flipper & Sidekiq engines)
