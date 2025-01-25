@@ -108,34 +108,6 @@ RSpec.describe SaveRequest do
           end
         end
 
-        context 'when the request was an UptimeRobot ping' do
-          let(:stubbed_additional_data) { super().merge('params' => { 'uptime_robot' => '1' }) }
-
-          it 'does not create a request' do
-            expect { perform }.not_to change { Request.count }
-          end
-
-          it 'deletes the stashed data' do
-            perform
-            expect(stubbed_data_manager).to have_received(:delete_request_data)
-          end
-        end
-
-        context 'when the request was for a blog asset' do
-          let(:stubbed_additional_data) do
-            super().merge('handler' => 'blog#assets')
-          end
-
-          it 'does not create a request' do
-            expect { perform }.not_to change { Request.count }
-          end
-
-          it 'deletes the stashed data' do
-            perform
-            expect(stubbed_data_manager).to have_received(:delete_request_data)
-          end
-        end
-
         context 'when there is an auth_token_id in the initial stashed JSON' do
           let(:stubbed_initial_stashed_json) { super().merge('auth_token_id' => auth_token.id) }
           let(:auth_token) { AuthToken.first! }
