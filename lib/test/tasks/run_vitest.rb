@@ -3,7 +3,7 @@ class Test::Tasks::RunVitest < Pallets::Task
 
   def run
     execute_system_command(
-      'vitest run',
+      './node_modules/.bin/vitest run',
       log_stdout_only_on_failure: true,
     )
   end
