@@ -14,7 +14,7 @@ namespace :assets do
   def upload_zipped_assets(git_sha, directory_name)
     file_output_path = "tmp/#{directory_name}.zip"
     FileUtils.mkdir_p('tmp')
-    system("cd public && zip -r ../#{file_output_path} #{directory_name}")
+    system("cd public && zip -r ../#{file_output_path} #{directory_name} > /dev/null")
 
     Aws::S3::Resource.new(region: 'us-east-1').
       bucket('david-runger-test-uploads').
