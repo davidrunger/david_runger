@@ -66,45 +66,70 @@ module Test::TaskHelpers
     end
   end
 
-  def execute_rake_task(task_name, *args, suppress_stdout: false)
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
+  def execute_rake_task(task_name, *args, log_stdout_only_on_failure: false)
     puts(<<~LOG.squish)
       Running rake task '#{AmazingPrint::Colors.yellow(task_name)}'
       with args #{AmazingPrint::Colors.yellow(args.inspect)} ...
     LOG
+
     time = nil
+    captured_stdout = nil
+    exception = nil
+
     begin
       time =
         Benchmark.measure do
-          with_stdout(suppressed: suppress_stdout) do
-            Rake::Task[task_name].invoke(*args)
-          end
+          exception, captured_stdout =
+            capturing_stdout do
+              Rake::Task[task_name].invoke(*args)
+            end
         end.real
-    rescue SystemExit => error
-      update_job_result_exit_code(1)
-      puts(AmazingPrint::Colors.red(
-        "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
-      ))
-      raise # this will exit the program if it's a `SystemExit` exception
+
+      if exception
+        raise(exception)
+      end
     rescue => error
-      args_string = "[#{args.map(&:to_s).join(',')}]"
-      record_failed_command("bin/rails #{task_name}#{args_string if !args.empty?}")
-      record_failure_and_log_message(
-        "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
-      )
-      puts(error.backtrace)
-    else
-      record_success_and_log_message("'#{task_name}' succeeded (took #{time.round(3)}).")
+      exception = error
+    ensure
+      if captured_stdout.present? && (!log_stdout_only_on_failure || exception.present?)
+        puts(captured_stdout)
+      end
+
+      if exception.present?
+        update_job_result_exit_code(1)
+
+        puts(exception.backtrace)
+
+        args_string = "[#{args.map(&:to_s).join(',')}]"
+        record_failed_command("bin/rails #{task_name}#{args_string if !args.empty?}")
+        record_failure_and_log_message(
+          "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
+        )
+      else
+        record_success_and_log_message("'#{task_name}' succeeded (took #{time.round(3)}).")
+      end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
 
-  def with_stdout(suppressed:)
+  def capturing_stdout
     original_stdout = $stdout
+    captured = StringIO.new
+    $stdout = captured
+    exception = nil
 
-    if suppressed
-      $stdout = File.open(File::NULL, 'w')
+    begin
+      yield
+    rescue Exception => error # rubocop:disable Lint/RescueException
+      exception = error
     end
 
-    yield
+    [exception, captured.string]
   ensure
     $stdout = original_stdout
   end
