@@ -83,7 +83,7 @@ module Test::TaskHelpers
       time =
         Benchmark.measure do
           exception, captured_stdout =
-            capturing_stdout do
+            capturing_stdout_and_all_exceptions do
               Rake::Task[task_name].invoke(*args)
             end
         end.real
@@ -117,7 +117,7 @@ module Test::TaskHelpers
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
 
-  def capturing_stdout
+  def capturing_stdout_and_all_exceptions
     original_stdout = $stdout
     captured = StringIO.new
     $stdout = captured
