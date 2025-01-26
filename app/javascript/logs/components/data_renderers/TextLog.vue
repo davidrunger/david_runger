@@ -17,8 +17,10 @@
 <script setup lang="ts">
 import { computed, ref, type PropType } from 'vue';
 
+import { isArrayOfTextLogEntries } from '@/lib/type_predicates';
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
 import type { Log, TextLogEntry } from '@/logs/types';
+import { assert } from '@/shared/helpers';
 
 const props = defineProps({
   log: {
@@ -30,16 +32,21 @@ const props = defineProps({
 const showAllEntries = ref(false);
 
 const sortedLogEntries = computed((): Array<TextLogEntry> => {
-  const logEntries = props.log.log_entries;
-  let logEntriesToShow;
+  const logEntries = assert(props.log.log_entries);
 
-  if (showAllEntries.value || logEntries.length <= 3) {
-    logEntriesToShow = logEntries;
+  if (isArrayOfTextLogEntries(logEntries)) {
+    let logEntriesToShow;
+
+    if (showAllEntries.value || logEntries.length <= 3) {
+      logEntriesToShow = logEntries;
+    } else {
+      logEntriesToShow = logEntries.slice(logEntries.length - 3);
+    }
+
+    return logEntriesToShow.slice().reverse();
   } else {
-    logEntriesToShow = logEntries.slice(logEntries.length - 3);
+    return [];
   }
-
-  return logEntriesToShow.slice().reverse();
 });
 </script>
 
