@@ -41,4 +41,8 @@ export default defineConfig({
       css: path.resolve(__dirname, './app/assets/stylesheets'),
     },
   },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+  },
 });

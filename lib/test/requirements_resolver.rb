@@ -30,6 +30,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunPrettier => Test::Tasks::PnpmInstall,
         Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,
+        Test::Tasks::RunVitest => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
         Test::Tasks::RunTypelizer => Test::Tasks::BuildFixtures,
         Test::Tasks::ConvertSchemasToTs => nil,
@@ -68,6 +69,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunStylelint,
           Test::Tasks::RunTypelizer,
           Test::Tasks::RunUnitTests,
+          Test::Tasks::RunVitest,
         ],
       }
 
@@ -208,6 +210,12 @@ class Test::RequirementsResolver
     Test::Tasks::RunStylelint => proc { !files_with_css_changed? && !diff_mentions?('stylelint') },
     Test::Tasks::SetupDb => proc { running_locally? },
     Test::Tasks::PnpmInstall => proc { running_locally? },
+    Test::Tasks::RunVitest => proc do
+      !files_with_js_changed? &&
+        !diff_mentions?('vitest') &&
+        !file_changed?('package.json') &&
+        !file_changed?('pnpm-lock.yaml')
+    end,
   }.freeze
 
   def required_tasks

@@ -6,7 +6,9 @@ export function loadAsyncPartials() {
   )) {
     if (asyncPartialEl instanceof HTMLElement) {
       const delay = parseInt(asyncPartialEl.dataset.delay || '0', 10);
-      setTimeout(fetchPartial.bind(null, asyncPartialEl), delay);
+      setTimeout(() => {
+        void fetchPartial(asyncPartialEl);
+      }, delay);
     }
   }
 }

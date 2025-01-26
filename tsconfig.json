@@ -17,7 +17,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "types": ["vite/client"]
+    "types": ["vite/client", "vitest/globals"]
   },
   "vueCompilerOptions": {
     "plugins": ["@vue/language-plugin-pug"]
