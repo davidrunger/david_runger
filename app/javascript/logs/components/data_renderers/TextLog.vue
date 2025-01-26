@@ -15,12 +15,12 @@
 </template>
 
 <script setup lang="ts">
+import { sortBy } from 'lodash-es';
 import { computed, ref, type PropType } from 'vue';
 
 import { isArrayOfTextLogEntries } from '@/lib/type_predicates';
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
 import type { Log, TextLogEntry } from '@/logs/types';
-import { assert } from '@/shared/helpers';
 
 const props = defineProps({
   log: {
@@ -32,7 +32,7 @@ const props = defineProps({
 const showAllEntries = ref(false);
 
 const sortedLogEntries = computed((): Array<TextLogEntry> => {
-  const logEntries = assert(props.log.log_entries);
+  const logEntries = sortBy(props.log.log_entries, 'created_at');
 
   if (isArrayOfTextLogEntries(logEntries)) {
     let logEntriesToShow;
