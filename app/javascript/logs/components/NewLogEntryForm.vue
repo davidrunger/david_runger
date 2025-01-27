@@ -11,7 +11,7 @@ div
         @click='postNewLogEntry(logEntryValue)'
       ) {{logEntryValue}}
     .flex.justify-center
-      .container
+      .w-full.max-w-4xl
         el-input.new-log-input.mb-2(
           :placeholder='log.data_label'
           v-model='formData.newLogEntryData'

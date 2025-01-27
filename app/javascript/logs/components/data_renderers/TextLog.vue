@@ -1,7 +1,7 @@
 <template lang="pug">
-.flex.justify-center
-  .container
-    table.text-log-table
+div
+  .flex.justify-center
+    table.text-log-table.max-w-4xl
       TransitionGroup(name='appear-vertically-list')
         EditableTextLogRow(
           v-for='(logEntry, index) in sortedLogEntries'
@@ -10,8 +10,8 @@
           :logEntry='logEntry'
           :class="{ 'transition-none!': index !== 0 }"
         )
-    el-button(v-if='!showAllEntries' @click='showAllEntries = true').
-      Show all entries
+  el-button(v-if='!showAllEntries' @click='showAllEntries = true').
+    Show all entries
 </template>
 
 <script setup lang="ts">
@@ -68,11 +68,6 @@ ol {
       position: absolute;
     }
   }
-}
-
-.container {
-  max-width: 1000px;
-  width: 100%;
 }
 
 .el-button + .el-button {
