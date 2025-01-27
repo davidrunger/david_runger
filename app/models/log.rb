@@ -57,17 +57,25 @@ class Log < ApplicationRecord
       left_joins(:log_entries).
         where.not(reminder_time_in_seconds: nil).
         group('logs.id').
+        # The log must have existed for at least the length of the reminder
+        # period AND ((there are no log entries and no reminder has ever been
+        # sent) OR (there are log entries AND (a reminder has never been sent OR
+        # no reminder has yet been sent after the latest entry) AND the amount
+        # of time that has passed since the latest entry is greater than the
+        # reminder time period).
         having(<<~SQL.squish)
-          (
-            MAX(log_entries.created_at) IS NULL
-            AND logs.reminder_last_sent_at IS NULL
-            AND EXTRACT(EPOCH FROM (NOW() - logs.created_at)) > logs.reminder_time_in_seconds
-          )
-          OR
-          (
-            MAX(log_entries.created_at) IS NOT NULL
-            AND (logs.reminder_last_sent_at IS NULL OR logs.reminder_last_sent_at < MAX(log_entries.created_at))
-            AND EXTRACT(EPOCH FROM (NOW() - MAX(log_entries.created_at))) >= logs.reminder_time_in_seconds
+          EXTRACT(EPOCH FROM (NOW() - logs.created_at)) > logs.reminder_time_in_seconds
+          AND (
+            (
+              MAX(log_entries.created_at) IS NULL
+              AND logs.reminder_last_sent_at IS NULL
+            )
+            OR
+            (
+              MAX(log_entries.created_at) IS NOT NULL
+              AND (logs.reminder_last_sent_at IS NULL OR logs.reminder_last_sent_at < MAX(log_entries.created_at))
+              AND EXTRACT(EPOCH FROM (NOW() - MAX(log_entries.created_at))) >= logs.reminder_time_in_seconds
+            )
           )
         SQL
     }
