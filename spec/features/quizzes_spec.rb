@@ -86,6 +86,10 @@ RSpec.describe 'Quizzes app' do
         expect(page).to have_css('ol li:nth-of-type(1)', text: /\A\z/)
       end
 
+      # refresh the page and check that the respondent's name is still bolded
+      visit(page.current_url)
+      expect(page).to have_css('.font-bold', text: participant_name)
+
       # close question (reveal answer) and move to next question
       click_on('Close question')
       expect(page).to have_css('.text-lime-600', text: "(#{participant_name})")
