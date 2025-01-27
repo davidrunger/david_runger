@@ -63,16 +63,7 @@ class Prerenderer
 
   def html_for_prerendering(html)
     @html_doc = Nokogiri::HTML(html)
-    remove_devicon_stylesheet!
     @html_doc.to_s
-  end
-
-  def remove_devicon_stylesheet!
-    @html_doc.
-      css(
-        'link[rel="stylesheet"][href*="devicon"][data-lazyloader-state="spent"]',
-      ).
-      remove
   end
 end
 

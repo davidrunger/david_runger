@@ -5,7 +5,6 @@ HomeSection(section='skills', title='Skills')
       SkillRow(
         name='Cloudflare'
         details="A capable CDN and a vital layer of protection against DDoS attacks."
-        :wordmarkedIcon='false'
       )
       SkillRow(
         name='CSS3'
@@ -23,15 +22,12 @@ HomeSection(section='skills', title='Skills')
         name='Elasticsearch / OpenSearch'
         details='A fast, powerful, and flexible search backend.'
       )
-        template(v-slot:image)
-          img(src='~img/elasticsearch.svg' alt='Elasticsearch' class='w-10/12')
       SkillRow(
         name='Git'
         details='The standard in version control.'
       )
       SkillRow(
         name='GitHub'
-        :wordmarkedIcon='false'
         details=
         `
           Where software teams and the open source community collaborate. GitHub Actions are
@@ -53,12 +49,10 @@ HomeSection(section='skills', title='Skills')
           A flexible language, essential for any modern web app. ES6 (plus lodash to fill in some
           utility functions) makes JavaScript coding pretty enjoyable.
         `
-        :wordmarkedIcon='false'
       )
       SkillRow(
         name='Jest'
         details='A fast and effective JavaScript unit testing library.'
-        :wordmarkedIcon='false'
       )
       SkillRow(
         name='Jira'
@@ -76,8 +70,6 @@ HomeSection(section='skills', title='Skills')
           I love about Ruby to the front end.
         `
       )
-        template(v-slot:image)
-          img(src='~img/lodash.svg' alt='Lodash')
       SkillRow(
         name='NodeJS'
         details=
@@ -107,18 +99,12 @@ HomeSection(section='skills', title='Skills')
         name='RSpec'
         details='I love testing, and RSpec makes tests readable and easy to write.'
       )
-        template(v-slot:image)
-          img(
-            src='~img/rspec.webp'
-            alt='RSpec'
-          )
       SkillRow(
         name='Ruby'
         details='Ruby was designed for developer happiness, and it shows!'
       )
       SkillRow(
         name='Ruby on Rails'
-        iconIdentifier='rails'
         details=
         `
           A web-development framework with a great ecosystem that makes development fast and fun.
@@ -127,7 +113,6 @@ HomeSection(section='skills', title='Skills')
       )
       SkillRow(
         name='Sass'
-        :wordmarkedIcon='false'
         details=
         `
           It's in the name - syntactically awesome style sheets. Why write CSS, when you can write
@@ -136,13 +121,10 @@ HomeSection(section='skills', title='Skills')
       )
       SkillRow(
         name='Tailwind CSS'
-        iconIdentifier='tailwindcss'
         details='A utility-first CSS framework that makes styling quick and easy.'
-        :wordmarkedIcon='false'
       )
       SkillRow(
         name='TypeScript'
-        :wordmarkedIcon='false'
         details=
         `
           The guarantees provided by types reduce the likelihood of bugs and
