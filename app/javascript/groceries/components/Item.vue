@@ -7,12 +7,14 @@
       @click='setNeeded(item, item.needed + 1)'
       title='Increment'
     )
-      span +
+      .flex.justify-center
+        PlusIcon(:size='ICON_SIZE')
     button.decrement.text-2xl.mx-2.js-link.text-red-600.leading-unset(
       @click='decrement(item)'
       title='Decrement'
     )
-      span &ndash;
+      .flex.justify-center
+        MinusIcon(:size='ICON_SIZE')
   .left
     input(
       v-if='editingName'
@@ -27,7 +29,7 @@
       | {{item.name}}
       |
       a.js-link.text-neutral-400(@click='editItemName' class="hover:text-black")
-        EditIcon(size='17')
+        EditIcon(:size='ICON_SIZE')
     | &nbsp;
     span ({{item.needed}})
   .delete.text-2xl.js-link.right.text-red-600.leading-unset(
@@ -42,10 +44,12 @@
 <script setup lang="ts">
 import { debounce } from 'lodash-es';
 import { ref, type PropType } from 'vue';
-import { EditIcon } from 'vue-tabler-icons';
+import { EditIcon, MinusIcon, PlusIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
+
+const ICON_SIZE = 17;
 
 const props = defineProps({
   item: {
