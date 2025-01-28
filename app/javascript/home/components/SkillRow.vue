@@ -56,8 +56,8 @@ watchEffect(() => {
 </style>
 
 <style lang="scss" scoped>
-$icon-size-normal: 66px;
-$icon-size-small: 45px;
+$icon-size-normal: 50px;
+$icon-size-small: 42px;
 
 .svg-container {
   height: $icon-size-normal;
