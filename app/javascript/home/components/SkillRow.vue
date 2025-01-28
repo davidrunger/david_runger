@@ -56,11 +56,17 @@ watchEffect(() => {
 </style>
 
 <style lang="scss" scoped>
-$icon-size: 66px;
+$icon-size-normal: 66px;
+$icon-size-small: 45px;
 
 .svg-container {
-  height: $icon-size;
-  width: $icon-size;
+  height: $icon-size-normal;
+  width: $icon-size-normal;
+
+  @media (width <= 550px) {
+    height: $icon-size-small;
+    width: $icon-size-small;
+  }
 }
 
 tr:not(:first-child) td {
