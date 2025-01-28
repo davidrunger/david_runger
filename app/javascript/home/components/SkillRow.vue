@@ -1,16 +1,13 @@
 <template lang="pug">
 tr
-  td.text-center
-    slot(v-if='$slots.image' name='image')
-    i(v-else :class='devIconClass')
-  td {{ name }}
   td
-    slot(v-if='$slots.details' name='details')
-    span(v-else) {{ details }}
-</template>
+    .svg-container(v-html="svgContent")
+  td {{ name }}
+  td {{ details }}
+  </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 const props = defineProps({
   name: {
@@ -21,42 +18,54 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  iconIdentifier: {
-    type: String,
-    required: false,
-    default: null,
-  },
-  plainIcon: {
-    type: Boolean,
-    default: true,
-  },
-  coloredIcon: {
-    type: Boolean,
-    default: true,
-  },
-  wordmarkedIcon: {
-    type: Boolean,
-    default: true,
-  },
 });
 
-const devIconClass = computed(() => {
-  const iconIdentifier = props.iconIdentifier || props.name.toLowerCase();
-  let iconClass = `devicon-${iconIdentifier}`;
-  if (props.plainIcon) iconClass = `${iconClass}-plain`;
-  if (props.wordmarkedIcon) iconClass = `${iconClass}-wordmark`;
-  if (props.coloredIcon) iconClass = `${iconClass} colored`;
+const svgContent = ref<null | string>(null);
 
-  return iconClass;
+const svgFiles = import.meta.glob('img/dev-icons/*.svg', {
+  query: '?raw',
+  import: 'default',
+});
+
+watchEffect(() => {
+  async function loadSvg() {
+    const fileName = props.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const filePath = `../assets/images/dev-icons/${fileName}.svg`;
+
+    const svgFileForPath = svgFiles[filePath];
+
+    if (svgFileForPath) {
+      const fileSvgContent = await svgFileForPath();
+
+      if (typeof fileSvgContent === 'string') {
+        svgContent.value = fileSvgContent;
+      }
+    }
+  }
+
+  loadSvg();
 });
 </script>
 
+<style lang="scss">
+/* Make SVG fill its container. Must be unscoped because it's set via v-html. */
+.svg-container svg {
+  width: 100%;
+  height: 100%;
+}
+</style>
+
 <style lang="scss" scoped>
-i[class^='devicon-'] {
-  font-size: 65px;
+$icon-size-normal: 66px;
+$icon-size-small: 45px;
+
+.svg-container {
+  height: $icon-size-normal;
+  width: $icon-size-normal;
 
   @media (width <= 550px) {
-    font-size: 45px;
+    height: $icon-size-small;
+    width: $icon-size-small;
   }
 }
 
