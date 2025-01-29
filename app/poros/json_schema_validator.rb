@@ -64,7 +64,8 @@ class JsonSchemaValidator
 
   memo_wise \
   def universal_bootstrap_data?
-    (@data.keys - %i[current_user nonce toast_messages]).empty?
+    @data.is_a?(Hash) &&
+      (@data.keys - %i[current_user nonce toast_messages]).empty?
   end
 
   memo_wise \
