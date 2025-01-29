@@ -84,7 +84,7 @@ RSpec.describe Admin::UsersController do
 
       it 'redirects to the admin login page' do
         get_become
-        expect(response).to redirect_to(admin_login_path)
+        expect(response).to redirect_to(new_admin_user_session_path)
       end
     end
   end

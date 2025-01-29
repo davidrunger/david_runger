@@ -17,7 +17,7 @@ RSpec.describe 'Vue Playground' do
     it 'redirects to the root path', :prerendering_disabled do
       visit_vue_playground_path
 
-      expect(page).to have_current_path(admin_login_path)
+      expect(page).to have_current_path(new_admin_user_session_path)
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe 'Vue Playground' do
     it 'redirects to the root path', :prerendering_disabled do
       visit_vue_playground_path
 
-      expect(page).to have_current_path(admin_login_path)
+      expect(page).to have_current_path(new_admin_user_session_path)
     end
   end
 end
