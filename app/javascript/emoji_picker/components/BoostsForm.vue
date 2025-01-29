@@ -1,5 +1,5 @@
 <template lang="pug">
-div.mt-8(v-if='bootstrap.current_user')
+div.mt-8
   h2.mb-0 Emoji Boosts
   small These names will be weighted more heavily in the search results.
 
@@ -39,14 +39,10 @@ div.mt-8(v-if='bootstrap.current_user')
 import { remove } from 'lodash-es';
 
 import { boosts } from '@/emoji_picker/emoji_data';
-import { type Bootstrap } from '@/emoji_picker/types';
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { routes } from '@/lib/routes';
 import { vueToast } from '@/lib/vue_toasts';
 import { http } from '@/shared/http';
 import type { EmojiDataWithBoostedName } from '@/types';
-
-const bootstrap = untypedBootstrap as Bootstrap;
 
 function addBoost() {
   boosts.push({ symbol: '', boostedName: '' });

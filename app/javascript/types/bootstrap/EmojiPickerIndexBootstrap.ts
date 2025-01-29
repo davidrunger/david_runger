@@ -18,7 +18,7 @@ const schema = {
           "$ref": "#/definitions/CurrentUser"
         }
       },
-      "required": ["current_user", "nonce"],
+      "required": ["nonce"],
       "title": "Root"
     },
     "CurrentUser": {
