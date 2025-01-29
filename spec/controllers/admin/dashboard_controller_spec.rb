@@ -21,7 +21,7 @@ RSpec.describe Admin::DashboardController do
 
       it 'redirects to the admin login page with a flash message' do
         get_index
-        expect(response.status).to redirect_to(admin_login_path)
+        expect(response.status).to redirect_to(new_admin_user_session_path)
         expect(flash[:alert]).to eq('You must sign in as an admin user first.')
       end
     end

@@ -16,7 +16,7 @@ RSpec.describe 'Flipper web UI', :rack_test_driver do
 
     it 'redirects to the root path', :prerendering_disabled do
       visit_flipper_web_ui
-      expect(page).to have_current_path(admin_login_path)
+      expect(page).to have_current_path(new_admin_user_session_path)
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe 'Flipper web UI', :rack_test_driver do
 
     it 'redirects to the root path', :prerendering_disabled do
       visit_flipper_web_ui
-      expect(page).to have_current_path(admin_login_path)
+      expect(page).to have_current_path(new_admin_user_session_path)
     end
   end
 end
