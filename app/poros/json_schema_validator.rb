@@ -10,11 +10,14 @@ class JsonSchemaValidator
 
   # TIP: Generate the schema from sample response data using
   # https://jsonformatter.org/json-to-jsonschema .
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def validated_data
     if (
       Rails.env.local? &&
         !IS_DOCKER &&
         !(defined?(Runger.config) && Runger.config.skip_schema_validation?) &&
+        !(universal_bootstrap_data? && !schema_file_exists?) &&
         schema_validation_errors.present?
     )
       copy_data_to_clipboard
@@ -22,11 +25,13 @@ class JsonSchemaValidator
       raise(
         NonconformingData,
         "Violation of #{relative_schema_path} : #{schema_validation_errors}",
-      )
+        )
     else
       @data
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 
@@ -55,6 +60,16 @@ class JsonSchemaValidator
 
   def json_string_to_validate
     @data.is_a?(String) ? @data : @data.to_json
+  end
+
+  memo_wise \
+  def universal_bootstrap_data?
+    (@data.keys - %i[current_user nonce toast_messages]).empty?
+  end
+
+  memo_wise \
+  def schema_file_exists?
+    File.exist?(absolute_schema_path)
   end
 
   memo_wise \

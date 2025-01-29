@@ -10,10 +10,13 @@ Rails.application.routes.draw do
     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   get 'login', to: 'sessions#new'
-  # https://stackoverflow.com/a/46218826/4009384
-  Rails.application.routes.named_routes.tap do |named_routes|
-    named_routes['new_session'] = named_routes['login']
-    named_routes['new_user_session'] = named_routes['login']
+  # Avoid otherwise duplicated login routes in exported JS routes.
+  unless Rake.application.top_level_tasks == ['build_js_routes']
+    # https://stackoverflow.com/a/46218826/4009384
+    Rails.application.routes.named_routes.tap do |named_routes|
+      named_routes['new_session'] = named_routes['login']
+      named_routes['new_user_session'] = named_routes['login']
+    end
   end
   resource :my_account, controller: :my_account, only: %i[destroy edit show]
 

@@ -20,7 +20,13 @@
         span.align-middle.text-4xl {{ emojiData.symbol }}
         span.ml-1.align-middle.text-xl {{ emojiData.boostedName || emojiData.name }}
 
-  BoostsForm
+  BoostsForm(v-if='bootstrap.current_user')
+  .flex.justify-center(v-else)
+    .mt-8.max-w-sm
+      b Tip:
+      span.
+        #[a(:href='routes.login_path()')  log in] to customize which search keywords are associated
+        with which emojis.
 </template>
 
 <script setup lang="ts">
@@ -31,9 +37,14 @@ import { POSITION } from 'vue-toastification';
 import BoostsForm from '@/emoji_picker/components/BoostsForm.vue';
 import CopiedEmojiToast from '@/emoji_picker/components/CopiedEmojiToast.vue';
 import { emojiData } from '@/emoji_picker/emoji_data';
+import { type Bootstrap } from '@/emoji_picker/types';
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useFuzzyTypeahead } from '@/lib/composables/use_fuzzy_typeahead';
+import { routes } from '@/lib/routes';
 import { vueToast } from '@/lib/vue_toasts';
 import type { EmojiData } from '@/types';
+
+const bootstrap = untypedBootstrap as Bootstrap;
 
 const query = ref('');
 const queryDebounced = refDebounced(query, 60, { maxWait: 180 });
