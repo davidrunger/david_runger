@@ -25,7 +25,7 @@
     .mt-8.max-w-sm
       b Tip:
       span.
-        #[a(:href='routes.login_path()')  log in] to customize which search keywords are associated
+        #[a(href='/login')  log in] to customize which search keywords are associated
         with which emojis.
 </template>
 

@@ -5,5 +5,5 @@ declare const Routes: typeof RoutesType;
 
 export async function signOut() {
   await kyApi.delete(Routes.destroy_user_session_path({ format: 'json' }));
-  window.location.assign(Routes.login_path());
+  window.location.assign('/login');
 }
