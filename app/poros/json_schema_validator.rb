@@ -25,7 +25,7 @@ class JsonSchemaValidator
       raise(
         NonconformingData,
         "Violation of #{relative_schema_path} : #{schema_validation_errors}",
-        )
+      )
     else
       @data
     end
