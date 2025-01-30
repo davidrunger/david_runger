@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_04_034053) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_30_173449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -295,6 +295,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_04_034053) do
     t.integer "total"
     t.index ["admin_user_id"], name: "index_requests_on_admin_user_id"
     t.index ["auth_token_id"], name: "index_requests_on_auth_token_id"
+    t.index ["handler"], name: "index_requests_on_handler"
+    t.index ["ip"], name: "index_requests_on_ip"
     t.index ["isp"], name: "index_requests_on_isp"
     t.index ["request_id"], name: "index_requests_on_request_id", unique: true
     t.index ["requested_at"], name: "index_requests_on_requested_at"
