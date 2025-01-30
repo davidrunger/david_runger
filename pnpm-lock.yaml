@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@activeadmin/activeadmin':
+        specifier: ^3.2.5
+        version: 3.2.5
       '@hotwired/turbo':
         specifier: ^8.0.12
         version: 8.0.12
@@ -68,6 +71,9 @@ importers:
       fuse.js:
         specifier: ^7.0.0
         version: 7.0.0
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -141,6 +147,9 @@ importers:
       '@testing-library/vue':
         specifier: ^8.1.0
         version: 8.1.0(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@5.7.3))
+      '@types/jquery':
+        specifier: ^3.5.32
+        version: 3.5.32
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -186,6 +195,9 @@ importers:
       globals:
         specifier: ^15.14.0
         version: 15.14.0
+      jquery-ui:
+        specifier: ^1.14.1
+        version: 1.14.1
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0
@@ -242,6 +254,9 @@ importers:
         version: 2.2.0(typescript@5.7.3)
 
 packages:
+
+  '@activeadmin/activeadmin@3.2.5':
+    resolution: {integrity: sha512-xWbnRljhpijfyS7PD8G9WTTryuf44tOicquCG6Nav26iYsADezIAtfbqUHwtJRxc9dJq9n+ma9j+U0X03UekFg==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1000,6 +1015,9 @@ packages:
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
+  '@types/jquery@3.5.32':
+    resolution: {integrity: sha512-b9Xbf4CkMqS02YH8zACqN1xzdxc3cO735Qe5AbSUFmyOiaWAbcpqh9Wna+Uk0vgACvoQHpWDg2rGdHkYPLmCiQ==}
+
   '@types/js-cookie@3.0.6':
     resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
 
@@ -1026,6 +1044,9 @@ packages:
 
   '@types/rails__ujs@6.0.4':
     resolution: {integrity: sha512-4A8+Xp+2bd4E/mLjfwldc46katQQJfLfwTRbhDBoQyj4timlpWfJ6uHqwyre/qwcapgjKtVd365pt9ovD/3tRw==}
+
+  '@types/sizzle@2.3.9':
+    resolution: {integrity: sha512-xzLEyKB50yqCUPUJkIsrVvoWNfFUbIZI+RspLWt8u+tIW/BetMBZtgV2LY/2o+tYH8dRvQ+eoPf3NdhQCcLE2w==}
 
   '@types/strftime@0.9.8':
     resolution: {integrity: sha512-QIvDlGAKyF3YJbT3QZnfC+RIvV5noyDbi+ZJ5rkaSRqxCGrYJefgXm3leZAjtoQOutZe1hCXbAg+p89/Vj4HlQ==}
@@ -2412,6 +2433,17 @@ packages:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
+  jquery-ui@1.14.1:
+    resolution: {integrity: sha512-DhzsYH8VeIvOaxwi+B/2BCsFFT5EGjShdzOcm5DssWjtcpGWIMsn66rJciDA6jBruzNiLf1q0KvwMoX1uGNvnQ==}
+
+  jquery-ujs@1.2.3:
+    resolution: {integrity: sha512-59wvfx5vcCTHMeQT1/OwFiAj+UffLIwjRIoXdpO7Z7BCFGepzq9T9oLVeoItjTqjoXfUrHJvV7QU6pUR+UzOoA==}
+    peerDependencies:
+      jquery: '>=1.8.0'
+
+  jquery@3.7.1:
+    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
+
   js-beautify@1.15.1:
     resolution: {integrity: sha512-ESjNzSlt/sWE8sciZH8kBF8BPlwXPwhR6pWKAw8bw4Bwj+iZcnKW6ONWUutJ7eObuBZQpiIb8S7OYspWrKt7rA==}
     engines: {node: '>=14'}
@@ -3314,9 +3346,6 @@ packages:
     peerDependencies:
       tailwindcss: 1 || 2 || 2.0.1-compat || 3
 
-  tailwindcss@4.0.0:
-    resolution: {integrity: sha512-ULRPI3A+e39T7pSaf1xoi58AqqJxVCLg8F/uM5A3FadUbnyDTgltVnXJvdkTjwCOGA6NazqHVcwPJC5h2vRYVQ==}
-
   tailwindcss@4.0.1:
     resolution: {integrity: sha512-UK5Biiit/e+r3i0O223bisoS5+y7ZT1PM8Ojn0MxRHzXN1VPZ2KY6Lo6fhu1dOfCfyUAlK7Lt6wSxowRabATBw==}
 
@@ -3775,6 +3804,12 @@ packages:
     engines: {node: '>=10'}
 
 snapshots:
+
+  '@activeadmin/activeadmin@3.2.5':
+    dependencies:
+      jquery: 3.7.1
+      jquery-ui: 1.14.1
+      jquery-ujs: 1.2.3(jquery@3.7.1)
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -4476,6 +4511,10 @@ snapshots:
 
   '@types/estree@1.0.6': {}
 
+  '@types/jquery@3.5.32':
+    dependencies:
+      '@types/sizzle': 2.3.9
+
   '@types/js-cookie@3.0.6': {}
 
   '@types/json-schema@7.0.15': {}
@@ -4501,6 +4540,8 @@ snapshots:
   '@types/rails__actioncable@6.1.11': {}
 
   '@types/rails__ujs@6.0.4': {}
+
+  '@types/sizzle@2.3.9': {}
 
   '@types/strftime@0.9.8': {}
 
@@ -6156,6 +6197,16 @@ snapshots:
 
   jiti@2.4.2: {}
 
+  jquery-ui@1.14.1:
+    dependencies:
+      jquery: 3.7.1
+
+  jquery-ujs@1.2.3(jquery@3.7.1):
+    dependencies:
+      jquery: 3.7.1
+
+  jquery@3.7.1: {}
+
   js-beautify@1.15.1:
     dependencies:
       config-chain: 1.1.13
@@ -7129,8 +7180,6 @@ snapshots:
       tailwindcss: 4.0.1
     transitivePeerDependencies:
       - supports-color
-
-  tailwindcss@4.0.0: {}
 
   tailwindcss@4.0.1: {}
 

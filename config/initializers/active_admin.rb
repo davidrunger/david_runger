@@ -341,5 +341,25 @@ ActiveAdmin.setup do |config|
   # By default, Active Admin uses Sprocket's asset pipeline.
   # You can switch to using Webpacker here.
   #
-  # config.use_webpacker = true
+  config.use_webpacker = true
 end
+
+module ActiveAdminViteJS
+  def stylesheet_pack_tag(stylesheet_file_name, **_options)
+    if stylesheet_file_name == 'active_admin.css'
+      stylesheet_file_name = 'active_admin.scss'
+    end
+
+    admin_style_tag(stylesheet_file_name)
+  end
+
+  def javascript_pack_tag(script_file_name, **_options)
+    if script_file_name == 'active_admin.js'
+      script_file_name = 'active_admin.ts'
+    end
+
+    admin_ts_tag(script_file_name)
+  end
+end
+
+ActiveAdmin::Views::Pages::Base.prepend(ActiveAdminViteJS)
