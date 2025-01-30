@@ -7,6 +7,14 @@ GIT
       redis (~> 5.0)
 
 GIT
+  remote: https://github.com/davidrunger/pry-byebug.git
+  revision: f6f73023ba081630ddee32ae4399fb31706f074f
+  specs:
+    pry-byebug (3.10.1)
+      byebug (>= 11.0)
+      pry (>= 0.13)
+
+GIT
   remote: https://github.com/davidrunger/typelizer.git
   revision: 147c27dea7de09e4514db0785e59564c6fa8134b
   specs:
@@ -434,12 +442,9 @@ GEM
     prism (1.3.0)
     prometheus_exporter (2.2.0)
       webrick
-    pry (0.14.2)
+    pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.10.1)
-      byebug (~> 11.0)
-      pry (>= 0.13, < 0.15)
     psych (5.2.3)
       date
       stringio
@@ -773,7 +778,7 @@ DEPENDENCIES
   percy-capybara
   pg
   prometheus_exporter
-  pry-byebug
+  pry-byebug!
   puma
   pundit
   rack-attack
@@ -985,8 +990,8 @@ CHECKSUMS
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
   prism (1.3.0) sha256=b11620829831b1cb7e6c9b46c81ff8a6e36ccb3f888f164485eb7351f386273a
   prometheus_exporter (2.2.0) sha256=38a71af112da26b588f67948e5dcc32d539b26cfbf25115e92caca8db8437497
-  pry (0.14.2) sha256=c4fe54efedaca1d351280b45b8849af363184696fcac1c72e0415f9bdac4334d
-  pry-byebug (3.10.1) sha256=c8f975c32255bfdb29e151f5532130be64ff3d0042dc858d0907e849125581f8
+  pry (0.15.2) sha256=12d54b8640d3fa29c9211dd4ffb08f3fd8bf7a4fd9b5a73ce5b59c8709385b6b
+  pry-byebug (3.10.1)
   psych (5.2.3) sha256=84a54bb952d14604fea22d99938348814678782f58b12648fcdfa4d2fce859ee
   public_suffix (6.0.1) sha256=61d44e1cab5cbbbe5b31068481cf16976dd0dc1b6b07bd95617ef8c5e3e00c6f
   puma (6.6.0) sha256=f25c06873eb3d5de5f0a4ebc783acc81a4ccfe580c760cfe323497798018ad87
