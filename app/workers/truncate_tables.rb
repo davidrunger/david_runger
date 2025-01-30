@@ -81,7 +81,6 @@ class TruncateTables
     self.class.print_row_counts
     Rails.logger.info
 
-    self.class.truncate(table: 'requests', timestamp: 'requested_at')
     self.class.truncate(
       table: 'ip_blocks',
       timestamp: 'created_at',
