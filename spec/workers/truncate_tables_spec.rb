@@ -12,28 +12,27 @@ RSpec.describe TruncateTables do
       end
     end
 
-    context 'when there is at least one row in the `requests` table' do
-      before { expect(Request.count).to be > 0 }
+    context 'when there is at least one row in the `ip_blocks` table' do
+      before { expect(IpBlock.count).to be > 0 }
 
-      it 'issues a DELETE command against the `requests` table' do
-        expect(@connection).to receive(:execute).
-          with(/DELETE FROM requests/).
-          and_call_original
-
-        # pass other calls through
+      it 'issues a DELETE command against the `ip_blocks` table' do
         allow(@connection).to receive(:execute).and_call_original
 
         perform
+
+        expect(@connection).
+          to have_received(:execute).
+          with(/DELETE FROM ip_blocks/)
       end
     end
 
-    context 'when there are no rows in the `requests` table' do
-      before { Request.delete_all }
+    context 'when there are no rows in the `ip_blocks` table' do
+      before { IpBlock.delete_all }
 
-      it 'does not issue a DELETE command against the `requests` table' do
+      it 'does not issue a DELETE command against the `ip_blocks` table' do
         expect(@connection).
           not_to receive(:execute).
-          with(/DELETE FROM requests/i)
+          with(/DELETE FROM ip_blocks/i)
 
         # pass other calls through
         allow(@connection).to receive(:execute).and_call_original

@@ -26,8 +26,8 @@ class TruncateTables
   def self.truncate(
     table:,
     timestamp:,
-    max_allowed_rows: self.max_allowed_rows,
-    min_surviving_timestamp: nil
+    min_surviving_timestamp:,
+    max_allowed_rows: self.max_allowed_rows
   )
     log_truncation_plan(table:, max_allowed_rows:, min_surviving_timestamp:)
 
@@ -45,7 +45,7 @@ class TruncateTables
     return if min_surviving_timestamp_based_on_count.nil?
 
     min_surviving_timestamp =
-      [min_surviving_timestamp_based_on_count, min_surviving_timestamp].compact.max
+      [min_surviving_timestamp_based_on_count, min_surviving_timestamp].max
 
     delete_old_rows_sql = <<~SQL.squish
       DELETE
@@ -60,14 +60,10 @@ class TruncateTables
   end
 
   def self.log_truncation_plan(table:, max_allowed_rows:, min_surviving_timestamp:)
-    if min_surviving_timestamp.present?
-      Rails.logger.info(<<~LOG.squish)
-        Truncating `#{table}` with a minimum surviving timestamp of #{min_surviving_timestamp} and
-        #{max_allowed_rows} rows (whichever leaves fewer rows in the table).
-      LOG
-    else
-      Rails.logger.info("Truncating `#{table}` with a max of #{max_allowed_rows} rows.")
-    end
+    Rails.logger.info(<<~LOG.squish)
+      Truncating `#{table}` with a minimum surviving timestamp of #{min_surviving_timestamp} and
+      #{max_allowed_rows} rows (whichever leaves fewer rows in the table).
+    LOG
   end
 
   def self.num_rows(table)
@@ -81,7 +77,6 @@ class TruncateTables
     self.class.print_row_counts
     Rails.logger.info
 
-    self.class.truncate(table: 'requests', timestamp: 'requested_at')
     self.class.truncate(
       table: 'ip_blocks',
       timestamp: 'created_at',
