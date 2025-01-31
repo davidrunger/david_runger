@@ -12,7 +12,12 @@ module AssetsHelper
       JSON.parse(File.read('public/vite-admin/.vite/manifest.json')).
         dig("admin_entrypoints/#{entrypoint_file_name}", 'file')
 
-    javascript_include_tag("/vite-admin/#{compiled_js_file_path}", type: 'module', defer: 'defer', crossorigin: nil)
+    javascript_include_tag(
+      "/vite-admin/#{compiled_js_file_path}",
+      type: 'module',
+      defer: 'defer',
+      crossorigin: nil,
+    )
   end
 
   def ts_tag(entrypoint_name)
