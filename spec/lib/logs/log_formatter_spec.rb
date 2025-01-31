@@ -16,8 +16,8 @@ RSpec.describe Logs::LogFormatter do
       end
 
       context 'when duration is >= 500' do
-        let(:data) { super().merge(duration:) }
         let(:duration) { 500 }
+        let(:data) { super().merge(duration:) }
 
         it 'returns a string with key=value for the duration' do
           expect(call).to eq("duration=#{duration}")
