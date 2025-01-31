@@ -41,7 +41,7 @@ namespace :assets do
       'bin/vite build --force',
       {
         'NODE_ENV' => 'production',
-        'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_packs',
+        'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_entrypoints',
         'VITE_RUBY_PUBLIC_OUTPUT_DIR' => 'vite-admin',
       },
     )

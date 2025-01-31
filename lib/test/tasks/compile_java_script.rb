@@ -15,7 +15,7 @@ class Test::Tasks::CompileJavaScript < Pallets::Task
       'bin/vite build --force',
       {
         'NODE_ENV' => 'production',
-        'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_packs',
+        'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_entrypoints',
         'VITE_RUBY_PUBLIC_OUTPUT_DIR' => 'vite-admin',
       },
     )
