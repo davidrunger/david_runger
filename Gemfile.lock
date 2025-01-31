@@ -596,7 +596,7 @@ GEM
     rubocop-rspec_rails (2.30.0)
       rubocop (~> 1.61)
       rubocop-rspec (~> 3, >= 3.0.1)
-    ruby-next-core (1.1.0)
+    ruby-next-core (1.1.1)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     runger_actions (0.24.0)
@@ -1045,7 +1045,7 @@ CHECKSUMS
   rubocop-rails (2.29.1) sha256=41c2fcf48d5d62f4a5f574d5f1c97bbaf4cba88ee367936c98b3422d047b17aa
   rubocop-rspec (3.4.0) sha256=8721c13b6a8c9530a7ac481cea9423022f946fcf72428bda8289f8b57e4d4885
   rubocop-rspec_rails (2.30.0) sha256=888112e83f9d7ef7ad2397e9d69a0b9614a4bae24f072c399804a180f80c4c46
-  ruby-next-core (1.1.0) sha256=25b7c46d00a262293a598fe134310132e78434c648910362e8d4c46b27e18db7
+  ruby-next-core (1.1.1) sha256=37886d41cf91072a0f14fa53b3e7e650adce1fe3b1227842bae32034dcce1d5f
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   ruby2_keywords (0.0.5) sha256=ffd13740c573b7301cf7a2e61fc857b2a8e3d3aff32545d6f8300d8bae10e3ef
   runger_actions (0.24.0) sha256=727c8a11b544ec94739028cc9123ee6692175472486a1a5223bf2ad5804ca9b9
