@@ -12,7 +12,7 @@ class Test::Tasks::CompileJavaScript < Pallets::Task
     )
 
     execute_system_command(
-      'bin/vite build --force',
+      'bin/vite build --force > /dev/null',
       {
         'NODE_ENV' => 'production',
         'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_entrypoints',
