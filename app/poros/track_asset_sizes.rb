@@ -15,17 +15,17 @@ class TrackAssetSizes
 
   def track_all_asset_sizes(dry_run: false)
     accumulator = {}
-    packs.each do |pack|
-      track_asset_sizes(pack, accumulator:, dry_run:)
+    entrypoints.each do |entrypoint|
+      track_asset_sizes(entrypoint, accumulator:, dry_run:)
     end
     accumulator
   end
 
   private
 
-  def track_asset_sizes(pack, accumulator:, dry_run:)
-    pack_name = pack.gsub(/\.[jt]s\z/, '')
-    asset_and_js_dependencies = asset_and_js_dependencies("packs/#{pack}")
+  def track_asset_sizes(entrypoint, accumulator:, dry_run:)
+    entrypoint_name = entrypoint.gsub(/\.[jt]s\z/, '')
+    asset_and_js_dependencies = asset_and_js_dependencies("entrypoints/#{entrypoint}")
     total_js_files_size =
       asset_and_js_dependencies.
         sum { |asset| File.new("public/vite/#{file_name(asset)}").size }
@@ -35,9 +35,9 @@ class TrackAssetSizes
         flatten.uniq.
         sum { |css_path| File.new("public/vite/#{css_path}").size }
 
-    plain_pack_name = pack_name.delete_suffix('_app')
-    js_glob = "#{plain_pack_name}*.js"
-    css_glob = "#{plain_pack_name}*.css"
+    plain_entrypoint_name = entrypoint_name.delete_suffix('_app')
+    js_glob = "#{plain_entrypoint_name}*.js"
+    css_glob = "#{plain_entrypoint_name}*.css"
 
     record_asset_size(js_glob, total_js_files_size, accumulator:, dry_run:)
     record_asset_size(css_glob, total_css_files_size, accumulator:, dry_run:)
@@ -68,11 +68,11 @@ class TrackAssetSizes
   end
 
   memo_wise \
-  def packs
+  def entrypoints
     manifest.
       filter_map do |path, info|
         if info['isEntry']
-          path.delete_prefix('packs/')
+          path.delete_prefix('entrypoints/')
         end
       end.
       sort

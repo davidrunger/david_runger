@@ -8,9 +8,9 @@ RSpec.describe TrackAssetSizes do
       before do
         expect(File).to receive(:read).with('public/vite/.vite/manifest.json').and_return(<<~JSON)
           {
-            "packs/groceries_app.ts": {
+            "entrypoints/groceries_app.ts": {
               "file": "assets/groceries_app.e736a509.js",
-              "src": "packs/groceries_app.ts",
+              "src": "entrypoints/groceries_app.ts",
               "isEntry": true,
               "imports": [
                 "_modal_store.c843ae02.js",
