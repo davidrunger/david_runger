@@ -2,6 +2,8 @@ ActiveAdmin.register_page('Graphs') do
   menu parent: 'Admin'
 
   content do
+    div(admin_ts_tag('charts.ts'))
+
     h2('home#index response times')
     home_index_response_times =
       Request.
