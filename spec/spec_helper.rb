@@ -61,11 +61,14 @@ WebMock.disable_net_connect!(
 OmniAuth.config.test_mode = true
 
 Capybara.register_driver(:cuprite) do |app|
+  timeout = is_ci ? 10 : 999_999
+
   Capybara::Cuprite::Driver.new(
     app,
     window_size: [1200, 800],
     headless: !use_headful_chrome,
-    process_timeout: 10,
+    timeout:,
+    process_timeout: timeout,
     logger: CupriteLogger.new,
   )
 end
