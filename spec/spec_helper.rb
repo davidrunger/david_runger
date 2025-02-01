@@ -83,9 +83,9 @@ if SpecHelper.is_ci?
   }
 end
 
-Cuprite::DomainRestrictedDriver.register_driver_with_capybara
-Capybara.default_driver = :domain_restricted_cuprite
-Capybara.javascript_driver = :domain_restricted_cuprite
+Cuprite::CustomDrivers.register_with_capybara
+Capybara.default_driver = Cuprite::CustomDrivers::DOMAIN_RESTRICTED_CUPRITE
+Capybara.javascript_driver = Cuprite::CustomDrivers::DOMAIN_RESTRICTED_CUPRITE
 # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
 Capybara.asset_host = 'http://localhost:3000'
 Capybara.server = :puma, { Silent: true }
@@ -223,11 +223,16 @@ RSpec.configure do |config|
     end
   end
 
-  # Permit allowing requests to specified external domains (which we block by
-  # default; see url_whitelist in Cuprite::DomainRestrictedDriver).
+  # Permit some or all external requests (otherwise blocked by default).
   config.before do |example|
-    (example.metadata[:allowed_domains] || []).each do |allowed_domain|
-      page.driver.browser.url_allowlist << %r{\Ahttps://#{allowed_domain}/}
+    metadata = example.metadata
+
+    if metadata[:permit_all_external_requests]
+      Capybara.current_driver = Cuprite::CustomDrivers::UNRESTRICTED_CUPRITE
+    elsif (allowed_domains = metadata[:allowed_domains]).present?
+      allowed_domains.each do |allowed_domain|
+        page.driver.browser.url_allowlist << %r{\Ahttps://#{allowed_domain}/}
+      end
     end
   end
 
