@@ -6,7 +6,7 @@ module Cuprite::CustomDrivers
     def register_with_capybara
       register_driver(
         DOMAIN_RESTRICTED_CUPRITE,
-        url_whitelist: %r{\Ahttp://localhost:#{Capybara.server_port}/},
+        -> { { url_whitelist: %r{\Ahttp://localhost:#{Capybara.server_port}/} } },
       )
 
       register_driver(UNRESTRICTED_CUPRITE)
@@ -14,11 +14,11 @@ module Cuprite::CustomDrivers
 
     private
 
-    def register_driver(driver_name, **custom_options)
+    def register_driver(driver_name, custom_options_proc = nil)
       Capybara.register_driver(driver_name) do |app|
         Capybara::Cuprite::Driver.new(
           app,
-          base_options.merge(custom_options),
+          base_options.merge(custom_options_proc&.call || {}),
         )
       end
     end
