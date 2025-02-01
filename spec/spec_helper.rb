@@ -1,6 +1,14 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
-is_ci = (ENV.fetch('CI', nil) == 'true')
+
+module SpecHelper
+  class << self
+    def is_ci? = ENV.fetch('CI', nil) == 'true'
+
+    def use_headful_chrome? = ENV.fetch('HEADFUL_CHROME', nil).present?
+  end
+end
+
 require 'simplecov'
 SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
 SimpleCov.start do
@@ -12,10 +20,12 @@ SimpleCov.start do
   # rubocop:enable Rails/Present
   add_filter(%r{^/spec/})
   add_filter(%r{^/tools/(?!custom_cops/)})
-  enable_coverage(:branch) if !is_ci # Codecov doesn't respect `nocov-else` etc comments
+  enable_coverage(:branch) if !SpecHelper.is_ci? # Codecov doesn't respect `nocov-else` etc comments
 end
+
 require File.expand_path('../config/environment', __dir__)
-if is_ci
+
+if SpecHelper.is_ci?
   require 'simplecov-cobertura'
   SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 elsif RSpec.configuration.files_to_run.one?
@@ -27,13 +37,11 @@ elsif RSpec.configuration.files_to_run.one?
     %r{\Aspec/tools/} => 'tools/',
   )
 end
-use_headful_chrome = ENV.fetch('HEADFUL_CHROME', nil).present?
+
 require 'factory_bot_rails'
 require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
-require Rails.root.join('spec/support/fixture_builder.rb').to_s
-Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
@@ -41,10 +49,12 @@ require 'capybara/cuprite'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/email/rspec'
-require 'capybara-screenshot/rspec' unless use_headful_chrome
+require 'capybara-screenshot/rspec' unless SpecHelper.use_headful_chrome?
 require 'mail'
 require 'percy/capybara'
 require 'super_diff/rspec-rails'
+require Rails.root.join('spec/support/fixture_builder.rb').to_s
+Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 
 # w/o this, Sidekiq's `logger` prints to STDOUT (bad); with this, it prints to `log/test.log` (good)
 sidekiq_logger = Sidekiq::Logger.new(Rails.root.join('log/test.log').to_s)
@@ -60,19 +70,7 @@ WebMock.disable_net_connect!(
 
 OmniAuth.config.test_mode = true
 
-Capybara.register_driver(:cuprite) do |app|
-  timeout = is_ci ? 10 : 999_999
-
-  Capybara::Cuprite::Driver.new(
-    app,
-    window_size: [1200, 800],
-    headless: !use_headful_chrome,
-    timeout:,
-    process_timeout: timeout,
-    logger: CupriteLogger.new,
-  )
-end
-if is_ci
+if SpecHelper.is_ci?
   Capybara::Screenshot.s3_configuration = {
     s3_client_credentials: {
       access_key_id: Rails.application.credentials.aws![:access_key_id],
@@ -84,8 +82,10 @@ if is_ci
     key_prefix: 'failure-screenshots/',
   }
 end
-Capybara.default_driver = :cuprite
-Capybara.javascript_driver = :cuprite
+
+Cuprite::DomainRestrictedDriver.register_driver_with_capybara
+Capybara.default_driver = :domain_restricted_cuprite
+Capybara.javascript_driver = :domain_restricted_cuprite
 # allow loading JS & CSS assets via `save_and_open_page` when running `rails s`
 Capybara.asset_host = 'http://localhost:3000'
 Capybara.server = :puma, { Silent: true }
@@ -223,6 +223,14 @@ RSpec.configure do |config|
     end
   end
 
+  # Permit allowing requests to specified external domains (which we block by
+  # default; see url_whitelist in Cuprite::DomainRestrictedDriver).
+  config.before do |example|
+    (example.metadata[:allowed_domains] || []).each do |allowed_domain|
+      page.driver.browser.url_allowlist << %r{\Ahttps://#{allowed_domain}/}
+    end
+  end
+
   config.before(:each) do
     Rack::Attack.reset!
     $redis_pool.with { |conn| conn.call('flushdb', 'sync') }
@@ -241,16 +249,16 @@ RSpec.configure do |config|
     activate_feature!(:disable_prerendering)
   end
 
-  # NOTE: Using `CupriteLogger.javascript_errors` like this is not thread-safe.
+  # NOTE: Using `Cuprite::BrowserLogger.javascript_errors` like this is not thread-safe.
   # For now, that's okay, because our tests only run in a single thread.
   config.around(:each, type: :feature) do |example|
-    CupriteLogger.javascript_errors.clear
-    CupriteLogger.javascript_logs.clear
+    Cuprite::BrowserLogger.javascript_errors.clear
+    Cuprite::BrowserLogger.javascript_logs.clear
 
     example.run
 
-    expect(CupriteLogger.javascript_errors).to be_empty
-    expect(CupriteLogger.javascript_logs).to be_empty
+    expect(Cuprite::BrowserLogger.javascript_errors).to be_empty
+    expect(Cuprite::BrowserLogger.javascript_logs).to be_empty
   end
 
   config.before(:each, :rails_env) do |example|
@@ -390,7 +398,7 @@ RSpec.configure do |config|
   # is tagged with `:focus`, all examples get run. RSpec also provides
   # aliases for `it`, `describe`, and `context` that include `:focus`
   # metadata: `fit`, `fdescribe` and `fcontext`, respectively.
-  if !is_ci
+  if !SpecHelper.is_ci?
     config.filter_run_when_matching(:focus)
   end
 

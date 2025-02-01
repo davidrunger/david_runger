@@ -2,7 +2,7 @@ require 'rainbow/refinement'
 
 using Rainbow
 
-class CupriteLogger
+class Cuprite::BrowserLogger
   JSON_EXTRACTION_REGEX = /\A\s*[▶◀]\s+\d+\.\d+ ({.*})\n?\z/
   LOG_MESSAGES_TO_IGNORE = [
     /\A\[vite\] connecting\.\.\.\z/,
