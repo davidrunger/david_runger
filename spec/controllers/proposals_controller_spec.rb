@@ -11,7 +11,7 @@ RSpec.describe(ProposalsController) do
         ),
       }
     end
-    let(:proposer) { users(:admin) }
+    let(:proposer) { users(:single_user) }
     let(:proposee) { users(:user) }
 
     context 'when JWT_SECRET is set' do

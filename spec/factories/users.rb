@@ -14,9 +14,5 @@
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
-
-    trait :admin do
-      email { 'davidjrunger@gmail.com' }
-    end
   end
 end

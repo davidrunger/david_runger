@@ -13,10 +13,10 @@ FixtureBuilder.configure do |fbuilder|
   fbuilder.factory do
     # users
     user = name(:user, create(:user)).first
-    admin = name(:admin, create(:user, :admin)).first
+    married_user = name(:married_user, create(:user)).first
     name(:single_user, create(:user))
 
-    # admin users
+    # AdminUsers
     admin_user = name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com')).first
 
     # groceries
@@ -33,7 +33,7 @@ FixtureBuilder.configure do |fbuilder|
 
     create(
       :log,
-      user: admin,
+      user: married_user,
       name: 'Chinups',
       data_label: '# of chinups',
       data_type: 'counter',
@@ -76,11 +76,11 @@ FixtureBuilder.configure do |fbuilder|
     create(:banned_path_fragment, value: 'wordpress')
 
     # quizzes
-    quiz = create(:quiz, owner: admin)
+    quiz = create(:quiz, owner: married_user)
 
     # quiz participations
     participation = create(:quiz_participation, quiz:, participant: user)
-    participation_2 = create(:quiz_participation, quiz:, participant: admin)
+    participation_2 = create(:quiz_participation, quiz:, participant: married_user)
 
     # quiz questions
     quiz_question_1 = create(:quiz_question, quiz:)
@@ -101,7 +101,7 @@ FixtureBuilder.configure do |fbuilder|
     create(:quiz_question_answer_selection, answer: answer_2, participation: participation_2)
 
     # marriages
-    marriage = create(:marriage, partner_1: user, partner_2: admin)
+    marriage = create(:marriage, partner_1: user, partner_2: married_user)
 
     # emotional needs
     emotional_need = create(:emotional_need, marriage:)
@@ -111,7 +111,7 @@ FixtureBuilder.configure do |fbuilder|
 
     # need satisfaction ratings
     create(:need_satisfaction_rating, emotional_need:, check_in:, user:, score: 3)
-    create(:need_satisfaction_rating, emotional_need:, check_in:, user: admin, score: -3)
+    create(:need_satisfaction_rating, emotional_need:, check_in:, user: married_user, score: -3)
 
     # JSON Preferences
     create(:json_preference, :emoji_boosts, user:)
@@ -125,7 +125,7 @@ FixtureBuilder.configure do |fbuilder|
     # Events
     name(:event, create(:event, user:, admin_user:))
     create(:event, user:, admin_user: nil)
-    create(:event, user: admin, admin_user:)
+    create(:event, user: married_user, admin_user:)
     create(:event, user: nil, admin_user: nil)
   end
 end

@@ -9,7 +9,7 @@ RSpec.describe QuizQuestions::CreateFromList do
       questions_list:,
     }
   end
-  let(:quiz) { create(:quiz, owner: users(:admin)) }
+  let(:quiz) { create(:quiz, owner: users(:married_user)) }
   let(:questions_list) do
     <<~QUESTIONS_LIST
       What's your Hogwarts house?

@@ -1,5 +1,5 @@
 RSpec.describe 'Quizzes app' do
-  let(:quiz_owner) { users(:admin) }
+  let(:quiz_owner) { users(:married_user) }
   let(:existing_quiz) { quiz_owner.quizzes.first! }
   let(:participant) { users(:user) }
 
