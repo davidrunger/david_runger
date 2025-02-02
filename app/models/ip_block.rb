@@ -12,8 +12,7 @@
 #
 # Indexes
 #
-#  index_ip_blocks_on_ip   (ip) UNIQUE
-#  index_ip_blocks_on_isp  (isp)
+#  index_ip_blocks_on_ip  (ip) UNIQUE
 #
 class IpBlock < ApplicationRecord
   validates :ip,
