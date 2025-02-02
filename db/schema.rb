@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_02_174557) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_02_225737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -159,7 +159,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_174557) do
     t.string "isp"
     t.string "location"
     t.index ["ip"], name: "index_ip_blocks_on_ip", unique: true
-    t.index ["isp"], name: "index_ip_blocks_on_isp"
   end
 
   create_table "items", force: :cascade do |t|
@@ -314,7 +313,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_174557) do
     t.index ["auth_token_id"], name: "index_requests_on_auth_token_id"
     t.index ["handler"], name: "index_requests_on_handler"
     t.index ["ip"], name: "index_requests_on_ip"
-    t.index ["isp"], name: "index_requests_on_isp"
     t.index ["request_id"], name: "index_requests_on_request_id", unique: true
     t.index ["requested_at"], name: "index_requests_on_requested_at"
     t.index ["user_id"], name: "index_requests_on_user_id"
