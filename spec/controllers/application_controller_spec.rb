@@ -15,8 +15,14 @@ RSpec.describe ApplicationController, :without_verifying_authorization do
         context 'when no User is logged in' do
           before { controller.sign_out_all_scopes }
 
-          it 'returns the User with email "davidjrunger@gmail.com"' do
-            expect(current_user.email).to eq('davidjrunger@gmail.com')
+          context 'when there is a user with email "davidjrunger@gmail.com"' do
+            before { User.find_or_create_by!(email: david_runger_email) }
+
+            let(:david_runger_email) { 'davidjrunger@gmail.com' }
+
+            it 'returns the User with email "davidjrunger@gmail.com"' do
+              expect(current_user.email).to eq(david_runger_email)
+            end
           end
         end
       end

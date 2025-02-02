@@ -7,14 +7,16 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
 
     it 'allows the AdminUser to log in via Google' do
       visit(new_admin_user_session_path)
+
       expect(page).to have_css('button.google-login')
 
       expect { click_on(class: 'google-login') }.not_to change { AdminUser.count }
 
       visit(admin_root_path)
+
       expect(page).to have_text('David Runger')
       expect(page).to have_text('Dashboard')
-      expect(page).to have_text(admin_user.email)
+      expect(page).to have_text(/Recent Users.*#{User.last!.email}/)
     end
   end
 
