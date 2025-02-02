@@ -32,7 +32,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
       ip: '127.0.0.1',
       'stack_trace' => [
         %r{
-          /david_runger/app/controllers/api/events_controller\.rb:11:
+          /david_runger/app/controllers/api/events_controller\.rb:\d+:
           in\s'Api::EventsController#create'
         }x,
       ],
