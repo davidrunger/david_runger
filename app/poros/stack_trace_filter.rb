@@ -1,10 +1,13 @@
 class StackTraceFilter
-  def application_stack_trace
-    caller.drop(1).select do |caller_line|
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def application_stack_trace(ignore: [])
+    caller.select do |caller_line|
       caller_line.exclude?('/gems/') &&
         caller_line.exclude?('/lib/ruby/') &&
         caller_line.exclude?('/middleware/') &&
-        caller_line.exclude?(__FILE__)
+        caller_line.exclude?(__FILE__) &&
+        ignore.all? { caller_line.exclude?(it) }
     end.presence || caller
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

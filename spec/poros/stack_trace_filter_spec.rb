@@ -2,7 +2,9 @@ RSpec.describe(StackTraceFilter) do
   subject(:stack_trace_filter) { StackTraceFilter.new }
 
   describe '#application_stack_trace' do
-    subject(:application_stack_trace) { stack_trace_filter.application_stack_trace }
+    subject(:application_stack_trace) do
+      stack_trace_filter.application_stack_trace(ignore: [file_to_ignore])
+    end
 
     context 'when the caller has Dockerized file paths' do
       before do
@@ -12,13 +14,14 @@ RSpec.describe(StackTraceFilter) do
       let(:mocked_stack_trace) do
         # rubocop:disable Layout/LineLength
         [
-          "/app/app/models/event.rb:37:in 'Event.create_with_stack_trace!'",
+          "#{file_to_ignore}:37:in 'Event.create_with_stack_trace!'",
           expected_line_of_interest,
           "/app/vendor/bundle/ruby/3.4.0/gems/actionpack-8.0.1/lib/action_controller/metal/basic_implicit_render.rb:8:in 'ActionController::BasicImplicitRender#send_action'",
           "/app/lib/middleware/early.rb:11:in 'Middleware::Early#call'",
         ]
         # rubocop:enable Layout/LineLength
       end
+      let(:file_to_ignore) { '/app/app/models/event.rb' }
       let(:expected_line_of_interest) do
         "/app/app/controllers/api/events_controller.rb:11:in 'Api::EventsController#create'"
       end
