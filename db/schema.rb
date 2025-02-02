@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_02_003627) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_02_071217) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -380,6 +380,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_003627) do
   add_foreign_key "check_in_submissions", "users"
   add_foreign_key "check_ins", "marriages"
   add_foreign_key "emotional_needs", "marriages"
+  add_foreign_key "events", "admin_users"
+  add_foreign_key "events", "users"
   add_foreign_key "items", "stores"
   add_foreign_key "json_preferences", "users"
   add_foreign_key "log_entries", "logs"
