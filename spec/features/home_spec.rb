@@ -1,43 +1,43 @@
 RSpec.describe 'Home page', :prerendering_disabled do
   it 'says "David Runger / Full stack web developer" and tracks clicks on external links' do
-      visit root_path
+    visit root_path
 
-      expect(page).to have_text(<<~HEADLINE, normalize_ws: false)
-        David Runger
-        Full stack web developer
-      HEADLINE
+    expect(page).to have_text(<<~HEADLINE, normalize_ws: false)
+      David Runger
+      Full stack web developer
+    HEADLINE
 
-      # Iff using Percy, sleep to allow skill SVGs to render, for consistent screenshots.
-      if ENV.fetch('PERCY_BUILD_ID', nil).present?
-        sleep(0.5)
-      end
-
-      page.percy_snapshot('Homepage')
-
-      event_count_before = Event.count
-
-      click_on('View Resume (pdf)')
-
-      wait_for { Event.count }.to eq(event_count_before + 1)
-
-      new_event = Event.reorder(:created_at).last!
-
-      expect(new_event).to have_attributes(
-        admin_user_id: nil,
-        data: hash_including(
-          'href' => 'https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf',
-          'page_url' => "#{Capybara.app_host}/",
-          'text' => 'View Resume (pdf)',
-        ),
-        ip: '127.0.0.1',
-        'stack_trace' => [
-          '/home/david/code/david_runger/app/controllers/api/events_controller.rb:11' \
-          ":in 'Api::EventsController#create'",
-        ],
-        type: 'external_link_click',
-        user_id: nil,
-      )
+    # Iff using Percy, sleep to allow skill SVGs to render, for consistent screenshots.
+    if ENV.fetch('PERCY_BUILD_ID', nil).present?
+      sleep(0.5)
     end
+
+    page.percy_snapshot('Homepage')
+
+    event_count_before = Event.count
+
+    click_on('View Resume (pdf)')
+
+    wait_for { Event.count }.to eq(event_count_before + 1)
+
+    new_event = Event.reorder(:created_at).last!
+
+    expect(new_event).to have_attributes(
+      admin_user_id: nil,
+      data: hash_including(
+        'href' => 'https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf',
+        'page_url' => "#{Capybara.app_host}/",
+        'text' => 'View Resume (pdf)',
+      ),
+      ip: '127.0.0.1',
+      'stack_trace' => [
+        '/home/david/code/david_runger/app/controllers/api/events_controller.rb:11' \
+        ":in 'Api::EventsController#create'",
+      ],
+      type: 'external_link_click',
+      user_id: nil,
+    )
+  end
 
   # we need to use the :rack_test driver because Chrome doesn't have the page.driver.header method
   context 'when there is an `X-Request-Start` HTTP header', :rack_test_driver do
