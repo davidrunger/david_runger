@@ -12,8 +12,7 @@
 #
 # Indexes
 #
-#  index_ip_blocks_on_ip   (ip) UNIQUE
-#  index_ip_blocks_on_isp  (isp)
+#  index_ip_blocks_on_ip  (ip) UNIQUE
 #
 FactoryBot.define do
   factory :ip_block do
