@@ -4,7 +4,7 @@
 #
 #  created_at   :datetime         not null
 #  id           :bigint           not null, primary key
-#  measurements :json             not null
+#  measurements :jsonb            not null
 #  name         :text             not null
 #  updated_at   :datetime         not null
 #
