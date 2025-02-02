@@ -3,25 +3,26 @@ RSpec.describe Logs::LogFormatter do
 
   let(:data) { {} }
 
-  describe '#call' do
-    subject(:call) { log_formatter.call }
+  describe '#color_background_and_style' do
+    subject(:color_background_and_style) do
+      log_formatter.send(:color_background_and_style, key, value)
+    end
 
-    context 'when Rails env is test and Rainbow is not enabled' do
-      before { expect(Rails.env.test?).to eq(true) }
+    context 'when called for allocations of 80,000' do
+      let(:key) { 'allocations' }
+      let(:value) { 80_000 }
 
-      around do |spec|
-        Rainbow.with(enabled: false) do
-          spec.run
-        end
+      it 'returns :red' do
+        expect(color_background_and_style).to eq(:red)
       end
+    end
 
-      context 'when duration is >= 500' do
-        let(:duration) { 500 }
-        let(:data) { super().merge(duration:) }
+    context 'when called for a duration of 500 (milliseconds)' do
+      let(:key) { 'duration' }
+      let(:value) { 500 }
 
-        it 'returns a string with key=value for the duration' do
-          expect(call).to eq("duration=#{duration}")
-        end
+      it 'returns :red' do
+        expect(color_background_and_style).to eq(:red)
       end
     end
   end
