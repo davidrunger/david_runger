@@ -1,4 +1,4 @@
-class ReificationsPolicy < ApplicationPolicy
+class ReificationPolicy < ApplicationPolicy
   def create?
     own_record?
   end
