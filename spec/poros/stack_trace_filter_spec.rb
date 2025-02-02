@@ -26,7 +26,7 @@ RSpec.describe(StackTraceFilter) do
         "/app/app/controllers/api/events_controller.rb:11:in 'Api::EventsController#create'"
       end
 
-      it 'returns only the lines of application code (and not the filter itself)' do
+      it 'returns only unignored lines of application code' do
         expect(application_stack_trace).to eq([expected_line_of_interest])
       end
     end
