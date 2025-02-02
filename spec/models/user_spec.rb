@@ -37,7 +37,7 @@ RSpec.describe User do
 
     context 'when the user is married' do
       it "returns the user's spouse" do
-        expect(spouse).to eq(users(:admin))
+        expect(spouse).to eq(users(:married_user))
       end
     end
 

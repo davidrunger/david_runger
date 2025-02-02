@@ -1,7 +1,7 @@
 RSpec.describe QuizzesController do
   before { sign_in(user) }
 
-  let(:user) { users(:admin) }
+  let(:user) { users(:married_user) }
 
   describe '#index' do
     subject(:get_index) { get(:index) }
