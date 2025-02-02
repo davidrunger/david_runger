@@ -35,7 +35,7 @@ class Event < ApplicationRecord
     def create_with_stack_trace!(attributes)
       create!(attributes.merge(
         stack_trace:
-          StackTraceFilter.new(caller).
+          StackTraceFilter.new.
             application_stack_trace(ignore: [__FILE__]),
       ))
     end
