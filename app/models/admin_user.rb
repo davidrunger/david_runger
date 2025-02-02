@@ -14,6 +14,8 @@
 class AdminUser < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
+  has_many :events, dependent: :destroy
+
   devise
 
   has_paper_trail

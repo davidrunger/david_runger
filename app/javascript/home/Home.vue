@@ -28,6 +28,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 
+import { useExternalLinkTracking } from '@/lib/composables/use_external_link_tracking';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 
 import About from './components/About.vue';
@@ -37,6 +38,8 @@ import ParallaxImage from './components/ParallaxImage.vue';
 import Projects from './components/Projects.vue';
 import Resume from './components/Resume.vue';
 import Skills from './components/Skills.vue';
+
+useExternalLinkTracking();
 
 onMounted(() => {
   setScrollToFragmentTimeouts();
