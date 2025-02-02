@@ -56,6 +56,14 @@ RSpec.describe SaveRequest::SkipChecker do
       end
     end
 
+    context 'when the controller is api/events and the action is create' do
+      let(:params) { { 'controller' => 'api/events', 'action' => 'create' } }
+
+      it 'returns true' do
+        expect(skip?).to eq(true)
+      end
+    end
+
     context 'when uptime_robot is among the params keys' do
       let(:params) { { 'controller' => 'home', 'action' => 'index', 'uptime_robot' => '1' } }
 

@@ -11,6 +11,7 @@ class SaveRequest::SkipChecker
       ['health_checks', _, _] |
       ['anonymous', _, _] |
       ['blog', 'assets', _] |
+      ['api/events', 'create', _] |
       [_, _, { uptime_robot: _ }]
     )
       true
