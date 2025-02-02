@@ -327,10 +327,15 @@ HomeSection(section='projects' title='Projects')
 
           li.
 
-            #[a(href='https://github.com/davidrunger/rspec_performance_summary') #[code rspec_performance_summary]]:
+            #[a(href='https://github.com/davidrunger/living_document') #[code living_document]]:
 
-            Find low-hanging / high-impact opportunities to speed up your test suite by printing
-            the execution time of your slowest RSpec examples.
+            Evaluate Ruby code live and inline in your editor while you edit a
+            Ruby file, or a Markdown file that includes Ruby code snippets.
+            LivingDocument is useful for quickly exploring ideas in Ruby code,
+            since it can be faster and more convenient than working in IRB or
+            running a Ruby script repeatedly as you edit it. It's also great for
+            editing README.md documentation while ensuring the accuracy of
+            example code snippets.
 
           li.
 
