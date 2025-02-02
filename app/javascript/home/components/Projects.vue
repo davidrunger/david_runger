@@ -4,62 +4,74 @@ HomeSection(section='projects' title='Projects')
     template(v-slot:title)
       span DavidRunger.com
     template(v-slot:technologies)
-      span Rails 7, Vue 3
+      span Rails 8, Vue 3
     template(v-slot:links)
       a(href='https://github.com/davidrunger/david_runger/') GitHub
     template(v-slot:overview)
       p.
 
-        You are here, at #[a(href='https://davidrunger.com') davidrunger.com]! This is a
-        playground for me to experiment with various web technologies, and where I host various
-        apps that I have built for myself and my family:
+        Welcome to #[a(href='https://davidrunger.com') davidrunger.com] — my
+        digital playground for experimenting with modern web technologies, where
+        I host apps designed for everyday use by my family and me:
 
       ul
 
         li.
           #[a(:href='routes.emoji_picker_path()') Emoji Picker] -
-          I couldn't find an emoji picker with the functionality I wanted, so I
-          #[a(href='https://github.com/davidrunger/david_runger/blob/main/app/javascript/emoji_picker/EmojiPicker.vue') built my own]
+          I couldn't find an emoji picker that met my needs (simple, fast,
+          keyboard-first, and with the ability to customize emoji search
+          keywords), so I
+          #[a(href='https://github.com/davidrunger/david_runger/blob/main/app/javascript/emoji_picker/EmojiPicker.vue') built my own].
 
         li.
           #[a(:href='routes.groceries_path()') Groceries]* -
-          the collaborative family grocery list, built to be mobile-friendly for use on-the-go
+          Simplify and streamline your family's grocery shopping with a
+          collaborative, mobile-friendly, real-time (WebSockets-enabled) list.
 
         li.
           #[a(:href='routes.workout_path()') Workout]* -
-          an app for tracking workouts over time, and to stay on-pace within a workout
+          An app for tracking workouts over time, and to stay on-pace within a workout.
 
         li.
           #[a(:href='routes.logs_path()') Logs]* -
-          track whatever you want with various log types (text, number, duration, and/or counter)
+          Track whatever you want with various log types (text, number, duration, and/or counter).
 
         li.
           #[a(:href='routes.quizzes_path()') Quizzes]* -
-          a multi-person quiz app that uses ActionCable websockets for real-time interactivity
+          A multi-person quiz app that uses ActionCable websockets for real-time interactivity.
 
         li.
           #[a(:href='routes.check_ins_path()') Check-ins]* -
-          track how well your emotional needs are being met in your marriage/relationship
+          Track how well your emotional needs are being met in your marriage/relationship.
 
       p #[i *Google login required]
 
     template(v-slot:tech-list)
       ul
         li.
-          A
-          #[a(href='https://rubyonrails.org/') Rails 7]
-          backend serves various
-          #[a(href='https://vuejs.org/') Vue 3]
-          front-end apps built with
-          #[a(href='https://pugjs.org') Pug] templates,
-          ES6, and
-          #[a(href='https://sass-lang.com/') Sass].
+          A #[a(href='https://rubyonrails.org/') Rails 8] backend serves various
+          #[a(href='https://vuejs.org/') Vue 3] front-end apps.
 
         li.
 
-          The app's 2,500+ lines of Ruby code are
+          The app's deployment is managed with
+          #[a(href='https://docs.docker.com/compose/') Docker Compose] on a
+          #[a(href='https://www.digitalocean.com/') DigitalOcean] host.
+
+        li.
+
+          The app's 6,000+ lines of testable Ruby code are
           #[a(href='https://app.codecov.io/gh/davidrunger/david_runger/tree/main') #[span.font-bold 100%] covered by tests]
           written with #[a(href='https://rspec.info/') RSpec].
+
+        li.
+
+          The excellent
+
+          #[a(href='https://vite-ruby.netlify.app/guide/rails.html') Vite Rails]
+
+          gem provides sub-second hot module replacement (HMR) in development,
+          and compiles the application's TypeScript and CSS for production.
 
         li.
 
@@ -68,24 +80,15 @@ HomeSection(section='projects' title='Projects')
           some direct use by the app.
 
         li.
-          #[a(href='https://pinia.vuejs.org/') Pinia] provides client-side state management.
+
+          #[a(href='https://github.com/sidekiq/sidekiq') Sidekiq] processes background jobs.
 
         li.
 
-          The excellent
-          #[a(href='https://vite-ruby.netlify.app/guide/rails.html') Vite Rails]
+          #[a(href='https://nginx.org/') NGINX] exposes the server to the web.
 
-          gem, in conjunction with Vue and Pinia, provides sub-second hot module replacement (HMR)
-          in development, creating an efficient and enjoyable workflow. Vite Rails also bundles
-          the application's JavaScript and CSS for production. (I believe that Vite Rails is an
-          underappreciated gem, and the premier solution for JavaScript management in the Rails
-          ecosystem at this time, better than any of the options
-
-          #[a(href='https://github.com/rails/webpacker#readme') mentioned here].
-
-          Hats off to the developer,
-
-          #[a(href='https://maximomussini.com/posts/a-rubyist-guide-to-vite-js') Máximo Mussini]!)
+        li.
+          #[a(href='https://pinia.vuejs.org/') Pinia] provides client-side state management.
 
         li.
 
@@ -95,25 +98,18 @@ HomeSection(section='projects' title='Projects')
         li.
 
           #[a(href='https://github.com/features/actions') GitHub Actions] provides continuous
-          integration (CI) testing and linting, as well as
-          continuous deployment (CD) via integration with
-          #[a(href='https://docs.docker.com/compose/') Docker Compose] on a
-          #[a(href='https://www.digitalocean.com/') DigitalOcean] host.
+          integration (CI) testing and linting and continuous deployment (CD).
 
         li.
 
-          A custom-built, #[a(href='https://github.com/linkyndy/pallets') pallets]-based,
-          parallelized test runner workflow executes only the tests and other checks that are
-          needed for any given PR, making development and deployment as fast as possible while
-          ensuring application stability.
-
-        li.
-
-          A custom-built, #[a(href='https://github.com/rubycdp/ferrum') ferrum]-based prerendering
-          system captures and then serves a static HTML version of the JavaScript-based homepage,
-          allowing me to enjoy the developer-friendly ergonomics of a Vue-based workflow in
-          development, while still serving a simple HTML page in production for optimal rendering
-          performance and search engine optimization.
+          Observability is provided by
+          #[a(href='https://grafana.com/') Grafana] log search and metrics viewing,
+          #[a(href='https://prometheus.io/') Prometheus] metrics collection and storage,
+          #[a(href='https://github.com/grafana/loki') Loki] log storage,
+          #[a(href='https://vector.dev/') Vector] log transformation and routing,
+          #[a(href='https://github.com/google/cadvisor') cAdvisor] container monitoring,
+          #[a(href='https://github.com/prometheus/node_exporter') Node exporter] system resource monitoring,
+          and #[a(href='https://github.com/discourse/prometheus_exporter') prometheus_exporter] to provide Rails metrics for Prometheus.
 
         li.
 
@@ -135,7 +131,7 @@ HomeSection(section='projects' title='Projects')
         li.
 
           #[a(href='https://github.com/railsware/js-routes') JsRoutes] allows the
-          use of Rails named routes / path helpers on the client-side, too! :)
+          use of Rails named routes / path helpers on the client-side, too!
 
         li.
 
@@ -144,9 +140,27 @@ HomeSection(section='projects' title='Projects')
 
         li.
 
+          A custom-built,
+
+          #[a(href='https://github.com/linkyndy/pallets') pallets]-based,
+
+          parallelized test runner determines and executes the subset of tests
+          and other checks that are needed for any given PR, making development
+          and deployment as fast as possible, while ensuring application
+          stability.
+
+        li.
+
+          A custom-built, #[a(href='https://github.com/rubycdp/ferrum') ferrum]-based prerendering
+          system captures and then serves a static HTML version of the JavaScript-based homepage,
+          allowing me to enjoy the developer-friendly ergonomics of a Vue-based workflow in
+          development, while still serving a simple HTML page in production for optimal rendering
+          performance and search engine optimization (SEO).
+
+        li.
+
           Plus...
             #[a(href='https://router.vuejs.org/') Vue Router] client-side routing,
-            #[a(href='https://github.com/sidekiq/sidekiq') Sidekiq] background jobs,
             #[a(href='https://github.com/flippercloud/flipper') Flipper] feature flags,
             #[a(href='https://github.com/heartcombo/devise') Devise] authentication,
             #[a(href='https://activeadmin.info/') Active Admin] admin backend,
@@ -155,7 +169,7 @@ HomeSection(section='projects' title='Projects')
             #[a(href='https://github.com/okuramasafumi/alba') alba] model-to-JSON serialization,
             #[a(href='https://guides.rubyonrails.org/action_mailer_basics.html') Action Mailer] outbound emails,
             #[a(href='https://guides.rubyonrails.org/action_mailbox_basics.html') Action Mailbox] inbound emails,
-            #[a(href='https://guides.rubyonrails.org/security.html#custom-credentials') Rails encrypted credentials],
+            #[a(href='https://guides.rubyonrails.org/action_cable_overview.html') Action Cable] websockets,
             #[a(href='https://github.com/davidrunger/runger_actions') runger_actions] form objects / command objects,
             #[a(href='https://github.com/davidrunger/skedjewel') Skedjewel] Sidekiq job scheduling,
             #[a(href='https://github.com/paper-trail-gem/paper_trail') PaperTrail] model change tracking,
