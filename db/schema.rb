@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_30_173449) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_02_071217) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -132,6 +132,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_173449) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marriage_id", "name"], name: "index_emotional_needs_on_marriage_id_and_name", unique: true
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "type", null: false
+    t.bigint "user_id"
+    t.bigint "admin_user_id"
+    t.jsonb "data"
+    t.string "ip"
+    t.string "isp"
+    t.string "location"
+    t.string "stack_trace", default: [], null: false, array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_events_on_admin_user_id"
+    t.index ["ip"], name: "index_events_on_ip"
+    t.index ["type"], name: "index_events_on_type"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "ip_blocks", force: :cascade do |t|
@@ -363,6 +380,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_173449) do
   add_foreign_key "check_in_submissions", "users"
   add_foreign_key "check_ins", "marriages"
   add_foreign_key "emotional_needs", "marriages"
+  add_foreign_key "events", "admin_users"
+  add_foreign_key "events", "users"
   add_foreign_key "items", "stores"
   add_foreign_key "json_preferences", "users"
   add_foreign_key "log_entries", "logs"

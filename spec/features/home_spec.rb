@@ -1,5 +1,5 @@
 RSpec.describe 'Home page', :prerendering_disabled do
-  it 'says "David Runger / Full stack web developer"' do
+  it 'says "David Runger / Full stack web developer" and tracks clicks on external links' do
     visit root_path
 
     expect(page).to have_text(<<~HEADLINE, normalize_ws: false)
@@ -13,6 +13,32 @@ RSpec.describe 'Home page', :prerendering_disabled do
     end
 
     page.percy_snapshot('Homepage')
+
+    event_count_before = Event.count
+
+    click_on('View Resume (pdf)')
+
+    wait_for { Event.count }.to eq(event_count_before + 1)
+
+    new_event = Event.reorder(:created_at).last!
+
+    expect(new_event).to have_attributes(
+      admin_user_id: nil,
+      data: hash_including(
+        'href' => 'https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf',
+        'page_url' => "#{Capybara.app_host}/",
+        'text' => 'View Resume (pdf)',
+      ),
+      ip: '127.0.0.1',
+      'stack_trace' => [
+        %r{
+          /david_runger/app/controllers/api/events_controller\.rb:\d+:
+          in\s'Api::EventsController#create'
+        }x,
+      ],
+      type: 'external_link_click',
+      user_id: nil,
+    )
   end
 
   # we need to use the :rack_test driver because Chrome doesn't have the page.driver.header method

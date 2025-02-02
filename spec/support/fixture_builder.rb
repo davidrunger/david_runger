@@ -17,7 +17,7 @@ FixtureBuilder.configure do |fbuilder|
     name(:single_user, create(:user))
 
     # admin users
-    name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com'))
+    admin_user = name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com')).first
 
     # groceries
     store = name(:store, create(:store, user:, name: 'Target')).first
@@ -121,5 +121,11 @@ FixtureBuilder.configure do |fbuilder|
 
     # Deploys
     name(:deploy, create(:deploy))
+
+    # Events
+    name(:event, create(:event, user:, admin_user:))
+    create(:event, user:, admin_user: nil)
+    create(:event, user: admin, admin_user:)
+    create(:event, user: nil, admin_user: nil)
   end
 end

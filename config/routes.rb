@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     resources :check_ins, only: [] do
       resources :check_in_submissions, only: %i[create]
     end
+    resources :events, only: %i[create]
     resources :need_satisfaction_ratings, only: %i[update]
     resources :csp_reports, only: %i[create]
     resources :items, only: %i[update destroy]
