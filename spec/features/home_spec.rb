@@ -31,8 +31,10 @@ RSpec.describe 'Home page', :prerendering_disabled do
       ),
       ip: '127.0.0.1',
       'stack_trace' => [
-        '/home/david/code/david_runger/app/controllers/api/events_controller.rb:11' \
-        ":in 'Api::EventsController#create'",
+        %r{
+          /david_runger/app/controllers/api/events_controller\.rb:11:
+          in\s'Api::EventsController#create'
+        }x,
       ],
       type: 'external_link_click',
       user_id: nil,
