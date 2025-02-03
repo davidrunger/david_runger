@@ -190,8 +190,8 @@ importers:
         specifier: ^2.31.0
         version: 2.31.0(@typescript-eslint/parser@8.22.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.7.0)(eslint@9.19.0(jiti@2.4.2))
       fishery:
-        specifier: ^2.2.2
-        version: 2.2.2
+        specifier: ^2.2.3
+        version: 2.2.3
       globals:
         specifier: ^15.14.0
         version: 15.14.0
@@ -1949,8 +1949,8 @@ packages:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
 
-  fishery@2.2.2:
-    resolution: {integrity: sha512-jeU0nDhPHJkupmjX+r9niKgVMTBDB8X+U/pktoGHAiWOSyNlMd0HhmqnjrpjUOCDPJYaSSu4Ze16h6dZOKSp2w==}
+  fishery@2.2.3:
+    resolution: {integrity: sha512-Rbp1PCPjNS5Yyuw2tRhVQ59wZ5Ciwv5+latMNx7JjhoZ5JF1TMgzs8J93wKYesLf3WXdXHovjY5dIDkf2EbMDw==}
 
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
@@ -5460,7 +5460,7 @@ snapshots:
       locate-path: 6.0.0
       path-exists: 4.0.0
 
-  fishery@2.2.2:
+  fishery@2.2.3:
     dependencies:
       lodash.mergewith: 4.6.2
 
