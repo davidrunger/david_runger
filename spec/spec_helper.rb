@@ -71,16 +71,16 @@ WebMock.disable_net_connect!(
 OmniAuth.config.test_mode = true
 
 if SpecHelper.is_ci?
-  Capybara::Screenshot.s3_configuration = {
-    s3_client_credentials: {
-      access_key_id: Rails.application.credentials.aws![:access_key_id],
-      secret_access_key: Rails.application.credentials.aws![:secret_access_key],
-      region: 'us-east-1',
-    },
-    bucket_name: 'david-runger-test-uploads',
-    bucket_host: 'david-runger-test-uploads.s3.amazonaws.com',
-    key_prefix: 'failure-screenshots/',
-  }
+  # Capybara::Screenshot.s3_configuration = {
+  #   s3_client_credentials: {
+  #     access_key_id: Rails.application.credentials.aws![:access_key_id],
+  #     secret_access_key: Rails.application.credentials.aws![:secret_access_key],
+  #     region: 'us-east-1',
+  #   },
+  #   bucket_name: 'david-runger-test-uploads',
+  #   bucket_host: 'david-runger-test-uploads.s3.amazonaws.com',
+  #   key_prefix: 'failure-screenshots/',
+  # }
 end
 
 Cuprite::CustomDrivers.register_with_capybara
