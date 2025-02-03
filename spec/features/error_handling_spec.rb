@@ -6,10 +6,21 @@ RSpec.describe 'Handling exceptions', :rack_test_driver do
       context 'when visiting a path that is not defined' do
         let(:nonexistent_path) { '/this-path-does-not-exist' }
 
+        before do
+          allow(Rails.logger).to receive(:warn)
+        end
+
         it 'says that the page does not exist and returns a 404' do
           visit(nonexistent_path)
           expect(page).to have_text("The page you were looking for doesn't exist.")
           expect(page.status_code).to be(404)
+          expect(Rails.logger).
+            to have_received(:warn).
+            with(%r{#{Regexp.escape(<<~WARN_LOG.squish)}})
+              [error-report:warning] ActionController::RoutingError :
+              No route matches [GET] "/this-path-does-not-exist" |
+              handled=true source=application controller_action="errors#not_found"
+            WARN_LOG
         end
       end
 
