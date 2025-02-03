@@ -59,6 +59,7 @@ class ApplicationController < ActionController::Base
 
   def set_controller_action_in_context
     ActiveSupport::ExecutionContext[:controller_action] =
+      ActiveSupport::ExecutionContext.to_h[:controller_action] ||
       "#{params['controller']}##{params['action']}"
   end
 
