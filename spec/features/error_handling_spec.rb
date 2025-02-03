@@ -47,7 +47,10 @@ RSpec.describe 'Handling exceptions', :rack_test_driver do
             handled=false source=application.action_dispatch
             controller_action="home#upgrade_browser"
           ERROR_LOG
-          expect(Rails.logger).to have_received(:add).with(Logger::ERROR, /StandardError \(#{error_message}\)/)
+          expect(Rails.logger).to have_received(:add).with(
+            Logger::ERROR,
+            /StandardError \(#{error_message}\)/,
+          )
         end
       end
     end
