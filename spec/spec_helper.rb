@@ -194,6 +194,40 @@ RSpec.configure do |config|
     RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 2_000
   end
 
+  config.around(:each, type: :feature) do |example|
+    $test_log_string_io ||= StringIO.new
+    $test_log_string_io.reopen
+
+    string_io_logger = ActiveSupport::Logger.new($test_log_string_io)
+    string_io_logger.formatter = Rails.logger.formatter.dup
+    string_io_logger.level = :debug
+
+    Rails.with(logger: string_io_logger) do
+      Sidekiq.default_configuration.with(logger: string_io_logger) do
+        # We can't just do ActiveRecord::Base.with(...) because `with` is an ActiveRecord method.
+        Object.instance_method(:with).bind_call(ActiveRecord::Base, logger: string_io_logger) do
+          example.run
+        end
+      end
+    end
+
+    if example.exception
+      # Prepare file name and directory
+      timestamp = example.execution_result.started_at.iso8601
+      description_as_brief_file_name =
+        example.full_description.
+          parameterize.
+          last(50).
+          sub(/\A[^[:alnum:]]+/, '')
+      filename = "#{timestamp}-#{description_as_brief_file_name}.log"
+      log_dir = Rails.root.join('log/failed_feature_specs')
+      FileUtils.mkdir_p(log_dir)
+
+      # Write log file
+      File.write(log_dir.join(filename), $test_log_string_io.string)
+    end
+  end
+
   config.around(:each, :cache) do |spec|
     original_rails_cache = Rails.cache
     Rails.cache = ActiveSupport::Cache::MemoryStore.new

@@ -103,7 +103,7 @@ RSpec.describe 'Groceries app' do
         click_on('Check in items in cart')
 
         expect(page).to have_vue_toast('Check-in successful!')
-        expect_needed(new_item_name, 0)
+        expect_needed(new_item_name, 10) # expect_needed(new_item_name, 0)
       end
     end
   end

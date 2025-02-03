@@ -54,15 +54,16 @@ Rails.application.configure do
   # Raise exceptions on deprecation notices.
   config.active_support.deprecation = :raise
 
-  if ENV.fetch('TEST_LOGGING', nil) == '1'
+  config.active_record.verbose_query_logs = true
+
+  config.log_level =
+    if ENV.fetch('TEST_LOGGING', nil) == '1'
+      # :nocov:
+      :debug
     # :nocov:
-    config.log_level = :debug
-    config.active_record.verbose_query_logs = true
-    # :nocov:
-  else
-    config.log_level = :warn
-    config.active_record.verbose_query_logs = false
-  end
+    else
+      :warn
+    end
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
