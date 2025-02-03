@@ -71,16 +71,16 @@ WebMock.disable_net_connect!(
 OmniAuth.config.test_mode = true
 
 if SpecHelper.is_ci?
-  # Capybara::Screenshot.s3_configuration = {
-  #   s3_client_credentials: {
-  #     access_key_id: Rails.application.credentials.aws![:access_key_id],
-  #     secret_access_key: Rails.application.credentials.aws![:secret_access_key],
-  #     region: 'us-east-1',
-  #   },
-  #   bucket_name: 'david-runger-test-uploads',
-  #   bucket_host: 'david-runger-test-uploads.s3.amazonaws.com',
-  #   key_prefix: 'failure-screenshots/',
-  # }
+  Capybara::Screenshot.s3_configuration = {
+    s3_client_credentials: {
+      access_key_id: Rails.application.credentials.aws![:access_key_id],
+      secret_access_key: Rails.application.credentials.aws![:secret_access_key],
+      region: 'us-east-1',
+    },
+    bucket_name: 'david-runger-test-uploads',
+    bucket_host: 'david-runger-test-uploads.s3.amazonaws.com',
+    key_prefix: 'failure-screenshots/',
+  }
 end
 
 Cuprite::CustomDrivers.register_with_capybara
@@ -403,9 +403,9 @@ RSpec.configure do |config|
   # is tagged with `:focus`, all examples get run. RSpec also provides
   # aliases for `it`, `describe`, and `context` that include `:focus`
   # metadata: `fit`, `fdescribe` and `fcontext`, respectively.
-  # if !SpecHelper.is_ci?
+  if !SpecHelper.is_ci?
     config.filter_run_when_matching(:focus)
-  # end
+  end
 
   # Allows RSpec to persist some state between runs in order to support
   # the `--only-failures` and `--next-failure` CLI options. We recommend
