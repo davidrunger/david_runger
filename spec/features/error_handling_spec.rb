@@ -35,7 +35,7 @@ RSpec.describe 'Handling exceptions', :rack_test_driver do
 
         let(:error_message) { 'A BrowserSupportChecker instance could not be initialized!' }
 
-        fit 'renders the 500 error page, responds with 500, does not expose the error message, and logs an error' do
+        it 'renders the 500 error page, responds with 500, does not expose the error message, and logs an error' do
           visit(upgrade_browser_path)
 
           expect(page).to have_css('h1', text: 'Sorry, something went wrong.')
