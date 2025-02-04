@@ -30,9 +30,9 @@ RSpec.describe Admin::DeploysController do
         expect(response).to have_http_status(200)
 
         expect(response.body).to have_link(
-            deploy.git_sha,
-            href: "https://github.com/davidrunger/david_runger/commit/#{deploy.git_sha}",
-          )
+          deploy.git_sha,
+          href: "https://github.com/davidrunger/david_runger/commit/#{deploy.git_sha}",
+        )
       end
     end
   end
