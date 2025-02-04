@@ -1,5 +1,5 @@
 RSpec.describe 'Home page', :prerendering_disabled do
-  it 'says "David Runger / Full stack web developer" and tracks clicks on external links' do
+  it 'says "David Runger / Full stack web developer" and tracks scrolling and clicks on external links' do
     visit root_path
 
     expect(page).to have_text(<<~HEADLINE, normalize_ws: false)
@@ -14,6 +14,39 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
     page.percy_snapshot('Homepage')
 
+    # Scroll tracking >>>
+    event_count_before = Event.count
+
+    page.scroll_to(:bottom)
+
+    wait_for { Event.count }.to eq(event_count_before + 1)
+
+    new_event = Event.reorder(:created_at).last!
+
+    expect(new_event).to have_attributes(
+      admin_user_id: nil,
+      data: hash_including(
+        'page_url' => "#{Capybara.app_host}/",
+      ),
+      ip: '127.0.0.1',
+      'stack_trace' => [
+        %r{
+          /david_runger/app/controllers/api/events_controller\.rb:\d+:
+          in\s'Api::EventsController#create'
+        }x,
+      ],
+      type: 'scroll',
+      user_id: nil,
+    )
+
+    page.scroll_to(:top)
+    sleep(0.2) # Wait a little bit for an Event to be created (though we don't want this).
+
+    # Verify that we do _not_ add yet another scroll Event after scrolling back up.
+    expect(Event.count).to eq(event_count_before + 1)
+    # <<< Scroll tracking
+
+    # External link click tracking >>>
     event_count_before = Event.count
 
     click_on('View Resume (pdf)')
@@ -39,6 +72,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
       type: 'external_link_click',
       user_id: nil,
     )
+    # <<< External link click tracking
   end
 
   # we need to use the :rack_test driver because Chrome doesn't have the page.driver.header method
