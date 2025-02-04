@@ -44,29 +44,37 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
+
       - name: Install pnpm
         run: npm install -g pnpm@9
+
       - name: Set pnpm store directory
         run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
+
       - uses: actions/cache@v4
         name: Set up pnpm cache
         with:
           path: ${{ env.PNPM_STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: ${{ runner.os }}-pnpm-store-
+
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
           scandir: './bin'
+
       - name: Set GIT_REV environment variable
         uses: ./.github/actions/git_rev
+
       - name: Run tests & linters
         run: bin/run-tests
         env:
@@ -88,6 +96,15 @@ jobs:
           PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
           CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
           RAILS_MASTER_KEY: '${{secrets.RAILS_MASTER_KEY}}'
+
+      - name: Save failed feature spec logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: failed_feature_spec_logs
+          path: log/failed_feature_specs/
+          retention-days: 5
+
       - name: Save fixtures artifact
         uses: actions/upload-artifact@v4
         if: failure()
@@ -95,6 +112,7 @@ jobs:
           name: fixtures
           path: spec/fixtures/
           retention-days: 5
+
       - name: Upload Code Coverage
         uses: codecov/codecov-action@v5
         with:
