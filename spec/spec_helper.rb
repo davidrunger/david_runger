@@ -198,14 +198,14 @@ RSpec.configure do |config|
     $test_log_string_io ||= StringIO.new
     $test_log_string_io.reopen
 
-    string_io_logger = ActiveSupport::Logger.new($test_log_string_io)
-    string_io_logger.formatter = Rails.logger.formatter.dup
-    string_io_logger.level = :debug
+    $string_io_logger ||= ActiveSupport::Logger.new($test_log_string_io)
+    $string_io_logger.formatter = Rails.logger.formatter.dup
+    $string_io_logger.level = :debug
 
-    Rails.with(logger: string_io_logger) do
-      Sidekiq.default_configuration.with(logger: string_io_logger) do
+    Rails.with(logger: $string_io_logger) do
+      Sidekiq.default_configuration.with(logger: $string_io_logger) do
         # We can't just do ActiveRecord::Base.with(...) because `with` is an ActiveRecord method.
-        Object.instance_method(:with).bind_call(ActiveRecord::Base, logger: string_io_logger) do
+        Object.instance_method(:with).bind_call(ActiveRecord::Base, logger: $string_io_logger) do
           example.run
         end
       end
