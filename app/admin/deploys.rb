@@ -4,7 +4,7 @@ ActiveAdmin.register(Deploy) do
 
   index do
     id_column
-    column :github_commit_link
+    column('Git SHA') { it.github_commit_link }
     column :created_at
     column :updated_at
     actions
@@ -13,7 +13,7 @@ ActiveAdmin.register(Deploy) do
   show do
     attributes_table do
       row :id
-      row :github_commit_link
+      row('Git SHA') { it.github_commit_link }
       row :created_at
       row :updated_at
     end
