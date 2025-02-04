@@ -213,7 +213,7 @@ RSpec.configure do |config|
 
     if example.exception
       # Prepare file name and directory
-      timestamp = example.execution_result.started_at.iso8601
+      timestamp = example.execution_result.started_at.in_time_zone.iso8601.tr(':', '-')
       description_as_brief_file_name =
         example.full_description.
           parameterize.
