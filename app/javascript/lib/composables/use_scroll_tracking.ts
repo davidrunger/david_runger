@@ -2,7 +2,7 @@ import { onMounted, onUnmounted } from 'vue';
 
 import { trackEvent } from '@/lib/events';
 
-let trackedScrollEvent = false
+let trackedScrollEvent = false;
 
 function trackScrollEvent() {
   if (!trackedScrollEvent) {
