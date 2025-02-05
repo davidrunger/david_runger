@@ -121,6 +121,7 @@ FixtureBuilder.configure do |fbuilder|
 
     # Deploys
     name(:deploy, create(:deploy))
+    create(:deploy)
 
     # Events
     name(:event, create(:event, user:, admin_user:))
