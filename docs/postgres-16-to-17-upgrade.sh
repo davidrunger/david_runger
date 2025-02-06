@@ -16,15 +16,6 @@ docker compose exec postgres psql -U david_runger david_runger_production -c 'SE
 # [ON LOCAL] Create database backup in S3.
 bin/qr
 
-# Create database backup on server.
-docker compose exec postgres pg_dumpall -U david_runger > backup.sql
-
-# Check git status.
-git status
-
-# Check that the backup file is approximately the expected size.
-ls -lah backup.sql
-
 # Update Postgres from 16.3 to 17.2 in docker-compose.yml.
 sed -i 's/postgres:16.3-alpine/postgres:17.2-alpine/g' docker-compose.yml
 
@@ -45,6 +36,15 @@ docker images postgres
 
 # Stop services that access the database.
 docker compose stop clock nginx web worker
+
+# Create database backup on server.
+docker compose exec postgres pg_dumpall -U david_runger > backup.sql
+
+# Check git status.
+git status
+
+# Check that the backup file is approximately the expected size.
+ls -lah backup.sql
 
 # Bring down the database.
 docker compose down postgres
