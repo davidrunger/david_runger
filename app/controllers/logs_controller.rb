@@ -20,6 +20,29 @@ class LogsController < ApplicationController
     render :index
   end
 
+  def download
+    log = current_user.logs.find_by!(slug: params[:slug])
+
+    authorize(log, :show?)
+
+    csv_data =
+      CSV.generate(headers: true) do |csv|
+        csv << ['Time', log.data_label]
+
+        log.
+          log_entries.
+          includes(:log_entry_datum).
+          find_each(
+            order: :desc,
+            cursor: %i[created_at id],
+          ) do |log_entry|
+            csv << [log_entry.created_at.utc.iso8601, log_entry.data]
+          end
+      end
+
+    send_data(csv_data, filename: "#{Time.current.utc.iso8601}-#{log.slug}.csv", type: 'text/csv')
+  end
+
   private
 
   def authorized_logs_with_ordering_and_eager_loading

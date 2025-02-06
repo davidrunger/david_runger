@@ -19,6 +19,11 @@ div
     .mt-2(v-if='showDeleteLastEntryButton')
       el-button(@click='destroyLastEntry') Delete last entry
     .mt-2
+      a.download-link(
+        :href='routes.download_log_path(log.slug)'
+        download
+      ) Download CSV
+    .mt-2
       el-button.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-sharing-settings' })"
       )
@@ -50,6 +55,7 @@ import { storeToRefs } from 'pinia';
 import { computed, h } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
+import { routes } from '@/lib/routes';
 import { useLogsStore } from '@/logs/store';
 import type { Log, LogEntryBroadcast } from '@/logs/types';
 import * as RoutesType from '@/rails_assets/routes';
@@ -181,5 +187,66 @@ subscribeToLogEntriesChannel();
 
 :deep(.el-input__wrapper) {
   background-color: var(--main-bg-color);
+}
+
+.download-link:focus,
+.download-link:hover {
+  background: var(--main-bg-color);
+}
+
+.download-link:hover {
+  border-color: var(--el-button-hover-border-color);
+  color: var(--el-button-hover-text-color);
+  outline: none;
+}
+
+:root .download-link {
+  --el-button-text-color: #b8babd;
+  --el-button-disabled-text-color: #3d3d3d;
+  --el-button-disabled-bg-color: var(--main-bg-color);
+  --el-button-disabled-border-color: #2a2a2a;
+}
+
+.download-link {
+  background: var(--main-bg-color);
+  padding: 8px 15px;
+  border-radius: var(--el-border-radius-base);
+  font-size: var(--el-font-size-base);
+
+  --el-button-font-weight: var(--el-font-weight-primary);
+  --el-button-border-color: var(--el-border-color);
+  --el-button-bg-color: var(--el-fill-color-blank);
+  --el-button-text-color: var(--el-text-color-regular);
+  --el-button-disabled-text-color: var(--el-disabled-text-color);
+  --el-button-disabled-bg-color: var(--el-fill-color-blank);
+  --el-button-disabled-border-color: var(--el-border-color-light);
+  --el-button-divide-border-color: rgba(255, 255, 255, 50%);
+  --el-button-hover-text-color: var(--el-color-primary);
+  --el-button-hover-bg-color: var(--el-color-primary-light-9);
+  --el-button-hover-border-color: var(--el-color-primary-light-7);
+  --el-button-active-text-color: var(--el-button-hover-text-color);
+  --el-button-active-border-color: var(--el-color-primary);
+  --el-button-active-bg-color: var(--el-button-hover-bg-color);
+  --el-button-outline-color: var(--el-color-primary-light-5);
+  --el-button-hover-link-text-color: var(--el-text-color-secondary);
+  --el-button-active-color: var(--el-text-color-primary);
+
+  align-items: center;
+  border: var(--el-border);
+  border-color: var(--el-button-border-color);
+  box-sizing: border-box;
+  color: var(--el-button-text-color);
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: var(--el-button-font-weight);
+  height: 32px;
+  justify-content: center;
+  line-height: 1;
+  outline: none;
+  text-align: center;
+  transition: 0.1s;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 </style>

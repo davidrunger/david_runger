@@ -171,6 +171,41 @@ RSpec.describe 'Logs app' do
           end
         end
       end
+
+      context 'when there are multiple entries for the log' do
+        before do
+          (2 - log.log_entries.size).times do
+            log.build_log_entry_with_datum(
+              data: "Scary dream #{SecureRandom.alphanumeric(5)}!",
+            ).save!
+          end
+        end
+
+        it 'allows the user to download a CSV with the log data' do
+          visit(log_path(slug: log.slug))
+
+          Rails.root.glob('tmp/capybara/*.csv').each { FileUtils.rm(it) }
+
+          click_on('Download CSV')
+
+          wait_for { Rails.root.glob('tmp/capybara/*.csv') }.to be_present
+
+          downloaded_csv_path = Rails.root.glob('tmp/capybara/*.csv').last
+          csv = CSV.read(downloaded_csv_path, headers: true)
+
+          expect(csv.headers).to eq(['Time', log.data_label])
+
+          log.
+            log_entries.
+            includes(:log_entry_datum).
+            reorder(created_at: :desc).
+            each_with_index do |log_entry, index|
+              row = csv[index]
+              expect(row['Time']).to eq(log_entry.created_at.utc.iso8601)
+              expect(row[log.data_label]).to eq(log_entry.data)
+            end
+        end
+      end
     end
 
     context 'when a new log entry is published' do
