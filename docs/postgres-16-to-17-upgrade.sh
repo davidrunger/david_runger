@@ -16,6 +16,9 @@ docker compose exec postgres psql -U david_runger david_runger_production -c 'SE
 # Check data (to have a point of comparison later).
 docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT COUNT(*) FROM users; SELECT * FROM text_log_entry_data ORDER BY created_at DESC LIMIT 1;'
 
+# [ON LOCAL] Create database backup in S3.
+bin/qr
+
 # Update Postgres from 16.3 to 17.2 in docker-compose.yml.
 sed -i 's/postgres:16.3-alpine/postgres:17.2-alpine/g' docker-compose.yml
 
@@ -33,9 +36,6 @@ docker compose pull postgres
 
 # Check that the Postgres 17 image is available.
 docker images postgres
-
-# [ON LOCAL] Create database backup in S3.
-bin/qr
 
 # Stop services that access the database.
 docker compose stop clock nginx web worker
