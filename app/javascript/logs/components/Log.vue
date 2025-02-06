@@ -246,8 +246,6 @@ subscribeToLogEntriesChannel();
   text-align: center;
   transition: 0.1s;
   user-select: none;
-  user-select: none;
-  user-select: none;
   vertical-align: middle;
   white-space: nowrap;
 }
