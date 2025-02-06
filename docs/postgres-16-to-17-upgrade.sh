@@ -7,6 +7,9 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 # Check git status.
 git status
 
+# Check git HEAD.
+git show
+
 # Check version (expect PostgreSQL 16.3).
 docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT VERSION();'
 
