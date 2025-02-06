@@ -193,22 +193,26 @@ subscribeToLogEntriesChannel();
 .download-link:hover {
   background: var(--main-bg-color);
 }
+
 .download-link:hover {
   border-color: var(--el-button-hover-border-color);
   color: var(--el-button-hover-text-color);
   outline: none;
 }
+
 :root .download-link {
   --el-button-text-color: #b8babd;
   --el-button-disabled-text-color: #3d3d3d;
   --el-button-disabled-bg-color: var(--main-bg-color);
   --el-button-disabled-border-color: #2a2a2a;
 }
+
 .download-link {
   background: var(--main-bg-color);
   padding: 8px 15px;
   border-radius: var(--el-border-radius-base);
   font-size: var(--el-font-size-base);
+
   --el-button-font-weight: var(--el-font-weight-primary);
   --el-button-border-color: var(--el-border-color);
   --el-button-bg-color: var(--el-fill-color-blank);
@@ -216,7 +220,7 @@ subscribeToLogEntriesChannel();
   --el-button-disabled-text-color: var(--el-disabled-text-color);
   --el-button-disabled-bg-color: var(--el-fill-color-blank);
   --el-button-disabled-border-color: var(--el-border-color-light);
-  --el-button-divide-border-color: rgba(255, 255, 255, 0.5);
+  --el-button-divide-border-color: rgba(255, 255, 255, 50%);
   --el-button-hover-text-color: var(--el-color-primary);
   --el-button-hover-bg-color: var(--el-color-primary-light-9);
   --el-button-hover-border-color: var(--el-color-primary-light-7);
@@ -226,6 +230,7 @@ subscribeToLogEntriesChannel();
   --el-button-outline-color: var(--el-color-primary-light-5);
   --el-button-hover-link-text-color: var(--el-text-color-secondary);
   --el-button-active-color: var(--el-text-color-primary);
+
   align-items: center;
   border: var(--el-border);
   border-color: var(--el-button-border-color);
@@ -240,8 +245,8 @@ subscribeToLogEntriesChannel();
   outline: none;
   text-align: center;
   transition: 0.1s;
-  -webkit-user-select: none;
-  -moz-user-select: none;
+  user-select: none;
+  user-select: none;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
