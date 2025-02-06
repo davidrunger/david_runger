@@ -52,7 +52,7 @@ ls -lah backup.sql
 # Bring down the database.
 docker compose down postgres
 
-# Check Docker processes. Expect not to see the services just taken down.
+# Check Docker processes. Expect not to see the stopped / down services.
 docker ps
 
 # Bring up the database (version 17).
