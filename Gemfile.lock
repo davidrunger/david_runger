@@ -607,7 +607,7 @@ GEM
       memo_wise (>= 1.7)
       rails (>= 6)
       shaped (>= 0.9)
-    runger_byebug (11.3.0)
+    runger_byebug (11.4.0)
       irb
       reline
     runger_config (5.2.0)
@@ -1046,7 +1046,7 @@ CHECKSUMS
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   ruby2_keywords (0.0.5) sha256=ffd13740c573b7301cf7a2e61fc857b2a8e3d3aff32545d6f8300d8bae10e3ef
   runger_actions (0.24.0) sha256=727c8a11b544ec94739028cc9123ee6692175472486a1a5223bf2ad5804ca9b9
-  runger_byebug (11.3.0) sha256=5728ac0a94daa88e36de256976d59e9308f67bbb8c73b3e42de7cf52de53b9aa
+  runger_byebug (11.4.0) sha256=569e22ba2215f57e7f69e145fcb63be401e29fcd312f7936d813e12d0c7bbee6
   runger_config (5.2.0) sha256=9b76d767a2daa63f6f8f2c52a8183f3f09a877cd35bcaee692d25377f4dd4558
   runger_email_reply_trimmer (0.3.0) sha256=068aa90311da474065f604cf29704785bb36d511a5d5e4031fc87fef8bbd9ac7
   runger_style (4.3.0) sha256=543c2414626d9084fef8fd057bf561c702e395f35e7af4ee6ee403276cf60614
