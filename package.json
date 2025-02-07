@@ -55,7 +55,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@percy/cli": "^1.30.7",
     "@pinia/testing": "^0.1.7",
-    "@tailwindcss/postcss": "^4.0.3",
+    "@tailwindcss/postcss": "^4.0.4",
     "@testing-library/vue": "^8.1.0",
     "@types/jquery": "^3.5.32",
     "@types/js-cookie": "^3.0.6",
