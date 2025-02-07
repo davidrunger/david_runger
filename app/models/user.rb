@@ -12,7 +12,7 @@
 #  index_users_on_email  (email) UNIQUE
 #
 class User < ApplicationRecord
-  prepend MemoWise
+  prepend Memoization
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A\S+@\S+\.\S+\z/ }
 
@@ -68,12 +68,12 @@ class User < ApplicationRecord
     %w[created_at email id updated_at]
   end
 
-  memo_wise \
+  memoize \
   def marriage
     Marriage.where(partner_1_id: id).or(Marriage.where(partner_2_id: id)).first
   end
 
-  memo_wise \
+  memoize \
   def spouse
     [marriage&.partner_1, marriage&.partner_2].compact.reject { _1.id == id }.first
   end

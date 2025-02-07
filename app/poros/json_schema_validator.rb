@@ -1,7 +1,7 @@
 class JsonSchemaValidator
   class NonconformingData < StandardError ; end
 
-  prepend MemoWise
+  prepend Memoization
 
   def initialize(data, controller_action:)
     @data = data
@@ -35,7 +35,7 @@ class JsonSchemaValidator
 
   private
 
-  memo_wise \
+  memoize \
   def schema_validation_errors
     JSON::Validator.fully_validate(
       absolute_schema_path,
@@ -62,23 +62,23 @@ class JsonSchemaValidator
     @data.is_a?(String) ? @data : @data.to_json
   end
 
-  memo_wise \
+  memoize \
   def universal_bootstrap_data?
     @data.is_a?(Hash) &&
       (@data.keys - %i[current_user nonce toast_messages]).empty?
   end
 
-  memo_wise \
+  memoize \
   def schema_file_exists?
     File.exist?(absolute_schema_path)
   end
 
-  memo_wise \
+  memoize \
   def absolute_schema_path
     Rails.root.join(relative_schema_path).to_s
   end
 
-  memo_wise \
+  memoize \
   def relative_schema_path
     if api?
       "spec/support/schemas/#{@controller_action}.json"
@@ -87,7 +87,7 @@ class JsonSchemaValidator
     end
   end
 
-  memo_wise \
+  memoize \
   def api?
     @controller_action.start_with?('api/')
   end

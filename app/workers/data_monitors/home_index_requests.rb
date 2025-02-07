@@ -1,5 +1,5 @@
 class DataMonitors::HomeIndexRequests < DataMonitors::Base
-  prepend MemoWise
+  prepend Memoization
   prepend ApplicationWorker
 
   def perform
@@ -23,7 +23,7 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
     home_requests_in_past_day.size
   end
 
-  memo_wise \
+  memoize \
   def median_response_time_in_past_day
     home_requests_in_past_day.
       where.not(total: nil).

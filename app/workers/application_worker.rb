@@ -1,7 +1,7 @@
 require 'digest/sha1'
 
 module ApplicationWorker
-  prepend MemoWise
+  prepend Memoization
   include Sidekiq::Worker # rubocop:disable CustomCops/DontIncludeSidekiqWorker
   include SpacedLaunching
 
@@ -79,7 +79,7 @@ module ApplicationWorker
     end
   end
 
-  memo_wise \
+  memoize \
   def lock_key(args)
     "sidekiq-unique:#{self.class.name}:#{Digest::SHA1.hexdigest(JSON.dump(args))}"
   end

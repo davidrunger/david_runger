@@ -1,7 +1,7 @@
 # This Sidekiq worker class converts data that has been stashed in Redis at two stages in the
 # request lifecycle into `Request` records saved to the Postgres database.
 class SaveRequest
-  prepend MemoWise
+  prepend Memoization
   prepend ApplicationWorker
 
   unique_while_executing!
@@ -35,7 +35,7 @@ class SaveRequest
 
   private
 
-  memo_wise \
+  memoize \
   def ban_reasons
     ban_reasons = []
 
@@ -46,7 +46,7 @@ class SaveRequest
     ban_reasons
   end
 
-  memo_wise \
+  memoize \
   def params
     stashed_data['params']
   end

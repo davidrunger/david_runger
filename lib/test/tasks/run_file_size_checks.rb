@@ -1,7 +1,7 @@
 require Rails.root.join('app/poros/track_asset_sizes.rb')
 
 class Test::Tasks::RunFileSizeChecks < Pallets::Task
-  prepend MemoWise
+  prepend Memoization
   include Test::TaskHelpers
 
   # file size constraints in kilobytes
@@ -48,19 +48,19 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
 
   private
 
-  memo_wise \
+  memoize \
   def tracker
     TrackAssetSizes.new
   end
 
-  memo_wise \
+  memoize \
   def assets_and_size_in_kb
     tracker.
       track_all_asset_sizes(dry_run: true).
       transform_values { _1.fdiv(1024).round(2) }
   end
 
-  memo_wise \
+  memoize \
   def file_size_violations
     assets_and_size_in_kb.reject do |asset_name, file_size_in_kb|
       constraint = CONSTRAINTS[asset_name]
@@ -68,7 +68,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     end
   end
 
-  memo_wise \
+  memoize \
   def readable_file_size_violations
     file_size_violations.map do |file_name, actual_size|
       constraint = CONSTRAINTS[file_name]
@@ -81,12 +81,12 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     end.join(', ')
   end
 
-  memo_wise \
+  memoize \
   def unspecified_files
     assets_and_size_in_kb.keys - CONSTRAINTS.keys
   end
 
-  memo_wise \
+  memoize \
   def nonexistent_files
     CONSTRAINTS.keys - assets_and_size_in_kb.keys
   end

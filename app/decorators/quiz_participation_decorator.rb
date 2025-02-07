@@ -1,9 +1,9 @@
 class QuizParticipationDecorator < Draper::Decorator
-  prepend MemoWise
+  prepend Memoization
 
   delegate_all
 
-  memo_wise \
+  memoize \
   def correct_answer_count
     correct_answer_selections.length
   end

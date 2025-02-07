@@ -1,9 +1,9 @@
 class QuizDecorator < Draper::Decorator
-  prepend MemoWise
+  prepend Memoization
 
   delegate_all
 
-  memo_wise \
+  memoize \
   def current_user_participation!
     h.current_user_participation.presence!
   end
@@ -40,7 +40,7 @@ class QuizDecorator < Draper::Decorator
       end
   end
 
-  memo_wise \
+  memoize \
   def question_count
     questions.count
   end

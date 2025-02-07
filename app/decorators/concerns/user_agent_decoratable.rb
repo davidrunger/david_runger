@@ -1,5 +1,5 @@
 module UserAgentDecoratable
-  prepend MemoWise
+  prepend Memoization
 
   def pretty_user_agent
     if good_browser_data?
@@ -16,7 +16,7 @@ module UserAgentDecoratable
       browser_name != 'Unknown Browser'
   end
 
-  memo_wise \
+  memoize \
   def browser
     Browser.new(user_agent)
   end

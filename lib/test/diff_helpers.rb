@@ -1,5 +1,5 @@
 module DiffHelpers
-  prepend MemoWise
+  prepend Memoization
 
   SPECIAL_RUBY_FILES = %w[
     .irbrc
@@ -13,24 +13,24 @@ module DiffHelpers
     files_changed.include?(filename)
   end
 
-  memo_wise \
+  memoize \
   def db_schema_changed?
     file_changed?('db/schema.rb')
   end
 
-  memo_wise \
+  memoize \
   def dotfile_changed?
     files_changed.any? { _1.match?(/(^|\/)\./) }
   end
 
-  memo_wise \
+  memoize \
   def diff
     ensure_master_is_present
     `git log main..HEAD --full-diff --source --format="" --unified=0 -p . \
       | grep -Ev "^(diff |index |--- a/|\\+\\+\\+ b/|@@ )"`
   end
 
-  memo_wise \
+  memoize \
   def diff_mentions?(phrase)
     diff.match?(%r{#{phrase}}i)
   end
@@ -43,51 +43,51 @@ module DiffHelpers
     end
   end
 
-  memo_wise \
+  memoize \
   def files_added_in?(directory)
     ensure_master_is_present
     `git diff --name-only --diff-filter=A main HEAD #{directory}`.rstrip.split("\n").any?
   end
 
-  memo_wise \
+  memoize \
   def files_changed
     ensure_master_is_present
     `git diff --name-only $(git merge-base HEAD main)`.rstrip.split("\n")
   end
 
-  memo_wise \
+  memoize \
   def file_extensions_changed
     files_changed.filter_map do |file_name|
       file_name.include?('.') && file_name.split('.').last
     end.uniq.sort
   end
 
-  memo_wise \
+  memoize \
   def all_changed_file_extensions_are_among?(file_extensions)
     (file_extensions_changed - file_extensions).empty?
   end
 
-  memo_wise \
+  memoize \
   def files_with_css_changed?
     Dir['app/**/*.{css,scss,vue}'].intersect?(files_changed)
   end
 
-  memo_wise \
+  memoize \
   def files_with_js_changed?
     Dir['app/javascript/**/*.{js,ts,vue}'].intersect?(files_changed)
   end
 
-  memo_wise \
+  memoize \
   def haml_files_changed?
     Dir['app/**/*.haml'].intersect?(files_changed)
   end
 
-  memo_wise \
+  memoize \
   def rubocop_files_changed?
     files_changed.any? { |file| file.include?('rubocop') } # e.g. `.rubocop.yml`
   end
 
-  memo_wise \
+  memoize \
   def ruby_files_changed?
     ruby_files =
       Dir['*.rb'] +

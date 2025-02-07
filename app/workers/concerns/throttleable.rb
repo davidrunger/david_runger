@@ -1,5 +1,5 @@
 module Throttleable
-  prepend MemoWise
+  prepend Memoization
 
   private
 
@@ -14,7 +14,7 @@ module Throttleable
     end
   end
 
-  memo_wise \
+  memoize \
   def lock_manager
     Redlock::Client.new([$redis_pool], retry_count: 0)
   end

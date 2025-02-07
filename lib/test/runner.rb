@@ -14,7 +14,7 @@ Rails.application.load_tasks
 
 class Test::Runner < Pallets::Workflow
   class << self
-    prepend MemoWise
+    prepend Memoization
 
     attr_accessor :exit_code
     attr_reader :start_time
@@ -35,7 +35,7 @@ class Test::Runner < Pallets::Workflow
       end
     end
 
-    memo_wise \
+    memoize \
     def required_tasks
       Test::RequirementsResolver.new.required_tasks
     end
