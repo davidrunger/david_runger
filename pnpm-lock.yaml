@@ -226,8 +226,8 @@ importers:
         specifier: ^6.11.0
         version: 6.11.0(stylelint@16.14.1(typescript@5.7.3))
       tailwindcss:
-        specifier: ^4.0.3
-        version: 4.0.3
+        specifier: ^4.0.4
+        version: 4.0.4
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -3226,6 +3226,9 @@ packages:
 
   tailwindcss@4.0.3:
     resolution: {integrity: sha512-ImmZF0Lon5RrQpsEAKGxRvHwCvMgSC4XVlFRqmbzTEDb/3wvin9zfEZrMwgsa3yqBbPqahYcVI6lulM2S7IZAA==}
+
+  tailwindcss@4.0.4:
+    resolution: {integrity: sha512-/ezDLEkOLf1lXkr9F2iI5BHJbexJpty5zkV2B8bGHCqAdbc9vk85Jgdkq+ZOvNkNPa3yAaqJ8DjRt584Bc84kw==}
 
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -6880,6 +6883,8 @@ snapshots:
       strip-ansi: 6.0.1
 
   tailwindcss@4.0.3: {}
+
+  tailwindcss@4.0.4: {}
 
   tapable@2.2.1: {}
 
