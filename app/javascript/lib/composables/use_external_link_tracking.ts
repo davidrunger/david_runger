@@ -37,10 +37,14 @@ export function trackExternalLinkClick(event: MouseEvent): void {
   const element = event.target;
 
   if (element instanceof HTMLAnchorElement) {
-    trackEvent('external_link_click', {
-      href: element.href,
-      page_url: window.location.href,
-      text: element.innerText,
-    });
+    trackEvent(
+      'external_link_click',
+      {
+        href: element.href,
+        page_url: window.location.href,
+        text: element.innerText,
+      },
+      { useSendBeacon: true },
+    );
   }
 }
