@@ -1,11 +1,11 @@
 class UrlsAtUrl
-  prepend MemoWise
+  prepend Memoization
 
   def initialize(page_url)
     @page_url = page_url
   end
 
-  memo_wise \
+  memoize \
   def urls
     links.filter_map do |link|
       href = link.attr('href')
@@ -19,17 +19,17 @@ class UrlsAtUrl
     href&.match?(%r{\A(https?:)?//})
   end
 
-  memo_wise \
+  memoize \
   def links
     nokogiri_document.css('a')
   end
 
-  memo_wise \
+  memoize \
   def nokogiri_document
     Nokogiri::HTML(page_content)
   end
 
-  memo_wise \
+  memoize \
   def page_content
     Faraday.get(@page_url).body
   end

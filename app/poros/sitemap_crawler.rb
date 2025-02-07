@@ -1,11 +1,11 @@
 class SitemapCrawler
-  prepend MemoWise
+  prepend Memoization
 
   def initialize(sitemap_url)
     @sitemap_url = sitemap_url
   end
 
-  memo_wise \
+  memoize \
   def urls
     urls_from_sitemap_doc(nokogiri_sitemap_doc(@sitemap_url))
   end

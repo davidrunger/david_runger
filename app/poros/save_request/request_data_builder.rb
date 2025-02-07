@@ -1,5 +1,5 @@
 class SaveRequest::RequestDataBuilder
-  prepend MemoWise
+  prepend Memoization
 
   # params not worth logging in `Request`s
   BORING_PARAMS = %w[
@@ -31,7 +31,7 @@ class SaveRequest::RequestDataBuilder
     @request_time = request_time
   end
 
-  memo_wise \
+  memoize \
   def request_data
     @request_data = {
       admin_user_id: @admin_user&.id,
@@ -51,7 +51,7 @@ class SaveRequest::RequestDataBuilder
 
   private
 
-  memo_wise \
+  memoize \
   def raw_user_agent
     @request.user_agent&.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
   end

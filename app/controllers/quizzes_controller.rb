@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  prepend MemoWise
+  prepend Memoization
   include CspDisableable
 
   self.container_classes = %w[py-2 px-8]
@@ -101,7 +101,7 @@ class QuizzesController < ApplicationController
 
   # rubocop:disable Style/MethodCallWithArgsParentheses
   helper_method \
-  memo_wise \
+  memoize \
   def current_user_participation
     @quiz.participations.find_by(participant_id: current_user)
   end

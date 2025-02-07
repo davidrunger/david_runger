@@ -1,5 +1,5 @@
 class LogEntriesController < ApplicationController
-  prepend MemoWise
+  prepend Memoization
 
   def create
     if log && new_entry_param
@@ -16,12 +16,12 @@ class LogEntriesController < ApplicationController
 
   private
 
-  memo_wise \
+  memoize \
   def log
     auth_token_user&.logs&.find_by(slug: params[:slug].presence)
   end
 
-  memo_wise \
+  memoize \
   def new_entry_param
     params[:new_entry].presence
   end

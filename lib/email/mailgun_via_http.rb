@@ -1,7 +1,7 @@
 # rubocop:disable Style/ClassAndModuleChildren
 module Email
   class MailgunViaHttp
-    prepend MemoWise
+    prepend Memoization
 
     DEVELOPER_EMAILS = Set['davidjrunger@gmail.com'].freeze
     MAILGUN_URL = 'https://api.mailgun.net/v3/mg.davidrunger.com'
@@ -31,7 +31,7 @@ module Email
 
     private
 
-    memo_wise \
+    memoize \
     def connection
       Faraday.new(MAILGUN_URL) do |conn|
         conn.request(:multipart)
@@ -45,13 +45,13 @@ module Email
       end
     end
 
-    memo_wise \
+    memoize \
     def attachments_tmp_directory
       # use random directory for thread safety (so users' emails don't conflict w/ each other)
       "tmp/attachments/#{Time.zone.today.iso8601}/#{SecureRandom.alphanumeric(5)}"
     end
 
-    memo_wise \
+    memoize \
     def post_body(mail)
       body = {
         to: safe_to_value(mail),

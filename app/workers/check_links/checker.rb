@@ -1,5 +1,5 @@
 class CheckLinks::Checker
-  prepend MemoWise
+  prepend Memoization
   prepend ApplicationWorker
 
   LINK_CHECK_CACHE_KEY_PREFIX = 'link-check'
@@ -71,12 +71,12 @@ class CheckLinks::Checker
 
   private
 
-  memo_wise \
+  memoize \
   def redis_failure_key(url)
     "link_check:#{url}:failed"
   end
 
-  memo_wise \
+  memoize \
   def response(url)
     Rails.cache.fetch(cache_key(url), expires_in: 6.hours) do
       Rails.error.handle(severity: :info, context: { url: }) do
@@ -88,7 +88,7 @@ class CheckLinks::Checker
     end
   end
 
-  memo_wise \
+  memoize \
   def cache_key(url)
     [LINK_CHECK_CACHE_KEY_PREFIX, url]
   end

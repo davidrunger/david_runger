@@ -18,15 +18,15 @@ class Rack::Attack
   # rubocop:enable Style/SymbolProc
 
   class << self
-    prepend MemoWise
+    prepend Memoization
 
-    memo_wise \
+    memoize \
     def banned_path_fragments
       # rescue because sometimes the database might not even exist yet, e.g. during tests
       Set.new((BannedPathFragment.pluck(:value) rescue []).map(&:freeze)).freeze
     end
 
-    memo_wise \
+    memoize \
     def blocked_ips
       # rescue because sometimes the database might not even exist yet, e.g. during tests
       Set.new((IpBlock.pluck(:ip) rescue []).map(&:freeze)).freeze
