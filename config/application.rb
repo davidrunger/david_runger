@@ -17,6 +17,8 @@ Bundler.require(*Rails.groups)
 
 require 'freezolite/auto'
 
+require_relative '../lib/memoization.rb'
+
 IS_DOCKER_BUILD = ENV.key?('DOCKER_BUILD')
 IS_DOCKER_BUILT = ENV.key?('DOCKER_BUILT')
 IS_DOCKER = IS_DOCKER_BUILD || IS_DOCKER_BUILT
