@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+for file in "$(pwd)/bin/completions/"_*; do
+  base=$(basename "$file")
+  target="$HOME/.oh-my-zsh/custom/completions/$base"
+
+  ln -sf "$file" "$target"
+  echo "Linked: $base"
+done
+
+echo "Completion installed! Restart your terminal or run 'compinit' to enable."

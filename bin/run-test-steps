@@ -7,6 +7,8 @@
 # Example 2:
 #   bin/run-test-steps CompileJavaScript RunFileSizeChecks
 
+# TIP: Run `bin/setup-completions` to install completions for this command.
+
 # https://stackoverflow.com/a/77655338/4009384
 if !defined?(Rails)
   exec('bin/rails', 'runner', __FILE__, '-e', 'test', *ARGV)
