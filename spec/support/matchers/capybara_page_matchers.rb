@@ -24,26 +24,38 @@ RSpec::Matchers.define(:have_flash_message) do |expected_text, type: :notice|
   end
 end
 
-RSpec::Matchers.define(:have_toastify_toast) do |expected_text|
+RSpec::Matchers.define(:have_toastify_toast) do |expected_text, type: :default|
+  extend ActionView::Helpers::TagHelper
+
+  class_list_for_type = class_names(
+    'toastify',
+    case type
+    in :error then 'error'
+    else nil
+    end,
+  )
+
+  class_selector = ".#{class_list_for_type.tr(' ', '.')}"
+
   match do |actual_page|
-    expect(actual_page).to have_css('.toastify', text: expected_text)
+    expect(actual_page).to have_css(class_selector, text: expected_text)
   end
 
   match_when_negated do |actual_page|
-    expect(actual_page).not_to have_css('.toastify', text: expected_text)
+    expect(actual_page).not_to have_css(class_selector, text: expected_text)
   end
 
   failure_message do |actual_page|
     <<~MESSAGE.squish
-      expected page ('#{actual_page.text}') to have a Toastify toast with text
-      '#{expected_text}'
+      expected page ('#{actual_page.text}') to have a Toastify toast of type #{type}
+      with text '#{expected_text}'
     MESSAGE
   end
 
   failure_message_when_negated do |actual_page|
     <<~MESSAGE.squish
-      expected page ('#{actual_page.text}') not to have a Toastify toast with text
-      '#{expected_text}'
+      expected page ('#{actual_page.text}') not to have a Toastify toast of type #{type}
+      with text '#{expected_text}'
     MESSAGE
   end
 end
