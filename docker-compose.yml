@@ -215,6 +215,7 @@ services:
       - internal
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
   rails_metrics:
     <<: *default-rails-config
     cpu_shares: 512
@@ -354,4 +355,5 @@ volumes:
   grafana-data:
   loki-data:
   postgres-data-v17:
+  prometheus-data:
   redis:
