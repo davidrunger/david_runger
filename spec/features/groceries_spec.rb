@@ -106,6 +106,41 @@ RSpec.describe 'Groceries app' do
         expect_needed(new_item_name, 0)
       end
     end
+
+    context 'when the user has a store' do
+      before { expect(user.stores).to exist }
+
+      let(:existing_store) { user.stores.first! }
+
+      context 'when the user attempts to recreate a store' do
+        it 'displays a toast message and allows (re)submitting with a unique store name' do
+          visit(groceries_path)
+
+          fill_in('Add a store', with: existing_store.name)
+          within('form.add-store') do
+            click_on('Add')
+          end
+
+          expect(page).to have_toastify_toast('Name has already been taken', type: :error)
+          # Make sure that a duplicate store is not created in the sidebar.
+          within('aside') do
+            count_of_store_name_in_page = page.text.scan(Regexp.escape(existing_store.name)).count
+            expect(count_of_store_name_in_page).to eq(1)
+          end
+
+          unique_new_store_name = "#{existing_store.name} #{SecureRandom.alphanumeric(5)}"
+          fill_in('Add a store', with: unique_new_store_name)
+          within('form.add-store') do
+            click_on('Add')
+          end
+
+          # Make sure that the new store is added to the list.
+          within('aside') do
+            expect(page).to have_text(unique_new_store_name)
+          end
+        end
+      end
+    end
   end
 
   def expect_needed(item_name, needed)
