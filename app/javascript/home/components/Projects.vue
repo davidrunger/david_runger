@@ -17,31 +17,31 @@ HomeSection(section='projects' title='Projects')
       ul
 
         li.
-          #[a(:href='routes.emoji_picker_path()') Emoji Picker] -
+          #[a(:href='emoji_picker_path()') Emoji Picker] -
           I couldn't find an emoji picker that met my needs (simple, fast,
           keyboard-first, and with the ability to customize emoji search
           keywords), so I
           #[a(href='https://github.com/davidrunger/david_runger/blob/main/app/javascript/emoji_picker/EmojiPicker.vue') built my own].
 
         li.
-          #[a(:href='routes.groceries_path()') Groceries]* -
+          #[a(:href='groceries_path()') Groceries]* -
           Simplify and streamline your family's grocery shopping with a
           collaborative, mobile-friendly, real-time (WebSockets-enabled) list.
 
         li.
-          #[a(:href='routes.workout_path()') Workout]* -
+          #[a(:href='workout_path()') Workout]* -
           An app for tracking workouts over time, and to stay on-pace within a workout.
 
         li.
-          #[a(:href='routes.logs_path()') Logs]* -
+          #[a(:href='logs_path()') Logs]* -
           Track whatever you want with various log types (text, number, duration, and/or counter).
 
         li.
-          #[a(:href='routes.quizzes_path()') Quizzes]* -
+          #[a(:href='quizzes_path()') Quizzes]* -
           A multi-person quiz app that uses ActionCable websockets for real-time interactivity.
 
         li.
-          #[a(:href='routes.check_ins_path()') Check-ins]* -
+          #[a(:href='check_ins_path()') Check-ins]* -
           Track how well your emotional needs are being met in your marriage/relationship.
 
       p #[i *Google login required]
@@ -347,7 +347,14 @@ HomeSection(section='projects' title='Projects')
 </template>
 
 <script setup lang="ts">
-import { routes } from '@/lib/routes';
+import {
+  check_ins_path,
+  emoji_picker_path,
+  groceries_path,
+  logs_path,
+  quizzes_path,
+  workout_path,
+} from '@/rails_assets/routes';
 
 import HomeSection from './HomeSection.vue';
 import Project from './Project.vue';

@@ -20,7 +20,7 @@ div
       el-button(@click='destroyLastEntry') Delete last entry
     .mt-2
       a.download-link(
-        :href='routes.download_log_path(log.slug)'
+        :href='download_log_path(log.slug)'
         download
       ) Download CSV
     .mt-2
@@ -55,10 +55,9 @@ import { storeToRefs } from 'pinia';
 import { computed, h } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
-import { routes } from '@/lib/routes';
 import { useLogsStore } from '@/logs/store';
 import type { Log, LogEntryBroadcast } from '@/logs/types';
-import * as RoutesType from '@/rails_assets/routes';
+import { download_log_path } from '@/rails_assets/routes';
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
 
@@ -69,8 +68,6 @@ import TextLog from './data_renderers/TextLog.vue';
 import EditLogRemindersModal from './EditLogRemindersModal.vue';
 import EditLogSharingSettingsModal from './EditLogSharingSettingsModal.vue';
 import NewLogEntryForm from './NewLogEntryForm.vue';
-
-declare const Routes: typeof RoutesType;
 
 const PUBLIC_TYPE_TO_DATA_RENDERER_MAPPING = {
   counter: CounterBarGraph,

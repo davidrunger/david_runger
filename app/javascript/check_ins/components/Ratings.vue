@@ -30,6 +30,7 @@ import type { PropType } from 'vue';
 
 import { useCheckInsStore } from '@/check_ins/store';
 import type { NeedSatisfactionRating, Rating } from '@/check_ins/types';
+import { history_emotional_need_path } from '@/rails_assets/routes';
 
 import EmojiButton from './EmojiButton.vue';
 
@@ -54,10 +55,9 @@ const RATINGS_RANGE = range(-3, 4) as Array<Rating>;
 const { submitted } = storeToRefs(checkInsStore);
 
 function graphLink(needSatisfactionRating: NeedSatisfactionRating) {
-  return window.Routes.history_emotional_need_path(
-    needSatisfactionRating.emotional_need.id,
-    { rated_user: props.ratedUser },
-  );
+  return history_emotional_need_path(needSatisfactionRating.emotional_need.id, {
+    rated_user: props.ratedUser,
+  });
 }
 
 async function submitCheckIn() {

@@ -1,9 +1,10 @@
-import * as RoutesType from '@/rails_assets/routes';
+import {
+  destroy_user_session_path,
+  new_user_session_path,
+} from '@/rails_assets/routes';
 import { kyApi } from '@/shared/ky';
 
-declare const Routes: typeof RoutesType;
-
 export async function signOut() {
-  await kyApi.delete(Routes.destroy_user_session_path({ format: 'json' }));
-  window.location.assign(Routes.new_user_session_path());
+  await kyApi.delete(destroy_user_session_path({ format: 'json' }));
+  window.location.assign(new_user_session_path());
 }

@@ -1,10 +1,6 @@
 import { Component, ComputedOptions, createApp, MethodOptions } from 'vue';
 import whenDomReady from 'when-dom-ready';
 
-import * as Routes from '@/rails_assets/routes';
-
-window.Routes = Routes;
-
 export function renderApp(
   vueApp: Component<unknown, unknown, unknown, ComputedOptions, MethodOptions>,
   domTargetSelector = '#container',

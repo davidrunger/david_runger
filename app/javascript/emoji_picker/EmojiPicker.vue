@@ -25,7 +25,7 @@
     .mt-8.max-w-sm
       b Tip:
       span.
-        #[a(:href='routes.new_user_session_path()')  log in] to customize
+        #[a(:href='new_user_session_path()')  log in] to customize
         which search keywords are associated with which emojis.
 </template>
 
@@ -40,8 +40,8 @@ import { emojiData } from '@/emoji_picker/emoji_data';
 import { type Bootstrap } from '@/emoji_picker/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useFuzzyTypeahead } from '@/lib/composables/use_fuzzy_typeahead';
-import { routes } from '@/lib/routes';
 import { vueToast } from '@/lib/vue_toasts';
+import { new_user_session_path } from '@/rails_assets/routes';
 import type { EmojiData } from '@/types';
 
 const bootstrap = untypedBootstrap as Bootstrap;
