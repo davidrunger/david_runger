@@ -1,0 +1,8 @@
+#compdef run-test-steps
+
+_run-test-steps() {
+  test_steps=("${(f)$(rg 'class Test::Tasks::(\w+) < Pallets::Task' lib/test/tasks/ -r '$1' --no-line-number --no-filename | sort -u)}")
+  _describe 'test_steps' test_steps
+}
+
+compdef _run-test-steps run-test-steps
