@@ -33,4 +33,28 @@ class CiStepResult < ApplicationRecord
   validates :github_run_attempt, presence: true
   validates :branch, presence: true
   validates :sha, presence: true
+
+  class << self
+    def ransackable_associations(_auth_object = nil)
+      %w[user]
+    end
+
+    def ransackable_attributes(_auth_object = nil)
+      %w[
+        branch
+        created_at
+        github_run_attempt
+        github_run_id
+        id
+        name
+        passed
+        seconds
+        sha
+        started_at
+        stopped_at
+        updated_at
+        user_id
+      ]
+    end
+  end
 end
