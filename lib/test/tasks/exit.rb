@@ -51,6 +51,9 @@ class Test::Tasks::Exit < Pallets::Task
   def post_ci_step_result(task_name, result_hash)
     print("#{task_name}:")
 
+    puts(%(ENV['GITHUB_HEAD_REF']: #{ENV['GITHUB_HEAD_REF'].inspect}))
+    puts(%(ENV['GITHUB_REF_NAME']: #{ENV['GITHUB_REF_NAME'].inspect}))
+    puts(%(ENV['GIT_REV']: #{ENV['GIT_REV'].inspect}))
     response =
       Faraday.json_connection.post(
         "#{ci_step_results_host}/api/ci_step_results",
@@ -66,10 +69,11 @@ class Test::Tasks::Exit < Pallets::Task
             github_run_attempt: ENV.fetch('GITHUB_RUN_ATTEMPT'),
             branch: ENV.fetch('GITHUB_HEAD_REF') { ENV.fetch('GITHUB_REF_NAME') },
             sha: ENV.fetch('GITHUB_SHA'),
-          },
+          }.tap { pp(it) },
         },
       )
 
+    puts(response.body)
     print("#{response.status} ... ")
   end
 
