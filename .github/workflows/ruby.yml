@@ -93,6 +93,8 @@ jobs:
           # The hostname used to communicate with the Redis service container
           REDIS_HOST: redis
           REDIS_PORT: 6379
+          CI_STEP_RESULTS_HOST: '${{secrets.CI_STEP_RESULTS_HOST}}'
+          CI_STEP_RESULTS_AUTH_TOKEN: '${{secrets.CI_STEP_RESULTS_AUTH_TOKEN}}'
           PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
           CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
           RAILS_MASTER_KEY: '${{secrets.RAILS_MASTER_KEY}}'

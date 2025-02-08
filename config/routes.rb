@@ -66,10 +66,13 @@ Rails.application.routes.draw do
   end
   resources :quiz_questions, only: %i[update]
 
+  resources :ci_step_results, only: %i[index]
+
   namespace :api, defaults: { format: :json } do
     resources :check_ins, only: [] do
       resources :check_in_submissions, only: %i[create]
     end
+    resources :ci_step_results, only: %i[create]
     resources :events, only: %i[create]
     resources :need_satisfaction_ratings, only: %i[update]
     resources :csp_reports, only: %i[create]

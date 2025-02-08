@@ -1,0 +1,6 @@
+- content_for(:page_assets) do
+  = ts_tag('charts')
+
+%h1= @title
+
+= line_chart(@chart_data, curve: false)

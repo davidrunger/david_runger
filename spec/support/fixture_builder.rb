@@ -128,5 +128,11 @@ FixtureBuilder.configure do |fbuilder|
     create(:event, user:, admin_user: nil)
     create(:event, user: married_user, admin_user:)
     create(:event, user: nil, admin_user: nil)
+
+    # CiStepResults
+    create(:ci_step_result, :feature_tests, user:)
+    create(:ci_step_result, :feature_tests, user:)
+    create(:ci_step_result, :unit_tests, user:)
+    create(:ci_step_result, :unit_tests, user:)
   end
 end
