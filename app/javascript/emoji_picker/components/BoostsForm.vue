@@ -39,8 +39,8 @@ div.mt-8
 import { remove } from 'lodash-es';
 
 import { boosts } from '@/emoji_picker/emoji_data';
-import { routes } from '@/lib/routes';
 import { vueToast } from '@/lib/vue_toasts';
+import { api_json_preferences_path } from '@/rails_assets/routes';
 import { http } from '@/shared/http';
 import type { EmojiDataWithBoostedName } from '@/types';
 
@@ -53,7 +53,7 @@ function removeBoost(boostToRemove: EmojiDataWithBoostedName) {
 }
 
 async function saveBoosts() {
-  await http.patch(routes.api_json_preferences_path(), {
+  await http.patch(api_json_preferences_path(), {
     preference_type: 'emoji_boosts',
     json: boosts,
   });

@@ -40,7 +40,7 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
       v-if='!groceriesStore.sortedSpouseStores.length && !collapsed'
     )
       | Tip: You and your partner can automatically view each other's lists.
-      | #[a(:href='routes.new_marriage_path()') Click here] to invite them to join.
+      | #[a(:href='new_marriage_path()') Click here] to invite them to join.
 </template>
 
 <script setup lang="ts">
@@ -53,7 +53,7 @@ import { ArrowBarRightIcon } from 'vue-tabler-icons';
 import { useGroceriesStore } from '@/groceries/store';
 import { useSubscription } from '@/lib/composables/use_subscription';
 import { isMobileDevice } from '@/lib/is_mobile_device';
-import { routes } from '@/lib/routes';
+import { new_marriage_path } from '@/rails_assets/routes';
 
 import LoggedInHeader from './LoggedInHeader.vue';
 import StoreListEntry from './StoreListEntry.vue';

@@ -8,7 +8,13 @@ import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { emit } from '@/lib/event_bus';
 import { toast } from '@/lib/toasts';
 import { vueToast } from '@/lib/vue_toasts';
-import * as RoutesType from '@/rails_assets/routes';
+import {
+  api_item_path,
+  api_items_bulk_updates_path,
+  api_store_items_path,
+  api_store_path,
+  api_stores_path,
+} from '@/rails_assets/routes';
 import { typesafeAssign } from '@/shared/helpers';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
@@ -20,8 +26,6 @@ import { ItemUpdateResponse } from '@/types/responses/ItemUpdateResponse';
 import { StoreCreateResponse } from '@/types/responses/StoreCreateResponse';
 import { StoresIndexResponse } from '@/types/responses/StoresIndexResponse';
 import { StoreUpdateResponse } from '@/types/responses/StoreUpdateResponse';
-
-declare const Routes: typeof RoutesType;
 
 interface State {
   own_stores: Array<Store>;
@@ -82,7 +86,7 @@ export const useGroceriesStore = defineStore('groceries', {
       this.incrementPendingRequests();
 
       const itemData = await http.post<Intersection<Item, ItemCreateResponse>>(
-        Routes.api_store_items_path(store.id),
+        api_store_items_path(store.id),
         { item: itemAttributes },
       );
 
@@ -104,7 +108,7 @@ export const useGroceriesStore = defineStore('groceries', {
 
       const newStoreData = await http.post<
         Intersection<Store, StoreCreateResponse> | { errors: Array<string> }
-      >(Routes.api_stores_path(), payload);
+      >(api_stores_path(), payload);
 
       this.postingStore = false;
 
@@ -133,7 +137,7 @@ export const useGroceriesStore = defineStore('groceries', {
       this.incrementPendingRequests();
 
       const { restore_item_path: restoreItemPath } =
-        await http.delete<ItemDestroyResponse>(Routes.api_item_path(item.id));
+        await http.delete<ItemDestroyResponse>(api_item_path(item.id));
 
       vueToast(
         {
@@ -156,7 +160,7 @@ export const useGroceriesStore = defineStore('groceries', {
       this.own_stores = this.own_stores.filter(
         (store) => store !== deletedStore,
       );
-      kyApi.delete(Routes.api_store_path(deletedStore.id));
+      kyApi.delete(api_store_path(deletedStore.id));
     },
 
     async pullStoreData() {
@@ -196,7 +200,7 @@ export const useGroceriesStore = defineStore('groceries', {
             },
             StoresIndexResponse
           >
-        >(Routes.api_stores_path())
+        >(api_stores_path())
         .json();
       addOrUpdateStores(storesResponse.own_stores, this.own_stores);
       addOrUpdateStores(storesResponse.spouse_stores, this.spouse_stores);
@@ -222,7 +226,7 @@ export const useGroceriesStore = defineStore('groceries', {
       emit('groceries:store-selected');
 
       if (store.own_store) {
-        kyApi.patch(Routes.api_store_path(store.id), {
+        kyApi.patch(api_store_path(store.id), {
           json: { store: pick(store, ['viewed_at']) },
         });
       }
@@ -264,7 +268,7 @@ export const useGroceriesStore = defineStore('groceries', {
       const updatedItemData = await kyApi
         .patch<
           Intersection<Item, ItemUpdateResponse>
-        >(Routes.api_item_path(item.id), { json: { item: attributes } })
+        >(api_item_path(item.id), { json: { item: attributes } })
         .json();
 
       this.decrementPendingRequests();
@@ -288,7 +292,7 @@ export const useGroceriesStore = defineStore('groceries', {
       const updatedStoreData = await kyApi
         .patch<
           Intersection<Store, StoreUpdateResponse>
-        >(Routes.api_store_path(store.id), { json: { store: attributes } })
+        >(api_store_path(store.id), { json: { store: attributes } })
         .json();
 
       typesafeAssign(store, updatedStoreData);
@@ -297,7 +301,7 @@ export const useGroceriesStore = defineStore('groceries', {
     async zeroItemsInCart() {
       const items = this.itemsInCart;
 
-      await kyApi.post(Routes.api_items_bulk_updates_path(), {
+      await kyApi.post(api_items_bulk_updates_path(), {
         json: {
           bulk_update: {
             item_ids: items.map((item) => item.id),

@@ -3,7 +3,14 @@ import { defineStore } from 'pinia';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { toast } from '@/lib/toasts';
-import * as RoutesType from '@/rails_assets/routes';
+import {
+  api_log_entries_path,
+  api_log_entry_path,
+  api_log_path,
+  api_log_share_path,
+  api_log_shares_path,
+  api_logs_path,
+} from '@/rails_assets/routes';
 import { assert, typesafeAssign } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
 import { getById } from '@/shared/store_helpers';
@@ -21,8 +28,6 @@ import { LogShareCreateResponse } from '@/types/responses/LogShareCreateResponse
 import { LogUpdateResponse } from '@/types/responses/LogUpdateResponse';
 
 import { Bootstrap, Log } from './types';
-
-declare const Routes: typeof RoutesType;
 
 const bootstrap = untypedBootstrap as Bootstrap;
 
@@ -66,7 +71,7 @@ export const useLogsStore = defineStore('logs', {
       const logShareData = await kyApi
         .post<
           Intersection<LogShare, LogShareCreateResponse>
-        >(Routes.api_log_shares_path(), { json: payload })
+        >(api_log_shares_path(), { json: payload })
         .json();
 
       const log = this.logById({ logId });
@@ -88,7 +93,7 @@ export const useLogsStore = defineStore('logs', {
       const logData = await kyApi
         .post<
           Intersection<Log, LogCreateResponse>
-        >(Routes.api_logs_path(), { json: { log } })
+        >(api_logs_path(), { json: { log } })
         .json();
 
       this.postingLog = false;
@@ -119,7 +124,7 @@ export const useLogsStore = defineStore('logs', {
       const data = await kyApi
         .post<
           Intersection<LogEntry, LogEntryCreateResponse>
-        >(Routes.api_log_entries_path(), { json: payload })
+        >(api_log_entries_path(), { json: payload })
         .json();
 
       this.addLogEntry({ logId, newLogEntry: data });
@@ -131,7 +136,7 @@ export const useLogsStore = defineStore('logs', {
     },
 
     async deleteLog({ log: logToDelete }: { log: Log }) {
-      await kyApi.delete(Routes.api_log_path({ id: logToDelete.id }));
+      await kyApi.delete(api_log_path({ id: logToDelete.id }));
       toast(`Deleted "${logToDelete.name}" log.`);
       this.router.push({ name: 'logs-index' });
       // we need to wait a tick so we don't remove the log while still on the log show page
@@ -159,7 +164,7 @@ export const useLogsStore = defineStore('logs', {
       log: Log;
       logShareId: number;
     }) {
-      await kyApi.delete(Routes.api_log_share_path({ id: logShareId }));
+      await kyApi.delete(api_log_share_path({ id: logShareId }));
       log.log_shares = log.log_shares?.filter(
         (logShare) => logShare.id !== logShareId,
       );
@@ -167,7 +172,7 @@ export const useLogsStore = defineStore('logs', {
 
     async destroyLogEntry({ logEntry, log }: { logEntry: LogEntry; log: Log }) {
       await kyApi.delete(
-        Routes.api_log_entry_path({ id: logEntry.id }, { log_id: log.id }),
+        api_log_entry_path({ id: logEntry.id }, { log_id: log.id }),
       );
       this.deleteLogEntry({ log, logEntry });
     },
@@ -176,7 +181,7 @@ export const useLogsStore = defineStore('logs', {
       const data = await kyApi
         .get<
           Intersection<Array<LogEntry>, LogEntriesIndexResponse>
-        >(Routes.api_log_entries_path())
+        >(api_log_entries_path())
         .json();
       const entriesByLogId: { [key: string]: Array<LogEntry> } = {};
       for (const logEntry of data) {
@@ -198,7 +203,7 @@ export const useLogsStore = defineStore('logs', {
       const data = await kyApi
         .get<
           Intersection<Array<LogEntry>, LogEntriesIndexResponse>
-        >(Routes.api_log_entries_path({ log_id: logId }))
+        >(api_log_entries_path({ log_id: logId }))
         .json();
 
       this.setLogEntries({
@@ -244,7 +249,7 @@ export const useLogsStore = defineStore('logs', {
       const updatedLogData = await kyApi
         .patch<
           Intersection<Log, LogUpdateResponse>
-        >(Routes.api_log_path(logId), { json: payload })
+        >(api_log_path(logId), { json: payload })
         .json();
 
       const log = this.logById({ logId });
@@ -268,7 +273,7 @@ export const useLogsStore = defineStore('logs', {
       const updatedLogEntryData = await kyApi
         .patch<
           Intersection<LogEntry, LogEntryUpdateResponse>
-        >(Routes.api_log_entry_path(logEntryId), { json: payload })
+        >(api_log_entry_path(logEntryId), { json: payload })
         .json();
 
       this.modifyLogEntry({

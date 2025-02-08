@@ -1,14 +1,15 @@
 import { defineStore } from 'pinia';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
-import * as RoutesType from '@/rails_assets/routes';
+import {
+  api_check_in_check_in_submissions_path,
+  api_need_satisfaction_rating_path,
+} from '@/rails_assets/routes';
 import { assert } from '@/shared/helpers';
 import { kyApi } from '@/shared/ky';
 import { getById } from '@/shared/store_helpers';
 
 import { Bootstrap, NeedSatisfactionRating } from './types';
-
-declare const Routes: typeof RoutesType;
 
 const bootstrap = untypedBootstrap as Bootstrap;
 
@@ -43,7 +44,7 @@ export const useCheckInsStore = defineStore('check-ins', {
 
     async submitCheckIn() {
       await kyApi.post(
-        Routes.api_check_in_check_in_submissions_path(this.check_in.id),
+        api_check_in_check_in_submissions_path(this.check_in.id),
       );
     },
 
@@ -56,7 +57,7 @@ export const useCheckInsStore = defineStore('check-ins', {
     }) {
       this.modifyRating({ needSatisfactionRating, attributes });
       kyApi.patch(
-        Routes.api_need_satisfaction_rating_path(needSatisfactionRating.id),
+        api_need_satisfaction_rating_path(needSatisfactionRating.id),
         { json: { need_satisfaction_rating: attributes } },
       );
     },

@@ -6,7 +6,7 @@ el-menu
       index='1-1'
       :disabled='true'
     ) {{currentUser.email}}
-    a(:href="routes.my_account_path()")
+    a(:href="my_account_path()")
       el-menu-item(index='1-2') My Account
     a.js-link(@click='signOut')
       el-menu-item(index='1-3') Sign Out
@@ -15,8 +15,8 @@ el-menu
 <script setup lang="ts">
 import type { Bootstrap } from '@/groceries/types';
 import { bootstrap } from '@/lib/bootstrap';
-import { routes } from '@/lib/routes';
 import { signOut } from '@/lib/sign_out';
+import { my_account_path } from '@/rails_assets/routes';
 
 const currentUser = (bootstrap as Bootstrap).current_user;
 </script>

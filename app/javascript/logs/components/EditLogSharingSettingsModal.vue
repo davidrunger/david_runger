@@ -42,6 +42,7 @@ import { computed, nextTick, ref } from 'vue';
 import { bootstrap } from '@/lib/bootstrap';
 import { useLogsStore } from '@/logs/store';
 import type { Bootstrap } from '@/logs/types';
+import { user_shared_log_path } from '@/rails_assets/routes';
 import { assert } from '@/shared/helpers';
 import { useModalStore } from '@/shared/modal/store';
 import type { LogShare } from '@/types';
@@ -66,10 +67,7 @@ const logSharesSortedByLowercasedEmail = computed((): Array<LogShare> => {
 const shareableUrl = computed((): string => {
   return (
     window.location.origin +
-    window.Routes.user_shared_log_path(
-      (bootstrap as Bootstrap).current_user.id,
-      log.slug,
-    )
+    user_shared_log_path((bootstrap as Bootstrap).current_user.id, log.slug)
   );
 });
 

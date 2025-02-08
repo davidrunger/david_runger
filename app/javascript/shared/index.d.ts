@@ -1,5 +1,3 @@
-import * as RoutesType from '@/rails_assets/routes';
-
 declare global {
   interface Window {
     $: JQueryStatic;
@@ -10,7 +8,6 @@ declare global {
       modalKeydownListenerRegistered: boolean;
     };
     jQuery: JQueryStatic;
-    Routes: typeof RoutesType;
   }
 }
 

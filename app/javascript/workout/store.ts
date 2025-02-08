@@ -1,7 +1,11 @@
 import { defineStore } from 'pinia';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
-import * as RoutesType from '@/rails_assets/routes';
+import {
+  api_json_preferences_path,
+  api_workout_path,
+  api_workouts_path,
+} from '@/rails_assets/routes';
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
 import type { Intersection, Workout, WorkoutPlan } from '@/types';
@@ -9,8 +13,6 @@ import { WorkoutCreateResponse } from '@/types/responses/WorkoutCreateResponse';
 import { WorkoutUpdateResponse } from '@/types/responses/WorkoutUpdateResponse';
 
 import { Bootstrap, NewWorkoutAttributes } from './types';
-
-declare const Routes: typeof RoutesType;
 
 const bootstrap = untypedBootstrap as Bootstrap;
 
@@ -38,7 +40,7 @@ export const useWorkoutsStore = defineStore('workouts', {
     async createWorkout({ workout }: { workout: NewWorkoutAttributes }) {
       return await kyApi
         .post<Intersection<Workout, WorkoutCreateResponse>>(
-          Routes.api_workouts_path(),
+          api_workouts_path(),
           {
             json: {
               workout: {
@@ -54,7 +56,7 @@ export const useWorkoutsStore = defineStore('workouts', {
 
     initializeWorkout() {
       this.workoutIsInProgress = true;
-      http.patch(Routes.api_json_preferences_path(), {
+      http.patch(api_json_preferences_path(), {
         preference_type: 'default_workout',
         json: this.workout,
       });
@@ -73,7 +75,7 @@ export const useWorkoutsStore = defineStore('workouts', {
     }) {
       return await kyApi
         .patch<Intersection<Workout, WorkoutUpdateResponse>>(
-          Routes.api_workout_path(workout.id),
+          api_workout_path(workout.id),
           {
             json: { workout: attributes },
           },
