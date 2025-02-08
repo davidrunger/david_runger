@@ -1,6 +1,4 @@
 ActiveAdmin.register_page('Graphs') do
-  menu parent: 'Admin'
-
   content do
     div(admin_ts_tag('charts.ts'))
 

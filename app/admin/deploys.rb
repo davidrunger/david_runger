@@ -1,6 +1,5 @@
 ActiveAdmin.register(Deploy) do
   decorate_with DeployDecorator
-  menu parent: 'Admin'
 
   controller do
     def scoped_collection
