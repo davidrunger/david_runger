@@ -28,8 +28,8 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 
-import { useExternalLinkTracking } from '@/lib/composables/use_external_link_tracking';
-import { useScrollTracking } from '@/lib/composables/use_scroll_tracking';
+import { useExternalLinkTracking } from '@/lib/composables/useExternalLinkTracking';
+import { useScrollTracking } from '@/lib/composables/useScrollTracking';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 
 import About from './components/About.vue';

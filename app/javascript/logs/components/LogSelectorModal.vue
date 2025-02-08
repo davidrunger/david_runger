@@ -27,8 +27,8 @@ import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { useFuzzyTypeahead } from '@/lib/composables/use_fuzzy_typeahead';
-import { useSubscription } from '@/lib/composables/use_subscription';
+import { useFuzzyTypeahead } from '@/lib/composables/useFuzzyTypeahead';
+import { useSubscription } from '@/lib/composables/useSubscription';
 import { useLogsStore } from '@/logs/store';
 import type { Log } from '@/logs/types';
 import { useModalStore } from '@/shared/modal/store';
