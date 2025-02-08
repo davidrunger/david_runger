@@ -72,7 +72,9 @@ Rails.application.routes.draw do
     resources :check_ins, only: [] do
       resources :check_in_submissions, only: %i[create]
     end
-    resources :ci_step_results, only: %i[create]
+    namespace :ci_step_results do
+      resources :bulk_creations, only: %i[create]
+    end
     resources :events, only: %i[create]
     resources :need_satisfaction_ratings, only: %i[update]
     resources :csp_reports, only: %i[create]
