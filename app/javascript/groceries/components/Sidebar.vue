@@ -51,7 +51,7 @@ import { computed, reactive, ref } from 'vue';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
-import { useSubscription } from '@/lib/composables/use_subscription';
+import { useSubscription } from '@/lib/composables/useSubscription';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 import { new_marriage_path } from '@/rails_assets/routes';
 

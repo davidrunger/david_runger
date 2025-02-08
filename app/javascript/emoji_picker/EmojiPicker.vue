@@ -39,7 +39,7 @@ import CopiedEmojiToast from '@/emoji_picker/components/CopiedEmojiToast.vue';
 import { emojiData } from '@/emoji_picker/emoji_data';
 import { type Bootstrap } from '@/emoji_picker/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
-import { useFuzzyTypeahead } from '@/lib/composables/use_fuzzy_typeahead';
+import { useFuzzyTypeahead } from '@/lib/composables/useFuzzyTypeahead';
 import { vueToast } from '@/lib/vue_toasts';
 import { new_user_session_path } from '@/rails_assets/routes';
 import type { EmojiData } from '@/types';
