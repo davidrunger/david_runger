@@ -1,33 +1,11 @@
-import { type Hooks } from 'ky';
 import { identity, pickBy } from 'lodash-es';
 
-import { toast } from '@/lib/toasts';
-import { isArrayOfStrings } from '@/lib/type_predicates';
 import { kyApi as generalKyApi } from '@/shared/ky';
-
-const hooks: Hooks = {
-  afterResponse: [
-    async (_request, _options, response) => {
-      if (response.status === 422) {
-        const { errors } = await response.json<{ errors?: unknown }>();
-
-        if (isArrayOfStrings(errors)) {
-          for (const error of errors) {
-            toast(error, { type: 'error' });
-          }
-        }
-
-        return new Response(undefined, { status: response.status });
-      }
-    },
-  ],
-};
 
 const kyApi = generalKyApi.extend({
   headers: {
     'Content-Type': 'application/json',
   },
-  hooks,
   throwHttpErrors: false,
 });
 

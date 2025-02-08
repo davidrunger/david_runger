@@ -6,6 +6,7 @@ import DeletedItemToast from '@/groceries/components/DeletedItemToast.vue';
 import { Bootstrap, CheckInStatus, Item } from '@/groceries/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { emit } from '@/lib/event_bus';
+import { toast } from '@/lib/toasts';
 import { vueToast } from '@/lib/vue_toasts';
 import * as RoutesType from '@/rails_assets/routes';
 import { typesafeAssign } from '@/shared/helpers';
@@ -102,12 +103,18 @@ export const useGroceriesStore = defineStore('groceries', {
       };
 
       const newStoreData = await http.post<
-        Intersection<Store, StoreCreateResponse>
+        Intersection<Store, StoreCreateResponse> | { errors: Array<string> }
       >(Routes.api_stores_path(), payload);
 
       this.postingStore = false;
 
-      if (newStoreData) {
+      if ('errors' in newStoreData) {
+        const { errors } = newStoreData;
+
+        for (const error of errors) {
+          toast(error, { type: 'error' });
+        }
+      } else if (newStoreData) {
         this.own_stores.unshift(newStoreData);
         return true;
       }

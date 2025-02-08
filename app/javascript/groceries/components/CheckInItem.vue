@@ -15,10 +15,11 @@ li.flex.items-center.break-word.mb-2(
       span(v-if='item.needed > 1') {{' '}} ({{item.needed}})
     span {{ ' ' }}
     ElTooltip(
+      v-if="isSpouseItem(item)"
       content="Spouse item"
       placement="top"
     )
-      HeartFilledIcon.text-red-500(v-if="isSpouseItem(item)")
+      HeartFilledIcon.text-red-500
     span {{ ' ' }}
     el-button(
       v-if="item.checkInStatus === 'skipped'"
