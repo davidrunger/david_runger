@@ -1,8 +1,10 @@
 class Test::Tasks::Exit < Pallets::Task
   include Test::TaskHelpers
+  prepend Memoization
 
   def run
     @overall_finish_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    post_ci_step_results
     print_individual_task_times
     print_overall_time_and_parallelism
     print_failed_commands
@@ -11,6 +13,70 @@ class Test::Tasks::Exit < Pallets::Task
   end
 
   private
+
+  def post_ci_step_results
+    if ci_step_results_host.present?
+      print("\nPosting CiStepResults ... ")
+
+      post_ci_step_result(
+        'WallClockTime',
+        {
+          run_time: overall_wall_clock_time,
+          start_time: earliest_task_start_time,
+          stop_time: latest_task_stop_time,
+          exit_code:,
+        },
+      )
+
+      post_ci_step_result(
+        'CpuTime',
+        {
+          run_time: total_task_time,
+          start_time: earliest_task_start_time,
+          stop_time: latest_task_stop_time,
+          exit_code:,
+        },
+      )
+
+      job_results.each do |task_name, result_hash|
+        post_ci_step_result(task_name, result_hash)
+      end
+
+      puts('done.')
+    else
+      puts('ci_step_results_host is not present; not sending results.')
+    end
+  end
+
+  def post_ci_step_result(task_name, result_hash)
+    print("#{task_name}:")
+
+    response =
+      Faraday.json_connection.post(
+        "#{ci_step_results_host}/api/ci_step_results",
+        {
+          auth_token: ENV.fetch('CI_STEP_RESULTS_AUTH_TOKEN'),
+          ci_step_result: {
+            name: task_name.delete_prefix('Test::Tasks::'),
+            seconds: result_hash[:run_time],
+            started_at: result_hash[:start_time].utc.iso8601(6),
+            stopped_at: result_hash[:stop_time].utc.iso8601(6),
+            passed: result_hash[:exit_code] == 0,
+            github_run_id: ENV.fetch('GITHUB_RUN_ID'),
+            github_run_attempt: ENV.fetch('GITHUB_RUN_ATTEMPT'),
+            branch: ENV.fetch('GITHUB_HEAD_REF') { ENV.fetch('GITHUB_REF_NAME') },
+            sha: ENV.fetch('GITHUB_SHA'),
+          },
+        },
+      )
+
+    print("#{response.status} ... ")
+  end
+
+  memoize \
+  def ci_step_results_host
+    ENV.fetch('CI_STEP_RESULTS_HOST', nil)
+  end
 
   def exit_code
     Test::Runner.exit_code
@@ -43,7 +109,6 @@ class Test::Tasks::Exit < Pallets::Task
     puts(<<~LOG.squish)
       Wall clock elapsed time: #{AmazingPrint::Colors.yellow(overall_wall_clock_time.round(3).to_s)}
     LOG
-    total_task_time = job_results.sum { |_key, value| value[:run_time] }
     puts("Total task time: #{AmazingPrint::Colors.yellow(total_task_time.round(3).to_s)}")
     puts(<<~LOG.squish)
       Parallelism:
@@ -77,6 +142,21 @@ class Test::Tasks::Exit < Pallets::Task
 
   def overall_wall_clock_time
     @overall_finish_time - Test::Runner.start_time
+  end
+
+  memoize \
+  def total_task_time
+    job_results.sum { |_key, value| value[:run_time] }
+  end
+
+  memoize \
+  def earliest_task_start_time
+    job_results.values.map { it[:start_time] }.min
+  end
+
+  memoize \
+  def latest_task_stop_time
+    job_results.values.map { it[:stop_time] }.max
   end
 
   def short_job_names(task_set)

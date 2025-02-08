@@ -22,6 +22,11 @@ module TokenAuthenticatable
   end
 
   memoize \
+  def current_or_auth_token_user
+    current_user || auth_token_user
+  end
+
+  memoize \
   def auth_token_user
     auth_token&.user
   end

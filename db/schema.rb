@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_02_225737) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_08_092554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -104,6 +104,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_225737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marriage_id"], name: "index_check_ins_on_marriage_id"
+  end
+
+  create_table "ci_step_results", force: :cascade do |t|
+    t.string "name", null: false
+    t.float "seconds", null: false
+    t.datetime "started_at", null: false
+    t.datetime "stopped_at", null: false
+    t.boolean "passed", default: false, null: false
+    t.bigint "github_run_id", null: false
+    t.integer "github_run_attempt", null: false
+    t.string "branch", null: false
+    t.string "sha", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["name", "github_run_id", "github_run_attempt"], name: "idx_on_name_github_run_id_github_run_attempt_96ff2b0b91", unique: true
+    t.index ["user_id"], name: "index_ci_step_results_on_user_id"
   end
 
   create_table "csp_reports", force: :cascade do |t|
@@ -377,6 +394,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_225737) do
   add_foreign_key "check_in_submissions", "check_ins"
   add_foreign_key "check_in_submissions", "users"
   add_foreign_key "check_ins", "marriages"
+  add_foreign_key "ci_step_results", "users"
   add_foreign_key "emotional_needs", "marriages"
   add_foreign_key "events", "admin_users"
   add_foreign_key "events", "users"

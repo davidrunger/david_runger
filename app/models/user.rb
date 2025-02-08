@@ -35,6 +35,7 @@ class User < ApplicationRecord
   has_many :check_in_submissions, dependent: :destroy
   has_many :json_preferences, dependent: :destroy
   has_many :events, dependent: :destroy
+  has_many :ci_step_results, dependent: :destroy
 
   JsonPreference::Types.constants.each do |constant_name|
     scope_name = JsonPreference::Types.const_get(constant_name).to_sym
