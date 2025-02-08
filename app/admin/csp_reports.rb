@@ -1,6 +1,5 @@
 ActiveAdmin.register(CspReport) do
   decorate_with CspReportDecorator
-  menu parent: 'Admin'
 
   index do
     id_column

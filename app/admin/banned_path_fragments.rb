@@ -1,5 +1,4 @@
 ActiveAdmin.register(BannedPathFragment) do
-  menu parent: 'Admin'
   permit_params :value
 
   index do
