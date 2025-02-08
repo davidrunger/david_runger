@@ -45,6 +45,10 @@ class Test::Tasks::Exit < Pallets::Task
       puts('done.')
     else
       puts('ci_step_results_host is not present; not sending results.')
+      puts(%(ENV.fetch('GITHUB_RUN_ID'): #{ENV.fetch('GITHUB_RUN_ID')}))
+      puts(%(ENV.fetch('GITHUB_RUN_ATTEMPT'): #{ENV.fetch('GITHUB_RUN_ATTEMPT')}))
+      puts(%(ENV.fetch('GITHUB_HEAD_REF') { ENV.fetch('GITHUB_REF_NAME') }: #{ENV.fetch('GITHUB_HEAD_REF') { ENV.fetch('GITHUB_REF_NAME') }}))
+      puts(%(ENV.fetch('GITHUB_SHA'): #{ENV.fetch('GITHUB_SHA')}))
     end
   end
 
