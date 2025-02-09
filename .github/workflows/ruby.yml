@@ -79,6 +79,7 @@ jobs:
         run: bin/run-tests
         env:
           CI: true
+          PALLETS_CONCURRENCY: 3
           AWS_EC2_METADATA_DISABLED: true
           RAILS_ENV: test
           DISABLE_SPRING: 1
