@@ -119,7 +119,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
                 'admin_user_id' => nil,
                 'user_id' => nil,
                 'auth_token_id' => nil,
-                'url' => 'http://localhost:3001/',
+                'url' => "http://localhost:#{Capybara.server_port}/",
                 'handler' => 'home#index',
                 'referer' => nil,
                 'params' => {},

@@ -19,6 +19,7 @@ class Test::RequirementsResolver
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
+        Test::Tasks::DivideFeatureSpecs => nil,
 
         # Checks
         Test::Tasks::CheckVersions => nil,
@@ -41,9 +42,22 @@ class Test::RequirementsResolver
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileJavaScript,
-        Test::Tasks::RunFeatureTests => [
+        Test::Tasks::RunFeatureTestsA => [
+          Test::Tasks::DivideFeatureSpecs,
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
+        ],
+        Test::Tasks::RunFeatureTestsB => [
+          Test::Tasks::DivideFeatureSpecs,
+          Test::Tasks::CreateDbCopies,
+          Test::Tasks::CompileJavaScript,
+          Test::Tasks::RunApiControllerTests,
+        ],
+        Test::Tasks::RunFeatureTestsC => [
+          Test::Tasks::DivideFeatureSpecs,
+          Test::Tasks::CreateDbCopies,
+          Test::Tasks::CompileJavaScript,
+          Test::Tasks::RunUnitTests,
         ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
@@ -60,7 +74,9 @@ class Test::RequirementsResolver
           Test::Tasks::RunBrakeman,
           Test::Tasks::RunDatabaseConsistency,
           Test::Tasks::RunEslint,
-          Test::Tasks::RunFeatureTests,
+          Test::Tasks::RunFeatureTestsA,
+          Test::Tasks::RunFeatureTestsB,
+          Test::Tasks::RunFeatureTestsC,
           Test::Tasks::RunFileSizeChecks,
           Test::Tasks::RunHtmlControllerTests,
           Test::Tasks::RunImmigrant,
