@@ -7,7 +7,20 @@ class CiStepResultsPresenter
     @user = user
   end
 
-  def data
+  memoize \
+  def parallelism
+    wall_clock_times = run_times_by_step.detect { it[:name] == 'WallClockTime' }[:data]
+    cpu_times = run_times_by_step.detect { it[:name] == 'CpuTime' }[:data]
+
+    wall_clock_times.each.filter_map do |time, wall_clock_time|
+      if (cpu_time = cpu_times[time])
+        [time, cpu_time.fdiv(wall_clock_time)]
+      end
+    end.to_h
+  end
+
+  memoize \
+  def run_times_by_step
     results_grouped_by_name.map do |name, rows|
       {
         name:,
