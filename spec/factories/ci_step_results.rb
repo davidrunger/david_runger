@@ -40,6 +40,14 @@ FactoryBot.define do
     stopped_at { created_at_time - 5.seconds }
     updated_at { created_at_time }
 
+    trait(:wall_clock_time) do
+      name { 'WallClockTime' }
+    end
+
+    trait(:cpu_time) do
+      name { 'CpuTime' }
+    end
+
     trait(:feature_tests) do
       name { 'RunFeatureTests' }
     end
