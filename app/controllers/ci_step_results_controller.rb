@@ -5,7 +5,7 @@ class CiStepResultsController < ApplicationController
     authorize(CiStepResult)
 
     @title = 'CI Timings'
-    @chart_data = CiStepResultsPresenter.new(current_user).data
+    @ci_step_results_presenter = CiStepResultsPresenter.new(current_user)
 
     render :index
   end

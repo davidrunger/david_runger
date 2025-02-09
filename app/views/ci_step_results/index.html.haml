@@ -3,4 +3,8 @@
 
 %h1= @title
 
-= line_chart(@chart_data, height: '640px', curve: false)
+%h2 Run times
+= line_chart(@ci_step_results_presenter.run_times_by_step, height: '640px', curve: false)
+
+%h2 Parallelism
+= line_chart(@ci_step_results_presenter.parallelism, curve: false, legend: false)
