@@ -4,7 +4,10 @@ require_relative 'middleware/task_result_tracking_middleware.rb'
 require_relative 'runner.rb'
 
 Pallets.configure do |c|
-  c.concurrency = Integer(ENV.fetch('PALLETS_CONCURRENCY', 2))
+  concurrency = Integer(ENV.fetch('PALLETS_CONCURRENCY', 4))
+  puts("Pallets concurrency: #{concurrency}")
+
+  c.concurrency = concurrency
   c.max_failures = 0
   c.backend_args = { url: 'redis://127.0.0.1:6379/8' } # use redis db #8 (to avoid conflicts)
   c.middleware << Test::Middleware::ExitOnFailureMiddleware
