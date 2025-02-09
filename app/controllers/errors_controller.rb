@@ -16,7 +16,7 @@ class ErrorsController < ApplicationController
 
     respond_to do |format|
       format.html { render file: 'public/404.html', status: :not_found, layout: false }
-      format.json { render json: { error: 'Resource not found' }, status: :not_found }
+      format.json { render json: { error: 'Not Found' }, status: :not_found }
       format.any { render plain: 'Not found' }
     end
   end

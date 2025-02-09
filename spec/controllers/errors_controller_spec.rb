@@ -43,7 +43,7 @@ RSpec.describe ErrorsController do
 
       it %(says "The page you were looking for doesn't exist.") do
         get_not_found
-        expect(json_response).to eq({ 'error' => 'Resource not found' })
+        expect(json_response).to eq({ 'error' => 'Not Found' })
       end
     end
 
