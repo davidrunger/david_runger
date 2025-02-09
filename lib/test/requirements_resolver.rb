@@ -19,6 +19,8 @@ class Test::RequirementsResolver
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
+        Test::Tasks::DivideFeatureSpecs => nil,
+        Test::Tasks::StartPercy => Test::Tasks::PnpmInstall,
 
         # Checks
         Test::Tasks::CheckVersions => nil,
@@ -33,7 +35,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunVitest => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
         Test::Tasks::RunTypelizer => Test::Tasks::BuildFixtures,
-        Test::Tasks::ConvertSchemasToTs => nil,
+        Test::Tasks::ConvertSchemasToTs => Test::Tasks::SetupDb,
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
@@ -41,13 +43,26 @@ class Test::RequirementsResolver
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileJavaScript,
-        Test::Tasks::RunFeatureTests => [
+        Test::Tasks::RunFeatureTestsA => [
+          Test::Tasks::DivideFeatureSpecs,
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
+          Test::Tasks::StartPercy,
+        ],
+        Test::Tasks::RunFeatureTestsB => [
+          Test::Tasks::DivideFeatureSpecs,
+          Test::Tasks::CreateDbCopies,
+          Test::Tasks::CompileJavaScript,
+          Test::Tasks::StartPercy,
+          Test::Tasks::RunApiControllerTests,
         ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileJavaScript,
+        ],
+        Test::Tasks::StopPercy => [
+          Test::Tasks::RunFeatureTestsA,
+          Test::Tasks::RunFeatureTestsB,
         ],
 
         # Exit depends on all tasks completing that are actual checks (as opposed to setup steps)
@@ -60,7 +75,8 @@ class Test::RequirementsResolver
           Test::Tasks::RunBrakeman,
           Test::Tasks::RunDatabaseConsistency,
           Test::Tasks::RunEslint,
-          Test::Tasks::RunFeatureTests,
+          Test::Tasks::RunFeatureTestsA,
+          Test::Tasks::RunFeatureTestsB,
           Test::Tasks::RunFileSizeChecks,
           Test::Tasks::RunHtmlControllerTests,
           Test::Tasks::RunImmigrant,
@@ -70,6 +86,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunTypelizer,
           Test::Tasks::RunUnitTests,
           Test::Tasks::RunVitest,
+          Test::Tasks::StopPercy,
         ],
       }
 

@@ -90,9 +90,10 @@ Capybara.javascript_driver = Cuprite::CustomDrivers::DOMAIN_RESTRICTED_CUPRITE
 Capybara.asset_host = 'http://localhost:3000'
 Capybara.server = :puma, { Silent: true }
 Capybara.default_normalize_ws = true
-# this matches setting in config/environments/test.rb
-Capybara.server_port = 3001
-Capybara.app_host = 'http://localhost:3001'
+# This port matches a config in config/environments/test.rb.
+capybara_port = Integer(ENV.fetch('CAPYBARA_SERVER_PORT', 3001))
+Capybara.server_port = capybara_port
+Capybara.app_host = "http://localhost:#{capybara_port}"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
