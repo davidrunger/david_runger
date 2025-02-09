@@ -18,19 +18,24 @@ class Test::Tasks::Exit < Pallets::Task
     if ci_step_results_host.present?
       print("\nPosting CiStepResults ... ")
 
-      response =
-        Faraday.json_connection.post(
-          "#{ci_step_results_host}/api/ci_step_results/bulk_creations",
-          {
-            auth_token: ENV.fetch('CI_STEP_RESULTS_AUTH_TOKEN'),
-            ci_step_results: ci_step_results_data,
-          },
-        )
+      begin
+        response =
+          Faraday.json_connection.post(
+            "#{ci_step_results_host}/api/ci_step_results/bulk_creations",
+            {
+              auth_token: ENV.fetch('CI_STEP_RESULTS_AUTH_TOKEN'),
+              ci_step_results: ci_step_results_data,
+            },
+          )
 
-      puts("response:#{response.status}.")
+        puts("response:#{response.status}.")
 
-      if (response.status / 100) > 2
-        pp(response.body)
+        if (response.status / 100) > 2
+          pp(response.body)
+        end
+      rescue => error
+        puts('error. We have rescued it and will proceed.')
+        pp(error)
       end
     else
       puts('ci_step_results_host is not present; not sending results.')
