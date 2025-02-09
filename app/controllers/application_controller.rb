@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+  before_action :prioritize_json_format
   before_action :set_paper_trail_whodunnit
   before_action :set_browser_uuid
   before_action :set_controller_action_in_context
@@ -149,4 +150,30 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  # rubocop:disable Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def prioritize_json_format
+    if request.accepts.any?
+      # Parse accept header directly since Mime::Type doesn't expose parameters
+      accepts = request.headers['Accept'].to_s.split(',').map do |accept|
+        type, params = accept.strip.split(';')
+        # rubocop:disable Lint/NumberConversion
+        q = params&.match(/q=([0-9.]+)/)&.[](1)&.to_f || 1.0
+        # rubocop:enable Lint/NumberConversion
+        [type, q]
+      end.sort_by { |_, q| -q } # Sort by q value descending
+
+      # If application/json has highest priority (tied or better),
+      # force request format to JSON
+      json_priority = accepts.find { |type, _| type == 'application/json' }&.last || 0
+      highest_priority = accepts.first&.last || 0
+
+      if json_priority >= highest_priority && json_priority > 0
+        request.format = :json
+      end
+    end
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 end
