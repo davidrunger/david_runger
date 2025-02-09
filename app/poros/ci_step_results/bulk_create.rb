@@ -12,12 +12,10 @@ class CiStepResults::BulkCreate
       @ci_step_results_data.each do |ci_step_result_data|
         new_ci_step_result = @user.ci_step_results.build(ci_step_result_data)
 
-        if new_ci_step_result.valid?
-          # Don't waste time trying to save records if we know some are already invalid.
-          unless at_least_one_invalid_record
-            new_ci_step_result.save!
-          end
-
+        # Don't waste time trying to save records if we know some are already invalid.
+        # rubocop:disable Rails/SaveBang
+        if at_least_one_invalid_record ? new_ci_step_result.valid? : new_ci_step_result.save
+          # rubocop:enable Rails/SaveBang
           @validation_results << {
             success: true,
             errors: {},
