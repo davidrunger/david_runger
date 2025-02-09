@@ -18,59 +18,58 @@ class Test::Tasks::Exit < Pallets::Task
     if ci_step_results_host.present?
       print("\nPosting CiStepResults ... ")
 
-      post_ci_step_result(
-        'WallClockTime',
-        {
-          run_time: overall_wall_clock_time,
-          start_time: earliest_task_start_time,
-          stop_time: latest_task_stop_time,
-          exit_code:,
-        },
-      )
+      response =
+        Faraday.json_connection.post(
+          "#{ci_step_results_host}/api/ci_step_results/bulk_creations",
+          {
+            auth_token: ENV.fetch('CI_STEP_RESULTS_AUTH_TOKEN'),
+            ci_step_results: ci_step_results_data,
+          },
+        )
 
-      post_ci_step_result(
-        'CpuTime',
-        {
-          run_time: total_task_time,
-          start_time: earliest_task_start_time,
-          stop_time: latest_task_stop_time,
-          exit_code:,
-        },
-      )
+      puts("response:#{response.status}.")
 
-      job_results.each do |task_name, result_hash|
-        post_ci_step_result(task_name, result_hash)
+      if (response.status / 100) > 2
+        pp(response.body)
       end
-
-      puts('done.')
     else
       puts('ci_step_results_host is not present; not sending results.')
     end
   end
 
-  def post_ci_step_result(task_name, result_hash)
-    print("#{task_name}:")
+  def ci_step_results_data
+    {
+      'WallClockTime' => {
+        run_time: overall_wall_clock_time,
+        start_time: earliest_task_start_time,
+        stop_time: latest_task_stop_time,
+        exit_code:,
+      },
+      'CpuTime' => {
+        run_time: total_task_time,
+        start_time: earliest_task_start_time,
+        stop_time: latest_task_stop_time,
+        exit_code:,
+      },
+    }.
+      merge(job_results).
+      map do |task_name, result_hash|
+        data_for_ci_step_result(task_name, result_hash)
+      end
+  end
 
-    response =
-      Faraday.json_connection.post(
-        "#{ci_step_results_host}/api/ci_step_results",
-        {
-          auth_token: ENV.fetch('CI_STEP_RESULTS_AUTH_TOKEN'),
-          ci_step_result: {
-            name: task_name.delete_prefix('Test::Tasks::'),
-            seconds: result_hash[:run_time],
-            started_at: result_hash[:start_time].utc.iso8601(6),
-            stopped_at: result_hash[:stop_time].utc.iso8601(6),
-            passed: result_hash[:exit_code] == 0,
-            github_run_id: ENV.fetch('GITHUB_RUN_ID'),
-            github_run_attempt: ENV.fetch('GITHUB_RUN_ATTEMPT'),
-            branch: ENV.fetch('GITHUB_HEAD_REF', nil).presence || ENV.fetch('GITHUB_REF_NAME'),
-            sha: ENV.fetch('GIT_REV'),
-          },
-        },
-      )
-
-    print("#{response.status} ... ")
+  def data_for_ci_step_result(task_name, result_hash)
+    {
+      name: task_name.delete_prefix('Test::Tasks::'),
+      seconds: result_hash[:run_time],
+      started_at: result_hash[:start_time].utc.iso8601(6),
+      stopped_at: result_hash[:stop_time].utc.iso8601(6),
+      passed: result_hash[:exit_code] == 0,
+      github_run_id: ENV.fetch('GITHUB_RUN_ID'),
+      github_run_attempt: ENV.fetch('GITHUB_RUN_ATTEMPT'),
+      branch: ENV.fetch('GITHUB_HEAD_REF', nil).presence || ENV.fetch('GITHUB_REF_NAME'),
+      sha: ENV.fetch('GIT_REV'),
+    }
   end
 
   memoize \

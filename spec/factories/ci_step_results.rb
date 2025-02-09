@@ -33,7 +33,7 @@ FactoryBot.define do
     github_run_attempt { rand(1..2) }
     sequence(:github_run_id) { |n| github_run_id_seed + n }
     name { 'RunFeatureTests' }
-    passed { true }
+    passed { [true, false].sample }
     seconds { rand(80..90) + rand }
     sha { SecureRandom.hex(20) }
     started_at { created_at_time - 90.seconds }
