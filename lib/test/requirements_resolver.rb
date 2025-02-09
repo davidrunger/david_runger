@@ -34,7 +34,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunVitest => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
         Test::Tasks::RunTypelizer => Test::Tasks::BuildFixtures,
-        Test::Tasks::ConvertSchemasToTs => nil,
+        Test::Tasks::ConvertSchemasToTs => Test::Tasks::SetupDb,
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
