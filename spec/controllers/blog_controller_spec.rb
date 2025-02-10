@@ -1,4 +1,6 @@
 RSpec.describe(BlogController) do
+  include BlogSpecHelpers
+
   context 'when there is a 404 HTML file in the blog directory' do
     around do |example|
       with_blog_file('404.html', not_found_page_content) do
@@ -161,15 +163,5 @@ RSpec.describe(BlogController) do
         end
       end
     end
-  end
-
-  def with_blog_file(path, content)
-    file_path = Rails.root.join('blog', path)
-    FileUtils.mkdir_p(file_path.dirname)
-    File.write(file_path, content)
-
-    yield
-
-    FileUtils.rm(file_path)
   end
 end

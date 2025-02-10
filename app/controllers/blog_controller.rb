@@ -19,6 +19,11 @@ class BlogController < ApplicationController
   end
 
   def show
+    # For feed requests, prioritize Atom/XML over other mime types.
+    if xml_request_for_feed?
+      request.format = :xml
+    end
+
     request_format_symbol = request.format.symbol
 
     if request_format_symbol.in?(VALID_SHOW_ACTION_REQUEST_TYPES)
@@ -82,5 +87,10 @@ class BlogController < ApplicationController
 
   def render_blog_404
     send_file(Rails.root.join('blog/404.html'), status: 404, disposition: :inline)
+  end
+
+  def xml_request_for_feed?
+    request.path == '/blog/feed.xml' &&
+      Set.new(request.accepts).intersect?(Set.new([Mime[:atom], Mime[:xml]]))
   end
 end
