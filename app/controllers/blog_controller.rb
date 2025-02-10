@@ -19,7 +19,7 @@ class BlogController < ApplicationController
   end
 
   def show
-    # Prioritize Atom/XML over other mime types.
+    # For feed requests, prioritize Atom/XML over other mime types.
     if xml_request_for_feed?
       request.format = :xml
     end
