@@ -19,7 +19,7 @@ RSpec.describe 'Rack::Attack', :rack_test_driver do
         visit(banned_path_2)
       end
 
-      let(:banned_path_1) { BannedPathFragment.first!.value }
+      let(:banned_path_1) { "something.#{BannedPathFragment.first!.value}7" }
       let(:banned_path_2) { BannedPathFragment.second!.value }
 
       it 'bans the user from visiting any page', :prerendering_disabled do

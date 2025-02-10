@@ -1,5 +1,5 @@
 class Rack::Attack
-  PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_|=}
+  PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_|=|\d|%}
   PENTESTERS_PREFIX = 'pentesters-'
   PENTESTING_FINDTIME = 1.day.freeze
   WHITELISTED_PATH_PREFIXES = %w[
