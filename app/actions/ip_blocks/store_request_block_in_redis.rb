@@ -1,5 +1,5 @@
 class IpBlocks::StoreRequestBlockInRedis < ApplicationAction
-  requires :ip, String, format: { with: /\A[.:0-9a-f]{7,39}\z/ }
+  requires :ip, String, format: { with: /\A[.:0-9a-f]{3,39}\z/ }
   requires :path, String, format: { with: %r{\A/} }
 
   def execute
