@@ -41,6 +41,9 @@ jobs:
         ports:
           - 6379:6379 # Maps port 6379 on service container to the host
     steps:
+      - name: Print number of CPUs
+        run: nproc
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
