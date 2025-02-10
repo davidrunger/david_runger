@@ -1,4 +1,4 @@
-RSpec.describe 'handling 404s' do # rubocop:disable RSpec/DescribeClass
+RSpec.describe 'handling 404s' do
   subject(:request_nonexistent_route) do
     get('/not-there', headers:)
   end

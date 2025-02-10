@@ -1,4 +1,4 @@
-RSpec.describe 'Traffic Advice' do # rubocop:disable RSpec/DescribeClass
+RSpec.describe 'Traffic Advice' do
   describe 'GET /.well-known/traffic-advice' do
     it 'returns correct content type and body' do
       get '/.well-known/traffic-advice'
