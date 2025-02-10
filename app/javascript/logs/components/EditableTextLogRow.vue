@@ -115,4 +115,8 @@ async function updateLogEntry() {
     margin-left: 0;
   }
 }
+
+td :deep(pre) {
+  text-wrap-mode: unset;
+}
 </style>
