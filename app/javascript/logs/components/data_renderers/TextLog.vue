@@ -100,12 +100,8 @@ table.text-log-table {
       text-align: left;
     }
 
-    p {
-      display: inline-block;
-
-      &:not(:first-of-type) {
-        margin-top: 16px;
-      }
+    p:not(:first-of-type) {
+      margin-top: 16px;
     }
   }
 
