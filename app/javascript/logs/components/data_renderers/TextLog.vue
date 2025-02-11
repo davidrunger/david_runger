@@ -91,7 +91,7 @@ table.text-log-table {
     padding: 18px 10px;
     word-break: initial;
     white-space: pre-wrap;
-    line-height: 1.13rem;
+    line-height: 1.3rem;
     text-align: center;
     vertical-align: middle;
     min-width: 140px;
