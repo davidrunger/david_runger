@@ -116,7 +116,14 @@ async function updateLogEntry() {
   }
 }
 
-td :deep(pre) {
-  text-wrap-mode: unset;
+:deep(pre) {
+  overflow-x: auto;
+}
+</style>
+
+<style>
+td:has(pre) {
+  width: 100%;
+  max-width: 0;
 }
 </style>

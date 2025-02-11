@@ -1,7 +1,7 @@
 <template lang="pug">
 div
-  .flex.justify-center
-    table.text-log-table.max-w-4xl
+  .flex.justify-center.w-full
+    table.text-log-table.w-full.max-w-4xl
       TransitionGroup(name='appear-vertically-list')
         EditableTextLogRow(
           v-for='(logEntry, index) in sortedLogEntries'
