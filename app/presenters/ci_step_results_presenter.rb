@@ -35,6 +35,54 @@ class CiStepResultsPresenter
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
+  memoize \
+  def recent_gantt_chart_metadatas
+    CiStepResult.
+      select(
+        'MIN(ci_step_results.started_at) AS min_started_at',
+        'ci_step_results.github_run_id',
+        'ci_step_results.github_run_attempt',
+        <<-SQL.squish,
+      JSON_AGG(
+        JSON_BUILD_OBJECT(
+          'name', ci_step_results.name,
+          'started_at', ci_step_results.started_at,
+          'stopped_at', ci_step_results.stopped_at
+        ) ORDER BY ci_step_results.started_at
+      ) AS run_times
+    SQL
+      ).
+      group(:github_run_id, :github_run_attempt).
+      order('min_started_at DESC').
+      limit(10).
+      map do |ci_step_result|
+        {
+          pretty_start_time:
+            ci_step_result.min_started_at.in_time_zone.strftime('%b %d, %-l:%M %p'),
+          pretty_github_run_info:
+            "Run #{ci_step_result.github_run_id}, Attempt #{ci_step_result.github_run_attempt}",
+          github_run_id:
+            ci_step_result.github_run_id,
+          github_run_attempt:
+            ci_step_result.github_run_attempt,
+          dom_id:
+            "gh-run-#{ci_step_result.github_run_id}-#{ci_step_result.github_run_attempt}",
+          run_times:
+            ci_step_result.run_times.map! do |run_time_hash|
+              run_time_hash.to_h do |key, value|
+                if key.end_with?('_at')
+                  [key, "#{value}Z"]
+                else
+                  [key, value]
+                end
+              end
+            end,
+        }
+      end
+  end
+  # rubocop:enable Metrics/MethodLength
+
   private
 
   memoize \

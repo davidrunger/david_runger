@@ -1,5 +1,6 @@
 - content_for(:page_assets) do
   = ts_tag('charts')
+  = ts_tag('ci_step_gantt_charts')
 
 %h1= @title
 
@@ -8,3 +9,13 @@
 
 %h2 Parallelism
 = line_chart(@ci_step_results_presenter.parallelism, curve: false, legend: false)
+
+%h2 Gantt charts for most recent runs
+- @ci_step_results_presenter.recent_gantt_chart_metadatas.each do |gantt_chart_metadata|
+  - github_run_id = gantt_chart_metadata.fetch(:github_run_id)
+  - github_run_attempt = gantt_chart_metadata.fetch(:github_run_attempt)
+  %div
+    %h3
+      = gantt_chart_metadata.fetch(:pretty_start_time)
+      (#{link_to(gantt_chart_metadata.fetch(:pretty_github_run_info), "https://github.com/davidrunger/david_runger/actions/runs/#{github_run_id}/attempts/#{github_run_attempt}")})
+    .w-full{id: gantt_chart_metadata.fetch(:dom_id)}
