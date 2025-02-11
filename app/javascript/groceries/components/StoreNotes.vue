@@ -8,7 +8,8 @@ div.mb-2
     @blur='stopEditingAndUpdateStoreNotes()'
     ref='storeNotesInput'
   )
-  p.whitespace-pre-wrap(v-else)
+
+  p.whitespace-pre-wrap.mt-2(v-else)
     | {{store.notes || 'No notes yet'}}
     a.js-link.text-neutral-400.ml-2(
       v-if='store.own_store'
