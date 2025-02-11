@@ -51,21 +51,44 @@ const sortedLogEntries = computed((): Array<TextLogEntry> => {
 </script>
 
 <style lang="scss">
-ol {
-  counter-reset: item;
-
+ol,
+ul {
   $li-indent: 17px;
 
+  &:not(:first-child) {
+    margin-top: 16px;
+  }
+
   li {
+    &:not(:first-of-type) {
+      margin-top: 0.5em;
+    }
+
     display: block;
-    margin-top: 0.5em;
     margin-left: $li-indent;
 
     &::before {
       margin-left: -1 * $li-indent;
+      position: absolute;
+    }
+  }
+}
+
+ol {
+  counter-reset: item;
+
+  li {
+    &::before {
       content: counter(item) '. ';
       counter-increment: item;
-      position: absolute;
+    }
+  }
+}
+
+ul {
+  li {
+    &::before {
+      content: '– ';
     }
   }
 }
