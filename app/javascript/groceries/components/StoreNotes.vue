@@ -8,14 +8,19 @@ div.mb-2
     @blur='stopEditingAndUpdateStoreNotes()'
     ref='storeNotesInput'
   )
-  p.whitespace-pre-wrap(v-else)
-    | {{store.notes || 'No notes yet'}}
-    a.js-link.text-neutral-400.ml-2(
-      v-if='store.own_store'
-      @click='editStoreNotes'
-      class="hover:text-black"
-    )
-      EditIcon(size='18')
+
+  .flex.items-center.mt-2(v-else)
+    .whitespace-pre-wrap
+      | {{store.notes || 'No notes yet'}}
+    div
+      a.js-link.text-neutral-400.ml-2(
+        v-if='store.own_store'
+        @click='editStoreNotes'
+        class="hover:text-black"
+      )
+        EditIcon(size='18')
+        |
+        | Edit
 </template>
 
 <script setup lang="ts">

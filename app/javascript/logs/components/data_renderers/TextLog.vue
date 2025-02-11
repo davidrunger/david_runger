@@ -58,7 +58,7 @@ ol {
 
   li {
     display: block;
-    margin-bottom: -13px;
+    margin-top: 0.5em;
     margin-left: $li-indent;
 
     &::before {
@@ -88,7 +88,7 @@ table.text-log-table {
   }
 
   td {
-    padding: 5px 10px;
+    padding: 18px 10px;
     word-break: initial;
     white-space: pre-wrap;
     line-height: 1.13rem;
@@ -104,9 +104,13 @@ table.text-log-table {
       display: inline-block;
 
       &:not(:first-of-type) {
-        margin-top: 10px;
+        margin-top: 16px;
       }
     }
+  }
+
+  td:has(ol, li) {
+    white-space: unset;
   }
 }
 </style>
