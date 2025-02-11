@@ -52,10 +52,6 @@
       }
     }
 
-    ul {
-      list-style: unset;
-    }
-
     ol {
       list-style-type: decimal;
       list-style-position: outside;
