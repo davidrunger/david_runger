@@ -87,11 +87,13 @@ b {
 }
 
 @layer base {
-  p,
-  ul,
-  td {
-    margin: 15px auto;
-    line-height: 25px;
+  body {
+    p,
+    ul,
+    td {
+      margin: 1em auto;
+      line-height: 25px;
+    }
   }
 }
 
