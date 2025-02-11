@@ -75,7 +75,7 @@
     "globals": "^15.14.0",
     "jquery-ui": "^1.14.1",
     "jsdom": "^26.0.0",
-    "postcss": "^8.5.1",
+    "postcss": "^8.5.2",
     "postcss-html": "^1.8.0",
     "prettier": "^3.5.0",
     "sass": "^1.84.0",
