@@ -93,6 +93,21 @@ ul {
   }
 }
 
+blockquote {
+  position: relative;
+  padding-left: 20px;
+}
+
+blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.3em;
+  bottom: 1.3em;
+  width: 4px;
+  background: #bbb;
+}
+
 .el-button + .el-button {
   margin-left: 5px;
 }
