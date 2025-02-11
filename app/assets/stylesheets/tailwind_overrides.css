@@ -41,10 +41,6 @@
       display: inline;
     }
 
-    p {
-      line-height: 1.3rem;
-    }
-
     p:not(:first-of-type) {
       margin-top: 1em;
     }
