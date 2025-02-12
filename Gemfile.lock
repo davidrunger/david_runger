@@ -614,7 +614,7 @@ GEM
     runger_config (5.2.0)
       activesupport (>= 7.1.2)
     runger_email_reply_trimmer (0.3.0)
-    runger_style (4.4.1)
+    runger_style (5.0.0)
       prism (>= 0.24.0)
       rubocop (>= 1.68.0)
     sanitize (6.1.3)
@@ -1050,7 +1050,7 @@ CHECKSUMS
   runger_byebug (11.4.0) sha256=569e22ba2215f57e7f69e145fcb63be401e29fcd312f7936d813e12d0c7bbee6
   runger_config (5.2.0) sha256=9b76d767a2daa63f6f8f2c52a8183f3f09a877cd35bcaee692d25377f4dd4558
   runger_email_reply_trimmer (0.3.0) sha256=068aa90311da474065f604cf29704785bb36d511a5d5e4031fc87fef8bbd9ac7
-  runger_style (4.4.1) sha256=74104cf42a0e99b982c506ca8c494b1ea1fb5021677b4ba3042459a11e2303c1
+  runger_style (5.0.0) sha256=392ae68fae120e430f755c1806de8363dc2b187843c896fc3fad93d20abe414d
   sanitize (6.1.3) sha256=a42ce5f933d82765a8243599d5ab2e8867237e76cf5a699caaddfe60bb944152
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   shaped (0.14.0) sha256=c976615a8c1b129e61c153f1b60f03d2350627cf4a4ad0ecd3f88610e09df426
