@@ -38,7 +38,12 @@ export function renderGanttCharts(ciStepResultsSet: Array<CiStepResultsSet>) {
         },
         tooltip: [
           { field: 'name', type: 'nominal', title: 'Step' },
-          { field: 'seconds', type: 'quantitative', title: 'Seconds' },
+          {
+            field: 'seconds',
+            type: 'quantitative',
+            title: 'Seconds',
+            format: '.1f',
+          },
         ],
       },
     };
