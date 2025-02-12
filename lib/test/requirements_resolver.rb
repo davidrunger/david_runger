@@ -15,7 +15,11 @@ class Test::RequirementsResolver
         # Installation / Setup
         Test::Tasks::PnpmInstall => nil,
         Test::Tasks::BuildRouteHelpers => Test::Tasks::PnpmInstall,
-        Test::Tasks::CompileJavaScript => [
+        Test::Tasks::CompileAdminJavaScript => [
+          Test::Tasks::BuildRouteHelpers,
+          Test::Tasks::ConvertSchemasToTs,
+        ],
+        Test::Tasks::CompileUserJavaScript => [
           Test::Tasks::BuildRouteHelpers,
           Test::Tasks::ConvertSchemasToTs,
         ],
@@ -45,27 +49,36 @@ class Test::RequirementsResolver
         Test::Tasks::RunRubocop => nil,
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
-        Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileJavaScript,
+        Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileUserJavaScript,
         Test::Tasks::RunFeatureTestsA => [
           Test::Tasks::DivideFeatureSpecs,
           Test::Tasks::CreateDbCopies,
-          Test::Tasks::CompileJavaScript,
+          Test::Tasks::CompileAdminJavaScript,
+          Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
         ],
         Test::Tasks::RunFeatureTestsB => [
           Test::Tasks::DivideFeatureSpecs,
           Test::Tasks::CreateDbCopies,
-          Test::Tasks::CompileJavaScript,
+          Test::Tasks::CompileAdminJavaScript,
+          Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
           Test::Tasks::RunApiControllerTests,
         ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
-          Test::Tasks::CompileJavaScript,
+          Test::Tasks::CompileAdminJavaScript,
+          Test::Tasks::CompileUserJavaScript,
         ],
+
+        # Necessary processes.
         Test::Tasks::StopPercy => [
           Test::Tasks::RunFeatureTestsA,
           Test::Tasks::RunFeatureTestsB,
+        ],
+        Test::Tasks::UploadViteAssets => [
+          Test::Tasks::CompileAdminJavaScript,
+          Test::Tasks::CompileUserJavaScript,
         ],
 
         # Exit depends on all tasks completing that are actual checks (as opposed to setup steps)
@@ -90,6 +103,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunUnitTests,
           Test::Tasks::RunVitest,
           Test::Tasks::StopPercy,
+          Test::Tasks::UploadViteAssets,
         ],
       }
 
