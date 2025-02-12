@@ -173,7 +173,7 @@ class Test::Tasks::Exit < Pallets::Task
 
   def sorted_job_results
     job_results.sort_by do |_task_name, result_hash|
-      [result_hash[:exit_code], result_hash[:run_time]]
+      [result_hash.fetch(:exit_code), result_hash.fetch(:run_time)]
     end
   end
 
