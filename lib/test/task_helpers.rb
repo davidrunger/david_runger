@@ -37,6 +37,22 @@ module Test::TaskHelpers
     status.success?
   end
 
+  def execute_detached_system_command(command)
+    puts(<<~LOG.squish)
+      Running system command '#{AmazingPrint::Colors.yellow(command)}'
+      and detaching the process ...
+    LOG
+
+    pid = Process.spawn(command, pgroup: true)
+    Process.detach(pid)
+
+    update_job_result_exit_code(0)
+
+    puts(<<~LOG.squish)
+      '#{AmazingPrint::Colors.green(command)}' was spawned and detached.
+    LOG
+  end
+
   def execute_rspec_command(command, env_vars = {})
     command = command.squish
     puts(<<~LOG.squish)
