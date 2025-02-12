@@ -15,7 +15,10 @@ class Test::RequirementsResolver
         # Installation / Setup
         Test::Tasks::PnpmInstall => nil,
         Test::Tasks::BuildRouteHelpers => Test::Tasks::PnpmInstall,
-        Test::Tasks::CompileJavaScript => Test::Tasks::BuildRouteHelpers,
+        Test::Tasks::CompileJavaScript => [
+          Test::Tasks::BuildRouteHelpers,
+          Test::Tasks::ConvertSchemasToTs,
+        ],
         Test::Tasks::SetupDb => nil,
         Test::Tasks::BuildFixtures => Test::Tasks::SetupDb,
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
