@@ -9,7 +9,10 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
     # Iff using Percy, sleep to allow skill SVGs to render, for consistent screenshots.
     if ENV.fetch('PERCY_BUILD_ID', nil).present?
-      sleep(1)
+      puts('PERCY_BUILD_ID WAS PRESENT!')
+      sleep(2)
+    else
+      puts('PERCY_BUILD_ID WAS NOT PRESENT!')
     end
 
     page.percy_snapshot('Homepage')
