@@ -11,6 +11,10 @@ class Test::Tasks::ConvertSchemasToTs < Pallets::Task
     else
       # Reset the git state, so it's clean for other test tasks.
       execute_system_command('git checkout .')
+
+      record_failure_and_log_message(<<~LOG)
+        There was a git diff after converting JSON schemas to types.
+      LOG
     end
   end
 end
