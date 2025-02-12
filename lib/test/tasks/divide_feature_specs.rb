@@ -15,6 +15,8 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
         File.write("tmp/feature_specs_#{letter}.txt", array.join(' '))
       end
 
-    record_success_and_log_message('Divided feature specs randomly into three groups.')
+    record_success_and_log_message(<<~LOG)
+      Divided feature specs randomly into #{NUM_FEATURE_SPEC_GROUPS} groups.
+    LOG
   end
 end
