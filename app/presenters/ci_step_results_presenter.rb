@@ -48,7 +48,8 @@ class CiStepResultsPresenter
         JSON_BUILD_OBJECT(
           'name', ci_step_results.name,
           'started_at', ci_step_results.started_at,
-          'stopped_at', ci_step_results.stopped_at
+          'stopped_at', ci_step_results.stopped_at,
+          'seconds', ci_step_results.seconds
         ) ORDER BY ci_step_results.started_at
       ) AS run_times
     SQL

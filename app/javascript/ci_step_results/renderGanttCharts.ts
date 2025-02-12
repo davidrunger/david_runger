@@ -36,7 +36,15 @@ export function renderGanttCharts(ciStepResultsSet: Array<CiStepResultsSet>) {
           type: 'nominal',
           legend: null,
         },
-        tooltip: [{ field: 'name', type: 'nominal', title: 'Step' }],
+        tooltip: [
+          { field: 'name', type: 'nominal', title: 'Step' },
+          {
+            field: 'seconds',
+            type: 'quantitative',
+            title: 'Seconds',
+            format: '.1f',
+          },
+        ],
       },
     };
 

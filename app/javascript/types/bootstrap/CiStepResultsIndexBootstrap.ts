@@ -91,9 +91,12 @@ const schema = {
         "stopped_at": {
           "type": "string",
           "format": "date-time"
+        },
+        "seconds": {
+          "type": "number"
         }
       },
-      "required": ["name", "started_at", "stopped_at"],
+      "required": ["name", "seconds", "started_at", "stopped_at"],
       "title": "RunTime"
     }
   }
