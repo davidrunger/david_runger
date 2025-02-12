@@ -4,7 +4,7 @@ require_relative 'middleware/task_result_tracking_middleware.rb'
 require_relative 'runner.rb'
 
 Pallets.configure do |c|
-  concurrency = Integer(ENV.fetch('PALLETS_CONCURRENCY', 3))
+  concurrency = Integer(ENV.fetch('PALLETS_CONCURRENCY', 4))
   puts("Pallets concurrency: #{concurrency}")
 
   c.concurrency = concurrency
