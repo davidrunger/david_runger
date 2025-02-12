@@ -13,9 +13,10 @@ require 'simplecov'
 SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
 SimpleCov.start do
   db_suffix = ENV.fetch('DB_SUFFIX', nil)
+  capybara_server_port = ENV.fetch('CAPYBARA_SERVER_PORT', nil)
   # rubocop:disable Rails/Present (At this point, we have not yet loaded Rails.)
   if !db_suffix.nil? && !db_suffix.empty?
-    command_name("#{db_suffix.delete_prefix('_').capitalize} Tests")
+    command_name("Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect}")
   end
   # rubocop:enable Rails/Present
   add_filter(%r{^/spec/})
@@ -90,9 +91,10 @@ Capybara.javascript_driver = Cuprite::CustomDrivers::DOMAIN_RESTRICTED_CUPRITE
 Capybara.asset_host = 'http://localhost:3000'
 Capybara.server = :puma, { Silent: true }
 Capybara.default_normalize_ws = true
-# this matches setting in config/environments/test.rb
-Capybara.server_port = 3001
-Capybara.app_host = 'http://localhost:3001'
+# This port matches a config in config/environments/test.rb.
+capybara_port = Integer(ENV.fetch('CAPYBARA_SERVER_PORT', 3001))
+Capybara.server_port = capybara_port
+Capybara.app_host = "http://localhost:#{capybara_port}"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
