@@ -9,7 +9,18 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
     # Iff using Percy, sleep to allow skill SVGs to render, for consistent screenshots.
     if ENV.fetch('PERCY_TOKEN', nil).present?
-      sleep(0.5)
+      wait_for do
+        # Check that every skill row SVG container has an SVG
+        # and that every SVG has a positive width and height.
+        page.evaluate_script(<<~JS)
+          (document.querySelectorAll('.skills .svg-container').length ===
+            document.querySelectorAll('.skills .svg-container svg').length) &&
+            [...document.querySelectorAll('.skills .svg-container svg')].every(svg => {
+              const bbox = svg.getBBox();
+              return bbox.width > 0 && bbox.height > 0;
+            })
+        JS
+      end.to eq(true)
     end
 
     page.percy_snapshot('Homepage')
