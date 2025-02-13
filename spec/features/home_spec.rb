@@ -7,7 +7,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
       Full stack web developer
     HEADLINE
 
-    # Iff using Percy, sleep to allow skill SVGs to render, for consistent screenshots.
+    # Iff using Percy, wait for skill SVGs to render, for consistent screenshots.
     if ENV.fetch('PERCY_TOKEN', nil).present?
       wait_for do
         # Check that every skill row SVG container has an SVG
