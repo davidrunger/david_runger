@@ -24,10 +24,7 @@ class JsonSchemaValidator
 
       raise(
         NonconformingData,
-        <<~ERROR_MESSAGE,
-          Violation of #{relative_schema_path} : #{schema_validation_errors}.
-          The JSON has been copied to your clipboard.
-        ERROR_MESSAGE
+        "Violation of #{relative_schema_path} : #{schema_validation_errors}.",
       )
     else
       @data
