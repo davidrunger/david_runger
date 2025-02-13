@@ -4,7 +4,7 @@ module PrerenderUtils
       "prerendered-pages:#{git_rev}:#{filename}"
     end
 
-    def transformed_s3_content(git_rev, filename)
+    def transformed_s3_content(git_rev:, filename:)
       Aws::S3::Resource.new(region: 'us-east-1').
         bucket('david-runger-uploads').
         object("prerenders/#{git_rev}/#{filename}").

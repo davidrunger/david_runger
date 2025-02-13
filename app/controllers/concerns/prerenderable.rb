@@ -39,7 +39,7 @@ module Prerenderable
       expires_in: 1.day,
       skip_nil: true,
     ) do
-      PrerenderUtils.transformed_s3_content(git_rev, filename)
+      PrerenderUtils.transformed_s3_content(git_rev:, filename:)
     end ||
       Rails.cache.read(
         PrerenderUtils.cache_key(git_rev: 'deploy-fallback', filename:),
