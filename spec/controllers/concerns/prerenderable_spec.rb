@@ -30,8 +30,8 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
 
       let(:commit_sha) { Digest::SHA1.hexdigest(rand(1_000_000).to_s) }
 
-      context 'when S3 responds with prerendered page content' do
-        let(:page_text) { 'Great page text!' }
+      context 'when S3 responds with prerendered page content including the expected text' do
+        let(:page_text) { "Some text. #{EXPECTED_CONTENT} More text!" }
 
         before do
           stub_request(
