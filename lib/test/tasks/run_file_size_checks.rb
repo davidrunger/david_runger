@@ -19,7 +19,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'groceries*.js' => (441..451),
     'home*.css' => (0..10),
     'home*.js' => (229..239),
-    'logs*.css' => (95..105),
+    'logs*.css' => (102..112),
     'logs*.js' => (809..819),
     'quizzes*.js' => (123..133),
     'styles*.css' => (26..36),

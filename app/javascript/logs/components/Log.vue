@@ -17,7 +17,12 @@ div
       :log='log'
     )
     .mt-2(v-if='showDeleteLastEntryButton')
-      el-button(@click='destroyLastEntry') Delete last entry
+      el-popconfirm(
+          title="Delete the last log entry?"
+          @confirm="destroyLastEntry"
+        )
+          template(#reference)
+            el-button Delete last entry
     .mt-2
       a.download-link(
         :href='download_log_path(log.slug)'
@@ -50,6 +55,7 @@ div
 
 <script setup lang="ts">
 import { useTitle } from '@vueuse/core';
+import { ElPopconfirm } from 'element-plus';
 import Cookies from 'js-cookie';
 import { storeToRefs } from 'pinia';
 import { computed, h } from 'vue';
@@ -102,13 +108,7 @@ const showDeleteLastEntryButton = computed((): boolean => {
 });
 
 function destroyLastEntry() {
-  const confirmation = window.confirm(
-    `Are you sure that you want to delete the last entry from the ${log.name} log?`,
-  );
-
-  if (confirmation === true) {
-    logsStore.deleteLastLogEntry({ log });
-  }
+  logsStore.deleteLastLogEntry({ log });
 }
 
 function destroyLog() {
