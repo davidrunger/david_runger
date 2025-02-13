@@ -77,3 +77,28 @@ if Rails.env.production?
     )
   end
 end
+
+runner.run_task('Caching temporary fallback for prerendered home page') do
+  outgoing_git_sha = ENV.fetch('OUTGOING_GIT_SHA', nil)
+
+  if outgoing_git_sha.present?
+    filename = 'home.html'
+
+    outgoing_cached_value =
+      Rails.cache.read(
+        PrerenderUtils.cache_key(git_rev: outgoing_git_sha, filename:),
+      ) || PrerenderUtils.transformed_s3_content(git_rev: outgoing_git_sha, filename:)
+
+    if outgoing_cached_value.present?
+      Rails.cache.write(
+        PrerenderUtils.cache_key(git_rev: 'deploy-fallback', filename:),
+        outgoing_cached_value,
+        expires_in: 5.minutes,
+      )
+    else
+      print('could not find an outgoing cached value... ')
+    end
+  else
+    print('could not find an outgoing git sha... ')
+  end
+end
