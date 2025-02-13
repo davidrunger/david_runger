@@ -21,10 +21,14 @@ class JsonSchemaValidator
         schema_validation_errors.present?
     )
       copy_data_to_clipboard
+      system('open https://jsonformatter.org/json-to-jsonschema', exception: true)
 
       raise(
         NonconformingData,
-        "Violation of #{relative_schema_path} : #{schema_validation_errors}",
+        <<~ERROR_MESSAGE,
+          Violation of #{relative_schema_path} : #{schema_validation_errors}.
+          The JSON has been copied to your clipboard.
+        ERROR_MESSAGE
       )
     else
       @data
