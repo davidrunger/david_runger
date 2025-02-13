@@ -66,11 +66,9 @@ HomeSection(section='projects' title='Projects')
 
         li.
 
-          The excellent
-
           #[a(href='https://vite-ruby.netlify.app/guide/rails.html') Vite Rails]
 
-          gem provides sub-second hot module replacement (HMR) in development,
+          provides sub-second hot module replacement (HMR) in development,
           and compiles the application's TypeScript and CSS for production.
 
         li.
