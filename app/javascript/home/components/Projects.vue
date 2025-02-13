@@ -34,7 +34,7 @@ HomeSection(section='projects' title='Projects')
 
         li.
           #[a(:href='logs_path()') Logs]* -
-          Track whatever you want with various log types (text, number, duration, and/or counter).
+          Track anything you like using various log types: text, number, duration, or counter.
 
         li.
           #[a(:href='quizzes_path()') Quizzes]* -
