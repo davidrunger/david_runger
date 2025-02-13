@@ -20,7 +20,7 @@ class JsonSchemaValidator
         !(universal_bootstrap_data? && !schema_file_exists?) &&
         schema_validation_errors.present?
     )
-      copy_data_to_clipboard_and_open_schema_converter
+      copy_data_to_clipboard_and_open_schema_converter_if_development
 
       raise(
         NonconformingData,
@@ -54,7 +54,7 @@ class JsonSchemaValidator
     if Rails.env.development?
       # :nocov:
       create_and_open_schema_file_in_editor
-      copy_data_to_clipboard_and_open_schema_converter
+      copy_data_to_clipboard_and_open_schema_converter_if_development
       # :nocov:
     end
 
@@ -105,7 +105,7 @@ class JsonSchemaValidator
     # :nocov:
   end
 
-  def copy_data_to_clipboard_and_open_schema_converter
+  def copy_data_to_clipboard_and_open_schema_converter_if_development
     if Rails.env.development?
       # :nocov:
       string_to_copy =
