@@ -79,6 +79,9 @@ class Test::RequirementsResolver
         Test::Tasks::UploadViteAssets => [
           Test::Tasks::CompileAdminJavaScript,
           Test::Tasks::CompileUserJavaScript,
+          # UploadViteAssets doesn't really depend on RunHtmlControllerTests,
+          # but it's better for the timing of steps if it waits until after it.
+          Test::Tasks::RunHtmlControllerTests,
         ],
 
         # Exit depends on all tasks completing that are actual checks (as opposed to setup steps)
