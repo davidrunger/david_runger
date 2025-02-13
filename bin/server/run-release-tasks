@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+# Find currently deployed and running (but soon to be outgoing) Git sha.
+OUTGOING_GIT_SHA=$(docker compose exec web printenv GIT_REV)
+
+# Run release tasks.
+docker compose run --rm -e OUTGOING_GIT_SHA="$OUTGOING_GIT_SHA" web bin/server/release-tasks

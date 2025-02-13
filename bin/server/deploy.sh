@@ -25,7 +25,7 @@ bin/server/install.sh
 bin/build-docker production
 
 # Run release tasks.
-docker compose run --rm web bin/server/release-tasks
+bin/server/run-release-tasks
 
 # Copy fully built out public/ directory from web to nginx via app-public volume.
 docker run --rm \
