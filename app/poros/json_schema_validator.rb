@@ -20,11 +20,11 @@ class JsonSchemaValidator
         !(universal_bootstrap_data? && !schema_file_exists?) &&
         schema_validation_errors.present?
     )
-      copy_data_to_clipboard
+      copy_data_to_clipboard_and_open_schema_converter_if_development
 
       raise(
         NonconformingData,
-        "Violation of #{relative_schema_path} : #{schema_validation_errors}",
+        "Violation of #{relative_schema_path} : #{schema_validation_errors}.",
       )
     else
       @data
@@ -51,7 +51,7 @@ class JsonSchemaValidator
     if Rails.env.development?
       # :nocov:
       create_and_open_schema_file_in_editor
-      copy_data_to_clipboard
+      copy_data_to_clipboard_and_open_schema_converter_if_development
       # :nocov:
     end
 
@@ -102,7 +102,7 @@ class JsonSchemaValidator
     # :nocov:
   end
 
-  def copy_data_to_clipboard
+  def copy_data_to_clipboard_and_open_schema_converter_if_development
     if Rails.env.development?
       # :nocov:
       string_to_copy =
@@ -117,6 +117,8 @@ class JsonSchemaValidator
 
         puts('Copied JSON to clipboard.'.yellow)
       end
+
+      system('open https://jsonformatter.org/json-to-jsonschema', exception: true)
       # :nocov:
     end
   end
