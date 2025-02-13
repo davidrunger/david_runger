@@ -2,9 +2,10 @@ module Prerenderable
   extend ActiveSupport::Concern
 
   def serve_prerender_with_fallback(filename:, expected_content:, &fallback)
-    prerendered_html = prerendered_html(filename)
-
-    if prerendered_html
+    if params.key?('prerender')
+      Rails.logger.info('Skipping prerendered content because a prerender param is present.')
+      instance_eval(&fallback)
+    elsif (prerendered_html = prerendered_html(filename))
       if prerendered_html.include?(expected_content)
         # rubocop:disable Rails/OutputSafety
         render(
