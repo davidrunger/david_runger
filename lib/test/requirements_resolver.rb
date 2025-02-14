@@ -28,6 +28,11 @@ class Test::RequirementsResolver
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
         Test::Tasks::DivideFeatureSpecs => nil,
         Test::Tasks::StartPercy => Test::Tasks::PnpmInstall,
+        # WaitForPercyStart doesn't really need the JS assets, but for timing we'll wait 'til then.
+        Test::Tasks::WaitForPercyStart => [
+          Test::Tasks::CompileAdminJavaScript,
+          Test::Tasks::CompileUserJavaScript,
+        ],
 
         # Checks
         Test::Tasks::CheckVersions => nil,
@@ -57,6 +62,7 @@ class Test::RequirementsResolver
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
           Test::Tasks::RunUnitTests,
+          Test::Tasks::WaitForPercyStart,
         ],
         Test::Tasks::RunFeatureTestsB => [
           Test::Tasks::DivideFeatureSpecs,
@@ -65,6 +71,7 @@ class Test::RequirementsResolver
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
           Test::Tasks::RunApiControllerTests,
+          Test::Tasks::WaitForPercyStart,
         ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
