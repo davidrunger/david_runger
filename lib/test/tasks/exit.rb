@@ -38,7 +38,7 @@ class Test::Tasks::Exit < Pallets::Task
         pp(error)
       end
     else
-      puts('ci_step_results_host is not present; not sending results.')
+      puts('CI_STEP_RESULTS_HOST is not present; not sending results.')
     end
   end
 
