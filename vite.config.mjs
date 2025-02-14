@@ -8,6 +8,17 @@ import FullReload from 'vite-plugin-full-reload';
 import RubyPlugin from 'vite-plugin-ruby';
 
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      maxParallelFileOps:
+        (
+          process.env.CI &&
+          process.env.VITE_RUBY_PUBLIC_OUTPUT_DIR == 'vite-admin'
+        ) ?
+          1
+        : 4,
+    },
+  },
   // https://github.com/vitejs/vite/issues/ 18164#issuecomment-2365310242
   css: {
     preprocessorOptions: {
