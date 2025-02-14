@@ -28,10 +28,10 @@ class Test::RequirementsResolver
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
         Test::Tasks::DivideFeatureSpecs => nil,
         Test::Tasks::StartPercy => Test::Tasks::PnpmInstall,
-        # WaitForPercyStart doesn't really need the JS assets, but for timing we'll wait 'til then.
+        # WaitForPercyStart doesn't really need these, but for timing we'll wait 'til they're done.
         Test::Tasks::WaitForPercyStart => [
-          Test::Tasks::CompileAdminJavaScript,
-          Test::Tasks::CompileUserJavaScript,
+          Test::Tasks::RunApiControllerTests,
+          Test::Tasks::RunUnitTests,
         ],
 
         # Checks
