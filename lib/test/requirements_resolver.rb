@@ -91,6 +91,7 @@ class Test::RequirementsResolver
         Test::Tasks::StopPercy => [
           Test::Tasks::RunFeatureTestsA,
           Test::Tasks::RunFeatureTestsB,
+          Test::Tasks::RunFeatureTestsC,
         ],
         Test::Tasks::UploadViteAssets => [
           Test::Tasks::CompileAdminJavaScript,
