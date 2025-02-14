@@ -2,6 +2,8 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
   include Test::TaskHelpers
 
   def run
+    # The commands below will error if there are any active connections to the
+    # database, so disconnect.
     ActiveRecord::Base.connection_pool.connections.each(&:disconnect!)
 
     %w[unit api html].each do |db_suffix|
