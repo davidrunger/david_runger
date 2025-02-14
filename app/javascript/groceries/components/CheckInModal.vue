@@ -44,6 +44,7 @@ Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
 </template>
 
 <script setup lang="ts">
+import { ElButton } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { TYPE } from 'vue-toastification';

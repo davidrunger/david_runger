@@ -52,6 +52,7 @@ form
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElInput } from 'element-plus';
 import { storeToRefs } from 'pinia';
 
 import { useWorkoutsStore } from '@/workout/store';

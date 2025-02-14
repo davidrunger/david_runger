@@ -38,6 +38,7 @@ Modal(name='edit-log-reminder-schedule' width='85%' maxWidth='600px' backgroundC
 </template>
 
 <script setup lang="ts">
+import { ElButton } from 'element-plus';
 import { computed, ref, type PropType } from 'vue';
 
 import { toast } from '@/lib/toasts';

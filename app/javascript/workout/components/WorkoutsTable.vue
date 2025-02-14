@@ -22,6 +22,7 @@ div(v-else) None
 </template>
 
 <script setup lang="ts">
+import { ElCheckbox } from 'element-plus';
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
 import { computed, type PropType } from 'vue';

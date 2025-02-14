@@ -29,6 +29,7 @@ Modal(:name='modalName' width='85%', maxWidth='400px')
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElCheckbox } from 'element-plus';
 import { ref } from 'vue';
 
 import { toast } from '@/lib/toasts';

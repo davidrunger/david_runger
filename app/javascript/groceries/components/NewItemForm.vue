@@ -17,6 +17,7 @@ form.flex(v-if='store.own_store' @submit.prevent='postNewItem')
 <script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
+import { ElButton, ElInput } from 'element-plus';
 import { reactive, type PropType } from 'vue';
 
 import { useGroceriesStore } from '@/groceries/store';

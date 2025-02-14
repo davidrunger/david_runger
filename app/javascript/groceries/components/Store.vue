@@ -4,7 +4,7 @@
 
   el-button.mr-2.mt-2(
     @click='initializeTripCheckIn'
-    :size='isMobileDevice() ? "small" : null'
+    :size='isMobileDevice() ? "small" : "default"'
   ) Check in items
 
   StoreNotes(:store="store")
@@ -29,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton } from 'element-plus';
 import { computed, type PropType } from 'vue';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';

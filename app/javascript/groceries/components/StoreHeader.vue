@@ -18,6 +18,7 @@ h2.store-name.my-4
 </template>
 
 <script setup lang="ts">
+import { ElButton } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
