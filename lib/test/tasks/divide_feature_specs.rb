@@ -1,7 +1,7 @@
 class Test::Tasks::DivideFeatureSpecs < Pallets::Task
   include Test::TaskHelpers
 
-  NUM_FEATURE_SPEC_GROUPS = 2
+  NUM_FEATURE_SPEC_GROUPS = 3
 
   def run
     puts("#{AmazingPrint::Colors.yellow('Dividing feature specs')}...")
@@ -11,7 +11,7 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
       group_by.with_index { |_file, index| index % NUM_FEATURE_SPEC_GROUPS }.
       values.
       each_with_index do |array, index|
-        letter = ('a'..'b').to_a.fetch(index)
+        letter = ('a'..'c').to_a.fetch(index)
         File.write("tmp/feature_specs_#{letter}.txt", array.join(' '))
       end
 
