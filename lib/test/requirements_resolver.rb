@@ -56,6 +56,7 @@ class Test::RequirementsResolver
           Test::Tasks::CompileAdminJavaScript,
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
+          Test::Tasks::RunUnitTests,
         ],
         Test::Tasks::RunFeatureTestsB => [
           Test::Tasks::DivideFeatureSpecs,
