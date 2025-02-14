@@ -9,12 +9,12 @@ class Test::Tasks::WaitForPercyStart < Pallets::Task
 
       num_attempts.times do |index|
         if system('./node_modules/.bin/percy exec:ping')
-          record_success_and_log_message("Percy is running after #{index + 1} checks.")
+          record_success_and_log_message("Percy is running after #{index + 1} check(s).")
 
           break
         elsif index == num_attempts - 1
           record_failure_and_log_message(<<~LOG)
-            Percy is still not running after #{index + 1} attempts.
+            Percy is still not running after #{index + 1} attempt(s).
           LOG
         end
       end
