@@ -76,6 +76,7 @@ const props = defineProps({
 
 const chartOptions = {
   responsive: true,
+  maintainAspectRatio: false,
   scales: {
     x: merge({}, commonAxisOptions, {
       offset: true,
