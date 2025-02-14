@@ -20,16 +20,20 @@ tr
         link
         type='primary'
       ) Edit
-      el-button(
-        @click='destroyLogEntry'
-        link
-        type='danger'
-      ) Delete
+      el-popconfirm(
+        title="Delete this log entry?"
+        @confirm="destroyLogEntry"
+      )
+        template(#reference)
+          el-button(
+            link
+            type='danger'
+          ) Delete
 </template>
 
 <script setup lang="ts">
 import createDOMPurify from 'dompurify';
-import { ElInput } from 'element-plus';
+import { ElInput, ElPopconfirm } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
 import { computed, ref, watch, type PropType } from 'vue';

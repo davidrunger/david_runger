@@ -17,7 +17,7 @@ RSpec.describe 'Logs app' do
         let(:shared_by_text) { "shared by #{user.email}" }
         let(:log_control_text_fragments) do
           [
-            'Delete last entry',
+            delete_last_entry_text,
             'Sharing settings',
             'Reminder settings',
             'Delete log',
@@ -84,10 +84,20 @@ RSpec.describe 'Logs app' do
       context 'when the number log has at least one entry' do
         before { expect(number_log.log_entries).to exist }
 
-        it 'shows a button to delete the most recent entry' do
+        it 'allows the user to delete the most recent entry' do
           visit(log_path(slug: number_log.slug))
 
-          expect(page).to have_button(delete_last_entry_text)
+          most_recent_log_entry =
+            number_log.log_entries.reorder(:created_at).last!
+
+          expect {
+            click_on(delete_last_entry_text)
+            within('.el-popconfirm') do
+              click_on('Yes')
+            end
+          }.to change {
+            LogEntry.find_by(id: most_recent_log_entry.id)
+          }.from(LogEntry).to(nil)
         end
       end
     end
@@ -139,9 +149,14 @@ RSpec.describe 'Logs app' do
             /#{second_log_entry_text}#{added_edit_text}.*#{first_log_entry_text}/,
           )
 
+          # Make sure that we don't have a "Delete last entry button" (which is for graph logs).
           expect(page).not_to have_text(delete_last_entry_text)
+
           # Click the delete button for the oldest text log entry.
           page.find_all('button', text: /\ADelete\z/)[1].click
+          within('.el-popconfirm') do
+            click_on('Yes')
+          end
           expect(page).not_to have_text(first_log_entry_text)
         end
       end

@@ -1,4 +1,6 @@
 class LogsController < ApplicationController
+  self.html_classes = %w[dark]
+
   skip_before_action(
     :authenticate_user!,
     if: -> { action_name == 'index' && shared_log&.publicly_viewable? },

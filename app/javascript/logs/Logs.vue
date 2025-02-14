@@ -22,6 +22,8 @@ import { useModalStore } from '@/shared/modal/store';
 import LogSelectorModal from './components/LogSelectorModal.vue';
 import type { Bootstrap } from './types';
 
+import 'element-plus/theme-chalk/dark/css-vars.css';
+
 const bootstrap = untypedBootstrap as Bootstrap;
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
