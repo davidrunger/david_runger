@@ -19,6 +19,8 @@ Modal(name='manage-check-in-stores' width='80%' maxWidth='370px')
 </template>
 
 <script setup lang="ts">
+import { ElButton } from 'element-plus';
+
 import { useGroceriesStore } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
 

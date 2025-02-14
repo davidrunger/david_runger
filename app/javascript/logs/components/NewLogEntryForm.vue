@@ -42,7 +42,7 @@ div
 <script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-import { ElInput } from 'element-plus';
+import { ElButton, ElDatePicker, ElInput } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
@@ -64,7 +64,7 @@ const vuelidateRules = {
 };
 
 const formData = reactive({
-  newLogEntryCreatedAt: null as null | string,
+  newLogEntryCreatedAt: '',
   newLogEntryData: null as null | LogEntryDataValue,
   newLogEntryNote: null as null | string,
 });
@@ -143,7 +143,7 @@ async function postNewLogEntry(newLogEntryData: LogEntryDataValue | null) {
     newLogEntryNote: formData.newLogEntryNote,
   });
 
-  formData.newLogEntryCreatedAt = null;
+  formData.newLogEntryCreatedAt = '';
   formData.newLogEntryData = null;
   formData.newLogEntryNote = null;
 }

@@ -24,6 +24,7 @@ div.mb-2
 </template>
 
 <script setup lang="ts">
+import { ElInput } from 'element-plus';
 import { ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 

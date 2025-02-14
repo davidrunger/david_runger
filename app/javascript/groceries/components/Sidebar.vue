@@ -46,6 +46,7 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
 <script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
+import { ElButton, ElInput } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { computed, reactive, ref } from 'vue';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';

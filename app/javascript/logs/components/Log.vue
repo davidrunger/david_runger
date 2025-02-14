@@ -55,7 +55,7 @@ div
 
 <script setup lang="ts">
 import { useTitle } from '@vueuse/core';
-import { ElPopconfirm } from 'element-plus';
+import { ElButton, ElPopconfirm } from 'element-plus';
 import Cookies from 'js-cookie';
 import { storeToRefs } from 'pinia';
 import { computed, h } from 'vue';

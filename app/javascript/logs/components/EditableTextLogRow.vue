@@ -33,7 +33,7 @@ tr
 
 <script setup lang="ts">
 import createDOMPurify from 'dompurify';
-import { ElInput, ElPopconfirm } from 'element-plus';
+import { ElButton, ElInput, ElPopconfirm } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
 import { computed, ref, watch, type PropType } from 'vue';

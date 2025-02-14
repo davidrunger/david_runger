@@ -41,6 +41,7 @@ div
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElInput, ElOption, ElSelect } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';

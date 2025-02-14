@@ -36,7 +36,13 @@ Modal(name='edit-log-sharing-settings' width='85%' maxWidth='600px' backgroundCl
 </template>
 
 <script setup lang="ts">
-import { ElInput } from 'element-plus';
+import {
+  ElButton,
+  ElCheckbox,
+  ElInput,
+  ElTag,
+  type CheckboxValueType,
+} from 'element-plus';
 import { computed, nextTick, ref } from 'vue';
 
 import { bootstrap } from '@/lib/bootstrap';
@@ -99,11 +105,15 @@ function handleLogShareCreation() {
   inputValue.value = '';
 }
 
-function savePubliclyViewableChange(newPubliclyViewableState: boolean) {
-  logsStore.updateLog({
-    logId: log.id,
-    updatedLogParams: { publicly_viewable: newPubliclyViewableState },
-  });
+function savePubliclyViewableChange(
+  newPubliclyViewableState: CheckboxValueType,
+) {
+  if (typeof newPubliclyViewableState === 'boolean') {
+    logsStore.updateLog({
+      logId: log.id,
+      updatedLogParams: { publicly_viewable: newPubliclyViewableState },
+    });
+  }
 }
 
 function showInput() {

@@ -15,6 +15,7 @@ div
 </template>
 
 <script setup lang="ts">
+import { ElButton } from 'element-plus';
 import { sortBy } from 'lodash-es';
 import { computed, ref, type PropType } from 'vue';
 

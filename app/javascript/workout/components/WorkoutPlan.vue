@@ -68,6 +68,7 @@
 <script setup lang="ts">
 import { useWakeLock } from '@vueuse/core';
 import { Timer } from 'easytimer.js';
+import { ElSwitch } from 'element-plus';
 import { cloneDeep } from 'lodash-es';
 import { computed, onBeforeMount, reactive, ref, type PropType } from 'vue';
 

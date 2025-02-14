@@ -13,6 +13,8 @@ el-menu
 </template>
 
 <script setup lang="ts">
+import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
+
 import type { Bootstrap } from '@/groceries/types';
 import { bootstrap } from '@/lib/bootstrap';
 import { signOut } from '@/lib/sign_out';

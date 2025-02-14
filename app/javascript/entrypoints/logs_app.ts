@@ -5,7 +5,6 @@ import Modal from '@/components/Modal.vue';
 import LogApp from '@/logs/Logs.vue';
 import router from '@/logs/router';
 import { renderApp } from '@/shared/customized_vue';
-import { useElementPlus } from '@/shared/element_plus';
 
 const app = renderApp(LogApp);
 
@@ -16,7 +15,5 @@ pinia.use(({ store }) => {
 app.use(pinia);
 
 app.component('Modal', Modal);
-
-useElementPlus(app);
 
 app.use(router);
