@@ -11,10 +11,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       maxParallelFileOps:
-        process.env.CI ?
-          process.env.VITE_RUBY_PUBLIC_OUTPUT_DIR == 'vite-admin' ?
-            1
-          : 2
+        (
+          process.env.CI &&
+          process.env.VITE_RUBY_PUBLIC_OUTPUT_DIR == 'vite-admin'
+        ) ?
+          1
         : 4,
     },
   },
