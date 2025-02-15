@@ -1,6 +1,7 @@
 RSpec.configure do |config|
   config.before(:all, type: :feature) do
     tmp_dir = Dir.mktmpdir
+    puts(%(tmp_dir: #{tmp_dir}))
     @capybara_downloads_tmp_dir = tmp_dir
     Capybara.save_path = tmp_dir
   end
@@ -10,6 +11,7 @@ module Features::DownloadHelpers
   private
 
   def downloaded_file_path(relative_glob_pattern, max_attempts: 100, sleep_seconds: 0.05)
+    puts(%(page.driver.browser.options.instance_variable_get(:@options)[:save_path]: #{page.driver.browser.options.instance_variable_get(:@options)[:save_path]}))
     absolute_glob_pattern = File.join(@capybara_downloads_tmp_dir, relative_glob_pattern)
 
     max_attempts.times do |index|
