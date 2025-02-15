@@ -12,7 +12,7 @@ RSpec.describe 'Groceries app' do
       it 'allows adding an item, deleting an item, undoing the deletion, and checking in a shopping trip' do
         visit groceries_path
 
-        store = user.stores.reorder(viewed_at: :desc).first!
+        store = user.stores.reorder(:viewed_at).last!
         expect(page).to have_text(store.name)
         expect(page).to have_button('Check in items')
 
@@ -23,23 +23,23 @@ RSpec.describe 'Groceries app' do
         # NOTE: When running specs with the development vite server, the
         # following line triggers two warnings, which I'm pretty sure are caused
         # by a bug in cuprite (namely that focus and blur events are of type
-        # `Event` rather than `FocusEvent`).
+        # Event rather than FocusEvent). github.com/rubycdp/cuprite/pull/ 272
         fill_in('newItemName', with: new_item_name)
         first('.store-container button', text: 'Add').click
 
         expect(page).not_to have_spinner
         expect(find(:fillable_field, 'newItemName').value).to eq('')
+        # The add-new-item button should be disabled, now that it has no value (so it's not valid).
         within(find('.item-name-input').ancestor('form')) do
           expect(find(:link_or_button, 'Add', disabled: true)).to be_disabled
         end
 
-        sleep(0.5)
-        # verify that the item is listed only once
+        # Verify that the item is listed only once.
         expect(page.body.scan(new_item_name).size).to eq(1)
 
         page.percy_snapshot('Groceries')
 
-        # Confirm expected item is on list.
+        # Confirm expected item is in list.
         expect(page).to have_css('.grocery-item', text: unneeded_item.name)
 
         # Delete the item.
@@ -104,6 +104,8 @@ RSpec.describe 'Groceries app' do
 
         expect(page).to have_vue_toast('Check-in successful!')
         expect_needed(new_item_name, 0)
+        # Check that the needed count for the skipped item is still positive.
+        expect(needed_item.needed).to be > 0
       end
     end
 

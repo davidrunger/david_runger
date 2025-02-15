@@ -14,7 +14,7 @@ RSpec.describe 'Vue Playground' do
   context 'when logged in as a mere User' do
     before { sign_in(users(:user)) }
 
-    it 'redirects to the root path', :prerendering_disabled do
+    it 'redirects to the root path', :prerendering_disabled, :rack_test_driver do
       visit_vue_playground_path
 
       expect(page).to have_current_path(new_admin_user_session_path)
@@ -24,7 +24,7 @@ RSpec.describe 'Vue Playground' do
   context 'when not logged in' do
     before { Devise.sign_out_all_scopes }
 
-    it 'redirects to the root path', :prerendering_disabled do
+    it 'redirects to the root path', :prerendering_disabled, :rack_test_driver do
       visit_vue_playground_path
 
       expect(page).to have_current_path(new_admin_user_session_path)

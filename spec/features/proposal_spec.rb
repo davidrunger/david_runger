@@ -33,17 +33,17 @@ RSpec.describe 'proposing marriage to another user' do
             activate_feature!(:disable_fetch_ip_info_for_request_worker)
             num_emails_before = ActionMailer::Base.deliveries.size
             click_on('Submit')
+
+            expect(page).to have_flash_message('Invitation sent.')
+
             wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 1)
           end
-
-          expect(page).to have_flash_message('Invitation sent.')
 
           # log in proposee and accept the proposal
           Capybara.using_session('proposee') do
             wait_for do
               sign_in(proposee)
-              visit(logs_path)
-              page.has_text?(proposee.email)
+              sign_in_confirmed_via_my_account?(proposee)
             end.to eq(true)
 
             open_email(proposee.email)
@@ -59,7 +59,7 @@ RSpec.describe 'proposing marriage to another user' do
       end
     end
 
-    context 'when the user is in a marriage with a partner' do
+    context 'when the user is in a marriage with a partner', :rack_test_driver do
       before { expect(user.marriage.partners.compact.size).to eq(2) }
 
       let(:spouse) { user.spouse }

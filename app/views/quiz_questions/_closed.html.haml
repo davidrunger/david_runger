@@ -7,10 +7,10 @@
 
 - if !@quiz.closed?
   %h3 Leaderboard
-  .mb-4{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: 750 }}
+  .mb-4{data: { async_partial_src: leaderboard_quiz_path(@quiz), delay: async_partial_delay_for_rails_env(750) }}
     .spinner--circle
 
   - if !@quiz.owned_by_current_user?
     %h3 Progress
-    %div{data: { async_partial_src: progress_quiz_path(@quiz), delay: 1000 }}
+    %div{data: { async_partial_src: progress_quiz_path(@quiz), delay: async_partial_delay_for_rails_env(1000) }}
       .spinner--circle

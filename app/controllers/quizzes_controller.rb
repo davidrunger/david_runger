@@ -106,4 +106,13 @@ class QuizzesController < ApplicationController
     @quiz.participations.find_by(participant_id: current_user)
   end
   # rubocop:enable Style/MethodCallWithArgsParentheses
+
+  helper_method \
+  def async_partial_delay_for_rails_env(delay_milliseconds)
+    if Rails.env.test?
+      0
+    else
+      delay_milliseconds
+    end
+  end
 end

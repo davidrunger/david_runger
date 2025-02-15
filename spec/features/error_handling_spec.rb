@@ -12,6 +12,7 @@ RSpec.describe 'Handling exceptions', :rack_test_driver do
 
         it 'says that the page does not exist and returns a 404' do
           visit(nonexistent_path)
+
           expect(page).to have_text("The page you were looking for doesn't exist.")
           expect(page.status_code).to be(404)
           expect(Rails.logger).

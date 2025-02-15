@@ -20,7 +20,7 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
     end
   end
 
-  context 'when there is no AdminUser in the databse with the email' do
+  context 'when there is no AdminUser in the database with the email' do
     let(:stubbed_admin_user_email) { "#{SecureRandom.uuid}@gmail.com" }
 
     before { expect(AdminUser.where(email: stubbed_admin_user_email)).not_to exist }

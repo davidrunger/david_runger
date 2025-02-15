@@ -148,6 +148,7 @@ RSpec.configure do |config|
   config.include(SidekiqSpecHelpers)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
+  config.include(Features::SignInHelpers, type: :feature)
   config.include(Monkeypatches::MakeAllRequestsAsJson, request_format: :json)
   config.include(ActionCable::TestHelper, :action_cable_test_adapter)
   config.include(ActionMailbox::TestHelper, type: :mailbox)
