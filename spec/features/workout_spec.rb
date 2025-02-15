@@ -4,28 +4,6 @@ RSpec.describe 'Workout app' do
   context 'when user is signed in' do
     before { sign_in(user) }
 
-    it 'renders expected content' do
-      visit workout_path
-
-      # form for new workout
-      expect(page).to have_text('New Workout')
-      expect(page).to have_css('form')
-      expect(page).to have_button('Initialize Workout!')
-
-      # own workouts
-      expect(page).to have_text('Previous workouts')
-      expect(page).to have_text(
-        user.workouts.first!.rep_totals.to_json.
-          gsub(%r{\{|\}|"}, '').
-          gsub(',', ', ').
-          gsub(/:(?! )/, ': '),
-      )
-
-      # public workouts of others
-      expect(page).to have_text("Others' workouts\nNone", normalize_ws: false)
-      expect(page).not_to have_text('Loading')
-    end
-
     context 'when the user has a default workout saved in their preferences' do
       before do
         user.default_workout ||= build(:json_preference, :default_workout, user:)
@@ -46,11 +24,13 @@ RSpec.describe 'Workout app' do
       let(:exercise_2_name) { 'chinups' }
       let(:exercise_2_reps) { 5 }
 
-      it 'renders the new-workout form preloaded with their default workout' do
+      it 'renders the new-workout form preloaded with their default workout and shows past workouts of the user and public workouts of others' do
         visit workout_path
 
+        # Form for a new workout:
         expect(page).to have_text('New Workout')
         expect(page).to have_css('form')
+        expect(page).to have_button('Initialize Workout!')
 
         expect(page).to have_field('minutes', with: minutes)
         expect(page).to have_field('numberOfSets', with: sets)
@@ -60,6 +40,19 @@ RSpec.describe 'Workout app' do
         expect(page).to have_field('exercise-1-reps', with: exercise_2_reps)
 
         expect(page).to have_button('Initialize Workout!')
+
+        # Own past workouts:
+        expect(page).to have_text('Previous workouts')
+        expect(page).to have_text(
+          user.workouts.first!.rep_totals.to_json.
+            gsub(%r{\{|\}|"}, '').
+            gsub(',', ', ').
+            gsub(/:(?! )/, ': '),
+        )
+
+        # Public workouts of others:
+        expect(page).to have_text("Others' workouts\nNone", normalize_ws: false)
+        expect(page).not_to have_text('Loading')
       end
 
       context 'when the user initializes a workout and makes time and exercise count adjustments' do

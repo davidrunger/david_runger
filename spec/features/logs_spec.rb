@@ -1,7 +1,7 @@
 RSpec.describe 'Logs app' do
   let(:user) { users(:user) }
 
-  context 'when user is signed in' do
+  context 'when a user is signed in' do
     before { sign_in(user) }
 
     let(:delete_last_entry_text) { 'Delete last entry' }
@@ -63,7 +63,7 @@ RSpec.describe 'Logs app' do
         end
         expect(page).to have_text('New Log')
 
-        # Check for (platform-specific) keyboard shortcut to open log-selector modal
+        # Check for (platform-specific) keyboard shortcut to open log-selector modal.
         expect(page).to have_text('Tip: Ctrl+K will open the log selector.')
 
         log = user.logs.first!
@@ -129,8 +129,8 @@ RSpec.describe 'Logs app' do
           expect {
             first('.new-log-input textarea').native.send_keys(second_log_entry_text)
             click_on('Add')
-            expect(page).to have_text(second_log_entry_text) # wait for AJAX request to complete
-            expect(page).to have_text(first_log_entry_text) # confirm first log entry's still there
+            expect(page).to have_text(second_log_entry_text) # Wait for AJAX request to complete.
+            expect(page).to have_text(first_log_entry_text) # Confirm first log entry's still there.
           }.to change {
             log.reload.log_entries.count
           }.by(1)
@@ -152,7 +152,7 @@ RSpec.describe 'Logs app' do
           # Make sure that we don't have a "Delete last entry button" (which is for graph logs).
           expect(page).not_to have_text(delete_last_entry_text)
 
-          # Click the delete button for the oldest text log entry.
+          # Click the delete button for the oldest text log entry (listed second on the page).
           page.find_all('button', text: /\ADelete\z/)[1].click
           within('.el-popconfirm') do
             click_on('Yes')
@@ -161,27 +161,25 @@ RSpec.describe 'Logs app' do
         end
       end
 
-      context 'when there is one entry for the log' do
-        before { log.log_entries.drop(1).each(&:destroy!) }
+      context 'when the log is not publicly viewable but has been shared with a certain email' do
+        before do
+          log.update!(publicly_viewable: false)
+          log.log_shares.create!(email: other_user.email)
+        end
 
-        context 'when the log is not publicly viewable but has been shared with a certain email' do
+        let(:other_user) { User.where.not(id: log.user_id).first! }
+
+        context 'when the other user logs in' do
           before do
-            log.update!(publicly_viewable: false)
-            log.log_shares.create!(email: other_user.email)
+            Devise.sign_out_all_scopes
+            sign_in(other_user)
           end
 
-          let(:other_user) { User.where.not(id: log.user_id).first! }
+          it 'allows the sharee to view the log entries (via the appropriate URL)' do
+            visit(user_shared_log_path(user_id: user.id, slug: log.slug))
 
-          context 'when the other user logs in' do
-            before do
-              Devise.sign_out_all_scopes
-              sign_in(other_user)
-            end
-
-            it 'allows the sharee to view the log (via the appropriate URL)' do
-              visit(user_shared_log_path(user_id: user.id, slug: log.slug))
-
-              expect(page).to have_text(log.log_entries.first!.data)
+            log.log_entries.each do |log_entry|
+              expect(page).to have_text(log_entry.data)
             end
           end
         end
@@ -226,8 +224,8 @@ RSpec.describe 'Logs app' do
 
     context 'when a new log entry is published' do
       subject(:publish_new_log_entry) do
-        # don't actually create the log entry, because we don't want the log entry to be returned
-        # via an API call (by virtue of having been persisted to the database). we'll _only_ publish
+        # Don't actually create the log entry, because we don't want the log entry to be returned
+        # via an API call (by virtue of having been persisted to the database). We'll _only_ publish
         # the log entry via websockets (which requires stubbing `id` and `created_at` values).
         log_entry = log.build_log_entry_with_datum(data: new_log_entry_text)
         expect(log_entry).
@@ -279,7 +277,7 @@ RSpec.describe 'Logs app' do
           # negative (not failing). A wait time of 1 second seems to be long
           # enough to make the test consistently fail if this is broken.
           publish_new_log_entry
-          sleep(1)
+          sleep(0.5)
 
           expect(page).not_to have_text(new_log_entry_text)
         end

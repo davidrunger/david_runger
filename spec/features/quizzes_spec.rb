@@ -33,17 +33,16 @@ RSpec.describe 'Quizzes app' do
       # quiz show page expectations without participant
       expect(page).not_to have_text(participant_name)
 
-      # NOTE: Sleeping for 1 second here makes the login below about 10 seconds
-      # faster, and it might also help these specs not to flake on my machine.
-      sleep(1)
-
-      # a participant joins
+      # A participant joins.
       using_session('Quiz participant session') do
-        wait(20.seconds).for do
+        wait.for do
           sign_in(participant)
           visit(quiz_path)
-          page.has_css?('input#display_name')
+          Capybara.using_wait_time(0.1) do # Override `wait_time: 10` set for the spec overall.
+            page.has_css?('input#display_name')
+          end
         end.to eq(true)
+
         fill_in('display_name', with: participant_name)
         click_on('Join the quiz!')
       end
@@ -123,10 +122,13 @@ RSpec.describe 'Quizzes app' do
 
       quiz_to_destroy = existing_quiz
 
-      accept_confirm { click_on('Delete') }
+      expect {
+        accept_confirm { click_on('Delete') }
 
-      expect(page).to have_flash_message("Destroyed quiz '#{quiz_to_destroy.name}'.")
-      expect(Quiz.find_by(id: quiz_to_destroy.id)).to eq(nil)
+        expect(page).to have_flash_message("Destroyed quiz '#{quiz_to_destroy.name}'.")
+      }.to change {
+        Quiz.find_by(id: quiz_to_destroy.id)
+      }.from(Quiz).to(nil)
     end
   end
 end

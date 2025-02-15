@@ -18,12 +18,11 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         expect(page).to have_current_path(root_path)
         expect(page).to have_text('David Runger Full stack web developer')
 
-        visit(logs_path)
-        expect(page).to have_text(user.email)
+        expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
       end
     end
 
-    context 'when there is no user in the databse with the email' do
+    context 'when there is no user in the database with the email' do
       let(:stubbed_user_email) { "#{SecureRandom.uuid}@gmail.com" }
 
       before { expect(User.where(email: stubbed_user_email)).not_to exist }
@@ -35,8 +34,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         expect { click_on(class: 'google-login') }.to change { User.count }.by(1)
         user = User.find_by!(email: stubbed_user_email)
 
-        visit(logs_path)
-        expect(page).to have_text(user.email)
+        expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
       end
     end
   end

@@ -51,7 +51,6 @@ RSpec.describe 'Home page', :prerendering_disabled do
     )
 
     page.scroll_to(:top)
-    sleep(0.2) # Wait a little bit for an Event to be created (though we don't want this).
 
     # Verify that we do _not_ add yet another scroll Event after scrolling back up.
     expect(Event.count).to eq(event_count_before + 1)
