@@ -20,7 +20,7 @@ class JsonSchemaValidator
         !(universal_bootstrap_data? && !schema_file_exists?) &&
         schema_validation_errors.present?
     )
-      copy_data_to_clipboard_and_open_schema_converter_if_development
+      facilitate_schema_provisioning_if_development
 
       raise(
         NonconformingData,
@@ -50,8 +50,7 @@ class JsonSchemaValidator
   ]
     if Rails.env.development?
       # :nocov:
-      create_and_open_schema_file_in_editor
-      copy_data_to_clipboard_and_open_schema_converter_if_development
+      facilitate_schema_provisioning_if_development
       # :nocov:
     end
 
@@ -92,19 +91,10 @@ class JsonSchemaValidator
     @controller_action.start_with?('api/')
   end
 
-  def create_and_open_schema_file_in_editor
-    # :nocov:
-    if Rails.env.development?
-      FileUtils.mkdir_p(File.dirname(absolute_schema_path))
-      FileUtils.touch(absolute_schema_path)
-      system("$EDITOR '#{absolute_schema_path}'", exception: true)
-    end
-    # :nocov:
-  end
-
-  def copy_data_to_clipboard_and_open_schema_converter_if_development
+  def facilitate_schema_provisioning_if_development
     if Rails.env.development?
       # :nocov:
+      # Copy JSON data that was not validated/accepted to clipboard.
       string_to_copy =
         if @data.is_a?(String)
           @data
@@ -118,6 +108,12 @@ class JsonSchemaValidator
         puts('Copied JSON to clipboard.'.yellow)
       end
 
+      # Open schema file in editor (creating it, if needed).
+      FileUtils.mkdir_p(File.dirname(absolute_schema_path))
+      FileUtils.touch(absolute_schema_path)
+      system("$EDITOR '#{absolute_schema_path}'", exception: true)
+
+      # Open JSON-to-JSONSchema converter in browser.
       system('open https://jsonformatter.org/json-to-jsonschema', exception: true)
       # :nocov:
     end
