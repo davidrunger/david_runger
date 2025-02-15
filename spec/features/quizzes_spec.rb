@@ -38,7 +38,7 @@ RSpec.describe 'Quizzes app' do
         wait.for do
           sign_in(participant)
           visit(quiz_path)
-          Capybara.using_wait_time(0.1) do # Undo `wait_time: 10` set for the spec overall.
+          Capybara.using_wait_time(0.1) do # Override `wait_time: 10` set for the spec overall.
             page.has_css?('input#display_name')
           end
         end.to eq(true)
