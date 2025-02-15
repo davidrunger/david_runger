@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  config.before(:all, type: :feature) do
+  config.before(:suite, type: :feature) do
     tmp_dir = Dir.mktmpdir
     puts(%(tmp_dir: #{tmp_dir}))
     @capybara_downloads_tmp_dir = tmp_dir
