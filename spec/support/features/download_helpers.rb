@@ -1,17 +1,15 @@
 RSpec.configure do |config|
-  config.around(:each, :with_tmp_download_dir) do |spec|
-    Dir.mktmpdir(nil, Rails.root.join('tmp')) do |tmp_dir|
-      @capybara_downloads_tmp_dir = tmp_dir
-
-      Capybara.with(save_path: tmp_dir) do
-        spec.run
-      end
-    end
+  config.before(:all, type: :feature) do
+    tmp_dir = Dir.mktmpdir
+    @capybara_downloads_tmp_dir = tmp_dir
+    Capybara.save_path = tmp_dir
   end
 end
 
 module Features::DownloadHelpers
-  def downloaded_file_path(relative_glob_pattern, max_attempts: 100, sleep_seconds: 0.1)
+  private
+
+  def downloaded_file_path(relative_glob_pattern, max_attempts: 100, sleep_seconds: 0.05)
     if @capybara_downloads_tmp_dir.nil?
       raise('Apply the :with_tmp_download_dir RSpec metadata to the spec.')
     end
@@ -22,17 +20,8 @@ module Features::DownloadHelpers
       matching_paths = Dir.glob(absolute_glob_pattern)
 
       if (matching_path = matching_paths.first)
-        puts("Success on attempt #{index + 1}.")
-
         break matching_path
       elsif index == max_attempts - 1
-        puts(%(Capybara.save_path: #{Capybara.save_path}))
-        puts(%(@capybara_downloads_tmp_dir: #{@capybara_downloads_tmp_dir}))
-        puts(%(relative_glob_pattern: #{relative_glob_pattern}))
-        puts(%(absolute_glob_pattern: #{absolute_glob_pattern}))
-        puts(%(system("ls -ld #{@capybara_downloads_tmp_dir}"): #{system("ls -ld #{@capybara_downloads_tmp_dir}")}))
-        puts(%(`ls #{@capybara_downloads_tmp_dir}`: #{`ls #{@capybara_downloads_tmp_dir}`}))
-
         raise(<<~ERROR)
           Could not find a file matching '#{relative_glob_pattern}' after
           #{max_attempts} attempt(s) with a sleep of #{sleep_seconds} seconds.

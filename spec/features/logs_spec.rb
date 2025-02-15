@@ -194,7 +194,7 @@ RSpec.describe 'Logs app' do
           end
         end
 
-        it 'allows the user to download a CSV with the log data', :with_tmp_download_dir do
+        it 'allows the user to download a CSV with the log data' do
           visit(log_path(slug: log.slug))
 
           click_on('Download CSV')
