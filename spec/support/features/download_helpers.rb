@@ -31,7 +31,7 @@ module Features::DownloadHelpers
         puts(%(relative_glob_pattern: #{relative_glob_pattern}))
         puts(%(absolute_glob_pattern: #{absolute_glob_pattern}))
         puts(%(system("ls -ld #{@capybara_downloads_tmp_dir}"): #{system("ls -ld #{@capybara_downloads_tmp_dir}")}))
-        puts(%(`ls #{absolute_glob_pattern}`: #{`ls #{absolute_glob_pattern}`}))
+        puts(%(`ls #{@capybara_downloads_tmp_dir}`: #{`ls #{@capybara_downloads_tmp_dir}`}))
 
         raise(<<~ERROR)
           Could not find a file matching '#{relative_glob_pattern}' after
