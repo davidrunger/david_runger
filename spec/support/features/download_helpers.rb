@@ -1,7 +1,6 @@
 RSpec.configure do |config|
   config.before(:suite) do
     tmp_dir = Dir.mktmpdir
-    @capybara_downloads_tmp_dir = tmp_dir
     Capybara.save_path = tmp_dir
   end
 end
@@ -10,7 +9,7 @@ module Features::DownloadHelpers
   private
 
   def downloaded_file_path(relative_glob_pattern, max_attempts: 100, sleep_seconds: 0.05)
-    absolute_glob_pattern = File.join(@capybara_downloads_tmp_dir, relative_glob_pattern)
+    absolute_glob_pattern = File.join(Capybara.save_path, relative_glob_pattern)
 
     max_attempts.times do |index|
       matching_paths = Dir.glob(absolute_glob_pattern)
