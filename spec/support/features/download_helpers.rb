@@ -10,10 +10,6 @@ module Features::DownloadHelpers
   private
 
   def downloaded_file_path(relative_glob_pattern, max_attempts: 100, sleep_seconds: 0.05)
-    if @capybara_downloads_tmp_dir.nil?
-      raise('Apply the :with_tmp_download_dir RSpec metadata to the spec.')
-    end
-
     absolute_glob_pattern = File.join(@capybara_downloads_tmp_dir, relative_glob_pattern)
 
     max_attempts.times do |index|
