@@ -239,7 +239,7 @@ class Test::RequirementsResolver
     end,
     Test::Tasks::CheckTypescript => proc do
       !files_with_js_changed? &&
-        !diff_mentions?('tsc|typescript') &&
+        !diff_mentions?('\b(tsc|typescript)\b') &&
         !file_changed?('package.json') &&
         !file_changed?('pnpm-lock.yaml') &&
         !file_changed?('tsconfig.json')
