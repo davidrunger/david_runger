@@ -197,15 +197,9 @@ RSpec.describe 'Logs app' do
         it 'allows the user to download a CSV with the log data' do
           visit(log_path(slug: log.slug))
 
-          csv_glob = Capybara.save_path.join('*.csv')
-          Rails.root.glob(csv_glob).each { FileUtils.rm(it) }
-
           click_on('Download CSV')
 
-          wait_for { Rails.root.glob(csv_glob) }.to be_present
-
-          downloaded_csv_path = Rails.root.glob(csv_glob).last
-          csv = CSV.read(downloaded_csv_path, headers: true)
+          csv = CSV.read(downloaded_file_path('*.csv'), headers: true)
 
           expect(csv.headers).to eq(['Time', log.data_label])
 
