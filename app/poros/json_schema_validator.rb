@@ -48,11 +48,7 @@ class JsonSchemaValidator
     JSON::Schema::ReadFailed,
     JSON::Schema::SchemaParseError,
   ]
-    if Rails.env.development?
-      # :nocov:
-      facilitate_schema_provisioning_if_development
-      # :nocov:
-    end
+    facilitate_schema_provisioning_if_development
 
     raise
   end
