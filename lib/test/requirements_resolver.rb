@@ -231,8 +231,7 @@ class Test::RequirementsResolver
         !files_added_in?('spec/serializers')
     end,
     Test::Tasks::RunBrakeman => proc do
-      (!(haml_files_changed? || ruby_files_changed?) || running_locally?) &&
-        !diff_mentions?('brakeman')
+      true
     end,
     Test::Tasks::RunDatabaseConsistency => proc do
       !db_schema_changed? && !diff_mentions?('database_consistency')
@@ -253,10 +252,7 @@ class Test::RequirementsResolver
         !diff_mentions?('prettier')
     end,
     Test::Tasks::RunRubocop => proc do
-      !ruby_files_changed? &&
-        !rubocop_files_changed? &&
-        !diff_mentions?('rubocop') &&
-        !diff_mentions?('runger_style')
+      true
     end,
     Test::Tasks::RunStylelint => proc { !files_with_css_changed? && !diff_mentions?('stylelint') },
     Test::Tasks::SetupDb => proc { running_locally? },
