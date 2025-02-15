@@ -238,11 +238,7 @@ class Test::RequirementsResolver
       !db_schema_changed? && !diff_mentions?('database_consistency')
     end,
     Test::Tasks::CheckTypescript => proc do
-      !files_with_js_changed? &&
-        !diff_mentions?('\b(tsc|typescript)\b') &&
-        !file_changed?('package.json') &&
-        !file_changed?('pnpm-lock.yaml') &&
-        !file_changed?('tsconfig.json')
+      true
     end,
     Test::Tasks::RunEslint => proc do
       !files_with_js_changed? &&
