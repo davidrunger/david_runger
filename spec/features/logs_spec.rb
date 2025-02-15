@@ -91,6 +91,7 @@ RSpec.describe 'Logs app' do
             number_log.log_entries.reorder(:created_at).last!
 
           expect {
+            sleep(0.05) # Give 50 ms for ElPopconfirm click handler to bind.
             click_on(delete_last_entry_text)
             within('.el-popconfirm') do
               click_on('Yes')
