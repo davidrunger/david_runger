@@ -15,7 +15,9 @@
   - github_run_id = gantt_chart_metadata.fetch(:github_run_id)
   - github_run_attempt = gantt_chart_metadata.fetch(:github_run_attempt)
   %div
-    %h3
-      = gantt_chart_metadata.fetch(:pretty_start_time)
-      (#{link_to(gantt_chart_metadata.fetch(:pretty_github_run_info), "https://github.com/davidrunger/david_runger/actions/runs/#{github_run_id}/attempts/#{github_run_attempt}")})
+    - pretty_time = gantt_chart_metadata.fetch(:pretty_start_time)
+    - github_link = link_to(gantt_chart_metadata.fetch(:pretty_github_run_info),
+        "https://github.com/davidrunger/david_runger/actions/runs/#{github_run_id}/attempts/#{github_run_attempt}")
+    - branch = gantt_chart_metadata.fetch(:branch)
+    %h3= "#{pretty_time} (#{github_link} on #{content_tag(:code, branch)})"
     .w-full{id: gantt_chart_metadata.fetch(:dom_id)}

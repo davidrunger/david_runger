@@ -48,6 +48,9 @@ const schema = {
         "pretty_start_time": {
           "type": "string"
         },
+        "branch": {
+          "type": "string"
+        },
         "pretty_github_run_info": {
           "type": "string"
         },
@@ -68,6 +71,7 @@ const schema = {
         }
       },
       "required": [
+        "branch",
         "dom_id",
         "github_run_attempt",
         "github_run_id",
