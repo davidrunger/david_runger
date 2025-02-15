@@ -18,7 +18,7 @@ module Features::DownloadHelpers
       if (matching_path = matching_paths.first)
         break matching_path
       elsif index == max_attempts - 1
-        raise(<<~ERROR)
+        raise(<<~ERROR.squish)
           Could not find a file matching '#{relative_glob_pattern}' after
           #{max_attempts} attempt(s) with a sleep of #{sleep_seconds} seconds.
         ERROR
