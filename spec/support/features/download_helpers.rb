@@ -1,6 +1,6 @@
 RSpec.configure do |config|
   config.around(:each, :with_tmp_download_dir) do |spec|
-    Dir.mktmpdir do |tmp_dir|
+    Dir.mktmpdir(nil, Rails.root.join('tmp')) do |tmp_dir|
       @capybara_downloads_tmp_dir = tmp_dir
 
       Capybara.with(save_path: tmp_dir) do
