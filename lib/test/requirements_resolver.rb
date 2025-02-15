@@ -73,6 +73,14 @@ class Test::RequirementsResolver
           Test::Tasks::RunApiControllerTests,
           Test::Tasks::WaitForPercyStart,
         ],
+        Test::Tasks::RunFeatureTestsC => [
+          Test::Tasks::DivideFeatureSpecs,
+          Test::Tasks::CreateDbCopies,
+          Test::Tasks::CompileAdminJavaScript,
+          Test::Tasks::CompileUserJavaScript,
+          Test::Tasks::StartPercy,
+          Test::Tasks::WaitForPercyStart,
+        ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileAdminJavaScript,
@@ -83,6 +91,7 @@ class Test::RequirementsResolver
         Test::Tasks::StopPercy => [
           Test::Tasks::RunFeatureTestsA,
           Test::Tasks::RunFeatureTestsB,
+          Test::Tasks::RunFeatureTestsC,
         ],
         Test::Tasks::UploadViteAssets => [
           Test::Tasks::CompileAdminJavaScript,
@@ -104,6 +113,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunEslint,
           Test::Tasks::RunFeatureTestsA,
           Test::Tasks::RunFeatureTestsB,
+          Test::Tasks::RunFeatureTestsC,
           Test::Tasks::RunFileSizeChecks,
           Test::Tasks::RunHtmlControllerTests,
           Test::Tasks::RunImmigrant,

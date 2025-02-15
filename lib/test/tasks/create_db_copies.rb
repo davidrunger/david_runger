@@ -6,7 +6,7 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
     # database, so disconnect.
     ActiveRecord::Base.connection_pool.connections.each(&:disconnect!)
 
-    %w[unit api html].each do |db_suffix|
+    %w[unit api html feature].each do |db_suffix|
       db_name = "david_runger_test_#{db_suffix}"
 
       # in CI, we know that the database doesn't exist, so don't waste any time dropping it
