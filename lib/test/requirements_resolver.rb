@@ -231,13 +231,18 @@ class Test::RequirementsResolver
         !files_added_in?('spec/serializers')
     end,
     Test::Tasks::RunBrakeman => proc do
-      true
+      (!(haml_files_changed? || ruby_files_changed?) || running_locally?) &&
+        !diff_mentions?('brakeman')
     end,
     Test::Tasks::RunDatabaseConsistency => proc do
       !db_schema_changed? && !diff_mentions?('database_consistency')
     end,
     Test::Tasks::CheckTypescript => proc do
-      true
+      !files_with_js_changed? &&
+        !diff_mentions?('tsc|typescript') &&
+        !file_changed?('package.json') &&
+        !file_changed?('pnpm-lock.yaml') &&
+        !file_changed?('tsconfig.json')
     end,
     Test::Tasks::RunEslint => proc do
       !files_with_js_changed? &&
@@ -252,7 +257,10 @@ class Test::RequirementsResolver
         !diff_mentions?('prettier')
     end,
     Test::Tasks::RunRubocop => proc do
-      true
+      !ruby_files_changed? &&
+        !rubocop_files_changed? &&
+        !diff_mentions?('rubocop') &&
+        !diff_mentions?('runger_style')
     end,
     Test::Tasks::RunStylelint => proc { !files_with_css_changed? && !diff_mentions?('stylelint') },
     Test::Tasks::SetupDb => proc { running_locally? },
