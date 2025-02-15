@@ -41,6 +41,7 @@ class CiStepResultsPresenter
     CiStepResult.
       select(
         'MIN(ci_step_results.started_at) AS min_started_at',
+        'ci_step_results.branch',
         'ci_step_results.github_run_id',
         'ci_step_results.github_run_attempt',
         <<-SQL.squish,
@@ -54,13 +55,14 @@ class CiStepResultsPresenter
       ) AS run_times
     SQL
       ).
-      group(:github_run_id, :github_run_attempt).
+      group(:branch, :github_run_id, :github_run_attempt).
       order('min_started_at DESC').
       limit(10).
       map do |ci_step_result|
         {
           pretty_start_time:
             ci_step_result.min_started_at.in_time_zone.strftime('%b %d, %-l:%M %p'),
+          branch: ci_step_result.branch,
           pretty_github_run_info:
             "Run #{ci_step_result.github_run_id}, Attempt #{ci_step_result.github_run_attempt}",
           github_run_id:
