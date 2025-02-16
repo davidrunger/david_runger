@@ -33,7 +33,6 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
         end.to_h
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
   def call
     fields_to_display(@data).
@@ -66,7 +65,6 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
 
   private
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Lint/DuplicateBranch
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/PerceivedComplexity

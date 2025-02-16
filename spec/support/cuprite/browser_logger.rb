@@ -84,7 +84,6 @@ class Cuprite::BrowserLogger
   private
 
   # rubocop:disable Metrics/PerceivedComplexity
-  # rubocop:disable Metrics/CyclomaticComplexity
   def extract_arg_from_data(arg_data)
     if (value = arg_data['value'])
       if value.is_a?(String) && value.match?(/\A{.*}\z/)
