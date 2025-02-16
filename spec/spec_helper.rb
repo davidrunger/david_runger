@@ -14,7 +14,7 @@ SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory o
 SimpleCov.start do
   db_suffix = ENV.fetch('DB_SUFFIX', nil)
   capybara_server_port = ENV.fetch('CAPYBARA_SERVER_PORT', nil)
-  # rubocop:disable Rails/Present (At this point, we have not yet loaded Rails.)
+  # rubocop:disable Rails/Present -- At this point, we have not yet loaded Rails.
   if !db_suffix.nil? && !db_suffix.empty?
     command_name("Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect}")
   end
