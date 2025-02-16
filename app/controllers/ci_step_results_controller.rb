@@ -13,10 +13,7 @@ class CiStepResultsController < ApplicationController
     @ransack_query =
       current_user.
         ci_step_results.
-        ransack(
-          default_index_filters.
-            merge(search_params[:q] || {}),
-        )
+        ransack(search_params_with_defaults)
     @ci_step_results_presenter = CiStepResultsPresenter.new(@ransack_query.result)
 
     bootstrap(
@@ -28,6 +25,10 @@ class CiStepResultsController < ApplicationController
   end
 
   private
+
+  def search_params_with_defaults
+    default_index_filters.merge(search_params[:q] || {})
+  end
 
   def search_params
     params.permit(q: %i[branch_eq created_at_gt name_eq passed_eq])
