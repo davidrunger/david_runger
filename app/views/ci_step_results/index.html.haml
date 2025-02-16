@@ -11,6 +11,7 @@
 
   %div
     = f.label(:passed_eq)
+    -# https://stackoverflow.com/a/13959977/4009384
     = f.select(:passed_eq, options_for_select([['maybe', nil], ['yes', true], ['no', false]], @ransack_query.passed_eq))
 
   %div
