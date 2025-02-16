@@ -10,7 +10,14 @@ class CiStepResultsController < ApplicationController
     authorize(CiStepResult)
 
     @title = 'CI Timings'
-    @ci_step_results_presenter = CiStepResultsPresenter.new(current_user)
+    @ransack_query =
+      current_user.
+        ci_step_results.
+        ransack(
+          default_index_filters.
+            merge(search_params[:q] || {}),
+        )
+    @ci_step_results_presenter = CiStepResultsPresenter.new(@ransack_query.result)
 
     bootstrap(
       recent_gantt_chart_metadatas:
@@ -18,5 +25,19 @@ class CiStepResultsController < ApplicationController
     )
 
     render :index
+  end
+
+  private
+
+  def search_params
+    params.permit(q: %i[branch_eq passed_eq created_at_gt])
+  end
+
+  def default_index_filters
+    {
+      'branch_eq' => 'main',
+      'passed_eq' => true,
+      'created_at_gt' => 2.months.ago,
+    }
   end
 end

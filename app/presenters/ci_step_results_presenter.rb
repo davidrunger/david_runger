@@ -3,21 +3,25 @@ class CiStepResultsPresenter
 
   FIELDS_TO_PLUCK = %i[name github_run_id github_run_attempt created_at seconds].freeze
 
-  def initialize(user)
-    @user = user
+  def initialize(ci_step_results)
+    @ci_step_results = ci_step_results
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   memoize \
   def parallelism
-    wall_clock_times = run_times_by_step.detect { it[:name] == 'WallClockTime' }[:data]
-    cpu_times = run_times_by_step.detect { it[:name] == 'CpuTime' }[:data]
+    wall_clock_times = run_times_by_step.detect { it[:name] == 'WallClockTime' }&.[](:data)
+    cpu_times = run_times_by_step.detect { it[:name] == 'CpuTime' }&.[](:data)
 
-    wall_clock_times.each.filter_map do |time, wall_clock_time|
-      if (cpu_time = cpu_times[time])
+    (wall_clock_times || []).each.filter_map do |time, wall_clock_time|
+      if cpu_times && (cpu_time = cpu_times[time])
         [time, cpu_time.fdiv(wall_clock_time)]
       end
     end.to_h
   end
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   memoize \
   def run_times_by_step
@@ -38,7 +42,7 @@ class CiStepResultsPresenter
   # rubocop:disable Metrics/MethodLength
   memoize \
   def recent_gantt_chart_metadatas
-    CiStepResult.
+    @ci_step_results.
       select(
         'MIN(ci_step_results.started_at) AS min_started_at',
         'ci_step_results.branch',
@@ -90,9 +94,7 @@ class CiStepResultsPresenter
 
   memoize \
   def ci_step_results_row_data
-    @user.
-      ci_step_results.
-      pluck(*FIELDS_TO_PLUCK)
+    @ci_step_results.pluck(*FIELDS_TO_PLUCK)
   end
 
   def results_grouped_by_name
