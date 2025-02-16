@@ -11,18 +11,14 @@ class CiStepResultsPresenter
   # rubocop:disable Metrics/PerceivedComplexity
   memoize \
   def parallelism
-    if run_times_by_step.present?
-      wall_clock_times = run_times_by_step.detect { it[:name] == 'WallClockTime' }&.[](:data)
-      cpu_times = run_times_by_step.detect { it[:name] == 'CpuTime' }&.[](:data)
+    wall_clock_times = run_times_by_step.detect { it[:name] == 'WallClockTime' }&.[](:data)
+    cpu_times = run_times_by_step.detect { it[:name] == 'CpuTime' }&.[](:data)
 
-      (wall_clock_times || []).each.filter_map do |time, wall_clock_time|
-        if cpu_times && (cpu_time = cpu_times[time])
-          [time, cpu_time.fdiv(wall_clock_time)]
-        end
-      end.to_h
-    else
-      {}
-    end
+    (wall_clock_times || []).each.filter_map do |time, wall_clock_time|
+      if cpu_times && (cpu_time = cpu_times[time])
+        [time, cpu_time.fdiv(wall_clock_time)]
+      end
+    end.to_h
   end
   # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
