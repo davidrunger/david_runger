@@ -7,7 +7,6 @@ class CiStepResultsPresenter
     @ci_step_results = ci_step_results
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
   memoize \
   def parallelism

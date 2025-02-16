@@ -1,5 +1,4 @@
 class Logs::LogFormatter < Lograge::Formatters::KeyValue
-  # rubocop:disable Metrics/CyclomaticComplexity
   def initialize(data)
     controller = data.delete(:controller) # e.g. 'Api::LogEntriesController'
     action = data[:action] # e.g. 'index'

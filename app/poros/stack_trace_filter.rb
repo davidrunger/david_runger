@@ -1,5 +1,4 @@
 class StackTraceFilter
-  # rubocop:disable Metrics/CyclomaticComplexity
   def application_stack_trace(ignore: [])
     caller.select do |caller_line|
       caller_line.exclude?('/gems/') &&

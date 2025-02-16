@@ -5,7 +5,7 @@ class Test::RequirementsResolver
   class << self
     prepend Memoization
 
-    # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/PerceivedComplexity
     memoize \
     def dependency_map
