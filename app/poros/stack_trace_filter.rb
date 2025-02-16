@@ -8,5 +8,4 @@ class StackTraceFilter
         ignore.all? { caller_line.exclude?(it) }
     end.presence || caller
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 end

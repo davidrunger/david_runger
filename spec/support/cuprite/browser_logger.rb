@@ -80,7 +80,6 @@ class Cuprite::BrowserLogger
   end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 
@@ -106,6 +105,5 @@ class Cuprite::BrowserLogger
       end
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
 end

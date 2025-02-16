@@ -20,7 +20,6 @@ class CiStepResultsPresenter
     end.to_h
   end
   # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   memoize \
   def run_times_by_step

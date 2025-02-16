@@ -173,6 +173,5 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
 end

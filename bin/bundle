@@ -115,4 +115,4 @@ m.load_bundler!
 if m.invoked_as_script?
   load Gem.bin_path('bundler', 'bundle')
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Layout/LineLength
+# rubocop:enable Metrics/PerceivedComplexity, Layout/LineLength

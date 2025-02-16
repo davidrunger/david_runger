@@ -167,7 +167,7 @@ class Test::RequirementsResolver
       base_dependency_map
     end
     # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
 
     def verify?
       global_config['verify']

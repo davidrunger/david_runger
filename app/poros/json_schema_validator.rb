@@ -30,7 +30,6 @@ class JsonSchemaValidator
     end
   end
   # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 

@@ -32,7 +32,6 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
           end
         end.to_h
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
@@ -64,7 +63,6 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
       end
   end
   # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 
@@ -129,5 +127,4 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
   # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Lint/DuplicateBranch
-  # rubocop:enable Metrics/CyclomaticComplexity
 end
