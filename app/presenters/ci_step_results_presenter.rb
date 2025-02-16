@@ -7,13 +7,15 @@ class CiStepResultsPresenter
     @ci_step_results = ci_step_results
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   memoize \
   def parallelism
     if run_times_by_step.present?
-      wall_clock_times = run_times_by_step.detect { it[:name] == 'WallClockTime' }[:data]
-      cpu_times = run_times_by_step.detect { it[:name] == 'CpuTime' }[:data]
+      wall_clock_times = run_times_by_step.detect { it[:name] == 'WallClockTime' }&.[](:data)
+      cpu_times = run_times_by_step.detect { it[:name] == 'CpuTime' }&.[](:data)
 
-      wall_clock_times.each.filter_map do |time, wall_clock_time|
+      (wall_clock_times || []).each.filter_map do |time, wall_clock_time|
         if (cpu_time = cpu_times[time])
           [time, cpu_time.fdiv(wall_clock_time)]
         end
@@ -22,6 +24,8 @@ class CiStepResultsPresenter
       {}
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   memoize \
   def run_times_by_step
