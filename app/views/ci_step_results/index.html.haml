@@ -10,16 +10,16 @@
     = f.search_field(:branch_eq)
 
   %div
-    = f.label(:name_eq)
-    = f.search_field(:name_eq)
-
-  %div
     = f.label(:passed_eq)
-    = f.search_field(:passed_eq)
+    = f.select(:passed_eq, options_for_select([['maybe', nil], ['yes', true], ['no', false]], @ransack_query.passed_eq))
 
   %div
     = f.label(:created_at_gt)
     = f.search_field(:created_at_gt)
+
+  %div
+    = f.label(:name_eq)
+    = f.search_field(:name_eq)
 
   %div
     = f.submit(class: 'btn-primary btn-small')
