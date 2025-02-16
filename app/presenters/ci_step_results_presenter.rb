@@ -16,7 +16,7 @@ class CiStepResultsPresenter
       cpu_times = run_times_by_step.detect { it[:name] == 'CpuTime' }&.[](:data)
 
       (wall_clock_times || []).each.filter_map do |time, wall_clock_time|
-        if (cpu_time = cpu_times[time])
+        if cpu_times && (cpu_time = cpu_times[time])
           [time, cpu_time.fdiv(wall_clock_time)]
         end
       end.to_h
