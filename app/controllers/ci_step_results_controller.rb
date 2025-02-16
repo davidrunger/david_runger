@@ -30,14 +30,14 @@ class CiStepResultsController < ApplicationController
   private
 
   def search_params
-    params.permit(q: %i[branch_eq passed_eq created_at_gt])
+    params.permit(q: %i[branch_eq created_at_gt name_eq passed_eq])
   end
 
   def default_index_filters
     {
       'branch_eq' => 'main',
-      'passed_eq' => true,
       'created_at_gt' => 2.months.ago,
+      'passed_eq' => true,
     }
   end
 end
