@@ -10,7 +10,6 @@ class JsonSchemaValidator
 
   # TIP: Generate the schema from sample response data using
   # https://jsonformatter.org/json-to-jsonschema .
-  # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
   def validated_data
     if (
@@ -31,7 +30,6 @@ class JsonSchemaValidator
     end
   end
   # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 

@@ -152,7 +152,6 @@ class ApplicationController < ActionController::Base
   end
 
   # rubocop:disable Metrics/PerceivedComplexity
-  # rubocop:disable Metrics/CyclomaticComplexity
   def prioritize_json_format
     if request.accepts.any?
       # Parse accept header directly since Mime::Type doesn't expose parameters
@@ -174,6 +173,5 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
 end
