@@ -13,7 +13,6 @@ class ApplicationRecord < ActiveRecord::Base
     end
   end
 
-  # rubocop:disable Rails/Delegate
   def as_json
     serializer.as_json
   end
