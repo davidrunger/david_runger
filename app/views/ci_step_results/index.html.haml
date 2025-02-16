@@ -5,16 +5,20 @@
 %h1= @title
 
 = search_form_for(@ransack_query) do |f|
-  = f.label(:branch_eq)
-  = f.search_field(:branch_eq)
+  %div
+    = f.label(:branch_eq)
+    = f.search_field(:branch_eq)
 
-  = f.label(:passed_eq)
-  = f.search_field(:passed_eq)
+  %div
+    = f.label(:passed_eq)
+    = f.search_field(:passed_eq)
 
-  = f.label(:created_at_gt)
-  = f.search_field(:created_at_gt)
+  %div
+    = f.label(:created_at_gt)
+    = f.search_field(:created_at_gt)
 
-  = f.submit(class: 'btn-primary btn-small')
+  %div
+    = f.submit(class: 'btn-primary btn-small')
 
 %h2 Run times
 = line_chart(@ci_step_results_presenter.run_times_by_step, height: '640px', curve: false)
