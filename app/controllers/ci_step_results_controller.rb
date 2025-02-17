@@ -16,11 +16,14 @@ class CiStepResultsController < ApplicationController
       current_user.
         ci_step_results.
         ransack(search_params_with_defaults)
+    @ci_step_results_form_presenter =
+      CiStepResultsFormPresenter.new(
+        user: current_user,
+        search_params: search_params_with_defaults,
+      )
     @ci_step_results_presenter =
       CiStepResultsPresenter.new(
         ci_step_results: @ransack_query.result,
-        user: current_user,
-        search_params: search_params_with_defaults,
       )
 
     bootstrap(
