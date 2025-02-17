@@ -114,7 +114,7 @@ GEM
     alba (3.5.0)
       ostruct (~> 0.6)
     amazing_print (1.7.2)
-    annotaterb (4.13.0)
+    annotaterb (4.14.0)
     anyway_config (2.7.0)
       ruby-next-core (~> 1.0)
     arbre (1.7.0)
@@ -840,7 +840,7 @@ CHECKSUMS
   addressable (2.8.7) sha256=462986537cf3735ab5f3c0f557f14155d778f4b43ea4f485a9deb9c8f7c58232
   alba (3.5.0) sha256=0987957bab73bac7b4232e99e0518ea24785d7228426efcb3267e478f45f77ec
   amazing_print (1.7.2) sha256=c89a1dfe4f8508c1e780871d51b8786efd100f625201f6e1d18a0d4dedaac702
-  annotaterb (4.13.0) sha256=6f472912002fefa735665b4132de47d0134ebf1efb76a7ef05f579cc4a6b2ff1
+  annotaterb (4.14.0) sha256=466cf28443416a19754c807cb2acb9370c75a6a2bc3b92d3c4bbc02a38d00975
   anyway_config (2.7.0) sha256=0ebbe4a7952da7a43e5c596f1c670a1ff61ee18243292b92cef68ddaef3cdd7e
   arbre (1.7.0) sha256=20c76c26390924422407aa8eb849ae859b903a95bb9c19eb2f8e05fe1e40c83d
   ast (2.4.2) sha256=1e280232e6a33754cde542bc5ef85520b74db2aac73ec14acef453784447cc12
