@@ -7,7 +7,7 @@
 = search_form_for(@ransack_query) do |f|
   .my-2
     %datalist{id: 'branch_names'}
-      = options_for_select(@ci_step_results_presenter.branch_names)
+      = options_for_select(@ci_step_results_form_presenter.branch_names)
     = f.label(:branch_eq, 'Branch')
     = f.text_field(:branch_eq, list: 'branch_names', class: 'py-1 px-2 center min-w-md')
 
@@ -22,7 +22,7 @@
 
   .my-2
     %datalist{id: 'ci_step_names'}
-      = options_for_select(@ci_step_results_presenter.ci_step_names)
+      = options_for_select(@ci_step_results_form_presenter.ci_step_names)
     = f.label(:name_eq, 'Step name')
     = f.text_field(:name_eq, list: 'ci_step_names', class: 'py-1 px-2')
 
