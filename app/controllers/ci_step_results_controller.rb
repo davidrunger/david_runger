@@ -1,4 +1,6 @@
 class CiStepResultsController < ApplicationController
+  prepend Memoization
+
   self.container_classes = %w[p-8]
 
   content_security_policy(only: :index) do |policy|
@@ -14,7 +16,12 @@ class CiStepResultsController < ApplicationController
       current_user.
         ci_step_results.
         ransack(search_params_with_defaults)
-    @ci_step_results_presenter = CiStepResultsPresenter.new(@ransack_query.result)
+    @ci_step_results_presenter =
+      CiStepResultsPresenter.new(
+        ci_step_results: @ransack_query.result,
+        user: current_user,
+        search_params: search_params_with_defaults,
+      )
 
     bootstrap(
       recent_gantt_chart_metadatas:
@@ -26,6 +33,7 @@ class CiStepResultsController < ApplicationController
 
   private
 
+  memoize \
   def search_params_with_defaults
     default_index_filters.merge(search_params[:q] || {})
   end
