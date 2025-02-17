@@ -3,8 +3,26 @@ class CiStepResultsPresenter
 
   FIELDS_TO_PLUCK = %i[name github_run_id github_run_attempt created_at seconds].freeze
 
-  def initialize(ci_step_results)
+  def initialize(ci_step_results:, user:, search_params:)
     @ci_step_results = ci_step_results
+    @user = user
+    @search_params = search_params
+  end
+
+  memoize \
+  def branch_names
+    @user.
+      ci_step_results.
+      where(created_at: @search_params.fetch('created_at_gt')..).
+      distinct.
+      pluck(:branch).
+      sort_by do |branch_name|
+        if branch_name == 'main'
+          ''
+        else
+          branch_name.downcase
+        end
+      end
   end
 
   # rubocop:disable Metrics/PerceivedComplexity

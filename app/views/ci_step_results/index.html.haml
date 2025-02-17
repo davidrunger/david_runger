@@ -6,8 +6,10 @@
 
 = search_form_for(@ransack_query) do |f|
   %div
+    %datalist{id: 'branches'}
+      = options_for_select(@ci_step_results_presenter.branch_names)
     = f.label(:branch_eq)
-    = f.search_field(:branch_eq)
+    = f.text_field(:branch_eq, list: 'branches')
 
   %div
     = f.label(:passed_eq)

@@ -31,8 +31,10 @@ export default defineConfig({
   plugins: [
     FullReload([
       'app/assets/stylesheets/**/*',
+      'app/controllers/**/*',
       'app/decorators/**/*',
       'app/helpers/**/*',
+      'app/presenters/**/*',
       'app/views/**/*',
     ]),
     RubyPlugin(),
