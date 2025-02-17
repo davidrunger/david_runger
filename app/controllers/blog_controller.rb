@@ -9,6 +9,7 @@ class BlogController < ApplicationController
   all_actions = %i[assets index show]
   skip_before_action :authenticate_user!, only: all_actions
   before_action :skip_authorization, only: all_actions
+  protect_from_forgery except: :assets
 
   def assets
     send_blog_file(request.path)
@@ -57,7 +58,7 @@ class BlogController < ApplicationController
 
     if (
       absolute_path.start_with?(BLOG_DIRECTORY) &&
-        absolute_path.match?(/\.(css|html|jpg|png|xml)\z/)
+        absolute_path.match?(/\.(css|html|jpg|js|png|xml)\z/)
     )
       send_file(absolute_path, **kwargs)
     else
