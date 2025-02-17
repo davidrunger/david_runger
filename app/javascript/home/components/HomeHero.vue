@@ -81,14 +81,29 @@ useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
 }
 
 .stripe-2 {
-  background: linear-gradient(90deg, var(--color-neutral-950), #e45756, #e45756);
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-950),
+    #e45756,
+    #e45756
+  );
 }
 
 .stripe-3 {
-  background: linear-gradient(90deg, var(--color-neutral-950), #f58518, #f58518);
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-950),
+    #f58518,
+    #f58518
+  );
 }
 
 .stripe-4 {
-  background: linear-gradient(90deg, var(--color-neutral-950), #eeca3b, #eeca3b);
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-950),
+    #eeca3b,
+    #eeca3b
+  );
 }
 </style>
