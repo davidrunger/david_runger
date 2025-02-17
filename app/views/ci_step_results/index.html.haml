@@ -6,10 +6,10 @@
 
 = search_form_for(@ransack_query) do |f|
   %div
-    %datalist{id: 'branches'}
+    %datalist{id: 'branch_names'}
       = options_for_select(@ci_step_results_presenter.branch_names)
     = f.label(:branch_eq)
-    = f.text_field(:branch_eq, list: 'branches')
+    = f.text_field(:branch_eq, list: 'branch_names')
 
   %div
     = f.label(:passed_eq)
@@ -21,8 +21,10 @@
     = f.date_field(:created_at_gt)
 
   %div
+    %datalist{id: 'ci_step_names'}
+      = options_for_select(@ci_step_results_presenter.ci_step_names)
     = f.label(:name_eq)
-    = f.search_field(:name_eq)
+    = f.text_field(:name_eq, list: 'ci_step_names')
 
   %div
     = f.submit(class: 'btn-primary btn-small')
