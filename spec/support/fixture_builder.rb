@@ -130,11 +130,29 @@ FixtureBuilder.configure do |fbuilder|
     create(:event, user: nil, admin_user: nil)
 
     # CiStepResults
-    github_run_id = 888_777_666
+    github_run_id = rand(1_000_000_000)
     github_run_attempt = 1
     create(:ci_step_result, :wall_clock_time, user:, github_run_id:, github_run_attempt:)
     create(:ci_step_result, :cpu_time, user:, github_run_id:, github_run_attempt:)
     create(:ci_step_result, :feature_tests, user:, github_run_id:, github_run_attempt:)
     create(:ci_step_result, :unit_tests, user:, github_run_id:, github_run_attempt:)
+    other_github_run_id = github_run_id + rand(1_000_000_000)
+    github_run_attempt = 1
+    create(
+      :ci_step_result,
+      :wall_clock_time,
+      user:,
+      github_run_id: other_github_run_id,
+      github_run_attempt:,
+      branch: 'bugfix',
+    )
+    create(
+      :ci_step_result,
+      :cpu_time,
+      user:,
+      github_run_id: other_github_run_id,
+      github_run_attempt:,
+      branch: 'bugfix',
+    )
   end
 end
