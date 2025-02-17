@@ -11,9 +11,7 @@ class CiStepResultsPresenter
 
   memoize \
   def branch_names
-    @user.
-      ci_step_results.
-      where(created_at: @search_params.fetch('created_at_gt')..).
+    user_ci_step_results_in_time_range.
       distinct.
       pluck(:branch).
       sort_by do |branch_name|
@@ -23,6 +21,21 @@ class CiStepResultsPresenter
           branch_name.downcase
         end
       end
+  end
+
+  memoize \
+  def ci_step_names
+    user_ci_step_results_in_time_range.
+      distinct.
+      pluck(:name).
+      sort_by(&:downcase)
+  end
+
+  memoize \
+  def user_ci_step_results_in_time_range
+    @user.
+      ci_step_results.
+      where(created_at: @search_params.fetch('created_at_gt')..)
   end
 
   # rubocop:disable Metrics/PerceivedComplexity
