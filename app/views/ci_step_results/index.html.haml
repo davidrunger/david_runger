@@ -5,29 +5,29 @@
 %h1= @title
 
 = search_form_for(@ransack_query) do |f|
-  %div
+  .my-2
     %datalist{id: 'branch_names'}
       = options_for_select(@ci_step_results_presenter.branch_names)
-    = f.label(:branch_eq)
-    = f.text_field(:branch_eq, list: 'branch_names')
+    = f.label(:branch_eq, 'Branch')
+    = f.text_field(:branch_eq, list: 'branch_names', class: 'py-1 px-2 center min-w-md')
 
-  %div
-    = f.label(:passed_eq)
+  .my-2
+    = f.label(:passed_eq, 'Passed')
     -# https://stackoverflow.com/a/13959977/4009384
-    = f.select(:passed_eq, options_for_select([['maybe', nil], ['yes', true], ['no', false]], @ransack_query.passed_eq))
+    = f.select(:passed_eq, options_for_select([['maybe', nil], ['yes', true], ['no', false]], @ransack_query.passed_eq), {}, class: 'p-1 min-w-25 text-center')
 
-  %div
-    = f.label(:created_at_gt)
-    = f.date_field(:created_at_gt)
+  .my-2
+    = f.label(:created_at_gt, 'Run after')
+    = f.date_field(:created_at_gt, class: 'p-1')
 
-  %div
+  .my-2
     %datalist{id: 'ci_step_names'}
       = options_for_select(@ci_step_results_presenter.ci_step_names)
-    = f.label(:name_eq)
-    = f.text_field(:name_eq, list: 'ci_step_names')
+    = f.label(:name_eq, 'Step name')
+    = f.text_field(:name_eq, list: 'ci_step_names', class: 'py-1 px-2')
 
-  %div
-    = f.submit(class: 'btn-primary btn-small')
+  .my-2
+    = f.submit('Apply filter(s)', class: 'btn-primary')
 
 %h2 Run times
 = line_chart(@ci_step_results_presenter.run_times_by_step, height: '640px', curve: false)
