@@ -7,10 +7,16 @@
     el-popover(
       placement='top-end'
       trigger='click'
-      :content='needSatisfactionRating.emotional_need.description'
     )
       template(#reference)
         span.circled-text.monospace.js-link i
+      div(v-if='needSatisfactionRating.emotional_need.description')
+        | {{ needSatisfactionRating.emotional_need.description }}
+      div(v-else)
+        | No description. You can add one
+        |
+        a(:href='edit_emotional_need_path(needSatisfactionRating.emotional_need.id)') here
+        | .
     a.ml-2(:href='graphLink(needSatisfactionRating)') graph
   div
     EmojiButton(
@@ -24,13 +30,17 @@ button.btn-primary.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn')
 </template>
 
 <script setup lang="ts">
+import { ElPopover } from 'element-plus';
 import { range } from 'lodash-es';
 import { storeToRefs } from 'pinia';
 import type { PropType } from 'vue';
 
 import { useCheckInsStore } from '@/check_ins/store';
 import type { NeedSatisfactionRating, Rating } from '@/check_ins/types';
-import { history_emotional_need_path } from '@/rails_assets/routes';
+import {
+  edit_emotional_need_path,
+  history_emotional_need_path,
+} from '@/rails_assets/routes';
 
 import EmojiButton from './EmojiButton.vue';
 
