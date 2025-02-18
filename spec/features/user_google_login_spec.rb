@@ -2,10 +2,10 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
   context 'when OmniAuth test mode is enabled and OmniAuth is mocked' do
     before do
       expect(OmniAuth.config.test_mode).to eq(true)
-      MockOmniAuth.google_oauth2(email: stubbed_user_email, sub:)
+      MockOmniAuth.google_oauth2(email: stubbed_user_email, sub: mocked_google_response_sub)
     end
 
-    let(:sub) { "1#{rand(100_000_000_000_000_000)}" }
+    let(:mocked_google_response_sub) { "1#{rand(100_000_000_000_000_000)}" }
 
     context 'when the user already exists in the database' do
       let(:stubbed_user_email) { user.email }
@@ -29,7 +29,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
       context 'when the user has a google_sub in the database' do
         context 'when the sub returned from Google matches the google_sub in our database' do
-          before { user.update!(google_sub: sub) }
+          before { user.update!(google_sub: mocked_google_response_sub) }
 
           it 'allows the user to log in with Google' do
             visit(new_user_session_path)
@@ -45,7 +45,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         end
 
         context 'when the sub returned from Google does not match the google_sub in our database' do
-          before { user.update!(google_sub: (Integer(sub) + 1).to_s) }
+          before { user.update!(google_sub: (Integer(mocked_google_response_sub) + 1).to_s) }
 
           it 'redirects with an error message, does not sign in the user, and sends a report to Rollbar' do
             allow(Rails.error).to receive(:report).and_call_original
@@ -65,7 +65,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
                 Users::OmniauthCallbacksController::SubMismatch,
                 context: {
                   user_sub_in_db: user.google_sub,
-                  sub_in_google_response: sub,
+                  sub_in_google_response: mocked_google_response_sub,
                 },
               )
 
