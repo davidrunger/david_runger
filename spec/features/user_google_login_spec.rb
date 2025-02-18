@@ -2,23 +2,80 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
   context 'when OmniAuth test mode is enabled and OmniAuth is mocked' do
     before do
       expect(OmniAuth.config.test_mode).to eq(true)
-      MockOmniAuth.google_oauth2(email: stubbed_user_email)
+      MockOmniAuth.google_oauth2(email: stubbed_user_email, sub: mocked_google_response_sub)
     end
+
+    let(:mocked_google_response_sub) { "1#{rand(100_000_000_000_000_000)}" }
 
     context 'when the user already exists in the database' do
       let(:stubbed_user_email) { user.email }
       let(:user) { users(:user) }
 
-      it 'allows a user to log in with Google' do
-        visit(new_user_session_path)
-        expect(page).to have_css('button.google-login')
+      context 'when the user does not have a google_sub in the database' do
+        before { expect(user.google_sub).to eq(nil) }
 
-        expect { click_on(class: 'google-login') }.not_to change { User.count }
+        it 'allows the user to log in with Google' do
+          visit(new_user_session_path)
+          expect(page).to have_css('button.google-login')
 
-        expect(page).to have_current_path(root_path)
-        expect(page).to have_text('David Runger Full stack web developer')
+          expect { click_on(class: 'google-login') }.not_to change { User.count }
 
-        expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
+          expect(page).to have_current_path(root_path)
+          expect(page).to have_text('David Runger Full stack web developer')
+
+          expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
+        end
+      end
+
+      context 'when the user has a google_sub in the database' do
+        context 'when the sub returned from Google matches the google_sub in our database' do
+          before { user.update!(google_sub: mocked_google_response_sub) }
+
+          it 'allows the user to log in with Google' do
+            visit(new_user_session_path)
+            expect(page).to have_css('button.google-login')
+
+            expect { click_on(class: 'google-login') }.not_to change { User.count }
+
+            expect(page).to have_current_path(root_path)
+            expect(page).to have_text('David Runger Full stack web developer')
+
+            expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
+          end
+        end
+
+        context 'when the sub returned from Google does not match the google_sub in our database' do
+          before { user.update!(google_sub: (Integer(mocked_google_response_sub) + 1).to_s) }
+
+          it 'redirects with an error message, does not sign in the user, and sends a report to Rollbar' do
+            allow(Rails.error).to receive(:report).and_call_original
+
+            visit(new_user_session_path)
+            expect(page).to have_css('button.google-login')
+
+            expect { click_on(class: 'google-login') }.not_to change { User.count }
+
+            expect(page).to have_current_path(new_user_session_path)
+            expect(page).to have_flash_message(<<~FLASH.squish, type: :alert)
+              You are attempting a domain identity takeover attack. Blocked!
+            FLASH
+
+            expect(Rails.error).to have_received(:report).
+              with(
+                Users::OmniauthCallbacksController::SubMismatch,
+                context: {
+                  user_sub_in_db: user.google_sub,
+                  sub_in_google_response: mocked_google_response_sub,
+                },
+              )
+
+            visit(my_account_path)
+            expect(page).to have_current_path(new_user_session_path)
+            expect(page).to have_flash_message(<<~FLASH.squish, type: :alert)
+              You must sign in first.
+            FLASH
+          end
+        end
       end
     end
 

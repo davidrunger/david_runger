@@ -1,5 +1,5 @@
 RSpec.describe 'Logging in as an AdminUser via Google auth' do
-  before { MockOmniAuth.google_oauth2(email: stubbed_admin_user_email) }
+  before { MockOmniAuth.google_oauth2(email: stubbed_admin_user_email, sub: rand(100_000_000_000)) }
 
   context 'when an AdminUser with the email exists in the database' do
     let(:stubbed_admin_user_email) { admin_user.email }
