@@ -24,6 +24,7 @@ button.btn-primary.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn')
 </template>
 
 <script setup lang="ts">
+import { ElPopover } from 'element-plus';
 import { range } from 'lodash-es';
 import { storeToRefs } from 'pinia';
 import type { PropType } from 'vue';
