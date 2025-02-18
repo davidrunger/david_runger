@@ -1,5 +1,5 @@
 module MockOmniAuth
-  def self.google_oauth2(email:)
+  def self.google_oauth2(email:, sub:)
     OmniAuth.config.add_mock(
       :google_oauth2,
       provider: 'google_oauth2',
@@ -11,6 +11,11 @@ module MockOmniAuth
         token: 'abcdefg12345',
         expires_at: 1.hour.from_now,
         expires: true,
+      },
+      extra: {
+        id_info: {
+          sub:,
+        },
       },
     )
   end
