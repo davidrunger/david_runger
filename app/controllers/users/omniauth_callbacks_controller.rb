@@ -1,4 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  class SubMismatch < StandardError ; end
+
   skip_before_action :authenticate_user!, only: [:google_oauth2]
 
   def google_oauth2
@@ -14,6 +16,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       if user.google_sub
         if sub != user.google_sub
+          Rails.error.report(
+            Error.new(SubMismatch),
+            context: {
+              user_sub_in_db: user.google_sub,
+              sub_in_google_response: sub,
+            },
+          )
+
           flash[:alert] = 'You are attempting a domain identity takeover attack. Blocked!'
           redirect_to(new_user_session_path)
           return

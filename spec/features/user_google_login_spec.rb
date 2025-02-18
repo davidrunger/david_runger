@@ -47,7 +47,9 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         context 'when the sub returned from Google does not match the google_sub in our database' do
           before { user.update!(google_sub: (Integer(sub) + 1).to_s) }
 
-          it 'redirects with an error message and does not sign in the user' do
+          it 'redirects with an error message, does not sign in the user, and sends a report to Rollbar' do
+            allow(Rails.error).to receive(:report).and_call_original
+
             visit(new_user_session_path)
             expect(page).to have_css('button.google-login')
 
@@ -57,6 +59,15 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
             expect(page).to have_flash_message(<<~FLASH.squish, type: :alert)
               You are attempting a domain identity takeover attack. Blocked!
             FLASH
+
+            expect(Rails.error).to have_received(:report).
+              with(
+                Users::OmniauthCallbacksController::SubMismatch,
+                context: {
+                  user_sub_in_db: user.google_sub,
+                  sub_in_google_response: sub,
+                },
+              )
 
             visit(my_account_path)
             expect(page).to have_current_path(new_user_session_path)
