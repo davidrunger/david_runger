@@ -26,7 +26,8 @@
       ref='itemNameInput'
     )
     span.item-name(v-else)
-      | {{item.name}}
+      span(v-html="linkify(item.name)")
+      |
       |
       a.js-link.text-neutral-400(@click='editItemName' class="hover:text-black")
         EditIcon(:size='ICON_SIZE')
@@ -48,6 +49,7 @@ import { EditIcon, MinusIcon, PlusIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
+import { linkify } from '@/lib/linkify';
 
 const ICON_SIZE = 17;
 

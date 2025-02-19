@@ -7,9 +7,10 @@ RSpec.describe 'Groceries app' do
     context 'when the user has a spouse' do
       before { expect(user.spouse).to be_present }
 
-      let(:new_item_name) { 'blueberries' }
+      let(:new_item_name) { "blueberries (#{url_in_item_name})" }
+      let(:url_in_item_name) { 'https://www.amazon.com/blueberries' }
 
-      it 'allows adding an item, deleting an item, undoing the deletion, and checking in a shopping trip' do
+      it 'allows adding an item (which it linkifies), deleting an item, undoing the deletion, and checking in a shopping trip' do
         visit groceries_path
 
         store = user.stores.reorder(:viewed_at).last!
@@ -35,7 +36,9 @@ RSpec.describe 'Groceries app' do
         end
 
         # Verify that the item is listed only once.
-        expect(page.body.scan(new_item_name).size).to eq(1)
+        expect(page.text.scan(new_item_name).size).to eq(1)
+        # Verify that the URL in the item name is automatically linkified.
+        expect(page).to have_link(url_in_item_name, href: url_in_item_name)
 
         page.percy_snapshot('Groceries')
 
