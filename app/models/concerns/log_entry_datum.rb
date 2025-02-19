@@ -6,5 +6,7 @@ module LogEntryDatum
 
     validates :data, presence: true
     validates :log_entry, presence: true
+
+    has_paper_trail
   end
 end
