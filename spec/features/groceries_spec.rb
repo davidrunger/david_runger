@@ -38,7 +38,7 @@ RSpec.describe 'Groceries app' do
         # Verify that the item is listed only once.
         expect(page.text.scan(new_item_name).size).to eq(1)
         # Verify that the URL in the item name is automatically linkified.
-        expect(page).to have_link(url_in_item_name)
+        expect(page).to have_link(url_in_item_name, href: url_in_item_name)
 
         page.percy_snapshot('Groceries')
 
