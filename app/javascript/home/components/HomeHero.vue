@@ -3,14 +3,14 @@
   ref="homeRef"
 )
   .spacer.grow
-  hgroup#headline-container.grow(data-section='home')
-    h1#headline-name.monospace.font-normal.text-blue-300.leading-normal
+  hgroup#headline-container.grow.text-neutral-100(data-section='home')
+    h1#headline-name.my-0.monospace.font-normal.leading-normal
       | David Runger
     .stripe.stripe-1
     .stripe.stripe-2
     .stripe.stripe-3
     .stripe.stripe-4
-    p.pt-4.text-4xl.text-right.text-neutral-100
+    p.pt-4.text-4xl.text-right
       | Full stack web developer
 
   HomeHeader
@@ -77,6 +77,7 @@ useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
 }
 
 .stripe-1 {
+  margin-top: 0;
   background: linear-gradient(90deg, #72b7b2, var(--color-neutral-950));
 }
 
@@ -99,6 +100,7 @@ useIntersectionObserver(homeRef, ([{ isIntersecting }]) => {
 }
 
 .stripe-4 {
+  margin-bottom: 0;
   background: linear-gradient(
     90deg,
     var(--color-neutral-950),
