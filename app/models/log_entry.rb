@@ -30,5 +30,7 @@ class LogEntry < ApplicationRecord
 
   delegate :data, to: :log_entry_datum
 
+  has_paper_trail
+
   broadcasts_json_to(LogEntriesChannel, ->(log_entry) { log_entry.log })
 end
