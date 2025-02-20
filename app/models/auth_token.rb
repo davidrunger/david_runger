@@ -21,5 +21,5 @@ class AuthToken < ApplicationRecord
   belongs_to :user
   has_many :requests, dependent: :nullify
 
-  has_paper_trail
+  has_paper_trail_for_all_events
 end
