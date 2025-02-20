@@ -21,7 +21,7 @@ class DestroyOrphanedLogEntryData < Datamigration
 
       log('Done destroying orphaned number log entry data.')
     else
-      fail 'There were unexpectedly many orphaned text log entry data.'
+      fail 'There were unexpectedly many orphaned number log entry data.'
     end
   end
 
