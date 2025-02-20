@@ -1,4 +1,4 @@
-class <%= class_name %> < Datamigration
+class <%= class_name %> < Datamigration::Base
   def run
     logging_start_and_finish do
       within_transaction(rollback: true) do

@@ -1,4 +1,4 @@
-class Datamigration
+class Datamigration::Base
   prepend Memoization
 
   private

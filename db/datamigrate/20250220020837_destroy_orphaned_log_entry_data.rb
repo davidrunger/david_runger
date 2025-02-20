@@ -1,4 +1,4 @@
-class DestroyOrphanedLogEntryData < Datamigration
+class DestroyOrphanedLogEntryData < Datamigration::Base
   def run
     logging_start_and_finish do
       within_transaction do
