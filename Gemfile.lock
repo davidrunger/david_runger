@@ -666,7 +666,7 @@ GEM
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
-    stringio (3.1.3)
+    stringio (3.1.4)
     strip_attributes (1.14.1)
       activemodel (>= 3.0, < 9.0)
     super_diff (0.15.0)
@@ -1073,7 +1073,7 @@ CHECKSUMS
   spring (4.2.1) sha256=8517a24d7ac966c8e051b63a67c68cbfc026c74cc0742e19f0fba472ebe0a5ae
   spring-commands-rspec (1.0.4) sha256=6202e54fa4767452e3641461a83347645af478bf45dddcca9737b43af0dd1a2c
   spring-watcher-listen (2.1.0) sha256=e958bcd956d1026eb95d16b2ef0e241d1ca35a754628bd45040e3d9954a61949
-  stringio (3.1.3) sha256=1eedb8369ee99a9a0edfdacea95c72d647feb8ce844427c150bd641e1797abc8
+  stringio (3.1.4) sha256=7dd68f6f1a88610817c21f6d926dbf36e1fc585d3869fcd4a56c1f3210591d70
   strip_attributes (1.14.1) sha256=a44cf4b8f21e9d5c6679f4178f37bd212d5501f35ad5e8c511e6507cf546ba25
   super_diff (0.15.0) sha256=1c857c27ea49ed57685ce05897efc35839d169e74a30fca1a97e7a401f0cb914
   temple (0.10.3) sha256=df3145fe6577af1e25387eb7f7122d32ed51bdb6f2e7bb0f4fbf07b66151913b
