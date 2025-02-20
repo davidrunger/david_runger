@@ -8,14 +8,15 @@ module CustomCops
 
       # Check each argument; if it's a hash, inspect its pairs.
       node.arguments.each do |arg|
-        next unless arg.hash_type?
+        if arg.hash_type?
+          arg.pairs.each do |pair|
+            key, _value = *pair
 
-        arg.pairs.each do |pair|
-          key, _value = *pair
-          # If the key is a symbol and equals :rollback, register an offense.
-          next unless key.sym_type? && key.value == :rollback
-
-          add_offense(pair, message: MSG)
+            # If the key is a symbol and equals :rollback, register an offense.
+            if key.sym_type? && key.value == :rollback
+              add_offense(pair, message: MSG)
+            end
+          end
         end
       end
     end
