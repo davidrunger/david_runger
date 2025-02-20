@@ -50,7 +50,7 @@ class User < ApplicationRecord
 
   devise
 
-  has_paper_trail
+  has_paper_trail_for_all_events
 
   before_destroy do |user|
     if user.reload.marriage
