@@ -29,12 +29,7 @@ class Datamigration::Base
 
   memoize \
   def logger
-    ActiveSupport::Logger.new($stdout).tap do |logger|
-      logger.formatter =
-        proc do |_severity, time, _program_name, message|
-          "#{time.utc.iso8601(3)} #{message}\n"
-        end
-    end.then do |logger|
+    Rails.logger.then do |logger|
       ActiveSupport::TaggedLogging.new(logger)
     end.
       tagged(self.class.name)
