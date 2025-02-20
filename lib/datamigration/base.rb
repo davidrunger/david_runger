@@ -29,9 +29,23 @@ class Datamigration::Base
 
   memoize \
   def logger
-    Rails.logger.then do |logger|
+    logger_base.then do |logger|
       ActiveSupport::TaggedLogging.new(logger)
     end.
       tagged(self.class.name)
+  end
+
+  memoize \
+  def logger_base
+    if Rails.env.development?
+      # In development, Rails.logger doesn't log to stdout, but we want to do so here.
+      ActiveSupport::Logger.new($stdout).tap do |logger|
+        logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
+      end
+    else
+      # In test, we don't want to write to stdout, and Rails.logger doesn't.
+      # In production, we do want to write to stdout, and Rails.logger does.
+      Rails.logger
+    end
   end
 end
