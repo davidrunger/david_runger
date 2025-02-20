@@ -22,7 +22,8 @@ class LogEntry < ApplicationRecord
   has_one :user, through: :log
   delegated_type :log_entry_datum,
     types: %w[NumberLogEntryDatum TextLogEntryDatum],
-    inverse_of: :log_entry
+    inverse_of: :log_entry,
+    dependent: :destroy
 
   validates :log_entry_datum, presence: true
   validates_associated :log_entry_datum

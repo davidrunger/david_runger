@@ -2,19 +2,15 @@ require 'rubocop'
 require 'rubocop/rspec/support'
 require Rails.root.join('tools/custom_cops/dont_include_sidekiq_worker.rb')
 
-RSpec.describe CustomCops::DontIncludeSidekiqWorker do
+RSpec.describe CustomCops::DontIncludeSidekiqWorker, :config do
   include RuboCop::RSpec::ExpectOffense
-
-  subject(:cop) { described_class.new }
-
-  let(:msg) { 'Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker`' }
 
   context 'when using `include Sidekiq::Worker`' do
     it 'registers an offense and can autocorrect it' do
       expect_offense(<<~RUBY)
         class MyWorker
           include Sidekiq::Worker
-          ^^^^^^^^^^^^^^^^^^^^^^^ CustomCops/DontIncludeSidekiqWorker: Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` or `include Sidekiq::Job`
+          ^^^^^^^^^^^^^^^^^^^^^^^ Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` or `include Sidekiq::Job`
         end
       RUBY
 
@@ -31,7 +27,7 @@ RSpec.describe CustomCops::DontIncludeSidekiqWorker do
       expect_offense(<<~RUBY)
         class MyWorker
           include Sidekiq::Job
-          ^^^^^^^^^^^^^^^^^^^^ CustomCops/DontIncludeSidekiqWorker: Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` or `include Sidekiq::Job`
+          ^^^^^^^^^^^^^^^^^^^^ Use `prepend ApplicationWorker` rather than `include Sidekiq::Worker` or `include Sidekiq::Job`
         end
       RUBY
 

@@ -1,4 +1,3 @@
-# rubocop:disable Style/ClassAndModuleChildren
 module CustomCops
   class DontIncludeSidekiqWorker < RuboCop::Cop::Base
     extend RuboCop::Cop::AutoCorrector
@@ -20,4 +19,3 @@ module CustomCops
     end
   end
 end
-# rubocop:enable Style/ClassAndModuleChildren

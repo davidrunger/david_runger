@@ -18,5 +18,14 @@ AllCops:
   <% end %>
   StringLiteralsFrozenByDefault: true
 
+CustomCops/DontRollBackDatamigration:
+  Include:
+    - db/datamigrate/**/*.rb
+CustomCops/DontIncludeSidekiqWorker:
+  Include:
+    - app/workers/**/*.rb
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'tools/custom_cops/**/*.rb'
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
