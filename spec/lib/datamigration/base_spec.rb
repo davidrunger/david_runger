@@ -1,9 +1,15 @@
 RSpec.describe(Datamigration::Base) do
   let(:datamigration) { described_class.new }
-  let(:logdev) { datamigration.send(:logger).broadcasts.first.instance_variable_get(:@logdev) }
+  let(:logdev) do
+    if Rails.env.test?
+      datamigration.send(:logger).broadcasts.first.instance_variable_get(:@logdev)
+    end
+  end
 
   before do
-    allow(logdev).to receive(:write).and_call_original
+    if logdev
+      allow(logdev).to receive(:write).and_call_original
+    end
   end
 
   context 'when Rails.logger.level is :info' do
@@ -101,11 +107,18 @@ RSpec.describe(Datamigration::Base) do
     end
 
     describe '#logger' do
-      it 'memoizes the logger instance' do
-        first_logger = datamigration.send(:logger)
-        second_logger = datamigration.send(:logger)
+      subject(:logger) { datamigration.send(:logger) }
 
-        expect(first_logger.object_id).to eq(second_logger.object_id)
+      it 'memoizes the logger instance' do
+        expect(logger).to eq(datamigration.send(:logger))
+      end
+
+      context 'when the Rails environment is development', rails_env: :development do
+        it 'sets the logdev to $stdout' do
+          log_dev = logger.instance_variable_get(:@logdev).instance_variable_get(:@dev)
+
+          expect(log_dev).to eq($stdout)
+        end
       end
     end
   end
