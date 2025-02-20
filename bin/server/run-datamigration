@@ -15,4 +15,4 @@ datamigration_path=$1
 # Use `tee` to write both to the terminal and also to the stdout (file
 # descriptor 1) of process 1 (i.e. the rails web server process), because only
 # that output is picked up by Docker/Vector.
-docker compose exec web sh -c "bin/rails runner \"$datamigration_path\" | tee /proc/1/fd/1"
+docker compose exec web bash -c 'bin/rails runner "$datamigration_path" > >(tee /proc/1/fd/1) 2> >(tee /proc/1/fd/2 >&2)'
