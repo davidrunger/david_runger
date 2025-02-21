@@ -73,14 +73,7 @@ while [ $attempt -le $max_attempts ] ; do
   fi
 done
 
-if docker compose ps -q nginx | grep -q .; then
-  # If NGINX is already running, reload to have it start routing requests to the
-  # new container instead of the old.
-  reload_nginx
-else
-  # If NGINX is not yet running, boot it up.
-  docker compose up --detach --remove-orphans nginx
-fi
+reload_nginx
 
 # Remove the old container.
 if [[ -n "$old_container_id" ]]; then

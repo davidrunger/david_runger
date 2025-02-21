@@ -27,6 +27,11 @@ bin/build-docker production
 # Run release tasks.
 bin/server/run-release-tasks
 
+# If NGINX is not already running, then start it.
+if ! docker compose ps -q nginx | grep -q . ; then
+  docker compose up --detach --remove-orphans nginx
+fi
+
 # Copy fully built out public/ directory from web to nginx via app-public volume.
 docker run --rm \
   --mount source=david_runger_app-public,target=/app-public \
