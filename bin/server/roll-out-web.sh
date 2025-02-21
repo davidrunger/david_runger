@@ -73,13 +73,21 @@ while [ $attempt -le $max_attempts ] ; do
   fi
 done
 
-# Start routing requests to the new container instead of the old.
-reload_nginx
+if docker compose ps -q nginx | grep -q .; then
+  # If NGINX is already running, reload to have it start routing requests to the
+  # new container instead of the old.
+  reload_nginx
+else
+  # If NGINX is not yet running, boot it up.
+  docker compose up --detach --remove-orphans nginx
+fi
 
 # Remove the old container.
-echo_iso8601 "Removing the old container."
-docker stop "$old_container_id"
-docker rm "$old_container_id"
+if [[ -n "$old_container_id" ]]; then
+  echo_iso8601 "Removing the old container."
+  docker stop "$old_container_id"
+  docker rm "$old_container_id"
+fi
 
 scale_web 1
 
