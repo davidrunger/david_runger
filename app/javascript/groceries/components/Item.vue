@@ -33,7 +33,7 @@
         EditIcon(:size='ICON_SIZE')
     | &nbsp;
     span ({{item.needed}})
-  .ml-auto.js-link.text-red-600(
+  .ml-auto.js-link.text-red-500(
     v-if='ownStore'
   )
     button.item-button(
