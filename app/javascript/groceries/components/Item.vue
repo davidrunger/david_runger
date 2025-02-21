@@ -3,13 +3,13 @@
   :class='{ unneeded: item.needed <= 0 }'
 )
   .left.whitespace-nowrap
-    button.increment.text-2xl.js-link.text-green-600.leading-unset(
+    button.item-button.js-link.text-green-600(
       @click='setNeeded(item, item.needed + 1)'
       title='Increment'
     )
       .flex.justify-center
         PlusIcon(:size='ICON_SIZE')
-    button.decrement.text-2xl.mx-2.js-link.text-red-600.leading-unset(
+    button.item-button.mx-2.js-link.text-red-600(
       @click='decrement(item)'
       title='Decrement'
     )
@@ -33,19 +33,21 @@
         EditIcon(:size='ICON_SIZE')
     | &nbsp;
     span ({{item.needed}})
-  .delete.text-2xl.js-link.right.text-red-600.leading-unset(
+  .ml-auto.js-link.text-red-600(
     v-if='ownStore'
   )
-    button.px-2(
+    button.item-button(
       @click="groceriesStore.destroyItem({ item })"
       title='Delete item'
-    ) ×
+    )
+      .flex.justify-center
+        XIcon(:size='ICON_SIZE')
 </template>
 
 <script setup lang="ts">
 import { debounce } from 'lodash-es';
 import { ref, type PropType } from 'vue';
-import { EditIcon, MinusIcon, PlusIcon } from 'vue-tabler-icons';
+import { EditIcon, MinusIcon, PlusIcon, XIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
@@ -112,19 +114,7 @@ function stopEditingAndUpdateItemName() {
 </script>
 
 <style lang="scss" scoped>
-.decrement,
-.increment,
-.delete {
-  font-size: 15px;
-  user-select: none;
-}
-
-.delete {
-  margin-left: auto;
-}
-
-button.decrement,
-button.increment {
+.item-button {
   border: none;
   border: 1px solid silver;
   font-size: 20px;
