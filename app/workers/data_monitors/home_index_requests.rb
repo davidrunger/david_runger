@@ -7,7 +7,7 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
 
     verify_data_expectation(
       check_name: :median_response_time_in_past_day,
-      expectation: (10..100),
+      expectation: (5..50),
     )
   end
 
