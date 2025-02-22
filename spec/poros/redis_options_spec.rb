@@ -79,11 +79,19 @@ RSpec.describe RedisOptions do
         end
       end
 
-      context 'when DB_SUFFIX is _feature' do
-        around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature') { spec.run } }
+      context 'when DB_SUFFIX is _feature_a' do
+        around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature_a') { spec.run } }
 
         it 'returns 7' do
           expect(default_db_number).to eq(7)
+        end
+      end
+
+      context 'when DB_SUFFIX is _feature_c' do
+        around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature_c') { spec.run } }
+
+        it 'returns 9' do
+          expect(default_db_number).to eq(9)
         end
       end
 
