@@ -3,7 +3,7 @@
 .env.*.local
 
 # Gems
-/.bundle
+/.bundle/
 
 # Logs
 /log/
@@ -12,15 +12,15 @@
 /tmp/
 
 # JavaScript packages
-/node_modules
+/node_modules/
 
 # Generated JavaScript path helpers
-/app/javascript/rails_assets
+/app/javascript/rails_assets/
 
 # Tests
-coverage/
-.tests.yml
-spec/fixtures/*.yml
+/coverage/
+/lib/test/.tests.yml
+/spec/fixtures/*.yml
 
 # Database dumps
 *.dump*
@@ -43,4 +43,4 @@ export
 /ssl-data/
 
 # NGINX
-config/nginx/conf.d/require-valid-host.conf
+/config/nginx/conf.d/require-valid-host.conf
