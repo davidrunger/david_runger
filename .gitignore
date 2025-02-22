@@ -22,10 +22,6 @@
 /lib/test/.tests.yml
 /spec/fixtures/*.yml
 
-# Database dumps
-*.dump*
-export
-
 # Assets
 # NOTE: public/assets/ is generated when running assets:precompile
 /public/assets/
