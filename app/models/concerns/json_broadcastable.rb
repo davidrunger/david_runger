@@ -2,17 +2,22 @@ module JsonBroadcastable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def broadcasts_json_to(channel, channel_target_proc)
+    def broadcasts_json_to(channel, channel_target_proc, unless: nil)
+      unless_proc = binding.local_variable_get(:unless) || -> { false }
+
       after_create_commit(
         -> { broadcast_json_to(channel, channel_target_proc, :created) },
+        unless: unless_proc,
       )
 
       after_update_commit(
         -> { broadcast_json_to(channel, channel_target_proc, :updated) },
+        unless: unless_proc,
       )
 
       after_destroy_commit(
         -> { broadcast_json_to(channel, channel_target_proc, :destroyed) },
+        unless: unless_proc,
       )
     end
   end

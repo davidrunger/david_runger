@@ -28,5 +28,9 @@ class Item < ApplicationRecord
   scope :needed, -> { where('items.needed > 0') }
   scope :unneeded, -> { where(needed: 0) }
 
-  broadcasts_json_to(GroceriesChannel, ->(item) { item.user&.marriage })
+  broadcasts_json_to(
+    GroceriesChannel,
+    ->(item) { item.user&.marriage },
+    unless: ->(item) { item.store.destroyed? },
+  )
 end

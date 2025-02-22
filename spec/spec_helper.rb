@@ -54,6 +54,7 @@ require 'capybara-screenshot/rspec' unless SpecHelper.use_headful_chrome?
 require 'mail'
 require 'percy/capybara'
 require 'super_diff/rspec-rails'
+require 'paper_trail/frameworks/rspec' # Disables PaperTrail in specs by default.
 require Rails.root.join('spec/support/fixture_builder.rb').to_s
 Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 

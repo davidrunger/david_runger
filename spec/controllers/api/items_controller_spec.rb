@@ -121,7 +121,7 @@ RSpec.describe Api::ItemsController do
       end
     end
 
-    context "when attempting to destroy one's own item" do
+    context "when attempting to destroy one's own item", :versioning do
       let(:user) { item.store.user }
 
       it 'destroys the item' do
