@@ -8,5 +8,5 @@
 # Trim docker images and rebuild the app (Saturday at 08:55 UTC, 2:55am or 3:55am CT).
 55 8 * * 6  /root/david_runger/bin/server/prune-docker-and-rebuild.sh
 
-# Reboot server (Saturday at 10:25 UTC, 4:25am or 5:25am CT).
-25 10 * * 6  reboot
+# Reboot server (Sunday at 10:25 UTC, 4:25am or 5:25am CT).
+25 10 * * 0  /sbin/reboot
