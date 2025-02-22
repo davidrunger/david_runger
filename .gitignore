@@ -39,11 +39,6 @@ export
 # NOTE: blog/ is populated via the GitHub Actions deployment of davidrunger/blog.
 /blog/
 
-# Credentials
-/config/credentials/development.key
-/config/credentials/test.key
-/config/credentials/production.key
-
 # Skedjewel
 /bin/skedjewel
 
