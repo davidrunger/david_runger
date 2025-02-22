@@ -5,7 +5,6 @@
 .ruby-lsp
 app/javascript/rails_assets
 bin/skedjewel
-config/credentials/production.key
 docs
 log
 node_modules
