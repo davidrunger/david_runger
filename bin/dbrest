@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+bin/terminate-db-connections
+dropdb --if-exists david_runger_development
+createdb -T david_runger_development_backup david_runger_development --no-password
