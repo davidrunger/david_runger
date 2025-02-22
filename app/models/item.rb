@@ -31,6 +31,6 @@ class Item < ApplicationRecord
   broadcasts_json_to(
     GroceriesChannel,
     ->(item) { item.user&.marriage },
-    unless_for_destroyed: ->(item) { item.store.destroyed? },
+    unless: ->(item) { item.store.destroyed? },
   )
 end
