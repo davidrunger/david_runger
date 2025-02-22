@@ -5,8 +5,10 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
     # The commands below will error if there are any active connections to the
     # database, so disconnect.
     ActiveRecord::Base.connection_pool.connections.each(&:disconnect!)
+    # Give a little time for the disconnections to complete (?).
+    sleep(0.5)
 
-    %w[unit api html feature].each do |db_suffix|
+    %w[unit api html feature_a feature_c].each do |db_suffix|
       db_name = "david_runger_test_#{db_suffix}"
 
       # in CI, we know that the database doesn't exist, so don't waste any time dropping it

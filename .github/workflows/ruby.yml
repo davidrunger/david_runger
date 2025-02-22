@@ -85,7 +85,6 @@ jobs:
           DISABLE_SPRING: 1
           PERCY_SKIP_UPDATE_CHECK: 1
           VITE_RUBY_AUTO_BUILD: false
-          SECRET_KEY_BASE: 0af8c0e49e9259f2d777cfcd121d8540cee914c34b0abf08dd825bdee47c402daf9f2b9b74a9fff6f88ed95257ae39504e0d59c66400413b0cf7d29079c6358b # gitleaks:allow This is just for the test environment; not a real secret.
           # The hostname used to communicate with the PostgreSQL service container
           POSTGRES_HOST: 127.0.0.1
           POSTGRES_USER: postgres
