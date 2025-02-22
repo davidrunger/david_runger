@@ -199,7 +199,7 @@ services:
       interval: 5m
       timeout: 1s
       retries: 1
-    image: postgres:17.2-alpine
+    image: postgres:17.4-alpine
     logging: *default-logging
     memswap_limit: 99G
     networks:
