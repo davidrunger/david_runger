@@ -4,5 +4,5 @@ spec-commands: |
   export RAILS_ENV=test PALLETS_CONCURRENCY=${PALLETS_CONCURRENCY:-5} DISABLE_SPRING=1
   export POSTGRES_USER=david_runger POSTGRES_HOST=localhost
   set -x
-  redis-cli -n 8 FLUSHDB
+  redis-cli -n 10 FLUSHDB
   bin/run-tests
