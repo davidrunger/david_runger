@@ -11,6 +11,11 @@
     @apply text-blue-600 visited:text-purple-600;
   }
 
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
   body {
     h1 {
       @apply my-4 text-3xl font-bold;
