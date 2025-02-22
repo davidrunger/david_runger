@@ -28,11 +28,6 @@ class Test::RequirementsResolver
         Test::Tasks::CreateDbCopies => Test::Tasks::BuildFixtures,
         Test::Tasks::DivideFeatureSpecs => nil,
         Test::Tasks::StartPercy => Test::Tasks::PnpmInstall,
-        # WaitForPercyStart doesn't really need these, but for timing we'll wait 'til they're done.
-        Test::Tasks::WaitForPercyStart => [
-          Test::Tasks::RunApiControllerTests,
-          Test::Tasks::RunUnitTests,
-        ],
 
         # Checks
         Test::Tasks::CheckVersions => nil,
@@ -62,7 +57,6 @@ class Test::RequirementsResolver
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
           Test::Tasks::RunUnitTests,
-          Test::Tasks::WaitForPercyStart,
         ],
         Test::Tasks::RunFeatureTestsB => [
           Test::Tasks::DivideFeatureSpecs,
@@ -71,7 +65,6 @@ class Test::RequirementsResolver
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
           Test::Tasks::RunApiControllerTests,
-          Test::Tasks::WaitForPercyStart,
         ],
         Test::Tasks::RunFeatureTestsC => [
           Test::Tasks::DivideFeatureSpecs,
@@ -79,7 +72,6 @@ class Test::RequirementsResolver
           Test::Tasks::CompileAdminJavaScript,
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
-          Test::Tasks::WaitForPercyStart,
         ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
