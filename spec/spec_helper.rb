@@ -240,13 +240,6 @@ RSpec.configure do |config|
     Rails.cache = original_rails_cache
   end
 
-  config.around(:each, :paper_trail) do |spec|
-    # https://github.com/paper-trail-gem/paper_trail/blob/v16.0.0/README.md#7b-rspec
-    with_versioning do
-      spec.run
-    end
-  end
-
   config.around(:each, :frozen_time) do |spec|
     freeze_time
     spec.run
