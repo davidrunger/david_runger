@@ -54,6 +54,7 @@ require 'capybara-screenshot/rspec' unless SpecHelper.use_headful_chrome?
 require 'mail'
 require 'percy/capybara'
 require 'super_diff/rspec-rails'
+require 'paper_trail/frameworks/rspec' # Disables PaperTrail in specs by default.
 require Rails.root.join('spec/support/fixture_builder.rb').to_s
 Dir['spec/support/**/*.rb'].each { |file| require Rails.root.join(file) }
 
@@ -240,7 +241,8 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :paper_trail) do |spec|
-    PaperTrail.config.with(enabled: true) do
+    # https://github.com/paper-trail-gem/paper_trail/blob/v16.0.0/README.md#7b-rspec
+    with_versioning do
       spec.run
     end
   end
