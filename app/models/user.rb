@@ -57,7 +57,7 @@ class User < ApplicationRecord
       marriage =
         Marriage.
           includes(
-            check_ins: :need_satisfaction_ratings,
+            check_ins: %i[check_in_submissions need_satisfaction_ratings],
             emotional_needs: :need_satisfaction_ratings,
           ).
           find(user.marriage.id)

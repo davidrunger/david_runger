@@ -5,6 +5,7 @@ class MyAccountController < ApplicationController
     @user =
       User.includes(
         logs: %i[log_entries log_shares],
+        stores: :items,
       ).find(current_user.id)
     authorize(@user)
 
