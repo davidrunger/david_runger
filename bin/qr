@@ -31,3 +31,9 @@ echo "Done."
 echo "Setting ar_internal_metadata environment to development."
 RAILS_ENV=development bin/rails db:environment:set
 echo "Done."
+
+echo "Creating a backup copy of the database. (Use bin/dbrest to restore from the backup.)"
+dropdb --if-exists david_runger_development_backup
+bin/terminate-db-connections
+createdb -T david_runger_development david_runger_development_backup --no-password
+echo "Done."
