@@ -73,10 +73,20 @@ class Test::RequirementsResolver
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
         ],
+        Test::Tasks::FeatureTestsCanStart => [
+          Test::Tasks::CompileAdminJavaScript,
+          Test::Tasks::CompileUserJavaScript,
+          Test::Tasks::CreateDbCopies,
+          Test::Tasks::DivideFeatureSpecs,
+          Test::Tasks::RunApiControllerTests,
+          Test::Tasks::RunUnitTests,
+          Test::Tasks::StartPercy,
+        ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileAdminJavaScript,
           Test::Tasks::CompileUserJavaScript,
+          Test::Tasks::FeatureTestsCanStart,
         ],
 
         # Necessary processes.
