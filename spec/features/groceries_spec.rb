@@ -10,7 +10,7 @@ RSpec.describe 'Groceries app' do
       let(:new_item_name) { "blueberries (#{url_in_item_name})" }
       let(:url_in_item_name) { 'https://www.amazon.com/blueberries' }
 
-      it 'allows adding an item (which it linkifies), deleting an item, undoing the deletion, and checking in a shopping trip' do
+      it 'allows adding an item (which it linkifies), deleting an item, undoing the deletion, and checking in a shopping trip', :paper_trail do
         visit groceries_path
 
         store = user.stores.reorder(:viewed_at).last!

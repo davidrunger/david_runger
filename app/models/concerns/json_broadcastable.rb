@@ -2,7 +2,7 @@ module JsonBroadcastable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def broadcasts_json_to(channel, channel_target_proc)
+    def broadcasts_json_to(channel, channel_target_proc, unless_for_destroyed: nil)
       after_create_commit(
         -> { broadcast_json_to(channel, channel_target_proc, :created) },
       )
@@ -13,6 +13,7 @@ module JsonBroadcastable
 
       after_destroy_commit(
         -> { broadcast_json_to(channel, channel_target_proc, :destroyed) },
+        unless: unless_for_destroyed || -> { false },
       )
     end
   end

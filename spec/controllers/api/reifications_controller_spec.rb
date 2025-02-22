@@ -1,4 +1,4 @@
-RSpec.describe Api::ReificationsController do
+RSpec.describe Api::ReificationsController, :paper_trail do
   describe '#create' do
     subject(:post_create) { post(:create, params: { paper_trail_version_id: }) }
 
