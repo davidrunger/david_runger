@@ -14,9 +14,6 @@
 # JavaScript packages
 /node_modules
 
-# Docker
-docker-compose.override.yml
-
 # Generated JavaScript path helpers
 /app/javascript/rails_assets
 
