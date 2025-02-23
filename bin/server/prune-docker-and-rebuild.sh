@@ -8,9 +8,5 @@ cd /root/david_runger
 # Prune Docker.
 docker system prune --all --force
 
-# Export necessary env vars.
-# shellcheck disable=SC1091
-. bin/server/export-env-vars-needed-by-docker
-
 # Rebuild Docker image(s).
 bin/build-docker production

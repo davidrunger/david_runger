@@ -31,10 +31,6 @@ if [ ! -v LOCAL_TEST ] ; then
   bin/server/install.sh
 fi
 
-# Export necessary env vars.
-# shellcheck disable=SC1091
-. bin/server/export-env-vars-needed-by-docker
-
 # Rebuild the app (for development if testing locally, otherwise for production).
 if [ -v LOCAL_TEST ] ; then
   RAILS_ENV=development bin/build-docker
