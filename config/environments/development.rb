@@ -98,6 +98,9 @@ Rails.application.configure do
       :letter_opener
     end
 
+  # Allow access from other services in the Docker Compose network.
+  config.hosts << 'web:3000'
+
   local_hostname = ENV.fetch('LOCAL_HOSTNAME', nil)
   if local_hostname && !local_hostname.empty? # rubocop:disable Rails/Present
     config.hosts << local_hostname
