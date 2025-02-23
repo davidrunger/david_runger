@@ -15,14 +15,14 @@ module TokenAuthenticatable
 
   memoize \
   def auth_token_secret
-    auth_token_secret = params[:auth_token] || auth_token_in_authorization_header
+    auth_token_secret = params[:auth_token] || auth_token_in_header
     # For AuthTokensController requests, the top-level `auth_token` param might be a hash, which we
     # don't want here.
     auth_token_secret.is_a?(String) ? auth_token_secret : nil
   end
 
   memoize \
-  def auth_token_in_authorization_header
+  def auth_token_in_header
     authorization_header = request.headers['Authorization']
 
     if authorization_header.present?
