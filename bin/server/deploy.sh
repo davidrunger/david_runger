@@ -32,7 +32,7 @@ if [ ! -v LOCAL_TEST ] ; then
 fi
 
 # Export necessary env vars.
-# shellcheck source=bin/server/export-env-vars-needed-by-docker
+# shellcheck disable=SC1091
 . bin/server/export-env-vars-needed-by-docker
 
 # Rebuild the app (for development if testing locally, otherwise for production).
