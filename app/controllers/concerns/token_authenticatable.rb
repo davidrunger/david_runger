@@ -26,8 +26,8 @@ module TokenAuthenticatable
     authorization_header = request.headers['Authorization']
 
     if authorization_header.present?
-      match = authorization_header.match(/\ABearer\s+(.+)\z/)
-      match&.captures&.first
+      match = authorization_header.match(/\ABearer\s+(?<token>.+)\z/)
+      match&.named_captures&.[]('token')
     end
   end
 
