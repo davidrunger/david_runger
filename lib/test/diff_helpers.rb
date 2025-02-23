@@ -25,14 +25,8 @@ module DiffHelpers
 
   memoize \
   def diff
-    ensure_master_is_present
-    `git log main..HEAD --full-diff --source --format="" --unified=0 -p . \
-      | grep -Ev "^(diff |index |--- a/|\\+\\+\\+ b/|@@ )"`.tap do |diff|
-        puts('------------')
-        puts('DIFF:')
-        puts(diff)
-        puts('============')
-      end
+    ensure_main_is_present
+    `git diff --no-prefix "origin/$(main-branch)..HEAD"`
   end
 
   memoize \
@@ -40,7 +34,7 @@ module DiffHelpers
     diff.match?(%r{#{phrase}}i)
   end
 
-  def ensure_master_is_present
+  def ensure_main_is_present
     if !system('git log -1 --pretty="%H" main > /dev/null 2>&1')
       puts('`main` branch is not present; fetching it now...')
       system('git fetch origin main:main --depth=1', exception: true)
@@ -50,13 +44,13 @@ module DiffHelpers
 
   memoize \
   def files_added_in?(directory)
-    ensure_master_is_present
+    ensure_main_is_present
     `git diff --name-only --diff-filter=A main HEAD #{directory}`.rstrip.split("\n").any?
   end
 
   memoize \
   def files_changed
-    ensure_master_is_present
+    ensure_main_is_present
     `git diff --name-only $(git merge-base HEAD main)`.rstrip.split("\n")
   end
 
