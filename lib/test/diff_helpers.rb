@@ -26,7 +26,7 @@ module DiffHelpers
   memoize \
   def diff
     ensure_main_is_present
-    `git diff --no-prefix "origin/$(main-branch)..HEAD"`
+    `git diff --no-prefix --unified=0 "origin/$(main-branch)..HEAD"`
   end
 
   memoize \
