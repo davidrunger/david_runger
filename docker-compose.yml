@@ -7,10 +7,19 @@ x-logging-config: &default-logging
 
 x-rails-config: &default-rails-config
   build:
+    args:
+      - GIT_REV=${GIT_REV}
+      - RAILS_ENV=${RAILS_ENV}
+      - RUBY_VERSION=${RUBY_VERSION}
     context: .
   depends_on:
     initialize_database:
       condition: service_completed_successfully
+  develop:
+    watch:
+      - action: sync
+        path: .
+        target: /app
   env_file:
     # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local

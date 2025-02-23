@@ -123,7 +123,7 @@ class ApplicationController < ActionController::Base
 
   # override Rails's built-in #verify_authenticity_token method to allow for `auth_token` use
   def verify_authenticity_token
-    if auth_token_param.present?
+    if auth_token_secret.present?
       verify_valid_auth_token!
     else
       super

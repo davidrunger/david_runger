@@ -8,17 +8,27 @@ module TokenAuthenticatable
 
   memoize \
   def auth_token
-    return nil if auth_token_param.blank?
+    return nil if auth_token_secret.blank?
 
-    AuthToken.find_by(secret: auth_token_param)
+    AuthToken.find_by(secret: auth_token_secret)
   end
 
   memoize \
-  def auth_token_param
-    auth_token_param = params[:auth_token]
+  def auth_token_secret
+    auth_token_secret = params[:auth_token] || auth_token_in_header
     # For AuthTokensController requests, the top-level `auth_token` param might be a hash, which we
     # don't want here.
-    auth_token_param.is_a?(String) ? auth_token_param : nil
+    auth_token_secret.is_a?(String) ? auth_token_secret : nil
+  end
+
+  memoize \
+  def auth_token_in_header
+    authorization_header = request.headers['Authorization']
+
+    if authorization_header.present?
+      match = authorization_header.match(/\ABearer\s+(?<token>.+)\z/)
+      match&.named_captures&.[]('token')
+    end
   end
 
   memoize \

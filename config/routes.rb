@@ -90,6 +90,7 @@ Rails.application.routes.draw do
     resources :stores, only: %i[index create update destroy] do
       resources :items, only: %i[create]
     end
+    resources :webhook_email_forwards, only: %i[create]
     resources :workouts, only: %i[create update]
   end
 
