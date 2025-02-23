@@ -26,7 +26,15 @@ module DiffHelpers
   memoize \
   def diff
     ensure_main_is_present
-    `git diff --no-prefix --unified=0 "origin/$(main-branch)..HEAD"`
+
+    # https://stackoverflow.com/a/26622262/4009384
+    command = <<~'SH'.squish
+      git diff --unified=0 "origin/$(main-branch)..HEAD" |
+        grep '^[+-]' |
+        grep -Ev '^(--- a/|\+\+\+ b/)'
+    SH
+
+    `#{command}`
   end
 
   memoize \
