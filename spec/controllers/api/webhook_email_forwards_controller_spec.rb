@@ -26,10 +26,11 @@ RSpec.describe Api::WebhookEmailForwardsController do
             post_create
           end
 
-          # expect email to have been sent
+          # Check that email was sent with expected properties.
           expect(ActionMailer::Base.deliveries.size).to eq(1)
           mail = ActionMailer::Base.deliveries.first
           expect(mail.content_type).to eq('text/html; charset=UTF-8')
+          expect(mail.to).to eq([auth_token.user.email])
           expect(mail.subject).to eq(alert_title)
           expect(mail.body.to_s).to eq(alert_body)
         end
