@@ -37,11 +37,9 @@ fi
 
 # Rebuild the app (for development if testing locally, otherwise for production).
 if [ -v LOCAL_TEST ] ; then
-  export RAILS_ENV=development
-  bin/build-docker
+  RAILS_ENV=development bin/build-docker
 else
-  export RAILS_ENV=production
-  bin/build-docker
+  RAILS_ENV=production bin/build-docker
 fi
 
 # Run release tasks.
