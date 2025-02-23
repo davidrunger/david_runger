@@ -27,7 +27,12 @@ module DiffHelpers
   def diff
     ensure_master_is_present
     `git log main..HEAD --full-diff --source --format="" --unified=0 -p . \
-      | grep -Ev "^(diff |index |--- a/|\\+\\+\\+ b/|@@ )"`
+      | grep -Ev "^(diff |index |--- a/|\\+\\+\\+ b/|@@ )"`.tap do |diff|
+        puts('------------')
+        puts("DIFF:")
+        puts(diff)
+        puts('============')
+      end
   end
 
   memoize \

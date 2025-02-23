@@ -250,10 +250,7 @@ class Test::RequirementsResolver
         !file_changed?('package.json') &&
         !file_changed?('pnpm-lock.yaml')
     end,
-    Test::Tasks::RunImmigrant => proc do
-      (!db_schema_changed?).tap { puts("!schema changed?:#{it}") } &&
-        (!diff_mentions?('immigrant')).tap { puts("!mentions immigrant?:#{it}") }
-    end,
+    Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
     Test::Tasks::RunPrettier => proc do
       all_changed_file_extensions_are_among?(%w[haml lock rb]) &&
         !dotfile_changed? &&
