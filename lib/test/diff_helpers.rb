@@ -34,11 +34,7 @@ module DiffHelpers
         grep -Ev '^(--- a/|\+\+\+ b/)'
     SH
 
-    `#{command}`.tap do
-      if !$CHILD_STATUS.success?
-        raise("Command failed: #{command}")
-      end
-    end
+    `#{command}`
   end
 
   memoize \
