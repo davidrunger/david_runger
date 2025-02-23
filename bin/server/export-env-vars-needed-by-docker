@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+export COMPOSE_BAKE=true
+export GIT_REV="$(git rev-parse origin/main)"
+export RAILS_ENV="$rails_env"
+export RUBY_VERSION="$(cat .ruby-version)"

@@ -31,6 +31,9 @@ if [ ! -v LOCAL_TEST ] ; then
   bin/server/install.sh
 fi
 
+# Export necessary env vars.
+bin/server/export-env-vars-needed-by-docker
+
 # Rebuild the app (for development if testing locally, otherwise for production).
 if [ -v LOCAL_TEST ] ; then
   bin/build-docker development

@@ -16,17 +16,9 @@ build() {
   services=("$@")
 
   if [ "${#services[@]}" -eq 0 ]; then
-    COMPOSE_BAKE=true \
-    GIT_REV="$(git rev-parse origin/main)" \
-    RAILS_ENV="$rails_env" \
-    RUBY_VERSION="$(cat .ruby-version)" \
-      docker compose --progress=plain build
+    docker compose --progress=plain build
   else
-    COMPOSE_BAKE=true \
-    GIT_REV="$(git rev-parse origin/main)" \
-    RAILS_ENV="$rails_env" \
-    RUBY_VERSION="$(cat .ruby-version)" \
-      docker compose --progress=plain build "${services[@]}"
+    docker compose --progress=plain build "${services[@]}"
   fi
 }
 
