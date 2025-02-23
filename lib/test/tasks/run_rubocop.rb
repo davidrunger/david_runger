@@ -3,7 +3,7 @@ class Test::Tasks::RunRubocop < Pallets::Task
 
   def run
     execute_system_command(<<~COMMAND)
-      bin/rubocop $(git ls-tree -r HEAD --name-only) --color --force-exclusion --format clang
+      bin/rubocop --color --force-exclusion --format clang
     COMMAND
   end
 end
