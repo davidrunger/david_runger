@@ -36,9 +36,11 @@ bin/server/export-env-vars-needed-by-docker
 
 # Rebuild the app (for development if testing locally, otherwise for production).
 if [ -v LOCAL_TEST ] ; then
-  bin/build-docker development
+  export RAILS_ENV=development
+  bin/build-docker
 else
-  bin/build-docker production
+  export RAILS_ENV=production
+  bin/build-docker
 fi
 
 # Run release tasks.
