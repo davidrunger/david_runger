@@ -3,5 +3,9 @@
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
 export COMPOSE_BAKE=true
-export GIT_REV="$(git rev-parse origin/main)"
-export RUBY_VERSION="$(cat .ruby-version)"
+
+GIT_REV="$(git rev-parse origin/main)"
+export GIT_REV
+
+RUBY_VERSION="$(cat .ruby-version)"
+export RUBY_VERSION
