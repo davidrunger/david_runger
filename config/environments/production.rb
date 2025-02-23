@@ -103,13 +103,14 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = :all
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
+  config.hosts = [
+    'davidrunger.com', # Allow requests from davidrunger.com.
+    /.*\.davidrunger\.com/, # Allow requests from subdomains like `www.davidrunger.com`.
+    'web:3000', # Allow access from other services in the Docker Compose network.
+  ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.host_authorization = { exclude: ->(request) { request.path == '/up' } }
 
   # Email
   config.action_mailer.perform_deliveries = true
