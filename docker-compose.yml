@@ -8,9 +8,9 @@ x-logging-config: &default-logging
 x-rails-config: &default-rails-config
   build:
     args:
-      - GIT_REV=${GIT_REV}
-      - RAILS_ENV=${RAILS_ENV}
-      - RUBY_VERSION=${RUBY_VERSION}
+      - GIT_REV=${GIT_REV:-}
+      - RAILS_ENV=${RAILS_ENV:-}
+      - RUBY_VERSION=${RUBY_VERSION:-}
     context: .
   depends_on:
     initialize_database:

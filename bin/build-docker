@@ -10,23 +10,23 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-rails_env=$1
+export COMPOSE_BAKE=true
+
+if [ ! -v GIT_REV ] ; then
+  GIT_REV="$(git rev-parse origin/main)"
+  export GIT_REV
+fi
+
+RUBY_VERSION="$(cat .ruby-version)"
+export RUBY_VERSION
 
 build() {
   services=("$@")
 
   if [ "${#services[@]}" -eq 0 ]; then
-    COMPOSE_BAKE=true \
-    GIT_REV="$(git rev-parse origin/main)" \
-    RAILS_ENV="$rails_env" \
-    RUBY_VERSION="$(cat .ruby-version)" \
-      docker compose --progress=plain build
+    docker compose --progress=plain build
   else
-    COMPOSE_BAKE=true \
-    GIT_REV="$(git rev-parse origin/main)" \
-    RAILS_ENV="$rails_env" \
-    RUBY_VERSION="$(cat .ruby-version)" \
-      docker compose --progress=plain build "${services[@]}"
+    docker compose --progress=plain build "${services[@]}"
   fi
 }
 
