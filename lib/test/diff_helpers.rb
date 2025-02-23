@@ -29,12 +29,16 @@ module DiffHelpers
 
     # https://stackoverflow.com/a/26622262/4009384
     command = <<~'SH'.squish
-      git diff --unified=0 "origin/$(main-branch)..HEAD" |
+      git diff --unified=0 "origin/main..HEAD" |
         grep '^[+-]' |
         grep -Ev '^(--- a/|\+\+\+ b/)'
     SH
 
-    `#{command}`
+    `#{command}`.tap do
+      if !$CHILD_STATUS.success?
+        raise("Command failed: #{command}")
+      end
+    end
   end
 
   memoize \
