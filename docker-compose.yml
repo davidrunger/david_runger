@@ -9,8 +9,8 @@ x-rails-config: &default-rails-config
   build:
     args:
       - GIT_REV=${GIT_REV}
-      - RUBY_VERSION=${RUBY_VERSION}
       - RAILS_ENV=${RAILS_ENV}
+      - RUBY_VERSION=${RUBY_VERSION}
     context: .
   depends_on:
     initialize_database:
