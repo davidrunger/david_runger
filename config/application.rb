@@ -109,4 +109,7 @@ class DavidRunger::Application < Rails::Application
   # The log size limit causes tailing a log file to stop working when the limit
   # is reached, which is annoying, so disable the limit.
   config.log_file_size = nil
+
+  # Allow access from other services in the Docker Compose network.
+  config.hosts << 'web:3000'
 end
