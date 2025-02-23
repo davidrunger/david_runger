@@ -9,7 +9,7 @@ cd /root/david_runger
 docker system prune --all --force
 
 # Export necessary env vars.
-bin/server/export-env-vars-needed-by-docker
+. bin/server/export-env-vars-needed-by-docker
 
 # Rebuild Docker image(s).
 bin/build-docker production
