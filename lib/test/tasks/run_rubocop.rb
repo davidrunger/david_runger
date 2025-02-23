@@ -3,7 +3,7 @@ class Test::Tasks::RunRubocop < Pallets::Task
 
   def run
     execute_system_command(<<~COMMAND)
-      bin/rubocop --color --format clang
+      bundle exec rubocop --color --format clang
     COMMAND
   end
 end
