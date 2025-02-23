@@ -29,7 +29,7 @@ module DiffHelpers
     `git log main..HEAD --full-diff --source --format="" --unified=0 -p . \
       | grep -Ev "^(diff |index |--- a/|\\+\\+\\+ b/|@@ )"`.tap do |diff|
         puts('------------')
-        puts("DIFF:")
+        puts('DIFF:')
         puts(diff)
         puts('============')
       end
