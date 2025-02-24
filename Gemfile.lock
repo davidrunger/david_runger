@@ -289,7 +289,7 @@ GEM
       hashids (~> 1.0)
     hashids (1.0.6)
     hashie (5.0.0)
-    http_logger (0.7.0)
+    http_logger (1.0.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     immigrant (0.3.6)
@@ -922,7 +922,7 @@ CHECKSUMS
   hashid-rails (1.4.1) sha256=cc14a9c16a6320a39f1b84a01c6b66ab934526cec9680118292f3c17370053e3
   hashids (1.0.6) sha256=a344c05f249417492bf48451a93770558834ff7a445e1b64ef112954a0293019
   hashie (5.0.0) sha256=9d6c4e51f2a36d4616cbc8a322d619a162d8f42815a792596039fc95595603da
-  http_logger (0.7.0) sha256=7302277ae4dfd1e3ccef279fec6e3887415cc6447a024e94b36d0f0e437a677c
+  http_logger (1.0.1) sha256=5756f349e73b0a03d168eee4f05bfae55ce8d926ccbf3cbfb6c38de9e883405a
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
   immigrant (0.3.6) sha256=9c154dec2a2cbce62b32967a8b33e1eed58fed6432be3601f67cb88820024e96
   inherited_resources (1.14.0) sha256=c90327c2898aa1354c0e4bc46616cb35eadef6d135746e23a83ca09987b2a308
