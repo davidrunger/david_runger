@@ -53,7 +53,12 @@ class Test::RequirementsResolver
           Test::Tasks::CreateDbCopies,
           Test::Tasks::RunApiControllerTests,
         ],
-        Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
+        # RunApiControllerTests doesn't really depend on StartPercy,
+        # but it's better for the timing of steps if it waits for it.
+        Test::Tasks::RunApiControllerTests => [
+          Test::Tasks::CreateDbCopies,
+          Test::Tasks::StartPercy,
+        ],
         Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileUserJavaScript,
         Test::Tasks::RunFeatureTestsA => [
           Test::Tasks::DivideFeatureSpecs,
