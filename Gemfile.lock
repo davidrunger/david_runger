@@ -685,7 +685,7 @@ GEM
     uniform_notifier (1.16.0)
     uri (1.0.2)
     useragent (0.16.11)
-    version_gem (1.1.4)
+    version_gem (1.1.6)
     vite_rails (3.0.19)
       railties (>= 5.1, < 9)
       vite_ruby (~> 3.0, >= 3.2.2)
@@ -1087,7 +1087,7 @@ CHECKSUMS
   uniform_notifier (1.16.0) sha256=99b39ee4a0864e3b49f375b5e5803eb26d35ed6eb1719c96407573a87bc4dbb5
   uri (1.0.2) sha256=b303504ceb7e5905771fa7fa14b649652fa949df18b5880d69cfb12494791e27
   useragent (0.16.11) sha256=700e6413ad4bb954bb63547fa098dddf7b0ebe75b40cc6f93b8d54255b173844
-  version_gem (1.1.4) sha256=c69752c6d6a9446ad21a030661a988ba10ba05c1ad249532332ecc7efa534621
+  version_gem (1.1.6) sha256=b989cf19880ee18907083ba9bb6fdbe40826bd698fbd7cdfab7345a2550bf203
   vite_rails (3.0.19) sha256=195c44677bc05c1f94e7a69f1264e49d4bad2729ab06538ee858c2962f5bb500
   vite_ruby (3.9.1) sha256=e4584a4ba1578602f13a3ac73402007aed044bd660daaac220523a97c49a4cc4
   warden (1.2.9) sha256=46684f885d35a69dbb883deabf85a222c8e427a957804719e143005df7a1efd0
