@@ -47,7 +47,12 @@ class Test::RequirementsResolver
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
         Test::Tasks::RunRubocop => nil,
-        Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
+        # RunUnitTests doesn't really depend on RunApiControllerTests,
+        # but it's better for the timing of steps if it waits for it.
+        Test::Tasks::RunUnitTests => [
+          Test::Tasks::CreateDbCopies,
+          Test::Tasks::RunApiControllerTests,
+        ],
         Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileUserJavaScript,
         Test::Tasks::RunFeatureTestsA => [
