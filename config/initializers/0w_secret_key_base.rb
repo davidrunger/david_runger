@@ -1,8 +1,4 @@
-secret_key_base =
-  ENV.fetch(
-    'SECRET_KEY_BASE',
-    Rails.application.credentials.secret_key_base,
-  ).presence
+secret_key_base = ENV.fetch('SECRET_KEY_BASE')
 
 if secret_key_base.present?
   DavidRunger::Application.config.secret_key_base = secret_key_base

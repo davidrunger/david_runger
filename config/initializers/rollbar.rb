@@ -8,7 +8,7 @@ Rollbar.configure do |config|
       if IS_DOCKER_BUILD
         nil
       else
-        Rails.application.credentials.rollbar!.access_token!
+        ENV.fetch('ROLLBAR_ACCESS_TOKEN')
       end
     # :nocov:
     else ENV.fetch('ROLLBAR_ACCESS_TOKEN', nil)
@@ -78,7 +78,7 @@ Rollbar.configure do |config|
   # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
   config.environment = ENV.fetch('ROLLBAR_ENV', Rails.env)
 
-  client_token = Rails.application.credentials.rollbar&.dig(:post_client_item_access_token)
+  client_token = ENV.fetch('ROLLBAR_POST_CLIENT_ITEM_ACCESS_TOKEN')
   config.js_enabled = IS_DOCKER_BUILD ? false : Flipper.enabled?(:rollbar_js)
   config.js_options = {
     accessToken: client_token,

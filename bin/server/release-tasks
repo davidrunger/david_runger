@@ -62,7 +62,7 @@ end
 
 if Rails.env.production?
   runner.run_task('Notifying Rollbar of deploy') do
-    access_token = Rails.application.credentials.rollbar!.access_token!
+    access_token = ENV.fetch('ROLLBAR_ACCESS_TOKEN')
 
     Faraday.json_connection.post(
       'https://api.rollbar.com/api/1/deploy/',
