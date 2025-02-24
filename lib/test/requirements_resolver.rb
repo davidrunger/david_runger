@@ -47,11 +47,11 @@ class Test::RequirementsResolver
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
         Test::Tasks::RunRubocop => nil,
-        # RunUnitTests doesn't really depend on RunApiControllerTests,
+        # RunUnitTests doesn't really depend on CompileUserJavaScript,
         # but it's better for the timing of steps if it waits for it.
         Test::Tasks::RunUnitTests => [
           Test::Tasks::CreateDbCopies,
-          Test::Tasks::RunApiControllerTests,
+          Test::Tasks::CompileUserJavaScript,
         ],
         # RunApiControllerTests doesn't really depend on StartPercy,
         # but it's better for the timing of steps if it waits for it.
@@ -73,7 +73,6 @@ class Test::RequirementsResolver
           Test::Tasks::CompileAdminJavaScript,
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
-          Test::Tasks::RunApiControllerTests,
         ],
         Test::Tasks::RunFeatureTestsC => [
           Test::Tasks::DivideFeatureSpecs,
@@ -87,7 +86,6 @@ class Test::RequirementsResolver
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::CreateDbCopies,
           Test::Tasks::DivideFeatureSpecs,
-          Test::Tasks::RunApiControllerTests,
           Test::Tasks::StartPercy,
         ],
         Test::Tasks::RunHtmlControllerTests => [

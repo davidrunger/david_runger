@@ -29,6 +29,7 @@ class RedisOptions
       when '_api' then 5
       when '_html' then 6
       when '_feature_a' then 7
+      when '_feature_b' then 8
       when '_feature_c' then 9
       else raise('Unexpected DB_SUFFIX!')
       end
