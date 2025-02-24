@@ -40,7 +40,7 @@ module Email
           :authorization,
           :basic,
           'api',
-          ENV.fetch('MAILGUN_API_KEY') { Rails.application.credentials.mailgun!.fetch(:api_key) },
+          ENV.fetch('MAILGUN_API_KEY'),
         )
       end
     end

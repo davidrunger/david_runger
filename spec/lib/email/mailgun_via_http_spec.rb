@@ -32,27 +32,30 @@ RSpec.describe Email::MailgunViaHttp do
       )
     end
 
-    before do
-      expect(Rails.application.credentials).to receive(:mailgun!).
-        and_return(api_key: stubbed_mailgun_api_key)
-    end
+    context 'when there is a valid MAILGUN_API_KEY env var' do
+      around do |spec|
+        ClimateControl.modify(MAILGUN_API_KEY: stubbed_mailgun_api_key) do
+          spec.run
+        end
+      end
 
-    it 'makes an HTTP POST request to the appropriate Mailgun URL' do
-      deliver!
-
-      expect(mailgun_http_request).to have_been_requested
-    end
-
-    context 'when the `log_mailgun_http_response` flag is enabled' do
-      before { activate_feature!(:log_mailgun_http_response) }
-
-      it 'logs info about the Mailgun HTTP response' do
-        expect(Rails.logger).
-          to receive(:info).
-          with(/Mailgun response for email.* status=.* body=.* headers=/).
-          and_call_original
-
+      it 'makes an HTTP POST request to the appropriate Mailgun URL' do
         deliver!
+
+        expect(mailgun_http_request).to have_been_requested
+      end
+
+      context 'when the `log_mailgun_http_response` flag is enabled' do
+        before { activate_feature!(:log_mailgun_http_response) }
+
+        it 'logs info about the Mailgun HTTP response' do
+          expect(Rails.logger).
+            to receive(:info).
+            with(/Mailgun response for email.* status=.* body=.* headers=/).
+            and_call_original
+
+          deliver!
+        end
       end
     end
   end
