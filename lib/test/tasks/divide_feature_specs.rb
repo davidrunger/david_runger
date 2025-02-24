@@ -6,6 +6,8 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
   def run
     puts("#{AmazingPrint::Colors.yellow('Dividing feature specs')}...")
 
+    FileUtils.mkdir_p('tmp')
+
     Dir.glob('spec/features/**/*_spec.rb').
       shuffle.
       group_by.with_index { |_file, index| index % NUM_FEATURE_SPEC_GROUPS }.
