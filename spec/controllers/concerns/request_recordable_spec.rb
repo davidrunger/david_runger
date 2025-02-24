@@ -11,7 +11,7 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
       perform_request
 
       $redis_pool.with do |conn|
-        JSON(conn.call('get', controller.send(:initial_request_data_redis_key)))
+        JSON.parse(conn.call('get', controller.send(:initial_request_data_redis_key)))
       end
     end
 
