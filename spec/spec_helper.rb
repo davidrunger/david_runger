@@ -9,20 +9,20 @@ module SpecHelper
   end
 end
 
-require 'simplecov'
-SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
-SimpleCov.start do
-  db_suffix = ENV.fetch('DB_SUFFIX', nil)
-  capybara_server_port = ENV.fetch('CAPYBARA_SERVER_PORT', nil)
-  # rubocop:disable Rails/Present -- At this point, we have not yet loaded Rails.
-  if !db_suffix.nil? && !db_suffix.empty?
-    command_name("Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect}")
-  end
-  # rubocop:enable Rails/Present
-  add_filter(%r{^/spec/})
-  add_filter(%r{^/tools/(?!custom_cops/)})
-  enable_coverage(:branch) if !SpecHelper.is_ci? # Codecov doesn't respect `nocov-else` etc comments
-end
+# require 'simplecov'
+# SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
+# SimpleCov.start do
+#   db_suffix = ENV.fetch('DB_SUFFIX', nil)
+#   capybara_server_port = ENV.fetch('CAPYBARA_SERVER_PORT', nil)
+#   # rubocop:disable Rails/Present -- At this point, we have not yet loaded Rails.
+#   if !db_suffix.nil? && !db_suffix.empty?
+#     command_name("Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect}")
+#   end
+#   # rubocop:enable Rails/Present
+#   add_filter(%r{^/spec/})
+#   add_filter(%r{^/tools/(?!custom_cops/)})
+#   enable_coverage(:branch) if !SpecHelper.is_ci? # Codecov doesn't respect `nocov-else` etc comments
+# end
 
 require File.expand_path('../config/environment', __dir__)
 
@@ -72,7 +72,7 @@ WebMock.disable_net_connect!(
 
 OmniAuth.config.test_mode = true
 
-if SpecHelper.is_ci?
+if SpecHelper.is_ci? && false
   Capybara::Screenshot.s3_configuration = {
     s3_client_credentials: {
       access_key_id: Rails.application.credentials.aws![:access_key_id],
