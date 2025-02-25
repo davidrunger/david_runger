@@ -4,20 +4,19 @@ ActiveAdmin.register_page('Dashboard') do
   content title: 'Dashboard' do
     columns do
       column do
-        panel 'Recent Users' do
-          table_for User.order(created_at: :desc).first(3) do
-            column(:id) { |user| link_to(user.id, admin_user_path(user)) }
-            column(:email) { |user| link_to(user.email, admin_user_path(user)) }
-            column(:created_at)
-          end
+        panel 'Admin Tools' do
+          h3 { b { link_to('Blazer', '/blazer') } }
+          h3 { b { link_to('Flipper', '/flipper') } }
+          h3 { b { link_to('Sidekiq', '/sidekiq') } }
+          h3 { b { link_to('Vue Playground', '/vue-playground') } }
         end
       end
 
       column do
-        panel 'Recent IP Blocks' do
-          table_for IpBlock.order(created_at: :desc).first(3) do
-            column(:ip) { |ip_block| link_to(ip_block.ip, admin_ip_block_path(ip_block)) }
-            column(:reason) { |ip_block| truncate(ip_block.reason.split("\n").first, length: 15) }
+        panel 'Recent Users' do
+          table_for User.order(created_at: :desc).first(3) do
+            column(:id) { |user| link_to(user.id, admin_user_path(user)) }
+            column(:email) { |user| link_to(user.email, admin_user_path(user)) }
             column(:created_at)
           end
         end

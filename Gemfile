@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'activeadmin'
 gem 'alba'
 gem 'aws-sdk-s3'
+gem 'blazer'
 gem 'bootsnap', require: false
 gem 'browser'
 gem 'chartkick'
