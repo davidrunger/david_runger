@@ -75,6 +75,9 @@ jobs:
       - name: Set GIT_REV environment variable
         uses: ./.github/actions/git_rev
 
+      - name: Ensure clean git status
+        run: '! [[ -n $(git status --porcelain) ]] || (git status && false)'
+
       - name: Run tests & linters
         run: bin/run-tests
         env:
