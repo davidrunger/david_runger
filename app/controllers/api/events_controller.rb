@@ -14,6 +14,7 @@ class Api::EventsController < Api::BaseController
       ip: request.remote_ip,
       type: payload_data[:type],
       user: current_user,
+      user_agent: request.user_agent,
     )
 
     FetchIpInfoForRecord.perform_async(event.class.name, event.id)

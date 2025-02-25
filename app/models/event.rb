@@ -12,6 +12,7 @@
 #  stack_trace   :string           default([]), not null, is an Array
 #  type          :string           not null
 #  updated_at    :datetime         not null
+#  user_agent    :text
 #  user_id       :bigint
 #
 # Indexes
@@ -56,6 +57,7 @@ class Event < ApplicationRecord
         stack_trace
         type
         updated_at
+        user_agent
         user_id
       ]
     end

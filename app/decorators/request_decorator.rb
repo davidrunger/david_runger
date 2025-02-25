@@ -1,5 +1,4 @@
 class RequestDecorator < Draper::Decorator
-  prepend Memoization
   include UserAgentDecoratable
 
   delegate_all

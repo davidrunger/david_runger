@@ -12,6 +12,7 @@
 #  stack_trace   :string           default([]), not null, is an Array
 #  type          :string           not null
 #  updated_at    :datetime         not null
+#  user_agent    :text
 #  user_id       :bigint
 #
 # Indexes
