@@ -2,8 +2,11 @@
 .env
 .env.*.local
 
-# Gems
+# Bundler config
 /.bundle/
+
+# Gems
+/vendor/bundle/
 
 # Logs
 /log/
