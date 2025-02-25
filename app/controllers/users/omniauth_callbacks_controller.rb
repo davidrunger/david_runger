@@ -35,6 +35,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     sign_in(user)
-    redirect_to(session.delete('user_return_to') || root_path)
+    redirect_to(redirect_location)
   end
 end

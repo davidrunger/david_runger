@@ -2,11 +2,12 @@
 #
 # Table name: users
 #
-#  created_at :datetime         not null
-#  email      :string           not null
-#  google_sub :string
-#  id         :bigint           not null, primary key
-#  updated_at :datetime         not null
+#  created_at  :datetime         not null
+#  email       :string           not null
+#  google_sub  :string
+#  id          :bigint           not null, primary key
+#  public_name :string
+#  updated_at  :datetime         not null
 #
 # Indexes
 #
@@ -37,6 +38,7 @@ class User < ApplicationRecord
   has_many :json_preferences, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :ci_step_results, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   JsonPreference::Types.constants.each do |constant_name|
     scope_name = JsonPreference::Types.const_get(constant_name).to_sym

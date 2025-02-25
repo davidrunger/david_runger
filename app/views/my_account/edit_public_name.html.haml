@@ -1,0 +1,6 @@
+= form_with(model: current_user, url: my_account_path) do |form|
+  .my-3
+    = form.label :public_name, 'Public display name'
+    = form.text_field :public_name, class: 'input'
+  .my-3
+    = form.submit('Submit', class: 'btn-primary')

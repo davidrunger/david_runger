@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
       redirect_to(root_path)
     else
       @title = 'Log in'
+      store_redirect_chain
       render :new
     end
   end

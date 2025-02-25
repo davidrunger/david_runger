@@ -1,3 +1,3 @@
 require 'csv' # for LogsController, Logs::UploadsController
-require 'digest/sha1' # for ApplicationWorker uniqueness enforcement
+require 'digest' # for ApplicationWorker uniqueness enforcement, gravatar URL
 require 'fileutils' # assets:precompile

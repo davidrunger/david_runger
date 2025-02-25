@@ -1,4 +1,14 @@
 RSpec.describe HomeController do
+  describe '#home', :prerendering_disabled do
+    subject(:get_index) { get(:index) }
+
+    it 'includes window data data' do
+      get_index
+
+      expect(response.body).to include('window.davidrunger = ')
+    end
+  end
+
   describe '#upgrade_browser' do
     subject(:get_upgrade_browser) { get(:upgrade_browser) }
 

@@ -126,7 +126,9 @@ const schema = {
     },
     "RepTotals": {
       "type": "object",
-      "additionalProperties": true,
+      "additionalProperties": {
+        "type": "number"
+      },
       "properties": {},
       "required": [],
       "title": "RepTotals"

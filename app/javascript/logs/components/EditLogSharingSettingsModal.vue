@@ -70,21 +70,28 @@ const logSharesSortedByLowercasedEmail = computed((): Array<LogShare> => {
     .sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()));
 });
 
-const shareableUrl = computed((): string => {
-  return (
-    window.location.origin +
-    user_shared_log_path((bootstrap as Bootstrap).current_user.id, log.slug)
-  );
+const shareableUrl = computed((): string | null => {
+  const currentUser = (bootstrap as Bootstrap).current_user;
+
+  if (currentUser) {
+    return (
+      window.location.origin + user_shared_log_path(currentUser.id, log.slug)
+    );
+  } else {
+    return null;
+  }
 });
 
 function copyShareableUrlToClipboard() {
-  navigator.clipboard.writeText(shareableUrl.value);
+  if (shareableUrl.value) {
+    navigator.clipboard.writeText(shareableUrl.value);
 
-  wasCopiedRecently.value = true;
+    wasCopiedRecently.value = true;
 
-  setTimeout(() => {
-    wasCopiedRecently.value = false;
-  }, 1800);
+    setTimeout(() => {
+      wasCopiedRecently.value = false;
+    }, 1800);
+  }
 }
 
 function handleLogShareDeletion(logShare: LogShare) {

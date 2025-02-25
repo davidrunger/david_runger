@@ -14,6 +14,10 @@ export const http = {
     return (await kyApi.delete(url).json()) as T;
   },
 
+  async get<T>(url: string) {
+    return (await kyApi.get(url).json()) as T;
+  },
+
   async patch<T>(url: string, data?: object) {
     return (await kyApi
       .patch(url, pickBy({ json: data }, identity))
