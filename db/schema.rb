@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_25_081843) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_25_131957) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -218,6 +218,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_081843) do
     t.string "stack_trace", default: [], null: false, array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "user_agent"
     t.index ["admin_user_id"], name: "index_events_on_admin_user_id"
     t.index ["ip"], name: "index_events_on_ip"
     t.index ["type"], name: "index_events_on_type"
