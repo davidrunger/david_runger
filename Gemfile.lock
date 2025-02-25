@@ -258,10 +258,10 @@ GEM
       activerecord (>= 2)
       activesupport (>= 2)
       hashdiff
-    flipper (1.3.2)
+    flipper (1.3.3)
       concurrent-ruby (< 2)
-    flipper-redis (1.3.2)
-      flipper (~> 1.3.2)
+    flipper-redis (1.3.3)
+      flipper (~> 1.3.3)
       redis (>= 3.0, < 6)
     flipper-ui (1.3.2)
       erubi (>= 1.0.0, < 2.0.0)
@@ -917,8 +917,8 @@ CHECKSUMS
   ffi (1.17.1-x86_64-linux-gnu) sha256=8c0ade2a5d19f3672bccfe3b58e016ae5f159e3e2e741c856db87fcf07c903d0
   ffi (1.17.1-x86_64-linux-musl) sha256=3a343086820c96d6fbea4a5ef807fb69105b2b8174678f103b3db210c3f78401
   fixture_builder (0.5.3.rc2) sha256=3734e9153069495ee8080b9246b7ec301796a5cd3a8d411806c02b6cbb122503
-  flipper (1.3.2) sha256=2eb32fdbb0900b485c6128a8ee2b10b19351bf1d3ca61d04a9adeb7edbeb4964
-  flipper-redis (1.3.2) sha256=32b1f5002553dd3fb65141286e840440816d47102f016603a34c38027562fdac
+  flipper (1.3.3) sha256=69df201c04b7626112a785547199afde8dec3d123deb043116c4c084126babcb
+  flipper-redis (1.3.3) sha256=117dcba9d778f19869618b0d8b51cbd88c3c7e95fff4f8872fbdf52b7cfb52ad
   flipper-ui (1.3.2) sha256=471c33d838eb539ecee880c6fa2367fcb6baba6bd23c08a12065e4b817e9d3d8
   formtastic (5.0.0) sha256=71cc99c8227208f64da8d2b0926d97cef1e5f77e0105047cd57fddeccd3a6416
   formtastic_i18n (0.7.0) sha256=ecef51c9e9030c00f19e69d2483b77f4515c9587d74268b76cf4b6e7988c8e78
