@@ -9,6 +9,7 @@ class SaveRequest::SkipChecker
     case [@controller, @action, @params.symbolize_keys]
     in (
       ['health_checks', _, _] |
+      [%r{\Ablazer/}, _, _] |
       ['anonymous', _, _] |
       ['blog', 'assets', _] |
       ['api/events', 'create', _] |
