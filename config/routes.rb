@@ -104,8 +104,9 @@ Rails.application.routes.draw do
 
   authenticate :admin_user do
     get 'vue-playground', to: 'vue_playground#index'
-    mount Sidekiq::Web => '/sidekiq'
+    mount Blazer::Engine => '/blazer'
     mount Flipper::UI.app(Flipper) => '/flipper'
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   get 'up', to: 'health_checks#index'

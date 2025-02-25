@@ -118,7 +118,8 @@ class ApplicationController < ActionController::Base
 
     flash[:alert] = 'You must sign in as an admin user first.'
     session['admin_user_return_to'] = request.path
-    redirect_to(new_admin_user_session_path)
+    # NOTE: Specify `main_app` for path because this method is also used by Blazer.
+    redirect_to(main_app.new_admin_user_session_path)
   end
 
   # override Rails's built-in #verify_authenticity_token method to allow for `auth_token` use
