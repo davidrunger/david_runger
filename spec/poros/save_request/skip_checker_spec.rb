@@ -64,6 +64,14 @@ RSpec.describe SaveRequest::SkipChecker do
       end
     end
 
+    context 'when the controller starts with "blazer/"' do
+      let(:params) { { 'controller' => 'blazer/queries', 'action' => 'home' } }
+
+      it 'returns true' do
+        expect(skip?).to eq(true)
+      end
+    end
+
     context 'when uptime_robot is among the params keys' do
       let(:params) { { 'controller' => 'home', 'action' => 'index', 'uptime_robot' => '1' } }
 
