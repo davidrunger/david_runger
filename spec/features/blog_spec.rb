@@ -88,6 +88,7 @@ RSpec.describe 'Blog' do
 
         open_email(new_user_email.downcase)
 
+        expect(current_email).to be_present
         expect(current_email).to have_text(<<~EMAIL.squish)
           User #{existing_user.id} has replied to a comment that you made at
           https://davidrunger.com/blog/something-i-learned .
