@@ -81,7 +81,8 @@ RSpec.describe 'Blog' do
         with_inline_sidekiq do
           num_emails_before = ActionMailer::Base.deliveries.size
           click_on('Reply')
-          wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 1)
+          # Wait for two emails: one to an admin and one to the user being replied to.
+          wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 2)
         end
 
         expect(page).to have_css('.comment', text: reply_text)
