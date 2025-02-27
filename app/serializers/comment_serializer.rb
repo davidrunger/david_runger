@@ -8,7 +8,7 @@
 #  parent_id  :bigint
 #  path       :string           not null
 #  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  user_id    :bigint
 #
 # Indexes
 #
@@ -19,5 +19,6 @@
 class CommentSerializer < ApplicationSerializer
   attributes :content, :created_at, :id, :parent_id
 
+  typelize 'UserSerializerPublic', nullable: true
   one :user, resource: UserSerializer::Public
 end

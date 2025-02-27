@@ -8,7 +8,7 @@
 #  parent_id  :bigint
 #  path       :string           not null
 #  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  user_id    :bigint
 #
 # Indexes
 #

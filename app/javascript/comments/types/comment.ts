@@ -1,10 +1,5 @@
-import type { UserSerializerPublic } from '@/types';
+import TypelizerComment from '@/types/serializers/Comment';
 
-export interface Comment {
-  content: string;
-  created_at: string;
-  id: number;
-  parent_id: number | null;
+export interface Comment extends TypelizerComment {
   replies: Array<Comment>;
-  user: UserSerializerPublic;
 }

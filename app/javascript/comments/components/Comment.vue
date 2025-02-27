@@ -2,11 +2,12 @@
 .comment
   .comment-header
     img.avatar(
+      v-if="comment.user"
       :src="comment.user.gravatar_url"
       :alt="comment.user.public_name"
       crossorigin="anonymous"
     )
-    .author {{ comment.user.public_name }}
+    .author {{ comment.user?.public_name || '[Deleted user]' }}
     template(v-if="isAuthor")
       .edit-public-name
         | [
@@ -78,7 +79,7 @@ const formattedDate = computed(() => {
 });
 
 const isAuthor = computed(
-  () => props.comment.user.id === store.currentUser?.id,
+  () => props.comment.user && props.comment.user.id === store.currentUser?.id,
 );
 
 function handleReplyCreate(content: string) {
