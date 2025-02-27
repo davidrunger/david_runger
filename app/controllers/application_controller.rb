@@ -199,7 +199,7 @@ class ApplicationController < ActionController::Base
   end
 
   def first_redirect_chain_value_to_follow(redirect_chain)
-    100.times do
+    20.times do
       next_value = redirect_chain.shift
 
       if next_value.start_with?('wizard:')
