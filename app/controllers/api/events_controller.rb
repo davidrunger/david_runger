@@ -1,5 +1,5 @@
 class Api::EventsController < Api::BaseController
-  # Events are sent using navigator.sendBeacon, which doesn't include the CSRF token.
+  # Some events are sent using navigator.sendBeacon, which doesn't include the CSRF token.
   skip_before_action :verify_authenticity_token, only: %i[create]
 
   # We want to be able to track clicks from logged out users.
