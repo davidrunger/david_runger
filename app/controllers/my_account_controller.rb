@@ -5,6 +5,7 @@ class MyAccountController < ApplicationController
     @user =
       User.includes(
         logs: %i[log_entries log_shares],
+        quiz_participations: %i[quiz_question_answer_selections],
         stores: :items,
       ).find(current_user.id)
     authorize(@user)
