@@ -7,13 +7,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authorize(User, :create?)
     access_token = request.env['omniauth.auth']
     email = access_token.info['email']
+    sub = access_token.dig('extra', 'id_info', 'sub').presence!
 
     user = User.find_by(email:)
 
     if user
       # https://cyberinsider.com/unfixed-google-oauth-flaw-exposes-millions-to-account-takeovers/
-      sub = access_token.dig('extra', 'id_info', 'sub').presence!
-
       if user.google_sub
         if sub != user.google_sub
           Rails.error.report(
@@ -32,7 +31,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         user.update!(google_sub: sub)
       end
     else
-      user = Users::Create.run!(email:).user
+      user = Users::Create.run!(email:, google_sub: sub).user
     end
 
     sign_in(user)

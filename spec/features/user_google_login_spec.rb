@@ -84,7 +84,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
       before { expect(User.where(email: stubbed_user_email)).not_to exist }
 
-      it 'allows a user to sign up (and log in) with Google' do
+      it "allows a user to sign up (and log in) with Google and saves the user's Google 'sub' value" do
         visit(new_user_session_path)
         expect(page).to have_css('button.google-login')
 
@@ -92,6 +92,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         user = User.find_by!(email: stubbed_user_email)
 
         expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
+        expect(user.google_sub).to eq(mocked_google_response_sub)
       end
     end
   end
