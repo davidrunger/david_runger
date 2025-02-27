@@ -20,7 +20,7 @@ RSpec.describe 'Blog requests' do
           get_blog_feed
 
           expect(response).to have_http_status(200)
-          expect(response.content_type).to eq('text/html')
+          expect(response.content_type).to eq('text/html; charset=utf-8')
         end
       end
     end
