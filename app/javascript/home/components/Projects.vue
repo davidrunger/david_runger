@@ -1,5 +1,5 @@
 <template lang="pug">
-HomeSection(section='projects' title='Projects')
+HomeSection(section='projects', title='Projects')
   Project.mt8
     template(v-slot:title)
       span DavidRunger.com
@@ -9,13 +9,11 @@ HomeSection(section='projects' title='Projects')
       a(href='https://github.com/davidrunger/david_runger/') GitHub
     template(v-slot:overview)
       p.
-
         Welcome to #[a(href='https://davidrunger.com') davidrunger.com] — my
         digital playground for experimenting with modern web technologies, where
         I host apps designed for everyday use by my family and me:
 
       ul
-
         li.
           #[a(:href='emoji_picker_path()') Emoji Picker] -
           I couldn't find an emoji picker that met my needs (simple, fast,
@@ -53,53 +51,44 @@ HomeSection(section='projects' title='Projects')
           #[a(href='https://vuejs.org/') Vue 3] front-end apps.
 
         li.
-
           The app's deployment is managed with
           #[a(href='https://docs.docker.com/compose/') Docker Compose] on a
           #[a(href='https://www.digitalocean.com/') DigitalOcean] host.
 
         li.
-
           The app's 6,000+ lines of testable Ruby code are
           #[a(href='https://app.codecov.io/gh/davidrunger/david_runger/tree/main') #[span.font-bold 100%] covered by tests]
           written with #[a(href='https://rspec.info/') RSpec].
 
         li.
-
           #[a(href='https://vite-ruby.netlify.app/guide/rails.html') Vite Rails]
 
           provides sub-second hot module replacement (HMR) in development,
           and compiles the application's TypeScript and CSS for production.
 
         li.
-
           The primary database is #[a(href='https://www.postgresql.org/') PostgreSQL],
           plus #[a(href='https://redis.io/') Redis] for Sidekiq, caching, and
           some direct use by the app.
 
         li.
-
           #[a(href='https://github.com/sidekiq/sidekiq') Sidekiq] processes background jobs.
 
         li.
-
           #[a(href='https://nginx.org/') NGINX] exposes the server to the web.
 
         li.
           #[a(href='https://pinia.vuejs.org/') Pinia] provides client-side state management.
 
         li.
-
           #[a(href='https://developers.google.com/identity/protocols/oauth2') Google OAuth]
           provides convenient and secure sign-in.
 
         li.
-
           #[a(href='https://github.com/features/actions') GitHub Actions] provides continuous
           integration (CI) testing and linting and continuous deployment (CD).
 
         li.
-
           Observability is provided by
           #[a(href='https://grafana.com/') Grafana] log search and metrics viewing,
           #[a(href='https://prometheus.io/') Prometheus] metrics collection and storage,
@@ -110,7 +99,6 @@ HomeSection(section='projects' title='Projects')
           and #[a(href='https://github.com/discourse/prometheus_exporter') prometheus_exporter] to provide Rails metrics for Prometheus.
 
         li.
-
           Ruby code is linted by #[a(href='https://rubocop.org/') RuboCop],
           JavaScript by #[a(href='https://eslint.org/') ESLint],
           and stylesheets by #[a(href='https://stylelint.io/') Stylelint].
@@ -122,22 +110,18 @@ HomeSection(section='projects' title='Projects')
           help to ensure that the database is well-structured.
 
         li.
-
           #[a(href='https://tailwindcss.com/') Tailwind] provides CSS utility classes, so a
           lot of styling can be done within the markup itself.
 
         li.
-
           #[a(href='https://github.com/railsware/js-routes') JsRoutes] allows the
           use of Rails named routes / path helpers on the client-side, too!
 
         li.
-
           #[a(href='https://element-plus.org/#/en-US') Element Plus] provides aesthetic and
           ready-to-use Vue UI components.
 
         li.
-
           A custom-built,
 
           #[a(href='https://github.com/linkyndy/pallets') pallets]-based,
@@ -148,7 +132,6 @@ HomeSection(section='projects' title='Projects')
           stability.
 
         li.
-
           A custom-built, #[a(href='https://github.com/rubycdp/ferrum') ferrum]-based prerendering
           system captures and then serves a static HTML version of the JavaScript-based homepage,
           allowing me to enjoy the developer-friendly ergonomics of a Vue-based workflow in
@@ -156,7 +139,6 @@ HomeSection(section='projects' title='Projects')
           performance and search engine optimization (SEO).
 
         li.
-
           Plus...
             #[a(href='https://router.vuejs.org/') Vue Router] client-side routing,
             #[a(href='https://github.com/flippercloud/flipper') Flipper] feature flags,
@@ -186,14 +168,14 @@ HomeSection(section='projects' title='Projects')
     template(v-slot:links)
       div
         a(href='https://davidrunger.github.io/serpent/') Live
-        span {{' - '}}
+        span {{ ' - ' }}
         a(href='https://github.com/davidrunger/serpent') GitHub
     template(v-slot:image)
       img.box-shadow(
-        loading='lazy'
-        src='~img/serpent.webp'
-        alt='Serpent Game'
-        width='239'
+        loading='lazy',
+        src='~img/serpent.webp',
+        alt='Serpent Game',
+        width='239',
         height='300'
       )
     template(v-slot:overview)
@@ -213,10 +195,7 @@ HomeSection(section='projects' title='Projects')
           Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
           toward the apple at all times
 
-  Project(
-    image-container-class='mb-0'
-    links-container-class='mb-0'
-  )
+  Project(image-container-class='mb-0', links-container-class='mb-0')
     template(v-slot:title)
       span SimpleCov::Formatter::Terminal
     template(v-slot:technologies)
@@ -226,10 +205,10 @@ HomeSection(section='projects' title='Projects')
         a(href='https://github.com/davidrunger/simple_cov-formatter-terminal') GitHub
     template(v-slot:image)
       img(
-        loading='lazy'
-        src='~img/simplecov-terminal.webp'
-        alt='SimpleCov::Formatter::Terminal'
-        width='640'
+        loading='lazy',
+        src='~img/simplecov-terminal.webp',
+        alt='SimpleCov::Formatter::Terminal',
+        width='640',
         height='386'
       )
     template(v-slot:overview)
@@ -249,8 +228,10 @@ HomeSection(section='projects' title='Projects')
 
         p
           | Thanks to dog-fooding #[code SimpleCov::Formatter::Terminal] on itself, I'm easily
-          | able to keep its {{' '}}
-          a(href='https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master')
+          | able to keep its {{ ' ' }}
+          a(
+            href='https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master'
+          )
             | code coverage at 100%
           | .
 
@@ -264,23 +245,21 @@ HomeSection(section='projects' title='Projects')
         a(href='https://github.com/davidrunger/skedjewel') GitHub
     template(v-slot:image)
       img.box-shadow(
-        loading='lazy'
-        src='~img/skedjewel.webp'
-        alt='skedjewel.yml'
-        width='583'
+        loading='lazy',
+        src='~img/skedjewel.webp',
+        alt='skedjewel.yml',
+        width='583',
         height='208'
       )
     template(v-slot:overview)
       div(slot='overview')
         p.
-
           DavidRunger.com has some Sidekiq jobs that I want to run at various scheduled intervals.
           There are some great add-on gems that provide this functionality, like
           #[a(href='https://github.com/sidekiq-scheduler/sidekiq-scheduler/') sidekiq-scheduler],
           but I wanted something that wasn't so dependent on Sidekiq internals.
 
         p.
-
           Thus, partially as an excuse to try out the
           #[a(href='https://crystal-lang.org/') Crystal]
 
@@ -299,32 +278,27 @@ HomeSection(section='projects' title='Projects')
     template(v-slot:overview)
       div(slot='overview')
         p.
-
           Below are some of the Ruby gems that I've written.
 
         ul
           li.
-
             #[a(href='https://github.com/davidrunger/runger_actions') #[code runger_actions]]:
 
             The missing piece of Rails! Organize and validate the actions of your Rails
             application with this combined form object / command object.
 
           li.
-
             #[a(href='https://github.com/davidrunger/shaped') #[code shaped]]:
 
             Validate the shape of Ruby objects (hashes, arrays, and more). This is a dependency
             used in #[code runger_actions] (mentioned just above).
 
           li.
-
             #[a(href='https://github.com/davidrunger/fcom') #[code fcom]]:
 
             A CLI tool for parsing git history. I use this regularly.
 
           li.
-
             #[a(href='https://github.com/davidrunger/living_document') #[code living_document]]:
 
             Evaluate Ruby code live and inline in your editor while you edit a
@@ -336,12 +310,10 @@ HomeSection(section='projects' title='Projects')
             example code snippets.
 
           li.
-
             #[a(href='https://github.com/davidrunger/schedjewel') #[code schedjewel]]:
 
             Execute Sidekiq jobs on a schedule. (This is essentially a Ruby version of the Crystal
             #[code skedjewel] project mentioned above.)
-
 </template>
 
 <script setup lang="ts">

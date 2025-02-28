@@ -1,37 +1,41 @@
 <template lang="pug">
-Modal(name='edit-log-sharing-settings' width='85%' maxWidth='600px' backgroundClass='bg-black')
+Modal(
+  name='edit-log-sharing-settings',
+  width='85%',
+  maxWidth='600px',
+  backgroundClass='bg-black'
+)
   slot
     h3.font-bold.mb-4 Sharing
     div
       el-checkbox(
-        v-model='publiclyViewable'
+        v-model='publiclyViewable',
         @change='savePubliclyViewableChange'
       ) Publicly viewable
     div(v-if='!publiclyViewable')
       el-tag(
-        :key='logShare.email'
-        v-for='logShare in logSharesSortedByLowercasedEmail'
-        closable
-        :disable-transitions='false'
+        :key='logShare.email',
+        v-for='logShare in logSharesSortedByLowercasedEmail',
+        closable,
+        :disable-transitions='false',
         @close='handleLogShareDeletion(logShare)'
-      ) {{logShare.email}}
-      el-input(
-        class='input-new-tag'
-        v-if='inputVisible'
-        v-model='inputValue'
-        ref='saveTagInput'
-        @keyup.enter.native='handleLogShareCreation'
+      ) {{ logShare.email }}
+      el-input.input-new-tag(
+        v-if='inputVisible',
+        v-model='inputValue',
+        ref='saveTagInput',
+        @keyup.enter.native='handleLogShareCreation',
         @blur='handleLogShareCreation'
       )
-      el-button(v-else class='button-new-tag' size='small' @click='showInput') + Share with email
-    div.mt-2 Shareable link: {{shareableUrl}}
+      el-button.button-new-tag(v-else, size='small', @click='showInput') + Share with email
+    .mt-2 Shareable link: {{ shareableUrl }}
     div
-      el-button(size='small' @click='copyShareableUrlToClipboard')
+      el-button(size='small', @click='copyShareableUrlToClipboard')
         span(v-if='wasCopiedRecently') Copied!
         span(v-else) Copy to clipboard
-    div.mt-2
+    .mt-2
       a.js-link(
-        @click="modalStore.hideModal({ modalName: 'edit-log-sharing-settings' })"
+        @click='modalStore.hideModal({ modalName: "edit-log-sharing-settings" })'
       ) Close
 </template>
 

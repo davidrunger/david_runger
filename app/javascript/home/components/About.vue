@@ -5,10 +5,10 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
       .flex-2.mt-4
         .text-center.mt-4.mb-8
           img.about-image.box-shadow(
-            loading='lazy'
-            src='~img/david.webp'
-            alt='A picture of me'
-            width='235'
+            loading='lazy',
+            src='~img/david.webp',
+            alt='A picture of me',
+            width='235',
             height='353'
           )
 
@@ -23,7 +23,6 @@ HomeSection(section='about', title='About me', :renderHeadingManually='true')
           allow me to work efficiently and to have fun doing it.
 
         p.
-
           I have been a support engineer at #[a(href='https://www.commonlit.org/') CommonLit],
           a software engineer and support engineer at Hired
           (now part of #[a(href='https://www.lhh.com/us/en/hired/') LHH]),

@@ -2,18 +2,18 @@
 .text-center
   h1 Emoji Picker
 
-  form.my-6(@submit.prevent).text-2xl
+  form.my-6.text-2xl(@submit.prevent)
     input.text-center(
-      name="Search for an emoji"
-      type='text'
-      autofocus
+      name='Search for an emoji',
+      type='text',
+      autofocus,
       v-model='query'
     )
 
   ul.mx-auto.max-w-sm
     li.py-1(
-      v-for='emojiData in topRankedMatches'
-      :class='listItemClasses(emojiData)'
+      v-for='emojiData in topRankedMatches',
+      :class='listItemClasses(emojiData)',
       @click='selectEmoji(emojiData)'
     )
       button

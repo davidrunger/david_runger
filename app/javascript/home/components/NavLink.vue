@@ -1,10 +1,10 @@
 <template lang="pug">
 a.nav-link(
-  :href='`#${section}`'
-  :class='{ active }'
+  :href='`#${section}`',
+  :class='{ active }',
   @click='homeStore.registerClickedSection(section)'
 )
-  span {{linkText || prettyName}}
+  span {{ linkText || prettyName }}
 </template>
 
 <script setup lang="ts">

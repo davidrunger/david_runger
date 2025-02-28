@@ -1,24 +1,24 @@
 <template lang="pug">
 Modal(
-  name='log-selector'
-  width='85%'
-  maxWidth='400px'
+  name='log-selector',
+  width='85%',
+  maxWidth='400px',
   backgroundClass='bg-black'
 )
   input.mb-4(
-    type='text'
-    v-model='query'
-    ref='logSearchInput'
-    @keydown.enter='selectHighlightedLog'
-    @keydown.up='onArrowUp'
+    type='text',
+    v-model='query',
+    ref='logSearchInput',
+    @keydown.enter='selectHighlightedLog',
+    @keydown.up='onArrowUp',
     @keydown.down='onArrowDown'
   )
   div
     .log-link-container(v-for='log in rankedMatches')
       router-link.log-link(
-        :to='{ name: "log", params: { slug: log.slug }}'
-        :class='{"font-bold": (log === highlightedSearchable)}'
-      ) {{log.name}}
+        :to='{ name: "log", params: { slug: log.slug } }',
+        :class='{ "font-bold": log === highlightedSearchable }'
+      ) {{ log.name }}
 </template>
 
 <script setup lang="ts">

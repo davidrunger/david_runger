@@ -1,31 +1,26 @@
 <template lang="pug">
-Modal(:name='modalName' width='85%', maxWidth='400px')
+Modal(:name='modalName', width='85%', maxWidth='400px')
   slot
-    div #[b Minutes:] {{(timeInSeconds / 60).toFixed(1)}}
+    div #[b Minutes:] {{ (timeInSeconds / 60).toFixed(1) }}
     .my-4
       h3 Rep totals
       div(v-for='(_count, exercise, index) in repTotals')
         label(:for='`${exercise}-${index}`')
-          | {{exercise}}:
+          | {{ exercise }}:
           |
         input(
-          :id='`${exercise}-${index}`'
+          :id='`${exercise}-${index}`',
           v-model.number='repTotals[exercise]'
         )
     div
-      el-checkbox(
-        v-model='publiclyViewable'
-      ) Publicly viewable
+      el-checkbox(v-model='publiclyViewable') Publicly viewable
     .flex.justify-around.mt-4
       el-button(
-        @click="modalStore.hideModal({ modalName })"
-        type='primary'
+        @click='modalStore.hideModal({ modalName })',
+        type='primary',
         link
       ) Cancel
-      el-button(
-        type='primary'
-        @click='saveWorkout'
-      ) Save workout
+      el-button(type='primary', @click='saveWorkout') Save workout
 </template>
 
 <script setup lang="ts">

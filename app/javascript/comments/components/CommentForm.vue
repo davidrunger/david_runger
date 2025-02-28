@@ -1,16 +1,12 @@
 <template lang="pug">
-form.comment-form(@submit.prevent="handleSubmit")
-  textarea(
-    v-model="content"
-    placeholder="Write a comment..."
-    rows="6"
-  )
+form.comment-form(@submit.prevent='handleSubmit')
+  textarea(v-model='content', placeholder='Write a comment...', rows='6')
   .actions
-    button(type="submit") {{ submitLabel || 'Post' }}
+    button(type='submit') {{ submitLabel || 'Post' }}
     button(
-      v-if="initialContent || parentCommentId"
-      type="button"
-      @click="$emit('cancel')"
+      v-if='initialContent || parentCommentId',
+      type='button',
+      @click='$emit("cancel")'
     ) Cancel
 </template>
 

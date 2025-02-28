@@ -2,7 +2,7 @@
 header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
   .flex.items-center.text-xl.js-link.js-scroll-top.ml-8
     a#logo.monospace.opacity-animated(
-      href='#home'
+      href='#home',
       :class='["text-blue-300!", { "opacity-0": homeIsVisible }]'
     )
       | David Runger
@@ -11,7 +11,7 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
     NavLink(section='skills')
     NavLink(section='projects')
     NavLink(section='resume')
-    NavLink(section='links' link-text='Contact/Links')
+    NavLink(section='links', link-text='Contact/Links')
   .toggleable-menu
     .line-container(:class='{ "menu-open": homeStore.menuOpen }')
       .line
@@ -19,8 +19,8 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
       .line
     .clearfix.header-height-spacer
     input.menu-toggle(
-      type='checkbox'
-      ref='menuToggleCheckbox'
+      type='checkbox',
+      ref='menuToggleCheckbox',
       @click='homeStore.menuOpen = !homeStore.menuOpen'
     )
     .mobile-nav.h-dvh
@@ -34,7 +34,7 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
         li(@click='collapseMobileMenu')
           NavLink(section='resume')
         li(@click='collapseMobileMenu')
-          NavLink(section='links' linkText='Contact')
+          NavLink(section='links', linkText='Contact')
 </template>
 
 <script setup lang="ts">

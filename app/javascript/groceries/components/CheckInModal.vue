@@ -1,45 +1,42 @@
 <template lang="pug">
-Modal(name='check-in-shopping-trip' width='85%' maxWidth='400px')
+Modal(name='check-in-shopping-trip', width='85%', maxWidth='400px')
   slot
     .flex.flex-col.max-h-full
       .shrink-0.flex.items-center.mb-3
-        span Stores: {{checkInStoreNames}}
+        span Stores: {{ checkInStoreNames }}
         el-button.choose-stores.ml-2(
-          link
-          type='primary'
+          link,
+          type='primary',
           @click='manageCheckInStores'
         ) Choose stores
 
       .flex-1.overflow-y-auto
         CheckInItemsList(
-          title="Needed"
-          :items="neededUnskippedCheckInItemsNotInCart"
+          title='Needed',
+          :items='neededUnskippedCheckInItemsNotInCart'
         )
 
         CheckInItemsList(
-          title="In Cart"
-          :items="neededUnskippedCheckInItemsInCart"
+          title='In Cart',
+          :items='neededUnskippedCheckInItemsInCart'
         )
 
-        CheckInItemsList(
-          title="Skipped"
-          :items="neededSkippedCheckInItems"
-        )
+        CheckInItemsList(title='Skipped', :items='neededSkippedCheckInItems')
 
       .shrink-0.flex.justify-around.mt-4
         el-button(
-          @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
-          type='primary'
+          @click='modalStore.hideModal({ modalName: "check-in-shopping-trip" })',
+          type='primary',
           link
         ) Cancel
         el-button(
-          @click='handleTripCheckinModalSubmit'
-          type='primary'
-          plain
-          :disabled="checkingIn"
-          :class="{ pulsing: noMoreNeededItems() }"
+          @click='handleTripCheckinModalSubmit',
+          type='primary',
+          plain,
+          :disabled='checkingIn',
+          :class='{ pulsing: noMoreNeededItems() }'
         )
-          span(v-if="checkingIn") Checking in...
+          span(v-if='checkingIn') Checking in...
           span(v-else) Check in items in cart
 </template>
 

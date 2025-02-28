@@ -6,38 +6,35 @@ div
       form.px-2(@submit.prevent='createLog')
         .mb-2
           el-input(
-            placeholder='Name'
-            v-model='newLog.name'
+            placeholder='Name',
+            v-model='newLog.name',
             name='newLog.name'
           )
         el-input.mb-2(
-          type='textarea'
-          placeholder='Details/Description (optional)'
-          v-model='newLog.description'
+          type='textarea',
+          placeholder='Details/Description (optional)',
+          v-model='newLog.description',
           name='newLog.description'
         )
         .mb-2
           el-input(
-            placeholder='Label (e.g. Weight, Run time, etc)'
-            v-model='newLog.data_label'
+            placeholder='Label (e.g. Weight, Run time, etc)',
+            v-model='newLog.data_label',
             name='newLog.data_label'
           )
         .mb-2
           el-select(
-            placeholder='Type'
-            v-model='newLog.data_type'
+            placeholder='Type',
+            v-model='newLog.data_type',
             name='newLog.data_type'
           )
             el-option(
-              v-for='dataType in logInputTypes'
-              :key='dataType.data_type'
-              :label='dataType.label'
+              v-for='dataType in logInputTypes',
+              :key='dataType.data_type',
+              :label='dataType.label',
               :value='dataType.data_type'
             )
-        el-button(
-          native-type='submit'
-          :disabled='postingLog'
-        ) Create
+        el-button(native-type='submit', :disabled='postingLog') Create
 </template>
 
 <script setup lang="ts">

@@ -2,17 +2,17 @@
 .comments-container
   h2 Comments
 
-  template(v-if="store.currentUser")
-    CommentForm(@submit="store.addComment")
+  template(v-if='store.currentUser')
+    CommentForm(@submit='store.addComment')
   template(v-else)
-    p #[a(:href="loginPath") Sign in / sign up] to add a comment.
+    p #[a(:href='loginPath') Sign in / sign up] to add a comment.
 
   .comments
-    template(v-if="store.comments.length")
+    template(v-if='store.comments.length')
       Comment(
-        v-for="comment in store.comments"
-        :key="comment.id"
-        :comment="comment"
+        v-for='comment in store.comments',
+        :key='comment.id',
+        :comment='comment'
       )
     template(v-else)
       p.no-comments No comments yet.

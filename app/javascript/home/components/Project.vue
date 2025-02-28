@@ -7,22 +7,18 @@
           :class='isMobileDevice() ? "text-xl" : "text-2xl"'
         )
           slot(name='title')
-        .text-center.mb-1(class="text-[#aaa]")
+        .text-center.mb-1(class='text-[#aaa]')
           slot(name='technologies')
-        .text-center.mb-2(
-          v-if='$slots["links"]'
-          :class='linksContainerClass'
-        )
+        .text-center.mb-2(v-if='$slots["links"]', :class='linksContainerClass')
           slot(name='links')
-        .text-center(
-          v-if='$slots["image"]'
-          :class='imageContainerClass'
-        )
+        .text-center(v-if='$slots["image"]', :class='imageContainerClass')
           slot(name='image')
 
         slot(name='overview')
 
-        h4.text-xl.font-bold.mb-4(v-if='$slots["tech-list"] && $slots["overview"]') Tech
+        h4.text-xl.font-bold.mb-4(
+          v-if='$slots["tech-list"] && $slots["overview"]'
+        ) Tech
         slot(name='tech-list')
 </template>
 

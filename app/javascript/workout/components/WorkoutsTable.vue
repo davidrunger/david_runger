@@ -9,13 +9,13 @@ table(v-if='workouts.length')
       th(v-if='isOwnWorkouts') Public
   tbody
     tr(v-for='workout in workoutsSortedByCreatedAtDesc')
-      td {{prettyTime(workout.created_at)}}
-      td(v-if='!isOwnWorkouts') {{workout.username}}
-      td {{(workout.time_in_seconds / 60).toFixed(1)}}
-      td {{prettyObject(workout.rep_totals)}}
+      td {{ prettyTime(workout.created_at) }}
+      td(v-if='!isOwnWorkouts') {{ workout.username }}
+      td {{ (workout.time_in_seconds / 60).toFixed(1) }}
+      td {{ prettyObject(workout.rep_totals) }}
       td(v-if='isOwnWorkouts')
         el-checkbox(
-          v-model='workout.publicly_viewable'
+          v-model='workout.publicly_viewable',
           @change='savePubliclyViewableChange(workout)'
         )
 div(v-else) None

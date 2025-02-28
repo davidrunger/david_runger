@@ -2,50 +2,47 @@
 .comment
   .comment-header
     img.avatar(
-      v-if="comment.user"
-      :src="comment.user.gravatar_url"
-      :alt="comment.user.public_name"
-      crossorigin="anonymous"
+      v-if='comment.user',
+      :src='comment.user.gravatar_url',
+      :alt='comment.user.public_name',
+      crossorigin='anonymous'
     )
     .author {{ comment.user?.public_name || '[unknown user]' }}
-    template(v-if="isAuthor")
+    template(v-if='isAuthor')
       .edit-public-name
         | [
-        a(:href="editNamePath") Edit your name
+        a(:href='editNamePath') Edit your name
         | ]
-    .time-since-creation(:title="comment.created_at") {{ timeSinceCreation }}
-    .actions(v-if="isAuthor")
-      button(@click="isEditing = !isEditing") {{ isEditing ? 'Cancel' : 'Edit' }}
-      button(@click="store.deleteComment(comment.id)") Delete
+    .time-since-creation(:title='comment.created_at') {{ timeSinceCreation }}
+    .actions(v-if='isAuthor')
+      button(@click='isEditing = !isEditing') {{ isEditing ? 'Cancel' : 'Edit' }}
+      button(@click='store.deleteComment(comment.id)') Delete
 
-  template(v-if="isEditing")
+  template(v-if='isEditing')
     CommentForm(
-      :initial-content="comment.content"
-      submit-label="Update"
-      @submit="handleCommentUpdate"
-      @cancel="isEditing = false"
+      :initial-content='comment.content',
+      submit-label='Update',
+      @submit='handleCommentUpdate',
+      @cancel='isEditing = false'
     )
   template(v-else)
     .content-and-reply-button
-      .content(v-html="formattedAndSanitizedContent")
-      button.reply-button(
-        v-if="!showReplyForm"
-        @click="showReplyForm = true"
-      ) Reply
+      .content(v-html='formattedAndSanitizedContent')
+      button.reply-button(v-if='!showReplyForm', @click='showReplyForm = true') Reply
 
     CommentForm(
-      v-if="showReplyForm"
-      :parent-comment-id="comment.id"
-      submit-label="Reply"
-      @submit="handleReplyCreate"
-      @cancel="showReplyForm = false"
+      v-if='showReplyForm',
+      :parent-comment-id='comment.id',
+      submit-label='Reply',
+      @submit='handleReplyCreate',
+      @cancel='showReplyForm = false'
     )
 
-  template(v-if="comment.replies.length")
+  template(v-if='comment.replies.length')
     Comment(
-      v-for="reply in comment.replies"
-      :key="reply.id"
-      :comment="reply"
+      v-for='reply in comment.replies',
+      :key='reply.id',
+      :comment='reply'
     )
 </template>
 

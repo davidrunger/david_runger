@@ -1,22 +1,22 @@
 <template lang="pug">
-div.mb-2
+.mb-2
   el-input(
-    v-if='editingNotes'
-    type='textarea'
-    placeholder='Member phone number: 619-867-5309'
-    v-model='store.notes'
-    @blur='stopEditingAndUpdateStoreNotes()'
+    v-if='editingNotes',
+    type='textarea',
+    placeholder='Member phone number: 619-867-5309',
+    v-model='store.notes',
+    @blur='stopEditingAndUpdateStoreNotes()',
     ref='storeNotesInput'
   )
 
   .flex.items-center.mt-2(v-else)
     .whitespace-pre-wrap
-      | {{store.notes || 'No notes yet'}}
+      | {{ store.notes || 'No notes yet' }}
     div
       a.js-link.text-neutral-400.ml-2(
-        v-if='store.own_store'
-        @click='editStoreNotes'
-        class="hover:text-black"
+        v-if='store.own_store',
+        @click='editStoreNotes',
+        class='hover:text-black'
       )
         EditIcon(size='18')
         |
