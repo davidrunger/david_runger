@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import type { Comment } from '@/comments/types/comment';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { api_comment_path, api_comments_path } from '@/rails_assets/routes';
+import { typesafeAssign } from '@/shared/helpers';
 import { http } from '@/shared/http';
 import type { UniversalBootstrapData } from '@/shared/types';
 import type { Intersection } from '@/types';
@@ -107,7 +108,7 @@ export const useCommentsStore = defineStore('comments', {
         const comment = findCommentRecursively(this.comments, id);
 
         if (comment) {
-          Object.assign(comment, commentResponse);
+          typesafeAssign(comment, commentResponse);
         }
       } else {
         this.comments = this.comments.filter((c) => c.id !== id);
@@ -134,7 +135,7 @@ export const useCommentsStore = defineStore('comments', {
       const comment = findCommentRecursively(this.comments, id);
 
       if (comment) {
-        Object.assign(comment, updatedCommentResponse);
+        typesafeAssign(comment, updatedCommentResponse);
       }
     },
   },
