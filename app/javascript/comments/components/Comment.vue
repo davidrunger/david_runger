@@ -25,7 +25,6 @@
       @submit="handleCommentUpdate"
       @cancel="isEditing = false"
     )
-
   template(v-else)
     .content-and-reply-button
       .content(v-html="formattedAndSanitizedContent")
