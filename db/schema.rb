@@ -475,7 +475,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_180336) do
   add_foreign_key "check_ins", "marriages"
   add_foreign_key "ci_step_results", "users"
   add_foreign_key "comments", "comments", column: "parent_id"
-  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "users", on_delete: :nullify
   add_foreign_key "emotional_needs", "marriages"
   add_foreign_key "events", "admin_users"
   add_foreign_key "events", "users"
