@@ -17,7 +17,7 @@
 #  index_comments_on_user_id    (user_id)
 #
 class CommentSerializer < ApplicationSerializer
-  attributes :content, :created_at, :id, :parent_id
+  attributes :content, :id, :parent_id, created_at: :iso8601z
 
   typelize 'UserSerializerPublic', nullable: true
   one :user, resource: UserSerializer::Public
