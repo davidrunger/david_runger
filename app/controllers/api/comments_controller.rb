@@ -21,9 +21,13 @@ class Api::CommentsController < Api::BaseController
 
     authorize(comment)
 
-    comment.destroy!
-
-    head :ok
+    if comment.children.exists?
+      comment.update!(content: '[deleted]', user: nil)
+      render json: comment
+    else
+      comment.destroy!
+      head :no_content
+    end
   end
 
   def index

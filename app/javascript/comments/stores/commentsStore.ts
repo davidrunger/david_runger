@@ -99,12 +99,22 @@ export const useCommentsStore = defineStore('comments', {
     },
 
     async deleteComment(id: number) {
-      await http.delete(api_comment_path(id));
+      const commentResponse = await http.delete<SerializedComment | null>(
+        api_comment_path(id),
+      );
 
-      this.comments = this.comments.filter((c) => c.id !== id);
+      if (commentResponse) {
+        const comment = findCommentRecursively(this.comments, id);
 
-      for (const comment of this.comments) {
-        removeReplyRecursively(comment.replies, id);
+        if (comment) {
+          Object.assign(comment, commentResponse);
+        }
+      } else {
+        this.comments = this.comments.filter((c) => c.id !== id);
+
+        for (const comment of this.comments) {
+          removeReplyRecursively(comment.replies, id);
+        }
       }
     },
 
