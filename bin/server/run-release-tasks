@@ -8,4 +8,7 @@ OUTGOING_GIT_SHA=$(docker compose exec web printenv GIT_REV || false)
 set -e
 
 # Run release tasks.
-docker compose run --rm -e OUTGOING_GIT_SHA="$OUTGOING_GIT_SHA" web bin/server/release-tasks
+docker compose run --rm \
+  -e OUTGOING_GIT_SHA="$OUTGOING_GIT_SHA" \
+  -e DISABLE_TYPELIZER=1 \
+  web bin/server/release-tasks
