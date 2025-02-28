@@ -82,7 +82,10 @@ const timeSinceCreation = computed(() => {
 });
 
 const isAuthor = computed(
-  () => props.comment.user && props.comment.user.id === store.currentUser?.id,
+  () =>
+    props.comment.user &&
+    store.currentUser &&
+    props.comment.user.id === store.currentUser.id,
 );
 
 function handleReplyCreate(content: string) {
