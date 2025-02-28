@@ -20,8 +20,8 @@ function findCommentRecursively(
   for (const comment of comments) {
     if (comment.id === id) return comment;
 
-    const found = findCommentRecursively(comment.replies, id);
-    if (found) return found;
+    const commentInReplies = findCommentRecursively(comment.replies, id);
+    if (commentInReplies) return commentInReplies;
   }
 }
 
