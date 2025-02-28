@@ -11,4 +11,8 @@ class UserDecorator < Draper::Decorator
       "User #{id}"
     end
   end
+
+  def public_name_with_fallback
+    public_name || "User #{id}"
+  end
 end

@@ -159,6 +159,9 @@ importers:
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
       '@types/rails__actioncable':
         specifier: ^6.1.11
         version: 6.1.11
@@ -1031,6 +1034,9 @@ packages:
 
   '@types/lodash@4.17.15':
     resolution: {integrity: sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw==}
+
+  '@types/luxon@3.4.2':
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
 
   '@types/node@22.13.4':
     resolution: {integrity: sha512-ywP2X0DYtX3y08eFVx5fNIw7/uIv8hYUKgXoK8oayJlLnKcRfEYCxWMVE1XagUdVtCJlZT1AU4LXEABW+L1Peg==}
@@ -4619,6 +4625,8 @@ snapshots:
       '@types/lodash': 4.17.15
 
   '@types/lodash@4.17.15': {}
+
+  '@types/luxon@3.4.2': {}
 
   '@types/node@22.13.4':
     dependencies:

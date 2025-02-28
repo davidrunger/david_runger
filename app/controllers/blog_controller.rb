@@ -50,6 +50,7 @@ class BlogController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/MethodLength
   def send_blog_file(relative_path, **kwargs)
     absolute_path =
       Rails.root.join(
@@ -57,10 +58,26 @@ class BlogController < ApplicationController
       ).realpath.to_s
 
     if (
-      absolute_path.start_with?(BLOG_DIRECTORY) &&
-        absolute_path.match?(/\.(css|html|jpg|js|png|xml)\z/)
+      (starts_with_blog_directory = absolute_path.start_with?(BLOG_DIRECTORY)) &&
+        absolute_path.match?(/\.(css|jpg|js|png|xml)\z/)
     )
       send_file(absolute_path, **kwargs)
+    elsif starts_with_blog_directory && absolute_path.end_with?('.html')
+      # rubocop:disable Rails/OutputSafety
+      render(
+        html:
+          File.read(absolute_path).
+            sub(
+              '</head>',
+              "#{helpers.csrf_meta_tags}#{helpers.window_data_script_tag}</head>",
+            ).
+            sub(
+              '</body>',
+              "#{helpers.ts_tag('comments')}</body>",
+            ).
+            html_safe,
+      )
+      # rubocop:enable Rails/OutputSafety
     else
       Rails.error.report(
         Error.new(UnauthorizedBlogFileRequest),
@@ -85,6 +102,7 @@ class BlogController < ApplicationController
 
     render_blog_404
   end
+  # rubocop:enable Metrics/MethodLength
 
   def render_blog_404
     send_file(Rails.root.join('blog/404.html'), status: 404, disposition: :inline)

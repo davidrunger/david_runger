@@ -1,5 +1,5 @@
 <template lang="pug">
-section(v-if='workoutIsInProgress')
+section(v-if='workoutIsInProgress && typedWorkoutPlan')
   WorkoutPlan(v-bind='typedWorkoutPlan')
 .px-8.py-2(v-else)
   NewWorkoutForm
@@ -29,8 +29,12 @@ const workoutsStore = useWorkoutsStore();
 const { others_workouts, workout, workoutIsInProgress, workouts } =
   storeToRefs(workoutsStore);
 
-const typedWorkoutPlan = computed((): WorkoutPlanType => {
-  return workout.value;
+const typedWorkoutPlan = computed((): WorkoutPlanType | null => {
+  if (workout.value.minutes && workout.value.numberOfSets) {
+    return workout.value;
+  } else {
+    return null;
+  }
 });
 </script>
 

@@ -154,5 +154,10 @@ FixtureBuilder.configure do |fbuilder|
       github_run_attempt:,
       branch: 'bugfix',
     )
+
+    # Comments
+    path = '/blog/using-crystal'
+    top_level_comment = name(:top_level, create(:comment, user:, path:)).first
+    name(:reply, create(:comment, user: married_user, path:, parent: top_level_comment))
   end
 end

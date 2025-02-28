@@ -24,7 +24,7 @@ export const useCheckInsStore = defineStore('check-ins', {
       attributes,
     }: {
       needSatisfactionRating?: NeedSatisfactionRating;
-      attributes: { id?: number; score: number };
+      attributes: { id?: number; score: number | null };
     }) {
       needSatisfactionRating =
         needSatisfactionRating ||

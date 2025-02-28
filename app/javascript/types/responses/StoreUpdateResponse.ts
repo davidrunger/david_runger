@@ -19,19 +19,21 @@ const schema = {
         "notes": {
           "type": ["null", "string"]
         },
-        "own_store": {
+        "private": {
           "type": "boolean"
         },
-        "private": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "own_store": {
           "type": "boolean"
         },
         "viewed_at": {
           "type": "string",
           "format": "date-time"
-        },
-        "items": {
-          "type": "array",
-          "items": {}
         }
       },
       "required": [
@@ -44,6 +46,26 @@ const schema = {
         "viewed_at"
       ],
       "title": "Root"
+    },
+    "Item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "needed": {
+          "type": "integer"
+        },
+        "store_id": {
+          "type": "integer"
+        }
+      },
+      "required": ["id", "name", "needed", "store_id"],
+      "title": "Item"
     }
   }
 } as const;

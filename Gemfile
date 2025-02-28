@@ -3,6 +3,7 @@ ruby file: '.ruby-version'
 source 'https://rubygems.org'
 
 gem 'activeadmin'
+gem 'addressable'
 gem 'alba'
 gem 'aws-sdk-s3'
 gem 'blazer'
@@ -87,7 +88,6 @@ group :development do
 end
 
 group :test do
-  gem 'addressable'
   gem 'brakeman', require: false
   gem 'capybara'
   gem 'capybara-email'

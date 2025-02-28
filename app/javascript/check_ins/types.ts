@@ -10,7 +10,7 @@ export type Rating = -3 | -2 | -1 | 0 | 1 | 2 | 3;
 
 export interface NeedSatisfactionRating
   extends TypelizerNeedSatisfactionRating {
-  score: Rating;
+  score: Rating | null;
 }
 
 export type Bootstrap = Intersection<

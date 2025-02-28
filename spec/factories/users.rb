@@ -2,11 +2,12 @@
 #
 # Table name: users
 #
-#  created_at :datetime         not null
-#  email      :string           not null
-#  google_sub :string
-#  id         :bigint           not null, primary key
-#  updated_at :datetime         not null
+#  created_at  :datetime         not null
+#  email       :string           not null
+#  google_sub  :string
+#  id          :bigint           not null, primary key
+#  public_name :string
+#  updated_at  :datetime         not null
 #
 # Indexes
 #

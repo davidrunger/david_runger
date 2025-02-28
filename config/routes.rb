@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   get 'login', to: 'sessions#new', as: :new_user_session
-  resource :my_account, controller: :my_account, only: %i[destroy edit show]
+  resource :my_account, controller: :my_account, only: %i[destroy edit show update] do
+    get :edit_public_name
+  end
 
   get 'blog', to: 'blog#index'
   get 'blog/:slug', to: 'blog#show'
@@ -75,6 +77,7 @@ Rails.application.routes.draw do
     namespace :ci_step_results do
       resources :bulk_creations, only: %i[create]
     end
+    resources :comments, only: %i[create destroy index update]
     resources :events, only: %i[create]
     resources :need_satisfaction_ratings, only: %i[update]
     resources :csp_reports, only: %i[create]

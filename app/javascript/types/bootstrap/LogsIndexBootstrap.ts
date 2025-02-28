@@ -122,7 +122,9 @@ const schema = {
         },
         "log_shares": {
           "type": "array",
-          "items": {}
+          "items": {
+            "$ref": "#/definitions/User"
+          }
         }
       },
       "required": [

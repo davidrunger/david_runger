@@ -1,5 +1,5 @@
 module MockOmniAuth
-  def self.google_oauth2(email:, sub:)
+  def self.google_oauth2(email:, sub: "1#{rand(100_000_000_000_000_000)}")
     OmniAuth.config.add_mock(
       :google_oauth2,
       provider: 'google_oauth2',

@@ -46,4 +46,18 @@ RSpec.describe ApplicationController, :without_verifying_authorization do
       end
     end
   end
+
+  describe '#first_redirect_chain_value_to_follow' do
+    subject(:first_redirect_chain_value_to_follow) do
+      controller.send(:first_redirect_chain_value_to_follow, redirect_chain)
+    end
+
+    context 'when the redirect chain is 20 (or more) unrecognized wizard steps long' do
+      let(:redirect_chain) { ['wizard:some-wizard-step'] * 20 }
+
+      it 'returns nil' do
+        expect(first_redirect_chain_value_to_follow).to eq(nil)
+      end
+    end
+  end
 end

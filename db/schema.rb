@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_25_131957) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_26_180336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -177,6 +177,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_131957) do
     t.bigint "user_id", null: false
     t.index ["name", "github_run_id", "github_run_attempt"], name: "idx_on_name_github_run_id_github_run_attempt_96ff2b0b91", unique: true
     t.index ["user_id"], name: "index_ci_step_results_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "path", null: false
+    t.text "content", null: false
+    t.bigint "user_id"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
+    t.index ["path"], name: "index_comments_on_path"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "csp_reports", force: :cascade do |t|
@@ -421,6 +433,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_131957) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "google_sub"
+    t.string "public_name"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -461,6 +474,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_131957) do
   add_foreign_key "check_in_submissions", "users"
   add_foreign_key "check_ins", "marriages"
   add_foreign_key "ci_step_results", "users"
+  add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "comments", "users", on_delete: :nullify
   add_foreign_key "emotional_needs", "marriages"
   add_foreign_key "events", "admin_users"
   add_foreign_key "events", "users"

@@ -9,7 +9,6 @@ import {
 import { http } from '@/shared/http';
 import { kyApi } from '@/shared/ky';
 import type { Intersection, Workout, WorkoutPlan } from '@/types';
-import { WorkoutCreateResponse } from '@/types/responses/WorkoutCreateResponse';
 import { WorkoutUpdateResponse } from '@/types/responses/WorkoutUpdateResponse';
 
 import { Bootstrap, NewWorkoutAttributes } from './types';
@@ -39,18 +38,15 @@ export const useWorkoutsStore = defineStore('workouts', {
 
     async createWorkout({ workout }: { workout: NewWorkoutAttributes }) {
       return await kyApi
-        .post<Intersection<Workout, WorkoutCreateResponse>>(
-          api_workouts_path(),
-          {
-            json: {
-              workout: {
-                publicly_viewable: workout.publiclyViewable,
-                rep_totals: workout.repTotals,
-                time_in_seconds: workout.timeInSeconds,
-              },
+        .post<Workout>(api_workouts_path(), {
+          json: {
+            workout: {
+              publicly_viewable: workout.publiclyViewable,
+              rep_totals: workout.repTotals,
+              time_in_seconds: workout.timeInSeconds,
             },
           },
-        )
+        })
         .json();
     },
 

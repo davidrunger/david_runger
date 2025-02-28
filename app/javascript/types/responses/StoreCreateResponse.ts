@@ -31,7 +31,9 @@ const schema = {
         },
         "items": {
           "type": "array",
-          "items": {}
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
         }
       },
       "required": [
@@ -44,6 +46,26 @@ const schema = {
         "viewed_at"
       ],
       "title": "Root"
+    },
+    "Item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "needed": {
+          "type": "integer"
+        },
+        "store_id": {
+          "type": "integer"
+        }
+      },
+      "required": ["id", "name", "needed", "store_id"],
+      "title": "Item"
     }
   }
 } as const;
