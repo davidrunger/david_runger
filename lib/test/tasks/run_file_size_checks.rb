@@ -24,7 +24,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'logs*.css' => (90..100),
     'logs*.js' => (793..803),
     'quizzes*.js' => (123..133),
-    'styles*.css' => (26..36),
+    'styles*.css' => (14..24),
     'turbo*.js' => (90..100),
     'ujs*.js' => (10..20),
     'vue_playground*.css' => (0..10),
