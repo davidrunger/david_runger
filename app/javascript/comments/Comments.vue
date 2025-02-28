@@ -28,12 +28,28 @@ import { new_user_session_path } from '@/rails_assets/routes';
 
 const store = useCommentsStore();
 
-onMounted(() => {
-  store.fetchInitialData();
+onMounted(async () => {
+  await store.fetchInitialData();
+
+  const hash = window.location.hash;
+  if (hash === '#comments') {
+    const element = document.getElementById(hash.substring(1));
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView();
+      });
+    }
+  }
 });
 
+const pageUrl = new URL(window.location.href);
+pageUrl.hash = '#comments';
+const pageUrlWithCommentsHash = pageUrl.toString();
 const loginPath = new_user_session_path({
-  redirect_chain: `wizard:set-public-name-if-new|${window.location.toString()}`,
+  redirect_chain: [
+    'wizard:set-public-name-if-new',
+    pageUrlWithCommentsHash,
+  ].join('|'),
 });
 </script>
 
