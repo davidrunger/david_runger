@@ -33,7 +33,14 @@ const schema = {
           ]
         },
         "user": {
-          "$ref": "#/definitions/User"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/User"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": ["content", "created_at", "id", "parent_id", "user"],
