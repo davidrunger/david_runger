@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+set -x # print commands
 
 if [ ! -v LOCAL_TEST ] && [ "$(git config user.email)" != '' ] ; then
   echo 'You probably want to run this with LOCAL_TEST=1 ?'
