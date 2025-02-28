@@ -4,7 +4,7 @@ import type { Comment } from '@/comments/types/comment';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { api_comment_path, api_comments_path } from '@/rails_assets/routes';
 import { http } from '@/shared/http';
-import { UniversalBootstrapData } from '@/shared/types';
+import type { UniversalBootstrapData } from '@/shared/types';
 import { Intersection } from '@/types';
 import { CommentCreateResponse } from '@/types/responses/CommentCreateResponse';
 import { CommentsIndexResponse } from '@/types/responses/CommentsIndexResponse';
