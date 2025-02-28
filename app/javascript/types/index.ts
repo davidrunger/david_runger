@@ -28,7 +28,7 @@ type IntersectionPrimitive<T, U> = T extends U ? T : never;
 /* eslint-disable no-use-before-define */
 type IntersectionObject<T, U> = {
   // For keys that end up required: if one side is optional, we remove undefined
-  // (but we do not touch null)
+  // (but we do not touch null).
   [K in RequiredKeys<T, U>]: {} extends Pick<T, K> ?
     Intersection<Exclude<T[K], undefined>, U[K]>
   : {} extends Pick<U, K> ? Intersection<T[K], Exclude<U[K], undefined>>
