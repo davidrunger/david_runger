@@ -88,14 +88,14 @@ const isAuthor = computed(
     props.comment.user.id === store.currentUser.id,
 );
 
-function handleReplyCreate(content: string) {
-  store.addComment(content, props.comment.id);
-  showReplyForm.value = false;
-}
-
 function handleCommentUpdate(content: string) {
   store.updateComment(props.comment.id, content);
   isEditing.value = false;
+}
+
+function handleReplyCreate(content: string) {
+  store.addComment(content, props.comment.id);
+  showReplyForm.value = false;
 }
 </script>
 
