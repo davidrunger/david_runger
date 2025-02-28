@@ -29,6 +29,16 @@ class Comment < ApplicationRecord
   validates :path, presence: true
   validate :same_parent_path
 
+  class << self
+    def ransackable_associations(_auth_object = nil)
+      %w[children parent user]
+    end
+
+    def ransackable_attributes(_auth_object = nil)
+      %w[content created_at id id_value parent_id path updated_at user_id]
+    end
+  end
+
   private
 
   def same_parent_path
