@@ -19,7 +19,11 @@
 class Comment < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :parent, class_name: 'Comment', optional: true
-  has_many :children, class_name: 'Comment', foreign_key: :parent_id
+  has_many :children,
+    class_name: 'Comment',
+    foreign_key: :parent_id,
+    dependent: :restrict_with_exception,
+    inverse_of: :parent
 
   validates :content, presence: true
   validates :path, presence: true
