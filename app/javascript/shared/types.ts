@@ -13,4 +13,5 @@ export interface IphoneTouchEvent extends TouchEvent {
 export type UniversalBootstrapData = {
   current_user?: UserSerializerBasic;
   nonce: string;
+  toast_messages: Array<string>;
 };
