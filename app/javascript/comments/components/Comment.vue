@@ -11,7 +11,7 @@
     template(v-if="isAuthor")
       .edit-public-name
         | [
-        a(:href="editYourNamePath") Edit your name
+        a(:href="editNamePath") Edit your name
         | ]
     .date(:title="comment.created_at") {{ formattedDate }}
     .actions(v-if="isAuthor")
@@ -68,7 +68,7 @@ const store = useCommentsStore();
 const isEditing = ref(false);
 const showReplyForm = ref(false);
 
-const editYourNamePath = edit_public_name_my_account_path({
+const editNamePath = edit_public_name_my_account_path({
   redirect_chain: window.location.toString(),
 });
 
