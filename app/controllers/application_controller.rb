@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
   before_action :set_browser_uuid
   before_action :set_controller_action_in_context
+  before_action :store_redirect_chain
 
   after_action :verify_authorized, unless: :skip_authorization?
 

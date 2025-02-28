@@ -11,7 +11,7 @@
     template(v-if="isAuthor")
       .edit-public-name
         | [
-        a(:href="edit_public_name_my_account_path()") Edit your name
+        a(:href="editYourNamePath") Edit your name
         | ]
     .date {{ formattedDate }}
     .actions(v-if="isAuthor")
@@ -68,6 +68,10 @@ const props = defineProps<{
 const store = useCommentsStore();
 const isEditing = ref(false);
 const showReplyForm = ref(false);
+
+const editYourNamePath = edit_public_name_my_account_path({
+  redirect_chain: window.location.toString(),
+});
 
 const formattedAndSanitizedContent = computed(() => {
   const rawHtml = marked(props.comment.content || '', { async: false });
