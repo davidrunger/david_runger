@@ -37,7 +37,7 @@ function removeReplyRecursively(replies: Array<Comment>, id: number) {
   }
 }
 
-function rootCommentsWithRepliesTree(
+function treeOfRootCommentsWithReplies(
   flatComments: Array<Omit<Comment, 'replies'>>,
 ): Array<Comment> {
   // Create a map for quick lookup of comments by their ID.
@@ -119,7 +119,7 @@ export const useCommentsStore = defineStore('comments', {
     },
 
     async fetchInitialData() {
-      this.comments = rootCommentsWithRepliesTree(
+      this.comments = treeOfRootCommentsWithReplies(
         await http.get<
           Intersection<Array<SerializedComment>, CommentsIndexResponse>
         >(api_comments_path()),
