@@ -5,12 +5,7 @@
   template(v-if="store.currentUser")
     CommentForm(@submit="store.addComment")
   template(v-else)
-    p
-      a(
-        :href="new_user_session_path(loginPathQueryParams)"
-      ) Sign in / sign up
-      |
-      | to add a comment.
+    p #[a(:href="loginPath") Sign in / sign up] to add a comment.
 
   .comments
     template(v-if="store.comments.length")
@@ -33,12 +28,12 @@ import { new_user_session_path } from '@/rails_assets/routes';
 
 const store = useCommentsStore();
 
-const loginPathQueryParams = {
-  redirect_chain: `wizard:set-public-name-if-new|${window.location.toString()}`,
-};
-
 onMounted(() => {
   store.fetchInitialData();
+});
+
+const loginPath = new_user_session_path({
+  redirect_chain: `wizard:set-public-name-if-new|${window.location.toString()}`,
 });
 </script>
 
