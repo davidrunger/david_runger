@@ -1,5 +1,6 @@
 export * from '@/types/serializers';
 
+// begin Intersection >>>
 // Helper to detect if a property is optional.
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 type IsOptional<T, K extends keyof T> = {} extends Pick<T, K> ? true : false;
@@ -67,6 +68,7 @@ export type Intersection<T, U> =
   : HasNull<U> extends true ?
     BaseIntersection<Exclude<T, null>, Exclude<U, null>> | null
   : BaseIntersection<T, U>;
+// <<< end Intersection
 
 // begin logs >>
 export type LogEntryDataValue = string | number;
