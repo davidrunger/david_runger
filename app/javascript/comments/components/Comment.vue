@@ -13,7 +13,7 @@
         | [
         a(:href="editYourNamePath") Edit your name
         | ]
-    .date {{ formattedDate }}
+    .date(:title="comment.created_at") {{ formattedDate }}
     .actions(v-if="isAuthor")
       button(@click="isEditing = !isEditing") {{ isEditing ? 'Cancel' : 'Edit' }}
       button(@click="store.deleteComment(comment.id)") Delete
