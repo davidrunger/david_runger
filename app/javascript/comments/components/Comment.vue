@@ -7,7 +7,7 @@
       :alt="comment.user.public_name"
       crossorigin="anonymous"
     )
-    .author {{ comment.user?.public_name || '[Deleted user]' }}
+    .author {{ comment.user?.public_name || '[unknown user]' }}
     template(v-if="isAuthor")
       .edit-public-name
         | [
