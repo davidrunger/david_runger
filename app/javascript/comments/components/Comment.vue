@@ -13,7 +13,7 @@
         | [
         a(:href="editNamePath") Edit your name
         | ]
-    .date(:title="comment.created_at") {{ formattedDate }}
+    .time-since-creation(:title="comment.created_at") {{ timeSinceCreation }}
     .actions(v-if="isAuthor")
       button(@click="isEditing = !isEditing") {{ isEditing ? 'Cancel' : 'Edit' }}
       button(@click="store.deleteComment(comment.id)") Delete
@@ -76,7 +76,7 @@ const formattedAndSanitizedContent = computed(() => {
   const rawHtml = marked(props.comment.content || '', { async: false });
   return DOMPurify.sanitize(rawHtml);
 });
-const formattedDate = computed(() => {
+const timeSinceCreation = computed(() => {
   const createdAt = DateTime.fromISO(props.comment.created_at);
   return createdAt.toRelative({ base: DateTime.now() });
 });
@@ -128,7 +128,7 @@ function handleCommentUpdate(content: string) {
   font-size: 0.8rem;
 }
 
-.date {
+.time-since-creation {
   color: #777;
   font-size: 0.9rem;
 }
