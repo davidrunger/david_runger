@@ -41,7 +41,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunVitest => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
-        Test::Tasks::RunTypelizer => Test::Tasks::BuildFixtures,
+        Test::Tasks::RunTypelizer => Test::Tasks::CreateDbCopies,
         Test::Tasks::ConvertSchemasToTs => Test::Tasks::SetupDb,
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
