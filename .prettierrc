@@ -4,6 +4,7 @@
   "pugSingleQuote": false,
   "pugAttributeSeparator": "as-needed",
   "pugWrapAttributesThreshold": 1,
+  "pugFramework": "vue",
   "plugins": ["@ianvs/prettier-plugin-sort-imports", "@prettier/plugin-pug"],
   "importOrder": ["^(?!(@/|\\.))(.*)", "", "^@.*/(.*)$", "", "^\\."],
   "importOrderTypeScriptVersion": "5.5.2"
