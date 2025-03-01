@@ -15,9 +15,9 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
         form.add-store.flex(@submit.prevent="handleNewStoreSubmission()")
           .flex-1.mr-2
             el-input(
-              type="text",
-              v-model="formData.newStoreName",
-              name="newStoreName",
+              type="text"
+              v-model="formData.newStoreName"
+              name="newStoreName"
               placeholder="Add a store"
             )
           el-button(

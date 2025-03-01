@@ -2,38 +2,38 @@
 .grocery-item.flex.items-center.w-full(:class="{ unneeded: item.needed <= 0 }")
   .left.whitespace-nowrap
     button.item-button.js-link.text-green-600(
-      @click="setNeeded(item, item.needed + 1)",
+      @click="setNeeded(item, item.needed + 1)"
       title="Increment"
     )
       .flex.justify-center
         PlusIcon(:size="ICON_SIZE")
     button.item-button.mx-2.js-link.text-red-600(
-      @click="decrement(item)",
+      @click="decrement(item)"
       title="Decrement"
     )
       .flex.justify-center
         MinusIcon(:size="ICON_SIZE")
   .left
     input(
-      v-if="editingName",
+      v-if="editingName"
       type="text",
-      :value="item.name",
-      @blur="stopEditingAndUpdateItemName",
-      @keydown.enter="stopEditingAndUpdateItemName",
-      @keydown.escape="editingName = false",
+      :value="item.name"
+      @blur="stopEditingAndUpdateItemName"
+      @keydown.enter="stopEditingAndUpdateItemName"
+      @keydown.escape="editingName = false"
       ref="itemNameInput"
     )
     span.item-name(v-else)
       span(v-html="linkify(item.name)")
       |
       |
-      a.js-link.text-neutral-400(@click="editItemName", class="hover:text-black")
+      a.js-link.text-neutral-400(@click="editItemName" class="hover:text-black")
         EditIcon(:size="ICON_SIZE")
     | &nbsp;
     span ({{ item.needed }})
   .ml-auto.js-link.text-red-500(v-if="ownStore")
     button.item-button(
-      @click="groceriesStore.destroyItem({ item })",
+      @click="groceriesStore.destroyItem({ item })"
       title="Delete item"
     )
       .flex.justify-center

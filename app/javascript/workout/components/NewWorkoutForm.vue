@@ -5,17 +5,17 @@ form
     label
       | Minutes
       el-input(
-        v-model.number="workoutsStore.workout.minutes",
-        name="minutes",
-        type="number",
+        v-model.number="workoutsStore.workout.minutes"
+        name="minutes"
+        type="number"
         step="0.1"
       )
   .my-2
     label
       | Sets
       el-input(
-        v-model.number="workoutsStore.workout.numberOfSets",
-        name="numberOfSets",
+        v-model.number="workoutsStore.workout.numberOfSets"
+        name="numberOfSets"
         type="number"
       )
   .my-2.clearfix.flex(v-for="(exercise, index) in workout.exercises")
@@ -24,7 +24,7 @@ form
         | Exercise
         el-input(
           v-model="exercise.name",
-          :name="`exercise-${index}-name`",
+          :name="`exercise-${index}-name`"
           type="text"
         )
     .col.col-5
@@ -32,15 +32,15 @@ form
         | Reps per set
         el-input(
           v-model.number="exercise.reps",
-          :name="`exercise-${index}-reps`",
+          :name="`exercise-${index}-reps`"
           type="number"
         )
     .col.col-1.flex.flex-col.items-center.justify-end
-      el-button(type="danger", @click="removeExercise(index)") X
+      el-button(type="danger" @click="removeExercise(index)") X
   .my-2.text-center
     el-button(@click="workout.exercises.push({})") Add exercise
   .mt-4.text-center
-    el-button(type="primary", @click="workoutsStore.initializeWorkout()") Initialize Workout!
+    el-button(type="primary" @click="workoutsStore.initializeWorkout()") Initialize Workout!
 </template>
 
 <script setup lang="ts">

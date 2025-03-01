@@ -1,5 +1,5 @@
 <template lang="pug">
-Modal(name="manage-check-in-stores", width="80%", maxWidth="370px")
+Modal(name="manage-check-in-stores" width="80%" maxWidth="370px")
   slot
     h4.font-bold.mt-2.mb-4.
       Which stores would you like to check in?
@@ -9,7 +9,7 @@ Modal(name="manage-check-in-stores", width="80%", maxWidth="370px")
     CheckInStoreList(:stores="groceriesStore.sortedSpouseStores")
     .flex.justify-around.mt-4
       el-button(
-        @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })",
+        @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })"
         type="primary"
       ) Done
 </template>

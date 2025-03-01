@@ -1,12 +1,12 @@
 <template lang="pug">
-Modal(name="check-in-shopping-trip", width="85%", maxWidth="400px")
+Modal(name="check-in-shopping-trip" width="85%" maxWidth="400px")
   slot
     .flex.flex-col.max-h-full
       .shrink-0.flex.items-center.mb-3
         span Stores: {{ checkInStoreNames }}
         el-button.choose-stores.ml-2(
-          link,
-          type="primary",
+          link
+          type="primary"
           @click="manageCheckInStores"
         ) Choose stores
 
@@ -25,13 +25,13 @@ Modal(name="check-in-shopping-trip", width="85%", maxWidth="400px")
 
       .shrink-0.flex.justify-around.mt-4
         el-button(
-          @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })",
-          type="primary",
+          @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
+          type="primary"
           link
         ) Cancel
         el-button(
-          @click="handleTripCheckinModalSubmit",
-          type="primary",
+          @click="handleTripCheckinModalSubmit"
+          type="primary"
           plain,
           :disabled="checkingIn",
           :class="{ pulsing: noMoreNeededItems() }"

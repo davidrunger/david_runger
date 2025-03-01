@@ -4,7 +4,7 @@
     img.avatar(
       v-if="comment.user",
       :src="comment.user.gravatar_url",
-      :alt="comment.user.public_name",
+      :alt="comment.user.public_name"
       crossorigin="anonymous"
     )
     .author {{ comment.user?.public_name || '[unknown user]' }}
@@ -20,21 +20,21 @@
 
   template(v-if="isEditing")
     CommentForm(
-      :initial-content="comment.content",
-      submit-label="Update",
-      @submit="handleCommentUpdate",
+      :initial-content="comment.content"
+      submit-label="Update"
+      @submit="handleCommentUpdate"
       @cancel="isEditing = false"
     )
   template(v-else)
     .content-and-reply-button
       .content(v-html="formattedAndSanitizedContent")
-      button.reply-button(v-if="!showReplyForm", @click="showReplyForm = true") Reply
+      button.reply-button(v-if="!showReplyForm" @click="showReplyForm = true") Reply
 
     CommentForm(
       v-if="showReplyForm",
-      :parent-comment-id="comment.id",
-      submit-label="Reply",
-      @submit="handleReplyCreate",
+      :parent-comment-id="comment.id"
+      submit-label="Reply"
+      @submit="handleReplyCreate"
       @cancel="showReplyForm = false"
     )
 

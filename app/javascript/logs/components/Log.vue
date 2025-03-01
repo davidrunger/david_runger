@@ -3,7 +3,7 @@ div
   h1.text-2xl.mb-2 {{ log.name }}
   h2.h5.text-neutral-400(v-if="isSharedLogView") shared by {{ log.user.email }}
   p.h5.mb-4.description {{ log.description }}
-  NewLogEntryForm(:log="log", v-if="renderInputAtTop")
+  NewLogEntryForm(:log="log" v-if="renderInputAtTop")
   .mb-4(v-if="log.log_entries === undefined").
     Loading...
   LogDataDisplay(v-else-if="log.log_entries.length", :log="log")
@@ -12,13 +12,13 @@ div
     NewLogEntryForm(v-if="!renderInputAtTop", :log="log")
     .mt-2(v-if="showDeleteLastEntryButton")
       el-popconfirm(
-        title="Delete the last log entry?",
+        title="Delete the last log entry?"
         @confirm="destroyLastEntry"
       )
         template(#reference)
           el-button Delete last entry
     .mt-2
-      el-button(tag="a", :href="download_log_path(log.slug)", download) Download CSV
+      el-button(tag="a", :href="download_log_path(log.slug)" download) Download CSV
     .mt-2
       el-button.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-sharing-settings' })"

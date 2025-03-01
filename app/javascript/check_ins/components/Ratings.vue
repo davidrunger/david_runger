@@ -2,7 +2,7 @@
 .my-8(v-for="needSatisfactionRating in needSatisfactionRatings")
   .mb-2
     strong {{ needSatisfactionRating.emotional_need.name }}
-    el-popover(placement="top-end", trigger="click")
+    el-popover(placement="top-end" trigger="click")
       template(#reference)
         span.circled-text.monospace.js-link i
       div(v-if="needSatisfactionRating.emotional_need.description")
@@ -24,7 +24,7 @@
     )
 
 button.btn-primary.mt-2.h3(
-  v-if="editable && !submitted",
+  v-if="editable && !submitted"
   @click="submitCheckIn"
 ) Submit Check-in
 </template>

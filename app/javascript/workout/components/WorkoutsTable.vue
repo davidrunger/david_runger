@@ -15,7 +15,7 @@ table(v-if="workouts.length")
       td {{ prettyObject(workout.rep_totals) }}
       td(v-if="isOwnWorkouts")
         el-checkbox(
-          v-model="workout.publicly_viewable",
+          v-model="workout.publicly_viewable"
           @change="savePubliclyViewableChange(workout)"
         )
 div(v-else) None

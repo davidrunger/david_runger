@@ -2,7 +2,7 @@
 ul
   li.block.mb-2(v-for="store in stores", :key="store.id")
     input(
-      type="checkbox",
+      type="checkbox"
       v-model="groceriesStore.checkInStores",
       :value="store",
       :id="`checkin-stores-${store.id}`"

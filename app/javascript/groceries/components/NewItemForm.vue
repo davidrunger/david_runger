@@ -1,10 +1,10 @@
 <template lang="pug">
-form.flex(v-if="store.own_store", @submit.prevent="postNewItem")
+form.flex(v-if="store.own_store" @submit.prevent="postNewItem")
   .float-left
     el-input.item-name-input.max-w-60(
-      placeholder="Add an item",
-      type="text",
-      v-model="formData.newItemName",
+      placeholder="Add an item"
+      type="text"
+      v-model="formData.newItemName"
       name="newItemName"
     )
   .ml-2

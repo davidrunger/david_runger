@@ -1,8 +1,8 @@
 <template lang="pug">
 .text-center.pb-8
   .pt-6.pb-4
-    el-switch(v-model="editMode", active-text="Edit mode")
-    el-switch.ml-8(v-model="soundEnabled", active-text="Sound")
+    el-switch(v-model="editMode" active-text="Edit mode")
+    el-switch.ml-8(v-model="soundEnabled" active-text="Sound")
     .h1(v-if="timer") Time Elapsed: {{ secondsAsTime(secondsElapsed) }}
     .mt-2(v-else)
       button.btn-primary(@click="startWorkout") Start!
@@ -24,15 +24,15 @@
           td(v-if="editMode") {{ secondsAsTime(intervalInSeconds * index) }}
           td(v-if="editMode")
             input(
-              type="text",
+              type="text"
               v-model.number="setsArray[index].timeAdjustment",
               :disabled="index <= currentRoundIndex"
             )
           td(:class="nextRoundCountdownClasses(index)") {{ timeColumnValue(index) }}
           td(v-for="exercise in setsArray[index].exercises")
             input(
-              v-if="editMode",
-              type="text",
+              v-if="editMode"
+              type="text"
               v-model.number="exercise.reps",
               :disabled="index <= currentRoundIndex - 1"
             )

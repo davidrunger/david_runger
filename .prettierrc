@@ -2,6 +2,7 @@
   "experimentalTernaries": true,
   "singleQuote": true,
   "pugSingleQuote": false,
+  "pugAttributeSeparator": "as-needed",
   "plugins": ["@ianvs/prettier-plugin-sort-imports", "@prettier/plugin-pug"],
   "importOrder": ["^(?!(@/|\\.))(.*)", "", "^@.*/(.*)$", "", "^\\."],
   "importOrderTypeScriptVersion": "5.5.2"

@@ -4,16 +4,16 @@
 
   form.my-6.text-2xl(@submit.prevent)
     input.text-center(
-      name="Search for an emoji",
-      type="text",
-      autofocus,
+      name="Search for an emoji"
+      type="text"
+      autofocus
       v-model="query"
     )
 
   ul.mx-auto.max-w-sm
     li.py-1(
       v-for="emojiData in topRankedMatches",
-      :class="listItemClasses(emojiData)",
+      :class="listItemClasses(emojiData)"
       @click="selectEmoji(emojiData)"
     )
       button

@@ -1,5 +1,5 @@
 <template lang="pug">
-HomeSection(section="projects", title="Projects")
+HomeSection(section="projects" title="Projects")
   Project.mt8
     template(v-slot:title)
       span DavidRunger.com
@@ -172,10 +172,10 @@ HomeSection(section="projects", title="Projects")
         a(href="https://github.com/davidrunger/serpent") GitHub
     template(v-slot:image)
       img.box-shadow(
-        loading="lazy",
-        src="~img/serpent.webp",
-        alt="Serpent Game",
-        width="239",
+        loading="lazy"
+        src="~img/serpent.webp"
+        alt="Serpent Game"
+        width="239"
         height="300"
       )
     template(v-slot:overview)
@@ -195,7 +195,7 @@ HomeSection(section="projects", title="Projects")
           Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
           toward the apple at all times
 
-  Project(image-container-class="mb-0", links-container-class="mb-0")
+  Project(image-container-class="mb-0" links-container-class="mb-0")
     template(v-slot:title)
       span SimpleCov::Formatter::Terminal
     template(v-slot:technologies)
@@ -205,10 +205,10 @@ HomeSection(section="projects", title="Projects")
         a(href="https://github.com/davidrunger/simple_cov-formatter-terminal") GitHub
     template(v-slot:image)
       img(
-        loading="lazy",
-        src="~img/simplecov-terminal.webp",
-        alt="SimpleCov::Formatter::Terminal",
-        width="640",
+        loading="lazy"
+        src="~img/simplecov-terminal.webp"
+        alt="SimpleCov::Formatter::Terminal"
+        width="640"
         height="386"
       )
     template(v-slot:overview)
@@ -245,10 +245,10 @@ HomeSection(section="projects", title="Projects")
         a(href="https://github.com/davidrunger/skedjewel") GitHub
     template(v-slot:image)
       img.box-shadow(
-        loading="lazy",
-        src="~img/skedjewel.webp",
-        alt="skedjewel.yml",
-        width="583",
+        loading="lazy"
+        src="~img/skedjewel.webp"
+        alt="skedjewel.yml"
+        width="583"
         height="208"
       )
     template(v-slot:overview)

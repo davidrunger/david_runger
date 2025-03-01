@@ -4,7 +4,7 @@
   small These names will be weighted more heavily in the search results.
 
   //- Stop propagation and prevent default so enter doesn't select an emoji.
-  form.mt-2(@keydown.stop, @submit.prevent)
+  form.mt-2(@keydown.stop @submit.prevent)
     table.m-auto
       thead
         tr
@@ -15,14 +15,14 @@
         tr(v-for="boost in boosts")
           td
             input.w-16.text-center(
-              placeholder="Symbol",
-              type="text",
+              placeholder="Symbol"
+              type="text"
               v-model="boost.symbol"
             )
           td
             input.text-center(
-              placeholder="Keyword to boost",
-              type="text",
+              placeholder="Keyword to boost"
+              type="text"
               v-model="boost.boostedName"
             )
           td.pl-1

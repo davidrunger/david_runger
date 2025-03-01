@@ -1,7 +1,7 @@
 <template lang="pug">
 a.nav-link(
   :href="`#${section}`",
-  :class="{ active }",
+  :class="{ active }"
   @click="homeStore.registerClickedSection(section)"
 )
   span {{ linkText || prettyName }}
