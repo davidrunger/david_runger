@@ -1,7 +1,18 @@
 require 'open3'
 
 module Test::TaskHelpers
+  prepend Memoization
+
   private
+
+  def logger
+    ActiveSupport::Logger.new($stdout).tap do |logger|
+      logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
+    end.then do |logger|
+      ActiveSupport::TaggedLogging.new(logger)
+    end.
+      tagged(self.class.name.delete_prefix('Test::Tasks::'))
+  end
 
   def execute_system_command(command, env_vars = {}, log_stdout_only_on_failure: false)
     command = command.squish

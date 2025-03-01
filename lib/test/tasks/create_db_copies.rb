@@ -1,12 +1,27 @@
 class Test::Tasks::CreateDbCopies < Pallets::Task
   include Test::TaskHelpers
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def run
     # The commands below will error if there are any active connections to the
     # database, so disconnect.
-    ActiveRecord::Base.connection_pool.connections.each(&:disconnect!)
-    # Give a little time for the disconnections to complete (?).
-    sleep(0.5)
+    active_statuses = ActiveRecord::Base.connection_pool.connections.map(&:active?)
+    attempts = 50
+    attempts.times do |index|
+      logger.info(%(active_statuses: #{active_statuses}))
+
+      if active_statuses.any?
+        ActiveRecord::Base.connection_pool.connections.each(&:disconnect!)
+        sleep(0.1)
+        active_statuses = ActiveRecord::Base.connection_pool.connections.map(&:active?)
+      else
+        break
+      end
+
+      if index == attempts - 1
+        fail 'Exhausted attempts to disconnect!'
+      end
+    end
 
     %w[unit api html feature_a feature_c].each do |db_suffix|
       db_name = "david_runger_test_#{db_suffix}"
@@ -25,4 +40,5 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
       COMMAND
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 end
