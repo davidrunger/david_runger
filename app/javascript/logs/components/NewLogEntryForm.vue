@@ -33,7 +33,10 @@ div
         v-model="formData.newLogEntryNote"
         type="text"
       )
-      el-button(native-type="submit", :disabled="v$.$invalid") Add
+      el-button(
+        native-type="submit",
+        :disabled="v$.$invalid"
+      ) Add
 </template>
 
 <script setup lang="ts">

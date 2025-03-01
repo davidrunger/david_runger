@@ -11,7 +11,10 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
     NavLink(section="skills")
     NavLink(section="projects")
     NavLink(section="resume")
-    NavLink(section="links" link-text="Contact/Links")
+    NavLink(
+      section="links"
+      link-text="Contact/Links"
+    )
   .toggleable-menu
     .line-container(:class="{ 'menu-open': homeStore.menuOpen }")
       .line
@@ -34,7 +37,10 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
         li(@click="collapseMobileMenu")
           NavLink(section="resume")
         li(@click="collapseMobileMenu")
-          NavLink(section="links" linkText="Contact")
+          NavLink(
+            section="links"
+            linkText="Contact"
+          )
 </template>
 
 <script setup lang="ts">

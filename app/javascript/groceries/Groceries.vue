@@ -2,7 +2,10 @@
 #groceries-app.flex.h-dvh
   Sidebar
   main.flex-1.bg-cover
-    Store(v-if="currentStore", :store="currentStore")
+    Store(
+      v-if="currentStore",
+      :store="currentStore"
+    )
 </template>
 
 <script setup lang="ts">

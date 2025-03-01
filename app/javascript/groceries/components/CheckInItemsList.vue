@@ -3,7 +3,11 @@ section(v-if="items.length > 0")
   h3.font-bold.mb-2 {{ title }} ({{ items.length }})
 
   ul.check-in-items-list.text-base.mb-2
-    CheckInItem(v-for="item in items", :key="item.id", :item="item")
+    CheckInItem(
+      v-for="item in items",
+      :key="item.id",
+      :item="item"
+    )
 </template>
 
 <script setup lang="ts">

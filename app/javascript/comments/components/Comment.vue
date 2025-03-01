@@ -28,7 +28,10 @@
   template(v-else)
     .content-and-reply-button
       .content(v-html="formattedAndSanitizedContent")
-      button.reply-button(v-if="!showReplyForm" @click="showReplyForm = true") Reply
+      button.reply-button(
+        v-if="!showReplyForm"
+        @click="showReplyForm = true"
+      ) Reply
 
     CommentForm(
       v-if="showReplyForm",

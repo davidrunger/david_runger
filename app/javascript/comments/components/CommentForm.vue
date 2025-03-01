@@ -1,6 +1,10 @@
 <template lang="pug">
 form.comment-form(@submit.prevent="handleSubmit")
-  textarea(v-model="content" placeholder="Write a comment..." rows="6")
+  textarea(
+    v-model="content"
+    placeholder="Write a comment..."
+    rows="6"
+  )
   .actions
     button(type="submit") {{ submitLabel || 'Post' }}
     button(

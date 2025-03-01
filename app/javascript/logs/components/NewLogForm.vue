@@ -5,7 +5,11 @@ div
     div(style="width: 400px")
       form.px-2(@submit.prevent="createLog")
         .mb-2
-          el-input(placeholder="Name" v-model="newLog.name" name="newLog.name")
+          el-input(
+            placeholder="Name"
+            v-model="newLog.name"
+            name="newLog.name"
+          )
         el-input.mb-2(
           type="textarea"
           placeholder="Details/Description (optional)"
@@ -30,7 +34,10 @@ div
               :label="dataType.label",
               :value="dataType.data_type"
             )
-        el-button(native-type="submit", :disabled="postingLog") Create
+        el-button(
+          native-type="submit",
+          :disabled="postingLog"
+        ) Create
 </template>
 
 <script setup lang="ts">

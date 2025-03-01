@@ -1,6 +1,9 @@
 <template lang="pug">
 ul
-  li.block.mb-2(v-for="store in stores", :key="store.id")
+  li.block.mb-2(
+    v-for="store in stores",
+    :key="store.id"
+  )
     input(
       type="checkbox"
       v-model="groceriesStore.checkInStores",

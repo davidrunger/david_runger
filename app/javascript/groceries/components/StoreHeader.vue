@@ -12,8 +12,16 @@ h2.store-name.my-4
   a.js-link.text-neutral-400.ml-2(@click="editStoreName" class="hover:text-black")
     EditIcon(size="27")
   span(v-if="store.own_store")
-    el-button.ml-2(v-if="store.private" size="small" @click="togglePrivacy") Make public
-    el-button.ml-2(v-else size="small" @click="togglePrivacy") Make private
+    el-button.ml-2(
+      v-if="store.private"
+      size="small"
+      @click="togglePrivacy"
+    ) Make public
+    el-button.ml-2(
+      v-else
+      size="small"
+      @click="togglePrivacy"
+    ) Make private
   span.spinner--circle.ml-2(v-if="debouncingOrWaitingOnNetwork")
 </template>
 

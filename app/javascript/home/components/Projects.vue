@@ -1,5 +1,8 @@
 <template lang="pug">
-HomeSection(section="projects" title="Projects")
+HomeSection(
+  section="projects"
+  title="Projects"
+)
   Project.mt8
     template(v-slot:title)
       span DavidRunger.com
@@ -195,7 +198,10 @@ HomeSection(section="projects" title="Projects")
           Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
           toward the apple at all times
 
-  Project(image-container-class="mb-0" links-container-class="mb-0")
+  Project(
+    image-container-class="mb-0"
+    links-container-class="mb-0"
+  )
     template(v-slot:title)
       span SimpleCov::Formatter::Terminal
     template(v-slot:technologies)

@@ -12,7 +12,11 @@ li.flex.items-center.break-word.mb-2(:class="aboutToMoveToClass()")
       span {{ item.name }}
       span(v-if="item.needed > 1") {{ ' ' }} ({{ item.needed }})
     span {{ ' ' }}
-    ElTooltip(v-if="isSpouseItem(item)" content="Spouse item" placement="top")
+    ElTooltip(
+      v-if="isSpouseItem(item)"
+      content="Spouse item"
+      placement="top"
+    )
       HeartFilledIcon.text-red-500
     span {{ ' ' }}
     el-button(
@@ -21,7 +25,12 @@ li.flex.items-center.break-word.mb-2(:class="aboutToMoveToClass()")
       type="primary"
       @click="moveTo('needed')"
     ) Unskip
-    el-button(v-else link type="primary" @click="moveTo('skipped')") Skip
+    el-button(
+      v-else
+      link
+      type="primary"
+      @click="moveTo('skipped')"
+    ) Skip
 </template>
 
 <script setup lang="ts">

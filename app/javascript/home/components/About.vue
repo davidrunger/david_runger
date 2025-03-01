@@ -1,5 +1,9 @@
 <template lang="pug">
-HomeSection(section="about" title="About me", :renderHeadingManually="true")
+HomeSection(
+  section="about"
+  title="About me",
+  :renderHeadingManually="true"
+)
   template(v-slot:default="slotProps")
     .row-reverse.items-center(class="sm:flex")
       .flex-2.mt-4

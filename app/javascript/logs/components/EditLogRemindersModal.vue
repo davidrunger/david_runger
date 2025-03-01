@@ -11,7 +11,11 @@ Modal(
       .my-2(v-if="log.reminder_time_in_seconds")
         | Current setting: every {{ reminderTimeInHours }} hours
         span.ml-2
-          el-button(@click="cancelReminders" type="primary" link) Cancel reminders
+          el-button(
+            @click="cancelReminders"
+            type="primary"
+            link
+          ) Cancel reminders
 
       div
         | Remind me after
@@ -25,7 +29,11 @@ Modal(
         | to create a log entry (if I haven't already done so).
       .flex.justify-center.mt-4
         .mr-8
-          el-button(@click="updateLog" type="primary" plain) Save
+          el-button(
+            @click="updateLog"
+            type="primary"
+            plain
+          ) Save
         div
           el-button(
             @click="modalStore.hideModal({ modalName: 'edit-log-reminder-schedule' })"

@@ -27,10 +27,17 @@ Modal(
         @keyup.enter.native="handleLogShareCreation"
         @blur="handleLogShareCreation"
       )
-      el-button.button-new-tag(v-else size="small" @click="showInput") + Share with email
+      el-button.button-new-tag(
+        v-else
+        size="small"
+        @click="showInput"
+      ) + Share with email
     .mt-2 Shareable link: {{ shareableUrl }}
     div
-      el-button(size="small" @click="copyShareableUrlToClipboard")
+      el-button(
+        size="small"
+        @click="copyShareableUrlToClipboard"
+      )
         span(v-if="wasCopiedRecently") Copied!
         span(v-else) Copy to clipboard
     .mt-2

@@ -5,7 +5,10 @@ section(v-if="workoutIsInProgress && typedWorkoutPlan")
   NewWorkoutForm
   section.my-8
     h2.text-2xl Previous workouts
-    WorkoutsTable(:isOwnWorkouts="true", :workouts="workouts")
+    WorkoutsTable(
+      :isOwnWorkouts="true",
+      :workouts="workouts"
+    )
   section.my-8
     h2.text-2xl Others' workouts
     WorkoutsTable(:workouts="others_workouts")

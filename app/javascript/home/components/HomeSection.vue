@@ -6,7 +6,10 @@
 )
   section(:data-section="section")
     ScrollHook(:section="section")
-    SectionHeader(v-if="!renderHeadingManually", :title="title")
+    SectionHeader(
+      v-if="!renderHeadingManually",
+      :title="title"
+    )
     slot(:title="title")
 </template>
 

@@ -1,5 +1,8 @@
 <template lang="pug">
-button.bg-slate-200(:class="{ editable, selected }" @click="handleClick")
+button.bg-slate-200(
+  :class="{ editable, selected }"
+  @click="handleClick"
+)
   span(v-if="selected") {{ emoji }}
   span(v-else) {{ ratingValue }}
 </template>

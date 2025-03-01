@@ -10,7 +10,10 @@ div
           :logEntry="logEntry",
           :class="{ 'transition-none!': index !== 0 }"
         )
-  el-button(v-if="!showAllEntries" @click="showAllEntries = true").
+  el-button(
+    v-if="!showAllEntries"
+    @click="showAllEntries = true"
+  ).
     Show all entries
 </template>
 

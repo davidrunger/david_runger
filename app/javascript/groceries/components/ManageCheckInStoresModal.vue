@@ -1,5 +1,9 @@
 <template lang="pug">
-Modal(name="manage-check-in-stores" width="80%" maxWidth="370px")
+Modal(
+  name="manage-check-in-stores"
+  width="80%"
+  maxWidth="370px"
+)
   slot
     h4.font-bold.mt-2.mb-4.
       Which stores would you like to check in?

@@ -1,5 +1,9 @@
 <template lang="pug">
-Modal(name="check-in-shopping-trip" width="85%" maxWidth="400px")
+Modal(
+  name="check-in-shopping-trip"
+  width="85%"
+  maxWidth="400px"
+)
   slot
     .flex.flex-col.max-h-full
       .shrink-0.flex.items-center.mb-3
@@ -21,7 +25,10 @@ Modal(name="check-in-shopping-trip" width="85%" maxWidth="400px")
           :items="neededUnskippedCheckInItemsInCart"
         )
 
-        CheckInItemsList(title="Skipped", :items="neededSkippedCheckInItems")
+        CheckInItemsList(
+          title="Skipped",
+          :items="neededSkippedCheckInItems"
+        )
 
       .shrink-0.flex.justify-around.mt-4
         el-button(

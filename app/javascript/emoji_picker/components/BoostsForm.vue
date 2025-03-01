@@ -4,7 +4,10 @@
   small These names will be weighted more heavily in the search results.
 
   //- Stop propagation and prevent default so enter doesn't select an emoji.
-  form.mt-2(@keydown.stop @submit.prevent)
+  form.mt-2(
+    @keydown.stop
+    @submit.prevent
+  )
     table.m-auto
       thead
         tr

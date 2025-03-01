@@ -36,11 +36,17 @@ form
           type="number"
         )
     .col.col-1.flex.flex-col.items-center.justify-end
-      el-button(type="danger" @click="removeExercise(index)") X
+      el-button(
+        type="danger"
+        @click="removeExercise(index)"
+      ) X
   .my-2.text-center
     el-button(@click="workout.exercises.push({})") Add exercise
   .mt-4.text-center
-    el-button(type="primary" @click="workoutsStore.initializeWorkout()") Initialize Workout!
+    el-button(
+      type="primary"
+      @click="workoutsStore.initializeWorkout()"
+    ) Initialize Workout!
 </template>
 
 <script setup lang="ts">

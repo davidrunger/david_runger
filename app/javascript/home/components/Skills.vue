@@ -1,12 +1,18 @@
 <template lang="pug">
-HomeSection(section="skills" title="Skills")
+HomeSection(
+  section="skills"
+  title="Skills"
+)
   table
     tbody
       SkillRow(
         name="Cloudflare"
         details="A capable CDN and a vital layer of protection against DDoS attacks."
       )
-      SkillRow(name="CSS3" details="Because looking good is half the battle!")
+      SkillRow(
+        name="CSS3"
+        details="Because looking good is half the battle!"
+      )
       SkillRow(
         name="Docker"
         details=`
@@ -18,7 +24,10 @@ HomeSection(section="skills" title="Skills")
         name="Elasticsearch / OpenSearch"
         details="A fast, powerful, and flexible search backend."
       )
-      SkillRow(name="Git" details="The standard in version control.")
+      SkillRow(
+        name="Git"
+        details="The standard in version control."
+      )
       SkillRow(
         name="GitHub"
         details=`
@@ -30,7 +39,10 @@ HomeSection(section="skills" title="Skills")
         name="Heroku"
         details="Doing (some of) the devops, so you don't have to."
       )
-      SkillRow(name="HTML5" details="The building block of the Internet!")
+      SkillRow(
+        name="HTML5"
+        details="The building block of the Internet!"
+      )
       SkillRow(
         name="JavaScript"
         details=`
@@ -75,7 +87,10 @@ HomeSection(section="skills" title="Skills")
           client-side applications of more than trivial complexity.
         `
       )
-      SkillRow(name="Redis" details="A fast, in-memory database.")
+      SkillRow(
+        name="Redis"
+        details="A fast, in-memory database."
+      )
       SkillRow(
         name="RSpec"
         details="I love testing, and RSpec makes tests readable and easy to write."

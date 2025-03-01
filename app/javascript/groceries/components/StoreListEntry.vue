@@ -5,9 +5,15 @@
 )
   .store-name
     a {{ store.name }}
-    lock-icon.ml-2(v-if="store.private" size="22")
+    lock-icon.ml-2(
+      v-if="store.private"
+      size="22"
+    )
   .delete-button
-    a.js-link(v-if="store.own_store" @click.stop="destroyStore(store)") &times;
+    a.js-link(
+      v-if="store.own_store"
+      @click.stop="destroyStore(store)"
+    ) &times;
 </template>
 
 <script setup lang="ts">
