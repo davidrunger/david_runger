@@ -1,10 +1,10 @@
 <template lang="pug">
 button.bg-slate-200(
-  :class='{editable, selected}'
-  @click='handleClick'
+  :class="{ editable, selected }"
+  @click="handleClick"
 )
-  span(v-if='selected') {{emoji}}
-  span(v-else) {{ratingValue}}
+  span(v-if="selected") {{ emoji }}
+  span(v-else) {{ ratingValue }}
 </template>
 
 <script setup lang="ts">

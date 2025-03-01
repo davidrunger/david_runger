@@ -2,25 +2,31 @@
 #app-root.sans-serif.mb-8
   HomeHero
 
-  ParallaxImage(v-if='!isMobileDevice()' variant='macbook-1')
+  ParallaxImage(
+    v-if="!isMobileDevice()"
+    variant="macbook-1"
+  )
   //- this is necessary so that the #home section will scroll out of page when clicking down arrow
-  .bg-black(v-else style='height: 40px')
+  .bg-black(
+    v-else
+    style="height: 40px"
+  )
 
   About
 
-  ParallaxImage(variant='macbook-2')
+  ParallaxImage(variant="macbook-2")
 
   Skills
 
-  ParallaxImage(variant='macbook-1')
+  ParallaxImage(variant="macbook-1")
 
   Projects
 
-  ParallaxImage(variant='macbook-2')
+  ParallaxImage(variant="macbook-2")
 
   Resume
 
-  ParallaxImage(variant='macbook-1')
+  ParallaxImage(variant="macbook-1")
 
   Contact
 </template>

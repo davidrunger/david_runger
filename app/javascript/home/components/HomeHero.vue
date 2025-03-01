@@ -3,7 +3,7 @@
   ref="homeRef"
 )
   .spacer.grow
-  hgroup#headline-container.grow.text-neutral-100(data-section='home')
+  hgroup#headline-container.grow.text-neutral-100(data-section="home")
     h1#headline-name.my-0.monospace.font-normal.leading-normal
       | David Runger
     .stripe.stripe-1
@@ -15,10 +15,12 @@
 
   HomeHeader
 
-  a.flex.justify-center.items-center.down-arrow-container.rounded-full.mb-8(href='#about')
+  a.flex.justify-center.items-center.down-arrow-container.rounded-full.mb-8(
+    href="#about"
+  )
     //- hat tip to https://codepen.io/postor/pen/mskxI for a starting point for this
-    svg(class='arrow' viewBox='0 0 24 14')
-      path(d='M0 0 L12 12 L24 0')
+    svg.arrow(viewBox="0 0 24 14")
+      path(d="M0 0 L12 12 L24 0")
 </template>
 
 <script setup lang="ts">

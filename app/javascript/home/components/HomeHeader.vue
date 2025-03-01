@@ -2,39 +2,45 @@
 header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
   .flex.items-center.text-xl.js-link.js-scroll-top.ml-8
     a#logo.monospace.opacity-animated(
-      href='#home'
-      :class='["text-blue-300!", { "opacity-0": homeIsVisible }]'
+      href="#home"
+      :class="['text-blue-300!', { 'opacity-0': homeIsVisible }]"
     )
       | David Runger
   nav#nav.sans-serif.flex.justify-around.absolute.mr-8
-    NavLink(section='about')
-    NavLink(section='skills')
-    NavLink(section='projects')
-    NavLink(section='resume')
-    NavLink(section='links' link-text='Contact/Links')
+    NavLink(section="about")
+    NavLink(section="skills")
+    NavLink(section="projects")
+    NavLink(section="resume")
+    NavLink(
+      section="links"
+      link-text="Contact/Links"
+    )
   .toggleable-menu
-    .line-container(:class='{ "menu-open": homeStore.menuOpen }')
+    .line-container(:class="{ 'menu-open': homeStore.menuOpen }")
       .line
       .line
       .line
     .clearfix.header-height-spacer
     input.menu-toggle(
-      type='checkbox'
-      ref='menuToggleCheckbox'
-      @click='homeStore.menuOpen = !homeStore.menuOpen'
+      type="checkbox"
+      ref="menuToggleCheckbox"
+      @click="homeStore.menuOpen = !homeStore.menuOpen"
     )
     .mobile-nav.h-dvh
       ul
-        li(@click='collapseMobileMenu')
-          NavLink(section='about')
-        li(@click='collapseMobileMenu')
-          NavLink(section='skills')
-        li(@click='collapseMobileMenu')
-          NavLink(section='projects')
-        li(@click='collapseMobileMenu')
-          NavLink(section='resume')
-        li(@click='collapseMobileMenu')
-          NavLink(section='links' linkText='Contact')
+        li(@click="collapseMobileMenu")
+          NavLink(section="about")
+        li(@click="collapseMobileMenu")
+          NavLink(section="skills")
+        li(@click="collapseMobileMenu")
+          NavLink(section="projects")
+        li(@click="collapseMobileMenu")
+          NavLink(section="resume")
+        li(@click="collapseMobileMenu")
+          NavLink(
+            section="links"
+            linkText="Contact"
+          )
 </template>
 
 <script setup lang="ts">

@@ -1,8 +1,8 @@
 <template lang="pug">
 .chart-container
   BarGraph(
-    :chart-data='chartMetadata'
-    :height='300'
+    :chart-data="chartMetadata"
+    :height="300"
   )
 </template>
 

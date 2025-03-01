@@ -4,7 +4,7 @@ tr
     .svg-container(v-html="svgContent")
   td {{ name }}
   td {{ details }}
-  </template>
+</template>
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';

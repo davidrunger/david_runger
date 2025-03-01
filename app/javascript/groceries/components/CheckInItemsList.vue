@@ -4,9 +4,9 @@ section(v-if="items.length > 0")
 
   ul.check-in-items-list.text-base.mb-2
     CheckInItem(
-      v-for='item in items'
-      :key='item.id'
-      :item='item'
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
     )
 </template>
 

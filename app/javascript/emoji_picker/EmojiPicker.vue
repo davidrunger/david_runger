@@ -2,30 +2,30 @@
 .text-center
   h1 Emoji Picker
 
-  form.my-6(@submit.prevent).text-2xl
+  form.my-6.text-2xl(@submit.prevent)
     input.text-center(
       name="Search for an emoji"
-      type='text'
+      type="text"
       autofocus
-      v-model='query'
+      v-model="query"
     )
 
   ul.mx-auto.max-w-sm
     li.py-1(
-      v-for='emojiData in topRankedMatches'
-      :class='listItemClasses(emojiData)'
-      @click='selectEmoji(emojiData)'
+      v-for="emojiData in topRankedMatches"
+      :class="listItemClasses(emojiData)"
+      @click="selectEmoji(emojiData)"
     )
       button
         span.align-middle.text-4xl {{ emojiData.symbol }}
         span.ml-1.align-middle.text-xl {{ emojiData.boostedName || emojiData.name }}
 
-  BoostsForm(v-if='bootstrap.current_user')
+  BoostsForm(v-if="bootstrap.current_user")
   .flex.justify-center(v-else)
     .mt-8.max-w-sm
       b Tip:
       span.
-        #[a(:href='new_user_session_path()')  log in] to customize
+        #[a(:href="new_user_session_path()")  log in] to customize
         which search keywords are associated with which emojis.
 </template>
 

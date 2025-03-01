@@ -2,7 +2,7 @@
 div
   | You deleted '{{ deletedItemName }}'.
   |
-  button.btn-primary(@click='restoreItem') Undo
+  button.btn-primary(@click="restoreItem") Undo
 </template>
 
 <script setup lang="ts">

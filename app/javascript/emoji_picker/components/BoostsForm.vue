@@ -1,10 +1,13 @@
 <template lang="pug">
-div.mt-8
+.mt-8
   h2.mb-0 Emoji Boosts
   small These names will be weighted more heavily in the search results.
 
   //- Stop propagation and prevent default so enter doesn't select an emoji.
-  form.mt-2(@keydown.stop @submit.prevent)
+  form.mt-2(
+    @keydown.stop
+    @submit.prevent
+  )
     table.m-auto
       thead
         tr
@@ -26,13 +29,11 @@ div.mt-8
               v-model="boost.boostedName"
             )
           td.pl-1
-            button.text-red-500.font-bold(
-              @click='removeBoost(boost)'
-            ) Delete
+            button.text-red-500.font-bold(@click="removeBoost(boost)") Delete
 
     .flex.justify-center.gap-1.mt-1
-      button.btn-primary.btn-small(@click='addBoost') &nbsp;+ Add a boost
-      button.btn-primary.btn-small(@click='saveBoosts') Save boosts
+      button.btn-primary.btn-small(@click="addBoost") &nbsp;+ Add a boost
+      button.btn-primary.btn-small(@click="saveBoosts") Save boosts
 </template>
 
 <script setup lang="ts">

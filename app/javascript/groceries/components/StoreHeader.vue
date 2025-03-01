@@ -1,20 +1,28 @@
 <template lang="pug">
 h2.store-name.my-4
   input(
-    v-if='editingName'
-    type='text'
-    v-model='store.name'
-    @blur='stopEditingAndUpdateStoreName()'
-    @keydown.enter='stopEditingAndUpdateStoreName()'
-    ref='storeNameInput'
+    v-if="editingName"
+    type="text"
+    v-model="store.name"
+    @blur="stopEditingAndUpdateStoreName()"
+    @keydown.enter="stopEditingAndUpdateStoreName()"
+    ref="storeNameInput"
   )
-  span(v-if='!editingName') {{ store.name }}
-  a.js-link.text-neutral-400.ml-2(@click='editStoreName' class="hover:text-black")
-    EditIcon(size='27')
-  span(v-if='store.own_store')
-    el-button.ml-2(v-if='store.private' size='small' @click='togglePrivacy') Make public
-    el-button.ml-2(v-else size='small' @click='togglePrivacy') Make private
-  span.spinner--circle.ml-2(v-if='debouncingOrWaitingOnNetwork')
+  span(v-if="!editingName") {{ store.name }}
+  a.js-link.text-neutral-400.ml-2(@click="editStoreName" class="hover:text-black")
+    EditIcon(size="27")
+  span(v-if="store.own_store")
+    el-button.ml-2(
+      v-if="store.private"
+      size="small"
+      @click="togglePrivacy"
+    ) Make public
+    el-button.ml-2(
+      v-else
+      size="small"
+      @click="togglePrivacy"
+    ) Make private
+  span.spinner--circle.ml-2(v-if="debouncingOrWaitingOnNetwork")
 </template>
 
 <script setup lang="ts">

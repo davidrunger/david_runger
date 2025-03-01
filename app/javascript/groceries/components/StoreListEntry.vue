@@ -1,15 +1,18 @@
 <template lang="pug">
 .stores-list__item.flex.items-center.justify-between.my-4.py-2.px-4.js-link.text-xl(
-  :class='["leading-[1.15]", { selected: store === currentStore }]'
-  @click='groceriesStore.selectStore({ store })'
+  :class="['leading-[1.15]', { selected: store === currentStore }]"
+  @click="groceriesStore.selectStore({ store })"
 )
-  div.store-name
-    a {{store.name}}
-    lock-icon.ml-2(v-if='store.private' size='22')
-  div.delete-button
+  .store-name
+    a {{ store.name }}
+    lock-icon.ml-2(
+      v-if="store.private"
+      size="22"
+    )
+  .delete-button
     a.js-link(
-      v-if='store.own_store'
-      @click.stop='destroyStore(store)'
+      v-if="store.own_store"
+      @click.stop="destroyStore(store)"
     ) &times;
 </template>
 

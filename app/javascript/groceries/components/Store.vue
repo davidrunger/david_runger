@@ -3,24 +3,23 @@
   StoreHeader(:store="store")
 
   el-button.mr-2.mt-2(
-    @click='initializeTripCheckIn'
-    :size='isMobileDevice() ? "small" : "default"'
+    @click="initializeTripCheckIn"
+    :size="isMobileDevice() ? 'small' : 'default'"
   ) Check in items
 
   StoreNotes(:store="store")
 
   NewItemForm(:store="store")
 
-  TransitionGroup(
-    name='appear-and-disappear-vertically-list'
-    tag='div'
-    class='items-list relative mt-0 mb-0'
+  TransitionGroup.items-list.relative.mt-0.mb-0(
+    name="appear-and-disappear-vertically-list"
+    tag="div"
   )
     Item(
-      v-for='item in sortedItems'
+      v-for="item in sortedItems"
       :item="item"
       :key="item.id"
-      :ownStore='store.own_store'
+      :ownStore="store.own_store"
     )
 
   CheckInModal

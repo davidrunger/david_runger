@@ -1,32 +1,35 @@
 <template lang="pug">
-.my-8(
-  v-for='needSatisfactionRating in needSatisfactionRatings'
-)
+.my-8(v-for="needSatisfactionRating in needSatisfactionRatings")
   .mb-2
-    strong {{needSatisfactionRating.emotional_need.name}}
+    strong {{ needSatisfactionRating.emotional_need.name }}
     el-popover(
-      placement='top-end'
-      trigger='click'
+      placement="top-end"
+      trigger="click"
     )
       template(#reference)
         span.circled-text.monospace.js-link i
-      div(v-if='needSatisfactionRating.emotional_need.description')
+      div(v-if="needSatisfactionRating.emotional_need.description")
         | {{ needSatisfactionRating.emotional_need.description }}
       div(v-else)
         | No description. You can add one
         |
-        a(:href='edit_emotional_need_path(needSatisfactionRating.emotional_need.id)') here
+        a(
+          :href="edit_emotional_need_path(needSatisfactionRating.emotional_need.id)"
+        ) here
         | .
-    a.ml-2(:href='graphLink(needSatisfactionRating)') graph
+    a.ml-2(:href="graphLink(needSatisfactionRating)") graph
   div
     EmojiButton(
-      v-for='ratingValue in RATINGS_RANGE'
-      :needSatisfactionRating='needSatisfactionRating'
-      :ratingValue='ratingValue'
-      :editable='editable'
+      v-for="ratingValue in RATINGS_RANGE"
+      :needSatisfactionRating="needSatisfactionRating"
+      :ratingValue="ratingValue"
+      :editable="editable"
     )
 
-button.btn-primary.mt-2.h3(v-if='editable && !submitted' @click='submitCheckIn') Submit Check-in
+button.btn-primary.mt-2.h3(
+  v-if="editable && !submitted"
+  @click="submitCheckIn"
+) Submit Check-in
 </template>
 
 <script setup lang="ts">

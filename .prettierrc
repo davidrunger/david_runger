@@ -1,7 +1,11 @@
 {
   "experimentalTernaries": true,
   "singleQuote": true,
-  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "pugSingleQuote": false,
+  "pugAttributeSeparator": "none",
+  "pugWrapAttributesThreshold": 1,
+  "pugFramework": "vue",
+  "plugins": ["@ianvs/prettier-plugin-sort-imports", "@prettier/plugin-pug"],
   "importOrder": ["^(?!(@/|\\.))(.*)", "", "^@.*/(.*)$", "", "^\\."],
   "importOrderTypeScriptVersion": "5.5.2"
 }

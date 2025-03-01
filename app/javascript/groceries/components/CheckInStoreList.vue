@@ -1,16 +1,16 @@
 <template lang="pug">
 ul
   li.block.mb-2(
-    v-for='store in stores'
-    :key='store.id'
+    v-for="store in stores"
+    :key="store.id"
   )
     input(
-      type='checkbox'
-      v-model='groceriesStore.checkInStores'
-      :value='store'
-      :id='`checkin-stores-${store.id}`'
+      type="checkbox"
+      v-model="groceriesStore.checkInStores"
+      :value="store"
+      :id="`checkin-stores-${store.id}`"
     )
-    label.ml-2(:for='`checkin-stores-${store.id}`') {{store.name}}
+    label.ml-2(:for="`checkin-stores-${store.id}`") {{ store.name }}
 </template>
 
 <script setup lang="ts">
