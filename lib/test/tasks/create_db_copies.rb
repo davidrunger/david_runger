@@ -6,7 +6,7 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
     # database, so disconnect.
     ActiveRecord::Base.connection_pool.connections.each(&:disconnect!)
     # Give a little time for the disconnections to complete (?).
-    sleep(0.1)
+    sleep(0.5)
 
     %w[unit api html feature_a feature_c].each do |db_suffix|
       db_name = "david_runger_test_#{db_suffix}"
