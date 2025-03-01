@@ -23,7 +23,7 @@
           th(v-for="exercise in exercises") {{ exercise.name }}
       tbody
         tr(
-          v-for="(setCount, index) in numberOfSets",
+          v-for="(setCount, index) in numberOfSets"
           :class="tableRowClass(index)"
         )
           td {{ setCount }}
@@ -31,7 +31,7 @@
           td(v-if="editMode")
             input(
               type="text"
-              v-model.number="setsArray[index].timeAdjustment",
+              v-model.number="setsArray[index].timeAdjustment"
               :disabled="index <= currentRoundIndex"
             )
           td(:class="nextRoundCountdownClasses(index)") {{ timeColumnValue(index) }}
@@ -39,7 +39,7 @@
             input(
               v-if="editMode"
               type="text"
-              v-model.number="exercise.reps",
+              v-model.number="exercise.reps"
               :disabled="index <= currentRoundIndex - 1"
             )
             span(v-else) {{ exercise.reps }}
@@ -54,7 +54,7 @@
       | Mark workout as complete!
 
   ConfirmWorkoutModal(
-    :timeInSeconds="secondsElapsed",
+    :timeInSeconds="secondsElapsed"
     :repTotals="repTotalsAsOfCurrentRound"
   )
 </template>

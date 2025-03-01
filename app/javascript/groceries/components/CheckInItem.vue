@@ -1,10 +1,10 @@
 <template lang="pug">
 li.flex.items-center.break-word.mb-2(:class="aboutToMoveToClass()")
   input(
-    type="checkbox",
+    type="checkbox"
     :checked="item.checkInStatus === 'in-cart'"
-    @change="toggleItemInCart",
-    :disabled="item.checkInStatus === 'skipped'",
+    @change="toggleItemInCart"
+    :disabled="item.checkInStatus === 'skipped'"
     :id="`trip-checkin-item-${item.id}`"
   )
   label.ml-2(:for="`trip-checkin-item-${item.id}`")

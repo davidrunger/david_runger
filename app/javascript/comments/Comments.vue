@@ -10,8 +10,8 @@
   .comments
     template(v-if="store.comments.length")
       Comment(
-        v-for="comment in store.comments",
-        :key="comment.id",
+        v-for="comment in store.comments"
+        :key="comment.id"
         :comment="comment"
       )
     template(v-else)

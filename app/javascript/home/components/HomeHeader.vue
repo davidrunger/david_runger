@@ -2,7 +2,7 @@
 header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
   .flex.items-center.text-xl.js-link.js-scroll-top.ml-8
     a#logo.monospace.opacity-animated(
-      href="#home",
+      href="#home"
       :class="['text-blue-300!', { 'opacity-0': homeIsVisible }]"
     )
       | David Runger

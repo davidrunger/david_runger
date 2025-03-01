@@ -12,7 +12,7 @@ form.flex(
     )
   .ml-2
     el-button.button.button-outline(
-      native-type="submit",
+      native-type="submit"
       :disabled="v$.$invalid"
     ) Add
 </template>

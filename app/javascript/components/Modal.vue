@@ -8,7 +8,7 @@ transition(
     @click="handleClickMask"
   )
     .modal-container.p-8.rounded(
-      :style="{ width: width, maxWidth: maxWidth }",
+      :style="{ width: width, maxWidth: maxWidth }"
       :class="backgroundClass"
     )
       slot

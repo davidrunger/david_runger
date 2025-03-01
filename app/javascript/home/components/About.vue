@@ -1,7 +1,7 @@
 <template lang="pug">
 HomeSection(
   section="about"
-  title="About me",
+  title="About me"
   :renderHeadingManually="true"
 )
   template(v-slot:default="slotProps")

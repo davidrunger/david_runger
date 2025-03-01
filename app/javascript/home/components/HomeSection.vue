@@ -1,13 +1,13 @@
 <template lang="pug">
 .relative.bg-white.flex.justify-center.p-4.scroll-mt-14(
-  :id="section",
+  :id="section"
   :class="section"
   ref="root"
 )
   section(:data-section="section")
     ScrollHook(:section="section")
     SectionHeader(
-      v-if="!renderHeadingManually",
+      v-if="!renderHeadingManually"
       :title="title"
     )
     slot(:title="title")

@@ -16,7 +16,7 @@ Modal(
       el-tag(
         :key="logShare.email"
         v-for="logShare in logSharesSortedByLowercasedEmail"
-        closable,
+        closable
         :disable-transitions="false"
         @close="handleLogShareDeletion(logShare)"
       ) {{ logShare.email }}

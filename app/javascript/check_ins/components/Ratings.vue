@@ -20,9 +20,9 @@
     a.ml-2(:href="graphLink(needSatisfactionRating)") graph
   div
     EmojiButton(
-      v-for="ratingValue in RATINGS_RANGE",
-      :needSatisfactionRating="needSatisfactionRating",
-      :ratingValue="ratingValue",
+      v-for="ratingValue in RATINGS_RANGE"
+      :needSatisfactionRating="needSatisfactionRating"
+      :ratingValue="ratingValue"
       :editable="editable"
     )
 

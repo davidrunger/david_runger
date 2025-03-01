@@ -1,12 +1,12 @@
 <template lang="pug">
 div
   form.px-2(
-    @submit.prevent="postNewLogEntry(formData.newLogEntryData)",
+    @submit.prevent="postNewLogEntry(formData.newLogEntryData)"
     :class="log.data_type"
   )
     .mb-2(v-if="isCounter")
       el-button(
-        v-for="logEntryValue in mostRecentLogEntryValues",
+        v-for="logEntryValue in mostRecentLogEntryValues"
         :key="logEntryValue"
         @click="postNewLogEntry(logEntryValue)"
       ) {{ logEntryValue }}
@@ -16,7 +16,7 @@ div
           :placeholder="log.data_label"
           v-model="formData.newLogEntryData"
           name="log.data_label"
-          ref="logInput",
+          ref="logInput"
           :type="inputType"
         )
     div(:class="{ 'mt-2': isText }")
@@ -34,7 +34,7 @@ div
         type="text"
       )
       el-button(
-        native-type="submit",
+        native-type="submit"
         :disabled="v$.$invalid"
       ) Add
 </template>

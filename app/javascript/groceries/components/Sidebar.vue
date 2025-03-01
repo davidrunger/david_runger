@@ -5,7 +5,7 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
   .flex.flex-col.min-h-full
     .sidebar-toggle__container.border-b
       button.sidebar-toggle(
-        @click="collapsed = !collapsed",
+        @click="collapsed = !collapsed"
         :class="{ 'rotated-180': expanded }"
       )
         arrow-bar-right-icon(size="29")
@@ -21,19 +21,19 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
               placeholder="Add a store"
             )
           el-button(
-            native-type="submit",
+            native-type="submit"
             :disabled="postingStore || v$.$invalid"
           ) Add
         .stores-list
           StoreListEntry(
-            v-for="store in groceriesStore.sortedStores",
+            v-for="store in groceriesStore.sortedStores"
             :store="store"
           )
         div(v-if="groceriesStore.sortedSpouseStores.length > 0")
           .spouse-stores-header.text-2xl Spouse's Stores
           .stores-list
             StoreListEntry(
-              v-for="store in groceriesStore.sortedSpouseStores",
+              v-for="store in groceriesStore.sortedSpouseStores"
               :store="store"
             )
     .mt-auto.text-center.p-3(

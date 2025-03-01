@@ -16,17 +16,17 @@ Modal(
 
       .flex-1.overflow-y-auto
         CheckInItemsList(
-          title="Needed",
+          title="Needed"
           :items="neededUnskippedCheckInItemsNotInCart"
         )
 
         CheckInItemsList(
-          title="In Cart",
+          title="In Cart"
           :items="neededUnskippedCheckInItemsInCart"
         )
 
         CheckInItemsList(
-          title="Skipped",
+          title="Skipped"
           :items="neededSkippedCheckInItems"
         )
 
@@ -39,8 +39,8 @@ Modal(
         el-button(
           @click="handleTripCheckinModalSubmit"
           type="primary"
-          plain,
-          :disabled="checkingIn",
+          plain
+          :disabled="checkingIn"
           :class="{ pulsing: noMoreNeededItems() }"
         )
           span(v-if="checkingIn") Checking in...

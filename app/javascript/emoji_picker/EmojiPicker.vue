@@ -12,7 +12,7 @@
 
   ul.mx-auto.max-w-sm
     li.py-1(
-      v-for="emojiData in topRankedMatches",
+      v-for="emojiData in topRankedMatches"
       :class="listItemClasses(emojiData)"
       @click="selectEmoji(emojiData)"
     )

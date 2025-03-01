@@ -16,7 +16,7 @@
   .left
     input(
       v-if="editingName"
-      type="text",
+      type="text"
       :value="item.name"
       @blur="stopEditingAndUpdateItemName"
       @keydown.enter="stopEditingAndUpdateItemName"

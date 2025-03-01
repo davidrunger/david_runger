@@ -2,8 +2,8 @@
 .comment
   .comment-header
     img.avatar(
-      v-if="comment.user",
-      :src="comment.user.gravatar_url",
+      v-if="comment.user"
+      :src="comment.user.gravatar_url"
       :alt="comment.user.public_name"
       crossorigin="anonymous"
     )
@@ -34,7 +34,7 @@
       ) Reply
 
     CommentForm(
-      v-if="showReplyForm",
+      v-if="showReplyForm"
       :parent-comment-id="comment.id"
       submit-label="Reply"
       @submit="handleReplyCreate"
@@ -43,8 +43,8 @@
 
   template(v-if="comment.replies.length")
     Comment(
-      v-for="reply in comment.replies",
-      :key="reply.id",
+      v-for="reply in comment.replies"
+      :key="reply.id"
       :comment="reply"
     )
 </template>

@@ -3,7 +3,7 @@
   StoreHeader(:store="store")
 
   el-button.mr-2.mt-2(
-    @click="initializeTripCheckIn",
+    @click="initializeTripCheckIn"
     :size="isMobileDevice() ? 'small' : 'default'"
   ) Check in items
 
@@ -16,9 +16,9 @@
     tag="div"
   )
     Item(
-      v-for="item in sortedItems",
-      :item="item",
-      :key="item.id",
+      v-for="item in sortedItems"
+      :item="item"
+      :key="item.id"
       :ownStore="store.own_store"
     )
 

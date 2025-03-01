@@ -10,12 +10,12 @@
         .text-center.mb-1(class="text-[#aaa]")
           slot(name="technologies")
         .text-center.mb-2(
-          v-if="$slots['links']",
+          v-if="$slots['links']"
           :class="linksContainerClass"
         )
           slot(name="links")
         .text-center(
-          v-if="$slots['image']",
+          v-if="$slots['image']"
           :class="imageContainerClass"
         )
           slot(name="image")

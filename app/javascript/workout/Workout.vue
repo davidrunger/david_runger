@@ -6,7 +6,7 @@ section(v-if="workoutIsInProgress && typedWorkoutPlan")
   section.my-8
     h2.text-2xl Previous workouts
     WorkoutsTable(
-      :isOwnWorkouts="true",
+      :isOwnWorkouts="true"
       :workouts="workouts"
     )
   section.my-8

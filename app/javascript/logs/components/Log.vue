@@ -10,13 +10,13 @@ div
   .mb-4(v-if="log.log_entries === undefined").
     Loading...
   LogDataDisplay(
-    v-else-if="log.log_entries.length",
+    v-else-if="log.log_entries.length"
     :log="log"
   )
   .my-8(v-else) There are no log entries for this log.
   .controls(v-if="!isSharedLogView")
     NewLogEntryForm(
-      v-if="!renderInputAtTop",
+      v-if="!renderInputAtTop"
       :log="log"
     )
     .mt-2(v-if="showDeleteLastEntryButton")
@@ -28,7 +28,7 @@ div
           el-button Delete last entry
     .mt-2
       el-button(
-        tag="a",
+        tag="a"
         :href="download_log_path(log.slug)"
         download
       ) Download CSV

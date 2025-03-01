@@ -4,10 +4,10 @@ div
     table.text-log-table.w-full.max-w-4xl
       TransitionGroup(name="appear-vertically-list")
         EditableTextLogRow(
-          v-for="(logEntry, index) in sortedLogEntries",
-          :key="logEntry.id",
-          :log="log",
-          :logEntry="logEntry",
+          v-for="(logEntry, index) in sortedLogEntries"
+          :key="logEntry.id"
+          :log="log"
+          :logEntry="logEntry"
           :class="{ 'transition-none!': index !== 0 }"
         )
   el-button(

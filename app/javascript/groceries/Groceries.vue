@@ -3,7 +3,7 @@
   Sidebar
   main.flex-1.bg-cover
     Store(
-      v-if="currentStore",
+      v-if="currentStore"
       :store="currentStore"
     )
 </template>

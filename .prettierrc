@@ -2,7 +2,7 @@
   "experimentalTernaries": true,
   "singleQuote": true,
   "pugSingleQuote": false,
-  "pugAttributeSeparator": "as-needed",
+  "pugAttributeSeparator": "none",
   "pugWrapAttributesThreshold": 1,
   "pugFramework": "vue",
   "plugins": ["@ianvs/prettier-plugin-sort-imports", "@prettier/plugin-pug"],

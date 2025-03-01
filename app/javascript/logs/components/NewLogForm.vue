@@ -29,13 +29,13 @@ div
             name="newLog.data_type"
           )
             el-option(
-              v-for="dataType in logInputTypes",
-              :key="dataType.data_type",
-              :label="dataType.label",
+              v-for="dataType in logInputTypes"
+              :key="dataType.data_type"
+              :label="dataType.label"
               :value="dataType.data_type"
             )
         el-button(
-          native-type="submit",
+          native-type="submit"
           :disabled="postingLog"
         ) Create
 </template>

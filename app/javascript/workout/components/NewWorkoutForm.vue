@@ -23,7 +23,7 @@ form
       label
         | Exercise
         el-input(
-          v-model="exercise.name",
+          v-model="exercise.name"
           :name="`exercise-${index}-name`"
           type="text"
         )
@@ -31,7 +31,7 @@ form
       label
         | Reps per set
         el-input(
-          v-model.number="exercise.reps",
+          v-model.number="exercise.reps"
           :name="`exercise-${index}-reps`"
           type="number"
         )

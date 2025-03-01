@@ -1,12 +1,12 @@
 <template lang="pug">
 Bar(
-  :options="chartOptions",
-  :data="mergedChartData",
-  :chart-id="chartId",
-  :dataset-id-key="datasetIdKey",
-  :css-classes="cssClasses",
-  :styles="styles",
-  :width="width",
+  :options="chartOptions"
+  :data="mergedChartData"
+  :chart-id="chartId"
+  :dataset-id-key="datasetIdKey"
+  :css-classes="cssClasses"
+  :styles="styles"
+  :width="width"
   :height="height"
 )
 </template>
