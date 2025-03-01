@@ -1,6 +1,6 @@
 <template lang="pug">
 .chart-container
-  LineChart(:chart-data='chartMetadata', :height='300')
+  LineChart(:chart-data="chartMetadata", :height="300")
 </template>
 
 <script setup lang="ts">

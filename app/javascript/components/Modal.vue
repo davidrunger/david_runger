@@ -1,12 +1,12 @@
 <template lang="pug">
-transition(name='modal', v-if='showingModal({ modalName: name })')
+transition(name="modal", v-if="showingModal({ modalName: name })")
   .modal-mask.fixed.flex.flex-col.items-center.justify-center.w-full.top-0.left-0.h-screen.z-10(
-    ref='mask',
-    @click='handleClickMask'
+    ref="mask",
+    @click="handleClickMask"
   )
     .modal-container.p-8.rounded(
-      :style='{ width: width, maxWidth: maxWidth }',
-      :class='backgroundClass'
+      :style="{ width: width, maxWidth: maxWidth }",
+      :class="backgroundClass"
     )
       slot
 </template>

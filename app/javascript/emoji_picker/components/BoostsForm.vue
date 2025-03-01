@@ -12,25 +12,25 @@
           th Keyword to boost
           th
       tbody
-        tr(v-for='boost in boosts')
+        tr(v-for="boost in boosts")
           td
             input.w-16.text-center(
-              placeholder='Symbol',
-              type='text',
-              v-model='boost.symbol'
+              placeholder="Symbol",
+              type="text",
+              v-model="boost.symbol"
             )
           td
             input.text-center(
-              placeholder='Keyword to boost',
-              type='text',
-              v-model='boost.boostedName'
+              placeholder="Keyword to boost",
+              type="text",
+              v-model="boost.boostedName"
             )
           td.pl-1
-            button.text-red-500.font-bold(@click='removeBoost(boost)') Delete
+            button.text-red-500.font-bold(@click="removeBoost(boost)") Delete
 
     .flex.justify-center.gap-1.mt-1
-      button.btn-primary.btn-small(@click='addBoost') &nbsp;+ Add a boost
-      button.btn-primary.btn-small(@click='saveBoosts') Save boosts
+      button.btn-primary.btn-small(@click="addBoost") &nbsp;+ Add a boost
+      button.btn-primary.btn-small(@click="saveBoosts") Save boosts
 </template>
 
 <script setup lang="ts">

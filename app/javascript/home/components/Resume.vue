@@ -1,7 +1,7 @@
 <template lang="pug">
-HomeSection.pb-16(section='resume', title='Resume')
+HomeSection.pb-16(section="resume", title="Resume")
   a.resume-button.block.text-center(
-    href='https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf'
+    href="https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf"
   ) View Resume (pdf)
 </template>
 

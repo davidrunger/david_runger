@@ -1,43 +1,43 @@
 <template lang="pug">
-.grocery-item.flex.items-center.w-full(:class='{ unneeded: item.needed <= 0 }')
+.grocery-item.flex.items-center.w-full(:class="{ unneeded: item.needed <= 0 }")
   .left.whitespace-nowrap
     button.item-button.js-link.text-green-600(
-      @click='setNeeded(item, item.needed + 1)',
-      title='Increment'
+      @click="setNeeded(item, item.needed + 1)",
+      title="Increment"
     )
       .flex.justify-center
-        PlusIcon(:size='ICON_SIZE')
+        PlusIcon(:size="ICON_SIZE")
     button.item-button.mx-2.js-link.text-red-600(
-      @click='decrement(item)',
-      title='Decrement'
+      @click="decrement(item)",
+      title="Decrement"
     )
       .flex.justify-center
-        MinusIcon(:size='ICON_SIZE')
+        MinusIcon(:size="ICON_SIZE")
   .left
     input(
-      v-if='editingName',
-      type='text',
-      :value='item.name',
-      @blur='stopEditingAndUpdateItemName',
-      @keydown.enter='stopEditingAndUpdateItemName',
-      @keydown.escape='editingName = false',
-      ref='itemNameInput'
+      v-if="editingName",
+      type="text",
+      :value="item.name",
+      @blur="stopEditingAndUpdateItemName",
+      @keydown.enter="stopEditingAndUpdateItemName",
+      @keydown.escape="editingName = false",
+      ref="itemNameInput"
     )
     span.item-name(v-else)
-      span(v-html='linkify(item.name)')
+      span(v-html="linkify(item.name)")
       |
       |
-      a.js-link.text-neutral-400(@click='editItemName', class='hover:text-black')
-        EditIcon(:size='ICON_SIZE')
+      a.js-link.text-neutral-400(@click="editItemName", class="hover:text-black")
+        EditIcon(:size="ICON_SIZE")
     | &nbsp;
     span ({{ item.needed }})
-  .ml-auto.js-link.text-red-500(v-if='ownStore')
+  .ml-auto.js-link.text-red-500(v-if="ownStore")
     button.item-button(
-      @click='groceriesStore.destroyItem({ item })',
-      title='Delete item'
+      @click="groceriesStore.destroyItem({ item })",
+      title="Delete item"
     )
       .flex.justify-center
-        XIcon(:size='ICON_SIZE')
+        XIcon(:size="ICON_SIZE")
 </template>
 
 <script setup lang="ts">

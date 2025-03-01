@@ -1,19 +1,19 @@
 <template lang="pug">
 h2 Your answers
 Ratings(
-  :needSatisfactionRatings='checkInsStore.user_ratings_of_partner',
-  :editable='true',
-  ratedUser='partner'
+  :needSatisfactionRatings="checkInsStore.user_ratings_of_partner",
+  :editable="true",
+  ratedUser="partner"
 )
 
 hr.my-8
 
 h2 Their answers
 Ratings(
-  v-if='checkInsStore.partner_ratings_of_user.length',
-  :needSatisfactionRatings='checkInsStore.partner_ratings_of_user',
-  :editable='false',
-  ratedUser='self'
+  v-if="checkInsStore.partner_ratings_of_user.length",
+  :needSatisfactionRatings="checkInsStore.partner_ratings_of_user",
+  :editable="false",
+  ratedUser="self"
 )
 div(v-else) {{ checkInsStore.partner_ratings_hidden_reason }}
 </template>

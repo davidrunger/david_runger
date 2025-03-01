@@ -1,5 +1,5 @@
 <template lang="pug">
-.js-scroll-hook.absolute(ref='scrollHookRef')
+.js-scroll-hook.absolute(ref="scrollHookRef")
 </template>
 
 <script setup lang="ts">

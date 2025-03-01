@@ -1,35 +1,35 @@
 <template lang="pug">
 Modal(
-  name='edit-log-reminder-schedule',
-  width='85%',
-  maxWidth='600px',
-  backgroundClass='bg-black'
+  name="edit-log-reminder-schedule",
+  width="85%",
+  maxWidth="600px",
+  backgroundClass="bg-black"
 )
   slot
     div
       h3.font-bold.mb-4 Reminders
-      .my-2(v-if='log.reminder_time_in_seconds')
+      .my-2(v-if="log.reminder_time_in_seconds")
         | Current setting: every {{ reminderTimeInHours }} hours
         span.ml-2
-          el-button(@click='cancelReminders', type='primary', link) Cancel reminders
+          el-button(@click="cancelReminders", type="primary", link) Cancel reminders
 
       div
         | Remind me after
         |
-        input(v-model.number='numberOfTimeUnits')
+        input(v-model.number="numberOfTimeUnits")
         |
         |
-        select(v-model='timeUnit')
-          option(v-for='timeUnit in timeUnitOptions') {{ timeUnit }}
+        select(v-model="timeUnit")
+          option(v-for="timeUnit in timeUnitOptions") {{ timeUnit }}
         |
         | to create a log entry (if I haven't already done so).
       .flex.justify-center.mt-4
         .mr-8
-          el-button(@click='updateLog', type='primary', plain) Save
+          el-button(@click="updateLog", type="primary", plain) Save
         div
           el-button(
-            @click='modalStore.hideModal({ modalName: "edit-log-reminder-schedule" })',
-            type='primary',
+            @click="modalStore.hideModal({ modalName: 'edit-log-reminder-schedule' })",
+            type="primary",
             link
           ) Close
 </template>

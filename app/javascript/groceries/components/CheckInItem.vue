@@ -1,31 +1,31 @@
 <template lang="pug">
-li.flex.items-center.break-word.mb-2(:class='aboutToMoveToClass()')
+li.flex.items-center.break-word.mb-2(:class="aboutToMoveToClass()")
   input(
-    type='checkbox',
-    :checked='item.checkInStatus === "in-cart"',
-    @change='toggleItemInCart',
-    :disabled='item.checkInStatus === "skipped"',
-    :id='`trip-checkin-item-${item.id}`'
+    type="checkbox",
+    :checked="item.checkInStatus === 'in-cart'",
+    @change="toggleItemInCart",
+    :disabled="item.checkInStatus === 'skipped'",
+    :id="`trip-checkin-item-${item.id}`"
   )
-  label.ml-2(:for='`trip-checkin-item-${item.id}`')
-    span(:class='{ "text-gray-500": item.checkInStatus === "skipped" }')
+  label.ml-2(:for="`trip-checkin-item-${item.id}`")
+    span(:class="{ 'text-gray-500': item.checkInStatus === 'skipped' }")
       span {{ item.name }}
-      span(v-if='item.needed > 1') {{ ' ' }} ({{ item.needed }})
+      span(v-if="item.needed > 1") {{ ' ' }} ({{ item.needed }})
     span {{ ' ' }}
     ElTooltip(
-      v-if='isSpouseItem(item)',
-      content='Spouse item',
-      placement='top'
+      v-if="isSpouseItem(item)",
+      content="Spouse item",
+      placement="top"
     )
       HeartFilledIcon.text-red-500
     span {{ ' ' }}
     el-button(
-      v-if='item.checkInStatus === "skipped"',
+      v-if="item.checkInStatus === 'skipped'",
       link,
-      type='primary',
-      @click='moveTo("needed")'
+      type="primary",
+      @click="moveTo('needed')"
     ) Unskip
-    el-button(v-else, link, type='primary', @click='moveTo("skipped")') Skip
+    el-button(v-else, link, type="primary", @click="moveTo('skipped')") Skip
 </template>
 
 <script setup lang="ts">

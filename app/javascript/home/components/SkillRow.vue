@@ -1,7 +1,7 @@
 <template lang="pug">
 tr
   td
-    .svg-container(v-html='svgContent')
+    .svg-container(v-html="svgContent")
   td {{ name }}
   td {{ details }}
 </template>

@@ -1,39 +1,39 @@
 <template lang="pug">
 div
   form.px-2(
-    @submit.prevent='postNewLogEntry(formData.newLogEntryData)',
-    :class='log.data_type'
+    @submit.prevent="postNewLogEntry(formData.newLogEntryData)",
+    :class="log.data_type"
   )
-    .mb-2(v-if='isCounter')
+    .mb-2(v-if="isCounter")
       el-button(
-        v-for='logEntryValue in mostRecentLogEntryValues',
-        :key='logEntryValue',
-        @click='postNewLogEntry(logEntryValue)'
+        v-for="logEntryValue in mostRecentLogEntryValues",
+        :key="logEntryValue",
+        @click="postNewLogEntry(logEntryValue)"
       ) {{ logEntryValue }}
     .flex.justify-center
       .w-full.max-w-4xl
         el-input.new-log-input.mb-2(
-          :placeholder='log.data_label',
-          v-model='formData.newLogEntryData',
-          name='log.data_label',
-          ref='logInput',
-          :type='inputType'
+          :placeholder="log.data_label",
+          v-model="formData.newLogEntryData",
+          name="log.data_label",
+          ref="logInput",
+          :type="inputType"
         )
-    div(:class='{ "mt-2": isText }')
+    div(:class="{ 'mt-2': isText }")
       el-date-picker(
-        :class='{ "mb-2": isNumeric }',
-        v-model='formData.newLogEntryCreatedAt',
-        type='datetime',
-        placeholder='Backdate (optional)'
+        :class="{ 'mb-2': isNumeric }",
+        v-model="formData.newLogEntryCreatedAt",
+        type="datetime",
+        placeholder="Backdate (optional)"
       )
       el-input.new-log-input(
-        :class='{ "mb-2": isNumeric }',
-        v-if='isDuration || isNumber',
-        placeholder='Note (optional)',
-        v-model='formData.newLogEntryNote',
-        type='text'
+        :class="{ 'mb-2': isNumeric }",
+        v-if="isDuration || isNumber",
+        placeholder="Note (optional)",
+        v-model="formData.newLogEntryNote",
+        type="text"
       )
-      el-button(native-type='submit', :disabled='v$.$invalid') Add
+      el-button(native-type="submit", :disabled="v$.$invalid") Add
 </template>
 
 <script setup lang="ts">

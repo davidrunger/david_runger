@@ -1,20 +1,20 @@
 <template lang="pug">
 tr
-  td(v-html='formattedCreatedAt')
+  td(v-html="formattedCreatedAt")
 
-  td(v-if='editing')
-    el-input(v-model='newPlaintext', type='textarea', ref='textInput')
-  td.left-align(v-else, v-html='html')
+  td(v-if="editing")
+    el-input(v-model="newPlaintext", type="textarea", ref="textInput")
+  td.left-align(v-else, v-html="html")
 
-  td(v-if='editing')
-    el-button(@click='updateLogEntry', size='small') Save
-    el-button(@click='cancelEditing', size='small') Cancel
+  td(v-if="editing")
+    el-button(@click="updateLogEntry", size="small") Save
+    el-button(@click="cancelEditing", size="small") Cancel
   td(v-else)
     .flex.flex-wrap.items-center.justify-center.gap-1
-      el-button(@click='editing = true', link, type='primary') Edit
-      el-popconfirm(title='Delete this log entry?', @confirm='destroyLogEntry')
+      el-button(@click="editing = true", link, type="primary") Edit
+      el-popconfirm(title="Delete this log entry?", @confirm="destroyLogEntry")
         template(#reference)
-          el-button(link, type='danger') Delete
+          el-button(link, type="danger") Delete
 </template>
 
 <script setup lang="ts">
