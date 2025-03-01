@@ -69,7 +69,7 @@
     "@types/when-dom-ready": "^1.2.2",
     "@typescript-eslint/parser": "^8.25.0",
     "@vue/eslint-config-typescript": "^14.4.0",
-    "@vue/language-plugin-pug": "^2.2.4",
+    "@vue/language-plugin-pug": "^2.2.6",
     "eslint-config-prettier": "^10.0.2",
     "eslint-import-resolver-typescript": "^3.8.3",
     "eslint-plugin-import": "^2.31.0",
@@ -93,7 +93,7 @@
     "vite-plugin-ruby": "^5.1.1",
     "vitest": "^3.0.7",
     "vue-eslint-parser": "^9.4.3",
-    "vue-tsc": "^2.2.4"
+    "vue-tsc": "^2.2.6"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
