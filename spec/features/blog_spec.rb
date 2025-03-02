@@ -49,7 +49,7 @@ RSpec.describe 'Blog' do
       let(:existing_user) { users(:user) }
       let(:existing_user_email) { existing_user.email }
 
-      context 'when the replying user has existed for at least 1 minute' do
+      context 'when the replying user is at least 1 minute old' do
         before { existing_user.update!(created_at: 1.minute.ago) }
 
         it 'shows the blog article content and allows making comments, replying to comments, editing comments, and deleting comments' do
