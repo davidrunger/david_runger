@@ -41,6 +41,10 @@ jobs:
         ports:
           - 6379:6379 # Maps port 6379 on service container to the host
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
+
       - name: Set GIT_REV environment variable
         uses: ./.github/actions/git_rev
 
@@ -49,10 +53,6 @@ jobs:
           echo "Branch: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
           echo "PR: ${${GITHUB_REF#refs/pull/}%/merge}"
           echo "SHA: $GIT_REV"
-
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
