@@ -46,6 +46,7 @@ Modal(
 import { ElButton } from 'element-plus';
 import { computed, ref, type PropType } from 'vue';
 
+import Modal from '@/components/Modal.vue';
 import { toast } from '@/lib/toasts';
 import { useLogsStore } from '@/logs/store';
 import type { Log } from '@/logs/types';

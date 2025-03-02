@@ -34,6 +34,7 @@ Modal(
 import { ElButton, ElCheckbox } from 'element-plus';
 import { ref } from 'vue';
 
+import Modal from '@/components/Modal.vue';
 import { toast } from '@/lib/toasts';
 import { useModalStore } from '@/shared/modal/store';
 import { useWorkoutsStore } from '@/workout/store';

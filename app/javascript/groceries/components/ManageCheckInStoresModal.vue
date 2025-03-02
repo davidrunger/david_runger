@@ -21,6 +21,7 @@ Modal(
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
 
+import Modal from '@/components/Modal.vue';
 import { useGroceriesStore } from '@/groceries/store';
 import { useModalStore } from '@/shared/modal/store';
 

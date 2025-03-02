@@ -53,6 +53,7 @@ import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { TYPE } from 'vue-toastification';
 
+import Modal from '@/components/Modal.vue';
 import { useGroceriesStore } from '@/groceries/store';
 import { vueToast } from '@/lib/vue_toasts';
 import { useModalStore } from '@/shared/modal/store';
