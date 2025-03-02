@@ -119,7 +119,6 @@ export default defineConfigWithVueTs(
       'object-shorthand': ['error', 'always'],
       'operator-linebreak': 'off',
       'require-await': 'error',
-      'vue/multi-word-component-names': 'off',
     },
   },
 );
