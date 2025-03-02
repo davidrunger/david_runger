@@ -31,6 +31,13 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
         execute_system_command("dropdb --if-exists #{db_name}")
       end
 
+      execute_system_command(<<~COMMAND.squish)
+        psql -U postgres -h 127.0.0.1 -d david_runger_test -c "
+        SELECT pid, usename, application_name, client_addr, state, query
+        FROM pg_stat_activity
+        WHERE datname = 'david_runger_test' AND pid != pg_backend_pid();"
+      COMMAND
+
       execute_system_command(<<~COMMAND)
         createdb
           -T david_runger_test #{db_name}
