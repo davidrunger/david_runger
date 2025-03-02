@@ -51,7 +51,8 @@ jobs:
       - name: Print context info
         run: |
           echo "Branch: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-          echo "PR: ${${GITHUB_REF#refs/pull/}%/merge}"
+          pr=${GITHUB_REF#refs/pull/}
+          echo "PR: #${pr%/merge}"
           echo "SHA: $GIT_REV"
 
       - name: Set up Ruby
