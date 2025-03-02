@@ -257,6 +257,7 @@ class Test::RequirementsResolver
     Test::Tasks::RunEslint => proc do
       !files_with_js_changed? &&
         !diff_mentions?('eslint') &&
+        !file_changed?(/eslint/i) &&
         !file_changed?('package.json') &&
         !file_changed?('pnpm-lock.yaml')
     end,
