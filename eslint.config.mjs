@@ -119,6 +119,12 @@ export default defineConfigWithVueTs(
       'object-shorthand': ['error', 'always'],
       'operator-linebreak': 'off',
       'require-await': 'error',
+      'vue/block-order': [
+        'error',
+        {
+          order: ['template', 'script', 'style'],
+        },
+      ],
       'vue/multi-word-component-names': 'off',
     },
   },
