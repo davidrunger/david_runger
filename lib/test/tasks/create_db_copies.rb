@@ -1,7 +1,7 @@
 class Test::Tasks::CreateDbCopies < Pallets::Task
   include Test::TaskHelpers
 
-  # rubocop:disable Metrics/PerceivedComplexity
+  # rubocop:disable Metrics
   def run
     # The commands below will error if there are any active connections to the
     # database, so disconnect.
@@ -47,5 +47,5 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
       COMMAND
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics
 end
