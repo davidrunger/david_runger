@@ -82,13 +82,6 @@ export default defineConfigWithVueTs(
         },
       ],
       'import/prefer-default-export': 'off',
-      'max-len': [
-        'warn',
-        {
-          code: 100,
-          ignoreUrls: true,
-        },
-      ],
       'newline-per-chained-call': 'off',
       'no-alert': 'off',
       'no-console': 'warn',
@@ -125,13 +118,6 @@ export default defineConfigWithVueTs(
       'no-unused-vars': 'off',
       'object-shorthand': ['error', 'always'],
       'operator-linebreak': 'off',
-      quotes: [
-        'warn',
-        'single',
-        {
-          avoidEscape: true,
-        },
-      ],
       'require-await': 'error',
       'vue/multi-word-component-names': 'off',
     },
