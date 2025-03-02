@@ -45,6 +45,16 @@ jobs:
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
 
+      - name: Set GIT_REV environment variable
+        uses: ./.github/actions/git_rev
+
+      - name: Print context info
+        run: |
+          echo "Branch: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          pr=${GITHUB_REF#refs/pull/}
+          echo "PR: #${pr%/merge}"
+          echo "SHA: $GIT_REV"
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -71,9 +81,6 @@ jobs:
         uses: ludeeus/action-shellcheck@master
         with:
           scandir: './bin'
-
-      - name: Set GIT_REV environment variable
-        uses: ./.github/actions/git_rev
 
       - name: Ensure clean git status
         run: '! [[ -n $(git status --porcelain) ]] || (git status && false)'
