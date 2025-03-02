@@ -40,8 +40,7 @@ type AssertEqual<T, Expected> =
     Array<{ a: string }>
   > = [
     {
-      // a: 'some string',
-      a: 1,
+      a: 'some string',
     },
   ];
   arrayIntersection;
