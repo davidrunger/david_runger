@@ -56,6 +56,7 @@ import {
 } from 'element-plus';
 import { computed, nextTick, ref } from 'vue';
 
+import Modal from '@/components/Modal.vue';
 import { bootstrap } from '@/lib/bootstrap';
 import { useLogsStore } from '@/logs/store';
 import type { Bootstrap } from '@/logs/types';

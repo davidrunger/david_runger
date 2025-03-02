@@ -27,6 +27,7 @@ import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
+import Modal from '@/components/Modal.vue';
 import { useFuzzyTypeahead } from '@/lib/composables/useFuzzyTypeahead';
 import { useSubscription } from '@/lib/composables/useSubscription';
 import { useLogsStore } from '@/logs/store';
