@@ -13,7 +13,7 @@ module DiffHelpers
     if filename_pattern.is_a?(String)
       files_changed.include?(filename_pattern)
     elsif filename_pattern.is_a?(Regexp)
-      file_changed.grep(filename_pattern).present?
+      files_changed.grep(filename_pattern).present?
     else
       fail "Unknown match pattern of class #{filename.class}."
     end
