@@ -9,8 +9,14 @@ module DiffHelpers
 
   private
 
-  def file_changed?(filename)
-    files_changed.include?(filename)
+  def file_changed?(filename_pattern)
+    if filename_pattern.is_a?(String)
+      files_changed.include?(filename_pattern)
+    elsif filename_pattern.is_a?(Regexp)
+      file_changed.grep(filename_pattern).present?
+    else
+      fail "Unknown match pattern of class #{filename.class}."
+    end
   end
 
   memoize \
@@ -81,7 +87,7 @@ module DiffHelpers
 
   memoize \
   def files_with_js_changed?
-    Dir['app/javascript/**/*.{js,ts,vue}'].intersect?(files_changed)
+    Dir['app/javascript/**/*.{js,mjs,ts,vue}'].intersect?(files_changed)
   end
 
   memoize \
