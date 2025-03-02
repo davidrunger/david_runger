@@ -120,7 +120,6 @@ export default defineConfigWithVueTs(
       'operator-linebreak': 'off',
       'require-await': 'error',
       'vue/multi-word-component-names': 'off',
-      'vue/no-undef-components': 'error',
     },
   },
 );
