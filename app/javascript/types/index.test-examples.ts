@@ -35,6 +35,20 @@ type AssertEqual<T, Expected> =
   test;
 };
 
+// Test incompatible types.
+() => {
+  type IncompatibleIntersection = Intersection<
+    { a: string; b: string },
+    { a: number; b: string }
+  >;
+  // @ts-expect-error We are intentionally checking an invalid condition.
+  const incompatibleIntersection = {
+    a: 'str1',
+    b: 'str2',
+  } as IncompatibleIntersection;
+  expectNotAssignable<{ a: string; b: string }>(incompatibleIntersection);
+};
+
 // Test array handling.
 () => {
   type ArrayIntersection = Intersection<

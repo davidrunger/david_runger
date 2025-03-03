@@ -1,8 +1,12 @@
 export * from '@/types/serializers';
 
 // begin Intersection >>>
-// Helper to detect if a property is optional.
 /* eslint-disable @typescript-eslint/no-empty-object-type */
+/* eslint-disable no-use-before-define */
+// https://x.com/mattpocockuk/status/1622730173446557697
+type Prettify<T> = { [K in keyof T]: T[K] } & {};
+
+// Helper to detect if a property is optional.
 type IsOptional<T, K extends keyof T> = {} extends Pick<T, K> ? true : false;
 
 // Split the common keys into optional and required groups.
@@ -24,8 +28,18 @@ type RequiredKeys<T, U> = Exclude<
 // works when the types are identical.
 type IntersectionPrimitive<T, U> = T extends U ? T : never;
 
+type ContainsNever<T> = [T] extends [never] ? true : false;
+type HasNeverDeep<T> =
+  T extends object ?
+    keyof T extends never ?
+      false
+    : {
+        [K in keyof T]: ContainsNever<T[K]> extends true ? true
+        : HasNeverDeep<T[K]>;
+      }[keyof T]
+  : ContainsNever<T>;
+
 // For objects, we process required and optional keys separately.
-/* eslint-disable no-use-before-define */
 type IntersectionObject<T, U> = {
   // For keys that end up required: if one side is optional, we remove undefined
   // (but we do not touch null).
@@ -41,20 +55,24 @@ type IntersectionObject<T, U> = {
     Exclude<U[K], undefined>
   >;
 };
-/* eslint-enable @typescript-eslint/no-empty-object-type */
+
+type InvalidIntersection = { __intersection_invalid__: never };
 
 // Base intersection: handle arrays and objects.
 type BaseIntersection<T, U> =
   T extends Array<infer TItem> ?
     U extends Array<infer UItem> ?
-      Array<Intersection<TItem, UItem>>
-    : never
+      HasNeverDeep<Intersection<TItem, UItem>> extends true ?
+        InvalidIntersection
+      : Array<Intersection<TItem, UItem>>
+    : InvalidIntersection
   : T extends object ?
     U extends object ?
-      IntersectionObject<T, U>
+      HasNeverDeep<IntersectionObject<T, U>> extends true ?
+        InvalidIntersection
+      : IntersectionObject<T, U>
     : IntersectionPrimitive<T, U>
   : IntersectionPrimitive<T, U>;
-/* eslint-enable no-use-before-define */
 
 // Helper to detect if a type includes an explicit null.
 type HasNull<T> = [T] extends [Exclude<T, null>] ? false : true;
@@ -64,10 +82,21 @@ type HasNull<T> = [T] extends [Exclude<T, null>] ? false : true;
 // for the recursive work and then re‑add null to the result.
 export type Intersection<T, U> =
   HasNull<T> extends true ?
-    BaseIntersection<Exclude<T, null>, Exclude<U, null>> | null
+    HasNeverDeep<BaseIntersection<Exclude<T, null>, Exclude<U, null>>> extends (
+      true
+    ) ?
+      InvalidIntersection
+    : Prettify<BaseIntersection<Exclude<T, null>, Exclude<U, null>>> | null
   : HasNull<U> extends true ?
-    BaseIntersection<Exclude<T, null>, Exclude<U, null>> | null
-  : BaseIntersection<T, U>;
+    HasNeverDeep<BaseIntersection<Exclude<T, null>, Exclude<U, null>>> extends (
+      true
+    ) ?
+      InvalidIntersection
+    : Prettify<BaseIntersection<Exclude<T, null>, Exclude<U, null>>> | null
+  : HasNeverDeep<BaseIntersection<T, U>> extends true ? InvalidIntersection
+  : Prettify<BaseIntersection<T, U>>;
+/* eslint-enable no-use-before-define */
+/* eslint-enable @typescript-eslint/no-empty-object-type */
 // <<< end Intersection
 
 // begin logs >>

@@ -15,7 +15,7 @@
         },
         "toast_messages": {
           "type": "array",
-          "item": {
+          "items": {
             "type": "string"
           }
         },
