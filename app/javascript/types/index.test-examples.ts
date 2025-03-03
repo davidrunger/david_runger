@@ -1,3 +1,5 @@
+import { expectAssignable, expectNotAssignable } from 'tsd';
+
 import type { Intersection } from '@/types';
 
 /* eslint-disable @typescript-eslint/no-unused-expressions */
@@ -35,13 +37,13 @@ type AssertEqual<T, Expected> =
 
 // Test array handling.
 () => {
-  const arrayIntersection: Intersection<
-    Array<{ a: string }>,
+  type ArrayIntersection = Intersection<
+    Array<{ a?: string }>,
     Array<{ a: string }>
-  > = [
-    {
-      a: 'some string',
-    },
-  ];
-  arrayIntersection;
+  >;
+
+  expectAssignable<ArrayIntersection>([{ a: 'some string' }]);
+
+  expectNotAssignable<ArrayIntersection>([{ a: 456.321 }]);
+  expectNotAssignable<ArrayIntersection>([{}]);
 };

@@ -39,6 +39,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunPrettier => Test::Tasks::PnpmInstall,
         Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,
+        Test::Tasks::RunTsd => Test::Tasks::PnpmInstall,
         Test::Tasks::RunVitest => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
         Test::Tasks::RunTypelizer => Test::Tasks::CreateDbCopies,
@@ -130,6 +131,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunPrettier,
           Test::Tasks::RunRubocop,
           Test::Tasks::RunStylelint,
+          Test::Tasks::RunTsd,
           Test::Tasks::RunTypelizer,
           Test::Tasks::RunUnitTests,
           Test::Tasks::RunVitest,
@@ -246,6 +248,10 @@ class Test::RequirementsResolver
     end,
     Test::Tasks::RunDatabaseConsistency => proc do
       !db_schema_changed? && !diff_mentions?('database_consistency')
+    end,
+    Test::Tasks::RunTsd => proc do
+      !file_changed?('app/javascript/types/index.ts') &&
+        !diff_mentions?('intersection')
     end,
     Test::Tasks::CheckTypescript => proc do
       !files_with_js_changed? &&
