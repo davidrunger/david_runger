@@ -108,7 +108,7 @@ module JsonSchemasToTypescript
               File.write(file_to_write, <<~JS)
                 export type #{main_interface} = Array<#{main_interface_element_name}>
 
-                #{file_content}
+                #{file_content.rstrip}
               JS
             end
           end

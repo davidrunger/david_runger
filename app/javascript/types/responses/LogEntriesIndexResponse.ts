@@ -7,4 +7,3 @@ interface LogEntriesIndexResponseElement {
     log_id:     number;
     note:       null | string;
 }
-
