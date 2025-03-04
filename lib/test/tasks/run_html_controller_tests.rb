@@ -9,6 +9,8 @@ class Test::Tasks::RunHtmlControllerTests < Pallets::Task
       $(ls -d spec/controllers/*/ | grep -v 'spec/controllers/api/' | tr '\n' ' ')
       $(ls spec/controllers/*.rb)
       $(ls spec/helpers/*.rb)
+      $(ls spec/requests/**/*.rb)
+      $(ls spec/requests/*.rb)
       --format RSpec::Instafail --format progress --force-color
     COMMAND
   end

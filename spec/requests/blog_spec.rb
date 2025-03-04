@@ -2,7 +2,7 @@ RSpec.describe 'Blog requests' do
   include BlogSpecHelpers
 
   describe 'GET /blog/some-article' do
-    subject(:get_blog_feed) { get('/blog/some-article', headers:) }
+    subject(:get_blog_article) { get('/blog/some-article', headers:) }
 
     let(:headers) { {} }
 
@@ -13,11 +13,11 @@ RSpec.describe 'Blog requests' do
         end
       end
 
-      context 'when there is an Accept header for HTML, and Atom formats' do
+      context 'when there is an Accept header for HTML and Atom formats' do
         let(:headers) { { 'Accept' => 'text/html, application/atom+xml' } }
 
         it 'responds successfully with an HTML content type', :aggregate_failures do
-          get_blog_feed
+          get_blog_article
 
           expect(response).to have_http_status(200)
           expect(response.content_type).to eq('text/html; charset=utf-8')

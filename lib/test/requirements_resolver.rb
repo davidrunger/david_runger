@@ -36,14 +36,26 @@ class Test::RequirementsResolver
           Test::Tasks::ConvertSchemasToTs,
           Test::Tasks::RunTypelizer,
         ],
-        Test::Tasks::RunPrettier => Test::Tasks::PnpmInstall,
+        Test::Tasks::RunPrettier => [
+          Test::Tasks::PnpmInstall,
+          Test::Tasks::ConvertSchemasToTs,
+        ],
         Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
-        Test::Tasks::RunEslint => Test::Tasks::PnpmInstall,
+        Test::Tasks::RunEslint => [
+          Test::Tasks::PnpmInstall,
+          Test::Tasks::ConvertSchemasToTs,
+        ],
         Test::Tasks::RunTsd => Test::Tasks::PnpmInstall,
         Test::Tasks::RunVitest => Test::Tasks::PnpmInstall,
         Test::Tasks::RunAnnotate => Test::Tasks::SetupDb,
-        Test::Tasks::RunTypelizer => Test::Tasks::CreateDbCopies,
-        Test::Tasks::ConvertSchemasToTs => Test::Tasks::SetupDb,
+        Test::Tasks::RunTypelizer => [
+          Test::Tasks::ConvertSchemasToTs,
+          Test::Tasks::CreateDbCopies,
+        ],
+        Test::Tasks::ConvertSchemasToTs => [
+          Test::Tasks::PnpmInstall,
+          Test::Tasks::SetupDb,
+        ],
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::SetupDb,
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
@@ -112,7 +124,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunHtmlControllerTests,
         ],
 
-        # Exit depends on all tasks completing that are actual checks (as opposed to setup steps)
+        # Exit depends on all tasks completing that are actual checks (as opposed to setup steps).
         Test::Tasks::Exit => [
           Test::Tasks::CheckTypescript,
           Test::Tasks::CheckVersions,
@@ -234,6 +246,12 @@ class Test::RequirementsResolver
   end
 
   CHECK_CAN_BE_SKIPPED_CONDITIONS = {
+    Test::Tasks::ConvertSchemasToTs => proc do
+      !file_changed?(%r{app/javascript/types/}i) &&
+        !file_changed?(%r{spec/support/schemas/}i) &&
+        !file_changed?('tools/json_schemas_to_typescript.rb') &&
+        !diff_mentions?('quicktype')
+    end,
     Test::Tasks::RunAnnotate => proc do
       !db_schema_changed? &&
         !diff_mentions?('annotate') &&

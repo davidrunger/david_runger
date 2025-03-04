@@ -1,27 +1,27 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "27d323ac7559eda6810bc2031e39dbdba22c04ef4ddea098aff30cab28151043",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/controllers/api/log_entries_controller.rb",
-      "line": 94,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.select_values(\"SELECT row_to_json(log_entry)\\nFROM (\\n  SELECT\\n    log_entries.id,\\n    to_char(log_entries.created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD\\\"T\\\"HH24:MI:SS\\\"Z\\\"') AS created_at,\\n    data,\\n    log_entries.log_id,\\n    log_entries.note\\n  FROM #{log.log_entry_datum_class.table_name}\\n  INNER JOIN log_entries\\n    ON log_entries.log_entry_datum_id = #{log.log_entry_datum_class.table_name}.id\\n    AND log_entries.log_entry_datum_type = '#{log.log_entry_datum_class.name}'\\n  WHERE log_entries.log_id = #{log.id}\\n) log_entry;\\n\".squish)",
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "2adf7be524cd6f55ad7a382d069e9c3cc63427a839860ef842faed6c9531dfff",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "tools/json_schemas_to_typescript.rb",
+      "line": 76,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "system(\"./node_modules/.bin/quicktype\\n  --src-lang schema\\n  #{schema_path}\\n  --out #{\"#{types_directory}/#{\"#{schema_path.gsub(SCHEMA_DIRECTORY_REGEX, \"\").delete_suffix(\".json\").split(\"/\").then do\n if (path_fragments[-1] == \"index\") then\n  [*path_fragments[(0..-3)].map(&:singularize), *path_fragments[(-2..)]]\nelse\n  path_fragments.map(&:singularize)\nend\n end.join(\"/\").camelize.gsub(\"::\", \"\")}#{type_suffix}\"}.ts\"}\\n  --just-types\\n\".squish)",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Api::LogEntriesController",
-        "method": "log_entry_json_strings_for_log"
+        "class": "JsonSchemasToTypescript",
+        "method": "s(:self).write_files"
       },
-      "user_input": "log.log_entry_datum_class.name",
+      "user_input": "schema_path",
       "confidence": "Medium",
       "cwe_id": [
-        89
+        77
       ],
-      "note": "User has no control over any of the interpolated values"
+      "note": "We are not accepting user input here, just iterating over our own paths."
     },
     {
       "warning_type": "Redirect",
@@ -45,29 +45,6 @@
         601
       ],
       "note": "False positive"
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "891991462a96f82b2cba077cb953a657e4f0f6102d8b400604826b82c2bec89c",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/controllers/api/log_entries_controller.rb",
-      "line": 119,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.select_values(\"SELECT row_to_json(log_entry)\\nFROM (\\n  SELECT\\n    log_entries.id,\\n    to_char(\\n      log_entries.created_at AT TIME ZONE 'UTC',\\n      'YYYY-MM-DD\\\"T\\\"HH24:MI:SS\\\"Z\\\"'\\n    ) AS created_at,\\n    #{datum_class.table_name}.data,\\n    log_entries.log_id,\\n    log_entries.note\\n  FROM #{datum_class.table_name}\\n  INNER JOIN log_entries\\n    ON log_entries.log_entry_datum_id = #{datum_class.table_name}.id\\n    AND log_entries.log_entry_datum_type = '#{datum_class.name}'\\n  INNER JOIN logs\\n    ON logs.id = log_entries.log_id\\n  WHERE logs.user_id = #{user.id}\\n) log_entry;\\n\".squish)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Api::LogEntriesController",
-        "method": "log_entry_json_strings_for_user_and_datum_class"
-      },
-      "user_input": "datum_class.name",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": "User has no control over any of the interpolated values"
     },
     {
       "warning_type": "Redirect",
@@ -116,6 +93,5 @@
       "note": "False positive"
     }
   ],
-  "updated": "2024-09-03 21:47:17 -0500",
-  "brakeman_version": "6.2.1"
+  "brakeman_version": "7.0.0"
 }
