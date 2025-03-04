@@ -1,27 +1,11 @@
 class Test::Tasks::CreateDbCopies < Pallets::Task
   include Test::TaskHelpers
 
-  # rubocop:disable Metrics
   def run
     # The commands below will error if there are any active connections to the
     # database, so disconnect.
-    active_statuses = ActiveRecord::Base.connection_pool.connections.map(&:active?)
-    attempts = 50
-    attempts.times do |index|
-      logger.info(%(active_statuses: #{active_statuses}))
-
-      if active_statuses.any?
-        ActiveRecord::Base.connection_pool.connections.each(&:disconnect!)
-        sleep(0.1)
-        active_statuses = ActiveRecord::Base.connection_pool.connections.map(&:active?)
-      else
-        break
-      end
-
-      if index == attempts - 1
-        fail 'Exhausted attempts to disconnect!'
-      end
-    end
+    ActiveRecord::Base.connection_pool.connections.each(&:disconnect!)
+    sleep(0.1)
 
     postgres_host = ENV.fetch('POSTGRES_HOST', 'localhost')
     postgres_user = ENV.fetch('POSTGRES_USER', 'david_runger')
@@ -34,13 +18,6 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
         execute_system_command("dropdb --if-exists #{db_name}")
       end
 
-      execute_system_command(<<~COMMAND.squish)
-        psql -U #{postgres_user} -h #{postgres_host} -d david_runger_test -c "
-        SELECT pid, usename, application_name, client_addr, state, query
-        FROM pg_stat_activity
-        WHERE datname = 'david_runger_test' AND pid != pg_backend_pid();"
-      COMMAND
-
       execute_system_command(<<~COMMAND)
         createdb
           -T david_runger_test #{db_name}
@@ -50,5 +27,4 @@ class Test::Tasks::CreateDbCopies < Pallets::Task
       COMMAND
     end
   end
-  # rubocop:enable Metrics
 end
