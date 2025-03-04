@@ -16,4 +16,3 @@ interface Item {
     needed:   number;
     store_id: number;
 }
-

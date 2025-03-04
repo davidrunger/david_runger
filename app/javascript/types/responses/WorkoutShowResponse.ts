@@ -9,4 +9,3 @@ export interface WorkoutShowResponse {
     username?:          string;
     [property: string]: any;
 }
-

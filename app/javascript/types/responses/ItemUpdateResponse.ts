@@ -6,4 +6,3 @@ export interface ItemUpdateResponse {
     needed:   number;
     store_id: number;
 }
-

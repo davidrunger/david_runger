@@ -7,4 +7,3 @@ export interface LogEntryUpdateResponse {
     log_id:     number;
     note:       null | string;
 }
-

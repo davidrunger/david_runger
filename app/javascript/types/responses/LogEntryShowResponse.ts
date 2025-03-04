@@ -8,4 +8,3 @@ export interface LogEntryShowResponse {
     note?:       null | string;
     [property: string]: any;
 }
-

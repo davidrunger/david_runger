@@ -32,4 +32,3 @@ interface Workout {
     time_in_seconds:   number;
     username:          string;
 }
-

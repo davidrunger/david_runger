@@ -30,4 +30,3 @@ interface EmotionalNeed {
     id:          number;
     name:        string;
 }
-

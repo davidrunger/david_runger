@@ -13,4 +13,3 @@ interface User {
     id:           number;
     public_name:  string;
 }
-

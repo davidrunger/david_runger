@@ -15,4 +15,3 @@ interface EmojiBoost {
     boostedName: string;
     symbol:      string;
 }
-

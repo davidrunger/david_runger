@@ -31,4 +31,3 @@ interface Log {
     slug:                      string;
     user:                      User;
 }
-

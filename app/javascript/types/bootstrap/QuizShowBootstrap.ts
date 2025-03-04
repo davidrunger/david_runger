@@ -15,4 +15,3 @@ interface Quiz {
     hashid:   string;
     owner_id: number;
 }
-

@@ -8,4 +8,3 @@ export interface WorkoutCreateResponse {
     time_in_seconds:   number;
     username:          string;
 }
-

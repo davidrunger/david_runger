@@ -7,4 +7,3 @@ export interface LogEntryCreateResponse {
     log_id:     number;
     note:       null | string;
 }
-
