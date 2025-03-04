@@ -49,7 +49,7 @@ gem 'runger_actions'
 gem 'runger_email_reply_trimmer'
 gem 'sidekiq'
 gem 'strip_attributes'
-gem 'typelizer', github: 'davidrunger/typelizer'
+gem 'typelizer'
 gem 'vite_rails'
 
 group :production do
