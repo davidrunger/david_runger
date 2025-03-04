@@ -5,7 +5,7 @@ class Test::Tasks::CompileUserJavaScript < Pallets::Task
     execute_system_command('rm -rf public/vite/')
 
     execute_system_command(
-      'bin/vite build --force',
+      './node_modules/.bin/vite build',
       {
         'NODE_ENV' => 'production',
       },

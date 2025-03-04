@@ -5,7 +5,7 @@ class Test::Tasks::CompileAdminJavaScript < Pallets::Task
     execute_system_command('rm -rf public/vite-admin/')
 
     execute_system_command(
-      'bin/vite build --force > /dev/null',
+      './node_modules/.bin/vite build > /dev/null',
       {
         'NODE_ENV' => 'production',
         'VITE_RUBY_ENTRYPOINTS_DIR' => 'admin_entrypoints',
