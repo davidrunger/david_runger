@@ -36,7 +36,10 @@ class Test::RequirementsResolver
           Test::Tasks::ConvertSchemasToTs,
           Test::Tasks::RunTypelizer,
         ],
-        Test::Tasks::RunPrettier => Test::Tasks::PnpmInstall,
+        Test::Tasks::RunPrettier => [
+          Test::Tasks::PnpmInstall,
+          Test::Tasks::ConvertSchemasToTs,
+        ],
         Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
         Test::Tasks::RunEslint => [
           Test::Tasks::PnpmInstall,
