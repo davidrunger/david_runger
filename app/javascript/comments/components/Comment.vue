@@ -51,14 +51,18 @@
 
 <script setup lang="ts">
 import DOMPurify from 'dompurify';
+import hljs from 'highlight.js';
 import { DateTime } from 'luxon';
-import { marked } from 'marked';
+import { Marked } from 'marked';
+import { markedHighlight } from 'marked-highlight';
 import { computed, ref } from 'vue';
 
 import CommentForm from '@/comments/components/CommentForm.vue';
 import { useCommentsStore } from '@/comments/stores/commentsStore';
 import { type Comment } from '@/comments/types/comment';
 import { edit_public_name_my_account_path } from '@/rails_assets/routes';
+
+import 'highlight.js/styles/github-dark.css';
 
 const props = defineProps<{
   comment: Comment;
@@ -72,8 +76,19 @@ const editNamePath = edit_public_name_my_account_path({
   redirect_chain: window.location.toString(),
 });
 
+const marked = new Marked(
+  markedHighlight({
+    emptyLangClass: 'hljs',
+    langPrefix: 'hljs language-',
+    highlight(code, lang, info) {
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+      return hljs.highlight(code, { language }).value;
+    },
+  }),
+);
+
 const formattedAndSanitizedContent = computed(() => {
-  const rawHtml = marked(props.comment.content || '', { async: false });
+  const rawHtml = marked.parse(props.comment.content || '', { async: false });
   return DOMPurify.sanitize(rawHtml);
 });
 const timeSinceCreation = computed(() => {
@@ -100,6 +115,10 @@ function handleReplyCreate(content: string) {
 </script>
 
 <style scoped>
+.comment :deep(pre) {
+  padding: 0;
+}
+
 .content-and-reply-button {
   margin-bottom: 1rem;
 }
