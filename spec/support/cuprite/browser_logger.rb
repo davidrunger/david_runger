@@ -1,7 +1,3 @@
-require 'rainbow/refinement'
-
-using Rainbow
-
 class Cuprite::BrowserLogger
   JSON_EXTRACTION_REGEX = /\A\s*[▶◀]\s+\d+\.\d+ ({.*})\n?\z/
   LOG_MESSAGES_TO_IGNORE = [
@@ -60,7 +56,7 @@ class Cuprite::BrowserLogger
             "#{path ? "app/javascript/#{path}" : url}"
         end
 
-      $stdout.puts("JavaScript error: #{exception_message}".red)
+      $stdout.puts(Rainbow("JavaScript error: #{exception_message}").red)
       $stdout.puts(formatted_stack_trace)
 
       self.class.javascript_errors << exception_message
