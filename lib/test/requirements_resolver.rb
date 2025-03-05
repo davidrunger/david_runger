@@ -260,7 +260,7 @@ class Test::RequirementsResolver
     Test::Tasks::RunDatabaseConsistency => proc do
       !db_schema_changed? && !diff_mentions?('database_consistency')
     end,
-    Test::Tasks::RunToolsTests => do
+    Test::Tasks::RunToolsTests => proc do
       !file_changed?(%r{^tools/}i) &&
         !file_changed?(%r{^spec/tools/}i) &&
         !diff_mentions?('rubocop')
