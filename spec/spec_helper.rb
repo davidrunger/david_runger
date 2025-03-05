@@ -17,10 +17,10 @@ SimpleCov.start do
   capybara_server_port = ENV.fetch('CAPYBARA_SERVER_PORT', nil)
   # rubocop:disable Rails/Present -- At this point, we have not yet loaded Rails.
   if !db_suffix.nil? && !db_suffix.empty?
-    command_name(<<~COMMAND_NAME.squish)
-      Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect}
-      (spec group: #{spec_group.inspect})
-    COMMAND_NAME
+    command_name(
+      "Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect} " \
+      "(spec group: #{spec_group.inspect})",
+    )
   end
   # rubocop:enable Rails/Present
   add_filter(%r{^/spec/})
