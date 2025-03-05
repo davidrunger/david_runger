@@ -10,7 +10,7 @@ class Test::Tasks::StartPercy < Pallets::Task
       num_attempts = 20
 
       num_attempts.times do |index|
-        sleep(4)
+        sleep(5)
 
         if system('./node_modules/.bin/percy exec:ping')
           record_success_and_log_message("Percy is running after #{index + 1} check(s).")
