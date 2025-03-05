@@ -2,7 +2,7 @@ class Test::Tasks::RunTypelizer < Pallets::Task
   include Test::TaskHelpers
 
   def run
-    execute_rake_task('typelizer:generate')
+    execute_rake_task('typelizer:generate', 'DISABLE_TYPELIZER=false')
     execute_system_command(<<~'COMMAND')
       ! grep --quiet -RP '\bunknown\b' app/javascript/types/serializers/
     COMMAND

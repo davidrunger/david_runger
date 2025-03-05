@@ -66,11 +66,12 @@ COPY . .
 ARG GIT_REV
 
 # Build public/assets/, download public/vite/ and public/vite-admin/.
-RUN DOCKER_BUILD=true \
+RUN DISABLE_TYPELIZER=1 \
+  DOCKER_BUILD=true \
   GIT_REV=${GIT_REV} \
   SECRET_KEY_BASE_DUMMY=1 \
   VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
-  bundle exec rails assets:precompile > /dev/null
+  bundle exec rails assets:precompile
 
 # Precompile bootsnap code for faster boot times
 RUN bin/bootsnap precompile app/ lib/
