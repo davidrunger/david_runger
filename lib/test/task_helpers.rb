@@ -93,7 +93,7 @@ module Test::TaskHelpers
     end
   end
 
-  def execute_rake_task(task_name, *args)
+  def execute_rake_task(task_name, *args, env_vars: {})
     puts(<<~LOG.squish)
       Running rake task '#{AmazingPrint::Colors.yellow(task_name)}'
       with args #{AmazingPrint::Colors.yellow(args.inspect)} ...
@@ -105,7 +105,9 @@ module Test::TaskHelpers
     begin
       time =
         Benchmark.measure do
-          Rake::Task[task_name].invoke(*args)
+          ClimateControl.modify(env_vars) do
+            Rake::Task[task_name].invoke(*args)
+          end
         end.real
     rescue => error
       exception = error
