@@ -2,7 +2,8 @@ class Test::Tasks::RunRubocop < Pallets::Task
   include Test::TaskHelpers
 
   def run
-    `git status --ignored --porcelain`.lines.grep(/^!! /)
+    puts('Paths to be excluded by RuboCop:')
+    pp(`git status --ignored --porcelain`.lines.grep(/^!! /))
 
     execute_system_command(<<~COMMAND)
       bin/rubocop --color --format tap
