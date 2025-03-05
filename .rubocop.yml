@@ -12,10 +12,7 @@ require:
   - ./tools/custom_cops/require_all_custom_cops.rb
 
 AllCops:
-  Exclude:
-  <% `git status --ignored --porcelain`.lines.grep(/^!! /).each do |path| %>
-    - <%= path.sub(/^!! /, '').sub(/\/$/, '/**/*').rstrip %>
-  <% end %>
+  Exclude: []
   StringLiteralsFrozenByDefault: true
 
 CustomCops/DontRollBackDatamigration:
