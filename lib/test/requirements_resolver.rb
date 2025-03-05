@@ -61,6 +61,7 @@ class Test::RequirementsResolver
         Test::Tasks::RunImmigrant => Test::Tasks::SetupDb,
         Test::Tasks::RunRubocop => nil,
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
+        Test::Tasks::RunToolsTests => Test::Tasks::RunUnitTests,
         Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileUserJavaScript,
         Test::Tasks::RunFeatureTestsA => [
@@ -133,6 +134,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunPrettier,
           Test::Tasks::RunRubocop,
           Test::Tasks::RunStylelint,
+          Test::Tasks::RunToolsTests,
           Test::Tasks::RunTsd,
           Test::Tasks::RunTypelizer,
           Test::Tasks::RunUnitTests,
@@ -237,9 +239,9 @@ class Test::RequirementsResolver
 
   CHECK_CAN_BE_SKIPPED_CONDITIONS = {
     Test::Tasks::ConvertSchemasToTs => proc do
-      !file_changed?(%r{app/javascript/types/bootstrap/}i) &&
-        !file_changed?(%r{app/javascript/types/responses/}i) &&
-        !file_changed?(%r{spec/support/schemas/}i) &&
+      !file_changed?(%r{^app/javascript/types/bootstrap/}i) &&
+        !file_changed?(%r{^app/javascript/types/responses/}i) &&
+        !file_changed?(%r{^spec/support/schemas/}i) &&
         !file_changed?('tools/json_schemas_to_typescript.rb') &&
         !diff_mentions?('quicktype')
     end,
@@ -257,6 +259,11 @@ class Test::RequirementsResolver
     end,
     Test::Tasks::RunDatabaseConsistency => proc do
       !db_schema_changed? && !diff_mentions?('database_consistency')
+    end,
+    Test::Tasks::RunToolsTests => do
+      !file_changed?(%r{^tools/}i) &&
+        !file_changed?(%r{^spec/tools/}i) &&
+        !diff_mentions?('rubocop')
     end,
     Test::Tasks::RunTsd => proc do
       !file_changed?('app/javascript/types/index.ts') &&
