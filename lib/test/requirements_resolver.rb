@@ -247,7 +247,8 @@ class Test::RequirementsResolver
 
   CHECK_CAN_BE_SKIPPED_CONDITIONS = {
     Test::Tasks::ConvertSchemasToTs => proc do
-      !file_changed?(%r{app/javascript/types/}i) &&
+      !file_changed?(%r{app/javascript/types/bootstrap/}i) &&
+        !file_changed?(%r{app/javascript/types/responses/}i) &&
         !file_changed?(%r{spec/support/schemas/}i) &&
         !file_changed?('tools/json_schemas_to_typescript.rb') &&
         !diff_mentions?('quicktype')
