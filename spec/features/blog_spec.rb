@@ -110,12 +110,13 @@ RSpec.describe 'Blog' do
           # Reload the page to load the reply comment.
           visit blog_url_path
 
-          expect(comment_count).to eq(2)
+          expect(page).to have_css('.comment', count: 2)
 
           click_on('Delete')
 
-          # Because the comment has at least one reply, it is anonymized, rather than fully deleted.
-          expect(comment_count).to eq(2)
+          # Because the comment has at least one reply, it is anonymized, rather
+          # than fully deleted, so there are still two `.comment` elements.
+          expect(page).to have_css('.comment', count: 2)
           expect(page).to have_text('[deleted]')
 
           Capybara.using_session('replier') do
@@ -123,14 +124,10 @@ RSpec.describe 'Blog' do
             click_on('Delete')
 
             # Because the reply has no replies of its own, clicking "Delete" fully deletes it.
-            expect(comment_count).to eq(1)
+            expect(page).to have_css('.comment', count: 1)
           end
         end
       end
     end
-  end
-
-  def comment_count
-    page.find_all('.comment').size
   end
 end
