@@ -21,12 +21,16 @@ class Test::Tasks::StartPercy < Pallets::Task
         sleep(sleep_time)
 
         if system('./node_modules/.bin/percy exec:ping')
-          record_success_and_log_message("Percy is running after #{index + 1} check(s).")
+          record_success_and_log_message(<<~LOG.squish)
+            Percy is running after #{index + 1} check(s)
+            and #{total_sleep_time} seconds of sleep time.
+          LOG
 
           break
         elsif index == num_attempts - 1
-          record_failure_and_log_message(<<~LOG)
-            Percy is still not running after #{index + 1} attempt(s).
+          record_failure_and_log_message(<<~LOG.squish)
+            Percy is still not running after #{index + 1} attempt(s)
+            and #{total_sleep_time} seconds of sleep time.
           LOG
         end
       end
