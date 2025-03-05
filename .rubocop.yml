@@ -12,7 +12,8 @@ require:
   - ./tools/custom_cops/require_all_custom_cops.rb
 
 AllCops:
-  Exclude: []
+  Exclude:
+    - !ruby/regexp /db\/migrate\/(201|202[0-4])/
   StringLiteralsFrozenByDefault: true
 
 CustomCops/DontRollBackDatamigration:
