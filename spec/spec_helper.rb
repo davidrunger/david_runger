@@ -13,10 +13,14 @@ require 'simplecov'
 SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
 SimpleCov.start do
   db_suffix = ENV.fetch('DB_SUFFIX', nil)
+  spec_group = ENV.fetch('SPEC_GROUP', nil)
   capybara_server_port = ENV.fetch('CAPYBARA_SERVER_PORT', nil)
   # rubocop:disable Rails/Present -- At this point, we have not yet loaded Rails.
   if !db_suffix.nil? && !db_suffix.empty?
-    command_name("Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect}")
+    command_name(
+      "Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect} " \
+      "(spec group: #{spec_group.inspect})",
+    )
   end
   # rubocop:enable Rails/Present
   add_filter(%r{^/spec/})
