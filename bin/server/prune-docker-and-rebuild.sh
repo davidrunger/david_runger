@@ -9,4 +9,4 @@ cd /root/david_runger
 docker system prune --all --force
 
 # Rebuild Docker image(s).
-bin/build-docker production
+RAILS_ENV=production bin/build-docker
