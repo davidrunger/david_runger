@@ -95,4 +95,38 @@ RSpec.describe Datamigration::Runner do
       end
     end
   end
+
+  describe '#developer_email' do
+    subject(:developer_email) { runner.send(:developer_email) }
+
+    context 'when Rails.env is "development"', rails_env: :development do
+      let(:git_user_email) { Faker::Internet.email }
+
+      before do
+        expect(runner).to receive(:`).
+          with('git config user.email').
+          and_return("#{git_user_email}\n")
+      end
+
+      it 'returns the git configured user.email' do
+        expect(developer_email).to eq(git_user_email)
+      end
+    end
+
+    context 'when Rails.env is "production"', rails_env: :production do
+      let(:env_var_email) { Faker::Internet.email }
+
+      context 'when a DEVELOPER_EMAIL env var is present' do
+        around do |spec|
+          ClimateControl.modify('DEVELOPER_EMAIL' => env_var_email) do
+            spec.run
+          end
+        end
+
+        it 'returns the email in the env var' do
+          expect(developer_email).to eq(env_var_email)
+        end
+      end
+    end
+  end
 end
