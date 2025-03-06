@@ -15,7 +15,7 @@ class AdminMailer < ApplicationMailer
 
   def datamigration_run(datamigration_run_id)
     @datamigration_run = DatamigrationRun.find(datamigration_run_id)
-    mail(subject: "A #{@datamigration_run.name} datamigration has been started")
+    mail(subject: "A(n) #{@datamigration_run.name} datamigration has been started")
   end
 
   def user_created(user_id)
