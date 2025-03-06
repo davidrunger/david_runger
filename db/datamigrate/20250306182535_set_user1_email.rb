@@ -1,6 +1,6 @@
 class SetUser1Email < Datamigration::Base
   def run
-    within_transaction(rollback: true) do
+    within_transaction do
       user = User.find(1)
 
       log("Email before: #{user.email} .")
