@@ -45,14 +45,14 @@ RSpec.describe Datamigration::Runner do
     end
   end
 
-  context 'when Rails.logger.level is :info' do
-    around do |spec|
-      Rails.logger.with(level: :info) do
-        spec.run
+  describe '#logging_start_and_finish' do
+    context 'when Rails.logger.level is :info' do
+      around do |spec|
+        Rails.logger.with(level: :info) do
+          spec.run
+        end
       end
-    end
 
-    describe '#logging_start_and_finish' do
       let(:logdev) do
         runner.instance_variable_get(:@datamigration_instance).send(:logger).broadcasts.first.instance_variable_get(:@logdev)
       end
