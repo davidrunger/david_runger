@@ -1,17 +1,17 @@
 import ky from 'ky';
 
-import { assert } from './helpers';
+import { csrfToken } from '@/lib/csrfToken';
 
 let kyApi = ky;
 
-const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
-if (csrfMetaTag) {
-  const csrfToken = assert(csrfMetaTag.getAttribute('content'));
+const _csrfToken = csrfToken();
+
+if (_csrfToken) {
   kyApi = ky.extend({
     hooks: {
       beforeRequest: [
         (request) => {
-          request.headers.set('X-CSRF-Token', csrfToken);
+          request.headers.set('X-CSRF-Token', _csrfToken);
         },
       ],
     },

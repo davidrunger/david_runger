@@ -5,7 +5,10 @@
   template(v-if="store.currentUser")
     CommentForm(@submit="store.addComment")
   template(v-else)
-    p #[a(:href="loginPath") Sign in / sign up] to add a comment.
+    p
+      GoogleLoginButton.google-login-form(:origin="googleLoginOrigin")
+      |
+      | to add a comment.
 
   .comments
     template(v-if="store.comments.length")
@@ -24,7 +27,7 @@ import { onMounted } from 'vue';
 import Comment from '@/comments/components/Comment.vue';
 import CommentForm from '@/comments/components/CommentForm.vue';
 import { useCommentsStore } from '@/comments/stores/commentsStore';
-import { new_user_session_path } from '@/rails_assets/routes';
+import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
 
 const store = useCommentsStore();
 
@@ -45,15 +48,17 @@ onMounted(async () => {
 const pageUrl = new URL(window.location.href);
 pageUrl.hash = '#comments';
 const pageUrlWithCommentsHash = pageUrl.toString();
-const loginPath = new_user_session_path({
-  redirect_chain: [
-    'wizard:set-public-name-if-new',
-    pageUrlWithCommentsHash,
-  ].join('|'),
-});
+const googleLoginOrigin = [
+  'wizard:set-public-name-if-new',
+  pageUrlWithCommentsHash,
+].join('|');
 </script>
 
 <style scoped>
+.google-login-form {
+  display: inline;
+}
+
 .comments-container {
   width: 90%;
   margin: 24px auto 0;

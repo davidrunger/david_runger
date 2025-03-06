@@ -57,9 +57,8 @@ RSpec.describe 'Blog' do
 
           expect(page).to have_text(h1_text)
 
-          click_on('Sign in / sign up')
-          click_on('Log in with Google')
-          fill_in('Public display name', with: 'Sue Salamander')
+          click_on('Sign in with Google')
+          fill_in('Public display name', with: Faker::Name.name)
           click_on('Submit')
 
           comment_text = 'I have something to say!'
@@ -73,8 +72,7 @@ RSpec.describe 'Blog' do
 
             visit blog_url_path
 
-            click_on('Sign in / sign up')
-            click_on('Log in with Google')
+            click_on('Sign in with Google')
 
             click_on('Reply')
             reply_text = 'I have something to say in reply!'
