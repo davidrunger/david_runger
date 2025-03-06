@@ -1,3 +1,6 @@
+# This is basically a noop datamigration that can be used to test datamigration
+# infrastructure in production.
+
 class DowncaseUser1Email < Datamigration::Base
   def run
     within_transaction do
