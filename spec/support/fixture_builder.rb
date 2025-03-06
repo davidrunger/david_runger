@@ -159,5 +159,8 @@ FixtureBuilder.configure do |fbuilder|
     path = '/blog/using-crystal'
     top_level_comment = name(:top_level, create(:comment, user:, path:)).first
     name(:reply, create(:comment, user: married_user, path:, parent: top_level_comment))
+
+    # DatamigrationRuns
+    create(:datamigration_run, :completed)
   end
 end

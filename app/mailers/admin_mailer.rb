@@ -13,6 +13,11 @@ class AdminMailer < ApplicationMailer
     mail(subject: "A comment has been created for #{@comment.path}")
   end
 
+  def datamigration_run(datamigration_run_id)
+    @datamigration_run = DatamigrationRun.find(datamigration_run_id)
+    mail(subject: "A #{@datamigration_run.name} datamigration has been started")
+  end
+
   def user_created(user_id)
     @user = User.find(user_id)
     mail(subject: "There's a new davidrunger.com user! :) Email: #{@user.email}.")
