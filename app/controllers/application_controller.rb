@@ -178,11 +178,13 @@ class ApplicationController < ActionController::Base
   # rubocop:enable Metrics/PerceivedComplexity
 
   def redirect_location
-    next_redirect_chain_value || session.delete('user_return_to') || root_path
+    next_redirect_chain_value ||
+      session.delete('user_return_to') ||
+      root_path
   end
 
   def store_redirect_chain
-    if (redirect_chain = params[:redirect_chain])
+    if (redirect_chain = params[:redirect_chain] || request.env['omniauth.origin'].presence)
       session[:redirect_chain] = redirect_chain
     end
   end

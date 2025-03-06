@@ -11,7 +11,7 @@ task build_js_routes: :environment do
   routes_path = 'rails_assets/routes.js'
   routes_full_path = "app/javascript/#{routes_path}"
 
-  options = { exclude: /admin|google|rails|sidekiq/ }
+  options = { exclude: /admin|google[0-9a-f]{8,}|rails|sidekiq/ }
   JsRoutes.generate!(routes_path, **options)
   File.write(routes_full_path.sub('.js', '.d.ts'), JsRoutes.definitions(**options))
 
