@@ -33,13 +33,64 @@ RSpec.describe Datamigration::Runner do
 
         mail = ActionMailer::Base.deliveries.last
         expect(mail.to).to eq(['davidjrunger@gmail.com'])
-        expect(mail.subject).to eq('A StubbedDatamigration datamigration has been started')
+        expect(mail.subject).to eq('A(n) StubbedDatamigration datamigration has been started')
 
         datamigration_run = DatamigrationRun.reorder(:created_at).last!
         body = Capybara.string(mail.body.to_s)
         expect(body).to have_link(
           datamigration_run.class_id_string,
           href: Rails.application.routes.url_helpers.admin_datamigration_run_url(datamigration_run),
+        )
+      end
+    end
+  end
+
+  context 'when Rails.logger.level is :info' do
+    around do |spec|
+      Rails.logger.with(level: :info) do
+        spec.run
+      end
+    end
+
+    describe '#logging_start_and_finish' do
+      let(:logdev) do
+        runner.instance_variable_get(:@datamigration_instance).send(:logger).broadcasts.first.instance_variable_get(:@logdev)
+      end
+
+      before do
+        if logdev
+          allow(logdev).to receive(:write).and_call_original
+        end
+      end
+
+      it 'logs start and finish messages around the given block' do
+        result = nil
+
+        runner.send(:logging_start_and_finish) do
+          result = 'block executed'
+        end
+
+        expect(logdev).to have_received(:write).ordered.with(
+          /\[StubbedDatamigration\] Starting at \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\.\.\./,
+        )
+        # rubocop:disable Layout/LineLength
+        expect(logdev).to have_received(:write).ordered.with(
+          /\[StubbedDatamigration\] Finished at \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\. Took \d+\.\d+ seconds\./,
+        )
+        # rubocop:enable Layout/LineLength
+        expect(result).to eq('block executed')
+      end
+
+      it 'logs starting message and propagates any exceptions that occur' do
+        expect do
+          runner.send(:logging_start_and_finish) do
+            raise('test error')
+          end
+        end.to raise_error('test error')
+
+        expect(logdev).to have_received(:write).exactly(:once)
+        expect(logdev).to have_received(:write).with(
+          /\[StubbedDatamigration\] Starting at \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\.\.\./,
         )
       end
     end

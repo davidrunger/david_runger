@@ -19,37 +19,6 @@ RSpec.describe(Datamigration::Base) do
       end
     end
 
-    describe '#logging_start_and_finish' do
-      it 'logs start and finish messages around the given block' do
-        result = nil
-
-        datamigration.send(:logging_start_and_finish) do
-          result = 'block executed'
-        end
-
-        expect(logdev).to have_received(:write).ordered.with(
-          "[Datamigration::Base] Starting...\n",
-        )
-        expect(logdev).to have_received(:write).ordered.with(
-          "[Datamigration::Base] Finished.\n",
-        )
-        expect(result).to eq('block executed')
-      end
-
-      it 'logs starting message and propagates any exceptions that occur' do
-        expect do
-          datamigration.send(:logging_start_and_finish) do
-            raise('test error')
-          end
-        end.to raise_error('test error')
-
-        expect(logdev).to have_received(:write).exactly(:once)
-        expect(logdev).to have_received(:write).with(
-          "[Datamigration::Base] Starting...\n",
-        )
-      end
-    end
-
     # rubocop:disable RSpec/InstanceVariable
     describe '#within_transaction' do
       subject(:within_transaction) do
