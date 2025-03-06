@@ -6,7 +6,7 @@
 #   bin/run-datamigration DATAMIGRATION_PATH
 #
 # Example:
-#   bin/run-datamigration db/datamigrate/20250220020837_destroy_orphaned_log_entry_data.rb
+#   bin/run-datamigration db/datamigrate/20250306182535_downcase_user1_email.rb
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
