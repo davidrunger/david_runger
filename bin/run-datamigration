@@ -15,5 +15,6 @@ datamigration_path=$1
 # Use `tee` to write both to the terminal and also to the stdout (file
 # descriptor 1) of process 1 (i.e. the rails web server process), because only
 # that output is picked up by Docker/Vector.
+# shellcheck disable=SC2029
 ssh "$(runger-config user-at-server)" \
   "docker compose exec web sh -c 'bin/rails runner \"$datamigration_path\" 2>&1 | tee /proc/1/fd/1'"
