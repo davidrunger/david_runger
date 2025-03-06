@@ -2,11 +2,13 @@
 
 # This script builds a Docker image of our Rails app with the specified Rails env.
 #
+# Required: RAILS_ENV env var.
+#
 # Example: build for development
-#   bin/build-docker development
+#   RAILS_ENV=development bin/build-docker
 #
 # Example: build for production
-#   bin/build-docker production
+#   RAILS_ENV=production bin/build-docker
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
