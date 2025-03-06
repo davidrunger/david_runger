@@ -1,15 +1,11 @@
 class Datamigration::Base
   prepend Memoization
 
-  private
-
-  def logging_start_and_finish
-    log('Starting...')
-
-    yield
-
-    log('Finished.')
+  def log(message)
+    logger.info(message)
   end
+
+  private
 
   def within_transaction(rollback: false)
     ApplicationRecord.transaction do
@@ -21,10 +17,6 @@ class Datamigration::Base
         raise(ActiveRecord::Rollback)
       end
     end
-  end
-
-  def log(message)
-    logger.info(message)
   end
 
   memoize \

@@ -28,4 +28,8 @@ class ApplicationRecord < ActiveRecord::Base
     self.class.serializer_class.new(self, params:)
   end
   # rubocop:enable Style/OptionHash
+
+  def class_id_string
+    "#{self.class.name}:#{id}"
+  end
 end

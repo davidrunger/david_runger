@@ -49,10 +49,10 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
   # https://github.com/DavyJonesLocker/capybara-email#setting-your-test-host
-  config.action_mailer.default_url_options = {
-    host: 'localhost',
-    port: Integer(ENV.fetch('CAPYBARA_SERVER_PORT', 3001)),
-  }
+  host = 'localhost'
+  port = Integer(ENV.fetch('CAPYBARA_SERVER_PORT', 3001))
+  config.action_mailer.default_url_options = { host:, port: }
+  Rails.application.routes.default_url_options[:host] = "#{host}:#{port}"
 
   # Raise exceptions on deprecation notices.
   config.active_support.deprecation = :raise
