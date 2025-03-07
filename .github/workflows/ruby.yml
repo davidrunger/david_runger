@@ -90,10 +90,16 @@ jobs:
           function set() {
             docker exec ${{ job.services.postgres.id }} sh -c "echo $1=\'$2\' >> $PGDATADIR/postgresql.conf"
           }
+          psql -U postgres -h 127.0.0.1 -c "SHOW fsync;"
+          psql -U postgres -h 127.0.0.1 -c "SHOW synchronous_commit;"
+          psql -U postgres -h 127.0.0.1 -c "SHOW full_page_writes;"
           set fsync off
           set full_page_writes off
           set synchronous_commit off
           docker kill --signal=SIGHUP ${{ job.services.postgres.id }}
+          psql -U postgres -h 127.0.0.1 -c "SHOW fsync;"
+          psql -U postgres -h 127.0.0.1 -c "SHOW synchronous_commit;"
+          psql -U postgres -h 127.0.0.1 -c "SHOW full_page_writes;"
 
       - name: Run tests & linters
         run: bin/run-tests
