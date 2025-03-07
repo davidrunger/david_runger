@@ -43,16 +43,7 @@ jobs:
     steps:
       - name: Configure database to be fast for tests
         run: |
-          function set() {
-            docker exec ${{ job.services.postgres.id }} sh -c "echo $1=\'$2\' >> $PGDATADIR/postgresql.conf"
-          }
           export PGPASSWORD=postgres
-          psql -U postgres -h 127.0.0.1 -c "SHOW fsync;"
-          psql -U postgres -h 127.0.0.1 -c "SHOW synchronous_commit;"
-          psql -U postgres -h 127.0.0.1 -c "SHOW full_page_writes;"
-          set fsync off
-          set full_page_writes off
-          set synchronous_commit off
           psql -U postgres -h 127.0.0.1 -c "ALTER SYSTEM SET fsync=off;"
           psql -U postgres -h 127.0.0.1 -c "ALTER SYSTEM SET full_page_writes=off;"
           psql -U postgres -h 127.0.0.1 -c "ALTER SYSTEM SET synchronous_commit=off;"
