@@ -90,6 +90,7 @@ jobs:
           function set() {
             docker exec ${{ job.services.postgres.id }} sh -c "echo $1=\'$2\' >> $PGDATADIR/postgresql.conf"
           }
+          export PGPASSWORD=postgres
           psql -U postgres -h 127.0.0.1 -c "SHOW fsync;"
           psql -U postgres -h 127.0.0.1 -c "SHOW synchronous_commit;"
           psql -U postgres -h 127.0.0.1 -c "SHOW full_page_writes;"
