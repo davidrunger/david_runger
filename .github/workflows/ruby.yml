@@ -43,11 +43,14 @@ jobs:
     steps:
       - name: Configure database for speed over reliability
         run: |
-          export PGPASSWORD=postgres
-          psql -h 127.0.0.1 -c "ALTER SYSTEM SET fsync=off;"
-          psql -h 127.0.0.1 -c "ALTER SYSTEM SET full_page_writes=off;"
-          psql -h 127.0.0.1 -c "ALTER SYSTEM SET synchronous_commit=off;"
-          psql -h 127.0.0.1 -c "SELECT pg_reload_conf();"
+          psql -c "ALTER SYSTEM SET fsync=off;"
+          psql -c "ALTER SYSTEM SET full_page_writes=off;"
+          psql -c "ALTER SYSTEM SET synchronous_commit=off;"
+          psql -c "SELECT pg_reload_conf();"
+        env:
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_USER: postgres
+          PGPASSWORD: postgres
 
       - uses: actions/checkout@v4
         with:
@@ -95,10 +98,13 @@ jobs:
 
       - name: Confirm that database is fast for tests
         run: |
-          export PGPASSWORD=postgres
-          psql -h 127.0.0.1 -c "SHOW fsync;"
-          psql -h 127.0.0.1 -c "SHOW synchronous_commit;"
-          psql -h 127.0.0.1 -c "SHOW full_page_writes;"
+          psql -c "SHOW fsync;"
+          psql -c "SHOW synchronous_commit;"
+          psql -c "SHOW full_page_writes;"
+        env:
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_USER: postgres
+          PGPASSWORD: postgres
 
       - name: Run tests & linters
         run: bin/run-tests
