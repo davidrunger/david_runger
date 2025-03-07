@@ -53,7 +53,7 @@ jobs:
           set fsync off
           set full_page_writes off
           set synchronous_commit off
-          docker kill --signal=SIGHUP ${{ job.services.postgres.id }}
+          psql -U postgres -h 127.0.0.1 -c "SELECT pg_reload_conf();"
 
       - uses: actions/checkout@v4
         with:
