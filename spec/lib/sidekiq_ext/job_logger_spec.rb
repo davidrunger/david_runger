@@ -15,8 +15,8 @@ RSpec.describe SidekiqExt::JobLogger do
         'args' => [ip_address],
         'class' => 'CreateIpBlock',
         'jid' => SecureRandom.hex(12),
-        'created_at' => Time.current.to_f,
-        'enqueued_at' => Time.current.to_f,
+        'created_at' => (Time.current.to_f * 1_000).round,
+        'enqueued_at' => (Time.current.to_f * 1_000).round,
       }
     end
     let(:ip_address) { Faker::Internet.ip_v4_address }
@@ -28,12 +28,12 @@ RSpec.describe SidekiqExt::JobLogger do
       it 'prints start job info, executes the block, and prints done job info' do
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["#{ip_address}"\] INFO: start\n\z/).
+          with(/queue=default args=\["#{ip_address}"\]: start\n\z/).
           and_call_original
         expect($stdout).to receive(:puts).with('Performing the work ... !')
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["#{ip_address}"\] elapsed=\d+\.\d{1,3} INFO: done\n\z/).
+          with(/queue=default args=\["#{ip_address}"\] elapsed=\d+\.\d{1,3}: done\n\z/).
           and_call_original
 
         call
@@ -45,12 +45,12 @@ RSpec.describe SidekiqExt::JobLogger do
         it 'logs an abbreviated version of the job arguments' do
           expect(Sidekiq.logger.instance_variable_get(:@logdev)).
             to receive(:write).
-            with(/queue=default args=\["#{'123.' * 34}12...\] INFO: start\n\z/).
+            with(/queue=default args=\["#{'123.' * 34}12...\]: start\n\z/).
             and_call_original
           expect($stdout).to receive(:puts).with('Performing the work ... !')
           expect(Sidekiq.logger.instance_variable_get(:@logdev)).
             to receive(:write).
-            with(/args=\["#{'123.' * 34}12...\] elapsed=\d+\.\d{1,3} INFO: done\n\z/).
+            with(/args=\["#{'123.' * 34}12...\] elapsed=\d+\.\d{1,3}: done\n\z/).
             and_call_original
 
           call
@@ -64,11 +64,11 @@ RSpec.describe SidekiqExt::JobLogger do
       it 'prints start job info, executes the block, and prints failed job info' do
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["#{ip_address}"\] INFO: start\n\z/).
+          with(/queue=default args=\["#{ip_address}"\]: start\n\z/).
           and_call_original
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
-          with(/queue=default args=\["#{ip_address}"\] elapsed=\d+\.\d{1,3} INFO: fail\n\z/).
+          with(/queue=default args=\["#{ip_address}"\] elapsed=\d+\.\d{1,3}: fail\n\z/).
           and_call_original
 
         expect { call }.to raise_error(/A problem occurred in the Sidekiq job!/)
