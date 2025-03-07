@@ -48,8 +48,8 @@ jobs:
           psql -c "ALTER SYSTEM SET synchronous_commit=off;"
           psql -c "SELECT pg_reload_conf();"
         env:
-          POSTGRES_HOST: 127.0.0.1
-          POSTGRES_USER: postgres
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
           PGPASSWORD: postgres
 
       - uses: actions/checkout@v4
@@ -102,8 +102,8 @@ jobs:
           psql -c "SHOW synchronous_commit;"
           psql -c "SHOW full_page_writes;"
         env:
-          POSTGRES_HOST: 127.0.0.1
-          POSTGRES_USER: postgres
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
           PGPASSWORD: postgres
 
       - name: Run tests & linters
