@@ -41,6 +41,17 @@ jobs:
         ports:
           - 6379:6379 # Maps port 6379 on service container to the host
     steps:
+      - name: Configure Postgres for speed over reliability
+        run: |
+          psql -c "ALTER SYSTEM SET fsync=off;"
+          psql -c "ALTER SYSTEM SET full_page_writes=off;"
+          psql -c "ALTER SYSTEM SET synchronous_commit=off;"
+          psql -c "SELECT pg_reload_conf();"
+        env:
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
+          PGPASSWORD: postgres
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
