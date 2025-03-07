@@ -106,7 +106,8 @@ group :test do
   gem 'rspec-instafail', require: false
   gem 'rspec-rails'
   gem 'rspec-retry'
-  gem 'rspec-sidekiq'
+  # Install from RubyGems once released with https://github.com/wspurgin/rspec-sidekiq/pull/233 .
+  gem 'rspec-sidekiq', github: 'wspurgin/rspec-sidekiq'
   gem 'rspec-wait'
   gem 'shoulda-matchers'
   gem 'simplecov'
