@@ -41,6 +41,20 @@ jobs:
         ports:
           - 6379:6379 # Maps port 6379 on service container to the host
     steps:
+      - name: Configure database to be fast for tests
+        run: |
+          function set() {
+            docker exec ${{ job.services.postgres.id }} sh -c "echo $1=\'$2\' >> $PGDATADIR/postgresql.conf"
+          }
+          export PGPASSWORD=postgres
+          psql -U postgres -h 127.0.0.1 -c "SHOW fsync;"
+          psql -U postgres -h 127.0.0.1 -c "SHOW synchronous_commit;"
+          psql -U postgres -h 127.0.0.1 -c "SHOW full_page_writes;"
+          set fsync off
+          set full_page_writes off
+          set synchronous_commit off
+          docker kill --signal=SIGHUP ${{ job.services.postgres.id }}
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
@@ -85,19 +99,9 @@ jobs:
       - name: Ensure clean git status
         run: '! [[ -n $(git status --porcelain) ]] || (git status && false)'
 
-      - name: Configure database to be fast for tests
+      - name: Confirm that database is fast for tests
         run: |
-          function set() {
-            docker exec ${{ job.services.postgres.id }} sh -c "echo $1=\'$2\' >> $PGDATADIR/postgresql.conf"
-          }
           export PGPASSWORD=postgres
-          psql -U postgres -h 127.0.0.1 -c "SHOW fsync;"
-          psql -U postgres -h 127.0.0.1 -c "SHOW synchronous_commit;"
-          psql -U postgres -h 127.0.0.1 -c "SHOW full_page_writes;"
-          set fsync off
-          set full_page_writes off
-          set synchronous_commit off
-          docker kill --signal=SIGHUP ${{ job.services.postgres.id }}
           psql -U postgres -h 127.0.0.1 -c "SHOW fsync;"
           psql -U postgres -h 127.0.0.1 -c "SHOW synchronous_commit;"
           psql -U postgres -h 127.0.0.1 -c "SHOW full_page_writes;"
