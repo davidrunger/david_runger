@@ -96,16 +96,6 @@ jobs:
       - name: Ensure clean git status
         run: '! [[ -n $(git status --porcelain) ]] || (git status && false)'
 
-      - name: Confirm that database is fast for tests
-        run: |
-          psql -c "SHOW fsync;"
-          psql -c "SHOW synchronous_commit;"
-          psql -c "SHOW full_page_writes;"
-        env:
-          PGHOST: 127.0.0.1
-          PGUSER: postgres
-          PGPASSWORD: postgres
-
       - name: Run tests & linters
         run: bin/run-tests
         env:
