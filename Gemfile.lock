@@ -22,6 +22,22 @@ GIT
       railties (>= 6.0.0)
 
 GIT
+  remote: https://github.com/rubocop/rubocop.git
+  revision: 466315bb3d6b57d9d7b8e24d2d793eeccbd6f61d
+  specs:
+    rubocop (1.73.2)
+      json (~> 2.3)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.1.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 2.9.3, < 3.0)
+      rubocop-ast (>= 1.38.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 4.0)
+
+GIT
   remote: https://github.com/wspurgin/rspec-sidekiq.git
   revision: eb8705bf30bceb5dea24489b183984bee320781d
   specs:
@@ -584,17 +600,6 @@ GEM
     rspec-support (3.13.2)
     rspec-wait (1.0.1)
       rspec (>= 3.4)
-    rubocop (1.73.2)
-      json (~> 2.3)
-      language_server-protocol (~> 3.17.0.2)
-      lint_roller (~> 1.1.0)
-      parallel (~> 1.10)
-      parser (>= 3.3.0.2)
-      rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.38.0, < 2.0)
-      ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.38.1)
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
@@ -814,7 +819,7 @@ DEPENDENCIES
   rspec-retry
   rspec-sidekiq!
   rspec-wait
-  rubocop
+  rubocop!
   rubocop-capybara
   rubocop-factory_bot
   rubocop-performance
@@ -1056,7 +1061,7 @@ CHECKSUMS
   rspec-sidekiq (5.0.0)
   rspec-support (3.13.2) sha256=cea3a2463fd9b84b9dcc9685efd80ea701aa8f7b3decb3b3ce795ed67737dbec
   rspec-wait (1.0.1) sha256=50ce9cc7cd20b8bb67b95a4ed56b59a16d4af7e86ae91b28dbf20eeaa2481d1f
-  rubocop (1.73.2) sha256=35cd1b1365ba97234323fe771abcecd09c9b77098464cd726c76aa7d9bc12b5d
+  rubocop (1.73.2)
   rubocop-ast (1.38.1) sha256=80ecbe2ac9bb26693cab9405bf72b41b85a1f909f20f021b983c32c2e7d857fe
   rubocop-capybara (2.21.0) sha256=5d264efdd8b6c7081a3d4889decf1451a1cfaaec204d81534e236bc825b280ab
   rubocop-factory_bot (2.27.0) sha256=de9918bc4e1406b3025da87c5c34c91dd6c3e802cd59339790631f963a5652ba
