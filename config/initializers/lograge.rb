@@ -6,5 +6,4 @@ Rails.application.configure do
   config.lograge.enabled = true
   config.lograge.custom_options = ->(event) { Logs::LogBuilder.new(event).extra_logged_data }
   config.lograge.formatter = ->(data) { Logs::LogFormatter.new(data).call }
-  config.lograge.ignore_actions = ['HealthChecksController#index']
 end
