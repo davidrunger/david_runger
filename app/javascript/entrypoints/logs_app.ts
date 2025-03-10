@@ -1,9 +1,9 @@
 import { createPinia } from 'pinia';
 import { markRaw } from 'vue';
 
+import { renderApp } from '@/lib/customized_vue';
 import LogApp from '@/logs/Logs.vue';
 import router from '@/logs/router';
-import { renderApp } from '@/shared/customized_vue';
 
 const app = renderApp(LogApp);
 

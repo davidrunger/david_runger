@@ -1,5 +1,5 @@
+import { http } from '@/lib/http';
 import { api_events_path } from '@/rails_assets/routes';
-import { http } from '@/shared/http';
 
 export function trackEvent(
   type: string,

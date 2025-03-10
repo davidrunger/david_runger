@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { http } from '@/lib/http';
+import { kyApi } from '@/lib/ky';
 import {
   api_json_preferences_path,
   api_workout_path,
   api_workouts_path,
 } from '@/rails_assets/routes';
-import { http } from '@/shared/http';
-import { kyApi } from '@/shared/ky';
 import type { Intersection, Workout, WorkoutPlan } from '@/types';
 import { WorkoutUpdateResponse } from '@/types/responses/WorkoutUpdateResponse';
 

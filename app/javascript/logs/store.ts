@@ -2,6 +2,9 @@ import { last, sortBy } from 'lodash-es';
 import { defineStore } from 'pinia';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { assert, typesafeAssign } from '@/lib/helpers';
+import { kyApi } from '@/lib/ky';
+import { getById } from '@/lib/store_helpers';
 import { toast } from '@/lib/toasts';
 import {
   api_log_entries_path,
@@ -11,9 +14,6 @@ import {
   api_log_shares_path,
   api_logs_path,
 } from '@/rails_assets/routes';
-import { assert, typesafeAssign } from '@/shared/helpers';
-import { kyApi } from '@/shared/ky';
-import { getById } from '@/shared/store_helpers';
 import type {
   Intersection,
   LogEntry,

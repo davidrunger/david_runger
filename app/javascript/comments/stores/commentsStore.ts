@@ -2,10 +2,10 @@ import { defineStore } from 'pinia';
 
 import type { Comment } from '@/comments/types/comment';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { typesafeAssign } from '@/lib/helpers';
+import { http } from '@/lib/http';
+import type { UniversalBootstrapData } from '@/lib/types';
 import { api_comment_path, api_comments_path } from '@/rails_assets/routes';
-import { typesafeAssign } from '@/shared/helpers';
-import { http } from '@/shared/http';
-import type { UniversalBootstrapData } from '@/shared/types';
 import type { Intersection } from '@/types';
 import type { CommentCreateResponse } from '@/types/responses/CommentCreateResponse';
 import type { CommentsIndexResponse } from '@/types/responses/CommentsIndexResponse';

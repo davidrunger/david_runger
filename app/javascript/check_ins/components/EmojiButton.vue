@@ -13,7 +13,7 @@ import { computed, type PropType } from 'vue';
 
 import { useCheckInsStore } from '@/check_ins/store';
 import type { NeedSatisfactionRating, Rating } from '@/check_ins/types';
-import { assert } from '@/shared/helpers';
+import { assert } from '@/lib/helpers';
 
 const EMOJIS = new Map([
   [-3, ['😢']],

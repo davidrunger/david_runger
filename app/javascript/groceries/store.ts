@@ -6,6 +6,10 @@ import DeletedItemToast from '@/groceries/components/DeletedItemToast.vue';
 import { Bootstrap, CheckInStatus, Item } from '@/groceries/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { emit } from '@/lib/event_bus';
+import { typesafeAssign } from '@/lib/helpers';
+import { http } from '@/lib/http';
+import { kyApi } from '@/lib/ky';
+import { getById, safeGetById } from '@/lib/store_helpers';
 import { toast } from '@/lib/toasts';
 import { vueToast } from '@/lib/vue_toasts';
 import {
@@ -15,10 +19,6 @@ import {
   api_store_path,
   api_stores_path,
 } from '@/rails_assets/routes';
-import { typesafeAssign } from '@/shared/helpers';
-import { http } from '@/shared/http';
-import { kyApi } from '@/shared/ky';
-import { getById, safeGetById } from '@/shared/store_helpers';
 import type { Intersection, Store } from '@/types';
 import { ItemCreateResponse } from '@/types/responses/ItemCreateResponse';
 import { ItemDestroyResponse } from '@/types/responses/ItemDestroyResponse';

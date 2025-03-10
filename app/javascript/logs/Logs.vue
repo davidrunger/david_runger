@@ -14,10 +14,10 @@ import { storeToRefs } from 'pinia';
 import { computed, onMounted } from 'vue';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { useModalStore } from '@/lib/modal/store';
 import { removeQueryParams } from '@/lib/remove_query_params';
 import { renderBootstrappedToasts } from '@/lib/toasts';
 import { useLogsStore } from '@/logs/store';
-import { useModalStore } from '@/shared/modal/store';
 
 import LogSelectorModal from './components/LogSelectorModal.vue';
 import type { Bootstrap } from './types';

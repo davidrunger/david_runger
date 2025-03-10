@@ -23,7 +23,7 @@ import { ElButton } from 'element-plus';
 
 import Modal from '@/components/Modal.vue';
 import { useGroceriesStore } from '@/groceries/store';
-import { useModalStore } from '@/shared/modal/store';
+import { useModalStore } from '@/lib/modal/store';
 
 import CheckInStoreList from './CheckInStoreList.vue';
 

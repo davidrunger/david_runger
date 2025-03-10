@@ -1,4 +1,4 @@
-import { assert } from '@/shared/helpers';
+import { assert } from '@/lib/helpers';
 
 export function csrfToken(): string | null {
   const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');

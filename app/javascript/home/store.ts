@@ -1,7 +1,7 @@
 import { last, pull, sortBy } from 'lodash-es';
 import { defineStore } from 'pinia';
 
-import { assert } from '@/shared/helpers';
+import { assert } from '@/lib/helpers';
 
 const SECTION_ORDER = ['about', 'skills', 'projects', 'resume', 'contact'];
 

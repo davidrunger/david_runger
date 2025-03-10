@@ -1,6 +1,6 @@
 import { identity, pickBy } from 'lodash-es';
 
-import { kyApi as generalKyApi } from '@/shared/ky';
+import { kyApi as generalKyApi } from '@/lib/ky';
 
 const kyApi = generalKyApi.extend({
   headers: {

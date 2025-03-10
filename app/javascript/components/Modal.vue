@@ -18,7 +18,7 @@ transition(
 import { storeToRefs } from 'pinia';
 import { onUnmounted, ref } from 'vue';
 
-import { useModalStore } from '@/shared/modal/store';
+import { useModalStore } from '@/lib/modal/store';
 
 const props = defineProps({
   backgroundClass: {
