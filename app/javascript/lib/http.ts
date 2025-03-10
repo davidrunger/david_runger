@@ -5,7 +5,7 @@ import { csrfToken } from '@/lib/csrfToken';
 
 let kyApi = ky;
 
-kyApi.extend({
+kyApi = kyApi.extend({
   headers: {
     'Content-Type': 'application/json',
   },
