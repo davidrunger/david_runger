@@ -5,7 +5,7 @@ class Test::Tasks::RunFeatureTestsC < Pallets::Task
     execute_rspec_command(<<~COMMAND)
       DB_SUFFIX=_feature_c CAPYBARA_SERVER_PORT=3003
       bin/rspec $(cat tmp/feature_specs_c.txt)
-      --format RSpec::Instafail --format progress --force-color
+      --format progress --force-color
     COMMAND
   end
 end

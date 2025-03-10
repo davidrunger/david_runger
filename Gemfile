@@ -104,7 +104,6 @@ group :test do
   gem 'pallets', github: 'davidrunger/pallets'
   gem 'percy-capybara'
   gem 'rails-controller-testing'
-  gem 'rspec-instafail', require: false
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'rspec-sidekiq'
