@@ -224,7 +224,7 @@ export const useGroceriesStore = defineStore('groceries', {
 
       if (store.own_store) {
         http.patch(api_store_path(store.id), {
-          json: { store: pick(store, ['viewed_at']) },
+          store: pick(store, ['viewed_at']),
         });
       }
     },
@@ -264,7 +264,7 @@ export const useGroceriesStore = defineStore('groceries', {
 
       const updatedItemData = await http.patch<
         Intersection<Item, ItemUpdateResponse>
-      >(api_item_path(item.id), { json: { item: attributes } });
+      >(api_item_path(item.id), { item: attributes });
 
       this.decrementPendingRequests();
 
@@ -286,7 +286,7 @@ export const useGroceriesStore = defineStore('groceries', {
     }) {
       const updatedStoreData = await http.patch<
         Intersection<Store, StoreUpdateResponse>
-      >(api_store_path(store.id), { json: { store: attributes } });
+      >(api_store_path(store.id), { store: attributes });
 
       typesafeAssign(store, updatedStoreData);
     },
@@ -295,11 +295,9 @@ export const useGroceriesStore = defineStore('groceries', {
       const items = this.itemsInCart;
 
       await http.post(api_items_bulk_updates_path(), {
-        json: {
-          bulk_update: {
-            item_ids: items.map((item) => item.id),
-            attributes_change: { needed: 0 },
-          },
+        bulk_update: {
+          item_ids: items.map((item) => item.id),
+          attributes_change: { needed: 0 },
         },
       });
 

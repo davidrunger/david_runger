@@ -70,7 +70,7 @@ export const useLogsStore = defineStore('logs', {
 
       const logShareData = await http.post<
         Intersection<LogShare, LogShareCreateResponse>
-      >(api_log_shares_path(), { json: payload });
+      >(api_log_shares_path(), payload);
 
       const log = this.logById({ logId });
       log.log_shares?.push(logShareData);
@@ -90,7 +90,7 @@ export const useLogsStore = defineStore('logs', {
 
       const logData = await http.post<Intersection<Log, LogCreateResponse>>(
         api_logs_path(),
-        { json: { log } },
+        { log },
       );
 
       this.postingLog = false;
@@ -120,7 +120,7 @@ export const useLogsStore = defineStore('logs', {
 
       const data = await http.post<
         Intersection<LogEntry, LogEntryCreateResponse>
-      >(api_log_entries_path(), { json: payload });
+      >(api_log_entries_path(), payload);
 
       this.addLogEntry({ logId, newLogEntry: data });
     },
@@ -239,7 +239,7 @@ export const useLogsStore = defineStore('logs', {
 
       const updatedLogData = await http.patch<
         Intersection<Log, LogUpdateResponse>
-      >(api_log_path(logId), { json: payload });
+      >(api_log_path(logId), payload);
 
       const log = this.logById({ logId });
 
@@ -261,7 +261,7 @@ export const useLogsStore = defineStore('logs', {
 
       const updatedLogEntryData = await http.patch<
         Intersection<LogEntry, LogEntryUpdateResponse>
-      >(api_log_entry_path(logEntryId), { json: payload });
+      >(api_log_entry_path(logEntryId), payload);
 
       this.modifyLogEntry({
         logEntry: updatedLogEntryData,

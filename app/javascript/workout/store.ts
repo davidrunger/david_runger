@@ -37,12 +37,10 @@ export const useWorkoutsStore = defineStore('workouts', {
 
     async createWorkout({ workout }: { workout: NewWorkoutAttributes }) {
       return await http.post<Workout>(api_workouts_path(), {
-        json: {
-          workout: {
-            publicly_viewable: workout.publiclyViewable,
-            rep_totals: workout.repTotals,
-            time_in_seconds: workout.timeInSeconds,
-          },
+        workout: {
+          publicly_viewable: workout.publiclyViewable,
+          rep_totals: workout.repTotals,
+          time_in_seconds: workout.timeInSeconds,
         },
       });
     },
@@ -69,7 +67,7 @@ export const useWorkoutsStore = defineStore('workouts', {
       return await http.patch<Intersection<Workout, WorkoutUpdateResponse>>(
         api_workout_path(workout.id),
         {
-          json: { workout: attributes },
+          workout: attributes,
         },
       );
     },

@@ -55,7 +55,7 @@ export const useCheckInsStore = defineStore('check-ins', {
     }) {
       this.modifyRating({ needSatisfactionRating, attributes });
       http.patch(api_need_satisfaction_rating_path(needSatisfactionRating.id), {
-        json: { need_satisfaction_rating: attributes },
+        need_satisfaction_rating: attributes,
       });
     },
   },
