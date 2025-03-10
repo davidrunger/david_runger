@@ -289,7 +289,7 @@ GEM
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
     formtastic_i18n (0.7.0)
-    freezolite (0.5.0)
+    freezolite (0.6.0)
       require-hooks (~> 0.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -925,7 +925,7 @@ CHECKSUMS
   flipper-ui (1.3.4) sha256=1f82a141d4995a461474793f06c2d6039e75e7aec93fba86d0a40ce71fb6fe03
   formtastic (5.0.0) sha256=71cc99c8227208f64da8d2b0926d97cef1e5f77e0105047cd57fddeccd3a6416
   formtastic_i18n (0.7.0) sha256=ecef51c9e9030c00f19e69d2483b77f4515c9587d74268b76cf4b6e7988c8e78
-  freezolite (0.5.0) sha256=631ef3df23c6c51e0dc963631d24ec3bae22fa14b0e1597d2f65f44d2b94bcbc
+  freezolite (0.6.0) sha256=a1305e324738633a30904b50f085bebe7b43c64ebc1e23ce848ee0eeaf3b1dfd
   globalid (1.2.1) sha256=70bf76711871f843dbba72beb8613229a49429d1866828476f9c9d6ccc327ce9
   haml (6.3.0) sha256=8e6eb87d869639e348852009e74a2a1663d79663ed7e7dbcb38beb1f12bcdd97
   haml-rails (2.1.0) sha256=273ba0189e2f82ce4b2385019dd9138884017e3103cc2eaebeee7f45186f59ea
