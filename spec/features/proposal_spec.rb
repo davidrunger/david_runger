@@ -47,9 +47,9 @@ RSpec.describe 'proposing marriage to another user' do
             end.to eq(true)
 
             open_email(proposee.email)
-            # rubocop:disable Capybara/ClickLinkOrButtonStyle
+            # rubocop:disable RungerStyle/ClickAmbiguously
             current_email.click_link('Click here', href: %r{/proposals/accept\?token=.+})
-            # rubocop:enable Capybara/ClickLinkOrButtonStyle
+            # rubocop:enable RungerStyle/ClickAmbiguously
             expect(page).to have_content('Marriage created.')
           end
 
