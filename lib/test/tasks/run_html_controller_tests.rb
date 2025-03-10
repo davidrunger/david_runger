@@ -11,7 +11,7 @@ class Test::Tasks::RunHtmlControllerTests < Pallets::Task
       $(ls spec/helpers/*.rb)
       $(ls spec/requests/**/*.rb)
       $(ls spec/requests/*.rb)
-      --format progress --force-color
+      --format failures --format progress --force-color
     COMMAND
   end
 end

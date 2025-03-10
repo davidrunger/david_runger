@@ -6,7 +6,7 @@ class Test::Tasks::RunApiControllerTests < Pallets::Task
       DB_SUFFIX=_api
       bin/rspec
       spec/controllers/api/
-      --format progress --force-color
+      --format failures --format progress --force-color
     COMMAND
   end
 end
