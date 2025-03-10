@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { http } from '@/lib/http';
-import { kyApi } from '@/lib/ky';
 import {
   api_json_preferences_path,
   api_workout_path,
@@ -37,17 +36,15 @@ export const useWorkoutsStore = defineStore('workouts', {
     },
 
     async createWorkout({ workout }: { workout: NewWorkoutAttributes }) {
-      return await kyApi
-        .post<Workout>(api_workouts_path(), {
-          json: {
-            workout: {
-              publicly_viewable: workout.publiclyViewable,
-              rep_totals: workout.repTotals,
-              time_in_seconds: workout.timeInSeconds,
-            },
+      return await http.post<Workout>(api_workouts_path(), {
+        json: {
+          workout: {
+            publicly_viewable: workout.publiclyViewable,
+            rep_totals: workout.repTotals,
+            time_in_seconds: workout.timeInSeconds,
           },
-        })
-        .json();
+        },
+      });
     },
 
     initializeWorkout() {
@@ -69,14 +66,12 @@ export const useWorkoutsStore = defineStore('workouts', {
       workout: Workout;
       attributes: Workout;
     }) {
-      return await kyApi
-        .patch<Intersection<Workout, WorkoutUpdateResponse>>(
-          api_workout_path(workout.id),
-          {
-            json: { workout: attributes },
-          },
-        )
-        .json();
+      return await http.patch<Intersection<Workout, WorkoutUpdateResponse>>(
+        api_workout_path(workout.id),
+        {
+          json: { workout: attributes },
+        },
+      );
     },
   },
 });
