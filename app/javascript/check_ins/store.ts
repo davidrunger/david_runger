@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { assert } from '@/lib/helpers';
-import { kyApi } from '@/lib/ky';
+import { http } from '@/lib/http';
 import { getById } from '@/lib/store_helpers';
 import {
   api_check_in_check_in_submissions_path,
@@ -43,9 +43,7 @@ export const useCheckInsStore = defineStore('check-ins', {
     },
 
     async submitCheckIn() {
-      await kyApi.post(
-        api_check_in_check_in_submissions_path(this.check_in.id),
-      );
+      await http.post(api_check_in_check_in_submissions_path(this.check_in.id));
     },
 
     updateRating({
@@ -56,10 +54,9 @@ export const useCheckInsStore = defineStore('check-ins', {
       attributes: { score: number };
     }) {
       this.modifyRating({ needSatisfactionRating, attributes });
-      kyApi.patch(
-        api_need_satisfaction_rating_path(needSatisfactionRating.id),
-        { json: { need_satisfaction_rating: attributes } },
-      );
+      http.patch(api_need_satisfaction_rating_path(needSatisfactionRating.id), {
+        need_satisfaction_rating: attributes,
+      });
     },
   },
 

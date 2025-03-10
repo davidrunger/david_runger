@@ -1,13 +1,31 @@
+import ky from 'ky';
 import { identity, pickBy } from 'lodash-es';
 
-import { kyApi as generalKyApi } from '@/lib/ky';
+import { csrfToken } from '@/lib/csrfToken';
 
-const kyApi = generalKyApi.extend({
+let kyApi = ky;
+
+kyApi = kyApi.extend({
   headers: {
     'Content-Type': 'application/json',
   },
   throwHttpErrors: false,
 });
+
+const _csrfToken = csrfToken();
+
+if (_csrfToken) {
+  kyApi = kyApi.extend({
+    hooks: {
+      beforeRequest: [
+        (request) => {
+          request.headers.set('X-CSRF-Token', _csrfToken);
+        },
+      ],
+    },
+    retry: 0,
+  });
+}
 
 export const http = {
   async delete<T>(url: string) {

@@ -8,7 +8,6 @@ import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { emit } from '@/lib/event_bus';
 import { typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
-import { kyApi } from '@/lib/ky';
 import { getById, safeGetById } from '@/lib/store_helpers';
 import { toast } from '@/lib/toasts';
 import { vueToast } from '@/lib/vue_toasts';
@@ -160,7 +159,7 @@ export const useGroceriesStore = defineStore('groceries', {
       this.own_stores = this.own_stores.filter(
         (store) => store !== deletedStore,
       );
-      kyApi.delete(api_store_path(deletedStore.id));
+      http.delete(api_store_path(deletedStore.id));
     },
 
     async pullStoreData() {
@@ -191,17 +190,15 @@ export const useGroceriesStore = defineStore('groceries', {
         }
       };
 
-      const storesResponse = await kyApi
-        .get<
-          Intersection<
-            {
-              own_stores: Array<Store>;
-              spouse_stores: Array<Store>;
-            },
-            StoresIndexResponse
-          >
-        >(api_stores_path())
-        .json();
+      const storesResponse = await http.get<
+        Intersection<
+          {
+            own_stores: Array<Store>;
+            spouse_stores: Array<Store>;
+          },
+          StoresIndexResponse
+        >
+      >(api_stores_path());
       addOrUpdateStores(storesResponse.own_stores, this.own_stores);
       addOrUpdateStores(storesResponse.spouse_stores, this.spouse_stores);
     },
@@ -226,8 +223,8 @@ export const useGroceriesStore = defineStore('groceries', {
       emit('groceries:store-selected');
 
       if (store.own_store) {
-        kyApi.patch(api_store_path(store.id), {
-          json: { store: pick(store, ['viewed_at']) },
+        http.patch(api_store_path(store.id), {
+          store: pick(store, ['viewed_at']),
         });
       }
     },
@@ -265,11 +262,9 @@ export const useGroceriesStore = defineStore('groceries', {
     }) {
       this.incrementPendingRequests();
 
-      const updatedItemData = await kyApi
-        .patch<
-          Intersection<Item, ItemUpdateResponse>
-        >(api_item_path(item.id), { json: { item: attributes } })
-        .json();
+      const updatedItemData = await http.patch<
+        Intersection<Item, ItemUpdateResponse>
+      >(api_item_path(item.id), { item: attributes });
 
       this.decrementPendingRequests();
 
@@ -289,11 +284,9 @@ export const useGroceriesStore = defineStore('groceries', {
         private?: boolean;
       };
     }) {
-      const updatedStoreData = await kyApi
-        .patch<
-          Intersection<Store, StoreUpdateResponse>
-        >(api_store_path(store.id), { json: { store: attributes } })
-        .json();
+      const updatedStoreData = await http.patch<
+        Intersection<Store, StoreUpdateResponse>
+      >(api_store_path(store.id), { store: attributes });
 
       typesafeAssign(store, updatedStoreData);
     },
@@ -301,12 +294,10 @@ export const useGroceriesStore = defineStore('groceries', {
     async zeroItemsInCart() {
       const items = this.itemsInCart;
 
-      await kyApi.post(api_items_bulk_updates_path(), {
-        json: {
-          bulk_update: {
-            item_ids: items.map((item) => item.id),
-            attributes_change: { needed: 0 },
-          },
+      await http.post(api_items_bulk_updates_path(), {
+        bulk_update: {
+          item_ids: items.map((item) => item.id),
+          attributes_change: { needed: 0 },
         },
       });
 
