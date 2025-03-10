@@ -172,4 +172,8 @@ module Test::TaskHelpers
       Test::Middleware::TaskResultTrackingMiddleware.job_results
     end
   end
+
+  def rspec_output_options
+    '--format failures --format progress --force-color'
+  end
 end
