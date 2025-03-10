@@ -31,16 +31,22 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
         context 'when the sub returned from Google matches the google_sub in our database' do
           before { user.update!(google_sub: mocked_google_response_sub) }
 
-          it 'allows the user to log in with Google' do
-            visit(new_user_session_path)
-            expect(page).to have_css('button.google-login')
+          context 'when no User is logged in' do
+            before { sign_out(:user) }
 
-            expect { click_on(class: 'google-login') }.not_to change { User.count }
+            context 'when the user attempts to access a page that requires authentication' do
+              it 'redirects to the login page, allows the user to log in with Google, and redirects back to their initially requested page' do
+                visit(my_account_path)
 
-            expect(page).to have_current_path(root_path)
-            expect(page).to have_text('David Runger Full stack web developer')
+                expect(page).to have_current_path(new_user_session_path)
+                expect(page).to have_css('button.google-login')
 
-            expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
+                expect { click_on(class: 'google-login') }.not_to change { User.count }
+
+                expect(page).to have_current_path(my_account_path)
+                expect(page).to have_text(user.email)
+              end
+            end
           end
         end
 
