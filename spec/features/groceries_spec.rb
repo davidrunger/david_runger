@@ -141,7 +141,7 @@ RSpec.describe 'Groceries app' do
 
           # Make sure that the new store is added to the list.
           within('aside') do
-            expect(page).to have_text(unique_new_store_name)
+            expect(page).to have_text('this will fail')
           end
         end
       end
