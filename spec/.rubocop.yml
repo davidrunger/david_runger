@@ -1,0 +1,8 @@
+inherit_from: ../.rubocop.yml
+
+inherit_gem:
+  runger_style:
+    - rulesets/capybara.yml
+    - rulesets/factory_bot.yml
+    - rulesets/rspec_rails.yml
+    - rulesets/rspec.yml
