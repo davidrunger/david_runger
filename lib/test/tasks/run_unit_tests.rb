@@ -13,7 +13,7 @@ class Test::Tasks::RunUnitTests < Pallets::Task
       $(ls -d spec/*/ |
         grep --extended-regex -v 'spec/(controllers|features|helpers|requests|tools)(/|$)' |
         tr '\n' ' ')
-      --format failures --format progress --force-color
+      #{rspec_output_options}
     COMMAND
   end
 end

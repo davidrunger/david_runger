@@ -7,7 +7,7 @@ class Test::Tasks::RunToolsTests < Pallets::Task
       SPEC_GROUP=tools
       bin/rspec
       spec/tools/
-      --format failures --format progress --force-color
+      #{rspec_output_options}
     COMMAND
   end
 end
