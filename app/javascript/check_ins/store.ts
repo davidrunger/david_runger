@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { assert } from '@/lib/helpers';
+import { kyApi } from '@/lib/ky';
+import { getById } from '@/lib/store_helpers';
 import {
   api_check_in_check_in_submissions_path,
   api_need_satisfaction_rating_path,
 } from '@/rails_assets/routes';
-import { assert } from '@/shared/helpers';
-import { kyApi } from '@/shared/ky';
-import { getById } from '@/shared/store_helpers';
 
 import { Bootstrap, NeedSatisfactionRating } from './types';
 

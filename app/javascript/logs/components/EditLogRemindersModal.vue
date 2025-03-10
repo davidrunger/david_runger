@@ -47,10 +47,10 @@ import { ElButton } from 'element-plus';
 import { computed, ref, type PropType } from 'vue';
 
 import Modal from '@/components/Modal.vue';
+import { useModalStore } from '@/lib/modal/store';
 import { toast } from '@/lib/toasts';
 import { useLogsStore } from '@/logs/store';
 import type { Log } from '@/logs/types';
-import { useModalStore } from '@/shared/modal/store';
 
 const TIME_UNIT_IN_SECONDS = {
   weeks: 7 * 24 * 60 * 60,

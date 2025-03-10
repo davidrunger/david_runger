@@ -34,7 +34,7 @@ import { computed, type PropType } from 'vue';
 import { helpers, useGroceriesStore } from '@/groceries/store';
 import type { Item as ItemType } from '@/groceries/types';
 import { isMobileDevice } from '@/lib/is_mobile_device';
-import { useModalStore } from '@/shared/modal/store';
+import { useModalStore } from '@/lib/modal/store';
 import type { Store } from '@/types';
 
 import CheckInModal from './CheckInModal.vue';

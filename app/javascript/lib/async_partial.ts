@@ -1,4 +1,4 @@
-import { assert } from '@/shared/helpers';
+import { assert } from '@/lib/helpers';
 
 export function loadAsyncPartials() {
   for (const asyncPartialEl of Array.from(

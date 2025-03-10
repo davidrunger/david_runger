@@ -65,11 +65,11 @@ import { storeToRefs } from 'pinia';
 import { computed, h } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
+import { assert } from '@/lib/helpers';
+import { useModalStore } from '@/lib/modal/store';
 import { useLogsStore } from '@/logs/store';
 import type { Log, LogEntryBroadcast } from '@/logs/types';
 import { download_log_path } from '@/rails_assets/routes';
-import { assert } from '@/shared/helpers';
-import { useModalStore } from '@/shared/modal/store';
 
 import CounterBarGraph from './data_renderers/CounterBarGraph.vue';
 import DurationTimeseries from './data_renderers/DurationTimeseries.vue';

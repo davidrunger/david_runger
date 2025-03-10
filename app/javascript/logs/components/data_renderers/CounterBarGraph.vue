@@ -10,8 +10,8 @@
 import { computed, type PropType } from 'vue';
 
 import BarGraph from '@/components/charts/BarGraph.vue';
+import { assert } from '@/lib/helpers';
 import type { Log } from '@/logs/types';
-import { assert } from '@/shared/helpers';
 
 const props = defineProps({
   log: {

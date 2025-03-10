@@ -66,8 +66,8 @@ import { ElSwitch } from 'element-plus';
 import { cloneDeep } from 'lodash-es';
 import { computed, onBeforeMount, reactive, ref, type PropType } from 'vue';
 
-import { assert } from '@/shared/helpers';
-import { useModalStore } from '@/shared/modal/store';
+import { assert } from '@/lib/helpers';
+import { useModalStore } from '@/lib/modal/store';
 import type { Exercise } from '@/types';
 
 import ConfirmWorkoutModal from './ConfirmWorkoutModal.vue';

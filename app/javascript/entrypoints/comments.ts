@@ -1,7 +1,7 @@
 import { createPinia } from 'pinia';
 
 import Comments from '@/comments/Comments.vue';
-import { renderApp } from '@/shared/customized_vue';
+import { renderApp } from '@/lib/customized_vue';
 
 const commentsTargetSelector = '#comments';
 

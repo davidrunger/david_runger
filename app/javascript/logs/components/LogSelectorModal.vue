@@ -30,9 +30,9 @@ import { useRouter } from 'vue-router';
 import Modal from '@/components/Modal.vue';
 import { useFuzzyTypeahead } from '@/lib/composables/useFuzzyTypeahead';
 import { useSubscription } from '@/lib/composables/useSubscription';
+import { useModalStore } from '@/lib/modal/store';
 import { useLogsStore } from '@/logs/store';
 import type { Log } from '@/logs/types';
-import { useModalStore } from '@/shared/modal/store';
 
 const router = useRouter();
 const logsStore = useLogsStore();

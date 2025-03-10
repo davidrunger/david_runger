@@ -6,7 +6,7 @@ div
 </template>
 
 <script setup lang="ts">
-import { http } from '@/shared/http';
+import { http } from '@/lib/http';
 
 const props = defineProps({
   deletedItemName: {

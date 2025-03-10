@@ -18,7 +18,7 @@ import actionCableConsumer from '@/channels/consumer';
 import { useGroceriesStore } from '@/groceries/store';
 import type { Bootstrap, ItemBroadcast } from '@/groceries/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
-import type { IphoneTouchEvent } from '@/shared/types';
+import type { IphoneTouchEvent } from '@/lib/types';
 
 import Sidebar from './components/Sidebar.vue';
 import Store from './components/Store.vue';

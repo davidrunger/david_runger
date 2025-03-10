@@ -4,7 +4,7 @@ import Rails from '@rails/ujs';
 import actionCableConsumer from '@/channels/consumer';
 import { loadAsyncPartials } from '@/lib/async_partial';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
-import { assert } from '@/shared/helpers';
+import { assert } from '@/lib/helpers';
 import type { Intersection, Quiz, UserSerializerBasic } from '@/types';
 import { QuizShowBootstrap } from '@/types/bootstrap/QuizShowBootstrap';
 

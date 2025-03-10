@@ -58,11 +58,11 @@ import { computed, nextTick, ref } from 'vue';
 
 import Modal from '@/components/Modal.vue';
 import { bootstrap } from '@/lib/bootstrap';
+import { assert } from '@/lib/helpers';
+import { useModalStore } from '@/lib/modal/store';
 import { useLogsStore } from '@/logs/store';
 import type { Bootstrap } from '@/logs/types';
 import { user_shared_log_path } from '@/rails_assets/routes';
-import { assert } from '@/shared/helpers';
-import { useModalStore } from '@/shared/modal/store';
 import type { LogShare } from '@/types';
 
 const logsStore = useLogsStore();

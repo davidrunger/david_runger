@@ -1,4 +1,4 @@
-import { JsonBroadcast } from '@/shared/types';
+import { JsonBroadcast } from '@/lib/types';
 import type {
   Intersection,
   Store,
