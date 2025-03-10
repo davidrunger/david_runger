@@ -185,9 +185,9 @@ class ApplicationController < ActionController::Base
 
   def store_redirect_chain
     if (redirect_chain =
-      params[:redirect_chain] ||
-      request.env['omniauth.origin'].presence
-    ) && redirect_chain != new_user_session_url
+          params[:redirect_chain] ||
+          request.env['omniauth.origin'].presence
+       ) && redirect_chain != new_user_session_url
       session[:redirect_chain] = redirect_chain
     end
   end
