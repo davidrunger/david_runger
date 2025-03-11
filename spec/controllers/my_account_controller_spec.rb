@@ -22,7 +22,7 @@ RSpec.describe MyAccountController do
       context 'when requesting deletion of another user' do
         let(:logged_in_user) { User.excluding(user_to_destroy).first! }
 
-        it 'does not delete the specified user', :no_bullet do
+        it 'does not delete the specified user' do
           delete_destroy
 
           expect { user_to_destroy.reload }.not_to raise_error

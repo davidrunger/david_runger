@@ -1,15 +1,6 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
-  if !IS_DOCKER
-    config.after_initialize do
-      Bullet.enable = true
-      Bullet.rails_logger = true
-      Bullet.raise = true
-      Bullet.counter_cache_enable = false
-    end
-  end
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.

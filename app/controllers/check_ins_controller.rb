@@ -34,27 +34,23 @@ class CheckInsController < ApplicationController
   end
 
   def show_bootstrap_data
-    check_in_need_satisfaction_ratings = @check_in.need_satisfaction_ratings
+    check_in_need_satisfaction_ratings =
+      @check_in.need_satisfaction_ratings.
+        includes(:emotional_need, :user).
+        order('emotional_needs.name')
+
+    user_ratings_of_partner, partner_ratings_of_user =
+      check_in_need_satisfaction_ratings.
+        partition { it.user == current_user }
 
     bootstrap_data = {
       check_in: @check_in.serializer,
-      user_ratings_of_partner:
-        NeedSatisfactionRatingSerializer.new(
-          check_in_need_satisfaction_ratings.
-            where(user: current_user).
-            includes(:emotional_need).
-            order('emotional_needs.name'),
-        ),
+      user_ratings_of_partner:,
     }
 
     bootstrap_data[:partner_ratings_of_user] =
       if @check_in.submitted_by_both_partners?
-        NeedSatisfactionRatingSerializer.new(
-          check_in_need_satisfaction_ratings.
-            where(user: current_user.marriage.decorate.other_partner).
-            includes(:emotional_need).
-            order('emotional_needs.name'),
-        )
+        partner_ratings_of_user
       else
         bootstrap_data[:partner_ratings_hidden_reason] =
           if @check_in.submitted_by_partner?

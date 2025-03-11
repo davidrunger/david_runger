@@ -269,6 +269,9 @@ class Test::RequirementsResolver
       !file_changed?('app/javascript/types/index.ts') &&
         !diff_mentions?('intersection')
     end,
+    Test::Tasks::StartPercy => proc do
+      ENV['PERCY_TOKEN'].blank?
+    end,
     Test::Tasks::CheckTypescript => proc do
       !files_with_js_changed? &&
         !diff_mentions?('tsc|typescript') &&

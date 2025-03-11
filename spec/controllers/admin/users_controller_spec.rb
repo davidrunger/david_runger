@@ -59,6 +59,7 @@ RSpec.describe Admin::UsersController do
 
       it 'redirects to the users index page' do
         delete_destroy
+
         expect(response).to redirect_to(admin_users_path)
       end
     end

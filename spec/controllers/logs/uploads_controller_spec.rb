@@ -47,7 +47,7 @@ RSpec.describe Logs::UploadsController do
 
       it 'creates log entries' do
         expect do
-          Sidekiq::Testing.inline! do
+          with_inline_sidekiq do
             post_create
           end
         end.to change { log.reload.log_entries.size }.by(csv_rows.size)

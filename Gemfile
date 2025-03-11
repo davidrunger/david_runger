@@ -59,11 +59,12 @@ end
 group :development, :test do
   gem 'amazing_print'
   gem 'annotaterb', require: false
-  gem 'bullet'
   gem 'immigrant'
   gem 'isolator'
   gem 'json-schema'
   gem 'listen'
+  gem 'pg_query' # Needed by prosopite.
+  gem 'prosopite'
   # Go back to upstream if/when https://github.com/deivid-rodriguez/pry-byebug/pull/ 428 is merged.
   gem 'pry-byebug', require: false, github: 'davidrunger/pry-byebug'
   gem 'rainbow'

@@ -13,6 +13,7 @@ class QuizQuestions::CreateFromList < ApplicationAction
       question_and_answer_text_chunks.each do |question_and_answer_text_chunk|
         create_models_from_text!(question_and_answer_text_chunk)
       end
+
       verify_answers!
     end
   rescue InvalidAnswers => error
@@ -46,7 +47,7 @@ class QuizQuestions::CreateFromList < ApplicationAction
   end
 
   def verify_answers!
-    quiz.questions.each do |question|
+    quiz.questions.includes(:answers).find_each do |question|
       content = question.content
       answers = question.answers
 
@@ -54,7 +55,7 @@ class QuizQuestions::CreateFromList < ApplicationAction
         raise(InvalidAnswers, "Too few answers for question '#{content}'!")
       end
 
-      if answers.correct.size != 1
+      if answers.count(&:is_correct?) != 1
         raise(InvalidAnswers, "Wrong number of correct answers for question '#{content}'!")
       end
     end

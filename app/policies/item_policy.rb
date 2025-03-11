@@ -8,7 +8,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def update?
-    scope.exists?(id: item.id)
+    (item.user == @user) || !!(@user.spouse && (item.user == @user.spouse))
   end
 
   def destroy?

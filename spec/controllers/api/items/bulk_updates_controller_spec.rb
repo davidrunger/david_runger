@@ -11,10 +11,8 @@ RSpec.describe Api::Items::BulkUpdatesController do
 
     context 'when a store has multiple needed items' do
       before do
-        2.times do
-          if store.items.needed.size < 2
-            create(:item, :needed, store:)
-          end
+        (2 - store.items.needed.size).times do
+          create(:item, :needed, store:)
         end
 
         expect(store.items.needed.size).to be >= 2
