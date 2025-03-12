@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/rubocop/rubocop.git
-  revision: 5695986cf4101bad0a9444ffa336195ce65dd25c
+  revision: b6678159b618a9274d56fd4a95310fa48f36666c
   specs:
     rubocop (1.73.2)
       json (~> 2.3)
