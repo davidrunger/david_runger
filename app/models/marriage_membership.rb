@@ -18,4 +18,11 @@ class MarriageMembership < ApplicationRecord
   belongs_to :user
 
   validates :user_id, uniqueness: true
+  validate :marriage_has_max_2_partners
+
+  def marriage_has_max_2_partners
+    if marriage.memberships.size > 2
+      errors.add(:base, 'No more than two partners may join a marriage')
+    end
+  end
 end

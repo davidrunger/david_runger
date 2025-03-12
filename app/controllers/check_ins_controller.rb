@@ -30,7 +30,10 @@ class CheckInsController < ApplicationController
   end
 
   def ensure_marriage
-    Marriage.create!(partner_1: current_user) if current_user.marriage.nil?
+    if current_user.marriage.nil?
+      Marriage.create!(partners: [current_user])
+      current_user.reload
+    end
   end
 
   def show_bootstrap_data

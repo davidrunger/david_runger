@@ -9,18 +9,15 @@ RSpec.describe 'proposing marriage to another user' do
 
     context 'when the user is not yet in a marriage with a partner' do
       before do
-        expect(marriage.partner_1).to eq(user)
-        marriage.update!(partner_2: nil)
+        expect(marriage.partners.first!).to eq(user)
+        marriage.memberships.where.not(user_id: user).find_each(&:destroy!)
+        expect(marriage.reload.partners.size).to eq(1)
       end
 
       let(:proposee) { User.where.not(id: user).first! }
 
       context 'when JWT_SECRET is set' do
-        around do |spec|
-          ClimateControl.modify(JWT_SECRET: 'xyza2481') do
-            spec.run
-          end
-        end
+        before { expect(ENV.fetch('JWT_SECRET', nil)).to be_present }
 
         it 'allows inviting a spouse and allows the spouse to accept the proposal' do
           visit_new_marriage_path

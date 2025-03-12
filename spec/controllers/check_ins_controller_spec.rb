@@ -2,7 +2,7 @@ RSpec.describe CheckInsController do
   before { sign_in(user) }
 
   let(:check_in) { CheckIn.first! }
-  let(:user) { check_in.marriage.partner_1 }
+  let(:user) { check_in.marriage.partners.first! }
 
   describe '#index' do
     subject(:get_index) { get(:index) }

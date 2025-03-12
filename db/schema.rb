@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_12_024221) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_12_041315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -320,12 +320,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_12_024221) do
   end
 
   create_table "marriages", force: :cascade do |t|
-    t.bigint "partner_1_id", null: false
-    t.bigint "partner_2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["partner_1_id"], name: "index_marriages_on_partner_1_id"
-    t.index ["partner_2_id"], name: "index_marriages_on_partner_2_id"
   end
 
   create_table "need_satisfaction_ratings", force: :cascade do |t|
@@ -505,8 +501,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_12_024221) do
   add_foreign_key "logs", "users"
   add_foreign_key "marriage_memberships", "marriages"
   add_foreign_key "marriage_memberships", "users"
-  add_foreign_key "marriages", "users", column: "partner_1_id"
-  add_foreign_key "marriages", "users", column: "partner_2_id"
   add_foreign_key "need_satisfaction_ratings", "check_ins"
   add_foreign_key "need_satisfaction_ratings", "emotional_needs"
   add_foreign_key "need_satisfaction_ratings", "users"

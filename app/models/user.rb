@@ -61,16 +61,8 @@ class User < ApplicationRecord
   has_paper_trail_for_all_events
 
   before_destroy do |user|
-    if user.reload.marriage
-      marriage =
-        Marriage.
-          includes(
-            check_ins: %i[check_in_submissions need_satisfaction_ratings],
-            emotional_needs: :need_satisfaction_ratings,
-          ).
-          find(user.marriage.id)
-
-      marriage.destroy!
+    if (marriage_id = user.marriage_membership&.marriage_id)
+      Marriage.find(marriage_id).destroy!
     end
   end
 
@@ -79,13 +71,10 @@ class User < ApplicationRecord
   end
 
   memoize \
-  def marriage
-    Marriage.where(partner_1_id: id).or(Marriage.where(partner_2_id: id)).first
-  end
-
-  memoize \
   def spouse
-    [marriage&.partner_1, marriage&.partner_2].compact.reject { _1.id == id }.first
+    if marriage
+      marriage.partners.excluding(self).first
+    end
   end
 
   def reload
