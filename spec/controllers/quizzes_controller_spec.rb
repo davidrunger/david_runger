@@ -142,4 +142,30 @@ RSpec.describe QuizzesController do
       expect { patch_update }.to change { quiz.reload.current_question_number }.by(1)
     end
   end
+
+  describe '#async_partial_delay_for_rails_env' do
+    subject(:async_partial_delay_for_rails_env) do
+      controller.send(:async_partial_delay_for_rails_env, delay_milliseconds)
+    end
+
+    let(:delay_milliseconds) { rand(1_000) }
+
+    context 'when Rails.env is "test"', rails_env: :test do
+      it 'returns 0' do
+        expect(async_partial_delay_for_rails_env).to eq(0)
+      end
+    end
+
+    context 'when Rails.env is "production"', rails_env: :production do
+      it 'returns the provided delay milliseconds' do
+        expect(async_partial_delay_for_rails_env).to eq(delay_milliseconds)
+      end
+    end
+
+    context 'when Rails.env is "development"', rails_env: :development do
+      it 'returns the provided delay milliseconds' do
+        expect(async_partial_delay_for_rails_env).to eq(delay_milliseconds)
+      end
+    end
+  end
 end

@@ -112,9 +112,7 @@ class QuizzesController < ApplicationController
     if Rails.env.test?
       0
     else
-      # :nocov:
       delay_milliseconds
-      # :nocov:
     end
   end
 end
