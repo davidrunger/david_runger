@@ -21,7 +21,7 @@ class MarriageMembership < ApplicationRecord
   validate :marriage_has_max_2_partners
 
   def marriage_has_max_2_partners
-    if marriage.partners.size >= 2
+    if marriage.memberships.size > 2
       errors.add(:base, 'No more than two partners may join a marriage')
     end
   end
