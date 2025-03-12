@@ -20,7 +20,7 @@ class Proposals::Accept < ApplicationAction
 
   memoize \
   def marriage
-    proposer.marriage || Marriage.build(partner_1: proposer)
+    proposer.marriage || Marriage.create!(partners: [proposer])
   end
 
   memoize \

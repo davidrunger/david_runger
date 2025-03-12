@@ -15,11 +15,7 @@ RSpec.describe(ProposalsController) do
     let(:proposee) { users(:user) }
 
     context 'when JWT_SECRET is set' do
-      around do |spec|
-        ClimateControl.modify(JWT_SECRET: 'zyx432') do
-          spec.run
-        end
-      end
+      before { expect(ENV.fetch('JWT_SECRET', nil)).to be_present }
 
       context 'when the proposer and proposee each have their own (unpartnered) marriages' do
         before do
