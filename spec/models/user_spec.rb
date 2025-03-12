@@ -73,6 +73,7 @@ RSpec.describe User do
 
       it 'destroys the user and their marriage' do
         destroy # rubocop:disable Rails/SaveBang
+
         expect { User.find(user_id) }.to raise_error(ActiveRecord::RecordNotFound)
         expect { Marriage.find(marriage_id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -83,6 +84,7 @@ RSpec.describe User do
 
       it 'destroys the user' do
         destroy # rubocop:disable Rails/SaveBang
+
         expect { User.find(user_id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

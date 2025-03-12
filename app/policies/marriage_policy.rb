@@ -10,6 +10,6 @@ class MarriagePolicy < ApplicationPolicy
   end
 
   def show_groceries?
-    [@user.id, @user.spouse.id].sort == [@record.partner_1_id, @record.partner_2_id].sort
+    [@user.id, @user.spouse.id].sort == @record.partners.ids.sort
   end
 end

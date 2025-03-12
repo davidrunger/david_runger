@@ -2,7 +2,7 @@ RSpec.describe EmotionalNeedsController do
   before { sign_in(user) }
 
   let(:emotional_need) { EmotionalNeed.first! }
-  let(:user) { emotional_need.marriage.partner_1 }
+  let(:user) { emotional_need.marriage.partners.first! }
 
   describe '#edit' do
     subject(:get_edit) { get(:edit, params: { id: emotional_need.id }) }

@@ -7,8 +7,8 @@ RSpec.describe CheckInDecorator do
   describe '#submitted_by_partner?' do
     subject(:submitted_by_partner?) { decorated_check_in.submitted_by_partner? }
 
-    let(:current_user) { marriage.partner_1 }
-    let(:spouse) { marriage.partner_2 }
+    let(:current_user) { marriage.partners.first! }
+    let(:spouse) { current_user.spouse.presence! }
 
     before { sign_in(current_user) }
 

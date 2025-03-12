@@ -5,14 +5,17 @@ class Proposals::Accept < ApplicationAction
   requires :proposee, User
 
   def execute
-    marriage.update!(partner_2: proposee)
     destroy_other_proposee_marriages
+    marriage.partners << proposee
   end
 
   private
 
   def destroy_other_proposee_marriages
-    Marriage.where(partner_1: proposee).where(partner_2: nil).find_each(&:destroy!)
+    Marriage.
+      joins(:memberships).
+      where(marriage_memberships: { user_id: proposee }).
+      find_each(&:destroy!)
   end
 
   memoize \
