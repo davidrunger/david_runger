@@ -40,6 +40,9 @@ class User < ApplicationRecord
   has_many :ci_step_results, dependent: :destroy
   has_many :comments, dependent: :nullify
 
+  has_one :marriage_membership, dependent: :destroy
+  has_one :marriage, through: :marriage_membership
+
   JsonPreference::Types.constants.each do |constant_name|
     scope_name = JsonPreference::Types.const_get(constant_name).to_sym
 

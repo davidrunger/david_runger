@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_06_184730) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_12_024221) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -310,6 +310,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_184730) do
     t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
   end
 
+  create_table "marriage_memberships", force: :cascade do |t|
+    t.bigint "marriage_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["marriage_id"], name: "index_marriage_memberships_on_marriage_id"
+    t.index ["user_id"], name: "index_marriage_memberships_on_user_id", unique: true
+  end
+
   create_table "marriages", force: :cascade do |t|
     t.bigint "partner_1_id", null: false
     t.bigint "partner_2_id"
@@ -494,6 +503,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_184730) do
   add_foreign_key "log_entries", "logs"
   add_foreign_key "log_shares", "logs"
   add_foreign_key "logs", "users"
+  add_foreign_key "marriage_memberships", "marriages"
+  add_foreign_key "marriage_memberships", "users"
   add_foreign_key "marriages", "users", column: "partner_1_id"
   add_foreign_key "marriages", "users", column: "partner_2_id"
   add_foreign_key "need_satisfaction_ratings", "check_ins"

@@ -18,6 +18,7 @@ class Marriage < ApplicationRecord
   belongs_to :partner_2, class_name: 'User', optional: true
   has_many :check_ins, dependent: :destroy
   has_many :emotional_needs, dependent: :destroy
+  has_many :memberships, dependent: :destroy, class_name: 'MarriageMembership'
 
   has_paper_trail
 
