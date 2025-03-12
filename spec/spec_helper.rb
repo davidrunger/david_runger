@@ -255,16 +255,15 @@ RSpec.configure do |config|
     metadata[:request_format] = :json
   end
 
-  if Bullet.enable?
-    config.before(:each) do
-      Bullet.start_request
-    end
-
-    config.after(:each) do
-      Bullet.perform_out_of_channel_notifications if Bullet.notification?
-      Bullet.end_request
-    end
+  # begin prosopite >>>
+  config.before(:each) do
+    Prosopite.scan
   end
+
+  config.after(:each) do
+    Prosopite.finish
+  end
+  # <<< end prosopite
 
   # Permit some or all external requests (otherwise blocked by default).
   config.before do |example|
@@ -324,19 +323,6 @@ RSpec.configure do |config|
     Capybara.using_wait_time(example.metadata[:wait_time]) do
       example.run
     end
-  end
-
-  config.around(:each, :no_bullet) do |example|
-    original_enable = Bullet.enable?
-    original_counter_cache_enable = Bullet.counter_cache_enable?
-
-    Bullet.enable = false
-    Bullet.counter_cache_enable = false
-
-    example.run
-  ensure
-    Bullet.enable = original_enable
-    Bullet.counter_cache_enable = original_counter_cache_enable
   end
 
   config.before(:each, type: :controller) do

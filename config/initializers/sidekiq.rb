@@ -35,13 +35,10 @@ unless IS_DOCKER_BUILD
     end
     # <<< Prometheus Exporter
 
-    if Rails.env.development?
-      require 'sidekiq_ext/server_middleware/bullet'
-
+    if Rails.env.local? && !IS_DOCKER
       config.server_middleware do |chain|
-        unless IS_DOCKER
-          chain.add(SidekiqExt::ServerMiddleware::Bullet)
-        end
+        require 'prosopite/middleware/sidekiq'
+        chain.add(Prosopite::Middleware::Sidekiq)
       end
     end
     # :nocov:

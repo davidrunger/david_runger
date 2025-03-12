@@ -157,7 +157,7 @@ HomeSection(
             #[a(href="https://github.com/davidrunger/skedjewel") Skedjewel] Sidekiq job scheduling,
             #[a(href="https://github.com/paper-trail-gem/paper_trail") PaperTrail] model change tracking,
             #[a(href="https://github.com/rack/rack-attack") Rack::Attack] IP blocking and request throttling,
-            #[a(href="https://github.com/flyerhzm/bullet") Bullet] eager-loading enforcement,
+            #[a(href="https://github.com/charkost/prosopite") Prosopite] eager-loading enforcement,
             #[a(href="https://github.com/gitleaks/gitleaks") Gitleaks] secret protection,
             #[a(href="https://aws.amazon.com/s3/") AWS S3] blob storage,
             #[a(href="https://rollbar.com/") Rollbar] error tracking,

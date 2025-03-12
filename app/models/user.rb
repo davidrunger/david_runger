@@ -43,11 +43,14 @@ class User < ApplicationRecord
   JsonPreference::Types.constants.each do |constant_name|
     scope_name = JsonPreference::Types.const_get(constant_name).to_sym
 
+    # rubocop:disable Rails/HasManyOrHasOneDependent
+    # Don't specify a :dependent option because it would be redundant with
+    # `has_many :json_preferences, dependent: :destroy` and it causes an N+1.
     has_one scope_name,
       ->(user) { user.json_preferences.public_send(scope_name) },
       class_name: 'JsonPreference',
-      inverse_of: :user,
-      dependent: :destroy
+      inverse_of: :user
+    # rubocop:enable Rails/HasManyOrHasOneDependent
   end
 
   devise
