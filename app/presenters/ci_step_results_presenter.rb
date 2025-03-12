@@ -61,18 +61,19 @@ class CiStepResultsPresenter
       order('min_started_at DESC').
       limit(10).
       map do |ci_step_result|
+        github_run_attempt = ci_step_result.github_run_attempt
+        github_run_id = ci_step_result.github_run_id
+
         {
           pretty_start_time:
             ci_step_result.min_started_at.in_time_zone.strftime('%b %d, %-l:%M %p'),
           branch: ci_step_result.branch,
           pretty_github_run_info:
-            "Run #{ci_step_result.github_run_id}, Attempt #{ci_step_result.github_run_attempt}",
-          github_run_id:
-            ci_step_result.github_run_id,
-          github_run_attempt:
-            ci_step_result.github_run_attempt,
+            "Run #{github_run_id}, Attempt #{github_run_attempt}",
+          github_run_id:,
+          github_run_attempt:,
           dom_id:
-            "gh-run-#{ci_step_result.github_run_id}-#{ci_step_result.github_run_attempt}",
+            "gh-run-#{github_run_id}-#{github_run_attempt}",
           run_times:
             ci_step_result.run_times.map! do |run_time_hash|
               run_time_hash.to_h do |key, value|

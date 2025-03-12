@@ -54,12 +54,14 @@ class CheckLinks::Checker
     LOG
 
     if !status.in?(expected_statuses)
+      redis_failure_key = redis_failure_key(url)
+
       previous_failure_count =
-        Integer($redis_pool.with { _1.call('get', redis_failure_key(url)) } || 0)
+        Integer($redis_pool.with { _1.call('get', redis_failure_key) } || 0)
 
       failure_count = previous_failure_count + 1
 
-      $redis_pool.with { _1.call('setex', redis_failure_key(url), Integer(2.days), failure_count) }
+      $redis_pool.with { _1.call('setex', redis_failure_key, Integer(2.days), failure_count) }
 
       if failure_count >= 2
         AdminMailer.
@@ -71,7 +73,6 @@ class CheckLinks::Checker
 
   private
 
-  memoize \
   def redis_failure_key(url)
     "link_check:#{url}:failed"
   end

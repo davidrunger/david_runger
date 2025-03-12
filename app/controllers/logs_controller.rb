@@ -27,21 +27,7 @@ class LogsController < ApplicationController
 
     authorize(log, :show?)
 
-    csv_data =
-      CSV.generate(headers: true) do |csv|
-        csv << ['Time', log.data_label]
-
-        log.
-          log_entries.
-          includes(:log_entry_datum).
-          find_each(
-            order: :desc,
-            cursor: %i[created_at id],
-          ) do |log_entry|
-            csv << [log_entry.created_at.utc.iso8601, log_entry.data]
-          end
-      end
-
+    csv_data = LogToCsv.new(log).csv_data
     send_data(csv_data, filename: "#{Time.current.utc.iso8601}-#{log.slug}.csv", type: 'text/csv')
   end
 
