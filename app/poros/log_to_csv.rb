@@ -5,7 +5,7 @@ class LogToCsv
 
   def csv_data
     CSV.generate(headers: true) do |csv|
-      csv << ['Time', log.data_label]
+      csv << ['Time', @log.data_label]
 
       @log.
         log_entries.
