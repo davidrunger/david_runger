@@ -7,12 +7,11 @@ class Test::Tasks::RunUnitTests < Pallets::Task
     # RunApiControllerTests and RunHtmlControllerTests), `spec/tools/` (which
     # will be run by RunToolsTests), and `spec/features/` (which will be run by
     # RunFeatureTests).
-    execute_rspec_command(<<~'COMMAND')
+    execute_rspec_command(<<~COMMAND)
       DB_SUFFIX=_unit
       bin/rspec
       $(ls -d spec/*/ |
-        grep --extended-regex -v 'spec/(controllers|features|helpers|requests|tools)(/|$)' |
-        tr '\n' ' ')
+        grep --extended-regex -v 'spec/(controllers|features|helpers|requests|tools)(/|$)')
       #{rspec_output_options}
     COMMAND
   end
