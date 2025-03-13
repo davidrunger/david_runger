@@ -6,6 +6,7 @@ module ApplicationWorker
   include SpacedLaunching
 
   MAX_RETRY_WAIT_TIME = 30 # seconds
+  MIN_RETRY_WAIT_TIME = 10 # seconds
 
   module ClassMethods
     def unique_while_executing!
@@ -66,7 +67,7 @@ module ApplicationWorker
   end
 
   def reschedule(args)
-    reschedule_wait = rand((1..MAX_RETRY_WAIT_TIME))
+    reschedule_wait = rand((MIN_RETRY_WAIT_TIME..MAX_RETRY_WAIT_TIME))
     Rails.logger.info(<<~LOG.squish)
       Rescheduling #{self.class.name} worker with args #{args}
       in #{reschedule_wait} seconds because uniqueness lock
