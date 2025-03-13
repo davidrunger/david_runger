@@ -11,19 +11,21 @@ if defined?(RSpec::Wait::Handler) && defined?(Prosopite)
       Prosopite.pause do
         matcher = RSpec.configuration.clone_wait_matcher ? initial_matcher.clone : initial_matcher
 
+        grandfather_method = method(:handle_matcher).super_method.super_method
+
         answer =
           if (
             matcher.respond_to?(:supports_block_expectations?) &&
             matcher.supports_block_expectations?
           )
-            method(:handle_matcher).super_method.super_method.call(
+            grandfather_method.call(
               target,
               matcher,
               message,
               &block
             )
           else
-            method(:handle_matcher).super_method.super_method.call(
+            grandfather_method.call(
               target.call,
               matcher,
               message,
