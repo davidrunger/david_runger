@@ -30,9 +30,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
     page.scroll_to(:bottom)
 
-    Prosopite.pause do
-      wait_for { Event.count }.to eq(event_count_before + 1)
-    end
+    wait_for { Event.count }.to eq(event_count_before + 1)
 
     new_event = Event.reorder(:created_at).last!
 
