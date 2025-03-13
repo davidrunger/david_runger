@@ -21,22 +21,6 @@ GIT
     typelizer (0.3.0)
       railties (>= 6.0.0)
 
-GIT
-  remote: https://github.com/rubocop/rubocop.git
-  revision: b6678159b618a9274d56fd4a95310fa48f36666c
-  specs:
-    rubocop (1.73.2)
-      json (~> 2.3)
-      language_server-protocol (~> 3.17.0.2)
-      lint_roller (~> 1.1.0)
-      parallel (~> 1.10)
-      parser (>= 3.3.0.2)
-      rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.38.0, < 2.0)
-      ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 2.4.0, < 4.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -611,6 +595,17 @@ GEM
     rspec-support (3.13.2)
     rspec-wait (1.0.1)
       rspec (>= 3.4)
+    rubocop (1.73.2)
+      json (~> 2.3)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.1.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 2.9.3, < 3.0)
+      rubocop-ast (>= 1.38.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.38.1)
       parser (>= 3.3.1.0)
     rubocop-capybara (2.22.1)
@@ -831,7 +826,7 @@ DEPENDENCIES
   rspec-retry
   rspec-sidekiq
   rspec-wait
-  rubocop!
+  rubocop
   rubocop-capybara
   rubocop-factory_bot
   rubocop-performance
@@ -1079,7 +1074,7 @@ CHECKSUMS
   rspec-sidekiq (5.1.0) sha256=ed671ce4a9948ea2395db464c8c846651ea006e124f7868ee5d497f693102867
   rspec-support (3.13.2) sha256=cea3a2463fd9b84b9dcc9685efd80ea701aa8f7b3decb3b3ce795ed67737dbec
   rspec-wait (1.0.1) sha256=50ce9cc7cd20b8bb67b95a4ed56b59a16d4af7e86ae91b28dbf20eeaa2481d1f
-  rubocop (1.73.2)
+  rubocop (1.73.2) sha256=35cd1b1365ba97234323fe771abcecd09c9b77098464cd726c76aa7d9bc12b5d
   rubocop-ast (1.38.1) sha256=80ecbe2ac9bb26693cab9405bf72b41b85a1f909f20f021b983c32c2e7d857fe
   rubocop-capybara (2.22.1) sha256=ced88caef23efea53f46e098ff352f8fc1068c649606ca75cb74650970f51c0c
   rubocop-factory_bot (2.27.0) sha256=de9918bc4e1406b3025da87c5c34c91dd6c3e802cd59339790631f963a5652ba
