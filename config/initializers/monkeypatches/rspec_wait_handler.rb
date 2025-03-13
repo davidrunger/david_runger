@@ -18,12 +18,14 @@ if defined?(RSpec::Wait::Handler) && defined?(Prosopite)
             matcher.respond_to?(:supports_block_expectations?) &&
             matcher.supports_block_expectations?
           )
+            # :nocov:
             grandfather_method.call(
               target,
               matcher,
               message,
               &block
             )
+            # :nocov:
           else
             grandfather_method.call(
               target.call,
