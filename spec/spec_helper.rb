@@ -180,6 +180,8 @@ RSpec.configure do |config|
       if ex.metadata[:type] == :feature
         Capybara.reset!
         page.driver.reset!
+        # Force garbage collection to release memory.
+        GC.start
       end
     end
   # <<< rspec-retry options
@@ -202,6 +204,54 @@ RSpec.configure do |config|
     # https://github.com/rspec/rspec-expectations/issues/ 991#issuecomment-302863645
     RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 2_000
   end
+
+  # Prewarm browsers for feature specs >>>
+  if SpecHelper.is_ci?
+    def prewarm_driver(driver_name)
+      max_retries = 3
+      retry_count = 0
+
+      begin
+        puts("Pre-warming #{driver_name} Cuprite browser...")
+
+        Capybara.using_driver(driver_name) do
+          session = Capybara::Session.new(driver_name)
+          url = 'about:blank'
+          session.visit(url)
+          puts("#{driver_name} Cuprite browser visited #{url} successfully.")
+        end
+      rescue Ferrum::ProcessTimeoutError => error
+        retry_count += 1
+
+        if retry_count <= max_retries
+          sleep_time = 2**retry_count # Exponential backoff.
+          puts("Browser warm-up failed, retrying in #{sleep_time} seconds...")
+          sleep(sleep_time)
+          retry
+        else
+          puts("Failed to pre-warm browser after #{max_retries} attempts.")
+          raise(error)
+        end
+      end
+    end
+
+    config.before(:suite) do
+      examples = RSpec.world.filtered_examples.values.flatten
+
+      if examples.any? do |example|
+        example.metadata[:type] == :feature && !example.metadata[:rack_test_driver]
+      end
+        if examples.any? { |example| !example.metadata[:permit_all_external_requests] }
+          prewarm_driver(Cuprite::CustomDrivers::DOMAIN_RESTRICTED_CUPRITE)
+        end
+
+        if examples.any? { |example| example.metadata[:permit_all_external_requests] }
+          prewarm_driver(Cuprite::CustomDrivers::UNRESTRICTED_CUPRITE)
+        end
+      end
+    end
+  end
+  # <<< Prewarm browsers for feature specs
 
   config.around(:each, type: :feature) do |example|
     $test_log_string_io ||= StringIO.new
