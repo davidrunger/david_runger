@@ -1,5 +1,7 @@
 if defined?(RSpec::Wait::Handler) && defined?(Prosopite)
   module RSpecWaitHandlerPatches
+    # We are monkeypatching this method:
+    # https://github.com/laserlemon/rspec-wait/blob/v1.0.1/lib/rspec/wait/handler.rb#L11-L31
     # rubocop:disable Metrics
     def handle_matcher(target, initial_matcher, message, &block)
       start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
