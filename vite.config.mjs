@@ -1,6 +1,7 @@
 /* eslint-env node */
 
 import path from 'path';
+import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import ElementPlus from 'unplugin-element-plus/vite';
 import { defineConfig } from 'vite';
@@ -29,6 +30,7 @@ export default defineConfig({
   },
   logLevel: process.env.CI ? 'warn' : undefined,
   plugins: [
+    tailwindcss(),
     FullReload([
       'app/assets/stylesheets/**/*',
       'app/controllers/**/*',
