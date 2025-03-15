@@ -1,4 +1,4 @@
-class CreatePgheroSpaceStats < ActiveRecord::Migration[5.1]
+class CreatePgheroSpaceStatsOld < ActiveRecord::Migration[5.1]
   def change
     create_table :pghero_space_stats do |t|
       t.text :database

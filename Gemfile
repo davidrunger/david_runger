@@ -34,6 +34,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'paper_trail'
 gem 'pg'
+gem 'pghero'
+gem 'pg_query' # Used by `pghero` and `prosopite`.
 gem 'prometheus_exporter'
 gem 'propshaft'
 gem 'puma'
@@ -63,7 +65,6 @@ group :development, :test do
   gem 'isolator'
   gem 'json-schema'
   gem 'listen'
-  gem 'pg_query' # Needed by prosopite.
   gem 'prosopite'
   # Go back to upstream if/when https://github.com/deivid-rodriguez/pry-byebug/pull/ 428 is merged.
   gem 'pry-byebug', require: false, github: 'davidrunger/pry-byebug'
