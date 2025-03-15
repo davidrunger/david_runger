@@ -109,6 +109,7 @@ Rails.application.routes.draw do
     get 'vue-playground', to: 'vue_playground#index'
     mount Blazer::Engine, at: 'blazer'
     mount Flipper::UI.app(Flipper), at: 'flipper'
+    mount PgHero::Engine, at: 'pghero'
     mount Sidekiq::Web, at: 'sidekiq'
   end
 
