@@ -1,7 +1,7 @@
 databases:
   primary:
     # Database URL
-    url: <%= ENV.fetch('PGHERO_DATABASE_URL', Rails.env.test? ? nil : fail('Missing PGHERO_DATABASE_URL')) %>
+    url: <%= ENV.fetch('PGHERO_DATABASE_URL', 'missing-PGHERO_DATABASE_URL') %>
 
     # System stats
     # aws_db_instance_identifier: my-instance
