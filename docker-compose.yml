@@ -193,9 +193,9 @@ services:
       - -c
       - pg_stat_statements.track=all
       - -c
-      - pg_stat_statements.max = 10000
+      - pg_stat_statements.max=10000
       - -c
-      - track_activity_query_size = 2048
+      - track_activity_query_size=2048
     cpu_shares: 2048
     depends_on:
       vector:
