@@ -1,18 +1,18 @@
 @import 'tailwindcss' source(none);
-@import 'tailwind_overrides';
-@import 'rails_overrides';
-@import 'element_plus_overrides';
-@import 'variables';
-@import 'animations/appear_vertically';
-@import 'components/spinner';
-@import 'components/toastify';
-@import 'elements/input';
-@import 'flash';
-@import 'utils/flex';
-@import 'utils/font_family';
-@import 'utils/font_weight';
-@import 'utils/opacity';
-@import 'ui_framework/button';
+@import './tailwind_overrides';
+@import './rails_overrides';
+@import './element_plus_overrides';
+@import './variables';
+@import './animations/appear_vertically';
+@import './components/spinner';
+@import './components/toastify';
+@import './elements/input';
+@import './flash';
+@import './utils/flex';
+@import './utils/font_family';
+@import './utils/font_weight';
+@import './utils/opacity';
+@import './ui_framework/button';
 
 /* Specify sources manually, because otherwise classes are pulled from vendor/bundle/ in CI. */
 @source '../../../app/decorators';
