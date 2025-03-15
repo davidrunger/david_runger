@@ -3,6 +3,7 @@
 /app/javascript/types/responses/
 /app/javascript/types/serializers/
 /config/database.yml
+/config/pghero.yml
 /config/storage.yml
 /vendor/bundle/
 /pnpm-lock.yaml
