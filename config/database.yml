@@ -89,4 +89,4 @@ test:
 production:
   <<: *default
   database: david_runger_production
-  url: <%= ENV.fetch('DATABASE_URL', Rails.env.production? ? fail('Missing DATABASE_URL!') : nil) %>
+  url: <%= ENV.fetch('DATABASE_URL', nil) %>
