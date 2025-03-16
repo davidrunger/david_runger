@@ -4,6 +4,7 @@ class Rack::Attack
   PENTESTING_FINDTIME = 1.day.freeze
   WHITELISTED_PATH_PREFIXES = %w[
     /assets/blazer/
+    /auth/failure?
     /auth/google_oauth2?
     /blazer/
     /flipper/
