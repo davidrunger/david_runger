@@ -61,8 +61,8 @@ class User < ApplicationRecord
   has_paper_trail_for_all_events
 
   before_destroy do |user|
-    if (marriage_id = user.marriage_membership&.marriage_id)
-      Marriage.find(marriage_id).destroy!
+    if (marriage = user.marriage)
+      marriage.destroy!
     end
   end
 
