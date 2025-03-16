@@ -52,7 +52,7 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
 
@@ -67,11 +67,11 @@ jobs:
           echo "SHA: $GIT_REV"
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@922ebc4c5262cd14e07bb0e1db020984b6c064fe # v1.226.0
         with:
           bundler-cache: true
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
           node-version-file: .node-version
 
@@ -81,7 +81,7 @@ jobs:
       - name: Set pnpm store directory
         run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
         name: Set up pnpm cache
         with:
           path: ${{ env.PNPM_STORE_PATH }}
@@ -89,7 +89,7 @@ jobs:
           restore-keys: ${{ runner.os }}-pnpm-store-
 
       - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
+        uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # 2.0.0
         with:
           scandir: './bin'
 
@@ -121,7 +121,7 @@ jobs:
           RAILS_MASTER_KEY: '${{secrets.RAILS_MASTER_KEY}}'
 
       - name: Save failed feature spec logs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         if: failure()
         with:
           name: failed_feature_spec_logs
@@ -129,7 +129,7 @@ jobs:
           retention-days: 5
 
       - name: Save fixtures artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         if: failure()
         with:
           name: fixtures
@@ -137,7 +137,7 @@ jobs:
           retention-days: 5
 
       - name: Upload Code Coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -150,7 +150,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Clone repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
@@ -174,7 +174,7 @@ jobs:
             "GIT_REV='$GIT_REV' bash /tmp/deploy.sh && rm /tmp/deploy.sh"
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@922ebc4c5262cd14e07bb0e1db020984b6c064fe # v1.226.0
         with:
           bundler-cache: true
 
