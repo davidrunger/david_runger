@@ -18,6 +18,7 @@ class MyAccountController < ApplicationController
         },
         stores: :items,
       ).find(current_user.id)
+
     authorize(@user)
 
     @user.destroy!
