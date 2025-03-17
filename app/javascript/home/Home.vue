@@ -37,6 +37,7 @@ import { onMounted } from 'vue';
 import { useExternalLinkTracking } from '@/lib/composables/useExternalLinkTracking';
 import { useScrollTracking } from '@/lib/composables/useScrollTracking';
 import { isMobileDevice } from '@/lib/is_mobile_device';
+import { renderBootstrappedToasts } from '@/lib/vue_toasts';
 
 import About from './components/About.vue';
 import Contact from './components/Contact.vue';
@@ -46,6 +47,7 @@ import Projects from './components/Projects.vue';
 import Resume from './components/Resume.vue';
 import Skills from './components/Skills.vue';
 
+renderBootstrappedToasts();
 useExternalLinkTracking();
 useScrollTracking();
 

@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include BrowserSupportCheckable
   include Classable
   include JsonPrioritizable
+  include JsToastable
   include Pundit::Authorization
   include Redirectable
   include RequestRecordable

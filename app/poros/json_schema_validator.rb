@@ -58,7 +58,15 @@ class JsonSchemaValidator
   memoize \
   def universal_bootstrap_data?
     @data.is_a?(Hash) &&
-      (@data.keys - %i[current_user nonce toast_messages]).empty?
+      (
+        @data.keys -
+          %i[
+            current_user
+            nonce
+            alert_toast_messages
+            notice_toast_messages
+          ]
+      ).empty?
   end
 
   memoize \
