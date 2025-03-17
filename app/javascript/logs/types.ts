@@ -29,7 +29,8 @@ export type Bootstrap = Intersection<
     logs: Array<Log>;
     log_input_types: Array<LogInput>;
     log_selector_keyboard_shortcut: string;
-    toast_messages: Array<string>;
+    alert_toast_messages?: Array<string>;
+    notice_toast_messages?: Array<string>;
   },
   LogsIndexBootstrap
 >;

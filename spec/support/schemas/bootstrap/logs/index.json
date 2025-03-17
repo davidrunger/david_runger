@@ -13,7 +13,13 @@
         "current_user": {
           "$ref": "#/definitions/User"
         },
-        "toast_messages": {
+        "alert_toast_messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notice_toast_messages": {
           "type": "array",
           "items": {
             "type": "string"

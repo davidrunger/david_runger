@@ -16,7 +16,7 @@ import { computed, onMounted } from 'vue';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useModalStore } from '@/lib/modal/store';
 import { removeQueryParams } from '@/lib/remove_query_params';
-import { renderBootstrappedToasts } from '@/lib/toasts';
+import { renderBootstrappedToasts } from '@/lib/vue_toasts';
 import { useLogsStore } from '@/logs/store';
 
 import LogSelectorModal from './components/LogSelectorModal.vue';

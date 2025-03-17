@@ -45,13 +45,14 @@
       .text-center.p-2.bg-sky-200
         = link_to('Unbecome', unbecome_admin_user_path(current_user))
         = current_user.email
-    - if notice.present?
-      .m-4
-        .flash__header.flash__header--notice Notice
-        .flash__message.flash__message--notice= notice
-    - if alert.present?
-      .m-4
-        .flash__header.flash__header--alert Alert
-        .flash__message.flash__message--alert= alert
+    - unless render_flash_messages_via_js?
+      - if notice.present?
+        .m-4
+          .flash__header.flash__header--notice Notice
+          .flash__message.flash__message--notice= notice
+      - if alert.present?
+        .m-4
+          .flash__header.flash__header--alert Alert
+          .flash__message.flash__message--alert= alert
     #container{class: container_classes}
       = yield

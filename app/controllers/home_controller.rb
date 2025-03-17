@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   include Prerenderable
 
   skip_before_action :authenticate_user!, only: %i[index upgrade_browser]
+  render_flash_messages_via_js(only: %i[index])
 
   def index
     skip_authorization

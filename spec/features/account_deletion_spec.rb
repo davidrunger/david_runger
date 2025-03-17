@@ -10,7 +10,7 @@ RSpec.describe 'Account deletion' do
       accept_confirm { click_on('Delete Account') }
 
       expect(page).to have_current_path(root_path)
-      expect(page).to have_flash_message('We have deleted your account.')
+      expect(page).to have_vue_toast('We have deleted your account.')
 
       expect(User.find_by(id: user.id)).to eq(nil)
     end
