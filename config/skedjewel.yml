@@ -6,7 +6,7 @@ config:
 jobs:
   DataMonitors::Launcher: '**:07' # hourly at 7 minutes after
   SendLogReminderEmails: '**:**' # every minute
-  PgHero::CaptureQueryStats: '**:%5' # every 5 minutes
+  PgHero::CaptureQueryStats: '**:%5+3' # every 5 minutes with an offset of 3 (3, 8, 13, ...)
   PgHero::CaptureSpaceStats: '22:52' # daily at 10:52pm Central Time
   PgHero::CleanQueryStats: '23:02' # daily at 11:02pm Central Time
   # Avoid 2:32am - 3:56am Central Time (plus padding) because we do restarts then.
