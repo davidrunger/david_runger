@@ -2,6 +2,7 @@ ruby file: '.ruby-version'
 
 source 'https://rubygems.org'
 
+# rubocop:disable Layout/LineLength
 gem 'activeadmin'
 gem 'addressable'
 gem 'alba'
@@ -32,8 +33,7 @@ gem 'memo_wise'
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
-# Source from RubyGems after https://github.com/paper-trail-gem/paper_trail/pull/1511 is released.
-gem 'paper_trail',
+gem 'paper_trail', # Source from RubyGems after https://github.com/paper-trail-gem/paper_trail/pull/1511 is released.
   github: 'davidrunger/paper_trail',
   branch: 'avoid-n+1-queries-in-version_limit-when-destroying'
 gem 'pg'
@@ -52,6 +52,7 @@ gem 'request_store-sidekiq'
 gem 'rollbar'
 gem 'runger_actions'
 gem 'runger_email_reply_trimmer'
+gem 'runger_rails_model_explorer'
 gem 'sidekiq'
 gem 'strip_attributes'
 gem 'typelizer', github: 'davidrunger/typelizer'
@@ -69,8 +70,9 @@ group :development, :test do
   gem 'json-schema'
   gem 'listen'
   gem 'prosopite'
-  # Go back to upstream if/when https://github.com/deivid-rodriguez/pry-byebug/pull/ 428 is merged.
-  gem 'pry-byebug', require: false, github: 'davidrunger/pry-byebug'
+  gem 'pry-byebug', # Go back to upstream if/when https://github.com/deivid-rodriguez/pry-byebug/pull/ 428 is merged.
+    require: false,
+    github: 'davidrunger/pry-byebug'
   gem 'rainbow'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
@@ -119,3 +121,4 @@ group :test do
   gem 'super_diff'
   gem 'webmock'
 end
+# rubocop:enable Layout/LineLength

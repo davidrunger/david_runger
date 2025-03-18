@@ -113,6 +113,8 @@ Rails.application.routes.draw do
     mount Sidekiq::Web, at: 'sidekiq'
   end
 
+  get 'models', to: 'model_graph#index'
+  get 'sha', to: ->(_env) { plain_text_response(ENV.fetch('GIT_REV')) }
   get 'up', to: 'health_checks#index'
 
   def plain_text_response(text)
@@ -133,8 +135,6 @@ Rails.application.routes.draw do
         [JSON.generate([{ user_agent: 'prefetch-proxy', fraction: 1.0 }])],
       ]
     end)
-
-  get('sha', to: ->(_env) { plain_text_response(ENV.fetch('GIT_REV')) })
 
   get '/404', to: 'errors#not_found', via: :all
   get '/422', to: 'errors#unacceptable', via: :all
