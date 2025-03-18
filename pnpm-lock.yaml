@@ -193,8 +193,8 @@ importers:
         specifier: ^14.5.0
         version: 14.5.0(eslint-plugin-vue@10.0.0(eslint@9.22.0(jiti@2.4.2))(vue-eslint-parser@10.1.1(eslint@9.22.0(jiti@2.4.2))))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
       '@vue/language-plugin-pug':
-        specifier: 3.0.0-alpha.2
-        version: 3.0.0-alpha.2
+        specifier: ^2.2.8
+        version: 2.2.8
       eslint-config-prettier:
         specifier: ^10.1.1
         version: 10.1.1(eslint@9.22.0(jiti@2.4.2))
@@ -268,8 +268,8 @@ importers:
         specifier: ^10.1.1
         version: 10.1.1(eslint@9.22.0(jiti@2.4.2))
       vue-tsc:
-        specifier: 3.0.0-alpha.2
-        version: 3.0.0-alpha.2(typescript@5.8.2)
+        specifier: ^2.2.8
+        version: 2.2.8(typescript@5.8.2)
 
 packages:
 
@@ -1341,16 +1341,16 @@ packages:
       typescript:
         optional: true
 
-  '@vue/language-core@3.0.0-alpha.2':
-    resolution: {integrity: sha512-GFbo3BM7sxkSNSZVz6+Pq3f/sEyRspGb+7Sqoxnm/rCjPtFOklcIADakhXFN4VmKgwOO1mfjCzuvTkZORv3BMw==}
+  '@vue/language-core@2.2.8':
+    resolution: {integrity: sha512-rrzB0wPGBvcwaSNRriVWdNAbHQWSf0NlGqgKHK5mEkXpefjUlVRP62u03KvwZpvKVjRnBIQ/Lwre+Mx9N6juUQ==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  '@vue/language-plugin-pug@3.0.0-alpha.2':
-    resolution: {integrity: sha512-n5FcGI6YDatbRl58OwN028SjncSCzLna2cJVcIYEeIh/43/q4yV8/jqVx9V216Zfhnf3iMiFAJRRGQHgXcCzrQ==}
+  '@vue/language-plugin-pug@2.2.8':
+    resolution: {integrity: sha512-UHIY6cV0yCegJDdoPr2FBi3eIBtDRRzjWdhK599c6AY7kUBvW2iyrzd/EiYCXgra24ABGTN0DEZqFYiolRm/Hw==}
 
   '@vue/reactivity@3.5.13':
     resolution: {integrity: sha512-NaCwtw8o48B9I6L1zl2p41OHo/2Z4wqYGGIK1Khu5T7yxrn+ATOixn/Udn2m+6kZKB/J7cuT9DbWWhRxqixACg==}
@@ -4294,8 +4294,8 @@ packages:
     peerDependencies:
       vue: ^3.0.2
 
-  vue-tsc@3.0.0-alpha.2:
-    resolution: {integrity: sha512-bUCZ/NbEykG7zSE4t3fN7SwKAzDmUieehn2PwYQK5CAA2C9y+kXEt/5Y06ZrymP6wMRsuFFgZpF3H1V2j4UVOA==}
+  vue-tsc@2.2.8:
+    resolution: {integrity: sha512-jBYKBNFADTN+L+MdesNX/TB3XuDSyaWynKMDgR+yCSln0GQ9Tfb7JS2lr46s2LiFUT1WsmfWsSvIElyxzOPqcQ==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
@@ -5532,7 +5532,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vue/language-core@3.0.0-alpha.2(typescript@5.8.2)':
+  '@vue/language-core@2.2.8(typescript@5.8.2)':
     dependencies:
       '@volar/language-core': 2.4.12
       '@vue/compiler-dom': 3.5.13
@@ -5545,7 +5545,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.2
 
-  '@vue/language-plugin-pug@3.0.0-alpha.2':
+  '@vue/language-plugin-pug@2.2.8':
     dependencies:
       '@volar/source-map': 2.4.12
       volar-service-pug: 0.0.62
@@ -8961,10 +8961,10 @@ snapshots:
     dependencies:
       vue: 3.5.13(typescript@5.8.2)
 
-  vue-tsc@3.0.0-alpha.2(typescript@5.8.2):
+  vue-tsc@2.2.8(typescript@5.8.2):
     dependencies:
       '@volar/typescript': 2.4.12
-      '@vue/language-core': 3.0.0-alpha.2(typescript@5.8.2)
+      '@vue/language-core': 2.2.8(typescript@5.8.2)
       typescript: 5.8.2
 
   vue@3.5.13(typescript@5.8.2):
