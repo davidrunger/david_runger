@@ -267,7 +267,8 @@ class Test::RequirementsResolver
     end,
     Test::Tasks::RunTsd => proc do
       !file_changed?('app/javascript/types/index.ts') &&
-        !diff_mentions?('intersection')
+        !diff_mentions?('intersection') &&
+        !diff_mentions?('tsc|typescript')
     end,
     Test::Tasks::StartPercy => proc do
       ENV['PERCY_TOKEN'].blank?
