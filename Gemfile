@@ -32,7 +32,10 @@ gem 'memo_wise'
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
-gem 'paper_trail'
+# Source from RubyGems after https://github.com/paper-trail-gem/paper_trail/pull/1511 is released.
+gem 'paper_trail',
+  github: 'davidrunger/paper_trail',
+  branch: 'avoid-n+1-queries-in-version_limit-when-destroying'
 gem 'pg'
 gem 'pghero'
 gem 'pg_query' # Used by `pghero` and `prosopite`.
