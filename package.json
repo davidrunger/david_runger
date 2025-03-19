@@ -74,7 +74,7 @@
     "@vue/eslint-config-typescript": "^14.5.0",
     "@vue/language-plugin-pug": "^2.2.8",
     "eslint-config-prettier": "^10.1.1",
-    "eslint-import-resolver-typescript": "^4.2.0",
+    "eslint-import-resolver-typescript": "^4.2.2",
     "eslint-plugin-import": "^2.31.0",
     "fishery": "^2.2.3",
     "globals": "^16.0.0",
