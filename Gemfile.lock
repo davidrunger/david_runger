@@ -471,7 +471,7 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.3.0)
+    prism (1.4.0)
     prometheus_exporter (2.2.0)
       webrick
     propshaft (1.1.0)
@@ -1034,7 +1034,7 @@ CHECKSUMS
   pghero (3.6.1) sha256=e6d4f6ec3979d4828dafcd1eaa4214e70279fe2502b9fe5bd632d8333aa79cd4
   pp (0.6.2) sha256=947ec3120c6f92195f8ee8aa25a7b2c5297bb106d83b41baa02983686577b6ff
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
-  prism (1.3.0) sha256=b11620829831b1cb7e6c9b46c81ff8a6e36ccb3f888f164485eb7351f386273a
+  prism (1.4.0) sha256=dc0e3e00e93160213dc2a65519d9002a4a1e7b962db57d444cf1a71565bb703e
   prometheus_exporter (2.2.0) sha256=38a71af112da26b588f67948e5dcc32d539b26cfbf25115e92caca8db8437497
   propshaft (1.1.0) sha256=d389361faf66aeb17e8d204828962c1e506edd14a1a17adb3fa475435c070f6b
   prosopite (2.1.0) sha256=343e398087b9edcf691662d29db5f5b20a4efd7010f6b0531c400ef19f2ca53c
