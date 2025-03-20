@@ -7,7 +7,6 @@ class CiStepResultsPresenter
     @ci_step_results = ci_step_results
   end
 
-  # rubocop:disable Metrics/PerceivedComplexity
   memoize \
   def parallelism
     wall_clock_times = run_times_by_step.detect { it[:name] == 'WallClockTime' }&.[](:data)
@@ -19,7 +18,6 @@ class CiStepResultsPresenter
       end
     end.to_h
   end
-  # rubocop:enable Metrics/PerceivedComplexity
 
   memoize \
   def run_times_by_step
