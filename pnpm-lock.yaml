@@ -27,7 +27,7 @@ importers:
         specifier: ^7.1.501
         version: 7.1.501
       '@tailwindcss/vite':
-        specifier: ^4.0.14
+        specifier: ^4.0.9
         version: 4.0.14(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.3)(sass@1.86.0)(yaml@2.7.0))
       '@vitejs/plugin-vue':
         specifier: ^5.2.3
@@ -244,7 +244,7 @@ importers:
         specifier: ^6.11.1
         version: 6.11.1(stylelint@16.16.0(typescript@5.8.2))
       tailwindcss:
-        specifier: ^4.0.14
+        specifier: ^4.0.9
         version: 4.0.14
       tsd:
         specifier: ^0.31.2
