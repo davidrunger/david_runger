@@ -23,9 +23,5 @@
   "vueCompilerOptions": {
     "plugins": ["@vue/language-plugin-pug"]
   },
-  "include": [
-    "app/javascript/**/*.ts",
-    "app/javascript/**/*.d.ts",
-    "app/javascript/**/*.vue"
-  ]
+  "include": ["app/javascript/**/*.ts", "app/javascript/**/*.vue"]
 }

@@ -1,0 +1,197 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Root",
+  "definitions": {
+    "Root": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nonce": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "model_metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ModelMetadatum"
+          }
+        }
+      },
+      "required": ["model_metadata", "nonce"],
+      "title": "Root"
+    },
+    "ModelMetadatum": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "model_name": {
+          "type": "string"
+        },
+        "table_name": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Column"
+          }
+        },
+        "associations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Association"
+          }
+        }
+      },
+      "required": ["associations", "columns", "model_name", "table_name"],
+      "title": "ModelMetadatum"
+    },
+    "Association": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "macro": {
+          "$ref": "#/definitions/Macro"
+        },
+        "class_name": {
+          "type": "string"
+        },
+        "options": {
+          "$ref": "#/definitions/Options"
+        }
+      },
+      "required": ["class_name", "macro", "name", "options"],
+      "title": "Association"
+    },
+    "Options": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "polymorphic": {
+          "type": "boolean"
+        },
+        "optional": {
+          "type": "boolean"
+        },
+        "inverse_of": {
+          "$ref": "#/definitions/InverseOf"
+        },
+        "class_name": {
+          "type": "string"
+        },
+        "as": {
+          "$ref": "#/definitions/As"
+        },
+        "dependent": {
+          "$ref": "#/definitions/DependentUnion"
+        },
+        "strict_loading": {
+          "type": "boolean"
+        },
+        "through": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "touch": {
+          "type": "boolean"
+        },
+        "autosave": {
+          "type": "boolean"
+        },
+        "foreign_key": {
+          "type": "string"
+        },
+        "extend": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [],
+      "title": "Options"
+    },
+    "Column": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/Type"
+        },
+        "null": {
+          "type": "boolean"
+        },
+        "default": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": ["default", "name", "null", "type"],
+      "title": "Column"
+    },
+    "DependentUnion": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/DependentEnum"
+        }
+      ],
+      "title": "DependentUnion"
+    },
+    "InverseOf": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "InverseOf"
+    },
+    "Macro": {
+      "type": "string",
+      "enum": ["belongs_to", "has_one", "has_many"],
+      "title": "Macro"
+    },
+    "As": {
+      "type": "string",
+      "enum": ["record", "item", "log_entry_datum"],
+      "title": "As"
+    },
+    "DependentEnum": {
+      "type": "string",
+      "enum": ["destroy", "nullify", "restrict_with_exception"],
+      "title": "DependentEnum"
+    },
+    "Type": {
+      "type": "string",
+      "enum": [
+        "integer",
+        "string",
+        "text",
+        "datetime",
+        "jsonb",
+        "boolean",
+        "float"
+      ],
+      "title": "Type"
+    }
+  }
+}
