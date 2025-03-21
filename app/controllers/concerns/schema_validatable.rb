@@ -10,9 +10,17 @@ module SchemaValidatable
   def schema_validated_data(data)
     data = resource_for_json_rendering(data)
 
-    JsonSchemaValidator.new(
-      data,
-      controller_action: "#{params[:controller]}/#{params[:action]}",
-    ).validated_data
+    if @skip_bootstrap_schema_validation
+      data
+    else
+      JsonSchemaValidator.new(
+        data,
+        controller_action: "#{params[:controller]}/#{params[:action]}",
+      ).validated_data
+    end
+  end
+
+  def skip_bootstrap_schema_validation
+    @skip_bootstrap_schema_validation = true
   end
 end
