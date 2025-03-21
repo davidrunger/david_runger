@@ -1,6 +1,6 @@
 class ModelGraphController < ApplicationController
-  skip_before_action :authenticate_user!
-  before_action :skip_authorization
+  skip_before_action :authenticate_user!, only: %i[index]
+  before_action :skip_authorization, only: %i[index]
   before_action :skip_bootstrap_schema_validation, only: %i[index]
 
   def index
