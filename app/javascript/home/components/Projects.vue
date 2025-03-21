@@ -11,10 +11,7 @@ HomeSection(
     template(v-slot:links)
       a(href="https://github.com/davidrunger/david_runger/") GitHub
     template(v-slot:overview)
-      p.
-        Welcome to #[a(href="https://davidrunger.com") davidrunger.com] — my
-        digital playground for experimenting with modern web technologies, where
-        I host apps designed for everyday use by my family and me:
+      p Welcome to #[a(href="https://davidrunger.com") davidrunger.com] — my digital playground for experimenting with modern web technologies, where I host apps designed for everyday use by my family and me.
 
       ul
         li.
@@ -162,38 +159,25 @@ HomeSection(
 
   Project
     template(v-slot:title)
-      span Serpent.js
+      span Vue Rails Model Explorer
     template(v-slot:technologies)
-      span jQuery, object-oriented JavaScript
+      span Ruby, Rails, Vue 3
     template(v-slot:links)
       div
-        a(href="https://davidrunger.github.io/serpent/") Live
+        a(href="https://davidrunger.com/models") Live
         span {{ ' - ' }}
-        a(href="https://github.com/davidrunger/serpent") GitHub
+        a(href="https://github.com/davidrunger/vue_rails_model_explorer") GitHub
     template(v-slot:image)
       img.box-shadow(
         loading="lazy"
-        src="~img/serpent.webp"
+        src="https://david-runger-public-uploads.s3.us-east-1.amazonaws.com/vue-rails-model-explorer.png"
         alt="Serpent Game"
-        width="239"
-        height="300"
       )
     template(v-slot:overview)
       div(slot="overview")
-        p.
-          Serpent is twice as fun as classic Snake. At least, there are twice as many players!
-          Each snake can be toggled between human or AI control, so you can play against the
-          computer or a friend. Or just watch two AIs play each other. Or see whether your right
-          or left hand is smarter. Controls allow for customizing the game speed and board
-          dimensions.
-    template(v-slot:tech-list)
-      ul
-        li.
-          Efficiently manipulates the DOM, allowing for large game boards and unreasonably high
-          game speeds
-        li.
-          Trigonometry and <code>:before</code> pseudo-elements keep the snakes' pupils directed
-          toward the apple at all times
+        p When working on a feature that involves multiple different ActiveRecord models, keeping the relevant details about those models in one's head can be challenging, especially in an app one is not yet very familiar with. I built the #[b Vue Rails Model Explorer] so that I don't #[i need] to keep so much information in my head (or search through #[code db/schema.rb] and look at association declarations in #[code app/models/]). This interactive tool makes it fast and easy to explore the columns and associations of a Rails application's models.
+
+        p The tool features keyboard navigation through associations from one model to another (arrow keys to select the association of interest and Enter or space to move to the target model), a quick selector to jump straight to any model (Ctrl-K on Linux, Cmd-K on macOS), and the ability to pin models (keyboard shortcut: "p") so that the columns of multiple related models can be viewed together.
 
   Project(
     image-container-class="mb-0"
