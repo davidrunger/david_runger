@@ -5,8 +5,6 @@ class Test::RequirementsResolver
   class << self
     prepend Memoization
 
-    # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/PerceivedComplexity
     memoize \
     def dependency_map
       base_dependency_map = {
@@ -182,8 +180,6 @@ class Test::RequirementsResolver
 
       base_dependency_map
     end
-    # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/MethodLength
 
     def verify?
       global_config['verify']

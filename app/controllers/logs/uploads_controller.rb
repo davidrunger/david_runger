@@ -4,7 +4,6 @@ class Logs::UploadsController < ApplicationController
     render :new
   end
 
-  # rubocop:disable Metrics/MethodLength
   def create
     authorize(LogEntry)
     log = current_user.logs.find(params['log_id'])
@@ -41,5 +40,4 @@ class Logs::UploadsController < ApplicationController
       redirect_to(logs_uploads_path)
     end
   end
-  # rubocop:enable Metrics/MethodLength
 end

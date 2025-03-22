@@ -15,8 +15,6 @@ class Cuprite::BrowserLogger
     @javascript_logs ||= []
   end
 
-  # rubocop:disable Metrics/PerceivedComplexity
-  # rubocop:disable Metrics/MethodLength
   def puts(message)
     # The message can be an Integer if an integer is logged in JavaScript.
     if !message.is_a?(String)
@@ -74,12 +72,9 @@ class Cuprite::BrowserLogger
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 
-  # rubocop:disable Metrics/PerceivedComplexity
   def extract_arg_from_data(arg_data)
     if (value = arg_data['value'])
       if value.is_a?(String) && value.match?(/\A{.*}\z/)
@@ -100,5 +95,4 @@ class Cuprite::BrowserLogger
       end
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity
 end
