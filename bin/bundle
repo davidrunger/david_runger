@@ -8,7 +8,7 @@
 
 require 'rubygems'
 
-# rubocop:disable Metrics/PerceivedComplexity, Layout/LineLength
+# rubocop:disable Layout/LineLength
 m =
   Module.new do
     module_function
@@ -115,4 +115,4 @@ m.load_bundler!
 if m.invoked_as_script?
   load Gem.bin_path('bundler', 'bundle')
 end
-# rubocop:enable Metrics/PerceivedComplexity, Layout/LineLength
+# rubocop:enable Layout/LineLength

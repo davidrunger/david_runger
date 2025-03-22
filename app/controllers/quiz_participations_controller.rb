@@ -2,7 +2,7 @@ class QuizParticipationsController < ApplicationController
   def create
     authorize(QuizParticipation, :create?)
 
-    quiz = Quiz.find_by_hashid!(params[:quiz_id]) # rubocop:disable Rails/DynamicFindBy
+    quiz = Quiz.find_by_hashid!(params[:quiz_id])
     result = QuizParticipations::Create.new(
       display_name: params[:display_name],
       quiz:,

@@ -33,7 +33,6 @@ module JsonSchemasToTypescript
       end
     end
 
-    # rubocop:disable Metrics
     def write_files(changed: nil, added: nil, removed: nil)
       write_all = (changed.nil? && added.nil? && removed.nil?) || removed.present?
 
@@ -125,7 +124,6 @@ module JsonSchemasToTypescript
         end
       end
     end
-    # rubocop:enable Metrics
 
     private
 

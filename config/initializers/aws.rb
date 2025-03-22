@@ -1,4 +1,3 @@
-# rubocop:disable Rails/SaveBang
 Aws.config.update(
   credentials: Aws::Credentials.new(
     ENV['AWS_ACCESS_KEY_ID'].presence ||
@@ -7,4 +6,3 @@ Aws.config.update(
       Rails.application.credentials.aws&.dig(:secret_access_key),
   ),
 )
-# rubocop:enable Rails/SaveBang

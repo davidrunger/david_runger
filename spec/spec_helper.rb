@@ -411,7 +411,6 @@ RSpec.configure do |config|
   config.around(:each, :fake_aws_credentials) do |spec|
     original_credentials = Aws.config[:credentials]
 
-    # rubocop:disable Rails/SaveBang
     Aws.config.update(
       credentials: Aws::Credentials.new(
         # these credentials are made up
@@ -423,7 +422,6 @@ RSpec.configure do |config|
     spec.run
 
     Aws.config.update(credentials: original_credentials)
-    # rubocop:enable Rails/SaveBang
   end
 
   config.around(:each, :production_like_error_handling) do |spec|
