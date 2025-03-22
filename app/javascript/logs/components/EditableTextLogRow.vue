@@ -45,7 +45,7 @@ import createDOMPurify from 'dompurify';
 import { ElButton, ElInput, ElPopconfirm } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
-import { computed, ref, watch, type PropType } from 'vue';
+import { computed, nextTick, ref, watch, type PropType } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
 import type { Log, TextLogEntry } from '@/logs/types';
@@ -80,13 +80,13 @@ const html = computed((): string => {
 });
 
 watch(editing, () => {
-  setTimeout(() => {
+  nextTick(() => {
     if (editing.value && textInput.value) {
       (
         (textInput.value as typeof ElInput).$el.children[0] as HTMLInputElement
       ).focus();
     }
-  }, 0);
+  });
 });
 
 function cancelEditing() {

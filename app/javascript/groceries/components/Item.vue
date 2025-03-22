@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import { debounce } from 'lodash-es';
-import { ref, type PropType } from 'vue';
+import { nextTick, ref, type PropType } from 'vue';
 import { EditIcon, MinusIcon, PlusIcon, XIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
@@ -77,8 +77,8 @@ function decrement(item: Item) {
 
 function editItemName() {
   editingName.value = true;
-  // wait a tick for input to render, then focus it
-  setTimeout(() => {
+  // Wait a tick for input to render, then focus it.
+  nextTick(() => {
     if (itemNameInput.value) {
       (itemNameInput.value as HTMLInputElement).focus();
     }

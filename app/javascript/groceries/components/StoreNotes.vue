@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { ElInput } from 'element-plus';
-import { ref, type PropType } from 'vue';
+import { nextTick, ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
@@ -45,21 +45,18 @@ const storeNotesInput = ref(null);
 
 function editStoreNotes() {
   editingNotes.value = true;
-  // wait a tick for input to render, then focus it
-  setTimeout(focusStoreNotesInput);
+  // Wait a tick for input to render, then focus it.
+  nextTick(focusStoreNotesInput);
 }
 
-function focusStoreNotesInput(callsAlready = 0) {
+function focusStoreNotesInput() {
   if (!editingNotes.value) return;
 
-  if (storeNotesInput.value) {
-    (storeNotesInput.value as HTMLInputElement).focus();
-  } else if (callsAlready < 20) {
-    // the storeNotesInput hasn't had time to render yet; retry later
-    setTimeout(() => {
-      focusStoreNotesInput(callsAlready + 1);
-    }, 50);
-  }
+  nextTick(() => {
+    if (storeNotesInput.value) {
+      (storeNotesInput.value as HTMLInputElement).focus();
+    }
+  });
 }
 
 function stopEditingAndUpdateStoreNotes() {

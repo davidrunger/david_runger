@@ -43,7 +43,7 @@ div
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ElButton, ElDatePicker, ElInput } from 'element-plus';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 
 import { useLogsStore } from '@/logs/store';
 import type { LogEntryDataValue } from '@/types';
@@ -126,7 +126,7 @@ onMounted(() => {
 });
 
 function focusLogEntryInput() {
-  setTimeout(() => {
+  nextTick(() => {
     if (logInput.value) {
       (logInput.value as typeof ElInput).focus();
     }
