@@ -53,10 +53,7 @@ HomeSection(
           A #[a(href="https://rubyonrails.org/") Rails 8] backend serves various
           #[a(href="https://vuejs.org/") Vue 3] front-end apps.
 
-        li.
-          The app's deployment is managed with
-          #[a(href="https://docs.docker.com/compose/") Docker Compose] on a
-          #[a(href="https://www.digitalocean.com/") DigitalOcean] host.
+        li The app's deployment is managed with #[a(href="https://docs.docker.com/compose/") Docker Compose].
 
         li.
           The app's 6,000+ lines of testable Ruby code are
@@ -265,16 +262,7 @@ HomeSection(
           #[a(href="https://github.com/sidekiq-scheduler/sidekiq-scheduler/") sidekiq-scheduler],
           but I wanted something that wasn't so dependent on Sidekiq internals.
 
-        p.
-          Thus, partially as an excuse to try out the
-          #[a(href="https://crystal-lang.org/") Crystal]
-
-          programming language, I wrote a simple job runner in Crystal called
-          #[code skedjewel],
-
-          which I use to execute scheduled Sidekiq jobs for DavidRunger.com. I love the small
-          memory consumption of the compiled skedjewel Crystal binary, since memory is a precious
-          resource on my small DigitalOcean droplet.
+        p Thus, partially as an excuse to try out the #[a(href="https://crystal-lang.org/") Crystal] programming language, I wrote a simple job runner in Crystal called #[code skedjewel], which I use to execute scheduled Sidekiq jobs for DavidRunger.com. I love the small memory consumption of the compiled skedjewel Crystal binary, since memory is a precious resource on my relatively small hobby server.
 
   Project
     template(v-slot:title)
