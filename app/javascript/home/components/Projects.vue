@@ -233,10 +233,8 @@ HomeSection(
     template(v-slot:image)
       img.box-shadow(
         loading="lazy"
-        src="~img/skedjewel.webp"
+        src="https://david-runger-public-uploads.s3.us-east-1.amazonaws.com/skedjewel.png"
         alt="skedjewel.yml"
-        width="583"
-        height="208"
       )
     template(v-slot:overview)
       div(slot="overview")
