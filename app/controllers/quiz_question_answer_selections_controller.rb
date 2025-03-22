@@ -2,12 +2,10 @@ class QuizQuestionAnswerSelectionsController < ApplicationController
   def create
     authorize(QuizQuestionAnswerSelection, :create?)
 
-    # rubocop:disable Rails/DynamicFindBy
     quiz_participation =
       current_user.
         quiz_participations.
         find_by!(quiz_id: Quiz.find_by_hashid!(params[:quiz_id]).id)
-    # rubocop:enable Rails/DynamicFindBy
     selection =
       QuizQuestionAnswerSelections::Create.run!(
         params: quiz_question_answer_selection_params,

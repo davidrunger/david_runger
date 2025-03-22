@@ -33,7 +33,6 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
         end.to_h
   end
 
-  # rubocop:disable Metrics/PerceivedComplexity
   def call
     fields_to_display(@data).
       map do |key|
@@ -61,13 +60,10 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
         end
       end
   end
-  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 
   # rubocop:disable Lint/DuplicateBranch
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity
   def color_background_and_style(key, value)
     case key.to_sym
     when :action
@@ -122,7 +118,5 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
       :default
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Lint/DuplicateBranch
 end

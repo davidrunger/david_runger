@@ -50,7 +50,6 @@ class BlogController < ApplicationController
 
   private
 
-  # rubocop:disable Metrics/MethodLength
   def send_blog_file(relative_path, **kwargs)
     absolute_path =
       Rails.root.join(
@@ -102,7 +101,6 @@ class BlogController < ApplicationController
 
     render_blog_404
   end
-  # rubocop:enable Metrics/MethodLength
 
   def render_blog_404
     send_file(Rails.root.join('blog/404.html'), status: 404, disposition: :inline)

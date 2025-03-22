@@ -14,7 +14,7 @@ class QuizzesController < ApplicationController
 
   def show
     # don't use `policy_scope` here, because we want anyone to be able to view any quiz
-    @quiz = Quiz.find_by_hashid!(params[:id]).decorate # rubocop:disable Rails/DynamicFindBy
+    @quiz = Quiz.find_by_hashid!(params[:id]).decorate
     authorize(@quiz, :show?)
 
     @title = @quiz.name
@@ -41,14 +41,13 @@ class QuizzesController < ApplicationController
   end
 
   def update
-    @quiz = policy_scope(Quiz).find_by_hashid!(params[:id]) # rubocop:disable Rails/DynamicFindBy
+    @quiz = policy_scope(Quiz).find_by_hashid!(params[:id])
     authorize(@quiz, :update?)
     Quizzes::Update.run!(quiz: @quiz, params: quiz_params)
     redirect_to(@quiz)
   end
 
   def destroy
-    # rubocop:disable Rails/DynamicFindBy
     @quiz =
       policy_scope(Quiz).
         includes(
@@ -56,7 +55,6 @@ class QuizzesController < ApplicationController
           questions: { answers: :selections },
         ).
         find_by_hashid!(params[:id])
-    # rubocop:enable Rails/DynamicFindBy
     authorize(@quiz)
 
     @quiz.destroy!
@@ -87,10 +85,10 @@ class QuizzesController < ApplicationController
     id_param = params[:id]
 
     quiz =
-      Quiz.joins(:participations). # rubocop:disable Rails/DynamicFindBy
+      Quiz.joins(:participations).
         merge(current_user.quiz_participations).
         find_by_hashid(id_param) ||
-      current_user.quizzes.find_by_hashid(id_param) # rubocop:disable Rails/DynamicFindBy
+      current_user.quizzes.find_by_hashid(id_param)
 
     @quiz = quiz.presence!.decorate
   end

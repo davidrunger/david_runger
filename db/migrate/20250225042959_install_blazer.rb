@@ -1,5 +1,4 @@
 class InstallBlazer < ActiveRecord::Migration[8.0]
-  # rubocop:disable Metrics/MethodLength
   def change
     create_table :blazer_queries do |t|
       t.references :creator
@@ -45,5 +44,4 @@ class InstallBlazer < ActiveRecord::Migration[8.0]
       t.timestamps null: false
     end
   end
-  # rubocop:enable Metrics/MethodLength
 end

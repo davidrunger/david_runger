@@ -35,7 +35,6 @@ class CiStepResultsPresenter
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   memoize \
   def recent_gantt_chart_metadatas
     @ci_step_results.
@@ -85,7 +84,6 @@ class CiStepResultsPresenter
         }
       end
   end
-  # rubocop:enable Metrics/MethodLength
 
   private
 

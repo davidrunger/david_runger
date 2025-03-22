@@ -5,7 +5,6 @@ module JsonPrioritizable
     before_action :prioritize_json_format
   end
 
-  # rubocop:disable Metrics/PerceivedComplexity
   def prioritize_json_format
     if request.accepts.any?
       # Parse accept header directly since Mime::Type doesn't expose parameters
@@ -27,5 +26,4 @@ module JsonPrioritizable
       end
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity
 end
