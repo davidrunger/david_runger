@@ -4,7 +4,6 @@ class CreateActiveStorageVariantRecords < ActiveRecord::Migration[6.0]
     return unless table_exists?(:active_storage_blobs)
 
     # Use Active Record's configured type for primary key
-    # rubocop:disable Rails/CreateTableWithTimestamps
     create_table :active_storage_variant_records, id: primary_key_type, if_not_exists: true do |t|
       t.belongs_to :blob, null: false, index: false, type: blobs_primary_key_type
       t.string :variation_digest, null: false
@@ -16,7 +15,6 @@ class CreateActiveStorageVariantRecords < ActiveRecord::Migration[6.0]
       )
       t.foreign_key :active_storage_blobs, column: :blob_id
     end
-    # rubocop:enable Rails/CreateTableWithTimestamps
   end
 
   private
