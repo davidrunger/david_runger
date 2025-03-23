@@ -8,7 +8,7 @@ Modal(
     .flex.flex-col.max-h-full
       .shrink-0.flex.items-center.mb-3
         span Stores: {{ checkInStoreNames }}
-        el-button.choose-stores.ml-2(
+        ElButton.choose-stores.ml-2(
           link
           type="primary"
           @click="manageCheckInStores"
@@ -31,12 +31,12 @@ Modal(
         )
 
       .shrink-0.flex.justify-around.mt-4
-        el-button(
+        ElButton(
           @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
           type="primary"
           link
         ) Cancel
-        el-button(
+        ElButton(
           @click="handleTripCheckinModalSubmit"
           type="primary"
           plain

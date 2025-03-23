@@ -15,7 +15,7 @@ Modal(
   )
   div
     .log-link-container(v-for="log in rankedMatches")
-      router-link.log-link(
+      RouterLink.log-link(
         :to="{ name: 'log', params: { slug: log.slug } }"
         :class="{ 'font-bold': log === highlightedSearchable }"
       ) {{ log.name }}

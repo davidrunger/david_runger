@@ -8,33 +8,33 @@ Modal(
   slot
     h3.font-bold.mb-4 Sharing
     div
-      el-checkbox(
+      ElCheckbox(
         v-model="publiclyViewable"
         @change="savePubliclyViewableChange"
       ) Publicly viewable
     div(v-if="!publiclyViewable")
-      el-tag(
+      ElTag(
         :key="logShare.email"
         v-for="logShare in logSharesSortedByLowercasedEmail"
         closable
         :disable-transitions="false"
         @close="handleLogShareDeletion(logShare)"
       ) {{ logShare.email }}
-      el-input.input-new-tag(
+      ElInput.input-new-tag(
         v-if="inputVisible"
         v-model="inputValue"
         ref="saveTagInput"
         @keyup.enter.native="handleLogShareCreation"
         @blur="handleLogShareCreation"
       )
-      el-button.button-new-tag(
+      ElButton.button-new-tag(
         v-else
         size="small"
         @click="showInput"
       ) + Share with email
     .mt-2 Shareable link: {{ shareableUrl }}
     div
-      el-button(
+      ElButton(
         size="small"
         @click="copyShareableUrlToClipboard"
       )

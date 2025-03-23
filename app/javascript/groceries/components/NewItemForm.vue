@@ -4,14 +4,14 @@ form.flex(
   @submit.prevent="postNewItem"
 )
   .float-left
-    el-input.item-name-input.max-w-60(
+    ElInput.item-name-input.max-w-60(
       placeholder="Add an item"
       type="text"
       v-model="formData.newItemName"
       name="newItemName"
     )
   .ml-2
-    el-button.button.button-outline(
+    ElButton.button.button-outline(
       native-type="submit"
       :disabled="v$.$invalid"
     ) Add

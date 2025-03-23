@@ -14,7 +14,7 @@ table(v-if="workouts.length")
       td {{ (workout.time_in_seconds / 60).toFixed(1) }}
       td {{ prettyObject(workout.rep_totals) }}
       td(v-if="isOwnWorkouts")
-        el-checkbox(
+        ElCheckbox(
           v-model="workout.publicly_viewable"
           @change="savePubliclyViewableChange(workout)"
         )

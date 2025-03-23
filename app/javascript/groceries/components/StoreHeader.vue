@@ -15,12 +15,12 @@ h2.store-name.my-4
   )
     EditIcon(size="27")
   span(v-if="store.own_store")
-    el-button.ml-2(
+    ElButton.ml-2(
       v-if="store.private"
       size="small"
       @click="togglePrivacy"
     ) Make public
-    el-button.ml-2(
+    ElButton.ml-2(
       v-else
       size="small"
       @click="togglePrivacy"

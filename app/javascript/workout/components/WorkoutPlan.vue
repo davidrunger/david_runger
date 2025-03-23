@@ -1,11 +1,11 @@
 <template lang="pug">
 .text-center.pb-8
   .pt-6.pb-4
-    el-switch(
+    ElSwitch(
       v-model="editMode"
       active-text="Edit mode"
     )
-    el-switch.ml-8(
+    ElSwitch.ml-8(
       v-model="soundEnabled"
       active-text="Sound"
     )

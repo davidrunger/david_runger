@@ -20,20 +20,20 @@ div
       :log="log"
     )
     .mt-2(v-if="showDeleteLastEntryButton")
-      el-popconfirm(
+      ElPopconfirm(
         title="Delete the last log entry?"
         @confirm="destroyLastEntry"
       )
         template(#reference)
-          el-button Delete last entry
+          ElButton Delete last entry
     .mt-2
-      el-button(
+      ElButton(
         tag="a"
         :href="download_log_path(log.slug)"
         download
       ) Download CSV
     .mt-2
-      el-button.multi-line(
+      ElButton.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-sharing-settings' })"
       )
         .h4 Sharing settings
@@ -41,7 +41,7 @@ div
           span(v-if="log.publicly_viewable") Viewable by any user
           span(v-else) Shared with {{ assert(log.log_shares).length }} emails
     .mt-2
-      el-button.multi-line(
+      ElButton.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-reminder-schedule' })"
       )
         .h4 Reminder settings
@@ -50,7 +50,7 @@ div
             | {{ (log.reminder_time_in_seconds / (60 * 60)).toFixed() }} hours
           span(v-else) No reminders
     .mt-2
-      el-button(@click="destroyLog") Delete log
+      ElButton(@click="destroyLog") Delete log
 
   EditLogSharingSettingsModal
 

@@ -12,7 +12,7 @@ Modal(
       Spouse's stores
     CheckInStoreList(:stores="groceriesStore.sortedSpouseStores")
     .flex.justify-around.mt-4
-      el-button(
+      ElButton(
         @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })"
         type="primary"
       ) Done
