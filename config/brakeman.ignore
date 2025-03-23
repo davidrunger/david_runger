@@ -3,13 +3,13 @@
     {
       "warning_type": "Command Injection",
       "warning_code": 14,
-      "fingerprint": "2adf7be524cd6f55ad7a382d069e9c3cc63427a839860ef842faed6c9531dfff",
+      "fingerprint": "2b746993d54c695786455f9f550cc34581b9c0edbb768099b577d3da975a4880",
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "tools/json_schemas_to_typescript.rb",
-      "line": 76,
+      "line": 67,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "system(\"./node_modules/.bin/quicktype\\n  --src-lang schema\\n  #{schema_path}\\n  --out #{\"#{types_directory}/#{\"#{schema_path.gsub(SCHEMA_DIRECTORY_REGEX, \"\").delete_suffix(\".json\").split(\"/\").then do\n if (path_fragments[-1] == \"index\") then\n  [*path_fragments[(0..-3)].map(&:singularize), *path_fragments[(-2..)]]\nelse\n  path_fragments.map(&:singularize)\nend\n end.join(\"/\").camelize.gsub(\"::\", \"\")}#{type_suffix}\"}.ts\"}\\n  --just-types\\n\".squish)",
+      "code": "system(\"./node_modules/.bin/quicktype\\n  --src-lang schema\\n  #{schema_path}\\n  --out #{types_path(schema_path)}\\n  --just-types\\n\".squish)",
       "render_path": null,
       "location": {
         "type": "method",
