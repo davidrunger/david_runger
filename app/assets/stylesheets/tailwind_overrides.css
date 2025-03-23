@@ -80,5 +80,9 @@
     select {
       @apply border;
     }
+
+    input {
+      background-color: revert;
+    }
   }
 }
