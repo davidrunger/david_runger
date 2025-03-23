@@ -1,15 +1,18 @@
 <template lang="pug">
 h2.store-name.my-4
-  input(
-    v-if="editingName"
-    type="text"
-    v-model="store.name"
-    @blur="stopEditingAndUpdateStoreName()"
-    @keydown.enter="stopEditingAndUpdateStoreName()"
-    ref="storeNameInput"
+  template(v-if="isEditingName")
+    input(
+      type="text"
+      v-model="editableNameRef"
+      ref="nameInputRef"
+      v-bind="nameInputEventHandlers"
+    )
+  template(v-else)
+    span {{ store.name }}
+  a.js-link.text-neutral-400.ml-2(
+    @click="startEditingName(store.name)"
+    class="hover:text-black"
   )
-  span(v-if="!editingName") {{ store.name }}
-  a.js-link.text-neutral-400.ml-2(@click="editStoreName" class="hover:text-black")
     EditIcon(size="27")
   span(v-if="store.own_store")
     el-button.ml-2(
@@ -28,10 +31,11 @@ h2.store-name.my-4
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
 import { storeToRefs } from 'pinia';
-import { nextTick, ref, type PropType } from 'vue';
+import { type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
+import { useCancellableInput } from '@/lib/composables/useCancellableInput';
 import type { Store } from '@/types';
 
 const props = defineProps({
@@ -43,36 +47,24 @@ const props = defineProps({
 
 const groceriesStore = useGroceriesStore();
 
+const {
+  editableRef: editableNameRef,
+  isEditing: isEditingName,
+  startEditing: startEditingName,
+  inputRef: nameInputRef,
+  inputEventHandlers: nameInputEventHandlers,
+} = useCancellableInput({
+  onUpdate(newName) {
+    groceriesStore.updateStore({
+      store: props.store,
+      attributes: {
+        name: newName,
+      },
+    });
+  },
+});
+
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
-
-const editingName = ref(false);
-const storeNameInput = ref(null);
-
-function editStoreName() {
-  editingName.value = true;
-  // Wait a tick for input to render, then focus it.
-  nextTick(focusStoreNameInput);
-}
-
-function focusStoreNameInput() {
-  if (!editingName.value) return;
-
-  nextTick(() => {
-    if (storeNameInput.value) {
-      (storeNameInput.value as HTMLInputElement).focus();
-    }
-  });
-}
-
-function stopEditingAndUpdateStoreName() {
-  editingName.value = false;
-  groceriesStore.updateStore({
-    store: props.store,
-    attributes: {
-      name: props.store.name,
-    },
-  });
-}
 
 function togglePrivacy() {
   groceriesStore.updateStore({
