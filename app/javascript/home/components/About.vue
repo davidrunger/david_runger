@@ -4,7 +4,7 @@ HomeSection(
   title="About me"
   :renderHeadingManually="true"
 )
-  template(v-slot:default="slotProps")
+  template(#default="slotProps")
     .row-reverse.items-center(class="sm:flex")
       .flex-2.mt-4
         .text-center.mt-4.mb-8

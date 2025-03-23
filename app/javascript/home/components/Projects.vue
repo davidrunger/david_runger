@@ -4,13 +4,13 @@ HomeSection(
   title="Projects"
 )
   Project.mt8
-    template(v-slot:title)
+    template(#title)
       span DavidRunger.com
-    template(v-slot:technologies)
+    template(#technologies)
       span Rails 8, Vue 3
-    template(v-slot:links)
+    template(#links)
       a(href="https://github.com/davidrunger/david_runger/") GitHub
-    template(v-slot:overview)
+    template(#overview)
       p Welcome to #[a(href="https://davidrunger.com") davidrunger.com] — my digital playground for experimenting with modern web technologies, where I host apps designed for everyday use by my family and me.
 
       ul
@@ -44,7 +44,7 @@ HomeSection(
 
       p #[i *Google login required]
 
-    template(v-slot:tech-list)
+    template(#tech-list)
       ul
         li.
           A #[a(href="https://rubyonrails.org/") Rails 8] backend serves various
@@ -158,22 +158,22 @@ HomeSection(
             and #[a(href="https://percy.io/David-Runger/david_runger") Percy] visual diff monitoring!
 
   Project
-    template(v-slot:title)
+    template(#title)
       span Vue Rails Model Explorer
-    template(v-slot:technologies)
+    template(#technologies)
       span Ruby, Rails, Vue 3
-    template(v-slot:links)
+    template(#links)
       div
         a(href="https://davidrunger.com/models") Live
         span {{ ' - ' }}
         a(href="https://github.com/davidrunger/vue_rails_model_explorer") GitHub
-    template(v-slot:image)
+    template(#image)
       img.box-shadow(
         loading="lazy"
         src="https://david-runger-public-uploads.s3.us-east-1.amazonaws.com/vue-rails-model-explorer.png"
         alt="Serpent Game"
       )
-    template(v-slot:overview)
+    template(#overview)
       div(slot="overview")
         p When working on a feature that involves multiple different ActiveRecord models, keeping the relevant details about those models in one's head can be challenging, especially in an app one is not yet very familiar with. I built the #[b Vue Rails Model Explorer] so that I don't #[i need] to keep so much information in my head (or search through #[code db/schema.rb] and look at association declarations in #[code app/models/]). This interactive tool makes it fast and easy to explore the columns and associations of a Rails application's models.
 
@@ -183,14 +183,14 @@ HomeSection(
     image-container-class="mb-0"
     links-container-class="mb-0"
   )
-    template(v-slot:title)
+    template(#title)
       span SimpleCov::Formatter::Terminal
-    template(v-slot:technologies)
+    template(#technologies)
       span Ruby
-    template(v-slot:links)
+    template(#links)
       div
         a(href="https://github.com/davidrunger/simple_cov-formatter-terminal") GitHub
-    template(v-slot:image)
+    template(#image)
       img(
         loading="lazy"
         src="~img/simplecov-terminal.webp"
@@ -198,7 +198,7 @@ HomeSection(
         width="640"
         height="386"
       )
-    template(v-slot:overview)
+    template(#overview)
       div(slot="overview")
         p.
           Having good test coverage is important to me. It lowers the chance of shipping bugs and
@@ -223,20 +223,20 @@ HomeSection(
           | .
 
   Project
-    template(v-slot:title)
+    template(#title)
       span Skedjewel
-    template(v-slot:technologies)
+    template(#technologies)
       span Crystal
-    template(v-slot:links)
+    template(#links)
       div
         a(href="https://github.com/davidrunger/skedjewel") GitHub
-    template(v-slot:image)
+    template(#image)
       img.box-shadow(
         loading="lazy"
         src="https://david-runger-public-uploads.s3.us-east-1.amazonaws.com/skedjewel.png"
         alt="skedjewel.yml"
       )
-    template(v-slot:overview)
+    template(#overview)
       div(slot="overview")
         p.
           DavidRunger.com has some Sidekiq jobs that I want to run at various scheduled intervals.
@@ -247,11 +247,11 @@ HomeSection(
         p Thus, partially as an excuse to try out the #[a(href="https://crystal-lang.org/") Crystal] programming language, I wrote a simple job runner in Crystal called #[code skedjewel], which I use to execute scheduled Sidekiq jobs for DavidRunger.com. I love the small memory consumption of the compiled skedjewel Crystal binary, since memory is a precious resource on my relatively small hobby server.
 
   Project
-    template(v-slot:title)
+    template(#title)
       span Assorted Gems
-    template(v-slot:technologies)
+    template(#technologies)
       span Ruby
-    template(v-slot:overview)
+    template(#overview)
       div(slot="overview")
         p.
           Below are some of the Ruby gems that I've written.
