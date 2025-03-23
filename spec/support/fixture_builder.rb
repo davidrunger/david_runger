@@ -26,14 +26,8 @@ FixtureBuilder.configure do |fbuilder|
 
     # number logs
     number_log = name(:number_log, create(:log, user:, data_type: 'number')).first
-    number_log.build_log_entry_with_datum(
-      data: 102,
-      note: 'I am glad it is an even number',
-    ).save!
-    number_log.build_log_entry_with_datum(
-      data: 98,
-      note: 'Going down. Still even.',
-    ).save!
+    number_log.build_log_entry_with_datum(data: 102, note: 'I am glad it is an even number').save!
+    number_log.build_log_entry_with_datum(data: 98, note: nil).save!
 
     create(
       :log,
