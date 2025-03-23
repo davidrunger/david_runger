@@ -8,19 +8,19 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
         @click="collapsed = !collapsed"
         :class="{ 'rotated-180': expanded }"
       )
-        arrow-bar-right-icon(size="29")
+        ArrowBarRightIcon(size="29")
     LoggedInHeader.mb-2
     nav
       .store-lists-container.pb-4
         form.add-store.flex(@submit.prevent="handleNewStoreSubmission()")
           .flex-1.mr-2
-            el-input(
+            ElInput(
               type="text"
               v-model="formData.newStoreName"
               name="newStoreName"
               placeholder="Add a store"
             )
-          el-button(
+          ElButton(
             native-type="submit"
             :disabled="postingStore || v$.$invalid"
           ) Add

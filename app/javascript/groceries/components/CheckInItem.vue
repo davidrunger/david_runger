@@ -19,13 +19,13 @@ li.flex.items-center.break-word.mb-2(:class="aboutToMoveToClass()")
     )
       HeartFilledIcon.text-red-500
     span {{ ' ' }}
-    el-button(
+    ElButton(
       v-if="item.checkInStatus === 'skipped'"
       link
       type="primary"
       @click="moveTo('needed')"
     ) Unskip
-    el-button(
+    ElButton(
       v-else
       link
       type="primary"

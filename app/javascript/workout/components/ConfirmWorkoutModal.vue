@@ -17,14 +17,14 @@ Modal(
           v-model.number="repTotals[exercise]"
         )
     div
-      el-checkbox(v-model="publiclyViewable") Publicly viewable
+      ElCheckbox(v-model="publiclyViewable") Publicly viewable
     .flex.justify-around.mt-4
-      el-button(
+      ElButton(
         @click="modalStore.hideModal({ modalName })"
         type="primary"
         link
       ) Cancel
-      el-button(
+      ElButton(
         type="primary"
         @click="saveWorkout"
       ) Save workout

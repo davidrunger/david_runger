@@ -5,14 +5,14 @@ div
     :class="log.data_type"
   )
     .mb-2(v-if="isCounter")
-      el-button(
+      ElButton(
         v-for="logEntryValue in mostRecentLogEntryValues"
         :key="logEntryValue"
         @click="postNewLogEntry(logEntryValue)"
       ) {{ logEntryValue }}
     .flex.justify-center
       .w-full.max-w-4xl
-        el-input.new-log-input.mb-2(
+        ElInput.new-log-input.mb-2(
           :placeholder="log.data_label"
           v-model="formData.newLogEntryData"
           name="log.data_label"
@@ -20,20 +20,20 @@ div
           :type="inputType"
         )
     div(:class="{ 'mt-2': isText }")
-      el-date-picker(
+      ElDatePicker(
         :class="{ 'mb-2': isNumeric }"
         v-model="formData.newLogEntryCreatedAt"
         type="datetime"
         placeholder="Backdate (optional)"
       )
-      el-input.new-log-input(
+      ElInput.new-log-input(
         :class="{ 'mb-2': isNumeric }"
         v-if="isDuration || isNumber"
         placeholder="Note (optional)"
         v-model="formData.newLogEntryNote"
         type="text"
       )
-      el-button(
+      ElButton(
         native-type="submit"
         :disabled="v$.$invalid"
       ) Add

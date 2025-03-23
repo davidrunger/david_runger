@@ -3,7 +3,7 @@ tr
   td(v-html="formattedCreatedAt")
 
   td(v-if="editing")
-    el-input(
+    ElInput(
       v-model="newPlaintext"
       type="textarea"
       ref="textInput"
@@ -14,27 +14,27 @@ tr
   )
 
   td(v-if="editing")
-    el-button(
+    ElButton(
       @click="updateLogEntry"
       size="small"
     ) Save
-    el-button(
+    ElButton(
       @click="cancelEditing"
       size="small"
     ) Cancel
   td(v-else)
     .flex.flex-wrap.items-center.justify-center.gap-1
-      el-button(
+      ElButton(
         @click="editing = true"
         link
         type="primary"
       ) Edit
-      el-popconfirm(
+      ElPopconfirm(
         title="Delete this log entry?"
         @confirm="destroyLogEntry"
       )
         template(#reference)
-          el-button(
+          ElButton(
             link
             type="danger"
           ) Delete

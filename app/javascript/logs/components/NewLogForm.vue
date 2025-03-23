@@ -5,36 +5,36 @@ div
     div(style="width: 400px")
       form.px-2(@submit.prevent="createLog")
         .mb-2
-          el-input(
+          ElInput(
             placeholder="Name"
             v-model="newLog.name"
             name="newLog.name"
           )
-        el-input.mb-2(
+        ElInput.mb-2(
           type="textarea"
           placeholder="Details/Description (optional)"
           v-model="newLog.description"
           name="newLog.description"
         )
         .mb-2
-          el-input(
+          ElInput(
             placeholder="Label (e.g. Weight, Run time, etc)"
             v-model="newLog.data_label"
             name="newLog.data_label"
           )
         .mb-2
-          el-select(
+          ElSelect(
             placeholder="Type"
             v-model="newLog.data_type"
             name="newLog.data_type"
           )
-            el-option(
+            ElOption(
               v-for="dataType in logInputTypes"
               :key="dataType.data_type"
               :label="dataType.label"
               :value="dataType.data_type"
             )
-        el-button(
+        ElButton(
           native-type="submit"
           :disabled="postingLog"
         ) Create

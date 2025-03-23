@@ -1,15 +1,15 @@
 <template lang="pug">
-el-menu
-  el-sub-menu(index="1")
+ElMenu
+  ElSubMenu(index="1")
     template(v-slot:title) Account
-    el-menu-item.email(
+    ElMenuItem.email(
       index="1-1"
       :disabled="true"
     ) {{ currentUser.email }}
     a(:href="my_account_path()")
-      el-menu-item(index="1-2") My Account
+      ElMenuItem(index="1-2") My Account
     a.js-link(@click="signOut")
-      el-menu-item(index="1-3") Sign Out
+      ElMenuItem(index="1-3") Sign Out
 </template>
 
 <script setup lang="ts">

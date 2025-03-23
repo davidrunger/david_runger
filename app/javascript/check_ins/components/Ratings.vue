@@ -2,7 +2,7 @@
 .my-8(v-for="needSatisfactionRating in needSatisfactionRatings")
   .mb-2
     strong {{ needSatisfactionRating.emotional_need.name }}
-    el-popover(
+    ElPopover(
       placement="top-end"
       trigger="click"
     )

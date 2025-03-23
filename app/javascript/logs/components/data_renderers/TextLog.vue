@@ -10,7 +10,7 @@ div
           :logEntry="logEntry"
           :class="{ 'transition-none!': index !== 0 }"
         )
-  el-button(
+  ElButton(
     v-if="!showAllEntries"
     @click="showAllEntries = true"
   ).

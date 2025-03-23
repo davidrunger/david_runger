@@ -5,7 +5,7 @@
 )
   .store-name
     a {{ store.name }}
-    lock-icon.ml-2(
+    LockIcon.ml-2(
       v-if="store.private"
       size="22"
     )
