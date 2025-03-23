@@ -8,8 +8,17 @@ module JsonSchemasToTypescript
     Rails.root.join("#{types_directory}/bootstrap").to_s.freeze
   RESPONSE_TYPES_DIRECTORY =
     Rails.root.join("#{types_directory}/responses").to_s.freeze
-
   SCHEMA_DIRECTORY_REGEX = %r{\A#{SCHEMA_DIRECTORY}/(api|bootstrap)/}
+  TYPE_INFOS_BY_SCHEMA_DIRECTORY = {
+    API_SCHEMA_DIRECTORY => {
+      type_suffix: 'Response',
+      types_directory: RESPONSE_TYPES_DIRECTORY,
+    },
+    BOOTSTRAP_SCHEMA_DIRECTORY => {
+      type_suffix: 'Bootstrap',
+      types_directory: BOOTSTRAP_TYPES_DIRECTORY,
+    },
+  }.freeze
 
   class << self
     def initialize_listener(app)
@@ -34,53 +43,36 @@ module JsonSchemasToTypescript
     end
 
     def write_files(changed: nil, added: nil, removed: nil)
-      write_all = (changed.nil? && added.nil? && removed.nil?) || removed.present?
+      write_all = (changed.nil? && added.nil? && removed.nil?)
 
       if write_all
         [BOOTSTRAP_TYPES_DIRECTORY, RESPONSE_TYPES_DIRECTORY].each do |directory|
           FileUtils.rm_rf(directory)
           FileUtils.mkdir_p(directory)
         end
+      elsif removed.present?
+        removed.each do |removed_file|
+          FileUtils.rm_f(types_path(removed_file))
+        end
       end
 
-      [
-        [API_SCHEMA_DIRECTORY, 'Response', RESPONSE_TYPES_DIRECTORY],
-        [BOOTSTRAP_SCHEMA_DIRECTORY, 'Bootstrap', BOOTSTRAP_TYPES_DIRECTORY],
-      ].each do |schema_directory, type_suffix, types_directory|
+      [API_SCHEMA_DIRECTORY, BOOTSTRAP_SCHEMA_DIRECTORY].each do |schema_directory|
         Dir["#{schema_directory}/**/*.json"].each do |schema_path|
           if write_all || schema_path.in?(changed) || schema_path.in?(added)
-            response_name =
-              schema_path.
-                gsub(SCHEMA_DIRECTORY_REGEX, '').
-                delete_suffix('.json').
-                split('/').
-                then do |path_fragments|
-                  if path_fragments[-1] == 'index'
-                    [*path_fragments[0..-3].map(&:singularize), *path_fragments[-2..]]
-                  else
-                    path_fragments.map(&:singularize)
-                  end
-                end.
-                join('/').
-                camelize.
-                gsub('::', '')
-
-            type_name = "#{response_name}#{type_suffix}"
-
-            file_to_write = "#{types_directory}/#{type_name}.ts"
+            types_path = types_path(schema_path)
 
             system(<<~SH.squish)
               ./node_modules/.bin/quicktype
                 --src-lang schema
                 #{schema_path}
-                --out #{file_to_write}
+                --out #{types_path}
                 --just-types
             SH
 
             # Only export the first interface in the file. (All are exported by quicktype.)
             # Swap `Date` to `string`.
             content_to_write =
-              File.read(file_to_write).
+              File.read(types_path).
                 gsub(/^export interface/, 'interface').
                 sub(/^interface/, 'export interface').
                 gsub(/\bDate\b/, 'string')
@@ -93,14 +85,14 @@ module JsonSchemasToTypescript
               CONTENT
 
             File.write(
-              file_to_write,
+              types_path,
               content_to_write,
             )
 
             # Work around this quicktype bug:
             # https://github.com/glideapps/quicktype/issues/ 2481
             if JSON.parse(File.read(schema_path))['type'] == 'array'
-              file_content = File.read(file_to_write)
+              file_content = File.read(types_path)
 
               main_interface =
                 file_content.
@@ -114,7 +106,7 @@ module JsonSchemasToTypescript
                 "interface #{main_interface_element_name} {",
               )
 
-              File.write(file_to_write, <<~JS)
+              File.write(types_path, <<~JS)
                 export type #{main_interface} = Array<#{main_interface_element_name}>
 
                 #{file_content.rstrip}
@@ -129,6 +121,36 @@ module JsonSchemasToTypescript
 
     def relative_path(absolute_path)
       Pathname.new(absolute_path).relative_path_from(Rails.root).to_s
+    end
+
+    def types_path(schema_path)
+      types_info =
+        TYPE_INFOS_BY_SCHEMA_DIRECTORY.detect do |schema_directory, _type_info|
+          schema_path.start_with?(schema_directory)
+        end.second
+
+      type_suffix = types_info.fetch(:type_suffix)
+      types_directory = types_info.fetch(:types_directory)
+
+      response_name =
+        schema_path.
+          gsub(SCHEMA_DIRECTORY_REGEX, '').
+          delete_suffix('.json').
+          split('/').
+          then do |path_fragments|
+            if path_fragments[-1] == 'index'
+              [*path_fragments[0..-3].map(&:singularize), *path_fragments[-2..]]
+            else
+              path_fragments.map(&:singularize)
+            end
+          end.
+          join('/').
+          camelize.
+          gsub('::', '')
+
+      type_name = "#{response_name}#{type_suffix}"
+
+      "#{types_directory}/#{type_name}.ts"
     end
   end
 end
