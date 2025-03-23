@@ -1,7 +1,7 @@
 <template lang="pug">
 ElMenu
   ElSubMenu(index="1")
-    template(v-slot:title) Account
+    template(#title) Account
     ElMenuItem.email(
       index="1-1"
       :disabled="true"
