@@ -27,9 +27,11 @@ export default defineConfigWithVueTs(
       'app/javascript/types/bootstrap/*',
       'app/javascript/types/responses/*',
       'app/javascript/types/serializers/*',
+      'blog/*',
       'node_modules/*',
       'public/vite-admin/*',
       'public/vite/*',
+      'tmp/*',
     ],
   },
   {
