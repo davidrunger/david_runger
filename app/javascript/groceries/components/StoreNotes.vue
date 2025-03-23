@@ -8,7 +8,7 @@
       ref="notesInputRef"
     )
 
-  template((v-else))
+  template(v-else)
     .flex.items-center.mt-2
       .whitespace-pre-wrap
         | {{ store.notes || 'No notes yet' }}
