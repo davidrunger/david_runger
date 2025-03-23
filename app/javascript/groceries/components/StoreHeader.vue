@@ -28,7 +28,7 @@ h2.store-name.my-4
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
 import { storeToRefs } from 'pinia';
-import { ref, type PropType } from 'vue';
+import { nextTick, ref, type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
@@ -50,21 +50,18 @@ const storeNameInput = ref(null);
 
 function editStoreName() {
   editingName.value = true;
-  // wait a tick for input to render, then focus it
-  setTimeout(focusStoreNameInput);
+  // Wait a tick for input to render, then focus it.
+  nextTick(focusStoreNameInput);
 }
 
-function focusStoreNameInput(callsAlready = 0) {
+function focusStoreNameInput() {
   if (!editingName.value) return;
 
-  if (storeNameInput.value) {
-    (storeNameInput.value as HTMLInputElement).focus();
-  } else if (callsAlready < 20) {
-    // the storeNameInput hasn't had time to render yet; retry later
-    setTimeout(() => {
-      focusStoreNameInput(callsAlready + 1);
-    }, 50);
-  }
+  nextTick(() => {
+    if (storeNameInput.value) {
+      (storeNameInput.value as HTMLInputElement).focus();
+    }
+  });
 }
 
 function stopEditingAndUpdateStoreName() {

@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { nextTick, onMounted } from 'vue';
 
 import Comment from '@/comments/components/Comment.vue';
 import CommentForm from '@/comments/components/CommentForm.vue';
@@ -38,7 +38,7 @@ onMounted(async () => {
   if (hash === '#comments') {
     const element = document.getElementById(hash.substring(1));
     if (element) {
-      setTimeout(() => {
+      nextTick(() => {
         element.scrollIntoView();
       });
     }

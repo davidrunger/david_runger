@@ -1,5 +1,6 @@
 import { last, sortBy } from 'lodash-es';
 import { defineStore } from 'pinia';
+import { nextTick } from 'vue';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { assert, typesafeAssign } from '@/lib/helpers';
@@ -134,8 +135,8 @@ export const useLogsStore = defineStore('logs', {
       await http.delete(api_log_path({ id: logToDelete.id }));
       toast(`Deleted "${logToDelete.name}" log.`);
       this.router.push({ name: 'logs-index' });
-      // we need to wait a tick so we don't remove the log while still on the log show page
-      setTimeout(() => {
+      // We need to wait a tick so we don't remove the log while still on the log show page.
+      nextTick(() => {
         this.logs = this.logs.filter((log) => log.id !== logToDelete.id);
       });
     },

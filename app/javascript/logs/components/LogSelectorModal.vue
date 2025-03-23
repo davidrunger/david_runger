@@ -24,7 +24,7 @@ Modal(
 <script setup lang="ts">
 import { refDebounced } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import Modal from '@/components/Modal.vue';
@@ -63,7 +63,7 @@ const showingLogSelectorModal = computed(() => {
 
 watch(showingLogSelectorModal, () => {
   // Wait a tick for input to render, then focus it. Autofocus only works once, so we need this.
-  setTimeout(() => {
+  nextTick(() => {
     if (logSearchInput.value) {
       (logSearchInput.value as HTMLInputElement).focus();
     }
