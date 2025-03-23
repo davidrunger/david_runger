@@ -14,21 +14,20 @@
       .flex.justify-center
         MinusIcon(:size="ICON_SIZE")
   .left
-    input(
-      v-if="editingName"
-      type="text"
-      :value="item.name"
-      @blur="stopEditingAndUpdateItemName"
-      @keydown.enter="stopEditingAndUpdateItemName"
-      @keydown.escape="editingName = false"
-      ref="itemNameInput"
-    )
-    span.item-name(v-else)
-      span(v-html="linkify(item.name)")
-      |
-      |
-      a.js-link.text-neutral-400(@click="editItemName" class="hover:text-black")
-        EditIcon(:size="ICON_SIZE")
+    template(v-if="isEditing")
+      input(
+        v-model="nameEditableRef"
+        type="text"
+        ref="inputRef"
+        v-bind="inputEventHandlers"
+      )
+    template(v-else)
+      span.item-name
+        span(v-html="linkify(item.name)")
+        |
+        |
+        a.js-link.text-neutral-400(@click="editItemName" class="hover:text-black")
+          EditIcon(:size="ICON_SIZE")
     | &nbsp;
     span ({{ item.needed }})
   .ml-auto.js-link.text-red-500(v-if="ownStore")
@@ -42,11 +41,12 @@
 
 <script setup lang="ts">
 import { debounce } from 'lodash-es';
-import { nextTick, ref, type PropType } from 'vue';
+import { type PropType } from 'vue';
 import { EditIcon, MinusIcon, PlusIcon, XIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
+import { useCancellableInput } from '@/lib/composables/useCancellableInput';
 import { linkify } from '@/lib/linkify';
 
 const ICON_SIZE = 17;
@@ -62,9 +62,28 @@ const props = defineProps({
   },
 });
 
-const editingName = ref(false);
 const groceriesStore = useGroceriesStore();
-const itemNameInput = ref(null);
+
+const {
+  editableRef: nameEditableRef,
+  isEditing,
+  startEditing,
+  inputRef,
+  inputEventHandlers,
+} = useCancellableInput({
+  onUpdate: (newValue: string) => {
+    groceriesStore.updateItem({
+      item: props.item,
+      attributes: {
+        name: newValue,
+      },
+    });
+  },
+});
+
+function editItemName(): void {
+  startEditing(props.item.name);
+}
 
 const debouncedPatchItem = debounce(patchItem, 333);
 
@@ -73,16 +92,6 @@ function decrement(item: Item) {
   if (newNeededCount >= 0) {
     setNeeded(item, newNeededCount);
   }
-}
-
-function editItemName() {
-  editingName.value = true;
-  // Wait a tick for input to render, then focus it.
-  nextTick(() => {
-    if (itemNameInput.value) {
-      (itemNameInput.value as HTMLInputElement).focus();
-    }
-  });
 }
 
 function patchItem(item: Item) {
@@ -94,18 +103,6 @@ function setNeeded(item: Item, needed: number) {
   item.needed = needed;
   groceriesStore.setCollectingDebounces({ value: true });
   debouncedPatchItem(item);
-}
-
-function stopEditingAndUpdateItemName() {
-  if (!itemNameInput.value) return; // was happening for me in Chrome in development
-
-  editingName.value = false;
-  groceriesStore.updateItem({
-    item: props.item,
-    attributes: {
-      name: (itemNameInput.value as HTMLInputElement).value,
-    },
-  });
 }
 </script>
 
