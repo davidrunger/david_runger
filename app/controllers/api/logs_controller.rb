@@ -46,7 +46,17 @@ class Api::LogsController < Api::BaseController
   end
 
   def set_log
-    @log = current_user.logs.find_by(id: params[:id])
-    head(:not_found) if @log.nil?
+    @log = current_user.logs.includes(eager_loads).find_by(id: params[:id])
+
+    if @log.nil?
+      head(:not_found)
+    end
+  end
+
+  def eager_loads
+    case params[:action]
+    in 'destroy' then { log_entries: :log_entry_datum }
+    else {}
+    end
   end
 end
