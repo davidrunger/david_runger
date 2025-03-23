@@ -1,7 +1,10 @@
 <template lang="pug">
 section
   div
-    .log-link-container.m-2.text-2xl(v-for="log in logs")
+    .log-link-container.m-2.text-2xl(
+      v-for="log in logs"
+      :key="log.id"
+    )
       RouterLink.log-link(:to="{ name: 'log', params: { slug: log.slug } }") {{ log.name }}
   hr.my-8.border-gray
   NewLogForm

@@ -24,7 +24,10 @@ Modal(
         |
         |
         select(v-model="timeUnit")
-          option(v-for="timeUnit in timeUnitOptions") {{ timeUnit }}
+          option(
+            v-for="timeUnit in timeUnitOptions"
+            :key="timeUnit"
+          ) {{ timeUnit }}
         |
         | to create a log entry (if I haven't already done so).
       .flex.justify-center.mt-4
