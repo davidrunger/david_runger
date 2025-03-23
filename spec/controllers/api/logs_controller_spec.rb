@@ -122,13 +122,14 @@ RSpec.describe Api::LogsController do
     context "when attempting to destroy one's own log" do
       let(:user) { log.user }
 
-      it 'destroys the log' do
-        expect { delete_destroy }.to change { Log.find_by(id: log.id) }.from(Log).to(nil)
-      end
+      context 'when the log has more than one entry' do
+        before { expect(log.log_entries.size).to be > 1 }
 
-      it 'returns a 204 status code' do
-        delete_destroy
-        expect(response).to have_http_status(204)
+        it 'destroys the log and returns a 204 status code without raising an N+1 query error' do
+          expect { delete_destroy }.to change { Log.find_by(id: log.id) }.from(Log).to(nil)
+
+          expect(response).to have_http_status(204)
+        end
       end
     end
   end

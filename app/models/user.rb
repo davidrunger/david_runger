@@ -66,8 +66,28 @@ class User < ApplicationRecord
     end
   end
 
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at email id updated_at]
+  class << self
+    def ransackable_attributes(_auth_object = nil)
+      %w[created_at email id updated_at]
+    end
+
+    def with_eager_loading_for_destroy
+      includes(
+        :auth_tokens,
+        :need_satisfaction_ratings,
+        logs: [:log_shares, { log_entries: :log_entry_datum }],
+        marriage: {
+          check_ins: %i[check_in_submissions need_satisfaction_ratings],
+          emotional_needs: :need_satisfaction_ratings,
+        },
+        quiz_participations: %i[quiz_question_answer_selections],
+        quizzes: {
+          participations: :quiz_question_answer_selections,
+          questions: { answers: :selections },
+        },
+        stores: :items,
+      )
+    end
   end
 
   memoize \

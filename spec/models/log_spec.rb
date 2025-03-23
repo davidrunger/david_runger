@@ -24,7 +24,7 @@ RSpec.describe Log do
 
         context 'when all log entries were created long enough ago that a reminder is needed' do
           before do
-            log.log_entries.find_each do |log_entry|
+            log.log_entries.includes(:log_entry_datum).find_each do |log_entry|
               log_entry.update!(created_at: reminder_time_interval.ago - 2.hours)
             end
           end
@@ -84,7 +84,7 @@ RSpec.describe Log do
       end
 
       context 'when the log has no log entries' do
-        before { log.log_entries.find_each(&:destroy!) }
+        before { log.log_entries.includes(:log_entry_datum).find_each(&:destroy!) }
 
         context 'when the log was created long enough ago that a reminder is needed' do
           before { log.update!(created_at: reminder_time_interval.ago - 2.hours) }

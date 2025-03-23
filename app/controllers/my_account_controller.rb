@@ -2,22 +2,7 @@ class MyAccountController < ApplicationController
   self.container_classes = %w[p-8]
 
   def destroy
-    @user =
-      User.includes(
-        :auth_tokens,
-        :need_satisfaction_ratings,
-        logs: [:log_shares, { log_entries: :log_entry_datum }],
-        marriage: {
-          check_ins: %i[check_in_submissions need_satisfaction_ratings],
-          emotional_needs: :need_satisfaction_ratings,
-        },
-        quiz_participations: %i[quiz_question_answer_selections],
-        quizzes: {
-          participations: :quiz_question_answer_selections,
-          questions: { answers: :selections },
-        },
-        stores: :items,
-      ).find(current_user.id)
+    @user = User.with_eager_loading_for_destroy.find(current_user.id)
 
     authorize(@user)
 

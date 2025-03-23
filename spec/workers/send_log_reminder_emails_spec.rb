@@ -14,7 +14,7 @@ RSpec.describe SendLogReminderEmails do
           reminder_last_sent_at: nil,
           reminder_time_in_seconds: Integer(1.hour),
         )
-        log.log_entries.find_each { _1.update!(created_at: 2.hours.ago) }
+        log.log_entries.includes(:log_entry_datum).find_each { _1.update!(created_at: 2.hours.ago) }
       end
 
       it 'updates the reminder_last_sent_at timestamp (making the log no longer need reminding)' do

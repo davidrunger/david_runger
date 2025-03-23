@@ -30,6 +30,10 @@ FixtureBuilder.configure do |fbuilder|
       data: 102,
       note: 'I am glad it is an even number',
     ).save!
+    number_log.build_log_entry_with_datum(
+      data: 98,
+      note: 'Going down. Still even.',
+    ).save!
 
     create(
       :log,

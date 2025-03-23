@@ -56,16 +56,7 @@ RSpec.describe User do
   describe '#destroy' do
     subject(:destroy) { user.destroy }
 
-    let(:user) do
-      User.
-        includes(
-          :quizzes,
-          logs: %i[log_shares log_entries],
-          quiz_participations: :quiz_question_answer_selections,
-          stores: :items,
-        ).
-        find(users(:user).id)
-    end
+    let(:user) { User.with_eager_loading_for_destroy.find(users(:user).id) }
     let!(:user_id) { user.id }
 
     context 'when the user has a marriage' do
