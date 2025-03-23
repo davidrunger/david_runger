@@ -1,5 +1,8 @@
 <template lang="pug">
-.my-8(v-for="needSatisfactionRating in needSatisfactionRatings")
+.my-8(
+  v-for="needSatisfactionRating in needSatisfactionRatings"
+  :key="needSatisfactionRating.id"
+)
   .mb-2
     strong {{ needSatisfactionRating.emotional_need.name }}
     ElPopover(
@@ -21,6 +24,7 @@
   div
     EmojiButton(
       v-for="ratingValue in RATINGS_RANGE"
+      :key="ratingValue"
       :needSatisfactionRating="needSatisfactionRating"
       :ratingValue="ratingValue"
       :editable="editable"
