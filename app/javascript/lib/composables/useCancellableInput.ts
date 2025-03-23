@@ -23,10 +23,8 @@ export function useCancellableInput(
   const isEditing = ref<boolean>(false);
   const editableRef = ref<string>('');
   const inputRef = ref<HTMLInputElement | null>(null);
-  let originalValue = '';
 
   function startEditing(initialValue: string): void {
-    originalValue = initialValue;
     editableRef.value = initialValue;
     isEditing.value = true;
 
