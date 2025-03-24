@@ -59,7 +59,7 @@ services:
     cpu_shares: 512
     expose:
       - '8080'
-    image: gcr.io/cadvisor/cadvisor:v0.49.2
+    image: gcr.io/cadvisor/cadvisor:v0.52.1
     networks:
       - internal
     volumes:
