@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   get 'emoji-picker', to: 'emoji_picker#index'
 
   get 'groceries', to: 'groceries#index'
-  get 'workout', to: 'workouts#index'
-  get 'workouts', to: redirect('workout')
+  get 'workouts', to: 'workouts#index'
+  get 'workout', to: redirect('workouts')
   resources :logs, only: %i[index], param: :slug do
     member do
       get :download

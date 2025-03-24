@@ -18,7 +18,7 @@ HomeSection(
 
         li #[a(:href="groceries_path()") Groceries]* - Simplify and streamline your family's grocery shopping with a collaborative, mobile-friendly, real-time (WebSockets-enabled) list.
 
-        li #[a(:href="workout_path()") Workout]* - An app for tracking workouts over time, and to stay on-pace within a workout.
+        li #[a(:href="workouts_path()") Workouts]* - An app for tracking workouts over time, and to stay on-pace within a workout.
 
         li #[a(:href="logs_path()") Logs]* - Track anything you like using various log types: text, number, duration, or counter.
 
@@ -179,7 +179,7 @@ import {
   groceries_path,
   logs_path,
   quizzes_path,
-  workout_path,
+  workouts_path,
 } from '@/rails_assets/routes';
 
 import HomeSection from './HomeSection.vue';

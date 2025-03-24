@@ -7,16 +7,11 @@ RSpec.describe WorkoutsController do
     context 'when logged in' do
       before { sign_in(user) }
 
-      it 'responds with 200' do
+      it 'responds with 200 and has a title including "Workouts"' do
         get_index
 
         expect(response).to have_http_status(200)
-      end
-
-      it 'has a title including "Workout"' do
-        get_index
-
-        expect(response.body).to have_title(/\AWorkout - David Runger\z/)
+        expect(response.body).to have_title(/\AWorkouts - David Runger\z/)
       end
     end
 
