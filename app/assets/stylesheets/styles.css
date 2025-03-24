@@ -15,6 +15,7 @@
 @import './ui_framework/button';
 
 /* Specify sources manually, because otherwise classes are pulled from vendor/bundle/ in CI. */
+@source '../../../app/controllers';
 @source '../../../app/decorators';
 @source '../../../app/javascript';
 @source '../../../app/views';

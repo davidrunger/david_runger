@@ -1,19 +1,11 @@
 <template lang="pug">
-form(
-  :action="formAction"
-  method="post"
-)
-  CsrfTokenHiddenInput
-  button.google-login-button(type="submit")
-    img(
-      src="~img/google-login.png"
-      alt="Sign in with Google"
-    )
+google-sign-in-button(:action="formAction")
 </template>
 
 <script setup lang="ts">
-import CsrfTokenHiddenInput from '@/components/CsrfTokenHiddenInput.vue';
 import { users_auth_google_oauth2_callback_path } from '@/rails_assets/routes';
+
+import '@/custom_elements/google_sign_in_button';
 
 const props = defineProps({
   origin: {
@@ -29,15 +21,3 @@ const formAction = [
   `origin=${encodeURIComponent(props.origin)}`,
 ].join('');
 </script>
-
-<style scoped lang="scss">
-.google-login-button {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-}
-</style>

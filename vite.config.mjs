@@ -44,6 +44,8 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
+          // Treat all tags with a dash as custom elements.
+          isCustomElement: (tag) => tag.includes('-'),
           whitespace: 'preserve',
         },
       },

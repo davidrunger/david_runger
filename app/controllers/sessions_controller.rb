@@ -1,6 +1,4 @@
-class SessionsController < ApplicationController
-  include UrlBaseable
-
+class SessionsController < Sessions::BaseController
   skip_before_action :authenticate_user!, only: [:new]
 
   def new
