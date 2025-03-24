@@ -25,7 +25,7 @@ RSpec.describe 'Workout app' do
       let(:exercise_2_reps) { 5 }
 
       it 'renders the new-workout form preloaded with their default workout and shows past workouts of the user and public workouts of others' do
-        visit workout_path
+        visit workouts_path
 
         # Form for a new workout:
         expect(page).to have_text('New Workout')
@@ -57,7 +57,7 @@ RSpec.describe 'Workout app' do
 
       context 'when the user initializes a workout and makes time and exercise count adjustments' do
         it 'adjusts the workout schedule/count table and default workout completion form values in accordance with the adjustments' do
-          visit workout_path
+          visit workouts_path
 
           click_on('Initialize Workout!')
 
