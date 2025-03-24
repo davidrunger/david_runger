@@ -13,7 +13,7 @@ importers:
         version: 3.3.0
       '@davidrunger/vue-model-explorer':
         specifier: ^0.2.1
-        version: 0.2.1(vue@3.5.13(typescript@5.8.2))
+        version: 0.2.2(vue@3.5.13(typescript@5.8.2))
       '@hotwired/turbo':
         specifier: ^8.0.13
         version: 8.0.13
@@ -368,8 +368,8 @@ packages:
     resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
     engines: {node: '>=10'}
 
-  '@davidrunger/vue-model-explorer@0.2.1':
-    resolution: {integrity: sha512-QqFjlTEeAjl8mJbLCE1blyJyL73O+M8ThaTi6r+qFzLMs051hooLbbl060ZWQg/DK2ZEMbLOAHpftkb/D41a8w==}
+  '@davidrunger/vue-model-explorer@0.2.2':
+    resolution: {integrity: sha512-ErWqfhyOnowHgZpvq0O1RefuGO+uWFIwO4zn12UQW7A7aFPigaMTfG86lG9+5cMSMuJzTl484Xd3lwAfrbEvmQ==}
     peerDependencies:
       vue: ^3.5.13
 
@@ -1091,6 +1091,9 @@ packages:
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/estree@1.0.7':
+    resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
 
   '@types/geojson@7946.0.4':
     resolution: {integrity: sha512-MHmwBtCb7OCv1DSivz2UNJXPGU/1btAWRKlqJ2saEhVJkpkvqHMMaOpKg0v4sAbDWSQekHGvPVMM8nQ+Jen03Q==}
@@ -4581,7 +4584,7 @@ snapshots:
 
   '@ctrl/tinycolor@3.6.1': {}
 
-  '@davidrunger/vue-model-explorer@0.2.1(vue@3.5.13(typescript@5.8.2))':
+  '@davidrunger/vue-model-explorer@0.2.2(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       '@vueuse/core': 13.0.0(vue@3.5.13(typescript@5.8.2))
       cytoscape: 3.31.1
@@ -5263,6 +5266,8 @@ snapshots:
       '@types/json-schema': 7.0.15
 
   '@types/estree@1.0.6': {}
+
+  '@types/estree@1.0.7': {}
 
   '@types/geojson@7946.0.4': {}
 
@@ -8579,12 +8584,12 @@ snapshots:
 
   vega-expression@5.1.2:
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       vega-util: 1.17.3
 
   vega-expression@5.2.0:
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       vega-util: 1.17.3
 
   vega-force@4.2.2:
@@ -8609,7 +8614,7 @@ snapshots:
       d3-color: 3.1.0
       d3-geo: 3.1.1
       vega-dataflow: 5.7.7
-      vega-expression: 5.2.0
+      vega-expression: 5.1.2
       vega-scale: 7.4.2
       vega-scenegraph: 4.13.1
       vega-selections: 5.6.0
@@ -8768,7 +8773,7 @@ snapshots:
     dependencies:
       '@types/geojson': 7946.0.4
       vega-event-selector: 3.0.1
-      vega-expression: 5.2.0
+      vega-expression: 5.1.2
       vega-util: 1.17.3
 
   vega-util@1.17.3: {}
