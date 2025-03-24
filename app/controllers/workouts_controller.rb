@@ -2,7 +2,7 @@ class WorkoutsController < ApplicationController
   def index
     authorize(Workout)
     @title = 'Workouts'
-    @description = 'Plan and execute timed workouts and track them over time.'
+    @description = 'Execute timed workouts and track them over time.'
     bootstrap(
       current_user: UserSerializer::WithDefaultWorkout.new(current_user),
       workouts: WorkoutSerializer.new(
