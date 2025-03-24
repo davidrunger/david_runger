@@ -1,7 +1,5 @@
 <template lang="pug">
-transition(
-  name="modal"
-)
+transition(name="modal")
   .modal-mask.fixed.flex.flex-col.items-center.justify-center.w-full.top-0.left-0.h-screen.z-10(
     v-if="showingModal({ modalName: name })"
     ref="mask"
