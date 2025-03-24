@@ -23,7 +23,7 @@
       )
     template(v-else)
       span.item-name
-        span(v-html="linkify(item.name)")
+        span(v-html="linkifyAndSanitize(item.name)")
         |
         |
         a.js-link.text-neutral-400(@click="editItemName" class="hover:text-black")
@@ -47,7 +47,7 @@ import { EditIcon, MinusIcon, PlusIcon, XIcon } from 'vue-tabler-icons';
 import { useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
 import { useCancellableInput } from '@/lib/composables/useCancellableInput';
-import { linkify } from '@/lib/linkify';
+import { linkifyAndSanitize } from '@/lib/linkifyAndSanitize';
 
 const ICON_SIZE = 17;
 
