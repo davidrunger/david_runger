@@ -14,126 +14,55 @@ HomeSection(
       p Welcome to #[a(href="https://davidrunger.com") davidrunger.com] — my digital playground for experimenting with modern web technologies, where I host apps designed for everyday use by my family and me.
 
       ul
-        li.
-          #[a(:href="emoji_picker_path()") Emoji Picker] -
-          I couldn't find an emoji picker that met my needs (simple, fast,
-          keyboard-first, and with the ability to customize emoji search
-          keywords), so I
-          #[a(href="https://github.com/davidrunger/david_runger/blob/main/app/javascript/emoji_picker/EmojiPicker.vue") built my own].
+        li #[a(:href="emoji_picker_path()") Emoji Picker] - I couldn't find an emoji picker that met my needs (simple, fast, keyboard-first, and with the ability to customize emoji search keywords), so I #[a(href="https://github.com/davidrunger/david_runger/blob/main/app/javascript/emoji_picker/EmojiPicker.vue") built my own].
 
-        li.
-          #[a(:href="groceries_path()") Groceries]* -
-          Simplify and streamline your family's grocery shopping with a
-          collaborative, mobile-friendly, real-time (WebSockets-enabled) list.
+        li #[a(:href="groceries_path()") Groceries]* - Simplify and streamline your family's grocery shopping with a collaborative, mobile-friendly, real-time (WebSockets-enabled) list.
 
-        li.
-          #[a(:href="workout_path()") Workout]* -
-          An app for tracking workouts over time, and to stay on-pace within a workout.
+        li #[a(:href="workout_path()") Workout]* - An app for tracking workouts over time, and to stay on-pace within a workout.
 
-        li.
-          #[a(:href="logs_path()") Logs]* -
-          Track anything you like using various log types: text, number, duration, or counter.
+        li #[a(:href="logs_path()") Logs]* - Track anything you like using various log types: text, number, duration, or counter.
 
-        li.
-          #[a(:href="quizzes_path()") Quizzes]* -
-          A multi-person quiz app that uses ActionCable websockets for real-time interactivity.
+        li #[a(:href="quizzes_path()") Quizzes]* - A multi-person quiz app that uses ActionCable websockets for real-time interactivity.
 
-        li.
-          #[a(:href="check_ins_path()") Check-ins]* -
-          Track how well your emotional needs are being met in your marriage/relationship.
+        li #[a(:href="check_ins_path()") Check-ins]* - Track how well your emotional needs are being met in your marriage/relationship.
 
       p #[i *Google login required]
 
     template(#tech-list)
       ul
-        li.
-          A #[a(href="https://rubyonrails.org/") Rails 8] backend serves various
-          #[a(href="https://vuejs.org/") Vue 3] front-end apps.
+        li A #[a(href="https://rubyonrails.org/") Rails 8] backend serves various #[a(href="https://vuejs.org/") Vue 3] front-end apps.
 
         li The app's deployment is managed with #[a(href="https://docs.docker.com/compose/") Docker Compose].
 
-        li.
-          The app's 6,000+ lines of testable Ruby code are
-          #[a(href="https://app.codecov.io/gh/davidrunger/david_runger/tree/main") #[span.font-bold 100%] covered by tests]
-          written with #[a(href="https://rspec.info/") RSpec].
+        li The app's 6,000+ lines of testable Ruby code are #[a(href="https://app.codecov.io/gh/davidrunger/david_runger/tree/main") #[span.font-bold 100%] covered by tests] written with #[a(href="https://rspec.info/") RSpec].
 
-        li.
-          #[a(href="https://vite-ruby.netlify.app/guide/rails.html") Vite Rails]
+        li #[a(href="https://vite-ruby.netlify.app/guide/rails.html") Vite Rails] provides sub-second hot module replacement (HMR) in development, and compiles the application's TypeScript and CSS for production.
 
-          provides sub-second hot module replacement (HMR) in development,
-          and compiles the application's TypeScript and CSS for production.
+        li The primary database is #[a(href="https://www.postgresql.org/") PostgreSQL], plus #[a(href="https://redis.io/") Redis] for Sidekiq, caching, and some direct use by the app.
 
-        li.
-          The primary database is #[a(href="https://www.postgresql.org/") PostgreSQL],
-          plus #[a(href="https://redis.io/") Redis] for Sidekiq, caching, and
-          some direct use by the app.
+        li #[a(href="https://github.com/sidekiq/sidekiq") Sidekiq] processes background jobs.
 
-        li.
-          #[a(href="https://github.com/sidekiq/sidekiq") Sidekiq] processes background jobs.
+        li #[a(href="https://nginx.org/") NGINX] exposes the server to the web.
 
-        li.
-          #[a(href="https://nginx.org/") NGINX] exposes the server to the web.
+        li #[a(href="https://pinia.vuejs.org/") Pinia] provides client-side state management.
 
-        li.
-          #[a(href="https://pinia.vuejs.org/") Pinia] provides client-side state management.
+        li #[a(href="https://developers.google.com/identity/protocols/oauth2") Google OAuth] provides convenient and secure sign-in.
 
-        li.
-          #[a(href="https://developers.google.com/identity/protocols/oauth2") Google OAuth]
-          provides convenient and secure sign-in.
+        li #[a(href="https://github.com/features/actions") GitHub Actions] provides continuous integration (CI) testing and linting and continuous deployment (CD).
 
-        li.
-          #[a(href="https://github.com/features/actions") GitHub Actions] provides continuous
-          integration (CI) testing and linting and continuous deployment (CD).
+        li Observability is provided by #[a(href="https://grafana.com/") Grafana] log search and metrics viewing, #[a(href="https://prometheus.io/") Prometheus] metrics collection and storage, #[a(href="https://github.com/grafana/loki") Loki] log storage, #[a(href="https://vector.dev/") Vector] log transformation and routing, #[a(href="https://github.com/google/cadvisor") cAdvisor] container monitoring, #[a(href="https://github.com/prometheus/node_exporter") Node exporter] system resource monitoring, and #[a(href="https://github.com/discourse/prometheus_exporter") prometheus_exporter] to provide Rails metrics for Prometheus.
 
-        li.
-          Observability is provided by
-          #[a(href="https://grafana.com/") Grafana] log search and metrics viewing,
-          #[a(href="https://prometheus.io/") Prometheus] metrics collection and storage,
-          #[a(href="https://github.com/grafana/loki") Loki] log storage,
-          #[a(href="https://vector.dev/") Vector] log transformation and routing,
-          #[a(href="https://github.com/google/cadvisor") cAdvisor] container monitoring,
-          #[a(href="https://github.com/prometheus/node_exporter") Node exporter] system resource monitoring,
-          and #[a(href="https://github.com/discourse/prometheus_exporter") prometheus_exporter] to provide Rails metrics for Prometheus.
+        li Ruby code is linted by #[a(href="https://rubocop.org/") RuboCop], JavaScript by #[a(href="https://eslint.org/") ESLint], and stylesheets by #[a(href="https://stylelint.io/") Stylelint]. #[a(href="https://github.com/presidentbeef/brakeman") Brakeman] checks for Rails security issues, and #[a(href="https://github.com/djezzzl/database_consistency") DatabaseConsistency] and #[a(href="https://github.com/jenseng/immigrant") Immigrant] help to ensure that the database is well-structured.
 
-        li.
-          Ruby code is linted by #[a(href="https://rubocop.org/") RuboCop],
-          JavaScript by #[a(href="https://eslint.org/") ESLint],
-          and stylesheets by #[a(href="https://stylelint.io/") Stylelint].
-          #[a(href="https://github.com/presidentbeef/brakeman") Brakeman] checks for
-          Rails security issues, and
-          #[a(href="https://github.com/djezzzl/database_consistency") DatabaseConsistency]
-          and
-          #[a(href="https://github.com/jenseng/immigrant") Immigrant]
-          help to ensure that the database is well-structured.
+        li #[a(href="https://tailwindcss.com/") Tailwind] provides CSS utility classes, so a lot of styling can be done within the markup itself.
 
-        li.
-          #[a(href="https://tailwindcss.com/") Tailwind] provides CSS utility classes, so a
-          lot of styling can be done within the markup itself.
+        li #[a(href="https://github.com/railsware/js-routes") JsRoutes] allows the use of Rails named routes / path helpers on the client-side, too!
 
-        li.
-          #[a(href="https://github.com/railsware/js-routes") JsRoutes] allows the
-          use of Rails named routes / path helpers on the client-side, too!
+        li #[a(href="https://element-plus.org/#/en-US") Element Plus] provides aesthetic and ready-to-use Vue UI components.
 
-        li.
-          #[a(href="https://element-plus.org/#/en-US") Element Plus] provides aesthetic and
-          ready-to-use Vue UI components.
+        li A custom-built, #[a(href="https://github.com/linkyndy/pallets") pallets]-based, parallelized test runner determines and executes the subset of tests and other checks that are needed for any given PR, making development and deployment as fast as possible, while ensuring application stability.
 
-        li.
-          A custom-built,
-
-          #[a(href="https://github.com/linkyndy/pallets") pallets]-based,
-
-          parallelized test runner determines and executes the subset of tests
-          and other checks that are needed for any given PR, making development
-          and deployment as fast as possible, while ensuring application
-          stability.
-
-        li.
-          A custom-built, #[a(href="https://github.com/rubycdp/ferrum") ferrum]-based prerendering
-          system captures and then serves a static HTML version of the JavaScript-based homepage,
-          allowing me to enjoy the developer-friendly ergonomics of a Vue-based workflow in
-          development, while still serving a simple HTML page in production for optimal rendering
-          performance and search engine optimization (SEO).
+        li A custom-built, #[a(href="https://github.com/rubycdp/ferrum") ferrum]-based prerendering system captures and then serves a static HTML version of the JavaScript-based homepage, allowing me to enjoy the developer-friendly ergonomics of a Vue-based workflow in development, while still serving a simple HTML page in production for optimal rendering performance and search engine optimization (SEO).
 
         li.
           Plus...
@@ -198,27 +127,11 @@ HomeSection(
         height="386"
       )
     template(#overview)
-      p.
-        Having good test coverage is important to me. It lowers the chance of shipping bugs and
-        makes it possible to update dependencies with confidence and without manual testing.
+      p Having good test coverage is important to me. It lowers the chance of shipping bugs and makes it possible to update dependencies with confidence and without manual testing.
 
-      p.
-        However, I couldn't find a way to get quick, detailed feedback about my app's code
-        coverage while working on tests &ndash; so I wrote
-        #[code SimpleCov::Formatter::Terminal].
-        It prints line-by-line code coverage information to the
-        terminal after every test run, and includes info about branch coverage, as well, making
-        it easy to see where test coverage is missing, and to add tests covering the uncovered
-        code.
+      p However, I couldn't find a way to get quick, detailed feedback about my app's code coverage while working on tests &ndash; so I wrote #[code SimpleCov::Formatter::Terminal]. It prints line-by-line code coverage information to the terminal after every test run, and includes info about branch coverage, as well, making it easy to see where test coverage is missing, and to add tests covering the uncovered code.
 
-      p
-        | Thanks to dog-fooding #[code SimpleCov::Formatter::Terminal] on itself, I'm easily
-        | able to keep its {{ ' ' }}
-        a(
-          href="https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master"
-        )
-          | code coverage at 100%
-        | .
+      p Thanks to dog-fooding #[code SimpleCov::Formatter::Terminal] on itself, I'm easily able to keep its #[a(href="https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master") code coverage at 100%].
 
   Project
     template(#title)
@@ -235,11 +148,7 @@ HomeSection(
         alt="skedjewel.yml"
       )
     template(#overview)
-      p.
-        DavidRunger.com has some Sidekiq jobs that I want to run at various scheduled intervals.
-        There are some great add-on gems that provide this functionality, like
-        #[a(href="https://github.com/sidekiq-scheduler/sidekiq-scheduler/") sidekiq-scheduler],
-        but I wanted something that wasn't so dependent on Sidekiq internals.
+      p DavidRunger.com has some Sidekiq jobs that I want to run at various scheduled intervals. There are some great add-on gems that provide this functionality, like #[a(href="https://github.com/sidekiq-scheduler/sidekiq-scheduler/") sidekiq-scheduler], but I wanted something that wasn't so dependent on Sidekiq internals.
 
       p Thus, partially as an excuse to try out the #[a(href="https://crystal-lang.org/") Crystal] programming language, I wrote a simple job runner in Crystal called #[code skedjewel], which I use to execute scheduled Sidekiq jobs for DavidRunger.com. I love the small memory consumption of the compiled skedjewel Crystal binary, since memory is a precious resource on my relatively small hobby server.
 
@@ -249,43 +158,18 @@ HomeSection(
     template(#technologies)
       span Ruby
     template(#overview)
-      p.
-        Below are some of the Ruby gems that I've written.
+      p Below are some of the Ruby gems that I've written.
 
       ul
-        li.
-          #[a(href="https://github.com/davidrunger/runger_actions") #[code runger_actions]]:
+        li #[a(href="https://github.com/davidrunger/runger_actions") #[code runger_actions]]: The missing piece of Rails! Organize and validate the actions of your Rails application with this combined form object / command object.
 
-          The missing piece of Rails! Organize and validate the actions of your Rails
-          application with this combined form object / command object.
+        li #[a(href="https://github.com/davidrunger/shaped") #[code shaped]]: Validate the shape of Ruby objects (hashes, arrays, and more). This is a dependency used in #[code runger_actions] (mentioned just above).
 
-        li.
-          #[a(href="https://github.com/davidrunger/shaped") #[code shaped]]:
+        li #[a(href="https://github.com/davidrunger/fcom") #[code fcom]]: A CLI tool for parsing git history. I use this regularly.
 
-          Validate the shape of Ruby objects (hashes, arrays, and more). This is a dependency
-          used in #[code runger_actions] (mentioned just above).
+        li #[a(href="https://github.com/davidrunger/living_document") #[code living_document]]: Evaluate Ruby code live and inline in your editor while you edit a Ruby file, or a Markdown file that includes Ruby code snippets. LivingDocument is useful for quickly exploring ideas in Ruby code, since it can be faster and more convenient than working in IRB or running a Ruby script repeatedly as you edit it. It's also great for editing README.md documentation while ensuring the accuracy of example code snippets.
 
-        li.
-          #[a(href="https://github.com/davidrunger/fcom") #[code fcom]]:
-
-          A CLI tool for parsing git history. I use this regularly.
-
-        li.
-          #[a(href="https://github.com/davidrunger/living_document") #[code living_document]]:
-
-          Evaluate Ruby code live and inline in your editor while you edit a
-          Ruby file, or a Markdown file that includes Ruby code snippets.
-          LivingDocument is useful for quickly exploring ideas in Ruby code,
-          since it can be faster and more convenient than working in IRB or
-          running a Ruby script repeatedly as you edit it. It's also great for
-          editing README.md documentation while ensuring the accuracy of
-          example code snippets.
-
-        li.
-          #[a(href="https://github.com/davidrunger/schedjewel") #[code schedjewel]]:
-
-          Execute Sidekiq jobs on a schedule. (This is essentially a Ruby version of the Crystal
-          #[code skedjewel] project mentioned above.)
+        li #[a(href="https://github.com/davidrunger/schedjewel") #[code schedjewel]]: Execute Sidekiq jobs on a schedule. (This is essentially a Ruby version of the Crystal #[code skedjewel] project mentioned above.)
 </template>
 
 <script setup lang="ts">
