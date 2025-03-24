@@ -14,12 +14,7 @@
       div(v-if="needSatisfactionRating.emotional_need.description")
         | {{ needSatisfactionRating.emotional_need.description }}
       div(v-else)
-        | No description. You can add one
-        |
-        a(
-          :href="edit_emotional_need_path(needSatisfactionRating.emotional_need.id)"
-        ) here
-        | .
+        | No description. You can add one #[a(:href="edit_emotional_need_path(needSatisfactionRating.emotional_need.id)") here].
     a.ml-2(:href="graphLink(needSatisfactionRating)") graph
   div
     EmojiButton(

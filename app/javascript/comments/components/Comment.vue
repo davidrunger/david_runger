@@ -9,10 +9,7 @@
     )
     .author {{ comment.user?.public_name || '[unknown user]' }}
     template(v-if="isAuthor")
-      .edit-public-name
-        | [
-        a(:href="editNamePath") Edit your name
-        | ]
+      .edit-public-name [#[a(:href="editNamePath") Edit your name]]
     .time-since-creation(:title="comment.created_at") {{ timeSinceCreation }}
     .actions(v-if="isAuthor")
       button(@click="isEditing = !isEditing") {{ isEditing ? 'Cancel' : 'Edit' }}

@@ -4,8 +4,7 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
     a#logo.monospace.opacity-animated(
       href="#home"
       :class="['text-blue-300!', { 'opacity-0': homeIsVisible }]"
-    )
-      | David Runger
+    ) David Runger
   nav#nav.sans-serif.flex.justify-around.absolute.mr-8
     NavLink(section="about")
     NavLink(section="skills")
