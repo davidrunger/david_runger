@@ -27,6 +27,7 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
         .stores-list
           StoreListEntry(
             v-for="store in groceriesStore.sortedStores"
+            :key="store.id"
             :store="store"
           )
         div(v-if="groceriesStore.sortedSpouseStores.length > 0")
@@ -34,6 +35,7 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
           .stores-list
             StoreListEntry(
               v-for="store in groceriesStore.sortedSpouseStores"
+              :key="store.id"
               :store="store"
             )
     .mt-auto.text-center.p-3(
