@@ -67,21 +67,6 @@ RSpec.describe Retry do
     end
 
     context 'when specifying an :errors option' do
-      context 'when an error of a class not listed in :errors is raised' do
-        let(:result) do
-          Retry.retrying(errors: [ArgumentError]) do
-            @call_count += 1
-            raise(not_handled_error_message)
-          end
-        end
-        let(:not_handled_error_message) { 'This error type is not handled' }
-
-        it 'does not retry' do
-          expect { result }.to raise_error(RuntimeError, not_handled_error_message)
-          expect(@call_count).to eq(1) # No retries
-        end
-      end
-
       context 'when an error of a class listed in :errors is raised' do
         let(:result) do
           Retry.retrying(times: 1, errors: [ArgumentError]) do
@@ -94,6 +79,21 @@ RSpec.describe Retry do
         it 'retries' do
           expect { result }.to raise_error(ArgumentError, handled_error_message)
           expect(@call_count).to eq(2) # Original + 1 retry
+        end
+      end
+
+      context 'when an error of a class not listed in :errors is raised' do
+        let(:result) do
+          Retry.retrying(errors: [ArgumentError]) do
+            @call_count += 1
+            raise(not_handled_error_message)
+          end
+        end
+        let(:not_handled_error_message) { 'This error type is not handled' }
+
+        it 'does not retry' do
+          expect { result }.to raise_error(RuntimeError, not_handled_error_message)
+          expect(@call_count).to eq(1) # No retries
         end
       end
     end
