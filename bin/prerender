@@ -9,25 +9,30 @@ require 'dotenv/load' if ENV.fetch('CI', nil) != 'true'
 require 'ferrum'
 require 'nokogiri'
 
+require_relative '../lib/retry.rb'
+
 class Prerenderer
   def initialize
-    @browser = Ferrum::Browser.new(process_timeout: 20, timeout: 60)
-  rescue Ferrum::ProcessTimeoutError => error
-    puts("Rescued error: #{error}.")
-    puts('Retrying...')
-    retry
+    assign_new_browser
   end
 
   def prerender(url:, filename:, expected_text:)
-    url = Addressable::URI.parse(url)
-    url.query_values = (url.query_values || {}).merge(prerender: 'true')
+    Retry.retrying do
+      url = Addressable::URI.parse(url)
+      url.query_values = (url.query_values || {}).merge(prerender: 'true')
 
-    render_page_content(url: url.to_s, expected_text:)
+      render_page_content(url: url.to_s, expected_text:)
 
-    upload_prerender_to_s3(
-      filename:,
-      body: html_for_prerendering("<!DOCTYPE html>\n#{@browser.body}"),
-    )
+      upload_prerender_to_s3(
+        filename:,
+        body: html_for_prerendering("<!DOCTYPE html>\n#{@browser.body}"),
+      )
+    rescue
+      quit_browser
+      assign_new_browser
+
+      raise # This will be rescued (and maybe re-raised) by `Retry.retrying`.
+    end
   end
 
   def quit_browser
@@ -35,6 +40,12 @@ class Prerenderer
   end
 
   private
+
+  def assign_new_browser
+    Retry.retrying(errors: [Ferrum::ProcessTimeoutError]) do
+      @browser = Ferrum::Browser.new(process_timeout: 20, timeout: 2.0)
+    end
+  end
 
   def render_page_content(url:, expected_text:)
     @browser.goto(url)
