@@ -12,8 +12,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       '@davidrunger/vue-model-explorer':
-        specifier: ^0.2.1
-        version: 0.2.1(vue@3.5.13(typescript@5.8.2))
+        specifier: ^0.2.2
+        version: 0.2.2(vue@3.5.13(typescript@5.8.2))
       '@hotwired/turbo':
         specifier: ^8.0.13
         version: 8.0.13
@@ -368,8 +368,8 @@ packages:
     resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
     engines: {node: '>=10'}
 
-  '@davidrunger/vue-model-explorer@0.2.1':
-    resolution: {integrity: sha512-QqFjlTEeAjl8mJbLCE1blyJyL73O+M8ThaTi6r+qFzLMs051hooLbbl060ZWQg/DK2ZEMbLOAHpftkb/D41a8w==}
+  '@davidrunger/vue-model-explorer@0.2.2':
+    resolution: {integrity: sha512-ErWqfhyOnowHgZpvq0O1RefuGO+uWFIwO4zn12UQW7A7aFPigaMTfG86lG9+5cMSMuJzTl484Xd3lwAfrbEvmQ==}
     peerDependencies:
       vue: ^3.5.13
 
@@ -4581,7 +4581,7 @@ snapshots:
 
   '@ctrl/tinycolor@3.6.1': {}
 
-  '@davidrunger/vue-model-explorer@0.2.1(vue@3.5.13(typescript@5.8.2))':
+  '@davidrunger/vue-model-explorer@0.2.2(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       '@vueuse/core': 13.0.0(vue@3.5.13(typescript@5.8.2))
       cytoscape: 3.31.1
