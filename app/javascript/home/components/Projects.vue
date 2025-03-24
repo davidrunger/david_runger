@@ -174,10 +174,9 @@ HomeSection(
         alt="Serpent Game"
       )
     template(#overview)
-      div(slot="overview")
-        p When working on a feature that involves multiple different ActiveRecord models, keeping the relevant details about those models in one's head can be challenging, especially in an app one is not yet very familiar with. I built the #[b Vue Rails Model Explorer] so that I don't #[i need] to keep so much information in my head (or search through #[code db/schema.rb] and look at association declarations in #[code app/models/]). This interactive tool makes it fast and easy to explore the columns and associations of a Rails application's models.
+      p When working on a feature that involves multiple different ActiveRecord models, keeping the relevant details about those models in one's head can be challenging, especially in an app one is not yet very familiar with. I built the #[b Vue Rails Model Explorer] so that I don't #[i need] to keep so much information in my head (or search through #[code db/schema.rb] and look at association declarations in #[code app/models/]). This interactive tool makes it fast and easy to explore the columns and associations of a Rails application's models.
 
-        p The tool features keyboard navigation through associations from one model to another (arrow keys to select the association of interest and Enter or space to move to the target model), a quick selector to jump straight to any model (Ctrl-K on Linux, Cmd-K on macOS), and the ability to pin models (keyboard shortcut: "p") so that the columns of multiple related models can be viewed together.
+      p The tool features keyboard navigation through associations from one model to another (arrow keys to select the association of interest and Enter or space to move to the target model), a quick selector to jump straight to any model (Ctrl-K on Linux, Cmd-K on macOS), and the ability to pin models (keyboard shortcut: "p") so that the columns of multiple related models can be viewed together.
 
   Project(
     image-container-class="mb-0"
@@ -199,28 +198,27 @@ HomeSection(
         height="386"
       )
     template(#overview)
-      div(slot="overview")
-        p.
-          Having good test coverage is important to me. It lowers the chance of shipping bugs and
-          makes it possible to update dependencies with confidence and without manual testing.
+      p.
+        Having good test coverage is important to me. It lowers the chance of shipping bugs and
+        makes it possible to update dependencies with confidence and without manual testing.
 
-        p.
-          However, I couldn't find a way to get quick, detailed feedback about my app's code
-          coverage while working on tests &ndash; so I wrote
-          #[code SimpleCov::Formatter::Terminal].
-          It prints line-by-line code coverage information to the
-          terminal after every test run, and includes info about branch coverage, as well, making
-          it easy to see where test coverage is missing, and to add tests covering the uncovered
-          code.
+      p.
+        However, I couldn't find a way to get quick, detailed feedback about my app's code
+        coverage while working on tests &ndash; so I wrote
+        #[code SimpleCov::Formatter::Terminal].
+        It prints line-by-line code coverage information to the
+        terminal after every test run, and includes info about branch coverage, as well, making
+        it easy to see where test coverage is missing, and to add tests covering the uncovered
+        code.
 
-        p
-          | Thanks to dog-fooding #[code SimpleCov::Formatter::Terminal] on itself, I'm easily
-          | able to keep its {{ ' ' }}
-          a(
-            href="https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master"
-          )
-            | code coverage at 100%
-          | .
+      p
+        | Thanks to dog-fooding #[code SimpleCov::Formatter::Terminal] on itself, I'm easily
+        | able to keep its {{ ' ' }}
+        a(
+          href="https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master"
+        )
+          | code coverage at 100%
+        | .
 
   Project
     template(#title)
@@ -237,14 +235,13 @@ HomeSection(
         alt="skedjewel.yml"
       )
     template(#overview)
-      div(slot="overview")
-        p.
-          DavidRunger.com has some Sidekiq jobs that I want to run at various scheduled intervals.
-          There are some great add-on gems that provide this functionality, like
-          #[a(href="https://github.com/sidekiq-scheduler/sidekiq-scheduler/") sidekiq-scheduler],
-          but I wanted something that wasn't so dependent on Sidekiq internals.
+      p.
+        DavidRunger.com has some Sidekiq jobs that I want to run at various scheduled intervals.
+        There are some great add-on gems that provide this functionality, like
+        #[a(href="https://github.com/sidekiq-scheduler/sidekiq-scheduler/") sidekiq-scheduler],
+        but I wanted something that wasn't so dependent on Sidekiq internals.
 
-        p Thus, partially as an excuse to try out the #[a(href="https://crystal-lang.org/") Crystal] programming language, I wrote a simple job runner in Crystal called #[code skedjewel], which I use to execute scheduled Sidekiq jobs for DavidRunger.com. I love the small memory consumption of the compiled skedjewel Crystal binary, since memory is a precious resource on my relatively small hobby server.
+      p Thus, partially as an excuse to try out the #[a(href="https://crystal-lang.org/") Crystal] programming language, I wrote a simple job runner in Crystal called #[code skedjewel], which I use to execute scheduled Sidekiq jobs for DavidRunger.com. I love the small memory consumption of the compiled skedjewel Crystal binary, since memory is a precious resource on my relatively small hobby server.
 
   Project
     template(#title)
@@ -252,44 +249,43 @@ HomeSection(
     template(#technologies)
       span Ruby
     template(#overview)
-      div(slot="overview")
-        p.
-          Below are some of the Ruby gems that I've written.
+      p.
+        Below are some of the Ruby gems that I've written.
 
-        ul
-          li.
-            #[a(href="https://github.com/davidrunger/runger_actions") #[code runger_actions]]:
+      ul
+        li.
+          #[a(href="https://github.com/davidrunger/runger_actions") #[code runger_actions]]:
 
-            The missing piece of Rails! Organize and validate the actions of your Rails
-            application with this combined form object / command object.
+          The missing piece of Rails! Organize and validate the actions of your Rails
+          application with this combined form object / command object.
 
-          li.
-            #[a(href="https://github.com/davidrunger/shaped") #[code shaped]]:
+        li.
+          #[a(href="https://github.com/davidrunger/shaped") #[code shaped]]:
 
-            Validate the shape of Ruby objects (hashes, arrays, and more). This is a dependency
-            used in #[code runger_actions] (mentioned just above).
+          Validate the shape of Ruby objects (hashes, arrays, and more). This is a dependency
+          used in #[code runger_actions] (mentioned just above).
 
-          li.
-            #[a(href="https://github.com/davidrunger/fcom") #[code fcom]]:
+        li.
+          #[a(href="https://github.com/davidrunger/fcom") #[code fcom]]:
 
-            A CLI tool for parsing git history. I use this regularly.
+          A CLI tool for parsing git history. I use this regularly.
 
-          li.
-            #[a(href="https://github.com/davidrunger/living_document") #[code living_document]]:
+        li.
+          #[a(href="https://github.com/davidrunger/living_document") #[code living_document]]:
 
-            Evaluate Ruby code live and inline in your editor while you edit a
-            Ruby file, or a Markdown file that includes Ruby code snippets.
-            LivingDocument is useful for quickly exploring ideas in Ruby code,
-            since it can be faster and more convenient than working in IRB or
-            running a Ruby script repeatedly as you edit it. It's also great for
-            editing README.md documentation while ensuring the accuracy of
-            example code snippets.
+          Evaluate Ruby code live and inline in your editor while you edit a
+          Ruby file, or a Markdown file that includes Ruby code snippets.
+          LivingDocument is useful for quickly exploring ideas in Ruby code,
+          since it can be faster and more convenient than working in IRB or
+          running a Ruby script repeatedly as you edit it. It's also great for
+          editing README.md documentation while ensuring the accuracy of
+          example code snippets.
 
-          li.
-            #[a(href="https://github.com/davidrunger/schedjewel") #[code schedjewel]]:
+        li.
+          #[a(href="https://github.com/davidrunger/schedjewel") #[code schedjewel]]:
 
-            Execute Sidekiq jobs on a schedule. (This is essentially a Ruby version of the Crystal
-            #[code skedjewel] project mentioned above.)
+          Execute Sidekiq jobs on a schedule. (This is essentially a Ruby version of the Crystal
+          #[code skedjewel] project mentioned above.)
 </template>
 
 <script setup lang="ts">
