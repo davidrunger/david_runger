@@ -12,13 +12,13 @@
 
   ul.mx-auto.max-w-sm
     li.py-1(
-      v-for="emojiData in topRankedMatches"
-      :class="listItemClasses(emojiData)"
-      @click="selectEmoji(emojiData)"
+      v-for="emojiDatum in topRankedMatches"
+      :class="listItemClasses(emojiDatum)"
+      @click="selectEmoji(emojiDatum)"
     )
       button
-        span.align-middle.text-4xl {{ emojiData.symbol }}
-        span.ml-1.align-middle.text-xl {{ emojiData.boostedName || emojiData.name }}
+        span.align-middle.text-4xl {{ emojiDatum.symbol }}
+        span.ml-1.align-middle.text-xl {{ emojiDatum.boostedName || emojiDatum.name }}
 
   BoostsForm(v-if="bootstrap.current_user")
   .flex.justify-center(v-else)
