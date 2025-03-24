@@ -12,7 +12,7 @@ Modal(
         v-model="publiclyViewable"
         @change="savePubliclyViewableChange"
       ) Publicly viewable
-    div(v-if="!publiclyViewable")
+    .leading-8(v-if="!publiclyViewable")
       ElTag(
         :key="logShare.email"
         v-for="logShare in logSharesSortedByLowercasedEmail"
@@ -24,7 +24,7 @@ Modal(
         v-if="inputVisible"
         v-model="inputValue"
         ref="saveTagInput"
-        @keyup.enter.native="handleLogShareCreation"
+        @keyup.enter="handleLogShareCreation"
         @blur="handleLogShareCreation"
       )
       ElButton.button-new-tag(
@@ -146,11 +146,6 @@ function showInput() {
 </script>
 
 <style scoped lang="scss">
-.el-tag:not(:first-of-type),
-.button-new-tag {
-  margin-top: 10px;
-}
-
 .el-tag + .el-tag,
 .el-tag + .button-new-tag {
   margin-left: 10px;
