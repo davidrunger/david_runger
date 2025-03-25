@@ -11,7 +11,7 @@ module TokenAuthenticatable
     return nil if auth_token_secret.blank?
 
     AuthToken.find_by(secret: auth_token_secret).tap do |auth_token|
-      auth_token.update!(last_used_at: Time.current)
+      auth_token&.update!(last_used_at: Time.current)
     end
   end
 
