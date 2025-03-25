@@ -1,7 +1,7 @@
 RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
   controller(ApplicationController) do
     def index
-      render(plain: '#index action')
+      render(plain: 'action:index')
     end
   end
 
