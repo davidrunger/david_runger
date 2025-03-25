@@ -57,7 +57,7 @@ RSpec.describe 'Blog' do
 
           expect(page).to have_text(h1_text)
 
-          click_on('Sign in with Google')
+          click_sign_in_with_google
           fill_in('Public display name', with: Faker::Name.name)
           click_on('Submit')
 
@@ -72,7 +72,7 @@ RSpec.describe 'Blog' do
 
             visit blog_url_path
 
-            click_on('Sign in with Google')
+            click_sign_in_with_google
 
             click_on('Reply')
             reply_text = 'I have something to say in reply!'
