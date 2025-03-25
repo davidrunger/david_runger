@@ -7,8 +7,6 @@ class GoogleSignInButton extends HTMLElement {
     this.attachShadow({ mode: 'open' });
 
     if (this.shadowRoot) {
-      console.log('assigning HTML');
-
       this.shadowRoot.innerHTML = `
         <style>
           .gsi-form {
