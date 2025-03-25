@@ -26,15 +26,25 @@ class ApplicationController < ActionController::Base
 
   rescue_from(*AUTHORIZATION_ERROR_MESSAGES.keys, with: :user_not_authorized)
 
-  def self.require_admin_user!
-    skip_before_action(:authenticate_user!)
-    before_action(:authenticate_admin_user!)
+  class << self
+    def allow_auth_token_authorization
+      class_eval do
+        def pundit_user
+          current_or_auth_token_user
+        end
+      end
+    end
 
-    class_eval do
-      private
+    def require_admin_user!
+      skip_before_action(:authenticate_user!)
+      before_action(:authenticate_admin_user!)
 
-      def pundit_user
-        current_admin_user
+      class_eval do
+        private
+
+        def pundit_user
+          current_admin_user
+        end
       end
     end
   end

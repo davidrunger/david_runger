@@ -1,4 +1,6 @@
 class Api::LogEntriesController < Api::BaseController
+  allow_auth_token_authorization
+
   skip_before_action :authenticate_user!, only: %i[index]
 
   def create
