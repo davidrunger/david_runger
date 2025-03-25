@@ -21,8 +21,8 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
 
       context 'when no auth_token header or param is provided' do
         before do
-          expect(headers).to be_blank
-          expect(params).to be_blank
+          expect(headers.transform_keys(&:to_sym)[:Authorization]).to be_blank
+          expect(params.transform_keys(&:to_sym)[:auth_token]).to be_blank
         end
 
         it 'is nil' do
