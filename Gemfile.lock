@@ -8,8 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/paper_trail.git
-  revision: 2c8a96d4dfdca7c4a7a4d5e631d52ec30ed2762f
-  branch: avoid-n+1-queries-in-version_limit-when-destroying
+  revision: 1bbfc90661774699e082a615681d18a8fc2860f4
   specs:
     paper_trail (16.0.0)
       activerecord (>= 6.1)
