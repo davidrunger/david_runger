@@ -140,6 +140,7 @@ class GoogleSignInButton extends HTMLElement {
     }
   }
 
+  // This is needed to pick up the `action` when provided by Vue.
   connectedCallback() {
     if (this.shadowRoot) {
       const form = this.shadowRoot.querySelector('form');
