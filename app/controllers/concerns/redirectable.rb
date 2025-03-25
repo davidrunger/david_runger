@@ -12,10 +12,11 @@ module Redirectable
   end
 
   def store_redirect_chain
-    if (redirect_chain =
-          params[:redirect_chain] ||
-          request.env['omniauth.origin'].presence
-       ) && redirect_chain != new_user_session_url
+    if (
+      redirect_chain =
+        params[:redirect_chain] ||
+        request.env['omniauth.origin'].presence
+    ) && !redirect_chain.in?([new_user_session_url, new_admin_user_session_url])
       session[:redirect_chain] = redirect_chain
     end
   end

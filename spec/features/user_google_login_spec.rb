@@ -48,6 +48,39 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
               end
             end
           end
+
+          context 'when no User or AdminUser is logged in' do
+            before { Devise.sign_out_all_scopes }
+
+            context 'when there is an AdminUser and a User with the same stubbed_user_email' do
+              before { AdminUser.find_or_create_by!(email: user.email) }
+
+              context 'when the AdminUser has logged in' do
+                before do
+                  visit(new_admin_user_session_path)
+
+                  expect(page).to have_current_path(new_admin_user_session_path)
+
+                  click_on('Sign in with Google')
+
+                  expect(page).to have_text('You are beautiful')
+                end
+
+                context 'when the user tries to go to the My Account page' do
+                  it 'redirects the user to log in and, after successful login, redirects to the My Account page' do
+                    visit(my_account_path)
+
+                    expect(page).to have_current_path(new_user_session_path)
+
+                    click_on('Sign in with Google')
+
+                    expect(page).to have_current_path(my_account_path)
+                    expect(page).to have_text('My Account')
+                  end
+                end
+              end
+            end
+          end
         end
 
         context 'when the sub returned from Google does not match the google_sub in our database' do
