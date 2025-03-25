@@ -5,12 +5,13 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
     end
   end
 
+  subject(:get_index) { get(:index, params:) }
+
   let(:auth_token) { AuthToken.first! }
 
   describe '#current_or_auth_token_user' do
     before do
       request.headers.merge!(headers)
-      get(:index, params:)
     end
 
     let(:headers) { {} }
@@ -28,6 +29,8 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
         end
 
         it 'is nil' do
+          get_index
+
           expect(controller.send(:current_or_auth_token_user)).to eq(nil)
         end
       end
@@ -35,16 +38,76 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
       context 'when an auth_token param corresponding to an AuthToken secret is provided' do
         let(:params) { { auth_token_param_name => auth_token.secret } }
 
-        it "is the AuthToken's user" do
-          expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
+        context 'when the AuthToken has a blank permitted_actions_list' do
+          before { auth_token.update!(permitted_actions_list: nil) }
+
+          it "is the AuthToken's user" do
+            get_index
+
+            expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
+          end
+        end
+
+        context 'when the AuthToken has a permitted_actions_list that includes the requested action' do
+          before do
+            auth_token.update!(permitted_actions_list: 'anonymous#index, api/csp_results#create')
+          end
+
+          it "is the AuthToken's user" do
+            get_index
+
+            expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
+          end
+        end
+
+        context 'when the AuthToken has a permitted_actions_list that does not include the requested action' do
+          before do
+            auth_token.update!(permitted_actions_list: 'anonymous#show, api/csp_results#create')
+          end
+
+          it 'is nil' do
+            get_index
+
+            expect(controller.send(:current_or_auth_token_user)).to eq(nil)
+          end
         end
       end
 
       context 'when an Authorization header corresponding to an AuthToken secret is provided' do
         let(:headers) { { authorization_header_name => "Bearer #{auth_token.secret}" } }
 
-        it "is the AuthToken's user" do
-          expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
+        context 'when the AuthToken has a blank permitted_actions_list' do
+          before { auth_token.update!(permitted_actions_list: nil) }
+
+          it "is the AuthToken's user" do
+            get_index
+
+            expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
+          end
+        end
+
+        context 'when the AuthToken has a permitted_actions_list that includes the requested action' do
+          before do
+            auth_token.update!(permitted_actions_list: 'anonymous#index, api/csp_results#create')
+          end
+
+          it "is the AuthToken's user" do
+            get_index
+
+            expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
+          end
+        end
+
+        context 'when the AuthToken has a permitted_actions_list that does not include the requested action' do
+          before do
+            auth_token.update!(permitted_actions_list: 'anonymous#show, api/csp_results#create')
+          end
+
+          it 'is nil' do
+            get_index
+
+            expect(controller.send(:current_or_auth_token_user)).to eq(nil)
+          end
         end
       end
     end

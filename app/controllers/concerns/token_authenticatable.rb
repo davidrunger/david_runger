@@ -7,11 +7,14 @@ module TokenAuthenticatable
   private
 
   memoize \
-  def auth_token
-    return nil if auth_token_secret.blank?
+  def auth_token_valid_for_action
+    if auth_token_secret.present?
+      auth_token = AuthToken.find_by(secret: auth_token_secret)
 
-    AuthToken.find_by(secret: auth_token_secret).tap do |auth_token|
-      auth_token&.update!(last_used_at: Time.current)
+      if auth_token&.valid_for?(controller_action)
+        auth_token.update!(last_used_at: Time.current)
+        auth_token
+      end
     end
   end
 
@@ -40,11 +43,11 @@ module TokenAuthenticatable
 
   memoize \
   def auth_token_user
-    auth_token&.user
+    auth_token_valid_for_action&.user
   end
 
   def verify_valid_auth_token!
-    if auth_token.blank?
+    if auth_token_valid_for_action.blank?
       raise(InvalidToken)
     end
 

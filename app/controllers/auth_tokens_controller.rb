@@ -23,7 +23,7 @@ class AuthTokensController < ApplicationController
   private
 
   def auth_token_params
-    params.expect(auth_token: %i[name secret])
+    params.expect(auth_token: %i[name permitted_actions_list secret])
   end
 
   def set_auth_token
