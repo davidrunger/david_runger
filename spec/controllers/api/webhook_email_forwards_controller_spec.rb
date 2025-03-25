@@ -21,10 +21,12 @@ RSpec.describe Api::WebhookEmailForwardsController do
         let(:alert_title) { 'CPU usage is high!' }
         let(:alert_body) { '<html><head></head><body><p>CPU problem!</p></body></html>' }
 
-        it 'sends an HTML email to the AuthToken user with the title as the subject and the message as the body' do
+        it 'responds with :created and sends an HTML email to the AuthToken user with the title as the subject and the message as the body' do
           with_inline_sidekiq do
             post_create
           end
+
+          expect(response).to have_http_status(:created)
 
           # Check that email was sent with expected properties.
           expect(ActionMailer::Base.deliveries.size).to eq(1)

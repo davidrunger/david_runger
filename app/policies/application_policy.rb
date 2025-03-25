@@ -17,7 +17,7 @@ class ApplicationPolicy
   end
 
   def create?
-    true
+    @user.is_a?(User)
   end
 
   def new?

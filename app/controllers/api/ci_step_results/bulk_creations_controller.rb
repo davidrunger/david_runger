@@ -1,4 +1,6 @@
 class Api::CiStepResults::BulkCreationsController < Api::BaseController
+  allow_auth_token_authorization
+
   def create
     authorize(CiStepResult)
 

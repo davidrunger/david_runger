@@ -1,13 +1,24 @@
 RSpec.describe ApplicationPolicy do
   subject(:policy) { ApplicationPolicy.new(user, workout) }
 
-  let(:workout) { user.workouts.first! }
+  let(:workout) { user&.workouts&.first! }
   let(:user) { users(:user) }
 
   # rubocop:disable RSpec/EmptyLineAfterSubject
   describe '#index?' do
     subject(:index?) { policy.index? }
-    specify { expect(index?).to eq(true) }
+
+    context 'when there is a user' do
+      let(:user) { users(:user) }
+
+      specify { expect(index?).to eq(true) }
+    end
+
+    context 'when there is no user' do
+      let(:user) { nil }
+
+      specify { expect(index?).to eq(false) }
+    end
   end
 
   describe '#show?' do
@@ -17,12 +28,34 @@ RSpec.describe ApplicationPolicy do
 
   describe '#create?' do
     subject(:create?) { policy.create? }
-    specify { expect(create?).to eq(true) }
+
+    context 'when there is a user' do
+      let(:user) { users(:user) }
+
+      specify { expect(create?).to eq(true) }
+    end
+
+    context 'when there is no user' do
+      let(:user) { nil }
+
+      specify { expect(create?).to eq(false) }
+    end
   end
 
   describe '#new?' do
     subject(:new?) { policy.new? }
-    specify { expect(new?).to eq(true) }
+
+    context 'when there is a user' do
+      let(:user) { users(:user) }
+
+      specify { expect(new?).to eq(true) }
+    end
+
+    context 'when there is no user' do
+      let(:user) { nil }
+
+      specify { expect(new?).to eq(false) }
+    end
   end
 
   describe '#update?' do
