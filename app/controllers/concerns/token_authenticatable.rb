@@ -10,7 +10,9 @@ module TokenAuthenticatable
   def auth_token
     return nil if auth_token_secret.blank?
 
-    AuthToken.find_by(secret: auth_token_secret)
+    AuthToken.find_by(secret: auth_token_secret).tap do |auth_token|
+      auth_token.update!(last_used_at: Time.current)
+    end
   end
 
   memoize \
@@ -45,8 +47,6 @@ module TokenAuthenticatable
     if auth_token.blank?
       raise(InvalidToken)
     end
-
-    auth_token.update!(last_used_at: Time.current)
 
     true
   end
