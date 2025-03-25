@@ -19,7 +19,12 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
     context 'when no user is logged in' do
       before { sign_out(:user) }
 
-      context 'when no auth_token param or header is provided' do
+      context 'when no auth_token header or param is provided' do
+        before do
+          expect(headers).to be_blank
+          expect(params).to be_blank
+        end
+
         it 'is nil' do
           expect(controller.send(:current_or_auth_token_user)).to eq(nil)
         end
