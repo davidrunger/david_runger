@@ -16,9 +16,9 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
         it 'allows the user to log in with Google' do
           visit(new_user_session_path)
-          expect(page).to have_css('button.google-login')
+          expect(page).to have_css('google-sign-in-button')
 
-          expect { click_on(class: 'google-login') }.not_to change { User.count }
+          expect { click_sign_in_with_google }.not_to change { User.count }
 
           expect(page).to have_current_path(root_path)
           expect(page).to have_text('David Runger Full stack web developer')
@@ -39,9 +39,9 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
                 visit(my_account_path)
 
                 expect(page).to have_current_path(new_user_session_path)
-                expect(page).to have_css('button.google-login')
+                expect(page).to have_css('google-sign-in-button')
 
-                expect { click_on(class: 'google-login') }.not_to change { User.count }
+                expect { click_sign_in_with_google }.not_to change { User.count }
 
                 expect(page).to have_current_path(my_account_path)
                 expect(page).to have_text(user.email)
@@ -61,7 +61,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
                   expect(page).to have_current_path(new_admin_user_session_path)
 
-                  click_on('Sign in with Google')
+                  click_sign_in_with_google
 
                   expect(page).to have_text('You are beautiful')
                 end
@@ -72,7 +72,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
                     expect(page).to have_current_path(new_user_session_path)
 
-                    click_on('Sign in with Google')
+                    click_sign_in_with_google
 
                     expect(page).to have_current_path(my_account_path)
                     expect(page).to have_text('My Account')
@@ -90,9 +90,9 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
             allow(Rails.error).to receive(:report).and_call_original
 
             visit(new_user_session_path)
-            expect(page).to have_css('button.google-login')
+            expect(page).to have_css('google-sign-in-button')
 
-            expect { click_on(class: 'google-login') }.not_to change { User.count }
+            expect { click_sign_in_with_google }.not_to change { User.count }
 
             expect(page).to have_current_path(new_user_session_path)
             expect(page).to have_flash_message(<<~FLASH.squish, type: :alert)
@@ -125,9 +125,9 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
       it "allows a user to sign up (and log in) with Google and saves the user's Google 'sub' value" do
         visit(new_user_session_path)
-        expect(page).to have_css('button.google-login')
+        expect(page).to have_css('google-sign-in-button')
 
-        expect { click_on(class: 'google-login') }.to change { User.count }.by(1)
+        expect { click_sign_in_with_google }.to change { User.count }.by(1)
         user = User.find_by!(email: stubbed_user_email)
 
         expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
@@ -163,9 +163,9 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
       it "renders Google's response" do
         visit(new_user_session_path)
-        expect(page).to have_css('button.google-login')
+        expect(page).to have_css('google-sign-in-button')
 
-        click_on(class: 'google-login')
+        click_sign_in_with_google
 
         expect(page).to have_text(google_response_content)
       end

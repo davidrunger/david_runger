@@ -99,6 +99,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-email'
   gem 'capybara-screenshot'
+  gem 'capybara-shadowdom'
   gem 'climate_control'
   gem 'cuprite'
   gem 'database_consistency', require: false

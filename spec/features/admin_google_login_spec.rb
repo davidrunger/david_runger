@@ -8,9 +8,9 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
     it 'allows the AdminUser to log in via Google' do
       visit(new_admin_user_session_path)
 
-      expect(page).to have_css('button.google-login')
+      expect(page).to have_css('google-sign-in-button')
 
-      expect { click_on(class: 'google-login') }.not_to change { AdminUser.count }
+      expect { click_sign_in_with_google }.not_to change { AdminUser.count }
 
       visit(admin_root_path)
 
@@ -27,9 +27,9 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
 
     it 'does not create an AdminUser' do
       visit(new_admin_user_session_path)
-      expect(page).to have_css('button.google-login')
+      expect(page).to have_css('google-sign-in-button')
 
-      expect { click_on(class: 'google-login') }.not_to change { AdminUser.count }
+      expect { click_sign_in_with_google }.not_to change { AdminUser.count }
       expect(AdminUser.find_by(email: stubbed_admin_user_email)).to eq(nil)
 
       expect(page).to have_flash_message(

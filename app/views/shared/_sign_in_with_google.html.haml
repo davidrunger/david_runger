@@ -1,18 +1,6 @@
-- content_for(:extra_css) do
-  :css
-    button.google-login {
-      background: none;
-      color: inherit;
-      border: none;
-      padding: 0;
-      font: inherit;
-      cursor: pointer;
-      outline: inherit;
-    }
+- content_for(:page_assets) do
+  = ts_tag('google_sign_in_button')
 
 .text-center.bg-white.w-85.mt-20.mx-auto.py-12.rounded-md
-  = form_tag("/auth/google_oauth2?redirect_uri=#{url_base}/#{callback_type}/auth/google_oauth2/callback") do
-    = button_tag(image_tag('google-login.png', alt: 'Sign in with Google'), type: :submit, class: 'google-login')
-  %div
-    or go to the
-    #{link_to('home page', root_path)}.
+  %google-sign-in-button{action: "/auth/google_oauth2?redirect_uri=#{url_base}/#{callback_type}/auth/google_oauth2/callback"}
+  .mt-1 or go to the #{link_to('home page', root_path)}.
