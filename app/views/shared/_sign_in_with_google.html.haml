@@ -10,7 +10,7 @@
       outline: inherit;
     }
 
-.py-16.text-center
+.text-center.bg-white.w-85.mt-20.mx-auto.py-12.rounded-md
   = form_tag("/auth/google_oauth2?redirect_uri=#{url_base}/#{callback_type}/auth/google_oauth2/callback") do
     = button_tag(image_tag('google-login.png', alt: 'Log in with Google'), type: :submit, class: 'google-login')
   %div
