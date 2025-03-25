@@ -61,7 +61,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
                   expect(page).to have_current_path(new_admin_user_session_path)
 
-                  click_on('Sign in with Google')
+                  click_sign_in_with_google
 
                   expect(page).to have_text('You are beautiful')
                 end
@@ -72,7 +72,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
                     expect(page).to have_current_path(new_user_session_path)
 
-                    click_on('Sign in with Google')
+                    click_sign_in_with_google
 
                     expect(page).to have_current_path(my_account_path)
                     expect(page).to have_text('My Account')
