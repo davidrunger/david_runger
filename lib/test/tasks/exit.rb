@@ -164,7 +164,7 @@ class Test::Tasks::Exit < Pallets::Task
   end
 
   def short_job_names(task_set)
-    task_set.map { _1.sub('Test::Tasks::', '') }
+    task_set.map { it.sub('Test::Tasks::', '') }
   end
 
   def job_results

@@ -7,7 +7,7 @@ require 'benchmark'
 require 'io/console'
 require File.join(File.dirname(__FILE__), 'diff_helpers.rb')
 require File.join(File.dirname(__FILE__), 'task_helpers.rb')
-Dir[File.join(File.dirname(__FILE__), 'tasks', '*.rb')].each { require _1 }
+Dir[File.join(File.dirname(__FILE__), 'tasks', '*.rb')].each { require it }
 require File.join(File.dirname(__FILE__), 'requirements_resolver.rb')
 
 Rails.application.load_tasks
@@ -44,12 +44,12 @@ class Test::Runner < Pallets::Workflow
       system('clear') if ENV['TERM']
 
       ap('Running these tasks:')
-      ap(required_tasks.map(&:name).map { _1.gsub('Test::Tasks::', '') }.sort)
+      ap(required_tasks.map(&:name).map { it.gsub('Test::Tasks::', '') }.sort)
       ap('NOT running these tasks:')
       ap(
         (Pallets::Task.descendants - required_tasks).
           map(&:name).
-          map { _1.gsub('Test::Tasks::', '') }.
+          map { it.gsub('Test::Tasks::', '') }.
           sort,
       )
     end

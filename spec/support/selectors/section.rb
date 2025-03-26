@@ -13,13 +13,13 @@ Capybara.add_selector(:section) do
   ], **|
     heading = [
       (XPath.attr(:role) == 'heading') &
-        Array(heading_level).map { XPath.attr(:'aria-level') == _1.to_s }.reduce(:|),
+        Array(heading_level).map { XPath.attr(:'aria-level') == it.to_s }.reduce(:|),
       if Array(heading_level).include?(2)
         (XPath.attr(:role) == 'heading') & !XPath.attr(:'aria-level')
       end,
-      Array(heading_level).map { XPath.self(:"h#{_1}") & !XPath.attr(:'aria-level') }.reduce(:|),
-      Array(heading_level).map { XPath.attr(:'aria-level') == _1.to_s }.
-        reduce(:|) & %i[h1 h2 h3 h4 h5 h6].map { XPath.self(_1) }.reduce(:|),
+      Array(heading_level).map { XPath.self(:"h#{it}") & !XPath.attr(:'aria-level') }.reduce(:|),
+      Array(heading_level).map { XPath.attr(:'aria-level') == it.to_s }.
+        reduce(:|) & %i[h1 h2 h3 h4 h5 h6].map { XPath.self(it) }.reduce(:|),
     ].compact.reduce(:|)
 
     has_heading = XPath.function(
@@ -33,8 +33,8 @@ Capybara.add_selector(:section) do
           :main,
           :header,
           :footer,
-          *(1..6).map { :"h#{_1}" },
-        ].map { XPath.self(_1) },
+          *(1..6).map { :"h#{it}" },
+        ].map { XPath.self(it) },
         XPath.attr(:role) == 'heading',
       ].reduce(:|)],
     )[1][heading]

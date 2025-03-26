@@ -42,7 +42,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
-  if %w[AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY].all? { ENV[_1].present? }
+  if %w[AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY].all? { ENV[it].present? }
     config.active_storage.service = :amazon
   elsif !IS_DOCKER_BUILD
     raise(':amazon storage cannot be enabled because not all required credentials are present')

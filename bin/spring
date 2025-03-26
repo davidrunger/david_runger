@@ -5,7 +5,7 @@
 if (
   !defined?(Spring) &&
     [nil, 'development', 'test'].include?(ENV.fetch('RAILS_ENV', nil)) &&
-    %w[DOCKER_BUILD DOCKER_BUILT].none? { ENV.key?(_1) }
+    %w[DOCKER_BUILD DOCKER_BUILT].none? { ENV.key?(it) }
 )
   require 'bundler'
 

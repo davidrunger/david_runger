@@ -3,7 +3,7 @@ class Items::BulkUpdate::Create < ApplicationAction
 
   class << self
     def only_updating_allowed_attributes?(hash)
-      hash.keys.all? { _1.in?(BULK_UPDATABLE_ATTRIBUTES) }
+      hash.keys.all? { it.in?(BULK_UPDATABLE_ATTRIBUTES) }
     end
   end
 

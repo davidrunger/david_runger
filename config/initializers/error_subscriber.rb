@@ -25,7 +25,7 @@ class ErrorSubscriber
       "[error-report:#{severity}] #{error.class.name} : #{error.message} | " \
       "handled=#{handled.present?} source=#{source}"
 
-    if context.respond_to?(:map) && context.all? { _1.size == 2 }
+    if context.respond_to?(:map) && context.all? { it.size == 2 }
       log_line << ' '
       log_line << context.map { |key, value| "#{key}=#{value.inspect}" }.join(' ')
     end

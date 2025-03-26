@@ -6,7 +6,7 @@ RSpec.describe Admin::CspReportsController do
       subject(:get_index) { get(:index) }
 
       context 'when there is a CspReport with a Firefox user agent' do
-        before { CspReport.find_each { _1.update!(user_agent: firefox_user_agent) } }
+        before { CspReport.find_each { it.update!(user_agent: firefox_user_agent) } }
 
         let(:firefox_user_agent) do
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) Gecko/20100101 Firefox/105.0'

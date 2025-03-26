@@ -9,7 +9,7 @@ module PrerenderUtils
         bucket('david-runger-uploads').
         object("prerenders/#{git_rev}/#{filename}").
         get.body.read.
-        then { html_with_absolutized_asset_paths(_1) }
+        then { html_with_absolutized_asset_paths(it) }
     rescue Aws::S3::Errors::NoSuchKey => error
       log_warning(error)
 
