@@ -58,7 +58,7 @@ RSpec.describe 'Blog' do
           expect(page).to have_text(h1_text)
 
           click_sign_in_with_google
-          fill_in('Public display name', with: Faker::Name.name)
+          fill_in('Public display name (optional)', with: Faker::Name.name)
           click_on('Submit')
 
           comment_text = 'I have something to say!'

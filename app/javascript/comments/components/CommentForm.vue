@@ -7,6 +7,14 @@ form.comment-form(@submit.prevent="handleSubmit")
   )
   .actions
     button(type="submit") {{ submitLabel || 'Post' }}
+    template(v-if="store.currentUser && isNewComment")
+      span.author-identity-preview
+        | as
+        |
+        GravatarAndPublicName(
+          :user="store.currentUser"
+          :showEditLink="true"
+        )
     button(
       v-if="initialContent || parentCommentId"
       type="button"
@@ -15,16 +23,21 @@ form.comment-form(@submit.prevent="handleSubmit")
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-import type { Comment } from '@/comments/types/comment';
+import GravatarAndPublicName from '@/comments/components/GravatarAndPublicName.vue';
+
+import { useCommentsStore } from '../stores/commentsStore';
 
 const props = defineProps<{
-  comment?: Comment;
   initialContent?: string;
   parentCommentId?: number;
   submitLabel?: string;
 }>();
+
+const store = useCommentsStore();
+
+const isNewComment = computed(() => !props.initialContent);
 
 const emit = defineEmits<{
   (e: 'submit', content: string): void;
@@ -46,6 +59,12 @@ const handleSubmit = () => {
 <style scoped>
 .comment-form {
   margin: 1rem 0;
+}
+
+.author-identity-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 textarea {

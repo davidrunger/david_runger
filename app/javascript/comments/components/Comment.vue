@@ -1,15 +1,10 @@
 <template lang="pug">
 .comment
   .comment-header
-    img.avatar(
-      v-if="comment.user"
-      :src="comment.user.gravatar_url"
-      :alt="comment.user.public_name"
-      crossorigin="anonymous"
+    GravatarAndPublicName(
+      :showEditLink="isAuthor"
+      :user="comment.user"
     )
-    .author {{ comment.user?.public_name || '[unknown user]' }}
-    template(v-if="isAuthor")
-      .edit-public-name [#[a(:href="editNamePath") Edit your name]]
     .time-since-creation(:title="comment.created_at") {{ timeSinceCreation }}
     .actions(v-if="isAuthor")
       button(@click="isEditing = !isEditing") {{ isEditing ? 'Cancel' : 'Edit' }}
@@ -72,9 +67,9 @@ import { markedHighlight } from 'marked-highlight';
 import { computed, ref } from 'vue';
 
 import CommentForm from '@/comments/components/CommentForm.vue';
+import GravatarAndPublicName from '@/comments/components/GravatarAndPublicName.vue';
 import { useCommentsStore } from '@/comments/stores/commentsStore';
 import { type Comment } from '@/comments/types/comment';
-import { edit_public_name_my_account_path } from '@/rails_assets/routes';
 
 import 'highlight.js/styles/github-dark.css';
 
@@ -85,10 +80,6 @@ const props = defineProps<{
 const store = useCommentsStore();
 const isEditing = ref(false);
 const showReplyForm = ref(false);
-
-const editNamePath = edit_public_name_my_account_path({
-  redirect_chain: window.location.toString(),
-});
 
 hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('crystal', crystal);
@@ -129,9 +120,9 @@ const timeSinceCreation = computed(() => {
 });
 
 const isAuthor = computed(
-  () =>
-    props.comment.user &&
-    store.currentUser &&
+  (): boolean =>
+    !!props.comment.user &&
+    !!store.currentUser &&
     props.comment.user.id === store.currentUser.id,
 );
 
@@ -166,20 +157,6 @@ function handleReplyCreate(content: string) {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
-
-.author {
-  font-weight: bold;
-}
-
-.edit-public-name {
-  font-size: 0.8rem;
 }
 
 .time-since-creation {

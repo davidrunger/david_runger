@@ -37,6 +37,11 @@ class BlogController < ApplicationController
         file_path << '.html'
       end
 
+      bootstrap({
+        current_user:
+          current_user && UserSerializer::Public.new(current_user),
+      }.compact_blank!)
+
       send_blog_file(file_path, disposition: 'inline')
     else
       Rails.error.report(
