@@ -29,6 +29,7 @@ gem 'json'
 gem 'js-routes', require: false
 gem 'jwt'
 gem 'lograge'
+gem 'loofah-activerecord'
 gem 'memo_wise'
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
