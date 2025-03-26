@@ -13,6 +13,7 @@ module TokenAuthenticatable
 
       if auth_token&.valid_for?(controller_action)
         auth_token.update!(last_used_at: Time.current)
+
         auth_token
       end
     end
