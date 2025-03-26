@@ -2,7 +2,6 @@ RSpec.describe 'Home page', :prerendering_disabled do
   it 'says "David Runger / Full stack web developer" and tracks scrolling and clicks on external links' do
     visit root_path
 
-    expect(page).to have_text('This is an intentionally caused spec failure!')
     expect(page).to have_text(<<~HEADLINE, normalize_ws: false)
       David Runger
       Full stack web developer
