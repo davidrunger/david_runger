@@ -2,13 +2,14 @@
 #
 # Table name: auth_tokens
 #
-#  created_at   :datetime         not null
-#  id           :bigint           not null, primary key
-#  last_used_at :datetime
-#  name         :text
-#  secret       :text             not null
-#  updated_at   :datetime         not null
-#  user_id      :bigint           not null
+#  created_at             :datetime         not null
+#  id                     :bigint           not null, primary key
+#  last_used_at           :datetime
+#  name                   :text
+#  permitted_actions_list :text
+#  secret                 :text             not null
+#  updated_at             :datetime         not null
+#  user_id                :bigint           not null
 #
 # Indexes
 #
