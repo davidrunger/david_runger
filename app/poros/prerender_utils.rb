@@ -6,7 +6,7 @@ module PrerenderUtils
 
     def transformed_s3_content(git_rev:, filename:)
       Aws::S3::Resource.new(region: 'us-east-1').
-        bucket('david-runger-uploads').
+        bucket('david-runger-test-uploads').
         object("prerenders/#{git_rev}/#{filename}").
         get.body.read.
         then { html_with_absolutized_asset_paths(it) }
