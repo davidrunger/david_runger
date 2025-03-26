@@ -65,7 +65,7 @@ class Prerenderer
     raise('Could not determine git SHA!') if git_sha.empty?
 
     Aws::S3::Resource.new(region: 'us-east-1').
-      bucket('david-runger-uploads').
+      bucket('david-runger-test-uploads').
       object("prerenders/#{git_sha}/#{filename}").
       put(body:)
   end
