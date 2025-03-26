@@ -110,6 +110,9 @@ importers:
       strftime:
         specifier: ^0.10.3
         version: 0.10.3
+      tailwindcss:
+        specifier: ^4.0.17
+        version: 4.0.17
       toastify-js:
         specifier: ^1.12.0
         version: 1.12.0
@@ -243,9 +246,6 @@ importers:
       stylelint-scss:
         specifier: ^6.11.1
         version: 6.11.1(stylelint@16.17.0(typescript@5.8.2))
-      tailwindcss:
-        specifier: ^4.0.17
-        version: 4.0.17
       tsd:
         specifier: ^0.31.2
         version: 0.31.2
