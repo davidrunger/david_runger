@@ -70,7 +70,7 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
-  extra_load_paths = [Rails.root.join('spec/support')].map { _1.to_s.freeze }
+  extra_load_paths = [Rails.root.join('spec/support')].map { it.to_s.freeze }
   config.eager_load_paths.concat(extra_load_paths)
 end
 

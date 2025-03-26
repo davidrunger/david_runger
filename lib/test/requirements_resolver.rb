@@ -145,7 +145,7 @@ class Test::RequirementsResolver
       if run_defaults?
         # change nothing
       elsif run_all?
-        all_non_exit_tasks = base_dependency_map.keys.reject { _1 == Test::Tasks::Exit }
+        all_non_exit_tasks = base_dependency_map.keys.reject { it == Test::Tasks::Exit }
         base_dependency_map[Test::Tasks::Exit] = all_non_exit_tasks
       else
         validate_task_config_groups!
@@ -169,7 +169,7 @@ class Test::RequirementsResolver
             if value.nil?
               value
             elsif Array(value).include?(skip)
-              Array(value).reject { _1 == skip }
+              Array(value).reject { it == skip }
             else
               value
             end
@@ -199,7 +199,7 @@ class Test::RequirementsResolver
     end
 
     def forces
-      (task_config_groups['force'] || []).map { "Test::Tasks::#{_1}".constantize }
+      (task_config_groups['force'] || []).map { "Test::Tasks::#{it}".constantize }
     end
 
     def global_config
@@ -207,20 +207,20 @@ class Test::RequirementsResolver
     end
 
     def skips
-      (task_config_groups['skip'] || []).map { "Test::Tasks::#{_1}".constantize }
+      (task_config_groups['skip'] || []).map { "Test::Tasks::#{it}".constantize }
     end
 
     def targets
-      (task_config_groups['target'] || []).map { "Test::Tasks::#{_1}".constantize }
+      (task_config_groups['target'] || []).map { "Test::Tasks::#{it}".constantize }
     end
 
     def task_config
-      config['tasks'].transform_values { _1 || 'default' }
+      config['tasks'].transform_values { it || 'default' }
     end
 
     memoize \
     def task_config_groups
-      task_config.group_by { |_key, value| value }.transform_values { _1.map(&:first) }
+      task_config.group_by { |_key, value| value }.transform_values { it.map(&:first) }
     end
 
     def validate_task_config_groups!
@@ -356,7 +356,7 @@ class Test::RequirementsResolver
       self.class.dependency_map.values_at(*(target_tasks - self.class.skips)).
         flatten.reject(&:nil?) - known_dependencies - skippable_requirements
     # rubocop:enable Style/CollectionCompact
-    new_dependencies.reject! { can_skip?(_1) }
+    new_dependencies.reject! { can_skip?(it) }
 
     if new_dependencies.empty?
       target_tasks

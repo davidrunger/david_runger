@@ -32,7 +32,7 @@ class Cuprite::BrowserLogger
       exception_message =
         exception_description.
           split("\n").
-          take_while { !_1.match?(%r{at .*localhost:\d+/vite(-admin)?/}) }.
+          take_while { !it.match?(%r{at .*localhost:\d+/vite(-admin)?/}) }.
           join("\n")
 
       full_stack_trace = (parsed_json.dig(
@@ -40,9 +40,9 @@ class Cuprite::BrowserLogger
         'exceptionDetails',
         'stackTrace',
         'callFrames',
-      ) || []).map { _1.values_at('functionName', 'url') }
+      ) || []).map { it.values_at('functionName', 'url') }
 
-      own_stack_trace = full_stack_trace.filter { _1[1].exclude?('/vite/@fs/') }
+      own_stack_trace = full_stack_trace.filter { it[1].exclude?('/vite/@fs/') }
 
       stack_trace = own_stack_trace.presence || full_stack_trace
 
@@ -62,9 +62,9 @@ class Cuprite::BrowserLogger
         (match = message.match(JSON_EXTRACTION_REGEX))
       parsed_json = JSON.parse(match[1])
       type, args = parsed_json['params'].values_at('type', 'args')
-      args_values = args.map { extract_arg_from_data(_1) }
+      args_values = args.map { extract_arg_from_data(it) }
 
-      if LOG_MESSAGES_TO_IGNORE.none? { _1.match?(args_values.first.to_s) }
+      if LOG_MESSAGES_TO_IGNORE.none? { it.match?(args_values.first.to_s) }
         $stdout.send(:print, "JavaScript console.#{type} argument(s): ")
         $stdout.send(:ap, args_values)
 

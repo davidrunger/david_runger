@@ -12,7 +12,7 @@ module Prerenderable
           layout: false,
           html:
             prerendered_html.
-              then { html_with_nonced_scripts(_1) }.
+              then { html_with_nonced_scripts(it) }.
               html_safe,
         )
         # rubocop:enable Rails/OutputSafety

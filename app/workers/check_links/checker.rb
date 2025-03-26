@@ -22,7 +22,7 @@ class CheckLinks::Checker
     https://ghub.io/
     https://github.com/davidrunger/blog/edit/main/src/_posts/
   ].map(&:freeze).freeze
-  REDIRECTING_URL_REGEX = /\A(#{redirecting_url_prefixes.map { Regexp.escape(_1) }.join('|')}).+/
+  REDIRECTING_URL_REGEX = /\A(#{redirecting_url_prefixes.map { Regexp.escape(it) }.join('|')}).+/
   # rubocop:disable Style/MutableConstant
   STATUS_EXPECTATIONS = {
     'https://www.commonlit.org/' => [200, 403],
@@ -57,11 +57,11 @@ class CheckLinks::Checker
       redis_failure_key = redis_failure_key(url)
 
       previous_failure_count =
-        Integer($redis_pool.with { _1.call('get', redis_failure_key) } || 0)
+        Integer($redis_pool.with { it.call('get', redis_failure_key) } || 0)
 
       failure_count = previous_failure_count + 1
 
-      $redis_pool.with { _1.call('setex', redis_failure_key, Integer(2.days), failure_count) }
+      $redis_pool.with { it.call('setex', redis_failure_key, Integer(2.days), failure_count) }
 
       if failure_count >= 2
         AdminMailer.

@@ -16,7 +16,7 @@ RSpec.describe CheckLinks::Checker do
     end
 
     context 'when a previous failure is marked in Redis' do
-      before { $redis_pool.with { _1.call('set', redis_failure_key, '1') } }
+      before { $redis_pool.with { it.call('set', redis_failure_key, '1') } }
 
       context 'when the URL is expected to return 200' do
         let(:url) { 'https://gem.wtf/' }
@@ -85,7 +85,7 @@ RSpec.describe CheckLinks::Checker do
     end
 
     context 'when a previous failure did not occur within the past 48 hours' do
-      before { expect($redis_pool.with { _1.call('get', redis_failure_key) }).to eq(nil) }
+      before { expect($redis_pool.with { it.call('get', redis_failure_key) }).to eq(nil) }
 
       context 'when the link returns an unexpected status' do
         let(:status) { 404 }
@@ -96,7 +96,7 @@ RSpec.describe CheckLinks::Checker do
 
         it 'marks the failure in Redis' do
           expect { perform }.to change {
-            $redis_pool.with { _1.call('get', redis_failure_key) }
+            $redis_pool.with { it.call('get', redis_failure_key) }
           }.from(nil).to('1')
         end
       end

@@ -11,7 +11,7 @@ class CreateIpBlock
         reason ||
         $redis_pool.
           with { |conn| conn.call('hgetall', "blocked-requests:#{ip}") }.
-          transform_values { Integer(_1) }.
+          transform_values { Integer(it) }.
           filter_map do |path, unix_time|
             "#{path} (at #{Time.zone.at(unix_time)})"
           end.

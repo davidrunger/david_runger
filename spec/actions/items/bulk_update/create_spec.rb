@@ -2,7 +2,7 @@ RSpec.describe(Items::BulkUpdate::Create) do
   subject(:action) { Items::BulkUpdate::Create.new!(items:, attributes_change:) }
 
   let(:items) { [item] }
-  let(:item) { Item.first!.tap { _1.update!(needed: old_needed) } }
+  let(:item) { Item.first!.tap { it.update!(needed: old_needed) } }
   let(:attributes_change) { { 'needed' => new_needed } }
   let(:old_needed) { 55 }
   let(:new_needed) { 0 }

@@ -23,7 +23,7 @@ class HealthChecksController < ApplicationController
 
   def check_redis
     reraising_in_main_thread do
-      $redis_pool.with { _1.call('ping') }
+      $redis_pool.with { it.call('ping') }
     end
   end
 

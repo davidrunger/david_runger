@@ -26,7 +26,7 @@ module DiffHelpers
 
   memoize \
   def dotfile_changed?
-    files_changed.any? { _1.match?(/(^|\/)\./) }
+    files_changed.any? { it.match?(/(^|\/)\./) }
   end
 
   memoize \
@@ -104,7 +104,7 @@ module DiffHelpers
   def ruby_files_changed?
     ruby_files =
       Dir['*.rb'] +
-      Dir.glob('*').select { File.directory?(_1) }.map do |directory|
+      Dir.glob('*').select { File.directory?(it) }.map do |directory|
         Dir["#{directory}/**/*.rb"] + Dir["#{directory}/**/*.rake"]
       end.flatten +
       SPECIAL_RUBY_FILES

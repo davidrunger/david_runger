@@ -44,6 +44,6 @@ class Api::CspReportsController < Api::BaseController
 
   memoize \
   def send_csp_violation_to_rollbar?
-    IGNORED_USER_AGENTS.none? { request.user_agent.match?(_1) }
+    IGNORED_USER_AGENTS.none? { request.user_agent.match?(it) }
   end
 end

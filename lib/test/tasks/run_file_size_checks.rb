@@ -63,7 +63,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
   def assets_and_size_in_kb
     tracker.
       track_all_asset_sizes(dry_run: true).
-      transform_values { _1.fdiv(1024).round(2) }
+      transform_values { it.fdiv(1024).round(2) }
   end
 
   memoize \
