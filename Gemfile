@@ -70,9 +70,7 @@ group :development, :test do
   gem 'json-schema'
   gem 'listen'
   gem 'prosopite'
-  gem 'pry-byebug',
-    require: false,
-    github: 'davidrunger/pry-byebug'
+  gem 'pry-byebug', require: false, github: 'davidrunger/pry-byebug'
   gem 'rainbow'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
