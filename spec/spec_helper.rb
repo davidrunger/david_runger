@@ -80,8 +80,8 @@ OmniAuth.config.test_mode = true
 if SpecHelper.is_ci?
   Capybara::Screenshot.s3_configuration = {
     s3_client_credentials: {
-      access_key_id: Rails.application.credentials.aws![:access_key_id],
-      secret_access_key: Rails.application.credentials.aws![:secret_access_key],
+      access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+      secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
       region: 'us-east-1',
     },
     bucket_name: 'david-runger-test-uploads',

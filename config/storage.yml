@@ -5,7 +5,7 @@ local:
 amazon:
   service: NamespacedS3
   namespace: active_storage_uploads
-  access_key_id: <%= Rails.application.credentials.aws&.dig(:access_key_id) || ENV['AWS_ACCESS_KEY_ID'] %>
-  secret_access_key: <%= Rails.application.credentials.aws&.dig(:secret_access_key) || ENV['AWS_SECRET_ACCESS_KEY'] %>
+  access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   bucket: david-runger-uploads<%= Rails.env.local? ? "-#{Rails.env}" : '' %>
   region: us-east-1
