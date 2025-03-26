@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/pallets.git
-  revision: 62509818e9a865f31b27e635493c0c0b925e6332
+  revision: 3df015927a0511113e83f15d4100882ab87263b4
   specs:
     pallets (0.11.0)
       msgpack
@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/pry-byebug.git
-  revision: f4a00d93566ef28f87e03210ea94d303fa544f2f
+  revision: 52c15e7c85bc5d4089a772ab253736aca4a9df3d
   specs:
     pry-byebug (3.10.1)
       pry (>= 0.13)
@@ -24,7 +24,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/typelizer.git
-  revision: f6332e3976b6e69fa7823fa04e263fda289294f8
+  revision: 19db627e90ee0d5163b3da640eeef51503c09b2d
   specs:
     typelizer (0.3.0)
       railties (>= 6.0.0)
