@@ -68,8 +68,6 @@ class Prerenderer
       bucket('david-runger-uploads').
       object("prerenders/#{git_sha}/#{filename}").
       put(body:)
-  rescue => error
-    puts("Error uploading object: #{error.inspect}")
   end
 
   def html_for_prerendering(html)
