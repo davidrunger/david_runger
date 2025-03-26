@@ -1,21 +1,27 @@
-%div.my-8
-  %h2.h3 Auth tokens (advanced feature; safe to ignore)
-  - current_user.auth_tokens.each do |auth_token|
-    %div.mt-2
-      = form_with(model: auth_token, class: 'inline') do |form|
-        %span
-          = form.label :secret, 'Secret (required)'
-          = form.text_field :secret
+%h2.h3 Auth tokens (advanced feature; safe to ignore)
 
-        %span.ml-8
-          = form.label :name, 'Name (optional)'
-          = form.text_field :name
+.mt-4
+  = button_to('Create New Auth Token', auth_tokens_path(method: :post), class: 'btn-primary')
 
-        %span.ml-8
-          = form.submit('Update Auth Token', class: 'btn-primary')
+- current_user.auth_tokens.reorder(:created_at).each do |auth_token|
+  .mt-10
+    = form_with(model: auth_token, class: 'inline') do |form|
+      .my-2
+        = form.label :secret, 'Secret (required)'
+        = form.text_field :secret
 
-      = button_to('Destroy Auth Token', auth_token_path(auth_token),
-        method: :delete, class: 'btn-danger')
+      .my-2
+        = form.label :name, 'Name (optional)'
+        = form.text_field :name
 
-  %div.mt-4
-    = button_to('Create New Auth Token', auth_tokens_path(method: :post), class: 'btn-primary')
+      .my-2
+        %div
+          = form.label :permitted_actions_list, 'Permitted actions (optional). ', class: 'block'
+          %small A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_results#create`) for which this auth token may be used as an authorization mechanism. Note: A blank list means that the AuthToken is valid for all controller actions.
+        = form.textarea :permitted_actions_list, rows: 2, class: 'w-full'
+
+      .my-2
+        = form.submit('Update Auth Token', class: 'btn-primary')
+
+    = button_to('Destroy Auth Token', auth_token_path(auth_token),
+      method: :delete, class: 'btn-danger')

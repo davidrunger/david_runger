@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_15_194328) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_233233) do
   create_schema "pghero"
 
   # These are extensions that must be enabled in order to support this database
@@ -82,6 +82,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_15_194328) do
     t.datetime "last_used_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "permitted_actions_list", comment: "A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_results#create`) for which the auth token may be used as an authorization mechanism. Note: A blank list means that the AuthToken is valid for all controller actions."
     t.index ["secret"], name: "index_auth_tokens_on_secret"
     t.index ["user_id", "secret"], name: "index_auth_tokens_on_user_id_and_secret", unique: true
   end

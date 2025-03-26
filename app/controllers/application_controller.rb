@@ -9,10 +9,12 @@ class ApplicationController < ActionController::Base
   include RequestRecordable
   include SchemaValidatable
   include TokenAuthenticatable
+  prepend Memoization
 
   AUTHORIZATION_ERROR_MESSAGES = {
     Pundit::NotAuthorizedError => 'You are not authorized to perform this action.',
-    TokenAuthenticatable::InvalidToken => 'Your token is not valid.',
+    TokenAuthenticatable::InvalidToken =>
+      ->(_controller) { "Your token is not valid for #{controller_action}." },
   }.freeze
 
   protect_from_forgery with: :exception
@@ -70,10 +72,14 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_controller_action_in_context
-    ActiveSupport::ExecutionContext[:controller_action] =
-      ActiveSupport::ExecutionContext.to_h[:controller_action] ||
+  memoize \
+  def controller_action
+    ActiveSupport::ExecutionContext.to_h[:controller_action] ||
       "#{params['controller']}##{params['action']}"
+  end
+
+  def set_controller_action_in_context
+    ActiveSupport::ExecutionContext[:controller_action] = controller_action
   end
 
   def set_browser_uuid
@@ -152,6 +158,10 @@ class ApplicationController < ActionController::Base
       exception.class,
       'You are not authorized.',
     )
+
+    if message.respond_to?(:call)
+      message = instance_eval(&message)
+    end
 
     respond_to do |format|
       format.html do

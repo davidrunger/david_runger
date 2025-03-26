@@ -36,7 +36,7 @@ module RequestRecordable
       filtered_params:,
       admin_user: current_admin_user,
       user: current_user,
-      auth_token:,
+      auth_token: auth_token_valid_for_action,
       request_time: @request_time,
     ).request_data
   end
