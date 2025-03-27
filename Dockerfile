@@ -40,7 +40,7 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
   build-essential git libpq-dev libyaml-dev unzip
 
 # Download skedjewel binary.
-ARG SKEDJEWEL_VERSION=v1.0.0
+ARG SKEDJEWEL_VERSION=v1.1.0
 RUN curl --fail -L "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" > skedjewel && \
   mkdir -p /app/bin && \
   mv skedjewel /app/bin/ && \
