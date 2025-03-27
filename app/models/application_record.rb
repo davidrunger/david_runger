@@ -4,6 +4,10 @@ class ApplicationRecord < ActiveRecord::Base
   # from the `strip_attributes` gem https://github.com/rmm5t/strip_attributes
   strip_attributes
 
+  # For `loofah-activerecord`. https://www.rubydoc.info/gems/loofah-activerecord/2.0.0/Loofah/XssFoliate
+  # NOTE: Supposedly this makes our strings not guaranteed safe to render as HTML.
+  xss_foliate encode_special_chars: false
+
   class << self
     prepend Memoization
 
