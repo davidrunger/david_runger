@@ -2,7 +2,7 @@ class Test::Tasks::ConvertSchemasToTs < Pallets::Task
   include Test::TaskHelpers
 
   def run
-    puts("#{AmazingPrint::Colors.yellow('Writing JSON schemas as types')} ...")
+    puts("Executing #{AmazingPrint::Colors.yellow('JsonSchemasToTypescript.write_files')} ...")
 
     JsonSchemasToTypescript.write_files
 
