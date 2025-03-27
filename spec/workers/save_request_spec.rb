@@ -151,9 +151,7 @@ RSpec.describe SaveRequest do
             expect { perform }.to change { IpBlock.count }.by(1)
             ip_block = IpBlock.last!
             expect(ip_block.ip).to eq(request_ip)
-            expect(ip_block.reason).to eq(
-              JSON.dump(params).gsub('"', '&quot;'),
-            )
+            expect(ip_block.reason).to eq(JSON.dump(params))
           end
         end
       end
