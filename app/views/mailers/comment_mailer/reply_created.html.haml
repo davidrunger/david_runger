@@ -1,4 +1,4 @@
-#{@reply_comment.user.decorate.public_name_with_fallback} has replied to a comment that you made at
+#{@reply_comment.user.decorate.public_name || 'Someone'} has replied to a comment that you made at
 - url = DavidRunger.canonical_url(@reply_comment.path)
 = link_to(url, url)
 %span .

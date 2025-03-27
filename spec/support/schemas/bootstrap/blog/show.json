@@ -6,26 +6,23 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "content": {
-          "type": "string"
+        "current_user": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "$ref": "#/definitions/CurrentUser"
+            }
+          ]
         },
-        "created_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer"
-        },
-        "parent_id": {
-          "type": ["integer", "null"]
-        },
-        "user": {
-          "$ref": "#/definitions/User"
+        "nonce": {
+          "type": "string",
+          "format": "uuid"
         }
       },
-      "required": ["content", "created_at", "id", "parent_id", "user"],
+      "required": ["nonce"],
       "title": "Root"
     },
-    "User": {
+    "CurrentUser": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -33,20 +30,11 @@
           "type": "integer"
         },
         "public_name": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "type": ["null", "string"]
         },
         "gravatar_url": {
           "anyOf": [
-            {
-              "type": "null"
-            },
+            { "type": "null" },
             {
               "type": "string",
               "format": "uri",
@@ -56,7 +44,7 @@
         }
       },
       "required": ["gravatar_url", "id", "public_name"],
-      "title": "User"
+      "title": "CurrentUser"
     }
   }
 }

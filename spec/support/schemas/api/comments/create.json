@@ -9,14 +9,15 @@
         "content": {
           "type": "string"
         },
-        "created_at": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         },
         "parent_id": {
-          "type": ["integer", "null"]
+          "type": ["null", "number"]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
         },
         "user": {
           "$ref": "#/definitions/User"
@@ -33,12 +34,26 @@
           "type": "integer"
         },
         "public_name": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "gravatar_url": {
-          "type": "string",
-          "format": "uri",
-          "qt-uri-protocols": ["https"]
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "uri",
+              "qt-uri-protocols": ["https"]
+            }
+          ]
         }
       },
       "required": ["gravatar_url", "id", "public_name"],

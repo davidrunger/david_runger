@@ -18,19 +18,21 @@ class UserSerializer < ApplicationSerializer
   typelize_from User
 
   class Basic < UserSerializer
-    attributes(*%i[email id])
+    ATTRIBUTES = %i[email id].freeze
+
+    attributes(*ATTRIBUTES)
   end
 
   class Public < UserSerializer
-    attributes(*%i[id])
+    attributes(*%i[id public_name])
 
-    typelize 'string'
-    attribute(:public_name, &:public_name_with_fallback)
-
-    typelize 'string'
+    typelize 'string | null'
     attribute(:gravatar_url) do |user|
-      email_hash = Digest::SHA256.hexdigest(user.email.downcase)
-      "https://gravatar.com/avatar/#{email_hash}?s=32&d=robohash&r=r"
+      # If the user doesn't want to share a name, they probably don't want to share a gravatar URL.
+      if user.public_name.present?
+        email_hash = Digest::SHA256.hexdigest(user.email.downcase)
+        "https://gravatar.com/avatar/#{email_hash}?s=32&d=robohash&r=r"
+      end
     end
   end
 

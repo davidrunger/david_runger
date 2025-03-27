@@ -25,6 +25,7 @@ import Comment from '@/comments/components/Comment.vue';
 import CommentForm from '@/comments/components/CommentForm.vue';
 import { useCommentsStore } from '@/comments/stores/commentsStore';
 import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
+import { windowLocationWithHash } from '@/lib/windowLocation';
 
 const store = useCommentsStore();
 
@@ -42,12 +43,9 @@ onMounted(async () => {
   }
 });
 
-const pageUrl = new URL(window.location.href);
-pageUrl.hash = '#comments';
-const pageUrlWithCommentsHash = pageUrl.toString();
 const googleLoginOrigin = [
   'wizard:set-public-name-if-new',
-  pageUrlWithCommentsHash,
+  windowLocationWithHash('comments'),
 ].join('|');
 </script>
 

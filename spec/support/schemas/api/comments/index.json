@@ -2,17 +2,14 @@
   "$schema": "http://json-schema.org/draft-06/schema#",
   "type": "array",
   "items": {
-    "$ref": "#/definitions/Root"
+    "$ref": "#/definitions/Comment"
   },
   "definitions": {
-    "Root": {
+    "Comment": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "content": {
-          "type": "string"
-        },
-        "created_at": {
           "type": "string"
         },
         "id": {
@@ -28,19 +25,21 @@
             }
           ]
         },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
         "user": {
           "anyOf": [
+            { "type": "null" },
             {
               "$ref": "#/definitions/User"
-            },
-            {
-              "type": "null"
             }
           ]
         }
       },
       "required": ["content", "created_at", "id", "parent_id", "user"],
-      "title": "Root"
+      "title": "Comment"
     },
     "User": {
       "type": "object",
@@ -50,12 +49,26 @@
           "type": "integer"
         },
         "public_name": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "gravatar_url": {
-          "type": "string",
-          "format": "uri",
-          "qt-uri-protocols": ["https"]
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "uri",
+              "qt-uri-protocols": ["https"]
+            }
+          ]
         }
       },
       "required": ["gravatar_url", "id", "public_name"],

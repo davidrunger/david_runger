@@ -4,15 +4,15 @@ import type { Comment } from '@/comments/types/comment';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
-import type { UniversalBootstrapData } from '@/lib/types';
 import { api_comment_path, api_comments_path } from '@/rails_assets/routes';
 import type { Intersection } from '@/types';
+import { BlogShowBootstrap } from '@/types/bootstrap/BlogShowBootstrap';
 import type { CommentCreateResponse } from '@/types/responses/CommentCreateResponse';
 import type { CommentsIndexResponse } from '@/types/responses/CommentsIndexResponse';
 import type { CommentUpdateResponse } from '@/types/responses/CommentUpdateResponse';
 import type { Comment as SerializedComment } from '@/types/serializers';
 
-const bootstrap = untypedBootstrap as UniversalBootstrapData;
+const bootstrap = untypedBootstrap as BlogShowBootstrap;
 
 function findCommentRecursively(
   comments: Array<Comment>,

@@ -64,7 +64,14 @@ class JsonSchemaValidator
             alert_toast_messages
             notice_toast_messages
           ]
-      ).empty?
+      ).empty? &&
+      (
+        @data[:current_user].blank? ||
+        (
+          @data[:current_user].as_json.keys.map(&:to_sym) -
+          UserSerializer::Basic::ATTRIBUTES
+        ).empty?
+      )
   end
 
   memoize \

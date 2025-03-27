@@ -11,7 +11,7 @@ interface CommentsIndexResponseElement {
 }
 
 interface User {
-    gravatar_url: string;
+    gravatar_url: null | string;
     id:           number;
-    public_name:  string;
+    public_name:  null | string;
 }
