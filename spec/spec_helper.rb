@@ -163,6 +163,15 @@ RSpec.configure do |config|
   config.include(MailSpecHelpers, type: :mailbox)
   config.include(MailSpecHelpers, type: :mailer)
 
+  # Fail spec if any warnings were registered. See config/initializers/monkeypatches/warning.rb.
+  config.around(:each) do |example|
+    $warnings = []
+
+    example.run
+
+    expect($warnings).to be_empty
+  end
+
   # rspec-retry options >>>
   config.verbose_retry = true
   config.display_try_failure_messages = true
