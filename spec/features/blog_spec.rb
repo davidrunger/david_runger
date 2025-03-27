@@ -91,7 +91,7 @@ RSpec.describe 'Blog' do
 
             expect(current_email).to be_present
             expect(current_email).to have_text(<<~EMAIL.squish)
-              User #{existing_user.id} has replied to a comment that you made at
+              Someone has replied to a comment that you made at
               https://davidrunger.com/blog/something-i-learned .
               Comment content
               I have something to say in reply!

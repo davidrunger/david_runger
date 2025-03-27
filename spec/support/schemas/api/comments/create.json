@@ -34,10 +34,26 @@
           "type": "integer"
         },
         "public_name": {
-          "type": ["null", "string"]
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "gravatar_url": {
-          "type": ["null", "string"]
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "uri",
+              "qt-uri-protocols": ["https"]
+            }
+          ]
         }
       },
       "required": ["gravatar_url", "id", "public_name"],
