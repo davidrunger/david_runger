@@ -110,7 +110,9 @@ RSpec.describe 'Blog' do
 
           expect(page).to have_css('.comment', count: 2)
 
-          click_on('Delete')
+          accept_confirm do
+            click_on('Delete')
+          end
 
           # Because the comment has at least one reply, it is anonymized, rather
           # than fully deleted, so there are still two `.comment` elements.
@@ -119,7 +121,10 @@ RSpec.describe 'Blog' do
 
           Capybara.using_session('replier') do
             visit blog_url_path
-            click_on('Delete')
+
+            accept_confirm do
+              click_on('Delete')
+            end
 
             # Because the reply has no replies of its own, clicking "Delete" fully deletes it.
             expect(page).to have_css('.comment', count: 1)

@@ -8,7 +8,7 @@
     .time-since-creation(:title="comment.created_at") {{ timeSinceCreation }}
     .actions(v-if="isAuthor")
       button(@click="isEditing = !isEditing") {{ isEditing ? 'Cancel' : 'Edit' }}
-      button(@click="store.deleteComment(comment.id)") Delete
+      button(@click="handleCommentDelete(comment.id)") Delete
 
   template(v-if="isEditing")
     CommentForm(
@@ -134,6 +134,12 @@ function handleCommentUpdate(content: string) {
 function handleReplyCreate(content: string) {
   store.addComment(content, props.comment.id);
   showReplyForm.value = false;
+}
+
+function handleCommentDelete(commentId: number) {
+  if (confirm('Delete comment?')) {
+    store.deleteComment(commentId);
+  }
 }
 </script>
 
