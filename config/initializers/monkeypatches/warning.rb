@@ -7,11 +7,13 @@
 if Rails.env.test?
   module StoreWarningsInGlobalVariable
     def warn(message, *_args, **_kwargs)
+      # :nocov:
       if defined?($warnings) && $warnings.respond_to?(:<<)
         $warnings << message
       end
 
       super
+      # :nocov:
     end
   end
 
