@@ -126,7 +126,7 @@ RSpec.describe 'Groceries app' do
             click_on('Add')
           end
 
-          expect(page).to have_toastify_toast('Name has already been taken', type: :error)
+          expect(page).to have_vue_toast('Name has already been taken', type: :error)
           # Make sure that a duplicate store is not created in the sidebar.
           within('aside') do
             count_of_store_name_in_page = page.text.scan(Regexp.escape(existing_store.name)).count
@@ -142,6 +142,35 @@ RSpec.describe 'Groceries app' do
           # Make sure that the new store is added to the list.
           within('aside') do
             expect(page).to have_text(unique_new_store_name)
+          end
+        end
+      end
+
+      context 'when the store has an item' do
+        let(:existing_store) { user.stores.joins(:items).first! }
+        let(:existing_item) { existing_store.items.first! }
+
+        context 'when the user attempts to add a duplicate item' do
+          it 'displays a toast message and allows (re)submitting with a unique item name' do
+            visit(groceries_path)
+
+            within('aside') do
+              click_on(existing_store.name)
+            end
+
+            expect(page).to have_css('h1', text: existing_store.name)
+
+            fill_in('Add an item', with: existing_item.name)
+            click_on('Add item')
+
+            expect(page).to have_vue_toast('Name has already been taken', type: :error)
+
+            unique_new_item_name = "#{existing_item.name} #{SecureRandom.alphanumeric(5)}"
+
+            fill_in('Add an item', with: unique_new_item_name)
+            click_on('Add item')
+
+            expect(page).to have_css('li', text: unique_new_item_name)
           end
         end
       end

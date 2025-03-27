@@ -53,3 +53,9 @@ export function renderBootstrappedToasts() {
     }
   }
 }
+
+export function toastErrors(errors: Array<string>) {
+  errors.forEach((error) => {
+    vueToast(error, { type: TYPE.ERROR });
+  });
+}

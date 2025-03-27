@@ -13,7 +13,7 @@
 
   TransitionGroup.items-list.relative.mt-0.mb-0(
     name="appear-and-disappear-vertically-list"
-    tag="div"
+    tag="ul"
   )
     Item(
       v-for="item in sortedItems"

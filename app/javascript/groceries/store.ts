@@ -9,8 +9,9 @@ import { emit } from '@/lib/event_bus';
 import { typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
 import { getById, safeGetById } from '@/lib/store_helpers';
-import { toast } from '@/lib/toasts';
-import { vueToast } from '@/lib/vue_toasts';
+import { isObjectWithErrors } from '@/lib/type_predicates';
+import { type ObjectWithErrors } from '@/lib/types';
+import { toastErrors, vueToast } from '@/lib/vue_toasts';
 import {
   api_item_path,
   api_items_bulk_updates_path,
@@ -84,14 +85,15 @@ export const useGroceriesStore = defineStore('groceries', {
     }) {
       this.incrementPendingRequests();
 
-      const itemData = await http.post<Intersection<Item, ItemCreateResponse>>(
-        api_store_items_path(store.id),
-        { item: itemAttributes },
-      );
+      const itemData = await http.post<
+        Intersection<Item, ItemCreateResponse> | ObjectWithErrors
+      >(api_store_items_path(store.id), { item: itemAttributes });
 
       this.decrementPendingRequests();
 
-      if (itemData) {
+      if (isObjectWithErrors(itemData)) {
+        toastErrors(itemData.errors);
+      } else if (itemData) {
         this.addItem({ store, itemData });
         return true;
       }
@@ -106,17 +108,13 @@ export const useGroceriesStore = defineStore('groceries', {
       };
 
       const newStoreData = await http.post<
-        Intersection<Store, StoreCreateResponse> | { errors: Array<string> }
+        Intersection<Store, StoreCreateResponse> | ObjectWithErrors
       >(api_stores_path(), payload);
 
       this.postingStore = false;
 
-      if ('errors' in newStoreData) {
-        const { errors } = newStoreData;
-
-        for (const error of errors) {
-          toast(error, { type: 'error' });
-        }
+      if (isObjectWithErrors(newStoreData)) {
+        toastErrors(newStoreData.errors);
       } else if (newStoreData) {
         this.own_stores.unshift(newStoreData);
         return true;

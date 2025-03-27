@@ -1,5 +1,5 @@
 <template lang="pug">
-.grocery-item.flex.items-center.w-full(:class="{ unneeded: item.needed <= 0 }")
+li.grocery-item.flex.items-center.w-full(:class="{ unneeded: item.needed <= 0 }")
   .left.whitespace-nowrap
     button.item-button.js-link.text-green-600(
       @click="setNeeded(item, item.needed + 1)"

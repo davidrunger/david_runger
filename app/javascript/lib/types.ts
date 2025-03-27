@@ -1,13 +1,17 @@
 import { UserSerializerBasic } from '@/types';
 
+export interface IphoneTouchEvent extends TouchEvent {
+  scale: number;
+}
+
 export interface JsonBroadcast {
   acting_browser_uuid: string;
   action: 'created' | 'updated' | 'destroyed';
   model: object;
 }
 
-export interface IphoneTouchEvent extends TouchEvent {
-  scale: number;
+export interface ObjectWithErrors {
+  errors: Array<string>;
 }
 
 export type UniversalBootstrapData = {
