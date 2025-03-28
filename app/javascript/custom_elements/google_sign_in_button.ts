@@ -124,7 +124,7 @@ class GoogleSignInButton extends HTMLElement {
                 -webkit-user-select: none;
                 -ms-user-select: none;
                 -webkit-appearance: none;
-                background-color: #131314;
+                background-color: transparent;
                 background-image: none;
                 border: 1px solid #747775;
                 -webkit-border-radius: 4px;
