@@ -5,7 +5,7 @@
   template(v-if="store.currentUser")
     CommentForm(@submit="store.addComment")
   template(v-else)
-    p #[GoogleLoginButton.google-login-form(:origin="googleLoginOrigin")] to add a comment.
+    p #[GoogleLoginButton.google-login-form.dark-mode-supported(:origin="googleLoginOrigin")] to add a comment.
 
   .comments
     template(v-if="store.comments.length")
