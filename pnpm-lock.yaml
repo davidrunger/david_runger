@@ -26,6 +26,12 @@ importers:
       '@rails/ujs':
         specifier: ^7.1.501
         version: 7.1.501
+      '@regle/core':
+        specifier: ^1.0.6
+        version: 1.0.6(pinia@3.0.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
+      '@regle/rules':
+        specifier: ^1.0.6
+        version: 1.0.6(pinia@3.0.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
       '@tailwindcss/vite':
         specifier: ^4.0.17
         version: 4.0.17(vite@6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.3)(sass@1.86.0)(yaml@2.7.0))
@@ -35,12 +41,6 @@ importers:
       '@vue/compiler-sfc':
         specifier: ^3.5.13
         version: 3.5.13
-      '@vuelidate/core':
-        specifier: ^2.0.3
-        version: 2.0.3(vue@3.5.13(typescript@5.8.2))
-      '@vuelidate/validators':
-        specifier: ^2.0.4
-        version: 2.0.4(vue@3.5.13(typescript@5.8.2))
       '@vueuse/core':
         specifier: ^13.0.0
         version: 13.0.0(vue@3.5.13(typescript@5.8.2))
@@ -865,6 +865,18 @@ packages:
   '@rails/ujs@7.1.501':
     resolution: {integrity: sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==}
 
+  '@regle/core@1.0.6':
+    resolution: {integrity: sha512-u1blPeThJLUMU3SokHeRuYl8aMYLC1SHfkKWnGnkTb84kTt2zAuxc3Cc0HLHBr7ECVmcbRZrANYNXBHXteUG/g==}
+    peerDependencies:
+      pinia: '>=2.2.5'
+      vue: '>=3.3.0'
+    peerDependenciesMeta:
+      pinia:
+        optional: true
+
+  '@regle/rules@1.0.6':
+    resolution: {integrity: sha512-R8F5hEca0/TwbNkn623fHjMnm+Dt3vmtVl645hJcmVAtOrU7UfwOPs16Levei4/5CSp4S4DltmhnCPtnAqsr5Q==}
+
   '@rollup/rollup-android-arm-eabi@4.36.0':
     resolution: {integrity: sha512-jgrXjjcEwN6XpZXL0HUeOVGfjXhPyxAbbhD0BlXUB+abTOpbPiN5Wb3kOT7yb+uEtATNYF5x5gIfwutmuBA26w==}
     cpu: [arm]
@@ -1399,24 +1411,6 @@ packages:
 
   '@vue/test-utils@2.4.6':
     resolution: {integrity: sha512-FMxEjOpYNYiFe0GkaHsnJPXFHxQ6m4t8vI/ElPGpMWxZKpmRvQ33OIrvRXemy6yha03RxhOlQuy+gZMC3CQSow==}
-
-  '@vuelidate/core@2.0.3':
-    resolution: {integrity: sha512-AN6l7KF7+mEfyWG0doT96z+47ljwPpZfi9/JrNMkOGLFv27XVZvKzRLXlmDPQjPl/wOB1GNnHuc54jlCLRNqGA==}
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^2.0.0 || >=3.0.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-
-  '@vuelidate/validators@2.0.4':
-    resolution: {integrity: sha512-odTxtUZ2JpwwiQ10t0QWYJkkYrfd0SyFYhdHH44QQ1jDatlZgTh/KRzrWVmn/ib9Gq7H4hFD4e8ahoo5YlUlDw==}
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^2.0.0 || >=3.0.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
 
   '@vueuse/core@13.0.0':
     resolution: {integrity: sha512-rkgb4a8/0b234lMGCT29WkCjPfsX0oxrIRR7FDndRoW3FsaC9NBzefXg/9TLhAgwM11f49XnutshM4LzJBrQ5g==}
@@ -4357,17 +4351,6 @@ packages:
   vue-component-type-helpers@2.2.8:
     resolution: {integrity: sha512-4bjIsC284coDO9om4HPA62M7wfsTvcmZyzdfR0aUlFXqq4tXxM1APyXpNVxPC8QazKw9OhmZNHBVDA6ODaZsrA==}
 
-  vue-demi@0.13.11:
-    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
-    engines: {node: '>=12'}
-    hasBin: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
     engines: {node: '>=12'}
@@ -5175,6 +5158,19 @@ snapshots:
 
   '@rails/ujs@7.1.501': {}
 
+  '@regle/core@1.0.6(pinia@3.0.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))':
+    dependencies:
+      vue: 3.5.13(typescript@5.8.2)
+    optionalDependencies:
+      pinia: 3.0.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2))
+
+  '@regle/rules@1.0.6(pinia@3.0.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))':
+    dependencies:
+      '@regle/core': 1.0.6(pinia@3.0.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
+    transitivePeerDependencies:
+      - pinia
+      - vue
+
   '@rollup/rollup-android-arm-eabi@4.36.0':
     optional: true
 
@@ -5703,16 +5699,6 @@ snapshots:
     dependencies:
       js-beautify: 1.15.4
       vue-component-type-helpers: 2.2.8
-
-  '@vuelidate/core@2.0.3(vue@3.5.13(typescript@5.8.2))':
-    dependencies:
-      vue: 3.5.13(typescript@5.8.2)
-      vue-demi: 0.13.11(vue@3.5.13(typescript@5.8.2))
-
-  '@vuelidate/validators@2.0.4(vue@3.5.13(typescript@5.8.2))':
-    dependencies:
-      vue: 3.5.13(typescript@5.8.2)
-      vue-demi: 0.13.11(vue@3.5.13(typescript@5.8.2))
 
   '@vueuse/core@13.0.0(vue@3.5.13(typescript@5.8.2))':
     dependencies:
@@ -9118,10 +9104,6 @@ snapshots:
       vue: 3.5.13(typescript@5.8.2)
 
   vue-component-type-helpers@2.2.8: {}
-
-  vue-demi@0.13.11(vue@3.5.13(typescript@5.8.2)):
-    dependencies:
-      vue: 3.5.13(typescript@5.8.2)
 
   vue-demi@0.14.10(vue@3.5.13(typescript@5.8.2)):
     dependencies:

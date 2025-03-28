@@ -14,13 +14,13 @@ form.flex(
     ElButton.button.button-outline(
       native-type="submit"
       aria-label="Add item"
-      :disabled="v$.$invalid"
+      :disabled="r$.$invalid"
     ) Add
 </template>
 
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { useRegle } from '@regle/core';
+import { required } from '@regle/rules';
 import { ElButton, ElInput } from 'element-plus';
 import { reactive, type PropType } from 'vue';
 
@@ -42,7 +42,7 @@ const vuelidateRules = {
 const formData = reactive({
   newItemName: '',
 });
-const v$ = useVuelidate(vuelidateRules, formData);
+const { r$ } = useRegle(formData, vuelidateRules);
 
 async function postNewItem() {
   const success = await groceriesStore.createItem({

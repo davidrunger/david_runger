@@ -22,7 +22,7 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
             )
           ElButton(
             native-type="submit"
-            :disabled="postingStore || v$.$invalid"
+            :disabled="postingStore || r$.$invalid"
           ) Add
         .stores-list
           StoreListEntry(
@@ -44,8 +44,8 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
 </template>
 
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { useRegle } from '@regle/core';
+import { required } from '@regle/rules';
 import { ElButton, ElInput } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { computed, reactive, ref } from 'vue';
@@ -67,7 +67,7 @@ const groceriesStore = useGroceriesStore();
 const vuelidateRules = {
   newStoreName: { required },
 };
-const v$ = useVuelidate(vuelidateRules, formData);
+const { r$ } = useRegle(formData, vuelidateRules);
 
 function handleStoreSelected() {
   if (isMobileDevice()) {

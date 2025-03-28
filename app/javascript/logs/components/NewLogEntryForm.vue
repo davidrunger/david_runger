@@ -35,13 +35,13 @@ div
       )
       ElButton(
         native-type="submit"
-        :disabled="v$.$invalid"
+        :disabled="r$.$invalid"
       ) Add
 </template>
 
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { useRegle } from '@regle/core';
+import { required } from '@regle/rules';
 import { ElButton, ElDatePicker, ElInput } from 'element-plus';
 import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 
@@ -69,7 +69,7 @@ const formData = reactive({
   newLogEntryNote: null as null | string,
 });
 
-const v$ = useVuelidate(vuelidateRules, formData);
+const { r$ } = useRegle(formData, vuelidateRules);
 
 const logsStore = useLogsStore();
 
