@@ -29,8 +29,9 @@
 </template>
 
 <script setup lang="ts">
-import { isMobileDevice } from '@/lib/is_mobile_device';
 import { string } from 'vue-types';
+
+import { isMobileDevice } from '@/lib/is_mobile_device';
 
 defineProps({
   imageContainerClass: string().def('mb-8'),

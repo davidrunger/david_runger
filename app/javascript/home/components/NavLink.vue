@@ -10,9 +10,9 @@ a.nav-link(
 <script setup lang="ts">
 import { capitalize } from 'lodash-es';
 import { computed } from 'vue';
+import { string } from 'vue-types';
 
 import { useHomeStore } from '@/home/store';
-import { string } from 'vue-types';
 
 const props = defineProps({
   linkText: string().def(''),

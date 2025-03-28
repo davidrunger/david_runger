@@ -29,11 +29,11 @@ import { ElCheckbox } from 'element-plus';
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
 import { computed } from 'vue';
+import { array, bool } from 'vue-types';
 
 import { toast } from '@/lib/toasts';
 import type { Workout } from '@/types';
 import { useWorkoutsStore } from '@/workout/store';
-import { array, bool } from 'vue-types';
 
 const props = defineProps({
   isOwnWorkouts: bool().def(false),
