@@ -59,7 +59,7 @@ const props = defineProps({
   },
 });
 
-const vuelidateRules = {
+const regleRules = {
   newLogEntryData: { required },
 };
 
@@ -69,7 +69,7 @@ const formData = reactive({
   newLogEntryNote: null as null | string,
 });
 
-const { r$ } = useRegle(formData, vuelidateRules);
+const { r$ } = useRegle(formData, regleRules);
 
 const logsStore = useLogsStore();
 

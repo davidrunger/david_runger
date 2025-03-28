@@ -64,10 +64,10 @@ const formData = reactive({
 });
 const collapsed = ref(isMobileDevice());
 const groceriesStore = useGroceriesStore();
-const vuelidateRules = {
+const regleRules = {
   newStoreName: { required },
 };
-const { r$ } = useRegle(formData, vuelidateRules);
+const { r$ } = useRegle(formData, regleRules);
 
 function handleStoreSelected() {
   if (isMobileDevice()) {

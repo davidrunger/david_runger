@@ -36,13 +36,13 @@ const props = defineProps({
 
 const groceriesStore = useGroceriesStore();
 
-const vuelidateRules = {
+const regleRules = {
   newItemName: { required },
 };
 const formData = reactive({
   newItemName: '',
 });
-const { r$ } = useRegle(formData, vuelidateRules);
+const { r$ } = useRegle(formData, regleRules);
 
 async function postNewItem() {
   const success = await groceriesStore.createItem({
