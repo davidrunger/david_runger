@@ -19,7 +19,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'emoji_picker*.js' => (322..332),
     'google_sign_in_button*.js' => (1..11),
     'groceries*.css' => (60..70),
-    'groceries*.js' => (325..335),
+    'groceries*.js' => (319..329),
     'home*.css' => (13..23),
     'home*.js' => (247..257),
     'logs*.css' => (101..111),

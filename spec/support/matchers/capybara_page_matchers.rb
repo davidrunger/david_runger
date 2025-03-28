@@ -60,26 +60,38 @@ RSpec::Matchers.define(:have_toastify_toast) do |expected_text, type: :default|
   end
 end
 
-RSpec::Matchers.define(:have_vue_toast) do |expected_text|
+RSpec::Matchers.define(:have_vue_toast) do |expected_text, type: :default|
+  extend ActionView::Helpers::TagHelper
+
+  class_list_for_type = class_names(
+    'Vue-Toastification__toast',
+    case type
+    in :error then 'Vue-Toastification__toast--error'
+    else 'Vue-Toastification__toast--default'
+    end,
+  )
+
+  class_selector = ".#{class_list_for_type.tr(' ', '.')} .Vue-Toastification__toast-body"
+
   match do |actual_page|
-    expect(actual_page).to have_css('.Vue-Toastification__toast-body', text: expected_text)
+    expect(actual_page).to have_css(class_selector, text: expected_text)
   end
 
   match_when_negated do |actual_page|
-    expect(actual_page).not_to have_css('.Vue-Toastification__toast-body', text: expected_text)
+    expect(actual_page).not_to have_css(class_selector, text: expected_text)
   end
 
   failure_message do |actual_page|
     <<~MESSAGE.squish
-      expected page ('#{actual_page.text}') to have a Vue toast with text
-      '#{expected_text}'
+      expected page ('#{actual_page.text}') to have a Vue toast of type #{type}
+      with text '#{expected_text}'
     MESSAGE
   end
 
   failure_message_when_negated do |actual_page|
     <<~MESSAGE.squish
-      expected page ('#{actual_page.text}') not to have a Vue toast with text
-      '#{expected_text}'
+      expected page ('#{actual_page.text}') not to have a Vue toast of type #{type}
+      with text '#{expected_text}'
     MESSAGE
   end
 end

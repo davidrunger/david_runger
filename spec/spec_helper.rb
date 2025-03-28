@@ -77,6 +77,16 @@ WebMock.disable_net_connect!(
 
 OmniAuth.config.test_mode = true
 
+# Register the default screenshot driver using our custom driver names to avoid warning.
+[
+  Cuprite::CustomDrivers::DOMAIN_RESTRICTED_CUPRITE,
+  Cuprite::CustomDrivers::UNRESTRICTED_CUPRITE,
+].each do |driver_name|
+  Capybara::Screenshot.register_driver(driver_name) do |driver, path|
+    Capybara::Screenshot.registered_drivers[:default].call(driver, path)
+  end
+end
+
 if SpecHelper.is_ci?
   Capybara::Screenshot.s3_configuration = {
     s3_client_credentials: {
@@ -101,6 +111,7 @@ Capybara.default_normalize_ws = true
 capybara_port = Integer(ENV.fetch('CAPYBARA_SERVER_PORT', 3001))
 Capybara.server_port = capybara_port
 Capybara.app_host = "http://localhost:#{capybara_port}"
+Capybara.enable_aria_label = true
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

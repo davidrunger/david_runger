@@ -13,6 +13,7 @@ form.flex(
   .ml-2
     ElButton.button.button-outline(
       native-type="submit"
+      aria-label="Add item"
       :disabled="v$.$invalid"
     ) Add
 </template>

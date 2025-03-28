@@ -17,27 +17,33 @@
   }
 
   body {
-    h1 {
+    h1,
+    .h1 {
       @apply my-4 text-3xl font-bold;
     }
 
-    h2 {
+    h2,
+    .h2 {
       @apply my-3 text-2xl font-bold;
     }
 
-    h3 {
+    h3,
+    .h3 {
       @apply my-2 text-xl font-bold;
     }
 
-    h4 {
+    h4,
+    .h4 {
       @apply my-1 text-lg font-bold;
     }
 
-    h5 {
+    h5,
+    .h5 {
       @apply my-1 text-base font-bold;
     }
 
-    h6 {
+    h6,
+    .h6 {
       @apply my-1 text-sm font-bold;
     }
 
