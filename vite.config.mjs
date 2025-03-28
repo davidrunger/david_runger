@@ -8,7 +8,7 @@ import { defineConfig } from 'vite';
 import FullReload from 'vite-plugin-full-reload';
 import RubyPlugin from 'vite-plugin-ruby';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       maxParallelFileOps:
@@ -56,6 +56,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './app/javascript'),
       img: path.resolve(__dirname, './app/assets/images'),
       css: path.resolve(__dirname, './app/assets/stylesheets'),
+      ...(mode === 'production' && {
+        'vue-types': 'vue-types/shim',
+      }),
     },
   },
   test: {
@@ -67,4 +70,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

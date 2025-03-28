@@ -64,7 +64,8 @@ import { useWakeLock } from '@vueuse/core';
 import { Timer } from 'easytimer.js';
 import { ElSwitch } from 'element-plus';
 import { cloneDeep } from 'lodash-es';
-import { computed, onBeforeMount, reactive, ref, type PropType } from 'vue';
+import { computed, onBeforeMount, reactive, ref } from 'vue';
+import { array, number } from 'vue-types';
 
 import { assert } from '@/lib/helpers';
 import { useModalStore } from '@/lib/modal/store';
@@ -78,18 +79,9 @@ type SetObject = {
 };
 
 const props = defineProps({
-  exercises: {
-    type: Array as PropType<Array<Exercise>>,
-    required: true,
-  },
-  minutes: {
-    type: Number,
-    required: true,
-  },
-  numberOfSets: {
-    type: Number,
-    required: true,
-  },
+  exercises: array<Exercise>().isRequired,
+  minutes: number().isRequired,
+  numberOfSets: number().isRequired,
 });
 
 const { request: requestWakeLock, release: releaseWakeLock } = useWakeLock();

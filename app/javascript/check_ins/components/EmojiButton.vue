@@ -9,7 +9,8 @@ button.bg-slate-200(
 
 <script setup lang="ts">
 import { sample } from 'lodash-es';
-import { computed, type PropType } from 'vue';
+import { computed } from 'vue';
+import { bool, integer, object } from 'vue-types';
 
 import { useCheckInsStore } from '@/check_ins/store';
 import type { NeedSatisfactionRating, Rating } from '@/check_ins/types';
@@ -26,18 +27,9 @@ const EMOJIS = new Map([
 ]);
 
 const props = defineProps({
-  editable: {
-    type: Boolean,
-    default: true,
-  },
-  needSatisfactionRating: {
-    type: Object as PropType<NeedSatisfactionRating>,
-    required: true,
-  },
-  ratingValue: {
-    type: Number as PropType<Rating>,
-    required: true,
-  },
+  editable: bool().def(true),
+  needSatisfactionRating: object<NeedSatisfactionRating>().isRequired,
+  ratingValue: integer<Rating>().isRequired,
 });
 
 const checkInsStore = useCheckInsStore();

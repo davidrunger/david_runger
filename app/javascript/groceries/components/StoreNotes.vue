@@ -24,18 +24,15 @@
 </template>
 
 <script setup lang="ts">
-import { type PropType } from 'vue';
 import { EditIcon } from 'vue-tabler-icons';
+import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
 import { useCancellableInput } from '@/lib/composables/useCancellableInput';
 import type { Store } from '@/types';
 
 const props = defineProps({
-  store: {
-    type: Object as PropType<Store>,
-    required: true,
-  },
+  store: object<Store>().isRequired,
 });
 
 const groceriesStore = useGroceriesStore();

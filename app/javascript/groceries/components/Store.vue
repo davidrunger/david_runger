@@ -29,7 +29,8 @@
 
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
-import { computed, type PropType } from 'vue';
+import { computed } from 'vue';
+import { object } from 'vue-types';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
 import type { Item as ItemType } from '@/groceries/types';
@@ -45,10 +46,7 @@ import StoreHeader from './StoreHeader.vue';
 import StoreNotes from './StoreNotes.vue';
 
 const props = defineProps({
-  store: {
-    type: Object as PropType<Store>,
-    required: true,
-  },
+  store: object<Store>().isRequired,
 });
 
 const groceriesStore = useGroceriesStore();

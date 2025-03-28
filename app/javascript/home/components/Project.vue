@@ -30,18 +30,11 @@
 
 <script setup lang="ts">
 import { isMobileDevice } from '@/lib/is_mobile_device';
+import { string } from 'vue-types';
 
 defineProps({
-  imageContainerClass: {
-    type: String,
-    required: false,
-    default: 'mb-8',
-  },
-  linksContainerClass: {
-    type: String,
-    required: false,
-    default: 'mb-4',
-  },
+  imageContainerClass: string().def('mb-8'),
+  linksContainerClass: string().def('mb-4'),
 });
 </script>
 

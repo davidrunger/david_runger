@@ -73,9 +73,11 @@ import { type Comment } from '@/comments/types/comment';
 
 import 'highlight.js/styles/github-dark.css';
 
-const props = defineProps<{
-  comment: Comment;
-}>();
+import { object } from 'vue-types';
+
+const props = defineProps({
+  comment: object<Comment>().isRequired,
+});
 
 const store = useCommentsStore();
 const isEditing = ref(false);

@@ -15,27 +15,15 @@ transition(name="modal")
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { onUnmounted, ref } from 'vue';
+import { string } from 'vue-types';
 
 import { useModalStore } from '@/lib/modal/store';
 
 const props = defineProps({
-  backgroundClass: {
-    type: String,
-    required: false,
-    default: 'bg-white',
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  width: {
-    type: String,
-    required: true,
-  },
-  maxWidth: {
-    type: String,
-    required: true,
-  },
+  backgroundClass: string().def('bg-white'),
+  name: string().isRequired,
+  width: string().isRequired,
+  maxWidth: string().isRequired,
 });
 
 const modalStore = useModalStore();

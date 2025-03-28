@@ -3,6 +3,13 @@ import { isObject } from 'lodash-es';
 import { TextLogEntry } from '@/logs/types';
 import { LogEntry } from '@/types';
 
+export function isArrayOfNumbers(object: unknown): object is Array<number> {
+  return (
+    Array.isArray(object) &&
+    object.every((element) => typeof element === 'number')
+  );
+}
+
 export function isArrayOfStrings(object: unknown): object is Array<string> {
   return (
     Array.isArray(object) &&

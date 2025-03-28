@@ -47,7 +47,8 @@ Modal(
 
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
-import { computed, ref, type PropType } from 'vue';
+import { computed, ref } from 'vue';
+import { object } from 'vue-types';
 
 import Modal from '@/components/Modal.vue';
 import { useModalStore } from '@/lib/modal/store';
@@ -62,10 +63,7 @@ const TIME_UNIT_IN_SECONDS = {
 };
 
 const props = defineProps({
-  log: {
-    type: Object as PropType<Log>,
-    required: true,
-  },
+  log: object<Log>().isRequired,
 });
 
 const logsStore = useLogsStore();

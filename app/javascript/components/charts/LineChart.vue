@@ -30,6 +30,7 @@ import { Line as VueLine } from 'vue-chartjs';
 import 'chartjs-adapter-luxon';
 
 import { computed } from 'vue';
+import { number, object, string } from 'vue-types';
 
 ChartJS.register(Tooltip, LineElement, LinearScale, PointElement, TimeScale);
 
@@ -79,38 +80,14 @@ const chartOptionsDefaults = {
 };
 
 const props = defineProps({
-  chartData: {
-    type: Object,
-    required: true,
-  },
-  options: {
-    type: Object,
-    default: () => {},
-  },
-  chartId: {
-    type: String,
-    default: 'line-chart',
-  },
-  datasetIdKey: {
-    type: String,
-    default: 'label',
-  },
-  width: {
-    type: Number,
-    default: 400,
-  },
-  height: {
-    type: Number,
-    default: 400,
-  },
-  cssClasses: {
-    default: '',
-    type: String,
-  },
-  styles: {
-    type: Object,
-    default: () => {},
-  },
+  chartData: object().isRequired,
+  options: object().def(() => {}),
+  chartId: string().def('line-chart'),
+  datasetIdKey: string().def('label'),
+  width: number().def(400),
+  height: number().def(400),
+  cssClasses: string().def(''),
+  styles: object().def(() => {}),
 });
 
 const chartOptions = computed(() => {

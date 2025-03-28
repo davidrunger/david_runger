@@ -10,7 +10,8 @@
 <script setup lang="ts">
 import type { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
 import { sortBy } from 'lodash-es';
-import { computed, type PropType } from 'vue';
+import { computed } from 'vue';
+import { object } from 'vue-types';
 
 import LineChart from '@/components/charts/LineChart.vue';
 import type { Log } from '@/logs/types';
@@ -49,10 +50,7 @@ type ChartData = {
 };
 
 const props = defineProps({
-  log: {
-    type: Object as PropType<Log>,
-    required: true,
-  },
+  log: object<Log>().isRequired,
 });
 
 const CHART_OPTIONS = {

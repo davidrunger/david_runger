@@ -15,14 +15,16 @@ template(v-if="showEditLink")
 </template>
 
 <script setup lang="ts">
+import { bool, nullable, object, oneOfType } from 'vue-types';
+
 import { windowLocationWithHash } from '@/lib/windowLocation';
 import { edit_public_name_my_account_path } from '@/rails_assets/routes';
 import { type UserSerializerPublic } from '@/types';
 
-defineProps<{
-  showEditLink: boolean;
-  user: null | UserSerializerPublic;
-}>();
+defineProps({
+  showEditLink: bool(),
+  user: oneOfType<null | UserSerializerPublic>([nullable(), object()]),
+});
 
 const editNamePath = edit_public_name_my_account_path({
   redirect_chain: windowLocationWithHash('comments'),

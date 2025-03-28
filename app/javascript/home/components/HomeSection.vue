@@ -14,22 +14,15 @@
 </template>
 
 <script setup lang="ts">
+import { bool, string } from 'vue-types';
+
 import ScrollHook from './ScrollHook.vue';
 import SectionHeader from './SectionHeader.vue';
 
 defineProps({
-  renderHeadingManually: {
-    type: Boolean,
-    default: false,
-  },
-  section: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
+  renderHeadingManually: bool().def(false),
+  section: string().isRequired,
+  title: string().isRequired,
 });
 </script>
 

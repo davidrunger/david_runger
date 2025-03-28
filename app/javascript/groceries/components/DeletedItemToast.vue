@@ -6,18 +6,13 @@ div
 </template>
 
 <script setup lang="ts">
+import { string } from 'vue-types';
+
 import { http } from '@/lib/http';
 
 const props = defineProps({
-  deletedItemName: {
-    type: String,
-    required: true,
-  },
-
-  restoreItemPath: {
-    type: String,
-    required: true,
-  },
+  deletedItemName: string().isRequired,
+  restoreItemPath: string().isRequired,
 });
 
 function restoreItem() {

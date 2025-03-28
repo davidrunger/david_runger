@@ -35,10 +35,14 @@ button.btn-primary.mt-2.h3(
 import { ElPopover } from 'element-plus';
 import { range } from 'lodash-es';
 import { storeToRefs } from 'pinia';
-import type { PropType } from 'vue';
+import { array, bool, string } from 'vue-types';
 
 import { useCheckInsStore } from '@/check_ins/store';
-import type { NeedSatisfactionRating, Rating } from '@/check_ins/types';
+import type {
+  NeedSatisfactionRating,
+  RatedUser,
+  Rating,
+} from '@/check_ins/types';
 import {
   edit_emotional_need_path,
   history_emotional_need_path,
@@ -47,18 +51,9 @@ import {
 import EmojiButton from './EmojiButton.vue';
 
 const props = defineProps({
-  editable: {
-    type: Boolean,
-    required: true,
-  },
-  needSatisfactionRatings: {
-    type: Array as PropType<Array<NeedSatisfactionRating>>,
-    required: true,
-  },
-  ratedUser: {
-    type: String,
-    required: true,
-  },
+  editable: bool().isRequired,
+  needSatisfactionRatings: array<NeedSatisfactionRating>().isRequired,
+  ratedUser: string<RatedUser>().isRequired,
 });
 
 const checkInsStore = useCheckInsStore();

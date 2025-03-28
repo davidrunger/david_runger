@@ -5,14 +5,12 @@
 <script setup lang="ts">
 import { useIntersectionObserver } from '@vueuse/core';
 import { ref } from 'vue';
+import { string } from 'vue-types';
 
 import { useHomeStore } from '@/home/store';
 
 const props = defineProps({
-  section: {
-    type: String,
-    required: true,
-  },
+  section: string().isRequired,
 });
 
 const scrollHookRef = ref(null);

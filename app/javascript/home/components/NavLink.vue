@@ -12,17 +12,11 @@ import { capitalize } from 'lodash-es';
 import { computed } from 'vue';
 
 import { useHomeStore } from '@/home/store';
+import { string } from 'vue-types';
 
 const props = defineProps({
-  linkText: {
-    type: String,
-    required: false,
-    default: null,
-  },
-  section: {
-    type: String,
-    required: true,
-  },
+  linkText: string().def(''),
+  section: string().isRequired,
 });
 
 const homeStore = useHomeStore();

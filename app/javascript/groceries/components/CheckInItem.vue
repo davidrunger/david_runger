@@ -36,17 +36,14 @@ li.flex.items-center.break-word.mb-2(:class="aboutToMoveToClass()")
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
 import { storeToRefs } from 'pinia';
-import type { PropType } from 'vue';
 import { HeartFilledIcon } from 'vue-tabler-icons';
+import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { CheckInStatus, Item } from '@/groceries/types';
 
 const props = defineProps({
-  item: {
-    type: Object as PropType<Item>,
-    required: true,
-  },
+  item: object<Item>().isRequired,
 });
 
 const MOVE_TIMEOUT = 500;

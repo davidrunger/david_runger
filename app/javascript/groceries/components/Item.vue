@@ -43,8 +43,8 @@ li.grocery-item.flex.items-center.w-full(
 
 <script setup lang="ts">
 import { debounce } from 'lodash-es';
-import { type PropType } from 'vue';
 import { EditIcon, MinusIcon, PlusIcon, XIcon } from 'vue-tabler-icons';
+import { bool, object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
@@ -54,14 +54,8 @@ import { linkifiedAndSanitizedHtml } from '@/lib/linkifiedAndSanitizedHtml';
 const ICON_SIZE = 17;
 
 const props = defineProps({
-  item: {
-    type: Object as PropType<Item>,
-    required: true,
-  },
-  ownStore: {
-    required: true,
-    type: Boolean,
-  },
+  item: object<Item>().isRequired,
+  ownStore: bool().isRequired,
 });
 
 const groceriesStore = useGroceriesStore();

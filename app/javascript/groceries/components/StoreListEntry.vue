@@ -18,17 +18,14 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import type { PropType } from 'vue';
 import { LockIcon } from 'vue-tabler-icons';
+import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Store } from '@/types';
 
 defineProps({
-  store: {
-    required: true,
-    type: Object as PropType<Store>,
-  },
+  store: object<Store>().isRequired,
 });
 
 const groceriesStore = useGroceriesStore();

@@ -8,16 +8,14 @@
 
 <script setup lang="ts">
 import { sortBy } from 'lodash-es';
-import { computed, type PropType } from 'vue';
+import { computed } from 'vue';
+import { object } from 'vue-types';
 
 import LineChart from '@/components/charts/LineChart.vue';
 import type { Log } from '@/logs/types';
 
 const props = defineProps({
-  log: {
-    type: Object as PropType<Log>,
-    required: true,
-  },
+  log: object<Log>().isRequired,
 });
 
 const logEntriesToChartData = computed(() => {
