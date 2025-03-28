@@ -43,7 +43,7 @@ class Prerenderer
 
   def assign_new_browser
     Retry.retrying(errors: [Ferrum::ProcessTimeoutError]) do
-      @browser = Ferrum::Browser.new(process_timeout: 20, timeout: 2.0)
+      @browser = Ferrum::Browser.new(process_timeout: 20, timeout: 20)
     end
   end
 
