@@ -8,16 +8,11 @@ tr
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
+import { string } from 'vue-types';
 
 const props = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  details: {
-    type: String,
-    required: true,
-  },
+  name: string().isRequired,
+  details: string().isRequired,
 });
 
 const svgContent = ref<null | string>(null);

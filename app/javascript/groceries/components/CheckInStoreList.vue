@@ -14,16 +14,13 @@ ul
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
+import { array } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Store } from '@/types';
 
 defineProps({
-  stores: {
-    required: true,
-    type: Array as PropType<Array<Store>>,
-  },
+  stores: array<Store>().isRequired,
 });
 
 const groceriesStore = useGroceriesStore();

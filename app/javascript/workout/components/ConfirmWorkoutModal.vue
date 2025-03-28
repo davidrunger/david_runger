@@ -33,6 +33,7 @@ Modal(
 <script setup lang="ts">
 import { ElButton, ElCheckbox } from 'element-plus';
 import { ref } from 'vue';
+import { number, object } from 'vue-types';
 
 import Modal from '@/components/Modal.vue';
 import { useModalStore } from '@/lib/modal/store';
@@ -40,14 +41,8 @@ import { toast } from '@/lib/toasts';
 import { useWorkoutsStore } from '@/workout/store';
 
 const props = defineProps({
-  repTotals: {
-    type: Object,
-    required: true,
-  },
-  timeInSeconds: {
-    type: Number,
-    required: true,
-  },
+  repTotals: object().isRequired,
+  timeInSeconds: number().isRequired,
 });
 
 const workoutsStore = useWorkoutsStore();

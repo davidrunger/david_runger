@@ -44,8 +44,11 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ElButton, ElDatePicker, ElInput } from 'element-plus';
 import { computed, nextTick, onMounted, reactive, ref } from 'vue';
+import { object } from 'vue-types';
 
+import { isArrayOfNumbers } from '@/lib/type_predicates';
 import { useLogsStore } from '@/logs/store';
+import { Log } from '@/logs/types';
 import type { LogEntryDataValue } from '@/types';
 
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;
@@ -53,10 +56,7 @@ const MAX_RECENT_LOG_ENTRY_VALUES = 5;
 const logInput = ref(null);
 
 const props = defineProps({
-  log: {
-    type: Object,
-    required: true,
-  },
+  log: object<Log>().isRequired,
 });
 
 const vuelidateRules = {
@@ -118,7 +118,11 @@ const mostRecentLogEntryValues = computed((): Array<LogEntryDataValue> => {
     }
   }
 
-  return mostRecentLogEntryValues.sort((a, b) => a - b);
+  if (isArrayOfNumbers(mostRecentLogEntryValues)) {
+    return mostRecentLogEntryValues.sort((a, b) => a - b);
+  } else {
+    return mostRecentLogEntryValues;
+  }
 });
 
 onMounted(() => {

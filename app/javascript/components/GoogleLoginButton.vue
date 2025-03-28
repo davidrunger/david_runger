@@ -7,12 +7,10 @@ import { users_auth_google_oauth2_callback_path } from '@/rails_assets/routes';
 
 import '@/custom_elements/google_sign_in_button';
 
+import { string } from 'vue-types';
+
 const props = defineProps({
-  origin: {
-    type: String,
-    required: false,
-    default: '',
-  },
+  origin: string().isRequired,
 });
 
 const formAction = [

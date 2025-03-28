@@ -28,21 +28,16 @@ div(v-else) None
 import { ElCheckbox } from 'element-plus';
 import { sortBy } from 'lodash-es';
 import strftime from 'strftime';
-import { computed, type PropType } from 'vue';
+import { computed } from 'vue';
+import { array, bool } from 'vue-types';
 
 import { toast } from '@/lib/toasts';
 import type { Workout } from '@/types';
 import { useWorkoutsStore } from '@/workout/store';
 
 const props = defineProps({
-  isOwnWorkouts: {
-    type: Boolean,
-    default: false,
-  },
-  workouts: {
-    type: Array as PropType<Array<Workout>>,
-    required: true,
-  },
+  isOwnWorkouts: bool().def(false),
+  workouts: array<Workout>().isRequired,
 });
 
 const workoutsStore = useWorkoutsStore();

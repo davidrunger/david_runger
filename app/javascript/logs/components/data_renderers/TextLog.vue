@@ -20,17 +20,15 @@ div
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
 import { sortBy } from 'lodash-es';
-import { computed, ref, type PropType } from 'vue';
+import { computed, ref } from 'vue';
+import { object } from 'vue-types';
 
 import { isArrayOfTextLogEntries } from '@/lib/type_predicates';
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
 import type { Log, TextLogEntry } from '@/logs/types';
 
 const props = defineProps({
-  log: {
-    type: Object as PropType<Log>,
-    required: true,
-  },
+  log: object<Log>().isRequired,
 });
 
 const showAllEntries = ref(false);

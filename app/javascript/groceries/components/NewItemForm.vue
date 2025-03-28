@@ -22,16 +22,14 @@ form.flex(
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ElButton, ElInput } from 'element-plus';
-import { reactive, type PropType } from 'vue';
+import { reactive } from 'vue';
+import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Store } from '@/types';
 
 const props = defineProps({
-  store: {
-    type: Object as PropType<Store>,
-    required: true,
-  },
+  store: object<Store>().isRequired,
 });
 
 const groceriesStore = useGroceriesStore();

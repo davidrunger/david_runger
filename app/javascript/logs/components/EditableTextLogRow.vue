@@ -45,7 +45,8 @@ import createDOMPurify from 'dompurify';
 import { ElButton, ElInput, ElPopconfirm } from 'element-plus';
 import { marked } from 'marked';
 import strftime from 'strftime';
-import { computed, nextTick, ref, watch, type PropType } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
+import { object } from 'vue-types';
 
 import { useLogsStore } from '@/logs/store';
 import type { Log, TextLogEntry } from '@/logs/types';
@@ -53,14 +54,8 @@ import type { Log, TextLogEntry } from '@/logs/types';
 const DOMPurify = createDOMPurify(window);
 
 const props = defineProps({
-  log: {
-    type: Object as PropType<Log>,
-    required: true,
-  },
-  logEntry: {
-    type: Object as PropType<TextLogEntry>,
-    required: true,
-  },
+  log: object<Log>().isRequired,
+  logEntry: object<TextLogEntry>().isRequired,
 });
 
 const logsStore = useLogsStore();

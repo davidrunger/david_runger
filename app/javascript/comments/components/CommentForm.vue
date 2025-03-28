@@ -24,16 +24,17 @@ form.comment-form(@submit.prevent="handleSubmit")
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { integer, string } from 'vue-types';
 
 import GravatarAndPublicName from '@/comments/components/GravatarAndPublicName.vue';
 
 import { useCommentsStore } from '../stores/commentsStore';
 
-const props = defineProps<{
-  initialContent?: string;
-  parentCommentId?: number;
-  submitLabel?: string;
-}>();
+const props = defineProps({
+  initialContent: string(),
+  parentCommentId: integer(),
+  submitLabel: string(),
+});
 
 const store = useCommentsStore();
 

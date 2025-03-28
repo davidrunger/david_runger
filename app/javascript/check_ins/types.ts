@@ -6,6 +6,8 @@ import type {
 } from '@/types';
 import { CheckInShowBootstrap } from '@/types/bootstrap/CheckInShowBootstrap';
 
+export type RatedUser = 'partner' | 'self';
+
 export type Rating = -3 | -2 | -1 | 0 | 1 | 2 | 3;
 
 export interface NeedSatisfactionRating

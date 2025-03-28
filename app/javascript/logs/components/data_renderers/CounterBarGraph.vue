@@ -7,17 +7,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType } from 'vue';
+import { computed } from 'vue';
+import { object } from 'vue-types';
 
 import BarGraph from '@/components/charts/BarGraph.vue';
 import { assert } from '@/lib/helpers';
 import type { Log } from '@/logs/types';
 
 const props = defineProps({
-  log: {
-    type: Object as PropType<Log>,
-    required: true,
-  },
+  log: object<Log>().isRequired,
 });
 
 const logEntriesToChartData = computed(() => {

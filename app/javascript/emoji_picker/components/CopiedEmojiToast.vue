@@ -7,10 +7,9 @@ div
 </template>
 
 <script setup lang="ts">
+import { string } from 'vue-types';
+
 defineProps({
-  symbol: {
-    required: true,
-    type: String,
-  },
+  symbol: string().isRequired,
 });
 </script>

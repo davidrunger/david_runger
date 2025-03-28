@@ -52,6 +52,7 @@
     "vue-router": "^4.5.0",
     "vue-tabler-icons": "^2.21.0",
     "vue-toastification": "2.0.0-rc.5",
+    "vue-types": "^6.0.0",
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {

@@ -11,20 +11,14 @@ section(v-if="items.length > 0")
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
+import { array, string } from 'vue-types';
 
 import type { Item } from '@/groceries/types';
 
 import CheckInItem from './CheckInItem.vue';
 
 defineProps({
-  items: {
-    type: Array as PropType<Array<Item>>,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
+  items: array<Item>().isRequired,
+  title: string().isRequired,
 });
 </script>

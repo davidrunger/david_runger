@@ -6,13 +6,12 @@
 </template>
 
 <script setup lang="ts">
+import { string } from 'vue-types';
+
 import { isMobileDevice } from '@/lib/is_mobile_device';
 
 defineProps({
-  variant: {
-    type: String,
-    required: true,
-  },
+  variant: string().isRequired,
 });
 </script>
 

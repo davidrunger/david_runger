@@ -25,6 +25,7 @@ import {
 import { merge } from 'lodash-es';
 import { computed } from 'vue';
 import { Bar } from 'vue-chartjs';
+import { number, object, string } from 'vue-types';
 
 ChartJS.register(Title, Tooltip, BarElement, LinearScale, TimeScale);
 
@@ -44,34 +45,13 @@ const datasetDefaults = {
 };
 
 const props = defineProps({
-  chartData: {
-    type: Object,
-    required: true,
-  },
-  chartId: {
-    type: String,
-    default: 'bar-chart',
-  },
-  datasetIdKey: {
-    type: String,
-    default: 'label',
-  },
-  width: {
-    type: Number,
-    default: 400,
-  },
-  height: {
-    type: Number,
-    default: 400,
-  },
-  cssClasses: {
-    default: '',
-    type: String,
-  },
-  styles: {
-    type: Object,
-    default: () => {},
-  },
+  chartData: object().isRequired,
+  chartId: string().def('bar-chart'),
+  datasetIdKey: string().def('label'),
+  width: number().def(400),
+  height: number().def(400),
+  cssClasses: string().def(''),
+  styles: object().def(() => {}),
 });
 
 const chartOptions = {
