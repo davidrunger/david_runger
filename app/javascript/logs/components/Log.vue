@@ -36,16 +36,16 @@ div
       ElButton.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-sharing-settings' })"
       )
-        .h4 Sharing settings
-        .h6
+        div Sharing settings
+        small
           span(v-if="log.publicly_viewable") Viewable by any user
           span(v-else) Shared with {{ assert(log.log_shares).length }} emails
     .mt-2
       ElButton.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-reminder-schedule' })"
       )
-        .h4 Reminder settings
-        .h6
+        div Reminder settings
+        small
           span(v-if="log.reminder_time_in_seconds")
             | {{ (log.reminder_time_in_seconds / (60 * 60)).toFixed() }} hours
           span(v-else) No reminders
