@@ -4,7 +4,7 @@ ActiveAdmin.register(IpBlock) do
   index do
     id_column
     column :ip
-    column(:reason, class: 'pre-wrap')
+    column(:reason, class: 'whitespace-pre-wrap')
     column :isp
     column :location
     column :created_at
@@ -15,12 +15,16 @@ ActiveAdmin.register(IpBlock) do
   show do
     attributes_table do
       row :ip
-      row(:reason, class: 'pre-wrap')
+      row(:reason) do
+        div(class: 'whitespace-pre-wrap') do
+          resource.reason
+        end
+      end
       row :isp
       row :location
       row :created_at
       row :updated_at
     end
-    active_admin_comments
+    active_admin_comments_for(resource)
   end
 end

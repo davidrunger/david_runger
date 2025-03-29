@@ -14,9 +14,8 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
 
       visit(admin_root_path)
 
-      expect(page).to have_text('David Runger')
-      expect(page).to have_text('Dashboard')
-      expect(page).to have_text(/Recent Users.*#{User.last!.email}/)
+      expect(page).to have_text('David Runger Admin Dashboard')
+      expect(page).to have_text('Admin Tools')
     end
   end
 
