@@ -1,3 +1,2 @@
 import '@activeadmin/activeadmin';
-
-import '../../../app/assets/stylesheets/active_admin.css'
+import '../../../app/assets/stylesheets/active_admin.css';

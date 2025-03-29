@@ -3,7 +3,9 @@ import activeAdminPlugin from '@activeadmin/activeadmin/plugin';
 
 // Sometimes the first line is an info message about the path not having changed
 // or something, so take `tail -1` to get the last line.
-const activeAdminPath = execSync('bundle show activeadmin | tail -1', { encoding: 'utf-8' }).trim();
+const activeAdminPath = execSync('bundle show activeadmin | tail -1', {
+  encoding: 'utf-8',
+}).trim();
 
 export default {
   content: [
@@ -15,8 +17,6 @@ export default {
     './app/views/admin/**/*.{arb,erb,html,rb}',
     './app/views/layouts/active_admin*.{erb,html}',
   ],
-  darkMode: "selector",
-  plugins: [
-    activeAdminPlugin
-  ]
-}
+  darkMode: 'selector',
+  plugins: [activeAdminPlugin],
+};
