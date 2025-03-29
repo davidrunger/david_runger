@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 
 export const useModalStore = defineStore('modal', {
   state: () => ({
+    keydownListenerRegistered: false,
     modalsShowing: [] as Array<string>,
   }),
 

@@ -4,7 +4,6 @@ declare global {
       bootstrap: object;
       connectedToLogEntriesChannel?: boolean;
       env: 'development' | 'test' | 'production';
-      modalKeydownListenerRegistered: boolean;
     };
   }
 }
