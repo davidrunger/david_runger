@@ -17,7 +17,7 @@
       .my-2
         %div
           = form.label :permitted_actions_list, 'Permitted actions (optional). ', class: 'block'
-          %small A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_results#create`) for which this auth token may be used as an authorization mechanism. Note: A blank list means that the AuthToken is valid for all controller actions.
+          %small A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_results#create`) for which this auth token may be used as an authorization mechanism. Note: A blank list means that the auth token is valid for all controller actions.
         = form.textarea :permitted_actions_list, rows: 2, class: 'w-full'
 
       .my-2
