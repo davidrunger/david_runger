@@ -8,20 +8,23 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
   describe '#store_initial_request_data_in_redis' do
     subject(:data_stashed_in_redis_after_request) do
       request.headers['User-Agent'] = user_agent
-      perform_request
+      perform_request(http_method)
 
       $redis_pool.with do |conn|
         JSON.parse(conn.call('get', controller.send(:initial_request_data_redis_key)))
       end
     end
 
+    let(:http_method) { :get }
     let(:params) { {} }
     let(:user_agent) { 'RequestRecordable spec user agent' }
 
     context 'when a user is not logged in' do
       before { controller.sign_out_all_scopes }
 
-      context 'when a request is made with a valid auth_token param' do
+      context 'when a request is made with a valid auth_token body param' do
+        # For POST, Rails will provide the `params` as body params.
+        let(:http_method) { :post }
         let(:params) { { auth_token: auth_token.secret } }
         let(:auth_token) { AuthToken.first! }
 
@@ -78,7 +81,7 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
     end
   end
 
-  def perform_request
-    get(:index, params:)
+  def perform_request(http_method = :get)
+    public_send(http_method, :index, params:)
   end
 end
