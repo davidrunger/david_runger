@@ -4,6 +4,16 @@ module TokenAuthenticatable
 
   class InvalidToken < StandardError ; end
 
+  module ClassMethods
+    def allow_auth_token_authorization
+      class_eval do
+        def pundit_user
+          current_or_auth_token_user
+        end
+      end
+    end
+  end
+
   private
 
   memoize \
