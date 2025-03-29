@@ -5,9 +5,10 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
     end
   end
 
-  subject(:get_index) { get(:index, params:) }
+  subject(:request_index) { public_send(http_method, :index, params:) }
 
   let(:auth_token) { AuthToken.first! }
+  let(:http_method) { :post }
 
   describe '#current_or_auth_token_user' do
     before do
@@ -29,7 +30,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
         end
 
         it 'is nil' do
-          get_index
+          request_index
 
           expect(controller.send(:current_or_auth_token_user)).to eq(nil)
         end
@@ -41,10 +42,26 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
         context 'when the AuthToken has a blank permitted_actions_list' do
           before { auth_token.update!(permitted_actions_list: nil) }
 
-          it "is the AuthToken's user" do
-            get_index
+          context 'when the auth_token is provided via a query param' do
+            # For GET, Rails will provide the `params` as query params.
+            let(:http_method) { :get }
 
-            expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
+            it 'is nil' do
+              request_index
+
+              expect(controller.send(:current_or_auth_token_user)).to eq(nil)
+            end
+          end
+
+          context 'when the auth_token is provided via a body param' do
+            # For POST, Rails will provide the `params` as body params.
+            let(:http_method) { :post }
+
+            it "is the AuthToken's user" do
+              request_index
+
+              expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
+            end
           end
         end
 
@@ -54,7 +71,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
           end
 
           it "is the AuthToken's user" do
-            get_index
+            request_index
 
             expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
           end
@@ -66,7 +83,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
           end
 
           it 'is nil' do
-            get_index
+            request_index
 
             expect(controller.send(:current_or_auth_token_user)).to eq(nil)
           end
@@ -80,7 +97,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
           before { auth_token.update!(permitted_actions_list: nil) }
 
           it "is the AuthToken's user" do
-            get_index
+            request_index
 
             expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
           end
@@ -92,7 +109,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
           end
 
           it "is the AuthToken's user" do
-            get_index
+            request_index
 
             expect(controller.send(:current_or_auth_token_user)).to eq(auth_token.user)
           end
@@ -104,7 +121,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
           end
 
           it 'is nil' do
-            get_index
+            request_index
 
             expect(controller.send(:current_or_auth_token_user)).to eq(nil)
           end
