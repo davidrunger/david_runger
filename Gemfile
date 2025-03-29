@@ -3,7 +3,7 @@ ruby file: '.ruby-version'
 source 'https://rubygems.org'
 
 # rubocop:disable Layout/LineLength
-gem 'activeadmin'
+gem 'activeadmin', '>= 4.0.0.beta15'
 gem 'addressable'
 gem 'alba'
 gem 'aws-sdk-s3'

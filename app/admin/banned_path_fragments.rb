@@ -15,6 +15,6 @@ ActiveAdmin.register(BannedPathFragment) do
       row :created_at
       row :updated_at
     end
-    active_admin_comments
+    active_admin_comments_for(resource)
   end
 end

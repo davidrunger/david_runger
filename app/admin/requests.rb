@@ -40,6 +40,6 @@ ActiveAdmin.register(Request) do
       row :total
       row :request_id
     end
-    active_admin_comments
+    active_admin_comments_for(resource)
   end
 end

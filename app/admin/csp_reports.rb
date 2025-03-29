@@ -50,6 +50,6 @@ ActiveAdmin.register(CspReport) do
       end
     end
 
-    active_admin_comments
+    active_admin_comments_for(resource)
   end
 end

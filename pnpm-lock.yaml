@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@activeadmin/activeadmin':
-        specifier: ^3.3.0
-        version: 3.3.0
+        specifier: 4.0.0-beta15
+        version: 4.0.0-beta15
       '@davidrunger/vue-model-explorer':
         specifier: ^0.2.2
         version: 0.2.2(vue@3.5.13(typescript@5.8.2))
@@ -80,9 +80,6 @@ importers:
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
-      jquery:
-        specifier: ^3.7.1
-        version: 3.7.1
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -168,9 +165,6 @@ importers:
       '@testing-library/vue':
         specifier: ^8.1.0
         version: 8.1.0(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@5.8.2))
-      '@types/jquery':
-        specifier: ^3.5.32
-        version: 3.5.32
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -222,9 +216,6 @@ importers:
       globals:
         specifier: ^16.0.0
         version: 16.0.0
-      jquery-ui:
-        specifier: ^1.14.1
-        version: 1.14.1
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0
@@ -282,8 +273,8 @@ importers:
 
 packages:
 
-  '@activeadmin/activeadmin@3.3.0':
-    resolution: {integrity: sha512-YVWHMI+dml5/iKleZJQ3VTvb6kbg/v8F7gsyOmxxqbxqJ6ofEK9X8CKUljA11IAWNpxV7i7ygG2WwZdMsgtcpA==}
+  '@activeadmin/activeadmin@4.0.0-beta15':
+    resolution: {integrity: sha512-TRQtxZ7lg/0lrxpRzanQwAoQnkYTgjpYkhk/N9UZQHhEans9Ra35blw2tO87NEdpYhMdos/hoHOTumczganHqw==}
 
   '@asamuzakjp/css-color@3.1.1':
     resolution: {integrity: sha512-hpRD68SV2OMcZCsrbdkccTw5FXjNDLo5OuqSHyHZfwweGsDWZwDJ2+gONyNAbazZclobMirACLw0lk8WVxIqxA==}
@@ -856,6 +847,9 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
+  '@popperjs/core@2.11.8':
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+
   '@prettier/plugin-pug@3.2.1':
     resolution: {integrity: sha512-JvcW+44DtpnVsQFu++vBHl2fGVsuZC8iyxwutEUOt94thksdmXYQp1jFZWzaXckkwqLSgJHSyu19i1qvag5GJQ==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0'}
@@ -867,6 +861,9 @@ packages:
 
   '@rails/actioncable@8.0.200':
     resolution: {integrity: sha512-EDqWyxck22BHmv1e+mD8Kl6GmtNkhEPdRfGFT7kvsv1yoXd9iYrqHDVAaR8bKmU/syC5eEZ2I5aWWxtB73ukMw==}
+
+  '@rails/ujs@7.1.400':
+    resolution: {integrity: sha512-YwvXm3BR5tn+VCAKYGycLejMRVZE3Ionj5gFjEeGXCZnI0Rpi+7dKpmyu90kdUY7dRUFpHTdu9zZceEzFLl38w==}
 
   '@rails/ujs@7.1.501':
     resolution: {integrity: sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==}
@@ -1109,9 +1106,6 @@ packages:
   '@types/geojson@7946.0.4':
     resolution: {integrity: sha512-MHmwBtCb7OCv1DSivz2UNJXPGU/1btAWRKlqJ2saEhVJkpkvqHMMaOpKg0v4sAbDWSQekHGvPVMM8nQ+Jen03Q==}
 
-  '@types/jquery@3.5.32':
-    resolution: {integrity: sha512-b9Xbf4CkMqS02YH8zACqN1xzdxc3cO735Qe5AbSUFmyOiaWAbcpqh9Wna+Uk0vgACvoQHpWDg2rGdHkYPLmCiQ==}
-
   '@types/js-cookie@3.0.6':
     resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
 
@@ -1147,9 +1141,6 @@ packages:
 
   '@types/rails__ujs@6.0.4':
     resolution: {integrity: sha512-4A8+Xp+2bd4E/mLjfwldc46katQQJfLfwTRbhDBoQyj4timlpWfJ6uHqwyre/qwcapgjKtVd365pt9ovD/3tRw==}
-
-  '@types/sizzle@2.3.9':
-    resolution: {integrity: sha512-xzLEyKB50yqCUPUJkIsrVvoWNfFUbIZI+RspLWt8u+tIW/BetMBZtgV2LY/2o+tYH8dRvQ+eoPf3NdhQCcLE2w==}
 
   '@types/strftime@0.9.8':
     resolution: {integrity: sha512-QIvDlGAKyF3YJbT3QZnfC+RIvV5noyDbi+ZJ5rkaSRqxCGrYJefgXm3leZAjtoQOutZe1hCXbAg+p89/Vj4HlQ==}
@@ -2360,6 +2351,9 @@ packages:
   flatted@3.3.3:
     resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
 
+  flowbite@2.3.0:
+    resolution: {integrity: sha512-pm3JRo8OIJHGfFYWgaGpPv8E+UdWy0Z3gEAGufw+G/1dusaU/P1zoBLiQpf2/+bYAi+GBQtPVG86KYlV0W+AFQ==}
+
   for-each@0.3.5:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}
     engines: {node: '>= 0.4'}
@@ -2778,17 +2772,6 @@ packages:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
-  jquery-ui@1.14.1:
-    resolution: {integrity: sha512-DhzsYH8VeIvOaxwi+B/2BCsFFT5EGjShdzOcm5DssWjtcpGWIMsn66rJciDA6jBruzNiLf1q0KvwMoX1uGNvnQ==}
-
-  jquery-ujs@1.2.3:
-    resolution: {integrity: sha512-59wvfx5vcCTHMeQT1/OwFiAj+UffLIwjRIoXdpO7Z7BCFGepzq9T9oLVeoItjTqjoXfUrHJvV7QU6pUR+UzOoA==}
-    peerDependencies:
-      jquery: '>=1.8.0'
-
-  jquery@3.7.1:
-    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
-
   js-base64@3.7.7:
     resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
 
@@ -3130,6 +3113,10 @@ packages:
   min-indent@1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
+
+  mini-svg-data-uri@1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
+    hasBin: true
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -4587,11 +4574,10 @@ packages:
 
 snapshots:
 
-  '@activeadmin/activeadmin@3.3.0':
+  '@activeadmin/activeadmin@4.0.0-beta15':
     dependencies:
-      jquery: 3.7.1
-      jquery-ui: 1.14.1
-      jquery-ujs: 1.2.3(jquery@3.7.1)
+      '@rails/ujs': 7.1.400
+      flowbite: 2.3.0
 
   '@asamuzakjp/css-color@3.1.1':
     dependencies:
@@ -5187,6 +5173,8 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
+  '@popperjs/core@2.11.8': {}
+
   '@prettier/plugin-pug@3.2.1(prettier@3.5.3)':
     dependencies:
       prettier: 3.5.3
@@ -5195,6 +5183,8 @@ snapshots:
   '@rails/actioncable@7.2.201': {}
 
   '@rails/actioncable@8.0.200': {}
+
+  '@rails/ujs@7.1.400': {}
 
   '@rails/ujs@7.1.501': {}
 
@@ -5375,10 +5365,6 @@ snapshots:
 
   '@types/geojson@7946.0.4': {}
 
-  '@types/jquery@3.5.32':
-    dependencies:
-      '@types/sizzle': 2.3.9
-
   '@types/js-cookie@3.0.6': {}
 
   '@types/json-schema@7.0.15': {}
@@ -5406,8 +5392,6 @@ snapshots:
   '@types/rails__actioncable@6.1.11': {}
 
   '@types/rails__ujs@6.0.4': {}
-
-  '@types/sizzle@2.3.9': {}
 
   '@types/strftime@0.9.8': {}
 
@@ -6826,6 +6810,11 @@ snapshots:
 
   flatted@3.3.3: {}
 
+  flowbite@2.3.0:
+    dependencies:
+      '@popperjs/core': 2.11.8
+      mini-svg-data-uri: 1.4.4
+
   for-each@0.3.5:
     dependencies:
       is-callable: 1.2.7
@@ -7250,16 +7239,6 @@ snapshots:
 
   jiti@2.4.2: {}
 
-  jquery-ui@1.14.1:
-    dependencies:
-      jquery: 3.7.1
-
-  jquery-ujs@1.2.3(jquery@3.7.1):
-    dependencies:
-      jquery: 3.7.1
-
-  jquery@3.7.1: {}
-
   js-base64@3.7.7: {}
 
   js-beautify@1.15.4:
@@ -7547,6 +7526,8 @@ snapshots:
       mime-db: 1.52.0
 
   min-indent@1.0.1: {}
+
+  mini-svg-data-uri@1.4.4: {}
 
   minimatch@3.1.2:
     dependencies:
