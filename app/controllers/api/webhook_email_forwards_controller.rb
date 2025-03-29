@@ -1,4 +1,6 @@
 class Api::WebhookEmailForwardsController < Api::BaseController
+  allow_auth_token_authorization
+
   def create
     authorize(:create?, policy_class: WebhookEmailForwardPolicy)
 
