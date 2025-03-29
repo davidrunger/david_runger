@@ -48,7 +48,7 @@ import { object } from 'vue-types';
 
 import { isArrayOfNumbers } from '@/lib/type_predicates';
 import { useLogsStore } from '@/logs/store';
-import { Log } from '@/logs/types';
+import { type Log } from '@/logs/types';
 import type { LogEntryDataValue } from '@/types';
 
 const MAX_RECENT_LOG_ENTRY_VALUES = 5;

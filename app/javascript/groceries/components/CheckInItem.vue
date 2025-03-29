@@ -34,7 +34,7 @@ li.flex.items-center.break-word.mb-2(:class="aboutToMoveToClass()")
 </template>
 
 <script setup lang="ts">
-import { ElButton } from 'element-plus';
+import { ElButton, ElTooltip } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { HeartFilledIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';

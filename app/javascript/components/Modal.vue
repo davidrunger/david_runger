@@ -31,9 +31,9 @@ const mask = ref(null);
 
 const { showingModal } = storeToRefs(modalStore);
 
-if (!window.davidrunger.modalKeydownListenerRegistered) {
+if (!modalStore.keydownListenerRegistered) {
   window.addEventListener('keydown', handleKeydown);
-  window.davidrunger.modalKeydownListenerRegistered = true;
+  modalStore.keydownListenerRegistered = true;
 }
 
 onUnmounted(() => {
