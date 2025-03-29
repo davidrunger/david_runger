@@ -129,4 +129,9 @@ main {
     font-size: 16px;
   }
 }
+
+input,
+textarea {
+  background-color: revert;
+}
 </style>

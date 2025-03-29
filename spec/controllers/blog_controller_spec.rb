@@ -41,7 +41,7 @@ RSpec.describe(BlogController) do
         let(:format) { nil }
 
         context 'when the requested file exists in the blog/ directory' do
-          let(:show_content) { 'it is the best language ever' }
+          let(:show_content) { '</head>it is the best language ever' }
 
           around do |example|
             with_blog_file("#{slug}.html", show_content) do
@@ -49,11 +49,12 @@ RSpec.describe(BlogController) do
             end
           end
 
-          it 'responds with 200 and the show file content' do
+          it 'responds with 200 and the show file content (with additions, such as a styles.css stylesheet tag)' do
             get_show
 
             expect(response).to have_http_status(200)
-            expect(response.body).to eq(show_content)
+            expect(response.body).to match(/\bstyles\b/)
+            expect(response.body).to end_with(show_content)
           end
         end
 
