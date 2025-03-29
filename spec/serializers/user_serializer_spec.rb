@@ -60,7 +60,7 @@ RSpec.describe UserSerializer do
         context 'when the users do not have public_names' do
           before { user.update!(public_name: nil) }
 
-          it "is 'User <id>' strings" do
+          it "is 'nil' for each of the users" do
             expect(public_names).to eq([nil] * 2)
           end
         end
