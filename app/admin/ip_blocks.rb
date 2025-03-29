@@ -15,7 +15,11 @@ ActiveAdmin.register(IpBlock) do
   show do
     attributes_table do
       row :ip
-      row(:reason, class: 'whitespace-pre-wrap')
+      row(:reason) do
+        div(class: 'whitespace-pre-wrap') do
+          resource.reason
+        end
+      end
       row :isp
       row :location
       row :created_at
