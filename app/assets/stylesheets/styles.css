@@ -19,6 +19,7 @@
 @source '../../../app/decorators';
 @source '../../../app/javascript';
 @source '../../../app/views';
+@source not '../../../app/views/active_admin';
 @source '../../../public';
 
 @theme {
