@@ -6,12 +6,9 @@ ActiveAdmin.register(Event) do
     id_column
     column :type
     column :user
-    column :admin_user
     column :data
-    column :ip
     column :isp
     column :location
-    column :stack_trace
     column :created_at
     column :pretty_user_agent
   end
