@@ -10,8 +10,8 @@ class NullByteFinder
     when Array
       @object.any? { NullByteFinder.new(it).has_null_byte? }
     when Hash
-      @object.keys.any? { NullByteFinder.new(it).has_null_byte? } ||
-        @object.values.any? { NullByteFinder.new(it).has_null_byte? }
+      NullByteFinder.new(@object.keys).has_null_byte? ||
+        NullByteFinder.new(@object.values).has_null_byte?
     else
       false
     end
