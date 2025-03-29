@@ -63,7 +63,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
                   click_sign_in_with_google
 
-                  expect(page).to have_text('You are beautiful')
+                  expect(page).to have_text('David Runger Admin Dashboard')
                 end
 
                 context 'when the user tries to go to the My Account page' do
