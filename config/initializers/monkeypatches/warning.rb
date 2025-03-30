@@ -5,11 +5,13 @@
 # being logged without anyone noticing (and fixing) them.
 
 if Rails.env.test?
-  module StoreWarningsInGlobalVariable
+  module StoredWarnings
+    mattr_accessor :warnings
+
     def warn(message, *_args, **_kwargs)
       # :nocov:
-      if defined?($warnings) && $warnings.respond_to?(:<<)
-        $warnings << message
+      if StoredWarnings.warnings.respond_to?(:<<)
+        StoredWarnings.warnings << message
       end
 
       super
@@ -17,5 +19,5 @@ if Rails.env.test?
     end
   end
 
-  Warning.prepend(StoreWarningsInGlobalVariable)
+  Warning.prepend(StoredWarnings)
 end
