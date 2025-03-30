@@ -24,7 +24,8 @@ x-rails-config: &default-rails-config
     # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local
   environment:
-    PROMETHEUS_EXPORTER_HOST: rails_metrics
+    # CAUTION: `web` overrides all env vars listed here with its own `environment` section.
+    RAILS_MAX_THREADS: 1
   logging: *default-logging
   networks:
     - external
@@ -332,6 +333,8 @@ services:
           memory: 99G
         reservations:
           memory: 230M
+    environment:
+      RAILS_MAX_THREADS: 2
     expose:
       - '3000'
     healthcheck:

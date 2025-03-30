@@ -91,4 +91,7 @@ ENV GIT_REV=${GIT_REV}
 # Add ENV var to indicate that this is a Docker-built image.
 ENV DOCKER_BUILT=true
 
+# Specify prometheus_exporter Docker Compose host/service name.
+ENV PROMETHEUS_EXPORTER_HOST=rails_metrics
+
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
