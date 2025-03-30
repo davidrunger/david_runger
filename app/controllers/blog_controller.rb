@@ -96,21 +96,12 @@ class BlogController < ApplicationController
   def blog_html_with_additions(absolute_path)
     html = File.read(absolute_path)
 
-    html.sub!(
-      '</head>',
-      "#{helpers.csrf_meta_tags}#{helpers.window_data_script_tag}</head>",
-    )
+    html.sub!('</head>') { "#{helpers.csrf_meta_tags}#{helpers.window_data_script_tag}</head>" }
 
-    html.sub!(
-      '</body>',
-      "#{helpers.ts_tag('comments')}</body>",
-    )
+    html.sub!('</body>') { "#{helpers.ts_tag('comments')}</body>" }
 
     if params[:action] == 'show'
-      html.sub!(
-        '</head>',
-        "#{helpers.ts_tag('styles')}</head>",
-      )
+      html.sub!('</head>') { "#{helpers.ts_tag('styles')}</head>" }
     end
 
     # rubocop:disable Rails/OutputSafety
