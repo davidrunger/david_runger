@@ -23,6 +23,9 @@ x-rails-config: &default-rails-config
   env_file:
     # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local
+  environment:
+    # CAUTION: `web` overrides all env vars listed here with its own `environment` section.
+    RAILS_MAX_THREADS: 1
   logging: *default-logging
   networks:
     - external
