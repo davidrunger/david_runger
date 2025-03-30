@@ -176,11 +176,11 @@ RSpec.configure do |config|
 
   # Fail spec if any warnings were registered. See config/initializers/monkeypatches/warning.rb.
   config.around(:each) do |example|
-    $warnings = []
+    StoredWarnings.warnings = []
 
     example.run
 
-    expect($warnings).to be_empty
+    expect(StoredWarnings.warnings).to be_empty
   end
 
   # rspec-retry options >>>
