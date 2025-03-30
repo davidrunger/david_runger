@@ -89,7 +89,7 @@ RSpec.describe ApplicationController, :without_verifying_authorization do
         let(:auth_token_secret) { auth_token.secret }
         let(:auth_token) { AuthToken.first! }
 
-        it 'responds with "Your token is not valid for <action>."' do
+        it 'responds with "Your token is not permitted for <action>."' do
           post_index
 
           expect(response.parsed_body).
