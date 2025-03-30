@@ -67,21 +67,7 @@ class BlogController < ApplicationController
     )
       send_file(absolute_path, **kwargs)
     elsif starts_with_blog_directory && absolute_path.end_with?('.html')
-      # rubocop:disable Rails/OutputSafety
-      render(
-        html:
-          File.read(absolute_path).
-            sub(
-              '</head>',
-              "#{helpers.csrf_meta_tags}#{helpers.window_data_script_tag}</head>",
-            ).
-            sub(
-              '</body>',
-              "#{helpers.ts_tag('comments')}</body>",
-            ).
-            html_safe,
-      )
-      # rubocop:enable Rails/OutputSafety
+      render(html: blog_html_with_additions(absolute_path))
     else
       Rails.error.report(
         Error.new(UnauthorizedBlogFileRequest),
@@ -105,6 +91,31 @@ class BlogController < ApplicationController
     )
 
     render_blog_404
+  end
+
+  def blog_html_with_additions(absolute_path)
+    html = File.read(absolute_path)
+
+    html.sub!(
+      '</head>',
+      "#{helpers.csrf_meta_tags}#{helpers.window_data_script_tag}</head>",
+    )
+
+    html.sub!(
+      '</body>',
+      "#{helpers.ts_tag('comments')}</body>",
+    )
+
+    if params[:action] == 'show'
+      html.sub!(
+        '</head>',
+        "#{helpers.ts_tag('styles')}</head>",
+      )
+    end
+
+    # rubocop:disable Rails/OutputSafety
+    html.html_safe
+    # rubocop:enable Rails/OutputSafety
   end
 
   def render_blog_404

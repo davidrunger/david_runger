@@ -86,10 +86,5 @@
     select {
       @apply border;
     }
-
-    input,
-    textarea {
-      background-color: revert;
-    }
   }
 }

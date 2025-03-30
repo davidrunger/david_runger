@@ -7,7 +7,7 @@
   template(v-else)
     p #[GoogleLoginButton.google-login-form.dark-mode-supported(:origin="googleLoginOrigin")] to add a comment.
 
-  .comments
+  .mt-8
     template(v-if="store.comments.length")
       Comment(
         v-for="comment in store.comments"
@@ -50,17 +50,9 @@ const googleLoginOrigin = [
 </script>
 
 <style scoped>
-.google-login-form {
-  display: inline;
-}
-
 .comments-container {
   width: 90%;
   margin: 24px auto 0;
-}
-
-.comments {
-  margin-top: 2rem;
 }
 
 .no-comments {
