@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
 
   AUTHORIZATION_ERROR_MESSAGES = {
     Pundit::NotAuthorizedError => 'You are not authorized to perform this action.',
-    TokenAuthenticatable::InvalidToken =>
-      ->(_controller) { "Your token is not valid for #{controller_action}." },
+    TokenAuthenticatable::InvalidToken => 'Your token is not valid.',
+    TokenAuthenticatable::UnauthorizedAction =>
+      ->(_controller) { "Your token is not permitted for #{controller_action}." },
   }.freeze
 
   protect_from_forgery with: :exception
@@ -132,7 +133,7 @@ class ApplicationController < ActionController::Base
     redirect_to(main_app.new_admin_user_session_path)
   end
 
-  # override Rails's built-in #verify_authenticity_token method to allow for `auth_token` use
+  # Override Rails's built-in #verify_authenticity_token method to allow for `auth_token` use.
   def verify_authenticity_token
     if auth_token_secret.present?
       verify_valid_auth_token!
