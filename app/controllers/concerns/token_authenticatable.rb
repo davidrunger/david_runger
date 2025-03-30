@@ -3,6 +3,7 @@ module TokenAuthenticatable
   prepend Memoization
 
   class InvalidToken < StandardError ; end
+  class UnauthorizedAction < StandardError ; end
 
   module ClassMethods
     def allow_auth_token_authorization
@@ -18,14 +19,19 @@ module TokenAuthenticatable
 
   memoize \
   def auth_token_valid_for_action
+    if (
+      auth_token = potentially_unauthorized_auth_token_matching_secret
+    )&.valid_for?(controller_action)
+      auth_token.update!(last_used_at: Time.current)
+
+      auth_token
+    end
+  end
+
+  memoize \
+  def potentially_unauthorized_auth_token_matching_secret
     if auth_token_secret.present?
-      auth_token = AuthToken.find_by(secret: auth_token_secret)
-
-      if auth_token&.valid_for?(controller_action)
-        auth_token.update!(last_used_at: Time.current)
-
-        auth_token
-      end
+      AuthToken.find_by(secret: auth_token_secret)
     end
   end
 
@@ -58,8 +64,10 @@ module TokenAuthenticatable
   end
 
   def verify_valid_auth_token!
-    if auth_token_valid_for_action.blank?
+    if potentially_unauthorized_auth_token_matching_secret.blank?
       raise(InvalidToken)
+    elsif auth_token_valid_for_action.blank?
+      raise(UnauthorizedAction)
     end
 
     true

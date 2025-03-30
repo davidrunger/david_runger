@@ -9,17 +9,16 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
 
   let(:auth_token) { AuthToken.first! }
   let(:http_method) { :post }
+  let(:headers) { {} }
+  let(:params) { {} }
+  let(:authorization_header_name) { 'Authorization' }
+  let(:auth_token_param_name) { 'auth_token' }
+
+  before do
+    request.headers.merge!(headers)
+  end
 
   describe '#current_or_auth_token_user' do
-    before do
-      request.headers.merge!(headers)
-    end
-
-    let(:headers) { {} }
-    let(:params) { {} }
-    let(:authorization_header_name) { 'Authorization' }
-    let(:auth_token_param_name) { 'auth_token' }
-
     context 'when no user is logged in' do
       before { sign_out(:user) }
 
@@ -124,6 +123,57 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
             request_index
 
             expect(controller.send(:current_or_auth_token_user)).to eq(nil)
+          end
+        end
+      end
+    end
+  end
+
+  describe '#verify_valid_auth_token!' do
+    subject(:verify_valid_auth_token!) { controller.send(:verify_valid_auth_token!) }
+
+    context 'when the secret in an Authorization header is not for any token' do
+      let(:headers) { { authorization_header_name => "Bearer #{SecureRandom.uuid}" } }
+
+      it 'raises a TokenAuthenticatable::InvalidToken error' do
+        request_index
+
+        expect { verify_valid_auth_token! }.to raise_error(TokenAuthenticatable::InvalidToken)
+      end
+    end
+
+    context 'when the secret for an AuthToken is provided in an Authorization header' do
+      let(:headers) { { authorization_header_name => "Bearer #{auth_token.secret}" } }
+
+      context 'when the AuthToken does not have any restrictions on permitted controller actions' do
+        before { auth_token.update!(permitted_actions_list: nil) }
+
+        it 'returns true' do
+          request_index
+
+          expect(verify_valid_auth_token!).to eq(true)
+        end
+      end
+
+      context 'when the AuthToken has restrictions on permitted controller actions' do
+        context 'when the request is for a permitted action' do
+          before { auth_token.update!(permitted_actions_list: 'anonymous#index') }
+
+          it 'returns true' do
+            request_index
+
+            expect(verify_valid_auth_token!).to eq(true)
+          end
+        end
+
+        context 'when the request is for an action that is not permitted' do
+          before { auth_token.update!(permitted_actions_list: 'anonymous#show') }
+
+          it 'raises a TokenAuthenticatable::UnauthorizedAction error' do
+            request_index
+
+            expect { verify_valid_auth_token! }.
+              to raise_error(TokenAuthenticatable::UnauthorizedAction)
           end
         end
       end

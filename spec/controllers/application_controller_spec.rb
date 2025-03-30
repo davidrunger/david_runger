@@ -60,4 +60,42 @@ RSpec.describe ApplicationController, :without_verifying_authorization do
       end
     end
   end
+
+  describe 'response for authorization errors' do
+    context 'when making a JSON request with an auth token secret' do
+      subject(:post_index) do
+        post(
+          :index,
+          params: { auth_token: auth_token_secret },
+          format: :json,
+        )
+      end
+
+      context 'when the secret is not valid for any AuthToken' do
+        let(:auth_token_secret) { SecureRandom.uuid }
+
+        it 'responds with "Your token is not valid."' do
+          post_index
+
+          expect(response.parsed_body).to eq('error' => 'Your token is not valid.')
+        end
+      end
+
+      context 'when the secret is valid for an AuthToken but the AuthToken is not permitted for the action' do
+        before do
+          auth_token.update!(permitted_actions_list: 'anonymous#create')
+        end
+
+        let(:auth_token_secret) { auth_token.secret }
+        let(:auth_token) { AuthToken.first! }
+
+        it 'responds with "Your token is not valid for <action>."' do
+          post_index
+
+          expect(response.parsed_body).
+            to eq('error' => 'Your token is not permitted for anonymous#index.')
+        end
+      end
+    end
+  end
 end
