@@ -15,6 +15,13 @@
         = form.text_field :name
 
       .my-2
+        - last_used_at = auth_token.last_used_at
+        Last used:
+        %span{title: last_used_at.utc.iso8601}
+          = time_ago_in_words(last_used_at)
+          ago
+
+      .my-2
         %div
           = form.label :permitted_actions_list, 'Permitted actions (optional). ', class: 'block'
           %small A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_results#create`) for which this auth token may be used as an authorization mechanism. Note: A blank list means that the auth token is valid for all controller actions.
