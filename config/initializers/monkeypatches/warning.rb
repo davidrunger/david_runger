@@ -19,5 +19,5 @@ if Rails.env.test?
     end
   end
 
-  Warning.prepend(StoredWarnings)
+  Warning.extend(StoredWarnings)
 end
