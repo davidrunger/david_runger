@@ -14,7 +14,7 @@ type CiStepResultsSet = {
 export function renderGanttCharts(ciStepResultsSet: Array<CiStepResultsSet>) {
   for (const ciStepResultSet of ciStepResultsSet) {
     const spec: VisualizationSpec = {
-      $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
+      $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
       width: 'container',
       data: { values: ciStepResultSet.run_times },
       mark: 'bar',

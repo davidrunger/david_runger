@@ -6,7 +6,7 @@
     "lib": ["esnext", "dom"],
     "module": "esnext",
     "moduleDetection": "force",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "paths": {
