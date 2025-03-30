@@ -71,7 +71,7 @@ function collapseMobileMenu() {
   position: fixed;
   // performance hint to create a new compositor layer, so we don't re-paint on scroll
   will-change: transform;
-  top: 0;
+  top: var(--user-header-height);
   z-index: 1;
   height: var(--header-height);
   line-height: var(--header-height);

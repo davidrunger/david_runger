@@ -77,6 +77,16 @@ function setScrollToFragmentTimeouts() {
 </script>
 
 <style lang="scss">
+:root {
+  --user-header-height: 32px;
+  --main-bg-color: var(--color-neutral-950);
+  --main-text-color: var(--color-neutral-100);
+}
+
+.logged-out {
+  --user-header-height: 0px;
+}
+
 #app-root {
   letter-spacing: 0.2px;
   font-weight: 300;

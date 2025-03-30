@@ -106,6 +106,12 @@ function warnIfRequestPending(event: BeforeUnloadEvent) {
   touch-action: manipulation;
 }
 
+header {
+  color: var(--color-neutral-800);
+  background: var(--color-indigo-100);
+  border-bottom: 1px solid var(--color-neutral-300);
+}
+
 #groceries-app {
   font-size: 0.95rem;
 }

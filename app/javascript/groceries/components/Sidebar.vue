@@ -9,7 +9,6 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
         :class="{ 'rotated-180': expanded }"
       )
         ArrowBarRightIcon(size="29")
-    LoggedInHeader.mb-2
     nav
       .store-lists-container.pb-4
         form.add-store.flex(@submit.prevent="handleNewStoreSubmission()")
@@ -56,7 +55,6 @@ import { useSubscription } from '@/lib/composables/useSubscription';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 import { new_marriage_path } from '@/rails_assets/routes';
 
-import LoggedInHeader from './LoggedInHeader.vue';
 import StoreListEntry from './StoreListEntry.vue';
 
 const formData = reactive({
