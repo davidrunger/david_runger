@@ -1,4 +1,4 @@
-%header.sticky.top-0.left-0.right-0.flex.justify-between.items-center.py-2.px-3.max-w-dvw.overflow-scroll.h-8.z-100.border-b-1.border-neutral-800.text-base{class: 'text-(--main-text-color) bg-(--main-bg-color,var(--background-color))'}
+%header.sticky.top-0.left-0.right-0.flex.justify-between.items-center.py-2.px-3.max-w-dvw.overflow-scroll.h-8.z-100.border-b-1.border-neutral-800.text-base{class: 'text-(--main-text-color,var(--text-color)) bg-(--main-bg-color,var(--background-color))'}
   .flex-1.truncate{title: current_user.email}= current_user.email
   %div.flex.gap-4
     %div= link_to('My account', my_account_path, class: 'text-inherit!')
