@@ -1,5 +1,5 @@
 <template lang="pug">
-h1.h2.mt-0.mb-4
+h1.h2.mt-1.mb-4
   template(v-if="isEditingName")
     input(
       type="text"
