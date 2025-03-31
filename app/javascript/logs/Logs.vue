@@ -1,17 +1,14 @@
 <template lang="pug">
-div
-  header.flex.justify-between.p-2(v-if="currentUser")
-    div {{ currentUser.email }}
-  .text-center
-    LogSelectorModal
-    RouterView.m-8(:key="$route.fullPath")
-    footer.mb-4(v-if="!isSharedLogView")
-      | Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the log selector.
+.text-center
+  LogSelectorModal
+  RouterView.m-8(:key="$route.fullPath")
+  footer.mb-4(v-if="!isSharedLogView")
+    | Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the log selector.
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useModalStore } from '@/lib/modal/store';
@@ -29,10 +26,6 @@ const logsStore = useLogsStore();
 const modalStore = useModalStore();
 
 const { isSharedLogView, selectedLog } = storeToRefs(logsStore);
-
-const currentUser = computed(() => {
-  return bootstrap.current_user;
-});
 
 removeQueryParams(); // remove query params such as `new_entry` and `auth_token`
 renderBootstrappedToasts();

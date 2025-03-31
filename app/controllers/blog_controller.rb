@@ -100,8 +100,12 @@ class BlogController < ApplicationController
 
     html.sub!('</body>') { "#{helpers.ts_tag('comments')}</body>" }
 
-    if params[:action] == 'show'
-      html.sub!('</head>') { "#{helpers.ts_tag('styles')}</head>" }
+    html.sub!('</head>') { "#{helpers.ts_tag('styles')}</head>" }
+
+    if user_signed_in?
+      logged_in_header = render_to_string(partial: 'layouts/logged_in_header')
+
+      html.sub!(/<body([^>]*)>/) { "<body#{Regexp.last_match(1)}>#{logged_in_header}" }
     end
 
     # rubocop:disable Rails/OutputSafety

@@ -1,5 +1,5 @@
 <template lang="pug">
-h1.h2.store-name.my-4
+h1.h2.my-1
   template(v-if="isEditingName")
     input(
       type="text"

@@ -1,5 +1,6 @@
 RSpec.describe 'Groceries app' do
-  let(:user) { users(:user) }
+  # NOTE: We are using a fixed email here because it must be stable for the Percy snapshot.
+  let(:user) { users(:user).tap { it.update!(email: 'groceries-user@gmail.com') } }
 
   context 'when a user is signed in' do
     before { sign_in(user) }
