@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useModalStore } from '@/lib/modal/store';
@@ -26,10 +26,6 @@ const logsStore = useLogsStore();
 const modalStore = useModalStore();
 
 const { isSharedLogView, selectedLog } = storeToRefs(logsStore);
-
-const currentUser = computed(() => {
-  return bootstrap.current_user;
-});
 
 removeQueryParams(); // remove query params such as `new_entry` and `auth_token`
 renderBootstrappedToasts();
