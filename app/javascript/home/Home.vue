@@ -78,7 +78,7 @@ function setScrollToFragmentTimeouts() {
 
 <style lang="scss">
 :root {
-  --user-header-height: 32px;
+  --user-header-height: calc(var(--spacing) * 8);
   --main-bg-color: var(--color-neutral-950);
   --main-text-color: var(--color-neutral-100);
 }
