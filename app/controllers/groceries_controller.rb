@@ -1,7 +1,9 @@
 class GroceriesController < ApplicationController
   def index
     authorize(Store)
+
     @title = 'Groceries'
+    @ios_theme_color = '#e0e7ff'
 
     spouse = current_user.spouse
 
