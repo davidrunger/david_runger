@@ -115,6 +115,10 @@ RSpec.describe 'Quizzes app' do
       using_session('Quiz participant session') do
         expect(page).to have_text(/✓ ×/, wait: 5)
       end
+
+      click_on('Close quiz')
+
+      expect(page).to have_text("#{new_quiz_name} Final results #{participant_name} (1/2)")
     end
 
     it 'allows destroying a quiz' do

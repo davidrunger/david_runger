@@ -1,5 +1,6 @@
 = question.content
-- question.answers.includes(:answering_participations).decorate.each_with_index do |answer, index|
+- answers = (question.answers.loaded? && question.answers.first&.answering_participations&.loaded?) ? question.answers : question.answers.includes(:answering_participations)
+- answers.decorate.each_with_index do |answer, index|
   .pl-2
     %span{class: answer.is_correct? ? 'font-bold' : ''} #{(index + 65).chr}. #{answer.content}
     - if answer.answering_participations.present?
