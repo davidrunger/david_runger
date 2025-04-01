@@ -155,12 +155,12 @@ class Test::Tasks::Exit < Pallets::Task
 
   memoize \
   def earliest_task_start_time
-    job_results.values.map { it[:start_time] }.min
+    job_results.values.pluck(:start_time).min
   end
 
   memoize \
   def latest_task_stop_time
-    job_results.values.map { it[:stop_time] }.max
+    job_results.values.pluck(:stop_time).max
   end
 
   def short_job_names(task_set)
