@@ -4,5 +4,5 @@
 %hr.my-8
 
 %h3 Questions
-- @quiz.questions.each do |quiz_question|
+- @quiz.questions.includes(answers: :answering_participations).each do |quiz_question|
   .p-2= render partial: 'quiz_questions/closed', locals: { question: quiz_question }
