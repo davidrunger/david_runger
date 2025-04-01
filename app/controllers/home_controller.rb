@@ -6,7 +6,10 @@ class HomeController < ApplicationController
 
   def index
     skip_authorization
+
     @description = 'The personal website of web developer David Runger'
+    @ios_theme_color = '#0a0a0a'
+
     serve_prerender_with_fallback(
       filename: 'home.html',
       expected_content: 'Full stack web developer',
