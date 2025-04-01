@@ -6,7 +6,7 @@ class CheckLinks::LaunchPageFetches
   def perform
     launch_with_spacing(
       worker: CheckLinks::LaunchLinkChecksForPage,
-      arguments_list: sitemap_urls.map { [it] },
+      arguments_list: sitemap_urls.zip,
       spacing_seconds: Rails.env.development? ? 10.seconds : 5.minutes,
     )
   end
