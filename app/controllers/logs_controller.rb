@@ -8,6 +8,7 @@ class LogsController < ApplicationController
 
   def index
     @title = 'Logs'
+    @ios_theme_color = '#111111'
 
     bootstrap(**{
       current_user: current_user && UserSerializer::Basic.new(current_user),
