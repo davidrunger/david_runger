@@ -1,7 +1,7 @@
 RSpec.describe Prerenderable, :without_verifying_authorization do
   before do
     stub_const('EXPECTED_CONTENT', 'Great page text!')
-    stub_const('LIVE_RENDERED_PAGE_TEXT', 'Good morning, Vietnam!')
+    stub_const('LIVE_RENDERED_PAGE_TEXT', 'We are live!')
   end
 
   controller(ApplicationController) do
@@ -52,9 +52,24 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           HTML
         end
 
-        it 'serves the prerendered page' do
-          get_index
-          expect(response.body).to have_text(page_text)
+        context 'when no user is signed in' do
+          before { sign_out(:user) }
+
+          it 'serves the prerendered page' do
+            get_index
+
+            expect(response.body).to have_text(page_text)
+          end
+        end
+
+        context 'when a user is signed in' do
+          before { sign_in(users(:user)) }
+
+          it 'live-renders the page' do
+            get_index
+
+            expect(response.body).to have_text(LIVE_RENDERED_PAGE_TEXT)
+          end
         end
 
         context 'when the prerender does not include the expected content' do

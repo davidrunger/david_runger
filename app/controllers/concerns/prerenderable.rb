@@ -5,6 +5,9 @@ module Prerenderable
     if params.key?('prerender')
       Rails.logger.info('Skipping prerendered content because a prerender param is present.')
       instance_eval(&fallback)
+    elsif user_signed_in?
+      Rails.logger.debug('Skipping prerendered content because a user is signed in.')
+      instance_eval(&fallback)
     elsif (prerendered_html = prerendered_html(filename))
       if prerendered_html.include?(expected_content)
         # rubocop:disable Rails/OutputSafety
