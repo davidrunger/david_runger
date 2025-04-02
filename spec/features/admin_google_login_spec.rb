@@ -10,9 +10,10 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
 
       expect(page).to have_css('google-sign-in-button')
 
-      expect { click_sign_in_with_google }.not_to change { AdminUser.count }
-
-      visit(admin_root_path)
+      expect {
+        click_sign_in_with_google
+        expect(page).to have_current_path(admin_root_path)
+      }.not_to change { AdminUser.count }
 
       expect(page).to have_text('David Runger Admin Dashboard')
       expect(page).to have_text('Admin Tools')
