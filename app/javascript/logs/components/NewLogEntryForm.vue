@@ -46,6 +46,7 @@ import { ElButton, ElDatePicker, ElInput } from 'element-plus';
 import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 import { object } from 'vue-types';
 
+import { isMobileDevice } from '@/lib/is_mobile_device';
 import { isArrayOfNumbers } from '@/lib/type_predicates';
 import { useLogsStore } from '@/logs/store';
 import { type Log } from '@/logs/types';
@@ -126,7 +127,11 @@ const mostRecentLogEntryValues = computed((): Array<LogEntryDataValue> => {
 });
 
 onMounted(() => {
-  focusLogEntryInput();
+  // NOTE: Don't focus numeric logs on mobile because it scrolls the graph out
+  // of the viewport.
+  if (!(isMobileDevice() && isNumeric.value)) {
+    focusLogEntryInput();
+  }
 });
 
 function focusLogEntryInput() {
