@@ -98,6 +98,7 @@ const inputType = computed(() => {
   if (isText.value) {
     return 'textarea';
   } else if (isCounter.value) {
+    // NOTE: We don't use a 'number' input for number logs because it forbids decimals.
     return 'number';
   } else {
     return 'text';
