@@ -7,27 +7,53 @@ template(v-if="user?.public_name && user.gravatar_url")
   )
 |
 |
-span.author {{ user ? user.public_name || 'Anonymous' : '[deleted user]' }}
-template(v-if="showEditLink")
+template(v-if="isEditingPublicName")
+  input.public-name-input.py-1.px-2(
+    type="text"
+    v-model="editablePublicNameRef"
+    placeholder="Public display name"
+    ref="publicNameInputRef"
+    v-bind="publicNameInputEventHandlers"
+  )
+template(v-else)
+  span.author {{ authorPublicNameOrFallback }}
+template(v-if="showEditLink && !isEditingPublicName")
   span.edit-public-name
     |
-    | [#[a(:href="editNamePath") Edit your name]]
+    | [#[button.btn-link(@click="startEditingPublicName(user?.public_name || '')") Edit your name]]
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { bool, nullable, object, oneOfType } from 'vue-types';
 
-import { windowLocationWithHash } from '@/lib/windowLocation';
-import { edit_public_name_my_account_path } from '@/rails_assets/routes';
+import { useCommentsStore } from '@/comments/stores/commentsStore';
+import { useCancellableInput } from '@/lib/composables/useCancellableInput';
 import { type UserSerializerPublic } from '@/types';
 
-defineProps({
+const store = useCommentsStore();
+
+const {
+  editableRef: editablePublicNameRef,
+  isEditing: isEditingPublicName,
+  startEditing: startEditingPublicName,
+  inputRef: publicNameInputRef,
+  inputEventHandlers: publicNameInputEventHandlers,
+} = useCancellableInput({
+  onUpdate(newPublicName) {
+    store.updateCurrentUser({ public_name: newPublicName });
+  },
+});
+
+const props = defineProps({
   showEditLink: bool(),
   user: oneOfType<null | UserSerializerPublic>([nullable(), object()]),
 });
 
-const editNamePath = edit_public_name_my_account_path({
-  redirect_chain: windowLocationWithHash('comments'),
+const authorPublicNameOrFallback = computed((): string => {
+  const user = props.user;
+
+  return user ? user.public_name || `User ${user.id}` : '[deleted user]';
 });
 </script>
 
@@ -42,7 +68,17 @@ const editNamePath = edit_public_name_my_account_path({
   font-weight: bold;
 }
 
+.btn-link {
+  color: var(--link-color);
+}
+
 .edit-public-name {
   font-size: 0.8rem;
+}
+
+input.public-name-input {
+  &:focus-visible {
+    outline: none;
+  }
 }
 </style>

@@ -3,7 +3,7 @@
   .comment-header
     GravatarAndPublicName(
       :showEditLink="isAuthor"
-      :user="comment.user"
+      :user="comment.user && comment.user.id === store.currentUser?.id ? store.currentUser : comment.user"
     )
     .time-since-creation(:title="comment.created_at") {{ timeSinceCreation }}
     .actions(v-if="isAuthor")
