@@ -3,7 +3,10 @@
   LogSelectorModal
   RouterView.m-2(:key="$route.fullPath" class="sm:m-8")
   footer.pb-4(v-if="!isSharedLogView")
-    | Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the log selector.
+    | Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the
+    |
+    button.text-blue-400(@click="openLogSelector") log selector
+    | .
 </template>
 
 <script setup lang="ts">
@@ -30,6 +33,10 @@ const { isSharedLogView, selectedLog } = storeToRefs(logsStore);
 removeQueryParams(); // remove query params such as `new_entry` and `auth_token`
 renderBootstrappedToasts();
 
+function openLogSelector() {
+  modalStore.showModal({ modalName: 'log-selector' });
+}
+
 onMounted(() => {
   if (!isSharedLogView.value) {
     // If we are viewing a specific log, we want to ensure that the log entries for that log are
@@ -46,7 +53,7 @@ onMounted(() => {
         (event.metaKey === true || event.ctrlKey === true) // Meta for macOS, Ctrl for Windows/Linux
       ) {
         event.preventDefault(); // Prevent default behavior for the shortcut
-        modalStore.showModal({ modalName: 'log-selector' });
+        openLogSelector();
       }
     });
   }

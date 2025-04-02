@@ -54,7 +54,7 @@ RSpec.describe 'Logs app' do
     context 'when user has multiple logs' do
       before { expect(user.logs.size).to be >= 2 }
 
-      it 'renders the logs app and allows the user to view a log' do
+      it 'renders the logs app, allows the user to view a log, and allows switching to another log' do
         visit logs_path
 
         expect(page).to have_text(user.email)
@@ -73,6 +73,13 @@ RSpec.describe 'Logs app' do
         expect(page).to have_current_path("/logs/#{log.slug}")
         expect(page).to have_text(log.name)
         expect(page).not_to have_text(other_log.name)
+
+        click_on('log selector')
+        click_on(other_log.name)
+
+        expect(page).to have_current_path("/logs/#{other_log.slug}")
+        expect(page).to have_text(other_log.name)
+        expect(page).not_to have_text(log.name)
       end
     end
 
