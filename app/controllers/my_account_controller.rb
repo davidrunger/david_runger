@@ -23,4 +23,19 @@ class MyAccountController < ApplicationController
     authorize(@user)
     render :show
   end
+
+  def update
+    authorize(current_user)
+
+    current_user.update!(my_account_params)
+    flash[:notice] = 'Updated successfully.'
+
+    redirect_to(my_account_path)
+  end
+
+  private
+
+  def my_account_params
+    params.expect(user: %i[public_name])
+  end
 end

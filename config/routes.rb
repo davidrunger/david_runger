@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   get 'login', to: 'sessions#new', as: :new_user_session
-  resource :my_account, controller: :my_account, only: %i[destroy edit show]
+  resource :my_account, controller: :my_account, only: %i[destroy edit show update]
 
   get 'blog', to: 'blog#index'
   get 'blog/:slug', to: 'blog#show'

@@ -3,14 +3,22 @@
 
 %h1 My Account
 
-%div.mt-4
+.mt-4
   %b Email:
   = @user.email
 
-%div.mt-4
+= form_with(model: current_user, url: my_account_path, class: 'mt-4') do |form|
+  .my-2
+    %b= form.label :public_name, 'Public name (optional)'
+    %div= form.text_field :public_name
+
+  .my-2
+    = form.submit('Update', class: 'btn-primary')
+
+.mt-4
   = link_to('Manage Auth Tokens', edit_my_account_path)
 
-%div.mt-4
+.mt-4
   = button_to('Delete Account', my_account_path,
     method: :delete, class: 'btn-danger',
     data: { confirm: "Are you sure that you want to completely and permanently delete your account (#{current_user.email})?" })
