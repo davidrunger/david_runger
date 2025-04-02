@@ -78,7 +78,8 @@ function setScrollToFragmentTimeouts() {
 
 <style lang="scss">
 :root {
-  --user-header-height: calc(var(--spacing) * 8);
+  // NOTE: This corresponds to the total height of the header in _logged_in_header.html.haml .
+  --user-header-height: 32px;
   --main-bg-color: var(--color-neutral-950);
   --main-text-color: var(--color-neutral-100);
 }
