@@ -2,7 +2,7 @@
 div
   form.px-2(
     @submit.prevent="postNewLogEntry(formData.newLogEntryData)"
-    :class="log.data_type"
+    :class="[log.data_type, { 'flex flex-wrap justify-center': !isText }]"
   )
     .mb-2(v-if="isCounter")
       ElButton(
@@ -19,7 +19,7 @@ div
           ref="logInput"
           :type="inputType"
         )
-    div(:class="{ 'mt-2': isText }")
+    div(:class="{ 'mt-2': isText, 'w-[200px]': !isText }")
       ElDatePicker(
         :class="{ 'mb-2': isNumeric }"
         v-model="formData.newLogEntryCreatedAt"
@@ -167,6 +167,7 @@ form.duration {
 }
 
 :deep(.el-input__wrapper) {
+  flex-grow: revert;
   width: 200px;
 }
 
