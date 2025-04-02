@@ -53,6 +53,8 @@ const sortedLogEntries = computed((): Array<TextLogEntry> => {
 </script>
 
 <style lang="scss">
+@use 'css/sass_variables' as *;
+
 ol,
 ul {
   $li-indent: 17px;
