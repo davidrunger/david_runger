@@ -54,6 +54,20 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@use 'css/sass_variables' as *;
+
+@media screen and (max-width: $small-screen-breakpoint) {
+  // Use id selector to give high specificity.
+  #container {
+    // Prevent iOS Safari from auto-zooming by making font size >= 16px.
+    input,
+    textarea,
+    select {
+      font-size: 16px;
+    }
+  }
+}
+
 :root {
   --main-bg-color: #111;
 
