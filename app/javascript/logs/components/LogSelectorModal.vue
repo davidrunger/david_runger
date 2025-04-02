@@ -9,7 +9,7 @@ Modal(
     type="text"
     v-model="query"
     ref="logSearchInput"
-    @keydown.enter="selectHighlightedLog"
+    @keydown.enter.prevent="selectHighlightedLog"
     @keydown.up="onArrowUp"
     @keydown.down="onArrowDown"
   )
