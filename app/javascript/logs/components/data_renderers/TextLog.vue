@@ -119,6 +119,11 @@ table.text-log-table {
   color: #aaa;
   font-size: 14px;
 
+  @media screen and (max-width: $small-screen-breakpoint) {
+    // Prevent iOS Safari from auto-zooming by making font size >= 16px.
+    font-size: 16px;
+  }
+
   tr {
     border-top: 1px solid #999;
 
