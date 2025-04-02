@@ -1,7 +1,7 @@
 <template lang="pug">
 .text-center
   LogSelectorModal
-  RouterView.m-8(:key="$route.fullPath")
+  RouterView.m-2(:key="$route.fullPath" class="sm:m-8")
   footer.pb-4(v-if="!isSharedLogView")
     | Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the log selector.
 </template>
