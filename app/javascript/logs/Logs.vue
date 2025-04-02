@@ -5,7 +5,7 @@
   footer.pb-4(v-if="!isSharedLogView")
     | Tip: {{ bootstrap.log_selector_keyboard_shortcut }} will open the
     |
-    button(@click="openLogSelector") log selector
+    button.text-blue-400(@click="openLogSelector") log selector
     | .
 </template>
 
