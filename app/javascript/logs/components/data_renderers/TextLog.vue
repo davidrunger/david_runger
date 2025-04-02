@@ -53,6 +53,8 @@ const sortedLogEntries = computed((): Array<TextLogEntry> => {
 </script>
 
 <style lang="scss">
+@use 'css/sass_variables' as *;
+
 ol,
 ul {
   $li-indent: 17px;
@@ -118,6 +120,11 @@ table.text-log-table {
   margin: 15px 0;
   color: #aaa;
   font-size: 14px;
+
+  @media screen and (max-width: $small-screen-breakpoint) {
+    // Prevent iOS Safari from auto-zooming by making font size >= 16px.
+    font-size: 16px;
+  }
 
   tr {
     border-top: 1px solid #999;
