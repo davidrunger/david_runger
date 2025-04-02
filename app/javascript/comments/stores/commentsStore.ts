@@ -2,15 +2,22 @@ import { defineStore } from 'pinia';
 
 import type { Comment } from '@/comments/types/comment';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
-import { typesafeAssign } from '@/lib/helpers';
+import { assert, typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
-import { api_comment_path, api_comments_path } from '@/rails_assets/routes';
+import {
+  api_comment_path,
+  api_comments_path,
+  api_my_account_path,
+} from '@/rails_assets/routes';
 import type { Intersection } from '@/types';
 import { BlogShowBootstrap } from '@/types/bootstrap/BlogShowBootstrap';
 import type { CommentCreateResponse } from '@/types/responses/CommentCreateResponse';
 import type { CommentsIndexResponse } from '@/types/responses/CommentsIndexResponse';
 import type { CommentUpdateResponse } from '@/types/responses/CommentUpdateResponse';
-import type { Comment as SerializedComment } from '@/types/serializers';
+import type {
+  Comment as SerializedComment,
+  UserSerializerPublic,
+} from '@/types/serializers';
 
 const bootstrap = untypedBootstrap as BlogShowBootstrap;
 
@@ -137,6 +144,15 @@ export const useCommentsStore = defineStore('comments', {
       if (comment) {
         typesafeAssign(comment, updatedCommentResponse);
       }
+    },
+
+    async updateCurrentUser(userAttributes: object) {
+      const updatedUser = await http.patch<UserSerializerPublic>(
+        api_my_account_path(),
+        { user: userAttributes },
+      );
+
+      typesafeAssign(assert(this.currentUser), updatedUser);
     },
   },
 });

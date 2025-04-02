@@ -10,9 +10,7 @@ Rails.application.routes.draw do
     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   get 'login', to: 'sessions#new', as: :new_user_session
-  resource :my_account, controller: :my_account, only: %i[destroy edit show update] do
-    get :edit_public_name
-  end
+  resource :my_account, controller: :my_account, only: %i[destroy edit show]
 
   get 'blog', to: 'blog#index'
   get 'blog/:slug', to: 'blog#show'
@@ -89,6 +87,7 @@ Rails.application.routes.draw do
     resources :log_entries, only: %i[create destroy index update]
     resources :log_shares, only: %i[create destroy]
     resources :logs, only: %i[create destroy update]
+    resource :my_account, controller: :my_account, only: %i[update]
     resources :reifications, only: %i[create]
     resources :stores, only: %i[index create update destroy] do
       resources :items, only: %i[create]

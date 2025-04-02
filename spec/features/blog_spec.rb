@@ -61,8 +61,13 @@ RSpec.describe 'Blog' do
             expect(page).to have_text(h1_text)
 
             click_sign_in_with_google
-            fill_in('Public display name (optional)', with: public_name)
-            click_on('Submit')
+
+            expect(page).to have_current_path(blog_url_path)
+
+            click_on('Edit your name')
+            fill_in('Public display name', with: public_name)
+
+            expect(page).to have_text("Post as #{public_name}")
 
             comment_text = 'I have something to say!'
             fill_in('Write a comment...', with: comment_text)
@@ -72,8 +77,7 @@ RSpec.describe 'Blog' do
 
             click_on('Edit your name', match: :first)
             new_name = Faker::Name.name
-            fill_in('Public display name (optional)', with: new_name)
-            click_on('Submit')
+            fill_in('Public display name', with: new_name)
 
             expect(page).to have_text("Post as #{new_name}")
 

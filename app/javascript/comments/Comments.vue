@@ -5,7 +5,7 @@
   template(v-if="store.currentUser")
     CommentForm(@submit="store.addComment")
   template(v-else)
-    p #[GoogleLoginButton.google-login-form.dark-mode-supported(:origin="googleLoginOrigin")] to add a comment.
+    p #[GoogleLoginButton.google-login-form.dark-mode-supported(:origin="windowLocationWithHash('comments')")] to add a comment.
 
   .mt-8
     template(v-if="store.comments.length")
@@ -42,11 +42,6 @@ onMounted(async () => {
     }
   }
 });
-
-const googleLoginOrigin = [
-  'wizard:set-public-name-if-new',
-  windowLocationWithHash('comments'),
-].join('|');
 </script>
 
 <style scoped>

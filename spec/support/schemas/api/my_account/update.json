@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Root",
+  "definitions": {
+    "Root": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "public_name": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "gravatar_url": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "uri",
+              "qt-uri-protocols": ["https"]
+            }
+          ]
+        }
+      },
+      "required": ["gravatar_url", "id", "public_name"],
+      "title": "Root"
+    }
+  }
+}
