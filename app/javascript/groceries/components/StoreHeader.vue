@@ -1,5 +1,5 @@
 <template lang="pug">
-h1.h2.my-1
+h1.flex.items-center.flex-wrap.h2.my-1
   template(v-if="isEditingName")
     input(
       type="text"
@@ -9,12 +9,12 @@ h1.h2.my-1
     )
   template(v-else)
     span {{ store.name }}
-  a.js-link.text-neutral-400.ml-2(
+  a.inline-flex.js-link.text-neutral-400.ml-2(
     @click="startEditingName(store.name)"
     class="hover:text-black"
   )
     EditIcon(size="27")
-  span(v-if="store.own_store")
+  span.inline-flex(v-if="store.own_store")
     ElButton.ml-2(
       v-if="store.private"
       size="small"
