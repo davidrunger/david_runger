@@ -329,7 +329,7 @@ GEM
       railties (>= 7.0)
       responders (>= 2)
     io-console (0.8.0)
-    irb (1.15.1)
+    irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
@@ -971,7 +971,7 @@ CHECKSUMS
   immigrant (0.3.6) sha256=9c154dec2a2cbce62b32967a8b33e1eed58fed6432be3601f67cb88820024e96
   inherited_resources (2.1.0) sha256=74f3f1862790fc1066b4eeb354717ddee220f59421fee4cea4bb1c4b775f4603
   io-console (0.8.0) sha256=cd6a9facbc69871d69b2cb8b926fc6ea7ef06f06e505e81a64f14a470fddefa2
-  irb (1.15.1) sha256=d9bca745ac4207a8b728a52b98b766ca909b86ff1a504bcde3d6f8c84faae890
+  irb (1.15.2) sha256=222f32952e278da34b58ffe45e8634bf4afc2dc7aa9da23fed67e581aa50fdba
   isolator (1.1.1) sha256=17f79f328c548e5216c66fd0361d59130a265c45cfe1c9de12d4696d4508812f
   jmespath (1.6.2) sha256=238d774a58723d6c090494c8879b5e9918c19485f7e840f2c1c7532cf84ebcb1
   js-routes (2.3.5) sha256=8279fd3be49916309dfeaee546d659b97986e3edbb47332902e688992b143a4d
