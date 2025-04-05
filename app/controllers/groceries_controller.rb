@@ -1,4 +1,7 @@
 class GroceriesController < ApplicationController
+  self.body_classes = %w[flex flex-col h-dvh]
+  self.container_classes = %w[flex-1 overflow-auto]
+
   render_flash_messages_via_js(only: %i[index])
 
   def index

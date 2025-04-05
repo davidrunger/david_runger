@@ -40,7 +40,7 @@
     = content_for(:extra_css)
     = content_for(:page_assets)
 
-  %body{class: class_names('sans-serif', user_signed_in? ? 'logged-in' : 'logged-out')}
+  %body{class: class_names('sans-serif', body_classes, user_signed_in? ? 'logged-in' : 'logged-out')}
     - if user_signed_in?
       - if admin_user_signed_in? && (current_user.email != current_admin_user.email)
         .text-center.p-2.bg-sky-200
