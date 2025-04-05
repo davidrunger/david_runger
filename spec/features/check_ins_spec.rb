@@ -56,6 +56,9 @@ RSpec.describe 'Check-Ins app' do
             # rubocop:enable RungerStyle/ClickAmbiguously
             expect(page).to have_content('Marriage created.')
           end
+
+          expect(user.reload.spouse).to eq(proposee)
+          expect(proposee.reload.spouse).to eq(user)
         end
       end
     end
