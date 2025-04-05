@@ -15,7 +15,7 @@ RSpec.describe 'Check-Ins app' do
       context 'when JWT_SECRET is set' do
         before { expect(ENV.fetch('JWT_SECRET', nil)).to be_present }
 
-        it 'allows inviting spouse and accepting proposal, populates initial emotional needs', :rack_test_driver do
+        it 'allows inviting spouse and accepting proposal, populates initial emotional needs, and allows adding an emotional need', :rack_test_driver do
           visit check_ins_path
 
           expect(page).to have_text('Enter the email of your spouse')
