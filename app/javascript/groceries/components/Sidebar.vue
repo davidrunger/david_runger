@@ -1,5 +1,5 @@
 <template lang="pug">
-aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
+aside.border-r.border-neutral-400.max-h-full.overflow-auto.hidden-scrollbars(
   :class="{ collapsed }"
 )
   .flex.flex-col.min-h-full
