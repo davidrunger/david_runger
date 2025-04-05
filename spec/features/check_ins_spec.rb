@@ -5,11 +5,9 @@ RSpec.describe 'Check-Ins app' do
     let(:user) { users(:user) }
     let(:marriage) { user.marriage }
 
-    context 'when the user is not yet in a marriage with a partner' do
+    context 'when the user is not yet in a marriage' do
       before do
-        expect(marriage.partners.first!).to eq(user)
-        marriage.memberships.where.not(user_id: user).find_each(&:destroy!)
-        expect(marriage.reload.partners.size).to eq(1)
+        marriage.destroy!
       end
 
       let(:proposee) { User.where.not(id: user).first! }
@@ -17,7 +15,7 @@ RSpec.describe 'Check-Ins app' do
       context 'when JWT_SECRET is set' do
         before { expect(ENV.fetch('JWT_SECRET', nil)).to be_present }
 
-        it 'allows inviting spouse, adding emotional needs, and accepting proposal' do
+        it 'allows inviting spouse and accepting proposal, populates initial emotional needs', :rack_test_driver do
           visit check_ins_path
 
           expect(page).to have_text('Enter the email of your spouse')
@@ -33,8 +31,14 @@ RSpec.describe 'Check-Ins app' do
 
           expect(page).to have_flash_message('Invitation sent.')
 
-          # add an emotional need
+          # View default emotional needs.
           click_on('Click here')
+          Marriages::Create::DEFAULT_EMOTIONAL_NEEDS.each do |name, description|
+            expect(page).to have_text(name)
+            expect(page).to have_text(description)
+          end
+
+          # Add an emotional need.
           new_need_name = Faker::Emotion.unique.noun.capitalize
           new_need_description = Faker::Company.unique.bs.capitalize
           fill_in('Name', with: new_need_name)

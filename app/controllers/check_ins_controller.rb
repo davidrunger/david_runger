@@ -31,7 +31,7 @@ class CheckInsController < ApplicationController
 
   def ensure_marriage
     if current_user.marriage.nil?
-      Marriage.create!(partners: [current_user])
+      Marriages::Create.run!(proposer: current_user)
       current_user.reload
     end
   end
