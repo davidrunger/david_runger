@@ -1,5 +1,5 @@
 %h1 Enter the email of your spouse
 %form{action: proposals_path, method: 'post'}
   = hidden_field_tag :authenticity_token, form_authenticity_token
-  %input{type: 'text', name: 'spouse_email'}
+  %input{type: 'text', name: 'spouse_email', placeholder: 'Spouse email'}
   %button.btn-primary Submit

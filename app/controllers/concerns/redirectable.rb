@@ -7,8 +7,7 @@ module Redirectable
 
   def redirect_location
     session.delete(:redirect_location).presence ||
-      session.delete('user_return_to').presence ||
-      root_path
+      session.delete('user_return_to').presence
   end
 
   def store_redirect_location

@@ -1,4 +1,6 @@
 class GroceriesController < ApplicationController
+  render_flash_messages_via_js(only: %i[index])
+
   def index
     authorize(Store)
 
