@@ -39,7 +39,7 @@ aside.border-r.border-neutral-400.overflow-auto.hidden-scrollbars(
             )
     .mt-auto.text-center.p-3(
       v-if="!groceriesStore.sortedSpouseStores.length && !collapsed"
-    ) Tip: You and your partner can automatically view each other's lists. #[a(:href="new_marriage_path()") Click here] to invite them to join.
+    ) Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
 </template>
 
 <script setup lang="ts">
@@ -84,6 +84,10 @@ async function handleNewStoreSubmission() {
     formData.newStoreName = '';
   }
 }
+
+const invitePartnerHref = new_marriage_path({
+  redirect_location: window.location.href,
+});
 </script>
 
 <style lang="scss" scoped>

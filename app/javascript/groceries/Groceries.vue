@@ -19,6 +19,7 @@ import { useGroceriesStore } from '@/groceries/store';
 import type { Bootstrap, ItemBroadcast } from '@/groceries/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import type { IphoneTouchEvent } from '@/lib/types';
+import { renderBootstrappedToasts } from '@/lib/vue_toasts';
 
 import Sidebar from './components/Sidebar.vue';
 import Store from './components/Store.vue';
@@ -26,6 +27,8 @@ import Store from './components/Store.vue';
 interface MonkeypatchedConnection extends Connection {
   installEventHandlers(): void;
 }
+
+renderBootstrappedToasts();
 
 const groceriesStore = useGroceriesStore();
 

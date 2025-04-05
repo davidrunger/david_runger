@@ -35,6 +35,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     sign_in(user)
-    redirect_to(redirect_location)
+    redirect_to(redirect_location || root_path)
   end
 end

@@ -3,7 +3,7 @@ class ProposalsController < ApplicationController
     authorize(Marriage, :propose?)
     ProposalMailer.proposal_created(current_user.id, params[:spouse_email]).deliver_later
     flash[:notice] = 'Invitation sent.'
-    redirect_to(check_ins_path)
+    redirect_to(redirect_location || check_ins_path)
   end
 
   def accept

@@ -113,6 +113,31 @@ RSpec.describe 'Groceries app' do
       end
     end
 
+    context 'when the user does not have a spouse' do
+      before { expect(user.marriage).to be_blank }
+
+      let(:user) { users(:single_user) }
+
+      it 'has a link to invite a partner' do
+        visit groceries_path
+
+        expect(page).to have_text(
+          "Tip: You and your partner can automatically view each other's lists.",
+        )
+
+        click_on('Invite them to join.')
+
+        expect(page).to have_current_path(new_marriage_path, ignore_query: true)
+        expect(page).to have_text('Enter the email of your spouse')
+
+        fill_in('Spouse email', with: Faker::Internet.email)
+        click_on('Submit')
+
+        expect(page).to have_current_path(groceries_path)
+        expect(page).to have_vue_toast('Invitation sent.')
+      end
+    end
+
     context 'when the user has a store' do
       before { expect(user.stores).to exist }
 
