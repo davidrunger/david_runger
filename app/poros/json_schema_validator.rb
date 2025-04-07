@@ -41,7 +41,6 @@ class JsonSchemaValidator
     )
   rescue *[
     JSON::Schema::JsonParseError,
-    JSON::Schema::ReadFailed,
     JSON::Schema::SchemaParseError,
   ]
     facilitate_schema_provisioning_if_development

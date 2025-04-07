@@ -11,8 +11,8 @@ RSpec.describe Api::BaseController, :without_verifying_authorization do
     subject(:get_index) { get(:index) }
 
     context 'when there is no JSON schema for the action' do
-      it 'raises a JSON::Schema::ReadFailed error' do
-        expect { get(:index) }.to raise_error(JSON::Schema::ReadFailed)
+      it 'raises an Errno::ENOENT error' do
+        expect { get(:index) }.to raise_error(Errno::ENOENT)
       end
     end
 
