@@ -34,7 +34,7 @@ class JsonSchemaValidator
   memoize \
   def schema_validation_errors
     JSON::Validator.fully_validate(
-      absolute_schema_path,
+      schema,
       json_string_to_validate,
       validate_schema: true,
       clear_cache: true,
@@ -49,10 +49,15 @@ class JsonSchemaValidator
     raise
   rescue JSON::Schema::ValidationError
     # :nocov:
-    puts("Schema: #{File.read(absolute_schema_path)}")
+    puts("Schema: #{schema}")
 
     raise
     # :nocov:
+  end
+
+  memoize \
+  def schema
+    File.read(absolute_schema_path)
   end
 
   def json_string_to_validate
