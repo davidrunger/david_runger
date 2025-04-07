@@ -134,29 +134,29 @@ function setNeeded(item: Item, needed: number) {
 }
 
 .grocery-item {
-  background: rgba(255, 255, 255, 60%);
+  background: rgb(255, 255, 255, 60%);
   margin: 5px 0;
   padding: 6px;
   min-height: 30px;
 
   /* stylelint-disable media-feature-name-value-no-unknown */
   &:not(.unneeded):hover {
-    background: rgba(255, 255, 255, 80%);
+    background: rgb(255, 255, 255, 80%);
 
     @media (hover: none), (hover: on-demand) {
-      background: rgba(255, 255, 255, 60%);
+      background: rgb(255, 255, 255, 60%);
     }
   }
 
   &.unneeded {
-    background: rgba(255, 255, 255, 30%);
-    color: rgba(0, 0, 0, 55%);
+    background: rgb(255, 255, 255, 30%);
+    color: rgb(0, 0, 0, 55%);
 
     &:hover {
-      background: rgba(255, 255, 255, 50%);
+      background: rgb(255, 255, 255, 50%);
 
       @media (hover: none), (hover: on-demand) {
-        background: rgba(255, 255, 255, 30%);
+        background: rgb(255, 255, 255, 30%);
       }
     }
   }

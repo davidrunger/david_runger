@@ -45,10 +45,10 @@ function destroyStore(store: Store) {
 
 <style lang="scss" scoped>
 .stores-list__item {
-  background: rgba(255, 255, 255, 50%);
+  background: rgb(255, 255, 255, 50%);
 
   &.selected {
-    background: rgba(255, 255, 255, 75%);
+    background: rgb(255, 255, 255, 75%);
     font-weight: bold;
   }
 }
