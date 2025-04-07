@@ -67,7 +67,7 @@ defineProps({
   // lighten the image with a semi-transparent white mask
   &::after {
     position: fixed;
-    background: rgba(255, 255, 255, 30%);
+    background: rgb(255, 255, 255, 30%);
   }
 }
 
@@ -84,7 +84,7 @@ defineProps({
   &::after {
     position: absolute;
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 60%);
+    background: rgb(255, 255, 255, 60%);
     border-top: 3px solid black;
     border-bottom: 3px solid black;
   }

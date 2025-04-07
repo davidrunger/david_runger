@@ -56,7 +56,7 @@ function handleKeydown(event: KeyboardEvent) {
 
 <style lang="scss" scoped>
 .modal-mask {
-  background-color: rgba(0, 0, 0, 50%);
+  background-color: rgb(0, 0, 0, 50%);
   transition: opacity 0.3s ease;
 
   // use pseudo elements to have 1/3 space above the modal and 2/3 space below the modal. so sort of
@@ -76,7 +76,7 @@ function handleKeydown(event: KeyboardEvent) {
   min-width: 300px;
   max-height: 90vh; // fallback for browsers that don't yet support `dvh` units
   max-height: 90dvh;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 33%);
+  box-shadow: 0 2px 8px rgb(0, 0, 0, 33%);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
   overflow: auto;

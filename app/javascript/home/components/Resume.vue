@@ -17,14 +17,14 @@ import HomeSection from './HomeSection.vue';
   width: 240px;
   height: 60px;
   line-height: 56px;
-  background-color: rgba(0, 0, 0, 72%);
+  background-color: rgb(0, 0, 0, 72%);
   border: 2px solid #000;
   border-radius: 3px;
   box-shadow: #000 0 0 15px -4px;
   color: #ebebeb;
 
   &:hover {
-    background-color: rgba(20, 20, 20, 72%);
+    background-color: rgb(20, 20, 20, 72%);
     color: white;
     transition: 0.3s;
   }
