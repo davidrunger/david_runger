@@ -47,6 +47,12 @@ class JsonSchemaValidator
     facilitate_schema_provisioning_if_development
 
     raise
+  rescue JSON::Schema::ValidationError
+    # :nocov:
+    puts("Schema: #{File.read(absolute_schema_path)}")
+
+    raise
+    # :nocov:
   end
 
   def json_string_to_validate
