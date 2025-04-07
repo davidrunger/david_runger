@@ -40,6 +40,7 @@ class JsonSchemaValidator
       clear_cache: true,
     )
   rescue *[
+    Errno::ENOENT,
     JSON::Schema::JsonParseError,
     JSON::Schema::SchemaParseError,
   ]
