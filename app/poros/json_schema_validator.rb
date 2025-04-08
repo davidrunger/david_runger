@@ -44,6 +44,12 @@ class JsonSchemaValidator
     JSON::Schema::JsonParseError,
     JSON::Schema::SchemaParseError,
   ]
+    if Rails.env.test?
+      puts("absolute_schema_path: #{absolute_schema_path}")
+      puts("schema: #{schema rescue nil}")
+      puts("File.read(absolute_schema_path): #{File.read(absolute_schema_path) rescue nil}")
+    end
+
     facilitate_schema_provisioning_if_development
 
     raise
