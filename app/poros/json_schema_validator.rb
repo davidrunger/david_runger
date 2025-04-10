@@ -42,6 +42,7 @@ class JsonSchemaValidator
   rescue *[
     Errno::ENOENT,
     JSON::Schema::JsonParseError,
+    JSON::Schema::ReadFailed,
     JSON::Schema::SchemaParseError,
   ]
     if Rails.env.test?
