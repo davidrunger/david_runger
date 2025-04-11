@@ -47,7 +47,11 @@ RSpec.describe 'Groceries app' do
         expect(page).to have_css('.grocery-item', text: unneeded_item.name)
 
         # Delete the item.
-        within('.grocery-item', text: unneeded_item.name) { click_on('Delete item') }
+        within('.grocery-item', text: unneeded_item.name) do
+          find(:link_or_button, 'Delete item').click
+          sleep(0.01)
+          expect(page).not_to have_selector(:link_or_button, 'Delete item')
+        end
 
         # Confirm that the deleted item is no longer listed.
         expect(page).not_to have_css('.grocery-item', text: unneeded_item.name)

@@ -12,6 +12,7 @@ export type CheckInStatus = 'needed' | 'in-cart' | 'skipped';
 export interface Item extends TypelizerItem {
   aboutToMoveTo?: CheckInStatus | null;
   checkInStatus?: CheckInStatus;
+  deleted?: boolean;
 }
 
 export interface ItemBroadcast extends JsonBroadcast {

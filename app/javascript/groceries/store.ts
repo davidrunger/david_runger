@@ -131,6 +131,8 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     async destroyItem({ item }: { item: Item }) {
+      item.deleted = true;
+
       this.incrementPendingRequests();
 
       const { restore_item_path: restoreItemPath } =
