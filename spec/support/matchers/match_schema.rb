@@ -1,7 +1,7 @@
 RSpec::Matchers.define(:match_schema) do |schema|
   schema_path = "spec/support/schemas/#{schema}.json"
   match do |json|
-    JSON::Validator.fully_validate(schema_path, json, strict: true, validate_schema: true).empty?
+    JSONSchemer.schema(File.read(schema_path)).validate(JSON.parse(json)).to_a.empty?
   end
 
   failure_message do |json|
