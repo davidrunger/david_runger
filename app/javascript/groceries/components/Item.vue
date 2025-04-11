@@ -36,6 +36,7 @@ li.grocery-item.flex.items-center.w-full(
     button.item-button(
       @click="groceriesStore.destroyItem({ item })"
       title="Delete item"
+      :disabled="item.deleted"
     )
       .flex.justify-center
         XIcon(:size="ICON_SIZE")
