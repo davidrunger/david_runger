@@ -18,7 +18,7 @@ class JsonSchemaValidator
         !(universal_bootstrap_data? && !schema_file_exists?) &&
         schema_validation_errors.present?
     )
-      print_debug_info_or_facilitate_schema_provisioning
+      facilitate_schema_provisioning
 
       raise(
         NonconformingData,
@@ -33,36 +33,18 @@ class JsonSchemaValidator
 
   memoize \
   def schema_validation_errors
-    JSON::Validator.fully_validate(
-      schema,
-      json_string_to_validate,
-      validate_schema: true,
-      clear_cache: true,
-    )
+    JSONSchemer.schema(schema).validate(JSON.parse(@data.to_json)).pluck('error')
   rescue *[
     Errno::ENOENT,
-    JSON::Schema::JsonParseError,
-    JSON::Schema::ReadFailed,
-    JSON::Schema::SchemaParseError,
   ]
-    print_debug_info_or_facilitate_schema_provisioning
+    facilitate_schema_provisioning
 
     raise
-  rescue JSON::Schema::ValidationError
-    # :nocov:
-    puts("Schema: #{schema}")
-
-    raise
-    # :nocov:
   end
 
   memoize \
   def schema
     File.read(absolute_schema_path)
-  end
-
-  def json_string_to_validate
-    @data.is_a?(String) ? @data : @data.to_json
   end
 
   memoize \
@@ -110,15 +92,7 @@ class JsonSchemaValidator
     @controller_action.start_with?('api/')
   end
 
-  def print_debug_info_or_facilitate_schema_provisioning
-    if Rails.env.test?
-      # :nocov:
-      puts("absolute_schema_path: #{absolute_schema_path rescue nil}")
-      puts("schema: #{schema rescue nil}")
-      puts("File.read(absolute_schema_path): #{File.read(absolute_schema_path) rescue nil}")
-      # :nocov:
-    end
-
+  def facilitate_schema_provisioning
     if Rails.env.development?
       # :nocov:
       # Copy JSON data that was not validated/accepted to clipboard.

@@ -67,7 +67,7 @@ group :development, :test do
   gem 'annotaterb', require: false
   gem 'immigrant'
   gem 'isolator'
-  gem 'json-schema'
+  gem 'json_schemer'
   gem 'listen'
   gem 'prosopite'
   gem 'pry-byebug', require: false, github: 'davidrunger/pry-byebug'
