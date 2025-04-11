@@ -33,7 +33,7 @@ class JsonSchemaValidator
 
   memoize \
   def schema_validation_errors
-    JSONSchemer.schema(schema).validate(JSON.parse(@data.to_json)).pluck('error')
+    JSONSchemer.schema(schema).validate(object_to_validate).pluck('error')
   rescue *[
     Errno::ENOENT,
   ]
@@ -45,6 +45,11 @@ class JsonSchemaValidator
   memoize \
   def schema
     File.read(absolute_schema_path)
+  end
+
+  memoize \
+  def object_to_validate
+    @data.is_a?(String) ? JSON.parse(@data) : JSON.parse(@data.to_json)
   end
 
   memoize \
