@@ -1,5 +1,5 @@
 <template lang="pug">
-.store-container.overflow-auto.hidden-scrollbars.pt-2.pl-8.pr-4
+.overflow-auto.hidden-scrollbars.pt-2.pl-8.pr-4.max-h-full
   StoreHeader(:store="store")
 
   ElButton.mr-2.mt-2(
@@ -63,10 +63,3 @@ function initializeTripCheckIn() {
   modalStore.showModal({ modalName: 'check-in-shopping-trip' });
 }
 </script>
-
-<style lang="scss" scoped>
-.store-container {
-  max-height: 97vh; // fallback for browsers that don't yet support `dvh` units
-  max-height: 97dvh;
-}
-</style>
