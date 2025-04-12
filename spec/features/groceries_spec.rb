@@ -159,7 +159,7 @@ RSpec.describe 'Groceries app' do
           expect(page).to have_vue_toast('Name has already been taken', type: :error)
           # Make sure that a duplicate store is not created in the sidebar.
           within('aside') do
-            count_of_store_name_in_page = page.text.scan(Regexp.escape(existing_store.name)).count
+            count_of_store_name_in_page = page.text.scan(existing_store.name).count
             expect(count_of_store_name_in_page).to eq(1)
           end
 
