@@ -46,13 +46,12 @@ const props = defineProps({
   item: object<Item>().isRequired,
 });
 
-const MOVE_TIMEOUT = 500;
 const MOVING_TO_STATUS_TO_CLASS_MAP = {
   'in-cart': 'bg-green-200',
   needed: 'bg-orange-200',
   skipped: 'bg-red-200',
 };
-const CLEAR_BACKGROUND_COLOR_TIMEOUT = 1200;
+const CLEAR_BACKGROUND_COLOR_TIMEOUT = 2000;
 
 const groceriesStore = useGroceriesStore();
 
@@ -65,19 +64,15 @@ function aboutToMoveToClass() {
 }
 
 function moveTo(checkInStatus: CheckInStatus) {
-  if (props.item.aboutToMoveTo) return;
-
   groceriesStore.setItemAboutToMoveTo({
     item: props.item,
     aboutToMoveTo: checkInStatus,
   });
 
-  setTimeout(() => {
-    groceriesStore.setItemCheckInStatus({
-      item: props.item,
-      checkInStatus,
-    });
-  }, MOVE_TIMEOUT);
+  groceriesStore.setItemCheckInStatus({
+    item: props.item,
+    checkInStatus,
+  });
 
   setTimeout(() => {
     groceriesStore.setItemAboutToMoveTo({
