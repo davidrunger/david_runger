@@ -122,6 +122,10 @@ async function updateLogEntry() {
   .el-button.el-button + .el-button {
     margin-left: 0;
   }
+
+  .el-button.el-button {
+    font-size: 20px;
+  }
 }
 
 :deep(pre) {
