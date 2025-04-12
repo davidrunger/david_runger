@@ -27,7 +27,7 @@ RSpec.describe 'Groceries app' do
         # by a bug in cuprite (namely that focus and blur events are of type
         # Event rather than FocusEvent). github.com/rubycdp/cuprite/pull/ 272
         fill_in('newItemName', with: new_item_name)
-        first('.store-container button', text: 'Add').click
+        find(:button, 'Add item').click
 
         expect(page).not_to have_spinner
         expect(find(:fillable_field, 'newItemName').value).to eq('')
