@@ -66,6 +66,10 @@ a {
   text-decoration: none;
 }
 
+button {
+  text-align: left;
+}
+
 .hidden-scrollbars {
   scrollbar-width: none; /* Firefox https://stackoverflow.com/a/38994837/4009384 */
 }
