@@ -4,7 +4,7 @@
   @click="groceriesStore.selectStore({ store })"
 )
   .store-name
-    button {{ store.name }}
+    button.text-left {{ store.name }}
     LockIcon.ml-2(
       v-if="store.private"
       size="22"
