@@ -11,7 +11,7 @@
 
   NewItemForm(:store="store")
 
-  TransitionGroup.items-list.relative.mt-0.mb-0(
+  TransitionGroup.items-list.relative.mt-0.mb-8(
     name="appear-and-disappear-vertically-list"
     tag="ul"
   )
