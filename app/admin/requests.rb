@@ -28,7 +28,15 @@ ActiveAdmin.register(Request) do
       row :user_agent
       row :location
       row :isp
-      row :ip
+      row :ip do |request|
+        # Users cannot arbitrarily set `request.ip`, so there should be no XSS risk here.
+        # rubocop:disable Rails/OutputSafety
+        raw(<<~CONTENT.squish)
+          #{request.ip}
+          (#{link_to('other requests', admin_requests_path(q: { ip_eq: request.ip }))})
+        CONTENT
+        # rubocop:enable Rails/OutputSafety
+      end
       # simply calling `method` causes a bug (that gets interpreted as a Ruby "method" or something)
       row(:method) { |request| request.read_attribute(:method) }
       row :format
