@@ -89,11 +89,9 @@ ol {
   }
 }
 
-ul {
-  li {
-    &::before {
-      content: '– ';
-    }
+.text-log-table td ul li {
+  &::before {
+    content: '– ';
   }
 }
 
