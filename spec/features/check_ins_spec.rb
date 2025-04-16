@@ -39,7 +39,7 @@ RSpec.describe 'Check-Ins app' do
           end
 
           # Add an emotional need.
-          new_need_name = Faker::Emotion.unique.noun.capitalize
+          new_need_name = "#{Faker::Emotion.unique.noun.capitalize}-#{SecureRandom.alphanumeric(5)}"
           new_need_description = Faker::Company.unique.bs.capitalize
           fill_in('Name', with: new_need_name)
           fill_in('Description', with: new_need_description)
