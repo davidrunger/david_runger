@@ -46,7 +46,6 @@ RSpec.describe 'Check-Ins app' do
           click_on('Create Emotional need')
 
           expect(page).to have_text("#{new_need_name} (#{new_need_description})")
-          expect(page).to have_text('Not there!')
 
           # log in proposee and accept the proposal
           Capybara.using_session('proposee') do
