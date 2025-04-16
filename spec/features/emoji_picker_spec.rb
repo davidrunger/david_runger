@@ -15,7 +15,6 @@ RSpec.describe 'Emoji Picker' do
       # Check that tip about logging in is shown, and boosting interface is not.
       expect(page).to have_text(log_in_for_boosting_text)
       expect(page).not_to have_text(add_a_boost_text)
-      expect(page).to have_text('Not there!')
     end
   end
 
