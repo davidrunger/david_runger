@@ -55,43 +55,47 @@ const sortedLogEntries = computed((): Array<TextLogEntry> => {
 <style lang="scss">
 @use 'css/sass_variables' as *;
 
-ol,
-ul {
-  $li-indent: 17px;
+.text-log-table {
+  ol,
+  ul {
+    $li-indent: 17px;
 
-  &:not(:first-child) {
-    margin-top: 16px;
-  }
-
-  li {
-    &:not(:first-of-type) {
-      margin-top: 0.5em;
+    &:not(:first-child) {
+      margin-top: 16px;
     }
 
-    display: block;
-    margin-left: $li-indent;
+    li {
+      &:not(:first-of-type) {
+        margin-top: 0.5em;
+      }
 
-    &::before {
-      margin-left: -1 * $li-indent;
-      position: absolute;
+      display: block;
+      margin-left: $li-indent;
+
+      &::before {
+        margin-left: -1 * $li-indent;
+        position: absolute;
+      }
     }
   }
-}
 
-ol {
-  counter-reset: item;
+  ol {
+    counter-reset: item;
 
-  li {
-    &::before {
-      content: counter(item) '. ';
-      counter-increment: item;
+    li {
+      &::before {
+        content: counter(item) '. ';
+        counter-increment: item;
+      }
     }
   }
-}
 
-.text-log-table td ul li {
-  &::before {
-    content: '– ';
+  ul {
+    li {
+      &::before {
+        content: '– ';
+      }
+    }
   }
 }
 
