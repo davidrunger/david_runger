@@ -1,6 +1,6 @@
 class ApplicationSerializer
   include Alba::Resource
-  include Typelizer::DSL
+  helper Typelizer::DSL
 
   class_attribute :decorator_class
 
