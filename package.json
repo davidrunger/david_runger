@@ -27,9 +27,9 @@
     "chartkick": "^5.0.1",
     "dompurify": "^3.2.5",
     "easytimer.js": "^4.6.0",
-    "element-plus": "^2.9.7",
+    "element-plus": "^2.9.8",
     "emojilib": "^4.0.1",
-    "eslint": "^9.24.0",
+    "eslint": "^9.25.0",
     "eslint-import-resolver-custom-alias": "^1.3.2",
     "eslint-plugin-vue": "^10.0.0",
     "fuse.js": "^7.1.0",
@@ -58,7 +58,7 @@
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
-    "@eslint/js": "^9.24.0",
+    "@eslint/js": "^9.25.0",
     "@faker-js/faker": "^9.7.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@percy/cli": "^1.30.10",
@@ -78,7 +78,7 @@
     "@vue/eslint-config-typescript": "^14.5.0",
     "@vue/language-plugin-pug": "^2.2.8",
     "eslint-config-prettier": "^10.1.2",
-    "eslint-import-resolver-typescript": "^4.3.2",
+    "eslint-import-resolver-typescript": "^4.3.3",
     "eslint-plugin-import": "^2.31.0",
     "fishery": "^2.2.3",
     "globals": "^16.0.0",
@@ -94,7 +94,7 @@
     "tsd": "^0.32.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.0",
+    "vite": "^6.3.2",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-ruby": "^5.1.1",
     "vitest": "^3.1.1",
@@ -108,6 +108,7 @@
     "onlyBuiltDependencies": [
       "@percy/core",
       "esbuild",
+      "unrs-resolver",
       "vue-demi"
     ]
   }
