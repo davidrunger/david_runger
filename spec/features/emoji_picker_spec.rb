@@ -13,6 +13,7 @@ RSpec.describe 'Emoji Picker' do
       expect(page.first('li')).to have_text(/\A💜purple heart\z/)
 
       # Check that tip about logging in is shown, and boosting interface is not.
+      expect(page).to have_css('google-sign-in-button')
       expect(page).to have_text(log_in_for_boosting_text)
       expect(page).not_to have_text(add_a_boost_text)
     end
@@ -31,6 +32,7 @@ RSpec.describe 'Emoji Picker' do
       expect(page.first('li')).to have_text(/\A💜purple heart\z/)
 
       # Check that page does not have tip about logging in (as user is already logged in).
+      expect(page).not_to have_css('google-sign-in-button')
       expect(page).not_to have_text(log_in_for_boosting_text)
 
       # Add a boost.
