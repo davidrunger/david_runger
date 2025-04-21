@@ -16,7 +16,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'copy_to_clipboard*.css' => (0..10),
     'copy_to_clipboard*.js' => (2..12),
     'emoji_picker*.css' => (8..18),
-    'emoji_picker*.js' => (327..337),
+    'emoji_picker*.js' => (337..347),
     'google_sign_in_button*.js' => (1..11),
     'groceries*.css' => (48..58),
     'groceries*.js' => (303..313),
