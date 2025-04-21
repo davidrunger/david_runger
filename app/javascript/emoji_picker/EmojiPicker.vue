@@ -22,11 +22,7 @@
 
   BoostsForm(v-if="bootstrap.current_user")
   .flex.justify-center(v-else)
-    .mt-8.max-w-sm
-      b Tip:
-      span.
-        #[a(:href="new_user_session_path()")  log in] to customize
-        which search keywords are associated with which emojis.
+    .mt-8.max-w-sm #[GoogleLoginButton(:origin="googleLoginOrigin")] to customize which search keywords are associated with which emojis.
 </template>
 
 <script setup lang="ts">
@@ -34,6 +30,7 @@ import { refDebounced } from '@vueuse/core';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { POSITION } from 'vue-toastification';
 
+import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
 import BoostsForm from '@/emoji_picker/components/BoostsForm.vue';
 import CopiedEmojiToast from '@/emoji_picker/components/CopiedEmojiToast.vue';
 import { emojiData } from '@/emoji_picker/emoji_data';
@@ -41,7 +38,6 @@ import { type Bootstrap } from '@/emoji_picker/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useFuzzyTypeahead } from '@/lib/composables/useFuzzyTypeahead';
 import { vueToast } from '@/lib/vue_toasts';
-import { new_user_session_path } from '@/rails_assets/routes';
 import type { EmojiData } from '@/types';
 
 const bootstrap = untypedBootstrap as Bootstrap;
@@ -65,6 +61,8 @@ const { highlightedSearchable, onArrowDown, onArrowUp, topRankedMatches } =
       useExtendedSearch: true,
     },
   });
+
+const googleLoginOrigin = window.location.href;
 
 function handleKeydown(event: KeyboardEvent) {
   switch (event.key) {
