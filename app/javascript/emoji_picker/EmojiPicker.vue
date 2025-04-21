@@ -52,7 +52,7 @@ const { highlightedSearchable, onArrowDown, onArrowUp, topRankedMatches } =
   useFuzzyTypeahead({
     searchables: emojiData,
     query: queryDebounced,
-    maxMatches: 10,
+    maxMatches: 80,
     fuseOptions: {
       keys: [
         'name',
