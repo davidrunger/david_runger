@@ -6,3 +6,9 @@
 }
 
 @config '../../../tailwind-active_admin.config.js';
+
+/* Tom Select */
+.ts-control > input {
+  flex: 0 1 auto;
+  width: 1px;
+}
