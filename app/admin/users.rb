@@ -26,8 +26,8 @@ ActiveAdmin.register(User) do
 
     panel 'Requests' do
       table_for resource.requests.order(requested_at: :desc).limit(10) do
-        column :id do |r|
-          link_to r.id, admin_request_path(r)
+        column :id do |request|
+          link_to request.id, admin_request_path(request)
         end
         column :handler
         column :requested_at
