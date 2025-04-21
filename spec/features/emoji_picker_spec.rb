@@ -1,6 +1,6 @@
 RSpec.describe 'Emoji Picker' do
   let(:add_a_boost_text) { 'Add a boost' }
-  let(:log_in_for_boosting_text) { /Tip: log in to customize .* search keywords/ }
+  let(:log_in_for_boosting_text) { /to customize .* search keywords/ }
 
   context 'when not logged in' do
     before { Devise.sign_out_all_scopes }
