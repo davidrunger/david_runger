@@ -58,7 +58,7 @@ FixtureBuilder.configure do |fbuilder|
     name(:log_share, create(:log_share, log: number_log))
 
     # requests
-    request = name(:request, create(:request)).first
+    request = name(:request, create(:request, user:)).first
 
     # workouts
     name(:workout, create(:workout, user:))
