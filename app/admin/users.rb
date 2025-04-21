@@ -23,6 +23,21 @@ ActiveAdmin.register(User) do
       row :created_at
       row :updated_at
     end
+
+    panel 'Requests' do
+      table_for resource.requests.order(requested_at: :desc).limit(10) do
+        column :id do |r|
+          link_to r.id, admin_request_path(r)
+        end
+        column :handler
+        column :requested_at
+      end
+
+      div style: 'margin-top: 10px;' do
+        link_to 'View All Requests →', admin_requests_path(q: { user_id_eq: resource.id })
+      end
+    end
+
     active_admin_comments_for(resource)
   end
 
