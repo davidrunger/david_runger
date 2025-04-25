@@ -3,5 +3,5 @@
   "extends": ["config:recommended"],
   "enabledManagers": ["bundler", "github-actions", "npm"],
   "timezone": "America/Chicago",
-  "schedule": ["0 4 * * *"]
+  "schedule": ["* 4 * * *"]
 }
