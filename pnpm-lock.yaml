@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@activeadmin/activeadmin':
-        specifier: 4.0.0-beta15
-        version: 4.0.0-beta15
+        specifier: 4.0.0-beta9
+        version: 4.0.0-beta9
       '@davidrunger/vue-model-explorer':
         specifier: ^0.2.2
         version: 0.2.2(vue@3.5.13(typescript@5.8.3))
@@ -279,8 +279,8 @@ importers:
 
 packages:
 
-  '@activeadmin/activeadmin@4.0.0-beta15':
-    resolution: {integrity: sha512-TRQtxZ7lg/0lrxpRzanQwAoQnkYTgjpYkhk/N9UZQHhEans9Ra35blw2tO87NEdpYhMdos/hoHOTumczganHqw==}
+  '@activeadmin/activeadmin@4.0.0-beta9':
+    resolution: {integrity: sha512-nsUSI4M5Zrujyjw92yQv/cV2edj7E6+D1HNZG0zqz98miPOxzPBJDXwpvQkE/iYSIeqc99NlLobFHxYXuzeB7Q==}
 
   '@asamuzakjp/css-color@3.1.4':
     resolution: {integrity: sha512-SeuBV4rnjpFNjI8HSgKUwteuFdkHwkboq31HWzznuqgySQir+jSTczoWVVL4jvOjKjuH80fMDG0Fvg1Sb+OJsA==}
@@ -874,8 +874,8 @@ packages:
   '@rails/actioncable@8.0.200':
     resolution: {integrity: sha512-EDqWyxck22BHmv1e+mD8Kl6GmtNkhEPdRfGFT7kvsv1yoXd9iYrqHDVAaR8bKmU/syC5eEZ2I5aWWxtB73ukMw==}
 
-  '@rails/ujs@7.1.400':
-    resolution: {integrity: sha512-YwvXm3BR5tn+VCAKYGycLejMRVZE3Ionj5gFjEeGXCZnI0Rpi+7dKpmyu90kdUY7dRUFpHTdu9zZceEzFLl38w==}
+  '@rails/ujs@7.1.2':
+    resolution: {integrity: sha512-c5x02djEKEVVE4qfN4XgElJS4biM0xxtIVpcJ0ZHLK116U19rowTtmD0AJ/RCb3Xaewa4GPIWLlwgeC0dCQqzw==}
 
   '@rails/ujs@7.1.501':
     resolution: {integrity: sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==}
@@ -4627,9 +4627,9 @@ packages:
 
 snapshots:
 
-  '@activeadmin/activeadmin@4.0.0-beta15':
+  '@activeadmin/activeadmin@4.0.0-beta9':
     dependencies:
-      '@rails/ujs': 7.1.400
+      '@rails/ujs': 7.1.2
       flowbite: 2.3.0
 
   '@asamuzakjp/css-color@3.1.4':
@@ -5243,7 +5243,7 @@ snapshots:
 
   '@rails/actioncable@8.0.200': {}
 
-  '@rails/ujs@7.1.400': {}
+  '@rails/ujs@7.1.2': {}
 
   '@rails/ujs@7.1.501': {}
 

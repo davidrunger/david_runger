@@ -10,7 +10,7 @@
     ">10%"
   ],
   "dependencies": {
-    "@activeadmin/activeadmin": "4.0.0-beta15",
+    "@activeadmin/activeadmin": "4.0.0-beta9",
     "@davidrunger/vue-model-explorer": "^0.2.2",
     "@hotwired/turbo": "^8.0.13",
     "@hotwired/turbo-rails": "^8.0.13",
