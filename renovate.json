@@ -4,6 +4,7 @@
   "extends": [
     "config:recommended",
     "schedule:daily",
+    ":maintainLockFilesWeekly",
     ":prConcurrentLimitNone",
     ":prHourlyLimitNone"
   ],
@@ -13,8 +14,20 @@
       "rangeStrategy": "update-lockfile"
     },
     {
+      "matchManagers": ["bundler"],
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "groupName": "bundler lock file maintenance",
+      "groupSlug": "bundler-lockfile",
+      "description": "Group bundler lock file maintenance updates",
+      "separateMajorMinor": false
+    },
+    {
       "matchManagers": ["npm"],
-      "extends": [":maintainLockFilesWeekly"]
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "groupName": "npm lock file maintenance",
+      "groupSlug": "npm-lockfile",
+      "description": "Group npm lock file maintenance updates",
+      "separateMajorMinor": false
     }
   ],
   "rangeStrategy": "replace",
