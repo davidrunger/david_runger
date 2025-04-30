@@ -4,7 +4,6 @@
   "extends": [
     "config:recommended",
     "schedule:daily",
-    ":maintainLockFilesWeekly",
     ":prConcurrentLimitNone",
     ":prHourlyLimitNone"
   ],
@@ -12,6 +11,10 @@
     {
       "matchManagers": ["bundler"],
       "rangeStrategy": "update-lockfile"
+    },
+    {
+      "matchManagers": ["npm"],
+      "extends": [":maintainLockFilesWeekly"]
     }
   ],
   "rangeStrategy": "replace",
