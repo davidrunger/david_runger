@@ -19,6 +19,7 @@
       "groupName": "bundler lock file maintenance",
       "groupSlug": "bundler-lockfile",
       "description": "Group bundler lock file maintenance updates",
+      "prTitle": "Update bundler lock file",
       "separateMajorMinor": false
     },
     {
@@ -27,6 +28,7 @@
       "groupName": "npm lock file maintenance",
       "groupSlug": "npm-lockfile",
       "description": "Group npm lock file maintenance updates",
+      "prTitle": "Update npm lock file",
       "separateMajorMinor": false
     }
   ],
