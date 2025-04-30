@@ -7,6 +7,13 @@
     ":prConcurrentLimitNone",
     ":prHourlyLimitNone"
   ],
+  "lockFileMaintenance": { "enabled": true },
+  "packageRules": [
+    {
+      "matchManagers": ["bundler"],
+      "rangeStrategy": "update-lockfile"
+    }
+  ],
   "rangeStrategy": "replace",
   "timezone": "America/Chicago"
 }
