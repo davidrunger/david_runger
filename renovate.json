@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabledManagers": ["bundler", "github-actions", "npm"],
+  "enabledManagers": ["npm"],
   "extends": [
     "config:recommended",
     "schedule:daily",
@@ -9,19 +9,6 @@
     ":prHourlyLimitNone"
   ],
   "packageRules": [
-    {
-      "matchManagers": ["bundler"],
-      "rangeStrategy": "update-lockfile"
-    },
-    {
-      "matchManagers": ["bundler"],
-      "matchUpdateTypes": ["lockFileMaintenance"],
-      "groupName": "bundler lock file maintenance",
-      "groupSlug": "bundler-lockfile",
-      "description": "Group bundler lock file maintenance updates",
-      "commitMessageAction": "Update",
-      "commitMessageTopic": "bundler lock file"
-    },
     {
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["lockFileMaintenance"],
