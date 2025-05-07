@@ -10,19 +10,6 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["bundler"],
-      "rangeStrategy": "update-lockfile"
-    },
-    {
-      "matchManagers": ["bundler"],
-      "matchUpdateTypes": ["lockFileMaintenance"],
-      "groupName": "bundler lock file maintenance",
-      "groupSlug": "bundler-lockfile",
-      "description": "Group bundler lock file maintenance updates",
-      "commitMessageAction": "Update",
-      "commitMessageTopic": "bundler lock file"
-    },
-    {
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["lockFileMaintenance"],
       "groupName": "npm lock file maintenance",
