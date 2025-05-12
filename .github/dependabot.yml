@@ -13,3 +13,5 @@ updates:
       interval: cron
       cronjob: '4 4 * * *'
       timezone: America/Chicago
+    allow:
+      - dependency-type: all
