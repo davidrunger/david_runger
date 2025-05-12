@@ -4,14 +4,12 @@ updates:
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
-      interval: cron
-      cronjob: '4 4 * * *'
+      interval: 'daily'
       timezone: America/Chicago
   - package-ecosystem: bundler
     directory: '/'
     schedule:
-      interval: cron
-      cronjob: '4 4 * * *'
+      interval: 'daily'
       timezone: America/Chicago
     allow:
       - dependency-type: all
