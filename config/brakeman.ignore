@@ -1,29 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "2b746993d54c695786455f9f550cc34581b9c0edbb768099b577d3da975a4880",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "tools/json_schemas_to_typescript.rb",
-      "line": 67,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "system(\"./node_modules/.bin/quicktype\\n  --src-lang schema\\n  #{schema_path}\\n  --out #{types_path(schema_path)}\\n  --just-types\\n\".squish)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "JsonSchemasToTypescript",
-        "method": "s(:self).write_files"
-      },
-      "user_input": "schema_path",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": "We are not accepting user input here, just iterating over our own paths."
-    },
-    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "6ec98885fe4746f341dec349efa9b844cd8bb007dea972105df6b963feae95e7",
@@ -45,6 +22,29 @@
         601
       ],
       "note": "False positive"
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "72711ad6969090a4a1ed4b7a6fdc22e4fe0ed549207998bdef6ceba0bb170d54",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "tools/json_schemas_to_typescript.rb",
+      "line": 67,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "system(\"./node_modules/.bin/quicktype\\n  --src-lang schema\\n  #{schema_path}\\n  --out #{types_path(schema_path)}\\n  --just-types\\n\".squish, :exception => true)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "JsonSchemasToTypescript",
+        "method": "s(:self).write_files"
+      },
+      "user_input": "schema_path",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "We are not accepting user input here, just iterating over our own paths."
     },
     {
       "warning_type": "Redirect",
@@ -93,5 +93,5 @@
       "note": "False positive"
     }
   ],
-  "brakeman_version": "7.0.0"
+  "brakeman_version": "7.0.2"
 }

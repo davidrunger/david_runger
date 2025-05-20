@@ -61,7 +61,7 @@ module JsonSchemasToTypescript
           if write_all || schema_path.in?(changed) || schema_path.in?(added)
             types_path = types_path(schema_path)
 
-            system(<<~SH.squish)
+            system(<<~SH.squish, exception: true)
               ./node_modules/.bin/quicktype
                 --src-lang schema
                 #{schema_path}
