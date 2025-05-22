@@ -96,8 +96,9 @@ module JsonSchemasToTypescript
 
               main_interface =
                 file_content.
-                  match(/^export interface (?<main_interface>\w+) {/).
-                  []('main_interface')
+                  match(
+                    /^export interface (?<main_interface>\w+) {/,
+                  )['main_interface']
 
               main_interface_element_name = "#{main_interface}Element"
 
