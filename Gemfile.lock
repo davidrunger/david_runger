@@ -441,13 +441,13 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-musl)
       racc (~> 1.4)
-    oauth2 (2.0.10)
+    oauth2 (2.0.11)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
-      snaky_hash (~> 2.0)
+      snaky_hash (~> 2.0, >= 2.0.3)
       version_gem (>= 1.1.8, < 3)
     omniauth (2.1.3)
       hashie (>= 3.4.6)
@@ -703,7 +703,7 @@ GEM
     simplecov-html (0.13.1)
     simplecov_json_formatter (0.1.4)
     simpleidn (0.2.3)
-    snaky_hash (2.0.2)
+    snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
     sniffer (0.5.0)
@@ -1040,7 +1040,7 @@ CHECKSUMS
   nokogiri (1.18.8-x86_64-darwin) sha256=024cdfe7d9ae3466bba6c06f348fb2a8395d9426b66a3c82f1961b907945cc0c
   nokogiri (1.18.8-x86_64-linux-gnu) sha256=4a747875db873d18a2985ee2c320a6070c4a414ad629da625fbc58d1a20e5ecc
   nokogiri (1.18.8-x86_64-linux-musl) sha256=ddd735fba49475a395b9ea793bb6474e3a3125b89960339604d08a5397de1165
-  oauth2 (2.0.10) sha256=8f132679598d21885d4bcc68d7e7e6ef0a29f9a782abca00d67d884280dc3a42
+  oauth2 (2.0.11) sha256=29e0505c2a39bc78dfb655dbf85a826b4408e55e7c3d02ce07b3dfd9b40da16c
   omniauth (2.1.3) sha256=8d24e2e55c41926c96e4a93fd566bc026dfd6f2c850408748e89945a565956c2
   omniauth-google-oauth2 (1.2.1) sha256=c81c50b680fc3372d0c18147cdaf9764a67ace9e7e4e6afe7b869a01fa1aaedd
   omniauth-oauth2 (1.8.0) sha256=b2f8e9559cc7e2d4efba57607691d6d2b634b879fc5b5b6ccfefa3da85089e78
@@ -1137,7 +1137,7 @@ CHECKSUMS
   simplecov-html (0.13.1) sha256=5dab0b7ee612e60e9887ad57693832fdf4695b4c0c859eaea5f95c18791ef10b
   simplecov_json_formatter (0.1.4) sha256=529418fbe8de1713ac2b2d612aa3daa56d316975d307244399fa4838c601b428
   simpleidn (0.2.3) sha256=08ce96f03fa1605286be22651ba0fc9c0b2d6272c9b27a260bc88be05b0d2c29
-  snaky_hash (2.0.2) sha256=aeb0ca73a1fa8b7a4750833a659abaacd9a8a1bf9c4d783e689eca2bb4c10373
+  snaky_hash (2.0.3) sha256=25a3d299566e8153fb02fa23fd9a9358845950f7a523ddbbe1fa1e0d79a6d456
   sniffer (0.5.0) sha256=cd040cc51929c04749b20baa4dd8f5985174210e13437491f4923b8de27e1359
   sorbet-runtime (0.5.12123) sha256=3704150af988dd930f2b6b74ef68520653e032aa0df2481e04a4234ad78c43f8
   spring (4.3.0) sha256=0aaaf3bcce38e8528275854881d1922660d76cbd19a9a3af4a419d95b7fe7122
