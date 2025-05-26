@@ -86,7 +86,7 @@
     "jsdom": "^26.1.0",
     "postcss-html": "^1.8.0",
     "prettier": "^3.5.3",
-    "quicktype": "23.2.6",
+    "quicktype": "^23.2.6",
     "sass": "^1.89.0",
     "stylelint": "^16.19.1",
     "stylelint-config-standard": "^38.0.0",

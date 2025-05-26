@@ -232,7 +232,7 @@ importers:
         specifier: ^3.5.3
         version: 3.5.3
       quicktype:
-        specifier: 23.2.6
+        specifier: ^23.2.6
         version: 23.2.6
       sass:
         specifier: ^1.89.0
