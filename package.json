@@ -11,7 +11,7 @@
   ],
   "dependencies": {
     "@activeadmin/activeadmin": "4.0.0-beta15",
-    "@davidrunger/vue-model-explorer": "^0.3.0",
+    "@davidrunger/vue-model-explorer": "^0.3.1",
     "@hotwired/turbo": "^8.0.13",
     "@hotwired/turbo-rails": "^8.0.13",
     "@rails/actioncable": "^8.0.200",
