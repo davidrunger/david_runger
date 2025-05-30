@@ -4,20 +4,20 @@ updates:
   - package-ecosystem: bundler
     directory: '/'
     schedule:
-      interval: 'daily'
-      time: '04:04'
+      interval: cron
+      cronjob: '4 4 * * *'
       timezone: America/Chicago
     allow:
       - dependency-type: all
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
-      interval: 'daily'
-      time: '04:04'
+      interval: cron
+      cronjob: '4 4 * * *'
       timezone: America/Chicago
   - package-ecosystem: npm
     directory: '/'
     schedule:
-      interval: 'daily'
-      time: '04:04'
+      interval: cron
+      cronjob: '4 4 * * *'
       timezone: America/Chicago
