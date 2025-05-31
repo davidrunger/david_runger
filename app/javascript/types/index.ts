@@ -2,7 +2,6 @@ export * from '@/types/serializers';
 
 // begin Intersection >>>
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable no-use-before-define */
 // https://x.com/mattpocockuk/status/1622730173446557697
 type Prettify<T> = { [K in keyof T]: T[K] } & {};
 
@@ -95,7 +94,6 @@ export type Intersection<T, U> =
     : Prettify<BaseIntersection<Exclude<T, null>, Exclude<U, null>>> | null
   : HasNeverDeep<BaseIntersection<T, U>> extends true ? InvalidIntersection
   : Prettify<BaseIntersection<T, U>>;
-/* eslint-enable no-use-before-define */
 /* eslint-enable @typescript-eslint/no-empty-object-type */
 // <<< end Intersection
 
