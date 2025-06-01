@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+  before_action :set_error_context
   before_action :set_paper_trail_whodunnit
   before_action :set_browser_uuid
   before_action :set_controller_action_in_context
@@ -73,6 +74,10 @@ class ApplicationController < ActionController::Base
 
   def set_controller_action_in_context
     ActiveSupport::ExecutionContext[:controller_action] = controller_action
+  end
+
+  def set_error_context
+    Rails.error.set_context(request:)
   end
 
   def set_browser_uuid
