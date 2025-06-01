@@ -58,6 +58,6 @@ class Api::CommentsController < Api::BaseController
   end
 
   def referrer_without_query_params
-    Addressable::URI.parse(request.referer).path
+    Addressable::URI.parse(request.referer)&.path
   end
 end
