@@ -15,13 +15,17 @@ RSpec.describe 'Handling exceptions', :rack_test_driver do
 
           expect(page).to have_text("The page you were looking for doesn't exist.")
           expect(page.status_code).to be(404)
-          expect(Rails.logger).
-            to have_received(:warn).
-            with(%r{#{Regexp.escape(<<~WARN_LOG.squish)}})
-              [error-report:warning] ActionController::RoutingError :
-              No route matches [GET] "/this-path-does-not-exist" |
-              handled=true source=application controller_action="errors#not_found"
-            WARN_LOG
+          expect(Rails.logger).to have_received(:warn).with(
+            a_string_including(
+              '[error-report:warning]',
+              'ActionController::RoutingError',
+              'No route matches [GET] "/this-path-does-not-exist"',
+              'handled=true',
+              'source=application',
+              %r{request={url: ".+", .+, request_id: ".+"}},
+              'controller_action="errors#not_found"',
+            ),
+          )
         end
       end
 
@@ -42,12 +46,15 @@ RSpec.describe 'Handling exceptions', :rack_test_driver do
           expect(page).to have_css('h1', text: 'Sorry, something went wrong.')
           expect(page.status_code).to be(500)
           expect(page).not_to have_text(error_message)
-          expect(Rails.logger).to have_received(:error).with(<<~ERROR_LOG.squish)
-            [error-report:error] StandardError : A BrowserSupportChecker
-            instance could not be initialized! |
-            handled=false source=application.action_dispatch
-            controller_action="home#upgrade_browser"
-          ERROR_LOG
+          expect(Rails.logger).to have_received(:error).with(
+            a_string_including(
+              '[error-report:error] StandardError : A BrowserSupportChecker',
+              'instance could not be initialized! |',
+              'handled=false source=application.action_dispatch',
+              %r{request={url: ".+", .+, request_id: ".+"}},
+              'controller_action="home#upgrade_browser"',
+            ),
+          )
           expect(Rails.logger).to have_received(:add).with(
             Logger::ERROR,
             /StandardError \(#{error_message}\)/,

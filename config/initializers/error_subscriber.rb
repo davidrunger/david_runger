@@ -1,4 +1,6 @@
 class ErrorSubscriber
+  include Rollbar::RequestDataExtractor
+
   SEVERITY_TO_METHOD = {
     error: :error,
     warning: :warn,
@@ -8,6 +10,10 @@ class ErrorSubscriber
   def report(error, **kwargs)
     # Instead, we'll use the controller_action (set via set_controller_action_in_context).
     kwargs[:context] = kwargs[:context].except(:controller)
+
+    if ((request = kwargs.dig(:context, :request)) && request.is_a?(ActionDispatch::Request))
+      kwargs[:context][:request] = extract_request_data_from_rack(request.env)
+    end
 
     if error.class.name.start_with?('Sidekiq::JobRetry::')
       # Only write a log line because the Rollbar integration will automatically send to Rollbar.
