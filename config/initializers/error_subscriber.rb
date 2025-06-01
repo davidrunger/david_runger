@@ -11,7 +11,7 @@ class ErrorSubscriber
     # Instead, we'll use the controller_action (set via set_controller_action_in_context).
     kwargs[:context] = kwargs[:context].except(:controller)
 
-    if (request = kwargs.dig(:context, :request))
+    if (request = kwargs.dig(:context, :request) && request.is_a?(ActionDispatch::Request))
       kwargs[:context][:request] = extract_request_data_from_rack(request.env)
     end
 
