@@ -148,10 +148,10 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
       context 'when the AuthToken does not have any restrictions on permitted controller actions' do
         before { auth_token.update!(permitted_actions_list: nil) }
 
-        it 'returns true' do
+        it 'returns nil' do
           request_index
 
-          expect(verify_valid_auth_token!).to eq(true)
+          expect(verify_valid_auth_token!).to eq(nil)
         end
       end
 
@@ -159,10 +159,10 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
         context 'when the request is for a permitted action' do
           before { auth_token.update!(permitted_actions_list: 'anonymous#index') }
 
-          it 'returns true' do
+          it 'returns nil' do
             request_index
 
-            expect(verify_valid_auth_token!).to eq(true)
+            expect(verify_valid_auth_token!).to eq(nil)
           end
         end
 
