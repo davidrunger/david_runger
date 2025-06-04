@@ -16,7 +16,7 @@ class ApplicationRecord < ActiveRecord::Base
       "#{name}Serializer".constantize
     end
 
-    def has_paper_trail_for_all_events
+    def has_paper_trail_for_all_events # rubocop:disable Naming/PredicatePrefix
       # Log all events, including `create` (which we omit by default).
       has_paper_trail(on: %i[create destroy touch update])
     end
