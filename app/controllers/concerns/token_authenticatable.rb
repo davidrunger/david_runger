@@ -69,7 +69,5 @@ module TokenAuthenticatable
     elsif auth_token_valid_for_action.blank?
       raise(UnauthorizedAction)
     end
-
-    true
   end
 end

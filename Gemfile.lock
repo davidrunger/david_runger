@@ -615,7 +615,7 @@ GEM
     rspec-support (3.13.4)
     rspec-wait (1.0.1)
       rspec (>= 3.4)
-    rubocop (1.75.8)
+    rubocop (1.76.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -623,7 +623,7 @@ GEM
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.44.0, < 2.0)
+      rubocop-ast (>= 1.45.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.45.0)
@@ -667,7 +667,7 @@ GEM
     runger_email_reply_trimmer (0.3.0)
     runger_rails_model_explorer (0.2.2)
       activerecord (>= 8.0.2)
-    runger_style (5.8.1)
+    runger_style (5.8.2)
       prism (>= 0.24.0)
       rubocop (>= 1.72.0)
     safely_block (0.5.0)
@@ -1108,7 +1108,7 @@ CHECKSUMS
   rspec-sidekiq (5.1.0) sha256=ed671ce4a9948ea2395db464c8c846651ea006e124f7868ee5d497f693102867
   rspec-support (3.13.4) sha256=184b1814f6a968102b57df631892c7f1990a91c9a3b9e80ef892a0fc2a71a3f7
   rspec-wait (1.0.1) sha256=50ce9cc7cd20b8bb67b95a4ed56b59a16d4af7e86ae91b28dbf20eeaa2481d1f
-  rubocop (1.75.8) sha256=c80ab4286c5dcfc49d7ad1787cdba5569b63b58c96ee7afde4ec47a9c8a85be9
+  rubocop (1.76.0) sha256=b7515398e1280b3cb7e3e0c429933ca3597ea43b7d0f03cb3c2d97719851c411
   rubocop-ast (1.45.0) sha256=0b4ade77d15f25b9e07214fb42fa98164f5316accea525e14e44bbb8f06f78d7
   rubocop-capybara (2.22.1) sha256=ced88caef23efea53f46e098ff352f8fc1068c649606ca75cb74650970f51c0c
   rubocop-factory_bot (2.27.1) sha256=9d744b5916778c1848e5fe6777cc69855bd96548853554ec239ba9961b8573fe
@@ -1124,7 +1124,7 @@ CHECKSUMS
   runger_config (5.2.0) sha256=9b76d767a2daa63f6f8f2c52a8183f3f09a877cd35bcaee692d25377f4dd4558
   runger_email_reply_trimmer (0.3.0) sha256=068aa90311da474065f604cf29704785bb36d511a5d5e4031fc87fef8bbd9ac7
   runger_rails_model_explorer (0.2.2) sha256=99adf4e287951996d7a2bc308271abe92065836437719eae0a444894c08e683b
-  runger_style (5.8.1) sha256=e1748117818758bfd0f2cb038eff86171fca6237c34a723e8dd33882ed5da233
+  runger_style (5.8.2) sha256=b0186f977babf202786ba9ae1137543e2fd5625f1f94517a8cf81e4b674fa4db
   safely_block (0.5.0) sha256=782c342bc400a79c1233c40cf8c379da6116c6cfd1d7c1f17f0ef2ef11090103
   sanitize (7.0.0) sha256=269d1b9d7326e69307723af5643ec032ff86ad616e72a3b36d301ac75a273984
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
