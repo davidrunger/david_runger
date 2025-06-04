@@ -667,7 +667,7 @@ GEM
     runger_email_reply_trimmer (0.3.0)
     runger_rails_model_explorer (0.2.2)
       activerecord (>= 8.0.2)
-    runger_style (5.8.1)
+    runger_style (5.8.2)
       prism (>= 0.24.0)
       rubocop (>= 1.72.0)
     safely_block (0.5.0)
@@ -1124,7 +1124,7 @@ CHECKSUMS
   runger_config (5.2.0) sha256=9b76d767a2daa63f6f8f2c52a8183f3f09a877cd35bcaee692d25377f4dd4558
   runger_email_reply_trimmer (0.3.0) sha256=068aa90311da474065f604cf29704785bb36d511a5d5e4031fc87fef8bbd9ac7
   runger_rails_model_explorer (0.2.2) sha256=99adf4e287951996d7a2bc308271abe92065836437719eae0a444894c08e683b
-  runger_style (5.8.1) sha256=e1748117818758bfd0f2cb038eff86171fca6237c34a723e8dd33882ed5da233
+  runger_style (5.8.2) sha256=b0186f977babf202786ba9ae1137543e2fd5625f1f94517a8cf81e4b674fa4db
   safely_block (0.5.0) sha256=782c342bc400a79c1233c40cf8c379da6116c6cfd1d7c1f17f0ef2ef11090103
   sanitize (7.0.0) sha256=269d1b9d7326e69307723af5643ec032ff86ad616e72a3b36d301ac75a273984
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
