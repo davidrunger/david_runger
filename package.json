@@ -63,7 +63,7 @@
     "@faker-js/faker": "^9.8.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.2",
     "@percy/cli": "^1.30.11",
-    "@pinia/testing": "^1.0.1",
+    "@pinia/testing": "^1.0.2",
     "@prettier/plugin-pug": "^3.4.0",
     "@testing-library/vue": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
