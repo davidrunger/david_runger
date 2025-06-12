@@ -108,8 +108,8 @@ importers:
         specifier: ^0.10.3
         version: 0.10.3
       tailwindcss:
-        specifier: ^4.1.8
-        version: 4.1.8
+        specifier: ^4.1.10
+        version: 4.1.10
       toastify-js:
         specifier: ^1.12.0
         version: 1.12.0
