@@ -2,7 +2,8 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-# Only continue if the expected number of Docker services (containers) are running.
+# To minimize risk of accidental DB deletion, continue only if all expected
+# services are running.
 expected_num_services=15
 actual_num_services=$(docker ps --filter status=running --quiet | wc -l)
 
