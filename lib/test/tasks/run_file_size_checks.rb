@@ -23,7 +23,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'home*.css' => (13..23),
     'home*.js' => (252..262),
     'logs*.css' => (101..111),
-    'logs*.js' => (818..828),
+    'logs*.js' => (823..833),
     'model_graph*.js' => (623..633),
     'model_graph*.css' => (2..12),
     'quizzes*.js' => (123..133),
@@ -33,7 +33,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'vue_playground*.css' => (0..10),
     'vue_playground*.js' => (72..82),
     'workout*.css' => (41..51),
-    'workout*.js' => (226..236),
+    'workout*.js' => (231..241),
   }.freeze
 
   def run
