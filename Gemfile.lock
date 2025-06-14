@@ -229,11 +229,11 @@ GEM
     dry-initializer (3.2.0)
     erb (5.0.1)
     erubi (1.13.1)
-    factory_bot (6.5.2)
+    factory_bot (6.5.4)
       activesupport (>= 6.1.0)
-    factory_bot_rails (6.4.4)
+    factory_bot_rails (6.5.0)
       factory_bot (~> 6.5)
-      railties (>= 5.0.0)
+      railties (>= 6.1.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
     faraday (2.13.1)
@@ -945,8 +945,8 @@ CHECKSUMS
   dry-initializer (3.2.0) sha256=37d59798f912dc0a1efe14a4db4a9306989007b302dcd5f25d0a2a20c166c4e3
   erb (5.0.1) sha256=760439803b36cc93eca8a266aab614614e588024a89bc30a62e78d98ff452c23
   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
-  factory_bot (6.5.2) sha256=2d80e92bd7bd894fa4d6155493a9df6f18b1588866ed40bff8a816f1b502e10b
-  factory_bot_rails (6.4.4) sha256=139e17caa2c50f098fddf5e5e1f29e8067352024e91ca1186d018b36589e5c88
+  factory_bot (6.5.4) sha256=4707fb7d80a7c14d71feb069460587bfc342e4ff1ef28097e0ad69d5ddfce613
+  factory_bot_rails (6.5.0) sha256=4a7b61635424a57cc60412a18b72b9dcfb02fabfce2c930447a01dce8b37c0a2
   faker (3.5.1) sha256=1ad1fbea279d882f486059c23fe3ddb816ccd1d7052c05a45014b4450d859bfc
   faraday (2.13.1) sha256=cc531eb5467e7d74d4517630fa96f1a7003647cbf20a9a3e067d098941217b75
   faraday-multipart (1.1.0) sha256=856b0f1c7316a4d6c052dd2eef5c42f887d56d93a171fe8880da1af064ca0751
