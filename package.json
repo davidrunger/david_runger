@@ -50,7 +50,7 @@
     "vega": "^6.1.2",
     "vega-embed": "^7.0.2",
     "vega-lite": "^6.1.0",
-    "vue": "^3.5.16",
+    "vue": "^3.5.17",
     "vue-chartjs": "^5.3.2",
     "vue-router": "^4.5.1",
     "vue-tabler-icons": "^2.21.0",
