@@ -27,10 +27,12 @@ export const boosts = ref<Array<EmojiDataWithBoostedName>>(
 watchDebounced(
   boosts,
   () => {
-    const possibleDuplicatesToRemoveFromEmojiData = boosts.value.map((boost) => ({
-      symbol: boost.symbol,
-      name: boost.boostedName,
-    }));
+    const possibleDuplicatesToRemoveFromEmojiData = boosts.value.map(
+      (boost) => ({
+        symbol: boost.symbol,
+        name: boost.boostedName,
+      }),
+    );
 
     emojilibData.value = originalEmojilibData.filter(
       (item) =>
