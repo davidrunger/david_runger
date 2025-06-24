@@ -54,7 +54,7 @@ function removeBoost(boostToRemove: EmojiDataWithBoostedName) {
 async function saveBoosts() {
   await http.patch(api_json_preferences_path(), {
     preference_type: 'emoji_boosts',
-    json: boosts,
+    json: boosts.value,
   });
 
   vueToast('Saved boosts successfully.');
