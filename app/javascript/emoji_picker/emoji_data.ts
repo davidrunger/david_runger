@@ -25,7 +25,7 @@ export const boosts = ref<Array<EmojiDataWithBoostedName>>(
 );
 
 watchDebounced(
-  boosts,
+  boosts.value,
   () => {
     const possibleDuplicatesToRemoveFromEmojiData = boosts.value.map(
       (boost) => ({
