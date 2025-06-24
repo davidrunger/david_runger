@@ -37,8 +37,6 @@
 </template>
 
 <script setup lang="ts">
-import { remove } from 'lodash-es';
-
 import { boosts } from '@/emoji_picker/emoji_data';
 import { http } from '@/lib/http';
 import { vueToast } from '@/lib/vue_toasts';
@@ -46,17 +44,17 @@ import { api_json_preferences_path } from '@/rails_assets/routes';
 import type { EmojiDataWithBoostedName } from '@/types';
 
 function addBoost() {
-  boosts.push({ symbol: '', boostedName: '' });
+  boosts.value.push({ symbol: '', boostedName: '' });
 }
 
 function removeBoost(boostToRemove: EmojiDataWithBoostedName) {
-  remove(boosts, boostToRemove);
+  boosts.value = boosts.value.filter((boost) => boost !== boostToRemove);
 }
 
 async function saveBoosts() {
   await http.patch(api_json_preferences_path(), {
     preference_type: 'emoji_boosts',
-    json: boosts,
+    json: boosts.value,
   });
 
   vueToast('Saved boosts successfully.');

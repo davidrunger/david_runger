@@ -1,7 +1,7 @@
 import { watchDebounced } from '@vueuse/core';
 import EmojiLibData from 'emojilib';
 import { flatMap, isEqual } from 'lodash-es';
-import { computed, reactive, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { type Bootstrap } from '@/emoji_picker/types';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
@@ -20,17 +20,19 @@ const emojilibData = ref(originalEmojilibData);
 
 const bootstrap = untypedBootstrap as Bootstrap;
 
-export const boosts = reactive<Array<EmojiDataWithBoostedName>>(
+export const boosts = ref<Array<EmojiDataWithBoostedName>>(
   bootstrap.current_user?.emoji_boosts || [],
 );
 
 watchDebounced(
-  boosts,
+  boosts.value,
   () => {
-    const possibleDuplicatesToRemoveFromEmojiData = boosts.map((boost) => ({
-      symbol: boost.symbol,
-      name: boost.boostedName,
-    }));
+    const possibleDuplicatesToRemoveFromEmojiData = boosts.value.map(
+      (boost) => ({
+        symbol: boost.symbol,
+        name: boost.boostedName,
+      }),
+    );
 
     emojilibData.value = originalEmojilibData.filter(
       (item) =>
@@ -44,5 +46,5 @@ watchDebounced(
 
 export const emojiData = computed<Array<EmojiData>>(() => [
   ...emojilibData.value,
-  ...boosts,
+  ...boosts.value,
 ]);
