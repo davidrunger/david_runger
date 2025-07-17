@@ -22,6 +22,9 @@ ENV RAILS_ENV=${RAILS_ENV}
 # Use jemalloc for memory savings.
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
+# Copy gem and Ruby info files.
+COPY Gemfile Gemfile.lock .ruby-version ./
+
 # Ensure the correct Bundler version is installed.
 RUN gem install bundler -v $(ruby -rbundler -e 'puts Bundler::LockfileParser.new(File.read("Gemfile.lock")).bundler_version')
 
@@ -54,7 +57,6 @@ RUN \
   bundle config set --local clean 1 && \
   bundle config set --local deployment 1 && \
   bundle config set --local path /app/.cache/bundle
-COPY Gemfile Gemfile.lock .ruby-version ./
 RUN --mount=type=cache,sharing=private,target=/app/.cache/bundle \
   bundle install && \
   mkdir vendor && \
