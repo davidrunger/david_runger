@@ -241,7 +241,7 @@ RSpec.describe 'Logs app' do
           acting_browser_uuid: SecureRandom.uuid,
           action: 'created',
           model: LogEntrySerializer.new(log_entry).as_json.merge(
-            id: LogEntry.maximum(:id) + 1,
+            'id' => LogEntry.maximum(:id) + 1,
           ),
         )
       end
