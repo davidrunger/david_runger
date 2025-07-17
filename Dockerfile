@@ -72,6 +72,9 @@ RUN DOCKER_BUILD=true \
   VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
   bundle exec rails assets:precompile > /dev/null
 
+# Ensure the correct Bundler version is installed.
+RUN gem install bundler -v $(ruby -rbundler -e 'puts Bundler::LockfileParser.new(File.read("Gemfile.lock")).bundler_version')
+
 # Precompile bootsnap code for faster boot times
 RUN bin/bootsnap precompile app/ lib/
 # ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
