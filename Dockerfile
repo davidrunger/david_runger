@@ -22,6 +22,9 @@ ENV RAILS_ENV=${RAILS_ENV}
 # Use jemalloc for memory savings.
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
+# Ensure the correct Bundler version is installed.
+RUN gem install bundler -v $(ruby -rbundler -e 'puts Bundler::LockfileParser.new(File.read("Gemfile.lock")).bundler_version')
+
 # Set up for gem installation.
 ARG GEMS_DIRECTORY=vendor/bundle
 RUN bundle config set path "${GEMS_DIRECTORY}" && \
@@ -71,9 +74,6 @@ RUN DOCKER_BUILD=true \
   SECRET_KEY_BASE_DUMMY=1 \
   VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
   bundle exec rails assets:precompile > /dev/null
-
-# Ensure the correct Bundler version is installed.
-RUN gem install bundler -v $(ruby -rbundler -e 'puts Bundler::LockfileParser.new(File.read("Gemfile.lock")).bundler_version')
 
 # Precompile bootsnap code for faster boot times
 RUN bin/bootsnap precompile app/ lib/
