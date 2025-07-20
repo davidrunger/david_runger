@@ -608,7 +608,7 @@ GEM
       rspec-support (~> 3.13)
     rspec-retry (0.6.2)
       rspec-core (> 3.3)
-    rspec-sidekiq (5.1.0)
+    rspec-sidekiq (5.2.0)
       rspec-core (~> 3.0)
       rspec-expectations (~> 3.0)
       rspec-mocks (~> 3.0)
@@ -1106,7 +1106,7 @@ CHECKSUMS
   rspec-mocks (3.13.5) sha256=e4338a6f285ada9fe56f5893f5457783af8194f5d08884d17a87321d5195ea81
   rspec-rails (8.0.1) sha256=0c3700b10ab6d7c648c4cd554023d8c2b5b07e7f01205f7608f0c511cf686505
   rspec-retry (0.6.2) sha256=6101ba23a38809811ae3484acde4ab481c54d846ac66d5037ccb40131a60d858
-  rspec-sidekiq (5.1.0) sha256=ed671ce4a9948ea2395db464c8c846651ea006e124f7868ee5d497f693102867
+  rspec-sidekiq (5.2.0) sha256=7bdff566ff3ab01f9a0cc422e54b9f24b42f400a59d717f3f699fb61e7f7c266
   rspec-support (3.13.4) sha256=184b1814f6a968102b57df631892c7f1990a91c9a3b9e80ef892a0fc2a71a3f7
   rspec-wait (1.0.2) sha256=865f921239325d3d26fc10ded4bdd485d8b58bcaaad1a28dd85ed15266b5a912
   rubocop (1.78.0) sha256=8b74a6f912eb4fd3e6878851f7f7f45dcad8c7185c34250d4f952b0ee80d6bc0
