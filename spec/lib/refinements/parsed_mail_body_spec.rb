@@ -1,5 +1,6 @@
 RSpec.describe Refinements::ParsedMailBody do
   include MailSpecHelpers
+
   using Refinements::ParsedMailBody
 
   let(:mail) { Mail::Message.new }
