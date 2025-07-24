@@ -75,11 +75,11 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activeadmin (4.0.0.beta15)
+    activeadmin (4.0.0.beta16)
       arbre (~> 2.0)
       csv
-      formtastic (>= 3.1)
-      formtastic_i18n (>= 0.4)
+      formtastic (>= 5.0)
+      formtastic_i18n (>= 0.7)
       inherited_resources (~> 2.0)
       kaminari (>= 1.2.1)
       railties (>= 7.0)
@@ -886,7 +886,7 @@ CHECKSUMS
   actionpack (8.0.2) sha256=93e703064f3815295ccf820f57acbca719aec836749597da9262781c9b2f4b78
   actiontext (8.0.2) sha256=a40db32032ee2fbb479d5d69318c4284344c1cda73836fd73ffcdb917d203abf
   actionview (8.0.2) sha256=e038e1405cdfc18f04f17243da4fb8eeda3a4992f63a6d70a7281d255cf7cebb
-  activeadmin (4.0.0.beta15) sha256=151777a8f5045c53ddae0b7d06da40c4861657804d3bf93224b5c69d68d316b7
+  activeadmin (4.0.0.beta16) sha256=f1c3f77857742baa781d2d3e63a3da48a9c3031f9500d7e50ebbe4ee1a35ff6a
   activejob (8.0.2) sha256=b0228b45e36b1ef3a081c684e81494147e094a6baf729018756ccf125b1853ca
   activemodel (8.0.2) sha256=0ae1fb7fa1fae0699ba041a9e97702df42ea3b13f2d39f2d0fde51fca5f0656c
   activemodel-serializers-xml (1.0.3) sha256=fa1b16305e7254cc58a59c68833e3c0a593a59c8ab95d3be5aaea7cd9416c397
