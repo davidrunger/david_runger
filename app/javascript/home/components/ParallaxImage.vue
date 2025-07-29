@@ -53,7 +53,7 @@ defineProps({
 .parallax-inner--desktop {
   width: 100%;
   position: absolute;
-  clip-path: rect(auto, auto, auto, auto);
+  clip: rect(auto, auto, auto, auto);
   height: 100%;
 
   &::before {
