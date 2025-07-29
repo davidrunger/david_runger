@@ -53,7 +53,9 @@ defineProps({
 .parallax-inner--desktop {
   width: 100%;
   position: absolute;
+  /* stylelint-disable */
   clip: rect(auto, auto, auto, auto);
+  /* stylelint-enable */
   height: 100%;
 
   &::before {

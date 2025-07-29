@@ -91,6 +91,7 @@ const invitePartnerHref = new_marriage_path({
 </script>
 
 <style lang="scss" scoped>
+/* stylelint-disable no-invalid-position-declaration */
 /* stylelint-disable-next-line length-zero-no-unit */
 @mixin sidebar-width($padding: 0px) {
   @media screen and (width <= 400px) {
@@ -105,6 +106,7 @@ const invitePartnerHref = new_marriage_path({
     max-width: calc(280px - $padding);
   }
 }
+/* stylelint-enable no-invalid-position-declaration */
 
 aside {
   background: linear-gradient(to bottom, #458fc0 0%, #a8b2ce 50%, #b6bcd5 100%);
