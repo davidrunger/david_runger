@@ -34,10 +34,10 @@ RSpec.describe QuizQuestionAnswerSelectionsController do
 
       let(:participation) { QuizParticipation.where(participant: user) }
 
-      it 'responds with unprocessable_content' do
+      it 'responds with 422' do
         post_create
 
-        expect(response).to have_http_status(:unprocessable_content)
+        expect(response).to have_http_status(422)
       end
     end
   end
