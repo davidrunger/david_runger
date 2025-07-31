@@ -6,13 +6,18 @@ class QuizQuestionAnswerSelectionsController < ApplicationController
       current_user.
         quiz_participations.
         find_by!(quiz_id: Quiz.find_by_hashid!(params[:quiz_id]).id)
-    selection =
-      QuizQuestionAnswerSelections::Create.run!(
-        params: quiz_question_answer_selection_params,
-        quiz_participation:,
-      ).selection
 
-    redirect_to(selection.quiz)
+    begin
+      selection =
+        QuizQuestionAnswerSelections::Create.run!(
+          params: quiz_question_answer_selection_params,
+          quiz_participation:,
+        ).selection
+
+      redirect_to(selection.quiz)
+    rescue ActiveRecord::RecordInvalid
+      head :unprocessable_content
+    end
   end
 
   def update

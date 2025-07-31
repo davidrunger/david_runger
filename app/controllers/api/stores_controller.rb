@@ -30,7 +30,7 @@ class Api::StoresController < Api::BaseController
     if @store.save
       render_schema_json(@store, status: :created)
     else
-      render json: { errors: @store.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @store.errors.full_messages }, status: :unprocessable_content
     end
   end
 
@@ -39,7 +39,7 @@ class Api::StoresController < Api::BaseController
     if @store.update(store_params)
       render_schema_json(@store)
     else
-      render json: { errors: @store.errors.to_hash }, status: :unprocessable_entity
+      render json: { errors: @store.errors.to_hash }, status: :unprocessable_content
     end
   end
 

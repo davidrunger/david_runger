@@ -34,8 +34,10 @@ RSpec.describe QuizQuestionAnswerSelectionsController do
 
       let(:participation) { QuizParticipation.where(participant: user) }
 
-      it 'raises an error' do
-        expect { post_create }.to raise_error(ActiveRecord::RecordInvalid, /already been answered/)
+      it 'responds with 422' do
+        post_create
+
+        expect(response).to have_http_status(422)
       end
     end
   end

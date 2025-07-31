@@ -11,7 +11,7 @@ class Api::CiStepResults::BulkCreationsController < Api::BaseController
     in [:ok, _]
       head :created
     in [:error, validation_results]
-      render json: validation_results, status: :unprocessable_entity
+      render json: validation_results, status: :unprocessable_content
     end
   end
 

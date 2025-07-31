@@ -23,8 +23,8 @@ class ErrorsController < ApplicationController
 
   def unacceptable
     respond_to do |format|
-      format.html { render file: 'public/422.html', status: :unprocessable_entity, layout: false }
-      format.json { render json: { error: 'Params unacceptable' }, status: :unprocessable_entity }
+      format.html { render file: 'public/422.html', status: :unprocessable_content, layout: false }
+      format.json { render json: { error: 'Params unacceptable' }, status: :unprocessable_content }
       format.any { render plain: 'Params unacceptable' }
     end
   end
