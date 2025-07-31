@@ -12,7 +12,7 @@ class Api::LogEntriesController < Api::BaseController
       LogEntries::Save.run!(log_entry: @log_entry)
       render_schema_json(@log_entry, status: :created)
     else
-      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
+      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_content
     end
   end
 
@@ -30,7 +30,7 @@ class Api::LogEntriesController < Api::BaseController
     if LogEntries::Update.new!(log_entry: @log_entry, params: log_entry_params).run.success?
       render_schema_json(@log_entry, status: :ok)
     else
-      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_entity
+      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_content
     end
   end
 

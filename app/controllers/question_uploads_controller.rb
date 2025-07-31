@@ -21,7 +21,7 @@ class QuestionUploadsController < ApplicationController
       redirect_to(@quiz, status: :see_other, notice: 'Questions saved successfully!')
     else
       @error_message = result.error_message
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

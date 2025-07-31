@@ -12,7 +12,7 @@ class Api::JsonPreferencesController < Api::BaseController
     if @preference.update(json: params[:json])
       head :ok
     else
-      head :unprocessable_entity
+      head :unprocessable_content
     end
   end
 end

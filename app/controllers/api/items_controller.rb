@@ -8,7 +8,7 @@ class Api::ItemsController < Api::BaseController
     if @item.save
       render_schema_json(@item, status: :created)
     else
-      render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @item.errors.full_messages }, status: :unprocessable_content
     end
   end
 
@@ -17,7 +17,7 @@ class Api::ItemsController < Api::BaseController
     if @item.update(item_params)
       render_schema_json(@item)
     else
-      render json: { errors: @item.errors.to_hash }, status: :unprocessable_entity
+      render json: { errors: @item.errors.to_hash }, status: :unprocessable_content
     end
   end
 
