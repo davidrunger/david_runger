@@ -60,8 +60,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0
       element-plus:
-        specifier: ^2.10.5
-        version: 2.10.5(vue@3.5.18(typescript@5.8.3))
+        specifier: ^2.10.6
+        version: 2.10.6(vue@3.5.18(typescript@5.8.3))
       emojilib:
         specifier: ^4.0.2
         version: 4.0.2
@@ -387,8 +387,8 @@ packages:
   '@dual-bundle/import-meta-resolve@4.1.0':
     resolution: {integrity: sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg==}
 
-  '@element-plus/icons-vue@2.3.1':
-    resolution: {integrity: sha512-XxVUZv48RZAd87ucGS48jPf6pKu0yV5UCg9f4FFwtrYxXOwWuVJo6wOvSLKEoMQKjv8GsX/mhP6UsC1lRwbUWg==}
+  '@element-plus/icons-vue@2.3.2':
+    resolution: {integrity: sha512-OzIuTaIfC8QXEPmJvB4Y4kw34rSXdCJzxcD1kFStBvr8bK6X1zQAYDo0CNMjojnfTqRQCJ0I7prlErcoRiET2A==}
     peerDependencies:
       vue: ^3.2.0
 
@@ -1420,9 +1420,6 @@ packages:
   '@volar/language-service@2.4.22':
     resolution: {integrity: sha512-8TmvOf/6uqaJMBVQIP9kgVpRzMrqLI3nCmWuSIPAldlmwjZTOiN17GA4AL4sTFJUg61xCSyMQWbProNFQ88yew==}
 
-  '@volar/source-map@2.4.20':
-    resolution: {integrity: sha512-mVjmFQH8mC+nUaVwmbxoYUy8cww+abaO8dWzqPUjilsavjxH0jCJ3Mp8HFuHsdewZs2c+SP+EO7hCd8Z92whJg==}
-
   '@volar/source-map@2.4.22':
     resolution: {integrity: sha512-L2nVr/1vei0xKRgO2tYVXtJYd09HTRjaZi418e85Q+QdbbqA8h7bBjfNyPPSsjnrOO4l4kaAo78c8SQUAdHvgA==}
 
@@ -2150,8 +2147,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  element-plus@2.10.5:
-    resolution: {integrity: sha512-O9wTDu3Tm51ACVByWrThtBhH4Ygefg1HGY5pyAaxnoIrj8uMN0GtZ4IREwR3Yw/6sM2HyxjrsGI/D46iUVP97A==}
+  element-plus@2.10.6:
+    resolution: {integrity: sha512-N1XfO+x46p9Df9KNHeRQiHW4ilt4k+Jh6jeA1Ip9WpVzwDW8CRz+NqaLLDEZmnez62bBdCuWGfV7lIRq3+FQyg==}
     peerDependencies:
       vue: ^3.2.0
 
@@ -4819,7 +4816,7 @@ snapshots:
 
   '@dual-bundle/import-meta-resolve@4.1.0': {}
 
-  '@element-plus/icons-vue@2.3.1(vue@3.5.18(typescript@5.8.3))':
+  '@element-plus/icons-vue@2.3.2(vue@3.5.18(typescript@5.8.3))':
     dependencies:
       vue: 3.5.18(typescript@5.8.3)
 
@@ -5799,8 +5796,6 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.1.0
 
-  '@volar/source-map@2.4.20': {}
-
   '@volar/source-map@2.4.22': {}
 
   '@volar/typescript@2.4.22':
@@ -6583,10 +6578,10 @@ snapshots:
       minimatch: 9.0.1
       semver: 7.7.2
 
-  element-plus@2.10.5(vue@3.5.18(typescript@5.8.3)):
+  element-plus@2.10.6(vue@3.5.18(typescript@5.8.3)):
     dependencies:
       '@ctrl/tinycolor': 3.6.1
-      '@element-plus/icons-vue': 2.3.1(vue@3.5.18(typescript@5.8.3))
+      '@element-plus/icons-vue': 2.3.2(vue@3.5.18(typescript@5.8.3))
       '@floating-ui/dom': 1.7.3
       '@popperjs/core': '@sxzz/popperjs-es@2.11.7'
       '@types/lodash': 4.17.20
