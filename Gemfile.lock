@@ -118,7 +118,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    alba (3.7.4)
+    alba (3.8.0)
     amazing_print (1.8.1)
     annotaterb (4.17.0)
       activerecord (>= 6.0.0)
@@ -901,7 +901,7 @@ CHECKSUMS
   activestorage (8.0.2) sha256=f83d221e0f06ae38f2200e55490bd155c76d0add330f6e300e8646048d672977
   activesupport (8.0.2) sha256=8565cddba31b900cdc17682fd66ecd020441e3eef320a9930285394e8c07a45e
   addressable (2.8.7) sha256=462986537cf3735ab5f3c0f557f14155d778f4b43ea4f485a9deb9c8f7c58232
-  alba (3.7.4) sha256=ee8d82ca61e75bf816609e641e29a21159d750084b9628be0ffe137d92376e98
+  alba (3.8.0) sha256=9b8dc8e8c25c14af4cd62c840e3e7dd5033f56a0e1049f8f173ff2ed793a995f
   amazing_print (1.8.1) sha256=f53b4e1881f53f9663cb222840c7a027d0e61d46cc908366965739559c0d6d68
   annotaterb (4.17.0) sha256=f0338f8aaadd5c47fa3deaccb560a54abcdde29aca6f69f4b94726ea9256b4bd
   anyway_config (2.7.2) sha256=30f6b087c0b41afdd43fe46c81d65a16f052a8489dab453abaeb4ea67aa74bad
