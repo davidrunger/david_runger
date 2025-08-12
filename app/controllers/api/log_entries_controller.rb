@@ -17,7 +17,7 @@ class Api::LogEntriesController < Api::BaseController
   end
 
   def update
-    @log_entry ||= current_user.log_entries.find_by(id: params['id'])
+    @log_entry = current_user.log_entries.find_by(id: params['id'])
 
     if @log_entry.nil?
       head(:not_found)

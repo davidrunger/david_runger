@@ -45,7 +45,7 @@ RSpec.describe UserSerializer do
       end
 
       context 'when serializing multiple users' do
-        subject(:public_names) { user_serializer_public_as_json.map { it['public_name'] } }
+        subject(:public_names) { user_serializer_public_as_json.pluck('public_name') }
 
         let(:object_to_serialize) { User.reorder(:id).limit(2) }
 

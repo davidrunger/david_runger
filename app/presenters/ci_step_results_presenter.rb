@@ -55,7 +55,7 @@ class CiStepResultsPresenter
     SQL
       ).
       group(:branch, :github_run_id, :github_run_attempt).
-      order('min_started_at DESC').
+      order(min_started_at: :desc).
       limit(10).
       map do |ci_step_result|
         github_run_attempt = ci_step_result.github_run_attempt
