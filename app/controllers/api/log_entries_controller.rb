@@ -17,11 +17,7 @@ class Api::LogEntriesController < Api::BaseController
   end
 
   def update
-    if instance_variable_defined?(:@log_entry)
-      @log_entry
-    else
-      @log_entry = current_user.log_entries.find_by(id: params['id'])
-    end
+    @log_entry = current_user.log_entries.find_by(id: params['id'])
 
     if @log_entry.nil?
       head(:not_found)
