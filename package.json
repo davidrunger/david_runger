@@ -64,7 +64,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.6.1",
     "@percy/cli": "^1.31.1",
     "@pinia/testing": "^1.0.2",
-    "@prettier/plugin-pug": "^3.4.1",
+    "@prettier/plugin-pug": "^3.4.2",
     "@testing-library/vue": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash-es": "^4.17.12",
