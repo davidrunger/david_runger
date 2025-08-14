@@ -61,7 +61,7 @@
   "devDependencies": {
     "@eslint/js": "^9.33.0",
     "@faker-js/faker": "^9.9.0",
-    "@ianvs/prettier-plugin-sort-imports": "^4.6.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.6.2",
     "@percy/cli": "^1.31.1",
     "@pinia/testing": "^1.0.2",
     "@prettier/plugin-pug": "^3.4.2",
