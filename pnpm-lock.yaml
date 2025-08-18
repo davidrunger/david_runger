@@ -93,11 +93,11 @@ importers:
         specifier: ^3.7.1
         version: 3.7.1
       marked:
-        specifier: ^16.1.2
-        version: 16.1.2
+        specifier: ^16.2.0
+        version: 16.2.0
       marked-highlight:
         specifier: ^2.2.2
-        version: 2.2.2(marked@16.1.2)
+        version: 2.2.2(marked@16.2.0)
       pinia:
         specifier: ^3.0.3
         version: 3.0.3(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
@@ -3157,8 +3157,8 @@ packages:
     peerDependencies:
       marked: '>=4 <17'
 
-  marked@16.1.2:
-    resolution: {integrity: sha512-rNQt5EvRinalby7zJZu/mB+BvaAY2oz3wCuCjt1RDrWNpS1Pdf9xqMOeC9Hm5adBdcV/3XZPJpG58eT+WBc0XQ==}
+  marked@16.2.0:
+    resolution: {integrity: sha512-LbbTuye+0dWRz2TS9KJ7wsnD4KAtpj0MVkWc90XvBa6AslXsT0hTBVH5k32pcSyHH1fst9XEFJunXHktVy0zlg==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -7720,11 +7720,11 @@ snapshots:
 
   map-obj@4.3.0: {}
 
-  marked-highlight@2.2.2(marked@16.1.2):
+  marked-highlight@2.2.2(marked@16.2.0):
     dependencies:
-      marked: 16.1.2
+      marked: 16.2.0
 
-  marked@16.1.2: {}
+  marked@16.2.0: {}
 
   math-intrinsics@1.1.0: {}
 
