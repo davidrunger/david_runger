@@ -44,7 +44,7 @@ x-redis-config: &redis
     interval: 5m
     timeout: 1s
     retries: 1
-  image: redis:7.4.2-alpine
+  image: redis:8.2.1-alpine
   logging: *default-logging
   networks:
     - internal
