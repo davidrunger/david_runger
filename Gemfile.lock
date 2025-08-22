@@ -717,7 +717,7 @@ GEM
     sniffer (0.5.0)
       anyway_config (>= 1.0)
       dry-initializer (~> 3)
-    sorbet-runtime (0.5.12431)
+    sorbet-runtime (0.5.12434)
     spring (4.4.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -1153,7 +1153,7 @@ CHECKSUMS
   simpleidn (0.2.3) sha256=08ce96f03fa1605286be22651ba0fc9c0b2d6272c9b27a260bc88be05b0d2c29
   snaky_hash (2.0.3) sha256=25a3d299566e8153fb02fa23fd9a9358845950f7a523ddbbe1fa1e0d79a6d456
   sniffer (0.5.0) sha256=cd040cc51929c04749b20baa4dd8f5985174210e13437491f4923b8de27e1359
-  sorbet-runtime (0.5.12431) sha256=5a18dc1f3746605689dd1ea86cf5e2605ba33021754c4b0b562175ebd122e8d1
+  sorbet-runtime (0.5.12434) sha256=c4375dc9de88d9df3f4f45a6d5081a59695b9aa70c3aec88fabcdcf96c981f4b
   spring (4.4.0) sha256=ec4e6cf5fb48d96b9ec9a80ebb40f962f2467b651c000693f33c14b6d6c340af
   spring-commands-rspec (1.0.4) sha256=6202e54fa4767452e3641461a83347645af478bf45dddcca9737b43af0dd1a2c
   spring-watcher-listen (2.1.0) sha256=e958bcd956d1026eb95d16b2ef0e241d1ca35a754628bd45040e3d9954a61949
