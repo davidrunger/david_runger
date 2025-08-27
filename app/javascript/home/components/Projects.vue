@@ -42,7 +42,7 @@ HomeSection(
 
         li #[a(href="https://github.com/sidekiq/sidekiq") Sidekiq] processes background jobs.
 
-        li #[a(href="https://nginx.org/") NGINX] exposes the server to the web.
+        li #[a(href="https://nginx.org/index.html") NGINX] exposes the server to the web.
 
         li #[a(href="https://pinia.vuejs.org/") Pinia] provides client-side state management.
 
