@@ -8,7 +8,7 @@ HomeSection(
     .row-reverse.items-center(class="sm:flex")
       .flex-2.mt-4
         .text-center.mt-4.mb-8
-          img.about-image.box-shadow(
+          img.max-w-full.box-shadow(
             loading="lazy"
             src="~img/david.webp"
             alt="A picture of me"
@@ -30,9 +30,3 @@ HomeSection(
 import HomeSection from './HomeSection.vue';
 import SectionHeader from './SectionHeader.vue';
 </script>
-
-<style>
-.about-image {
-  max-width: 100%;
-}
-</style>
