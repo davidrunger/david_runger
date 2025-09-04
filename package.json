@@ -94,7 +94,7 @@
     "stylelint-scss": "^6.12.1",
     "tsd": "^0.33.0",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.41.0",
+    "typescript-eslint": "^8.42.0",
     "vite": "^7.1.4",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-ruby": "^5.1.1",
