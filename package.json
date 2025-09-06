@@ -37,7 +37,7 @@
     "js-cookie": "^3.0.5",
     "ky": "^1.10.0",
     "lodash-es": "^4.17.21",
-    "luxon": "^3.7.1",
+    "luxon": "^3.7.2",
     "marked": "^16.2.1",
     "marked-highlight": "^2.2.2",
     "pinia": "^3.0.3",
