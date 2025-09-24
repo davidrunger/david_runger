@@ -124,10 +124,10 @@ importers:
         version: 6.2.0
       vega-embed:
         specifier: ^7.0.2
-        version: 7.0.2(vega-lite@6.4.0(vega@6.2.0))(vega@6.2.0)
+        version: 7.0.2(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0)
       vega-lite:
-        specifier: ^6.4.0
-        version: 6.4.0(vega@6.2.0)
+        specifier: ^6.4.1
+        version: 6.4.1(vega@6.2.0)
       vue:
         specifier: ^3.5.21
         version: 3.5.21(typescript@5.9.2)
@@ -4276,8 +4276,8 @@ packages:
   vega-label@2.1.0:
     resolution: {integrity: sha512-/hgf+zoA3FViDBehrQT42Lta3t8In6YwtMnwjYlh72zNn1p3c7E3YUBwqmAqTM1x+tudgzMRGLYig+bX1ewZxQ==}
 
-  vega-lite@6.4.0:
-    resolution: {integrity: sha512-LIScfAS5ykq103biO0n/7xmbbkXvQP/JBDLhDKxgW2kOrzDgbHR3pn/wP3g6vjA78pfNKK6wJABiww+uaBNADw==}
+  vega-lite@6.4.1:
+    resolution: {integrity: sha512-KO3ybHNouRK4A0al/+2fN9UqgTEfxrd/ntGLY933Hg5UOYotDVQdshR3zn7OfXwQ7uj0W96Vfa5R+QxO8am3IQ==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -8977,7 +8977,7 @@ snapshots:
       vega-loader: 5.1.0
       vega-util: 2.1.0
 
-  vega-embed@7.0.2(vega-lite@6.4.0(vega@6.2.0))(vega@6.2.0):
+  vega-embed@7.0.2(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0):
     dependencies:
       fast-json-patch: 3.1.1
       json-stringify-pretty-compact: 4.0.0
@@ -8985,9 +8985,9 @@ snapshots:
       tslib: 2.8.1
       vega: 6.2.0
       vega-interpreter: 2.1.0
-      vega-lite: 6.4.0(vega@6.2.0)
+      vega-lite: 6.4.1(vega@6.2.0)
       vega-schema-url-parser: 3.0.2
-      vega-themes: 3.0.0(vega-lite@6.4.0(vega@6.2.0))(vega@6.2.0)
+      vega-themes: 3.0.0(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0)
       vega-tooltip: 1.0.0
 
   vega-encode@5.1.0:
@@ -9061,7 +9061,7 @@ snapshots:
       vega-scenegraph: 5.1.0
       vega-util: 2.1.0
 
-  vega-lite@6.4.0(vega@6.2.0):
+  vega-lite@6.4.1(vega@6.2.0):
     dependencies:
       json-stringify-pretty-compact: 4.0.0
       tslib: 2.8.1
@@ -9134,10 +9134,10 @@ snapshots:
     dependencies:
       d3-array: 3.2.4
 
-  vega-themes@3.0.0(vega-lite@6.4.0(vega@6.2.0))(vega@6.2.0):
+  vega-themes@3.0.0(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0):
     dependencies:
       vega: 6.2.0
-      vega-lite: 6.4.0(vega@6.2.0)
+      vega-lite: 6.4.1(vega@6.2.0)
 
   vega-time@3.1.0:
     dependencies:
