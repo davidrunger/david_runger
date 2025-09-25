@@ -49,6 +49,7 @@ Rollbar.configure do |config|
     'ActionController::BadRequest' => 'info',
     'ActionController::RoutingError' => 'info',
     'ActionDispatch::Http::MimeNegotiation::InvalidType' => 'info',
+    'ActionDispatch::RemoteIp::IpSpoofAttackError' => 'info',
   )
   #
   # You can also specify a callable, which will be called with the exception instance.
