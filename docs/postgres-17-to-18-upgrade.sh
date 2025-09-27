@@ -86,7 +86,7 @@ git checkout .
 git status
 
 # Remove old data volume.
-docker volume rm david_runger_postgresql
+docker volume rm david_runger_postgres-data-v17
 
 # Merge PR to update Postgres version and reference postgres v18 volume in docker-compose.yml.
 # Wait for it to deploy.
