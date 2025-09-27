@@ -85,9 +85,6 @@ git checkout .
 # Check git status.
 git status
 
-# Check git HEAD.
-git show
-
 # Remove old data volume.
 docker volume rm david_runger_postgresql
 
