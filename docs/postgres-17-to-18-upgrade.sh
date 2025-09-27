@@ -14,7 +14,7 @@ git show
 docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT VERSION();'
 
 # Check data (to have a point of comparison later).
-docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT COUNT(*) FROM users; SELECT * FROM grocery_items ORDER BY created_at DESC LIMIT 1;'
+docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT COUNT(*) FROM users; SELECT * FROM items ORDER BY created_at DESC LIMIT 1;'
 
 # [ON LOCAL] Create database backup in S3.
 bin/qr
@@ -65,7 +65,7 @@ docker compose exec postgres psql -U david_runger -c 'SELECT VERSION();'
 docker compose exec --no-TTY postgres psql -U david_runger < backup.sql
 
 # Check data.
-docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT COUNT(*) FROM users; SELECT * FROM grocery_items ORDER BY created_at DESC LIMIT 1;'
+docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT COUNT(*) FROM users; SELECT * FROM items ORDER BY created_at DESC LIMIT 1;'
 
 # Boot services.
 bin/server/boot-services.sh
@@ -98,7 +98,7 @@ docker volume rm david_runger_postgresql
 docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT VERSION();'
 
 # Check data is still good.
-docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT COUNT(*) FROM users; SELECT * FROM grocery_items ORDER BY created_at DESC LIMIT 1;'
+docker compose exec postgres psql -U david_runger david_runger_production -c 'SELECT COUNT(*) FROM users; SELECT * FROM items ORDER BY created_at DESC LIMIT 1;'
 
 # Check git status.
 git status
