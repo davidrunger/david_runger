@@ -205,8 +205,8 @@ importers:
         specifier: ^14.6.0
         version: 14.6.0(eslint-plugin-vue@10.5.0(@typescript-eslint/parser@8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.37.0(jiti@2.6.1))))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       '@vue/language-plugin-pug':
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
       eslint-config-prettier:
         specifier: ^10.1.8
         version: 10.1.8(eslint@9.37.0(jiti@2.6.1))
@@ -1585,8 +1585,8 @@ packages:
       typescript:
         optional: true
 
-  '@vue/language-plugin-pug@3.1.0':
-    resolution: {integrity: sha512-X4UqrOAXtnkJ351JDnnTQHSfmPdWiFqLnxbxyUhk7Pe+6WSv73AH9dMbULzLcAqCOBoHPp7JnefRfKEuZwmzNw==}
+  '@vue/language-plugin-pug@3.1.1':
+    resolution: {integrity: sha512-o9Y+vUPaDtSvjpQrY5ay0dhokwaTkdjKpaJ03nyT+Z5FgwVzK3cCMdwZoHxTwG3EDDa7n31Lnu3VEerCBXTAtw==}
 
   '@vue/reactivity@3.5.22':
     resolution: {integrity: sha512-f2Wux4v/Z2pqc9+4SmgZC1p73Z53fyD90NFWXiX9AKVnVBEvLFOWCEgJD3GdGnlxPZt01PSlfmLqbLYzY/Fw4A==}
@@ -4509,8 +4509,8 @@ packages:
   volar-service-pug@0.0.65:
     resolution: {integrity: sha512-QTpxpLmpwNjSPASM4n5d+MF9DHKaBUuHeoV7SXVH5wmrx513da6wljlXNk34IU1npBglNp9sO0qaNokP1Gn42g==}
 
-  vscode-html-languageservice@5.5.1:
-    resolution: {integrity: sha512-/ZdEtsZ3OiFSyL00kmmu7crFV9KwWR+MgpzjsxO60DQH7sIfHZM892C/E4iDd11EKocr+NYuvOA4Y7uc3QzLEA==}
+  vscode-html-languageservice@5.5.2:
+    resolution: {integrity: sha512-QpaUhCjvb7U/qThOzo4V6grwsRE62Jk/vf8BRJZoABlMw3oplLB5uovrvcrLO9vYhkeMiSjyqLnCxbfHzzZqmw==}
 
   vscode-jsonrpc@8.2.0:
     resolution: {integrity: sha512-C+r0eKJUIfiDIfwJhria30+TYWPtuHJXHtI7J0YlOmKAo7ogxP20T0zxB7HZQIFhIyvoBPwWskjxrvAtfjyZfA==}
@@ -6096,7 +6096,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  '@vue/language-plugin-pug@3.1.0':
+  '@vue/language-plugin-pug@3.1.1':
     dependencies:
       '@volar/source-map': 2.4.23
       volar-service-pug: 0.0.65
@@ -9484,7 +9484,7 @@ snapshots:
 
   volar-service-html@0.0.65(@volar/language-service@2.4.23):
     dependencies:
-      vscode-html-languageservice: 5.5.1
+      vscode-html-languageservice: 5.5.2
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.1.0
     optionalDependencies:
@@ -9497,10 +9497,10 @@ snapshots:
       pug-lexer: 5.0.1
       pug-parser: 6.0.0
       volar-service-html: 0.0.65(@volar/language-service@2.4.23)
-      vscode-html-languageservice: 5.5.1
+      vscode-html-languageservice: 5.5.2
       vscode-languageserver-textdocument: 1.0.12
 
-  vscode-html-languageservice@5.5.1:
+  vscode-html-languageservice@5.5.2:
     dependencies:
       '@vscode/l10n': 0.0.18
       vscode-languageserver-textdocument: 1.0.12
