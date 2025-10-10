@@ -123,8 +123,8 @@ importers:
         specifier: ^6.2.0
         version: 6.2.0
       vega-embed:
-        specifier: ^7.0.2
-        version: 7.0.2(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0)
+        specifier: ^7.1.0
+        version: 7.1.0(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0)
       vega-lite:
         specifier: ^6.4.1
         version: 6.4.1(vega@6.2.0)
@@ -3791,6 +3791,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  semver@7.7.3:
+    resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
     engines: {node: '>= 0.4'}
@@ -4267,8 +4272,8 @@ packages:
   vega-dataflow@6.1.0:
     resolution: {integrity: sha512-JxumGlODtFbzoQ4c/jQK8Tb/68ih0lrexlCozcMfTAwQ12XhTqCvlafh7MAKKTMBizjOfaQTHm4Jkyb1H5CfyQ==}
 
-  vega-embed@7.0.2:
-    resolution: {integrity: sha512-ZHQPWSs9mUTGJPZ5yQVhHV+OLDCoTIjR//De93vG6igZX1MQCVo03ePWlfWCUAnPV1IsKfeJLqA3K/Qd11bAFQ==}
+  vega-embed@7.1.0:
+    resolution: {integrity: sha512-ZmEIn5XJrQt7fSh2lwtSdXG/9uf3yIqZnvXFEwBJRppiBgrEWZcZbj6VK3xn8sNTFQ+sQDXW5sl/6kmbAW3s5A==}
     peerDependencies:
       vega: '*'
       vega-lite: '*'
@@ -4297,8 +4302,8 @@ packages:
   vega-hierarchy@5.1.0:
     resolution: {integrity: sha512-rZlU8QJNETlB6o73lGCPybZtw2fBBsRIRuFE77aCLFHdGsh6wIifhplVarqE9icBqjUHRRUOmcEYfzwVIPr65g==}
 
-  vega-interpreter@2.1.0:
-    resolution: {integrity: sha512-uQqqhfb/Znh9a4pEZ6l+MnsP/L/3cKz9tBF03Qv0oWid8Naaw9UanAyiE+apqe3AZ3bdQ8n5UUaOs7WUk3wuUw==}
+  vega-interpreter@2.2.1:
+    resolution: {integrity: sha512-o+4ZEme2mdFLewlpF76dwPWW2VkZ3TAF3DMcq75/NzA5KPvnN4wnlCM8At2FVawbaHRyGdVkJSS5ROF5KwpHPQ==}
 
   vega-label@2.1.0:
     resolution: {integrity: sha512-/hgf+zoA3FViDBehrQT42Lta3t8In6YwtMnwjYlh72zNn1p3c7E3YUBwqmAqTM1x+tudgzMRGLYig+bX1ewZxQ==}
@@ -5749,7 +5754,7 @@ snapshots:
       fast-glob: 3.3.3
       is-glob: 4.0.3
       minimatch: 9.0.5
-      semver: 7.7.2
+      semver: 7.7.3
       ts-api-utils: 2.1.0(typescript@5.9.3)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -5765,7 +5770,7 @@ snapshots:
       fast-glob: 3.3.3
       is-glob: 4.0.3
       minimatch: 9.0.5
-      semver: 7.7.2
+      semver: 7.7.3
       ts-api-utils: 2.1.0(typescript@5.9.3)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -6701,7 +6706,7 @@ snapshots:
       '@one-ini/wasm': 0.1.1
       commander: 10.0.1
       minimatch: 9.0.1
-      semver: 7.7.2
+      semver: 7.7.3
 
   element-plus@2.11.4(vue@3.5.22(typescript@5.9.3)):
     dependencies:
@@ -7472,7 +7477,7 @@ snapshots:
 
   is-bun-module@2.0.0:
     dependencies:
-      semver: 7.7.2
+      semver: 7.7.3
 
   is-callable@1.2.7: {}
 
@@ -7914,7 +7919,7 @@ snapshots:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.16.1
-      semver: 7.7.2
+      semver: 7.7.3
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -8470,6 +8475,8 @@ snapshots:
   semver@6.3.1: {}
 
   semver@7.7.2: {}
+
+  semver@7.7.3: {}
 
   set-function-length@1.2.2:
     dependencies:
@@ -9048,14 +9055,14 @@ snapshots:
       vega-loader: 5.1.0
       vega-util: 2.1.0
 
-  vega-embed@7.0.2(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0):
+  vega-embed@7.1.0(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0):
     dependencies:
       fast-json-patch: 3.1.1
       json-stringify-pretty-compact: 4.0.0
-      semver: 7.7.2
+      semver: 7.7.3
       tslib: 2.8.1
       vega: 6.2.0
-      vega-interpreter: 2.1.0
+      vega-interpreter: 2.2.1
       vega-lite: 6.4.1(vega@6.2.0)
       vega-schema-url-parser: 3.0.2
       vega-themes: 3.0.0(vega-lite@6.4.1(vega@6.2.0))(vega@6.2.0)
@@ -9121,7 +9128,7 @@ snapshots:
       vega-dataflow: 6.1.0
       vega-util: 2.1.0
 
-  vega-interpreter@2.1.0:
+  vega-interpreter@2.2.1:
     dependencies:
       vega-util: 2.1.0
 
