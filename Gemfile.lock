@@ -590,9 +590,9 @@ GEM
       request_store (>= 1.3)
       sidekiq (>= 3.0)
     require-hooks (0.2.2)
-    responders (3.1.1)
-      actionpack (>= 5.2)
-      railties (>= 5.2)
+    responders (3.2.0)
+      actionpack (>= 7.0)
+      railties (>= 7.0)
     rexml (3.4.4)
     rollbar (3.6.2)
     rouge (4.6.1)
@@ -1113,7 +1113,7 @@ CHECKSUMS
   request_store (1.7.0) sha256=e1b75d5346a315f452242a68c937ef8e48b215b9453a77a6c0acdca2934c88cb
   request_store-sidekiq (0.1.0) sha256=058ecc01b8dc36ca8700c4bb20bb58b17eeb3ab9b6faa582abd59d2626e630e0
   require-hooks (0.2.2) sha256=effa81b61a669ca00cb1e8910411e0d6a8bb16b49a53d9e69b5e6372d6c90f31
-  responders (3.1.1) sha256=92f2a87e09028347368639cfb468f5fefa745cb0dc2377ef060db1cdd79a341a
+  responders (3.2.0) sha256=89c2d6ac0ae16f6458a11524cae4a8efdceba1a3baea164d28ee9046bd3df55a
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
   rollbar (3.6.2) sha256=f74de2cb146bfadfc7ae76ce3516f9b08a56e818684232b8b38552b50ee51a63
   rouge (4.6.1) sha256=5075346d5797d6864be93f7adc75a16047a7dbfa572c63c502419ffa582c77de
