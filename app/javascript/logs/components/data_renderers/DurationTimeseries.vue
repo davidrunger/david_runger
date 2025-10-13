@@ -14,6 +14,7 @@ import { computed } from 'vue';
 import { object } from 'vue-types';
 
 import LineChart from '@/components/charts/LineChart.vue';
+import { assert } from '@/lib/helpers';
 import type { Log } from '@/logs/types';
 import type { LogEntry } from '@/types';
 
@@ -58,7 +59,7 @@ const CHART_OPTIONS = {
     tooltip: {
       callbacks: {
         label(tooltipItem: TooltipItem<'line'>) {
-          return epochMsToHhMmSs(tooltipItem.parsed.y);
+          return epochMsToHhMmSs(assert(tooltipItem.parsed.y));
         },
       },
     },
