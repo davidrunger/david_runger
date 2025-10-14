@@ -187,7 +187,7 @@ GEM
       launchy
     capybara-shadowdom (0.3.0)
       capybara
-    chartkick (5.2.0)
+    chartkick (5.2.1)
     childprocess (5.1.0)
       logger (~> 1.5)
     climate_control (1.2.0)
@@ -720,7 +720,7 @@ GEM
     sniffer (0.5.0)
       anyway_config (>= 1.0)
       dry-initializer (~> 3)
-    sorbet-runtime (0.6.12638)
+    sorbet-runtime (0.6.12642)
     spring (4.4.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -933,7 +933,7 @@ CHECKSUMS
   capybara-email (3.0.2) sha256=ab65dd9b15c096b1ebe24308d18d790eb08814f916883ebccbc1cf46f760696f
   capybara-screenshot (1.0.26) sha256=816b9370a07752097c82a05f568aaf5d3b7f45c3db5d3aab2014071e1b3c0c77
   capybara-shadowdom (0.3.0) sha256=956b57c90c91c48fd45797d806cbbb40b353ad247e8fb68c125c9d579529bfa5
-  chartkick (5.2.0) sha256=75273928d7a4a93301d23647885a1041359104550071699222e0923d2d38f576
+  chartkick (5.2.1) sha256=2848d7de87189f30f28d077eb0bbdebc8a1f0f6f81de1ded95008fe564369949
   childprocess (5.1.0) sha256=9a8d484be2fd4096a0e90a0cd3e449a05bc3aa33f8ac9e4d6dcef6ac1455b6ec
   climate_control (1.2.0) sha256=36b21896193fa8c8536fa1cd843a07cf8ddbd03aaba43665e26c53ec1bd70aa5
   cloudflare-rails (6.2.0) sha256=329d7546cf8ea97eaa4bc8c1cf5cc6af48a0a3edfb023d3ca0affb0defabd06d
@@ -1157,7 +1157,7 @@ CHECKSUMS
   simpleidn (0.2.3) sha256=08ce96f03fa1605286be22651ba0fc9c0b2d6272c9b27a260bc88be05b0d2c29
   snaky_hash (2.0.3) sha256=25a3d299566e8153fb02fa23fd9a9358845950f7a523ddbbe1fa1e0d79a6d456
   sniffer (0.5.0) sha256=cd040cc51929c04749b20baa4dd8f5985174210e13437491f4923b8de27e1359
-  sorbet-runtime (0.6.12638) sha256=bc7fab3c4ae208305b9f757b23a27dd54b60b8eafd43874502f7072ce9e0eff1
+  sorbet-runtime (0.6.12642) sha256=d39dfe19859bb85df53c68793c6cbf4ff666d1e3622948a60e160948a641ac80
   spring (4.4.0) sha256=ec4e6cf5fb48d96b9ec9a80ebb40f962f2467b651c000693f33c14b6d6c340af
   spring-commands-rspec (1.0.4) sha256=6202e54fa4767452e3641461a83347645af478bf45dddcca9737b43af0dd1a2c
   spring-watcher-listen (2.1.0) sha256=e958bcd956d1026eb95d16b2ef0e241d1ca35a754628bd45040e3d9954a61949
