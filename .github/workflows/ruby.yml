@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
-      # https://stackoverflow.com/q/57915791/4009384
       postgres:
         image: postgres
         env:
@@ -32,7 +31,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 5432:5432 # Maps port 5432 on service container to the host
+          - 5432:5432
       redis:
         image: redis
         # Set health checks to wait until redis has started
@@ -42,7 +41,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 6379:6379 # Maps port 6379 on service container to the host
+          - 6379:6379
     steps:
       - name: Configure Postgres for speed over reliability
         run: |
@@ -111,12 +110,10 @@ jobs:
           DISABLE_SPRING: 1
           PERCY_SKIP_UPDATE_CHECK: 1
           VITE_RUBY_AUTO_BUILD: false
-          # The hostname used to communicate with the PostgreSQL service container
           POSTGRES_HOST: 127.0.0.1
           POSTGRES_USER: postgres
-          PGPASSWORD: postgres # https://www.postgresql.org/docs/current/libpq-envars.html
+          PGPASSWORD: postgres
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-          # The hostname used to communicate with the Redis service container
           REDIS_HOST: redis
           REDIS_PORT: 6379
           AWS_ACCESS_KEY_ID: '${{secrets.AWS_ACCESS_KEY_ID}}'
