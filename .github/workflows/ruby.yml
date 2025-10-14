@@ -150,7 +150,7 @@ jobs:
       - name: Prune pnpm store
         run: pnpm store prune
 
-      - name: Log pnpm store size
+      - name: Log pnpm store size!
         run: |
           if [ -d "${{ env.PNPM_STORE_PATH }}" ]; then
             du -sh ${{ env.PNPM_STORE_PATH }} | tee -a $GITHUB_STEP_SUMMARY
