@@ -147,6 +147,9 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Prune pnpm store
+        run: pnpm store prune
+
   deploy-and-prerender:
     concurrency:
       group: deploy-and-prerender
