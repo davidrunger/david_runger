@@ -147,6 +147,12 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Log cache size
+        run: |
+          if [ -d "${{ env.PNPM_STORE_PATH }}" ]; then
+            du -sh ${{ env.PNPM_STORE_PATH }} | tee -a $GITHUB_STEP_SUMMARY
+          fi
+
   deploy-and-prerender:
     concurrency:
       group: deploy-and-prerender
