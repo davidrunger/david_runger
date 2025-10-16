@@ -52,7 +52,7 @@
     "vega-lite": "^6.4.1",
     "vue": "^3.5.22",
     "vue-chartjs": "^5.3.2",
-    "vue-router": "^4.6.0",
+    "vue-router": "^4.6.3",
     "vue-tabler-icons": "^2.21.0",
     "vue-toastification": "2.0.0-rc.5",
     "vue-types": "^6.0.0",
