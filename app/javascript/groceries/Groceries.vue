@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { Connection } from '@rails/actioncable';
 import Cookies from 'js-cookie';
 import { storeToRefs } from 'pinia';
 import { onBeforeMount } from 'vue';
@@ -23,10 +22,6 @@ import { renderBootstrappedToasts } from '@/lib/vue_toasts';
 
 import Sidebar from './components/Sidebar.vue';
 import Store from './components/Store.vue';
-
-interface MonkeypatchedConnection extends Connection {
-  installEventHandlers(): void;
-}
 
 renderBootstrappedToasts();
 
@@ -56,22 +51,24 @@ onBeforeMount(() => {
     // HACK: add on to the installEventHandlers method because it's called when the ActionCable
     // connection is re-established after having been broken (though it's also called when
     // first loading the page, which we don't need, so ignore that one)
-    const originalInstallEventHandlers = (
-      actionCableConsumer.connection as MonkeypatchedConnection
-    ).installEventHandlers.bind(actionCableConsumer.connection);
+    const connection = (
+      actionCableConsumer as unknown as {
+        connection: { installEventHandlers(): void };
+      }
+    ).connection;
+
+    const originalInstallEventHandlers =
+      connection.installEventHandlers.bind(connection);
     let isFirstInstall = true;
-    (
-      actionCableConsumer.connection as MonkeypatchedConnection
-    ).installEventHandlers = () => {
+
+    connection.installEventHandlers = () => {
       if (!isFirstInstall) groceriesStore.pullStoreData();
       isFirstInstall = false;
       originalInstallEventHandlers();
     };
 
     actionCableConsumer.subscriptions.create(
-      {
-        channel: 'GroceriesChannel',
-      },
+      { channel: 'GroceriesChannel' },
       {
         received: (data: ItemBroadcast) => {
           const initiatedByOwnBrowser =

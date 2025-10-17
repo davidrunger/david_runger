@@ -56,6 +56,12 @@ type Bootstrap = Intersection<
   QuizShowBootstrap
 >;
 
+interface QuizzesCableData {
+  command: string;
+  new_answerer_name?: string;
+  new_participant_name?: string;
+}
+
 const bootstrap = untypedBootstrap as Bootstrap;
 
 actionCableConsumer.subscriptions.create(
@@ -64,7 +70,7 @@ actionCableConsumer.subscriptions.create(
     quiz_id: bootstrap.quiz.hashid,
   },
   {
-    received(data) {
+    received(data: QuizzesCableData) {
       if (!data) return;
 
       if (

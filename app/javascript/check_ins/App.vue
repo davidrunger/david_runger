@@ -28,16 +28,23 @@ import Ratings from './components/Ratings.vue';
 
 const checkInsStore = useCheckInsStore();
 
+interface CheckInsCableData {
+  event: string;
+  originating_user_id: number;
+  rating?: NeedSatisfactionRating;
+  ratings?: Array<NeedSatisfactionRating>;
+}
+
 actionCableConsumer.subscriptions.create(
   {
     channel: 'CheckInsChannel',
   },
   {
-    received: (data) => {
+    received: (data: CheckInsCableData) => {
       if (data.originating_user_id === (bootstrap as Bootstrap).current_user.id)
         return;
 
-      if (data.event === 'check-in-submitted') {
+      if (data.event === 'check-in-submitted' && data.ratings) {
         checkInsStore.setPartnerRatingsOfUser({
           ratings: data.ratings,
         });
