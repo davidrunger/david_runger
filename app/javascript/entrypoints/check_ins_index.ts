@@ -5,8 +5,8 @@ actionCableConsumer.subscriptions.create(
     channel: 'CheckInsChannel',
   },
   {
-    received(data) {
-      if (data.command === 'redirect') {
+    received(data: { command?: string; location?: string }) {
+      if (data.command === 'redirect' && data.location) {
         window.location.assign(data.location);
       }
     },

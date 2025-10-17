@@ -184,8 +184,8 @@ importers:
         specifier: ^24.8.1
         version: 24.8.1
       '@types/rails__actioncable':
-        specifier: ^6.1.11
-        version: 6.1.11
+        specifier: ^8.0.0
+        version: 8.0.0
       '@types/rails__ujs':
         specifier: ^6.0.4
         version: 6.0.4
@@ -1233,8 +1233,8 @@ packages:
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
-  '@types/rails__actioncable@6.1.11':
-    resolution: {integrity: sha512-L6A3Rg6sGsv2cqalOgdOmyFvL1Pw69Mg0WuG6NtY9chzabhtkiSFY5fczo72mqRGezrMvl0Jy80v+N719CW+Tg==}
+  '@types/rails__actioncable@8.0.0':
+    resolution: {integrity: sha512-RqpJJHPqqimRPsecfuD03wGOp/QISmApmZ6MSsISmHcdOZ2zAiF5U6uGTzTNYOY1SYcY9/0+glcz4xlLJrNzwg==}
 
   '@types/rails__ujs@6.0.4':
     resolution: {integrity: sha512-4A8+Xp+2bd4E/mLjfwldc46katQQJfLfwTRbhDBoQyj4timlpWfJ6uHqwyre/qwcapgjKtVd365pt9ovD/3tRw==}
@@ -5642,7 +5642,7 @@ snapshots:
 
   '@types/normalize-package-data@2.4.4': {}
 
-  '@types/rails__actioncable@6.1.11': {}
+  '@types/rails__actioncable@8.0.0': {}
 
   '@types/rails__ujs@6.0.4': {}
 
