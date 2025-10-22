@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@activeadmin/activeadmin':
-        specifier: 4.0.0-beta16
-        version: 4.0.0-beta16(rollup@4.52.5)
+        specifier: 4.0.0-beta17
+        version: 4.0.0-beta17(rollup@4.52.5)
       '@davidrunger/vue-model-explorer':
         specifier: ^0.3.1
         version: 0.3.1(vue@3.5.22(typescript@5.9.3))
@@ -279,8 +279,8 @@ importers:
 
 packages:
 
-  '@activeadmin/activeadmin@4.0.0-beta16':
-    resolution: {integrity: sha512-bZIVmRCqf0xQdwP9dfyS4YD32PXNJWsyzq2cPwaE2tuU/XsH7q9jQaAkh/TcZhXjyXaznb4wKV9NidaZT28wjQ==}
+  '@activeadmin/activeadmin@4.0.0-beta17':
+    resolution: {integrity: sha512-BYs91o0OgatyeDDqEyuqoFbybd6SevPVEzt12acnQ9S2qb1AOPGfyLbiJNo9wzEHou6K0vnzQzDXUadU42wyRA==}
 
   '@asamuzakjp/css-color@4.0.5':
     resolution: {integrity: sha512-lMrXidNhPGsDjytDy11Vwlb6OIGrT3CmLg3VWNFyWkLWtijKl7xjvForlh8vuj0SHGjgl4qZEQzUmYTeQA2JFQ==}
@@ -3709,6 +3709,11 @@ packages:
     engines: {node: '>= 0.4'}
     hasBin: true
 
+  resolve@1.22.11:
+    resolution: {integrity: sha512-RfqAvLnMl313r7c9oclB1HhUEAezcpLjz95wFH4LVuhk9JF/r22qmVP9AMmOU4vMX7Q8pN8jwNg/CSpdFnMjTQ==}
+    engines: {node: '>= 0.4'}
+    hasBin: true
+
   reusify@1.1.0:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
@@ -4720,7 +4725,7 @@ packages:
 
 snapshots:
 
-  '@activeadmin/activeadmin@4.0.0-beta16(rollup@4.52.5)':
+  '@activeadmin/activeadmin@4.0.0-beta17(rollup@4.52.5)':
     dependencies:
       '@rails/ujs': 7.1.501
       flowbite: 3.1.2(rollup@4.52.5)
@@ -5391,7 +5396,7 @@ snapshots:
       '@types/resolve': 1.20.2
       deepmerge: 4.3.1
       is-module: 1.0.0
-      resolve: 1.22.10
+      resolve: 1.22.11
     optionalDependencies:
       rollup: 4.52.5
 
@@ -8358,6 +8363,12 @@ snapshots:
   resolve-pkg-maps@1.0.0: {}
 
   resolve@1.22.10:
+    dependencies:
+      is-core-module: 2.16.1
+      path-parse: 1.0.7
+      supports-preserve-symlinks-flag: 1.0.0
+
+  resolve@1.22.11:
     dependencies:
       is-core-module: 2.16.1
       path-parse: 1.0.7
