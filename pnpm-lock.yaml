@@ -21,8 +21,8 @@ importers:
         specifier: ^8.0.18
         version: 8.0.18
       '@rails/actioncable':
-        specifier: ^8.0.300
-        version: 8.0.300
+        specifier: ^8.1.0
+        version: 8.1.0
       '@rails/ujs':
         specifier: ^7.1.502
         version: 7.1.502
@@ -906,8 +906,8 @@ packages:
     peerDependencies:
       prettier: ^3.0.0
 
-  '@rails/actioncable@8.0.300':
-    resolution: {integrity: sha512-X+jxLnyYciTciEeM9crFFsR6DCodCsnoQIzv4hEST6Lx1rEBEjNQbBopnyDT4gr7lBeHJNfb6fEcvZuWFxUSQg==}
+  '@rails/actioncable@8.1.0':
+    resolution: {integrity: sha512-9WSbN548dplVkfCFJFi/CKrJ+P4runAHZLlpXFn0xL+Y6tFJvo3zp92fr4ON9WOhNt8inetu8NJG1xDDAJ8N8g==}
 
   '@rails/ujs@7.1.501':
     resolution: {integrity: sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==}
@@ -5022,7 +5022,7 @@ snapshots:
   '@hotwired/turbo-rails@8.0.18':
     dependencies:
       '@hotwired/turbo': 8.0.18
-      '@rails/actioncable': 8.0.300
+      '@rails/actioncable': 8.1.0
 
   '@hotwired/turbo@8.0.18': {}
 
@@ -5377,7 +5377,7 @@ snapshots:
       prettier: 3.6.2
       pug-lexer: 5.0.1
 
-  '@rails/actioncable@8.0.300': {}
+  '@rails/actioncable@8.1.0': {}
 
   '@rails/ujs@7.1.501': {}
 
