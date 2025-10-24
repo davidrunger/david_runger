@@ -16,7 +16,7 @@
     "@hotwired/turbo-rails": "^8.0.18",
     "@rails/actioncable": "^8.1.0",
     "@rails/ujs": "^7.1.502",
-    "@tailwindcss/vite": "^4.1.15",
+    "@tailwindcss/vite": "^4.1.16",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/compiler-sfc": "^3.5.22",
     "@vuelidate/core": "^2.0.3",
