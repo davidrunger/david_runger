@@ -70,7 +70,7 @@
     "@types/lodash-es": "^4.17.12",
     "@types/luxon": "^3.7.1",
     "@types/node": "^24.9.1",
-    "@types/rails__actioncable": "^8.0.0",
+    "@types/rails__actioncable": "^8.0.2",
     "@types/rails__ujs": "^6.0.4",
     "@types/strftime": "^0.9.8",
     "@types/toastify-js": "^1.12.4",
