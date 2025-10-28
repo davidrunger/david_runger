@@ -314,7 +314,7 @@ GEM
     google-protobuf (4.33.0-x86_64-linux-musl)
       bigdecimal
       rake (>= 13)
-    haml (6.3.0)
+    haml (7.0.0)
       temple (>= 0.8.2)
       thor
       tilt
@@ -993,7 +993,7 @@ CHECKSUMS
   google-protobuf (4.33.0-x86_64-darwin) sha256=4b486c10bfb99de5844cc30fab492b1050285651877f41845e38dbcfc228c56e
   google-protobuf (4.33.0-x86_64-linux-gnu) sha256=02782270835a6ee35e6abdba478614c8664c9cb793e574cebf4bbf16467479ca
   google-protobuf (4.33.0-x86_64-linux-musl) sha256=16ea36bb0ac3e4a734c22fec5deee0985417520d7013b2cd1be1e395b029204a
-  haml (6.3.0) sha256=8e6eb87d869639e348852009e74a2a1663d79663ed7e7dbcb38beb1f12bcdd97
+  haml (7.0.0) sha256=0b4e0a3a23e7b0bdff8544f2d3d0bbc9266d3782e8ae55b15916b3e94cef6c91
   haml-rails (3.0.0) sha256=091fe496a85ca521d9cac87fb50f1ecf77a57974a99aa7e267130add81a5585f
   hana (1.3.7) sha256=5425db42d651fea08859811c29d20446f16af196308162894db208cac5ce9b0d
   has_scope (0.9.0) sha256=783a93006cf898525bb4899696f1d088c0f6ff897d6df2bf03fdbbe0d0b5124c
