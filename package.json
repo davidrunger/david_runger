@@ -12,7 +12,7 @@
   "dependencies": {
     "@activeadmin/activeadmin": "4.0.0-beta17",
     "@davidrunger/vue-model-explorer": "^0.3.1",
-    "@hotwired/turbo": "^8.0.18",
+    "@hotwired/turbo": "^8.0.20",
     "@hotwired/turbo-rails": "^8.0.18",
     "@rails/actioncable": "^8.1.0",
     "@rails/ujs": "^7.1.600",
