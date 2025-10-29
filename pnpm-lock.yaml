@@ -18,8 +18,8 @@ importers:
         specifier: ^8.0.20
         version: 8.0.20
       '@hotwired/turbo-rails':
-        specifier: ^8.0.18
-        version: 8.0.18
+        specifier: ^8.0.20
+        version: 8.0.20
       '@rails/actioncable':
         specifier: ^8.1.100
         version: 8.1.100
@@ -631,8 +631,8 @@ packages:
   '@glideapps/ts-necessities@2.4.0':
     resolution: {integrity: sha512-mDC+qosuNa4lxR3ioMBb6CD0XLRsQBplU+zRPUYiMLXKeVPZ6UYphdNG/EGReig0YyfnVlBKZEXl1wzTotYmPA==}
 
-  '@hotwired/turbo-rails@8.0.18':
-    resolution: {integrity: sha512-iRxd922VSTVH0NzlLDx9T9S8Ep0NPnrLCKva31WIMLNApJgUZKa/a90EFiBa2G6Do+x4xuKZk53dlweiwTyXkQ==}
+  '@hotwired/turbo-rails@8.0.20':
+    resolution: {integrity: sha512-4aYkYF9XMKL7ZZPfgElq15+60osZOwMwhztE4myKQYEzCPvaPUxwZH301tOrBNtWUwOD+TNOm1Hrpeaq22RX9A==}
 
   '@hotwired/turbo@8.0.20':
     resolution: {integrity: sha512-IilkH/+h92BRLeY/rMMR3MUh1gshIfdra/qZzp/Bl5FmiALD/6sQZK/ecxSbumeyOYiWr/JRI+Au1YQmkJGnoA==}
@@ -5014,7 +5014,7 @@ snapshots:
 
   '@glideapps/ts-necessities@2.4.0': {}
 
-  '@hotwired/turbo-rails@8.0.18':
+  '@hotwired/turbo-rails@8.0.20':
     dependencies:
       '@hotwired/turbo': 8.0.20
       '@rails/actioncable': 8.1.100
