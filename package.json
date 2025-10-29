@@ -14,7 +14,7 @@
     "@davidrunger/vue-model-explorer": "^0.3.1",
     "@hotwired/turbo": "^8.0.20",
     "@hotwired/turbo-rails": "^8.0.18",
-    "@rails/actioncable": "^8.1.0",
+    "@rails/actioncable": "^8.1.100",
     "@rails/ujs": "^7.1.600",
     "@tailwindcss/vite": "^4.1.16",
     "@vitejs/plugin-vue": "^6.0.1",
