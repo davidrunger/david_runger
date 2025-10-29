@@ -24,8 +24,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0
       '@rails/ujs':
-        specifier: ^7.1.502
-        version: 7.1.502
+        specifier: ^7.1.600
+        version: 7.1.600
       '@tailwindcss/vite':
         specifier: ^4.1.16
         version: 4.1.16(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.93.2)(yaml@2.8.1))
@@ -912,8 +912,8 @@ packages:
   '@rails/ujs@7.1.501':
     resolution: {integrity: sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==}
 
-  '@rails/ujs@7.1.502':
-    resolution: {integrity: sha512-SFtA5X59BimNG8cy60pgZhPf1bGpg5KXVYF6Jj5H5hrwwNXKNmD2yNZhHC+WfuLqBN+972cZHR9Fto6nJQz+Xw==}
+  '@rails/ujs@7.1.600':
+    resolution: {integrity: sha512-ntMYJ8++n1zcIJ1g75or7Va9IU3ueCHgp9IJk7Ny7eFEbu0Kx40EHZ2FNhoxoUEjlF5NifCFCbvoK5rDK5HpIQ==}
 
   '@rolldown/pluginutils@1.0.0-beta.29':
     resolution: {integrity: sha512-NIJgOsMjbxAXvoGq/X0gD7VPMQ8j9g0BiDaNjVNVjvl+iKXxL3Jre0v31RmBYeLEmkbj2s02v8vFTbUXi5XS2Q==}
@@ -5376,7 +5376,7 @@ snapshots:
 
   '@rails/ujs@7.1.501': {}
 
-  '@rails/ujs@7.1.502': {}
+  '@rails/ujs@7.1.600': {}
 
   '@rolldown/pluginutils@1.0.0-beta.29': {}
 
