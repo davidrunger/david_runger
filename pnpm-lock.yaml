@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@activeadmin/activeadmin':
-        specifier: 4.0.0-beta17
-        version: 4.0.0-beta17(rollup@4.52.5)
+        specifier: 4.0.0-beta18
+        version: 4.0.0-beta18(rollup@4.52.5)
       '@davidrunger/vue-model-explorer':
         specifier: ^0.3.1
         version: 0.3.1(vue@3.5.22(typescript@5.9.3))
@@ -282,8 +282,11 @@ packages:
   '@acemir/cssom@0.9.19':
     resolution: {integrity: sha512-Pp2gAQXPZ2o7lt4j0IMwNRXqQ3pagxtDj5wctL5U2Lz4oV0ocDNlkgx4DpxfyKav4S/bePuI+SMqcBSUHLy9kg==}
 
-  '@activeadmin/activeadmin@4.0.0-beta17':
-    resolution: {integrity: sha512-BYs91o0OgatyeDDqEyuqoFbybd6SevPVEzt12acnQ9S2qb1AOPGfyLbiJNo9wzEHou6K0vnzQzDXUadU42wyRA==}
+  '@activeadmin/activeadmin@3.3.0':
+    resolution: {integrity: sha512-YVWHMI+dml5/iKleZJQ3VTvb6kbg/v8F7gsyOmxxqbxqJ6ofEK9X8CKUljA11IAWNpxV7i7ygG2WwZdMsgtcpA==}
+
+  '@activeadmin/activeadmin@4.0.0-beta18':
+    resolution: {integrity: sha512-kU9UBXdky/UuoqfrvA3kN/w8pAkjyz05RdSMGW5inyv0IocuzwNmgwPcdM0KGAFHoftosEI+6wnsQkREWXEUuw==}
 
   '@asamuzakjp/css-color@4.0.5':
     resolution: {integrity: sha512-lMrXidNhPGsDjytDy11Vwlb6OIGrT3CmLg3VWNFyWkLWtijKl7xjvForlh8vuj0SHGjgl4qZEQzUmYTeQA2JFQ==}
@@ -909,9 +912,6 @@ packages:
 
   '@rails/actioncable@8.1.100':
     resolution: {integrity: sha512-j4vJQqz51CDVYv2UafKRu4jiZi5/gTnm7NkyL+VMIgEw3s8jtVtmzu9uItUaZccUg9NJ6o05yVyBAHxNfTuCRA==}
-
-  '@rails/ujs@7.1.501':
-    resolution: {integrity: sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==}
 
   '@rails/ujs@7.1.600':
     resolution: {integrity: sha512-ntMYJ8++n1zcIJ1g75or7Va9IU3ueCHgp9IJk7Ny7eFEbu0Kx40EHZ2FNhoxoUEjlF5NifCFCbvoK5rDK5HpIQ==}
@@ -2963,6 +2963,17 @@ packages:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
 
+  jquery-ui@1.14.1:
+    resolution: {integrity: sha512-DhzsYH8VeIvOaxwi+B/2BCsFFT5EGjShdzOcm5DssWjtcpGWIMsn66rJciDA6jBruzNiLf1q0KvwMoX1uGNvnQ==}
+
+  jquery-ujs@1.2.3:
+    resolution: {integrity: sha512-59wvfx5vcCTHMeQT1/OwFiAj+UffLIwjRIoXdpO7Z7BCFGepzq9T9oLVeoItjTqjoXfUrHJvV7QU6pUR+UzOoA==}
+    peerDependencies:
+      jquery: '>=1.8.0'
+
+  jquery@3.7.1:
+    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
+
   js-base64@3.7.8:
     resolution: {integrity: sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow==}
 
@@ -4715,9 +4726,16 @@ snapshots:
 
   '@acemir/cssom@0.9.19': {}
 
-  '@activeadmin/activeadmin@4.0.0-beta17(rollup@4.52.5)':
+  '@activeadmin/activeadmin@3.3.0':
     dependencies:
-      '@rails/ujs': 7.1.501
+      jquery: 3.7.1
+      jquery-ui: 1.14.1
+      jquery-ujs: 1.2.3(jquery@3.7.1)
+
+  '@activeadmin/activeadmin@4.0.0-beta18(rollup@4.52.5)':
+    dependencies:
+      '@activeadmin/activeadmin': 3.3.0
+      '@rails/ujs': 7.1.600
       flowbite: 3.1.2(rollup@4.52.5)
     transitivePeerDependencies:
       - rollup
@@ -5371,8 +5389,6 @@ snapshots:
       pug-lexer: 5.0.1
 
   '@rails/actioncable@8.1.100': {}
-
-  '@rails/ujs@7.1.501': {}
 
   '@rails/ujs@7.1.600': {}
 
@@ -7576,6 +7592,16 @@ snapshots:
   jest-get-type@29.6.3: {}
 
   jiti@2.6.1: {}
+
+  jquery-ui@1.14.1:
+    dependencies:
+      jquery: 3.7.1
+
+  jquery-ujs@1.2.3(jquery@3.7.1):
+    dependencies:
+      jquery: 3.7.1
+
+  jquery@3.7.1: {}
 
   js-base64@3.7.8: {}
 
