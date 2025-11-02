@@ -33,7 +33,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'vue_playground*.css' => (0..10),
     'vue_playground*.js' => (72..82),
     'workout*.css' => (41..51),
-    'workout*.js' => (231..241),
+    'workout*.js' => (237..247),
   }.freeze
 
   def run
