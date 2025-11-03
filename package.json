@@ -69,7 +69,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/lodash-es": "^4.17.12",
     "@types/luxon": "^3.7.1",
-    "@types/node": "^24.9.2",
+    "@types/node": "^24.10.0",
     "@types/rails__actioncable": "^8.0.3",
     "@types/rails__ujs": "^6.0.4",
     "@types/strftime": "^0.9.8",
