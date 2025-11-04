@@ -46,7 +46,7 @@
     "tailwindcss": "^4.1.16",
     "toastify-js": "^1.12.0",
     "tom-select": "^2.4.3",
-    "unplugin-element-plus": "^0.10.0",
+    "unplugin-element-plus": "^0.11.0",
     "vega": "^6.2.0",
     "vega-embed": "^7.1.0",
     "vega-lite": "^6.4.1",
