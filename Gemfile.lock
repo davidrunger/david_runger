@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/paper_trail.git
-  revision: 33592b9c6cc4030b894e7dc923dce3223c682760
+  revision: b9bc3301b5e646f4d8d13fb41f600f3cef7b0ee6
   specs:
     paper_trail (16.0.0)
       activerecord (>= 6.1)
