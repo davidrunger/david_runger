@@ -39,7 +39,7 @@
     "lodash-es": "^4.17.21",
     "luxon": "^3.7.2",
     "marked": "^16.4.1",
-    "marked-highlight": "^2.2.2",
+    "marked-highlight": "^2.2.3",
     "pinia": "^3.0.4",
     "pug": "^3.0.3",
     "strftime": "^0.10.3",
