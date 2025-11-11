@@ -585,7 +585,7 @@ GEM
     redlock (2.0.6)
       redis-client (>= 0.14.1, < 1.0.0)
     regexp_parser (2.11.3)
-    reline (0.6.2)
+    reline (0.6.3)
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
@@ -1112,7 +1112,7 @@ CHECKSUMS
   redis-client (0.26.1) sha256=1e39d2862c4516a75ff777ee6ed08827af39336bfece4a48e944244891d9a073
   redlock (2.0.6) sha256=de262f7d7c78112435b6b356766b7733e05c452f25cf66c23b0eec1dc2893dde
   regexp_parser (2.11.3) sha256=ca13f381a173b7a93450e53459075c9b76a10433caadcb2f1180f2c741fc55a4
-  reline (0.6.2) sha256=1dad26a6008872d59c8e05244b119347c9f2ddaf4a53dce97856cd5f30a02846
+  reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
   request_store (1.7.0) sha256=e1b75d5346a315f452242a68c937ef8e48b215b9453a77a6c0acdca2934c88cb
   request_store-sidekiq (0.1.0) sha256=058ecc01b8dc36ca8700c4bb20bb58b17eeb3ab9b6faa582abd59d2626e630e0
   require-hooks (0.2.2) sha256=effa81b61a669ca00cb1e8910411e0d6a8bb16b49a53d9e69b5e6372d6c90f31
