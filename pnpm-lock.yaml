@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@activeadmin/activeadmin':
-        specifier: 4.0.0-beta18
-        version: 4.0.0-beta18(rollup@4.53.3)
+        specifier: 4.0.0-beta19
+        version: 4.0.0-beta19(rollup@4.53.3)
       '@davidrunger/vue-model-explorer':
         specifier: ^0.3.1
         version: 0.3.1(vue@3.5.24(typescript@5.9.3))
@@ -282,11 +282,8 @@ packages:
   '@acemir/cssom@0.9.23':
     resolution: {integrity: sha512-2kJ1HxBKzPLbmhZpxBiTZggjtgCwKg1ma5RHShxvd6zgqhDEdEkzpiwe7jLkI2p2BrZvFCXIihdoMkl1H39VnA==}
 
-  '@activeadmin/activeadmin@3.4.0':
-    resolution: {integrity: sha512-ItAaWA5yhznJldmJpBJHm56eudtLIW4fRAowmxza91pJeqiWwz1UUEgN35OZLvozLk1AW1QtfuAiGdWGwUFEaA==}
-
-  '@activeadmin/activeadmin@4.0.0-beta18':
-    resolution: {integrity: sha512-kU9UBXdky/UuoqfrvA3kN/w8pAkjyz05RdSMGW5inyv0IocuzwNmgwPcdM0KGAFHoftosEI+6wnsQkREWXEUuw==}
+  '@activeadmin/activeadmin@4.0.0-beta19':
+    resolution: {integrity: sha512-U/5yHRqlY21etaWK6zsN0O0Flwp/hoajbG1kt2OoiMl+yo3GlV10AM50j6cJioRCP7L0L3wtyAjO+aVJUWCbDg==}
 
   '@asamuzakjp/css-color@4.0.5':
     resolution: {integrity: sha512-lMrXidNhPGsDjytDy11Vwlb6OIGrT3CmLg3VWNFyWkLWtijKl7xjvForlh8vuj0SHGjgl4qZEQzUmYTeQA2JFQ==}
@@ -2982,17 +2979,6 @@ packages:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
 
-  jquery-ui@1.14.1:
-    resolution: {integrity: sha512-DhzsYH8VeIvOaxwi+B/2BCsFFT5EGjShdzOcm5DssWjtcpGWIMsn66rJciDA6jBruzNiLf1q0KvwMoX1uGNvnQ==}
-
-  jquery-ujs@1.2.3:
-    resolution: {integrity: sha512-59wvfx5vcCTHMeQT1/OwFiAj+UffLIwjRIoXdpO7Z7BCFGepzq9T9oLVeoItjTqjoXfUrHJvV7QU6pUR+UzOoA==}
-    peerDependencies:
-      jquery: '>=1.8.0'
-
-  jquery@3.7.1:
-    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
-
   js-base64@3.7.8:
     resolution: {integrity: sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow==}
 
@@ -4782,15 +4768,8 @@ snapshots:
 
   '@acemir/cssom@0.9.23': {}
 
-  '@activeadmin/activeadmin@3.4.0':
+  '@activeadmin/activeadmin@4.0.0-beta19(rollup@4.53.3)':
     dependencies:
-      jquery: 3.7.1
-      jquery-ui: 1.14.1
-      jquery-ujs: 1.2.3(jquery@3.7.1)
-
-  '@activeadmin/activeadmin@4.0.0-beta18(rollup@4.53.3)':
-    dependencies:
-      '@activeadmin/activeadmin': 3.4.0
       '@rails/ujs': 7.1.600
       flowbite: 3.1.2(rollup@4.53.3)
     transitivePeerDependencies:
@@ -7674,16 +7653,6 @@ snapshots:
   jest-get-type@29.6.3: {}
 
   jiti@2.6.1: {}
-
-  jquery-ui@1.14.1:
-    dependencies:
-      jquery: 3.7.1
-
-  jquery-ujs@1.2.3(jquery@3.7.1):
-    dependencies:
-      jquery: 3.7.1
-
-  jquery@3.7.1: {}
 
   js-base64@3.7.8: {}
 
