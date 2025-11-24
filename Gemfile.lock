@@ -653,7 +653,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.47.1, < 2.0)
-    rubocop-rails (2.33.4)
+    rubocop-rails (2.34.1)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
@@ -681,7 +681,7 @@ GEM
     runger_email_reply_trimmer (0.3.0)
     runger_rails_model_explorer (0.2.2)
       activerecord (>= 8.0.2)
-    runger_style (5.10.0)
+    runger_style (5.11.0)
       prism (>= 0.24.0)
       rubocop (>= 1.72.0)
     safely_block (0.5.0)
@@ -1134,7 +1134,7 @@ CHECKSUMS
   rubocop-capybara (2.22.1) sha256=ced88caef23efea53f46e098ff352f8fc1068c649606ca75cb74650970f51c0c
   rubocop-factory_bot (2.28.0) sha256=4b17fc02124444173317e131759d195b0d762844a71a29fe8139c1105d92f0cb
   rubocop-performance (1.26.1) sha256=cd19b936ff196df85829d264b522fd4f98b6c89ad271fa52744a8c11b8f71834
-  rubocop-rails (2.33.4) sha256=34ec8f6637706dc224483d949ccc88b3e41596a81a11a1ec0c7d74ecbea356b5
+  rubocop-rails (2.34.1) sha256=77a092ed1f05405a9e2ca1bee3d13b78ed0c3cc5342671a2d4f7de2056ee6a6e
   rubocop-rspec (3.8.0) sha256=28440dccb3f223a9938ca1f946bd3438275b8c6c156dab909e2cb8bc424cab33
   rubocop-rspec_rails (2.32.0) sha256=4a0d641c72f6ebb957534f539d9d0a62c47abd8ce0d0aeee1ef4701e892a9100
   ruby-next-core (1.1.2) sha256=1b095fe2e45929f2581b3ecdb8d92b601ce4d72c12a466057c10e23b6f0c4512
@@ -1145,7 +1145,7 @@ CHECKSUMS
   runger_config (5.2.0) sha256=9b76d767a2daa63f6f8f2c52a8183f3f09a877cd35bcaee692d25377f4dd4558
   runger_email_reply_trimmer (0.3.0) sha256=068aa90311da474065f604cf29704785bb36d511a5d5e4031fc87fef8bbd9ac7
   runger_rails_model_explorer (0.2.2) sha256=99adf4e287951996d7a2bc308271abe92065836437719eae0a444894c08e683b
-  runger_style (5.10.0) sha256=6eb54391055adef58e5c6f200ee633e1c1099f4e49b40d843714a26b2fff2a26
+  runger_style (5.11.0) sha256=9b1c2b8c10c0512f878cdaf4a91bf7e4d135b071966cfb36af7debd62b393d71
   safely_block (0.5.0) sha256=782c342bc400a79c1233c40cf8c379da6116c6cfd1d7c1f17f0ef2ef11090103
   sanitize (7.0.0) sha256=269d1b9d7326e69307723af5643ec032ff86ad616e72a3b36d301ac75a273984
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
