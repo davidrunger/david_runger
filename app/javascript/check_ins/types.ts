@@ -10,8 +10,7 @@ export type RatedUser = 'partner' | 'self';
 
 export type Rating = -3 | -2 | -1 | 0 | 1 | 2 | 3;
 
-export interface NeedSatisfactionRating
-  extends TypelizerNeedSatisfactionRating {
+export interface NeedSatisfactionRating extends TypelizerNeedSatisfactionRating {
   score: Rating | null;
 }
 
