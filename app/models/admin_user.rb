@@ -15,6 +15,7 @@ class AdminUser < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   has_many :events, dependent: :destroy
+  has_many :requests, dependent: :restrict_with_exception
 
   devise
 
