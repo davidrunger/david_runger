@@ -158,7 +158,7 @@ importers:
         version: 10.1.0
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.7.0
-        version: 4.7.0(@vue/compiler-sfc@3.5.25)(prettier@3.7.3)
+        version: 4.7.0(@vue/compiler-sfc@3.5.25)(prettier@3.7.4)
       '@percy/cli':
         specifier: ^1.31.4
         version: 1.31.4(typescript@5.9.3)
@@ -167,7 +167,7 @@ importers:
         version: 1.0.3(pinia@3.0.4(typescript@5.9.3)(vue@3.5.25(typescript@5.9.3)))
       '@prettier/plugin-pug':
         specifier: ^3.4.2
-        version: 3.4.2(prettier@3.7.3)
+        version: 3.4.2(prettier@3.7.4)
       '@testing-library/vue':
         specifier: ^8.1.0
         version: 8.1.0(@vue/compiler-sfc@3.5.25)(vue@3.5.25(typescript@5.9.3))
@@ -229,8 +229,8 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0
       prettier:
-        specifier: ^3.7.3
-        version: 3.7.3
+        specifier: ^3.7.4
+        version: 3.7.4
       quicktype:
         specifier: ^23.2.6
         version: 23.2.6
@@ -3637,8 +3637,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier@3.7.3:
-    resolution: {integrity: sha512-QgODejq9K3OzoBbuyobZlUhznP5SKwPqp+6Q6xw6o8gnhr4O85L2U915iM2IDcfF2NPXVaM9zlo9tdwipnYwzg==}
+  prettier@3.7.4:
+    resolution: {integrity: sha512-v6UNi1+3hSlVvv8fSaoUbggEM5VErKmmpGA7Pl3HF8V6uKY7rvClBOJlH6yNwQtfTueNkGVpOv/mtWL9L4bgRA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -5121,13 +5121,13 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@ianvs/prettier-plugin-sort-imports@4.7.0(@vue/compiler-sfc@3.5.25)(prettier@3.7.3)':
+  '@ianvs/prettier-plugin-sort-imports@4.7.0(@vue/compiler-sfc@3.5.25)(prettier@3.7.4)':
     dependencies:
       '@babel/generator': 7.28.5
       '@babel/parser': 7.28.5
       '@babel/traverse': 7.28.5
       '@babel/types': 7.28.5
-      prettier: 3.7.3
+      prettier: 3.7.4
       semver: 7.7.3
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.25
@@ -5483,9 +5483,9 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@prettier/plugin-pug@3.4.2(prettier@3.7.3)':
+  '@prettier/plugin-pug@3.4.2(prettier@3.7.4)':
     dependencies:
-      prettier: 3.7.3
+      prettier: 3.7.4
       pug-lexer: 5.0.1
 
   '@rails/actioncable@8.1.100': {}
@@ -8310,7 +8310,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier@3.7.3: {}
+  prettier@3.7.4: {}
 
   pretty-format@27.5.1:
     dependencies:
