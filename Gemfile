@@ -11,7 +11,7 @@ gem 'blazer'
 gem 'bootsnap', require: false
 gem 'browser'
 gem 'chartkick'
-gem 'connection_pool', '< 3' # Unpin after https://github.com/rails/rails/pull/ 56292 is released.
+gem 'connection_pool', '< 4' # Unpin after https://github.com/rails/rails/pull/ 56292 is released.
 gem 'csv'
 gem 'devise'
 gem 'dotenv'
