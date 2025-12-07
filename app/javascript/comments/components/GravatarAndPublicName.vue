@@ -37,12 +37,12 @@ const {
   editableRef: editablePublicNameRef,
   isEditing: isEditingPublicName,
   startEditing: startEditingPublicName,
-  inputRef: publicNameInputRef,
   inputEventHandlers: publicNameInputEventHandlers,
 } = useCancellableInput({
   onUpdate(newPublicName) {
     store.updateCurrentUser({ public_name: newPublicName });
   },
+  refName: 'publicNameInputRef',
 });
 
 const props = defineProps({

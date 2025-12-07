@@ -1,7 +1,8 @@
-import { nextTick, ref, Ref } from 'vue';
+import { nextTick, ref, Ref, useTemplateRef } from 'vue';
 
 interface UseCancellableInputOptions {
   onUpdate: (newValue: string) => void;
+  refName: string;
 }
 
 interface UseCancellableInputReturn {
@@ -18,11 +19,11 @@ interface UseCancellableInputReturn {
 export function useCancellableInput(
   options: UseCancellableInputOptions,
 ): UseCancellableInputReturn {
-  const { onUpdate } = options;
+  const { onUpdate, refName } = options;
 
   const isEditing = ref<boolean>(false);
   const editableRef = ref<string>('');
-  const inputRef = ref<HTMLInputElement | null>(null);
+  const inputRef = useTemplateRef(refName) as Ref<HTMLInputElement | null>;
 
   function startEditing(initialValue: string): void {
     editableRef.value = initialValue;

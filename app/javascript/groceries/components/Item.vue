@@ -65,7 +65,6 @@ const {
   editableRef: nameEditableRef,
   isEditing,
   startEditing,
-  inputRef,
   inputEventHandlers,
 } = useCancellableInput({
   onUpdate: (newValue: string) => {
@@ -76,6 +75,7 @@ const {
       },
     });
   },
+  refName: 'inputRef',
 });
 
 function editItemName(): void {
