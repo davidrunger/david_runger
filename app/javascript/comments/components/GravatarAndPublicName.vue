@@ -42,7 +42,7 @@ const {
   onUpdate(newPublicName) {
     store.updateCurrentUser({ public_name: newPublicName });
   },
-  refName: 'publicNameInputRef'
+  refName: 'publicNameInputRef',
 });
 
 const props = defineProps({

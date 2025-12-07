@@ -58,7 +58,7 @@ const {
       },
     });
   },
-  refName: 'nameInputRef'
+  refName: 'nameInputRef',
 });
 
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
