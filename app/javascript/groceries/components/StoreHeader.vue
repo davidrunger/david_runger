@@ -48,7 +48,6 @@ const {
   editableRef: editableNameRef,
   isEditing: isEditingName,
   startEditing: startEditingName,
-  inputRef: nameInputRef,
   inputEventHandlers: nameInputEventHandlers,
 } = useCancellableInput({
   onUpdate(newName) {
@@ -59,6 +58,7 @@ const {
       },
     });
   },
+  refName: 'nameInputRef'
 });
 
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);

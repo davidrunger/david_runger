@@ -41,7 +41,6 @@ const {
   editableRef: editableNotesRef,
   isEditing: isEditingNotes,
   startEditing: startEditingNotes,
-  inputRef: notesInputRef,
   inputEventHandlers: notesInputEventHandlers,
 } = useCancellableInput({
   onUpdate(newNotes) {
@@ -52,5 +51,6 @@ const {
       },
     });
   },
+  refName: 'notesInputRef',
 });
 </script>
