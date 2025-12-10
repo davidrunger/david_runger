@@ -63,7 +63,7 @@ RUN --mount=type=cache,sharing=private,target=/app/.cache/bundle \
   cp -ar /app/.cache/bundle "${GEMS_DIRECTORY}"
 RUN bundle config set --local path "${GEMS_DIRECTORY}"
 
-RUN bundle exec bootsnap precompile --gemfile
+RUN bundle exec $(bundle info --path bootsnap)/exe/bootsnap precompile --gemfile
 
 # Copy application code and compiled assets
 COPY . .
@@ -75,7 +75,7 @@ RUN DOCKER_BUILD=true \
   GIT_REV=${GIT_REV} \
   SECRET_KEY_BASE_DUMMY=1 \
   VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
-  bundle exec rails assets:precompile > /dev/null
+  bin/rails assets:precompile > /dev/null
 
 # Precompile bootsnap code for faster boot times
 RUN bin/bootsnap precompile app/ lib/
