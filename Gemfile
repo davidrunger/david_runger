@@ -101,7 +101,7 @@ group :test do
   gem 'climate_control'
   gem 'cuprite'
   # Pinned because https://github.com/davidrunger/david_runger/pull/ 7826#issuecomment-3607932541 .
-  gem 'database_consistency', '< 2.1.0', require: false
+  gem 'database_consistency', '< 2.2.0', require: false
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'ferrum'
