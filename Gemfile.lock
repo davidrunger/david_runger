@@ -211,7 +211,7 @@ GEM
       ferrum (~> 0.17.0)
     database_consistency (2.0.8)
       activerecord (>= 3.2)
-    date (3.5.0)
+    date (3.5.1)
     debug_inspector (1.2.0)
     devise (4.9.4)
       bcrypt (~> 3.0)
@@ -933,7 +933,7 @@ CHECKSUMS
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
   cuprite (0.17) sha256=b140d5dc70d08b97ad54bcf45cd95d0bd430e291e9dffe76fff851fddd57c12b
   database_consistency (2.0.8) sha256=94f7c80b272f85c2a48942964abdce6f79e3dfff63c5a263e98561e97755d107
-  date (3.5.0) sha256=5e74fd6c04b0e65d97ad4f3bb5cb2d8efb37f386cc848f46310b4593ffc46ee5
+  date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug_inspector (1.2.0) sha256=9bdfa02eebc3da163833e6a89b154084232f5766087e59573b70521c77ea68a2
   devise (4.9.4) sha256=920042fe5e704c548aa4eb65ebdd65980b83ffae67feb32c697206bfd975a7f8
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
