@@ -70,7 +70,7 @@ jobs:
           echo "SHA: $GIT_REV"
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@211ffaaa5f8dda97e9e8bca4e70d0fbaf2f8c41c # v1.272.0
+        uses: ruby/setup-ruby@ed55d55e820a01da7d3e4863a8c51a61d73c3228 # v1.274.0
         with:
           bundler-cache: true
 
@@ -180,7 +180,7 @@ jobs:
             "GIT_REV='$GIT_REV' bash /tmp/deploy.sh && rm /tmp/deploy.sh"
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@211ffaaa5f8dda97e9e8bca4e70d0fbaf2f8c41c # v1.272.0
+        uses: ruby/setup-ruby@ed55d55e820a01da7d3e4863a8c51a61d73c3228 # v1.274.0
         with:
           bundler-cache: true
 
