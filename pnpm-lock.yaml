@@ -274,8 +274,8 @@ importers:
         specifier: ^10.2.0
         version: 10.2.0(eslint@9.39.2(jiti@2.6.1))
       vue-tsc:
-        specifier: ^3.2.0
-        version: 3.2.0(typescript@5.9.3)
+        specifier: ^3.2.1
+        version: 3.2.1(typescript@5.9.3)
 
 packages:
 
@@ -1465,9 +1465,6 @@ packages:
   '@volar/language-service@2.4.27':
     resolution: {integrity: sha512-SxKZ8yLhpWa7Y5e/RDxtNfm7j7xsXp/uf2urijXEffRNpPSmVdfzQrFFy5d7l8PNpZy+bHg+yakmqBPjQN+MOw==}
 
-  '@volar/source-map@2.4.26':
-    resolution: {integrity: sha512-JJw0Tt/kSFsIRmgTQF4JSt81AUSI1aEye5Zl65EeZ8H35JHnTvFGmpDOBn5iOxd48fyGE+ZvZBp5FcgAy/1Qhw==}
-
   '@volar/source-map@2.4.27':
     resolution: {integrity: sha512-ynlcBReMgOZj2i6po+qVswtDUeeBRCTgDurjMGShbm8WYZgJ0PA4RmtebBJ0BCYol1qPv3GQF6jK7C9qoVc7lg==}
 
@@ -1512,8 +1509,8 @@ packages:
       typescript:
         optional: true
 
-  '@vue/language-core@3.2.0':
-    resolution: {integrity: sha512-CHIuDtZ04CIElAgEuLbwmq3p7QcmYoVPmBPqtdvWJCflZE5W3KHT/5DRBvDv1r2TteCjN02uYHiaAEWq9hQNiA==}
+  '@vue/language-core@3.2.1':
+    resolution: {integrity: sha512-g6oSenpnGMtpxHGAwKuu7HJJkNZpemK/zg3vZzZbJ6cnnXq1ssxuNrXSsAHYM3NvH8p4IkTw+NLmuxyeYz4r8A==}
 
   '@vue/language-plugin-pug@3.2.0':
     resolution: {integrity: sha512-GOWiTwVkbN8GilX+CiKZfdefhI+WHp+OYnQTEJDVw/35+MKoqyCn0cXvHEFiNtNq3rgmj+d3zMHgmD7sW5l4yg==}
@@ -4592,8 +4589,8 @@ packages:
     peerDependencies:
       vue: ^3.0.2
 
-  vue-tsc@3.2.0:
-    resolution: {integrity: sha512-NFhcKKQZeTuG8/gc8XwFANx/lC0Dd3dCZ97TWh1a63PcD22KkFy4QLeT8JMtduaQT1NzySWmx3qXm16Hj1Xsxg==}
+  vue-tsc@3.2.1:
+    resolution: {integrity: sha512-I23Rk8dkQfmcSbxDO0dmg9ioMLjKA1pjlU3Lz6Jfk2pMGu3Uryu9810XkcZH24IzPbhzPCnkKo2rEMRX0skSrw==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
@@ -5940,8 +5937,6 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.1.0
 
-  '@volar/source-map@2.4.26': {}
-
   '@volar/source-map@2.4.27': {}
 
   '@volar/typescript@2.4.27':
@@ -6015,7 +6010,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vue/language-core@3.2.0':
+  '@vue/language-core@3.2.1':
     dependencies:
       '@volar/language-core': 2.4.27
       '@vue/compiler-dom': 3.5.26
@@ -9559,10 +9554,10 @@ snapshots:
     dependencies:
       vue: 3.5.26(typescript@5.9.3)
 
-  vue-tsc@3.2.0(typescript@5.9.3):
+  vue-tsc@3.2.1(typescript@5.9.3):
     dependencies:
       '@volar/typescript': 2.4.27
-      '@vue/language-core': 3.2.0
+      '@vue/language-core': 3.2.1
       typescript: 5.9.3
 
   vue-types@6.0.0(vue@3.5.26(typescript@5.9.3)):
