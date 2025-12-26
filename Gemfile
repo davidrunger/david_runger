@@ -65,6 +65,7 @@ end
 group :development, :test do
   gem 'amazing_print'
   gem 'annotaterb', require: false
+  gem 'benchmark'
   gem 'immigrant'
   gem 'json_schemer'
   gem 'listen'
