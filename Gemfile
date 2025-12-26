@@ -66,7 +66,6 @@ group :development, :test do
   gem 'amazing_print'
   gem 'annotaterb', require: false
   gem 'immigrant'
-  gem 'isolator'
   gem 'json_schemer'
   gem 'listen'
   gem 'prosopite'
