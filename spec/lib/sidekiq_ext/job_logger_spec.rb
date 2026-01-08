@@ -23,14 +23,14 @@ RSpec.describe SidekiqExt::JobLogger do
     let(:queue) { 'default' }
 
     context 'when the executed job does not raise an error' do
-      let(:job_block) { proc { puts('Performing the work ... !') } }
+      let(:job_block) { proc { Rails.logger.debug('Performing the work ... !') } }
 
       it 'prints start job info, executes the block, and prints done job info' do
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
           with(/queue=default args=\["#{ip_address}"\]: start\n\z/).
           and_call_original
-        expect($stdout).to receive(:puts).with('Performing the work ... !')
+        expect(Rails.logger).to receive(:debug).with('Performing the work ... !')
         expect(Sidekiq.logger.instance_variable_get(:@logdev)).
           to receive(:write).
           with(/queue=default args=\["#{ip_address}"\] elapsed=\d+\.\d{1,3}: done\n\z/).
@@ -47,7 +47,7 @@ RSpec.describe SidekiqExt::JobLogger do
             to receive(:write).
             with(/queue=default args=\["#{'123.' * 34}12...\]: start\n\z/).
             and_call_original
-          expect($stdout).to receive(:puts).with('Performing the work ... !')
+          expect(Rails.logger).to receive(:debug).with('Performing the work ... !')
           expect(Sidekiq.logger.instance_variable_get(:@logdev)).
             to receive(:write).
             with(/args=\["#{'123.' * 34}12...\] elapsed=\d+\.\d{1,3}: done\n\z/).

@@ -228,6 +228,7 @@ RSpec.configure do |config|
 
   # Prewarm browsers for feature specs >>>
   if SpecHelper.is_ci?
+    # rubocop:disable RSpec/Output
     def prewarm_driver(driver_name)
       max_retries = 3
       retry_count = 0
@@ -255,6 +256,7 @@ RSpec.configure do |config|
         end
       end
     end
+    # rubocop:enable RSpec/Output
 
     config.before(:suite) do
       examples = RSpec.world.filtered_examples.values.flatten
