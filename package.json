@@ -84,7 +84,7 @@
     "fishery": "^2.4.0",
     "globals": "^17.0.0",
     "jsdom": "^27.4.0",
-    "postcss-html": "^1.8.0",
+    "postcss-html": "^1.8.1",
     "prettier": "^3.7.4",
     "quicktype": "^23.2.6",
     "sass": "^1.97.2",
