@@ -62,7 +62,7 @@
     "@eslint/js": "^9.39.2",
     "@faker-js/faker": "^10.2.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
-    "@percy/cli": "^1.31.7",
+    "@percy/cli": "^1.31.8",
     "@pinia/testing": "^1.0.3",
     "@prettier/plugin-pug": "^3.4.2",
     "@testing-library/vue": "^8.1.0",
