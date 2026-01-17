@@ -15,8 +15,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1(vue@3.5.26(typescript@5.9.3))
       '@hotwired/turbo':
-        specifier: ^8.0.20
-        version: 8.0.20
+        specifier: ^8.0.21
+        version: 8.0.21
       '@hotwired/turbo-rails':
         specifier: ^8.0.21
         version: 8.0.21
@@ -650,10 +650,6 @@ packages:
 
   '@hotwired/turbo-rails@8.0.21':
     resolution: {integrity: sha512-RUnqt7tOVlQT539eVqFaAp4/32y7sLxvt3G7OIMROVlIMWvM8CXJk08xvIro2ueQViYRB6jwRjruNx7drIJPXg==}
-
-  '@hotwired/turbo@8.0.20':
-    resolution: {integrity: sha512-IilkH/+h92BRLeY/rMMR3MUh1gshIfdra/qZzp/Bl5FmiALD/6sQZK/ecxSbumeyOYiWr/JRI+Au1YQmkJGnoA==}
-    engines: {node: '>= 18'}
 
   '@hotwired/turbo@8.0.21':
     resolution: {integrity: sha512-fJTv3JnzFHeDxBb23esZSOhT4r142xf5o3lKMFMvzPC6AllkqbBKk5Yb31UZhtIsKQCwmO/pUQrtTUlYl5CHAQ==}
@@ -5139,8 +5135,6 @@ snapshots:
     dependencies:
       '@hotwired/turbo': 8.0.21
       '@rails/actioncable': 8.1.200
-
-  '@hotwired/turbo@8.0.20': {}
 
   '@hotwired/turbo@8.0.21': {}
 
