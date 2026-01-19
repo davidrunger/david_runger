@@ -127,6 +127,7 @@ aside {
     min-width: 50px;
     width: 50px;
     max-width: 50px;
+    overflow-x: hidden;
 
     .spouse-stores-header,
     :deep(.stores-list__item) {
