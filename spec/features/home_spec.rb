@@ -3,7 +3,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
     visit root_path
 
     expect(page).to have_text(<<~HEADLINE, normalize_ws: false)
-      David Runger
+      David Rungerz
       Full stack web developer
     HEADLINE
 
