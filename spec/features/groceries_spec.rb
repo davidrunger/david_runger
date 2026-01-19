@@ -60,7 +60,7 @@ RSpec.describe 'Groceries app' do
         click_on('Undo')
 
         # Confirm that the item is listed again.
-        expect(page).to have_css('.grocery-item', text: unneeded_item.name)
+        expect(page).to have_css('.grocery-item', text: "#{unneeded_item.name}z")
 
         click_on('Check in items')
 
