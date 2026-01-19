@@ -4,7 +4,7 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 
 # To minimize risk of accidental DB deletion, continue only if all expected
 # services are running.
-expected_num_services=14 # Increase back to 15 once prometheus_exporter is compatible with Ruby 4.
+expected_num_services=15
 actual_num_services=$(docker ps --filter status=running --quiet | wc -l)
 
 if [[ "$actual_num_services" -ne "$expected_num_services" ]] ; then
