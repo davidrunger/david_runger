@@ -7,6 +7,7 @@
       name="Search for an emoji"
       type="text"
       autofocus
+      autocomplete="off"
       v-model="query"
     )
 
