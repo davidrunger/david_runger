@@ -33,7 +33,6 @@ gem 'loofah-activerecord'
 gem 'memo_wise'
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
 gem 'paper_trail', # Source from RubyGems after https://github.com/paper-trail-gem/paper_trail/pull/1511 is released.
   github: 'davidrunger/paper_trail'
 gem 'pg'

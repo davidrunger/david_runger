@@ -1,6 +1,10 @@
 # avoid OmniAuth output being sent to STDOUT during tests
 OmniAuth.config.logger = Rails.logger
 
+# https://github.com/cookpad/omniauth-rails_csrf_protection/pull/24#issuecomment-3492077627
+OmniAuth.config.request_validation_phase =
+  OmniAuth::AuthenticityTokenProtection.new(key: :_csrf_token)
+
 Rails.application.config.middleware.use(OmniAuth::Builder) do
   unless IS_DOCKER_BUILD
     provider(
