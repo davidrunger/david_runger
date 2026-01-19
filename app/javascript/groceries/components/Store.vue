@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTitle } from '@vueuse/core';
 import { ElButton } from 'element-plus';
 import { computed } from 'vue';
 import { object } from 'vue-types';
@@ -48,6 +49,8 @@ import StoreNotes from './StoreNotes.vue';
 const props = defineProps({
   store: object<Store>().isRequired,
 });
+
+useTitle(() => `${props.store.name} - Groceries - David Runger`);
 
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();

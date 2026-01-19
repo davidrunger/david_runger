@@ -204,6 +204,27 @@ RSpec.describe 'Groceries app' do
           end
         end
       end
+
+      context 'when switching between stores' do
+        before { expect(user.stores.size).to be >= 2 }
+
+        let!(:most_recent_store) { user.stores.reorder(viewed_at: :desc).first! }
+        let!(:other_store) { user.stores.reorder(viewed_at: :desc).second! }
+
+        it 'includes the store name in the page title' do
+          visit groceries_path
+
+          expect(page).to have_css('h1', text: most_recent_store.name)
+          expect(page).to have_title("#{most_recent_store.name} - Groceries - David Runger")
+
+          within('aside') do
+            click_on(other_store.name)
+          end
+
+          expect(page).to have_css('h1', text: other_store.name)
+          expect(page).to have_title("#{other_store.name} - Groceries - David Runger")
+        end
+      end
     end
   end
 
