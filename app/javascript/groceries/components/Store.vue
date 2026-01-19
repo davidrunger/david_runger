@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTitle } from '@vueuse/core';
 import { ElButton } from 'element-plus';
 import { computed } from 'vue';
 import { object } from 'vue-types';
@@ -44,7 +45,6 @@ import ManageCheckInStoresModal from './ManageCheckInStoresModal.vue';
 import NewItemForm from './NewItemForm.vue';
 import StoreHeader from './StoreHeader.vue';
 import StoreNotes from './StoreNotes.vue';
-import { useTitle } from '@vueuse/core';
 
 const props = defineProps({
   store: object<Store>().isRequired,
