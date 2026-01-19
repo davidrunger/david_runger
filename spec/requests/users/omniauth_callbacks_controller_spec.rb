@@ -11,19 +11,16 @@ RSpec.describe Users::OmniauthCallbacksController do
 
     describe 'POST /auth/:provider without CSRF token' do
       around do |spec|
-        original_allow_forgery_protection = ActionController::Base.allow_forgery_protection
-        ActionController::Base.allow_forgery_protection = true
-
-        spec.run
-      ensure
-        ActionController::Base.allow_forgery_protection = original_allow_forgery_protection
+        ActionController::Base.with(allow_forgery_protection: true) do
+          spec.run
+        end
       end
 
       it 'redirects to `/auth/failure?[...]`' do
         post('/auth/google_oauth2')
         expect(response).to redirect_to(
           '/auth/failure' \
-          '?message=ActionController%3A%3AInvalidAuthenticityToken' \
+          '?message=Forbidden' \
           '&strategy=google_oauth2',
         )
       end
