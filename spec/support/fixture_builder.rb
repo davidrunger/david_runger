@@ -20,8 +20,16 @@ FixtureBuilder.configure do |fbuilder|
     admin_user = name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com')).first
 
     # groceries
-    create(:store, user:, name: 'Another Store')
-    store = name(:store, create(:store, user:, name: 'A Long Store Name So It Wraps')).first
+    other_store = create(:store, user:, name: 'Another Store')
+    store = name(
+      :store,
+      create(
+        :store,
+        user:,
+        name: 'A Long Store Name So It Wraps',
+        viewed_at: other_store.viewed_at + 10.seconds,
+      ),
+    ).first
     name(:item, create(:item, :needed, store:, name: 'olive oil', needed: 2))
     create(:item, :unneeded, store:, name: 'apples')
 
