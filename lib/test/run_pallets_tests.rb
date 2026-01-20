@@ -9,7 +9,7 @@ Pallets.configure do |c|
 
   c.concurrency = concurrency
   c.max_failures = 0
-  c.backend_args = { url: 'redis://127.0.0.1:6379/10' } # use redis db #10 (to avoid conflicts)
+  c.backend_args = { url: 'redis://127.0.0.1:6379/15' } # Use redis db 15 (to avoid conflicts).
   c.middleware << Test::Middleware::ExitOnFailureMiddleware
   c.middleware << Test::Middleware::TaskResultTrackingMiddleware
 end

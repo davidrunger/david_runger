@@ -1,8 +1,13 @@
 class RedisOptions
   prepend Memoization
 
-  def initialize(db: nil)
-    @db = db || default_db_number
+  def initialize(db: nil, sidekiq: false)
+    @db =
+      if rails_test?
+        test_db_number(sidekiq:)
+      else
+        db || 0
+      end
   end
 
   memoize \
@@ -21,19 +26,23 @@ class RedisOptions
   end
 
   memoize \
-  def default_db_number
-    if defined?(Rails) && Rails.env.test?
-      # piggyback on the Postgres DB_SUFFIX ENV variable to choose a Redis DB number
+  def test_db_number(sidekiq:)
+    # Piggyback on the Postgres DB_SUFFIX ENV variable to choose a Redis DB number.
+    base_db_number =
       case ENV.fetch('DB_SUFFIX', nil)
       when '_unit', nil then 4
       when '_api' then 5
       when '_html' then 6
       when '_feature_a' then 7
-      when '_feature_c' then 9
+      when '_feature_c' then 8
       else raise('Unexpected DB_SUFFIX!')
       end
-    else
-      0
-    end
+
+    sidekiq ? base_db_number + 5 : base_db_number
+  end
+
+  memoize \
+  def rails_test?
+    defined?(Rails) && Rails.env.test?
   end
 end
