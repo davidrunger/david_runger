@@ -53,7 +53,8 @@ RSpec.describe ApplicationWorker do
       end
 
       context 'when a lock for that job + arguments is already in redis' do
-        before { worker.send(:lock_obtained?, []) } # this sets the lock
+        # Checking #lock_obtained? sets the lock (if it's not already set):
+        before { expect(worker.send(:lock_obtained?, [])).to eq('OK') }
 
         it "does not execute the worker's perform method" do
           call_perform
