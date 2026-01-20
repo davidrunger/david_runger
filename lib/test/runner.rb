@@ -79,7 +79,7 @@ class Test::Runner < Pallets::Workflow
         @listener.start
 
         loop do
-          # loop until the user hits enter (which will make `STDIN.ready?` true)
+          # Loop until the user hits enter (which will make `$stdin.wait_readable(0)` true).
           sleep(0.1)
           next if !$stdin.wait_readable(0)
 
