@@ -27,7 +27,7 @@ class RedisOptions
 
   memoize \
   def test_db_number(sidekiq:)
-    # piggyback on the Postgres DB_SUFFIX ENV variable to choose a Redis DB number
+    # Piggyback on the Postgres DB_SUFFIX ENV variable to choose a Redis DB number.
     base_db_number =
       case ENV.fetch('DB_SUFFIX', nil)
       when '_unit', nil then 4
