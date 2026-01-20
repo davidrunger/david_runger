@@ -64,7 +64,6 @@ RSpec.describe ApplicationWorker do
         end
 
         it "does not execute the worker's perform method" do
-          sleep(1)
           call_perform
           expect(StubbedTestJob.perform_was_called).to eq(false)
         end
