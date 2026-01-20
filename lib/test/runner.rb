@@ -79,13 +79,13 @@ class Test::Runner < Pallets::Workflow
         @listener.start
 
         loop do
-          # loop until the user hits enter (which will make `STDIN.ready?` true)
+          # Loop until the user hits enter (which will make `$stdin.wait_readable(0)` true).
           sleep(0.1)
-          next if !$stdin.ready?
+          next if !$stdin.wait_readable(0)
 
           # take these actions once the user has hit enter (confirming that the setup looks good)
           @listener.stop # stop listening for further changes to `.tests.yml`
-          $stdin.gets while $stdin.ready? # pull/clear the user's input from STDIN
+          $stdin.gets while $stdin.wait_readable(0) # pull/clear the user's input from STDIN
           break
         end
       end
