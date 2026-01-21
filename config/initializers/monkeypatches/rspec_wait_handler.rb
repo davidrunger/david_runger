@@ -1,3 +1,7 @@
+# This monkeypatch makes it so that the repeated calls (if the expectation is
+# not initially satisfied) in a `wait_for` block don't get flagged as an N + 1
+# query by Prosopite.
+
 if defined?(RSpec::Wait::Handler) && defined?(Prosopite)
   module RSpecWaitHandlerPatches
     # We are monkeypatching this method:
