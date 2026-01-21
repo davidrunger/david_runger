@@ -65,7 +65,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
     # The event might not have been created, because the tracking is inherently flaky.
     if Event.count == event_count_before + 1
-      Rails.logger.warn('A new event was found!')
+      puts(AmazingPrint::Colors.red('A new event was found!')) # rubocop:disable RSpec/Output
       new_event = Event.reorder(:created_at).last!
 
       expect(new_event).to have_attributes(
@@ -86,7 +86,9 @@ RSpec.describe 'Home page', :prerendering_disabled do
         user_id: nil,
       )
     else
-      Rails.logger.warn('No new event was found after clicking resume link.')
+      # rubocop:disable RSpec/Output
+      puts(AmazingPrint::Colors.red('No new event was found after clicking resume link.'))
+      # rubocop:enable RSpec/Output
     end
     # <<< External link click tracking
   end
