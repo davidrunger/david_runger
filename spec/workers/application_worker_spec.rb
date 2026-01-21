@@ -54,14 +54,7 @@ RSpec.describe ApplicationWorker do
 
       context 'when a lock for that job + arguments is already in redis' do
         # Checking #lock_obtained? sets the lock (if it's not already set):
-        before do
-          if worker.send(:lock_obtained?, []) != 'OK'
-            Sidekiq.redis do |conn|
-              remaining_milliseconds = conn.call('pttl', worker.send(:lock_key, []))
-              fail "#{remaining_milliseconds} milliseconds are still on lock"
-            end
-          end
-        end
+        before { expect(worker.send(:lock_obtained?, [])).to eq('OK') }
 
         it "does not execute the worker's perform method" do
           call_perform
