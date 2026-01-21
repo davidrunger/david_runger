@@ -65,7 +65,6 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
     # The event might not have been created, because the tracking is inherently flaky.
     if Event.count == event_count_before + 1
-      puts(AmazingPrint::Colors.red('A new event was found!')) # rubocop:disable RSpec/Output
       new_event = Event.reorder(:created_at).last!
 
       expect(new_event).to have_attributes(
