@@ -10,9 +10,9 @@ class Api::EventsController < Api::BaseController
 
     event = Event.create_with_stack_trace!(
       admin_user: current_admin_user,
-      data: payload_data[:data],
+      data: params[:data],
       ip: request.remote_ip,
-      type: payload_data[:type],
+      type: params[:type],
       user: current_user,
       user_agent: request.user_agent,
     )
@@ -20,11 +20,5 @@ class Api::EventsController < Api::BaseController
     FetchIpInfoForRecord.perform_async(event.class.name, event.id)
 
     head :created
-  end
-
-  private
-
-  def payload_data
-    JSON.parse(request.raw_post).with_indifferent_access
   end
 end

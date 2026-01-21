@@ -15,7 +15,10 @@ export function trackEvent(
   if (options.useSendBeacon) {
     // NOTE: uBlock Origin (and probably others) block sendBeacon requests, so
     // this tracking is not 100% reliable.
-    navigator.sendBeacon(_api_events_path, JSON.stringify(payload));
+    navigator.sendBeacon(
+      _api_events_path,
+      new Blob([JSON.stringify(payload)], { type: 'application/json' }),
+    );
   } else {
     http.post(_api_events_path, payload);
   }
