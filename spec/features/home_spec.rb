@@ -61,7 +61,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
     click_on('View Resume (pdf)')
 
-    sleep(0.1) # Sleep briefly to allow time for Event to be created.
+    wait_until { Event.count == event_count_before + 1 }
 
     # The event might not have been created, because the tracking is inherently flaky.
     if Event.count == event_count_before + 1
