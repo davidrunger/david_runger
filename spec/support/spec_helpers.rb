@@ -14,7 +14,6 @@ module SpecHelpers
         if yield
           return
         else
-          puts('SLEEPIN!')
           sleep(0.1)
         end
       end
