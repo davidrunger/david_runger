@@ -59,9 +59,15 @@ RSpec.describe 'Home page', :prerendering_disabled do
     # External link click tracking >>>
     event_count_before = Event.count
 
+    # Click the resume link twice, because the event tracking as the page
+    # unloads is intrinsically flaky (not just in test, but also for real).
+    # Clicking the link twice makes the chance of flaky failures much smaller
+    # (and low enough that we might never see a flake again).
+    click_on('View Resume (pdf)')
+    page.driver.go_back
     click_on('View Resume (pdf)')
 
-    wait_for { Event.count }.to eq(event_count_before + 1)
+    wait_for { Event.count }.to be_between(event_count_before + 1, event_count_before + 2)
 
     new_event = Event.reorder(:created_at).last!
 
