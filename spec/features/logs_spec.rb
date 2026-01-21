@@ -103,6 +103,7 @@ RSpec.describe 'Logs app' do
             within('.el-popconfirm') do
               click_on('Yes')
             end
+            wait_for { LogEntry.find_by(id: most_recent_log_entry.id) }.to eq(nil)
           }.to change {
             LogEntry.find_by(id: most_recent_log_entry.id)
           }.from(LogEntry).to(nil)
