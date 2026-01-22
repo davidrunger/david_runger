@@ -15,8 +15,11 @@ RSpec.describe QuizParticipationsController do
       context 'when the user submits a name' do
         let(:display_name) { 'Al' }
 
-        it 'creates a QuizParticipation for the user' do
+        it 'creates a QuizParticipation for the user, does not set any flash alert message, and responds with a redirect to the quiz show page', :aggregate_failures do
           expect { post_create }.to change { user.reload.quiz_participations.size }.by(1)
+          expect(flash[:alert]).to be_blank
+          expect(response).to have_http_status(302)
+          expect(response).to redirect_to(quiz_path(quiz))
         end
       end
 
