@@ -2,7 +2,7 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-# Make sure that PR to update docker-compose.yml to Postgres 17 is ready to merge.
+# Make sure that PR to update docker-compose.yml to Postgres 18 is ready to merge.
 
 # Check git status.
 git status
