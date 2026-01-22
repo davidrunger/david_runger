@@ -36,7 +36,7 @@
     "highlight.js": "^11.11.1",
     "js-cookie": "^3.0.5",
     "ky": "^1.14.2",
-    "lodash-es": "^4.17.22",
+    "lodash-es": "^4.17.23",
     "luxon": "^3.7.2",
     "marked": "^17.0.1",
     "marked-highlight": "^2.2.3",
