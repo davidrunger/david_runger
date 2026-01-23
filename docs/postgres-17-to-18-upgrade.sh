@@ -76,7 +76,7 @@ git status
 rm backup.sql
 
 # Undo changes to docker-compose.yml.
-git checkout .
+git checkout docker-compose.yml
 
 # Check git status.
 git status
