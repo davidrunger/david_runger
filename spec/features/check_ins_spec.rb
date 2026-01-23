@@ -86,6 +86,9 @@ RSpec.describe 'Check-Ins app' do
 
           click_on('Create a new check-in')
 
+          # Wait for navigation to the show page of the new CheckIn.
+          expect(page).to have_text(/Marriage Check-In #\d+/)
+
           check_in = CheckIn.order(:created_at).last!
           expect(page).to have_current_path(check_in_path(check_in))
 
