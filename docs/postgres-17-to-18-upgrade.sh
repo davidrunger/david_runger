@@ -43,7 +43,7 @@ docker compose exec postgres pg_dumpall -U david_runger > backup.sql
 git status
 
 # Check that the backup file is approximately the expected size.
-ls -lah backup.sql
+ls -lh backup.sql
 
 # Do a sanity check on the formatting of the backup file.
 head -5 backup.sql | grep -q "PostgreSQL" && echo "✓ Backup format looks correct"
