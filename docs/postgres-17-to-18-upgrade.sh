@@ -45,6 +45,9 @@ git status
 # Check that the backup file is approximately the expected size.
 ls -lah backup.sql
 
+# Do a sanity check on the formatting of the backup file.
+head -5 backup.sql | grep -q "PostgreSQL" && echo "✓ Backup format looks correct"
+
 # Bring down the database.
 docker compose down postgres
 
