@@ -43,7 +43,7 @@ docker compose exec postgres pg_dumpall -U david_runger > backup.sql
 git status
 
 # Check that the backup file is approximately the expected size.
-ls -lah backup.sql
+ls -lh backup.sql
 
 # Bring down the database.
 docker compose down postgres
