@@ -16,10 +16,10 @@ docker compose exec postgres psql -U david_runger david_runger_production -c 'SE
 bin/qr
 
 # Update Postgres from 17.6 to 18.0 in docker-compose.yml.
-sed -i 's/postgres:17.6-alpine/postgres:18.0-alpine/g' docker-compose.yml
+sed -i'' 's/postgres:17.6-alpine/postgres:18.0-alpine/g' docker-compose.yml
 
 # Switch to new Postgres data volume in docker-compose.yml.
-sed -i 's/postgres-data-v17:/postgres-data-v18:/g' docker-compose.yml
+sed -i'' 's/postgres-data-v17:/postgres-data-v18:/g' docker-compose.yml
 
 # Check git status.
 git status
