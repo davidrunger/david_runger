@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 10
     services:
       postgres:
-        image: postgres
+        image: postgres:18.0-alpine
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -33,7 +33,7 @@ jobs:
         ports:
           - 5432:5432
       redis:
-        image: redis
+        image: redis:8.2.1-alpine
         # Set health checks to wait until redis has started
         options: >-
           --health-cmd "redis-cli ping"
