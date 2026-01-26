@@ -100,7 +100,7 @@
     "vite-plugin-ruby": "^5.1.2",
     "vitest": "^4.0.18",
     "vue-eslint-parser": "^10.2.0",
-    "vue-tsc": "^3.2.3"
+    "vue-tsc": "^3.2.4"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
