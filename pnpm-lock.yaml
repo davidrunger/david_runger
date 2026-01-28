@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@activeadmin/activeadmin':
-        specifier: 4.0.0-beta19
-        version: 4.0.0-beta19(rollup@4.57.0)
+        specifier: 4.0.0-beta20
+        version: 4.0.0-beta20(rollup@4.57.0)
       '@davidrunger/vue-model-explorer':
         specifier: ^0.3.1
         version: 0.3.1(vue@3.5.27(typescript@5.9.3))
@@ -282,8 +282,8 @@ packages:
   '@acemir/cssom@0.9.31':
     resolution: {integrity: sha512-ZnR3GSaH+/vJ0YlHau21FjfLYjMpYVIzTD8M8vIEQvIGxeOXyXdzCI140rrCY862p/C/BbzWsjc1dgnM9mkoTA==}
 
-  '@activeadmin/activeadmin@4.0.0-beta19':
-    resolution: {integrity: sha512-U/5yHRqlY21etaWK6zsN0O0Flwp/hoajbG1kt2OoiMl+yo3GlV10AM50j6cJioRCP7L0L3wtyAjO+aVJUWCbDg==}
+  '@activeadmin/activeadmin@4.0.0-beta20':
+    resolution: {integrity: sha512-xsA9aOTGAh6ZquOMSvNukMbIiuf+/+xesvXs0aZHA7h9Dqd9CpNzj19ns5rWmgJesXyY5hz3GJhrt+q7ApL0wQ==}
 
   '@asamuzakjp/css-color@4.1.1':
     resolution: {integrity: sha512-B0Hv6G3gWGMn0xKJ0txEi/jM5iFpT3MfDxmhZFb4W047GvytCf1DHQ1D69W3zHI4yWe2aTZAA0JnbMZ7Xc8DuQ==}
@@ -4808,7 +4808,7 @@ snapshots:
 
   '@acemir/cssom@0.9.31': {}
 
-  '@activeadmin/activeadmin@4.0.0-beta19(rollup@4.57.0)':
+  '@activeadmin/activeadmin@4.0.0-beta20(rollup@4.57.0)':
     dependencies:
       '@rails/ujs': 7.1.600
       flowbite: 3.1.2(rollup@4.57.0)
