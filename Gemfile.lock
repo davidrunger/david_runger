@@ -79,14 +79,14 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activeadmin (4.0.0.beta19)
+    activeadmin (4.0.0.beta20)
       arbre (~> 2.0)
       csv
       formtastic (>= 5.0)
       formtastic_i18n (>= 0.7)
       inherited_resources (~> 2.0)
       kaminari (>= 1.2.1)
-      railties (>= 7.0)
+      railties (>= 7.2)
       ransack (>= 4.0)
     activejob (8.1.2)
       activesupport (= 8.1.2)
@@ -466,7 +466,7 @@ GEM
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.8.0)
+    prism (1.9.0)
     prometheus_exporter (2.3.1)
       webrick
     propshaft (1.3.1)
@@ -869,7 +869,7 @@ CHECKSUMS
   actionpack (8.1.2) sha256=ced74147a1f0daafaa4bab7f677513fd4d3add574c7839958f7b4f1de44f8423
   actiontext (8.1.2) sha256=0bf57da22a9c19d970779c3ce24a56be31b51c7640f2763ec64aa72e358d2d2d
   actionview (8.1.2) sha256=80455b2588911c9b72cec22d240edacb7c150e800ef2234821269b2b2c3e2e5b
-  activeadmin (4.0.0.beta19) sha256=b0a01eeb217b51d72e68929beb6a654ef98dda38c6ddfa1b956f8b13e15f3164
+  activeadmin (4.0.0.beta20) sha256=6e3716756011516daea7726492133c62f173dda27c25b146f443ba3dc07cbd81
   activejob (8.1.2) sha256=908dab3713b101859536375819f4156b07bdf4c232cc645e7538adb9e302f825
   activemodel (8.1.2) sha256=e21358c11ce68aed3f9838b7e464977bc007b4446c6e4059781e1d5c03bcf33e
   activemodel-serializers-xml (1.0.3) sha256=fa1b16305e7254cc58a59c68833e3c0a593a59c8ab95d3be5aaea7cd9416c397
@@ -1034,7 +1034,7 @@ CHECKSUMS
   pghero (3.7.0) sha256=a8d8497095dbe168bb03fe50a11309ab068cd1c1ef4c88d9bbeb97be4809f522
   pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
-  prism (1.8.0) sha256=84453a16ef5530ea62c5f03ec16b52a459575ad4e7b9c2b360fd8ce2c39c1254
+  prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
   prometheus_exporter (2.3.1) sha256=c501a7a46c3a3b515b152eecfaeffa65fd0b4c02d8e617a476c6d67a91fc6a04
   propshaft (1.3.1) sha256=9acc664ef67e819ffa3d95bd7ad4c3623ea799110c5f4dee67fa7e583e74c392
   prosopite (2.1.2) sha256=ca474e5b83bf65cdb1b3d44f848ceb3270c1e3474a9c20fd9228114bf766fd0b
