@@ -43,16 +43,16 @@ class CiStepResultsPresenter
         'ci_step_results.branch',
         'ci_step_results.github_run_id',
         'ci_step_results.github_run_attempt',
-        <<-SQL.squish,
-      JSON_AGG(
-        JSON_BUILD_OBJECT(
-          'name', ci_step_results.name,
-          'started_at', ci_step_results.started_at,
-          'stopped_at', ci_step_results.stopped_at,
-          'seconds', ci_step_results.seconds
-        ) ORDER BY ci_step_results.started_at
-      ) AS run_times
-    SQL
+        <<~SQL.squish,
+          JSON_AGG(
+            JSON_BUILD_OBJECT(
+              'name', ci_step_results.name,
+              'started_at', ci_step_results.started_at,
+              'stopped_at', ci_step_results.stopped_at,
+              'seconds', ci_step_results.seconds
+            ) ORDER BY ci_step_results.started_at
+          ) AS run_times
+        SQL
       ).
       group(:branch, :github_run_id, :github_run_attempt).
       order(min_started_at: :desc).
