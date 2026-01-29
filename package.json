@@ -13,7 +13,7 @@
     "@activeadmin/activeadmin": "4.0.0-beta20",
     "@davidrunger/vue-model-explorer": "^0.3.1",
     "@hotwired/turbo": "^8.0.22",
-    "@hotwired/turbo-rails": "^8.0.21",
+    "@hotwired/turbo-rails": "^8.0.22",
     "@rails/actioncable": "^8.1.200",
     "@rails/ujs": "^7.1.600",
     "@tailwindcss/vite": "^4.1.18",
