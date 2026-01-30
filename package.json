@@ -12,7 +12,7 @@
   "dependencies": {
     "@activeadmin/activeadmin": "4.0.0-beta20",
     "@davidrunger/vue-model-explorer": "^0.3.1",
-    "@hotwired/turbo": "^8.0.22",
+    "@hotwired/turbo": "^8.0.23",
     "@hotwired/turbo-rails": "^8.0.22",
     "@rails/actioncable": "^8.1.200",
     "@rails/ujs": "^7.1.600",
@@ -52,7 +52,7 @@
     "vega-lite": "^6.4.2",
     "vue": "^3.5.27",
     "vue-chartjs": "^5.3.3",
-    "vue-router": "^4.6.4",
+    "vue-router": "^5.0.0",
     "vue-tabler-icons": "^2.21.0",
     "vue-toastification": "2.0.0-rc.5",
     "vue-types": "^6.0.0",
