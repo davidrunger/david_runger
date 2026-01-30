@@ -24,29 +24,6 @@
       "note": "False positive"
     },
     {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "72711ad6969090a4a1ed4b7a6fdc22e4fe0ed549207998bdef6ceba0bb170d54",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "tools/json_schemas_to_typescript.rb",
-      "line": 67,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "system(\"./node_modules/.bin/quicktype\\n  --src-lang schema\\n  #{schema_path}\\n  --out #{types_path(schema_path)}\\n  --just-types\\n\".squish, :exception => true)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "JsonSchemasToTypescript",
-        "method": "s(:self).write_files"
-      },
-      "user_input": "schema_path",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": "We are not accepting user input here, just iterating over our own paths."
-    },
-    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "c0ff216b8aef89a80825bb5f0b11e4d6dc40575227e26364420c2ff22a03704c",
@@ -91,7 +68,30 @@
         89
       ],
       "note": "False positive"
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "f789370c19ac99deac07d258de2017d899983b5fb7981bf539fea038b747253f",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "tools/json_schemas_to_typescript.rb",
+      "line": 67,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "system(\"./node_modules/.bin/quicktype\\n  --src-lang schema\\n  #{schema_path}\\n  --out #{types_path(schema_path)}\\n  --just-types\\n\".squish, :exception => true)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "JsonSchemasToTypescript",
+        "method": "self.write_files"
+      },
+      "user_input": "schema_path",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "The interpolated variables are file paths and cannot be input by a user."
     }
   ],
-  "brakeman_version": "7.0.2"
+  "brakeman_version": "8.0.1"
 }
