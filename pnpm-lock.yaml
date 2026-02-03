@@ -114,8 +114,8 @@ importers:
         specifier: ^1.12.0
         version: 1.12.0
       tom-select:
-        specifier: ^2.4.3
-        version: 2.4.3
+        specifier: ^2.4.4
+        version: 2.4.4
       unplugin-element-plus:
         specifier: ^0.11.2
         version: 0.11.2
@@ -4221,8 +4221,8 @@ packages:
   token-stream@1.0.0:
     resolution: {integrity: sha512-VSsyNPPW74RpHwR8Fc21uubwHY7wMDeJLys2IX5zJNih+OnAnaifKHo+1LHT7DAdloQ7apeaaWg8l7qnf/TnEg==}
 
-  tom-select@2.4.3:
-    resolution: {integrity: sha512-MFFrMxP1bpnAMPbdvPCZk0KwYxLqhYZso39torcdoefeV/NThNyDu8dV96/INJ5XQVTL3O55+GqQ78Pkj5oCfw==}
+  tom-select@2.4.4:
+    resolution: {integrity: sha512-r/Baud+mSVQbibYRIOqJJJl7Iwm4aPNLSL5gSZm8Uns/IKY62TrSRCiF5vxUhWv5YFdkW/iyWHKZpWgRxcf7Ww==}
 
   topojson-client@3.1.0:
     resolution: {integrity: sha512-605uxS6bcYxGXw9qi62XyrV6Q3xwbndjachmNxu8HWTtVPxZfEJN9fd/SZS1Q54Sn2y0TMyMxFj/cJINqGHrKw==}
@@ -9089,7 +9089,7 @@ snapshots:
 
   token-stream@1.0.0: {}
 
-  tom-select@2.4.3:
+  tom-select@2.4.4:
     dependencies:
       '@orchidjs/sifter': 1.1.0
       '@orchidjs/unicode-variants': 1.1.2
