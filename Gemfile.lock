@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/davidrunger/pallets.git
-  revision: 420ded99b1d02a73820732521930a7e799b56e13
+  revision: 58d01a6ad68b696cd1be19428851d5ad35424b9c
   specs:
     pallets (0.11.0)
       msgpack
