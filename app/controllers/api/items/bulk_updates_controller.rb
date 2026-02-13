@@ -14,7 +14,7 @@ class Api::Items::BulkUpdatesController < Api::BaseController
   end
 
   def bulk_update_params
-    params.expect(bulk_update: [item_ids: [], attributes_change: {}])
+    params.expect(bulk_update: [{ item_ids: [], attributes_change: {} }])
   end
 
   def attributes_change
