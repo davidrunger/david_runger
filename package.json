@@ -99,7 +99,7 @@
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-ruby": "^5.1.2",
     "vitest": "^4.0.18",
-    "vue-eslint-parser": "^10.2.0",
+    "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.4"
   },
   "pnpm": {
