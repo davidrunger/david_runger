@@ -1,0 +1,7 @@
+/* Disable vue-toastification animation to minimize flakiness. */
+.Vue-Toastification__container *,
+.Vue-Toastification__toast {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}

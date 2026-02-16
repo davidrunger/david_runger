@@ -37,6 +37,8 @@
     - if Rails.env.development? && !ENV['PRODUCTION_ASSET_CONFIG'].present?
       = vite_client_tag
     = ts_tag('styles')
+    - if Rails.env.test?
+      = ts_tag('test_styles')
     = content_for(:extra_css)
     = content_for(:page_assets)
 
