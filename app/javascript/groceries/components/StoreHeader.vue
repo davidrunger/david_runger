@@ -64,12 +64,19 @@ const {
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
 
 function togglePrivacy() {
-  groceriesStore.updateStore({
-    store: props.store,
-    attributes: {
-      private: !props.store.private,
-    },
-  });
+  const targetState = props.store.private ? 'public' : 'private';
+  const confirmed = confirm(
+    `Are you sure that you want to make '${props.store.name}' ${targetState}?`,
+  );
+
+  if (confirmed) {
+    groceriesStore.updateStore({
+      store: props.store,
+      attributes: {
+        private: !props.store.private,
+      },
+    });
+  }
 }
 </script>
 
