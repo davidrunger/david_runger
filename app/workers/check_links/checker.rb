@@ -50,7 +50,7 @@ class CheckLinks::Checker
 
     Rails.logger.info(<<~LOG.squish)
       [#{self.class.name}] #{url} returned #{status.inspect}
-      (expected #{expected_statuses.map(&:to_s).join(' or ')}).
+      (expected #{expected_statuses.join(' or ')}).
     LOG
 
     if !status.in?(expected_statuses)

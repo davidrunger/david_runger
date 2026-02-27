@@ -8,13 +8,14 @@ module JsonPrioritizable
   def prioritize_json_format
     if request.accepts.any?
       # Parse accept header directly since Mime::Type doesn't expose parameters
-      accepts = request.headers['Accept'].to_s.split(',').map do |accept|
-        type, params = accept.strip.split(';')
-        # rubocop:disable Lint/NumberConversion
-        q = params&.match(/q=([0-9.]+)/)&.[](1)&.to_f || 1.0
-        # rubocop:enable Lint/NumberConversion
-        [type, q]
-      end.sort_by { |_, q| -q } # Sort by q value descending
+      accepts =
+        request.headers['Accept'].to_s.split(',').map do |accept|
+          type, params = accept.strip.split(';')
+          # rubocop:disable Lint/NumberConversion
+          q = params&.match(/q=([0-9.]+)/)&.[](1)&.to_f || 1.0
+          # rubocop:enable Lint/NumberConversion
+          [type, q]
+        end.sort_by { |_, q| -q } # Sort by q value descending
 
       json_priority = accepts.find { |type, _| type == 'application/json' }&.last || 0
       highest_priority = accepts.first&.last || 0

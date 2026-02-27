@@ -106,7 +106,7 @@ module Test::TaskHelpers
 
         puts(exception.backtrace)
 
-        args_string = "[#{args.map(&:to_s).join(',')}]"
+        args_string = "[#{args.join(',')}]"
         record_failed_command("bin/rails #{task_name}#{args_string if !args.empty?}")
         record_failure_and_log_message(
           "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
