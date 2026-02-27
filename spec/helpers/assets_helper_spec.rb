@@ -15,7 +15,9 @@ RSpec.describe AssetsHelper do
           end
         end
 
-        context 'when a request to "http://localhost:3036/vite-admin/admin_entrypoints/#{entrypoint_name}.ts" returns 200' do
+        # rubocop:disable Lint/InterpolationCheck
+        context 'when a request to "http://localhost:3036/vite-adm_entrypoi nts/#{entrypoint_name}.ts" returns 200' do
+          # rubocop:enable Lint/InterpolationCheck
           before do
             stub_request(
               :get,
