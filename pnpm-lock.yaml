@@ -60,8 +60,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0
       element-plus:
-        specifier: ^2.13.3
-        version: 2.13.3(vue@3.5.29(typescript@5.9.3))
+        specifier: ^2.13.4
+        version: 2.13.4(vue@3.5.29(typescript@5.9.3))
       emojilib:
         specifier: ^4.0.2
         version: 4.0.2
@@ -400,9 +400,9 @@ packages:
     peerDependencies:
       postcss-selector-parser: ^7.1.1
 
-  '@ctrl/tinycolor@3.6.1':
-    resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
-    engines: {node: '>=10'}
+  '@ctrl/tinycolor@4.2.0':
+    resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
+    engines: {node: '>=14'}
 
   '@davidrunger/vue-model-explorer@0.3.1':
     resolution: {integrity: sha512-el8eYCHoYH/Ers0zvGTpfJ8u81iK3xq7M88zD7kYBy1aB+XZtMn69ZI4lp1LdkpgTyxfNsNtvHTYY9EHfuMmpg==}
@@ -2269,8 +2269,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  element-plus@2.13.3:
-    resolution: {integrity: sha512-RwLVtFpeHjZ4UCtHxVi1/sGR2cr2xOL7hqWa7qJc/+gdO6QavVG8Nw1C647obCb3tIg2ztMhNbIIjZUv+6z1og==}
+  element-plus@2.13.4:
+    resolution: {integrity: sha512-RiPWp+lD3cuEqJPHkqGixZcuv+dy7z6FFOTZORIAAoGaOrxA2jsuefY7BmB5aa3VNjKL4pTu8ekfZPSnLx4Z9w==}
     peerDependencies:
       vue: ^3.3.0
 
@@ -5014,7 +5014,7 @@ snapshots:
     dependencies:
       postcss-selector-parser: 7.1.1
 
-  '@ctrl/tinycolor@3.6.1': {}
+  '@ctrl/tinycolor@4.2.0': {}
 
   '@davidrunger/vue-model-explorer@0.3.1(vue@3.5.29(typescript@5.9.3))':
     dependencies:
@@ -6906,9 +6906,9 @@ snapshots:
       minimatch: 9.0.9
       semver: 7.7.4
 
-  element-plus@2.13.3(vue@3.5.29(typescript@5.9.3)):
+  element-plus@2.13.4(vue@3.5.29(typescript@5.9.3)):
     dependencies:
-      '@ctrl/tinycolor': 3.6.1
+      '@ctrl/tinycolor': 4.2.0
       '@element-plus/icons-vue': 2.3.2(vue@3.5.29(typescript@5.9.3))
       '@floating-ui/dom': 1.7.6
       '@popperjs/core': '@sxzz/popperjs-es@2.11.8'
