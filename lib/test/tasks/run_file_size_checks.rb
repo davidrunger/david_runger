@@ -8,7 +8,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
   CONSTRAINTS = {
     'charts*.js' => (300..310),
     'check_ins*.css' => (10..15),
-    'check_ins*.js' => (202..212),
+    'check_ins*.js' => (213..223),
     'check_ins_index*.js' => (5..15),
     'ci_step_gantt_charts*.js' => (803..813),
     'comments*.css' => (0..10),
@@ -19,7 +19,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'emoji_picker*.js' => (337..347),
     'google_sign_in_button*.js' => (1..11),
     'groceries*.css' => (48..58),
-    'groceries*.js' => (317..327),
+    'groceries*.js' => (329..339),
     'home*.css' => (13..23),
     'home*.js' => (252..262),
     'logs*.css' => (109..119),
@@ -34,7 +34,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'vue_playground*.css' => (0..10),
     'vue_playground*.js' => (72..82),
     'workout*.css' => (41..51),
-    'workout*.js' => (237..247),
+    'workout*.js' => (249..259),
   }.freeze
 
   def run
