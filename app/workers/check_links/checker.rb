@@ -23,6 +23,11 @@ class CheckLinks::Checker
     https://github.com/davidrunger/blog/edit/main/src/_posts/
   ].map(&:freeze).freeze
   REDIRECTING_URL_REGEX = /\A(#{redirecting_url_prefixes.map { Regexp.escape(it) }.join('|')}).+/
+  URL_STATUS_EXPECTATIONS = [
+    [LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX, 302],
+    [REDIRECTING_URL_REGEX, 302],
+    [%r{\Ahttps://github\.com/.+/blob/.+}, [200, 429]],
+  ].freeze
   # rubocop:disable Style/MutableConstant
   STATUS_EXPECTATIONS = {
     'https://www.commonlit.org/' => [200, 403],
@@ -32,14 +37,7 @@ class CheckLinks::Checker
   }
   STATUS_EXPECTATIONS.default_proc =
     proc do |_hash, url|
-      if (
-        url.match?(LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX) ||
-          url.match?(REDIRECTING_URL_REGEX)
-      )
-        302
-      else
-        200
-      end
+      URL_STATUS_EXPECTATIONS.find { url.match?(it.first) }&.last || 200
     end
   STATUS_EXPECTATIONS.freeze
   # rubocop:enable Style/MutableConstant

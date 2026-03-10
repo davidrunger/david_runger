@@ -102,6 +102,40 @@ RSpec.describe CheckLinks::Checker do
       end
     end
 
+    context 'when requesting a GitHub file URL' do
+      let(:url) { 'https://github.com/davidrunger/david_runger/blob/main/docs/postgres-17-to-18-upgrade.sh' }
+
+      context 'when the link returns 200' do
+        let(:status) { 200 }
+
+        it 'does not mark the failure in Redis' do
+          expect { perform }.not_to change {
+            $redis_pool.with { it.call('get', redis_failure_key) }
+          }.from(nil)
+        end
+      end
+
+      context 'when the link returns 429' do
+        let(:status) { 429 }
+
+        it 'does not mark the failure in Redis' do
+          expect { perform }.not_to change {
+            $redis_pool.with { it.call('get', redis_failure_key) }
+          }.from(nil)
+        end
+      end
+
+      context 'when the link returns 404' do
+        let(:status) { 404 }
+
+        it 'marks the failure in Redis' do
+          expect { perform }.to change {
+            $redis_pool.with { it.call('get', redis_failure_key) }
+          }.from(nil).to('1')
+        end
+      end
+    end
+
     describe 'cacheing', :cache do
       let(:different_target_url) { 'https://davidrunger.com/a-different-checked-url' }
 
