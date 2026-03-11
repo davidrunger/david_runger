@@ -4,7 +4,7 @@ import {
   vueTsConfigs,
 } from '@vue/eslint-config-typescript';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
+import importX from 'eslint-plugin-import-x';
 import pluginVue from 'eslint-plugin-vue';
 import globals from 'globals';
 import { configs as tseslintConfigs } from 'typescript-eslint';
@@ -13,8 +13,8 @@ import parser from 'vue-eslint-parser';
 export default defineConfigWithVueTs(
   js.configs.recommended,
   tseslintConfigs.strict,
-  importPlugin.flatConfigs.recommended,
-  importPlugin.flatConfigs.typescript,
+  importX.flatConfigs.recommended,
+  importX.flatConfigs.typescript,
   pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommendedTypeChecked,
   eslintConfigPrettier,
@@ -42,23 +42,11 @@ export default defineConfigWithVueTs(
       },
 
       parser,
-      ecmaVersion: 5,
+      ecmaVersion: 'latest',
       sourceType: 'module',
 
       parserOptions: {
         parser: '@typescript-eslint/parser',
-      },
-    },
-
-    settings: {
-      'import/parsers': {
-        '@typescript-eslint/parser': ['.ts'],
-      },
-
-      'import/resolver': {
-        typescript: {
-          alwaysTryTypes: true,
-        },
       },
     },
 
@@ -68,7 +56,7 @@ export default defineConfigWithVueTs(
       '@typescript-eslint/no-unused-vars': 'off',
       'arrow-parens': 'off',
       'function-paren-newline': 'off',
-      'import/extensions': [
+      'import-x/extensions': [
         'error',
         'ignorePackages',
         {
@@ -76,14 +64,16 @@ export default defineConfigWithVueTs(
           ts: 'never',
         },
       ],
-      'import/no-extraneous-dependencies': 'off',
-      'import/no-unresolved': [
+      'import-x/no-extraneous-dependencies': 'off',
+      'import-x/no-named-as-default': 'off',
+      'import-x/no-named-as-default-member': 'off',
+      'import-x/no-unresolved': [
         'error',
         {
           ignore: ['chartjs-adapter-luxon', 'vue-chartjs'],
         },
       ],
-      'import/prefer-default-export': 'off',
+      'import-x/prefer-default-export': 'off',
       'newline-per-chained-call': 'off',
       'no-alert': 'off',
       'no-console': 'warn',
