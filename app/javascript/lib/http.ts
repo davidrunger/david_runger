@@ -1,5 +1,5 @@
-import ky from 'ky';
 import { identity, pickBy } from 'es-toolkit/compat';
+import ky from 'ky';
 
 import { csrfToken } from '@/lib/csrfToken';
 

@@ -1,5 +1,5 @@
-import Fuse, { IFuseOptions } from 'fuse.js';
 import { map } from 'es-toolkit/compat';
+import Fuse, { IFuseOptions } from 'fuse.js';
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 
 export function useFuzzyTypeahead<T extends object>({
