@@ -8,7 +8,7 @@ a.nav-link(
 </template>
 
 <script setup lang="ts">
-import { capitalize } from 'lodash-es';
+import { capitalize } from 'es-toolkit/compat';
 import { computed } from 'vue';
 import { string } from 'vue-types';
 

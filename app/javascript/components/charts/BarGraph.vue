@@ -22,7 +22,7 @@ import {
   type ChartData,
   type ChartOptions,
 } from 'chart.js';
-import { merge } from 'lodash-es';
+import { merge } from 'es-toolkit/compat';
 import { computed } from 'vue';
 import { Bar } from 'vue-chartjs';
 import { number, object, string } from 'vue-types';

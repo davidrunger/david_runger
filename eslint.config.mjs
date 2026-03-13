@@ -82,17 +82,6 @@ export default defineConfigWithVueTs(
       'no-new': 'off',
       'no-param-reassign': 'off',
       'no-plusplus': 'off',
-      'no-restricted-imports': [
-        'error',
-        {
-          paths: [
-            {
-              name: 'lodash',
-              message: 'Use lodash-es.',
-            },
-          ],
-        },
-      ],
       'no-restricted-syntax': [
         'error',
         'ForInStatement',

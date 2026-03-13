@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import type { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
-import { sortBy } from 'lodash-es';
+import { sortBy } from 'es-toolkit/compat';
 import { computed } from 'vue';
 import { object } from 'vue-types';
 

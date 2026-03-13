@@ -1,4 +1,4 @@
-import { filter, get, last, pick, sortBy } from 'lodash-es';
+import { filter, get, last, pick, sortBy } from 'es-toolkit/compat';
 import { defineStore } from 'pinia';
 import { POSITION } from 'vue-toastification';
 

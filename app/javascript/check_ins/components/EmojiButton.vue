@@ -8,7 +8,7 @@ button.bg-slate-200(
 </template>
 
 <script setup lang="ts">
-import { sample } from 'lodash-es';
+import { sample } from 'es-toolkit/compat';
 import { computed } from 'vue';
 import { bool, integer, object } from 'vue-types';
 

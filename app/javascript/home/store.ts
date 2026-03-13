@@ -1,4 +1,4 @@
-import { last, pull, sortBy } from 'lodash-es';
+import { last, pull, sortBy } from 'es-toolkit/compat';
 import { defineStore } from 'pinia';
 
 import { assert } from '@/lib/helpers';

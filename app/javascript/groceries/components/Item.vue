@@ -43,7 +43,7 @@ li.grocery-item.flex.items-center.w-full(
 </template>
 
 <script setup lang="ts">
-import { debounce } from 'lodash-es';
+import { debounce } from 'es-toolkit/compat';
 import { EditIcon, MinusIcon, PlusIcon, XIcon } from 'vue-tabler-icons';
 import { bool, object } from 'vue-types';
 

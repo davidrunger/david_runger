@@ -1,4 +1,4 @@
-import { isObject } from 'lodash-es';
+import { isObject } from 'es-toolkit/compat';
 
 import { TextLogEntry } from '@/logs/types';
 import { LogEntry } from '@/types';

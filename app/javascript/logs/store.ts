@@ -1,4 +1,4 @@
-import { last, sortBy } from 'lodash-es';
+import { last, sortBy } from 'es-toolkit/compat';
 import { defineStore } from 'pinia';
 import { nextTick } from 'vue';
 

@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { sortBy } from 'lodash-es';
+import { sortBy } from 'es-toolkit/compat';
 import { computed } from 'vue';
 import { object } from 'vue-types';
 

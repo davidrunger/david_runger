@@ -24,7 +24,7 @@ import {
   type Point,
   type TooltipItem,
 } from 'chart.js';
-import { merge } from 'lodash-es';
+import { merge } from 'es-toolkit/compat';
 import { Line as VueLine } from 'vue-chartjs';
 
 import 'chartjs-adapter-luxon';

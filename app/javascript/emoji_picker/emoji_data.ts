@@ -1,6 +1,6 @@
 import { watchDebounced } from '@vueuse/core';
 import EmojiLibData from 'emojilib';
-import { flatMap, isEqual } from 'lodash-es';
+import { flatMap, isEqual } from 'es-toolkit/compat';
 import { computed, ref } from 'vue';
 
 import { type Bootstrap } from '@/emoji_picker/types';
