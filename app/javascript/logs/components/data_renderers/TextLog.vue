@@ -19,7 +19,7 @@ div
 
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
-import { sortBy } from 'lodash-es';
+import { sortBy } from 'es-toolkit/compat';
 import { computed, ref } from 'vue';
 import { object } from 'vue-types';
 

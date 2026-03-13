@@ -26,7 +26,7 @@ div(v-else) None
 
 <script setup lang="ts">
 import { ElCheckbox } from 'element-plus';
-import { sortBy } from 'lodash-es';
+import { sortBy } from 'es-toolkit/compat';
 import strftime from 'strftime';
 import { computed } from 'vue';
 import { array, bool } from 'vue-types';

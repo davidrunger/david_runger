@@ -1,5 +1,5 @@
 import ky from 'ky';
-import { identity, pickBy } from 'lodash-es';
+import { identity, pickBy } from 'es-toolkit/compat';
 
 import { csrfToken } from '@/lib/csrfToken';
 
