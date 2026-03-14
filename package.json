@@ -40,7 +40,7 @@
     "marked": "^17.0.4",
     "marked-highlight": "^2.2.3",
     "pinia": "^3.0.4",
-    "pug": "^3.0.3",
+    "pug": "^3.0.4",
     "strftime": "^0.10.3",
     "tailwindcss": "^4.2.1",
     "toastify-js": "^1.12.0",
