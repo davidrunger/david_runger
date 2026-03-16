@@ -81,7 +81,7 @@
     "eslint-plugin-import-x": "^4.16.2",
     "fishery": "^2.4.0",
     "globals": "^17.4.0",
-    "jsdom": "^28.1.0",
+    "jsdom": "^29.0.0",
     "postcss-html": "^1.8.1",
     "prettier": "^3.8.1",
     "quicktype": "^23.2.6",
