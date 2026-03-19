@@ -6,25 +6,25 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
 
   # file size constraints in kilobytes
   CONSTRAINTS = {
-    'charts*.js' => (300..310),
+    'charts*.js' => (294..304),
     'check_ins*.css' => (10..15),
-    'check_ins*.js' => (213..223),
+    'check_ins*.js' => (204..214),
     'check_ins_index*.js' => (5..15),
-    'ci_step_gantt_charts*.js' => (803..813),
+    'ci_step_gantt_charts*.js' => (795..805),
     'comments*.css' => (0..10),
-    'comments*.js' => (340..350),
+    'comments*.js' => (332..342),
     'copy_to_clipboard*.css' => (0..10),
     'copy_to_clipboard*.js' => (2..12),
     'emoji_picker*.css' => (8..18),
     'emoji_picker*.js' => (337..347),
     'google_sign_in_button*.js' => (1..11),
     'groceries*.css' => (48..58),
-    'groceries*.js' => (338..348),
+    'groceries*.js' => (324..334),
     'home*.css' => (13..23),
-    'home*.js' => (252..262),
+    'home*.js' => (245..255),
     'logs*.css' => (109..119),
-    'logs*.js' => (859..869),
-    'model_graph*.js' => (623..633),
+    'logs*.js' => (843..853),
+    'model_graph*.js' => (614..624),
     'model_graph*.css' => (2..12),
     'quizzes*.js' => (123..133),
     'styles*.css' => (14..24),
@@ -34,7 +34,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'vue_playground*.css' => (0..10),
     'vue_playground*.js' => (72..82),
     'workout*.css' => (41..51),
-    'workout*.js' => (258..268),
+    'workout*.js' => (247..257),
   }.freeze
 
   def run
