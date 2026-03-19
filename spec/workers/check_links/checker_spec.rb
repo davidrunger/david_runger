@@ -136,6 +136,40 @@ RSpec.describe CheckLinks::Checker do
       end
     end
 
+    context 'when requesting appacademy.io' do
+      let(:url) { 'https://www.appacademy.io/' }
+
+      context 'when the link returns 200' do
+        let(:status) { 200 }
+
+        it 'does not mark the failure in Redis' do
+          expect { perform }.not_to change {
+            $redis_pool.with { it.call('get', redis_failure_key) }
+          }.from(nil)
+        end
+      end
+
+      context 'when the link returns 403' do
+        let(:status) { 403 }
+
+        it 'does not mark the failure in Redis' do
+          expect { perform }.not_to change {
+            $redis_pool.with { it.call('get', redis_failure_key) }
+          }.from(nil)
+        end
+      end
+
+      context 'when the link returns 302' do
+        let(:status) { 302 }
+
+        it 'marks the failure in Redis' do
+          expect { perform }.to change {
+            $redis_pool.with { it.call('get', redis_failure_key) }
+          }.from(nil).to('1')
+        end
+      end
+    end
+
     describe 'cacheing', :cache do
       let(:different_target_url) { 'https://davidrunger.com/a-different-checked-url' }
 

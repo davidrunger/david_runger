@@ -26,6 +26,7 @@ class CheckLinks::Checker
   URL_STATUS_EXPECTATIONS = [
     [LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX, 302],
     [REDIRECTING_URL_REGEX, 302],
+    [%r{\Ahttps://www.appacademy.io/\z}, [200, 403]],
     [%r{\Ahttps://github\.com/.+/blob/.+}, [200, 429]],
   ].freeze
   # rubocop:disable Style/MutableConstant
