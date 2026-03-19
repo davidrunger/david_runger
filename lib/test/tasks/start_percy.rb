@@ -12,10 +12,10 @@ class Test::Tasks::StartPercy < Pallets::Task
 
       num_attempts.times do |index|
         sleep_time =
-          if total_sleep_time < 20
-            20
+          if total_sleep_time < 8
+            8
           else
-            4
+            1
           end
         total_sleep_time += sleep_time
         sleep(sleep_time)
