@@ -30,7 +30,7 @@
     "element-plus": "^2.13.5",
     "emojilib": "^4.0.2",
     "es-toolkit": "^1.45.1",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "eslint-plugin-vue": "^10.8.0",
     "fuse.js": "^7.1.0",
     "highlight.js": "^11.11.1",
