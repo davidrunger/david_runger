@@ -92,7 +92,7 @@
     "stylelint-scss": "^7.0.0",
     "tsd": "^0.33.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1",
+    "typescript-eslint": "^8.57.2",
     "vite": "^8.0.1",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-ruby": "^5.2.0",
