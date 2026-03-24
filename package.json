@@ -96,7 +96,7 @@
     "vite": "^8.0.1",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-ruby": "^5.2.0",
-    "vitest": "^4.1.0",
+    "vitest": "^4.1.1",
     "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.6"
   },
