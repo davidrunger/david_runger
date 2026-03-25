@@ -259,8 +259,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       vite-plugin-ruby:
-        specifier: ^5.2.0
-        version: 5.2.0(vite@8.0.2(@types/node@25.5.0)(esbuild@0.27.3)(jiti@2.6.1)(sass@1.98.0)(yaml@2.8.2))
+        specifier: ^5.2.1
+        version: 5.2.1(vite@8.0.2(@types/node@25.5.0)(esbuild@0.27.3)(jiti@2.6.1)(sass@1.98.0)(yaml@2.8.2))
       vitest:
         specifier: ^4.1.1
         version: 4.1.1(@types/node@25.5.0)(jsdom@29.0.1)(vite@8.0.2(@types/node@25.5.0)(esbuild@0.27.3)(jiti@2.6.1)(sass@1.98.0)(yaml@2.8.2))
@@ -4690,8 +4690,8 @@ packages:
   vite-plugin-full-reload@1.2.0:
     resolution: {integrity: sha512-kz18NW79x0IHbxRSHm0jttP4zoO9P9gXh+n6UTwlNKnviTTEpOlum6oS9SmecrTtSr+muHEn5TUuC75UovQzcA==}
 
-  vite-plugin-ruby@5.2.0:
-    resolution: {integrity: sha512-FoCaok2pV7GrcAqdxniI1r5XWBlSg9HwEwaxdQdXUVFfYkyINVakPeyrSK4PqOVhonBCuoc633g6bDTEC7wkcA==}
+  vite-plugin-ruby@5.2.1:
+    resolution: {integrity: sha512-wI3F/Yr4e4mEwiMff/cvNwGu8nZok5wrwUjHxO8we+h3y9+qCluO3Y5dzvz6vHJDBya9fKXkltoMwoJhaB2SRg==}
     peerDependencies:
       vite: '>=5.0.0'
 
@@ -9960,7 +9960,7 @@ snapshots:
       picocolors: 1.1.1
       picomatch: 2.3.1
 
-  vite-plugin-ruby@5.2.0(vite@8.0.2(@types/node@25.5.0)(esbuild@0.27.3)(jiti@2.6.1)(sass@1.98.0)(yaml@2.8.2)):
+  vite-plugin-ruby@5.2.1(vite@8.0.2(@types/node@25.5.0)(esbuild@0.27.3)(jiti@2.6.1)(sass@1.98.0)(yaml@2.8.2)):
     dependencies:
       obug: 2.1.1
       tinyglobby: 0.2.15
