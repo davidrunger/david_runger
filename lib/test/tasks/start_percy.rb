@@ -7,13 +7,13 @@ class Test::Tasks::StartPercy < Pallets::Task
 
       # Make up to 20 attempts to verify that Percy is running. (It tends to
       # take particularly long if there is a new Chromium version to download.)
-      num_attempts = 30
+      num_attempts = 32
       total_sleep_time = 0
 
       num_attempts.times do |index|
         sleep_time =
-          if total_sleep_time < 5
-            5
+          if total_sleep_time < 4
+            4
           else
             0.5
           end
