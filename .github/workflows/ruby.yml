@@ -62,15 +62,9 @@ jobs:
       - name: Set GIT_REV environment variable
         uses: ./.github/actions/git_rev
 
-      - name: Set PERCY_BROWSER_EXECUTABLE env var to system Chromium
+      - name: Set PERCY_BROWSER_EXECUTABLE env var to system Chrome browser
         run: |
-          CHROME_PATH=$(which google-chrome || which chromium-browser || which chromium)
-          echo "which google-chrome"
-          which google-chrome
-          echo "which chromium-browser"
-          which chromium-browser
-          echo "which chromium"
-          which chromium
+          CHROME_PATH=$(which google-chrome)
           echo "PERCY_BROWSER_EXECUTABLE=$CHROME_PATH" >> $GITHUB_ENV
 
       - name: Print context info
