@@ -18,7 +18,7 @@ if (_csrfToken) {
   kyApi = kyApi.extend({
     hooks: {
       beforeRequest: [
-        (request) => {
+        ({ request }) => {
           request.headers.set('X-CSRF-Token', _csrfToken);
         },
       ],
