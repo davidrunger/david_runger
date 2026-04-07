@@ -27,27 +27,34 @@ if (_csrfToken) {
   });
 }
 
+async function parseResponse<T>(response: Response): Promise<T> {
+  if (
+    response.status === 204 ||
+    response.headers.get('content-length') === '0'
+  ) {
+    return {} as T;
+  }
+  return (await response.json()) as T;
+}
+
 export const http = {
   async delete<T>(url: string) {
-    return (await kyApi.delete(url).json()) as T;
+    return parseResponse<T>(await kyApi.delete(url));
   },
 
   async get<T>(url: string) {
-    return (await kyApi.get(url).json()) as T;
+    return parseResponse<T>(await kyApi.get(url));
   },
 
   async patch<T>(url: string, data?: object) {
-    return (await kyApi
-      .patch(url, pickBy({ json: data }, identity))
-      .json()) as T;
+    return parseResponse<T>(
+      await kyApi.patch(url, pickBy({ json: data }, identity)),
+    );
   },
 
   async post<T>(url: string, data?: object) {
-    return (
-      (await kyApi
-        // NOTE: Only include payload if one is provided.
-        .post(url, pickBy({ json: data }, identity))
-        .json()) as T
+    return parseResponse<T>(
+      await kyApi.post(url, pickBy({ json: data }, identity)),
     );
   },
 };
