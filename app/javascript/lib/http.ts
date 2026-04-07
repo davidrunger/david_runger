@@ -28,10 +28,9 @@ if (_csrfToken) {
 }
 
 async function parseResponse<T>(response: Response): Promise<T> {
-  if (
-    response.status === 204 ||
-    response.headers.get('content-length') === '0'
-  ) {
+  if (response.status === 204) {
+    return null as T;
+  } else if (response.headers.get('content-length') === '0') {
     return {} as T;
   }
   return (await response.json()) as T;
