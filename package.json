@@ -38,7 +38,7 @@
     "ky": "^2.0.0",
     "luxon": "^3.7.2",
     "marked": "^17.0.6",
-    "marked-highlight": "^2.2.3",
+    "marked-highlight": "^2.2.4",
     "pinia": "^3.0.4",
     "pug": "^3.0.4",
     "strftime": "^0.10.3",
