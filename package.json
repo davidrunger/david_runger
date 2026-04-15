@@ -35,7 +35,7 @@
     "fuse.js": "^7.3.0",
     "highlight.js": "^11.11.1",
     "js-cookie": "^3.0.5",
-    "ky": "^2.0.0",
+    "ky": "^2.0.1",
     "luxon": "^3.7.2",
     "marked": "^18.0.0",
     "marked-highlight": "^2.2.4",
