@@ -44,7 +44,7 @@
     "strftime": "^0.10.3",
     "tailwindcss": "^4.2.2",
     "toastify-js": "^1.12.0",
-    "tom-select": "^2.5.2",
+    "tom-select": "^2.6.0",
     "unplugin-element-plus": "^0.11.2",
     "vega": "^6.2.0",
     "vega-embed": "^7.1.0",
