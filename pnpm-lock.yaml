@@ -199,8 +199,8 @@ importers:
         specifier: ^14.7.0
         version: 14.7.0(eslint-plugin-vue@10.8.0(@typescript-eslint/parser@8.58.2(eslint@10.2.1(jiti@2.6.1))(typescript@6.0.3))(eslint@10.2.1(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@10.2.1(jiti@2.6.1))))(eslint@10.2.1(jiti@2.6.1))(typescript@6.0.3)
       '@vue/language-plugin-pug':
-        specifier: ^3.2.6
-        version: 3.2.6
+        specifier: ^3.2.7
+        version: 3.2.7
       eslint-config-prettier:
         specifier: ^10.1.8
         version: 10.1.8(eslint@10.2.1(jiti@2.6.1))
@@ -1714,8 +1714,8 @@ packages:
   '@vue/language-core@3.2.7':
     resolution: {integrity: sha512-Gn4q/tRxbpVGLEuARQ43p3YELlNAFgRUVCgW9U5Cr+5q4vfD2bWDWpl3ABbJMXUt5xlE1dF8dkigg2aUq7JYYw==}
 
-  '@vue/language-plugin-pug@3.2.6':
-    resolution: {integrity: sha512-lYspwAkAYRvydsxm+2bRMfb88amjsCi0TAYpqgZprRT7V5O0vGc4bNbV9Zm4WzSPbcsUMXCSntxyDfj6CSEj3A==}
+  '@vue/language-plugin-pug@3.2.7':
+    resolution: {integrity: sha512-5D01iE73WYNZX38wGeU7qo0srDc1ATX6K+CAahJdDpxUIHPLE4AbUHP1lS790oT+ZLmlTqSBOFbTYDNtuKqA3A==}
 
   '@vue/reactivity@3.5.32':
     resolution: {integrity: sha512-/ORasxSGvZ6MN5gc+uE364SxFdJ0+WqVG0CENXaGW58TOCdrAW76WWaplDtECeS1qphvtBZtR+3/o1g1zL4xPQ==}
@@ -4051,8 +4051,8 @@ packages:
   rw@1.3.3:
     resolution: {integrity: sha512-PdhdWy89SiZogBLaw42zdeqtRJ//zFd2PgQavcICDUgJT5oW10QCRKbJ6bg4r0/UY2M6BWd5tkxuGFRvCkgfHQ==}
 
-  safe-array-concat@1.1.3:
-    resolution: {integrity: sha512-AURm5f0jYEOydBj7VQlVvDrjeFgthDdEF5H1dP+6mNpoXOMo1quQqJ4wvJDyRZ9+pO3kGWoOdmV08cSv2aJV6Q==}
+  safe-array-concat@1.1.4:
+    resolution: {integrity: sha512-wtZlHyOje6OZTGqAoaDKxFkgRtkF9CnHAVnCHKfuj200wAgL+bSJhdsCD2l0Qx/2ekEXjPWcyKkfGb5CPboslg==}
     engines: {node: '>=0.4'}
 
   safe-buffer@5.2.1:
@@ -6440,7 +6440,7 @@ snapshots:
       path-browserify: 1.0.1
       picomatch: 4.0.4
 
-  '@vue/language-plugin-pug@3.2.6':
+  '@vue/language-plugin-pug@3.2.7':
     dependencies:
       '@volar/source-map': 2.4.28
       muggle-string: 0.4.1
@@ -7286,7 +7286,7 @@ snapshots:
       object.assign: 4.1.7
       own-keys: 1.0.1
       regexp.prototype.flags: 1.5.4
-      safe-array-concat: 1.1.3
+      safe-array-concat: 1.1.4
       safe-push-apply: 1.0.0
       safe-regex-test: 1.1.0
       set-proto: 1.0.0
@@ -7751,7 +7751,7 @@ snapshots:
       get-proto: 1.0.1
       gopd: 1.2.0
       has-symbols: 1.1.0
-      hasown: 2.0.2
+      hasown: 2.0.3
       math-intrinsics: 1.1.0
 
   get-proto@1.0.1:
@@ -7894,7 +7894,6 @@ snapshots:
   hasown@2.0.3:
     dependencies:
       function-bind: 1.1.2
-    optional: true
 
   highlight.js@11.11.1: {}
 
@@ -7978,7 +7977,7 @@ snapshots:
   internal-slot@1.1.0:
     dependencies:
       es-errors: 1.3.0
-      hasown: 2.0.2
+      hasown: 2.0.3
       side-channel: 1.1.0
 
   internmap@2.0.3: {}
@@ -8096,7 +8095,7 @@ snapshots:
       call-bound: 1.0.4
       gopd: 1.2.0
       has-tostringtag: 1.0.2
-      hasown: 2.0.2
+      hasown: 2.0.3
 
   is-set@2.0.3: {}
 
@@ -9068,7 +9067,7 @@ snapshots:
 
   rw@1.3.3: {}
 
-  safe-array-concat@1.1.3:
+  safe-array-concat@1.1.4:
     dependencies:
       call-bind: 1.0.9
       call-bound: 1.0.4
