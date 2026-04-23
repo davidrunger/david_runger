@@ -18,7 +18,7 @@
     "@rails/ujs": "^7.1.600",
     "@tailwindcss/vite": "^4.2.4",
     "@vitejs/plugin-vue": "^6.0.6",
-    "@vue/compiler-sfc": "^3.5.32",
+    "@vue/compiler-sfc": "^3.5.33",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "@vueuse/core": "^14.2.1",
