@@ -5,11 +5,11 @@
   .spacer.grow
   hgroup#headline-container.grow.text-neutral-100(data-section="home")
     h1#headline-name.my-0.monospace.font-normal.leading-normal
-      | David Runger!
-    .stripe.stripe-1
-    .stripe.stripe-2
-    .stripe.stripe-3
+      | David Runger
     .stripe.stripe-4
+    .stripe.stripe-1
+    .stripe.stripe-3
+    .stripe.stripe-2
     p.pt-4.text-4xl.text-right
       | Full stack web developer
 
