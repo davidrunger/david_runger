@@ -10,7 +10,9 @@ if Rails.env.test?
 
     def warn(message, *_args, **_kwargs)
       # :nocov:
-      if StoredWarnings.warnings.respond_to?(:<<)
+      if StoredWarnings.warnings.respond_to?(:<<) &&
+          # See https://github.com/percy/cli/pull/ 2203 ; remove the below after that is released.
+          message.exclude?('UTF-8 string passed as BINARY')
         StoredWarnings.warnings << message
       end
 
