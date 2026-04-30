@@ -50,9 +50,24 @@ RSpec.describe QuizzesController do
       context 'when the user is not yet a quiz participant' do
         before { quiz.participations.where(participant: user).find_each(&:destroy!) }
 
-        it 'has a form to enter a display name and join the quiz' do
-          get_show
-          expect(response.body).to have_css('form input#display_name[type=text]')
+        context 'when the quiz is unstarted' do
+          before { expect(quiz.status).to eq('unstarted') }
+
+          it 'has a form to enter a display name and join the quiz' do
+            get_show
+            expect(response.body).to have_css('form input#display_name[type=text]')
+          end
+        end
+
+        context 'when the quiz is active' do
+          before { quiz.update!(status: 'active') }
+
+          it 'redirects to the quizzes index page with a flash message' do
+            get_show
+
+            expect(response).to redirect_to(quizzes_path)
+            expect(flash[:alert]).to eq('You cannot join this quiz because it already started.')
+          end
         end
       end
 
