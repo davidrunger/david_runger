@@ -17,6 +17,13 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find_by_hashid!(params[:id]).decorate
     authorize(@quiz, :show?)
 
+    if @quiz.status != 'unstarted' && current_user_participation.blank?
+      flash[:alert] = 'You cannot join this quiz because it already started.'
+      redirect_to(quizzes_path)
+
+      return
+    end
+
     @title = @quiz.name
 
     bootstrap(
