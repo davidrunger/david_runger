@@ -282,8 +282,8 @@ GEM
     formtastic (6.0.0)
       actionpack (>= 7.2.0)
     formtastic_i18n (0.7.0)
-    freezolite (0.6.0)
-      require-hooks (~> 0.2)
+    freezolite (0.7.0)
+      require-hooks (~> 0.4)
     globalid (1.3.0)
       activesupport (>= 6.1)
     google-protobuf (4.34.1)
@@ -586,7 +586,7 @@ GEM
     request_store-sidekiq (0.1.0)
       request_store (>= 1.3)
       sidekiq (>= 3.0)
-    require-hooks (0.3.0)
+    require-hooks (0.4.0)
     responders (3.2.0)
       actionpack (>= 7.0)
       railties (>= 7.0)
@@ -969,7 +969,7 @@ CHECKSUMS
   flipper-ui (1.4.1) sha256=b78e5237d52fdd82fbbcb6bfb04a1d2cab6d5861b1e4d1c3b0746ac3de7e0a99
   formtastic (6.0.0) sha256=c398906b65978fec3d045d6792f82cf9641f086ac9f17357b2b382f723126165
   formtastic_i18n (0.7.0) sha256=ecef51c9e9030c00f19e69d2483b77f4515c9587d74268b76cf4b6e7988c8e78
-  freezolite (0.6.0) sha256=a1305e324738633a30904b50f085bebe7b43c64ebc1e23ce848ee0eeaf3b1dfd
+  freezolite (0.7.0) sha256=bc665ea47406ce4971a1cea4debde1675f467132f545d17b12ea7039acd19d3c
   globalid (1.3.0) sha256=05c639ad6eb4594522a0b07983022f04aa7254626ab69445a0e493aa3786ff11
   google-protobuf (4.34.1) sha256=347181542b8d659c60f028fa3791c9cccce651a91ad27782dbc5c5e374796cdc
   google-protobuf (4.34.1-aarch64-linux-gnu) sha256=f9c07607dc139c895f2792a7740fcd01cd94d4d7b0e0a939045b50d7999f0b1d
@@ -1097,7 +1097,7 @@ CHECKSUMS
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
   request_store (1.7.0) sha256=e1b75d5346a315f452242a68c937ef8e48b215b9453a77a6c0acdca2934c88cb
   request_store-sidekiq (0.1.0) sha256=058ecc01b8dc36ca8700c4bb20bb58b17eeb3ab9b6faa582abd59d2626e630e0
-  require-hooks (0.3.0) sha256=af049b153a4d32ad7beadf085b8fe8943662e88c7bbabc589214fccda2f2e629
+  require-hooks (0.4.0) sha256=005f4c6435b4edae73e358cdbaba48370a4121f9ce893d5d2a3c66fce855677d
   responders (3.2.0) sha256=89c2d6ac0ae16f6458a11524cae4a8efdceba1a3baea164d28ee9046bd3df55a
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
   rollbar (3.7.0) sha256=915853168dd61e41621b482d5f3c38e32a0b3ce57e72252a4bf9eae906571d86
