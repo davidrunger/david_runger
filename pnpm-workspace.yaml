@@ -1,0 +1,9 @@
+minimumReleaseAge: 0 # Don't require waiting any amount of time to install a new release.
+strictDepBuilds: true
+allowBuilds:
+  '@percy/core': true
+  '@tailwindcss/oxide': true
+  esbuild: true
+  unrs-resolver: true
+  vue-demi: true
+  '@parcel/watcher': false
