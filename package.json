@@ -4,7 +4,7 @@
   "type": "module",
   "engines": {
     "node": ">=22.14.0 <23",
-    "pnpm": ">=10.3.0 <11"
+    "pnpm": ">=11.0.4 <12"
   },
   "browserslist": [
     ">10%"
