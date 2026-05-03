@@ -99,17 +99,5 @@
     "vitest": "^4.1.5",
     "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.7"
-  },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "@parcel/watcher"
-    ],
-    "onlyBuiltDependencies": [
-      "@percy/core",
-      "@tailwindcss/oxide",
-      "esbuild",
-      "unrs-resolver",
-      "vue-demi"
-    ]
   }
 }
