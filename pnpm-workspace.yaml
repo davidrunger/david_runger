@@ -1,3 +1,4 @@
+minimumReleaseAge: 0 # Don't require waiting any amount of time to install a new release.
 strictDepBuilds: true
 allowBuilds:
   '@percy/core': true
