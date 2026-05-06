@@ -4,6 +4,8 @@ class FetchIpInfoForRecord
 
   LOCAL_IPS = %w[::1 127.0.0.1].map(&:freeze).freeze
 
+  class UnexpectedIpApiResponse < StandardError; end
+
   def perform(class_name, record_id)
     record = class_name.safe_constantize.find(record_id)
     write_location_info(record)
@@ -29,6 +31,15 @@ class FetchIpInfoForRecord
     Rails.logger.info("Querying ip-api.com for info about IP address '#{ip}'")
     # we'd have to pay to use https :( so just use http
     raw_ip_info_from_api = Faraday.json_connection.get("http://ip-api.com/json/#{ip}").body
+
+    unless raw_ip_info_from_api.is_a?(Hash)
+      raise(
+        UnexpectedIpApiResponse,
+        "ip-api.com returned an unexpected response for IP '#{ip}': " \
+        "#{raw_ip_info_from_api.inspect}",
+      )
+    end
+
     isp, city, state, country = raw_ip_info_from_api.values_at(*%w[isp city region countryCode])
 
     {
