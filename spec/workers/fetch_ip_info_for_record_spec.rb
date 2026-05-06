@@ -37,6 +37,17 @@ RSpec.describe FetchIpInfoForRecord do
           perform
         end
       end
+
+      context 'when ip-api.com returns an unexpected non-Hash response' do
+        before do
+          stub_request(:get, "http://ip-api.com/json/#{request.ip}").
+            to_return(status: 200, body: 'Service Unavailable', headers: {})
+        end
+
+        it 'raises UnexpectedIpApiResponse so Sidekiq will retry the job and the error can be sent to Rollbar with a non-error severity' do
+          expect { perform }.to raise_error(FetchIpInfoForRecord::UnexpectedIpApiResponse)
+        end
+      end
     end
 
     context 'when class_name is "IpBlock"' do
