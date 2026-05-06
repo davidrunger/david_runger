@@ -713,7 +713,7 @@ GEM
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    sorbet-runtime (0.6.13185)
+    sorbet-runtime (0.6.13189)
     spring (4.5.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -1140,7 +1140,7 @@ CHECKSUMS
   simplecov_json_formatter (0.1.4) sha256=529418fbe8de1713ac2b2d612aa3daa56d316975d307244399fa4838c601b428
   simpleidn (0.2.3) sha256=08ce96f03fa1605286be22651ba0fc9c0b2d6272c9b27a260bc88be05b0d2c29
   snaky_hash (2.0.3) sha256=25a3d299566e8153fb02fa23fd9a9358845950f7a523ddbbe1fa1e0d79a6d456
-  sorbet-runtime (0.6.13185) sha256=f3825770b53d0749e11671472e53fd41e451d2a16e687cc0219352ff97f05e43
+  sorbet-runtime (0.6.13189) sha256=92442a6e32c17bd07c5a708e0c54e9b65b8693b8349fc606e65b6c1f65fa710e
   spring (4.5.0) sha256=9124b954f6d079cb9aa610d7069cbada7c146c9368599557806a9ff7067b2e1b
   spring-commands-rspec (1.0.4) sha256=6202e54fa4767452e3641461a83347645af478bf45dddcca9737b43af0dd1a2c
   spring-watcher-listen (2.1.0) sha256=e958bcd956d1026eb95d16b2ef0e241d1ca35a754628bd45040e3d9954a61949
