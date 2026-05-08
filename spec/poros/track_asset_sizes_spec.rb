@@ -44,6 +44,7 @@ RSpec.describe TrackAssetSizes do
             }
           }
         JSON
+        allow(File).to receive(:read).and_call_original # pass other calls through
       end
 
       context 'when File sizes are returned' do
