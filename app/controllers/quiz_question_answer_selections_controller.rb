@@ -5,7 +5,7 @@ class QuizQuestionAnswerSelectionsController < ApplicationController
     quiz_participation =
       current_user.
         quiz_participations.
-        find_by!(quiz_id: Quiz.find_by_hashid!(params[:quiz_id]).id)
+        find_by!(quiz_id: Quiz.find_by_hashid!(params.expect(:quiz_id)).id)
 
     begin
       selection =
@@ -21,7 +21,8 @@ class QuizQuestionAnswerSelectionsController < ApplicationController
   end
 
   def update
-    @quiz_question_answer_selection = policy_scope(QuizQuestionAnswerSelection).find(params[:id])
+    @quiz_question_answer_selection =
+      policy_scope(QuizQuestionAnswerSelection).find(params.expect(:id))
     authorize(@quiz_question_answer_selection, :update?)
 
     @quiz_question_answer_selection.update!(quiz_question_answer_selection_params)

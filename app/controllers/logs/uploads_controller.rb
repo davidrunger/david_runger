@@ -6,9 +6,9 @@ class Logs::UploadsController < ApplicationController
 
   def create
     authorize(LogEntry)
-    log = current_user.logs.find(params['log_id'])
+    log = current_user.logs.find(params.expect('log_id'))
     log_entries =
-      CSV.parse(params['csv'].read, headers: true).map do |row|
+      CSV.parse(params.expect('csv').read, headers: true).map do |row|
         attributes = row.to_h
         created_at_string = attributes['created_at']
         created_at = (Time.iso8601(created_at_string) rescue Date.iso8601(created_at_string))

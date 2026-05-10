@@ -32,7 +32,7 @@ class EmotionalNeedsController < ApplicationController
       when 'partner' then current_user
       else current_user.marriage.decorate.other_partner
       end
-    @emotional_need = EmotionalNeed.find(params[:id])
+    @emotional_need = EmotionalNeed.find(params.expect(:id))
     @rating_data =
       NeedSatisfactionRating.
         where(
@@ -50,6 +50,6 @@ class EmotionalNeedsController < ApplicationController
   end
 
   def set_emotional_need
-    @emotional_need = policy_scope(EmotionalNeed).find(params[:id])
+    @emotional_need = policy_scope(EmotionalNeed).find(params.expect(:id))
   end
 end

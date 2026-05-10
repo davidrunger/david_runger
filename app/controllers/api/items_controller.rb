@@ -3,7 +3,7 @@ class Api::ItemsController < Api::BaseController
 
   def create
     authorize(Item)
-    store = current_user.stores.find(params[:store_id])
+    store = current_user.stores.find(params.expect(:store_id))
     @item = store.items.build(item_params)
     if @item.save
       render_schema_json(@item, status: :created)

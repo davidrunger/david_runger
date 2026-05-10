@@ -24,7 +24,7 @@ class LogsController < ApplicationController
   end
 
   def download
-    log = current_user.logs.find_by!(slug: params[:slug])
+    log = current_user.logs.find_by!(slug: params.expect(:slug))
 
     authorize(log, :show?)
 

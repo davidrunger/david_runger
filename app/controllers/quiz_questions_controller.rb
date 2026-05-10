@@ -10,7 +10,7 @@ class QuizQuestionsController < ApplicationController
   private
 
   def set_quiz_question
-    @quiz_question = policy_scope(QuizQuestion).find(params[:id])
+    @quiz_question = policy_scope(QuizQuestion).find(params.expect(:id))
   end
 
   def quiz_question_params

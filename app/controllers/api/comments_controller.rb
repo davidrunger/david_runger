@@ -17,7 +17,7 @@ class Api::CommentsController < Api::BaseController
   end
 
   def destroy
-    comment = current_user.comments.find(params[:id])
+    comment = current_user.comments.find(params.expect(:id))
 
     authorize(comment)
 
@@ -42,7 +42,7 @@ class Api::CommentsController < Api::BaseController
   end
 
   def update
-    comment = current_user.comments.find(params[:id])
+    comment = current_user.comments.find(params.expect(:id))
 
     authorize(comment)
 

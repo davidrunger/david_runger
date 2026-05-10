@@ -16,7 +16,7 @@ class Api::NeedSatisfactionRatingsController < Api::BaseController
   private
 
   def set_need_satisfaction_rating
-    @need_satisfaction_rating = policy_scope(NeedSatisfactionRating).find(params[:id])
+    @need_satisfaction_rating = policy_scope(NeedSatisfactionRating).find(params.expect(:id))
   end
 
   def need_satisfaction_rating_params

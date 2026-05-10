@@ -28,7 +28,7 @@ RSpec.describe Admin::DeploysController do
             )
           end
 
-          expect(Nokogiri::HTML5(response.body).at_css('table tbody tr:first')).to have_link(
+          expect(response.parsed_body.at_css('table tbody tr:first')).to have_link(
             "#{second_most_recent_deploy.git_sha.first(8)}...#{most_recent_deploy.git_sha.first(8)}",
             href:
               'https://github.com/davidrunger/david_runger/compare/' \

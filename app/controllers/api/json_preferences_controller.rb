@@ -4,7 +4,7 @@ class Api::JsonPreferencesController < Api::BaseController
       current_user.
         json_preferences.
         find_or_initialize_by(
-          preference_type: params[:preference_type].presence!,
+          preference_type: params.expect(:preference_type).presence!,
         )
 
     authorize(@preference)
