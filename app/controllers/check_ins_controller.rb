@@ -26,7 +26,7 @@ class CheckInsController < ApplicationController
   private
 
   def set_check_in
-    @check_in = policy_scope(CheckIn).find(params[:id]).decorate
+    @check_in = policy_scope(CheckIn).find(params.expect(:id)).decorate
   end
 
   def ensure_marriage

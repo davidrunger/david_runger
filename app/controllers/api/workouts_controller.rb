@@ -6,7 +6,7 @@ class Api::WorkoutsController < Api::BaseController
   end
 
   def update
-    @workout = current_user.workouts.find(params[:id])
+    @workout = current_user.workouts.find(params.expect(:id))
     authorize(@workout)
     @workout.update!(workout_params)
     render_schema_json(@workout)

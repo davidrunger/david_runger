@@ -27,6 +27,6 @@ class AuthTokensController < ApplicationController
   end
 
   def set_auth_token
-    @auth_token = current_user.auth_tokens.find(params[:id])
+    @auth_token = current_user.auth_tokens.find(params.expect(:id))
   end
 end

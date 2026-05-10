@@ -1,7 +1,7 @@
 class Api::CheckInSubmissionsController < Api::BaseController
   def create
     authorize(CheckInSubmission)
-    check_in = policy_scope(CheckIn).find(params[:check_in_id])
+    check_in = policy_scope(CheckIn).find(params.expect(:check_in_id))
     submission =
       policy_scope(CheckInSubmission).find_or_initialize_by(check_in:, user: current_user)
     if submission.persisted?
