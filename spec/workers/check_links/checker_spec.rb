@@ -173,40 +173,66 @@ RSpec.describe CheckLinks::Checker do
     describe 'cacheing', :cache do
       let(:different_target_url) { 'https://davidrunger.com/a-different-checked-url' }
 
-      before do
-        stub_request(:get, different_target_url).
-          to_return(status: 200, body: '', headers: {})
+      context 'when the request returns a result' do
+        before do
+          stub_request(:get, different_target_url).
+            to_return(status: 200, body: '', headers: {})
 
-        CheckLinks::Checker.new.perform(previously_checked_url, 'https://davidrunger.com/blog')
-
-        expect(stubbed_request).
-          to have_been_requested.
-          times(number_of_requests_for_url_before_perform)
-      end
-
-      context 'when another CheckLinks::Checker ran recently for the same URL' do
-        let(:previously_checked_url) { url }
-        let(:number_of_requests_for_url_before_perform) { 1 }
-
-        it 'does not request the URL again' do
-          perform
+          CheckLinks::Checker.new.perform(previously_checked_url, 'https://davidrunger.com/blog')
 
           expect(stubbed_request).
             to have_been_requested.
             times(number_of_requests_for_url_before_perform)
         end
+
+        context 'when another CheckLinks::Checker ran recently for the same URL' do
+          let(:previously_checked_url) { url }
+          let(:number_of_requests_for_url_before_perform) { 1 }
+
+          it 'does not request the URL again' do
+            perform
+
+            expect(stubbed_request).
+              to have_been_requested.
+              times(number_of_requests_for_url_before_perform)
+          end
+        end
+
+        context 'when another CheckLinks::Checker has not run recently for the same URL' do
+          let(:previously_checked_url) { different_target_url }
+          let(:number_of_requests_for_url_before_perform) { 0 }
+
+          it 'requests the URL' do
+            perform
+
+            expect(stubbed_request).
+              to have_been_requested.
+              times(number_of_requests_for_url_before_perform + 1)
+          end
+        end
       end
 
-      context 'when another CheckLinks::Checker has not run recently for the same URL' do
-        let(:previously_checked_url) { different_target_url }
-        let(:number_of_requests_for_url_before_perform) { 0 }
+      context 'when the URL fetch raises a connection error' do
+        before do
+          # rubocop:disable RSpec/AnyInstance
+          allow_any_instance_of(Faraday::Connection).
+            to receive(:get).
+            and_raise(Faraday::ConnectionFailed, 'Operation timed out')
+          # rubocop:enable RSpec/AnyInstance
+        end
 
-        it 'requests the URL' do
-          perform
+        it 'does not cache the nil response, so the URL is retried on next check' do
+          CheckLinks::Checker.new.perform(url, page_source_url)
 
-          expect(stubbed_request).
-            to have_been_requested.
-            times(number_of_requests_for_url_before_perform + 1)
+          # rubocop:disable RSpec/AnyInstance
+          allow_any_instance_of(Faraday::Connection).
+            to receive(:get).
+            and_call_original
+          # rubocop:enable RSpec/AnyInstance
+
+          CheckLinks::Checker.new.perform(url, page_source_url)
+
+          expect(stubbed_request).to have_been_requested.times(1)
         end
       end
     end

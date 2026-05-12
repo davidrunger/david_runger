@@ -78,7 +78,7 @@ class CheckLinks::Checker
 
   memoize \
   def response(url)
-    Rails.cache.fetch(cache_key(url), expires_in: 6.hours) do
+    Rails.cache.fetch(cache_key(url), expires_in: 6.hours, skip_nil: true) do
       Rails.error.handle(severity: :info, context: { url: }) do
         Faraday.new.get do |request|
           request.url(url)
