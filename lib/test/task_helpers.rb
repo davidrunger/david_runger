@@ -84,10 +84,9 @@ module Test::TaskHelpers
     end
   end
 
-  def execute_rake_task(task_name, *args)
+  def execute_rake_task(task_name)
     puts(<<~LOG.squish)
-      Running rake task '#{AmazingPrint::Colors.yellow(task_name)}'
-      with args #{AmazingPrint::Colors.yellow(args.inspect)} ...
+      Running rake task '#{AmazingPrint::Colors.yellow(task_name)}' ...
     LOG
 
     time = nil
@@ -96,7 +95,7 @@ module Test::TaskHelpers
     begin
       time =
         Benchmark.measure do
-          Rake::Task[task_name].invoke(*args)
+          Rake::Task[task_name].invoke
         end.real
     rescue => error
       exception = error
@@ -106,8 +105,7 @@ module Test::TaskHelpers
 
         puts(exception.backtrace)
 
-        args_string = "[#{args.join(',')}]"
-        record_failed_command("bin/rails #{task_name}#{args_string if !args.empty?}")
+        record_failed_command("bin/rails #{task_name}")
         record_failure_and_log_message(
           "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
         )
