@@ -1,4 +1,4 @@
-/* eslint-env node */
+/* global __dirname, process */
 
 import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
