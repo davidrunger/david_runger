@@ -243,6 +243,7 @@ class Test::RequirementsResolver
     end,
     Test::Tasks::RunAnnotate => proc do
       !db_schema_changed? &&
+        !file_changed?(/annotate/) &&
         !diff_mentions?('annotate') &&
         !files_added_in?('app/models') &&
         !files_added_in?('app/serializers') &&
