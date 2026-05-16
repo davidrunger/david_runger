@@ -12,8 +12,8 @@ importers:
         specifier: 4.0.0-beta22
         version: 4.0.0-beta22
       '@davidrunger/vue-model-explorer':
-        specifier: ^0.3.2
-        version: 0.3.2(vue@3.5.34(typescript@6.0.3))
+        specifier: ^0.3.3
+        version: 0.3.3(vue@3.5.34(typescript@6.0.3))
       '@hotwired/turbo':
         specifier: ^8.0.23
         version: 8.0.23
@@ -432,8 +432,8 @@ packages:
   '@dagrejs/graphlib@4.0.1':
     resolution: {integrity: sha512-IvcV6FduIIAmLwnH+yun+QtV36SC7mERqa86aClNqmMN09WhmPPYU8ckHrZBozErf+UvHPWOTJYaGYiIcs0DgA==}
 
-  '@davidrunger/vue-model-explorer@0.3.2':
-    resolution: {integrity: sha512-AOV9vz7uT+amaXDZnXWp7eyg/MGoBp/F6/Nwmob2CIFg3RA3RNW/+XlLgJj4ZxRgaIcM9Uf0oXjMDF7t7DoCRA==}
+  '@davidrunger/vue-model-explorer@0.3.3':
+    resolution: {integrity: sha512-qdFrPVDDlp7sZoHmWwtcdIZVfmqvhz3ND76H3IzfE7H1BKraCi/3OZfvHNui5EXB6/HWrZQH6EikNCmnUaZkLw==}
     peerDependencies:
       vue: ^3.5.13
 
@@ -4638,7 +4638,7 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.1': {}
 
-  '@davidrunger/vue-model-explorer@0.3.2(vue@3.5.34(typescript@6.0.3))':
+  '@davidrunger/vue-model-explorer@0.3.3(vue@3.5.34(typescript@6.0.3))':
     dependencies:
       '@vueuse/core': 14.3.0(vue@3.5.34(typescript@6.0.3))
       cytoscape: 3.33.3
@@ -4955,7 +4955,10 @@ snapshots:
     dependencies:
       '@percy/cli-command': 1.31.13(typescript@6.0.3)
     transitivePeerDependencies:
+      - bufferutil
+      - supports-color
       - typescript
+      - utf-8-validate
 
   '@percy/cli-command@1.31.13(typescript@6.0.3)':
     dependencies:
@@ -4972,7 +4975,10 @@ snapshots:
     dependencies:
       '@percy/cli-command': 1.31.13(typescript@6.0.3)
     transitivePeerDependencies:
+      - bufferutil
+      - supports-color
       - typescript
+      - utf-8-validate
 
   '@percy/cli-doctor@1.31.13(typescript@6.0.3)':
     dependencies:
@@ -5008,7 +5014,10 @@ snapshots:
       '@percy/cli-command': 1.31.13(typescript@6.0.3)
       yaml: 2.9.0
     transitivePeerDependencies:
+      - bufferutil
+      - supports-color
       - typescript
+      - utf-8-validate
 
   '@percy/cli-upload@1.31.13(typescript@6.0.3)':
     dependencies:
@@ -5016,7 +5025,10 @@ snapshots:
       fast-glob: 3.3.3
       image-size: 1.2.1
     transitivePeerDependencies:
+      - bufferutil
+      - supports-color
       - typescript
+      - utf-8-validate
 
   '@percy/cli@1.31.13(typescript@6.0.3)':
     dependencies:
