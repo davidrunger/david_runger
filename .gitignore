@@ -43,3 +43,6 @@
 
 # NGINX
 /config/nginx/conf.d/require-valid-host.conf
+
+# vitest
+/app/javascript/node_modules/.vite/vitest/
