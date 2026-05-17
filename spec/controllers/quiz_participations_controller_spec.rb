@@ -13,7 +13,7 @@ RSpec.describe QuizParticipationsController do
       before { user.quiz_participations.where(quiz:).find_each(&:destroy!) }
 
       context 'when the user submits a name' do
-        let(:display_name) { 'Al' }
+        let(:display_name) { "#{Faker::Name.first_name}-#{SecureRandom.alphanumeric(5)}" }
 
         it 'creates a QuizParticipation for the user, does not set any flash alert message, and responds with a redirect to the quiz show page', :aggregate_failures do
           expect { post_create }.to change { user.reload.quiz_participations.size }.by(1)
