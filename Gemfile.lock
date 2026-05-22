@@ -131,7 +131,7 @@ GEM
       activesupport (>= 7.0)
     ast (2.4.3)
     attr_extras (7.1.0)
-    auth-sanitizer (0.1.3)
+    auth-sanitizer (0.1.4)
       version_gem (~> 1.1, >= 1.1.9)
     aws-eventstream (1.4.0)
     aws-partitions (1.1252.0)
@@ -906,7 +906,7 @@ CHECKSUMS
   arbre (2.2.1) sha256=3048ba04c063e603fa9a47cd8ea8fe5ce79a0dbd7306840816ab37bb496c79d6
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
   attr_extras (7.1.0) sha256=d96fc9a9dd5d85ba2d37762440a816f840093959ae26bb90da994c2d9f1fc827
-  auth-sanitizer (0.1.3) sha256=51002d96e921eb9610b197f39de92ae63df11eeb3c5f2bfd7829feb725911487
+  auth-sanitizer (0.1.4) sha256=ded72221d4d3a7c91e34e8a87b21e6a42cbf7829697f140dcf49d542422faedc
   aws-eventstream (1.4.0) sha256=116bf85c436200d1060811e6f5d2d40c88f65448f2125bc77ffce5121e6e183b
   aws-partitions (1.1252.0) sha256=b44c74136ebd634d35f3fb8fd37def5214db21b9375f22c6954dbe7a7f2a449d
   aws-sdk-core (3.248.0) sha256=3e40f3e0ccd812c6ac4934964901298d1639c7122a3f2d2b3415170ea6eab293
