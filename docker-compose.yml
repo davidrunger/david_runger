@@ -135,13 +135,15 @@ services:
   loki:
     cpu_shares: 512
     image: grafana/loki:latest
+    command:
+      - -config.file=/etc/loki/local-config.yaml
+      - -log.level=warn
     expose:
       - '3100'
     logging: *default-logging
     networks:
       - internal
     volumes:
-      - ./loki-config.yaml:/etc/loki/local-config.yaml
       - loki-data:/loki
   nginx:
     cpu_shares: 4096
