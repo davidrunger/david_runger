@@ -5,8 +5,8 @@
 # Back up database (daily at 07:32 UTC, 1:32am or 2:32am CT).
 32 7 * * *  /root/david_runger/bin/server/back-up-db-to-s3.sh
 
-# Trim docker images and rebuild the app (Saturday at 08:55 UTC, 2:55am or 3:55am CT).
-55 8 * * 6  /root/david_runger/bin/server/prune-docker-and-rebuild.sh
+# Trim Docker images and rebuild the app (daily at 08:55 UTC, 2:55am or 3:55am CT).
+55 8 * * *  /root/david_runger/bin/server/prune-docker-and-rebuild.sh
 
 # Reboot server (Sunday at 10:25 UTC, 4:25am or 5:25am CT).
 25 10 * * 0  /sbin/reboot
