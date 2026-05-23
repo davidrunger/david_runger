@@ -141,6 +141,7 @@ services:
     networks:
       - internal
     volumes:
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
       - loki-data:/loki
   nginx:
     cpu_shares: 4096
