@@ -137,6 +137,7 @@ services:
     image: grafana/loki:latest
     expose:
       - '3100'
+    logging: *default-logging
     networks:
       - internal
     volumes:
