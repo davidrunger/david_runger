@@ -4,6 +4,7 @@ class FetchIpInfoForRecord
 
   LOCAL_IPS = %w[::1 127.0.0.1].map(&:freeze).freeze
 
+  class ConnectionFailed < StandardError; end
   class UnexpectedIpApiResponse < StandardError; end
 
   def perform(class_name, record_id)
@@ -30,7 +31,12 @@ class FetchIpInfoForRecord
   def ip_info_from_api(ip)
     Rails.logger.info("Querying ip-api.com for info about IP address '#{ip}'")
     # we'd have to pay to use https :( so just use http
-    raw_ip_info_from_api = Faraday.json_connection.get("http://ip-api.com/json/#{ip}").body
+    raw_ip_info_from_api =
+      begin
+        Faraday.json_connection.get("http://ip-api.com/json/#{ip}").body
+      rescue Faraday::ConnectionFailed => error
+        raise(ConnectionFailed, error.message)
+      end
 
     unless raw_ip_info_from_api.is_a?(Hash)
       raise(

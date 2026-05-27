@@ -50,6 +50,7 @@ Rollbar.configure do |config|
     'ActionController::RoutingError' => 'info',
     'ActionDispatch::Http::MimeNegotiation::InvalidType' => 'info',
     'ActionDispatch::RemoteIp::IpSpoofAttackError' => 'info',
+    'FetchIpInfoForRecord::ConnectionFailed' => 'info',
     'FetchIpInfoForRecord::UnexpectedIpApiResponse' => 'info',
   )
   #

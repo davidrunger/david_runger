@@ -48,6 +48,17 @@ RSpec.describe FetchIpInfoForRecord do
           expect { perform }.to raise_error(FetchIpInfoForRecord::UnexpectedIpApiResponse)
         end
       end
+
+      context 'when ip-api.com is unreachable' do
+        before do
+          stub_request(:get, "http://ip-api.com/json/#{request.ip}").
+            to_raise(Faraday::ConnectionFailed.new('Connection reset by peer'))
+        end
+
+        it 'raises ConnectionFailed so Sidekiq will retry the job and the error can be sent to Rollbar with a non-error severity' do
+          expect { perform }.to raise_error(FetchIpInfoForRecord::ConnectionFailed)
+        end
+      end
     end
 
     context 'when class_name is "IpBlock"' do
