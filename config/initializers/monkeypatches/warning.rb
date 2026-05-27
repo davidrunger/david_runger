@@ -8,10 +8,13 @@ if Rails.env.test?
   module StoredWarnings
     mattr_accessor :warnings
 
+    IGNORED_WARNINGS = [
+      'UTF-8 string passed as BINARY', # See https://github.com/percy/cli/pull/ 2203 .
+    ].freeze
+
     def warn(message, *_args, **_kwargs)
       # :nocov:
-      # See https://github.com/percy/cli/pull/ 2203 ; remove the below after that is released.
-      if message.exclude?('UTF-8 string passed as BINARY')
+      unless IGNORED_WARNINGS.any? { message.include?(it) }
         StoredWarnings.warnings << message
       end
 
