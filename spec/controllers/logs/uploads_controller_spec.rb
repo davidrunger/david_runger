@@ -53,7 +53,7 @@ RSpec.describe Logs::UploadsController do
         end.to change { log.reload.log_entries.size }.by(csv_rows.size)
 
         expect(response).to redirect_to(log_path(log))
-        expect(flash[:notice]).to match(/Data uploaded successfully!/)
+        expect(flash[:notice]).to include('Data uploaded successfully!')
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.describe Logs::UploadsController do
         end.not_to change { log.reload.log_entries.size }
 
         expect(response).to redirect_to(logs_uploads_path)
-        expect(flash[:alert]).to match(/The uploaded data is invalid/)
+        expect(flash[:alert]).to include('The uploaded data is invalid')
       end
     end
   end
