@@ -6,7 +6,7 @@
 #  created_at    :datetime         not null
 #  data          :jsonb
 #  id            :bigint           not null, primary key
-#  ip            :string
+#  ip            :string           not null
 #  isp           :string
 #  location      :string
 #  stack_trace   :string           default([]), not null, is an Array
@@ -26,6 +26,7 @@ class Event < ApplicationRecord
   # Tell ActiveRecord not to use 'type' column for Single Table Inheritance.
   self.inheritance_column = nil
 
+  validates :ip, presence: true
   validates :stack_trace, presence: true
   validates :type, presence: true
 

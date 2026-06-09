@@ -6,7 +6,7 @@
 #  created_at    :datetime         not null
 #  data          :jsonb
 #  id            :bigint           not null, primary key
-#  ip            :string
+#  ip            :string           not null
 #  isp           :string
 #  location      :string
 #  stack_trace   :string           default([]), not null, is an Array
@@ -26,6 +26,7 @@ FactoryBot.define do
   factory :event do
     association :admin_user
     association :user
+    ip { Faker::Internet.ip_v6_address }
     stack_trace do
       [
         '/home/david/code/david_runger/app/controllers/api/events_controller.rb:11:in ' \
