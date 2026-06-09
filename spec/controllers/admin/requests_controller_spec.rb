@@ -69,6 +69,16 @@ RSpec.describe Admin::RequestsController do
 
         expect(response).to have_http_status(200)
       end
+
+      it 'displays the IP address with a link to other requests from that IP' do
+        get_show
+
+        expect(response.body).to have_text(request.ip)
+        expect(response.body).to have_link(
+          'other requests',
+          href: admin_requests_path(q: { ip_eq: request.ip }),
+        )
+      end
     end
   end
 end
