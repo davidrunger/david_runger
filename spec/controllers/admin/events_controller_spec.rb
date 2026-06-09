@@ -20,6 +20,16 @@ RSpec.describe(Admin::EventsController) do
         get_show
         expect(response).to have_http_status(200)
       end
+
+      it 'displays the IP address with a link to requests from that IP' do
+        get_show
+
+        expect(response.body).to have_text(event.ip)
+        expect(response.body).to have_link(
+          'requests',
+          href: admin_requests_path(q: { ip_eq: event.ip }),
+        )
+      end
     end
   end
 end
