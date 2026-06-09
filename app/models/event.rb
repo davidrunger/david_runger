@@ -26,6 +26,7 @@ class Event < ApplicationRecord
   # Tell ActiveRecord not to use 'type' column for Single Table Inheritance.
   self.inheritance_column = nil
 
+  validates :ip, presence: true
   validates :stack_trace, presence: true
   validates :type, presence: true
 
