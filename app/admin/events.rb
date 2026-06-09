@@ -20,7 +20,14 @@ ActiveAdmin.register(Event) do
       row :user
       row :admin_user
       row :data
-      row :ip
+      row :ip do |event|
+        safe_join([
+          event.ip,
+          ' (',
+          link_to('requests', admin_requests_path(q: { ip_eq: event.ip })),
+          ')',
+        ])
+      end
       row :isp
       row :location
       row :stack_trace
