@@ -6,7 +6,7 @@
 #  created_at    :datetime         not null
 #  data          :jsonb
 #  id            :bigint           not null, primary key
-#  ip            :string
+#  ip            :string           not null
 #  isp           :string
 #  location      :string
 #  stack_trace   :string           default([]), not null, is an Array
