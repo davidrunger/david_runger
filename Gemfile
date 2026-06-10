@@ -1,6 +1,6 @@
 ruby file: '.ruby-version'
 
-source 'https://rubygems.org'
+source 'https://rubygems.org', cooldown: 5
 
 # rubocop:disable Layout/LineLength
 gem 'activeadmin', '>= 4.0.0.beta15'
