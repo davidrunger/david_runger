@@ -1,4 +1,4 @@
-minimumReleaseAge: 0 # Don't require waiting any amount of time to install a new release.
+minimumReleaseAge: 7200 # Wait 5 days before installing new releases.
 strictDepBuilds: true
 allowBuilds:
   '@percy/core': true
