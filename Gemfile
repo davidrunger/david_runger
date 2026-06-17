@@ -26,7 +26,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'hashid-rails'
 gem 'json'
-gem 'js-routes', require: false
+gem 'js-routes'
 gem 'jwt'
 gem 'lograge'
 gem 'loofah-activerecord'
