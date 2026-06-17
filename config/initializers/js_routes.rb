@@ -1,3 +1,3 @@
-JsRoutes.setup do |c|
-  c.include_undefined_query_parameters = false
+JsRoutes.setup do |config|
+  config.include_undefined_query_parameters = false
 end
