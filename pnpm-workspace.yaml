@@ -7,24 +7,3 @@ allowBuilds:
   unrs-resolver: true
   vue-demi: true
   '@parcel/watcher': false
-minimumReleaseAgeExclude:
-  - '@types/node@25.9.2'
-  - '@typescript-eslint/eslint-plugin@8.61.0'
-  - '@typescript-eslint/parser@8.61.0'
-  - '@typescript-eslint/project-service@8.61.0'
-  - '@typescript-eslint/scope-manager@8.61.0'
-  - '@typescript-eslint/tsconfig-utils@8.61.0'
-  - '@typescript-eslint/type-utils@8.61.0'
-  - '@typescript-eslint/types@8.61.0'
-  - '@typescript-eslint/typescript-estree@8.61.0'
-  - '@typescript-eslint/utils@8.61.0'
-  - '@typescript-eslint/visitor-keys@8.61.0'
-  - '@vue/language-core@3.3.4'
-  - '@vue/language-plugin-pug@3.3.4'
-  - dompurify@3.4.9
-  - fuse.js@7.4.2
-  - prettier@3.8.4
-  - stylelint@17.13.0
-  - typescript-eslint@8.61.0
-  - vue-tsc@3.3.4
-  - vue-types@7.0.0
