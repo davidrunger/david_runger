@@ -22,7 +22,6 @@ jobs:
       postgres:
         image: postgres:18.4-alpine
         env:
-          PGDATA: /var/lib/postgresql/data # https://claude.ai/share/e46327d7-b67e-417b-981c-143671025b7b
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         # Set health checks to wait until postgres has started

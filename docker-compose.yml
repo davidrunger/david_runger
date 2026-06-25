@@ -214,6 +214,7 @@ services:
     env_file:
       - .env.postgres.local
     environment:
+      PGDATA: /var/lib/postgresql/data # https://claude.ai/share/e46327d7-b67e-417b-981c-143671025b7b
       POSTGRES_INITDB_ARGS: --auth=scram-sha-256
       POSTGRES_USER: david_runger
     healthcheck:
