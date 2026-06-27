@@ -196,7 +196,7 @@ function handleSecondElapsed() {
 }
 
 function initialSetsArray() {
-  return Array(...Array(props.numberOfSets)).map((_) => ({
+  return Array.from({ length: props.numberOfSets }, () => ({
     timeAdjustment: 0,
     exercises: cloneDeep(props.exercises),
   }));

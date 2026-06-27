@@ -2,7 +2,7 @@ import { expectAssignable, expectNotAssignable } from 'tsd';
 
 import type { Intersection } from '@/types';
 
-/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* oxlint-disable @typescript-eslint/no-unused-expressions */
 
 type AssertEqual<T, Expected> =
   T extends Expected ?

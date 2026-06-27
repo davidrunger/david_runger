@@ -39,7 +39,7 @@ class Test::RequirementsResolver
           Test::Tasks::ConvertSchemasToTs,
         ],
         Test::Tasks::RunStylelint => Test::Tasks::PnpmInstall,
-        Test::Tasks::RunEslint => [
+        Test::Tasks::RunOxlint => [
           Test::Tasks::PnpmInstall,
           Test::Tasks::ConvertSchemasToTs,
         ],
@@ -122,7 +122,7 @@ class Test::RequirementsResolver
           Test::Tasks::RunApiControllerTests,
           Test::Tasks::RunBrakeman,
           Test::Tasks::RunDatabaseConsistency,
-          Test::Tasks::RunEslint,
+          Test::Tasks::RunOxlint,
           Test::Tasks::RunFeatureTestsA,
           Test::Tasks::RunFeatureTestsB,
           Test::Tasks::RunFeatureTestsC,
@@ -277,10 +277,11 @@ class Test::RequirementsResolver
         !file_changed?('pnpm-lock.yaml') &&
         !file_changed?('tsconfig.json')
     end,
-    Test::Tasks::RunEslint => proc do
+    Test::Tasks::RunOxlint => proc do
       !files_with_js_changed? &&
+        !diff_mentions?('oxlint') &&
         !diff_mentions?('eslint') &&
-        !file_changed?(/eslint/i) &&
+        !file_changed?(/oxlint/i) &&
         !file_changed?('package.json') &&
         !file_changed?('pnpm-lock.yaml')
     end,
