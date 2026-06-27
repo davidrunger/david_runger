@@ -7,6 +7,7 @@ allowBuilds:
   unrs-resolver: true
   vue-demi: true
   '@parcel/watcher': false
+  protobufjs: false
 minimumReleaseAgeExclude:
   - dompurify@3.4.11
   - undici@7.28.0
