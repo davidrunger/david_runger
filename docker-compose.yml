@@ -223,13 +223,13 @@ services:
       interval: 5m
       timeout: 1s
       retries: 1
-    image: postgres:18.1-alpine
+    image: postgres:18.4-alpine
     logging: *default-logging
     memswap_limit: 99G
     networks:
       - internal
     volumes:
-      - postgres-data-v18:/var/lib/postgresql/data
+      - postgres-data-v18.4:/var/lib/postgresql
   prometheus:
     cpu_shares: 512
     expose:
@@ -380,6 +380,6 @@ volumes:
   app-public:
   grafana-data:
   loki-data:
-  postgres-data-v18:
+  postgres-data-v18.4:
   prometheus-data:
   redis:
