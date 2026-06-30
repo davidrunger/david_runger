@@ -64,7 +64,7 @@
     "@testing-library/vue": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/luxon": "^3.7.2",
-    "@types/node": "^26.0.0",
+    "@types/node": "^26.0.1",
     "@types/rails__actioncable": "^8.0.3",
     "@types/rails__ujs": "^6.0.4",
     "@types/strftime": "^0.9.8",
