@@ -208,8 +208,8 @@ importers:
         specifier: ^3.9.4
         version: 3.9.4
       quicktype:
-        specifier: ^23.2.6
-        version: 23.2.6
+        specifier: ^23.3.1
+        version: 23.3.1
       sass:
         specifier: ^1.101.0
         version: 1.101.0
@@ -3313,8 +3313,8 @@ packages:
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
 
-  protobufjs@7.6.4:
-    resolution: {integrity: sha512-RJJPTTpvFfHcWLkIa2JFWK4XvtSzS0yEWDmunqHXli1h3JlkbcQZXDZdcWxv+JK3Xsl5/UFDPZ0iGm7DAengYw==}
+  protobufjs@7.6.5:
+    resolution: {integrity: sha512-/FPD0nUc9jH6rfFjji9IBqOz4pcSE3CsT1m7Ep6Mdb0LxSUMj8hgl6GomOvZzpNpAqqGaXA0P3VSrZLFzIhQrw==}
     engines: {node: '>=12.0.0'}
 
   pug-attrs@3.0.0:
@@ -3377,17 +3377,17 @@ packages:
     resolution: {integrity: sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==}
     engines: {node: '>=8'}
 
-  quicktype-core@23.2.6:
-    resolution: {integrity: sha512-asfeSv7BKBNVb9WiYhFRBvBZHcRutPRBwJMxW0pefluK4kkKu4lv0IvZBwFKvw2XygLcL1Rl90zxWDHYgkwCmA==}
+  quicktype-core@23.3.1:
+    resolution: {integrity: sha512-KEvu/nKif1CUgMgfdBcgiZiJRbKSve0c3hAyq2BRiL5vQHMEJQOketacSJ8OI3ggCHRvlOTZ1NvarLOJZSAaRQ==}
 
-  quicktype-graphql-input@23.2.6:
-    resolution: {integrity: sha512-jHQ8XrEaccZnWA7h/xqUQhfl+0mR5o91T6k3I4QhlnZSLdVnbycrMq4FHa9EaIFcai783JKwSUl1+koAdJq4pg==}
+  quicktype-graphql-input@23.3.1:
+    resolution: {integrity: sha512-FVdfmlbKJoqBFQkrTBWFtYT9roLz2ikYv6gWcb228YCzdu1SLoZKkRu4+GjXhONGTQ2mv2nNOSEdSkN3N/qLVA==}
 
-  quicktype-typescript-input@23.2.6:
-    resolution: {integrity: sha512-dCNMxR+7PGs9/9Tsth9H6LOQV1G+Tv4sUGT8ZUfDRJ5Hq371qOYLma5BnLX6VxkPu8JT7mAMpQ9VFlxstX6Qaw==}
+  quicktype-typescript-input@23.3.1:
+    resolution: {integrity: sha512-8yA02r4TTkSURQXapDqVxznNDx8jscR9tb7SP+UUIteO6eTCBqv1xHATls9Yhnr5fKlIWe+44VqeS4LLWGoAHQ==}
 
-  quicktype@23.2.6:
-    resolution: {integrity: sha512-rlD1jF71bOmDn6SQ/ToLuuRkMQ7maxo5oVTn5dPCl11ymqoJCFCvl7FzRfh+fkDFmWt2etl+JiIEdWImLxferA==}
+  quicktype@23.3.1:
+    resolution: {integrity: sha512-Exjj0sHY1QyUdgsyuBZqssNDOh75n5iWYxtcqTD8QniLVFbz6lZqCMla10n0BukZlFIRihqwR2pCIYttL0jQKA==}
     engines: {node: '>=18.12.0'}
     hasBin: true
 
@@ -3735,8 +3735,8 @@ packages:
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
-  systeminformation@5.31.11:
-    resolution: {integrity: sha512-I6O7iaUj23AXRgCPDDnvi3xHvdOLp4+1YMbF+X194lJwY1NeWojgHJPhslVKcmTtrLTguRk3QJK+xEdTiI3P0w==}
+  systeminformation@5.31.12:
+    resolution: {integrity: sha512-qnTtO5wHrKeKE/MvQ6iIt6XAV+5fgt/kPIQf27DYgjVQQuHUfWkV4Gu6k04ZpEzAMuyQ3ZsovY7Ivhp+E9JyWw==}
     engines: {node: '>=8.0.0'}
     os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
     hasBin: true
@@ -4667,7 +4667,7 @@ snapshots:
     dependencies:
       lodash.camelcase: 4.3.0
       long: 5.3.2
-      protobufjs: 7.6.4
+      protobufjs: 7.6.5
       yargs: 17.7.3
 
   '@hotwired/turbo-rails@8.0.23':
@@ -5112,7 +5112,7 @@ snapshots:
       '@percy/config': 1.32.3(typescript@6.0.3)
       '@percy/logger': 1.32.3
       '@percy/sdk-utils': 1.32.3
-      systeminformation: 5.31.11
+      systeminformation: 5.31.12
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -7468,7 +7468,7 @@ snapshots:
 
   proto-list@1.2.4: {}
 
-  protobufjs@7.6.4:
+  protobufjs@7.6.5:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
       '@protobufjs/base64': 1.1.2
@@ -7570,7 +7570,7 @@ snapshots:
 
   quick-lru@4.0.1: {}
 
-  quicktype-core@23.2.6:
+  quicktype-core@23.3.1:
     dependencies:
       '@glideapps/ts-necessities': 2.2.3
       browser-or-node: 3.0.0
@@ -7589,25 +7589,25 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  quicktype-graphql-input@23.2.6:
+  quicktype-graphql-input@23.3.1:
     dependencies:
       collection-utils: 1.0.1
       graphql: 0.11.7
-      quicktype-core: 23.2.6
+      quicktype-core: 23.3.1
     transitivePeerDependencies:
       - encoding
 
-  quicktype-typescript-input@23.2.6:
+  quicktype-typescript-input@23.3.1:
     dependencies:
       '@mark.probst/typescript-json-schema': 0.55.0
-      quicktype-core: 23.2.6
+      quicktype-core: 23.3.1
       typescript: 4.9.5
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
       - encoding
 
-  quicktype@23.2.6:
+  quicktype@23.3.1:
     dependencies:
       '@glideapps/ts-necessities': 2.4.0
       chalk: 4.1.2
@@ -7618,9 +7618,9 @@ snapshots:
       graphql: 0.11.7
       lodash: 4.18.1
       moment: 2.30.1
-      quicktype-core: 23.2.6
-      quicktype-graphql-input: 23.2.6
-      quicktype-typescript-input: 23.2.6
+      quicktype-core: 23.3.1
+      quicktype-graphql-input: 23.3.1
+      quicktype-typescript-input: 23.3.1
       readable-stream: 4.7.0
       stream-json: 1.8.0
       string-to-stream: 3.0.1
@@ -8046,7 +8046,7 @@ snapshots:
 
   symbol-tree@3.2.4: {}
 
-  systeminformation@5.31.11: {}
+  systeminformation@5.31.12: {}
 
   table-layout@4.1.1:
     dependencies:
