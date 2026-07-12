@@ -7,6 +7,7 @@ gem 'activeadmin', '>= 4.0.0.beta15'
 gem 'addressable'
 gem 'alba'
 gem 'aws-sdk-s3'
+gem 'benchmark'
 gem 'blazer'
 gem 'bootsnap', require: false
 gem 'browser'
@@ -64,7 +65,6 @@ end
 group :development, :test do
   gem 'amazing_print'
   gem 'annotaterb', require: false
-  gem 'benchmark'
   gem 'immigrant'
   gem 'json_schemer'
   gem 'listen'
