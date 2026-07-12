@@ -18,9 +18,13 @@ aws s3 cp "s3://$BACKUPS_BUCKET/$LATEST_BACKUP_FILENAME" tmp/ &&
 
 
 development_database=david_runger_development
+echo "Dropping and recreating $development_database database..."
+dropdb --if-exists "$development_database"
+createdb "$development_database"
+
 echo "Restoring $development_database database from backup..."
 pg_restore \
-  --verbose --clean --no-owner -h localhost -d "$development_database" \
+  --verbose --no-owner -h localhost -d "$development_database" \
   tmp/backup/export
 
 echo "Removing dump files..."
