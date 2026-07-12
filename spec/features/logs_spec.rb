@@ -98,11 +98,15 @@ RSpec.describe 'Logs app' do
             number_log.log_entries.reorder(:created_at).last!
 
           expect {
-            sleep(0.05) # Give 50 ms for ElPopconfirm click handler to bind.
-            click_on(delete_last_entry_text)
+            wait_for do
+              click_on(delete_last_entry_text)
+              page.has_css?('.el-popconfirm')
+            end.to eq(true)
+
             within('.el-popconfirm') do
               click_on('Yes')
             end
+
             wait_for { LogEntry.find_by(id: most_recent_log_entry.id) }.to eq(nil)
           }.to change {
             LogEntry.find_by(id: most_recent_log_entry.id)
