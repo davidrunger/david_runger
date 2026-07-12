@@ -98,10 +98,10 @@ RSpec.describe 'Logs app' do
             number_log.log_entries.reorder(:created_at).last!
 
           expect {
-            wait_for {
+            wait_for do
               click_on(delete_last_entry_text)
               page.has_css?('.el-popconfirm')
-            }.to eq(true)
+            end.to eq(true)
 
             within('.el-popconfirm') do
               click_on('Yes')
