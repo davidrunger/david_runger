@@ -18,6 +18,7 @@ aws s3 cp "s3://$BACKUPS_BUCKET/$LATEST_BACKUP_FILENAME" tmp/ &&
 
 
 development_database=david_runger_development
+
 echo "Dropping and recreating $development_database database..."
 dropdb --if-exists "$development_database"
 createdb "$development_database"
