@@ -11,3 +11,5 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - dompurify@3.4.11
   - undici@7.28.0
+overrides:
+  typescript: ^6
