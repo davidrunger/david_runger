@@ -127,8 +127,8 @@ GEM
     annotaterb (4.23.0)
       activerecord (>= 6.0.0)
       activesupport (>= 6.0.0)
-    anonymous_loader (0.1.2)
-      version_gem (~> 1.1, >= 1.1.13)
+    anonymous_loader (0.1.3)
+      version_gem (~> 1.1, >= 1.1.14)
     arbre (2.2.1)
       activesupport (>= 7.0)
     ast (2.4.3)
@@ -743,7 +743,7 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
-    version_gem (1.1.13)
+    version_gem (1.1.14)
     vite_rails (3.11.1)
       railties (>= 5.1, < 9)
       vite_ruby (~> 3.0, >= 3.2.2)
@@ -904,7 +904,7 @@ CHECKSUMS
   alba (3.10.0) sha256=52769d2328da35c4f1bbcfe96b3931b9c8595667307a902573868b1cf6d65d79
   amazing_print (2.0.0) sha256=2e36aba46ac78d37ed27ca0e2056afe3583183bb5c64f157c246b267355e5d6a
   annotaterb (4.23.0) sha256=0fc59b1d40e07bec75d9d9b0cd479493631ce8901e4b59fefc561689f22b4600
-  anonymous_loader (0.1.2) sha256=8ccf77c3f0812fb93d47956fdd6f30344a3835864e3cb1431ca597905985efc2
+  anonymous_loader (0.1.3) sha256=084a18e2439144d955447dc11dfc982f41fcd1583ad32d4d55151325dc44cb55
   arbre (2.2.1) sha256=3048ba04c063e603fa9a47cd8ea8fe5ce79a0dbd7306840816ab37bb496c79d6
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
   attr_extras (7.1.0) sha256=d96fc9a9dd5d85ba2d37762440a816f840093959ae26bb90da994c2d9f1fc827
@@ -1162,7 +1162,7 @@ CHECKSUMS
   unicode-emoji (4.2.0) sha256=519e69150f75652e40bf736106cfbc8f0f73aa3fb6a65afe62fefa7f80b0f80f
   uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
   useragent (0.16.11) sha256=700e6413ad4bb954bb63547fa098dddf7b0ebe75b40cc6f93b8d54255b173844
-  version_gem (1.1.13) sha256=77f3035ac45877cd14610648fec2d23bd8c10fa13dfcf63a588825aa98587260
+  version_gem (1.1.14) sha256=6b7306c7e9416d06067561981ab3444e2cecb844f26cc325ae3c27b44cf85613
   vite_rails (3.11.1) sha256=61fa4a7c9248fc28f22a05e0760810bf79f645b776c721d888a815c5d21dd338
   vite_ruby (3.10.2) sha256=db465451eb180abbdc81f596ba63671d2b2552e2bb7bf3c1f7b79f9d58ca9a86
   warden (1.2.9) sha256=46684f885d35a69dbb883deabf85a222c8e427a957804719e143005df7a1efd0
