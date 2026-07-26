@@ -4,7 +4,7 @@ export interface WorkoutUpdateResponse {
     created_at:        string;
     id:                number;
     publicly_viewable: boolean;
-    rep_totals:        { [key: string]: any };
+    rep_totals:        { [key: string]: unknown };
     time_in_seconds:   number;
     username:          string;
 }
