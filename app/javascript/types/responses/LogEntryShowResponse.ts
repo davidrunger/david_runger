@@ -6,5 +6,5 @@ export interface LogEntryShowResponse {
     id?:         number;
     log_id?:     number;
     note?:       null | string;
-    [property: string]: any;
+    [property: string]: unknown;
 }
