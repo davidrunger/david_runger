@@ -5,7 +5,7 @@
 
 This is a Ruby on Rails web app (with a primarily Vue-based frontend) that runs some small, personal web applications hosted at [davidrunger.com](https://www.davidrunger.com/).
 
-# Technical overview
+## Technical overview
 
 See the AI-generated [DeepWiki for this repo][deepwiki].
 
