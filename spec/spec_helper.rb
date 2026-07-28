@@ -24,7 +24,7 @@ SimpleCov.start do
   end
   # rubocop:enable Rails/Present
   # rubocop:disable RSpec/Pending
-  skip(%r{(^|/)tools/})
+  skip(%r{(^|/)tools/(?!custom_cops/)})
   # rubocop:enable RSpec/Pending
   enable_coverage(:branch) if !SpecHelper.is_ci? # Codecov doesn't respect `nocov-else` etc comments
 end
