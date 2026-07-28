@@ -44,7 +44,7 @@
     "toastify-js": "^1.12.0",
     "tom-select": "^2.6.2",
     "unplugin-element-plus": "^0.11.2",
-    "vega": "^6.2.0",
+    "vega": "^6.3.1",
     "vega-embed": "^7.1.0",
     "vega-lite": "^6.4.3",
     "vue": "^3.5.40",
@@ -71,15 +71,15 @@
     "@types/toastify-js": "^1.12.4",
     "@types/when-dom-ready": "^1.2.2",
     "@typescript-eslint/parser": "^8.65.0",
-    "@vue/language-plugin-pug": "^3.3.7",
+    "@vue/language-plugin-pug": "^3.3.8",
     "fishery": "^2.4.0",
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
-    "oxlint": "^1.74.0",
+    "oxlint": "^1.75.0",
     "postcss-html": "^1.8.1",
-    "prettier": "^3.9.5",
+    "prettier": "^3.9.6",
     "quicktype": "^26.0.0",
-    "sass": "^1.101.3",
+    "sass": "^1.101.6",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
@@ -90,6 +90,6 @@
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-ruby": "^5.2.2",
     "vitest": "^4.1.10",
-    "vue-tsc": "^3.3.7"
+    "vue-tsc": "^3.3.8"
   }
 }
