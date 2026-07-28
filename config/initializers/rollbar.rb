@@ -3,14 +3,14 @@ Rollbar.configure do |config|
 
   access_token =
     case Rails.env
-    # :nocov:
+    # simplecov:disable
     when 'production'
       if IS_DOCKER_BUILD
         nil
       else
         ENV.fetch('ROLLBAR_ACCESS_TOKEN')
       end
-    # :nocov:
+    # simplecov:enable
     else ENV.fetch('ROLLBAR_ACCESS_TOKEN', nil)
     end
 

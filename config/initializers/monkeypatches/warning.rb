@@ -13,13 +13,13 @@ if Rails.env.test?
     ].freeze
 
     def warn(message, *_args, **_kwargs)
-      # :nocov:
+      # simplecov:disable
       unless IGNORED_WARNINGS.any? { message.include?(it) } # rubocop:disable Style/ArrayIntersect
         StoredWarnings.warnings << message
       end
 
       super
-      # :nocov:
+      # simplecov:enable
     end
   end
 

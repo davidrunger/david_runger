@@ -11,7 +11,7 @@ unless IS_DOCKER_BUILD
   end
 
   Sidekiq.configure_server do |config|
-    # :nocov:
+    # simplecov:disable
     config.redis = { url: redis_options.url }
 
     require 'sidekiq_ext/job_logger'
@@ -42,6 +42,6 @@ unless IS_DOCKER_BUILD
         chain.add(Prosopite::Middleware::Sidekiq)
       end
     end
-    # :nocov:
+    # simplecov:enable
   end
 end

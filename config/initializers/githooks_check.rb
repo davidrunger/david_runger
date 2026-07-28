@@ -1,4 +1,4 @@
-# :nocov:
+# simplecov:disable
 if (
   Rails.env.local? &&
     ENV['SKIP_GITHOOKS_CHECK'].blank? &&
@@ -14,4 +14,4 @@ if (
 
   exit(1) # rubocop:disable Rails/Exit
 end
-# :nocov:
+# simplecov:enable
