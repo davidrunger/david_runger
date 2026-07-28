@@ -210,8 +210,13 @@ RSpec.describe 'Logs app' do
         it 'allows the user to download a CSV with the log data' do
           visit(log_path(slug: log.slug))
 
-          # Give some time for the download link to be fully set up.
-          sleep(0.2)
+          # Make sure download link has href and time to setup before clicking.
+          wait_for { page }.to have_link(
+            'Download CSV',
+            href: download_log_path(log.slug),
+          )
+          sleep(0.5)
+
           click_on('Download CSV')
 
           csv = CSV.read(downloaded_file_path('*.csv'), headers: true)
