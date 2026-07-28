@@ -1,7 +1,7 @@
 if Rails.env.development? && !IS_DOCKER
-  # :nocov:
+  # simplecov:disable
   HttpLogger.configure do |config|
     config.log_headers = true
   end
-  # :nocov:
+  # simplecov:enable
 end

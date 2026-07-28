@@ -54,9 +54,9 @@ Rails.application.configure do
 
   config.log_level =
     if ENV.fetch('TEST_LOGGING', nil) == '1'
-      # :nocov:
+      # simplecov:disable
       :debug
-    # :nocov:
+    # simplecov:enable
     else
       :warn
     end

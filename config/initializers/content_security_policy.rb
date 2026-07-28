@@ -7,15 +7,15 @@
 Rails.application.configure do
   # Allow disabling CSP in development because it breaks Vue devtools in Firefox.
   if Rails.env.local? && ENV.key?('DISABLE_CSP')
-    # :nocov:
+    # simplecov:disable
     next
-    # :nocov:
+    # simplecov:enable
   end
 
   config.content_security_policy do |policy|
     extra_sources = []
     extra_connect_sources = []
-    # :nocov:
+    # simplecov:disable
     if Rails.env.development? || (Rails.env.test? && !ENV.key?('CI'))
       extra_sources << DavidRunger::CANONICAL_URL # allow assets from prod for local prerenders
       extra_connect_sources << 'ws://localhost:3000' # actioncable connections
@@ -41,7 +41,7 @@ Rails.application.configure do
     elsif Rails.env.production?
       extra_connect_sources << "wss://#{DavidRunger::CANONICAL_DOMAIN}" # for actioncable websockets
     end
-    # :nocov:
+    # simplecov:enable
 
     policy.default_src(:none)
     policy.base_uri(:self)

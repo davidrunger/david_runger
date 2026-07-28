@@ -99,7 +99,7 @@ class JsonSchemaValidator
 
   def facilitate_schema_provisioning
     if Rails.env.development?
-      # :nocov:
+      # simplecov:disable
       # Copy JSON data that was not validated/accepted to clipboard.
       string_to_copy =
         if @data.is_a?(String)
@@ -121,7 +121,7 @@ class JsonSchemaValidator
 
       # Open JSON-to-JSONSchema converter in browser.
       system('open https://jsonformatter.org/json-to-jsonschema', exception: true)
-      # :nocov:
+      # simplecov:enable
     end
   end
 end
