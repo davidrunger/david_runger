@@ -75,7 +75,7 @@
     "fishery": "^2.4.0",
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
-    "oxlint": "^1.75.0",
+    "oxlint": "^1.76.0",
     "postcss-html": "^1.8.1",
     "prettier": "^3.9.6",
     "quicktype": "^26.0.0",
