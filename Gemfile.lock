@@ -803,7 +803,7 @@ DEPENDENCIES
   connection_pool
   csv
   cuprite
-  database_consistency (< 3.1.0)
+  database_consistency
   devise
   dotenv
   draper
