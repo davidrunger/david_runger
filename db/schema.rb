@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_09_161516) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_03_151208) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -336,6 +336,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_09_161516) do
     t.index ["check_in_id"], name: "index_need_satisfaction_ratings_on_check_in_id"
     t.index ["emotional_need_id"], name: "index_need_satisfaction_ratings_on_emotional_need_id"
     t.index ["user_id"], name: "index_need_satisfaction_ratings_on_user_id"
+    t.check_constraint "score IS NULL OR score >= '-3'::integer AND score <= 3", name: "need_satisfaction_ratings_score_range"
   end
 
   create_table "number_log_entry_data", force: :cascade do |t|
@@ -494,6 +495,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_09_161516) do
     t.bigint "user_id", null: false
     t.index ["created_at"], name: "index_workouts_on_created_at"
     t.index ["user_id"], name: "index_workouts_on_user_id"
+    t.check_constraint "time_in_seconds > 0", name: "workouts_time_in_seconds_positive"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
