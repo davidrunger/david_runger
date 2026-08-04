@@ -14,6 +14,12 @@ RSpec.describe Api::CommentsController do
 
         expect(response.parsed_body).to eq([])
       end
+
+      it 'does not write the read-only request session back to the client' do
+        get_index
+
+        expect(request.session_options[:skip]).to eq(true)
+      end
     end
   end
 end
