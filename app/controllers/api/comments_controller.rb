@@ -31,6 +31,10 @@ class Api::CommentsController < Api::BaseController
   end
 
   def index
+    # This read-only request can race with an OAuth request that updates the cookie-backed session.
+    # Do not let this response overwrite newer session data with the session that it received.
+    request.session_options[:skip] = true
+
     authorize(Comment)
 
     comments =
