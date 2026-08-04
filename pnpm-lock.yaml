@@ -24,8 +24,8 @@ importers:
         specifier: ^8.0.23
         version: 8.0.23
       '@rails/actioncable':
-        specifier: ^8.1.300
-        version: 8.1.300
+        specifier: ^8.1.301
+        version: 8.1.301
       '@rails/ujs':
         specifier: ^7.1.600
         version: 7.1.600
@@ -933,8 +933,8 @@ packages:
   '@protobufjs/utf8@1.1.2':
     resolution: {integrity: sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==}
 
-  '@rails/actioncable@8.1.300':
-    resolution: {integrity: sha512-zOENQsq3NM2jyBY6Z2qtZa3V/R/6OEqA+LGKixQbBMl7kk/J3FXDRcszPe74LsHNgB01jCl/DXu/xA8sHt4I/g==}
+  '@rails/actioncable@8.1.301':
+    resolution: {integrity: sha512-n4Q6DfnqnZ604xgqeqURNyUmk6JtPoKf++UeV9agvecIkV3AcpgJs5D08Kx8WnZNgM7u4av9ezfIXv+CgdV94A==}
 
   '@rails/ujs@7.1.600':
     resolution: {integrity: sha512-ntMYJ8++n1zcIJ1g75or7Va9IU3ueCHgp9IJk7Ny7eFEbu0Kx40EHZ2FNhoxoUEjlF5NifCFCbvoK5rDK5HpIQ==}
@@ -4693,7 +4693,7 @@ snapshots:
   '@hotwired/turbo-rails@8.0.23':
     dependencies:
       '@hotwired/turbo': 8.0.23
-      '@rails/actioncable': 8.1.300
+      '@rails/actioncable': 8.1.301
 
   '@hotwired/turbo@8.0.23': {}
 
@@ -5173,7 +5173,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.2': {}
 
-  '@rails/actioncable@8.1.300': {}
+  '@rails/actioncable@8.1.301': {}
 
   '@rails/ujs@7.1.600': {}
 
