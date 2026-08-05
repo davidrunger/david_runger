@@ -12,58 +12,57 @@ RSpec.describe 'Check-Ins app' do
 
       let(:proposee) { User.where.not(id: user).first! }
 
-      context 'when JWT_SECRET is set' do
-        before { expect(ENV.fetch('JWT_SECRET', nil)).to be_present }
+      it 'allows inviting spouse and accepting proposal, populates initial emotional needs, and allows adding an emotional need', :rack_test_driver do
+        visit check_ins_path
 
-        it 'allows inviting spouse and accepting proposal, populates initial emotional needs, and allows adding an emotional need', :rack_test_driver do
-          visit check_ins_path
+        expect(page).to have_text('Enter the email of your spouse')
 
-          expect(page).to have_text('Enter the email of your spouse')
+        fill_in('spouse_email', with: proposee.email)
 
-          fill_in('spouse_email', with: proposee.email)
-
-          with_inline_sidekiq do
-            activate_feature!(:disable_fetch_ip_info_for_request_worker)
-            num_emails_before = ActionMailer::Base.deliveries.size
-            click_on('Submit')
-            wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 1)
-          end
-
-          expect(page).to have_flash_message('Invitation sent.')
-
-          # View default emotional needs.
-          click_on('Click here')
-          Marriages::Create::DEFAULT_EMOTIONAL_NEEDS.each do |name, description|
-            expect(page).to have_text(name)
-            expect(page).to have_text(description)
-          end
-
-          # Add an emotional need.
-          new_need_name = "#{Faker::Emotion.unique.noun.capitalize}-#{SecureRandom.alphanumeric(5)}"
-          new_need_description = Faker::Company.unique.bs.capitalize
-          fill_in('Name', with: new_need_name)
-          fill_in('Description', with: new_need_description)
-          click_on('Create Emotional need')
-
-          expect(page).to have_text("#{new_need_name} (#{new_need_description})")
-
-          # log in proposee and accept the proposal
-          Capybara.using_session('proposee') do
-            wait_for do
-              sign_in(proposee)
-              sign_in_confirmed_via_my_account?(proposee)
-            end.to eq(true)
-
-            open_email(proposee.email)
-            # rubocop:disable RungerStyle/ClickAmbiguously
-            current_email.click_link('Click here', href: %r{/proposals/accept\?token=.+})
-            # rubocop:enable RungerStyle/ClickAmbiguously
-            expect(page).to have_text('Marriage created.')
-          end
-
-          expect(user.reload.spouse).to eq(proposee)
-          expect(proposee.reload.spouse).to eq(user)
+        with_inline_sidekiq do
+          activate_feature!(:disable_fetch_ip_info_for_request_worker)
+          num_emails_before = ActionMailer::Base.deliveries.size
+          click_on('Submit')
+          wait_for { ActionMailer::Base.deliveries.size }.to eq(num_emails_before + 1)
         end
+
+        expect(page).to have_flash_message('Invitation sent.')
+
+        # View default emotional needs.
+        click_on('Click here')
+        Marriages::Create::DEFAULT_EMOTIONAL_NEEDS.each do |name, description|
+          expect(page).to have_text(name)
+          expect(page).to have_text(description)
+        end
+
+        # Add an emotional need.
+        new_need_name = "#{Faker::Emotion.unique.noun.capitalize}-#{SecureRandom.alphanumeric(5)}"
+        new_need_description = Faker::Company.unique.bs.capitalize
+        fill_in('Name', with: new_need_name)
+        fill_in('Description', with: new_need_description)
+        click_on('Create Emotional need')
+
+        expect(page).to have_text("#{new_need_name} (#{new_need_description})")
+
+        # log in proposee and accept the proposal
+        Capybara.using_session('proposee') do
+          wait_for do
+            sign_in(proposee)
+            sign_in_confirmed_via_my_account?(proposee)
+          end.to eq(true)
+
+          open_email(proposee.email)
+          # rubocop:disable RungerStyle/ClickAmbiguously
+          current_email.click_link('Click here', href: %r{/proposals/.+/confirm})
+          # rubocop:enable RungerStyle/ClickAmbiguously
+          expect(page).to have_text("#{user.email} wants you to join their marriage")
+          expect(page).to have_button('Accept proposal')
+          click_on('Accept proposal')
+          expect(page).to have_text('Marriage created.')
+        end
+
+        expect(user.reload.spouse).to eq(proposee)
+        expect(proposee.reload.spouse).to eq(user)
       end
     end
 

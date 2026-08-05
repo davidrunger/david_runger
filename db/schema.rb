@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_03_151208) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -365,6 +365,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_03_151208) do
     t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
   end
 
+  create_table "proposals", force: :cascade do |t|
+    t.datetime "accepted_at"
+    t.datetime "created_at", null: false
+    t.string "proposee_email", null: false
+    t.bigint "proposer_id", null: false
+    t.string "public_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposer_id", "proposee_email"], name: "uniq_pending_proposals", unique: true, where: "(accepted_at IS NULL)"
+    t.index ["proposer_id"], name: "index_proposals_on_proposer_id"
+    t.index ["public_id"], name: "index_proposals_on_public_id", unique: true
+  end
+
   create_table "quiz_participations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "display_name", null: false
@@ -528,6 +540,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_03_151208) do
   add_foreign_key "need_satisfaction_ratings", "check_ins"
   add_foreign_key "need_satisfaction_ratings", "emotional_needs"
   add_foreign_key "need_satisfaction_ratings", "users"
+  add_foreign_key "proposals", "users", column: "proposer_id"
   add_foreign_key "quiz_participations", "quizzes"
   add_foreign_key "quiz_participations", "users", column: "participant_id"
   add_foreign_key "quiz_question_answer_selections", "quiz_participations", column: "participation_id"

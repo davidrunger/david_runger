@@ -16,7 +16,7 @@
 class User < ApplicationRecord
   prepend Memoization
 
-  validates :email, presence: true, uniqueness: true, format: { with: /\A\S+@\S+\.\S+\z/ }
+  validates :email, presence: true, uniqueness: true, email_format: true
 
   has_many :auth_tokens, dependent: :destroy
   has_many :logs, dependent: :destroy
@@ -29,6 +29,13 @@ class User < ApplicationRecord
     inverse_of: :participant,
   )
   has_many :requests, dependent: :destroy
+  has_many(
+    :sent_proposals,
+    dependent: :destroy,
+    foreign_key: 'proposer_id',
+    inverse_of: :proposer,
+    class_name: 'Proposal',
+  )
   has_many :stores, dependent: :destroy
   has_many :items, through: :stores # must come after has_many :stores declaration
   has_many :log_entries, through: :logs

@@ -1,0 +1,18 @@
+%h1 Confirm marriage proposal
+
+%p
+  %b= @proposal.proposer.email
+  wants you to join their marriage on davidrunger.com.
+
+- if @proposal.accepted_at.present?
+  %p This proposal has already been accepted.
+- else
+  - if current_user.spouse.present? && current_user.marriage != @proposal.proposer.marriage
+    %p
+      %b Warning:
+      Accepting this proposal will delete your existing marriage and its associated check-in data.
+
+  = button_to('Accept proposal',
+    accept_proposal_path(@proposal),
+    method: :post,
+    class: 'btn-primary')
