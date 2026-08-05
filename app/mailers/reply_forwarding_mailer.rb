@@ -10,13 +10,14 @@ class ReplyForwardingMailer < ApplicationMailer
 
       if is_attachment
         inbound_email_mail = Mail.new(inbound_email.raw_email_blob.download)
-        attachments[inbound_email_mail.filename] = inbound_email_mail.decoded
+        attachments[safe_attachment_filename(inbound_email_mail.filename)] =
+          inbound_email_mail.decoded
       end
 
       if has_attachments
         inbound_email_attachments = Mail.new(inbound_email.raw_email_blob.download).attachments
         inbound_email_attachments.each do |attachment|
-          attachments[attachment.filename] = attachment.decoded
+          attachments[safe_attachment_filename(attachment.filename)] = attachment.decoded
         end
       end
     end
@@ -28,4 +29,10 @@ class ReplyForwardingMailer < ApplicationMailer
     )
   end
   # rubocop:enable Metrics/ParameterLists
+
+  private
+
+  def safe_attachment_filename(filename)
+    Email::AttachmentFilename.sanitize(filename)
+  end
 end

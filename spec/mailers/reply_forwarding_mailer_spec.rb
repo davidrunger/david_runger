@@ -47,6 +47,8 @@ RSpec.describe ReplyForwardingMailer do
     context 'when there are attachments' do
       let(:has_attachments) { true }
 
+      let(:attachment_filename) { 'random.txt' }
+
       before do
         inbound_email = ActionMailbox::InboundEmail.create!(
           message_id:,
@@ -70,8 +72,9 @@ RSpec.describe ReplyForwardingMailer do
           "----==_mimepart_7291c2b9a328_126b3616c510df\r\nContent-Type: text/plain;\r\n " \
           "charset=UTF-8\r\nContent-Transfer-Encoding: 7bit\r\n\r\nattachment body\r\n" \
           "----==_mimepart_7291c2b9a328_126b3616c510df\r\nContent-Type: text/plain;\r\n " \
-          "charset=UTF-8;\r\n filename=random.txt\r\nContent-Transfer-Encoding: 7bit\r\n" \
-          "Content-Disposition: attachment;\r\n filename=random.txt\r\n\r\nAttachment content." \
+          "charset=UTF-8;\r\n filename=\"#{attachment_filename}\"\r\n" \
+          "Content-Transfer-Encoding: 7bit\r\nContent-Disposition: attachment;\r\n " \
+          "filename=\"#{attachment_filename}\"\r\n\r\nAttachment content." \
           "\r\n\r\n----==_mimepart_7291c2b9a328_126b3616c510df--\r\n",
         )
         # rubocop:enable RSpec/AnyInstance
@@ -79,6 +82,16 @@ RSpec.describe ReplyForwardingMailer do
 
       it 'includes the attachments' do
         expect(mail.attachments.size).to eq(1)
+      end
+
+      context 'when the attachment filename contains path traversal' do
+        let(:attachment_filename) do
+          '../../../../app/views/mailers/admin_mailer/user_created.html.haml'
+        end
+
+        it 'forwards the attachment with only its sanitized basename' do
+          expect(mail.attachments.first.filename).to eq('user_created.html.haml')
+        end
       end
     end
 

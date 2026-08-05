@@ -75,6 +75,27 @@ RSpec.describe Email::MailgunViaHttp do
         expect(post_body[:html]).to eq('<div></div>')
       end
     end
+
+    context 'when an attachment filename contains path traversal' do
+      let(:attachment_filename) { '../../../../app/views/malicious.html.haml' }
+      let(:mail) do
+        Mail.new.tap do |message|
+          message.from = 'sender@example.com'
+          message.to = 'davidjrunger@gmail.com'
+          message.subject = 'Attachment'
+          message.add_file(filename: attachment_filename, content: 'safe content')
+        end
+      end
+
+      it 'uploads the attachment from memory with a sanitized display filename' do
+        file_part = post_body.fetch(:attachment).sole
+
+        expect(file_part.original_filename).to eq('malicious.html.haml')
+        expect(file_part.io).to be_a(StringIO)
+        expect(file_part.io.string).to eq('safe content')
+        expect(file_part.local_path).to eq('local.path')
+      end
+    end
   end
 
   describe '#safe_to_value' do
