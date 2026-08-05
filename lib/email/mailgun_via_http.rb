@@ -1,3 +1,5 @@
+require 'stringio'
+
 # rubocop:disable Style/ClassAndModuleChildren
 module Email
   class MailgunViaHttp
@@ -26,7 +28,7 @@ module Email
         LOG
       end
 
-      delete_attachments
+      nil
     end
 
     private
@@ -46,12 +48,6 @@ module Email
     end
 
     memoize \
-    def attachments_tmp_directory
-      # use random directory for thread safety (so users' emails don't conflict w/ each other)
-      "tmp/attachments/#{Time.zone.today.iso8601}/#{SecureRandom.alphanumeric(5)}"
-    end
-
-    memoize \
     def post_body(mail)
       body = {
         to: safe_to_value(mail),
@@ -62,18 +58,18 @@ module Email
       }
 
       if mail.has_attachments?
-        body[:attachment] = []
-        FileUtils.mkdir_p(attachments_tmp_directory)
-        mail.attachments.each do |attachment|
-          file = File.new("#{attachments_tmp_directory}/#{attachment.filename}", 'w+b')
-          file.write(attachment.body.to_s)
-          file.rewind
-          body[:attachment] <<
-            Faraday::Multipart::FilePart.new(file, 'application/octet-stream')
-        end
+        body[:attachment] = mail.attachments.map { |attachment| file_part(attachment) }
       end
 
       body
+    end
+
+    def file_part(attachment)
+      Faraday::Multipart::FilePart.new(
+        StringIO.new(attachment.body.to_s),
+        'application/octet-stream',
+        AttachmentFilename.sanitize(attachment.filename),
+      )
     end
 
     def safe_to_value(mail)
@@ -87,11 +83,6 @@ module Email
       else
         fail("You *actually* tried to send an email to #{recipients}!")
       end
-    end
-
-    def delete_attachments
-      FileUtils.rm_rf(attachments_tmp_directory)
-      nil
     end
   end
 end

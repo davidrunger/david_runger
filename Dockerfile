@@ -86,8 +86,17 @@ RUN bin/bootsnap precompile app/ lib/
 # Return to base image for final stage of app image build
 FROM base
 
+# Run the application as an unprivileged user. Application code remains owned by root;
+# only directories that Rails needs to write to at runtime are writable by this user.
+RUN groupadd --system app && \
+  useradd --system --gid app --home-dir /app --shell /usr/sbin/nologin app
+
 # Copy everything added to the app WORKDIR: gems, application code, skedjewel, compiled assets.
-COPY --from=build /app /app
+COPY --chown=0:0 --from=build /app /app
+
+RUN mkdir -p log tmp && \
+  find /app -xdev -perm /002 -exec chmod o-w {} + && \
+  chown -R app:app log tmp
 
 # Add GIT_REV env var permanently to the image
 ARG GIT_REV
@@ -98,5 +107,7 @@ ENV DOCKER_BUILT=true
 
 # Specify prometheus_exporter Docker Compose host/service name.
 ENV PROMETHEUS_EXPORTER_HOST=rails_metrics
+
+USER app
 
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
