@@ -48,7 +48,10 @@ if ! docker compose ps -q nginx | grep -q . ; then
 fi
 
 # Copy fully built out public/ directory from web to nginx via app-public volume.
+# This trusted, one-off container needs root access to the Docker-managed volume. The
+# long-running web and worker containers continue to use the image's unprivileged user.
 docker run --rm \
+  --user 0:0 \
   --mount source=david_runger_app-public,target=/app-public \
   --entrypoint cp david_runger-web -r /app/public/. /app-public/
 
