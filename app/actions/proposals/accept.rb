@@ -13,6 +13,7 @@ class Proposals::Accept < ApplicationAction
 
   def destroy_other_proposee_marriages
     Marriage.
+      with_eager_loading_for_destroy.
       joins(:memberships).
       where(marriage_memberships: { user_id: proposee }).
       find_each(&:destroy!)
