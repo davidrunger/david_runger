@@ -5,6 +5,7 @@ import actionCableConsumer from '@/channels/consumer';
 import { loadAsyncPartials } from '@/lib/async_partial';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { assert } from '@/lib/helpers';
+import { addNewParticipant } from '@/quizzes/addNewParticipant';
 import type { Intersection, Quiz, UserSerializerBasic } from '@/types';
 import { QuizShowBootstrap } from '@/types/bootstrap/QuizShowBootstrap';
 
@@ -89,15 +90,6 @@ actionCableConsumer.subscriptions.create(
   },
 );
 
-function getDangerouslyById(id: string) {
-  const el = assert(document.getElementById(id));
-
-  if (el === null)
-    throw new Error(`Element with id '${id}' could not be found!`);
-
-  return el;
-}
-
 function refresh() {
   Turbo.cache.clear();
   Turbo.visit(window.location.pathname, { action: 'replace' });
@@ -114,18 +106,5 @@ function addNewAnswerer(newAnswererName: string) {
     );
 
     matchedLi.classList.add('font-bold');
-  }
-}
-
-function addNewParticipant(newParticipantName: string) {
-  const quizParticipationsList = getDangerouslyById('quiz_participations');
-
-  const existingListing = Array.from(
-    quizParticipationsList.querySelectorAll('li'),
-  ).find((el) => el.innerText === newParticipantName);
-  if (!existingListing) {
-    const newListItem = document.createElement('li');
-    newListItem.innerHTML = newParticipantName;
-    quizParticipationsList.appendChild(newListItem);
   }
 }
