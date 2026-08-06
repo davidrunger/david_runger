@@ -23,6 +23,7 @@
   ```
 
   This keeps the branch's ahead/behind counts relative to `origin/main`.
+
 - Do not push branches or otherwise modify remote or GitHub state unless the user explicitly requests it.
 - When explicitly asked to push, send the current branch to the same-named branch on `origin` while preserving `origin/main` as the upstream. Use a command compatible with the machine's Git configuration; do not use `-u` or otherwise change the upstream to `origin/<branch-name>`.
 - Before the branch has been pushed to a remote, keep its work in a single commit and amend that commit as needed.
@@ -78,6 +79,7 @@
   ```
 
   Keep `DISABLE_TYPELIZER=1` on this command. During Rails initialization, automatic Typelizer generation can load a serializer that references a table which the pending branch migration has not created yet. That can make the command fail before `db:migrate` gets the opportunity to create the table, even though migrations without that dependency may work without the flag.
+
 - Before switching away from a branch with migrations that are not on `origin/main`, roll those migrations back so the development and test databases match the state of `main`:
 
   ```sh
