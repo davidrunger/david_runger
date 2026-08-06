@@ -40,9 +40,10 @@ Rails.application.routes.draw do
   %w[check_in check-ins check-in checkins checkin].each do |path|
     get path, to: redirect('check_ins')
   end
-  resources :proposals, only: %i[create] do
-    collection do
-      get :accept
+  resources :proposals, only: %i[create], param: :public_id do
+    member do
+      get :confirm
+      post :accept
     end
   end
   resource :marriage, only: %i[new show]

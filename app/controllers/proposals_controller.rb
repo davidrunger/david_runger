@@ -1,18 +1,52 @@
 class ProposalsController < ApplicationController
+  self.container_classes = %w[p-8]
+
+  before_action :set_proposal, only: %i[accept confirm]
+
   def create
-    authorize(Marriage, :propose?)
-    ProposalMailer.proposal_created(current_user.id, params[:spouse_email]).deliver_later
-    flash[:notice] = 'Invitation sent.'
+    authorize(Proposal)
+
+    proposal = current_user.sent_proposals.pending.find_or_create_by(
+      proposee_email: params[:spouse_email],
+    )
+
+    if proposal.persisted?
+      ProposalMailer.proposal_created(proposal.id).deliver_later
+      flash[:notice] = 'Invitation sent.'
+    else
+      flash[:alert] = proposal.errors.full_messages.to_sentence
+    end
+
     redirect_to(redirect_location || check_ins_path)
   end
 
+  def confirm
+    authorize(@proposal)
+    @title = 'Confirm marriage proposal'
+  end
+
   def accept
-    authorize(Marriage, :create?)
-    Proposals::Accept.new(
-      encoded_token: params[:token],
+    authorize(@proposal)
+    result = Proposals::Accept.new(
+      proposal: @proposal,
       proposee: current_user,
-    ).run!
-    flash[:notice] = 'Marriage created.'
+    ).run
+
+    if result.success?
+      flash[:notice] = 'Marriage created.'
+    else
+      flash[:alert] = result.error_message
+    end
+
     redirect_to(check_ins_path)
+  end
+
+  private
+
+  def set_proposal
+    @proposal =
+      Proposal.
+        includes(proposer: :marriage).
+        find_by!(public_id: params.expect(:public_id))
   end
 end

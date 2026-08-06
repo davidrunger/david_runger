@@ -5,6 +5,22 @@ RSpec.describe User do
   it { is_expected.to have_many(:logs) }
   it { is_expected.to have_many(:log_shares) }
 
+  describe 'email format' do
+    it 'rejects an invalid email address' do
+      user.email = 'not-an-email-address'
+
+      expect(user).not_to be_valid
+      expect(user.errors.full_messages_for(:email)).to eq(['Email is invalid'])
+    end
+
+    it 'leaves blank email addresses to presence validation' do
+      user.email = ''
+
+      expect(user).not_to be_valid
+      expect(user.errors.full_messages_for(:email)).to eq(["Email can't be blank"])
+    end
+  end
+
   describe '#emoji_boosts' do
     subject(:emoji_boosts) { user.emoji_boosts }
 

@@ -2,6 +2,6 @@
   #{@proposer.email} wants you to join their marriage on davidrunger.com.
 
 %p
-  %b= link_to('Click here', accept_proposals_url(token: @token))
+  %b= link_to('Click here', confirm_proposal_url(@proposal))
 
   to accept the invitation.
