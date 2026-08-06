@@ -8,7 +8,7 @@ class LogReminderMailer < ApplicationMailer
       from: email_address_with_name('log-reminders@davidrunger.com', 'DavidRunger.com'),
       # ApplicationMailbox::LOG_ENTRIES_ROUTING_REGEX depends on the format of this `reply_to`
       reply_to: email_address_with_name(
-        "log-entries|log/#{@log.id}@mg.davidrunger.com",
+        "log-entries|log/#{@log.email_submission_token}@mg.davidrunger.com",
         "#{log_name} Log Entries",
       ),
     )
