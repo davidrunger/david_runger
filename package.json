@@ -76,7 +76,7 @@
     "globals": "^17.8.0",
     "jsdom": "^30.0.1",
     "oxlint": "^1.76.0",
-    "postcss-html": "^1.8.1",
+    "postcss-html": "^2.0.0",
     "prettier": "^3.9.6",
     "quicktype": "^26.0.0",
     "sass": "^1.102.0",
