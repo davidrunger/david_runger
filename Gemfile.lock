@@ -825,7 +825,6 @@ DEPENDENCIES
   js-routes
   json
   json_schemer
-  jwt
   launchy
   letter_opener
   listen
