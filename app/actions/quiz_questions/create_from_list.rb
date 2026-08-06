@@ -1,7 +1,11 @@
 class QuizQuestions::CreateFromList < ApplicationAction
+  prepend Memoization
+
   class InvalidAnswers < StandardError ; end
 
   CORRECT_ANSWER_PREFIX = /\A\s*-\s*/
+  MAX_QUESTIONS = 500
+  MAX_ANSWERS = MAX_QUESTIONS * 10
 
   requires :quiz, Quiz
   requires :questions_list, String
@@ -9,6 +13,8 @@ class QuizQuestions::CreateFromList < ApplicationAction
   fails_with :invalid_answers
 
   def execute
+    validate_upload_size!(question_and_answer_text_chunks)
+
     Quiz.transaction do
       question_and_answer_text_chunks.each do |question_and_answer_text_chunk|
         create_models_from_text!(question_and_answer_text_chunk)
@@ -22,8 +28,20 @@ class QuizQuestions::CreateFromList < ApplicationAction
 
   private
 
+  memoize \
   def question_and_answer_text_chunks
-    questions_list.delete("\r").strip.split(/\n{2,}/)
+    questions_list.delete("\r").strip.split(/\n{2,}/, MAX_QUESTIONS + 1)
+  end
+
+  def validate_upload_size!(question_and_answer_text_chunks)
+    if question_and_answer_text_chunks.size > MAX_QUESTIONS
+      raise(InvalidAnswers, "Uploads may contain no more than #{MAX_QUESTIONS} questions.")
+    end
+
+    answer_count = question_and_answer_text_chunks.sum { |chunk| chunk.count("\n") }
+    if answer_count > MAX_ANSWERS
+      raise(InvalidAnswers, "Uploads may contain no more than #{MAX_ANSWERS} answers.")
+    end
   end
 
   def create_models_from_text!(question_and_answer_text_chunk)

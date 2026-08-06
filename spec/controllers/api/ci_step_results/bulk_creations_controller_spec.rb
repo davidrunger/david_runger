@@ -22,6 +22,14 @@ RSpec.describe(Api::CiStepResults::BulkCreationsController) do
         stopped_at: 20.seconds.ago,
       })
     end
+    let(:valid_ci_step_result_3) do
+      common_ci_step_result_data.merge({
+        name: 'RunLinters',
+        seconds: 5.432,
+        started_at: 3.minutes.ago,
+        stopped_at: 30.seconds.ago,
+      })
+    end
     let(:common_ci_step_result_data) do
       attributes_for(:ci_step_result).slice(*%i[
         passed
@@ -30,6 +38,10 @@ RSpec.describe(Api::CiStepResults::BulkCreationsController) do
         branch
         sha
       ])
+    end
+
+    specify 'a request can contain at most 200 CI step results' do
+      expect(CiStepResults::BulkCreate::MAX_CI_STEP_RESULTS).to eq(200)
     end
 
     context 'when no user is signed in' do
@@ -65,7 +77,9 @@ RSpec.describe(Api::CiStepResults::BulkCreationsController) do
         end
 
         context 'when the CiStepResult params are invalid' do
-          let(:ci_step_results_data) { [valid_ci_step_result_1, invalid_ci_step_result] }
+          let(:ci_step_results_data) do
+            [valid_ci_step_result_1, invalid_ci_step_result, valid_ci_step_result_3]
+          end
           let(:invalid_ci_step_result) do
             valid_ci_step_result_2.merge({
               branch: '',
@@ -87,7 +101,36 @@ RSpec.describe(Api::CiStepResults::BulkCreationsController) do
                 errors: { branch: ["can't be blank"] },
                 data: invalid_ci_step_result,
               },
+              {
+                success: true,
+                errors: {},
+                data: valid_ci_step_result_3,
+              },
             ].to_json))
+          end
+        end
+
+        context 'when the request contains too many CiStepResults' do
+          before { stub_const('CiStepResults::BulkCreate::MAX_CI_STEP_RESULTS', 2) }
+
+          let(:ci_step_results_data) do
+            [valid_ci_step_result_1, valid_ci_step_result_2, valid_ci_step_result_3]
+          end
+
+          it 'does not create any CiStepResults and returns a 422 status code' do
+            expect(ApplicationRecord).not_to receive(:transaction)
+            expect { post_create }.not_to change { CiStepResult.count }
+
+            expect(response).to have_http_status(422)
+            expect(response.parsed_body).to eq([
+              {
+                'success' => false,
+                'errors' => {
+                  'base' => ['Requests may contain no more than 2 CI step results.'],
+                },
+                'data' => {},
+              },
+            ])
           end
         end
       end

@@ -77,5 +77,24 @@ RSpec.describe Logs::UploadsController do
         expect(flash[:alert]).to include('The uploaded data is invalid')
       end
     end
+
+    context 'when the upload contains too many log entries' do
+      before { stub_const('LogEntries::EnqueueFromCsv::MAX_LOG_ENTRIES', 2) }
+
+      let(:csv_rows) do
+        [
+          "#{3.days.ago.iso8601},201,",
+          "#{18.hours.ago.iso8601},200,good!",
+          "#{1.hour.ago.iso8601},199,not bad",
+        ]
+      end
+
+      it 'does not enqueue jobs and redirects with an error' do
+        expect { post_create }.not_to change { CreateLogEntry.jobs.size }
+
+        expect(response).to redirect_to(logs_uploads_path)
+        expect(flash[:alert]).to eq('Uploads may contain no more than 2 log entries.')
+      end
+    end
   end
 end
