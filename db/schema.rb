@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_06_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -301,6 +301,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
     t.string "data_label", null: false
     t.string "data_type", null: false
     t.string "description"
+    t.string "email_submission_token", null: false
     t.string "name", null: false
     t.boolean "publicly_viewable", default: false, null: false
     t.datetime "reminder_last_sent_at", precision: nil
@@ -308,6 +309,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
     t.string "slug", null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id", null: false
+    t.index ["email_submission_token"], name: "index_logs_on_email_submission_token", unique: true
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
     t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
   end

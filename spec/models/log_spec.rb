@@ -3,6 +3,16 @@ RSpec.describe Log do
 
   it { is_expected.to have_many(:log_shares) }
 
+  describe 'creation' do
+    it 'generates a unique email submission token' do
+      logs = create_list(:log, 2)
+
+      expect(logs.map(&:email_submission_token)).
+        to all(have_attributes(length: described_class::EMAIL_SUBMISSION_TOKEN_LENGTH))
+      expect(logs.map(&:email_submission_token).uniq.size).to eq(2)
+    end
+  end
+
   describe '::needing_reminder' do
     subject(:needing_reminder) { Log.needing_reminder }
 

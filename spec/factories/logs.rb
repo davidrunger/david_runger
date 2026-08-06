@@ -6,6 +6,7 @@
 #  data_label               :string           not null
 #  data_type                :string           not null
 #  description              :string
+#  email_submission_token   :string           not null
 #  id                       :bigint           not null, primary key
 #  name                     :string           not null
 #  publicly_viewable        :boolean          default(FALSE), not null
@@ -17,8 +18,9 @@
 #
 # Indexes
 #
-#  index_logs_on_user_id_and_name  (user_id,name) UNIQUE
-#  index_logs_on_user_id_and_slug  (user_id,slug) UNIQUE
+#  index_logs_on_email_submission_token  (email_submission_token) UNIQUE
+#  index_logs_on_user_id_and_name        (user_id,name) UNIQUE
+#  index_logs_on_user_id_and_slug        (user_id,slug) UNIQUE
 #
 FactoryBot.define do
   factory :log do

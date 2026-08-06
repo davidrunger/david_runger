@@ -6,6 +6,7 @@
 #  data_label               :string           not null
 #  data_type                :string           not null
 #  description              :string
+#  email_submission_token   :string           not null
 #  id                       :bigint           not null, primary key
 #  name                     :string           not null
 #  publicly_viewable        :boolean          default(FALSE), not null
@@ -17,10 +18,13 @@
 #
 # Indexes
 #
-#  index_logs_on_user_id_and_name  (user_id,name) UNIQUE
-#  index_logs_on_user_id_and_slug  (user_id,slug) UNIQUE
+#  index_logs_on_email_submission_token  (email_submission_token) UNIQUE
+#  index_logs_on_user_id_and_name        (user_id,name) UNIQUE
+#  index_logs_on_user_id_and_slug        (user_id,slug) UNIQUE
 #
 class Log < ApplicationRecord
+  EMAIL_SUBMISSION_TOKEN_LENGTH = 24
+
   DATA_TYPES = {
     'counter' => {
       datum_class: NumberLogEntryDatum,
@@ -38,8 +42,11 @@ class Log < ApplicationRecord
 
   validates :data_label, presence: true
   validates :data_type, presence: true, inclusion: DATA_TYPES.keys
+  validates :email_submission_token, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :slug, presence: true, uniqueness: { scope: :user_id }
+
+  has_secure_token :email_submission_token, length: EMAIL_SUBMISSION_TOKEN_LENGTH
 
   belongs_to :user
 

@@ -17,7 +17,8 @@ RSpec.describe LogReminderMailer do
     end
 
     it 'has a reply-to that will create a new log entry' do
-      expect(mail.reply_to).to eq(["log-entries|log/#{log.id}@mg.davidrunger.com"])
+      expect(mail.reply_to).
+        to eq(["log-entries|log/#{log.email_submission_token}@mg.davidrunger.com"])
     end
 
     describe 'the email body' do
