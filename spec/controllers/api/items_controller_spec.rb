@@ -87,6 +87,19 @@ RSpec.describe Api::ItemsController do
       end
     end
 
+    context "when attempting to reassign the item to another user's store" do
+      let(:destination_store) { Store.joins(:user).merge(User.excluding(user)).first! }
+      let(:params) do
+        base_params.merge(
+          item: { name: "#{item.name} Changed", store_id: destination_store.id },
+        )
+      end
+
+      it 'does not reassign the item' do
+        expect { patch_update }.not_to change { item.reload.store_id }
+      end
+    end
+
     context 'when the item is being updated with valid params' do
       let(:valid_params) { { item: { name: "#{item.name} Changed" } } }
       let(:params) { base_params.merge(valid_params) }
