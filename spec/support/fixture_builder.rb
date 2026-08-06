@@ -14,13 +14,14 @@ FixtureBuilder.configure do |fbuilder|
     # users
     user = name(:user, create(:user)).first
     married_user = name(:married_user, create(:user)).first
-    name(:single_user, create(:user))
+    single_user = name(:single_user, create(:user)).first
 
     # AdminUsers
     admin_user = name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com')).first
 
     # groceries
     other_store = create(:store, user:, name: 'Another Store')
+    create(:store, user: single_user, name: 'Hardware Store')
     store = name(
       :store,
       create(

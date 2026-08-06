@@ -37,7 +37,7 @@ class Api::ItemsController < Api::BaseController
   private
 
   def item_params
-    params.expect(item: %i[name needed store_id])
+    params.expect(item: %i[name needed])
   end
 
   def set_item
