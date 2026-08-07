@@ -42,4 +42,13 @@ class QuizParticipation < ApplicationRecord
 
   validates :display_name, presence: true, uniqueness: { scope: :quiz_id }
   validates :participant_id, uniqueness: { scope: :quiz_id }
+  validate :quiz_must_be_unstarted, on: :create
+
+  private
+
+  def quiz_must_be_unstarted
+    if quiz.present? && !quiz.unstarted?
+      errors.add(:quiz, 'has already started')
+    end
+  end
 end

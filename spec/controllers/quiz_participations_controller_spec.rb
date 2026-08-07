@@ -35,6 +35,17 @@ RSpec.describe QuizParticipationsController do
           expect(flash[:alert]).to eq("Display name can't be blank")
         end
       end
+
+      context 'when the quiz has already started' do
+        before { quiz.update!(status: 'active') }
+
+        let(:display_name) { "#{Faker::Name.first_name}-#{SecureRandom.alphanumeric(5)}" }
+
+        it 'does not create a participation and explains that joining is closed' do
+          expect { post_create }.not_to change { user.reload.quiz_participations.size }
+          expect(flash[:alert]).to eq('Quiz has already started')
+        end
+      end
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_06_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_07_061215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -394,9 +394,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_06_120000) do
     t.bigint "answer_id", null: false
     t.datetime "created_at", null: false
     t.bigint "participation_id", null: false
+    t.bigint "question_id", null: false
     t.datetime "updated_at", null: false
     t.index ["answer_id"], name: "index_quiz_question_answer_selections_on_answer_id"
-    t.index ["participation_id"], name: "index_quiz_question_answer_selections_on_participation_id"
+    t.index ["participation_id", "question_id"], name: "uniq_quiz_answer_selections_on_participation_and_question", unique: true
+    t.index ["question_id"], name: "index_quiz_question_answer_selections_on_question_id"
   end
 
   create_table "quiz_question_answers", force: :cascade do |t|
@@ -547,6 +549,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_06_120000) do
   add_foreign_key "quiz_participations", "users", column: "participant_id"
   add_foreign_key "quiz_question_answer_selections", "quiz_participations", column: "participation_id"
   add_foreign_key "quiz_question_answer_selections", "quiz_question_answers", column: "answer_id"
+  add_foreign_key "quiz_question_answer_selections", "quiz_questions", column: "question_id", on_delete: :cascade
   add_foreign_key "quiz_question_answers", "quiz_questions", column: "question_id"
   add_foreign_key "quiz_questions", "quizzes"
   add_foreign_key "quizzes", "users", column: "owner_id"

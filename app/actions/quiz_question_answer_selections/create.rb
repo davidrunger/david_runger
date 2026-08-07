@@ -1,11 +1,13 @@
 class QuizQuestionAnswerSelections::Create < ApplicationAction
   requires :quiz_participation, QuizParticipation
-  requires :params, ActionController::Parameters
+  requires :answer, QuizQuestionAnswer
 
   returns :selection, QuizQuestionAnswerSelection, presence: true
 
   def execute
-    result.selection = quiz_participation.quiz_question_answer_selections.create!(params)
+    selection = quiz_participation.quiz_question_answer_selections.build
+    selection.select_answer!(answer)
+    result.selection = selection
 
     QuizzesChannel.broadcast_to(
       quiz_participation.quiz,

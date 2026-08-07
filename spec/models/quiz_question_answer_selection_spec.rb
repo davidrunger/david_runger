@@ -36,6 +36,38 @@ RSpec.describe QuizQuestionAnswerSelection do
       it 'considers the new selection not to be valid' do
         expect(new_selection).not_to be_valid
       end
+
+      it 'is rejected by the database uniqueness constraint without model validation' do
+        expect { new_selection.save!(validate: false) }.
+          to raise_error(ActiveRecord::RecordNotUnique)
+      end
+    end
+  end
+
+  context 'when the answer belongs to a different quiz than the participation' do
+    let(:answer) { create(:quiz_question_answer, question:) }
+    let(:other_quiz) { create(:quiz, owner: participation.participant) }
+    let(:participation) { QuizParticipation.first! }
+    let(:question) { create(:quiz_question, quiz: other_quiz) }
+    let(:selection) { build(:quiz_question_answer_selection, answer:, participation:) }
+
+    it 'considers the selection invalid' do
+      expect(selection).not_to be_valid
+      expect(selection.errors[:answer]).to include("must belong to the participation's quiz")
+    end
+  end
+
+  context 'when the answer and selected question do not match' do
+    let(:answer) { participation.quiz.questions.first!.answers.first! }
+    let(:participation) { QuizParticipation.first! }
+    let(:question) { participation.quiz.questions.where.not(id: answer.question_id).first! }
+    let(:selection) do
+      build(:quiz_question_answer_selection, answer:, participation:, question:)
+    end
+
+    it 'considers the selection invalid' do
+      expect(selection).not_to be_valid
+      expect(selection.errors[:answer]).to include('must belong to the selected question')
     end
   end
 end

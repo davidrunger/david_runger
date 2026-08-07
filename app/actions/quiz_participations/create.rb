@@ -6,13 +6,20 @@ class QuizParticipations::Create < ApplicationAction
   fails_with :invalid_participation
 
   def execute
-    participation = user.quiz_participations.build(quiz_id: quiz.id, display_name:)
+    participation = nil
 
-    if participation.valid?
-      participation.save!
+    quiz.with_lock do
+      participation = user.quiz_participations.build(quiz:, display_name:)
+
+      if participation.valid?
+        participation.save!
+      else
+        result.invalid_participation!(participation.errors.full_messages.to_sentence)
+      end
+    end
+
+    if participation.persisted?
       QuizzesChannel.broadcast_to(quiz, new_participant_name: participation.display_name)
-    else
-      result.invalid_participation!(participation.errors.full_messages.to_sentence)
     end
   end
 end
