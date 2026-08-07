@@ -30,19 +30,17 @@ RSpec.describe(ProposalsController) do
     end
 
     context 'when the same proposal is already pending' do
-      let!(:existing_proposal) do
-        create(:proposal, proposer:, proposee_email: proposee.email)
-      end
+      before { create(:proposal, proposer:, proposee_email: proposee.email) }
 
-      it 'resends the existing proposal instead of creating another one' do
+      it 'does not create or resend the proposal' do
         expect {
           post_create
         }.not_to change {
           proposer.sent_proposals.count
         }
 
-        expect(ProposalMailer).to have_received(:proposal_created).with(existing_proposal.id)
-        expect(flash[:notice]).to eq('Invitation sent.')
+        expect(ProposalMailer).not_to have_received(:proposal_created)
+        expect(flash[:notice]).to eq('Invitation already pending.')
       end
     end
 
