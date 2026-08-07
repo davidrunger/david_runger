@@ -321,7 +321,7 @@ services:
       - 'true'
       - '--watch-config'
     cpu_shares: 512
-    image: timberio/vector:latest-alpine
+    image: timberio/vector:0.57.0-alpine@sha256:19e3526faf4d4b1ed0c28a0d68d4cc3a1e13e437099986a5b7a768707907497c
     networks:
       - internal
     volumes:

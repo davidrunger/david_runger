@@ -17,6 +17,9 @@ sinks:
     type: loki
     inputs:
       - docker_with_grafana_nginx_separated
+    # This template sets a Loki label value from Docker's Compose metadata; it
+    # does not select a path, URL, or object key that confinement could protect.
+    dangerously_allow_unconfined_template_resolution: true
     endpoint: http://loki:3100
     encoding:
       codec: text
