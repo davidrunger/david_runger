@@ -1,6 +1,7 @@
 sources:
   docker:
     type: docker_logs
+    docker_host: http://docker-socket-proxy:2375
 
 transforms:
   docker_with_grafana_nginx_separated:

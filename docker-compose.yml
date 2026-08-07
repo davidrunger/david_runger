@@ -54,19 +54,23 @@ services:
     command:
       # Add options to lower CPU/memory use. https://github.com/google/cadvisor/issues/ 2523
       - '--docker_only'
+      - '--docker=tcp://docker-socket-proxy:2375'
       - '--housekeeping_interval=30s'
       - '--enable_metrics'
       - 'cpu,diskIO,memory,network'
     cpu_shares: 512
+    depends_on:
+      docker-socket-proxy:
+        condition: service_healthy
     expose:
       - '8080'
     image: ghcr.io/google/cadvisor:v0.60.5@sha256:763aecf1c32c2be8a1a75f9abfc2fc461005c9dbbaa39cb356b354aac1296dbe
     networks:
+      - docker-socket-proxy
       - internal
     volumes:
       - /sys:/sys:ro # Seems to be needed for CPU and Disk I/O usage.
       - /var/lib/docker/:/var/lib/docker:ro # Seems to be needed for memory usage.
-      - /var/run/docker.sock:/var/run/docker.sock:ro # Seems to be needed for anything to work.
   certbot:
     cpu_shares: 256
     depends_on:
@@ -105,6 +109,30 @@ services:
       timeout: 1s
       retries: 1
     memswap_limit: 99G
+  docker-socket-proxy:
+    cpu_shares: 256
+    environment:
+      CONTAINERS: '1'
+      EVENTS: '1'
+      INFO: '1'
+      PING: '1'
+      POST: '0' # Allow only GET and HEAD requests.
+      VERSION: '1'
+    expose:
+      - '2375'
+    healthcheck:
+      test:
+        ['CMD', 'wget', '--spider', '--quiet', 'http://localhost:2375/_ping']
+      start_period: 10s
+      start_interval: 1s
+      interval: 5m
+      timeout: 1s
+      retries: 1
+    image: ghcr.io/tecnativa/docker-socket-proxy:v0.4.2@sha256:1f3a6f303320723d199d2316a3e82b2e2685d86c275d5e3deeaf182573b47476
+    networks:
+      - docker-socket-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
   grafana:
     cpu_shares: 512
     depends_on:
@@ -321,11 +349,14 @@ services:
       - 'true'
       - '--watch-config'
     cpu_shares: 512
+    depends_on:
+      docker-socket-proxy:
+        condition: service_healthy
     image: timberio/vector:0.57.0-alpine@sha256:19e3526faf4d4b1ed0c28a0d68d4cc3a1e13e437099986a5b7a768707907497c
     networks:
+      - docker-socket-proxy
       - internal
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
   web:
     <<: *default-rails-config
@@ -370,6 +401,9 @@ services:
       retries: 1
 
 networks:
+  docker-socket-proxy:
+    driver: bridge
+    internal: true
   external:
     driver: bridge
   internal:
