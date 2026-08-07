@@ -16,7 +16,9 @@ class LogShare < ApplicationRecord
   belongs_to :log
   has_one :user, through: :log
 
-  validates :email, presence: true, uniqueness: { scope: :log_id }
+  normalizes :email, with: ->(email) { email.strip.downcase }
+
+  validates :email, presence: true, email_format: true, uniqueness: { scope: :log_id }
 
   has_paper_trail
 end
