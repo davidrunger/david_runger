@@ -1,4 +1,47 @@
 RSpec.describe('Rack::Attack') do
+  describe 'public telemetry throttles' do
+    Rack::Attack::PUBLIC_TELEMETRY_ENDPOINTS.each_key do |endpoint|
+      context "when checking #{endpoint}" do
+        subject(:throttle) { Rack::Attack.throttles.fetch("#{endpoint}/ip") }
+
+        it 'allows a generous burst while bounding endpoint amplification' do
+          expect(throttle.limit).to eq(Rack::Attack::PUBLIC_TELEMETRY_REQUEST_LIMIT)
+          expect(throttle.period).to eq(1.minute)
+        end
+
+        it 'discriminates POST requests to the endpoint by IP address' do
+          request = Rack::Attack::Request.new(
+            Rack::MockRequest.env_for("/api/#{endpoint}", method: 'POST'),
+          )
+
+          expect(throttle.block.call(request)).to eq(request.ip)
+        end
+
+        it 'does not match other request methods' do
+          request = Rack::Attack::Request.new(
+            Rack::MockRequest.env_for("/api/#{endpoint}", method: 'GET'),
+          )
+
+          expect(throttle.block.call(request)).to be_nil
+        end
+      end
+    end
+  end
+
+  describe 'notification logging' do
+    it 'includes the matched rule and throttle usage' do
+      request = Rack::Attack::Request.new(Rack::MockRequest.env_for('/api/events'))
+      request.env['rack.attack.matched'] = 'events/ip'
+      request.env['rack.attack.match_data'] = { count: 11, limit: 10 }
+
+      expect(Rails.logger).
+        to receive(:info).
+        with(/matched=events\/ip match_count=11 match_limit=10/)
+
+      ActiveSupport::Notifications.instrument('throttle.rack_attack', request:)
+    end
+  end
+
   describe '::blocked_path?' do
     subject(:blocked_path?) { Rack::Attack.blocked_path?(request) }
 

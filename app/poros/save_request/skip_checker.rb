@@ -12,6 +12,7 @@ class SaveRequest::SkipChecker
       [%r{\Ablazer/}, _, _] |
       ['anonymous', _, _] |
       ['blog', 'assets', _] |
+      ['api/csp_reports', 'create', _] |
       ['api/events', 'create', _] |
       [_, _, { uptime_robot: _ }]
     )

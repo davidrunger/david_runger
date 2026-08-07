@@ -1,6 +1,9 @@
 class TruncateTables
   prepend ApplicationWorker
 
+  CSP_REPORT_MAX_ROWS = 10_000
+  CSP_REPORT_RETENTION_PERIOD = 30.days
+
   ROW_COUNT_SQL = <<~SQL.squish
     SELECT relname, n_live_tup
     FROM pg_stat_user_tables
@@ -76,6 +79,13 @@ class TruncateTables
     Rails.logger.info('Approximate row counts prior to deletion:')
     self.class.print_row_counts
     Rails.logger.info
+
+    self.class.truncate(
+      table: 'csp_reports',
+      timestamp: 'created_at',
+      min_surviving_timestamp: CSP_REPORT_RETENTION_PERIOD.ago,
+      max_allowed_rows: CSP_REPORT_MAX_ROWS,
+    )
 
     self.class.truncate(
       table: 'ip_blocks',

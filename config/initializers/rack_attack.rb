@@ -2,6 +2,11 @@ class Rack::Attack
   PATH_FRAGMENT_SEPARATOR_REGEX = %r{/|\.|\?|-|_|=|\d|%}
   PENTESTERS_PREFIX = 'pentesters-'
   PENTESTING_FINDTIME = 1.day.freeze
+  PUBLIC_TELEMETRY_REQUEST_LIMIT = 10
+  PUBLIC_TELEMETRY_ENDPOINTS = {
+    csp_reports: %r{\A/api/csp_reports(?:\.[^/]+)?/?\z},
+    events: %r{\A/api/events(?:\.[^/]+)?/?\z},
+  }.freeze
   WHITELISTED_PATH_PREFIXES = %w[
     /assets/blazer/
     /auth/failure?
@@ -19,6 +24,12 @@ class Rack::Attack
     request.ip
   end
   # rubocop:enable Style/SymbolProc
+
+  PUBLIC_TELEMETRY_ENDPOINTS.each do |endpoint, path_regex|
+    throttle("#{endpoint}/ip", limit: PUBLIC_TELEMETRY_REQUEST_LIMIT, period: 1.minute) do |request|
+      request.ip if request.post? && request.path.match?(path_regex)
+    end
+  end
 
   class << self
     prepend Memoization
@@ -97,9 +108,13 @@ ActiveSupport::Notifications.
     next if payload.keys == [:discriminator] # from InstrumentFail2BanEventMonkeypatch
 
     request = payload[:request]
+    match_data = request.env.fetch('rack.attack.match_data', {})
     Rails.logger.info(<<~LOG.squish)
       [rack-attack]
       event=#{name}
+      matched=#{request.env['rack.attack.matched']}
+      match_count=#{match_data[:count]}
+      match_limit=#{match_data[:limit]}
       ip=#{request.ip}
       fullpath=#{request.fullpath}
       request_method=#{request.request_method}

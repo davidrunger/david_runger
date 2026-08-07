@@ -61,6 +61,7 @@
 
 ## Test design
 
+- Specs under `spec/controllers/api/` automatically receive `request_format: :json` through derived metadata in `spec/spec_helper.rb`. Do not repeat that metadata on individual API controller spec groups unless the spec intentionally needs different format behavior.
 - Keep specs focused on the behavior under test. Set up only attributes and conditions that are relevant to that behavior.
 - Express required relationships directly instead of relying on incidental fixture identities. For example, when an owner must differ from `user`, prefer `User.excluding(user).first!` over naming a fixture that merely happens to represent another user.
 - Avoid confounding conditions in regression specs. Construct the example so that the rule under test, not an unrelated validation, privacy setting, authorization rule, or fixture detail, determines the outcome.

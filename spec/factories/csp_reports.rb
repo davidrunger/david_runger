@@ -25,7 +25,7 @@ FactoryBot.define do
         'unsafe-inline'; frame-ancestors 'self'; report-uri /api/csp_reports
       POLICY
     end
-    ip { Faker::Internet.public_ip_v6_address }
+    ip { Faker::Internet.public_ip_v4_address }
     referrer { "#{DavidRunger::CANONICAL_URL}check_ins/9" }
     blocked_uri { 'inline' }
     user_agent { Faker::Internet.user_agent }

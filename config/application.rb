@@ -46,6 +46,8 @@ class DavidRunger::Application < Rails::Application
   # Common ones are `templates`, `generators`, or `middleware`, for example.
   config.autoload_lib(ignore: %w[generators tasks test])
 
+  require Rails.root.join('lib/middleware/public_telemetry_body_limiter')
+
   # ActiveJob/Sidekiq
   config.active_job.queue_adapter = :sidekiq
 
@@ -85,15 +87,18 @@ class DavidRunger::Application < Rails::Application
   end
 
   initializer(
+    'insert public telemetry body limiter after Rack::Attack',
+    after: 'rack-attack.middleware',
+  ) do |app|
+    app.middleware.insert_after(Rack::Attack, Middleware::PublicTelemetryBodyLimiter)
+  end
+
+  initializer(
     'move Browser middleware after Rack::Attack',
     after: 'rack-attack.middleware',
   ) do |app|
     app.middleware.move_after(Rack::Attack, Browser::Middleware)
   end
-
-  errors_file = Rails.root.join('lib/errors.rb')
-  Rails.autoloaders.main.ignore(errors_file) # must do this bc. `errors.rb` does not define `Errors`
-  require errors_file
 
   ENV['FIXTURES_PATH'] ||= 'spec/fixtures' if ENV.fetch('RAILS_ENV', nil) == 'test'
 

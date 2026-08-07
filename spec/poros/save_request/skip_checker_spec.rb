@@ -64,6 +64,14 @@ RSpec.describe SaveRequest::SkipChecker do
       end
     end
 
+    context 'when the controller is api/csp_reports and the action is create' do
+      let(:params) { { 'controller' => 'api/csp_reports', 'action' => 'create' } }
+
+      it 'returns true' do
+        expect(skip?).to eq(true)
+      end
+    end
+
     context 'when the controller starts with "blazer/"' do
       let(:params) { { 'controller' => 'blazer/queries', 'action' => 'home' } }
 
