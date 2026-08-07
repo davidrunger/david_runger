@@ -1,4 +1,4 @@
-RSpec.describe(ProposalsController) do
+RSpec.describe(ProposalsController, queue_adapter: :test) do
   let(:proposer) { create(:user) }
   let(:proposee) { create(:user) }
 
@@ -8,38 +8,55 @@ RSpec.describe(ProposalsController) do
     end
 
     let(:proposee_email) { proposee.email.upcase }
-    let(:delivery) { instance_double(ActionMailer::MessageDelivery, deliver_later: true) }
 
     before do
       sign_in(proposer)
-      allow(ProposalMailer).to receive(:proposal_created).and_return(delivery)
     end
 
     it 'creates a normalized, recipient-bound proposal and sends it' do
-      expect {
-        post_create
-      }.to change {
-        proposer.sent_proposals.count
-      }.by(1)
+      expect { post_create }.to have_enqueued_mail(ProposalMailer, :proposal_created)
 
       proposal = proposer.sent_proposals.last!
       expect(proposal.proposee_email).to eq(proposee.email)
-      expect(ProposalMailer).to have_received(:proposal_created).with(proposal.id)
       expect(flash[:notice]).to eq('Invitation sent.')
       expect(response).to redirect_to(check_ins_path)
+    end
+
+    context 'when the email delivery limit is reached' do
+      before do
+        Email::UserGeneratedDeliveryLimiter::ACTOR_HOUR_LIMIT.maximum.times do |index|
+          Email::UserGeneratedDeliveryLimiter.reserve(
+            actor: proposer,
+            recipient_email: "recipient-#{index}@example.com",
+            category: :proposal,
+          )
+        end
+      end
+
+      it 'retains but does not send the proposal' do
+        expect {
+          post_create
+        }.to have_enqueued_mail(ProposalMailer, :proposal_created).exactly(0).times
+
+        expect(flash[:alert]).
+          to eq(
+            "Invitation created. #{Email::UserGeneratedDeliveryLimiter::EMAIL_NOT_SENT_MESSAGE}",
+          )
+        expect(proposer.sent_proposals.count).to eq(1)
+        expect(response).to redirect_to(check_ins_path)
+      end
     end
 
     context 'when the same proposal is already pending' do
       before { create(:proposal, proposer:, proposee_email: proposee.email) }
 
       it 'does not create or resend the proposal' do
+        proposal_count = proposer.sent_proposals.count
+
         expect {
           post_create
-        }.not_to change {
-          proposer.sent_proposals.count
-        }
-
-        expect(ProposalMailer).not_to have_received(:proposal_created)
+        }.not_to have_enqueued_mail(ProposalMailer, :proposal_created)
+        expect(proposer.sent_proposals.count).to eq(proposal_count)
         expect(flash[:notice]).to eq('Invitation already pending.')
       end
     end
@@ -48,13 +65,12 @@ RSpec.describe(ProposalsController) do
       let(:proposee_email) { 'not-an-email-address' }
 
       it 'does not persist or send a proposal' do
+        proposal_count = Proposal.count
+
         expect {
           post_create
-        }.not_to change {
-          Proposal.count
-        }
-
-        expect(ProposalMailer).not_to have_received(:proposal_created)
+        }.not_to have_enqueued_mail(ProposalMailer, :proposal_created)
+        expect(Proposal.count).to eq(proposal_count)
         expect(flash[:alert]).to eq('Proposee email is invalid')
       end
     end
@@ -63,13 +79,12 @@ RSpec.describe(ProposalsController) do
       before { create(:marriage, partners: [proposer, create(:user)]) }
 
       it 'does not create or send a proposal' do
+        proposal_count = Proposal.count
+
         expect {
           post_create
-        }.not_to change {
-          Proposal.count
-        }
-
-        expect(ProposalMailer).not_to have_received(:proposal_created)
+        }.not_to have_enqueued_mail(ProposalMailer, :proposal_created)
+        expect(Proposal.count).to eq(proposal_count)
         expect(response).to redirect_to(root_path)
         expect(flash[:alert]).to eq('You are not authorized to perform this action.')
       end

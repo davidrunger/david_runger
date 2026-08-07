@@ -84,4 +84,30 @@ RSpec.describe AdminMailer do
       end
     end
   end
+
+  describe '#user_generated_email_circuit_open' do
+    subject(:mail) { AdminMailer.user_generated_email_circuit_open(context) }
+
+    let(:context) do
+      {
+        category: :log_share,
+        actor_id: 123,
+        recipient_email: 'recipient@example.com',
+        limit_name: :global_hour,
+        limit: 100,
+        attempted_count: 101,
+      }
+    end
+
+    it 'is sent to the administrator with an explanatory subject' do
+      expect(mail.to).to eq(['davidjrunger@gmail.com'])
+      expect(mail.subject).to eq('Global user-generated email circuit breaker opened')
+    end
+
+    it 'includes the circuit-breaker context in the body' do
+      context.each do |key, value|
+        expect(mail.body.to_s).to have_text("#{key}: #{value}")
+      end
+    end
+  end
 end
