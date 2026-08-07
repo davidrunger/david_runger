@@ -17,7 +17,7 @@
   git switch -c <branch-name> origin/main
   ```
 
-- When it makes the branch clearer, prefix the branch name with a short, lowercase form of the anticipated commit subject area and a slash. For example, `[AGENTS.md] Keep approval requests narrow` could use `agents-md/keep-approval-requests-narrow`. This is a preference rather than a strict mapping; use a different clear name when the subject area is not known up front or would not make a useful branch prefix.
+- When it makes the branch clearer, prefix the branch name with a short, lowercase form of the anticipated commit subject area and a slash. Prefer matching the subject area after normalizing it for a branch name instead of shortening it to a broader category; for example, `[docker-compose]` should use `docker-compose/...`, not `docker/...`. Accordingly, `[AGENTS.md] Keep approval requests narrow` could use `agents-md/keep-approval-requests-narrow`. This is a preference rather than a strict mapping; use a different clear name when the subject area is not known up front or would not make a useful branch prefix.
 - After creating the branch, configure it to track `origin/main`:
 
   ```sh
