@@ -3,7 +3,7 @@ unless IS_DOCKER_BUILD
 
   # We'll give Sidekiq db 1 (by default, except in tests, where this is ignored).
   # (The app uses db 0 for its direct uses.)
-  db = Integer(ENV.fetch('REDIS_DATABASE_NUMBER', 1))
+  db = Integer(ENV.fetch('SIDEKIQ_REDIS_DATABASE_NUMBER', 1))
   redis_options = RedisOptions.new(db:, sidekiq: true)
 
   Sidekiq.configure_client do |config|
