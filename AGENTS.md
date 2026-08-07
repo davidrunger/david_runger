@@ -13,7 +13,6 @@
 
 - Run targeted specs with `bin/rspec path/to/spec.rb` while developing.
 - Run targeted linters on changed files when they provide useful feedback: `bin/rubocop` for Ruby; `pnpm exec oxlint` for JavaScript, TypeScript, and Vue; `pnpm exec stylelint` for CSS, SCSS, and Vue; `pnpm exec prettier` for Prettier-managed files; and `shellcheck` for shell scripts. Use appropriate check or autocorrect flags for the task, and inspect the diff after any autocorrection. Do not assume that personal helper commands such as `lint` are installed.
-- CI is the portable broad-check mechanism. `bin/githooks/pre-push` may also start broad linting on machines that have its external helper commands installed, but do not assume that setup exists and do not push merely to trigger it.
 - Do not routinely run Vitest or TypeScript checks locally. Run them when the task particularly benefits from them; otherwise rely on CI.
 - Do not run `bin/run-tests` locally by default. It is primarily a CI command, and CI may catch issues through checks that are intentionally not run during local development.
 - Maintain 100% line coverage for Ruby code included in coverage, apart from lines that are explicitly ignored. Coverage may come from any combination of spec types; it does not need to come entirely from unit specs.
@@ -21,12 +20,7 @@
 
 ## Test design
 
-- When an RSpec example description contains an apostrophe, delimit the string with double quotes rather than escaping the apostrophe in a single-quoted string. RSpec omits the escape character from documentation output, so keeping the source text identical to the rendered description makes the example searchable.
 - Specs under `spec/controllers/api/` automatically receive `request_format: :json` through derived metadata in `spec/spec_helper.rb`. Do not repeat that metadata on individual API controller spec groups unless the spec intentionally needs different format behavior.
-- Keep specs focused on the behavior under test. Set up only attributes and conditions that are relevant to that behavior.
-- Express required relationships directly instead of relying on incidental fixture identities. For example, when an owner must differ from `user`, prefer `User.excluding(user).first!` over naming a fixture that merely happens to represent another user.
-- Avoid confounding conditions in regression specs. Construct the example so that the rule under test, not an unrelated validation, privacy setting, authorization rule, or fixture detail, determines the outcome.
-- Before adding a test-specific condition, ask whether changing that condition should affect the expected result. If not, omit it.
 
 ## Database migrations
 
@@ -58,4 +52,3 @@
 - Never edit `db/schema.rb` manually. Generate it by running the appropriate database migration command.
 - Generate model annotations with `bin/annotaterb models`; do not edit the annotation blocks manually.
 - Do not edit generated TypeScript files directly. Regenerate serializer types under `app/javascript/types/serializers/` with `bin/rails typelizer:generate`. Regenerate bootstrap and response types under `app/javascript/types/bootstrap/` and `app/javascript/types/responses/` with `bin/json-schemas-to-typescript`.
-- More generally, when a file says that it is generated, find and run its owning generator instead of editing the output.
