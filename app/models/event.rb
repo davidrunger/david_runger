@@ -23,19 +23,26 @@
 #  index_events_on_user_id        (user_id)
 #
 class Event < ApplicationRecord
+  MAX_DATA_BYTES = 8.kilobytes
+  MAX_TYPE_LENGTH = 100
+  MAX_USER_AGENT_LENGTH = 1.kilobyte
+
   # Tell ActiveRecord not to use 'type' column for Single Table Inheritance.
   self.inheritance_column = nil
 
   validates :ip, presence: true
   validates :stack_trace, presence: true
   validates :type, presence: true
+  validates :type, length: { maximum: MAX_TYPE_LENGTH }
+  validates :user_agent, length: { maximum: MAX_USER_AGENT_LENGTH }, allow_nil: true
+  validate :data_fits_size_limit
 
   belongs_to :admin_user, optional: true
   belongs_to :user, optional: true
 
   class << self
-    def create_with_stack_trace!(attributes)
-      create!(attributes.merge(
+    def build_with_stack_trace(attributes)
+      new(attributes.merge(
         stack_trace:
           StackTraceFilter.new.
             application_stack_trace(ignore: [__FILE__]),
@@ -61,6 +68,14 @@ class Event < ApplicationRecord
         user_agent
         user_id
       ]
+    end
+  end
+
+  private
+
+  def data_fits_size_limit
+    if data.to_json.bytesize > MAX_DATA_BYTES
+      errors.add(:data, "must serialize to at most #{MAX_DATA_BYTES} bytes")
     end
   end
 end

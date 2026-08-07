@@ -8,7 +8,7 @@ class Api::EventsController < Api::BaseController
   def create
     authorize(Event)
 
-    event = Event.create_with_stack_trace!(
+    event = Event.build_with_stack_trace(
       admin_user: current_admin_user,
       data: params[:data],
       ip: request.remote_ip,
@@ -17,8 +17,11 @@ class Api::EventsController < Api::BaseController
       user_agent: request.user_agent,
     )
 
-    FetchIpInfoForRecord.perform_async(event.class.name, event.id)
-
-    head :created
+    if event.save
+      FetchIpInfoForRecord.perform_async(event.class.name, event.id)
+      head :created
+    else
+      head :unprocessable_content
+    end
   end
 end

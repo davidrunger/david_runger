@@ -5,7 +5,7 @@ RSpec.describe Api::CspReportsController do
     let(:params) do
       {
         'csp-report' => {
-          'document-uri' => 'http://example.com/signup.html',
+          'document-uri' => 'http://test.host/signup.html',
           'referrer' => '',
           'blocked-uri' => 'http://example.com/css/style.css',
           'violated-directive' => 'style-src cdn.example.com',
@@ -15,59 +15,76 @@ RSpec.describe Api::CspReportsController do
         },
       }
     end
+    let(:user_agent) do
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) Gecko/20100101 Firefox/105.0'
+    end
+
+    before { request.headers['User-Agent'] = user_agent }
 
     it 'returns a 204 status code' do
       post_create
       expect(response).to have_http_status(204)
     end
 
-    it 'creates that item for the store' do
+    it 'creates a CSP report' do
       expect { post_create }.to change { CspReport.count }.by(1)
     end
 
-    context 'when the user agent is DuckDuckBot' do
-      before { request.headers['User-Agent'] = duck_duck_bot_user_agent }
+    it 'does not send the public report to the error-reporting service' do
+      expect(Rails.error).not_to receive(:report)
+      post_create
+    end
 
-      let(:duck_duck_bot_user_agent) do
-        "'DuckDuckBot-Https/1.1; (+https://duckduckgo.com/duckduckbot)'"
-      end
+    it 'records the user agent' do
+      post_create
+      expect(CspReport.last!.user_agent).to eq(user_agent)
+    end
 
-      it 'does not send an error to Rollbar' do
-        expect(Rollbar).not_to receive(:error)
+    context 'when the document URI has a different origin' do
+      before { params['csp-report']['document-uri'] = 'https://attacker.example/path' }
 
-        post_create
-      end
-
-      it 'creates a CspReport with the DuckDuckBot user agent' do
-        post_create
-
-        expect(CspReport.last!.user_agent).to eq(duck_duck_bot_user_agent)
+      it 'returns 422 without creating a CSP report' do
+        expect { post_create }.not_to change { CspReport.count }
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
-    context 'when the user agent is Firefox' do
-      before { request.headers['User-Agent'] = firefox_user_agent }
+    context 'when the document URI is invalid' do
+      before { params['csp-report']['document-uri'] = 'https://not a URI' }
 
-      let(:firefox_user_agent) do
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) Gecko/20100101 Firefox/105.0'
+      it 'returns 422 without creating a CSP report' do
+        expect { post_create }.not_to change { CspReport.count }
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+    end
+
+    context 'when the CSP report root object is missing' do
+      let(:params) { { 'other-report' => {} } }
+
+      it 'returns 400 without creating a CSP report' do
+        expect { post_create }.not_to change { CspReport.count }
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context 'when the body contains malformed JSON' do
+      subject(:post_create) { process(:create, method: :post, body: '{') }
+
+      it 'returns 400 without creating a CSP report' do
+        expect { post_create }.not_to change { CspReport.count }
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context 'when a CSP report field is too long' do
+      before do
+        params['csp-report']['original-policy'] =
+          'a' * (CspReport::MAX_ORIGINAL_POLICY_LENGTH + 1)
       end
 
-      it 'reports via Rails.error at info level' do
-        expect(Rails.error).
-          to receive(:report).
-          with(
-            CspViolation,
-            severity: :info,
-            context: hash_including(:csp_report_params),
-          )
-
-        post_create
-      end
-
-      it 'creates a CspReport with the Firefox user agent' do
-        post_create
-
-        expect(CspReport.last!.user_agent).to eq(firefox_user_agent)
+      it 'returns 422 without creating a CSP report' do
+        expect { post_create }.not_to change { CspReport.count }
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

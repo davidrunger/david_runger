@@ -14,7 +14,7 @@ RSpec.describe(StackTraceFilter) do
       let(:mocked_stack_trace) do
         # rubocop:disable Layout/LineLength
         [
-          "#{file_to_ignore}:37:in 'Event.create_with_stack_trace!'",
+          "#{file_to_ignore}:37:in 'Event.build_with_stack_trace'",
           expected_line_of_interest,
           "/app/vendor/bundle/ruby/3.4.0/gems/actionpack-8.0.1/lib/action_controller/metal/basic_implicit_render.rb:8:in 'ActionController::BasicImplicitRender#send_action'",
           "/app/lib/middleware/early.rb:11:in 'Middleware::Early#call'",

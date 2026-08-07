@@ -12,6 +12,27 @@ RSpec.describe TruncateTables do
       end
     end
 
+    it 'applies bounded retention to CSP reports but not events or requests', :frozen_time do
+      allow(described_class).to receive(:truncate)
+
+      perform
+
+      expect(described_class).
+        to have_received(:truncate).
+        with(
+          table: 'csp_reports',
+          timestamp: 'created_at',
+          min_surviving_timestamp: described_class::CSP_REPORT_RETENTION_PERIOD.ago,
+          max_allowed_rows: described_class::CSP_REPORT_MAX_ROWS,
+        )
+      expect(described_class).
+        not_to have_received(:truncate).
+        with(hash_including(table: 'events'))
+      expect(described_class).
+        not_to have_received(:truncate).
+        with(hash_including(table: 'requests'))
+    end
+
     context 'when there is at least one row in the `ip_blocks` table' do
       before { expect(IpBlock.count).to be > 0 }
 
