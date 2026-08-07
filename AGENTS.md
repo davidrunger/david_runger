@@ -17,7 +17,7 @@
   git switch -c <branch-name> origin/main
   ```
 
-- When it makes the branch clearer, prefix the branch name with a short, lowercase form of the anticipated commit subject area and a slash. Prefer matching the subject area after normalizing it for a branch name instead of shortening it to a broader category; for example, `[docker-compose]` should use `docker-compose/...`, not `docker/...`. Accordingly, `[AGENTS.md] Keep approval requests narrow` could use `agents-md/keep-approval-requests-narrow`. This is a preference rather than a strict mapping; use a different clear name when the subject area is not known up front or would not make a useful branch prefix.
+- When it makes the branch clearer, prefix the branch name with a short, lowercase form of the anticipated commit subject area and a slash. Prefer matching the subject area after normalizing it for a branch name instead of shortening it to a broader category or changing its established pluralization; for example, `[docker-compose]` should use `docker-compose/...`, not `docker/...`, and `[quizzes]` should use `quizzes/...`, not `quiz/...`. Accordingly, `[AGENTS.md] Keep approval requests narrow` could use `agents-md/keep-approval-requests-narrow`. This is a preference rather than a strict mapping; use a different clear name when the subject area is not known up front or would not make a useful branch prefix.
 - After creating the branch, configure it to track `origin/main`:
 
   ```sh
@@ -34,7 +34,7 @@
 ## Commit messages
 
 - Format commit titles as `[subject area] Imperative title [JIRA-123]`.
-- Choose the narrowest useful subject area that identifies the principal code or concern changed. Consult recent commit history for analogous scopes instead of defaulting to a broad label. Subject areas are not limited to a fixed list and may identify a path, subsystem, class, or file; for example, `[spec/features/logs]` may be more useful than `[specs]`.
+- Choose the narrowest useful subject area that identifies the principal code or concern changed. Consult recent commit history for analogous scopes instead of defaulting to a broad label. When a change spans a named app or feature, use that area's established name, including its exact pluralization, rather than deriving a new name from one model or resource; for example, use `[quizzes]`, not `[quiz]`, for changes across the Quizzes app. Subject areas are not limited to a fixed list and may identify a path, subsystem, class, or file; for example, `[spec/features/logs]` may be more useful than `[specs]`.
 - Use the subject area to name the area affected and the imperative title to describe the specific change within that area. The two parts should contribute complementary information rather than repeat each other. A filename is a useful subject area when the imperative title does not otherwise identify it, as in `[AGENTS.md] Keep approval requests narrow`. When the imperative title needs to name the file, choose a complementary subject area instead, as in `[docs] Add AGENTS.md` rather than `[AGENTS.md] Add AGENTS.md`.
 - When the user associates a Jira issue key, such as `LOG-11`, with the requested change, append `[LOG-11]` to the commit title even if the user does not separately request that in the commit instructions. Omit the Jira suffix only when no issue key applies.
 - Keep the entire commit title at or below 69 characters.
