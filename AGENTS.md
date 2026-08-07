@@ -34,7 +34,7 @@
 
 - Format commit titles as `[subject area] Imperative title [JIRA-123]`.
 - Choose the narrowest useful subject area that identifies the principal code or concern changed. Consult recent commit history for analogous scopes instead of defaulting to a broad label. Subject areas are not limited to a fixed list and may identify a path, subsystem, class, or file; for example, `[spec/features/logs]` may be more useful than `[specs]`.
-- Use the subject area to name the area affected and the imperative title to describe the specific change within that area. Do not repeat the same information in both parts; each part must contribute distinct, useful information.
+- Use the subject area to name the area affected and the imperative title to describe the specific change within that area. The two parts should contribute complementary information rather than repeat each other. A filename is a useful subject area when the imperative title does not otherwise identify it, as in `[AGENTS.md] Keep approval requests narrow`. When the imperative title needs to name the file, choose a complementary subject area instead, as in `[docs] Add AGENTS.md` rather than `[AGENTS.md] Add AGENTS.md`.
 - When the user associates a Jira issue key, such as `LOG-11`, with the requested change, append `[LOG-11]` to the commit title even if the user does not separately request that in the commit instructions. Omit the Jira suffix only when no issue key applies.
 - Keep the entire commit title at or below 69 characters.
 - Prefer clear, direct commit titles. Shorter wording is better when it is equally clear or clearer, but do not sacrifice useful specificity merely to minimize length.
@@ -42,6 +42,7 @@
 
 ## Local tooling
 
+- Keep commands that may require elevated permissions separate from sandbox-safe or read-only commands. In particular, do not combine Git state-changing operations with file-inspection commands in the same shell invocation. Run them separately so that any approval request is narrow and transparent.
 - Prefer repository binstubs, such as `bin/rails` and `bin/rspec`, over commands that bypass them.
 - Use `pnpm` for JavaScript package management.
 - Keep Spring enabled for local Rails commands because it substantially speeds up tests and other work. Disable Spring only for a concrete reason, not as a routine workaround.
