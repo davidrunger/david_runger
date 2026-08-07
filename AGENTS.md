@@ -39,7 +39,9 @@
 - When the user associates a Jira issue key, such as `LOG-11`, with the requested change, append `[LOG-11]` to the commit title even if the user does not separately request that in the commit instructions. Omit the Jira suffix only when no issue key applies.
 - Keep the entire commit title at or below 69 characters.
 - Prefer clear, direct commit titles. Shorter wording is better when it is equally clear or clearer, but do not sacrifice useful specificity merely to minimize length.
+- Do not use backticks in commit titles. Keep titles as plain text because GitHub's special rendering of backtick-delimited text hurts the searchability of commit and pull request titles.
 - Write a detailed commit message body. Include relevant context, history, documentation links, reasoning and motivation, and consciously chosen tradeoffs where they will help a future reader understand the change.
+- Use Markdown code formatting in commit message bodies for code identifiers, commands, file paths, environment variables, literal values, and other code-like text. Use inline backticks for short spans and fenced code blocks for multiline examples when useful.
 - When a change is motivated by, follows from, or corrects a specific earlier commit or pull request, reference that change in the commit message body. Include the pull request number or link, the commit hash on `main`, or both, choosing enough detail for a future reader to locate the relevant change.
 
 ## Local tooling
