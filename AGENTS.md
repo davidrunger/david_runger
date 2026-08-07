@@ -40,6 +40,7 @@
 - Keep the entire commit title at or below 69 characters.
 - Prefer clear, direct commit titles. Shorter wording is better when it is equally clear or clearer, but do not sacrifice useful specificity merely to minimize length.
 - Write a detailed commit message body. Include relevant context, history, documentation links, reasoning and motivation, and consciously chosen tradeoffs where they will help a future reader understand the change.
+- When a change is motivated by, follows from, or corrects a specific earlier commit or pull request, reference that change in the commit message body. Include the pull request number or link, the commit hash on `main`, or both, choosing enough detail for a future reader to locate the relevant change.
 
 ## Local tooling
 
