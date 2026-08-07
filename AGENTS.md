@@ -62,6 +62,7 @@
 
 ## Test design
 
+- When an RSpec example description contains an apostrophe, delimit the string with double quotes rather than escaping the apostrophe in a single-quoted string. RSpec omits the escape character from documentation output, so keeping the source text identical to the rendered description makes the example searchable.
 - Specs under `spec/controllers/api/` automatically receive `request_format: :json` through derived metadata in `spec/spec_helper.rb`. Do not repeat that metadata on individual API controller spec groups unless the spec intentionally needs different format behavior.
 - Keep specs focused on the behavior under test. Set up only attributes and conditions that are relevant to that behavior.
 - Express required relationships directly instead of relying on incidental fixture identities. For example, when an owner must differ from `user`, prefer `User.excluding(user).first!` over naming a fixture that merely happens to represent another user.
