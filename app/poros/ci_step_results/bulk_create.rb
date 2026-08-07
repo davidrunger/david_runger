@@ -1,4 +1,6 @@
 class CiStepResults::BulkCreate
+  MAX_CI_STEP_RESULTS = 200
+
   def initialize(user:, ci_step_results_data:)
     @user = user
     @ci_step_results_data = ci_step_results_data
@@ -6,6 +8,21 @@ class CiStepResults::BulkCreate
   end
 
   def perform
+    if @ci_step_results_data.size > MAX_CI_STEP_RESULTS
+      return [
+        :error,
+        [
+          {
+            success: false,
+            errors: {
+              base: ["Requests may contain no more than #{MAX_CI_STEP_RESULTS} CI step results."],
+            },
+            data: {},
+          },
+        ],
+      ]
+    end
+
     at_least_one_invalid_record = false
 
     ApplicationRecord.transaction do

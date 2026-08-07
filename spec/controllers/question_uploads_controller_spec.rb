@@ -37,7 +37,15 @@ RSpec.describe QuestionUploadsController do
       QUESTIONS_LIST
     end
 
-    it 'creates log entries' do
+    specify 'an upload can contain at most 500 questions' do
+      expect(QuizQuestions::CreateFromList::MAX_QUESTIONS).to eq(500)
+    end
+
+    specify 'an upload can contain at most 5,000 answers' do
+      expect(QuizQuestions::CreateFromList::MAX_ANSWERS).to eq(5_000)
+    end
+
+    it 'creates questions and answers' do
       expect {
         post_create
       }.to change {
@@ -69,6 +77,59 @@ RSpec.describe QuestionUploadsController do
           Wrong number of correct answers for question 'Do you think that smarter people are usually
           capable of deeper love?'!
         TEXT
+      end
+    end
+
+    context 'when the upload contains too many questions' do
+      before { stub_const('QuizQuestions::CreateFromList::MAX_QUESTIONS', 2) }
+
+      let(:questions_list) do
+        <<~QUESTIONS_LIST
+          Question one?
+          - Yes
+          No
+
+          Question two?
+          - Yes
+          No
+
+          Question three?
+          - Yes
+          No
+        QUESTIONS_LIST
+      end
+
+      it 'does not create questions and renders the form with an error' do
+        expect { post_create }.not_to change { QuizQuestion.count }
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to have_flash_message(
+          'Uploads may contain no more than 2 questions.',
+          type: :alert,
+        )
+      end
+    end
+
+    context 'when the upload contains too many answers' do
+      before { stub_const('QuizQuestions::CreateFromList::MAX_ANSWERS', 2) }
+
+      let(:questions_list) do
+        <<~QUESTIONS_LIST
+          Which is biggest?
+          The Earth
+          - The Sun
+          The Moon
+        QUESTIONS_LIST
+      end
+
+      it 'does not create questions and renders the form with an error' do
+        expect { post_create }.not_to change { QuizQuestion.count }
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to have_flash_message(
+          'Uploads may contain no more than 2 answers.',
+          type: :alert,
+        )
       end
     end
   end

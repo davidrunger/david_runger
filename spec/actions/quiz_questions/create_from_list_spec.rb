@@ -166,5 +166,47 @@ RSpec.describe QuizQuestions::CreateFromList do
         }
       end
     end
+
+    context 'when the upload contains too many questions' do
+      before { stub_const("#{described_class}::MAX_QUESTIONS", 2) }
+
+      let(:questions_list) do
+        <<~QUESTIONS_LIST
+          Question one?
+          - Yes
+          No
+
+          Question two?
+          - Yes
+          No
+
+          Question three?
+          - Yes
+          No
+        QUESTIONS_LIST
+      end
+
+      it 'fails without creating any questions' do
+        expect(Quiz).not_to receive(:transaction)
+        result = nil
+
+        expect { result = run }.not_to change { quiz.questions.count }
+
+        expect(result.error_message).to eq('Uploads may contain no more than 2 questions.')
+      end
+    end
+
+    context 'when the upload contains too many answers' do
+      before { stub_const("#{described_class}::MAX_ANSWERS", 5) }
+
+      it 'fails without creating any questions' do
+        expect(Quiz).not_to receive(:transaction)
+        result = nil
+
+        expect { result = run }.not_to change { quiz.questions.count }
+
+        expect(result.error_message).to eq('Uploads may contain no more than 5 answers.')
+      end
+    end
   end
 end

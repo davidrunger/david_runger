@@ -6,6 +6,7 @@
 - Use non-ASCII characters only when there is a specific reason, such as rendering that character to a user.
 - Keep code generally hard-wrapped in accordance with repository formatters, linters, and surrounding style.
 - Do not hard-wrap prose or template text solely to enforce a fixed line width. Let editors and viewers visually wrap long lines. In particular, keep long text paragraphs in `.vue` and Haml templates on a single source line unless line breaks are semantically or structurally useful. This avoids reflow-only diffs when the text changes.
+- When a Ruby method's computed result is reused, prefer the repository's `Memoization` pattern over assigning a same-named local variable from `self`, such as `value = self.value`, solely to avoid recomputation. Add `prepend Memoization` to the class and decorate the method with `memoize \`.
 
 ## Git workflow
 
