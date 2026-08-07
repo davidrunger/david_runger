@@ -10,11 +10,13 @@ class ProposalsController < ApplicationController
       proposee_email: params[:spouse_email],
     )
 
-    if proposal.persisted?
+    if !proposal.persisted?
+      flash[:alert] = proposal.errors.full_messages.to_sentence
+    elsif proposal.previously_new_record?
       ProposalMailer.proposal_created(proposal.id).deliver_later
       flash[:notice] = 'Invitation sent.'
     else
-      flash[:alert] = proposal.errors.full_messages.to_sentence
+      flash[:notice] = 'Invitation already pending.'
     end
 
     redirect_to(redirect_location || check_ins_path)
