@@ -42,6 +42,7 @@
 - Do not use backticks in commit titles. Keep titles as plain text because GitHub's special rendering of backtick-delimited text hurts the searchability of commit and pull request titles.
 - Write a detailed commit message body. Include relevant context, history, documentation links, reasoning and motivation, and consciously chosen tradeoffs where they will help a future reader understand the change.
 - Use Markdown code formatting in commit message bodies for code identifiers, commands, file paths, environment variables, literal values, and other code-like text. Use inline backticks for short spans and fenced code blocks for multiline examples when useful.
+- In commit message bodies, use double quotes rather than backticks for concrete user-facing copy, error messages, labels, and other prose phrases when discussing their wording or presentation, even if the text is implemented as a string literal. Use backticks when discussing the source-level literal or code expression itself.
 - When a change is motivated by, follows from, or corrects a specific earlier commit or pull request, reference that change in the commit message body. Include the pull request number or link, the commit hash on `main`, or both, choosing enough detail for a future reader to locate the relevant change.
 
 ## Local tooling
