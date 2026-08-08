@@ -73,7 +73,7 @@
     "@typescript-eslint/parser": "^8.65.0",
     "@vue/language-plugin-pug": "^3.3.9",
     "fishery": "^2.4.0",
-    "globals": "^17.8.0",
+    "globals": "^17.9.0",
     "jsdom": "^30.0.1",
     "oxlint": "^1.76.0",
     "postcss-html": "^2.0.0",
