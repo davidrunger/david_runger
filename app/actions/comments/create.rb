@@ -11,8 +11,19 @@ class Comments::Create < ApplicationAction
 
     AdminMailer.comment_created(comment.id).deliver_later
 
-    if comment.parent && (comment.parent.user_id != comment.user_id)
-      CommentMailer.reply_created(comment.parent_id, comment.id).deliver_later
+    parent_user = comment.parent&.user
+
+    if parent_user && (parent_user != user)
+      delivery_limit =
+        Email::UserGeneratedDeliveryLimiter.reserve(
+          actor: user,
+          recipient_email: parent_user.email,
+          category: :comment_reply,
+        )
+
+      if delivery_limit.permitted?
+        CommentMailer.reply_created(comment.parent_id, comment.id).deliver_later
+      end
     end
   end
 end

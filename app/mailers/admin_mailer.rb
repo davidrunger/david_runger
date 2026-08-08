@@ -22,4 +22,9 @@ class AdminMailer < ApplicationMailer
     @user = User.find(user_id)
     mail(subject: "There's a new davidrunger.com user! :) Email: #{@user.email}.")
   end
+
+  def user_generated_email_circuit_open(context)
+    @context = context
+    mail(subject: 'Global user-generated email circuit breaker opened')
+  end
 end

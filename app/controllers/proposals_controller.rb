@@ -13,8 +13,20 @@ class ProposalsController < ApplicationController
     if !proposal.persisted?
       flash[:alert] = proposal.errors.full_messages.to_sentence
     elsif proposal.previously_new_record?
-      ProposalMailer.proposal_created(proposal.id).deliver_later
-      flash[:notice] = 'Invitation sent.'
+      delivery_limit =
+        Email::UserGeneratedDeliveryLimiter.reserve(
+          actor: current_user,
+          recipient_email: proposal.proposee_email,
+          category: :proposal,
+        )
+
+      if delivery_limit.permitted?
+        ProposalMailer.proposal_created(proposal.id).deliver_later
+        flash[:notice] = 'Invitation sent.'
+      else
+        flash[:alert] =
+          "Invitation created. #{Email::UserGeneratedDeliveryLimiter::EMAIL_NOT_SENT_MESSAGE}"
+      end
     else
       flash[:notice] = 'Invitation already pending.'
     end
