@@ -14,7 +14,7 @@ if Rails.env.test?
 
     def warn(message, *_args, **_kwargs)
       # simplecov:disable
-      unless IGNORED_WARNINGS.any? { message.include?(it) } # rubocop:disable Style/ArrayIntersect
+      unless IGNORED_WARNINGS.any? { message.include?(it) }
         StoredWarnings.warnings << message
       end
 
