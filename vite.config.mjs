@@ -1,4 +1,4 @@
-/* global __dirname, process */
+/* global process */
 
 import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
@@ -42,9 +42,9 @@ export default defineConfig(({ mode }) => ({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './app/javascript'),
-      img: path.resolve(__dirname, './app/assets/images'),
-      css: path.resolve(__dirname, './app/assets/stylesheets'),
+      '@': path.resolve(import.meta.dirname, './app/javascript'),
+      img: path.resolve(import.meta.dirname, './app/assets/images'),
+      css: path.resolve(import.meta.dirname, './app/assets/stylesheets'),
       ...(mode === 'production' && {
         'vue-types': 'vue-types/shim',
       }),
