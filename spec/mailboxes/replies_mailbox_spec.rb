@@ -29,6 +29,18 @@ RSpec.describe RepliesMailbox do
         }
     end
 
+    context 'when the global email circuit breaker is open' do
+      before do
+        Email::UserGeneratedDeliveryLimiter::GLOBAL_LIMIT.maximum.times do
+          Email::UserGeneratedDeliveryLimiter.reserve_global(category: :reply_forwarding)
+        end
+      end
+
+      it 'does not forward the email', queue_adapter: :test do
+        expect { processed_mail }.not_to enqueue_mail(ReplyForwardingMailer, :reply_received)
+      end
+    end
+
     context 'when an error is raised while parsing the email body' do
       before do
         expect(RungerEmailReplyTrimmer).

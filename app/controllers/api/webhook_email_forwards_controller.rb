@@ -6,11 +6,18 @@ class Api::WebhookEmailForwardsController < Api::BaseController
 
     subject = params[:title]
     html_body = params[:message]
-    GenericMailer.generic_html(
-      current_or_auth_token_user.email,
-      subject,
-      html_body,
-    ).deliver_later
+    delivery_limit =
+      Email::UserGeneratedDeliveryLimiter.reserve_global(
+        category: :webhook_email_forward,
+      )
+
+    if delivery_limit.permitted?
+      GenericMailer.generic_html(
+        current_or_auth_token_user.email,
+        subject,
+        html_body,
+      ).deliver_later
+    end
 
     head :created
   end

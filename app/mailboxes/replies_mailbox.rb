@@ -15,13 +15,18 @@ class RepliesMailbox < ApplicationMailbox
         mail.parsed_body || '[no body]'
       end
 
-    ReplyForwardingMailer.reply_received(
-      mail.message_id,
-      from_email,
-      subject,
-      body,
-      is_attachment,
-      has_attachments,
-    ).deliver_later
+    delivery_limit =
+      Email::UserGeneratedDeliveryLimiter.reserve_global(category: :reply_forwarding)
+
+    if delivery_limit.permitted?
+      ReplyForwardingMailer.reply_received(
+        mail.message_id,
+        from_email,
+        subject,
+        body,
+        is_attachment,
+        has_attachments,
+      ).deliver_later
+    end
   end
 end

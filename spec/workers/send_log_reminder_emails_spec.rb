@@ -31,6 +31,20 @@ RSpec.describe SendLogReminderEmails do
         expect { perform }.to enqueue_mail(LogReminderMailer, :reminder).
           with(log_needing_reminder.id)
       end
+
+      context 'when the global email circuit breaker is open' do
+        before do
+          Email::UserGeneratedDeliveryLimiter::GLOBAL_LIMIT.maximum.times do
+            Email::UserGeneratedDeliveryLimiter.reserve_global(category: :log_reminder)
+          end
+        end
+
+        it 'does not update the reminder timestamp or send an email', queue_adapter: :test do
+          expect { perform }.not_to enqueue_mail(LogReminderMailer, :reminder)
+
+          expect(log_needing_reminder.reload.reminder_last_sent_at).to be_nil
+        end
+      end
     end
   end
 end
