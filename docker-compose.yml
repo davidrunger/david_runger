@@ -142,7 +142,7 @@ services:
       - .env.grafana.local
     expose:
       - '3000'
-    image: grafana/grafana:latest
+    image: grafana/grafana:13.1.3@sha256:ab5cb380e3ff3172d6c8bd2e7cfd31cce977d2881b260e1f5bc089bf0b759b43
     networks:
       - external # Allows Grafana to download plugins.
       - internal
@@ -162,7 +162,7 @@ services:
         condition: service_started
   loki:
     cpu_shares: 512
-    image: grafana/loki:latest
+    image: grafana/loki:3.7.6@sha256:efd47c67f9bac88ca29bcf8cb997d9ab29d1848bd0aff579282295542a745952
     command:
       - -config.file=/etc/loki/local-config.yaml
       - -log.level=warn
@@ -215,7 +215,7 @@ services:
     cpu_shares: 512
     expose:
       - '9100'
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.12.1@sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0
     networks:
       - internal
   postgres:
@@ -262,7 +262,7 @@ services:
     cpu_shares: 512
     expose:
       - '9090'
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3.13.2@sha256:508729e0e2d18e11fd742a5a5ca70e557b940a93948c3c95fd0123a6fd538b69
     networks:
       - internal
     volumes:
