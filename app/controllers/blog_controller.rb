@@ -60,13 +60,16 @@ class BlogController < ApplicationController
       Rails.root.join(
         relative_path.to_s.sub(%r{\A/*}, ''),
       ).realpath.to_s
+    within_blog_directory =
+      absolute_path == BLOG_DIRECTORY ||
+      absolute_path.start_with?("#{BLOG_DIRECTORY}/")
 
     if (
-      (starts_with_blog_directory = absolute_path.start_with?(BLOG_DIRECTORY)) &&
+      within_blog_directory &&
         absolute_path.match?(/\.(css|jpg|js|png|xml)\z/)
     )
       send_file(absolute_path, **kwargs)
-    elsif starts_with_blog_directory && absolute_path.end_with?('.html')
+    elsif within_blog_directory && absolute_path.end_with?('.html')
       render(html: blog_html_with_additions(absolute_path))
     else
       Rails.error.report(
