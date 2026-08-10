@@ -1,11 +1,12 @@
 class LogToCsv
-  def initialize(log)
+  def initialize(log, neutralize_formulas: true)
     @log = log
+    @neutralize_formulas = neutralize_formulas
   end
 
   def csv_data
     CSV.generate(headers: true) do |csv|
-      csv << ['Time', @log.data_label]
+      csv << ['Time', exported_cell_value(@log.data_label)]
 
       @log.
         log_entries.
@@ -14,8 +15,21 @@ class LogToCsv
           order: :desc,
           cursor: %i[created_at id],
         ) do |log_entry|
-          csv << [log_entry.created_at.utc.iso8601, log_entry.data]
+          csv << [
+            log_entry.created_at.utc.iso8601,
+            exported_cell_value(log_entry.data),
+          ]
         end
+    end
+  end
+
+  private
+
+  def exported_cell_value(value)
+    if @neutralize_formulas && value.is_a?(String) && value.match?(/\A[=+\-@]/)
+      "'#{value}"
+    else
+      value
     end
   end
 end

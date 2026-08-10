@@ -28,7 +28,10 @@ class LogsController < ApplicationController
 
     authorize(log, :show?)
 
-    csv_data = LogToCsv.new(log).csv_data
+    csv_data = LogToCsv.new(
+      log,
+      neutralize_formulas: params[:formula_handling] != 'preserve',
+    ).csv_data
     send_data(csv_data, filename: "#{Time.current.utc.iso8601}-#{log.slug}.csv", type: 'text/csv')
   end
 

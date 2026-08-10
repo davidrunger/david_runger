@@ -93,4 +93,29 @@ RSpec.describe LogsController do
       end
     end
   end
+
+  describe '#download' do
+    subject(:csv_headers) do
+      get(:download, params:)
+
+      CSV.parse(response.body).first
+    end
+
+    let(:log) { logs(:text_log) }
+    let(:params) { { slug: log.slug } }
+
+    before { log.update!(data_label: '=Label') }
+
+    it 'neutralizes formulas by default' do
+      expect(csv_headers).to eq(['Time', "'=Label"])
+    end
+
+    context 'when formula handling is preserve' do
+      let(:params) { super().merge(formula_handling: 'preserve') }
+
+      it 'preserves formula-like values' do
+        expect(csv_headers).to eq(['Time', '=Label'])
+      end
+    end
+  end
 end

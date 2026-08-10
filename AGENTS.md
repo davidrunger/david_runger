@@ -11,6 +11,8 @@
 
 ## Tests and coverage
 
+- Before running feature specs that exercise changed frontend assets, start the live Vite server with `./node_modules/.bin/vite --force` in a separate terminal and leave it running while iterating. This ensures that each feature-spec run uses the current source without rebuilding assets after every edit. When a task runner starts Vite as a managed background process instead, confirm that the server is ready before running specs and stop it when testing is complete.
+- When running a live Vite server is impractical, run `RAILS_ENV=test bin/vite build` immediately before the relevant feature specs. Repeat the build after every frontend change; otherwise feature specs can silently exercise stale compiled assets.
 - Run targeted specs with `bin/rspec path/to/spec.rb` while developing.
 - Run targeted linters on changed files when they provide useful feedback: `bin/rubocop` for Ruby; `pnpm exec oxlint` for JavaScript, TypeScript, and Vue; `pnpm exec stylelint` for CSS, SCSS, and Vue; `pnpm exec prettier` for Prettier-managed files; and `shellcheck` for shell scripts. Use appropriate check or autocorrect flags for the task, and inspect the diff after any autocorrection. Do not assume that personal helper commands such as `lint` are installed.
 - Do not routinely run Vitest or TypeScript checks locally. Run them when the task particularly benefits from them; otherwise rely on CI.
