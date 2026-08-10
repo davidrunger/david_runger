@@ -74,6 +74,24 @@ RSpec.describe(Api::CiStepResults::BulkCreationsController) do
 
             expect(response).to have_http_status(201)
           end
+
+          context 'when another user has a result for the same GitHub run' do
+            before do
+              create(
+                :ci_step_result,
+                user: User.excluding(user).first!,
+                **valid_ci_step_result_1.slice(:name, :github_run_id, :github_run_attempt),
+              )
+            end
+
+            it 'creates CiStepResults for the authenticated user' do
+              expect { post_create }.to change {
+                user.reload.ci_step_results.size
+              }.by(ci_step_results_data.size)
+
+              expect(response).to have_http_status(201)
+            end
+          end
         end
 
         context 'when the CiStepResult params are invalid' do

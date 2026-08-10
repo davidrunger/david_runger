@@ -18,13 +18,14 @@
 #
 # Indexes
 #
-#  idx_on_name_github_run_id_github_run_attempt_96ff2b0b91  (name,github_run_id,github_run_attempt) UNIQUE
-#  index_ci_step_results_on_user_id                         (user_id)
+#  idx_on_user_id_name_github_run_id_github_run_attemp_5e30d34615  (user_id,name,github_run_id,github_run_attempt) UNIQUE
 #
 class CiStepResult < ApplicationRecord
   belongs_to :user
 
-  validates :name, presence: true, uniqueness: { scope: %i[github_run_id github_run_attempt] }
+  validates :name,
+            presence: true,
+            uniqueness: { scope: %i[user_id github_run_id github_run_attempt] }
   validates :seconds, presence: true
   validates :started_at, presence: true
   validates :stopped_at, presence: true

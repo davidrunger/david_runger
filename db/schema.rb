@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_07_061215) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_10_152610) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -177,8 +177,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_07_061215) do
     t.datetime "stopped_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["name", "github_run_id", "github_run_attempt"], name: "idx_on_name_github_run_id_github_run_attempt_96ff2b0b91", unique: true
-    t.index ["user_id"], name: "index_ci_step_results_on_user_id"
+    t.index ["user_id", "name", "github_run_id", "github_run_attempt"], name: "idx_on_user_id_name_github_run_id_github_run_attemp_5e30d34615", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
