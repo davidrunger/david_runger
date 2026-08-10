@@ -27,11 +27,16 @@ div
         template(#reference)
           ElButton Delete last entry
     .mt-2
-      ElButton(
-        tag="a"
-        :href="download_log_path(log.slug)"
-        download
-      ) Download CSV
+      ElDropdown(
+        split-button
+        trigger="click"
+        @click="downloadCsv"
+        @command="confirmExactCsvDownload"
+      )
+        | Download CSV
+        template(#dropdown)
+          ElDropdownMenu
+            ElDropdownItem(command="preserve") Download exact CSV
     .mt-2
       ElButton.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-sharing-settings' })"
@@ -59,7 +64,14 @@ div
 
 <script setup lang="ts">
 import { useTitle } from '@vueuse/core';
-import { ElButton, ElPopconfirm } from 'element-plus';
+import {
+  ElButton,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElMessageBox,
+  ElPopconfirm,
+} from 'element-plus';
 import Cookies from 'js-cookie';
 import { storeToRefs } from 'pinia';
 import { computed, h } from 'vue';
@@ -113,6 +125,30 @@ const showDeleteLastEntryButton = computed((): boolean => {
 
 function destroyLastEntry() {
   logsStore.deleteLastLogEntry({ log });
+}
+
+function downloadCsv() {
+  window.location.assign(download_log_path(log.slug));
+}
+
+async function confirmExactCsvDownload(formulaHandling: string) {
+  try {
+    await ElMessageBox.confirm(
+      'Exact CSV values beginning with =, +, -, or @ might be evaluated as formulas when opened in spreadsheet software. Download anyway?',
+      'Download exact CSV?',
+      {
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Download exact CSV',
+        type: 'warning',
+      },
+    );
+  } catch {
+    return;
+  }
+
+  window.location.assign(
+    download_log_path(log.slug, { formula_handling: formulaHandling }),
+  );
 }
 
 function destroyLog() {

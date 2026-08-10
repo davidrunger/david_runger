@@ -210,11 +210,8 @@ RSpec.describe 'Logs app' do
         it 'allows the user to download a CSV with the log data' do
           visit(log_path(slug: log.slug))
 
-          # Make sure download link has href and time to setup before clicking.
-          wait_for { page }.to have_link(
-            'Download CSV',
-            href: download_log_path(log.slug),
-          )
+          # Make sure download button has time to set up before clicking.
+          wait_for { page }.to have_button('Download CSV')
           sleep(0.5)
 
           click_on('Download CSV')
@@ -232,6 +229,31 @@ RSpec.describe 'Logs app' do
               expect(row['Time']).to eq(log_entry.created_at.utc.iso8601)
               expect(row[log.data_label]).to eq(log_entry.data)
             end
+        end
+
+        it 'allows the user to confirm an exact CSV download' do
+          formula = '=SUM(A1:A2)'
+          log.build_log_entry_with_datum(data: formula).save!
+          csv_glob = File.join(Capybara.save_path, '*.csv')
+          existing_csv_paths = Dir.glob(csv_glob)
+
+          visit(log_path(slug: log.slug))
+
+          find('button[aria-label="Toggle Dropdown"]').click
+          find('[role="menuitem"]', text: 'Download exact CSV').click
+
+          within('.el-message-box') do
+            expect(page).to have_text('might be evaluated as formulas')
+            click_on('Download exact CSV')
+          end
+
+          new_csv_path = nil
+          wait_for do
+            new_csv_path = (Dir.glob(csv_glob) - existing_csv_paths).first
+          end.not_to be_nil
+          csv = CSV.read(new_csv_path, headers: true)
+
+          expect(csv.to_a.flatten).to include(formula)
         end
       end
     end
