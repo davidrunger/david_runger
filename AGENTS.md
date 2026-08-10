@@ -16,7 +16,7 @@
 - Do not routinely run Vitest or TypeScript checks locally. Run them when the task particularly benefits from them; otherwise rely on CI.
 - Do not run `bin/run-tests` locally by default. It is primarily a CI command, and CI may catch issues through checks that are intentionally not run during local development.
 - Maintain 100% line coverage for Ruby code included in coverage, apart from lines that are explicitly ignored. Coverage may come from any combination of spec types; it does not need to come entirely from unit specs.
-- Do not run the entire test suite locally solely to confirm total coverage. CI and Codecov perform the authoritative full-suite coverage check.
+- Do not run the entire test suite locally solely to confirm total coverage. CI performs the authoritative full-suite coverage check; Codecov also reports full-suite coverage.
 
 ## Test design
 

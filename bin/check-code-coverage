@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'rexml/document'
+
+coverage_report_path = ARGV.fetch(0, 'tmp/simple_cov/coverage.xml')
+abort("Coverage report not found at #{coverage_report_path}.") if !File.file?(coverage_report_path)
+
+coverage = REXML::Document.new(File.read(coverage_report_path)).root
+covered_lines = Integer(coverage.attributes.fetch('lines-covered').to_s)
+valid_lines = Integer(coverage.attributes.fetch('lines-valid').to_s)
+
+if covered_lines != valid_lines
+  abort("Line coverage is not 100% (#{covered_lines}/#{valid_lines} lines covered).")
+end
+
+puts("Line coverage is 100% (#{covered_lines}/#{valid_lines} lines covered).")
