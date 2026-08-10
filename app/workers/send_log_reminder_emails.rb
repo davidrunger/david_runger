@@ -5,6 +5,11 @@ class SendLogReminderEmails
 
   def perform
     Log.needing_reminder.find_each do |log|
+      delivery_limit =
+        Email::UserGeneratedDeliveryLimiter.reserve_global(category: :log_reminder)
+
+      next unless delivery_limit.permitted?
+
       log.update!(reminder_last_sent_at: Time.current)
       LogReminderMailer.reminder(log.id).deliver_later
     end

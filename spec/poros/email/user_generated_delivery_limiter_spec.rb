@@ -238,4 +238,22 @@ RSpec.describe Email::UserGeneratedDeliveryLimiter, queue_adapter: :test do
       end
     end
   end
+
+  describe '::reserve_global' do
+    it 'limits global-only deliveries across categories' do
+      described_class::GLOBAL_LIMIT.maximum.times do |index|
+        result =
+          described_class.reserve_global(
+            category: %i[log_reminder reply_forwarding webhook_email_forward].fetch(index % 3),
+          )
+
+        expect(result).to be_permitted
+      end
+
+      denied_result = described_class.reserve_global(category: :log_reminder)
+
+      expect(denied_result).not_to be_permitted
+      expect(denied_result.limit_name).to eq(:global_hour)
+    end
+  end
 end

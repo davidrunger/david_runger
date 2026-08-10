@@ -80,12 +80,17 @@ class Email::UserGeneratedDeliveryLimiter
     def reserve(actor:, recipient_email:, category:)
       new(actor:, recipient_email:, category:).reserve
     end
+
+    def reserve_global(category:)
+      new(category:, global_only: true).reserve
+    end
   end
 
-  def initialize(actor:, recipient_email:, category:)
-    @actor_id = actor.id
-    @recipient_email = recipient_email.strip.downcase
+  def initialize(category:, actor: nil, recipient_email: nil, global_only: false)
+    @actor_id = actor&.id
+    @recipient_email = recipient_email&.strip&.downcase
     @category = category
+    @global_only = global_only
   end
 
   def reserve
@@ -107,10 +112,12 @@ class Email::UserGeneratedDeliveryLimiter
 
   private
 
-  attr_reader :actor_id, :category, :recipient_email
+  attr_reader :actor_id, :category, :global_only, :recipient_email
 
   memoize \
   def applicable_quotas
+    return [build_quota(GLOBAL_LIMIT)] if global_only
+
     [
       build_quota(GLOBAL_LIMIT),
       *ACTOR_LIMITS.map { build_quota(it, actor_id) },
@@ -201,6 +208,6 @@ class Email::UserGeneratedDeliveryLimiter
       category:,
       actor_id:,
       recipient_email:,
-    }
+    }.compact
   end
 end

@@ -36,6 +36,22 @@ RSpec.describe Api::WebhookEmailForwardsController do
           expect(mail.subject).to eq(alert_title)
           expect(mail.body.to_s).to eq(alert_body)
         end
+
+        context 'when the global email circuit breaker is open' do
+          before do
+            Email::UserGeneratedDeliveryLimiter::GLOBAL_LIMIT.maximum.times do
+              Email::UserGeneratedDeliveryLimiter.reserve_global(
+                category: :webhook_email_forward,
+              )
+            end
+          end
+
+          it 'responds with :created without sending the forwarded email', queue_adapter: :test do
+            expect { post_create }.not_to enqueue_mail(GenericMailer, :generic_html)
+
+            expect(response).to have_http_status(:created)
+          end
+        end
       end
     end
   end
