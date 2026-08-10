@@ -3,6 +3,10 @@ class NullByteFinder
     @object = object
   end
 
+  def dev_261_uncovered_method
+    nil
+  end
+
   def has_null_byte?
     case @object
     when String
