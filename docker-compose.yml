@@ -141,7 +141,6 @@ services:
     env_file:
       - .env.grafana.local
     environment:
-      GF_INSTALL_PLUGINS: ''
       GF_PLUGINS_PREINSTALL_SYNC: grafana-lokiexplore-app@2.4.0
     expose:
       - '3000'
