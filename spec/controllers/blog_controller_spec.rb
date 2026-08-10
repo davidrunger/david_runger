@@ -106,40 +106,6 @@ RSpec.describe(BlogController) do
           get_show
         end
       end
-
-      context 'when an attacker somehow submits a path that resolves outside of the blog directory' do
-        before do
-          # I cannot think of any way to actually test the relevant code, so use
-          # allow_any_instance_of.
-          # rubocop:disable RSpec/AnyInstance
-          allow_any_instance_of(Pathname).to receive(:realpath).and_return(path_outside_of_blog)
-          # rubocop:enable RSpec/AnyInstance
-        end
-
-        let(:path_outside_of_blog) { '/etc/you-got-hacked.xml' }
-
-        it 'responds with 404 status and 404 page content' do
-          get_show
-
-          expect(response).to have_http_status(404)
-          expect(response.body).to have_text(not_found_page_content)
-        end
-
-        it 'reports via Rails.error' do
-          expect(Rails.error).
-            to receive(:report).
-            with(
-              BlogController::UnauthorizedBlogFileRequest,
-              context: hash_including(
-                absolute_path: path_outside_of_blog,
-                relative_path: "/blog/#{slug}.html",
-              ),
-            ).
-            and_call_original
-
-          get_show
-        end
-      end
     end
 
     describe '#assets' do

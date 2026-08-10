@@ -385,7 +385,7 @@ services:
     profiles:
       - nondefault
     volumes:
-      - ./blog:/app/blog
+      - ./blog:/app/blog:ro
   worker:
     <<: *default-rails-config
     command: ['bin/sidekiq']

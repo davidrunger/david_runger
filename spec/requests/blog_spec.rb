@@ -55,4 +55,49 @@ RSpec.describe 'Blog requests' do
       end
     end
   end
+
+  describe 'GET requests containing path traversal' do
+    let(:sibling_directory_name) { "blog_#{SecureRandom.hex}" }
+    let(:sibling_directory) { Rails.root.join(sibling_directory_name) }
+    let(:sensitive_file) { sibling_directory.join('sensitive.xml') }
+    let(:sensitive_content) { '<sensitive>content</sensitive>' }
+
+    around do |example|
+      FileUtils.mkdir(sibling_directory)
+      File.write(sensitive_file, sensitive_content)
+
+      with_blog_file('404.html', 'Not found') do
+        example.run
+      end
+    ensure
+      FileUtils.rm_f(sensitive_file)
+      FileUtils.rmdir(sibling_directory) if sibling_directory.exist?
+    end
+
+    it 'rejects a canonical path in a sibling whose name starts with "blog"' do
+      link = Rails.root.join('blog', sibling_directory_name)
+      FileUtils.ln_s(sibling_directory, link)
+
+      get("/blog/#{sibling_directory_name}/sensitive.xml")
+
+      expect(response).to have_http_status(:not_found)
+      expect(response.body).not_to include(sensitive_content)
+    ensure
+      FileUtils.rm_f(link)
+    end
+
+    it 'rejects percent-encoded dot segments' do
+      get("/blog/%2e%2e/#{sibling_directory_name}/sensitive.xml")
+
+      expect(response).to have_http_status(:not_found)
+      expect(response.body).not_to include(sensitive_content)
+    end
+
+    it 'rejects percent-encoded dot segments and separators' do
+      get("/blog/%2E%2E%2F#{sibling_directory_name}%2Fsensitive.xml")
+
+      expect(response).to have_http_status(:not_found)
+      expect(response.body).not_to include(sensitive_content)
+    end
+  end
 end
