@@ -234,8 +234,6 @@ RSpec.describe 'Logs app' do
         it 'allows the user to confirm an exact CSV download' do
           formula = '=SUM(A1:A2)'
           log.build_log_entry_with_datum(data: formula).save!
-          csv_glob = File.join(Capybara.save_path, '*.csv')
-          existing_csv_paths = Dir.glob(csv_glob)
 
           visit(log_path(slug: log.slug))
 
@@ -247,11 +245,7 @@ RSpec.describe 'Logs app' do
             click_on('Download exact CSV')
           end
 
-          new_csv_path = nil
-          wait_for do
-            new_csv_path = (Dir.glob(csv_glob) - existing_csv_paths).first
-          end.not_to be_nil
-          csv = CSV.read(new_csv_path, headers: true)
+          csv = CSV.read(downloaded_file_path('*.csv'), headers: true)
 
           expect(csv.to_a.flatten).to include(formula)
         end
