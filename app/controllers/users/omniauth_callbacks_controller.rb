@@ -18,6 +18,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           Rails.error.report(
             Error.new(SubMismatch),
             context: {
+              email:,
               user_sub_in_db: user.google_sub,
               sub_in_google_response: sub,
             },
