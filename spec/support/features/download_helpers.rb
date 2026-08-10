@@ -3,6 +3,12 @@ RSpec.configure do |config|
     tmp_dir = Dir.mktmpdir
     Capybara.save_path = tmp_dir
   end
+
+  config.before(:each, type: :feature) do
+    @preexisting_capybara_save_paths = Dir.glob(
+      File.join(Capybara.save_path, '**', '*'),
+    )
+  end
 end
 
 module Features::DownloadHelpers
@@ -12,7 +18,7 @@ module Features::DownloadHelpers
     absolute_glob_pattern = File.join(Capybara.save_path, relative_glob_pattern)
 
     max_attempts.times do |index|
-      matching_paths = Dir.glob(absolute_glob_pattern)
+      matching_paths = Dir.glob(absolute_glob_pattern) - @preexisting_capybara_save_paths
 
       if (matching_path = matching_paths.first)
         break matching_path
