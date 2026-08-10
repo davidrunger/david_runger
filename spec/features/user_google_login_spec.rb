@@ -103,6 +103,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
               with(
                 Users::OmniauthCallbacksController::SubMismatch,
                 context: {
+                  email: user.email,
                   user_sub_in_db: user.google_sub,
                   sub_in_google_response: mocked_google_response_sub,
                 },
