@@ -47,7 +47,10 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
 
 # Download skedjewel binary.
 ARG SKEDJEWEL_VERSION=v2.1.1
-RUN curl --fail -L "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" > skedjewel && \
+ARG SKEDJEWEL_SHA256=893b22fe45c795fd0875567c11fe06290debe1f082d5e89a02c70d211041cd81
+RUN curl --fail --location --output skedjewel \
+  "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" && \
+  echo "$SKEDJEWEL_SHA256  skedjewel" | sha256sum --check --strict && \
   mkdir -p /app/bin && \
   mv skedjewel /app/bin/ && \
   chmod a+x /app/bin/skedjewel
