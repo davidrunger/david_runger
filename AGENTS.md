@@ -17,6 +17,7 @@
 - Run targeted linters on changed files when they provide useful feedback: `bin/rubocop` for Ruby; `pnpm exec oxlint` for JavaScript, TypeScript, and Vue; `pnpm exec stylelint` for CSS, SCSS, and Vue; `pnpm exec prettier` for Prettier-managed files; and `shellcheck` for shell scripts. Use appropriate check or autocorrect flags for the task, and inspect the diff after any autocorrection. Do not assume that personal helper commands such as `lint` are installed.
 - Do not routinely run Vitest or TypeScript checks locally. Run them when the task particularly benefits from them; otherwise rely on CI.
 - Do not run `bin/run-tests` locally by default. It is primarily a CI command, and CI may catch issues through checks that are intentionally not run during local development.
+- When an expected asset-size change requires updating `Test::Tasks::RunFileSizeChecks::CONSTRAINTS`, round the reported size to the nearest whole KiB and set the constraint to a 10 KiB range centered on that value (rounded size minus 5 through rounded size plus 5).
 - Maintain 100% line coverage for Ruby code included in coverage, apart from lines that are explicitly ignored. Coverage may come from any combination of spec types; it does not need to come entirely from unit specs.
 - Do not run the entire test suite locally solely to confirm total coverage. CI performs the authoritative full-suite coverage check; Codecov also reports full-suite coverage.
 
