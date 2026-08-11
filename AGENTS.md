@@ -9,6 +9,18 @@
 - Prefer repository binstubs, such as `bin/rails` and `bin/rspec`, over commands that bypass them.
 - Keep Spring enabled for local Rails commands because it substantially speeds up tests and other work. Disable Spring only for a concrete reason, not as a routine workaround.
 
+## Rollbar commit messages
+
+- When the user provides a Rollbar item link that a commit is expected to fix, include both the Rollbar resolution marker and the item's full URL in the commit message body. Put each on its own line with a blank line between them, typically at the top or bottom of the body:
+
+  ```text
+  fixes rb#782
+
+  https://app.rollbar.com/a/davidjrunger/fix/item/davidrunger/782
+  ```
+
+  Use the item number in the `fixes rb#<number>` marker so Rollbar automatically resolves the item when the commit is deployed. Include the full URL so reviewers and future readers can navigate to the item.
+
 ## Tests and coverage
 
 - Before running feature specs that exercise changed frontend assets, start the live Vite server with `./node_modules/.bin/vite --force` in a separate terminal and leave it running while iterating. This ensures that each feature-spec run uses the current source without rebuilding assets after every edit. When a task runner starts Vite as a managed background process instead, confirm that the server is ready before running specs and stop it when testing is complete.
