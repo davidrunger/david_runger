@@ -45,6 +45,22 @@ RSpec.describe Comments::Create, queue_adapter: :test do
     end
   end
 
+  context 'when the global email delivery limit is reached' do
+    before do
+      Email::UserGeneratedDeliveryLimiter::GLOBAL_LIMIT.maximum.times do
+        Email::UserGeneratedDeliveryLimiter.reserve_global(category: :proposal)
+      end
+    end
+
+    it 'retains the comment without sending notifications' do
+      expect { run_action }.
+        to have_enqueued_mail(AdminMailer, :comment_created).exactly(0).times.
+        and have_enqueued_mail(CommentMailer, :reply_created).exactly(0).times
+
+      expect(run_action.comment).to be_persisted
+    end
+  end
+
   context 'when the author replies to their own comment' do
     let(:parent_user) { user }
 

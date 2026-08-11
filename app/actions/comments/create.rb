@@ -9,7 +9,12 @@ class Comments::Create < ApplicationAction
 
     result.comment = comment
 
-    AdminMailer.comment_created(comment.id).deliver_later
+    administrator_notification_limit =
+      Email::UserGeneratedDeliveryLimiter.reserve_global(category: :comment_created)
+
+    if administrator_notification_limit.permitted?
+      AdminMailer.comment_created(comment.id).deliver_later
+    end
 
     parent_user = comment.parent&.user
 
