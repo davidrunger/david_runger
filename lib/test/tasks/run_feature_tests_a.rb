@@ -4,6 +4,7 @@ class Test::Tasks::RunFeatureTestsA < Pallets::Task
   def run
     execute_rspec_command(<<~COMMAND)
       DB_SUFFIX=_feature_a CAPYBARA_SERVER_PORT=3001
+      COVERAGE_RESULTSET_NAME=feature_a
       bin/rspec $(cat tmp/feature_specs_a.txt)
       #{rspec_output_options}
     COMMAND
