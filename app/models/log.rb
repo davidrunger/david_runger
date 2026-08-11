@@ -2,19 +2,20 @@
 #
 # Table name: logs
 #
-#  created_at               :datetime         not null
-#  data_label               :string           not null
-#  data_type                :string           not null
-#  description              :string
-#  email_submission_token   :string           not null
-#  id                       :bigint           not null, primary key
-#  name                     :string           not null
-#  publicly_viewable        :boolean          default(FALSE), not null
-#  reminder_last_sent_at    :datetime
-#  reminder_time_in_seconds :integer
-#  slug                     :string           not null
-#  updated_at               :datetime         not null
-#  user_id                  :bigint           not null
+#  created_at                             :datetime         not null
+#  data_label                             :string           not null
+#  data_type                              :string           not null
+#  description                            :string
+#  email_submission_token                 :string           not null
+#  email_submission_token_last_rotated_at :datetime
+#  id                                     :bigint           not null, primary key
+#  name                                   :string           not null
+#  publicly_viewable                      :boolean          default(FALSE), not null
+#  reminder_last_sent_at                  :datetime
+#  reminder_time_in_seconds               :integer
+#  slug                                   :string           not null
+#  updated_at                             :datetime         not null
+#  user_id                                :bigint           not null
 #
 # Indexes
 #
@@ -107,5 +108,12 @@ class Log < ApplicationRecord
       log_entry.assign_attributes(non_data_params)
       log_entry.log_entry_datum = log_entry_datum_class.new(data_params)
     end
+  end
+
+  def rotate_email_submission_token!
+    update!(
+      email_submission_token: SecureRandom.base58(EMAIL_SUBMISSION_TOKEN_LENGTH),
+      email_submission_token_last_rotated_at: Time.current,
+    )
   end
 end

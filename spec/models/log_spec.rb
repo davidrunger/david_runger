@@ -13,6 +13,21 @@ RSpec.describe Log do
     end
   end
 
+  describe '#rotate_email_submission_token!' do
+    it 'replaces the token and records when it was rotated' do
+      old_token = log.email_submission_token
+
+      freeze_time do
+        log.rotate_email_submission_token!
+
+        expect(log.email_submission_token).not_to eq(old_token)
+        expect(log.email_submission_token.size).
+          to eq(described_class::EMAIL_SUBMISSION_TOKEN_LENGTH)
+        expect(log.email_submission_token_last_rotated_at).to eq(Time.current)
+      end
+    end
+  end
+
   describe '::needing_reminder' do
     subject(:needing_reminder) { Log.needing_reminder }
 

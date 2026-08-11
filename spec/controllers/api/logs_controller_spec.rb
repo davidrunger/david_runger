@@ -100,6 +100,49 @@ RSpec.describe Api::LogsController do
     end
   end
 
+  describe '#rotate_email_submission_token' do
+    subject(:post_rotate_email_submission_token) do
+      post(:rotate_email_submission_token, params: { id: log.id })
+    end
+
+    let(:log) { logs(:number_log) }
+
+    context "when rotating one's own log's email submission token" do
+      let(:user) { log.user }
+
+      it 'replaces the token, records the rotation time, and returns the updated log' do
+        old_token = log.email_submission_token
+
+        freeze_time do
+          post_rotate_email_submission_token
+
+          expect(log.reload.email_submission_token).not_to eq(old_token)
+          expect(log.email_submission_token_last_rotated_at).to eq(Time.current)
+        end
+
+        expect(response.parsed_body).to include(
+          'email_submission_token_last_rotated_at' =>
+            log.email_submission_token_last_rotated_at.iso8601(3),
+        )
+      end
+    end
+
+    context "when rotating another user's log's email submission token" do
+      let(:owning_user) { log.user }
+      let(:user) { User.where.not(id: owning_user).first! }
+
+      it 'does not rotate the token' do
+        expect { post_rotate_email_submission_token }.
+          not_to change { log.reload.email_submission_token }
+      end
+
+      it 'returns a 404 status code' do
+        post_rotate_email_submission_token
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe '#destroy' do
     subject(:delete_destroy) { delete(:destroy, params: { id: log.id }) }
 

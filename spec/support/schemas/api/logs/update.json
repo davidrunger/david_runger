@@ -15,6 +15,9 @@
         "description": {
           "type": ["null", "string"]
         },
+        "email_submission_token_last_rotated_at": {
+          "type": ["null", "string"]
+        },
         "id": {
           "type": "integer"
         },
@@ -44,6 +47,7 @@
         "data_label",
         "data_type",
         "description",
+        "email_submission_token_last_rotated_at",
         "id",
         "log_shares",
         "name",
