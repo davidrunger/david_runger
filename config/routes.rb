@@ -88,7 +88,9 @@ Rails.application.routes.draw do
     resource :json_preferences, only: %i[update]
     resources :log_entries, only: %i[create destroy index update]
     resources :log_shares, only: %i[create destroy]
-    resources :logs, only: %i[create destroy update]
+    resources :logs, only: %i[create destroy update] do
+      post :rotate_email_submission_token, on: :member
+    end
     resource :my_account, controller: :my_account, only: %i[update]
     resources :reifications, only: %i[create]
     resources :stores, only: %i[index create update destroy] do

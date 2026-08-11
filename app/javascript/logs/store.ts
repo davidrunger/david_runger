@@ -14,6 +14,7 @@ import {
   api_log_share_path,
   api_log_shares_path,
   api_logs_path,
+  rotate_email_submission_token_api_log_path,
 } from '@/rails_assets/routes';
 import type {
   Intersection,
@@ -25,6 +26,7 @@ import { LogCreateResponse } from '@/types/responses/LogCreateResponse';
 import { LogEntriesIndexResponse } from '@/types/responses/LogEntriesIndexResponse';
 import { LogEntryCreateResponse } from '@/types/responses/LogEntryCreateResponse';
 import { LogEntryUpdateResponse } from '@/types/responses/LogEntryUpdateResponse';
+import { LogRotateEmailSubmissionTokenResponse } from '@/types/responses/LogRotateEmailSubmissionTokenResponse';
 import { LogShareCreateResponse } from '@/types/responses/LogShareCreateResponse';
 import { LogUpdateResponse } from '@/types/responses/LogUpdateResponse';
 
@@ -241,6 +243,16 @@ export const useLogsStore = defineStore('logs', {
       const updatedLogData = await http.patch<
         Intersection<Log, LogUpdateResponse>
       >(api_log_path(logId), payload);
+
+      const log = this.logById({ logId });
+
+      typesafeAssign(log, updatedLogData);
+    },
+
+    async rotateEmailSubmissionToken({ logId }: { logId: number }) {
+      const updatedLogData = await http.post<
+        Intersection<Log, LogRotateEmailSubmissionTokenResponse>
+      >(rotate_email_submission_token_api_log_path(logId));
 
       const log = this.logById({ logId });
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_11_153309) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_11_164750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -302,6 +302,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_153309) do
     t.string "data_type", null: false
     t.string "description"
     t.string "email_submission_token", null: false
+    t.datetime "email_submission_token_last_rotated_at"
     t.string "name", null: false
     t.boolean "publicly_viewable", default: false, null: false
     t.datetime "reminder_last_sent_at", precision: nil

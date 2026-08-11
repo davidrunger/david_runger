@@ -2,19 +2,20 @@
 #
 # Table name: logs
 #
-#  created_at               :datetime         not null
-#  data_label               :string           not null
-#  data_type                :string           not null
-#  description              :string
-#  email_submission_token   :string           not null
-#  id                       :bigint           not null, primary key
-#  name                     :string           not null
-#  publicly_viewable        :boolean          default(FALSE), not null
-#  reminder_last_sent_at    :datetime
-#  reminder_time_in_seconds :integer
-#  slug                     :string           not null
-#  updated_at               :datetime         not null
-#  user_id                  :bigint           not null
+#  created_at                             :datetime         not null
+#  data_label                             :string           not null
+#  data_type                              :string           not null
+#  description                            :string
+#  email_submission_token                 :string           not null
+#  email_submission_token_last_rotated_at :datetime
+#  id                                     :bigint           not null, primary key
+#  name                                   :string           not null
+#  publicly_viewable                      :boolean          default(FALSE), not null
+#  reminder_last_sent_at                  :datetime
+#  reminder_time_in_seconds               :integer
+#  slug                                   :string           not null
+#  updated_at                             :datetime         not null
+#  user_id                                :bigint           not null
 #
 # Indexes
 #

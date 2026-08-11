@@ -1,5 +1,5 @@
 class Api::LogsController < Api::BaseController
-  before_action :set_log, only: %i[destroy update]
+  before_action :set_log, only: %i[destroy rotate_email_submission_token update]
 
   def create
     authorize(Log)
@@ -28,6 +28,12 @@ class Api::LogsController < Api::BaseController
     authorize(@log)
     @log.destroy!
     head(:no_content)
+  end
+
+  def rotate_email_submission_token
+    authorize(@log, :update?)
+    @log.rotate_email_submission_token!
+    render_schema_json(@log.serializer(current_user:))
   end
 
   private

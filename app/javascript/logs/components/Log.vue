@@ -55,6 +55,10 @@ div
             | {{ (log.reminder_time_in_seconds / (60 * 60)).toFixed() }} hours
           span(v-else) No reminders
     .mt-2
+      ElButton.multi-line(@click="rotateEmailSubmissionToken")
+        div Regenerate email submission token
+        small Last regenerated: {{ emailSubmissionTokenLastRotatedAt }}
+    .mt-2
       ElButton(@click="destroyLog") Delete log
 
   EditLogSharingSettingsModal
@@ -73,6 +77,7 @@ import {
   ElPopconfirm,
 } from 'element-plus';
 import Cookies from 'js-cookie';
+import { DateTime } from 'luxon';
 import { storeToRefs } from 'pinia';
 import { computed, h } from 'vue';
 
@@ -123,6 +128,14 @@ const showDeleteLastEntryButton = computed((): boolean => {
   return !['text'].includes(log.data_type);
 });
 
+const emailSubmissionTokenLastRotatedAt = computed((): string => {
+  const lastRotatedAt = log.email_submission_token_last_rotated_at;
+
+  return lastRotatedAt ?
+      DateTime.fromISO(lastRotatedAt).toLocaleString(DateTime.DATETIME_MED)
+    : 'Never';
+});
+
 function destroyLastEntry() {
   logsStore.deleteLastLogEntry({ log });
 }
@@ -149,6 +162,24 @@ async function confirmExactCsvDownload(formulaHandling: string) {
   window.location.assign(
     download_log_path(log.slug, { formula_handling: formulaHandling }),
   );
+}
+
+async function rotateEmailSubmissionToken() {
+  try {
+    await ElMessageBox.confirm(
+      'This will prevent replies to previously sent reminder emails from creating log entries. Continue?',
+      'Regenerate email submission token?',
+      {
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Regenerate token',
+        type: 'warning',
+      },
+    );
+  } catch {
+    return;
+  }
+
+  await logsStore.rotateEmailSubmissionToken({ logId: log.id });
 }
 
 function destroyLog() {

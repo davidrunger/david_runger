@@ -21,14 +21,15 @@ interface LogInputType {
 }
 
 interface Log {
-    data_label:                string;
-    data_type:                 string;
-    description:               null | string;
-    id:                        number;
-    log_shares?:               User[];
-    name:                      string;
-    publicly_viewable?:        boolean;
-    reminder_time_in_seconds?: number | null;
-    slug:                      string;
-    user:                      User;
+    data_label:                              string;
+    data_type:                               string;
+    description:                             null | string;
+    email_submission_token_last_rotated_at?: null | string;
+    id:                                      number;
+    log_shares?:                             User[];
+    name:                                    string;
+    publicly_viewable?:                      boolean;
+    reminder_time_in_seconds?:               number | null;
+    slug:                                    string;
+    user:                                    User;
 }
