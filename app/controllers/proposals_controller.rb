@@ -1,7 +1,7 @@
 class ProposalsController < ApplicationController
   self.container_classes = %w[p-8]
 
-  before_action :set_proposal, only: %i[accept confirm]
+  before_action :set_proposal, only: %i[accept cancel confirm]
 
   def create
     authorize(Proposal)
@@ -48,6 +48,19 @@ class ProposalsController < ApplicationController
 
     if result.success?
       flash[:notice] = 'Marriage created.'
+    else
+      flash[:alert] = result.error_message
+    end
+
+    redirect_to(check_ins_path)
+  end
+
+  def cancel
+    authorize(@proposal)
+    result = Proposals::Cancel.new(proposal: @proposal).run
+
+    if result.success?
+      flash[:notice] = 'Invitation canceled.'
     else
       flash[:alert] = result.error_message
     end

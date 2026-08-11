@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     member do
       get :confirm
       post :accept
+      post :cancel
     end
   end
   resource :marriage, only: %i[new show]

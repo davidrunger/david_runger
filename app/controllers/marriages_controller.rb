@@ -10,6 +10,7 @@ class MarriagesController < ApplicationController
 
   def new
     authorize(Marriage)
+    @pending_proposals = current_user.sent_proposals.pending.order(created_at: :desc)
     render :new
   end
 

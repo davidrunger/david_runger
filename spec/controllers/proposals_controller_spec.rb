@@ -97,6 +97,7 @@ RSpec.describe(ProposalsController, queue_adapter: :test) do
     end
 
     let!(:proposal) { create(:proposal, proposer:, proposee_email: proposee.email) }
+    let(:accept_proposal_button_text) { 'Accept proposal' }
     let(:existing_marriage_warning) do
       'Warning: Accepting this proposal will delete your existing marriage and its associated ' \
         'check-in data.'
@@ -114,7 +115,7 @@ RSpec.describe(ProposalsController, queue_adapter: :test) do
 
         expect(response).to have_http_status(:ok)
         expect(response.body).to have_text(proposer.email)
-        expect(response.body).to have_button('Accept proposal')
+        expect(response.body).to have_button(accept_proposal_button_text)
       end
 
       context 'when the proposee does not have an existing marriage' do
@@ -154,7 +155,18 @@ RSpec.describe(ProposalsController, queue_adapter: :test) do
           get_confirm
 
           expect(response.body).to have_text('This proposal has already been accepted.')
-          expect(response.body).not_to have_button('Accept proposal')
+          expect(response.body).not_to have_button(accept_proposal_button_text)
+        end
+      end
+
+      context 'when the proposal has been canceled' do
+        before { proposal.update!(canceled_at: 1.minute.ago) }
+
+        it 'shows that the proposal was canceled without an acceptance button' do
+          get_confirm
+
+          expect(response.body).to have_text('This proposal has been canceled.')
+          expect(response.body).not_to have_button(accept_proposal_button_text)
         end
       end
     end
@@ -225,6 +237,69 @@ RSpec.describe(ProposalsController, queue_adapter: :test) do
           post_accept
         }.not_to change {
           proposal.reload.accepted_at
+        }
+
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to perform this action.')
+      end
+    end
+  end
+
+  describe '#cancel' do
+    subject(:post_cancel) do
+      post(:cancel, params: { public_id: proposal.public_id })
+    end
+
+    let!(:proposal) { create(:proposal, proposer:, proposee_email: proposee.email) }
+
+    context 'when the proposer is signed in' do
+      before { sign_in(proposer) }
+
+      it 'cancels the proposal via POST', :frozen_time do
+        expect {
+          post_cancel
+        }.to change {
+          proposal.reload.canceled_at
+        }.from(nil).to(Time.current)
+
+        expect(flash[:notice]).to eq('Invitation canceled.')
+        expect(response).to redirect_to(check_ins_path)
+      end
+
+      context 'when the proposal has already been canceled' do
+        before { proposal.update!(canceled_at: 1.minute.ago) }
+
+        it 'succeeds without changing the cancellation time' do
+          expect {
+            post_cancel
+          }.not_to change {
+            proposal.reload.canceled_at
+          }
+
+          expect(flash[:notice]).to eq('Invitation canceled.')
+        end
+      end
+
+      context 'when the proposal has already been accepted' do
+        before { proposal.update!(accepted_at: 1.minute.ago) }
+
+        it 'reports that the proposal cannot be canceled' do
+          post_cancel
+
+          expect(proposal.reload.canceled_at).to be_nil
+          expect(flash[:alert]).to eq('This proposal has already been accepted.')
+        end
+      end
+    end
+
+    context 'when the intended proposee is signed in' do
+      before { sign_in(proposee) }
+
+      it 'does not cancel the proposal' do
+        expect {
+          post_cancel
+        }.not_to change {
+          proposal.reload.canceled_at
         }
 
         expect(response).to redirect_to(root_path)

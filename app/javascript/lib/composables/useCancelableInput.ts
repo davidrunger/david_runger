@@ -1,11 +1,11 @@
 import { nextTick, ref, Ref, useTemplateRef } from 'vue';
 
-interface UseCancellableInputOptions {
+interface UseCancelableInputOptions {
   onUpdate: (newValue: string) => void;
   refName: string;
 }
 
-interface UseCancellableInputReturn {
+interface UseCancelableInputReturn {
   editableRef: Ref<string>;
   isEditing: Ref<boolean>;
   startEditing: (initialValue: string) => void;
@@ -16,9 +16,9 @@ interface UseCancellableInputReturn {
   };
 }
 
-export function useCancellableInput(
-  options: UseCancellableInputOptions,
-): UseCancellableInputReturn {
+export function useCancelableInput(
+  options: UseCancelableInputOptions,
+): UseCancelableInputReturn {
   const { onUpdate, refName } = options;
 
   const isEditing = ref<boolean>(false);

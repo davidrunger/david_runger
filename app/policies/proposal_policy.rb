@@ -11,6 +11,10 @@ class ProposalPolicy < ApplicationPolicy
     intended_recipient?
   end
 
+  def cancel?
+    record.proposer == user
+  end
+
   private
 
   def intended_recipient?

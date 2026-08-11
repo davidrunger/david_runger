@@ -99,7 +99,7 @@ async function cancelReminders() {
     updatedLogParams: { reminder_time_in_seconds: null },
   });
 
-  toast('Reminders cancelled!');
+  toast('Reminders canceled!');
 }
 
 function hideReminderSchedulingModal() {

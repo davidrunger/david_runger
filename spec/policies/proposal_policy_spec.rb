@@ -33,14 +33,27 @@ RSpec.describe ProposalPolicy do
       expect(policy.confirm?).to eq(true)
       expect(policy.accept?).to eq(true)
     end
+
+    it 'does not allow canceling the proposal' do
+      expect(policy.cancel?).to eq(false)
+    end
   end
 
   context 'when the user is not the intended recipient' do
     let(:user) { create(:user) }
 
-    it 'forbids viewing the confirmation or accepting the proposal' do
+    it 'forbids viewing the confirmation, accepting, or canceling the proposal' do
       expect(policy.confirm?).to eq(false)
       expect(policy.accept?).to eq(false)
+      expect(policy.cancel?).to eq(false)
+    end
+  end
+
+  context 'when the user is the proposer' do
+    let(:user) { proposal.proposer }
+
+    it 'allows canceling the proposal' do
+      expect(policy.cancel?).to eq(true)
     end
   end
 end
