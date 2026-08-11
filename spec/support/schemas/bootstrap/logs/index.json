@@ -97,6 +97,16 @@
             }
           ]
         },
+        "email_submission_token_last_rotated_at": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
         "id": {
           "type": "integer"
         },
