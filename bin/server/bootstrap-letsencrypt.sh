@@ -6,6 +6,7 @@
 # shellcheck disable=SC2128
 
 domains=(davidrunger.com grafana.davidrunger.com www.davidrunger.com)
+certbot_commit=a0e8b490579193dd818f68772bbd0be4d1b25fe2 # Certbot v3.2.0
 rsa_key_size=4096
 data_path="./ssl-data/certbot"
 email="davidjrunger@gmail.com" # Adding a valid address is strongly recommended
@@ -27,8 +28,8 @@ fi
 if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/ssl-dhparams.pem" ]; then
   echo "### Downloading recommended TLS parameters ..."
   mkdir -p "$data_path/conf"
-  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > "$data_path/conf/options-ssl-nginx.conf"
-  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > "$data_path/conf/ssl-dhparams.pem"
+  curl --fail --location --output "$data_path/conf/options-ssl-nginx.conf" "https://raw.githubusercontent.com/certbot/certbot/$certbot_commit/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf"
+  curl --fail --location --output "$data_path/conf/ssl-dhparams.pem" "https://raw.githubusercontent.com/certbot/certbot/$certbot_commit/certbot/certbot/ssl-dhparams.pem"
   echo
 fi
 
