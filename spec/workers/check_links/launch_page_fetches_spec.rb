@@ -56,7 +56,6 @@ RSpec.describe CheckLinks::LaunchPageFetches do
         expected_page_urls_to_check =
           %w[
             https://davidrunger.com/
-            https://david-runger-public-uploads.s3.amazonaws.com/David-Runger-Resume.pdf
             https://davidrunger.com/blog/using-vs-code-as-a-rails-app-update-merge-tool
             https://davidrunger.com/blog/
           ]
