@@ -128,11 +128,6 @@ jobs:
           PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
           CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
 
-      - name: Check code coverage
-        id: check_code_coverage
-        continue-on-error: true
-        run: bin/check-code-coverage
-
       - name: Save failed feature spec logs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: failure()
@@ -157,9 +152,8 @@ jobs:
       - name: Prune pnpm store
         run: pnpm store prune
 
-      - name: Propagate code coverage failure
-        if: ${{ !cancelled() && steps.check_code_coverage.outcome == 'failure' }}
-        run: exit 1
+      - name: Check code coverage
+        run: bin/check-code-coverage
 
   deploy-and-prerender:
     concurrency:
