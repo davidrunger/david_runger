@@ -9,6 +9,7 @@ require 'dotenv/load' if ENV.fetch('CI', nil) != 'true'
 require 'ferrum'
 require 'nokogiri'
 
+require_relative '../lib/content_signature.rb'
 require_relative '../lib/retry.rb'
 
 class Prerenderer
@@ -64,10 +65,27 @@ class Prerenderer
     git_sha = `git rev-parse HEAD`.strip
     raise('Could not determine git SHA!') if git_sha.empty?
 
+    object_key = "prerenders/#{git_sha}/#{filename}"
+
     Aws::S3::Resource.new(region: 'us-east-1').
       bucket('david-runger-test-uploads').
-      object("prerenders/#{git_sha}/#{filename}").
-      put(body:)
+      object(object_key).
+      put(
+        body:,
+        metadata: {
+          'prerender-signature' =>
+            ContentSignature.signature(
+              content: body,
+              object_key:,
+              private_key: prerender_signing_private_key,
+            ),
+        },
+      )
+  end
+
+  def prerender_signing_private_key
+    @prerender_signing_private_key ||=
+      ContentSignature.key_from_base64(ENV.fetch('PRERENDER_SIGNING_PRIVATE_KEY'))
   end
 
   def html_for_prerendering(html)
