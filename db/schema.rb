@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_10_164357) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_11_022209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -369,12 +369,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_10_164357) do
 
   create_table "proposals", force: :cascade do |t|
     t.datetime "accepted_at"
+    t.datetime "canceled_at"
     t.datetime "created_at", null: false
     t.string "proposee_email", null: false
     t.bigint "proposer_id", null: false
     t.string "public_id", null: false
     t.datetime "updated_at", null: false
-    t.index ["proposer_id", "proposee_email"], name: "uniq_pending_proposals", unique: true, where: "(accepted_at IS NULL)"
+    t.index ["proposer_id", "proposee_email"], name: "uniq_pending_proposals", unique: true, where: "((accepted_at IS NULL) AND (canceled_at IS NULL))"
     t.index ["proposer_id"], name: "index_proposals_on_proposer_id"
     t.index ["public_id"], name: "index_proposals_on_public_id", unique: true
   end

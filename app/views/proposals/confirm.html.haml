@@ -6,6 +6,8 @@
 
 - if @proposal.accepted_at.present?
   %p This proposal has already been accepted.
+- elsif @proposal.canceled_at.present?
+  %p This proposal has been canceled.
 - else
   - if current_user.spouse.present? && current_user.marriage != @proposal.proposer.marriage
     %p

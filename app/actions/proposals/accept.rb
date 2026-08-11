@@ -70,6 +70,7 @@ class Proposals::Accept < ApplicationAction
     proposee_marriage:
   )
     return 'This proposal has already been accepted.' if proposal.accepted_at.present?
+    return 'This proposal has been canceled.' if proposal.canceled_at.present?
 
     if !proposal.proposee_email.casecmp?(locked_proposee.email)
       return 'This proposal was sent to a different email address.'

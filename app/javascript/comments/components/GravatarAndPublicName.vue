@@ -28,7 +28,7 @@ import { computed } from 'vue';
 import { bool, nullable, object, oneOfType } from 'vue-types';
 
 import { useCommentsStore } from '@/comments/stores/commentsStore';
-import { useCancellableInput } from '@/lib/composables/useCancellableInput';
+import { useCancelableInput } from '@/lib/composables/useCancelableInput';
 import { type UserSerializerPublic } from '@/types';
 
 const store = useCommentsStore();
@@ -38,7 +38,7 @@ const {
   isEditing: isEditingPublicName,
   startEditing: startEditingPublicName,
   inputEventHandlers: publicNameInputEventHandlers,
-} = useCancellableInput({
+} = useCancelableInput({
   onUpdate(newPublicName) {
     store.updateCurrentUser({ public_name: newPublicName });
   },

@@ -22,6 +22,12 @@ RSpec.describe Proposal do
     it 'returns only proposals that have not been accepted' do
       expect(described_class.pending).to contain_exactly(pending_proposal)
     end
+
+    it 'excludes canceled proposals' do
+      pending_proposal.update!(canceled_at: 1.minute.ago)
+
+      expect(described_class.pending).to be_empty
+    end
   end
 
   describe 'proposee email format' do
@@ -59,6 +65,18 @@ RSpec.describe Proposal do
 
     it 'allows another proposal after the earlier proposal has been accepted' do
       pending_proposal.update!(accepted_at: 1.minute.ago)
+
+      expect(
+        build(
+          :proposal,
+          proposer: pending_proposal.proposer,
+          proposee_email: pending_proposal.proposee_email,
+        ),
+      ).to be_valid
+    end
+
+    it 'allows another proposal after the earlier proposal has been canceled' do
+      pending_proposal.update!(canceled_at: 1.minute.ago)
 
       expect(
         build(

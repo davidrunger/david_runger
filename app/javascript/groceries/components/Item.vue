@@ -49,7 +49,7 @@ import { bool, object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
-import { useCancellableInput } from '@/lib/composables/useCancellableInput';
+import { useCancelableInput } from '@/lib/composables/useCancelableInput';
 import { linkifiedAndSanitizedHtml } from '@/lib/linkifiedAndSanitizedHtml';
 
 const ICON_SIZE = 17;
@@ -66,7 +66,7 @@ const {
   isEditing,
   startEditing,
   inputEventHandlers,
-} = useCancellableInput({
+} = useCancelableInput({
   onUpdate: (newValue: string) => {
     groceriesStore.updateItem({
       item: props.item,

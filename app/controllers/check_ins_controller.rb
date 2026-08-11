@@ -8,6 +8,7 @@ class CheckInsController < ApplicationController
     authorize(CheckIn)
     @title = 'Check-ins'
     @marriage = current_user.marriage.decorate
+    @pending_proposals = current_user.sent_proposals.pending.order(created_at: :desc)
     render :index
   end
 

@@ -28,7 +28,7 @@ import { EditIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
-import { useCancellableInput } from '@/lib/composables/useCancellableInput';
+import { useCancelableInput } from '@/lib/composables/useCancelableInput';
 import type { Store } from '@/types';
 
 const props = defineProps({
@@ -42,7 +42,7 @@ const {
   isEditing: isEditingNotes,
   startEditing: startEditingNotes,
   inputEventHandlers: notesInputEventHandlers,
-} = useCancellableInput({
+} = useCancelableInput({
   onUpdate(newNotes) {
     groceriesStore.updateStore({
       store: props.store,

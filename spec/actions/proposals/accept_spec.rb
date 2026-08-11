@@ -104,6 +104,23 @@ RSpec.describe Proposals::Accept do
     end
   end
 
+  context 'when the proposal has been canceled' do
+    before { proposal.update!(canceled_at: 1.minute.ago) }
+
+    let!(:proposee_marriage) { create(:marriage, partners: [proposee]) }
+
+    it 'rejects the proposal without changing the proposee marriage' do
+      expect {
+        expect(run).not_to be_success
+      }.not_to change {
+        proposee.reload.marriage.id
+      }.from(proposee_marriage.id)
+
+      expect(run.error_message).to eq('This proposal has been canceled.')
+      expect(proposal.reload.accepted_at).to be_nil
+    end
+  end
+
   context 'when the proposal was sent to a different user' do
     let(:proposee) { create(:user) }
 
