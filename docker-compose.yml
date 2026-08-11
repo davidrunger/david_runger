@@ -84,7 +84,7 @@ services:
       interval: 1h
       timeout: 10s
       retries: 1
-    image: certbot/certbot
+    image: certbot/certbot:v3.2.0@sha256:3ad1eb352f6b2ae3f359dce4b262f699cc178be0ab9d9f375210e8741404720e
     logging: *default-logging
     networks:
       - external
@@ -337,7 +337,7 @@ services:
         condition: service_started
     env_file:
       - .env.s3_db_backup.local
-    image: dokku/s3backup
+    image: dokku/s3backup:0.18.2@sha256:a781df6117de0ecfebdc2d67643a576ebea84c0bdddf9bd8686e515e05cde649
     logging: *default-logging
     networks:
       - external
