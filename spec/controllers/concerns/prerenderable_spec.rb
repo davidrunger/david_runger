@@ -20,10 +20,18 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
     subject(:get_index) { get(:index, params:) }
 
     let(:params) { {} }
+    let(:prerender_signing_private_key) { OpenSSL::PKey.generate_key('ED25519') }
+
+    let(:prerender_signing_public_key_base64) do
+      Base64.strict_encode64(prerender_signing_private_key.public_to_pem)
+    end
 
     context 'when ENV["GIT_REV"] is set' do
       around do |spec|
-        ClimateControl.modify(GIT_REV: commit_sha) do
+        ClimateControl.modify(
+          GIT_REV: commit_sha,
+          PRERENDER_SIGNING_PUBLIC_KEY: prerender_signing_public_key_base64,
+        ) do
           spec.run
         end
       end
@@ -32,13 +40,8 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
 
       context 'when S3 responds with prerendered page content including the expected text' do
         let(:page_text) { "Some text. #{EXPECTED_CONTENT} More text!" }
-
-        before do
-          stub_request(
-            :get,
-            'https://david-runger-test-uploads.s3.amazonaws.com/' \
-            "prerenders/#{commit_sha}/home.html",
-          ).to_return(status: 200, headers: {}, body: <<~HTML)
+        let(:prerendered_html) do
+          <<~HTML
             <!doctype html>
             <html>
               <head>
@@ -52,6 +55,26 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           HTML
         end
 
+        let(:prerender_signature) do
+          ContentSignature.signature(
+            content: prerendered_html,
+            object_key: "prerenders/#{commit_sha}/home.html",
+            private_key: prerender_signing_private_key,
+          )
+        end
+
+        before do
+          stub_request(
+            :get,
+            'https://david-runger-test-uploads.s3.amazonaws.com/' \
+            "prerenders/#{commit_sha}/home.html",
+          ).to_return(
+            status: 200,
+            headers: { 'x-amz-meta-prerender-signature' => prerender_signature },
+            body: prerendered_html,
+          )
+        end
+
         context 'when no user is signed in' do
           before { sign_out(:user) }
 
@@ -59,6 +82,34 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
             get_index
 
             expect(response.body).to have_text(page_text)
+          end
+        end
+
+        context 'when the S3 response has an invalid signature' do
+          let(:prerender_signature) { Base64.strict_encode64('invalid') }
+
+          context 'when Rails.env is "test"' do
+            before { expect(Rails.env).to eq('test') }
+
+            it 'raises an error' do
+              expect { get_index }.to raise_error(ContentSignature::InvalidSignatureError)
+            end
+          end
+
+          context 'when Rails.env is "production"', rails_env: :production do
+            it 'reports the error and live-renders the page' do
+              expect(Rails.error).
+                to receive(:report).
+                with(
+                  an_instance_of(ContentSignature::InvalidSignatureError),
+                  severity: :error,
+                  context: { filename: 'home.html' },
+                ).and_call_original
+
+              get_index
+
+              expect(response.body).to eq(LIVE_RENDERED_PAGE_TEXT)
+            end
           end
         end
 

@@ -5,11 +5,22 @@ module PrerenderUtils
     end
 
     def transformed_s3_content(git_rev:, filename:)
-      Aws::S3::Resource.new(region: 'us-east-1').
-        bucket('david-runger-test-uploads').
-        object("prerenders/#{git_rev}/#{filename}").
-        get.body.read.
-        then { html_with_absolutized_asset_paths(it) }
+      object_key = "prerenders/#{git_rev}/#{filename}"
+      get_response =
+        Aws::S3::Resource.new(region: 'us-east-1').
+          bucket('david-runger-test-uploads').
+          object(object_key).
+          get
+      html = get_response.body.read
+
+      ContentSignature.verify!(
+        content: html,
+        object_key:,
+        signature: get_response.metadata.fetch('prerender-signature'),
+        public_key: prerender_signing_public_key,
+      )
+
+      html_with_absolutized_asset_paths(html)
     rescue Aws::S3::Errors::NoSuchKey => error
       log_warning(error)
 
@@ -25,6 +36,10 @@ module PrerenderUtils
     end
 
     private
+
+    def prerender_signing_public_key
+      ContentSignature.key_from_base64(ENV.fetch('PRERENDER_SIGNING_PUBLIC_KEY'))
+    end
 
     def html_with_absolutized_asset_paths(html)
       if Rails.env.development?
