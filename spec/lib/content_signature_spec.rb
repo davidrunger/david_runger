@@ -45,5 +45,36 @@ RSpec.describe ContentSignature do
           to raise_error(described_class::InvalidSignatureError, /Invalid signature/)
       end
     end
+
+    context 'when the signature is not valid Base64' do
+      let(:signature) { 'not valid Base64' }
+
+      it 'raises an error about the signature encoding' do
+        expect { verify_signature }.
+          to raise_error(described_class::InvalidSignatureError, /Invalid signature encoding/)
+      end
+    end
+  end
+
+  describe '.key_from_base64' do
+    subject(:key_from_base64) { described_class.key_from_base64(encoded_key) }
+
+    context 'when the value is not valid Base64' do
+      let(:encoded_key) { 'not valid Base64' }
+
+      it 'raises an error about the signing key' do
+        expect { key_from_base64 }.
+          to raise_error(described_class::InvalidSignatureError, /Invalid signing key/)
+      end
+    end
+
+    context 'when the decoded value is not a PEM key' do
+      let(:encoded_key) { Base64.strict_encode64('not a PEM key') }
+
+      it 'raises an error about the signing key' do
+        expect { key_from_base64 }.
+          to raise_error(described_class::InvalidSignatureError, /Invalid signing key/)
+      end
+    end
   end
 end
