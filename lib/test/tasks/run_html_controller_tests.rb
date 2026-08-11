@@ -5,6 +5,7 @@ class Test::Tasks::RunHtmlControllerTests < Pallets::Task
     # run all tests in `spec/controllers/` _except_ those in `spec/controllers/api/`
     execute_rspec_command(<<~COMMAND)
       DB_SUFFIX=_html
+      COVERAGE_RESULTSET_NAME=html_controller
       bin/rspec
       $(ls -d spec/controllers/*/ | grep -v 'spec/controllers/api/')
       $(ls spec/controllers/*.rb)

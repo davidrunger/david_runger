@@ -10,22 +10,15 @@ module SpecHelper
 end
 
 require 'simplecov'
-SimpleCov.coverage_dir('tmp/simple_cov') # must match codecov-action directory option
+require_relative '../lib/test/simple_cov_configuration'
+coverage_resultset_name = ENV.fetch('COVERAGE_RESULTSET_NAME', nil)
+if coverage_resultset_name
+  SimpleCov.coverage_dir("tmp/simple_cov/#{coverage_resultset_name}")
+  # Pallets does not provide SimpleCov's parallel-runner coordination protocol.
+  SimpleCov.finalize_merge(false)
+end
 SimpleCov.start do
-  db_suffix = ENV.fetch('DB_SUFFIX', nil)
-  spec_group = ENV.fetch('SPEC_GROUP', nil)
-  capybara_server_port = ENV.fetch('CAPYBARA_SERVER_PORT', nil)
-  # rubocop:disable Rails/Present -- At this point, we have not yet loaded Rails.
-  if !db_suffix.nil? && !db_suffix.empty?
-    command_name(
-      "Tests on DB #{db_suffix} w/ Capybara port #{capybara_server_port.inspect} " \
-      "(spec group: #{spec_group.inspect})",
-    )
-  end
-  # rubocop:enable Rails/Present
-  # rubocop:disable RSpec/Pending
-  skip(%r{^tools/(?!custom_cops/)})
-  # rubocop:enable RSpec/Pending
+  Test::SimpleCovConfiguration.configure
   enable_coverage(:branch) if !SpecHelper.is_ci? # Codecov doesn't respect `nocov-else` etc comments
 end
 
