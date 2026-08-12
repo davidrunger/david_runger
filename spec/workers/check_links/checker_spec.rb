@@ -9,10 +9,15 @@ RSpec.describe CheckLinks::Checker do
 
     let(:status) { 200 }
     let(:redis_failure_key) { worker.send(:redis_failure_key, url) }
-
     let!(:stubbed_request) do
       stub_request(:get, url).
         to_return(status:, body: '', headers: {})
+    end
+
+    before do
+      # rubocop:disable Style/IpAddresses
+      allow(Resolv).to receive(:getaddresses).and_return(['8.8.8.8'])
+      # rubocop:enable Style/IpAddresses
     end
 
     context 'when a previous failure is marked in Redis' do
@@ -77,6 +82,32 @@ RSpec.describe CheckLinks::Checker do
         end
 
         it 'sends an AdminMailer#broken_link email', queue_adapter: :test do
+          expect { perform }.
+            to enqueue_mail(AdminMailer, :broken_link).
+            with(url, page_source_url, nil, [200])
+        end
+      end
+
+      context 'when the URL resolves to a prohibited address' do
+        let(:url) { 'https://unsafe.example.test/' }
+
+        before do
+          allow(Resolv).to receive(:getaddresses).with('unsafe.example.test').
+            and_return(['127.0.0.1'])
+        end
+
+        it 'reports the validation failure and sends a broken-link email', queue_adapter: :test do
+          expect(Rails.error).
+            to receive(:report).
+            with(
+              SafeExternalHttpFetcher::UnsafeUrlError,
+              severity: :info,
+              handled: true,
+              context: { url: },
+              source: 'application',
+            ).
+            and_call_original
+
           expect { perform }.
             to enqueue_mail(AdminMailer, :broken_link).
             with(url, page_source_url, nil, [200])

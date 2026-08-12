@@ -80,10 +80,7 @@ class CheckLinks::Checker
   def response(url)
     Rails.cache.fetch(cache_key(url), expires_in: 6.hours, skip_nil: true) do
       Rails.error.handle(severity: :info, context: { url: }) do
-        Faraday.new.get do |request|
-          request.url(url)
-          request.options.timeout = 5
-        end
+        SafeExternalHttpFetcher.new.get(url, timeout: 5)
       end
     end
   end
