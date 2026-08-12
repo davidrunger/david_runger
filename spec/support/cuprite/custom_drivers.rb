@@ -16,10 +16,13 @@ module Cuprite::CustomDrivers
 
     def register_driver(driver_name, custom_options_proc = nil)
       Capybara.register_driver(driver_name) do |app|
-        Capybara::Cuprite::Driver.new(
+        logger = Cuprite::BrowserLogger.new
+        driver = Capybara::Cuprite::Driver.new(
           app,
-          base_options.merge(custom_options_proc&.call || {}),
+          base_options.merge(custom_options_proc&.call || {}).merge(logger:),
         )
+        driver.browser.on('Log.entryAdded') { |params| logger.log_entry(params.fetch('entry')) }
+        driver
       end
     end
 
@@ -30,7 +33,6 @@ module Cuprite::CustomDrivers
         headless: !SpecHelper.use_headful_chrome?,
         timeout:,
         process_timeout: 30,
-        logger: Cuprite::BrowserLogger.new,
         window_size: [1200, 800],
         browser_options: {
           # Most of these are lifted from:
