@@ -1,4 +1,6 @@
 class LogToCsv
+  UNSAFE_SPREADSHEET_CELL_PREFIX_REGEX = /\A[=+@\-[:space:]]/
+
   def initialize(log, neutralize_formulas: true)
     @log = log
     @neutralize_formulas = neutralize_formulas
@@ -26,7 +28,8 @@ class LogToCsv
   private
 
   def exported_cell_value(value)
-    if @neutralize_formulas && value.is_a?(String) && value.match?(/\A[=+\-@]/)
+    if @neutralize_formulas && value.is_a?(String) &&
+        value.match?(UNSAFE_SPREADSHEET_CELL_PREFIX_REGEX)
       "'#{value}"
     else
       value
