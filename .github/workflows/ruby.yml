@@ -123,6 +123,7 @@ jobs:
           REDIS_PORT: 6379
           AWS_ACCESS_KEY_ID: '${{secrets.AWS_ACCESS_KEY_ID}}'
           AWS_SECRET_ACCESS_KEY: '${{secrets.AWS_SECRET_ACCESS_KEY}}'
+          CONTENT_SIGNING_PRIVATE_KEY: '${{secrets.CONTENT_SIGNING_PRIVATE_KEY}}'
           CI_STEP_RESULTS_HOST: '${{secrets.CI_STEP_RESULTS_HOST}}'
           CI_STEP_RESULTS_AUTH_TOKEN: '${{secrets.CI_STEP_RESULTS_AUTH_TOKEN}}'
           PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
@@ -198,4 +199,4 @@ jobs:
           CI: true
           AWS_ACCESS_KEY_ID: '${{secrets.AWS_ACCESS_KEY_ID}}'
           AWS_SECRET_ACCESS_KEY: '${{secrets.AWS_SECRET_ACCESS_KEY}}'
-          PRERENDER_SIGNING_PRIVATE_KEY: '${{secrets.PRERENDER_SIGNING_PRIVATE_KEY}}'
+          CONTENT_SIGNING_PRIVATE_KEY: '${{secrets.CONTENT_SIGNING_PRIVATE_KEY}}'

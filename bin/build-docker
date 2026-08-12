@@ -14,6 +14,16 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 
 export COMPOSE_BAKE=true
 
+# Compose's service-level `env_file` values are not available to `build.args`.
+# Load only the public signing key needed to verify precompiled Vite archives.
+CONTENT_SIGNING_PUBLIC_KEY="$(
+  # shellcheck disable=SC1091
+  source .env.production.local
+  : "${CONTENT_SIGNING_PUBLIC_KEY:?Set CONTENT_SIGNING_PUBLIC_KEY in .env.production.local.}"
+  printf '%s' "$CONTENT_SIGNING_PUBLIC_KEY"
+)"
+export CONTENT_SIGNING_PUBLIC_KEY
+
 if [ ! -v GIT_REV ] ; then
   GIT_REV="$(git rev-parse origin/main)"
   export GIT_REV

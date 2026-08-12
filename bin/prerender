@@ -77,15 +77,15 @@ class Prerenderer
             ContentSignature.signature(
               content: body,
               object_key:,
-              private_key: prerender_signing_private_key,
+              private_key: content_signing_private_key,
             ),
         },
       )
   end
 
-  def prerender_signing_private_key
-    @prerender_signing_private_key ||=
-      ContentSignature.key_from_base64(ENV.fetch('PRERENDER_SIGNING_PRIVATE_KEY'))
+  def content_signing_private_key
+    @content_signing_private_key ||=
+      ContentSignature.key_from_base64(ENV.fetch('CONTENT_SIGNING_PRIVATE_KEY'))
   end
 
   def html_for_prerendering(html)

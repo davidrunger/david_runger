@@ -17,7 +17,7 @@ module PrerenderUtils
         content: html,
         object_key:,
         signature: get_response.metadata.fetch('prerender-signature'),
-        public_key: prerender_signing_public_key,
+        public_key: content_signing_public_key,
       )
 
       html_with_absolutized_asset_paths(html)
@@ -37,8 +37,8 @@ module PrerenderUtils
 
     private
 
-    def prerender_signing_public_key
-      ContentSignature.key_from_base64(ENV.fetch('PRERENDER_SIGNING_PUBLIC_KEY'))
+    def content_signing_public_key
+      ContentSignature.key_from_base64(ENV.fetch('CONTENT_SIGNING_PUBLIC_KEY'))
     end
 
     def html_with_absolutized_asset_paths(html)

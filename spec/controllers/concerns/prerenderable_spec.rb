@@ -20,17 +20,17 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
     subject(:get_index) { get(:index, params:) }
 
     let(:params) { {} }
-    let(:prerender_signing_private_key) { OpenSSL::PKey.generate_key('ED25519') }
+    let(:content_signing_private_key) { OpenSSL::PKey.generate_key('ED25519') }
 
-    let(:prerender_signing_public_key_base64) do
-      Base64.strict_encode64(prerender_signing_private_key.public_to_pem)
+    let(:content_signing_public_key_base64) do
+      Base64.strict_encode64(content_signing_private_key.public_to_pem)
     end
 
     context 'when ENV["GIT_REV"] is set' do
       around do |spec|
         ClimateControl.modify(
           GIT_REV: commit_sha,
-          PRERENDER_SIGNING_PUBLIC_KEY: prerender_signing_public_key_base64,
+          CONTENT_SIGNING_PUBLIC_KEY: content_signing_public_key_base64,
         ) do
           spec.run
         end
@@ -59,7 +59,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           ContentSignature.signature(
             content: prerendered_html,
             object_key: "prerenders/#{commit_sha}/home.html",
-            private_key: prerender_signing_private_key,
+            private_key: content_signing_private_key,
           )
         end
 

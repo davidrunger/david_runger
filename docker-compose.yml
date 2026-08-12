@@ -11,6 +11,7 @@ x-rails-config: &default-rails-config
       - GIT_REV=${GIT_REV:-}
       - RAILS_ENV=${RAILS_ENV:-}
       - RUBY_VERSION=${RUBY_VERSION:-}
+      - CONTENT_SIGNING_PUBLIC_KEY=${CONTENT_SIGNING_PUBLIC_KEY:-}
     context: .
   depends_on:
     initialize_database:
