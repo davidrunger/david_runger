@@ -16,12 +16,25 @@ namespace :assets do
     FileUtils.mkdir_p('tmp')
     system("cd public && zip -r ../#{file_output_path} #{directory_name} > /dev/null")
 
-    Aws::S3::Resource.new(region: 'us-east-1').
-      bucket('david-runger-test-uploads').
-      object("compiled-assets/#{git_sha}/#{directory_name}.zip").
-      put(body: File.read(file_output_path))
+    ViteAssetArchive.upload(
+      bucket: upload_s3_bucket,
+      git_sha:,
+      directory_name:,
+      content: File.binread(file_output_path),
+      private_key: content_signing_private_key,
+    )
 
     system("rm #{file_output_path}")
+  end
+
+  def upload_s3_bucket
+    @upload_s3_bucket ||=
+      Aws::S3::Resource.new(region: 'us-east-1').bucket('david-runger-test-uploads')
+  end
+
+  def content_signing_private_key
+    @content_signing_private_key ||=
+      ContentSignature.key_from_base64(ENV.fetch('CONTENT_SIGNING_PRIVATE_KEY'))
   end
 
   desc 'Boot a server in development that serves assets in a production-like manner'
@@ -66,9 +79,13 @@ end
 
 Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   def download_s3_zip(git_sha, directory_name)
-    s3_bucket.
-      object("compiled-assets/#{git_sha}/#{directory_name}.zip").
-      get(response_target: "tmp/#{directory_name}.zip")
+    ViteAssetArchive.download(
+      bucket: s3_bucket,
+      git_sha:,
+      directory_name:,
+      response_target: "tmp/#{directory_name}.zip",
+      public_key: content_signing_public_key,
+    )
   end
 
   git_sha = ENV.fetch('GIT_REV')
@@ -90,6 +107,11 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
         # 1149#issuecomment-2007175332
         unsigned_operations: [:get_object],
       ).bucket('david-runger-test-uploads')
+  end
+
+  def content_signing_public_key
+    @content_signing_public_key ||=
+      ContentSignature.key_from_base64(ENV.fetch('CONTENT_SIGNING_PUBLIC_KEY'))
   end
 
   begin

@@ -72,11 +72,13 @@ RUN bundle exec $(bundle info --path bootsnap)/exe/bootsnap precompile --gemfile
 COPY . .
 
 ARG GIT_REV
+ARG CONTENT_SIGNING_PUBLIC_KEY
 
 # Build public/assets/, download public/vite/ and public/vite-admin/.
 RUN DOCKER_BUILD=true \
   GIT_REV=${GIT_REV} \
   SECRET_KEY_BASE_DUMMY=1 \
+  CONTENT_SIGNING_PUBLIC_KEY=${CONTENT_SIGNING_PUBLIC_KEY} \
   VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION=true \
   bin/rails assets:precompile > /dev/null
 
