@@ -119,6 +119,10 @@ Rails.application.routes.draw do
   get 'models', to: 'model_graph#index'
   get 'sha', to: ->(_env) { plain_text_response(ENV.fetch('GIT_REV')) }
   get 'up', to: 'health_checks#index'
+  post(
+    '/rails/action_mailbox/mailgun/inbound_emails/mime',
+    to: 'mailgun_inbound_emails#create',
+  )
 
   def plain_text_response(text)
     [200, { 'Content-Disposition' => 'inline', 'Content-Type' => 'text/plain' }, [text]]

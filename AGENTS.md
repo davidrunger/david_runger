@@ -9,6 +9,10 @@
 - Prefer repository binstubs, such as `bin/rails` and `bin/rspec`, over commands that bypass them.
 - Keep Spring enabled for local Rails commands because it substantially speeds up tests and other work. Disable Spring only for a concrete reason, not as a routine workaround.
 
+## Routes
+
+- Keep `root` at the top of `config/routes.rb`. All else being equal, group similar routes together. For example, keep relatively niche integration and infrastructure routes lower in the file, near related health-check, operational, or other specialized routes.
+
 ## Rollbar commit messages
 
 - When the user provides a Rollbar item link that a commit is expected to fix, include both the Rollbar resolution marker and the item's full URL in the commit message body. Put each on its own line with a blank line between them, typically at the top or bottom of the body:
@@ -20,6 +24,10 @@
   ```
 
   Use the item number in the `fixes rb#<number>` marker so Rollbar automatically resolves the item when the commit is deployed. Include the full URL so reviewers and future readers can navigate to the item.
+
+## Error reporting
+
+- Report handled application conditions through `Rails.error.report` with an exception created by `Error.new`, rather than sending a bare string to Rollbar. `Error.new` supplies a backtrace so Rollbar identifies the source of the report. Do not also log the error at the call site: `ErrorSubscriber` logs every `Rails.error` report before sending it to Rollbar.
 
 ## Tests and coverage
 
