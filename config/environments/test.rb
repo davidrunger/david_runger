@@ -23,6 +23,7 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
   config.cache_store = :null_store
+  config.action_controller.cache_store = :memory_store
 
   # Render exceptions via ErrorsController
   config.exceptions_app = routes

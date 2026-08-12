@@ -89,11 +89,32 @@ RSpec.describe Logs::UploadsController do
         ]
       end
 
-      it 'does not enqueue jobs and redirects with an error' do
+      it 'does not enqueue CreateLogEntry jobs and redirects to the upload page with an error' do
         expect { post_create }.not_to change { CreateLogEntry.jobs.size }
 
         expect(response).to redirect_to(logs_uploads_path)
         expect(flash[:alert]).to eq('Uploads may contain no more than 2 log entries.')
+      end
+    end
+
+    context 'when the user has already uploaded six CSVs this hour' do
+      before do
+        Prosopite.pause do
+          Logs::UploadsController::CSV_UPLOAD_LIMIT.times do
+            post(:create, params: { log_id: log.id, csv: csv_file })
+          end
+        end
+      end
+
+      let(:csv_rows) { ["#{3.days.ago.iso8601},201,"] }
+
+      it 'does not enqueue CreateLogEntry jobs and redirects to the upload page with an error' do
+        expect { post_create }.not_to change { CreateLogEntry.jobs.size }
+
+        expect(response).to redirect_to(logs_uploads_path)
+        expect(flash[:alert]).to eq(
+          'CSV uploads are limited to 6 per hour. Please try again later.',
+        )
       end
     end
   end

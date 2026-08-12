@@ -312,6 +312,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    ActionController::Base.cache_store.clear
     Rack::Attack.reset!
     $redis_pool.with { |conn| conn.call('flushdb', 'sync') }
     Sidekiq.redis { |conn| conn.call('flushdb', 'sync') }

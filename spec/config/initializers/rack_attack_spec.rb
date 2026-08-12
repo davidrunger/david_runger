@@ -28,6 +28,33 @@ RSpec.describe('Rack::Attack') do
     end
   end
 
+  describe 'log CSV upload throttle' do
+    subject(:throttle) { Rack::Attack.throttles.fetch('logs/uploads/global') }
+
+    it 'allows at most 30 uploads in an hour across all users' do
+      expect(throttle.limit).to eq(Rack::Attack::LOG_CSV_UPLOAD_REQUEST_LIMIT)
+      expect(throttle.period).to eq(1.hour)
+    end
+
+    it 'discriminates POST requests to the upload endpoint together' do
+      request = Rack::Attack::Request.new(
+        Rack::MockRequest.env_for('/logs/uploads', method: 'POST'),
+      )
+
+      expect(throttle.block.call(request)).to eq('all')
+    end
+
+    it 'does not match other request methods or paths' do
+      get_request = Rack::Attack::Request.new(Rack::MockRequest.env_for('/logs/uploads'))
+      other_path_request = Rack::Attack::Request.new(
+        Rack::MockRequest.env_for('/logs/anything', method: 'POST'),
+      )
+
+      expect(throttle.block.call(get_request)).to be_nil
+      expect(throttle.block.call(other_path_request)).to be_nil
+    end
+  end
+
   describe 'notification logging' do
     it 'includes the matched rule and throttle usage' do
       request = Rack::Attack::Request.new(Rack::MockRequest.env_for('/api/events'))
