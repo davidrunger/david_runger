@@ -334,11 +334,13 @@ RSpec.configure do |config|
   config.around(:each, type: :feature) do |example|
     Cuprite::BrowserLogger.javascript_errors.clear
     Cuprite::BrowserLogger.javascript_logs.clear
+    Cuprite::BrowserLogger.csp_violations.clear
 
     example.run
 
     expect(Cuprite::BrowserLogger.javascript_errors).to be_empty
     expect(Cuprite::BrowserLogger.javascript_logs).to be_empty
+    expect(Cuprite::BrowserLogger.csp_violations).to be_empty
   end
 
   # NOTE: This `around` block should be registered after the block that checks
