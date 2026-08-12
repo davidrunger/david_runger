@@ -5,6 +5,10 @@ require 'uri'
 class SafeExternalHttpFetcher
   class UnsafeUrlError < StandardError; end
 
+  # IPv6 global-unicast allocations currently occupy 2000::/3. Review this
+  # allowlist if IANA allocates global-unicast space outside that range.
+  IPV6_GLOBAL_UNICAST_RANGE = IPAddr.new('2000::/3').freeze
+
   # IANA special-purpose ranges that are not ordinary global-unicast
   # destinations. Keep redirect handling disabled: if it is enabled later,
   # each redirect target must be resolved, validated, and pinned separately.
@@ -34,6 +38,7 @@ class SafeExternalHttpFetcher
     100::/64
     2001::/23
     2001:2::/48
+    2001:db8::/32
     2001:10::/28
     2002::/16
     3fff::/20
@@ -92,9 +97,17 @@ class SafeExternalHttpFetcher
     elsif address.ipv4?
       PROHIBITED_IPV4_RANGES.any? { it.include?(address) }
     elsif address.ipv6?
-      PROHIBITED_IPV6_RANGES.any? { it.include?(address) }
+      prohibited_ipv6_address?(address)
     else
       raise(UnsafeUrlError, "Unsupported resolved address: #{address}")
+    end
+  end
+
+  def prohibited_ipv6_address?(address)
+    if IPV6_GLOBAL_UNICAST_RANGE.include?(address)
+      PROHIBITED_IPV6_RANGES.any? { it.include?(address) }
+    else
+      true
     end
   end
 end

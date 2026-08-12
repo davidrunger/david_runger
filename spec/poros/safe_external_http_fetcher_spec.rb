@@ -36,11 +36,17 @@ RSpec.describe SafeExternalHttpFetcher do
       end
     end
 
-    context 'when the hostname resolves to a public IPv6 address' do
-      let(:resolved_addresses) { ['2606:4700:4700::1111'] }
+    [
+      '2606:4700:4700::1111',
+      '2001:4860:4860::8888',
+      '2a00:1450:2::',
+    ].each do |address|
+      context "when the hostname resolves to a public IPv6 address #{address}" do
+        let(:resolved_addresses) { [address] }
 
-      it 'connects to the address' do
-        expect(get.status).to eq(200)
+        it 'connects to the address' do
+          expect(get.status).to eq(200)
+        end
       end
     end
 
@@ -58,6 +64,11 @@ RSpec.describe SafeExternalHttpFetcher do
       '192.0.2.1',
       '::ffff:127.0.0.1',
       '::ffff:10.0.0.1',
+      'fec0::1',
+      '2001:db8::1',
+      '100:0:0:1::1',
+      '64:ff9b::7f00:1',
+      '4000::1',
     ].each do |address|
       context "when the hostname resolves to prohibited address #{address}" do
         let(:resolved_addresses) { [address] }
