@@ -56,6 +56,24 @@ RSpec.describe SidekiqExt::JobLogger do
           call
         end
       end
+
+      context 'when job arguments contain filtered content' do
+        let(:ip_address) { 'private message' }
+
+        it 'does not emit the original content in Sidekiq log lines' do
+          expect(Sidekiq.logger.instance_variable_get(:@logdev)).
+            to receive(:write).
+            with(/queue=default args=\["\[FILTERED: 15 bytes\]"\]: start\n\z/).
+            and_call_original
+          expect(Rails.logger).to receive(:debug).with('Performing the work ... !')
+          expect(Sidekiq.logger.instance_variable_get(:@logdev)).
+            to receive(:write).
+            with(/args=\["\[FILTERED: 15 bytes\]"\] elapsed=\d+\.\d{1,3}: done\n\z/).
+            and_call_original
+
+          call
+        end
+      end
     end
 
     context 'when the executed job raises an error' do
