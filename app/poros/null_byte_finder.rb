@@ -16,4 +16,12 @@ class NullByteFinder
       false
     end
   end
+
+  def uncovered_line_for_coverage_check_test_one
+    nil
+  end
+
+  def uncovered_line_for_coverage_check_test_two
+    nil
+  end
 end

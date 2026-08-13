@@ -8,4 +8,8 @@ class StackTraceFilter
         ignore.all? { caller_line.exclude?(it) }
     end.presence || caller
   end
+
+  def uncovered_line_for_coverage_check_test_three
+    nil
+  end
 end
