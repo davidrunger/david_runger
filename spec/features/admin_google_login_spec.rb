@@ -30,7 +30,9 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
 
         visit(admin_my_sessions_path)
         expect(page).to have_text('My Sessions')
-        expect(page).to have_text('These are the known active sessions for your administrator account.')
+        expect(page).to have_text(
+          'These are the known active sessions for your administrator account.',
+        )
         expect(page).to have_button('Log out')
 
         click_on('Log out')
