@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+ruby_version="$(<.ruby-version)"
+ruby_image="ruby:$ruby_version-slim-bookworm"
+expected_digest="$(docker buildx imagetools inspect "$ruby_image" --format '{{.Manifest.Digest}}')"
+# shellcheck disable=SC2016 # Match the literal build-argument name in the Dockerfile.
+actual_digest="$(sed -nE 's|^FROM ruby:\$RUBY_VERSION-slim-bookworm@(sha256:[0-9a-f]{64}) AS base$|\1|p' Dockerfile)"
+
+if [[ ! "$actual_digest" =~ ^sha256:[0-9a-f]{64}$ ]] ; then
+  echo 'Dockerfile must pin the Ruby base image to exactly one SHA-256 digest.' >&2
+  exit 1
+fi
+
+if [ "$actual_digest" != "$expected_digest" ] ; then
+  echo "Dockerfile pins $ruby_image to $actual_digest, but Docker Hub currently resolves it to $expected_digest." >&2
+  exit 1
+fi

@@ -1,5 +1,6 @@
 ARG RUBY_VERSION
-FROM ruby:$RUBY_VERSION-slim-bookworm AS base
+# Update this digest when `.ruby-version` changes.
+FROM ruby:$RUBY_VERSION-slim-bookworm@sha256:c5650da02325ecb3e7dd96e7074772c3ae2ecd093a9acf2cdbcf1a2fdc680726 AS base
 
 RUN test -n "$RUBY_VERSION"
 
