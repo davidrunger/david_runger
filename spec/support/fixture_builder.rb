@@ -19,6 +19,13 @@ FixtureBuilder.configure do |fbuilder|
     # AdminUsers
     admin_user = name(:admin_user, create(:admin_user, email: 'davidjrunger@gmail.com')).first
 
+    # authenticated sessions
+    name(:user_authenticated_session, create(:authenticated_session, authenticatable: user))
+    name(
+      :admin_authenticated_session,
+      create(:authenticated_session, :admin, authenticatable: admin_user),
+    )
+
     # groceries
     other_store = create(:store, user:, name: 'Another Store')
     create(:store, user: single_user, name: 'Hardware Store')

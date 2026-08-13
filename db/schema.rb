@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_11_164750) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_13_061819) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -84,6 +84,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_164750) do
     t.bigint "user_id", null: false
     t.index ["secret"], name: "index_auth_tokens_on_secret"
     t.index ["user_id", "secret"], name: "index_auth_tokens_on_user_id_and_secret", unique: true
+  end
+
+  create_table "authenticated_sessions", force: :cascade do |t|
+    t.bigint "authenticatable_id", null: false
+    t.string "authenticatable_type", null: false
+    t.string "authentication_kind", null: false
+    t.datetime "created_at", null: false
+    t.string "identifier", null: false
+    t.string "initial_ip", null: false
+    t.text "initial_user_agent", null: false
+    t.bigint "initiated_by_authenticated_session_id"
+    t.datetime "last_active_at", null: false
+    t.string "latest_ip", null: false
+    t.text "latest_user_agent", null: false
+    t.datetime "revoked_at"
+    t.datetime "updated_at", null: false
+    t.index ["authenticatable_type", "authenticatable_id", "revoked_at"], name: "index_authenticated_sessions_for_account_listing"
+    t.index ["identifier"], name: "index_authenticated_sessions_on_identifier", unique: true
+    t.index ["initiated_by_authenticated_session_id"], name: "idx_on_initiated_by_authenticated_session_id_b250d18242"
   end
 
   create_table "banned_path_fragments", force: :cascade do |t|
@@ -524,6 +543,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_164750) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "auth_tokens", "users"
+  add_foreign_key "authenticated_sessions", "authenticated_sessions", column: "initiated_by_authenticated_session_id"
   add_foreign_key "blazer_audits", "admin_users", column: "user_id"
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id"
   add_foreign_key "blazer_checks", "admin_users", column: "creator_id"

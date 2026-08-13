@@ -1,8 +1,14 @@
 RSpec.describe Admin::UsersController do
   let(:user) { users(:user) }
+  let(:admin_user) { admin_users(:admin_user) }
+  let(:admin_authenticated_session) { admin_user.authenticated_sessions.first! }
 
   context 'when logged in as an AdminUser' do
-    before { sign_in(admin_users(:admin_user)) }
+    before do
+      sign_in(admin_user)
+      session[AuthenticatedSessions::Registry.session_key(:admin_user)] =
+        admin_authenticated_session.identifier
+    end
 
     describe '#index' do
       subject(:get_index) { get(:index) }
@@ -32,13 +38,25 @@ RSpec.describe Admin::UsersController do
     end
 
     describe '#unbecome' do
-      subject(:get_unbecome) { get(:unbecome, params: { id: user.id }) }
+      subject(:delete_unbecome) { delete(:unbecome, params: { id: user.id }) }
 
       context 'when a user is signed in' do
-        before { sign_in(user) }
+        before do
+          impersonation = create(
+            :authenticated_session,
+            authenticatable: user,
+            authentication_kind: 'admin_impersonation',
+            initiated_by_authenticated_session: admin_authenticated_session,
+          )
+          sign_in(user)
+          session[AuthenticatedSessions::Registry.session_key(:user)] = impersonation.identifier
+        end
 
-        it 'redirects to the admin user show page' do
-          get_unbecome
+        it 'revokes the impersonation and redirects to the admin user show page' do
+          delete_unbecome
+
+          expect(user.authenticated_sessions.last!.reload).not_to be_active
+          expect(admin_authenticated_session.reload).to be_active
           expect(response).to redirect_to(admin_user_path(user))
         end
       end
@@ -48,7 +66,7 @@ RSpec.describe Admin::UsersController do
         before { sign_out(:user) }
 
         it 'redirects to the admin user show page' do
-          get_unbecome
+          delete_unbecome
           expect(response).to redirect_to(admin_user_path(user))
         end
       end
@@ -66,13 +84,45 @@ RSpec.describe Admin::UsersController do
   end
 
   describe '#become' do
-    subject(:get_become) { get(:become, params: { id: user.id }) }
+    subject(:post_become) { post(:become, params: { id: user.id }) }
 
     context 'when logged in as an AdminUser' do
-      before { sign_in(admin_users(:admin_user)) }
+      before do
+        sign_in(admin_user)
+        session[AuthenticatedSessions::Registry.session_key(:admin_user)] =
+          admin_authenticated_session.identifier
+      end
 
-      it 'redirects to the groceries app' do
-        get_become
+      it 'creates a linked impersonation and redirects to the groceries app' do
+        post_become
+
+        impersonation = user.authenticated_sessions.last!
+        expect(impersonation.authentication_kind).to eq('admin_impersonation')
+        expect(impersonation.initiated_by_authenticated_session).to eq(admin_authenticated_session)
+        expect(response).to redirect_to(groceries_path)
+      end
+    end
+
+    context 'when already signed in as the selected User' do
+      let(:user_authenticated_session) { user.authenticated_sessions.first! }
+
+      before do
+        sign_in(admin_user)
+        session[AuthenticatedSessions::Registry.session_key(:admin_user)] =
+          admin_authenticated_session.identifier
+        sign_in(user)
+        session[AuthenticatedSessions::Registry.session_key(:user)] =
+          user_authenticated_session.identifier
+      end
+
+      it 'replaces the User session with the new impersonation session' do
+        post_become
+
+        impersonation = user.authenticated_sessions.last!
+        expect(impersonation.authentication_kind).to eq('admin_impersonation')
+        expect(impersonation).to be_active
+        expect(session[AuthenticatedSessions::Registry.session_key(:user)]).
+          to eq(impersonation.identifier)
         expect(response).to redirect_to(groceries_path)
       end
     end
@@ -84,7 +134,7 @@ RSpec.describe Admin::UsersController do
       end
 
       it 'redirects to the admin login page' do
-        get_become
+        post_become
         expect(response).to redirect_to(new_admin_user_session_path)
       end
     end

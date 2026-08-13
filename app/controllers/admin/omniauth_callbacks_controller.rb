@@ -32,6 +32,7 @@ class Admin::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         admin_user.update!(google_sub: sub)
       end
 
+      request.env['authenticated_session.authentication_kind.admin_user'] = 'google_oauth'
       sign_in(admin_user)
       redirect_to(session.delete('admin_user_return_to') || admin_root_path)
     else

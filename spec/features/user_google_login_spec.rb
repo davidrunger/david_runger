@@ -22,6 +22,7 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
           expect(page).to have_current_path(root_path)
           expect(page).to have_text('David Runger Full stack web developer')
+          expect(user.authenticated_sessions.last!.authentication_kind).to eq('google_oauth')
 
           expect(sign_in_confirmed_via_my_account?(user)).to eq(true)
         end

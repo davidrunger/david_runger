@@ -20,6 +20,12 @@ class MyAccountController < ApplicationController
 
   def show
     @user = current_user
+    @authenticated_sessions = @user.authenticated_sessions.
+      visible_to_user.
+      active.
+      order(last_active_at: :desc).
+      decorate
+    @current_authenticated_session = AuthenticatedSessions::Registry.current(session, :user)
     authorize(@user)
     render :show
   end

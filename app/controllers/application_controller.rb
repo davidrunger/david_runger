@@ -47,7 +47,10 @@ class ApplicationController < ActionController::Base
 
   def current_user
     if Rails.env.development? && Flipper.enabled?(:automatic_user_login)
-      super || User.find_by!(email: 'davidjrunger@gmail.com').tap { |user| sign_in(user) }
+      super || User.find_by!(email: 'davidjrunger@gmail.com').tap do |user|
+        request.env['authenticated_session.authentication_kind.user'] = 'legacy'
+        sign_in(user)
+      end
     else
       super
     end
@@ -58,7 +61,10 @@ class ApplicationController < ActionController::Base
       super ||
         AdminUser.
           find_by!(email: 'davidjrunger@gmail.com').
-          tap { |admin_user| sign_in(admin_user) }
+          tap do |admin_user|
+            request.env['authenticated_session.authentication_kind.admin_user'] = 'legacy'
+            sign_in(admin_user)
+          end
     else
       super
     end

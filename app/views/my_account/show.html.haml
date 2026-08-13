@@ -15,6 +15,35 @@
   .my-2
     = form.submit('Update', class: 'btn-primary')
 
+.mt-8
+  %h2 Sessions
+  %p.mt-2 These are the known active sessions for your account. A browser may have cleared or expired its cookie without notifying this server.
+
+  - @authenticated_sessions.each do |authenticated_session|
+    .mt-4.p-4.border.border-neutral-600.rounded-md
+      - if authenticated_session == @current_authenticated_session
+        %strong Current session
+      .mt-2
+        %b First seen:
+        = authenticated_session.first_seen
+      %div
+        %b Last active:
+        = authenticated_session.last_active
+      %div
+        %b Initial IP:
+        = authenticated_session.initial_ip
+      %div
+        %b Latest IP:
+        = authenticated_session.latest_ip
+      %div
+        %b Initial client:
+        = authenticated_session.initial_client
+      %div
+        %b Latest client:
+        = authenticated_session.latest_client
+      .mt-3
+        = button_to('Log out', revoke_authenticated_session_path(authenticated_session), method: :patch, class: 'btn-danger')
+
 .mt-4
   = link_to('Manage Auth Tokens', edit_my_account_path)
 

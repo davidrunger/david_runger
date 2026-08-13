@@ -22,6 +22,7 @@ RSpec.describe ApplicationController, :without_verifying_authorization do
 
             it 'returns the User with email "davidjrunger@gmail.com"' do
               expect(current_user.email).to eq(david_runger_email)
+              expect(current_user.authenticated_sessions.last!.authentication_kind).to eq('legacy')
             end
           end
         end
@@ -41,6 +42,8 @@ RSpec.describe ApplicationController, :without_verifying_authorization do
 
           it 'returns the AdminUser with email "davidjrunger@gmail.com"' do
             expect(current_admin_user.email).to eq('davidjrunger@gmail.com')
+            expect(current_admin_user.authenticated_sessions.last!.authentication_kind).
+              to eq('legacy')
           end
         end
       end
@@ -82,6 +85,20 @@ RSpec.describe ApplicationController, :without_verifying_authorization do
             to eq('error' => 'Your token is not permitted for anonymous#index.')
         end
       end
+    end
+  end
+
+  describe 'bearer token authentication' do
+    let(:auth_token) { AuthToken.first! }
+
+    before do
+      auth_token.update!(permitted_actions_list: 'anonymous#index')
+      request.headers['Authorization'] = "Bearer #{auth_token.secret}"
+    end
+
+    it 'does not create an AuthenticatedSession' do
+      expect { post(:index, format: :json) }.
+        not_to change { AuthenticatedSession.count }
     end
   end
 end

@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   end
   get 'login', to: 'sessions#new', as: :new_user_session
   resource :my_account, controller: :my_account, only: %i[destroy edit show update]
+  resources :authenticated_sessions, only: [] do
+    member do
+      patch :revoke
+    end
+  end
 
   get 'blog', to: 'blog#index'
   get 'blog/:slug', to: 'blog#show'

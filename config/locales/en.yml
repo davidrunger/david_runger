@@ -30,4 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  time:
+    formats:
+      minute: "%B %-d, %Y at %-I:%M %p"
   hello: 'Hello world'

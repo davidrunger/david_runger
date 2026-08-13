@@ -35,6 +35,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user = Users::Create.run!(email:, google_sub: sub).user
     end
 
+    request.env['authenticated_session.authentication_kind.user'] = 'google_oauth'
     sign_in(user)
     redirect_to(redirect_location || root_path)
   end
