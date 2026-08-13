@@ -63,8 +63,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0
       element-plus:
-        specifier: ^2.14.3
-        version: 2.14.3(vue@3.5.41(typescript@6.0.3))
+        specifier: ^2.14.4
+        version: 2.14.4(vue@3.5.41(typescript@6.0.3))
       emojilib:
         specifier: ^4.0.3
         version: 4.0.3
@@ -2014,8 +2014,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  element-plus@2.14.3:
-    resolution: {integrity: sha512-pJcvxcpZjYruNzuJhAeVwnbYjfNgzBKnWHwSVEhwzM2/kcLI3brzmtIBxtPqd4hQWJfD1PRnjoc1WipLw2eBGg==}
+  element-plus@2.14.4:
+    resolution: {integrity: sha512-vMKR9tFcLeNrJgFXA3zhUn6YuRKUQW9d0btakBR8U1Iq8MfzkjMOGcgs5de2VgiLldHt69brmuBHpxc3bK4ZgQ==}
     peerDependencies:
       vue: ^3.3.7
 
@@ -6196,7 +6196,7 @@ snapshots:
       minimatch: 9.0.9
       semver: 7.8.5
 
-  element-plus@2.14.3(vue@3.5.41(typescript@6.0.3)):
+  element-plus@2.14.4(vue@3.5.41(typescript@6.0.3)):
     dependencies:
       '@ctrl/tinycolor': 4.2.0
       '@element-plus/icons-vue': 2.3.2(vue@3.5.41(typescript@6.0.3))
