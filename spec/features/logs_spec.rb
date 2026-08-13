@@ -237,7 +237,11 @@ RSpec.describe 'Logs app' do
 
           visit(log_path(slug: log.slug))
 
-          find('button[aria-label="Toggle Dropdown"]').click
+          wait_for do
+            find('button[aria-label="Toggle Dropdown"]').click
+            page.has_css?('[role="menuitem"]', text: 'Download exact CSV')
+          end.to eq(true)
+
           find('[role="menuitem"]', text: 'Download exact CSV').click
 
           within('.el-message-box') do
