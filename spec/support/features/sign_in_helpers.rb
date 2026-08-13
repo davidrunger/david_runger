@@ -3,6 +3,7 @@ module Features::SignInHelpers
     scope ||= Devise::Mapping.find_scope!(resource)
 
     Warden.on_next_request do |proxy|
+      proxy.env['HTTP_USER_AGENT'] = 'Feature spec browser' if proxy.env['HTTP_USER_AGENT'].blank?
       proxy.env["authenticated_session.authentication_kind.#{scope}"] = 'legacy'
       proxy.set_user(resource, scope:, event: :authentication)
     end

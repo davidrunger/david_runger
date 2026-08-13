@@ -35,7 +35,7 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
         )
         expect(page).to have_button('Log out')
 
-        click_on('Log out')
+        within('tr', text: 'Yes') { click_on('Log out') }
         expect(page).to have_flash_message('Session logged out.')
 
         visit('/sidekiq')
