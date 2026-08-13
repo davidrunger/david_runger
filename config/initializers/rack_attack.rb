@@ -4,6 +4,7 @@ class Rack::Attack
   PENTESTING_FINDTIME = 1.day.freeze
   PUBLIC_TELEMETRY_REQUEST_LIMIT = 10
   LOG_CSV_UPLOAD_REQUEST_LIMIT = 30
+  LOG_CSV_UPLOAD_ENDPOINT = %r{\A/logs/uploads(?:\.[^/]+)?/?\z}
   PUBLIC_TELEMETRY_ENDPOINTS = {
     csp_reports: %r{\A/api/csp_reports(?:\.[^/]+)?/?\z},
     events: %r{\A/api/events(?:\.[^/]+)?/?\z},
@@ -33,7 +34,7 @@ class Rack::Attack
   end
 
   throttle('logs/uploads/global', limit: LOG_CSV_UPLOAD_REQUEST_LIMIT, period: 1.hour) do |request|
-    'all' if request.post? && request.path == '/logs/uploads'
+    'all' if request.post? && request.path.match?(LOG_CSV_UPLOAD_ENDPOINT)
   end
 
   class << self

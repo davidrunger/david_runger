@@ -36,12 +36,14 @@ RSpec.describe('Rack::Attack') do
       expect(throttle.period).to eq(1.hour)
     end
 
-    it 'discriminates POST requests to the upload endpoint together' do
-      request = Rack::Attack::Request.new(
-        Rack::MockRequest.env_for('/logs/uploads', method: 'POST'),
-      )
+    it 'discriminates POST requests to all upload route variants together' do
+      %w[/logs/uploads /logs/uploads.json /logs/uploads/].each do |path|
+        request = Rack::Attack::Request.new(
+          Rack::MockRequest.env_for(path, method: 'POST'),
+        )
 
-      expect(throttle.block.call(request)).to eq('all')
+        expect(throttle.block.call(request)).to eq('all')
+      end
     end
 
     it 'does not match other request methods or paths' do
@@ -49,9 +51,13 @@ RSpec.describe('Rack::Attack') do
       other_path_request = Rack::Attack::Request.new(
         Rack::MockRequest.env_for('/logs/anything', method: 'POST'),
       )
+      nested_path_request = Rack::Attack::Request.new(
+        Rack::MockRequest.env_for('/logs/uploads/archive', method: 'POST'),
+      )
 
       expect(throttle.block.call(get_request)).to be_nil
       expect(throttle.block.call(other_path_request)).to be_nil
+      expect(throttle.block.call(nested_path_request)).to be_nil
     end
   end
 
