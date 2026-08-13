@@ -32,5 +32,5 @@
 en:
   time:
     formats:
-      minute: "%B %-d, %Y at %-I:%M %p"
+      minute: '%B %-d, %Y at %-I:%M %p'
   hello: 'Hello world'
