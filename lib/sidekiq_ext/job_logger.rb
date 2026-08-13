@@ -1,5 +1,6 @@
 require 'sidekiq/component'
 require 'sidekiq/job_logger'
+require 'sidekiq_ext/job_arguments_formatter'
 
 module SidekiqExt ; end
 
@@ -9,8 +10,7 @@ class SidekiqExt::JobLogger < Sidekiq::JobLogger
   def call(item, queue)
     start = ::Process.clock_gettime(::Process::CLOCK_MONOTONIC)
     Sidekiq::Context.add(:queue, queue)
-    json = JSON.dump(item['args'])
-    Sidekiq::Context.add(:args, json.size <= 140 ? json : "#{json[0...140]}...]")
+    Sidekiq::Context.add(:args, SidekiqExt::JobArgumentsFormatter.new.call(item['args']))
     @logger.info('start')
 
     yield

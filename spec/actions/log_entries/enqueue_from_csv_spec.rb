@@ -33,13 +33,24 @@ RSpec.describe LogEntries::EnqueueFromCsv do
         to receive(:perform_bulk).
         with(
           satisfy do |arguments|
-            arguments.size == csv_rows.size && arguments.all?(&:one?)
+            arguments.size == csv_rows.size &&
+              arguments.all? do |arguments_for_job|
+                arguments_for_job.one? && arguments_for_job.first.is_a?(Hash)
+              end
           end,
           batch_size: 1_000,
         ).
         and_call_original
 
       expect { run }.to change { CreateLogEntry.jobs.size }.by(csv_rows.size)
+    end
+
+    it 'enqueues JSON-compatible log entry attributes' do
+      run
+
+      attributes = CreateLogEntry.jobs.first.fetch('args').first
+      expect(attributes).to include('log_id' => log.id, 'data' => 201)
+      expect(JSON.parse(JSON.dump(attributes))).to eq(attributes)
     end
 
     it 'creates every log entry when the jobs run' do

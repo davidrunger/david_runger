@@ -45,7 +45,7 @@ class LogEntries::EnqueueFromCsv < ApplicationAction
         break
       end
 
-      job_arguments << [serialized_attributes(log_entry)]
+      job_arguments << [attributes_for_job(log_entry)]
     ensure
       # `build_log_entry_with_datum` adds each unsaved entry to the association target. Clear it so
       # that validating an upload does not retain thousands of Active Record objects in memory.
@@ -64,11 +64,11 @@ class LogEntries::EnqueueFromCsv < ApplicationAction
     log.build_log_entry_with_datum(attributes)
   end
 
-  def serialized_attributes(log_entry)
+  def attributes_for_job(log_entry)
     log_entry.
       attributes.
       merge(log_entry.log_entry_datum.attributes.slice('data')).
       compact.
-      to_json
+      as_json
   end
 end
