@@ -19,6 +19,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, email_format: true
 
   has_many :auth_tokens, dependent: :destroy
+  has_many :authenticated_sessions, as: :authenticatable, dependent: :destroy
   has_many :logs, dependent: :destroy
   has_many :log_shares, through: :logs
   has_many :quizzes, dependent: :destroy, foreign_key: 'owner_id', inverse_of: :owner
@@ -82,6 +83,7 @@ class User < ApplicationRecord
       includes(
         :auth_tokens,
         :need_satisfaction_ratings,
+        authenticated_sessions: :initiated_authenticated_sessions,
         logs: [:log_shares, { log_entries: :log_entry_datum }],
         marriage: {
           check_ins: %i[check_in_submissions need_satisfaction_ratings],

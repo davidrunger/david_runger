@@ -47,7 +47,14 @@ ActiveAdmin.register(User) do
     column :created_at
     column :updated_at
     actions
-    column { |user| link_to('Become', become_admin_user_path(user)) }
+    column do |user|
+      button_to(
+        'Become',
+        become_admin_user_path(user),
+        method: :post,
+        class: 'index-button',
+      )
+    end
   end
 
   form do |f1|
@@ -59,15 +66,27 @@ ActiveAdmin.register(User) do
   end
 
   action_item :become, only: :show do
-    link_to('Become', become_admin_user_path(resource))
+    button_to(
+      'Become',
+      become_admin_user_path(resource),
+      method: :post,
+      class: 'action-item-button',
+    )
   end
 
-  member_action :become do
+  member_action :become, method: :post do
+    authenticated_session = AuthenticatedSessions::Registry.create_impersonation!(
+      user: resource,
+      warden: request.env.fetch('warden'),
+    )
+    request.env['authenticated_session.authentication_kind.user'] = 'admin_impersonation'
+    request.env['authenticated_session.impersonation.user'] = authenticated_session
     sign_in(resource)
+    session[AuthenticatedSessions::Registry.session_key(:user)] = authenticated_session.identifier
     redirect_to(groceries_path)
   end
 
-  member_action :unbecome do
+  member_action :unbecome, method: :delete do
     sign_out(:user)
     redirect_to(admin_user_path(params[:id]))
   end

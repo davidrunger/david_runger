@@ -1,5 +1,6 @@
 RSpec.describe MyAccountController do
   let(:user) { users(:user) }
+  let(:admin_user) { admin_users(:admin_user) }
 
   describe '#destroy' do
     subject(:delete_destroy) { delete(:destroy) }
@@ -54,6 +55,35 @@ RSpec.describe MyAccountController do
 
         expect(response.body).to have_button('Create New Auth Token')
       end
+    end
+  end
+
+  describe '#show' do
+    subject(:get_show) { get(:show) }
+
+    before { sign_in(user) }
+
+    it "lists only the current account's unrevoked, non-impersonation sessions" do
+      visible_session = user.authenticated_sessions.first!
+      create(:authenticated_session, authenticatable: User.excluding(user).first!)
+      create(:authenticated_session, authenticatable: user, revoked_at: Time.current)
+      impersonation = create(
+        :authenticated_session,
+        authenticatable: user,
+        authentication_kind: 'admin_impersonation',
+        initiated_by_authenticated_session: admin_user.authenticated_sessions.first!,
+      )
+
+      get_show
+
+      expect(assigns(:authenticated_sessions).map(&:object)).to include(visible_session)
+      expect(assigns(:authenticated_sessions).map(&:object)).to all(
+        satisfy { |record| record.authenticatable == user && record.active? },
+      )
+      expect(response.body).to have_text(visible_session.initial_ip)
+      expect(response.body).not_to have_text(visible_session.identifier)
+      expect(response.body).not_to have_text(impersonation.initial_ip)
+      expect(response.body).to match(/Last active:.*\d{1,2}:\d{2} [AP]M/m)
     end
   end
 end

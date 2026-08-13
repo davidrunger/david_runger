@@ -31,6 +31,7 @@
 
 ## Tests and coverage
 
+- When adding a new model class, consider adding realistic baseline records for the primary fixtures to the FixtureBuilder setup when the domain naturally calls for them. This lets specs reuse those records for faster setup and gives feature specs a more representative database state, increasing the chance that relevant data-shape bugs surface.
 - Before running feature specs that exercise changed frontend assets, start the live Vite server with `./node_modules/.bin/vite --force` in a separate terminal and leave it running while iterating. This ensures that each feature-spec run uses the current source without rebuilding assets after every edit. When a task runner starts Vite as a managed background process instead, confirm that the server is ready before running specs and stop it when testing is complete.
 - When running a live Vite server is impractical, run `RAILS_ENV=test bin/vite build` immediately before the relevant feature specs. Repeat the build after every frontend change; otherwise feature specs can silently exercise stale compiled assets.
 - Run targeted specs with `bin/rspec path/to/spec.rb` while developing.
@@ -44,6 +45,7 @@
 ## Test design
 
 - Specs under `spec/controllers/api/` automatically receive `request_format: :json` through derived metadata in `spec/spec_helper.rb`. Do not repeat that metadata on individual API controller spec groups unless the spec intentionally needs different format behavior.
+- When a spec needs a fixture record related to another fixture, obtain it through the relevant association rather than looking up a separately named fixture. This keeps the relationship explicit and avoids relying on incidental fixture identities.
 
 ## Database migrations
 

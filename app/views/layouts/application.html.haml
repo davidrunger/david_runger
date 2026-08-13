@@ -44,9 +44,9 @@
 
   %body{class: class_names('sans-serif', body_classes, user_signed_in? ? 'logged-in' : 'logged-out')}
     - if user_signed_in?
-      - if admin_user_signed_in? && (current_user.email != current_admin_user.email)
+      - if admin_user_signed_in? && AuthenticatedSessions::Registry.current(session, :user)&.authentication_kind == 'admin_impersonation'
         .text-center.p-2.bg-sky-200
-          = link_to('Unbecome', unbecome_admin_user_path(current_user))
+          = button_to('Unbecome', unbecome_admin_user_path(current_user), method: :delete)
           = current_user.email
       = render(partial: 'layouts/logged_in_header')
     - unless render_flash_messages_via_js?

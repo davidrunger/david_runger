@@ -25,6 +25,22 @@ RSpec.describe 'Logging in as an AdminUser via Google auth' do
         expect(page).to have_text('David Runger Admin Dashboard')
         expect(page).to have_text('Admin Tools')
         expect(admin_user.reload.google_sub).to eq(mocked_google_response_sub)
+        authenticated_session = admin_user.authenticated_sessions.last!
+        expect(authenticated_session.authentication_kind).to eq('google_oauth')
+
+        visit(admin_my_sessions_path)
+        expect(page).to have_text('My Sessions')
+        expect(page).to have_text(
+          'These are the known active sessions for your administrator account.',
+        )
+        expect(page).to have_button('Log out')
+
+        within('tr', text: 'Yes') { click_on('Log out') }
+        expect(page).to have_flash_message('Session logged out.')
+
+        visit('/sidekiq')
+
+        expect(page).to have_current_path(new_admin_user_session_path)
       end
     end
 

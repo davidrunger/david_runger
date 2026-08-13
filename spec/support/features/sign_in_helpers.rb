@@ -1,4 +1,14 @@
 module Features::SignInHelpers
+  def sign_in(resource, scope: nil)
+    scope ||= Devise::Mapping.find_scope!(resource)
+
+    Warden.on_next_request do |proxy|
+      proxy.env['HTTP_USER_AGENT'] = 'Feature spec browser' if proxy.env['HTTP_USER_AGENT'].blank?
+      proxy.env["authenticated_session.authentication_kind.#{scope}"] = 'legacy'
+      proxy.set_user(resource, scope:, event: :authentication)
+    end
+  end
+
   def click_sign_in_with_google
     within(find('google-sign-in-button').shadow_root) do
       find('button', text: 'Sign in with Google').trigger('click')

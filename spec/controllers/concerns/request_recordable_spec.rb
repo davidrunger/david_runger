@@ -19,6 +19,36 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
     let(:params) { {} }
     let(:user_agent) { 'RequestRecordable spec user agent' }
 
+    context 'when both User and AdminUser scopes are signed in' do
+      let(:user) { users(:user) }
+      let(:admin_user) { admin_users(:admin_user) }
+      let(:user_session) { user.authenticated_sessions.first! }
+      let(:admin_session) { admin_user.authenticated_sessions.first! }
+
+      before do
+        sign_in(user)
+        sign_in(admin_user, scope: :admin_user)
+        session[AuthenticatedSessions::Registry.session_key(:user)] = user_session.identifier
+        session[AuthenticatedSessions::Registry.session_key(:admin_user)] = admin_session.identifier
+      end
+
+      context 'when the AdminUser session is revoked' do
+        before { admin_session.revoke! }
+
+        it 'still records a request authenticated as the User' do
+          expect(data_stashed_in_redis_after_request).to include('user_id' => user.id)
+        end
+      end
+
+      context 'when the User session is revoked' do
+        before { user_session.revoke! }
+
+        it 'still records a request authenticated as the AdminUser' do
+          expect(data_stashed_in_redis_after_request).to include('admin_user_id' => admin_user.id)
+        end
+      end
+    end
+
     context 'when a user is not logged in' do
       before { controller.sign_out_all_scopes }
 
