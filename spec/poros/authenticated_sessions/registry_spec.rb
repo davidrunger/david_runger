@@ -55,6 +55,20 @@ RSpec.describe AuthenticatedSessions::Registry do
       )
     end
 
+    it 'uses an explicitly supplied impersonation session for fresh authentication' do
+      impersonation = create(
+        :authenticated_session,
+        authenticatable: user,
+        authentication_kind: 'admin_impersonation',
+        initiated_by_authenticated_session: admin_user.authenticated_sessions.first!,
+      )
+      env['authenticated_session.impersonation.user'] = impersonation
+
+      enforce(user, scope: :user, event: :authentication)
+
+      expect(rack_session[session_key(:user)]).to eq(impersonation.identifier)
+    end
+
     it 'uses distinct identifiers for User and AdminUser scopes' do
       env['authenticated_session.authentication_kind.user'] = 'google_oauth'
       env['authenticated_session.authentication_kind.admin_user'] = 'google_oauth'
@@ -72,6 +86,15 @@ RSpec.describe AuthenticatedSessions::Registry do
 
       expect(user.authenticated_sessions.last!.authentication_kind).to eq('legacy')
       expect(rack_session[session_key(:user)]).to be_present
+      expect(warden).not_to have_received(:logout)
+    end
+
+    it 'records activity for an identified active session' do
+      authenticated_session = user.authenticated_sessions.first!
+      rack_session[session_key(:user)] = authenticated_session.identifier
+
+      expect { enforce(user, scope: :user, event: :fetch) }.
+        not_to change { AuthenticatedSession.count }
       expect(warden).not_to have_received(:logout)
     end
 
@@ -111,6 +134,19 @@ RSpec.describe AuthenticatedSessions::Registry do
 
       expect { expect_rejection { enforce(user, scope: :user, event: :fetch) } }.
         not_to change { AuthenticatedSession.count }
+    end
+
+    it 'clears an unrecognized optional identifier without rejecting another scope' do
+      admin_session = admin_user.authenticated_sessions.first!
+      rack_session[session_key(:user)] = SecureRandom.urlsafe_base64(32)
+      rack_session[session_key(:admin_user)] = admin_session.identifier
+      allow(warden).to receive(:user).
+        with(scope: :admin_user, run_callbacks: false).
+        and_return(admin_user)
+
+      expect { enforce(user, scope: :user, event: :fetch) }.
+        not_to throw_symbol(:warden)
+      expect(warden).to have_received(:logout).with(:user)
     end
 
     it 'rejects a revoked identified session without reenrolling it' do
@@ -205,6 +241,15 @@ RSpec.describe AuthenticatedSessions::Registry do
 
       expect(authenticated_session.reload).not_to be_active
       expect(rack_session).not_to have_key(session_key(:user))
+    end
+
+    it 'raises when the authenticatable does not match the Warden scope' do
+      expect {
+        described_class.revoke_for_logout(admin_user, warden, scope: :user)
+      }.to raise_error(
+        ArgumentError,
+        'Expected User for Warden scope :user, got AdminUser',
+      )
     end
   end
 

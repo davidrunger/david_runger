@@ -1,13 +1,16 @@
 RSpec.describe(ApplicationCable::Channel) do
   subject(:channel) { ApplicationCable::Channel.new(connection, :current_user) }
 
+  let(:rack_session) do
+    {
+      AuthenticatedSessions::Registry.session_key(:user) => authenticated_session.identifier,
+    }
+  end
   let(:connection) do
     ApplicationCable::Connection.new(
       ActionCable::Server::Base.new,
       {
-        'rack.session' => {
-          AuthenticatedSessions::Registry.session_key(:user) => authenticated_session.identifier,
-        },
+        'rack.session' => rack_session,
         'warden' => warden,
       },
     )
@@ -42,6 +45,36 @@ RSpec.describe(ApplicationCable::Channel) do
       it 'rejects the new connection' do
         expect { connection.connect }.
           to raise_error(ActionCable::Connection::Authorization::UnauthorizedError)
+      end
+    end
+
+    context 'with an impersonation AuthenticatedSession and its active parent' do
+      let(:admin_user) { admin_users(:admin_user) }
+      let(:parent) { admin_user.authenticated_sessions.first! }
+      let(:authenticated_session) do
+        user.authenticated_sessions.create!(
+          authentication_kind: 'admin_impersonation',
+          initial_ip: '127.0.0.1',
+          latest_ip: '127.0.0.1',
+          initial_user_agent: 'Test client',
+          latest_user_agent: 'Test client',
+          last_active_at: Time.current,
+          initiated_by_authenticated_session: parent,
+        )
+      end
+      let(:warden) do
+        instance_double(Warden::Proxy).tap do |proxy|
+          allow(proxy).to receive(:user).with(no_args).and_return(user)
+          allow(proxy).to receive(:user).with(:admin_user).and_return(admin_user)
+        end
+      end
+
+      before do
+        rack_session[AuthenticatedSessions::Registry.session_key(:admin_user)] = parent.identifier
+      end
+
+      it 'accepts the connection' do
+        expect { connection.connect }.not_to raise_error
       end
     end
   end

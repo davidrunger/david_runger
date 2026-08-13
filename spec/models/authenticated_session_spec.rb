@@ -18,6 +18,17 @@ RSpec.describe AuthenticatedSession do
     expect(admin_session.authenticatable).to be_a(AdminUser)
   end
 
+  describe '#current_for?' do
+    it 'matches the session identifier for its scope' do
+      rack_session = {
+        AuthenticatedSessions::Registry.session_key(:user) => authenticated_session.identifier,
+      }
+
+      expect(authenticated_session.current_for?(rack_session, :user)).to be(true)
+      expect(authenticated_session.current_for?(rack_session, :admin_user)).to be(false)
+    end
+  end
+
   it 'rejects missing and empty User-Agent values' do
     authenticated_session = build(:authenticated_session, initial_user_agent: nil)
     expect(authenticated_session).not_to be_valid
@@ -63,6 +74,31 @@ RSpec.describe AuthenticatedSession do
       )
       impersonation.initiated_by_authenticated_session = admin_parent
       expect(impersonation).not_to be_valid
+    end
+
+    it 'requires a User authenticatable' do
+      impersonation = build(
+        :authenticated_session,
+        :admin,
+        authentication_kind: 'admin_impersonation',
+        initiated_by_authenticated_session: admin_users(:admin_user).authenticated_sessions.first!,
+      )
+
+      expect(impersonation).not_to be_valid
+      expect(impersonation.errors[:authenticatable]).to include('must be a User for impersonation')
+    end
+
+    it 'rejects a parent session for a non-impersonation session' do
+      parent = admin_users(:admin_user).authenticated_sessions.first!
+      session = build(
+        :authenticated_session,
+        authenticatable: user,
+        initiated_by_authenticated_session: parent,
+      )
+
+      expect(session).not_to be_valid
+      expect(session.errors[:initiated_by_authenticated_session]).
+        to include('is only valid for impersonation')
     end
 
     it 'revokes active impersonation children when their administrator parent is revoked' do
