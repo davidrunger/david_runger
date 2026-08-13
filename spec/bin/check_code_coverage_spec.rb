@@ -44,16 +44,16 @@ RSpec.describe 'bin/check-code-coverage' do
           <packages>
             <package>
               <classes>
-                <class filename="app/poros/first_example.rb">
-                  <lines>
-                    <line number="2" hits="0"/>
-                    <line number="5" hits="1"/>
-                    <line number="8" hits="0"/>
-                  </lines>
-                </class>
                 <class filename="app/poros/second_example.rb">
                   <lines>
                     <line number="4" hits="0"/>
+                  </lines>
+                </class>
+                <class filename="app/poros/first_example.rb">
+                  <lines>
+                    <line number="8" hits="0"/>
+                    <line number="5" hits="1"/>
+                    <line number="2" hits="0"/>
                   </lines>
                 </class>
               </classes>
@@ -63,7 +63,7 @@ RSpec.describe 'bin/check-code-coverage' do
       XML
     end
 
-    it 'reports every uncovered line before failing' do
+    it 'sorts and reports every uncovered line before failing' do
       stdout, stderr, status = run_check_code_coverage(coverage_xml)
 
       expect(stdout).to be_empty

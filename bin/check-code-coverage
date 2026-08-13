@@ -10,13 +10,20 @@ covered_lines = Integer(coverage.attributes.fetch('lines-covered').to_s)
 valid_lines = Integer(coverage.attributes.fetch('lines-valid').to_s)
 
 if covered_lines != valid_lines
+  uncovered_lines = []
+
   coverage.each_element('packages/package/classes/class') do |coverage_class|
     coverage_class.each_element('lines/line') do |line|
       next if Integer(line.attributes.fetch('hits').to_s) != 0
 
-      warn("#{coverage_class.attributes.fetch('filename')}:#{line.attributes.fetch('number')}")
+      uncovered_lines << [
+        coverage_class.attributes.fetch('filename').to_s,
+        Integer(line.attributes.fetch('number').to_s),
+      ]
     end
   end
+
+  uncovered_lines.sort.each { |filename, line_number| warn("#{filename}:#{line_number}") }
 
   abort("Line coverage is not 100% (#{covered_lines}/#{valid_lines} lines covered).")
 end
