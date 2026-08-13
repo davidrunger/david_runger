@@ -45,7 +45,7 @@ x-redis-config: &redis
     interval: 5m
     timeout: 1s
     retries: 1
-  image: redis:8.4.0-alpine
+  image: redis:8.4.0-alpine@sha256:4eec4565e45aa0b3966554c866bc73211e281b0b3d89fe9a33c982e6faca809d
   logging: *default-logging
   networks:
     - internal
@@ -198,7 +198,7 @@ services:
       interval: 5m
       timeout: 3s
       retries: 1
-    image: nginx:1.31.3-alpine
+    image: nginx:1.31.3-alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470c1752
     logging: *default-logging
     memswap_limit: 99G
     networks:
@@ -254,7 +254,7 @@ services:
       interval: 5m
       timeout: 1s
       retries: 1
-    image: postgres:18.6-alpine
+    image: postgres:18.6-alpine@sha256:432b3b824c0769275ec9b0947736ef8b376d6997bcaa9de29818f613819c2feb
     logging: *default-logging
     memswap_limit: 99G
     networks:
