@@ -1,6 +1,7 @@
 class Email::UserGeneratedDeliveryLimiter
   prepend Memoization
 
+  class LimitReached < StandardError ; end
   class CircuitBreakerOpened < StandardError ; end
 
   Limit = Data.define(:name, :maximum, :period)
@@ -35,33 +36,31 @@ class Email::UserGeneratedDeliveryLimiter
   REDIS_KEY_PREFIX = 'user-generated-email-limits:v1'
 
   RESERVE_SCRIPT = <<~LUA
-    local quota_count = #KEYS - 1
-    local global_quota_index = tonumber(ARGV[(quota_count * 2) + 1])
+    local quota_count = #KEYS / 2
 
     for index = 1, quota_count do
       local current_count = tonumber(redis.call('GET', KEYS[index]) or '0')
       local maximum = tonumber(ARGV[index])
 
       if current_count >= maximum then
-        local retry_after = math.max(redis.call('TTL', KEYS[index]), 1)
-        local circuit_breaker_opened = 0
+        local retry_after_ms = math.max(redis.call('PTTL', KEYS[index]), 1)
+        local retry_after = math.ceil(retry_after_ms / 1000)
+        local quota_expires_at_ms = redis.call('PEXPIRETIME', KEYS[index])
+        local alert_was_set = redis.call(
+          'SET',
+          KEYS[quota_count + index],
+          '1',
+          'PXAT',
+          quota_expires_at_ms,
+          'NX'
+        )
+        local limit_reached_alerted = 0
 
-        if index == global_quota_index then
-          local alert_was_set = redis.call(
-            'SET',
-            KEYS[quota_count + 1],
-            '1',
-            'EX',
-            retry_after,
-            'NX'
-          )
-
-          if alert_was_set then
-            circuit_breaker_opened = 1
-          end
+        if alert_was_set then
+          limit_reached_alerted = 1
         end
 
-        return { 0, index, current_count + 1, retry_after, circuit_breaker_opened }
+        return { 0, index, current_count + 1, retry_after, limit_reached_alerted }
       end
     end
 
@@ -134,12 +133,13 @@ class Email::UserGeneratedDeliveryLimiter
   end
 
   def reserve_in_redis
-    keys = [*applicable_quotas.map(&:key), circuit_breaker_alert_key]
-    global_quota_index = applicable_quotas.index { it.limit == GLOBAL_LIMIT } + 1
+    keys = [
+      *applicable_quotas.map(&:key),
+      *applicable_quotas.map { "#{it.key}:alerted" },
+    ]
     arguments = [
       *applicable_quotas.map { it.limit.maximum },
       *applicable_quotas.map { Integer(it.limit.period) },
-      global_quota_index,
     ]
 
     $email_quota_redis_pool.with do |connection|
@@ -153,23 +153,40 @@ class Email::UserGeneratedDeliveryLimiter
     end
   end
 
-  def circuit_breaker_alert_key
-    "#{REDIS_KEY_PREFIX}:circuit_breaker_alerted"
-  end
-
   def denied_result(redis_result:)
     quota = applicable_quotas.fetch(Integer(redis_result.fetch(1)) - 1)
     attempted_count = Integer(redis_result.fetch(2))
     retry_after = Integer(redis_result.fetch(3))
-    circuit_breaker_opened = Integer(redis_result.fetch(4)) == 1
+    limit_reached_alerted = Integer(redis_result.fetch(4)) == 1
 
     log_denial(quota:, attempted_count:, retry_after:)
-    report_opened_circuit_breaker(quota:, attempted_count:, retry_after:) if circuit_breaker_opened
+    if limit_reached_alerted
+      report_limit_reached(quota:, attempted_count:, retry_after:)
+      report_opened_circuit_breaker(quota:, attempted_count:, retry_after:) if
+        quota.limit == GLOBAL_LIMIT
+    end
 
     Result.new(
       permitted: false,
       limit_name: quota.limit.name,
       retry_after:,
+    )
+  end
+
+  def report_limit_reached(quota:, attempted_count:, retry_after:)
+    context =
+      delivery_context.merge(
+        limit_name: quota.limit.name,
+        limit: quota.limit.maximum,
+        period_seconds: Integer(quota.limit.period),
+        attempted_count:,
+        retry_after_seconds: retry_after,
+      )
+
+    Rails.error.report(
+      Error.new(LimitReached, LIMIT_REACHED_MESSAGE),
+      severity: :warning,
+      context:,
     )
   end
 

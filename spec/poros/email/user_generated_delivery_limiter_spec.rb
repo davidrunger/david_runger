@@ -104,6 +104,59 @@ RSpec.describe Email::UserGeneratedDeliveryLimiter, queue_adapter: :test do
         )
     end
 
+    it 'reports a reached limit to Rollbar at warning level once per window' do
+      allow(Rails.error).to receive(:report).and_call_original
+      described_class::ACTOR_RECIPIENT_15_MINUTES_LIMIT.maximum.times do
+        reserve_delivery.call(actor_id:, recipient_email:, category:)
+      end
+
+      quota_key =
+        [
+          described_class::REDIS_KEY_PREFIX,
+          :actor_recipient_15_minutes,
+          actor_id,
+          recipient_email,
+        ].join(':')
+      alert_key = "#{quota_key}:alerted"
+      $email_quota_redis_pool.with do |connection|
+        connection.call('PEXPIRE', quota_key, 2_500)
+      end
+
+      reserve_delivery.call(actor_id:, recipient_email:, category:)
+      reserve_delivery.call(actor_id:, recipient_email:, category:)
+
+      quota_expires_at_ms, alert_expires_at_ms =
+        $email_quota_redis_pool.with do |connection|
+          [
+            connection.call('PEXPIRETIME', quota_key),
+            connection.call('PEXPIRETIME', alert_key),
+          ].map { Integer(it) }
+        end
+
+      expect(alert_expires_at_ms).to eq(quota_expires_at_ms)
+
+      expect(Rails.error).
+        to have_received(:report).
+        with(
+          an_object_having_attributes(
+            backtrace: an_instance_of(Array),
+            class: described_class::LimitReached,
+            message: described_class::LIMIT_REACHED_MESSAGE,
+          ),
+          severity: :warning,
+          context: {
+            category:,
+            actor_id:,
+            recipient_email:,
+            limit_name: :actor_recipient_15_minutes,
+            limit: 5,
+            period_seconds: 900,
+            attempted_count: 6,
+            retry_after_seconds: a_value_between(1, 900),
+          },
+        ).once
+    end
+
     it 'limits an actor across recipients' do
       described_class::ACTOR_HOUR_LIMIT.maximum.times do |index|
         expect(
