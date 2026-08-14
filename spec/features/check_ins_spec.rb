@@ -130,7 +130,9 @@ RSpec.describe 'Check-Ins app' do
 
           # change rating
           fill_in_emotional_needs_ratings(rating: 1)
-          sleep(0.2) # this might help ensure the rating update transaction is committed
+          wait_for do
+            check_in.need_satisfaction_ratings.where(user:).where.not(score: 1).exists?
+          end.to eq(false)
 
           # verify that partner sees the change
           Capybara.using_session('spouse') do
