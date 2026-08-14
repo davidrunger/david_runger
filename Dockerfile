@@ -93,9 +93,9 @@ RUN bin/bootsnap precompile app/ lib/
 FROM base
 
 # Run the application as an unprivileged user. Application code remains owned by root;
-# only directories that Rails needs to write to at runtime are writable by this user.
+# only its runtime directories and home directory are writable by this user.
 RUN groupadd --system app && \
-  useradd --system --gid app --home-dir /app --shell /usr/sbin/nologin app
+  useradd --create-home --system --gid app --home-dir /home/app --shell /usr/sbin/nologin app
 
 # Copy everything added to the app WORKDIR: gems, application code, skedjewel, compiled assets.
 COPY --chown=0:0 --from=build /app /app
