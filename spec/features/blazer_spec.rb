@@ -1,6 +1,18 @@
 RSpec.describe 'Blazer', :rack_test_driver do
   subject(:visit_blazer) { visit('/blazer') }
 
+  describe 'saved queries' do
+    it 'preserves SQL comparison operators in statements' do
+      statement = <<~SQL.squish
+        SELECT * FROM ci_step_results WHERE started_at > now() - interval '4 weeks' HAVING SUM(seconds) < 200
+      SQL
+
+      query = Blazer::Query.create!(statement:)
+
+      expect(query.reload.statement).to eq(statement)
+    end
+  end
+
   context 'when logged in as an AdminUser' do
     before { sign_in(admin_users(:admin_user), scope: :admin_user) }
 
