@@ -16,7 +16,7 @@ class Api::LogSharesController < Api::BaseController
         LogShareMailer.log_shared(@log_share.id).deliver_later
       end
 
-      render_created_log_share(email_sent: delivery_limit.permitted?)
+      render_schema_json(@log_share.serializer(current_user:), status: :created)
     else
       render_log_share_errors
     end
@@ -43,12 +43,5 @@ class Api::LogSharesController < Api::BaseController
 
   def render_log_share_errors
     render json: { errors: @log_share.errors.to_hash }, status: :unprocessable_content
-  end
-
-  def render_created_log_share(email_sent:)
-    render_schema_json(
-      @log_share.serializer(current_user:).as_json.merge(email_sent:),
-      status: :created,
-    )
   end
 end

@@ -11,12 +11,9 @@
         },
         "id": {
           "type": "integer"
-        },
-        "email_sent": {
-          "type": "boolean"
         }
       },
-      "required": ["email", "id", "email_sent"],
+      "required": ["email", "id"],
       "title": "Root"
     }
   }
