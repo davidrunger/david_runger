@@ -14,7 +14,7 @@ class SaveRequest::SkipChecker
       ['blog', 'assets', _] |
       ['api/csp_reports', 'create', _] |
       ['api/events', 'create', _] |
-      [_, _, { uptime_robot: _ }]
+      ['home', 'index', { uptime_robot: _ }]
     )
       true
     else
