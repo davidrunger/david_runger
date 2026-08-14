@@ -1,5 +1,3 @@
-require 'digest/sha1'
-
 module ApplicationWorker
   prepend Memoization
   include Sidekiq::Worker # rubocop:disable CustomCops/DontIncludeSidekiqWorker

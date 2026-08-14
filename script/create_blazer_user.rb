@@ -1,7 +1,5 @@
 require_relative '../config/environment'
 
-require 'uri'
-
 url = ENV.fetch('BLAZER_DATABASE_URL')
 uri = URI.parse(url)
 username = uri.user

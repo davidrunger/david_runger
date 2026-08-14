@@ -1,6 +1,3 @@
-require 'base64'
-require 'openssl'
-
 class ContentSignature
   class InvalidSignatureError < StandardError; end
 

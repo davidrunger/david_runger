@@ -3,6 +3,9 @@
 ## Ruby conventions
 
 - When a Ruby method's computed result is reused, prefer the repository's `Memoization` pattern over assigning a same-named local variable from `self`, such as `value = self.value`, solely to avoid recomputation. Add `prepend Memoization` to the class and decorate the method with `memoize \`.
+- This repository intentionally loads standard-library dependencies used by Rails application code in `config/initializers/std_lib.rb` instead of requiring them in each consumer. This provides a Gemfile-like application contract: after the Rails environment initializes, the listed standard-library APIs are available throughout the application. It also prevents deleting one consumer, which happened to load a shared dependency, from breaking another consumer that relied on the same API.
+- Add standard-library requires used by Rails-initialized code to `config/initializers/std_lib.rb` and remove redundant requires from individual consumers. Code that runs before or without Rails environment initialization must continue to require its dependencies locally.
+- Do not use comments on individual entries in `config/initializers/std_lib.rb` as a consumer index. Such comments become incomplete or stale as usages change. Audit current usage by searching the repository, and reserve an entry-specific comment for non-obvious loading or compatibility requirements.
 
 ## Local tooling
 

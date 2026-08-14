@@ -1,4 +1,11 @@
-require 'csv' # for LogsController, Logs::UploadsController
-require 'digest' # for ApplicationWorker uniqueness enforcement, gravatar URL
-require 'fileutils' # assets:precompile
-require 'uri' # CSP report origin validation
+# Standard-library dependencies available throughout the Rails application.
+# Code loaded without the Rails environment must require its dependencies locally.
+require 'base64'
+require 'csv'
+require 'digest'
+require 'fileutils'
+require 'ipaddr'
+require 'openssl'
+require 'resolv'
+require 'stringio'
+require 'uri'

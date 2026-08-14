@@ -4,8 +4,6 @@
 
 require_relative '../config/environment'
 
-require 'uri'
-
 url = ENV.fetch('PGHERO_DATABASE_URL')
 uri = URI.parse(url)
 pghero_password = uri.password
