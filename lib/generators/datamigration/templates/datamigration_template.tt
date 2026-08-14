@@ -1,3 +1,9 @@
+# Run locally:
+#   bin/rails runner db/datamigrate/<%= @migration_filename %>
+#
+# Run in production after this datamigration deploys:
+#   bin/run-datamigration db/datamigrate/<%= @migration_filename %>
+
 class <%= class_name %> < Datamigration::Base
   def run
     within_transaction(rollback: true) do

@@ -4,8 +4,8 @@ class DatamigrationGenerator < Rails::Generators::NamedBase
   def create_datamigration_file
     if behavior == :invoke
       timestamp = Time.now.utc.strftime('%Y%m%d%H%M%S')
-      migration_filename = "#{timestamp}_#{file_name.underscore}.rb"
-      template('datamigration_template.tt', "db/datamigrate/#{migration_filename}")
+      @migration_filename = "#{timestamp}_#{file_name.underscore}.rb"
+      template('datamigration_template.tt', "db/datamigrate/#{@migration_filename}")
     else
       # In revoke mode, find and remove the most recent matching file.
       datamigration_absolute_path =
