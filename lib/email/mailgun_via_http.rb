@@ -1,5 +1,3 @@
-require 'stringio'
-
 # rubocop:disable Style/ClassAndModuleChildren
 module Email
   class MailgunViaHttp

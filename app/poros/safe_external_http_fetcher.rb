@@ -1,7 +1,3 @@
-require 'ipaddr'
-require 'resolv'
-require 'uri'
-
 class SafeExternalHttpFetcher
   class UnsafeUrlError < StandardError; end
 
