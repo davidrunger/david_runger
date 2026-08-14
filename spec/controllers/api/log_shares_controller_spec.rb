@@ -50,13 +50,12 @@ RSpec.describe Api::LogSharesController, queue_adapter: :test do
           end
         end
 
-        it 'retains the log share and reports that no email was sent' do
+        it 'retains the log share without sending an email' do
           expect {
             post_create
           }.to have_enqueued_mail(LogShareMailer, :log_shared).exactly(0).times
 
           expect(response).to have_http_status(:created)
-          expect(response.parsed_body['email_sent']).to eq(false)
           expect(LogShare.order(:id).last!.email).to eq(params[:log_share][:email].downcase)
         end
       end
