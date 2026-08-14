@@ -11,5 +11,8 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - dompurify@3.4.11
   - undici@7.28.0
+  - fast-xml-parser@5.7.0
+  - image-size@2.0.3
+  - nanoid@3.3.18
 overrides:
   typescript: ^6
