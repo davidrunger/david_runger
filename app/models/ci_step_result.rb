@@ -24,8 +24,8 @@ class CiStepResult < ApplicationRecord
   belongs_to :user
 
   validates :name,
-            presence: true,
-            uniqueness: { scope: %i[user_id github_run_id github_run_attempt] }
+    presence: true,
+    uniqueness: { scope: %i[user_id github_run_id github_run_attempt] }
   validates :seconds, presence: true
   validates :started_at, presence: true
   validates :stopped_at, presence: true
