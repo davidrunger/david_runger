@@ -56,6 +56,9 @@ class DavidRunger::Application < Rails::Application
   # These settings can be overridden in specific environments using the files
   # in config/environments, which are processed later.
 
+  # The application does not generate Active Storage image variants.
+  config.active_storage.variant_processor = :disabled
+
   config.time_zone = ENV.fetch('TIME_ZONE', 'America/Chicago')
   config.active_record.default_timezone = :utc
 
