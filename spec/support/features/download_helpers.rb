@@ -5,9 +5,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :feature) do
-    @preexisting_capybara_save_paths = Dir.glob(
-      File.join(Capybara.save_path, '**', '*'),
-    )
+    @capybara_saved_file_states_before_example =
+      Dir.glob(File.join(Capybara.save_path, '**', '*')).
+        select { |path| File.file?(path) }.
+        index_with { |path| capybara_saved_file_state(path) }
   end
 end
 
@@ -18,9 +19,12 @@ module Features::DownloadHelpers
     absolute_glob_pattern = File.join(Capybara.save_path, relative_glob_pattern)
 
     max_attempts.times do |index|
-      matching_paths = Dir.glob(absolute_glob_pattern) - @preexisting_capybara_save_paths
+      matching_path =
+        Dir.glob(absolute_glob_pattern).find do |path|
+          @capybara_saved_file_states_before_example[path] != capybara_saved_file_state(path)
+        end
 
-      if (matching_path = matching_paths.first)
+      if matching_path
         break matching_path
       elsif index == max_attempts - 1
         raise(<<~ERROR.squish)
@@ -31,5 +35,10 @@ module Features::DownloadHelpers
         sleep(sleep_seconds)
       end
     end
+  end
+
+  def capybara_saved_file_state(path)
+    stat = File.stat(path)
+    [stat.ino, stat.size, stat.mtime, stat.ctime]
   end
 end
