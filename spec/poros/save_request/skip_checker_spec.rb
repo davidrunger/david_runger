@@ -80,7 +80,7 @@ RSpec.describe SaveRequest::SkipChecker do
       end
     end
 
-    context 'when uptime_robot is among the params keys' do
+    context 'when the controller is home, the action is index, and uptime_robot is among the params keys' do
       let(:params) { { 'controller' => 'home', 'action' => 'index', 'uptime_robot' => '1' } }
 
       it 'returns true' do
@@ -88,10 +88,18 @@ RSpec.describe SaveRequest::SkipChecker do
       end
     end
 
-    context 'when controller is home, action is index, and params does not include uptime_robot' do
+    context 'when uptime_robot is among the params keys but the endpoint is not home#index' do
+      let(:params) { { 'controller' => 'users', 'action' => 'show', 'uptime_robot' => '1' } }
+
+      it 'returns false' do
+        expect(skip?).to eq(false)
+      end
+    end
+
+    context 'when the controller is home, the action is index, and params does not include uptime_robot' do
       let(:params) { { 'controller' => 'home', 'action' => 'index', 'a_query_param' => 'true' } }
 
-      it 'returns true' do
+      it 'returns false' do
         expect(skip?).to eq(false)
       end
     end
