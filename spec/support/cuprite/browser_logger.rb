@@ -1,6 +1,5 @@
 class Cuprite::BrowserLogger
   JSON_EXTRACTION_REGEX = /\A\s*[▶◀]\s+\d+\.\d+ ({.*})\n?\z/
-  CSP_VIOLATION_REGEX = /content security policy/i
   LOG_MESSAGES_TO_IGNORE = [
     /\A\[vite\] connecting\.\.\.\z/,
     /\A\[vite\] connected\.\z/,
@@ -16,8 +15,8 @@ class Cuprite::BrowserLogger
     @javascript_logs ||= []
   end
 
-  def self.csp_violations
-    @csp_violations ||= []
+  def self.browser_log_entries
+    @browser_log_entries ||= []
   end
 
   def puts(message)
@@ -81,10 +80,8 @@ class Cuprite::BrowserLogger
   def log_entry(entry)
     message = entry.fetch('text')
 
-    if message.match?(CSP_VIOLATION_REGEX)
-      $stdout.puts(Rainbow("Content Security Policy violation: #{message}").red)
-      self.class.csp_violations << message
-    end
+    $stdout.puts(Rainbow("Browser log entry: #{message}").red)
+    self.class.browser_log_entries << entry
   end
 
   private

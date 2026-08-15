@@ -29,9 +29,9 @@ class UserSerializer < ApplicationSerializer
     typelize 'string | null'
     attribute(:gravatar_url) do |user|
       # If the user doesn't want to share a name, they probably don't want to share a gravatar URL.
-      if user.public_name.present?
+      if user.public_name.present? && (gravatar_origin = Rails.configuration.gravatar_origin)
         email_hash = Digest::SHA256.hexdigest(user.email.downcase)
-        "https://gravatar.com/avatar/#{email_hash}?s=32&d=robohash&r=r"
+        "#{gravatar_origin}/avatar/#{email_hash}?s=32&d=robohash&r=r"
       end
     end
   end

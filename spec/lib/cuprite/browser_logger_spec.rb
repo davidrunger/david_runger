@@ -2,23 +2,20 @@ RSpec.describe Cuprite::BrowserLogger do
   subject(:logger) { described_class.new }
 
   before do
-    described_class.csp_violations.clear
+    described_class.browser_log_entries.clear
     allow($stdout).to receive(:puts)
   end
 
   describe '#log_entry' do
-    it 'records Content Security Policy violations' do
-      message = 'Refused to execute inline script because it violates Content Security Policy.'
+    it 'records browser log entries' do
+      entry = {
+        'level' => 'error',
+        'text' => 'Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector',
+      }
 
-      logger.log_entry('text' => message)
+      logger.log_entry(entry)
 
-      expect(described_class.csp_violations).to eq([message])
-    end
-
-    it 'ignores log entries that are not Content Security Policy violations' do
-      logger.log_entry('text' => 'A normal browser log entry.')
-
-      expect(described_class.csp_violations).to be_empty
+      expect(described_class.browser_log_entries).to eq([entry])
     end
   end
 end

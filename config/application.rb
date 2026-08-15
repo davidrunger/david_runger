@@ -38,6 +38,8 @@ class DavidRunger::Application < Rails::Application
   # Initialize configuration defaults for originally generated Rails version.
   config.load_defaults(8.0)
 
+  config.gravatar_origin = 'https://gravatar.com'
+
   # We enable YJIT for the web server only in config/initializers/enable_yjit.rb.
   config.yjit = false
 
