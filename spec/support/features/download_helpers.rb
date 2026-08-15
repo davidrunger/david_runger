@@ -15,7 +15,9 @@ end
 module Features::DownloadHelpers
   private
 
-  def downloaded_file_path(relative_glob_pattern, max_attempts: 100, sleep_seconds: 0.05)
+  def downloaded_file_path(relative_glob_pattern, max_attempts: 100, sleep_seconds: 0.05, &download)
+    page.driver.browser.downloads.wait(RSpec.configuration.wait_timeout, &download) if download
+
     absolute_glob_pattern = File.join(Capybara.save_path, relative_glob_pattern)
 
     max_attempts.times do |index|
