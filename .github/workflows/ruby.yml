@@ -43,29 +43,33 @@ jobs:
         ports:
           - 6379:6379
     steps:
-      - name: Configure Postgres for speed over reliability
-        run: |
-          psql -c "ALTER SYSTEM SET fsync=off;"
-          psql -c "ALTER SYSTEM SET full_page_writes=off;"
-          psql -c "ALTER SYSTEM SET synchronous_commit=off;"
-          psql -c "SELECT pg_reload_conf();"
-        env:
-          PGHOST: 127.0.0.1
-          PGUSER: postgres
-          PGPASSWORD: postgres
-
       - name: Check out code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
 
-      - name: Set GIT_REV environment variable
-        uses: ./.github/actions/git_rev
+      - parallel:
+          - name: Configure Postgres for speed over reliability
+            run: |
+              psql -c "ALTER SYSTEM SET fsync=off;"
+              psql -c "ALTER SYSTEM SET full_page_writes=off;"
+              psql -c "ALTER SYSTEM SET synchronous_commit=off;"
+              psql -c "SELECT pg_reload_conf();"
+            env:
+              PGHOST: 127.0.0.1
+              PGUSER: postgres
+              PGPASSWORD: postgres
 
-      - name: Set PERCY_BROWSER_EXECUTABLE env var to system Chrome browser
-        run: |
-          CHROME_PATH=$(which google-chrome)
-          echo "PERCY_BROWSER_EXECUTABLE=$CHROME_PATH" >> $GITHUB_ENV
+          - name: Set GIT_REV environment variable
+            uses: ./.github/actions/git_rev
+
+          - name: Set PERCY_BROWSER_EXECUTABLE env var to system Chrome browser
+            run: |
+              CHROME_PATH=$(which google-chrome)
+              echo "PERCY_BROWSER_EXECUTABLE=$CHROME_PATH" >> $GITHUB_ENV
+
+          - name: Verify Ruby base image digest
+            run: bin/check-ruby-image-digest
 
       - name: Print context info
         run: |
@@ -74,18 +78,16 @@ jobs:
           echo "PR: #${pr%/merge}"
           echo "SHA: $GIT_REV"
 
-      - name: Verify Ruby base image digest
-        run: bin/check-ruby-image-digest
+      - parallel:
+          - name: Set up Ruby
+            uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+            with:
+              bundler-cache: true
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
-        with:
-          bundler-cache: true
-
-      - name: Set up Node
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version-file: .node-version
+          - name: Set up Node
+            uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+            with:
+              node-version-file: .node-version
 
       - name: Install pnpm
         run: npm install -g pnpm@11.21.0
@@ -93,17 +95,18 @@ jobs:
       - name: Set pnpm store directory
         run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
 
-      - name: Set up pnpm cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ env.PNPM_STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-v3-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: ${{ runner.os }}-pnpm-store-v3-
+      - parallel:
+          - name: Set up pnpm cache
+            uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+            with:
+              path: ${{ env.PNPM_STORE_PATH }}
+              key: ${{ runner.os }}-pnpm-store-v3-${{ hashFiles('**/pnpm-lock.yaml') }}
+              restore-keys: ${{ runner.os }}-pnpm-store-v3-
 
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # 2.0.0
-        with:
-          scandir: './bin'
+          - name: Run ShellCheck
+            uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # 2.0.0
+            with:
+              scandir: './bin'
 
       - name: Ensure clean git status
         run: '! [[ -n $(git status --porcelain) ]] || (git status && false)'
@@ -132,32 +135,36 @@ jobs:
           PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
           CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
 
-      - name: Save failed feature spec logs
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: failure()
-        with:
-          name: failed_feature_spec_logs
-          path: log/failed_feature_specs/
-          retention-days: 5
+      - parallel:
+          - name: Save failed feature spec logs
+            uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+            if: failure()
+            with:
+              name: failed_feature_spec_logs
+              path: log/failed_feature_specs/
+              retention-days: 5
 
-      - name: Save fixtures artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: failure()
-        with:
-          name: fixtures
-          path: spec/fixtures/
-          retention-days: 5
+          - name: Save fixtures artifact
+            uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+            if: failure()
+            with:
+              name: fixtures
+              path: spec/fixtures/
+              retention-days: 5
 
-      - name: Upload Code Coverage
-        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          - name: Upload Code Coverage
+            uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+            if: ${{ !cancelled() }}
+            with:
+              token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Prune pnpm store
-        run: pnpm store prune
+          - name: Prune pnpm store
+            if: ${{ !cancelled() }}
+            run: pnpm store prune
 
-      - name: Check code coverage
-        run: bin/check-code-coverage
+          - name: Check code coverage
+            if: ${{ !cancelled() }}
+            run: bin/check-code-coverage
 
   deploy-and-prerender:
     concurrency:
