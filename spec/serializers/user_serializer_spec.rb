@@ -66,5 +66,34 @@ RSpec.describe UserSerializer do
         end
       end
     end
+
+    describe 'gravatar_url attribute' do
+      subject(:gravatar_url) { user_serializer_public_as_json['gravatar_url'] }
+
+      let(:object_to_serialize) { user }
+
+      before { user.update!(public_name: 'David Runger') }
+
+      context 'when a Gravatar origin is configured' do
+        before do
+          allow(Rails.configuration).
+            to receive(:gravatar_origin).
+            and_return('https://gravatar.test')
+        end
+
+        it "is the user's Gravatar URL" do
+          email_hash = Digest::SHA256.hexdigest(user.email.downcase)
+
+          expect(gravatar_url).
+            to eq("https://gravatar.test/avatar/#{email_hash}?s=32&d=robohash&r=r")
+        end
+      end
+
+      context 'when a Gravatar origin is not configured' do
+        it 'is nil' do
+          expect(gravatar_url).to eq(nil)
+        end
+      end
+    end
   end
 end
