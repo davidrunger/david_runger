@@ -336,6 +336,7 @@ RSpec.configure do |config|
     Cuprite::BrowserLogger.javascript_errors.clear
     Cuprite::BrowserLogger.javascript_logs.clear
     Cuprite::BrowserLogger.browser_log_entries.clear
+    Cuprite::BrowserLogger.browser_log_entries_to_ignore.clear
 
     example.run
 

@@ -149,6 +149,12 @@ RSpec.describe 'Groceries app' do
 
       context 'when the user attempts to recreate a store' do
         it 'displays a toast message and allows (re)submitting with a unique store name' do
+          Cuprite::BrowserLogger.ignore_browser_log_entries_matching(
+            'source' => 'network',
+            'text' => /status.*422/i,
+            'url' => %r{/api/stores\z},
+          )
+
           visit(groceries_path)
 
           fill_in('Add a store', with: existing_store.name)

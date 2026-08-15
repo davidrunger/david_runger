@@ -20,6 +20,14 @@ class Cuprite::BrowserLogger
     @browser_log_entries ||= []
   end
 
+  def self.browser_log_entries_to_ignore
+    @browser_log_entries_to_ignore ||= []
+  end
+
+  def self.ignore_browser_log_entries_matching(entry)
+    browser_log_entries_to_ignore << entry
+  end
+
   def puts(message)
     # The message can be an Integer if an integer is logged in JavaScript.
     if !message.is_a?(String)
@@ -79,7 +87,7 @@ class Cuprite::BrowserLogger
   end
 
   def log_entry(entry)
-    return if blocked_public_upload_request?(entry)
+    return if blocked_public_upload_request?(entry) || ignored_browser_log_entry?(entry)
 
     message = entry.fetch('text')
 
@@ -88,6 +96,14 @@ class Cuprite::BrowserLogger
   end
 
   private
+
+  def ignored_browser_log_entry?(entry)
+    self.class.browser_log_entries_to_ignore.any? do |entry_to_ignore|
+      entry_to_ignore.all? do |key, value|
+        value.is_a?(Regexp) ? value.match?(entry[key]) : value == entry[key]
+      end
+    end
+  end
 
   def blocked_public_upload_request?(entry)
     entry.values_at('source', 'text') == ['network', BLOCKED_BY_CLIENT_MESSAGE] &&
