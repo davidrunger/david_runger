@@ -258,9 +258,10 @@ class Test::RequirementsResolver
       !db_schema_changed? && !diff_mentions?('database_consistency')
     end,
     Test::Tasks::RunToolsTests => proc do
-      !file_changed?(%r{^tools/}i) &&
-        !file_changed?(%r{^spec/tools/}i) &&
-        !diff_mentions?('rubocop')
+      true
+      # !file_changed?(%r{^tools/}i) &&
+      #   !file_changed?(%r{^spec/tools/}i) &&
+      #   !diff_mentions?('rubocop')
     end,
     Test::Tasks::RunTsd => proc do
       !file_changed?('app/javascript/types/index.ts') &&
@@ -287,15 +288,17 @@ class Test::RequirementsResolver
     end,
     Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
     Test::Tasks::RunPrettier => proc do
-      all_changed_file_extensions_are_among?(%w[haml lock rb]) &&
-        !dotfile_changed? &&
-        !diff_mentions?('prettier')
+      true
+      # all_changed_file_extensions_are_among?(%w[haml lock rb]) &&
+      #   !dotfile_changed? &&
+      #   !diff_mentions?('prettier')
     end,
     Test::Tasks::RunRubocop => proc do
-      !ruby_files_changed? &&
-        !rubocop_files_changed? &&
-        !diff_mentions?('rubocop') &&
-        !diff_mentions?('runger_style')
+      true
+      # !ruby_files_changed? &&
+      #   !rubocop_files_changed? &&
+      #   !diff_mentions?('rubocop') &&
+      #   !diff_mentions?('runger_style')
     end,
     Test::Tasks::RunStylelint => proc { !files_with_css_changed? && !diff_mentions?('stylelint') },
     Test::Tasks::SetupDb => proc { running_locally? },
