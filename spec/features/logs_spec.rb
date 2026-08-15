@@ -210,13 +210,10 @@ RSpec.describe 'Logs app' do
         it 'allows the user to download a CSV with the log data' do
           visit(log_path(slug: log.slug))
 
-          # Make sure download button has time to set up before clicking.
           wait_for { page }.to have_button('Download CSV')
-          sleep(0.5)
 
-          click_on('Download CSV')
-
-          csv = CSV.read(downloaded_file_path('*.csv'), headers: true)
+          csv_path = downloaded_file_path('*.csv') { click_on('Download CSV') }
+          csv = CSV.read(csv_path, headers: true)
 
           expect(csv.headers).to eq(['Time', log.data_label])
 
@@ -246,10 +243,13 @@ RSpec.describe 'Logs app' do
 
           within('.el-message-box') do
             expect(page).to have_text('might be evaluated as formulas')
-            click_on('Download exact CSV')
           end
 
-          csv = CSV.read(downloaded_file_path('*.csv'), headers: true)
+          csv_path =
+            downloaded_file_path('*.csv') do
+              within('.el-message-box') { click_on('Download exact CSV') }
+            end
+          csv = CSV.read(csv_path, headers: true)
 
           expect(csv.to_a.flatten).to include(formula)
         end
