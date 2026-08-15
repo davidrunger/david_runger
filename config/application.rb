@@ -39,6 +39,8 @@ class DavidRunger::Application < Rails::Application
   config.load_defaults(8.0)
 
   config.gravatar_origin = 'https://gravatar.com'
+  config.public_uploads_origin =
+    'https://david-runger-public-uploads.s3.us-east-1.amazonaws.com'
 
   # We enable YJIT for the web server only in config/initializers/enable_yjit.rb.
   config.yjit = false

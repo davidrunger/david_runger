@@ -1,4 +1,5 @@
 class Cuprite::BrowserLogger
+  BLOCKED_BY_CLIENT_MESSAGE = 'Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector'
   JSON_EXTRACTION_REGEX = /\A\s*[▶◀]\s+\d+\.\d+ ({.*})\n?\z/
   LOG_MESSAGES_TO_IGNORE = [
     /\A\[vite\] connecting\.\.\.\z/,
@@ -78,6 +79,8 @@ class Cuprite::BrowserLogger
   end
 
   def log_entry(entry)
+    return if blocked_public_upload_request?(entry)
+
     message = entry.fetch('text')
 
     $stdout.puts(Rainbow("Browser log entry: #{message}").red)
@@ -85,6 +88,11 @@ class Cuprite::BrowserLogger
   end
 
   private
+
+  def blocked_public_upload_request?(entry)
+    entry.values_at('source', 'text') == ['network', BLOCKED_BY_CLIENT_MESSAGE] &&
+      entry.fetch('url', '').start_with?("#{Rails.configuration.public_uploads_origin}/")
+  end
 
   def extract_arg_from_data(arg_data)
     if (value = arg_data['value'])
