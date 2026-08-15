@@ -251,8 +251,9 @@ class Test::RequirementsResolver
         !files_added_in?('spec/serializers')
     end,
     Test::Tasks::RunBrakeman => proc do
-      (!(haml_files_changed? || ruby_files_changed?) || running_locally?) &&
-        !diff_mentions?('brakeman')
+      true
+      # (!(haml_files_changed? || ruby_files_changed?) || running_locally?) &&
+      #   !diff_mentions?('brakeman')
     end,
     Test::Tasks::RunDatabaseConsistency => proc do
       !db_schema_changed? && !diff_mentions?('database_consistency')
