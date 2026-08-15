@@ -69,8 +69,16 @@ class AuthenticatedSession < ApplicationRecord
     identifier == rack_session[AuthenticatedSessions::Registry.session_key(scope)]
   end
 
+  def belongs_to_authenticatable?(candidate)
+    return false unless candidate
+
+    authenticatable_type == candidate.class.polymorphic_name && authenticatable_id == candidate.id
+  end
+
   def record_activity!(request)
     current_minute = Time.current.change(sec: 0, usec: 0)
+    return if last_active_at >= current_minute
+
     self.class.
       where(id:).
       where(last_active_at: ...current_minute).

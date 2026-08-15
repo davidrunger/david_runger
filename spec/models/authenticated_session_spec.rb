@@ -29,6 +29,19 @@ RSpec.describe AuthenticatedSession do
     end
   end
 
+  describe '#belongs_to_authenticatable?' do
+    it 'matches the owning account without loading the association' do
+      other_user = User.excluding(user).first!
+      admin_user = admin_users(:admin_user)
+      authenticated_session.association(:authenticatable).reset
+
+      expect(authenticated_session.belongs_to_authenticatable?(user)).to be(true)
+      expect(authenticated_session.belongs_to_authenticatable?(other_user)).to be(false)
+      expect(authenticated_session.belongs_to_authenticatable?(admin_user)).to be(false)
+      expect(authenticated_session.association(:authenticatable)).not_to be_loaded
+    end
+  end
+
   it 'rejects missing and empty User-Agent values' do
     authenticated_session = build(:authenticated_session, initial_user_agent: nil)
     expect(authenticated_session).not_to be_valid

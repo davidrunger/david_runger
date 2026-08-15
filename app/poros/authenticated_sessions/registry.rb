@@ -76,7 +76,7 @@ module AuthenticatedSessions::Registry
     def create_impersonation!(user:, warden:)
       rack_session = warden.request.session
       parent = find_identified_session(rack_session, :admin_user)
-      valid_parent = parent&.active? && parent.authenticatable == warden.user(:admin_user)
+      valid_parent = parent&.active? && parent.belongs_to_authenticatable?(warden.user(:admin_user))
       raise(ActiveRecord::RecordNotFound) unless valid_parent
 
       find_identified_session(rack_session, :user)&.revoke!
@@ -169,12 +169,12 @@ module AuthenticatedSessions::Registry
 
     def valid_for?(authenticated_session, authenticatable, warden)
       return false unless authenticated_session.active? &&
-        authenticated_session.authenticatable == authenticatable
+        authenticated_session.belongs_to_authenticatable?(authenticatable)
       return true unless authenticated_session.authentication_kind == 'admin_impersonation'
 
       parent = authenticated_session.initiated_by_authenticated_session
       rack_session = warden.request.session
-      parent&.active? && parent.authenticatable == warden.user(:admin_user) &&
+      parent&.active? && parent.belongs_to_authenticatable?(warden.user(:admin_user)) &&
         parent.identifier == rack_session[session_key(:admin_user)]
     end
 
