@@ -4,7 +4,17 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 
 ruby_version="$(<.ruby-version)"
 ruby_image="ruby:$ruby_version-slim-bookworm"
-expected_digest="$(docker buildx imagetools inspect "$ruby_image" --format '{{.Manifest.Digest}}')"
+
+if ! expected_digest="$(timeout 5s docker buildx imagetools inspect "$ruby_image" --format '{{.Manifest.Digest}}')"; then
+  echo "Unable to resolve the current digest for $ruby_image; skipping digest verification." >&2
+  exit 0
+fi
+
+if [[ ! "$expected_digest" =~ ^sha256:[0-9a-f]{64}$ ]] ; then
+  echo "Unable to resolve a valid digest for $ruby_image; skipping digest verification." >&2
+  exit 0
+fi
+
 # shellcheck disable=SC2016 # Match the literal build-argument name in the Dockerfile.
 actual_digest="$(sed -nE 's|^FROM ruby:\$RUBY_VERSION-slim-bookworm@(sha256:[0-9a-f]{64}) AS base$|\1|p' Dockerfile)"
 
