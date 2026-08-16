@@ -260,7 +260,7 @@ services:
     networks:
       - internal
     volumes:
-      - postgres-data-v18.4:/var/lib/postgresql
+      - postgres-data-v18:/var/lib/postgresql
   prometheus:
     cpu_shares: 512
     expose:
@@ -417,6 +417,6 @@ volumes:
   app-public:
   grafana-data:
   loki-data:
-  postgres-data-v18.4:
+  postgres-data-v18:
   prometheus-data:
   redis:
