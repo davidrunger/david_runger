@@ -26,7 +26,7 @@ RSpec.describe 'Public telemetry ingestion', :cache, :rack_test_driver do
     end
   end
 
-  context 'when an IP posts more than ten Events in one minute' do
+  context 'when an IP posts more than ten Events in one minute', :frozen_time do
     let(:event_body) { { data: { page_url: DavidRunger::CANONICAL_URL }, type: 'scroll' }.to_json }
 
     it 'returns 429 for the eleventh request without creating another Event' do
