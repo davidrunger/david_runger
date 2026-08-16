@@ -7,7 +7,7 @@ class LogEntriesMailbox < ApplicationMailbox
     user = User.find_by(email: mail.from&.first)
     log = user&.logs&.find_by(email_submission_token:)
 
-    return if log.nil?
+    return unless log
 
     LogEntries::Save.new(log_entry: log.build_log_entry_with_datum(data: mail.parsed_body)).run
   end
