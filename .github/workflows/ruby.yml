@@ -143,12 +143,16 @@ jobs:
           CODECOV_TOKEN: '${{secrets.CODECOV_TOKEN}}'
 
       - parallel:
-          - name: Save failed feature spec logs
+          - name: Save feature spec artifacts
             uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
             if: failure()
             with:
-              name: failed_feature_spec_logs
-              path: log/failed_feature_specs/
+              name: feature_spec_artifacts
+              path: |
+                log/failed_feature_specs/
+                tmp/feature_specs_a.txt
+                tmp/feature_specs_b.txt
+                tmp/feature_specs_c.txt
               retention-days: 5
 
           - name: Save fixtures artifact
