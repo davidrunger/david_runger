@@ -104,6 +104,13 @@ jobs:
               key: ${{ runner.os }}-pnpm-store-v3-${{ hashFiles('**/pnpm-lock.yaml') }}
               restore-keys: ${{ runner.os }}-pnpm-store-v3-
 
+          - name: Restore RuboCop cache
+            uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+            with:
+              path: tmp/rubocop_cache
+              key: ${{ runner.os }}-rubocop-v1-${{ github.sha }}
+              restore-keys: ${{ runner.os }}-rubocop-v1-
+
           - name: Run ShellCheck
             uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # 2.0.0
             with:
@@ -173,6 +180,41 @@ jobs:
         with:
           path: ${{ env.PNPM_STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-v3-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+  warm-rubocop-cache:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    continue-on-error: true
+    concurrency:
+      group: warm-rubocop-cache
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          bundler-cache: true
+
+      - name: Restore RuboCop cache
+        id: rubocop-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: tmp/rubocop_cache
+          key: ${{ runner.os }}-rubocop-v1-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-rubocop-v1-
+
+      - name: Warm RuboCop cache
+        run: bin/rubocop $(git ls-files) --color --format clang --force-exclusion
+
+      - name: Save RuboCop cache
+        if: ${{ success() && steps.rubocop-cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: tmp/rubocop_cache
+          key: ${{ runner.os }}-rubocop-v1-${{ github.sha }}
 
   deploy-and-prerender:
     concurrency:
