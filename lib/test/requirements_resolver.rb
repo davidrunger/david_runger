@@ -99,7 +99,9 @@ class Test::RequirementsResolver
           Test::Tasks::FeatureTestsCanStart,
         ],
 
-        # Necessary processes.
+        # Stop Percy runs outside Pallets in CI.
+        #
+        # Keep its dependencies for `run_all` and explicitly targeted runs.
         Test::Tasks::StopPercy => [
           Test::Tasks::RunFeatureTestsA,
           Test::Tasks::RunFeatureTestsB,
@@ -137,7 +139,6 @@ class Test::RequirementsResolver
           Test::Tasks::RunTypelizer,
           Test::Tasks::RunUnitTests,
           Test::Tasks::RunVitest,
-          Test::Tasks::StopPercy,
           Test::Tasks::UploadViteAssets,
         ],
       }
