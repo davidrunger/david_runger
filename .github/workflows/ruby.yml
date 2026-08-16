@@ -96,8 +96,9 @@ jobs:
         run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
 
       - parallel:
-          - name: Set up pnpm cache
-            uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+          - name: Restore pnpm cache
+            id: pnpm-cache
+            uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
             with:
               path: ${{ env.PNPM_STORE_PATH }}
               key: ${{ runner.os }}-pnpm-store-v3-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -159,12 +160,19 @@ jobs:
               token: ${{ secrets.CODECOV_TOKEN }}
 
           - name: Prune pnpm store
-            if: ${{ !cancelled() }}
+            if: ${{ !cancelled() && steps.pnpm-cache.outputs.cache-hit != 'true' }}
             run: pnpm store prune
 
           - name: Check code coverage
             if: ${{ !cancelled() }}
             run: bin/check-code-coverage
+
+      - name: Save pnpm cache
+        if: ${{ !cancelled() && steps.pnpm-cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ env.PNPM_STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-v3-${{ hashFiles('**/pnpm-lock.yaml') }}
 
   deploy-and-prerender:
     concurrency:
