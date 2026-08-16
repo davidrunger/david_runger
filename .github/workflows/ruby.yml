@@ -165,6 +165,12 @@ jobs:
             with:
               token: ${{ secrets.CODECOV_TOKEN }}
 
+          - name: Stop Percy
+            if: ${{ !cancelled() }}
+            run: ./node_modules/.bin/percy exec:stop
+            env:
+              PERCY_TOKEN: '${{secrets.PERCY_TOKEN}}'
+
           - name: Prune pnpm store
             if: ${{ !cancelled() && steps.pnpm-cache.outputs.cache-hit != 'true' }}
             run: pnpm store prune
