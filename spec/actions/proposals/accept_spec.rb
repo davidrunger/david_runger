@@ -44,6 +44,8 @@ RSpec.describe Proposals::Accept do
       }.from(nil).to(Marriage)
 
       expect(proposer.marriage.partners.order(:id)).to eq([proposer, proposee].sort_by(&:id))
+      expect(proposer.marriage.emotional_needs.pluck(:name, :description)).
+        to match_array(Marriages::Create::DEFAULT_EMOTIONAL_NEEDS.to_a)
       expect(Marriage.exists?(proposee_marriage.id)).to eq(false)
     end
   end

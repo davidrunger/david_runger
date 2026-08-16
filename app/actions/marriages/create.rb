@@ -16,6 +16,8 @@ class Marriages::Create < ApplicationAction
 
   requires :proposer, User
 
+  returns :marriage, Marriage
+
   def execute
     ApplicationRecord.transaction do
       marriage = Marriage.create!(partners: [proposer])
@@ -23,6 +25,8 @@ class Marriages::Create < ApplicationAction
       DEFAULT_EMOTIONAL_NEEDS.each do |name, description|
         marriage.emotional_needs.create!(name:, description:)
       end
+
+      result.marriage = marriage
     end
   end
 end

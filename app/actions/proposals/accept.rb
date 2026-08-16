@@ -93,7 +93,8 @@ class Proposals::Accept < ApplicationAction
   end
 
   def accept_proposal!(locked_proposer:, locked_proposee:, proposer_marriage:, proposee_marriage:)
-    target_marriage = proposer_marriage || Marriage.create!(partners: [locked_proposer])
+    target_marriage =
+      proposer_marriage || Marriages::Create.run!(proposer: locked_proposer).marriage
 
     if proposee_marriage != target_marriage
       destroy_marriage!(proposee_marriage) if proposee_marriage
