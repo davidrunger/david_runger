@@ -38,3 +38,12 @@
   .mb-4
     %div
       = form.submit(class: 'btn-primary')
+
+- if @marriage.other_partner
+  .mt-12
+    %h2 End marriage
+    %p Permanently delete this marriage and all of its check-in and emotional-needs data for both partners.
+    = button_to('End marriage', marriage_path,
+      method: :delete,
+      class: 'btn-danger',
+      data: { confirm: "Are you sure that you want to end your marriage to #{@marriage.other_partner.email}? This will permanently delete all check-in and emotional-needs data for both of you." })

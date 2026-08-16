@@ -52,7 +52,7 @@ Rails.application.routes.draw do
       post :cancel
     end
   end
-  resource :marriage, only: %i[new show]
+  resource :marriage, only: %i[destroy new show]
   resources :emotional_needs, only: %i[create destroy edit update] do
     member do
       get :history
