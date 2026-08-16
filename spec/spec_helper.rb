@@ -231,10 +231,17 @@ RSpec.configure do |config|
         puts("Pre-warming #{driver_name} Cuprite browser...")
 
         Capybara.using_driver(driver_name) do
-          session = Capybara::Session.new(driver_name)
+          session = Capybara.current_session
+          warmed = false
           url = 'about:blank'
-          session.visit(url)
-          puts("#{driver_name} Cuprite browser visited #{url} successfully.")
+
+          begin
+            session.visit(url)
+            warmed = true
+            puts("#{driver_name} Cuprite browser visited #{url} successfully.")
+          ensure
+            session.quit if !warmed
+          end
         end
       rescue Ferrum::ProcessTimeoutError => error
         retry_count += 1
