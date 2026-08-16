@@ -27,9 +27,9 @@ jobs:
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
-          --health-interval 10s
+          --health-interval 1s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 30
         ports:
           - 5432:5432
       redis:
@@ -37,9 +37,9 @@ jobs:
         # Set health checks to wait until redis has started
         options: >-
           --health-cmd "redis-cli ping"
-          --health-interval 10s
+          --health-interval 1s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 30
         ports:
           - 6379:6379
     steps:
