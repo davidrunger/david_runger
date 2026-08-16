@@ -10,6 +10,7 @@ class Test::Tasks::RunUnitTests < Pallets::Task
     execute_rspec_command(<<~COMMAND)
       DB_SUFFIX=_unit
       COVERAGE_RESULTSET_NAME=unit
+      EAGER_LOAD=true
       bin/rspec
       $(ls -d spec/*/ |
         grep --extended-regex -v 'spec/(controllers|features|helpers|requests|tools)(/|$)')
