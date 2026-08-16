@@ -1,19 +1,13 @@
 RSpec.describe Features::DownloadHelpers do
   include described_class
 
-  around do |example|
-    original_save_path = Capybara.save_path
+  let(:tmp_dir) { Dir.mktmpdir('download_helpers_spec', Capybara.save_path) }
+  let(:csv_path) { File.join(tmp_dir, 'log.csv') }
+  let(:relative_glob_pattern) { File.join(File.basename(tmp_dir), '*.csv') }
 
-    Dir.mktmpdir do |tmp_dir|
-      Capybara.save_path = tmp_dir
-      example.run
-    ensure
-      Capybara.save_path = original_save_path
-    end
-  end
+  after { FileUtils.remove_entry(tmp_dir) }
 
   it 'recognizes a download that overwrites a file from an earlier example' do
-    csv_path = File.join(Capybara.save_path, 'log.csv')
     File.write(csv_path, 'old CSV')
     @capybara_saved_file_states_before_example = {
       csv_path => capybara_saved_file_state(csv_path),
@@ -21,18 +15,17 @@ RSpec.describe Features::DownloadHelpers do
 
     File.write(csv_path, 'new,larger CSV')
 
-    expect(downloaded_file_path('*.csv', max_attempts: 1)).to eq(csv_path)
+    expect(downloaded_file_path(relative_glob_pattern, max_attempts: 1)).to eq(csv_path)
   end
 
   it 'ignores an unchanged download from an earlier example' do
-    csv_path = File.join(Capybara.save_path, 'log.csv')
     File.write(csv_path, 'old CSV')
     @capybara_saved_file_states_before_example = {
       csv_path => capybara_saved_file_state(csv_path),
     }
 
     expect {
-      downloaded_file_path('*.csv', max_attempts: 1)
-    }.to raise_error(RuntimeError, /Could not find a file matching '\*\.csv'/)
+      downloaded_file_path(relative_glob_pattern, max_attempts: 1)
+    }.to raise_error(RuntimeError, /Could not find a file matching '.*\*\.csv'/)
   end
 end
