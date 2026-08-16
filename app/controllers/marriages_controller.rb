@@ -14,6 +14,14 @@ class MarriagesController < ApplicationController
     render :new
   end
 
+  def destroy
+    marriage = Marriage.with_eager_loading_for_destroy.find(current_user.marriage.id)
+    authorize(marriage)
+    marriage.destroy!
+    flash[:notice] = 'Your marriage has been ended.'
+    redirect_to(check_ins_path)
+  end
+
   private
 
   def ensure_no_spouse

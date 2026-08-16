@@ -8,4 +8,8 @@ class MarriagePolicy < ApplicationPolicy
   def show_groceries?
     [@user.id, @user.spouse.id].sort == @record.partners.ids.sort
   end
+
+  def destroy?
+    show? && record.partners.size == 2
+  end
 end
