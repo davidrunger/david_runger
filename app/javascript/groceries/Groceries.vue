@@ -1,7 +1,7 @@
 <template lang="pug">
 #groceries-app.flex.h-full
   Sidebar
-  main.flex-1.bg-cover
+  main.flex-1.min-h-0.bg-cover
     Store(
       v-if="currentStore"
       :store="currentStore"
