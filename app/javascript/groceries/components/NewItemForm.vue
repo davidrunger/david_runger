@@ -4,6 +4,7 @@ form.flex(
   @submit.prevent
 )
   ElAutocomplete.item-name-input.max-w-60(
+    ref="autocompleteRef"
     v-model="formData.newItemName"
     :debounce="0"
     :fetch-suggestions="itemSuggestions"
@@ -25,8 +26,9 @@ import {
   ElAutocomplete,
   type AutocompleteDataItem,
   type AutocompleteFetchSuggestionsCallback,
+  type AutocompleteInstance,
 } from 'element-plus';
-import { reactive } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
 import { object } from 'vue-types';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
@@ -51,6 +53,7 @@ const props = defineProps({
 });
 
 const groceriesStore = useGroceriesStore();
+const autocompleteRef = ref<AutocompleteInstance>();
 const emit = defineEmits<{
   itemTargeted: [item: Item];
 }>();
@@ -89,6 +92,7 @@ async function selectSuggestion(
 
   if (itemSuggestion.type === 'existing') {
     formData.newItemName = '';
+    await blurAutocomplete();
     emit('itemTargeted', itemSuggestion.item);
     return;
   }
@@ -102,7 +106,13 @@ async function selectSuggestion(
 
   if (item) {
     formData.newItemName = '';
+    await blurAutocomplete();
     emit('itemTargeted', item);
   }
+}
+
+async function blurAutocomplete(): Promise<void> {
+  await nextTick();
+  autocompleteRef.value?.blur();
 }
 </script>

@@ -224,6 +224,9 @@ RSpec.describe 'Groceries app' do
               "#grocery-item-#{existing_item.id}[data-scrolled-into-view='true']",
             )
             expect(page).to have_css("#grocery-item-#{existing_item.id}.highlighted")
+            expect(page.evaluate_script('document.activeElement?.name')).not_to(
+              eq('newItemName'),
+            )
 
             new_item_input.send_keys(unneeded_item.name)
             expect(page).to have_css(
@@ -244,6 +247,9 @@ RSpec.describe 'Groceries app' do
             new_item = find('.grocery-item', text: unique_new_item_name)
             expect(new_item[:'data-scrolled-into-view']).to eq('true')
             expect(new_item[:class]).to include('highlighted')
+            expect(page.evaluate_script('document.activeElement?.name')).not_to(
+              eq('newItemName'),
+            )
           end
         end
       end
