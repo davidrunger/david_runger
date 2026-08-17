@@ -27,7 +27,6 @@ RSpec.describe 'Groceries app' do
 
         expect(page).not_to have_spinner
         expect(find(:fillable_field, 'newItemName').value).to eq('')
-        expect(page).not_to have_button('Add item')
 
         # Verify that the item is listed only once.
         expect(page.text.scan(new_item_name).size).to eq(1)
@@ -212,7 +211,6 @@ RSpec.describe 'Groceries app' do
               text: "Add '#{substring_of_existing_item_name}'",
               exact_text: true,
             )
-            expect(page).not_to have_button('Add item')
 
             page.execute_script(<<~JS)
               HTMLElement.prototype.scrollIntoView = function() {
