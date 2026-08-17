@@ -181,6 +181,8 @@ RSpec.describe 'Groceries app' do
         let(:unneeded_item) { existing_store.items.unneeded.first! }
 
         context 'when the user searches for an item' do
+          let(:new_item_input_name) { 'newItemName' }
+
           it 'offers matching items and a new item option, and handles both selections' do
             visit(groceries_path)
 
@@ -191,6 +193,11 @@ RSpec.describe 'Groceries app' do
             expect(page).to have_css('h1', text: existing_store.name)
 
             new_item_input = find(:fillable_field, 'Add an item')
+            new_item_input.click
+            expect(page.evaluate_script('document.activeElement?.name')).to(
+              eq(new_item_input_name),
+            )
+
             substring_of_existing_item_name = existing_item.name[1..4]
             new_item_input.send_keys(substring_of_existing_item_name)
 
@@ -225,7 +232,7 @@ RSpec.describe 'Groceries app' do
             )
             expect(page).to have_css("#grocery-item-#{existing_item.id}.highlighted")
             expect(page.evaluate_script('document.activeElement?.name')).not_to(
-              eq('newItemName'),
+              eq(new_item_input_name),
             )
 
             new_item_input.send_keys(unneeded_item.name)
@@ -248,7 +255,7 @@ RSpec.describe 'Groceries app' do
             expect(new_item[:'data-scrolled-into-view']).to eq('true')
             expect(new_item[:class]).to include('highlighted')
             expect(page.evaluate_script('document.activeElement?.name')).not_to(
-              eq('newItemName'),
+              eq(new_item_input_name),
             )
           end
         end
