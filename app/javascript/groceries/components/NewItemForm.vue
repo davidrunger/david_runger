@@ -23,6 +23,7 @@ form.flex(
 <script setup lang="ts">
 import {
   ElAutocomplete,
+  type AutocompleteDataItem,
   type AutocompleteFetchSuggestionsCallback,
 } from 'element-plus';
 import { reactive } from 'vue';
@@ -81,17 +82,21 @@ function itemSuggestions(
   ]);
 }
 
-async function selectSuggestion(suggestion: ItemSuggestion): Promise<void> {
-  if (suggestion.type === 'existing') {
+async function selectSuggestion(
+  suggestion: AutocompleteDataItem,
+): Promise<void> {
+  const itemSuggestion = suggestion as ItemSuggestion;
+
+  if (itemSuggestion.type === 'existing') {
     formData.newItemName = '';
-    emit('itemTargeted', suggestion.item);
+    emit('itemTargeted', itemSuggestion.item);
     return;
   }
 
   const item = await groceriesStore.createItem({
     store: props.store,
     itemAttributes: {
-      name: suggestion.value,
+      name: itemSuggestion.value,
     },
   });
 
