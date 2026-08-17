@@ -9,7 +9,11 @@
 
   StoreNotes(:store="store")
 
-  NewItemForm(:store="store")
+  .new-item-form-container.sticky.top-0.z-10.py-2
+    NewItemForm(
+      :store="store"
+      @item-targeted="scrollToAndHighlightItem"
+    )
 
   TransitionGroup.items-list.relative.mt-0.mb-8(
     name="appear-and-disappear-vertically-list"
@@ -20,6 +24,7 @@
       :item="item"
       :key="item.id"
       :ownStore="store.own_store"
+      :highlighted="item.id === highlightedItemId"
     )
 
   CheckInModal
@@ -30,7 +35,7 @@
 <script setup lang="ts">
 import { useTitle } from '@vueuse/core';
 import { ElButton } from 'element-plus';
-import { computed } from 'vue';
+import { computed, nextTick, onBeforeUnmount, ref } from 'vue';
 import { object } from 'vue-types';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
@@ -54,6 +59,8 @@ useTitle(() => `${props.store.name} - Groceries - David Runger`);
 
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
+const highlightedItemId = ref<number>();
+let clearHighlightTimeout: ReturnType<typeof setTimeout> | undefined;
 
 const sortedItems = computed((): ItemType[] => {
   return helpers.sortByName(props.store.items);
@@ -65,4 +72,27 @@ function initializeTripCheckIn() {
   });
   modalStore.showModal({ modalName: 'check-in-shopping-trip' });
 }
+
+async function scrollToAndHighlightItem(item: ItemType): Promise<void> {
+  highlightedItemId.value = item.id;
+  clearTimeout(clearHighlightTimeout);
+
+  await nextTick();
+  document.getElementById(`grocery-item-${item.id}`)?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+  });
+
+  clearHighlightTimeout = setTimeout(() => {
+    highlightedItemId.value = undefined;
+  }, 2_000);
+}
+
+onBeforeUnmount(() => clearTimeout(clearHighlightTimeout));
 </script>
+
+<style lang="scss" scoped>
+.new-item-form-container {
+  background: rgb(255 255 255 / 80%);
+}
+</style>

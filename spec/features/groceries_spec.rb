@@ -208,7 +208,7 @@ RSpec.describe 'Groceries app' do
             expect(page).not_to have_button('Add item')
 
             page.execute_script(<<~JS)
-              document.getElementById('grocery-item-#{existing_item.id}').scrollIntoView = function() {
+              HTMLElement.prototype.scrollIntoView = function() {
                 this.dataset.scrolledIntoView = 'true';
               };
             JS
@@ -223,6 +223,7 @@ RSpec.describe 'Groceries app' do
             expect(page).to have_css(
               "#grocery-item-#{existing_item.id}[data-scrolled-into-view='true']",
             )
+            expect(page).to have_css("#grocery-item-#{existing_item.id}.highlighted")
 
             new_item_input.send_keys(unneeded_item.name)
             expect(page).to have_css(
@@ -240,7 +241,9 @@ RSpec.describe 'Groceries app' do
               exact_text: true,
             ).click
 
-            expect(page).to have_css('li', text: unique_new_item_name)
+            new_item = find('.grocery-item', text: unique_new_item_name)
+            expect(new_item[:'data-scrolled-into-view']).to eq('true')
+            expect(new_item[:class]).to include('highlighted')
           end
         end
       end

@@ -95,7 +95,7 @@ export const useGroceriesStore = defineStore('groceries', {
         toastErrors(itemData.errors);
       } else if (itemData) {
         this.addItem({ store, itemData });
-        return true;
+        return itemData;
       }
     },
 
