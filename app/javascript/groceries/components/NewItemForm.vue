@@ -23,9 +23,10 @@ form.flex(
 <script setup lang="ts">
 import {
   ElAutocomplete,
+  type AutocompleteDataItem,
   type AutocompleteFetchSuggestionsCallback,
 } from 'element-plus';
-import { nextTick, reactive } from 'vue';
+import { reactive } from 'vue';
 import { object } from 'vue-types';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
@@ -50,6 +51,9 @@ const props = defineProps({
 });
 
 const groceriesStore = useGroceriesStore();
+const emit = defineEmits<{
+  itemTargeted: [item: Item];
+}>();
 
 const formData = reactive({
   newItemName: '',
@@ -78,28 +82,27 @@ function itemSuggestions(
   ]);
 }
 
-async function selectSuggestion(suggestion: ItemSuggestion): Promise<void> {
-  if (suggestion.type === 'existing') {
+async function selectSuggestion(
+  suggestion: AutocompleteDataItem,
+): Promise<void> {
+  const itemSuggestion = suggestion as ItemSuggestion;
+
+  if (itemSuggestion.type === 'existing') {
     formData.newItemName = '';
-    await nextTick();
-    document
-      .getElementById(`grocery-item-${suggestion.item.id}`)
-      ?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
+    emit('itemTargeted', itemSuggestion.item);
     return;
   }
 
-  const success = await groceriesStore.createItem({
+  const item = await groceriesStore.createItem({
     store: props.store,
     itemAttributes: {
-      name: suggestion.value,
+      name: itemSuggestion.value,
     },
   });
 
-  if (success) {
+  if (item) {
     formData.newItemName = '';
+    emit('itemTargeted', item);
   }
 }
 </script>

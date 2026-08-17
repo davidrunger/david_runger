@@ -1,7 +1,7 @@
 <template lang="pug">
 li.grocery-item.flex.items-center.w-full(
   :id="`grocery-item-${item.id}`"
-  :class="{ unneeded: item.needed <= 0 }"
+  :class="{ highlighted, unneeded: item.needed <= 0 }"
 )
   .left.whitespace-nowrap
     button.item-button.js-link.text-green-600(
@@ -58,6 +58,7 @@ const ICON_SIZE = 17;
 const props = defineProps({
   item: object<Item>().isRequired,
   ownStore: bool().isRequired,
+  highlighted: bool().isRequired,
 });
 
 const groceriesStore = useGroceriesStore();
@@ -140,6 +141,9 @@ function setNeeded(item: Item, needed: number) {
   margin: 5px 0;
   padding: 6px;
   min-height: 30px;
+  transition:
+    background-color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
 
   /* stylelint-disable media-feature-name-value-no-unknown */
   &:not(.unneeded):hover {
@@ -163,5 +167,10 @@ function setNeeded(item: Item, needed: number) {
     }
   }
   /* stylelint-enable media-feature-name-value-no-unknown */
+
+  &.highlighted {
+    background: rgb(254, 240, 138, 85%);
+    box-shadow: 0 0 8px rgb(234, 179, 8, 90%);
+  }
 }
 </style>
