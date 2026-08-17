@@ -1,5 +1,6 @@
 <template lang="pug">
 li.grocery-item.flex.items-center.w-full(
+  :id="`grocery-item-${item.id}`"
   :class="{ unneeded: item.needed <= 0 }"
 )
   .left.whitespace-nowrap

@@ -22,19 +22,12 @@ RSpec.describe 'Groceries app' do
         unneeded_item = store.items.unneeded.first!
         expect(page).to have_text(/#{needed_item.name} +\(#{needed_item.needed}\)/)
 
-        # NOTE: When running specs with the development vite server, the
-        # following line triggers two warnings, which I'm pretty sure are caused
-        # by a bug in cuprite (namely that focus and blur events are of type
-        # Event rather than FocusEvent). github.com/rubycdp/cuprite/pull/ 272
-        fill_in('newItemName', with: new_item_name)
-        find(:button, 'Add item').click
+        find(:fillable_field, 'newItemName').send_keys(new_item_name)
+        find('[role="option"]', text: "Add '#{new_item_name}'", exact_text: true).click
 
         expect(page).not_to have_spinner
         expect(find(:fillable_field, 'newItemName').value).to eq('')
-        # The add-new-item button should be disabled, now that it has no value (so it's not valid).
-        within(find('.item-name-input').ancestor('form')) do
-          expect(find(:link_or_button, 'Add', disabled: true)).to be_disabled
-        end
+        expect(page).not_to have_button('Add item')
 
         # Verify that the item is listed only once.
         expect(page.text.scan(new_item_name).size).to eq(1)
@@ -184,10 +177,11 @@ RSpec.describe 'Groceries app' do
 
       context 'when the store has an item' do
         let(:existing_store) { user.stores.joins(:items).first! }
-        let(:existing_item) { existing_store.items.first! }
+        let(:existing_item) { existing_store.items.needed.first! }
+        let(:unneeded_item) { existing_store.items.unneeded.first! }
 
-        context 'when the user attempts to add a duplicate item' do
-          it 'displays a toast message and allows (re)submitting with a unique item name' do
+        context 'when the user searches for an item' do
+          it 'offers matching items and a new item option, and handles both selections' do
             visit(groceries_path)
 
             within('aside') do
@@ -196,15 +190,55 @@ RSpec.describe 'Groceries app' do
 
             expect(page).to have_css('h1', text: existing_store.name)
 
-            fill_in('Add an item', with: existing_item.name)
-            click_on('Add item')
+            new_item_input = find(:fillable_field, 'Add an item')
+            substring_of_existing_item_name = existing_item.name[1..4]
+            new_item_input.send_keys(substring_of_existing_item_name)
 
-            expect(page).to have_vue_toast('Name has already been taken', type: :error)
+            existing_item_option_text = "#{existing_item.name} (#{existing_item.needed})"
+            expect(page).to have_css(
+              '[role="option"]',
+              text: existing_item_option_text,
+              exact_text: true,
+            )
+            expect(page).to have_css(
+              '[role="option"]',
+              text: "Add '#{substring_of_existing_item_name}'",
+              exact_text: true,
+            )
+            expect(page).not_to have_button('Add item')
+
+            page.execute_script(<<~JS)
+              document.getElementById('grocery-item-#{existing_item.id}').scrollIntoView = function() {
+                this.dataset.scrolledIntoView = 'true';
+              };
+            JS
+
+            find(
+              '[role="option"]',
+              text: existing_item_option_text,
+              exact_text: true,
+            ).click
+
+            expect(page).not_to have_spinner
+            expect(page).to have_css(
+              "#grocery-item-#{existing_item.id}[data-scrolled-into-view='true']",
+            )
+
+            new_item_input.send_keys(unneeded_item.name)
+            expect(page).to have_css(
+              '[role="option"]',
+              text: unneeded_item.name,
+              exact_text: true,
+            )
 
             unique_new_item_name = "#{existing_item.name} #{SecureRandom.alphanumeric(5)}"
 
-            fill_in('Add an item', with: unique_new_item_name)
-            click_on('Add item')
+            new_item_input.send_keys([:control, 'a'], unique_new_item_name)
+            find(
+              '[role="option"]',
+              text: "Add '#{unique_new_item_name}'",
+              exact_text: true,
+            ).click
 
             expect(page).to have_css('li', text: unique_new_item_name)
           end
