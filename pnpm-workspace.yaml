@@ -11,5 +11,5 @@ allowBuilds:
 overrides:
   typescript: ^6
 minimumReleaseAgeExclude:
-  - fast-xml-parser@5.7.0
   - image-size@2.0.3
+  - vm2@3.11.6
