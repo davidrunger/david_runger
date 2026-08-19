@@ -82,8 +82,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'http_logger'
   gem 'letter_opener'
   gem 'spring'

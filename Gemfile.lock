@@ -157,13 +157,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.22)
     benchmark (0.5.0)
-    better_errors (2.10.1)
-      erubi (>= 1.0.0)
-      rack (>= 0.9.0)
-      rouge (>= 1.0.0)
     bigdecimal (4.1.2)
-    binding_of_caller (2.0.0)
-      debug_inspector (>= 1.2.0)
     blazer (3.5.1)
       activerecord (>= 7.2)
       csv
@@ -215,7 +209,6 @@ GEM
     database_consistency (3.0.9)
       activerecord (>= 3.2)
     date (3.5.1)
-    debug_inspector (1.2.0)
     devise (5.0.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -788,8 +781,6 @@ DEPENDENCIES
   annotaterb
   aws-sdk-s3
   benchmark
-  better_errors
-  binding_of_caller
   blazer
   bootsnap
   brakeman
@@ -917,9 +908,7 @@ CHECKSUMS
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
   bcrypt (3.1.22) sha256=1f0072e88c2d705d94aff7f2c5cb02eb3f1ec4b8368671e19112527489f29032
   benchmark (0.5.0) sha256=465df122341aedcb81a2a24b4d3bd19b6c67c1530713fd533f3ff034e419236c
-  better_errors (2.10.1) sha256=f798f1bac93f3e775925b7fcb24cffbcf0bb62ee2210f5350f161a6b75fc0a73
   bigdecimal (4.1.2) sha256=53d217666027eab4280346fba98e7d5b66baaae1b9c3c1c0ffe89d48188a3fbd
-  binding_of_caller (2.0.0) sha256=e53eebf8428a85587aede7b43a83e7419eb85b8b690938a96aa330d03052d517
   blazer (3.5.1) sha256=50ac3ed5d22e9368cd4b7d4971b302dfb7dec5570f192cf70df420d7cd283fbe
   bootsnap (1.25.0) sha256=41059e7d0f9cb4023a33465d095f64b913fc9d1b808d6524c307da945fbcffcf
   brakeman (8.0.6) sha256=759cc69341115e6c2dcd47b6fd8649a0b9bd540e3585ac8a0a94e31c66fee386
@@ -943,7 +932,6 @@ CHECKSUMS
   cuprite (0.17) sha256=b140d5dc70d08b97ad54bcf45cd95d0bd430e291e9dffe76fff851fddd57c12b
   database_consistency (3.0.9) sha256=f5f57f30f319afab096d917de0093796f5fc0b8f5a6308168dc6f8831deb033d
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
-  debug_inspector (1.2.0) sha256=9bdfa02eebc3da163833e6a89b154084232f5766087e59573b70521c77ea68a2
   devise (5.0.4) sha256=d605f2b85854e74e56ee789e2d398702bc2d06e6bcd894717a670a3199c74cc1
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
   dotenv (3.2.0) sha256=e375b83121ea7ca4ce20f214740076129ab8514cd81378161f11c03853fe619d
