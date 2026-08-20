@@ -62,7 +62,7 @@ RSpec.describe Email::UserGeneratedDeliveryLimiter, queue_adapter: :test do
       )
 
       keys =
-        $email_quota_redis_pool.with do |connection|
+        $redis_pool.with do |connection|
           connection.call('KEYS', "#{described_class::REDIS_KEY_PREFIX}:*")
         end
 
@@ -118,7 +118,7 @@ RSpec.describe Email::UserGeneratedDeliveryLimiter, queue_adapter: :test do
           recipient_email,
         ].join(':')
       alert_key = "#{quota_key}:alerted"
-      $email_quota_redis_pool.with do |connection|
+      $redis_pool.with do |connection|
         connection.call('PEXPIRE', quota_key, 2_500)
       end
 
@@ -126,7 +126,7 @@ RSpec.describe Email::UserGeneratedDeliveryLimiter, queue_adapter: :test do
       reserve_delivery.call(actor_id:, recipient_email:, category:)
 
       quota_expires_at_ms, alert_expires_at_ms =
-        $email_quota_redis_pool.with do |connection|
+        $redis_pool.with do |connection|
           [
             connection.call('PEXPIRETIME', quota_key),
             connection.call('PEXPIRETIME', alert_key),
@@ -269,7 +269,7 @@ RSpec.describe Email::UserGeneratedDeliveryLimiter, queue_adapter: :test do
     context 'when Redis is unavailable' do
       it 'fails open and reports the Redis error' do
         redis_error = RedisClient::CannotConnectError.new('Redis unavailable')
-        allow($email_quota_redis_pool).to receive(:with).and_raise(redis_error)
+        allow($redis_pool).to receive(:with).and_raise(redis_error)
         allow(Rails.error).to receive(:report).and_call_original
 
         result = reserve_delivery.call(actor_id:, recipient_email:, category:)
