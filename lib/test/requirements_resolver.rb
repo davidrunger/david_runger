@@ -75,7 +75,6 @@ class Test::RequirementsResolver
           Test::Tasks::CompileAdminJavaScript,
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
-          Test::Tasks::RunApiControllerTests,
         ],
         Test::Tasks::RunFeatureTestsC => [
           Test::Tasks::DivideFeatureSpecs,
