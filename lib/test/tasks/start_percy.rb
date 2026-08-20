@@ -1,41 +1,68 @@
+require 'net/http'
+
 class Test::Tasks::StartPercy < Pallets::Task
   include Test::TaskHelpers
+
+  PERCY_HEALTHCHECK_PATH = '/percy/healthcheck'
+  PERCY_SERVER_PORT = 5338
+  PERCY_STARTUP_TIMEOUT = 45
 
   def run
     if ENV['PERCY_TOKEN'].present?
       execute_detached_system_command('./node_modules/.bin/percy exec:start')
 
-      # Use up to 23 seconds of sleep time to verify that Percy is running. (It tends to
-      # take particularly long if there is a new Chromium version to download.)
-      num_attempts = 35
-      total_sleep_time = 0
+      # Avoid starting another Percy CLI process for each check. Loading the CLI can take
+      # several seconds and compete with the Percy process that is still starting.
+      started_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      num_checks = 0
+      sleep(6)
 
-      num_attempts.times do |index|
-        sleep_time =
-          if total_sleep_time < 6
-            6
-          else
-            0.5
-          end
-        total_sleep_time += sleep_time
-        sleep(sleep_time)
+      loop do
+        num_checks += 1
 
-        if system('./node_modules/.bin/percy exec:ping')
+        if percy_running?
           record_success_and_log_message(<<~LOG.squish)
-            Percy is running after #{index + 1} check(s)
-            and #{total_sleep_time} seconds of sleep time.
+            Percy is running after #{num_checks} check(s)
+            and #{elapsed_time(started_at)} seconds.
           LOG
 
           break
-        elsif index == num_attempts - 1
+        elsif elapsed_time(started_at) >= PERCY_STARTUP_TIMEOUT
           record_failure_and_log_message(<<~LOG.squish)
-            Percy is still not running after #{index + 1} attempt(s)
-            and #{total_sleep_time} seconds of sleep time.
+            Percy is still not running after #{num_checks} attempt(s)
+            and #{elapsed_time(started_at)} seconds.
           LOG
+
+          break
         end
+
+        sleep(0.1)
       end
     else
       record_success_and_log_message('Percy token was not present; skipping percy exec:start.')
     end
+  end
+
+  private
+
+  def percy_running?
+    response =
+      Net::HTTP.start(
+        '127.0.0.1',
+        PERCY_SERVER_PORT,
+        nil,
+        open_timeout: 0.1,
+        read_timeout: 0.1,
+      ) do |http|
+        http.get(PERCY_HEALTHCHECK_PATH)
+      end
+
+    response.is_a?(Net::HTTPSuccess)
+  rescue SystemCallError, Timeout::Error
+    false
+  end
+
+  def elapsed_time(started_at)
+    (Process.clock_gettime(Process::CLOCK_MONOTONIC) - started_at).round(3)
   end
 end
