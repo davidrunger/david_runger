@@ -5,13 +5,13 @@ form.flex(
 )
   ElAutocomplete.item-name-input.max-w-60(
     ref="autocompleteRef"
-    v-model="formData.newItemName"
+    v-model="formData.itemName"
     :debounce="0"
     :fetch-suggestions="itemSuggestions"
     :trigger-on-focus="false"
     fit-input-width
-    name="newItemName"
-    placeholder="Add an item"
+    name="itemName"
+    placeholder="Add or search items"
     @select="selectSuggestion"
   )
     template(#default="slotProps")
@@ -59,7 +59,7 @@ const emit = defineEmits<{
 }>();
 
 const formData = reactive({
-  newItemName: '',
+  itemName: '',
 });
 
 function itemSuggestions(
@@ -91,7 +91,7 @@ async function selectSuggestion(
   const itemSuggestion = suggestion as ItemSuggestion;
 
   if (itemSuggestion.type === 'existing') {
-    formData.newItemName = '';
+    formData.itemName = '';
     await blurAutocomplete();
     emit('itemTargeted', itemSuggestion.item);
     return;
@@ -105,7 +105,7 @@ async function selectSuggestion(
   });
 
   if (item) {
-    formData.newItemName = '';
+    formData.itemName = '';
     await blurAutocomplete();
     emit('itemTargeted', item);
   }

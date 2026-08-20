@@ -22,11 +22,11 @@ RSpec.describe 'Groceries app' do
         unneeded_item = store.items.unneeded.first!
         expect(page).to have_text(/#{needed_item.name} +\(#{needed_item.needed}\)/)
 
-        find(:fillable_field, 'newItemName').send_keys(new_item_name)
+        find(:fillable_field, 'itemName').send_keys(new_item_name)
         find('[role="option"]', text: "Add '#{new_item_name}'", exact_text: true).click
 
         expect(page).not_to have_spinner
-        expect(find(:fillable_field, 'newItemName').value).to eq('')
+        expect(find(:fillable_field, 'itemName').value).to eq('')
 
         # Verify that the item is listed only once.
         expect(page.text.scan(new_item_name).size).to eq(1)
@@ -180,7 +180,7 @@ RSpec.describe 'Groceries app' do
         let(:unneeded_item) { existing_store.items.unneeded.first! }
 
         context 'when the user searches for an item' do
-          let(:new_item_input_name) { 'newItemName' }
+          let(:item_input_name) { 'itemName' }
 
           it 'offers matching items and a new item option, and handles both selections' do
             visit(groceries_path)
@@ -191,14 +191,14 @@ RSpec.describe 'Groceries app' do
 
             expect(page).to have_css('h1', text: existing_store.name)
 
-            new_item_input = find(:fillable_field, 'Add an item')
-            new_item_input.click
+            item_input = find(:fillable_field, 'Add or search items')
+            item_input.click
             expect(page.evaluate_script('document.activeElement?.name')).to(
-              eq(new_item_input_name),
+              eq(item_input_name),
             )
 
             substring_of_existing_item_name = existing_item.name[1..4]
-            new_item_input.send_keys(substring_of_existing_item_name)
+            item_input.send_keys(substring_of_existing_item_name)
 
             existing_item_option_text = "#{existing_item.name} (#{existing_item.needed})"
             expect(page).to have_css(
@@ -230,10 +230,10 @@ RSpec.describe 'Groceries app' do
             )
             expect(page).to have_css("#grocery-item-#{existing_item.id}.highlighted")
             expect(page.evaluate_script('document.activeElement?.name')).not_to(
-              eq(new_item_input_name),
+              eq(item_input_name),
             )
 
-            new_item_input.send_keys(unneeded_item.name)
+            item_input.send_keys(unneeded_item.name)
             expect(page).to have_css(
               '[role="option"]',
               text: unneeded_item.name,
@@ -242,7 +242,7 @@ RSpec.describe 'Groceries app' do
 
             unique_new_item_name = "#{existing_item.name} #{SecureRandom.alphanumeric(5)}"
 
-            new_item_input.send_keys([:control, 'a'], unique_new_item_name)
+            item_input.send_keys([:control, 'a'], unique_new_item_name)
             find(
               '[role="option"]',
               text: "Add '#{unique_new_item_name}'",
@@ -253,7 +253,7 @@ RSpec.describe 'Groceries app' do
             expect(new_item[:'data-scrolled-into-view']).to eq('true')
             expect(new_item[:class]).to include('highlighted')
             expect(page.evaluate_script('document.activeElement?.name')).not_to(
-              eq(new_item_input_name),
+              eq(item_input_name),
             )
           end
         end

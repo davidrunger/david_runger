@@ -9,8 +9,8 @@
 
   StoreNotes(:store="store")
 
-  .new-item-form-container.sticky.top-0.z-10.py-2
-    NewItemForm(
+  .item-form-container.sticky.top-0.z-10.py-2
+    ItemForm(
       :store="store"
       @item-targeted="scrollToAndHighlightItem"
     )
@@ -46,8 +46,8 @@ import type { Store } from '@/types';
 
 import CheckInModal from './CheckInModal.vue';
 import Item from './Item.vue';
+import ItemForm from './ItemForm.vue';
 import ManageCheckInStoresModal from './ManageCheckInStoresModal.vue';
-import NewItemForm from './NewItemForm.vue';
 import StoreHeader from './StoreHeader.vue';
 import StoreNotes from './StoreNotes.vue';
 
@@ -92,7 +92,7 @@ onBeforeUnmount(() => clearTimeout(clearHighlightTimeout));
 </script>
 
 <style lang="scss" scoped>
-.new-item-form-container {
+.item-form-container {
   background: rgb(255 255 255 / 80%);
 }
 </style>
