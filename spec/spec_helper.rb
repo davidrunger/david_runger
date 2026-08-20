@@ -436,7 +436,13 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :inline_sidekiq) do |spec|
-    Sidekiq::Testing.inline! { spec.run }
+    Sidekiq.testing!(:inline) do
+      spec.run
+    end
+  end
+
+  config.before(:each, :inline_sidekiq) do
+    activate_feature!(:disable_fetch_ip_info_for_authenticated_session_worker)
   end
 
   config.around(:each, :fake_aws_credentials) do |spec|

@@ -68,7 +68,7 @@ RSpec.describe Logs::UploadsController do
 
       it 'does not create any log entries' do
         expect do
-          Sidekiq::Testing.inline! do
+          with_inline_sidekiq do
             post_create
           end
         end.not_to change { log.reload.log_entries.size }

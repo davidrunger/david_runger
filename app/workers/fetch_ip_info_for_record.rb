@@ -8,6 +8,15 @@ class FetchIpInfoForRecord
   class UnexpectedIpApiResponse < StandardError; end
 
   def perform(class_name, record_id)
+    disable_flag_name = :"disable_fetch_ip_info_for_#{class_name.underscore}_worker"
+
+    if Flipper.enabled?(disable_flag_name)
+      logger.info(<<~LOG.squish)
+        Skipping #{self.class.name} job for #{class_name} because the `#{disable_flag_name}` flag is enabled.
+      LOG
+      return
+    end
+
     record = class_name.safe_constantize.find(record_id)
     write_location_info(record)
   end

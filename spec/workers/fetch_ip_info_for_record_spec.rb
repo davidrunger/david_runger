@@ -105,6 +105,18 @@ RSpec.describe FetchIpInfoForRecord do
             to([location, isp])
         end
       end
+
+      context 'when IP info fetching is disabled for AuthenticatedSession' do
+        before { activate_feature!(:disable_fetch_ip_info_for_authenticated_session_worker) }
+
+        it 'does not update the AuthenticatedSession' do
+          expect {
+            perform
+          }.not_to change {
+            authenticated_session.reload.attributes.values_at(*%w[location isp])
+          }
+        end
+      end
     end
   end
 end
