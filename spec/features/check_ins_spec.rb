@@ -46,10 +46,9 @@ RSpec.describe 'Check-Ins app' do
 
         # log in proposee and accept the proposal
         Capybara.using_session('proposee') do
-          wait_for do
-            sign_in(proposee)
-            sign_in_confirmed_via_my_account?(proposee)
-          end.to eq(true)
+          sign_in(proposee)
+          visit(my_account_path)
+          expect(page).to have_text(proposee.email)
 
           open_email(proposee.email)
           # rubocop:disable RungerStyle/ClickAmbiguously
@@ -105,11 +104,9 @@ RSpec.describe 'Check-Ins app' do
 
           # other partner fills in ratings
           Capybara.using_session('spouse') do
-            wait_for do
-              sign_in(spouse)
-              visit(check_in_path(check_in))
-              page.has_text?('Their answers [hidden until you submit your answers]')
-            end.to eq(true)
+            sign_in(spouse)
+            visit(check_in_path(check_in))
+            expect(page).to have_text('Their answers [hidden until you submit your answers]')
             fill_in_emotional_needs_ratings(rating: -2)
             wait_for do
               CheckIn.order(:created_at).last!.
