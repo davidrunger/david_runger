@@ -71,7 +71,7 @@
     "@types/toastify-js": "^1.12.4",
     "@types/when-dom-ready": "^1.2.2",
     "@typescript-eslint/parser": "^8.67.0",
-    "@vue/language-plugin-pug": "^3.3.9",
+    "@vue/language-plugin-pug": "^3.3.10",
     "fishery": "^2.4.0",
     "globals": "^17.11.0",
     "jsdom": "^30.0.1",
