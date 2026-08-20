@@ -1,8 +1,7 @@
 Flipper.configure do |config|
   config.default do
-    # Use a separate redis DB in test so settings don't mix with development config.
-    db_number = Rails.env.test? ? 3 : 0
-    redis_options = RedisOptions.new(db: db_number)
+    # Use the DB_SUFFIX-specific Redis database in test; use the default in development.
+    redis_options = RedisOptions.new
     adapter = Flipper::Adapters::Redis.new(Redis.new(url: redis_options.url))
     Flipper.new(adapter)
   end
