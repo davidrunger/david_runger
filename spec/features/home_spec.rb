@@ -23,7 +23,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
       end.to eq(true)
     end
 
-    page.percy_snapshot('Homepage')
+    take_percy_snapshot('Homepage')
 
     # Scroll tracking >>>
     event_count_before = Event.count

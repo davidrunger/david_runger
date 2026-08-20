@@ -33,7 +33,7 @@ RSpec.describe 'Groceries app' do
         # Verify that the URL in the item name is automatically linkified.
         expect(page).to have_link(url_in_item_name, href: url_in_item_name)
 
-        page.percy_snapshot('Groceries')
+        take_percy_snapshot('Groceries')
 
         # Confirm expected item is in list.
         expect(page).to have_css('.grocery-item', text: unneeded_item.name)
