@@ -1,6 +1,9 @@
 desc 'Build named-routes JavaScript helper script'
 task build_js_routes: :environment do
   require 'js-routes'
+  JsRoutes.setup do |config|
+    config.include_undefined_query_parameters = false
+  end
 
   puts 'Clearing Rails tmp cache ...'
   Rake::Task['tmp:cache:clear'].invoke
