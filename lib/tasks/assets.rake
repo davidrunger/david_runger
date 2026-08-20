@@ -28,6 +28,8 @@ namespace :assets do
   end
 
   def upload_s3_bucket
+    require 'aws-sdk-s3'
+
     @upload_s3_bucket ||=
       Aws::S3::Resource.new(region: 'us-east-1').bucket('david-runger-test-uploads')
   end
@@ -97,6 +99,8 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   end
 
   def s3_bucket
+    require 'aws-sdk-s3'
+
     @s3_bucket ||=
       Aws::S3::Resource.new(
         region: 'us-east-1',

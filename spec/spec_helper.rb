@@ -440,6 +440,8 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :fake_aws_credentials) do |spec|
+    require 'aws-sdk-s3'
+
     original_credentials = Aws.config[:credentials]
 
     Aws.config.update(

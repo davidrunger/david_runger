@@ -5,9 +5,11 @@ module PrerenderUtils
     end
 
     def transformed_s3_content(git_rev:, filename:)
+      require 'aws-sdk-s3'
+
       object_key = "prerenders/#{git_rev}/#{filename}"
       get_response =
-        Aws::S3::Resource.new(region: 'us-east-1').
+        Aws::S3::Resource.new(region: 'us-east-1', credentials: aws_credentials).
           bucket('david-runger-test-uploads').
           object(object_key).
           get
@@ -36,6 +38,14 @@ module PrerenderUtils
     end
 
     private
+
+    def aws_credentials
+      Aws.config[:credentials] ||
+        Aws::Credentials.new(
+          ENV['AWS_ACCESS_KEY_ID'].presence,
+          ENV['AWS_SECRET_ACCESS_KEY'].presence,
+        )
+    end
 
     def content_signing_public_key
       ContentSignature.key_from_base64(ENV.fetch('CONTENT_SIGNING_PUBLIC_KEY'))
