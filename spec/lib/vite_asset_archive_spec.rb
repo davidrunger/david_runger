@@ -1,3 +1,5 @@
+require 'aws-sdk-s3'
+
 RSpec.describe ViteAssetArchive do
   let(:private_key) { OpenSSL::PKey.generate_key('ED25519') }
   let(:public_key) { OpenSSL::PKey.read(private_key.public_to_pem) }

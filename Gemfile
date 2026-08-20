@@ -6,7 +6,7 @@ source 'https://rubygems.org', cooldown: 5
 gem 'activeadmin', '>= 4.0.0.beta15'
 gem 'addressable'
 gem 'alba'
-gem 'aws-sdk-s3'
+gem 'aws-sdk-s3', require: false
 gem 'benchmark'
 gem 'blazer'
 gem 'bootsnap', require: false
