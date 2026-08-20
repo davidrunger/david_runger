@@ -1,6 +1,17 @@
 class RedisOptions
   prepend Memoization
 
+  TEST_DB_NUMBERS_BY_SUFFIX = {
+    '_unit' => 4,
+    '_api' => 5,
+    '_html' => 6,
+    '_feature_a' => 7,
+    '_feature_b' => 8,
+    '_feature_c' => 9,
+  }.freeze
+  SIDEKIQ_REDIS_DATABASE_OFFSET = TEST_DB_NUMBERS_BY_SUFFIX.size
+  PALLETS_REDIS_DATABASE_NUMBER = TEST_DB_NUMBERS_BY_SUFFIX.values.min - 1
+
   def initialize(db: nil, sidekiq: false)
     @db =
       if rails_test?
@@ -28,17 +39,11 @@ class RedisOptions
   memoize \
   def test_db_number(sidekiq:)
     # Piggyback on the Postgres DB_SUFFIX ENV variable to choose a Redis DB number.
+    db_suffix = ENV.fetch('DB_SUFFIX', '_unit')
     base_db_number =
-      case ENV.fetch('DB_SUFFIX', nil)
-      when '_unit', nil then 4
-      when '_api' then 5
-      when '_html' then 6
-      when '_feature_a' then 7
-      when '_feature_c' then 8
-      else raise('Unexpected DB_SUFFIX!')
-      end
+      TEST_DB_NUMBERS_BY_SUFFIX.fetch(db_suffix) { raise('Unexpected DB_SUFFIX!') }
 
-    sidekiq ? base_db_number + 5 : base_db_number
+    sidekiq ? base_db_number + SIDEKIQ_REDIS_DATABASE_OFFSET : base_db_number
   end
 
   memoize \

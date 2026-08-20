@@ -59,40 +59,48 @@ RSpec.describe RedisOptions do
         context 'when DB_SUFFIX is _unit' do
           around { |spec| ClimateControl.modify(DB_SUFFIX: '_unit') { spec.run } }
 
-          it 'returns 9' do
-            expect(test_db_number).to eq(9)
+          it 'returns 10' do
+            expect(test_db_number).to eq(10)
           end
         end
 
         context 'when DB_SUFFIX is _api' do
           around { |spec| ClimateControl.modify(DB_SUFFIX: '_api') { spec.run } }
 
-          it 'returns 10' do
-            expect(test_db_number).to eq(10)
+          it 'returns 11' do
+            expect(test_db_number).to eq(11)
           end
         end
 
         context 'when DB_SUFFIX is _html' do
           around { |spec| ClimateControl.modify(DB_SUFFIX: '_html') { spec.run } }
 
-          it 'returns 11' do
-            expect(test_db_number).to eq(11)
+          it 'returns 12' do
+            expect(test_db_number).to eq(12)
           end
         end
 
         context 'when DB_SUFFIX is _feature_a' do
           around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature_a') { spec.run } }
 
-          it 'returns 12' do
-            expect(test_db_number).to eq(12)
+          it 'returns 13' do
+            expect(test_db_number).to eq(13)
+          end
+        end
+
+        context 'when DB_SUFFIX is _feature_b' do
+          around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature_b') { spec.run } }
+
+          it 'returns 14' do
+            expect(test_db_number).to eq(14)
           end
         end
 
         context 'when DB_SUFFIX is _feature_c' do
           around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature_c') { spec.run } }
 
-          it 'returns 13' do
-            expect(test_db_number).to eq(13)
+          it 'returns 15' do
+            expect(test_db_number).to eq(15)
           end
         end
 
@@ -144,11 +152,19 @@ RSpec.describe RedisOptions do
           end
         end
 
-        context 'when DB_SUFFIX is _feature_c' do
-          around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature_c') { spec.run } }
+        context 'when DB_SUFFIX is _feature_b' do
+          around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature_b') { spec.run } }
 
           it 'returns 8' do
             expect(test_db_number).to eq(8)
+          end
+        end
+
+        context 'when DB_SUFFIX is _feature_c' do
+          around { |spec| ClimateControl.modify(DB_SUFFIX: '_feature_c') { spec.run } }
+
+          it 'returns 9' do
+            expect(test_db_number).to eq(9)
           end
         end
 

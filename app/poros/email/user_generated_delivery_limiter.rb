@@ -142,7 +142,7 @@ class Email::UserGeneratedDeliveryLimiter
       *applicable_quotas.map { Integer(it.limit.period) },
     ]
 
-    $email_quota_redis_pool.with do |connection|
+    $redis_pool.with do |connection|
       connection.call(
         'EVAL',
         RESERVE_SCRIPT,
