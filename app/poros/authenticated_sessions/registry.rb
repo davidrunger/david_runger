@@ -130,16 +130,12 @@ module AuthenticatedSessions::Registry
       request:,
       initiated_by_authenticated_session: nil
     )
-      current_minute = Time.current.change(sec: 0, usec: 0)
-      authenticatable.authenticated_sessions.create!(
+      AuthenticatedSessions::Create.run!(
+        authenticatable:,
         authentication_kind:,
-        initial_ip: request.remote_ip,
-        latest_ip: request.remote_ip,
-        initial_user_agent: request.user_agent.to_s,
-        latest_user_agent: request.user_agent.to_s,
-        last_active_at: current_minute,
+        request:,
         initiated_by_authenticated_session:,
-      )
+      ).authenticated_session
     end
 
     def enroll_legacy!(authenticatable, warden, scope, request)

@@ -49,7 +49,7 @@
 ## Test design
 
 - Specs under `spec/controllers/api/` automatically receive `request_format: :json` through derived metadata in `spec/spec_helper.rb`. Do not repeat that metadata on individual API controller spec groups unless the spec intentionally needs different format behavior.
-- When a spec needs a fixture record related to another fixture, obtain it through the relevant association rather than looking up a separately named fixture. This keeps the relationship explicit and avoids relying on incidental fixture identities.
+- When a spec needs a fixture record related to another fixture, obtain it through the relevant association rather than looking up a separately named fixture. Apply this when the relationship is part of the setup or behavior under test; when the spec only needs a record of a particular type, use a directly named fixture instead. This keeps required relationships explicit without making unrelated setup depend on them.
 
 ## Database migrations
 

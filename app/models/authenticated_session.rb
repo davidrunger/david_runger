@@ -11,9 +11,11 @@
 #  initial_ip                            :string           not null
 #  initial_user_agent                    :text             not null
 #  initiated_by_authenticated_session_id :bigint
+#  isp                                   :string
 #  last_active_at                        :datetime         not null
 #  latest_ip                             :string           not null
 #  latest_user_agent                     :text             not null
+#  location                              :string
 #  revoked_at                            :datetime
 #  updated_at                            :datetime         not null
 #
@@ -60,6 +62,10 @@ class AuthenticatedSession < ApplicationRecord
     :last_active_at,
     presence: true
   validate :valid_impersonation_parent
+
+  def ip
+    initial_ip
+  end
 
   def active?
     revoked_at.nil?

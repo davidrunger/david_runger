@@ -81,6 +81,8 @@ RSpec.describe MyAccountController do
         satisfy { |record| record.authenticatable == user && record.active? },
       )
       expect(response.body).to have_text(visible_session.initial_ip)
+      expect(response.body).to have_text(visible_session.location)
+      expect(response.body).to have_text(visible_session.isp)
       expect(response.body).not_to have_text(visible_session.identifier)
       expect(response.body).not_to have_text(impersonation.initial_ip)
       expect(response.body).to match(/Last active:.*\d{1,2}:\d{2} [AP]M/m)

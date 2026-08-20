@@ -83,5 +83,28 @@ RSpec.describe FetchIpInfoForRecord do
         end
       end
     end
+
+    context 'when class_name is "AuthenticatedSession"' do
+      let(:class_name) { 'AuthenticatedSession' }
+      let(:authenticated_session) { authenticated_sessions(:user_authenticated_session) }
+      let(:record) { authenticated_session }
+
+      before { authenticated_session.update!(location: nil, isp: nil) }
+
+      context 'when IP address info is already cached', :cache do
+        before do
+          Rails.cache.write("ip-info:#{authenticated_session.initial_ip}", { location:, isp: })
+        end
+
+        it 'updates the AuthenticatedSession with the IP address info' do
+          expect {
+            perform
+          }.to change {
+            authenticated_session.reload.attributes.values_at(*%w[location isp])
+          }.from([nil, nil]).
+            to([location, isp])
+        end
+      end
+    end
   end
 end
