@@ -4,8 +4,13 @@ module SpecHelpers
   end
 
   def activate_feature!(feature_name)
+    @activated_features ||= []
+    @activated_features << feature_name if @activated_features.exclude?(feature_name)
+
     allow(Flipper).to receive(:enabled?).and_call_original
-    allow(Flipper).to receive(:enabled?).with(feature_name).and_return(true)
+    @activated_features.each do |activated_feature|
+      allow(Flipper).to receive(:enabled?).with(activated_feature).and_return(true)
+    end
   end
 
   def wait_until

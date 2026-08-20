@@ -11,9 +11,11 @@
 #  initial_ip                            :string           not null
 #  initial_user_agent                    :text             not null
 #  initiated_by_authenticated_session_id :bigint
+#  isp                                   :string
 #  last_active_at                        :datetime         not null
 #  latest_ip                             :string           not null
 #  latest_user_agent                     :text             not null
+#  location                              :string
 #  revoked_at                            :datetime
 #  updated_at                            :datetime         not null
 #
@@ -29,6 +31,10 @@ FactoryBot.define do
     authentication_kind { 'legacy' }
     initial_ip { Faker::Internet.ip_v4_address }
     latest_ip { initial_ip }
+    location do
+      "#{Faker::Address.city}, #{Faker::Address.state_abbr}, #{Faker::Address.country_code}"
+    end
+    isp { Faker::Company.name }
     initial_user_agent { 'Mozilla/5.0 Test Browser' }
     latest_user_agent { initial_user_agent }
     last_active_at { Time.current.change(sec: 0, usec: 0) }

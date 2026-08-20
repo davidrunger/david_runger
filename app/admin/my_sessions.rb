@@ -30,6 +30,8 @@ ActiveAdmin.register_page('My Sessions') do
       column('First seen', &:first_seen)
       column('Last active', &:last_active)
       column('Initial IP', &:initial_ip)
+      column :location
+      column :isp
       column('Latest IP', &:latest_ip)
       column('Initial client', &:initial_client)
       column('Latest client', &:latest_client)
