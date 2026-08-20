@@ -436,7 +436,7 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :inline_sidekiq) do |spec|
-    Sidekiq.testing!(:inline) do
+    SidekiqSpecHelpers.with_global_inline_sidekiq do
       spec.run
     end
   end
