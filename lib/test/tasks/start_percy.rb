@@ -5,15 +5,15 @@ class Test::Tasks::StartPercy < Pallets::Task
     if ENV['PERCY_TOKEN'].present?
       execute_detached_system_command('./node_modules/.bin/percy exec:start')
 
-      # Make up to 20 attempts to verify that Percy is running. (It tends to
+      # Use up to 23 seconds of sleep time to verify that Percy is running. (It tends to
       # take particularly long if there is a new Chromium version to download.)
-      num_attempts = 36
+      num_attempts = 35
       total_sleep_time = 0
 
       num_attempts.times do |index|
         sleep_time =
-          if total_sleep_time < 2
-            2
+          if total_sleep_time < 6
+            6
           else
             0.5
           end
