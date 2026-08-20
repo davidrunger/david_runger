@@ -150,6 +150,7 @@ jobs:
               name: feature_spec_artifacts
               path: |
                 log/failed_feature_specs/
+                tmp/failure_screenshots/
                 tmp/feature_specs_a.txt
                 tmp/feature_specs_b.txt
                 tmp/feature_specs_c.txt

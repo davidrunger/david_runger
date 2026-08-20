@@ -48,7 +48,13 @@ require 'capybara/cuprite'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/email/rspec'
-require 'capybara-screenshot/rspec' unless SpecHelper.use_headful_chrome?
+unless SpecHelper.use_headful_chrome?
+  require 'capybara-screenshot/rspec'
+
+  # Cache the screenshot path before download helpers replace Capybara.save_path.
+  Capybara.save_path = Rails.root.join('tmp/failure_screenshots')
+  Capybara::Screenshot.capybara_root
+end
 require 'mail'
 require 'percy/capybara'
 require 'super_diff/rspec-rails'
@@ -64,10 +70,7 @@ sidekiq_logger.formatter = Sidekiq::Logger::Formatters::WithoutTimestamp.new
 Sidekiq.default_configuration.logger = sidekiq_logger
 
 WebMock.enable!
-WebMock.disable_net_connect!(
-  allow_localhost: true,
-  allow: 'david-runger-test-uploads.s3.amazonaws.com', # upload feature test failure screenshots
-)
+WebMock.disable_net_connect!(allow_localhost: true)
 
 OmniAuth.config.test_mode = true
 
@@ -79,19 +82,6 @@ OmniAuth.config.test_mode = true
   Capybara::Screenshot.register_driver(driver_name) do |driver, path|
     Capybara::Screenshot.registered_drivers[:default].call(driver, path)
   end
-end
-
-if SpecHelper.is_ci?
-  Capybara::Screenshot.s3_configuration = {
-    s3_client_credentials: {
-      access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
-      secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
-      region: 'us-east-1',
-    },
-    bucket_name: 'david-runger-test-uploads',
-    bucket_host: 'david-runger-test-uploads.s3.amazonaws.com',
-    key_prefix: 'failure-screenshots/',
-  }
 end
 
 Cuprite::CustomDrivers.register_with_capybara
