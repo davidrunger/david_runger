@@ -9,6 +9,8 @@ class RedisOptions
     '_feature_b' => 8,
     '_feature_c' => 9,
   }.freeze
+  SIDEKIQ_REDIS_DATABASE_OFFSET = TEST_DB_NUMBERS_BY_SUFFIX.size
+  PALLETS_REDIS_DATABASE_NUMBER = TEST_DB_NUMBERS_BY_SUFFIX.values.min - 1
 
   def initialize(db: nil, sidekiq: false)
     @db =
@@ -41,7 +43,7 @@ class RedisOptions
     base_db_number =
       TEST_DB_NUMBERS_BY_SUFFIX.fetch(db_suffix) { raise('Unexpected DB_SUFFIX!') }
 
-    sidekiq ? base_db_number + TEST_DB_NUMBERS_BY_SUFFIX.size : base_db_number
+    sidekiq ? base_db_number + SIDEKIQ_REDIS_DATABASE_OFFSET : base_db_number
   end
 
   memoize \
