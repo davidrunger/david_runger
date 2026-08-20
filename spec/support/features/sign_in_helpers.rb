@@ -1,11 +1,45 @@
 module Features::SignInHelpers
+  SIGN_IN_TOKEN_HEADER = 'X-Capybara-Sign-In-Token'
+  SIGN_IN_TOKEN_ENV_KEY = 'HTTP_X_CAPYBARA_SIGN_IN_TOKEN'
+
+  class << self
+    def register_sign_in(resource:, scope:)
+      SecureRandom.uuid.tap do |token|
+        pending_sign_ins_mutex.synchronize do
+          pending_sign_ins[token] = { resource:, scope: }
+        end
+      end
+    end
+
+    def consume_sign_in(token)
+      return unless token
+
+      pending_sign_ins_mutex.synchronize { pending_sign_ins.delete(token) }
+    end
+
+    def reset!
+      pending_sign_ins_mutex.synchronize { pending_sign_ins.clear }
+    end
+
+    private
+
+    def pending_sign_ins
+      @pending_sign_ins ||= {}
+    end
+
+    def pending_sign_ins_mutex
+      @pending_sign_ins_mutex ||= Mutex.new
+    end
+  end
+
   def sign_in(resource, scope: nil)
     scope ||= Devise::Mapping.find_scope!(resource)
+    token = Features::SignInHelpers.register_sign_in(resource:, scope:)
 
-    Warden.on_next_request do |proxy|
-      proxy.env['HTTP_USER_AGENT'] = 'Feature spec browser' if proxy.env['HTTP_USER_AGENT'].blank?
-      proxy.env["authenticated_session.authentication_kind.#{scope}"] = 'legacy'
-      proxy.set_user(resource, scope:, event: :authentication)
+    if page.driver.respond_to?(:add_header)
+      page.driver.add_header(SIGN_IN_TOKEN_HEADER, token)
+    else
+      page.driver.header(SIGN_IN_TOKEN_HEADER, token)
     end
   end
 
@@ -22,4 +56,22 @@ module Features::SignInHelpers
       page.has_text?(user.email)
     end
   end
+end
+
+# `Warden.on_next_request` is process-global, so an Action Cable request from a different
+# Capybara session can consume a pending sign-in. Match the sign-in to a per-session header.
+Warden::Manager.on_request do |proxy|
+  sign_in = Features::SignInHelpers.consume_sign_in(
+    proxy.env[Features::SignInHelpers::SIGN_IN_TOKEN_ENV_KEY],
+  )
+  next unless sign_in
+
+  resource, scope = sign_in.values_at(:resource, :scope)
+  proxy.env['HTTP_USER_AGENT'] = 'Feature spec browser' if proxy.env['HTTP_USER_AGENT'].blank?
+  proxy.env["authenticated_session.authentication_kind.#{scope}"] = 'legacy'
+  proxy.set_user(resource, scope:, event: :authentication)
+end
+
+RSpec.configure do |config|
+  config.after(:each, type: :feature) { Features::SignInHelpers.reset! }
 end
