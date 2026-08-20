@@ -2,6 +2,7 @@ require_relative '../../config/initializers/monkeypatches/faraday.rb'
 require_relative 'middleware/exit_on_failure_middleware.rb'
 require_relative 'middleware/task_result_tracking_middleware.rb'
 require_relative 'runner.rb'
+require Rails.root.join('app/poros/redis_options.rb')
 
 Pallets.configure do |c|
   concurrency = Integer(ENV.fetch('PALLETS_CONCURRENCY'))
