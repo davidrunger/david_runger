@@ -11,7 +11,9 @@ module Refinements::ParsedMailBody
       unparsed_body.gsub!("\r\r\n", "\r\n")
       # trim content from the end of the body ("On [date/time] [person/email] wrote:[...]")
       trimmed_body = RungerEmailReplyTrimmer.trim(unparsed_body)
-      return nil if trimmed_body.nil?
+      if trimmed_body.nil?
+        return nil
+      end
 
       trimmed_body.rstrip.
         # remove newlines that were added just to break up long lines

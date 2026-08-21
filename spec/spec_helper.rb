@@ -19,7 +19,9 @@ if coverage_resultset_name
 end
 SimpleCov.start do
   Test::SimpleCovConfiguration.configure
-  enable_coverage(:branch) if !SpecHelper.is_ci? # Codecov doesn't respect `nocov-else` etc comments
+  if !SpecHelper.is_ci? # Codecov doesn't respect `nocov-else` etc comments
+    enable_coverage(:branch)
+  end
 end
 
 require File.expand_path('../config/environment', __dir__)
@@ -42,7 +44,9 @@ require 'webmock'
 require 'webmock/rspec'
 require 'pundit/rspec'
 # Prevent database truncation if the environment is production
-abort('The Rails environment is running in production mode!') if Rails.env.production?
+if Rails.env.production?
+  abort('The Rails environment is running in production mode!')
+end
 require 'rspec/rails'
 require 'capybara/cuprite'
 require 'capybara/rails'
@@ -231,7 +235,9 @@ RSpec.configure do |config|
             warmed = true
             puts("#{driver_name} Cuprite browser visited #{url} successfully.")
           ensure
-            session.quit if !warmed
+            if !warmed
+              session.quit
+            end
           end
         end
       rescue Ferrum::ProcessTimeoutError => error

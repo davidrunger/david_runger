@@ -6,7 +6,9 @@ ActiveAdmin.register_page('My Sessions') do
     current_session = authenticated_session.current_for?(session, :admin_user)
 
     authenticated_session.revoke!
-    sign_out(:admin_user) if current_session
+    if current_session
+      sign_out(:admin_user)
+    end
 
     flash[:notice] = 'Session logged out.'
     redirect_to(current_session ? new_admin_user_session_path : admin_my_sessions_path)

@@ -107,7 +107,9 @@ class DavidRunger::Application < Rails::Application
     app.middleware.move_after(Rack::Attack, Browser::Middleware)
   end
 
-  ENV['FIXTURES_PATH'] ||= 'spec/fixtures' if ENV.fetch('RAILS_ENV', nil) == 'test'
+  if ENV.fetch('RAILS_ENV', nil) == 'test'
+    ENV['FIXTURES_PATH'] ||= 'spec/fixtures'
+  end
 
   # Time until incoming mail incineration. Default is 30 days, but we don't need that long.
   config.action_mailbox.incinerate_after = 2.days

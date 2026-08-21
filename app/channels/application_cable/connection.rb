@@ -24,7 +24,9 @@ class ApplicationCable::Connection < ActionCable::Connection::Base
   end
 
   def valid_impersonation_parent?(authenticated_session)
-    return true unless authenticated_session.authentication_kind == 'admin_impersonation'
+    unless authenticated_session.authentication_kind == 'admin_impersonation'
+      return true
+    end
 
     parent = authenticated_session.initiated_by_authenticated_session
     parent&.active? && parent.identifier == request.session[

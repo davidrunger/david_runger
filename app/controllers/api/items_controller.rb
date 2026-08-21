@@ -43,6 +43,8 @@ class Api::ItemsController < Api::BaseController
   def set_item
     @item = policy_scope(Item).find_by(id: params['id'])
 
-    head(:not_found) if @item.nil?
+    if @item.nil?
+      head(:not_found)
+    end
   end
 end

@@ -17,7 +17,9 @@ class BackfillCheckinSubmissions
           end
         end
 
-        next unless decorated_check_in.all_ratings_scored_by_self?
+        unless decorated_check_in.all_ratings_scored_by_self?
+          next
+        end
 
         CheckInSubmission.create!(
           check_in:,

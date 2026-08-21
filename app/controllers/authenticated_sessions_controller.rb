@@ -8,7 +8,9 @@ class AuthenticatedSessionsController < ApplicationController
     current_session = authenticated_session.current_for?(session, :user)
 
     authenticated_session.revoke!
-    sign_out(:user) if current_session
+    if current_session
+      sign_out(:user)
+    end
 
     flash[:notice] = 'Session logged out.'
     redirect_to(current_session ? root_path : my_account_path)

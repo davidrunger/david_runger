@@ -14,7 +14,9 @@ class ContentSignature
           signing_payload(content:, object_key:),
         )
 
-      raise(InvalidSignatureError, "Invalid signature for #{object_key}.") unless valid_signature
+      unless valid_signature
+        raise(InvalidSignatureError, "Invalid signature for #{object_key}.")
+      end
     rescue ArgumentError
       raise(InvalidSignatureError, "Invalid signature encoding for #{object_key}.")
     end

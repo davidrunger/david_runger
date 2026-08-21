@@ -10,7 +10,9 @@ class Api::Items::BulkUpdatesController < Api::BaseController
   private
 
   def ensure_items_present
-    head(:no_content) if items.empty?
+    if items.empty?
+      head(:no_content)
+    end
   end
 
   def bulk_update_params

@@ -71,7 +71,9 @@ RSpec.describe 'Blog requests' do
       end
     ensure
       FileUtils.rm_f(sensitive_file)
-      FileUtils.rmdir(sibling_directory) if sibling_directory.exist?
+      if sibling_directory.exist?
+        FileUtils.rmdir(sibling_directory)
+      end
     end
 
     it 'rejects a canonical path in a sibling whose name starts with "blog"' do

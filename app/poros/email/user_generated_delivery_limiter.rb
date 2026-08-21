@@ -115,7 +115,9 @@ class Email::UserGeneratedDeliveryLimiter
 
   memoize \
   def applicable_quotas
-    return [build_quota(GLOBAL_LIMIT)] if global_only
+    if global_only
+      return [build_quota(GLOBAL_LIMIT)]
+    end
 
     [
       build_quota(GLOBAL_LIMIT),
@@ -162,8 +164,9 @@ class Email::UserGeneratedDeliveryLimiter
     log_denial(quota:, attempted_count:, retry_after:)
     if limit_reached_alerted
       report_limit_reached(quota:, attempted_count:, retry_after:)
-      report_opened_circuit_breaker(quota:, attempted_count:, retry_after:) if
-        quota.limit == GLOBAL_LIMIT
+      if quota.limit == GLOBAL_LIMIT
+        report_opened_circuit_breaker(quota:, attempted_count:, retry_after:)
+      end
     end
 
     Result.new(

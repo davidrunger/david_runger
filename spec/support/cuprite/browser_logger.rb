@@ -87,7 +87,9 @@ class Cuprite::BrowserLogger
   end
 
   def log_entry(entry)
-    return if blocked_public_upload_request?(entry) || ignored_browser_log_entry?(entry)
+    if blocked_public_upload_request?(entry) || ignored_browser_log_entry?(entry)
+      return
+    end
 
     message = entry.fetch('text')
 

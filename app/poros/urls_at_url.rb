@@ -9,7 +9,9 @@ class UrlsAtUrl
   def urls
     links.filter_map do |link|
       href = link.attr('href')
-      href if url?(href)
+      if url?(href)
+        href
+      end
     end.uniq.sort
   end
 

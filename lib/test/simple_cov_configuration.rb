@@ -1,4 +1,6 @@
-module Test ; end unless defined?(Test)
+unless defined?(Test)
+  module Test ; end
+end
 
 module Test::SimpleCovConfiguration
   def self.configure

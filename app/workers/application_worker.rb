@@ -47,7 +47,9 @@ module ApplicationWorker
       begin
         yield
       ensure
-        remove_lock(args) if unique_while_executing?
+        if unique_while_executing?
+          remove_lock(args)
+        end
       end
     else
       reschedule(args)

@@ -26,7 +26,9 @@ module JsonBroadcastable
 
   def broadcast_json_to(channel, channel_target_proc, action)
     channel_target = channel_target_proc.call(self)
-    return if channel_target.blank?
+    if channel_target.blank?
+      return
+    end
 
     channel.broadcast_to(
       channel_target,

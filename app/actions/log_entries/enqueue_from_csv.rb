@@ -52,7 +52,9 @@ class LogEntries::EnqueueFromCsv < ApplicationAction
       log.log_entries.reset
     end
 
-    job_arguments if all_log_entries_valid
+    if all_log_entries_valid
+      job_arguments
+    end
   end
 
   def build_log_entry(row)

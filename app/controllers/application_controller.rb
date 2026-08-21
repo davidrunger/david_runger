@@ -108,7 +108,9 @@ class ApplicationController < ActionController::Base
     controller = params[:controller]
 
     # ActiveAdmin supports an "Authorization Adapter" that can be implemented separately; skip here.
-    return true if controller.match?(%r{\Aactive_admin/|admin/})
+    if controller.match?(%r{\Aactive_admin/|admin/})
+      return true
+    end
 
     # All users are allowed to sign out; we don't need to check a pundit policy.
     # We can't add `skip_authorization` to the controller because the controller is in `devise`.
@@ -119,12 +121,18 @@ class ApplicationController < ActionController::Base
   def append_info_to_payload(payload)
     super
     payload[:ip] = request.remote_ip
-    payload[:admin_user_id] = current_admin_user.id if current_admin_user.present?
-    payload[:user_id] = current_user.id if current_user.present?
+    if current_admin_user.present?
+      payload[:admin_user_id] = current_admin_user.id
+    end
+    if current_user.present?
+      payload[:user_id] = current_user.id
+    end
   end
 
   def authenticate_user!
-    return if skip_authorization? || user_signed_in? || auth_token_user.present?
+    if skip_authorization? || user_signed_in? || auth_token_user.present?
+      return
+    end
 
     if request.format.json?
       render_json_error('Your request was not authenticated', 401)
@@ -136,7 +144,9 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    return if admin_user_signed_in?
+    if admin_user_signed_in?
+      return
+    end
 
     flash[:alert] = 'You must sign in as an admin user first.'
     session['admin_user_return_to'] = request.path

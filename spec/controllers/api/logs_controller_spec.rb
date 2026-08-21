@@ -50,7 +50,9 @@ RSpec.describe Api::LogsController do
         checked_log_line_expectations = false
         expect(Rails.logger).to have_received(:info) do |logged_string|
           # ignore an expected log line that we aren't interested in
-          break if logged_string.include?('path=/api/logs method=POST')
+          if logged_string.include?('path=/api/logs method=POST')
+            break
+          end
 
           # make sure that we get here at some point
           checked_log_line_expectations = true

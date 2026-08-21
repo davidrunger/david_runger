@@ -77,7 +77,9 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
   def readable_file_size_violations
     file_size_violations.map do |file_name, actual_size|
       constraint = CONSTRAINTS[file_name]
-      next if constraint.nil?
+      if constraint.nil?
+        next
+      end
 
       <<~LOG.squish
         `#{file_name}` is supposed to be #{constraint.first}-#{constraint.last} kB,

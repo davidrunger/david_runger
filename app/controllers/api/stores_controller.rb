@@ -53,7 +53,9 @@ class Api::StoresController < Api::BaseController
 
   def set_store
     @store = current_user.stores.find_by(id: params['id'])
-    head(:not_found) if @store.nil?
+    if @store.nil?
+      head(:not_found)
+    end
   end
 
   def store_params
