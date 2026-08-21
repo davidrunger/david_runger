@@ -74,7 +74,10 @@ watch(showingLogSelectorModal, () => {
 });
 
 function selectHighlightedLog() {
-  selectLog(highlightedSearchable.value);
+  const log = highlightedSearchable.value;
+  if (!log) return;
+
+  selectLog(log);
 }
 
 function selectLog(log: Log) {

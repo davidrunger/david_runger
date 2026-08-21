@@ -40,7 +40,7 @@ export function useFuzzyTypeahead<T extends object>({
     highlightedIndex.value = 0;
   });
 
-  const highlightedSearchable = computed<T>(() => {
+  const highlightedSearchable = computed<T | undefined>(() => {
     return topRankedMatches.value[highlightedIndex.value];
   });
 
