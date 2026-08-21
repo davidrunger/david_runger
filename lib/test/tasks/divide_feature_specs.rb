@@ -33,6 +33,10 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
     files = Dir.glob('spec/features/**/*_spec.rb')
 
     if non_main_ci?
+      puts(
+        'Skipping slow, low-value feature specs on non-main CI: ' \
+        "#{FEATURE_SPECS_TO_SKIP_ON_NON_MAIN_CI.join(', ')}.",
+      )
       files.reject { it.in?(FEATURE_SPECS_TO_SKIP_ON_NON_MAIN_CI) }
     else
       files
