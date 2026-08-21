@@ -112,9 +112,6 @@ class DavidRunger::Application < Rails::Application
   # Time until incoming mail incineration. Default is 30 days, but we don't need that long.
   config.action_mailbox.incinerate_after = 2.days
 
-  # https://github.com/hotwired/turbo-rails/blob/9d53529/README.md#compatibility-with-rails-ujs
-  config.action_view.form_with_generates_remote_forms = false
-
   config.action_controller.wrap_parameters_by_default = false
 
   # The log size limit causes tailing a log file to stop working when the limit

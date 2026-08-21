@@ -27,37 +27,7 @@ class QuizQuestionAnswerSelection < ApplicationRecord
   validate :answer_must_belong_to_question
   validate :answer_must_belong_to_participation_quiz
 
-  def select_answer!(new_answer)
-    participation.quiz.with_lock do
-      current_question = participation.quiz.current_question
-
-      unless answer_is_available?(current_question, new_answer)
-        answer_not_available!
-      end
-
-      current_question.with_lock do
-        answer_not_available! unless current_question.open?
-
-        self.answer = new_answer
-        self.question = new_answer.question
-        save!
-      end
-    end
-  end
-
   private
-
-  def answer_is_available?(current_question, new_answer)
-    participation.quiz.active? &&
-      current_question.present? &&
-      new_answer.question_id == current_question.id &&
-      (new_record? || question_id == current_question.id)
-  end
-
-  def answer_not_available!
-    errors.add(:answer, 'is not available for selection')
-    raise(ActiveRecord::RecordInvalid, self)
-  end
 
   def answer_must_belong_to_question
     return if answer.blank? || question.blank?

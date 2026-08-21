@@ -1,8 +1,0 @@
-%h3 Final results
-= render partial: 'quiz/leaderboard', locals: { quiz: @quiz }
-
-%hr.my-8
-
-%h3 Questions
-- @quiz.questions.includes(answers: :answering_participations).each do |quiz_question|
-  .p-2= render partial: 'quiz_questions/closed', locals: { question: quiz_question }

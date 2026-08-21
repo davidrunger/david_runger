@@ -17,12 +17,6 @@ importers:
       '@davidrunger/vue-model-explorer':
         specifier: ^0.3.3
         version: 0.3.3(vue@3.5.41(typescript@6.0.3))
-      '@hotwired/turbo':
-        specifier: ^8.0.23
-        version: 8.0.23
-      '@hotwired/turbo-rails':
-        specifier: ^8.0.23
-        version: 8.0.23
       '@rails/actioncable':
         specifier: ^8.1.301
         version: 8.1.301
@@ -480,13 +474,6 @@ packages:
     resolution: {integrity: sha512-wtF6h+DY6M3YaDBPAmvuuA6jV8Sif9MjtOI5euKFWRgCDl5PeDpPsHR9u2l6St5ceY8AZgoNDww5+HvEsXFsGg==}
     engines: {node: '>=6'}
     hasBin: true
-
-  '@hotwired/turbo-rails@8.0.23':
-    resolution: {integrity: sha512-iBILwda3qmQC7FYM70+4s6kEQ7Fx9dJ6+yGxjPyrz9a5JDx1+y7OAA5TA7GGVOZJoicMLrKGdFDNorl40X35lw==}
-
-  '@hotwired/turbo@8.0.23':
-    resolution: {integrity: sha512-GZ7cijxEZ6Ig71u7rD6LHaRv/wcE/hNsc+nEfiWOkLNqUgLOwo5MNGWOy5ZV9ZUDSiQx1no7YxjTNnT4O6//cQ==}
-    engines: {node: '>= 18'}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -4661,13 +4648,6 @@ snapshots:
       long: 5.3.2
       protobufjs: 7.6.5
       yargs: 17.7.3
-
-  '@hotwired/turbo-rails@8.0.23':
-    dependencies:
-      '@hotwired/turbo': 8.0.23
-      '@rails/actioncable': 8.1.301
-
-  '@hotwired/turbo@8.0.23': {}
 
   '@humanfs/core@0.19.2':
     dependencies:
