@@ -39,7 +39,9 @@ if defined?(RSpec::Wait::Handler) && defined?(Prosopite)
           end
       rescue RSpec::Expectations::ExpectationNotMetError
         if RSpec.world.wants_to_quit
+          # simplecov:disable
           raise
+          # simplecov:enable
         end
 
         elapsed_time = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start_time

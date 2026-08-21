@@ -70,4 +70,30 @@ RSpec.describe QuizQuestionAnswerSelection do
       expect(selection.errors[:answer]).to include('must belong to the selected question')
     end
   end
+
+  context 'when the answer is missing' do
+    let(:participation) { QuizParticipation.first! }
+    let(:question) { participation.quiz.questions.first! }
+    let(:selection) do
+      build(:quiz_question_answer_selection, answer: nil, participation:, question:)
+    end
+
+    it 'does not add a question-mismatch error' do
+      expect(selection).not_to be_valid
+      expect(selection.errors[:answer]).not_to include('must belong to the selected question')
+    end
+  end
+
+  context 'when the participation is missing' do
+    let(:question) { QuizQuestion.first! }
+    let(:answer) { question.answers.first! }
+    let(:selection) do
+      build(:quiz_question_answer_selection, answer:, participation: nil, question:)
+    end
+
+    it 'does not add a quiz-mismatch error' do
+      expect(selection).not_to be_valid
+      expect(selection.errors[:answer]).not_to include("must belong to the participation's quiz")
+    end
+  end
 end

@@ -79,5 +79,23 @@ RSpec.describe SitemapCrawler do
         to eq(['https://davidrunger.com/at-depth-limit'])
       expect(a_request(:get, too_deep_sitemap_url)).not_to have_been_made
     end
+
+    it 'does not fetch more than the maximum number of sitemaps' do
+      visited_sitemap_urls = Set.new(
+        Array.new(SitemapCrawler::MAX_SITEMAPS) do |index|
+          "https://davidrunger.com/visited-#{index}.xml"
+        end,
+      )
+
+      expect(
+        described_class.new(sitemap_url).send(
+          :urls_from_sitemap_url,
+          'https://davidrunger.com/not-fetched.xml',
+          visited_sitemap_urls:,
+          depth: 0,
+        ),
+      ).to eq([])
+      expect(a_request(:get, 'https://davidrunger.com/not-fetched.xml')).not_to have_been_made
+    end
   end
 end

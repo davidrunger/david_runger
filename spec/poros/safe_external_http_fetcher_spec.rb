@@ -101,6 +101,17 @@ RSpec.describe SafeExternalHttpFetcher do
       end
     end
 
+    context 'when the hostname resolves to no addresses' do
+      it 'raises an unsafe URL error without making a request' do
+        expect { get }.
+          to raise_error(
+            described_class::UnsafeUrlError,
+            'Could not resolve external hostname: public.example.test',
+          )
+        expect(a_request(:get, url)).not_to have_been_made
+      end
+    end
+
     context 'when resolution returns an unsupported address family' do
       let(:resolved_addresses) { ['8.8.8.8'] }
       let(:unsupported_address) do

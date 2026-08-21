@@ -30,6 +30,10 @@ RSpec.describe AuthenticatedSession do
   end
 
   describe '#belongs_to_authenticatable?' do
+    it 'does not match a missing account' do
+      expect(authenticated_session.belongs_to_authenticatable?(nil)).to be(false)
+    end
+
     it 'matches the owning account without loading the association' do
       other_user = User.excluding(user).first!
       admin_user = admin_users(:admin_user)
