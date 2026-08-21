@@ -45,7 +45,9 @@ class TruncateTables
 
     min_surviving_timestamp_based_on_count =
       execute_sql(min_surviving_timestamp_sql).to_a.last&.dig(timestamp)
-    return if min_surviving_timestamp_based_on_count.nil?
+    if min_surviving_timestamp_based_on_count.nil?
+      return
+    end
 
     min_surviving_timestamp =
       [min_surviving_timestamp_based_on_count, min_surviving_timestamp].max

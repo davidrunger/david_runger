@@ -4,7 +4,9 @@ module CustomCops
 
     def on_send(node)
       # Only examine calls to within_transaction.
-      return unless node.method_name == :within_transaction
+      unless node.method_name == :within_transaction
+        return
+      end
 
       # Check each argument; if it's a hash, inspect its pairs.
       node.arguments.each do |arg|

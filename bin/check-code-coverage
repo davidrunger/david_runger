@@ -3,7 +3,9 @@
 require 'rexml/document'
 
 coverage_report_path = ARGV.fetch(0, 'tmp/simple_cov/coverage.xml')
-abort("Coverage report not found at #{coverage_report_path}.") if !File.file?(coverage_report_path)
+if !File.file?(coverage_report_path)
+  abort("Coverage report not found at #{coverage_report_path}.")
+end
 
 coverage = REXML::Document.new(File.read(coverage_report_path)).root
 covered_lines = Integer(coverage.attributes.fetch('lines-covered').to_s)
@@ -14,7 +16,9 @@ if covered_lines != valid_lines
 
   coverage.each_element('packages/package/classes/class') do |coverage_class|
     coverage_class.each_element('lines/line') do |line|
-      next if Integer(line.attributes.fetch('hits').to_s) != 0
+      if Integer(line.attributes.fetch('hits').to_s) != 0
+        next
+      end
 
       uncovered_lines << [
         coverage_class.attributes.fetch('filename').to_s,

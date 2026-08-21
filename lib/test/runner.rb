@@ -30,7 +30,9 @@ class Test::Runner < Pallets::Workflow
       if Test::RequirementsResolver.verify?
         confirm_config
       else
-        system('clear') if ENV['TERM']
+        if ENV['TERM']
+          system('clear')
+        end
         register_tasks_and_run
       end
     end
@@ -41,7 +43,9 @@ class Test::Runner < Pallets::Workflow
     end
 
     def print_config
-      system('clear') if ENV['TERM']
+      if ENV['TERM']
+        system('clear')
+      end
 
       ap('Running these tasks:')
       ap(required_tasks.map(&:name).map { it.gsub('Test::Tasks::', '') }.sort)
@@ -81,7 +85,9 @@ class Test::Runner < Pallets::Workflow
         loop do
           # Loop until the user hits enter (which will make `$stdin.wait_readable(0)` true).
           sleep(0.1)
-          next if !$stdin.wait_readable(0)
+          if !$stdin.wait_readable(0)
+            next
+          end
 
           # take these actions once the user has hit enter (confirming that the setup looks good)
           @listener.stop # stop listening for further changes to `.tests.yml`

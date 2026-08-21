@@ -29,12 +29,16 @@ class Rack::Attack
 
   PUBLIC_TELEMETRY_ENDPOINTS.each do |endpoint, path_regex|
     throttle("#{endpoint}/ip", limit: PUBLIC_TELEMETRY_REQUEST_LIMIT, period: 1.minute) do |request|
-      request.ip if request.post? && request.path.match?(path_regex)
+      if request.post? && request.path.match?(path_regex)
+        request.ip
+      end
     end
   end
 
   throttle('logs/uploads/global', limit: LOG_CSV_UPLOAD_REQUEST_LIMIT, period: 1.hour) do |request|
-    'all' if request.post? && request.path.match?(LOG_CSV_UPLOAD_ENDPOINT)
+    if request.post? && request.path.match?(LOG_CSV_UPLOAD_ENDPOINT)
+      'all'
+    end
   end
 
   class << self
@@ -54,8 +58,12 @@ class Rack::Attack
 
     def blocked_path?(request)
       fullpath = request.fullpath
-      return true if fullpath.include?("\u0000")
-      return false if WHITELISTED_PATH_PREFIXES.any? { fullpath.start_with?(it) }
+      if fullpath.include?("\u0000")
+        return true
+      end
+      if WHITELISTED_PATH_PREFIXES.any? { fullpath.start_with?(it) }
+        return false
+      end
 
       fragments(fullpath).any? do |fragment|
         fragment.downcase.in?(Rack::Attack.banned_path_fragments)
@@ -111,7 +119,9 @@ end
 # https://github.com/rack/rack-attack#logging--instrumentation
 ActiveSupport::Notifications.
   subscribe(/rack_attack/) do |name, _start, _finish, _request_id, payload|
-    next if payload.keys == [:discriminator] # from InstrumentFail2BanEventMonkeypatch
+    if payload.keys == [:discriminator] # from InstrumentFail2BanEventMonkeypatch
+      next
+    end
 
     request = payload[:request]
     match_data = request.env.fetch('rack.attack.match_data', {})

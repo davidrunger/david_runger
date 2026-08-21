@@ -5,7 +5,9 @@ Bundler.setup(:default, :test)
 
 require 'addressable'
 require 'aws-sdk-s3'
-require 'dotenv/load' if ENV.fetch('CI', nil) != 'true'
+if ENV.fetch('CI', nil) != 'true'
+  require 'dotenv/load'
+end
 require 'ferrum'
 require 'nokogiri'
 
@@ -53,7 +55,9 @@ class Prerenderer
 
     # Give Chrome some time to parse the JavaScript and render the page content.
     15.times do
-      return if @browser.body.include?(expected_text)
+      if @browser.body.include?(expected_text)
+        return
+      end
 
       sleep(0.2)
     end
@@ -63,7 +67,9 @@ class Prerenderer
 
   def upload_prerender_to_s3(filename:, body:)
     git_sha = `git rev-parse HEAD`.strip
-    raise('Could not determine git SHA!') if git_sha.empty?
+    if git_sha.empty?
+      raise('Could not determine git SHA!')
+    end
 
     object_key = "prerenders/#{git_sha}/#{filename}"
 

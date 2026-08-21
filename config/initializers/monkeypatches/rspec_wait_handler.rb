@@ -38,10 +38,16 @@ if defined?(RSpec::Wait::Handler) && defined?(Prosopite)
             )
           end
       rescue RSpec::Expectations::ExpectationNotMetError
-        raise if RSpec.world.wants_to_quit
+        if RSpec.world.wants_to_quit
+          # simplecov:disable
+          raise
+          # simplecov:enable
+        end
 
         elapsed_time = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start_time
-        raise if elapsed_time > RSpec.configuration.wait_timeout
+        if elapsed_time > RSpec.configuration.wait_timeout
+          raise
+        end
 
         sleep(RSpec.configuration.wait_delay)
         retry

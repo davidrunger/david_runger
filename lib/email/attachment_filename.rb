@@ -6,7 +6,9 @@ class Email::AttachmentFilename
       basename = File.basename(utf8_filename(filename).delete("\0").tr('\\', '/'))
       sanitized_basename = ActiveStorage::Filename.new(basename).sanitized.gsub(/[[:cntrl:]]/, '-')
 
-      return FALLBACK if sanitized_basename.blank? || sanitized_basename.in?(['.', '..'])
+      if sanitized_basename.blank? || sanitized_basename.in?(['.', '..'])
+        return FALLBACK
+      end
 
       sanitized_basename
     end

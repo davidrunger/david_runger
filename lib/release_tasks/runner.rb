@@ -15,7 +15,9 @@ class ReleaseTasks::Runner
       break
     rescue => error
       pp(error)
-      raise if attempt_number == attempts
+      if attempt_number == attempts
+        raise
+      end
 
       rake_task.reenable
       sleep(attempt_number)

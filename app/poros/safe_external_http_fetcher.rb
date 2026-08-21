@@ -76,7 +76,9 @@ class SafeExternalHttpFetcher
 
   def resolved_address(hostname)
     addresses = Resolv.getaddresses(hostname).map { IPAddr.new(it) }
-    raise(UnsafeUrlError, "Could not resolve external hostname: #{hostname}") if addresses.empty?
+    if addresses.empty?
+      raise(UnsafeUrlError, "Could not resolve external hostname: #{hostname}")
+    end
 
     if addresses.any? { prohibited_address?(it) }
       raise(UnsafeUrlError, "Prohibited external address for #{hostname}")

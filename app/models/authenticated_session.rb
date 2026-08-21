@@ -76,14 +76,18 @@ class AuthenticatedSession < ApplicationRecord
   end
 
   def belongs_to_authenticatable?(candidate)
-    return false unless candidate
+    unless candidate
+      return false
+    end
 
     authenticatable_type == candidate.class.polymorphic_name && authenticatable_id == candidate.id
   end
 
   def record_activity!(request)
     current_minute = Time.current.change(sec: 0, usec: 0)
-    return if last_active_at >= current_minute
+    if last_active_at >= current_minute
+      return
+    end
 
     self.class.
       where(id:).
@@ -109,13 +113,17 @@ class AuthenticatedSession < ApplicationRecord
       end
       initiated_authenticated_sessions.active.find_each(&:revoke!)
     end
-    disconnect_action_cable! if newly_revoked
+    if newly_revoked
+      disconnect_action_cable!
+    end
   end
 
   private
 
   def disconnect_action_cable!
-    return unless authenticatable_type == 'User'
+    unless authenticatable_type == 'User'
+      return
+    end
 
     ActionCable.server.remote_connections.
       where(

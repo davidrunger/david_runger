@@ -27,7 +27,9 @@ module Test::TaskHelpers
         (exited with #{exit_code}, took #{time.round(3)}).
       LOG
     else
-      Test::Runner.exit_code = exit_code if Test::Runner.exit_code == 0
+      if Test::Runner.exit_code == 0
+        Test::Runner.exit_code = exit_code
+      end
       record_failed_command(command)
       puts(AmazingPrint::Colors.red(<<~LOG.squish))
         '#{AmazingPrint::Colors.red(command)}' with ENV vars
@@ -75,7 +77,9 @@ module Test::TaskHelpers
         (exited with #{exit_code}, took #{time.round(3)}).
       LOG
     else
-      Test::Runner.exit_code = exit_code if Test::Runner.exit_code == 0
+      if Test::Runner.exit_code == 0
+        Test::Runner.exit_code = exit_code
+      end
       record_failed_tests(stdout)
       puts(AmazingPrint::Colors.red(<<~LOG.squish))
         '#{AmazingPrint::Colors.red(command)}' with ENV vars #{AmazingPrint::Colors.red(env_vars.to_s)} failed
@@ -123,7 +127,9 @@ module Test::TaskHelpers
   def record_failure_and_log_message(message)
     update_job_result_exit_code(1)
     puts(AmazingPrint::Colors.red(message))
-    Test::Runner.exit_code = 1 if Test::Runner.exit_code == 0
+    if Test::Runner.exit_code == 0
+      Test::Runner.exit_code = 1
+    end
   end
 
   def update_job_result_exit_code(exit_code)

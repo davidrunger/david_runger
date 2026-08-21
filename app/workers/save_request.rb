@@ -18,7 +18,9 @@ class SaveRequest
     @request_id = request_id
     @stashed_data_manager = SaveRequest::StashedDataManager.new(@request_id)
 
-    return if Request.exists?(request_id: @request_id)
+    if Request.exists?(request_id: @request_id)
+      return
+    end
 
     if can_save_request?
       if ban_reasons.present?
@@ -71,8 +73,12 @@ class SaveRequest
 
   def unexpected_reasons_not_to_save_request
     [
-      ('Initial stashed JSON for request logging was blank' if initial_stashed_json.blank?),
-      ('Final stashed JSON for request logging was blank' if final_stashed_json.blank?),
+      (if initial_stashed_json.blank?
+         'Initial stashed JSON for request logging was blank'
+       end),
+      (if final_stashed_json.blank?
+         'Final stashed JSON for request logging was blank'
+       end),
     ].compact
   end
 

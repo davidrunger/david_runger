@@ -69,8 +69,12 @@ class Proposals::Accept < ApplicationAction
     proposer_marriage:,
     proposee_marriage:
   )
-    return 'This proposal has already been accepted.' if proposal.accepted_at.present?
-    return 'This proposal has been canceled.' if proposal.canceled_at.present?
+    if proposal.accepted_at.present?
+      return 'This proposal has already been accepted.'
+    end
+    if proposal.canceled_at.present?
+      return 'This proposal has been canceled.'
+    end
 
     if !proposal.proposee_email.casecmp?(locked_proposee.email)
       return 'This proposal was sent to a different email address.'
@@ -97,7 +101,9 @@ class Proposals::Accept < ApplicationAction
       proposer_marriage || Marriages::Create.run!(proposer: locked_proposer).marriage
 
     if proposee_marriage != target_marriage
-      destroy_marriage!(proposee_marriage) if proposee_marriage
+      if proposee_marriage
+        destroy_marriage!(proposee_marriage)
+      end
       target_marriage.partners << locked_proposee
     end
 

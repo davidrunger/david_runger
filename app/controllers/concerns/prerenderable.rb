@@ -34,7 +34,9 @@ module Prerenderable
   private
 
   def prerendered_html(filename)
-    return nil if Flipper.enabled?(:disable_prerendering)
+    if Flipper.enabled?(:disable_prerendering)
+      return nil
+    end
 
     git_rev = ENV.fetch('GIT_REV')
 

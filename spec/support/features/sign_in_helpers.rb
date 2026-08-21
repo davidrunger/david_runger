@@ -12,7 +12,9 @@ module Features::SignInHelpers
     end
 
     def consume_sign_in(token)
-      return unless token
+      unless token
+        return
+      end
 
       pending_sign_ins_mutex.synchronize { pending_sign_ins.delete(token) }
     end
@@ -64,10 +66,14 @@ Warden::Manager.on_request do |proxy|
   sign_in = Features::SignInHelpers.consume_sign_in(
     proxy.env[Features::SignInHelpers::SIGN_IN_TOKEN_ENV_KEY],
   )
-  next unless sign_in
+  unless sign_in
+    next
+  end
 
   resource, scope = sign_in.values_at(:resource, :scope)
-  proxy.env['HTTP_USER_AGENT'] = 'Feature spec browser' if proxy.env['HTTP_USER_AGENT'].blank?
+  if proxy.env['HTTP_USER_AGENT'].blank?
+    proxy.env['HTTP_USER_AGENT'] = 'Feature spec browser'
+  end
   proxy.env["authenticated_session.authentication_kind.#{scope}"] = 'legacy'
   proxy.set_user(resource, scope:, event: :authentication)
 end

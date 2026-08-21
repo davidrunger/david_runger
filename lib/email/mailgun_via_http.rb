@@ -73,7 +73,9 @@ module Email
     def safe_to_value(mail)
       mail_to = mail['To']
       to_string = mail_to.to_s
-      return to_string if !Rails.env.development?
+      if !Rails.env.development?
+        return to_string
+      end
 
       recipients = mail_to.field.addresses
       if Set[*recipients].subset?(DEVELOPER_EMAILS)

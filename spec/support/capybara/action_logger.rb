@@ -29,7 +29,9 @@ module Capybara::ActionLogger
   end
 
   def capybara_log_key(key)
-    return "#{key.name}:" if key.is_a?(Symbol) && key.name.match?(/\A[A-Za-z_]\w*[!?=]?\z/)
+    if key.is_a?(Symbol) && key.name.match?(/\A[A-Za-z_]\w*[!?=]?\z/)
+      return "#{key.name}:"
+    end
 
     "#{capybara_log_value(key)} =>"
   end

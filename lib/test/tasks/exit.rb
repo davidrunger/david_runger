@@ -124,9 +124,13 @@ class Test::Tasks::Exit < Pallets::Task
     printed_header = false
     sorted_job_results.each do |task_name, result_hash|
       failed_commands = Array(result_hash[:failed_commands])
-      next if failed_commands.empty?
+      if failed_commands.empty?
+        next
+      end
 
-      puts("\n=== #{AmazingPrint::Colors.red('Failed commands')} ===") if !printed_header
+      if !printed_header
+        puts("\n=== #{AmazingPrint::Colors.red('Failed commands')} ===")
+      end
       printed_header = true
 
       failed_commands.each do |failed_command|
@@ -140,7 +144,9 @@ class Test::Tasks::Exit < Pallets::Task
 
   def tasks_with_failed_commands
     job_results.filter_map do |task_name, result_hash|
-      task_name if result_hash.key?(:failed_commands)
+      if result_hash.key?(:failed_commands)
+        task_name
+      end
     end
   end
 

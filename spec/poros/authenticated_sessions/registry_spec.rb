@@ -149,6 +149,17 @@ RSpec.describe AuthenticatedSessions::Registry do
       expect(warden).to have_received(:logout).with(:user)
     end
 
+    it 'does not reject when another scope is authenticated without a session identifier' do
+      rack_session[session_key(:user)] = SecureRandom.urlsafe_base64(32)
+      allow(warden).to receive(:user).
+        with(scope: :admin_user, run_callbacks: false).
+        and_return(admin_user)
+
+      expect { enforce(user, scope: :user, event: :fetch) }.
+        not_to throw_symbol(:warden)
+      expect(warden).to have_received(:logout).with(:user)
+    end
+
     it 'rejects a revoked identified session without reenrolling it' do
       authenticated_session = create(
         :authenticated_session,

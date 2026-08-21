@@ -67,7 +67,9 @@ if worker_count > 0
   # are forked to prevent connection leakage.
   #
   before_fork do
-    ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
+    if defined?(ActiveRecord)
+      ActiveRecord::Base.connection_pool.disconnect!
+    end
   end
 
   # The code in the `before_worker_boot` will be called if you are using
@@ -78,6 +80,8 @@ if worker_count > 0
   # cannot share connections between processes.
   #
   before_worker_boot do
-    ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+    if defined?(ActiveRecord)
+      ActiveRecord::Base.establish_connection
+    end
   end
 end

@@ -58,6 +58,15 @@ RSpec.describe Api::CspReportsController do
       end
     end
 
+    context 'when the document URI is not an HTTP URL' do
+      before { params['csp-report']['document-uri'] = 'ftp://test.host/report' }
+
+      it 'returns 422 without creating a CSP report' do
+        expect { post_create }.not_to change { CspReport.count }
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+    end
+
     context 'when the CSP report root object is missing' do
       let(:params) { { 'other-report' => {} } }
 

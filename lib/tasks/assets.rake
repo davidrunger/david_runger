@@ -91,7 +91,9 @@ Rake::Task['assets:precompile'].enhance(%w[build_js_routes]) do
   end
 
   git_sha = ENV.fetch('GIT_REV')
-  raise('Could not determine git SHA!') if git_sha.empty?
+  if git_sha.empty?
+    raise('Could not determine git SHA!')
+  end
 
   def download_s3_zips(git_sha)
     download_s3_zip(git_sha, 'vite')

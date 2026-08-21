@@ -22,9 +22,13 @@ module JsonSchemasToTypescript
 
   class << self
     def initialize_listener(app)
-      return if @initialized
+      if @initialized
+        return
+      end
       # NOTE: We don't want to regenerate the files each time we run specs, for example.
-      return if !defined?(Rails::Server)
+      if !defined?(Rails::Server)
+        return
+      end
 
       @initialized = true
 

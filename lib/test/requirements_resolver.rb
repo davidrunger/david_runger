@@ -155,7 +155,9 @@ class Test::RequirementsResolver
         end
 
         forces.each do |force|
-          next if force == Test::Tasks::Exit # don't allow Exit to be a dependency of itself
+          if force == Test::Tasks::Exit # don't allow Exit to be a dependency of itself
+            next
+          end
 
           if !force.in?(base_dependency_map[Test::Tasks::Exit])
             base_dependency_map[Test::Tasks::Exit] << force
@@ -341,12 +343,20 @@ class Test::RequirementsResolver
   private
 
   def can_skip?(task)
-    return false if self.class.run_all?
+    if self.class.run_all?
+      return false
+    end
 
     if !self.class.run_defaults?
-      return false if self.class.forces.include?(task)
-      return true if self.class.skips.include?(task)
-      return false if self.class.targets.include?(task)
+      if self.class.forces.include?(task)
+        return false
+      end
+      if self.class.skips.include?(task)
+        return true
+      end
+      if self.class.targets.include?(task)
+        return false
+      end
     end
 
     instance_eval(&(CHECK_CAN_BE_SKIPPED_CONDITIONS[task] || proc { false }))

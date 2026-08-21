@@ -6,7 +6,9 @@ module Features::PercyHelpers
   PERCY_WAIT_TIMEOUT = 45
 
   def take_percy_snapshot(snapshot_name)
-    wait_for_percy(snapshot_name) if ENV['PERCY_TOKEN'].present?
+    if ENV['PERCY_TOKEN'].present?
+      wait_for_percy(snapshot_name)
+    end
 
     page.percy_snapshot(snapshot_name)
   end

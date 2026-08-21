@@ -8,8 +8,12 @@ class Api::CspReportsController < Api::BaseController
   def create
     skip_authorization
 
-    return head :bad_request unless csp_report_params.is_a?(Hash)
-    return head :unprocessable_content unless document_uri_from_request_origin?
+    unless csp_report_params.is_a?(Hash)
+      return head :bad_request
+    end
+    unless document_uri_from_request_origin?
+      return head :unprocessable_content
+    end
 
     csp_report =
       CspReport.new do |report|
@@ -46,7 +50,9 @@ class Api::CspReportsController < Api::BaseController
 
   def origin_for(url)
     uri = URI.parse(url.to_s)
-    return unless uri.is_a?(URI::HTTP) && uri.host.present?
+    unless uri.is_a?(URI::HTTP) && uri.host.present?
+      return
+    end
 
     [uri.scheme.downcase, uri.host.downcase, uri.port]
   rescue URI::InvalidURIError
