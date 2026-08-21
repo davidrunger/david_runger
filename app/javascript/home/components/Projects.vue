@@ -22,8 +22,6 @@ HomeSection(
 
         li #[a(:href="logs_path()") Logs]* - Track anything you like using various log types: text, number, duration, or counter.
 
-        li #[a(:href="quizzes_path()") Quizzes]* - A multi-person quiz app that uses ActionCable websockets for real-time interactivity.
-
         li #[a(:href="check_ins_path()") Check-ins]* - Track how well your emotional needs are being met in your marriage/relationship.
 
       p #[i *Google login required]
@@ -178,7 +176,6 @@ import {
   emoji_picker_path,
   groceries_path,
   logs_path,
-  quizzes_path,
   workouts_path,
 } from '@/rails_assets/routes';
 

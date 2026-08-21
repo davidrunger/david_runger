@@ -1,15 +1,10 @@
-- content_for(:page_assets) do
-  = ts_tag('turbo')
+%h1 Quiz results
 
-%h1 Your quizzes
+%p.mb-6 Active quiz functionality has been removed. You can still view the final results of quizzes you already participated in.
 
 %ol
-  - policy_scope(Quiz).each do |quiz|
-    %li.mt-2
-      = link_to(quiz.name, quiz)
-      = button_to('×', quiz_path(quiz), method: :delete,
-        class: 'btn-danger btn-small', title: 'Delete',
-        form: { data: { turbo_confirm: "Are you sure that you want to delete quiz '#{quiz.name}'? All quiz questions and answers will be deleted and thereafter inaccessible to any user." } })
+  - @quizzes.each do |quiz|
+    %li.mt-2= link_to(quiz.name, quiz)
 
-.mt-4
-  %strong= link_to('Create new quiz', new_quiz_path)
+  - if @quizzes.empty?
+    %li You have not participated in any completed quizzes.

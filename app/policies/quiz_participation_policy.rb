@@ -1,2 +1,0 @@
-class QuizParticipationPolicy < ApplicationPolicy
-end

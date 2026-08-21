@@ -1,11 +1,22 @@
-- content_for(:page_assets) do
-  = ts_tag('copy_to_clipboard')
-  = ts_tag('quizzes')
-
 %h1= @quiz.name
-- if @quiz.unstarted?
-  = render 'quizzes/show/unstarted'
-- elsif @quiz.active?
-  = render 'quizzes/show/active'
-- elsif @quiz.closed?
-  = render 'quizzes/show/closed'
+
+%p.mb-6= link_to('Back to quiz results', quizzes_path)
+
+%h2 Final results
+%ol
+  - @quiz.participations.sort_by { |participation| [-participation.correct_answer_count, participation.display_name.downcase] }.each do |participation|
+    %li{class: participation.participant_id == current_user.id ? 'font-bold' : ''}
+      #{participation.display_name} (#{participation.correct_answer_count}/#{@quiz.ordered_questions.size})
+
+%h2.mt-8 Questions
+- @quiz.ordered_questions.each_with_index do |question, index|
+  %section.mt-6
+    %h3 Question #{index + 1}
+    %p= question.content
+    %ol.list-upper-alpha.pl-8
+      - question.answers.each do |answer|
+        %li{class: answer.is_correct? ? 'font-bold' : ''}
+          = answer.content
+          - respondent_names = answer.selections.map { |selection| selection.participation.display_name }.sort_by(&:downcase)
+          - if respondent_names.present?
+            %span{class: answer.is_correct? ? 'text-lime-600' : 'text-red-600'} (#{respondent_names.join(', ')})
