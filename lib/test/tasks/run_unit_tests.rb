@@ -3,7 +3,7 @@ class Test::Tasks::RunUnitTests < Pallets::Task
 
   def run
     # Run all tests in `spec/` _except_ those in
-    # `spec/{controllers,helpers,requests}/` (which will we run by
+    # `spec/{controllers,helpers,requests}/` (which will be run by
     # RunApiControllerTests and RunHtmlControllerTests), `spec/tools/` (which
     # will be run by RunToolsTests), and `spec/features/` (which will be run by
     # RunFeatureTests).
