@@ -10,7 +10,7 @@ class ReleaseTasks::Runner
     rake_task = Rake::Task[task_name]
 
     (1..attempts).each do |attempt_number|
-      print("attempt ##{attempt_number}... ")
+      Rails.logger.info("attempt ##{attempt_number}... ")
       rake_task.invoke
       break
     rescue => error
