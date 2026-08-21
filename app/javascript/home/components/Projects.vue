@@ -100,7 +100,7 @@ HomeSection(
       img.box-shadow(
         loading="lazy"
         src="https://david-runger-public-uploads.s3.us-east-1.amazonaws.com/vue-rails-model-explorer.png"
-        alt="Serpent Game"
+        alt="Vue Rails Model Explorer"
       )
     template(#overview)
       p When working on a feature that involves multiple different ActiveRecord models, keeping the relevant details about those models in one's head can be challenging, especially in an app one is not yet very familiar with. I built the #[b Vue Rails Model Explorer] so that I don't #[i need] to keep so much information in my head (or search through #[code db/schema.rb] and look at association declarations in #[code app/models/]). This interactive tool makes it fast and easy to explore the columns and associations of a Rails application's models.
