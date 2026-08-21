@@ -26,7 +26,7 @@ RSpec.describe NeedSatisfactionRating do
       end
     end
 
-    context 'when the score is grater than 3' do
+    context 'when the score is greater than 3' do
       before { need_satisfaction_rating.score = 4 }
 
       it 'is not valid' do
