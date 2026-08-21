@@ -87,7 +87,7 @@ ActiveAdmin.setup do |config|
   # settings configure the location and method used for the link.
   #
   # This setting changes the path where the link points to. If it's
-  # a string, the strings is used as the path. If it's a Symbol, we
+  # a string, the string is used as the path. If it's a Symbol, we
   # will call the method to return the path.
   #
   # Default:
