@@ -68,7 +68,9 @@ const googleLoginOrigin = window.location.href;
 function handleKeydown(event: KeyboardEvent) {
   switch (event.key) {
     case 'Enter':
-      selectEmoji(highlightedSearchable.value);
+      if (highlightedSearchable.value) {
+        selectEmoji(highlightedSearchable.value);
+      }
       break;
     case 'ArrowUp':
       onArrowUp();
