@@ -31,14 +31,4 @@ class QuizQuestion < ApplicationRecord
     inverse_of: :question,
   )
   has_many(:answer_selections, through: :answers, source: :selections)
-
-  STATUSES.each do |status|
-    unless status == 'open' # there is a QuizQuestion::open class method we don't want to overwrite
-      scope status, -> { where(status:) }
-    end
-
-    define_method(:"#{status}?") do
-      self.status == status
-    end
-  end
 end

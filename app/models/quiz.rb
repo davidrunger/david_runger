@@ -45,16 +45,6 @@ class Quiz < ApplicationRecord
     inverse_of: :quiz,
   )
 
-  # rubocop:disable Rails/HasManyOrHasOneDependent
-  # We don't need `dependent: :destroy` because this is a subset of ordered_questions, which has it.
-  has_one(
-    :current_question,
-    ->(quiz) { quiz.ordered_questions.offset(quiz.current_question_number - 1).limit(1) },
-    class_name: 'QuizQuestion',
-    inverse_of: :quiz,
-  )
-  # rubocop:enable Rails/HasManyOrHasOneDependent
-
   STATUSES.each do |status|
     define_method(:"#{status}?") do
       self.status == status
