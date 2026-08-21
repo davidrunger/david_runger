@@ -1,5 +1,7 @@
+module Test ; end
+module Test::Tasks ; end
+
 require_relative '../../config/application.rb'
-require_relative 'namespaces.rb'
 require 'English'
 require 'benchmark'
 require 'io/console'

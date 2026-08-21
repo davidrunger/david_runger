@@ -45,6 +45,7 @@
 - Do not run `bin/run-tests` locally by default. It is primarily a CI command, and CI may catch issues through checks that are intentionally not run during local development.
 - When an expected asset-size change requires updating `Test::Tasks::RunFileSizeChecks::CONSTRAINTS`, round the reported size to the nearest whole KiB and set the constraint to a 10 KiB range centered on that value (rounded size minus 5 through rounded size plus 5).
 - Maintain 100% line coverage for application Ruby code included in coverage, apart from lines that are explicitly ignored. Coverage may come from any combination of spec types; it does not need to come entirely from unit specs. Test-only Ruby code, including specs, support code, and CI/test-runner code under `lib/test/`, does not need 100% line coverage. Do not add or expand specs solely to cover test-only code.
+- Do not add specs for `lib/test/`. This CI test-runner code is intentionally not spec-tested because loading it in specs causes its implementation details to affect application coverage metrics.
 - Do not run the entire test suite locally solely to confirm total coverage. CI performs the authoritative full-suite coverage check; Codecov also reports full-suite coverage.
 
 ## Test design
