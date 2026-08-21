@@ -36,7 +36,9 @@ RSpec.describe ReleaseTasks::Runner do
       end
 
       it 'invokes the task once without sleeping' do
-        run_rake_task_with_retries
+        expect(Rails.logger).to receive(:info).with('attempt #1... ').and_call_original
+
+        expect { run_rake_task_with_retries }.not_to output.to_stdout
 
         expect(task_action).to have_received(:call).once
         expect(runner).not_to have_received(:sleep)
