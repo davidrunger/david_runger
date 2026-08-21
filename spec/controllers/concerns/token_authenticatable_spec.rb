@@ -66,7 +66,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
 
         context 'when the AuthToken has a permitted_actions_list that includes the requested action' do
           before do
-            auth_token.update!(permitted_actions_list: 'anonymous#index, api/csp_results#create')
+            auth_token.update!(permitted_actions_list: 'anonymous#index, api/csp_reports#create')
           end
 
           it "is the AuthToken's user" do
@@ -78,7 +78,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
 
         context 'when the AuthToken has a permitted_actions_list that does not include the requested action' do
           before do
-            auth_token.update!(permitted_actions_list: 'anonymous#show, api/csp_results#create')
+            auth_token.update!(permitted_actions_list: 'anonymous#show, api/csp_reports#create')
           end
 
           it 'is nil' do
@@ -104,7 +104,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
 
         context 'when the AuthToken has a permitted_actions_list that includes the requested action' do
           before do
-            auth_token.update!(permitted_actions_list: 'anonymous#index, api/csp_results#create')
+            auth_token.update!(permitted_actions_list: 'anonymous#index, api/csp_reports#create')
           end
 
           it "is the AuthToken's user" do
@@ -116,7 +116,7 @@ RSpec.describe TokenAuthenticatable, :without_verifying_authorization do
 
         context 'when the AuthToken has a permitted_actions_list that does not include the requested action' do
           before do
-            auth_token.update!(permitted_actions_list: 'anonymous#show, api/csp_results#create')
+            auth_token.update!(permitted_actions_list: 'anonymous#show, api/csp_reports#create')
           end
 
           it 'is nil' do
