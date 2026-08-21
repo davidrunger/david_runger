@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_20_052612) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_21_034707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -78,7 +78,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_052612) do
     t.datetime "created_at", null: false
     t.datetime "last_used_at", precision: nil
     t.text "name"
-    t.text "permitted_actions_list", comment: "A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_results#create`) for which the auth token may be used as an authorization mechanism. Note: A blank list means that the AuthToken is valid for all controller actions."
+    t.text "permitted_actions_list", comment: "A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_reports#create`) for which the auth token may be used as an authorization mechanism. Note: A blank list means that the AuthToken is valid for all controller actions."
     t.text "secret", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
