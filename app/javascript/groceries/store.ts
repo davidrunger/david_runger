@@ -83,13 +83,12 @@ export const useGroceriesStore = defineStore('groceries', {
       store: Store;
       itemAttributes: { name: string };
     }) {
-      this.incrementPendingRequests();
-
-      const itemData = await http.post<
-        Intersection<Item, ItemCreateResponse> | ObjectWithErrors
-      >(api_store_items_path(store.id), { item: itemAttributes });
-
-      this.decrementPendingRequests();
+      const itemData = await this.withPendingRequest(() =>
+        http.post<Intersection<Item, ItemCreateResponse> | ObjectWithErrors>(
+          api_store_items_path(store.id),
+          { item: itemAttributes },
+        ),
+      );
 
       if (isObjectWithErrors(itemData)) {
         toastErrors(itemData.errors);
@@ -107,17 +106,29 @@ export const useGroceriesStore = defineStore('groceries', {
         },
       };
 
-      const newStoreData = await http.post<
-        Intersection<Store, StoreCreateResponse> | ObjectWithErrors
-      >(api_stores_path(), payload);
+      try {
+        const newStoreData = await http.post<
+          Intersection<Store, StoreCreateResponse> | ObjectWithErrors
+        >(api_stores_path(), payload);
 
-      this.postingStore = false;
+        if (isObjectWithErrors(newStoreData)) {
+          toastErrors(newStoreData.errors);
+        } else if (newStoreData) {
+          this.own_stores.unshift(newStoreData);
+          return true;
+        }
+      } finally {
+        this.postingStore = false;
+      }
+    },
 
-      if (isObjectWithErrors(newStoreData)) {
-        toastErrors(newStoreData.errors);
-      } else if (newStoreData) {
-        this.own_stores.unshift(newStoreData);
-        return true;
+    async withPendingRequest<T>(request: () => Promise<T>): Promise<T> {
+      this.incrementPendingRequests();
+
+      try {
+        return await request();
+      } finally {
+        this.decrementPendingRequests();
       }
     },
 
@@ -133,10 +144,10 @@ export const useGroceriesStore = defineStore('groceries', {
     async destroyItem({ item }: { item: Item }) {
       item.deleted = true;
 
-      this.incrementPendingRequests();
-
       const { restore_item_path: restoreItemPath } =
-        await http.delete<ItemDestroyResponse>(api_item_path(item.id));
+        await this.withPendingRequest(() =>
+          http.delete<ItemDestroyResponse>(api_item_path(item.id)),
+        );
 
       vueToast(
         {
@@ -151,7 +162,6 @@ export const useGroceriesStore = defineStore('groceries', {
         },
       );
 
-      this.decrementPendingRequests();
       this.deleteItem({ item });
     },
 
@@ -260,13 +270,12 @@ export const useGroceriesStore = defineStore('groceries', {
       item: Item;
       attributes: { name: string };
     }) {
-      this.incrementPendingRequests();
-
-      const updatedItemData = await http.patch<
-        Intersection<Item, ItemUpdateResponse>
-      >(api_item_path(item.id), { item: attributes });
-
-      this.decrementPendingRequests();
+      const updatedItemData = await this.withPendingRequest(() =>
+        http.patch<Intersection<Item, ItemUpdateResponse>>(
+          api_item_path(item.id),
+          { item: attributes },
+        ),
+      );
 
       if (!this.debouncingOrWaitingOnNetwork) {
         this.modifyItem({ item, attributes: updatedItemData });
