@@ -31,8 +31,10 @@ class Cuprite::BrowserLogger
   def puts(message)
     # The message can be an Integer if an integer is logged in JavaScript.
     if message.is_a?(String)
-      if message.include?(RUNTIME_EXCEPTION_THROWN) &&
+      if (
+        message.include?(RUNTIME_EXCEPTION_THROWN) &&
           (match = message.match(JSON_EXTRACTION_REGEX))
+      )
         parsed_json = JSON.parse(match[1])
         exception_description = parsed_json.dig(
           'params',
@@ -69,8 +71,10 @@ class Cuprite::BrowserLogger
         $stdout.puts(formatted_stack_trace)
 
         self.class.javascript_errors << exception_message
-      elsif message.include?(RUNTIME_CONSOLE_API_CALLED) &&
+      elsif (
+        message.include?(RUNTIME_CONSOLE_API_CALLED) &&
           (match = message.match(JSON_EXTRACTION_REGEX))
+      )
         parsed_json = JSON.parse(match[1])
         type, args = parsed_json['params'].values_at('type', 'args')
         args_values = args.map { extract_arg_from_data(it) }
