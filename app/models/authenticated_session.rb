@@ -76,32 +76,30 @@ class AuthenticatedSession < ApplicationRecord
   end
 
   def belongs_to_authenticatable?(candidate)
-    unless candidate
-      return false
+    if candidate
+      authenticatable_type == candidate.class.polymorphic_name && authenticatable_id == candidate.id
+    else
+      false
     end
-
-    authenticatable_type == candidate.class.polymorphic_name && authenticatable_id == candidate.id
   end
 
   def record_activity!(request)
     current_minute = Time.current.change(sec: 0, usec: 0)
-    if last_active_at >= current_minute
-      return
+    if last_active_at < current_minute
+      self.class.
+        where(id:).
+        where(last_active_at: ...current_minute).
+        # A conditional bulk update makes concurrent requests race-safe and intentionally skips
+        # callbacks, including PaperTrail's update versioning.
+        # rubocop:disable Rails/SkipsModelValidations
+        update_all(
+          last_active_at: current_minute,
+          latest_ip: request.remote_ip,
+          latest_user_agent: request.user_agent.to_s,
+          updated_at: Time.current,
+        )
+      # rubocop:enable Rails/SkipsModelValidations
     end
-
-    self.class.
-      where(id:).
-      where(last_active_at: ...current_minute).
-      # A conditional bulk update makes concurrent requests race-safe and intentionally skips
-      # callbacks, including PaperTrail's update versioning.
-      # rubocop:disable Rails/SkipsModelValidations
-      update_all(
-        last_active_at: current_minute,
-        latest_ip: request.remote_ip,
-        latest_user_agent: request.user_agent.to_s,
-        updated_at: Time.current,
-      )
-    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def revoke!
@@ -121,16 +119,14 @@ class AuthenticatedSession < ApplicationRecord
   private
 
   def disconnect_action_cable!
-    unless authenticatable_type == 'User'
-      return
+    if authenticatable_type == 'User'
+      ActionCable.server.remote_connections.
+        where(
+          authenticated_session_identifier: identifier,
+          current_user: authenticatable,
+        ).
+        disconnect
     end
-
-    ActionCable.server.remote_connections.
-      where(
-        authenticated_session_identifier: identifier,
-        current_user: authenticatable,
-      ).
-      disconnect
   end
 
   def valid_impersonation_parent

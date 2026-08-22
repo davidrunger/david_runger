@@ -34,22 +34,20 @@ module Prerenderable
   private
 
   def prerendered_html(filename)
-    if Flipper.enabled?(:disable_prerendering)
-      return nil
+    unless Flipper.enabled?(:disable_prerendering)
+      git_rev = ENV.fetch('GIT_REV')
+
+      Rails.cache.fetch(
+        PrerenderUtils.cache_key(git_rev:, filename:),
+        expires_in: 1.day,
+        skip_nil: true,
+      ) do
+        PrerenderUtils.transformed_s3_content(git_rev:, filename:)
+      end ||
+        Rails.cache.read(
+          PrerenderUtils.cache_key(git_rev: 'deploy-fallback', filename:),
+        )
     end
-
-    git_rev = ENV.fetch('GIT_REV')
-
-    Rails.cache.fetch(
-      PrerenderUtils.cache_key(git_rev:, filename:),
-      expires_in: 1.day,
-      skip_nil: true,
-    ) do
-      PrerenderUtils.transformed_s3_content(git_rev:, filename:)
-    end ||
-      Rails.cache.read(
-        PrerenderUtils.cache_key(git_rev: 'deploy-fallback', filename:),
-      )
   end
 
   def html_with_nonced_scripts(html)

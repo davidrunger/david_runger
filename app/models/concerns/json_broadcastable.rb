@@ -26,15 +26,13 @@ module JsonBroadcastable
 
   def broadcast_json_to(channel, channel_target_proc, action)
     channel_target = channel_target_proc.call(self)
-    if channel_target.blank?
-      return
+    if channel_target.present?
+      channel.broadcast_to(
+        channel_target,
+        action:,
+        acting_browser_uuid: Current.browser_uuid,
+        model: as_json,
+      )
     end
-
-    channel.broadcast_to(
-      channel_target,
-      action:,
-      acting_browser_uuid: Current.browser_uuid,
-      model: as_json,
-    )
   end
 end

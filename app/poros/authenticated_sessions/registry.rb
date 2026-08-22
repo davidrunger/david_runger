@@ -33,23 +33,11 @@ module AuthenticatedSessions::Registry
         )
         rack_session[session_key(scope)] = authenticated_session.identifier
       elsif identifier_present
-        unless identified_session
+        if identified_session && valid_for?(identified_session, authenticatable, warden)
+          identified_session.record_activity!(request)
+        else
           reject!(warden, rack_session, scope)
-          return
         end
-        unless valid_for?(
-          identified_session,
-          authenticatable,
-          warden,
-        )
-          reject!(
-            warden,
-            rack_session,
-            scope,
-          )
-          return
-        end
-        identified_session.record_activity!(request)
       else
         authenticated_session = enroll_legacy!(authenticatable, warden, scope, request)
         rack_session[session_key(scope)] = authenticated_session.identifier
@@ -59,20 +47,19 @@ module AuthenticatedSessions::Registry
     def revoke_for_logout(authenticatable, warden, options)
       scope = options.fetch(:scope).to_sym
       scope_class = scope_class_for!(scope)
-      unless authenticatable
-        return
-      end
-      unless authenticatable.is_a?(scope_class)
-        raise(
-          ArgumentError,
-          "Expected #{scope_class} for Warden scope #{scope.inspect}, " \
-          "got #{authenticatable.class}",
-        )
-      end
+      if authenticatable
+        unless authenticatable.is_a?(scope_class)
+          raise(
+            ArgumentError,
+            "Expected #{scope_class} for Warden scope #{scope.inspect}, " \
+            "got #{authenticatable.class}",
+          )
+        end
 
-      rack_session = warden.request.session
-      find_identified_session(rack_session, scope)&.revoke!
-      rack_session.delete(session_key(scope))
+        rack_session = warden.request.session
+        find_identified_session(rack_session, scope)&.revoke!
+        rack_session.delete(session_key(scope))
+      end
     end
 
     def create_impersonation!(user:, warden:)
@@ -114,22 +101,22 @@ module AuthenticatedSessions::Registry
         "authenticated_session.authentication_kind.#{scope}",
       )
       if (impersonation = warden.request.env.delete("authenticated_session.impersonation.#{scope}"))
-        return impersonation
-      end
+        impersonation
+      else
+        if !authentication_kind
+          raise(
+            ArgumentError,
+            'No authentication kind registered for fresh Warden authentication ' \
+            "in scope #{scope.inspect}",
+          )
+        end
 
-      unless authentication_kind
-        raise(
-          ArgumentError,
-          'No authentication kind registered for fresh Warden authentication ' \
-          "in scope #{scope.inspect}",
+        create_session!(
+          authenticatable:,
+          authentication_kind:,
+          request:,
         )
       end
-
-      create_session!(
-        authenticatable:,
-        authentication_kind:,
-        request:,
-      )
     end
 
     def create_session!(
@@ -157,37 +144,32 @@ module AuthenticatedSessions::Registry
     end
 
     def legacy_impersonation_parent(authenticatable, warden, scope, request)
-      unless scope == :user
-        return
-      end
-
-      admin_user = warden.user(:admin_user)
-      # Matching emails are ambiguous here: the cookies may represent ordinary simultaneous
-      # sign-ins rather than legacy Become. The explicit Become flow does not use this heuristic.
-      unless admin_user && admin_user.email != authenticatable.email
-        return
-      end
-
-      rack_session = warden.request.session
-      find_identified_session(rack_session, :admin_user) ||
-        enroll_legacy!(admin_user, warden, :admin_user, request).tap do |parent|
-          rack_session[session_key(:admin_user)] = parent.identifier
+      if scope == :user
+        admin_user = warden.user(:admin_user)
+        # Matching emails are ambiguous here: the cookies may represent ordinary simultaneous
+        # sign-ins rather than legacy Become. The explicit Become flow does not use this heuristic.
+        if admin_user && admin_user.email != authenticatable.email
+          rack_session = warden.request.session
+          find_identified_session(rack_session, :admin_user) ||
+            enroll_legacy!(admin_user, warden, :admin_user, request).tap do |parent|
+              rack_session[session_key(:admin_user)] = parent.identifier
+            end
         end
+      end
     end
 
     def valid_for?(authenticated_session, authenticatable, warden)
-      unless authenticated_session.active? &&
-          authenticated_session.belongs_to_authenticatable?(authenticatable)
-        return false
+      if !authenticated_session.active? ||
+          !authenticated_session.belongs_to_authenticatable?(authenticatable)
+        false
+      elsif authenticated_session.authentication_kind != 'admin_impersonation'
+        true
+      else
+        parent = authenticated_session.initiated_by_authenticated_session
+        rack_session = warden.request.session
+        parent&.active? && parent.belongs_to_authenticatable?(warden.user(:admin_user)) &&
+          parent.identifier == rack_session[session_key(:admin_user)]
       end
-      unless authenticated_session.authentication_kind == 'admin_impersonation'
-        return true
-      end
-
-      parent = authenticated_session.initiated_by_authenticated_session
-      rack_session = warden.request.session
-      parent&.active? && parent.belongs_to_authenticatable?(warden.user(:admin_user)) &&
-        parent.identifier == rack_session[session_key(:admin_user)]
     end
 
     def find_identified_session(rack_session, scope)
@@ -202,11 +184,9 @@ module AuthenticatedSessions::Registry
       warden.logout(scope)
       # User and AdminUser authentication are independent. A revoked optional scope should not
       # abort a request that remains authenticated through the other scope.
-      if another_scope_authenticated?(warden, rack_session, scope)
-        return
+      if !another_scope_authenticated?(warden, rack_session, scope)
+        throw(:warden, scope:, action: :unauthenticated)
       end
-
-      throw(:warden, scope:, action: :unauthenticated)
     end
 
     def another_scope_authenticated?(warden, rack_session, rejected_scope)

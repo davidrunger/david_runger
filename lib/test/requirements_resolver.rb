@@ -344,22 +344,18 @@ class Test::RequirementsResolver
 
   def can_skip?(task)
     if self.class.run_all?
-      return false
+      false
+    elsif !self.class.run_defaults?
+      if self.class.forces.include?(task) || self.class.targets.include?(task)
+        false
+      elsif self.class.skips.include?(task)
+        true
+      else
+        instance_eval(&(CHECK_CAN_BE_SKIPPED_CONDITIONS[task] || proc { false }))
+      end
+    else
+      instance_eval(&(CHECK_CAN_BE_SKIPPED_CONDITIONS[task] || proc { false }))
     end
-
-    if !self.class.run_defaults?
-      if self.class.forces.include?(task)
-        return false
-      end
-      if self.class.skips.include?(task)
-        return true
-      end
-      if self.class.targets.include?(task)
-        return false
-      end
-    end
-
-    instance_eval(&(CHECK_CAN_BE_SKIPPED_CONDITIONS[task] || proc { false }))
   end
 
   def tasks_and_dependencies(target_tasks, known_dependencies: [], skippable_requirements: [])

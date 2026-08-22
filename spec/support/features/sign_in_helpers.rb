@@ -12,11 +12,9 @@ module Features::SignInHelpers
     end
 
     def consume_sign_in(token)
-      unless token
-        return
+      if token
+        pending_sign_ins_mutex.synchronize { pending_sign_ins.delete(token) }
       end
-
-      pending_sign_ins_mutex.synchronize { pending_sign_ins.delete(token) }
     end
 
     def reset!

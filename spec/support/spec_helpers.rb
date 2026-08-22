@@ -19,11 +19,12 @@ module SpecHelpers
     Prosopite.pause do
       50.times do
         if yield
-          return
+          break
         else
           sleep(0.1)
         end
       end
+      nil
     end
   end
 end

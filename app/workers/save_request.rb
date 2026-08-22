@@ -18,20 +18,18 @@ class SaveRequest
     @request_id = request_id
     @stashed_data_manager = SaveRequest::StashedDataManager.new(@request_id)
 
-    if Request.exists?(request_id: @request_id)
-      return
-    end
-
-    if can_save_request?
-      if ban_reasons.present?
-        ban_requesting_ip
-        delete_request_data
+    unless Request.exists?(request_id: @request_id)
+      if can_save_request?
+        if ban_reasons.present?
+          ban_requesting_ip
+          delete_request_data
+        else
+          save_request
+        end
       else
-        save_request
+        log_unexpected_reasons_not_to_save_request
+        delete_request_data
       end
-    else
-      log_unexpected_reasons_not_to_save_request
-      delete_request_data
     end
   end
 

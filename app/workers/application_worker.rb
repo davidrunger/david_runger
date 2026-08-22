@@ -33,10 +33,9 @@ module ApplicationWorker
         logger.info(<<~LOG.squish)
           Skipping #{class_name} job because the `#{disable_flag_name}` flag is enabled.
         LOG
-        return
+      else
+        super
       end
-
-      super
     end
   end
 

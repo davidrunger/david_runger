@@ -27,12 +27,11 @@ class Api::LogSharesController < Api::BaseController
     if @log_share.nil?
       head(:not_found)
       skip_authorization
-      return
+    else
+      authorize(@log_share)
+      @log_share.destroy!
+      head(:no_content)
     end
-
-    authorize(@log_share)
-    @log_share.destroy!
-    head(:no_content)
   end
 
   private
