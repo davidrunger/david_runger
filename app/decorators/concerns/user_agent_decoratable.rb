@@ -14,8 +14,10 @@ module UserAgentDecoratable
     browser_version = browser.version
     browser_platform = browser.platform.name
 
-    if [browser_name, browser_version, browser_platform].all?(&:present?) &&
+    if (
+      [browser_name, browser_version, browser_platform].all?(&:present?) &&
         browser_name != 'Unknown Browser'
+    )
       "#{browser_name} #{browser_version} on #{browser_platform}"
     else
       user_agent

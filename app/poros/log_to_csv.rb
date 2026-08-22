@@ -28,8 +28,10 @@ class LogToCsv
   private
 
   def exported_cell_value(value)
-    if @neutralize_formulas && value.is_a?(String) &&
+    if (
+      @neutralize_formulas && value.is_a?(String) &&
         value.match?(UNSAFE_SPREADSHEET_CELL_PREFIX_REGEX)
+    )
       "'#{value}"
     else
       value

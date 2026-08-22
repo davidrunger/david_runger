@@ -134,8 +134,10 @@ class AuthenticatedSession < ApplicationRecord
       unless authenticatable_type == 'User'
         errors.add(:authenticatable, 'must be a User for impersonation')
       end
-      if initiated_by_authenticated_session.present? &&
+      if (
+        initiated_by_authenticated_session.present? &&
           initiated_by_authenticated_session.authenticatable_type != 'AdminUser'
+      )
         errors.add(:initiated_by_authenticated_session, 'must belong to an AdminUser')
       end
       if initiated_by_authenticated_session&.authentication_kind == 'admin_impersonation'

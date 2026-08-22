@@ -159,8 +159,10 @@ module AuthenticatedSessions::Registry
     end
 
     def valid_for?(authenticated_session, authenticatable, warden)
-      if !authenticated_session.active? ||
+      if (
+        !authenticated_session.active? ||
           !authenticated_session.belongs_to_authenticatable?(authenticatable)
+      )
         false
       elsif authenticated_session.authentication_kind != 'admin_impersonation'
         true
