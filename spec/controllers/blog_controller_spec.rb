@@ -56,6 +56,19 @@ RSpec.describe(BlogController) do
             expect(response.body).to match(/\bstyles\b/)
             expect(response.body).to end_with(show_content)
           end
+
+          context 'when the user is signed in' do
+            before { sign_in(users(:user)) }
+
+            let(:show_content) { '<html><head></head><body></body></html>' }
+
+            it 'uses the page background color before white as the logged-in header background fallback' do
+              get_show
+
+              expect(response.body).
+                to include('bg-(--main-bg-color,var(--background-color,white))')
+            end
+          end
         end
 
         context 'when the requested file does not exist in the blog/ directory' do
