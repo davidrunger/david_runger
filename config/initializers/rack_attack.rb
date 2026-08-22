@@ -59,20 +59,19 @@ class Rack::Attack
     def blocked_path?(request)
       fullpath = request.fullpath
       if fullpath.include?("\u0000")
-        return true
+        true
+      elsif WHITELISTED_PATH_PREFIXES.any? { fullpath.start_with?(it) }
+        false
+      else
+        fragments(fullpath).any? do |fragment|
+          fragment.downcase.in?(Rack::Attack.banned_path_fragments)
+        end && !Rails.application.routes.recognize_path_with_request(
+          ActionDispatch::Request.new(request.env),
+          request.path,
+          {},
+          raise_on_missing: false,
+        )
       end
-      if WHITELISTED_PATH_PREFIXES.any? { fullpath.start_with?(it) }
-        return false
-      end
-
-      fragments(fullpath).any? do |fragment|
-        fragment.downcase.in?(Rack::Attack.banned_path_fragments)
-      end && !Rails.application.routes.recognize_path_with_request(
-        ActionDispatch::Request.new(request.env),
-        request.path,
-        {},
-        raise_on_missing: false,
-      )
     end
 
     private

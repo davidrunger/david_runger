@@ -17,25 +17,19 @@ class SitemapCrawler
 
   def urls_from_sitemap_url(url, visited_sitemap_urls:, depth:)
     normalized_url = normalized_sitemap_url(url)
-    unless normalized_url
-      return []
+    if normalized_url &&
+        visited_sitemap_urls.exclude?(normalized_url) &&
+        depth <= MAX_SITEMAP_DEPTH &&
+        visited_sitemap_urls.size < MAX_SITEMAPS
+      visited_sitemap_urls.add(normalized_url)
+      urls_from_sitemap_doc(
+        nokogiri_sitemap_doc(normalized_url),
+        visited_sitemap_urls:,
+        depth:,
+      )
+    else
+      []
     end
-    if visited_sitemap_urls.include?(normalized_url)
-      return []
-    end
-    if depth > MAX_SITEMAP_DEPTH
-      return []
-    end
-    if visited_sitemap_urls.size >= MAX_SITEMAPS
-      return []
-    end
-
-    visited_sitemap_urls.add(normalized_url)
-    urls_from_sitemap_doc(
-      nokogiri_sitemap_doc(normalized_url),
-      visited_sitemap_urls:,
-      depth:,
-    )
   end
 
   def nokogiri_sitemap_doc(url)

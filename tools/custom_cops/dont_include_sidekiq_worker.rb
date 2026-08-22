@@ -11,12 +11,10 @@ module CustomCops
     PATTERN
 
     def on_send(node)
-      unless including_sidekiq_worker?(node)
-        return
-      end
-
-      add_offense(node) do |corrector|
-        corrector.replace(node, 'prepend ApplicationWorker')
+      if including_sidekiq_worker?(node)
+        add_offense(node) do |corrector|
+          corrector.replace(node, 'prepend ApplicationWorker')
+        end
       end
     end
   end

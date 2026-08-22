@@ -22,15 +22,14 @@ class Api::LogEntriesController < Api::BaseController
     if @log_entry.nil?
       head(:not_found)
       skip_authorization
-      return
-    end
-
-    authorize(@log_entry)
-
-    if LogEntries::Update.new!(log_entry: @log_entry, params: log_entry_params).run.success?
-      render_schema_json(@log_entry, status: :ok)
     else
-      render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_content
+      authorize(@log_entry)
+
+      if LogEntries::Update.new!(log_entry: @log_entry, params: log_entry_params).run.success?
+        render_schema_json(@log_entry, status: :ok)
+      else
+        render json: { errors: @log_entry.errors.to_hash }, status: :unprocessable_content
+      end
     end
   end
 
@@ -41,12 +40,11 @@ class Api::LogEntriesController < Api::BaseController
     if @log_entry.nil?
       head(:not_found)
       skip_authorization
-      return
+    else
+      authorize(@log_entry)
+      @log_entry.destroy!
+      head(:no_content)
     end
-
-    authorize(@log_entry)
-    @log_entry.destroy!
-    head(:no_content)
   end
 
   def index

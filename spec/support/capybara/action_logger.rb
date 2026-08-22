@@ -30,10 +30,10 @@ module Capybara::ActionLogger
 
   def capybara_log_key(key)
     if key.is_a?(Symbol) && key.name.match?(/\A[A-Za-z_]\w*[!?=]?\z/)
-      return "#{key.name}:"
+      "#{key.name}:"
+    else
+      "#{capybara_log_value(key)} =>"
     end
-
-    "#{capybara_log_value(key)} =>"
   end
 end
 

@@ -14,11 +14,10 @@ class FetchIpInfoForRecord
       logger.info(<<~LOG.squish)
         Skipping #{self.class.name} job for #{class_name} because the `#{disable_flag_name}` flag is enabled.
       LOG
-      return
+    else
+      record = class_name.safe_constantize.find(record_id)
+      write_location_info(record)
     end
-
-    record = class_name.safe_constantize.find(record_id)
-    write_location_info(record)
   end
 
   private
@@ -26,12 +25,10 @@ class FetchIpInfoForRecord
   def write_location_info(record)
     ip = record.ip
 
-    if ip.in?(LOCAL_IPS)
-      return
+    unless ip.in?(LOCAL_IPS)
+      ip_info = Rails.cache.fetch(cache_key(ip), expires_in: 4.weeks) { ip_info_from_api(ip) }
+      record.update!(ip_info)
     end
-
-    ip_info = Rails.cache.fetch(cache_key(ip), expires_in: 4.weeks) { ip_info_from_api(ip) }
-    record.update!(ip_info)
   end
 
   def cache_key(ip)

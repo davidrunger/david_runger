@@ -54,15 +54,19 @@ class Prerenderer
     @browser.goto(url)
 
     # Give Chrome some time to parse the JavaScript and render the page content.
+    found_expected_text = false
     15.times do
       if @browser.body.include?(expected_text)
-        return
+        found_expected_text = true
+        break
       end
 
       sleep(0.2)
     end
 
-    fail('Could not find expected content!')
+    unless found_expected_text
+      fail('Could not find expected content!')
+    end
   end
 
   def upload_prerender_to_s3(filename:, body:)

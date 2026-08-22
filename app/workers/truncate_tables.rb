@@ -45,23 +45,21 @@ class TruncateTables
 
     min_surviving_timestamp_based_on_count =
       execute_sql(min_surviving_timestamp_sql).to_a.last&.dig(timestamp)
-    if min_surviving_timestamp_based_on_count.nil?
-      return
+    if min_surviving_timestamp_based_on_count
+      min_surviving_timestamp =
+        [min_surviving_timestamp_based_on_count, min_surviving_timestamp].max
+
+      delete_old_rows_sql = <<~SQL.squish
+        DELETE
+        FROM #{table}
+        WHERE #{timestamp} < '#{min_surviving_timestamp}'
+      SQL
+      execute_sql(delete_old_rows_sql)
+      Rails.logger.info(
+        "Deleted rows older than #{min_surviving_timestamp} (database time, probably UTC)",
+      )
+      Rails.logger.info("Rows in `#{table}` after truncation: #{num_rows(table)}")
     end
-
-    min_surviving_timestamp =
-      [min_surviving_timestamp_based_on_count, min_surviving_timestamp].max
-
-    delete_old_rows_sql = <<~SQL.squish
-      DELETE
-      FROM #{table}
-      WHERE #{timestamp} < '#{min_surviving_timestamp}'
-    SQL
-    execute_sql(delete_old_rows_sql)
-    Rails.logger.info(
-      "Deleted rows older than #{min_surviving_timestamp} (database time, probably UTC)",
-    )
-    Rails.logger.info("Rows in `#{table}` after truncation: #{num_rows(table)}")
   end
 
   def self.log_truncation_plan(table:, max_allowed_rows:, min_surviving_timestamp:)

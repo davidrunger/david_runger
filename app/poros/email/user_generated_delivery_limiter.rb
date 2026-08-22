@@ -116,15 +116,15 @@ class Email::UserGeneratedDeliveryLimiter
   memoize \
   def applicable_quotas
     if global_only
-      return [build_quota(GLOBAL_LIMIT)]
+      [build_quota(GLOBAL_LIMIT)]
+    else
+      [
+        build_quota(GLOBAL_LIMIT),
+        *ACTOR_LIMITS.map { build_quota(it, actor_id) },
+        *ACTOR_RECIPIENT_LIMITS.map { build_quota(it, actor_id, recipient_email) },
+        *RECIPIENT_LIMITS.map { build_quota(it, recipient_email) },
+      ]
     end
-
-    [
-      build_quota(GLOBAL_LIMIT),
-      *ACTOR_LIMITS.map { build_quota(it, actor_id) },
-      *ACTOR_RECIPIENT_LIMITS.map { build_quota(it, actor_id, recipient_email) },
-      *RECIPIENT_LIMITS.map { build_quota(it, recipient_email) },
-    ]
   end
 
   def build_quota(limit, *discriminators)

@@ -8,28 +8,27 @@ class Api::CspReportsController < Api::BaseController
   def create
     skip_authorization
 
-    unless csp_report_params.is_a?(Hash)
-      return head :bad_request
-    end
-    unless document_uri_from_request_origin?
-      return head :unprocessable_content
-    end
-
-    csp_report =
-      CspReport.new do |report|
-        report.blocked_uri = csp_report_params['blocked-uri']
-        report.document_uri = csp_report_params['document-uri']
-        report.ip = request.remote_ip
-        report.original_policy = csp_report_params['original-policy']
-        report.referrer = csp_report_params['referrer']
-        report.user_agent = request.user_agent
-        report.violated_directive = csp_report_params['violated-directive']
-      end
-
-    if csp_report.save
-      head :no_content
-    else
+    if !csp_report_params.is_a?(Hash)
+      head :bad_request
+    elsif !document_uri_from_request_origin?
       head :unprocessable_content
+    else
+      csp_report =
+        CspReport.new do |report|
+          report.blocked_uri = csp_report_params['blocked-uri']
+          report.document_uri = csp_report_params['document-uri']
+          report.ip = request.remote_ip
+          report.original_policy = csp_report_params['original-policy']
+          report.referrer = csp_report_params['referrer']
+          report.user_agent = request.user_agent
+          report.violated_directive = csp_report_params['violated-directive']
+        end
+
+      if csp_report.save
+        head :no_content
+      else
+        head :unprocessable_content
+      end
     end
   rescue JSON::ParserError
     head :bad_request
@@ -50,11 +49,9 @@ class Api::CspReportsController < Api::BaseController
 
   def origin_for(url)
     uri = URI.parse(url.to_s)
-    unless uri.is_a?(URI::HTTP) && uri.host.present?
-      return
+    if uri.is_a?(URI::HTTP) && uri.host.present?
+      [uri.scheme.downcase, uri.host.downcase, uri.port]
     end
-
-    [uri.scheme.downcase, uri.host.downcase, uri.port]
   rescue URI::InvalidURIError
     nil
   end

@@ -70,30 +70,23 @@ class Proposals::Accept < ApplicationAction
     proposee_marriage:
   )
     if proposal.accepted_at.present?
-      return 'This proposal has already been accepted.'
-    end
-    if proposal.canceled_at.present?
-      return 'This proposal has been canceled.'
-    end
+      'This proposal has already been accepted.'
+    elsif proposal.canceled_at.present?
+      'This proposal has been canceled.'
+    elsif !proposal.proposee_email.casecmp?(locked_proposee.email)
+      'This proposal was sent to a different email address.'
+    elsif locked_proposer == locked_proposee
+      'You cannot accept your own proposal.'
+    else
+      target_marriage_is_full =
+        proposer_marriage.present? &&
+        proposer_marriage != proposee_marriage &&
+        marriage_memberships.count { it.marriage_id == proposer_marriage.id } >= 2
 
-    if !proposal.proposee_email.casecmp?(locked_proposee.email)
-      return 'This proposal was sent to a different email address.'
+      if target_marriage_is_full
+        "#{locked_proposer.email}'s marriage already has two partners."
+      end
     end
-
-    if locked_proposer == locked_proposee
-      return 'You cannot accept your own proposal.'
-    end
-
-    target_marriage_is_full =
-      proposer_marriage.present? &&
-      proposer_marriage != proposee_marriage &&
-      marriage_memberships.count { it.marriage_id == proposer_marriage.id } >= 2
-
-    if target_marriage_is_full
-      return "#{locked_proposer.email}'s marriage already has two partners."
-    end
-
-    nil
   end
 
   def accept_proposal!(locked_proposer:, locked_proposee:, proposer_marriage:, proposee_marriage:)

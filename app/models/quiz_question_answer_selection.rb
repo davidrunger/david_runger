@@ -30,21 +30,13 @@ class QuizQuestionAnswerSelection < ApplicationRecord
   private
 
   def answer_must_belong_to_question
-    if answer.blank? || question.blank?
-      return
-    end
-
-    if answer.question_id != question_id
+    if answer.present? && question.present? && answer.question_id != question_id
       errors.add(:answer, 'must belong to the selected question')
     end
   end
 
   def answer_must_belong_to_participation_quiz
-    if participation.blank? || question.blank?
-      return
-    end
-
-    if participation.quiz_id != question.quiz_id
+    if participation.present? && question.present? && participation.quiz_id != question.quiz_id
       errors.add(:answer, "must belong to the participation's quiz")
     end
   end

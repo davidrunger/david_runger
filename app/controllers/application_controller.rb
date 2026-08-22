@@ -108,13 +108,8 @@ class ApplicationController < ActionController::Base
     controller = params[:controller]
 
     # ActiveAdmin supports an "Authorization Adapter" that can be implemented separately; skip here.
-    if controller.match?(%r{\Aactive_admin/|admin/})
-      return true
-    end
-
-    # All users are allowed to sign out; we don't need to check a pundit policy.
-    # We can't add `skip_authorization` to the controller because the controller is in `devise`.
-    controller == 'devise/sessions' && params[:action] == 'destroy'
+    controller.match?(%r{\Aactive_admin/|admin/}) ||
+      (controller == 'devise/sessions' && params[:action] == 'destroy')
   end
 
   # add additional data here for inclusion in logs
@@ -130,28 +125,24 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    if skip_authorization? || user_signed_in? || auth_token_user.present?
-      return
-    end
-
-    if request.format.json?
-      render_json_error('Your request was not authenticated', 401)
-    else
-      flash[:alert] = 'You must sign in first.'
-      session['user_return_to'] = request.path
-      redirect_to(new_user_session_path)
+    if !(skip_authorization? || user_signed_in? || auth_token_user.present?)
+      if request.format.json?
+        render_json_error('Your request was not authenticated', 401)
+      else
+        flash[:alert] = 'You must sign in first.'
+        session['user_return_to'] = request.path
+        redirect_to(new_user_session_path)
+      end
     end
   end
 
   def authenticate_admin_user!
-    if admin_user_signed_in?
-      return
+    if !admin_user_signed_in?
+      flash[:alert] = 'You must sign in as an admin user first.'
+      session['admin_user_return_to'] = request.path
+      # NOTE: Specify `main_app` for path because this method is also used by Blazer.
+      redirect_to(main_app.new_admin_user_session_path)
     end
-
-    flash[:alert] = 'You must sign in as an admin user first.'
-    session['admin_user_return_to'] = request.path
-    # NOTE: Specify `main_app` for path because this method is also used by Blazer.
-    redirect_to(main_app.new_admin_user_session_path)
   end
 
   # Override Rails's built-in #verify_authenticity_token method to allow for `auth_token` use.

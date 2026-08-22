@@ -22,27 +22,22 @@ module JsonSchemasToTypescript
 
   class << self
     def initialize_listener(app)
-      if @initialized
-        return
-      end
       # NOTE: We don't want to regenerate the files each time we run specs, for example.
-      if !defined?(Rails::Server)
-        return
-      end
+      if !@initialized && defined?(Rails::Server)
+        @initialized = true
 
-      @initialized = true
+        app.config.after_initialize do
+          listener =
+            ::Listen.to(Rails.root.join(SCHEMA_DIRECTORY).to_s) do |changed, added, removed|
+              JsonSchemasToTypescript.write_files(
+                changed: changed.map { relative_path(it) },
+                added: added.map { relative_path(it) },
+                removed: removed.map { relative_path(it) },
+              )
+            end
 
-      app.config.after_initialize do
-        listener =
-          ::Listen.to(Rails.root.join(SCHEMA_DIRECTORY).to_s) do |changed, added, removed|
-            JsonSchemasToTypescript.write_files(
-              changed: changed.map { relative_path(it) },
-              added: added.map { relative_path(it) },
-              removed: removed.map { relative_path(it) },
-            )
-          end
-
-        listener.start
+          listener.start
+        end
       end
     end
 

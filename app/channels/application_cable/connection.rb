@@ -24,13 +24,13 @@ class ApplicationCable::Connection < ActionCable::Connection::Base
   end
 
   def valid_impersonation_parent?(authenticated_session)
-    unless authenticated_session.authentication_kind == 'admin_impersonation'
-      return true
+    if authenticated_session.authentication_kind == 'admin_impersonation'
+      parent = authenticated_session.initiated_by_authenticated_session
+      parent&.active? && parent.identifier == request.session[
+        AuthenticatedSessions::Registry.session_key(:admin_user),
+      ] && parent.belongs_to_authenticatable?(env['warden'].user(:admin_user))
+    else
+      true
     end
-
-    parent = authenticated_session.initiated_by_authenticated_session
-    parent&.active? && parent.identifier == request.session[
-      AuthenticatedSessions::Registry.session_key(:admin_user),
-    ] && parent.belongs_to_authenticatable?(env['warden'].user(:admin_user))
   end
 end
