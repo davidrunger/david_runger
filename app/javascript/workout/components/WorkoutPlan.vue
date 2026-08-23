@@ -63,7 +63,7 @@
 import { useWakeLock } from '@vueuse/core';
 import { Timer } from 'easytimer.js';
 import { ElSwitch } from 'element-plus';
-import { cloneDeep } from 'es-toolkit/compat';
+import { cloneDeep } from 'es-toolkit';
 import { computed, onBeforeMount, reactive, ref } from 'vue';
 import { array, number } from 'vue-types';
 

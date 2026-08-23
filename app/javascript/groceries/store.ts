@@ -1,4 +1,4 @@
-import { filter, get, last, pick, sortBy } from 'es-toolkit/compat';
+import { last, pick, sortBy } from 'es-toolkit';
 import { defineStore } from 'pinia';
 import { POSITION } from 'vue-toastification';
 
@@ -42,7 +42,7 @@ interface Nameable {
 
 export const helpers = {
   sortByName<T>(objects: Array<Nameable & T>): Array<T> {
-    return sortBy(objects, (object) => object.name.toLowerCase());
+    return sortBy(objects, [(object) => object.name.toLowerCase()]);
   },
 };
 
@@ -178,7 +178,7 @@ export const useGroceriesStore = defineStore('groceries', {
         for (const storeDatum of storeData) {
           const existingStore = getById(existingStores, storeDatum.id);
           storeDatum.viewed_at =
-            get(existingStore, 'viewed_at') ?? storeDatum.viewed_at;
+            existingStore.viewed_at ?? storeDatum.viewed_at;
           if (existingStore) {
             const items = [];
             for (const itemDatum of storeDatum.items) {
@@ -324,8 +324,12 @@ export const useGroceriesStore = defineStore('groceries', {
       if (!this.own_stores) return null;
 
       return (
-        last(sortBy(filter(this.allStores, 'viewed_at'), 'viewed_at')) ||
-        this.own_stores[0]
+        last(
+          sortBy(
+            this.allStores.filter((store) => store.viewed_at),
+            ['viewed_at'],
+          ),
+        ) || this.own_stores[0]
       );
     },
 

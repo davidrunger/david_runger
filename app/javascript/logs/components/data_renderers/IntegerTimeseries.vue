@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { sortBy } from 'es-toolkit/compat';
+import { sortBy } from 'es-toolkit';
 import { computed } from 'vue';
 import { object } from 'vue-types';
 
@@ -19,11 +19,13 @@ const props = defineProps({
 });
 
 const logEntriesToChartData = computed(() => {
-  return sortBy(props.log.log_entries, 'created_at').map((logEntry) => ({
-    x: logEntry.created_at,
-    y: logEntry.data,
-    note: logEntry.note,
-  }));
+  return sortBy(props.log.log_entries ?? [], ['created_at']).map(
+    (logEntry) => ({
+      x: logEntry.created_at,
+      y: logEntry.data,
+      note: logEntry.note,
+    }),
+  );
 });
 
 const chartMetadata = computed(() => {

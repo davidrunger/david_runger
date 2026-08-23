@@ -1,4 +1,3 @@
-import { map } from 'es-toolkit/compat';
 import Fuse, { IFuseOptions } from 'fuse.js';
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 
@@ -23,7 +22,7 @@ export function useFuzzyTypeahead<T extends object>({
       return searchables.value;
     } else {
       const searchResult = fuse.value.search(query.value);
-      return map(searchResult, 'item');
+      return searchResult.map(({ item }) => item);
     }
   });
 

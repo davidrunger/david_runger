@@ -1,4 +1,4 @@
-import { last, pull, sortBy } from 'es-toolkit/compat';
+import { last, pull } from 'es-toolkit';
 import { defineStore } from 'pinia';
 
 import { assert } from '@/lib/helpers';
@@ -17,9 +17,9 @@ export const useHomeStore = defineStore('home', {
     addSectionShowing(section: string) {
       if (this.visibleSections.includes(section)) return;
 
-      this.visibleSections = sortBy(
-        [...this.visibleSections, section],
-        (sectionName) => SECTION_ORDER.indexOf(sectionName),
+      this.visibleSections = [...this.visibleSections, section].sort(
+        (sectionA, sectionB) =>
+          SECTION_ORDER.indexOf(sectionA) - SECTION_ORDER.indexOf(sectionB),
       );
     },
 
@@ -29,7 +29,7 @@ export const useHomeStore = defineStore('home', {
 
     removeSectionShowing(section: string) {
       if (this.clickedSection === section) this.clickedSection = null;
-      pull(this.visibleSections, section);
+      pull(this.visibleSections, [section]);
     },
   },
 

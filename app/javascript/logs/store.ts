@@ -1,4 +1,4 @@
-import { last, sortBy } from 'es-toolkit/compat';
+import { last, sortBy } from 'es-toolkit';
 import { defineStore } from 'pinia';
 import { nextTick } from 'vue';
 
@@ -127,7 +127,9 @@ export const useLogsStore = defineStore('logs', {
     },
 
     deleteLastLogEntry({ log }: { log: Log }) {
-      const lastLogEntry = assert(last(sortBy(log.log_entries, 'created_at')));
+      const lastLogEntry = assert(
+        last(sortBy(log.log_entries ?? [], ['created_at'])),
+      );
       this.destroyLogEntry({ log, logEntry: lastLogEntry });
     },
 
@@ -223,7 +225,7 @@ export const useLogsStore = defineStore('logs', {
       log: Log;
       logEntries: Array<LogEntry>;
     }) {
-      log.log_entries = sortBy(logEntries, 'created_at');
+      log.log_entries = sortBy(logEntries, ['created_at']);
     },
 
     async updateLog({

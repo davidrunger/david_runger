@@ -1,5 +1,3 @@
-import { isObject } from 'es-toolkit/compat';
-
 import { TextLogEntry } from '@/logs/types';
 import { LogEntry } from '@/types';
 
@@ -40,7 +38,12 @@ export function isMouseEvent(event: Event | null): event is MouseEvent {
 export function isObjectWithErrors(
   object: unknown,
 ): object is { errors: Array<string> } {
-  return (
-    isObject(object) && 'errors' in object && isArrayOfStrings(object.errors)
-  );
+  if (
+    object === null ||
+    (typeof object !== 'object' && typeof object !== 'function')
+  ) {
+    return false;
+  }
+
+  return 'errors' in object && isArrayOfStrings(object.errors);
 }
