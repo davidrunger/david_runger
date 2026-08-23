@@ -5,9 +5,9 @@ namespace :assets do
       with ENV vars #{AmazingPrint::Colors.blue(env_vars.to_s)}...
     LOG
     if system(env_vars, command)
-      puts '... success.'
+      puts('... success.')
     else
-      puts '... failed.'
+      puts('... failed.')
     end
   end
 
