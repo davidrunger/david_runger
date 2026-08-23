@@ -1,8 +1,5 @@
 <template lang="pug">
-form.flex(
-  v-if="store.own_store"
-  @submit.prevent
-)
+form.flex(@submit.prevent)
   ElAutocomplete.item-name-input.max-w-60(
     ref="autocompleteRef"
     v-model="formData.itemName"

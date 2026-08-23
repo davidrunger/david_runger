@@ -107,6 +107,47 @@ RSpec.describe 'Groceries app' do
         # Check that the needed count for the skipped item is still positive.
         expect(needed_item.needed).to be > 0
       end
+
+      context "when viewing the spouse's store" do
+        let(:spouse_store) do
+          user.spouse.presence!.stores.find_by!(private: false)
+        end
+        let(:spouse_item) { spouse_store.items.first! }
+        let(:spouse_new_item_name) { 'Spouse blueberries' }
+
+        it 'searches and adds items' do
+          visit groceries_path
+
+          within('aside') do
+            click_on(spouse_store.name)
+          end
+
+          expect(page).to have_css('h1', text: spouse_store.name)
+
+          item_input = find(:fillable_field, 'Add or search items')
+          item_input.send_keys('banana')
+
+          expect(page).to have_css(
+            '[role="option"]',
+            text: "#{spouse_item.name} (#{spouse_item.needed})",
+            exact_text: true,
+          )
+          item_input.send_keys([:control, 'a'], spouse_new_item_name)
+          expect(page).to have_css(
+            '[role="option"]',
+            text: "Add '#{spouse_new_item_name}'",
+            exact_text: true,
+          )
+
+          find(
+            '[role="option"]',
+            text: "Add '#{spouse_new_item_name}'",
+            exact_text: true,
+          ).click
+
+          expect(page).to have_css('.grocery-item', text: spouse_new_item_name)
+        end
+      end
     end
 
     context 'when the user does not have a spouse' do
