@@ -46,9 +46,9 @@ import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { bootstrap } from '@/lib/bootstrap';
+import { bootstrap } from '@/logs/bootstrap';
 import { useLogsStore } from '@/logs/store';
-import type { Bootstrap, LogInput } from '@/logs/types';
+import type { LogInput } from '@/logs/types';
 
 const router = useRouter();
 const logsStore = useLogsStore();
@@ -57,7 +57,7 @@ const newLog = ref(newLogGenerator());
 const { postingLog } = storeToRefs(logsStore);
 
 const logInputTypes = computed((): Array<LogInput> => {
-  return (bootstrap as Bootstrap).log_input_types;
+  return bootstrap.log_input_types;
 });
 
 async function createLog() {

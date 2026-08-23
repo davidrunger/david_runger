@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { bootstrap } from '@/check_ins/bootstrap';
 import { assert } from '@/lib/helpers';
 import { http } from '@/lib/http';
 import { getById } from '@/lib/store_helpers';
@@ -9,9 +9,7 @@ import {
   api_need_satisfaction_rating_path,
 } from '@/rails_assets/routes';
 
-import { Bootstrap, NeedSatisfactionRating } from './types';
-
-const bootstrap = untypedBootstrap as Bootstrap;
+import { NeedSatisfactionRating } from './types';
 
 export const useCheckInsStore = defineStore('check-ins', {
   state: () => ({

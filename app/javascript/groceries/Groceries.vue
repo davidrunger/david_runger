@@ -14,9 +14,9 @@ import { storeToRefs } from 'pinia';
 import { onBeforeMount } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
+import { bootstrap } from '@/groceries/bootstrap';
 import { useGroceriesStore } from '@/groceries/store';
-import type { Bootstrap, ItemBroadcast } from '@/groceries/types';
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import type { ItemBroadcast } from '@/groceries/types';
 import type { IphoneTouchEvent } from '@/lib/types';
 import { renderBootstrappedToasts } from '@/lib/vue_toasts';
 
@@ -29,8 +29,6 @@ const groceriesStore = useGroceriesStore();
 
 const { currentStore, debouncingOrWaitingOnNetwork } =
   storeToRefs(groceriesStore);
-
-const bootstrap = untypedBootstrap as Bootstrap;
 
 onBeforeMount(() => {
   window.addEventListener('beforeunload', warnIfRequestPending);

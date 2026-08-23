@@ -32,16 +32,13 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { POSITION } from 'vue-toastification';
 
 import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
+import { bootstrap } from '@/emoji_picker/bootstrap';
 import BoostsForm from '@/emoji_picker/components/BoostsForm.vue';
 import CopiedEmojiToast from '@/emoji_picker/components/CopiedEmojiToast.vue';
 import { emojiData } from '@/emoji_picker/emoji_data';
-import { type Bootstrap } from '@/emoji_picker/types';
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useFuzzyTypeahead } from '@/lib/composables/useFuzzyTypeahead';
 import { vueToast } from '@/lib/vue_toasts';
 import type { EmojiData } from '@/types';
-
-const bootstrap = untypedBootstrap as Bootstrap;
 
 const query = ref('');
 const queryDebounced = refDebounced(query, 60, { maxWait: 180 });

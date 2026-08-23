@@ -3,8 +3,7 @@ import EmojiLibData from 'emojilib';
 import { flatMap, isEqual } from 'es-toolkit/compat';
 import { computed, ref } from 'vue';
 
-import { type Bootstrap } from '@/emoji_picker/types';
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { bootstrap } from '@/emoji_picker/bootstrap';
 import type { EmojiData, EmojiDataWithBoostedName } from '@/types';
 
 const originalEmojilibData = flatMap(EmojiLibData, (names, symbol) => {
@@ -17,8 +16,6 @@ const originalEmojilibData = flatMap(EmojiLibData, (names, symbol) => {
 });
 
 const emojilibData = ref(originalEmojilibData);
-
-const bootstrap = untypedBootstrap as Bootstrap;
 
 export const boosts = ref<Array<EmojiDataWithBoostedName>>(
   bootstrap.current_user?.emoji_boosts || [],
