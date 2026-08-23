@@ -40,6 +40,9 @@ FixtureBuilder.configure do |fbuilder|
     ).first
     name(:item, create(:item, :needed, store:, name: 'olive oil', needed: 2))
     create(:item, :unneeded, store:, name: 'apples')
+    spouse_store = create(:store, user: married_user, name: 'Spouse Store')
+    create(:item, :needed, store: spouse_store, name: 'Spouse bananas')
+    create(:store, user: married_user, name: 'Private Spouse Store', private: true)
 
     # number logs
     number_log = name(:number_log, create(:log, user:, data_type: 'number')).first

@@ -30,6 +30,40 @@ RSpec.describe Api::ItemsController do
             to('cheese puffs')
         end
       end
+
+      context "when creating an item in a spouse's store" do
+        let(:user) { users(:user) }
+
+        context 'when the store is public' do
+          let(:store) do
+            user.spouse.presence!.stores.find_by!(private: false)
+          end
+
+          it 'creates that item for the store' do
+            expect { post_create }.to change { store.reload.items.size }.by(1)
+          end
+
+          it 'returns a 201 status code' do
+            post_create
+            expect(response).to have_http_status(201)
+          end
+        end
+
+        context 'when the store is private' do
+          let(:store) do
+            user.spouse.presence!.stores.find_by!(private: true)
+          end
+
+          it 'does not create an item' do
+            expect { post_create }.not_to change { Item.count }
+          end
+
+          it 'returns a 404 status code' do
+            post_create
+            expect(response).to have_http_status(404)
+          end
+        end
+      end
     end
 
     context 'when the item params are not valid' do

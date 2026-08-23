@@ -3,12 +3,17 @@ class Api::ItemsController < Api::BaseController
 
   def create
     authorize(Item)
-    store = current_user.stores.find(params.expect(:store_id))
-    @item = store.items.build(item_params)
-    if @item.save
-      render_schema_json(@item, status: :created)
+    store = policy_scope(Store).find_by(id: params.expect(:store_id))
+
+    if store.nil?
+      head(:not_found)
     else
-      render json: { errors: @item.errors.full_messages }, status: :unprocessable_content
+      @item = store.items.build(item_params)
+      if @item.save
+        render_schema_json(@item, status: :created)
+      else
+        render json: { errors: @item.errors.full_messages }, status: :unprocessable_content
+      end
     end
   end
 
