@@ -8,7 +8,7 @@ button.bg-slate-200(
 </template>
 
 <script setup lang="ts">
-import { sample } from 'es-toolkit/compat';
+import { sample } from 'es-toolkit';
 import { computed } from 'vue';
 import { bool, integer, object } from 'vue-types';
 
@@ -35,7 +35,7 @@ const props = defineProps({
 const checkInsStore = useCheckInsStore();
 
 const emoji = computed((): string => {
-  return assert(sample(EMOJIS.get(props.ratingValue)));
+  return assert(sample(EMOJIS.get(props.ratingValue) ?? []));
 });
 
 const selected = computed((): boolean => {

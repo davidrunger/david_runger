@@ -1,4 +1,4 @@
-import { identity, pickBy } from 'es-toolkit/compat';
+import { pickBy } from 'es-toolkit';
 import ky from 'ky';
 
 import { csrfToken } from '@/lib/csrfToken';
@@ -47,13 +47,19 @@ export const http = {
 
   async patch<T>(url: string, data?: object) {
     return parseResponse<T>(
-      await kyApi.patch(url, pickBy({ json: data }, identity)),
+      await kyApi.patch(
+        url,
+        pickBy({ json: data }, (value) => Boolean(value)),
+      ),
     );
   },
 
   async post<T>(url: string, data?: object) {
     return parseResponse<T>(
-      await kyApi.post(url, pickBy({ json: data }, identity)),
+      await kyApi.post(
+        url,
+        pickBy({ json: data }, (value) => Boolean(value)),
+      ),
     );
   },
 };

@@ -33,7 +33,7 @@ button.btn-primary.mt-2.h3(
 
 <script setup lang="ts">
 import { ElPopover } from 'element-plus';
-import { range } from 'es-toolkit/compat';
+import { range } from 'es-toolkit';
 import { storeToRefs } from 'pinia';
 import { array, bool, string } from 'vue-types';
 

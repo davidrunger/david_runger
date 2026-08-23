@@ -24,7 +24,7 @@ import {
   type Point,
   type TooltipItem,
 } from 'chart.js';
-import { merge } from 'es-toolkit/compat';
+import { merge } from 'es-toolkit';
 import { Line as VueLine } from 'vue-chartjs';
 
 import 'chartjs-adapter-luxon';
@@ -91,12 +91,15 @@ const props = defineProps({
 });
 
 const chartOptions = computed(() => {
-  return merge({}, chartOptionsDefaults, props.options) as ChartOptions<'line'>;
+  return merge(
+    merge({}, chartOptionsDefaults),
+    props.options,
+  ) as ChartOptions<'line'>;
 });
 
 const mergedChartData = computed(
   (): ChartData<'line', (number | Point | null)[], unknown> => {
-    return merge({}, datasetDefaults, props.chartData) as ChartData<
+    return merge(merge({}, datasetDefaults), props.chartData) as ChartData<
       'line',
       (number | Point | null)[],
       unknown

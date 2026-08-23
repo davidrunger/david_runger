@@ -19,7 +19,7 @@ div
 
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
-import { sortBy } from 'es-toolkit/compat';
+import { sortBy } from 'es-toolkit';
 import { computed, ref } from 'vue';
 import { object } from 'vue-types';
 
@@ -34,7 +34,7 @@ const props = defineProps({
 const showAllEntries = ref(false);
 
 const sortedLogEntries = computed((): Array<TextLogEntry> => {
-  const logEntries = sortBy(props.log.log_entries, 'created_at');
+  const logEntries = sortBy(props.log.log_entries ?? [], ['created_at']);
 
   if (isArrayOfTextLogEntries(logEntries)) {
     let logEntriesToShow;

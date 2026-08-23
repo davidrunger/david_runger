@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import type { CoreScaleOptions, Scale, TooltipItem } from 'chart.js';
-import { sortBy } from 'es-toolkit/compat';
+import { sortBy } from 'es-toolkit';
 import { computed } from 'vue';
 import { object } from 'vue-types';
 
@@ -84,7 +84,7 @@ const CHART_OPTIONS = {
 };
 
 const logEntriesToChartData = computed((): Array<ChartData> => {
-  return sortBy(props.log.log_entries, 'created_at').map(
+  return sortBy(props.log.log_entries ?? [], ['created_at']).map(
     (logEntry: LogEntry): ChartData => ({
       x: logEntry.created_at,
       y: new Date(

@@ -22,7 +22,7 @@ import {
   type ChartData,
   type ChartOptions,
 } from 'chart.js';
-import { merge } from 'es-toolkit/compat';
+import { merge } from 'es-toolkit';
 import { computed } from 'vue';
 import { Bar } from 'vue-chartjs';
 import { number, object, string } from 'vue-types';
@@ -58,14 +58,14 @@ const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
-    x: merge({}, commonAxisOptions, {
+    x: merge(merge({}, commonAxisOptions), {
       offset: true,
       type: 'time',
       time: {
         minUnit: 'day',
       },
     }),
-    y: merge({}, commonAxisOptions, {
+    y: merge(merge({}, commonAxisOptions), {
       ticks: {
         min: 0,
       },
@@ -75,7 +75,7 @@ const chartOptions = {
 
 const mergedChartData = computed(
   (): ChartData<'bar', (number | [number, number] | null)[], unknown> => {
-    return merge({}, datasetDefaults, props.chartData) as ChartData<
+    return merge(merge({}, datasetDefaults), props.chartData) as ChartData<
       'bar',
       (number | [number, number] | null)[],
       unknown

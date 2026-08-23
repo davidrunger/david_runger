@@ -44,7 +44,7 @@ li.grocery-item.flex.items-center.w-full(
 </template>
 
 <script setup lang="ts">
-import { debounce } from 'es-toolkit/compat';
+import { debounce } from 'es-toolkit';
 import { EditIcon, MinusIcon, PlusIcon, XIcon } from 'vue-tabler-icons';
 import { bool, object } from 'vue-types';
 
