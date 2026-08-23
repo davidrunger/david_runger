@@ -15,7 +15,7 @@ module DiffHelpers
     elsif filename_pattern.is_a?(Regexp)
       files_changed.grep(filename_pattern).present?
     else
-      fail "Unknown match pattern of class #{filename.class}."
+      fail("Unknown match pattern of class #{filename.class}.")
     end
   end
 

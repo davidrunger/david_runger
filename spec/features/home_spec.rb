@@ -127,7 +127,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
             spec_start_time = Time.current
 
             expect {
-              visit root_path
+              visit(root_path)
             }.to change {
               Request.where('requests.requested_at > ?', spec_start_time).map(&:attributes)
             }.from([]).to([

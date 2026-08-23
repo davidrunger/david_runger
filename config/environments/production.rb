@@ -127,10 +127,10 @@ Rails.application.configure do
           begin
             name = nil
             until name.present?
-              print 'What is your name (used by PaperTrail to record who changed records)? '
+              print('What is your name (used by PaperTrail to record who changed records)? ')
               name = gets.chomp
             end
-            puts "Thank you, #{name}! Be safe!"
+            puts("Thank you, #{name}! Be safe!")
             name
           end
       end
