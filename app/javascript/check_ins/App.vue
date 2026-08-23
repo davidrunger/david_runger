@@ -20,9 +20,9 @@ div(v-else) {{ checkInsStore.partner_ratings_hidden_reason }}
 
 <script setup lang="ts">
 import actionCableConsumer from '@/channels/consumer';
+import { bootstrap } from '@/check_ins/bootstrap';
 import { useCheckInsStore } from '@/check_ins/store';
-import type { Bootstrap, NeedSatisfactionRating } from '@/check_ins/types';
-import { bootstrap } from '@/lib/bootstrap';
+import type { NeedSatisfactionRating } from '@/check_ins/types';
 
 import Ratings from './components/Ratings.vue';
 
@@ -41,8 +41,7 @@ actionCableConsumer.subscriptions.create(
   },
   {
     received: (data: CheckInsCableData) => {
-      if (data.originating_user_id === (bootstrap as Bootstrap).current_user.id)
-        return;
+      if (data.originating_user_id === bootstrap.current_user.id) return;
 
       if (data.event === 'check-in-submitted' && data.ratings) {
         checkInsStore.setPartnerRatingsOfUser({

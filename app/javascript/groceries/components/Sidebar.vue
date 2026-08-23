@@ -48,9 +48,8 @@ import { storeToRefs } from 'pinia';
 import { computed, reactive, ref } from 'vue';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
+import { bootstrap } from '@/groceries/bootstrap';
 import { useGroceriesStore } from '@/groceries/store';
-import type { Bootstrap } from '@/groceries/types';
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useSubscription } from '@/lib/composables/useSubscription';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 import { new_marriage_path } from '@/rails_assets/routes';
@@ -60,7 +59,6 @@ import StoreListEntry from './StoreListEntry.vue';
 const formData = reactive({
   newStoreName: '',
 });
-const bootstrap = untypedBootstrap as Bootstrap;
 const collapsed = ref(isMobileDevice());
 const groceriesStore = useGroceriesStore();
 const vuelidateRules = {

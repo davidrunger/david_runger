@@ -2,9 +2,9 @@ import { filter, get, last, pick, sortBy } from 'es-toolkit/compat';
 import { defineStore } from 'pinia';
 import { POSITION } from 'vue-toastification';
 
+import { bootstrap } from '@/groceries/bootstrap';
 import DeletedItemToast from '@/groceries/components/DeletedItemToast.vue';
-import { Bootstrap, CheckInStatus, Item } from '@/groceries/types';
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
+import { CheckInStatus, Item } from '@/groceries/types';
 import { emit } from '@/lib/event_bus';
 import { typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
@@ -45,8 +45,6 @@ export const helpers = {
     return sortBy(objects, (object) => object.name.toLowerCase());
   },
 };
-
-const bootstrap = untypedBootstrap as Bootstrap;
 
 export const useGroceriesStore = defineStore('groceries', {
   state: (): State => ({

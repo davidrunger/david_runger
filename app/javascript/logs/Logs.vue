@@ -13,18 +13,16 @@
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useModalStore } from '@/lib/modal/store';
 import { removeQueryParams } from '@/lib/remove_query_params';
 import { renderBootstrappedToasts } from '@/lib/vue_toasts';
+import { bootstrap } from '@/logs/bootstrap';
 import { useLogsStore } from '@/logs/store';
 
 import LogSelectorModal from './components/LogSelectorModal.vue';
-import type { Bootstrap } from './types';
 
 import 'element-plus/theme-chalk/dark/css-vars.css';
 
-const bootstrap = untypedBootstrap as Bootstrap;
 const logsStore = useLogsStore();
 const modalStore = useModalStore();
 

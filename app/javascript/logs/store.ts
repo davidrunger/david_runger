@@ -2,11 +2,11 @@ import { last, sortBy } from 'es-toolkit/compat';
 import { defineStore } from 'pinia';
 import { nextTick } from 'vue';
 
-import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { assert, typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
 import { getById } from '@/lib/store_helpers';
 import { toast } from '@/lib/toasts';
+import { bootstrap } from '@/logs/bootstrap';
 import {
   api_log_entries_path,
   api_log_entry_path,
@@ -30,9 +30,7 @@ import { LogRotateEmailSubmissionTokenResponse } from '@/types/responses/LogRota
 import { LogShareCreateResponse } from '@/types/responses/LogShareCreateResponse';
 import { LogUpdateResponse } from '@/types/responses/LogUpdateResponse';
 
-import { Bootstrap, Log } from './types';
-
-const bootstrap = untypedBootstrap as Bootstrap;
+import { Log } from './types';
 
 export const useLogsStore = defineStore('logs', {
   state: () => ({
