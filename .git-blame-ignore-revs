@@ -7,3 +7,9 @@ cb2e57260b704c6230d173cb9e901b75531694f0
 
 # Use freezolite (no more frozen_string_literal comments) [DEV-2] (#4679)
 1bde9063bbb1f097efd4674009d744bb22de6d5c
+
+# Bump runger_style from 5.14.1 to 5.15.0 (#9236)
+1dc2ade72cc861c0170ee7715b6192089ad80f1c
+
+# [runger_style] Bump runger_style from 5.16.1 to 5.17.0 (#9238)
+88b718059dc34e854a957e5e092559195360ddb5
