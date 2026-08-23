@@ -37,9 +37,7 @@ aside.border-r.border-neutral-400.max-h-full.overflow-auto.hidden-scrollbars(
               :key="store.id"
               :store="store"
             )
-    .mt-auto.text-center.p-3(
-      v-if="!groceriesStore.sortedSpouseStores.length && !collapsed"
-    ) Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
+    .mt-auto.text-center.p-3(v-if="!bootstrap.spouse && !collapsed") Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
 </template>
 
 <script setup lang="ts">
@@ -51,6 +49,8 @@ import { computed, reactive, ref } from 'vue';
 import { ArrowBarRightIcon } from 'vue-tabler-icons';
 
 import { useGroceriesStore } from '@/groceries/store';
+import type { Bootstrap } from '@/groceries/types';
+import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { useSubscription } from '@/lib/composables/useSubscription';
 import { isMobileDevice } from '@/lib/is_mobile_device';
 import { new_marriage_path } from '@/rails_assets/routes';
@@ -60,6 +60,7 @@ import StoreListEntry from './StoreListEntry.vue';
 const formData = reactive({
   newStoreName: '',
 });
+const bootstrap = untypedBootstrap as Bootstrap;
 const collapsed = ref(isMobileDevice());
 const groceriesStore = useGroceriesStore();
 const vuelidateRules = {
