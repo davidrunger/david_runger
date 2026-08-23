@@ -93,7 +93,7 @@ const props = defineProps({
 const chartOptions = computed(() => {
   return merge(
     merge({}, chartOptionsDefaults),
-    props.options,
+    props.options ?? {},
   ) as ChartOptions<'line'>;
 });
 
