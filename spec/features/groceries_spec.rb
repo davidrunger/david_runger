@@ -5,6 +5,10 @@ RSpec.describe 'Groceries app' do
   context 'when a user is signed in' do
     before { sign_in(user) }
 
+    let(:invite_prompt) do
+      "Tip: You and your partner can automatically view each other's lists."
+    end
+
     context 'when the user has a spouse' do
       before { expect(user.spouse).to be_present }
 
@@ -148,6 +152,19 @@ RSpec.describe 'Groceries app' do
           expect(page).to have_css('.grocery-item', text: spouse_new_item_name)
         end
       end
+
+      context 'when the spouse has no stores' do
+        before do
+          user.spouse.presence!.stores.includes(:items).find_each(&:destroy!)
+        end
+
+        it 'does not show a prompt to invite the spouse' do
+          visit groceries_path
+
+          expect(page).to have_css('aside')
+          expect(page).not_to have_text(invite_prompt)
+        end
+      end
     end
 
     context 'when the user does not have a spouse' do
@@ -158,9 +175,7 @@ RSpec.describe 'Groceries app' do
       it 'has a link to invite a partner' do
         visit groceries_path
 
-        expect(page).to have_text(
-          "Tip: You and your partner can automatically view each other's lists.",
-        )
+        expect(page).to have_text(invite_prompt)
 
         click_on('Invite them to join.')
 
