@@ -129,7 +129,7 @@ HomeSection(
 
       p However, I couldn't find a way to get quick, detailed feedback about my app's code coverage while working on tests &ndash; so I wrote #[code SimpleCov::Formatter::Terminal]. It prints line-by-line code coverage information to the terminal after every test run, and includes info about branch coverage, as well, making it easy to see where test coverage is missing, and to add tests covering the uncovered code.
 
-      p Thanks to dog-fooding #[code SimpleCov::Formatter::Terminal] on itself, I'm easily able to keep its #[a(href="https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/master") code coverage at 100%].
+      p Thanks to dog-fooding #[code SimpleCov::Formatter::Terminal] on itself, I'm easily able to keep its #[a(href="https://app.codecov.io/gh/davidrunger/simple_cov-formatter-terminal/tree/main") code coverage at 100%].
 
   Project
     template(#title)
