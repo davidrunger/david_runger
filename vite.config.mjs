@@ -85,6 +85,11 @@ export default defineConfig(({ mode }) => ({
       }),
     },
   },
+  server: {
+    ws: {
+      clientPort: 3036,
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,
