@@ -8,6 +8,41 @@ import { defineConfig } from 'vite';
 import FullReload from 'vite-plugin-full-reload';
 import RubyPlugin from 'vite-plugin-ruby';
 
+// Translate the legacy option until vite-plugin-ruby returns `server.ws`.
+function RubyPluginWithWebSocketConfig() {
+  return RubyPlugin().map((plugin) => {
+    if (
+      plugin.name !== 'vite-plugin-ruby' ||
+      typeof plugin.config !== 'function'
+    )
+      return plugin;
+
+    return {
+      ...plugin,
+      config(...args) {
+        const config = plugin.config.apply(this, args);
+        const { hmr, ...server } = config.server;
+        const userWebSocketConfig = args[0]?.server?.ws;
+
+        if (!hmr || server.ws) return config;
+
+        return {
+          ...config,
+          server: {
+            ...server,
+            ws: {
+              ...hmr,
+              ...(userWebSocketConfig &&
+                typeof userWebSocketConfig === 'object' &&
+                userWebSocketConfig),
+            },
+          },
+        };
+      },
+    };
+  });
+}
+
 export default defineConfig(({ mode }) => ({
   // https://github.com/vitejs/vite/issues/ 18164#issuecomment-2365310242
   css: {
@@ -28,7 +63,7 @@ export default defineConfig(({ mode }) => ({
       'app/presenters/**/*',
       'app/views/**/*',
     ]),
-    RubyPlugin(),
+    RubyPluginWithWebSocketConfig(),
     ElementPlus(),
     vue({
       template: {
