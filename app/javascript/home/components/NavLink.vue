@@ -2,7 +2,7 @@
 a.nav-link(
   :href="`#${section}`"
   :class="{ active }"
-  @click="homeStore.registerClickedSection(section)"
+  @click="scrollToSection"
 )
   span {{ linkText || prettyName }}
 </template>
@@ -13,6 +13,8 @@ import { computed } from 'vue';
 import { string } from 'vue-types';
 
 import { useHomeStore } from '@/home/store';
+
+import { setScrollToFragmentTimeouts } from '../scroll_to_fragment';
 
 const props = defineProps({
   linkText: string().def(''),
@@ -28,6 +30,11 @@ const active = computed((): boolean => {
 const prettyName = computed((): string => {
   return capitalize(props.section);
 });
+
+function scrollToSection() {
+  homeStore.registerClickedSection(props.section);
+  setScrollToFragmentTimeouts(props.section);
+}
 </script>
 
 <style lang="scss" scoped>

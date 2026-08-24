@@ -3,13 +3,14 @@ import { defineStore } from 'pinia';
 
 import { assert } from '@/lib/helpers';
 
-const SECTION_ORDER = ['about', 'skills', 'projects', 'resume', 'contact'];
+const SECTION_ORDER = ['about', 'skills', 'projects', 'resume', 'links'];
 
 export const useHomeStore = defineStore('home', {
   state: () => ({
     clickedSection: null as null | string,
     homeIsVisible: true,
     menuOpen: false,
+    userHasScrolled: false,
     visibleSections: [] as Array<string>,
   }),
 
@@ -25,10 +26,24 @@ export const useHomeStore = defineStore('home', {
 
     registerClickedSection(section: string) {
       this.clickedSection = section;
+      this.userHasScrolled = false;
+    },
+
+    registerUserScroll() {
+      this.userHasScrolled = true;
+
+      if (
+        this.clickedSection &&
+        !this.visibleSections.includes(this.clickedSection)
+      ) {
+        this.clickedSection = null;
+      }
     },
 
     removeSectionShowing(section: string) {
-      if (this.clickedSection === section) this.clickedSection = null;
+      if (this.clickedSection === section && this.userHasScrolled) {
+        this.clickedSection = null;
+      }
       pull(this.visibleSections, [section]);
     },
   },
