@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_21_034707) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_24_145414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -296,6 +296,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_034707) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id", "preference_type"], name: "index_json_preferences_on_user_id_and_preference_type", unique: true
+  end
+
+  create_table "link_status_expectations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "status", null: false
+    t.datetime "updated_at", null: false
+    t.text "url", null: false
+    t.index ["url", "status"], name: "index_link_status_expectations_on_url_and_status", unique: true
+    t.check_constraint "status >= 100 AND status <= 999", name: "link_status_expectations_status_range"
   end
 
   create_table "log_entries", force: :cascade do |t|

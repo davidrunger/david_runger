@@ -26,26 +26,12 @@ class CheckLinks::Checker
   URL_STATUS_EXPECTATIONS = [
     [LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX, 302],
     [REDIRECTING_URL_REGEX, 302],
-    [%r{\Ahttps://www.appacademy.io/\z}, [200, 403]],
     [%r{\Ahttps://github\.com/.+/blob/.+}, [200, 429]],
   ].freeze
-  # rubocop:disable Style/MutableConstant
-  STATUS_EXPECTATIONS = {
-    'https://www.commonlit.org/' => [200, 403],
-    'https://www.linkedin.com/in/davidrunger' => [200, 429, 999],
-    'https://www.termsfeed.com/privacy-policy-generator/' => [200, 403],
-    'https://www.termsfeed.com/blog/cookies/#What_Are_Cookies' => [200, 403],
-  }
-  STATUS_EXPECTATIONS.default_proc =
-    proc do |_hash, url|
-      URL_STATUS_EXPECTATIONS.find { url.match?(it.first) }&.last || 200
-    end
-  STATUS_EXPECTATIONS.freeze
-  # rubocop:enable Style/MutableConstant
 
   def perform(url, page_source_url)
     status = response(url)&.status
-    expected_statuses = Array(STATUS_EXPECTATIONS[url])
+    expected_statuses = expected_statuses(url, status)
 
     Rails.logger.info(<<~LOG.squish)
       [#{self.class.name}] #{url} returned #{status.inspect}
@@ -71,6 +57,19 @@ class CheckLinks::Checker
   end
 
   private
+
+  def expected_statuses(url, status)
+    code_expected_statuses =
+      Array(URL_STATUS_EXPECTATIONS.find { url.match?(it.first) }&.last || 200).dup
+
+    if status.in?(code_expected_statuses)
+      code_expected_statuses
+    else
+      code_expected_statuses.concat(
+        LinkStatusExpectation.where(url:).order(:status).pluck(:status),
+      )
+    end
+  end
 
   def redis_failure_key(url)
     "link_check:#{url}:failed"

@@ -92,6 +92,10 @@ class ApplicationController < ActionController::Base
     Current.browser_uuid = cookies[:browser_uuid]
   end
 
+  def set_admin_user_for_paper_trail
+    PaperTrail.request.whodunnit = current_admin_user&.class_id_string
+  end
+
   def _render_with_renderer_json(resource, options)
     super(resource_for_json_rendering(resource), options)
   end

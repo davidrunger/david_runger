@@ -41,8 +41,25 @@ RSpec.describe CheckLinks::Checker do
         context 'when the URL returns 302' do
           let(:status) { 302 }
 
-          it 'does not send an email', queue_adapter: :test do
+          it 'does not query for an exception or send an email', queue_adapter: :test do
+            expect(LinkStatusExpectation).not_to receive(:where)
+
             expect { perform }.not_to enqueue_mail
+          end
+        end
+
+        context 'when the URL returns 200' do
+          let(:status) { 200 }
+
+          it 'queries for an exception and sends an email', queue_adapter: :test do
+            expect(LinkStatusExpectation).
+              to receive(:where).
+              with(url:).
+              and_call_original
+
+            expect { perform }.
+              to enqueue_mail(AdminMailer, :broken_link).
+              with(url, page_source_url, status, [302])
           end
         end
       end
@@ -168,7 +185,7 @@ RSpec.describe CheckLinks::Checker do
     end
 
     context 'when requesting appacademy.io' do
-      let(:url) { 'https://www.appacademy.io/' }
+      let(:url) { link_status_expectations(:app_academy).url }
 
       context 'when the link returns 200' do
         let(:status) { 200 }
@@ -184,6 +201,11 @@ RSpec.describe CheckLinks::Checker do
         let(:status) { 403 }
 
         it 'does not mark the failure in Redis' do
+          expect(LinkStatusExpectation).
+            to receive(:where).
+            with(url:).
+            and_call_original
+
           expect { perform }.not_to change {
             $redis_pool.with { it.call('get', redis_failure_key) }
           }.from(nil)
