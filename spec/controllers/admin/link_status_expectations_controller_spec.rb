@@ -5,6 +5,26 @@ RSpec.describe Admin::LinkStatusExpectationsController do
 
     before { sign_in(admin_user) }
 
+    describe '#index' do
+      subject(:get_index) { get(:index) }
+
+      it 'responds with 200' do
+        get_index
+
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    describe '#show' do
+      subject(:get_show) { get(:show, params: { id: link_status_expectation.id }) }
+
+      it 'responds with 200' do
+        get_show
+
+        expect(response).to have_http_status(200)
+      end
+    end
+
     describe '#update' do
       subject(:put_update) do
         put(
