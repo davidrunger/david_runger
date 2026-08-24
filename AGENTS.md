@@ -34,7 +34,7 @@
 
 ## Tests and coverage
 
-- When adding a new model class, consider adding realistic baseline records for the primary fixtures to the FixtureBuilder setup when the domain naturally calls for them. This lets specs reuse those records for faster setup and gives feature specs a more representative database state, increasing the chance that relevant data-shape bugs surface.
+- When adding a new model class, add at least one realistic baseline record to the FixtureBuilder setup unless fixtures are unsuitable for that model. Define a factory as needed to create the fixture. This lets specs reuse those records for faster setup and gives feature specs a more representative database state, increasing the chance that relevant data-shape bugs surface.
 - Before running feature specs that exercise changed frontend assets, start the live Vite server with `./node_modules/.bin/vite --force` in a separate terminal and leave it running while iterating. This ensures that each feature-spec run uses the current source without rebuilding assets after every edit. When a task runner starts Vite as a managed background process instead, confirm that the server is ready before running specs and stop it when testing is complete.
 - When investigating a flaky feature spec through repeated runs or otherwise planning to run one or more feature specs multiple times, first determine whether frontend assets will change. If they will not, compile the assets once before the first run and run the repetitions against the compiled output instead of starting the live Vite server. This avoids dev-server startup or optimization traffic interfering with timing-sensitive specs and generally makes repeated runs faster. Rebuild before any subsequent run after changing frontend assets.
 - When running a live Vite server is impractical, run `RAILS_ENV=test bin/vite build` immediately before the relevant feature specs. Repeat the build after every frontend change; otherwise feature specs can silently exercise stale compiled assets.
@@ -61,6 +61,8 @@
   bin/rails generate datamigration NAME
   ```
 
+- Prefer testing one-time datamigrations locally against the development database with `rollback: true` rather than committing specs that will run indefinitely after the migration is complete. Remove `rollback: true` before committing the datamigration. Add lasting specs only when the datamigration contains behavior that warrants ongoing coverage.
+- Run datamigrations through their standard `Datamigration::Runner` when testing them in development. A reasonable, limited number of resulting development `DatamigrationRun` records is acceptable. The runner's `AdminMailer.datamigration_run` notification cannot send external email in development because delivery uses `letter_opener`; it is safe if the resulting Sidekiq job remains queued.
 - Apply branch migrations to both development and test databases with:
 
   ```sh

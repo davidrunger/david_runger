@@ -93,6 +93,16 @@ FixtureBuilder.configure do |fbuilder|
     create(:banned_path_fragment, value: 'wp')
     create(:banned_path_fragment, value: 'wordpress')
 
+    # link status expectations
+    name(
+      :app_academy,
+      create(
+        :link_status_expectation,
+        status: 403,
+        url: 'https://www.appacademy.io/',
+      ),
+    )
+
     # quizzes
     quiz = create(:quiz, owner: married_user)
 
