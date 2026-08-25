@@ -85,7 +85,7 @@ services:
       interval: 1h
       timeout: 10s
       retries: 1
-    image: certbot/certbot:v3.2.0@sha256:3ad1eb352f6b2ae3f359dce4b262f699cc178be0ab9d9f375210e8741404720e
+    image: certbot/certbot:v3.3.0@sha256:632f197de473512f77f60cbea4b5a80ed42b5e9bb6f9e103c997d73549711ebb
     logging: *default-logging
     networks:
       - external
