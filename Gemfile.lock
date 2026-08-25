@@ -25,7 +25,7 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/typelizer.git
-  revision: 78d7fb3fdc52cbb9963557d3baa76b738bab2cad
+  revision: 18e2939cdc2b74ad6991e934d88684f0db5adc89
   specs:
     typelizer (0.3.0)
       railties (>= 6.0.0)
