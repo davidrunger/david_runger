@@ -12,6 +12,21 @@ updates:
     cooldown:
       default-days: 5
     open-pull-requests-limit: 999
+  - package-ecosystem: docker-compose
+    directory: '/'
+    schedule:
+      interval: cron
+      cronjob: '4 4 * * *'
+      timezone: America/Chicago
+    allow:
+      - dependency-type: all
+    cooldown:
+      default-days: 5
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+    open-pull-requests-limit: 999
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
