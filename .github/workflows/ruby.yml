@@ -182,7 +182,7 @@ jobs:
 
           - name: Check code coverage
             if: ${{ !cancelled() }}
-            run: bin/check-code-coverage
+            uses: davidrunger/check-ruby-coverage@3046d88c0f9ea500d9f40ff92cca9338651fa544 # 0.0.0 pilot
 
       - name: Save pnpm cache
         if: ${{ !cancelled() && steps.pnpm-cache.outputs.cache-hit != 'true' }}

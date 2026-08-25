@@ -16,4 +16,10 @@ class NullByteFinder
       false
     end
   end
+
+  private
+
+  def temporary_uncovered_method
+    true
+  end
 end

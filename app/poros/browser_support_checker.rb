@@ -9,6 +9,14 @@ class BrowserSupportChecker
 
   private
 
+  def first_temporary_uncovered_method
+    true
+  end
+
+  def second_temporary_uncovered_method
+    true
+  end
+
   def unsupported?
     @browser.ie?
   end
