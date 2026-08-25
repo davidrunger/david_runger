@@ -3,11 +3,12 @@ RSpec.describe SafeExternalHttpFetcher do
   subject(:fetcher) { described_class.new }
 
   describe '#get' do
-    subject(:get) { fetcher.get(url, timeout: 5) }
+    subject(:get) { fetcher.get(url, timeout: 5, user_agent:) }
 
     let(:url) { 'https://public.example.test/path?query=value' }
     let(:hostname) { 'public.example.test' }
     let(:resolved_addresses) { [] }
+    let(:user_agent) { 'ExampleFetcher/1.0' }
 
     before do
       allow(Resolv).to receive(:getaddresses).with(hostname).and_return(resolved_addresses)
@@ -19,6 +20,13 @@ RSpec.describe SafeExternalHttpFetcher do
 
       it 'connects to the address' do
         expect(get.status).to eq(200)
+      end
+
+      it 'sends the specified user agent' do
+        get
+
+        expect(a_request(:get, url).with(headers: { 'User-Agent' => user_agent })).
+          to have_been_made
       end
 
       it 'pins the connection while preserving the hostname for HTTP and TLS' do

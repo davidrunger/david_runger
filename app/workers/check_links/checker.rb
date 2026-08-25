@@ -3,6 +3,7 @@ class CheckLinks::Checker
   prepend ApplicationWorker
 
   LINK_CHECK_CACHE_KEY_PREFIX = 'link-check'
+  USER_AGENT = "DavidRungerLinkChecker/1.0 (+#{DavidRunger::CANONICAL_URL})".freeze
   LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX = %r{
     \A
     https://davidrunger.com/
@@ -79,7 +80,7 @@ class CheckLinks::Checker
   def response(url)
     Rails.cache.fetch(cache_key(url), expires_in: 6.hours, skip_nil: true) do
       Rails.error.handle(severity: :info, context: { url: }) do
-        SafeExternalHttpFetcher.new.get(url, timeout: 5)
+        SafeExternalHttpFetcher.new.get(url, timeout: 5, user_agent: USER_AGENT)
       end
     end
   end

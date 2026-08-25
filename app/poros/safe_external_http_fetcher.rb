@@ -44,7 +44,7 @@ class SafeExternalHttpFetcher
     ff00::/8
   ].map { IPAddr.new(it) }.freeze
 
-  def get(url, timeout:)
+  def get(url, timeout:, user_agent:)
     uri = http_uri(url)
     pinned_address = resolved_address(uri.hostname)
 
@@ -56,6 +56,7 @@ class SafeExternalHttpFetcher
       end
     end.get do |request|
       request.url(uri)
+      request.headers['User-Agent'] = user_agent
       request.options.timeout = timeout
     end
   end
