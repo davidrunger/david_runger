@@ -165,7 +165,8 @@ jobs:
             if: ${{ !cancelled() }}
             run: |
               if git diff --quiet main...HEAD -- .ruby-version; then
-                echo "Skipping Ruby base image digest verification because .ruby-version is unchanged relative to main."
+                echo "Skipping Ruby base image digest verification because" \
+                  ".ruby-version is unchanged relative to main."
                 exit 0
               fi
 
