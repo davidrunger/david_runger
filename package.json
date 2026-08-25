@@ -12,6 +12,7 @@
   "dependencies": {
     "@activeadmin/activeadmin": "4.0.0-beta22",
     "@davidrunger/vue-model-explorer": "^0.3.3",
+    "@element-plus/icons-vue": "^2.3.2",
     "@rails/actioncable": "^8.1.301",
     "@rails/ujs": "^7.1.600",
     "@tailwindcss/vite": "^4.3.3",

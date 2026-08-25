@@ -27,16 +27,23 @@ div
         template(#reference)
           ElButton Delete last entry
     .mt-2
-      ElDropdown(
-        split-button
-        trigger="click"
-        @click="downloadCsv"
-        @command="confirmExactCsvDownload"
-      )
-        | Download CSV
-        template(#dropdown)
-          ElDropdownMenu
-            ElDropdownItem(command="preserve") Download exact CSV
+      ElButtonGroup.csv-download-buttons
+        ElButton(
+          tag="a"
+          :href="download_log_path(log.slug)"
+          download
+        ) Download CSV
+        ElDropdown(
+          trigger="click"
+          @command="confirmExactCsvDownload"
+        )
+          ElButton.el-dropdown__caret-button(
+            :icon="ArrowDown"
+            aria-label="Toggle Dropdown"
+          )
+          template(#dropdown)
+            ElDropdownMenu
+              ElDropdownItem(command="preserve") Download exact CSV
     .mt-2
       ElButton.multi-line(
         @click="modalStore.showModal({ modalName: 'edit-log-sharing-settings' })"
@@ -67,9 +74,11 @@ div
 </template>
 
 <script setup lang="ts">
+import { ArrowDown } from '@element-plus/icons-vue';
 import { useTitle } from '@vueuse/core';
 import {
   ElButton,
+  ElButtonGroup,
   ElDropdown,
   ElDropdownItem,
   ElDropdownMenu,
@@ -138,10 +147,6 @@ const emailSubmissionTokenLastRotatedAt = computed((): string => {
 
 function destroyLastEntry() {
   logsStore.deleteLastLogEntry({ log });
-}
-
-function downloadCsv() {
-  window.location.assign(download_log_path(log.slug));
 }
 
 async function confirmExactCsvDownload(formulaHandling: string) {
@@ -243,6 +248,10 @@ subscribeToLogEntriesChannel();
 <style scoped>
 .description {
   font-weight: 200;
+}
+
+.csv-download-buttons :deep(.el-dropdown__caret-button) {
+  border-left: none;
 }
 
 .el-button {
