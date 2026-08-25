@@ -20,6 +20,18 @@ RSpec.describe CheckLinks::Checker do
       # rubocop:enable Style/IpAddresses
     end
 
+    it 'identifies the request as the davidrunger.com link checker' do
+      perform
+
+      expect(
+        a_request(:get, url).with(
+          headers: {
+            'User-Agent' => 'DavidRungerLinkChecker/1.0 (+https://davidrunger.com/)',
+          },
+        ),
+      ).to have_been_made
+    end
+
     context 'when a previous failure is marked in Redis' do
       before { $redis_pool.with { it.call('set', redis_failure_key, '1') } }
 
