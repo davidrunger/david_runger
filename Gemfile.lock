@@ -794,7 +794,7 @@ DEPENDENCIES
   cloudflare-rails
   connection_pool
   csv
-  cuprite
+  cuprite (>= 0.17)
   database_consistency
   devise
   dotenv
