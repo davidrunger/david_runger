@@ -161,16 +161,9 @@ jobs:
               path: spec/fixtures/
               retention-days: 5
 
-          - name: Verify Ruby base image digest
+          - name: Verify Ruby base image digest if needed
             if: ${{ !cancelled() }}
-            run: |
-              if git diff --quiet main...HEAD -- .ruby-version; then
-                echo "Skipping Ruby base image digest verification because" \
-                  ".ruby-version is unchanged relative to main."
-                exit 0
-              fi
-
-              bin/check-ruby-image-digest
+            run: bin/check-ruby-image-digest-if-needed
 
           - name: Upload Code Coverage
             uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
