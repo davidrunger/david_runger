@@ -3,8 +3,9 @@ class CiStepResultsPresenter
 
   FIELDS_TO_PLUCK = %i[name github_run_id github_run_attempt created_at seconds].freeze
 
-  def initialize(ci_step_results:)
+  def initialize(ci_step_results:, gantt_chart_ci_step_results:)
     @ci_step_results = ci_step_results
+    @gantt_chart_ci_step_results = gantt_chart_ci_step_results
   end
 
   memoize \
@@ -37,7 +38,7 @@ class CiStepResultsPresenter
 
   memoize \
   def recent_gantt_chart_metadatas
-    @ci_step_results.
+    @gantt_chart_ci_step_results.
       select(
         'MIN(ci_step_results.started_at) AS min_started_at',
         'ci_step_results.branch',

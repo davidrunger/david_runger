@@ -24,6 +24,11 @@ class CiStepResultsController < ApplicationController
     @ci_step_results_presenter =
       CiStepResultsPresenter.new(
         ci_step_results: @ransack_query.result,
+        gantt_chart_ci_step_results:
+          current_user.
+            ci_step_results.
+            ransack(search_params_with_defaults.except('name_eq')).
+            result,
       )
 
     bootstrap(
