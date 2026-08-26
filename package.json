@@ -57,7 +57,7 @@
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "@percy/cli": "^1.32.6",
+    "@percy/cli": "^1.32.7",
     "@pinia/testing": "^2.0.1",
     "@prettier/plugin-pug": "^3.4.2",
     "@testing-library/vue": "^8.1.0",
