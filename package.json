@@ -62,7 +62,7 @@
     "@prettier/plugin-pug": "^3.4.2",
     "@testing-library/vue": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
-    "@types/luxon": "^3.7.4",
+    "@types/luxon": "^3.7.5",
     "@types/node": "^26.2.0",
     "@types/rails__actioncable": "^8.0.3",
     "@types/rails__ujs": "^6.0.4",
