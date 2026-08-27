@@ -23,7 +23,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'home*.css' => (13..23),
     'home*.js' => (246..256),
     'logs*.css' => (122..132),
-    'logs*.js' => (895..905),
+    'logs*.js' => (901..911),
     'model_graph*.js' => (591..601),
     'model_graph*.css' => (2..12),
     'styles*.css' => (14..24),
