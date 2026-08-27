@@ -1,5 +1,6 @@
 {
   "all": {
+    "skipProxy": true,
     "sourceCodeDir": "app/javascript"
   }
 }

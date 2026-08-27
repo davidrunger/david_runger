@@ -6,7 +6,14 @@ module Cuprite::CustomDrivers
     def register_with_capybara
       register_driver(
         DOMAIN_RESTRICTED_CUPRITE,
-        -> { { url_whitelist: %r{\Ahttp://localhost:#{Capybara.server_port}/} } },
+        lambda do
+          {
+            url_whitelist: [
+              %r{\Ahttp://localhost:#{Capybara.server_port}/},
+              %r{\A(?:http|ws)://localhost:3036/vite/},
+            ],
+          }
+        end,
       )
 
       register_driver(UNRESTRICTED_CUPRITE)
