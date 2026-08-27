@@ -2,7 +2,6 @@ ruby file: '.ruby-version'
 
 source 'https://rubygems.org', cooldown: 5
 
-# rubocop:disable Layout/LineLength
 gem 'activeadmin', '>= 4.0.0.beta15'
 gem 'addressable'
 gem 'alba'
@@ -33,8 +32,7 @@ gem 'loofah-activerecord'
 gem 'memo_wise'
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
-gem 'paper_trail', # Source from RubyGems after https://github.com/paper-trail-gem/paper_trail/pull/1511 is released.
-  github: 'davidrunger/paper_trail'
+gem 'paper_trail', github: 'davidrunger/paper_trail'
 gem 'pg'
 gem 'pghero'
 gem 'pg_query' # Used by `pghero` and `prosopite`.
@@ -117,4 +115,3 @@ group :test do
   gem 'super_diff'
   gem 'webmock'
 end
-# rubocop:enable Layout/LineLength
