@@ -163,8 +163,8 @@ importers:
         specifier: ^3.0.6
         version: 3.0.6
       '@types/luxon':
-        specifier: ^3.7.4
-        version: 3.7.4
+        specifier: ^3.7.5
+        version: 3.7.5
       '@types/node':
         specifier: ^26.2.0
         version: 26.2.0
@@ -187,8 +187,8 @@ importers:
         specifier: ^8.67.0
         version: 8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
       '@vue/language-plugin-pug':
-        specifier: ^3.3.10
-        version: 3.3.10
+        specifier: ^3.3.11
+        version: 3.3.11
       fishery:
         specifier: ^2.4.0
         version: 2.4.0
@@ -244,8 +244,8 @@ importers:
         specifier: ^4.1.11
         version: 4.1.11(@types/node@26.2.0)(jsdom@30.0.1)(vite@8.2.2(@types/node@26.2.0)(jiti@2.7.0)(sass@1.103.1)(yaml@2.9.0))
       vue-tsc:
-        specifier: ^3.3.10
-        version: 3.3.10(typescript@6.0.3)
+        specifier: ^3.3.11
+        version: 3.3.11(typescript@6.0.3)
 
 packages:
 
@@ -1253,8 +1253,8 @@ packages:
   '@types/lodash@4.17.25':
     resolution: {integrity: sha512-+K1NIO8I+F9/wNulfVvu23QYd0Pe9/OCqRrim4NoYIf1VoEDL90Ve4ClzpyqBLc7NpGGWRvYNCKZ1BE/Jpf8dQ==}
 
-  '@types/luxon@3.7.4':
-    resolution: {integrity: sha512-V536ZAd6ZJztrrBlLcDFaaZrXNAL2E5uGmssWf/dpSiLkmkLScXUYhUBnWPmtW+cIqnNHzf6//TCMpIc9SCRRQ==}
+  '@types/luxon@3.7.5':
+    resolution: {integrity: sha512-jJ41Q4z6ZVO260MNDdHfW7+7a5iMiX8Mr6ZJHcmgrvhZha6dz5704o/lF2kKl6URjH6ivEL97w9xS/MgpJEphg==}
 
   '@types/minimist@1.2.5':
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
@@ -1424,11 +1424,11 @@ packages:
   '@vue/devtools-shared@8.2.1':
     resolution: {integrity: sha512-Fkac7lUdGReh6pVOi3AYPRGe82LQqRmAfThW7RRligOAP0ZA/Z1z9XLHDM9dv34pV2HRc79DK8uKPeG2fLnA/g==}
 
-  '@vue/language-core@3.3.10':
-    resolution: {integrity: sha512-CR7ByBbgPHqhxrioKPOcZBqttaozzLNwtkCzXQ+uF8gLPHnUe03srPnGpdtHD3zp+bq5iyVkZ1WNx7W564RPwg==}
+  '@vue/language-core@3.3.11':
+    resolution: {integrity: sha512-QJmpliwAVpC/OxubIByPAhNzsQPRc8/gxlN2qnVzVfIMjMDz/9RnXRFoetjz5yEgXVXyp4LqhXq3V53PjmNzFw==}
 
-  '@vue/language-plugin-pug@3.3.10':
-    resolution: {integrity: sha512-wwqAlgQwhtjPJhCxbOhQqK+Oq8k1SqR7DsV0tzdWZX1knXxm7oXiYu4AGODoiTG0UGjwidvQfY5EaZtJWsGfVQ==}
+  '@vue/language-plugin-pug@3.3.11':
+    resolution: {integrity: sha512-iHjrfa8IraqWcS5iLc8ovzFYiCyGT2fAzAKFROxx2gRVo4q/ikgVG50k5D6NkifTprbv2WG7jRfZZ4fWQH9b+g==}
 
   '@vue/reactivity@3.5.41':
     resolution: {integrity: sha512-rznsqKM0np0x18EjzF8x88MpEhdNsffbvFbckLL5+oUKz1BxAImEmO7J1ArRYSyo6aQaVoBDp7jEkT91OOxydA==}
@@ -4609,8 +4609,8 @@ packages:
     peerDependencies:
       vue: ^3.0.2
 
-  vue-tsc@3.3.10:
-    resolution: {integrity: sha512-YaDVxcW+CGtaOt3pZahMG5jYPx0hsUTxyEoPOTSMebcGUXP9lIBabQ14vfKMORb2CqqK5CxsNo/d1d+4IQwiKg==}
+  vue-tsc@3.3.11:
+    resolution: {integrity: sha512-gOb0B9rtU2+f1dszwPqSH5kAieIF9ReeLhD3kSRNHv5WZZUQz/JdVXW0RTdqhNTMlQkqKzrTTviqKr/4FYZraQ==}
     hasBin: true
     peerDependencies:
       typescript: ^6
@@ -5802,7 +5802,7 @@ snapshots:
 
   '@types/lodash@4.17.25': {}
 
-  '@types/luxon@3.7.4': {}
+  '@types/luxon@3.7.5': {}
 
   '@types/minimist@1.2.5': {}
 
@@ -6017,7 +6017,7 @@ snapshots:
 
   '@vue/devtools-shared@8.2.1': {}
 
-  '@vue/language-core@3.3.10':
+  '@vue/language-core@3.3.11':
     dependencies:
       '@volar/language-core': 2.4.28
       '@vue/compiler-dom': 3.5.41
@@ -6027,7 +6027,7 @@ snapshots:
       path-browserify: 1.0.1
       picomatch: 4.0.5
 
-  '@vue/language-plugin-pug@3.3.10':
+  '@vue/language-plugin-pug@3.3.11':
     dependencies:
       '@volar/source-map': 2.4.28
       muggle-string: 0.4.1
@@ -9471,10 +9471,10 @@ snapshots:
     dependencies:
       vue: 3.5.41(typescript@6.0.3)
 
-  vue-tsc@3.3.10(typescript@6.0.3):
+  vue-tsc@3.3.11(typescript@6.0.3):
     dependencies:
       '@volar/typescript': 2.4.28(typescript@6.0.3)
-      '@vue/language-core': 3.3.10
+      '@vue/language-core': 3.3.11
       typescript: 6.0.3
 
   vue-types@7.0.0(vue@3.5.41(typescript@6.0.3)):
