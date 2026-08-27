@@ -187,8 +187,8 @@ importers:
         specifier: ^8.67.0
         version: 8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
       '@vue/language-plugin-pug':
-        specifier: ^3.3.10
-        version: 3.3.10
+        specifier: ^3.3.11
+        version: 3.3.11
       fishery:
         specifier: ^2.4.0
         version: 2.4.0
@@ -1427,8 +1427,8 @@ packages:
   '@vue/language-core@3.3.11':
     resolution: {integrity: sha512-QJmpliwAVpC/OxubIByPAhNzsQPRc8/gxlN2qnVzVfIMjMDz/9RnXRFoetjz5yEgXVXyp4LqhXq3V53PjmNzFw==}
 
-  '@vue/language-plugin-pug@3.3.10':
-    resolution: {integrity: sha512-wwqAlgQwhtjPJhCxbOhQqK+Oq8k1SqR7DsV0tzdWZX1knXxm7oXiYu4AGODoiTG0UGjwidvQfY5EaZtJWsGfVQ==}
+  '@vue/language-plugin-pug@3.3.11':
+    resolution: {integrity: sha512-iHjrfa8IraqWcS5iLc8ovzFYiCyGT2fAzAKFROxx2gRVo4q/ikgVG50k5D6NkifTprbv2WG7jRfZZ4fWQH9b+g==}
 
   '@vue/reactivity@3.5.41':
     resolution: {integrity: sha512-rznsqKM0np0x18EjzF8x88MpEhdNsffbvFbckLL5+oUKz1BxAImEmO7J1ArRYSyo6aQaVoBDp7jEkT91OOxydA==}
@@ -6040,7 +6040,7 @@ snapshots:
       path-browserify: 1.0.1
       picomatch: 4.0.5
 
-  '@vue/language-plugin-pug@3.3.10':
+  '@vue/language-plugin-pug@3.3.11':
     dependencies:
       '@volar/source-map': 2.4.28
       muggle-string: 0.4.1
