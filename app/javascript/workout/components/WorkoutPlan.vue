@@ -13,7 +13,7 @@
     .mt-2(v-else)
       button.btn-primary(@click="startWorkout") Start!
   .flex.justify-center
-    table
+    table.border-spacing-0
       thead
         tr
           th Set
@@ -283,10 +283,6 @@ function timeColumnValue(index: number) {
 .time-column {
   /* fix the width because otherwise it changes as the countdown time changes */
   width: 75px;
-}
-
-table {
-  border-spacing: 0;
 }
 
 table tr:first-of-type th {

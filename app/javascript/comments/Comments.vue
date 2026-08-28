@@ -15,7 +15,7 @@
         :comment="comment"
       )
     template(v-else)
-      p.no-comments No comments yet.
+      p.text-center.text-neutral-600 No comments yet.
 </template>
 
 <script setup lang="ts">
@@ -48,10 +48,5 @@ onMounted(async () => {
 .comments-container {
   width: 90%;
   margin: 24px auto 0;
-}
-
-.no-comments {
-  text-align: center;
-  color: #666;
 }
 </style>

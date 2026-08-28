@@ -5,8 +5,8 @@ HomeSection(
   :renderHeadingManually="true"
 )
   template(#default="slotProps")
-    .row-reverse.items-center(class="sm:flex")
-      .flex-2.mt-4
+    .items-center(class="sm:flex sm:flex-row-reverse")
+      .mt-4(class="sm:flex-2")
         .text-center.mt-4.mb-8
           img.max-w-full.box-shadow(
             loading="lazy"
@@ -16,7 +16,7 @@ HomeSection(
             height="353"
           )
 
-      .flex-3.p-4(class="sm:px-16")
+      .p-4(class="sm:flex-3 sm:px-16")
         SectionHeader(:title="slotProps.title")
 
         p I'm a full stack web developer.

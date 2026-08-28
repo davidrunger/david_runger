@@ -1,9 +1,6 @@
 - content_for(:page_assets) do
   = ts_tag('ujs')
 
-- content_for(:extra_css) do
-  = stylesheet_link_tag('rails_views/marriage')
-
 = link_to('Back to check-ins', check_ins_path)
 %h1
   Manage your marriage
@@ -20,8 +17,8 @@
       = button_to('Delete',
         emotional_need_path(emotional_need),
         method: :delete,
-        form_class: 'button_to inline',
-        class: 'link',
+        form_class: 'button_to inline!',
+        class: 'cursor-pointer border-0 bg-transparent p-0 text-blue-600',
         data: { confirm: "Are you sure you want to delete \"#{emotional_need.name}\"?" })
 %h2 Add an emotional need
 = form_with(model: @marriage.emotional_needs.build) do |form|

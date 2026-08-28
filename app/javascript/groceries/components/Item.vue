@@ -3,20 +3,20 @@ li.grocery-item.flex.items-center.w-full(
   :id="`grocery-item-${item.id}`"
   :class="{ highlighted, unneeded: item.needed <= 0 }"
 )
-  .left.whitespace-nowrap
-    button.item-button.js-link.text-green-600(
+  .whitespace-nowrap
+    button.item-button.text-green-600(
       @click="setNeeded(item, item.needed + 1)"
       title="Increment"
     )
       .flex.justify-center
         PlusIcon(:size="ICON_SIZE")
-    button.item-button.mx-2.js-link.text-red-600(
+    button.item-button.mx-2.text-red-600(
       @click="decrement(item)"
       title="Decrement"
     )
       .flex.justify-center
         MinusIcon(:size="ICON_SIZE")
-  .left
+  div
     template(v-if="isEditing")
       input(
         v-model="nameEditableRef"
@@ -29,11 +29,14 @@ li.grocery-item.flex.items-center.w-full(
         span(v-html="linkifiedAndSanitizedHtml(item.name)")
         |
         |
-        a.js-link.text-neutral-400(@click="editItemName" class="hover:text-black")
+        a.cursor-pointer.text-neutral-400(
+          @click="editItemName"
+          class="hover:text-black"
+        )
           EditIcon(:size="ICON_SIZE")
     | &nbsp;
     span ({{ item.needed }})
-  .ml-auto.js-link.text-red-500(v-if="ownStore")
+  .ml-auto.cursor-pointer.text-red-500(v-if="ownStore")
     button.item-button(
       @click="groceriesStore.destroyItem({ item })"
       title="Delete item"
@@ -106,6 +109,10 @@ function setNeeded(item: Item, needed: number) {
 </script>
 
 <style lang="scss" scoped>
+.item-name {
+  overflow-wrap: anywhere;
+}
+
 .item-button {
   border: none;
   border: 1px solid silver;
@@ -130,10 +137,6 @@ function setNeeded(item: Item, needed: number) {
       background: white;
     }
   }
-}
-
-.item-name {
-  overflow-wrap: anywhere;
 }
 
 .grocery-item {

@@ -10,7 +10,7 @@
       trigger="click"
     )
       template(#reference)
-        span.circled-text.monospace.js-link i
+        span.circled-text i
       div(v-if="needSatisfactionRating.emotional_need.description")
         | {{ needSatisfactionRating.emotional_need.description }}
       div(v-else)
@@ -86,7 +86,9 @@ span.circled-text {
   width: 16px;
   height: 16px;
   text-align: center;
+  font-family: monospace;
   font-weight: bold;
+  cursor: pointer;
 }
 </style>
 

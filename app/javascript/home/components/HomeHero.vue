@@ -4,7 +4,7 @@
 )
   .spacer.grow
   hgroup#headline-container.grow.text-neutral-100(data-section="home")
-    h1#headline-name.my-0.monospace.font-normal.leading-normal
+    h1#headline-name.my-0.font-mono.font-normal.leading-normal
       | David Runger
     .stripe.stripe-1
     .stripe.stripe-2

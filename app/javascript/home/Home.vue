@@ -1,16 +1,13 @@
 <template lang="pug">
-#app-root.sans-serif.mb-8
+#app-root.font-sans.mb-8
   HomeHero
 
   ParallaxImage(
     v-if="!isMobileDevice()"
     variant="macbook-1"
   )
-  //- this is necessary so that the #home section will scroll out of page when clicking down arrow
-  .bg-black(
-    v-else
-    style="height: 40px"
-  )
+  //- This is necessary so that the #home section will scroll out of the page when clicking the down arrow.
+  .h-10.bg-black(v-else)
 
   About
 

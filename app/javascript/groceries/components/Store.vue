@@ -9,7 +9,7 @@
 
   StoreNotes(:store="store")
 
-  .item-form-container.sticky.top-0.z-10.py-2
+  .sticky.top-0.z-10.py-2(class="bg-white/80")
     ItemForm(
       :store="store"
       @item-targeted="scrollToAndHighlightItem"
@@ -90,9 +90,3 @@ async function scrollToAndHighlightItem(item: ItemType): Promise<void> {
 
 onBeforeUnmount(() => clearTimeout(clearHighlightTimeout));
 </script>
-
-<style lang="scss" scoped>
-.item-form-container {
-  background: rgb(255 255 255 / 80%);
-}
-</style>

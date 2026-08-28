@@ -18,8 +18,8 @@ form
         name="numberOfSets"
         type="number"
       )
-  .my-2.clearfix.flex(v-for="(exercise, index) in workout.exercises")
-    .col.col-6
+  .my-2.flex(v-for="(exercise, index) in workout.exercises")
+    div(class="w-1/2")
       label
         | Exercise
         ElInput(
@@ -27,7 +27,7 @@ form
           :name="`exercise-${index}-name`"
           type="text"
         )
-    .col.col-5
+    div(class="w-5/12")
       label
         | Reps per set
         ElInput(
@@ -35,7 +35,7 @@ form
           :name="`exercise-${index}-reps`"
           type="number"
         )
-    .col.col-1.flex.flex-col.items-center.justify-end
+    .flex.flex-col.items-center.justify-end(class="w-1/12")
       ElButton(
         type="danger"
         @click="removeExercise(index)"

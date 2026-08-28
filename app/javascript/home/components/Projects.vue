@@ -3,7 +3,7 @@ HomeSection(
   section="projects"
   title="Projects"
 )
-  Project.mt8
+  Project.mt-8
     template(#title)
       span DavidRunger.com
     template(#technologies)

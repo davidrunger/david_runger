@@ -1,6 +1,7 @@
 <template lang="pug">
-.stores-list__item.flex.items-center.justify-between.my-4.py-2.px-4.js-link.text-xl(
-  :class="['leading-[1.15]', { selected: store === currentStore }]"
+.stores-list__item.my-4.flex.cursor-pointer.items-center.justify-between.px-4.py-2.text-xl(
+  class="bg-white/50 leading-[1.15]"
+  :class="{ 'bg-white/75 font-bold': store === currentStore }"
   @click="groceriesStore.selectStore({ store })"
 )
   .store-name
@@ -10,7 +11,7 @@
       size="22"
     )
   .delete-button
-    a.js-link(
+    a.cursor-pointer(
       v-if="store.own_store"
       @click.stop="destroyStore(store)"
     ) &times;
@@ -42,14 +43,3 @@ function destroyStore(store: Store) {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.stores-list__item {
-  background: rgb(255, 255, 255, 50%);
-
-  &.selected {
-    background: rgb(255, 255, 255, 75%);
-    font-weight: bold;
-  }
-}
-</style>

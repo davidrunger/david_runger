@@ -41,7 +41,7 @@ Modal(
         span(v-if="wasCopiedRecently") Copied!
         span(v-else) Copy to clipboard
     .mt-2
-      a.js-link(
+      a.cursor-pointer(
         @click="modalStore.hideModal({ modalName: 'edit-log-sharing-settings' })"
       ) Close
 </template>

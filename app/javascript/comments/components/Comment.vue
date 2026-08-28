@@ -1,14 +1,20 @@
 <template lang="pug">
-.comment
-  .comment-header
+.comment.mb-2.rounded.border.border-neutral-600.p-4
+  .flex.items-center.gap-2
     GravatarAndPublicName(
       :showEditLink="isAuthor"
       :user="comment.user && comment.user.id === store.currentUser?.id ? store.currentUser : comment.user"
     )
-    .time-since-creation(:title="comment.created_at") {{ timeSinceCreation }}
-    .actions(v-if="isAuthor")
-      button(@click="isEditing = !isEditing") {{ isEditing ? 'Cancel' : 'Edit' }}
-      button(@click="handleCommentDelete(comment.id)") Delete
+    .text-sm.text-neutral-500(:title="comment.created_at") {{ timeSinceCreation }}
+    .ml-auto.flex.gap-3(v-if="isAuthor")
+      button.cursor-pointer.border-0.bg-transparent.text-neutral-500(
+        class="hover:text-neutral-300"
+        @click="isEditing = !isEditing"
+      ) {{ isEditing ? 'Cancel' : 'Edit' }}
+      button.cursor-pointer.border-0.bg-transparent.text-neutral-500(
+        class="hover:text-neutral-300"
+        @click="handleCommentDelete(comment.id)"
+      ) Delete
 
   template(v-if="isEditing")
     CommentForm(
@@ -18,9 +24,10 @@
       @cancel="isEditing = false"
     )
   template(v-else)
-    .content-and-reply-button
-      .content(v-html="formattedAndSanitizedContent")
-      button.reply-button(
+    .mb-4
+      .my-2(v-html="formattedAndSanitizedContent")
+      button.cursor-pointer.border-0.bg-transparent.p-0.text-base.text-blue-600(
+        class="hover:text-blue-300"
         v-if="!showReplyForm"
         @click="showReplyForm = true"
       ) Reply
@@ -148,61 +155,5 @@ function handleCommentDelete(commentId: number) {
 <style scoped>
 .comment :deep(pre) {
   padding: 0;
-}
-
-.content-and-reply-button {
-  margin-bottom: 1rem;
-}
-
-.comment {
-  margin-bottom: 0.5rem;
-  padding: 1rem;
-  border: 1px solid #666;
-  border-radius: 4px;
-}
-
-.comment-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.time-since-creation {
-  color: #777;
-  font-size: 0.9rem;
-}
-
-.content {
-  margin: 0.5rem 0;
-}
-
-.reply-button {
-  font-size: 1rem;
-  background: none;
-  border: none;
-  color: var(--link-color);
-  cursor: pointer;
-  padding: 0;
-
-  &:hover {
-    color: var(--link-hover-color);
-  }
-}
-
-.actions {
-  display: flex;
-  margin-left: auto;
-  gap: 0.8rem;
-}
-
-.actions button {
-  background: none;
-  border: none;
-  color: #777;
-  cursor: pointer;
-
-  &:hover {
-    color: #c7c7c7;
-  }
 }
 </style>
