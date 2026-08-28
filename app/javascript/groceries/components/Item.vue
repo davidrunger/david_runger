@@ -109,10 +109,6 @@ function setNeeded(item: Item, needed: number) {
 </script>
 
 <style lang="scss" scoped>
-.item-name {
-  overflow-wrap: anywhere;
-}
-
 .item-button {
   border: none;
   border: 1px solid silver;
@@ -137,6 +133,10 @@ function setNeeded(item: Item, needed: number) {
       background: white;
     }
   }
+}
+
+.item-name {
+  overflow-wrap: anywhere;
 }
 
 .grocery-item {
