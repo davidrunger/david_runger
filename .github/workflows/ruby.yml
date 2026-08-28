@@ -46,7 +46,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
+          fetch-depth: 100 # This will cause issues if there are more than 100 commits in a PR.
 
       - parallel:
           - name: Ensure ruby is a platform in Gemfile.lock
