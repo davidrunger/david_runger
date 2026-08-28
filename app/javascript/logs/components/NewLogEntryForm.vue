@@ -46,8 +46,8 @@ import { ElButton, ElDatePicker, ElInput } from 'element-plus';
 import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 import { object } from 'vue-types';
 
-import { isMobileDevice } from '@/lib/is_mobile_device';
-import { isArrayOfNumbers } from '@/lib/type_predicates';
+import { isMobileDevice } from '@/lib/isMobileDevice';
+import { isArrayOfNumbers } from '@/lib/typePredicates';
 import { useLogsStore } from '@/logs/store';
 import { type Log } from '@/logs/types';
 import type { LogEntryDataValue } from '@/types';

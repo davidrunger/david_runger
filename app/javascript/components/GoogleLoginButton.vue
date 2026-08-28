@@ -5,7 +5,7 @@ google-sign-in-button(:action="formAction")
 <script setup lang="ts">
 import { users_auth_google_oauth2_callback_path } from '@/rails_assets/routes';
 
-import '@/custom_elements/google_sign_in_button';
+import '@/custom_elements/GoogleSignInButton';
 
 import { string } from 'vue-types';
 

@@ -7,7 +7,7 @@ import {
   emojiData,
   emojiDataLoading,
   loadEmojiData,
-} from './emoji_data';
+} from './emojiData';
 
 const emojiLibModule = Promise.withResolvers<{
   default: Record<string, Array<string>>;

@@ -2,7 +2,7 @@ import { createPinia } from 'pinia';
 import { markRaw } from 'vue';
 import Toast from 'vue-toastification';
 
-import { renderApp } from '@/lib/customized_vue';
+import { renderApp } from '@/lib/customizedVue';
 import LogApp from '@/logs/Logs.vue';
 import router from '@/logs/router';
 

@@ -33,8 +33,8 @@ import { onMounted } from 'vue';
 
 import { useExternalLinkTracking } from '@/lib/composables/useExternalLinkTracking';
 import { useScrollTracking } from '@/lib/composables/useScrollTracking';
-import { isMobileDevice } from '@/lib/is_mobile_device';
-import { renderBootstrappedToasts } from '@/lib/vue_toasts';
+import { isMobileDevice } from '@/lib/isMobileDevice';
+import { renderBootstrappedToasts } from '@/lib/vueToasts';
 
 import About from './components/About.vue';
 import Contact from './components/Contact.vue';
@@ -43,7 +43,7 @@ import ParallaxImage from './components/ParallaxImage.vue';
 import Projects from './components/Projects.vue';
 import Resume from './components/Resume.vue';
 import Skills from './components/Skills.vue';
-import { setScrollToFragmentTimeouts } from './scroll_to_fragment';
+import { setScrollToFragmentTimeouts } from './scrollToFragment';
 import { useManualScrollTracking } from './useManualScrollTracking';
 
 renderBootstrappedToasts();

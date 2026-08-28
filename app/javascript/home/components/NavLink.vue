@@ -14,7 +14,7 @@ import { string } from 'vue-types';
 
 import { useHomeStore } from '@/home/store';
 
-import { setScrollToFragmentTimeouts } from '../scroll_to_fragment';
+import { setScrollToFragmentTimeouts } from '../scrollToFragment';
 
 const props = defineProps({
   linkText: string().def(''),

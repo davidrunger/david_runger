@@ -14,8 +14,8 @@ import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 
 import { useModalStore } from '@/lib/modal/store';
-import { removeQueryParams } from '@/lib/remove_query_params';
-import { renderBootstrappedToasts } from '@/lib/vue_toasts';
+import { removeQueryParams } from '@/lib/removeQueryParams';
+import { renderBootstrappedToasts } from '@/lib/vueToasts';
 import { bootstrap } from '@/logs/bootstrap';
 import { useLogsStore } from '@/logs/store';
 

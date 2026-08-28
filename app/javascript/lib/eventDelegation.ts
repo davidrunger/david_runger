@@ -1,4 +1,4 @@
-import { isElement } from '@/lib/type_predicates';
+import { isElement } from '@/lib/typePredicates';
 
 export function delegate(
   parent: Element | Document,

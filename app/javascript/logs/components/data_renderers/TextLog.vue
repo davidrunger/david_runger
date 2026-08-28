@@ -23,7 +23,7 @@ import { sortBy } from 'es-toolkit';
 import { computed, ref } from 'vue';
 import { object } from 'vue-types';
 
-import { isArrayOfTextLogEntries } from '@/lib/type_predicates';
+import { isArrayOfTextLogEntries } from '@/lib/typePredicates';
 import EditableTextLogRow from '@/logs/components/EditableTextLogRow.vue';
 import type { Log, TextLogEntry } from '@/logs/types';
 

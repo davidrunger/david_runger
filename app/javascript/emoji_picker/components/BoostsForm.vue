@@ -37,9 +37,9 @@
 </template>
 
 <script setup lang="ts">
-import { boosts } from '@/emoji_picker/emoji_data';
+import { boosts } from '@/emoji_picker/emojiData';
 import { http } from '@/lib/http';
-import { vueToast } from '@/lib/vue_toasts';
+import { vueToast } from '@/lib/vueToasts';
 import { api_json_preferences_path } from '@/rails_assets/routes';
 import type { EmojiDataWithBoostedName } from '@/types';
 

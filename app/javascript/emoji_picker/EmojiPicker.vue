@@ -41,9 +41,9 @@ import {
   emojiData,
   emojiDataLoading,
   loadEmojiData,
-} from '@/emoji_picker/emoji_data';
+} from '@/emoji_picker/emojiData';
 import { useFuzzyTypeahead } from '@/lib/composables/useFuzzyTypeahead';
-import { vueToast } from '@/lib/vue_toasts';
+import { vueToast } from '@/lib/vueToasts';
 import type { EmojiData } from '@/types';
 
 const query = ref('');

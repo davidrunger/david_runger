@@ -1,4 +1,4 @@
-import { setScrollToFragmentTimeouts } from './scroll_to_fragment';
+import { setScrollToFragmentTimeouts } from './scrollToFragment';
 
 describe('setScrollToFragmentTimeouts', () => {
   let fragmentTarget: HTMLElement;

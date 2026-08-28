@@ -56,7 +56,7 @@ import { TYPE } from 'vue-toastification';
 import Modal from '@/components/Modal.vue';
 import { useGroceriesStore } from '@/groceries/store';
 import { useModalStore } from '@/lib/modal/store';
-import { vueToast } from '@/lib/vue_toasts';
+import { vueToast } from '@/lib/vueToasts';
 import type { Store } from '@/types';
 
 import CheckInItemsList from './CheckInItemsList.vue';

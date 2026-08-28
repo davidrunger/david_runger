@@ -1,1 +1,1 @@
-import '@/custom_elements/google_sign_in_button';
+import '@/custom_elements/GoogleSignInButton';

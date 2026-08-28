@@ -76,7 +76,7 @@ import { computed, ref } from 'vue';
 import CommentForm from '@/comments/components/CommentForm.vue';
 import GravatarAndPublicName from '@/comments/components/GravatarAndPublicName.vue';
 import { useCommentsStore } from '@/comments/stores/commentsStore';
-import { type Comment } from '@/comments/types/comment';
+import { type Comment } from '@/comments/types/Comment';
 
 import 'highlight.js/styles/github-dark.css';
 
