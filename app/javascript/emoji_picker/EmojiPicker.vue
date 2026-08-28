@@ -11,6 +11,8 @@
       v-model="query"
     )
 
+  p(v-if="query && emojiDataLoading") Loading emojis...
+
   ul.mx-auto.max-w-sm
     li.py-1(
       v-for="emojiDatum in topRankedMatches"
@@ -35,7 +37,11 @@ import GoogleLoginButton from '@/components/GoogleLoginButton.vue';
 import { bootstrap } from '@/emoji_picker/bootstrap';
 import BoostsForm from '@/emoji_picker/components/BoostsForm.vue';
 import CopiedEmojiToast from '@/emoji_picker/components/CopiedEmojiToast.vue';
-import { emojiData } from '@/emoji_picker/emoji_data';
+import {
+  emojiData,
+  emojiDataLoading,
+  loadEmojiData,
+} from '@/emoji_picker/emoji_data';
 import { useFuzzyTypeahead } from '@/lib/composables/useFuzzyTypeahead';
 import { vueToast } from '@/lib/vue_toasts';
 import type { EmojiData } from '@/types';
@@ -80,6 +86,7 @@ function handleKeydown(event: KeyboardEvent) {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown);
+  void loadEmojiData();
 });
 
 onBeforeUnmount(() => {
