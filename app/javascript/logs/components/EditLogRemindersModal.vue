@@ -7,7 +7,7 @@ Modal(
 )
   slot
     div
-      h3.font-bold.mb-4 Reminders
+      h3.mb-4.font-bold Reminders
       .my-2(v-if="log.reminder_time_in_seconds")
         | Current setting: every {{ reminderTimeInHours }} hours
         span.ml-2
@@ -30,7 +30,7 @@ Modal(
           ) {{ timeUnitOption }}
         |
         | to create a log entry (if I haven't already done so).
-      .flex.justify-center.mt-4
+      .mt-4.flex.justify-center
         .mr-8
           ElButton(
             @click="updateLog"

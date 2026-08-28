@@ -7,8 +7,8 @@ HomeSection(
   template(#default="slotProps")
     .items-center(class="sm:flex sm:flex-row-reverse")
       .mt-4(class="sm:flex-2")
-        .text-center.mt-4.mb-8
-          img.max-w-full.box-shadow(
+        .mt-4.mb-8.text-center
+          img.box-shadow.max-w-full(
             loading="lazy"
             src="~img/david.webp"
             alt="A picture of me"

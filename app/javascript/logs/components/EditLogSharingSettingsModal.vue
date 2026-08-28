@@ -6,7 +6,7 @@ Modal(
   backgroundClass="bg-black"
 )
   slot
-    h3.font-bold.mb-4 Sharing
+    h3.mb-4.font-bold Sharing
     div
       ElCheckbox(
         v-model="publiclyViewable"

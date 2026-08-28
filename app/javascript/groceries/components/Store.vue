@@ -1,8 +1,8 @@
 <template lang="pug">
-.overflow-auto.hidden-scrollbars.pt-2.pl-8.pr-4.max-h-full
+.hidden-scrollbars.max-h-full.overflow-auto.pt-2.pr-4.pl-8
   StoreHeader(:store="store")
 
-  ElButton.mr-2.mt-2(
+  ElButton.mt-2.mr-2(
     @click="initializeTripCheckIn"
     :size="isMobileDevice() ? 'small' : 'default'"
   ) Check in items

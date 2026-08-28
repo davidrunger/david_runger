@@ -1,7 +1,7 @@
 <template lang="pug">
 .mb-2
   template(v-if="isEditingNotes")
-    textarea.mt-2.p-2.w-full.rounded-sm(
+    textarea.mt-2.w-full.rounded-sm.p-2(
       v-model="editableNotesRef"
       placeholder="Member phone number: 619-867-5309"
       v-bind="notesInputEventHandlers"
@@ -9,7 +9,7 @@
     )
 
   template(v-else)
-    .flex.items-center.mt-2
+    .mt-2.flex.items-center
       .whitespace-pre-wrap
         | {{ store.notes || 'No notes yet' }}
       div

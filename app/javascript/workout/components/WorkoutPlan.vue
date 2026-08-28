@@ -1,5 +1,5 @@
 <template lang="pug">
-.text-center.pb-8
+.pb-8.text-center
   .pt-6.pb-4
     ElSwitch(
       v-model="editMode"

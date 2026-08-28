@@ -18,7 +18,7 @@ Modal(
         )
     div
       ElCheckbox(v-model="publiclyViewable") Publicly viewable
-    .flex.justify-around.mt-4
+    .mt-4.flex.justify-around
       ElButton(
         @click="modalStore.hideModal({ modalName })"
         type="primary"

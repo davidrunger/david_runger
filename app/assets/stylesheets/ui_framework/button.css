@@ -1,9 +1,9 @@
 .btn-primary {
-  @apply p-2 font-bold text-white bg-sky-600 rounded-md;
+  @apply rounded-md bg-sky-600 p-2 font-bold text-white;
 }
 
 .btn-danger {
-  @apply p-2 font-bold text-white bg-red-700 rounded-md;
+  @apply rounded-md bg-red-700 p-2 font-bold text-white;
 }
 
 .btn-small {

@@ -29,9 +29,9 @@
               v-model="boost.boostedName"
             )
           td.pl-1
-            button.text-red-500.font-bold(@click="removeBoost(boost)") Delete
+            button.font-bold.text-red-500(@click="removeBoost(boost)") Delete
 
-    .flex.justify-center.gap-1.mt-1
+    .mt-1.flex.justify-center.gap-1
       button.btn-primary.btn-small(@click="addBoost") &nbsp;+ Add a boost
       button.btn-primary.btn-small(@click="saveBoosts") Save boosts
 </template>

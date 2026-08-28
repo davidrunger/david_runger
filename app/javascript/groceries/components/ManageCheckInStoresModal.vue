@@ -5,13 +5,13 @@ Modal(
   maxWidth="370px"
 )
   slot
-    h4.font-bold.mt-2.mb-4.
+    h4.mt-2.mb-4.font-bold.
       Which stores would you like to check in?
     CheckInStoreList(:stores="groceriesStore.sortedStores")
-    h4.font-bold.mb-4.
+    h4.mb-4.font-bold.
       Spouse's stores
     CheckInStoreList(:stores="groceriesStore.sortedSpouseStores")
-    .flex.justify-around.mt-4
+    .mt-4.flex.justify-around
       ElButton(
         @click="modalStore.hideModal({ modalName: 'manage-check-in-stores' })"
         type="primary"

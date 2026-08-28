@@ -1,8 +1,8 @@
 <template lang="pug">
-aside.border-r.border-neutral-400.max-h-full.overflow-auto.hidden-scrollbars(
+aside.hidden-scrollbars.max-h-full.overflow-auto.border-r.border-neutral-400(
   :class="{ collapsed }"
 )
-  .flex.flex-col.min-h-full
+  .flex.min-h-full.flex-col
     .sidebar-toggle__container.border-b
       button.sidebar-toggle(
         @click="collapsed = !collapsed"
@@ -12,7 +12,7 @@ aside.border-r.border-neutral-400.max-h-full.overflow-auto.hidden-scrollbars(
     nav
       .store-lists-container.pb-4
         form.add-store.flex(@submit.prevent="handleNewStoreSubmission()")
-          .flex-1.mr-2
+          .mr-2.flex-1
             ElInput(
               type="text"
               v-model="formData.newStoreName"
@@ -37,7 +37,7 @@ aside.border-r.border-neutral-400.max-h-full.overflow-auto.hidden-scrollbars(
               :key="store.id"
               :store="store"
             )
-    .mt-auto.text-center.p-3(v-if="!bootstrap.spouse && !collapsed") Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
+    .mt-auto.p-3.text-center(v-if="!bootstrap.spouse && !collapsed") Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
 </template>
 
 <script setup lang="ts">

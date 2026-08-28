@@ -6,7 +6,7 @@ section
       :key="log.id"
     )
       RouterLink.log-link(:to="{ name: 'log', params: { slug: log.slug } }") {{ log.name }}
-  hr.my-8.border-gray
+  hr.border-gray.my-8
   NewLogForm
 </template>
 

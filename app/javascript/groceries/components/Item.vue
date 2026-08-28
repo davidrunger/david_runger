@@ -1,5 +1,5 @@
 <template lang="pug">
-li.grocery-item.flex.items-center.w-full(
+li.grocery-item.flex.w-full.items-center(
   :id="`grocery-item-${item.id}`"
   :class="{ highlighted, unneeded: item.needed <= 0 }"
 )
