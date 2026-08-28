@@ -5,7 +5,7 @@ RSpec.describe Item do
 
   it { is_expected.to validate_uniqueness_of(:name).scoped_to(:store_id) }
 
-  it do
+  specify do
     expect(item).to validate_numericality_of(:needed).
       only_integer.
       is_greater_than_or_equal_to(0)
