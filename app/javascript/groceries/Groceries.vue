@@ -46,28 +46,13 @@ onBeforeMount(() => {
 
   const spouseId = bootstrap.spouse?.id;
   if (spouseId) {
-    // HACK: add on to the installEventHandlers method because it's called when the ActionCable
-    // connection is re-established after having been broken (though it's also called when
-    // first loading the page, which we don't need, so ignore that one)
-    const connection = (
-      actionCableConsumer as unknown as {
-        connection: { installEventHandlers(): void };
-      }
-    ).connection;
-
-    const originalInstallEventHandlers =
-      connection.installEventHandlers.bind(connection);
-    let isFirstInstall = true;
-
-    connection.installEventHandlers = () => {
-      if (!isFirstInstall) groceriesStore.pullStoreData();
-      isFirstInstall = false;
-      originalInstallEventHandlers();
-    };
-
     actionCableConsumer.subscriptions.create(
       { channel: 'GroceriesChannel' },
       {
+        connected({ reconnected }: { reconnected: boolean }) {
+          if (reconnected) void groceriesStore.pullStoreData();
+        },
+
         received: (data: ItemBroadcast) => {
           const initiatedByOwnBrowser =
             Cookies.get('browser_uuid') === data.acting_browser_uuid;
