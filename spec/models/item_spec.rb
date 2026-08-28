@@ -20,7 +20,7 @@ RSpec.describe Item do
       end
     end
 
-    context 'when `needed` is less than or equal to 0' do
+    context 'when `needed` is 0' do
       before { item.update!(needed: 0) }
 
       it 'does not include the item' do
