@@ -88,4 +88,67 @@ describe('useGroceriesStore', () => {
 
     expect(groceriesStore.pendingRequests).toBe(0);
   });
+
+  describe('pullStoreData', () => {
+    it('adds a store and its items returned after the initial load', async () => {
+      const newItem: Item = {
+        id: 2,
+        name: 'Pain reliever',
+        needed: 1,
+        store_id: 2,
+      };
+      const newStore: Store = {
+        ...storeData,
+        id: 2,
+        items: [newItem],
+        name: 'Pharmacy',
+        own_store: false,
+      };
+      vi.mocked(http.get).mockResolvedValueOnce({
+        own_stores: [],
+        spouse_stores: [newStore],
+      });
+
+      await groceriesStore.pullStoreData();
+
+      expect(groceriesStore.spouse_stores).toEqual([newStore]);
+      expect(groceriesStore.spouse_stores[0].items).toEqual([newItem]);
+    });
+
+    it('adds a new item while updating existing records in place', async () => {
+      const existingStore = groceriesStore.own_stores[0];
+      const existingItem = existingStore.items[0];
+      existingStore.viewed_at = '2026-08-28T12:00:00.000Z';
+      const newItem: Item = {
+        id: 2,
+        name: 'Bananas',
+        needed: 0,
+        store_id: existingStore.id,
+      };
+      vi.mocked(http.get).mockResolvedValueOnce({
+        own_stores: [
+          {
+            ...existingStore,
+            items: [{ ...existingItem, name: 'Pears' }, newItem],
+            name: 'Supermarket',
+            viewed_at: '2026-08-28T13:00:00.000Z',
+          },
+        ],
+        spouse_stores: [],
+      });
+
+      await groceriesStore.pullStoreData();
+
+      expect(groceriesStore.own_stores[0]).toBe(existingStore);
+      expect(existingStore).toMatchObject({
+        name: 'Supermarket',
+        viewed_at: '2026-08-28T12:00:00.000Z',
+      });
+      expect(existingStore.items[0]).toBe(existingItem);
+      expect(existingStore.items).toEqual([
+        { ...itemData, name: 'Pears' },
+        newItem,
+      ]);
+    });
+  });
 });
