@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_24_145414) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_28_162554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -287,6 +287,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_24_145414) do
     t.bigint "store_id", null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["store_id", "name"], name: "index_items_on_store_id_and_name", unique: true
+    t.check_constraint "needed >= 0", name: "items_needed_non_negative"
   end
 
   create_table "json_preferences", force: :cascade do |t|
