@@ -176,13 +176,16 @@ export const useGroceriesStore = defineStore('groceries', {
         existingStores: Array<Store>,
       ) => {
         for (const storeDatum of storeData) {
-          const existingStore = getById(existingStores, storeDatum.id);
-          storeDatum.viewed_at =
-            existingStore.viewed_at ?? storeDatum.viewed_at;
+          const existingStore = safeGetById(existingStores, storeDatum.id);
           if (existingStore) {
+            storeDatum.viewed_at =
+              existingStore.viewed_at ?? storeDatum.viewed_at;
             const items = [];
             for (const itemDatum of storeDatum.items) {
-              const existingItem = getById(existingStore.items, itemDatum.id);
+              const existingItem = safeGetById(
+                existingStore.items,
+                itemDatum.id,
+              );
               if (existingItem) {
                 Object.assign(existingItem, itemDatum);
                 items.push(existingItem);
