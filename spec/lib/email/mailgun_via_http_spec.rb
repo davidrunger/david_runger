@@ -22,7 +22,7 @@ RSpec.describe Email::MailgunViaHttp do
           'User-Agent' => /Faraday v\d+\.\d+\.\d+/,
         },
       ) do |request|
-        # https://github.com/bblimke/webmock/issues/ 623#issuecomment-536603971
+        # https://github.com/bblimke/webmock/issues/623#issuecomment-536603971
         request.body.force_encoding('BINARY')
         request.body.include?('attached a zip file')
       end.to_return(

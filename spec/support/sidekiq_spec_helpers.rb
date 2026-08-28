@@ -1,6 +1,6 @@
 module SidekiqSpecHelpers
   # NOTE: This is a workaround for the issue mentioned here
-  # https://github.com/sidekiq/sidekiq/issues/ 6069#issuecomment-1755344641 .
+  # https://github.com/sidekiq/sidekiq/issues/6069#issuecomment-1755344641 .
   def self.with_global_inline_sidekiq
     original_test_mode =
       if Sidekiq::Testing.inline?

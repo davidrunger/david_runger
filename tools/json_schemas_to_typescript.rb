@@ -89,7 +89,7 @@ module JsonSchemasToTypescript
             )
 
             # Work around this quicktype bug:
-            # https://github.com/glideapps/quicktype/issues/ 2481
+            # https://github.com/glideapps/quicktype/issues/2481
             if JSON.parse(File.read(schema_path))['type'] == 'array'
               file_content = File.read(types_path)
 

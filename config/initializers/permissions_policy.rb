@@ -5,7 +5,7 @@
 
 Rails.application.config.permissions_policy do |f|
   # Unfortunately, there's not a good way to disable all features
-  # (https://github.com/w3c/webappsec-permissions-policy/issues/ 189), so we'll just disable the
+  # (https://github.com/w3c/webappsec-permissions-policy/issues/189), so we'll just disable the
   # subset of features provided by Rails (below).
   f.camera(:none)
   f.gyroscope(:none)
