@@ -14,6 +14,12 @@
 - Prefer repository binstubs, such as `bin/rails` and `bin/rspec`, over commands that bypass them.
 - Keep Spring enabled for local Rails commands because it substantially speeds up tests and other work. Disable Spring only for a concrete reason, not as a routine workaround.
 
+## Tailwind
+
+- Prefer Tailwind for straightforward, one-off utility styling when it maps cleanly to familiar built-in classes and keeps the template easy to scan. Small visual approximations are acceptable when they avoid arbitrary-value syntax without materially changing the design.
+- Keep regular CSS for reused semantic classes, cohesive bespoke visual treatments, and styling that would require long class lists, arbitrary values, custom breakpoints, ancestor or multi-element selectors, or repeated utility groups. Do not expand a concise shared class into duplicated Tailwind lists across its callers.
+- Optimize for readable, movable templates rather than maximum Tailwind usage. Preserve existing CSS when converting it would clutter the markup or obscure relationships that a selector expresses more clearly. Treat bracketed arbitrary-value utilities as a code smell, not an absolute prohibition.
+
 ## Gemfile.lock
 
 - Preserve the `ruby` platform in `Gemfile.lock`. Some Bundler commands can remove it; if that happens, add it back with `bundle lock --add-platform ruby`.
