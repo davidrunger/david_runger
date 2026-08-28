@@ -56,7 +56,6 @@ class Test::RequirementsResolver
         ],
         Test::Tasks::RunBrakeman => nil,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::CreateDbCopies,
-        Test::Tasks::RunImmigrant => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunRubocop => nil,
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunToolsTests => Test::Tasks::RunUnitTests,
@@ -129,7 +128,6 @@ class Test::RequirementsResolver
           Test::Tasks::RunFeatureTestsC,
           Test::Tasks::RunFileSizeChecks,
           Test::Tasks::RunHtmlControllerTests,
-          Test::Tasks::RunImmigrant,
           Test::Tasks::RunPrettier,
           Test::Tasks::RunRubocop,
           Test::Tasks::RunStylelint,
@@ -287,7 +285,6 @@ class Test::RequirementsResolver
         !file_changed?('package.json') &&
         !file_changed?('pnpm-lock.yaml')
     end,
-    Test::Tasks::RunImmigrant => proc { !db_schema_changed? && !diff_mentions?('immigrant') },
     Test::Tasks::RunPrettier => proc do
       all_changed_file_extensions_are_among?(%w[haml lock rb]) &&
         !dotfile_changed? &&

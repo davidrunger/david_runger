@@ -329,8 +329,6 @@ GEM
     http_logger (1.0.2)
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    immigrant (0.3.6)
-      activerecord (>= 3.0)
     inherited_resources (2.1.0)
       actionpack (>= 7.0)
       has_scope (>= 0.6)
@@ -833,7 +831,6 @@ DEPENDENCIES
   haml-rails
   hashid-rails
   http_logger
-  immigrant
   io-console
   ipaddr
   js-routes
@@ -1019,7 +1016,6 @@ CHECKSUMS
   hashie (5.1.0) sha256=c266471896f323c446ea8207f8ffac985d2718df0a0ba98651a3057096ca3870
   http_logger (1.0.2) sha256=150ce6de68cb3f06a8539814312f327e9e7796ad842a2f8922463f3e9b861eb3
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
-  immigrant (0.3.6) sha256=9c154dec2a2cbce62b32967a8b33e1eed58fed6432be3601f67cb88820024e96
   inherited_resources (2.1.0) sha256=74f3f1862790fc1066b4eeb354717ddee220f59421fee4cea4bb1c4b775f4603
   io-console (0.9.2) sha256=efa74f891dd03c0939a931dfc6e74c2813d904763d456ea9762b0525e748db08
   ipaddr (1.2.9) sha256=0f858a7b2e45def81ad2acf7997af77f2837709fa3b3acbbc05f33cfcc03deb7
