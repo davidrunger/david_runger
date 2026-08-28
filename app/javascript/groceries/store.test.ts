@@ -115,6 +115,42 @@ describe('useGroceriesStore', () => {
       expect(groceriesStore.spouse_stores[0].items).toEqual([newItem]);
     });
 
+    it('removes own and spouse stores absent from the response', async () => {
+      const retainedOwnStore = groceriesStore.own_stores[0];
+      const staleOwnStore: Store = {
+        ...storeData,
+        id: 2,
+        name: 'Pharmacy',
+      };
+      const retainedSpouseStore: Store = {
+        ...storeData,
+        id: 3,
+        name: 'Supermarket',
+        own_store: false,
+      };
+      const staleSpouseStore: Store = {
+        ...storeData,
+        id: 4,
+        name: 'Warehouse club',
+        own_store: false,
+      };
+      groceriesStore.own_stores.push(staleOwnStore);
+      groceriesStore.spouse_stores = [retainedSpouseStore, staleSpouseStore];
+      vi.mocked(http.get).mockResolvedValueOnce({
+        own_stores: [
+          { ...retainedOwnStore, items: [...retainedOwnStore.items] },
+        ],
+        spouse_stores: [
+          { ...retainedSpouseStore, items: [...retainedSpouseStore.items] },
+        ],
+      });
+
+      await groceriesStore.pullStoreData();
+
+      expect(groceriesStore.own_stores).toEqual([retainedOwnStore]);
+      expect(groceriesStore.spouse_stores).toEqual([retainedSpouseStore]);
+    });
+
     it('adds a new item while updating existing records in place', async () => {
       const existingStore = groceriesStore.own_stores[0];
       const existingItem = existingStore.items[0];
