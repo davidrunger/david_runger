@@ -40,7 +40,7 @@ import { object } from 'vue-types';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
 import type { Item as ItemType } from '@/groceries/types';
-import { isMobileDevice } from '@/lib/is_mobile_device';
+import { isMobileDevice } from '@/lib/isMobileDevice';
 import { useModalStore } from '@/lib/modal/store';
 import type { Store } from '@/types';
 

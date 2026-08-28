@@ -5,13 +5,13 @@ import { POSITION } from 'vue-toastification';
 import { bootstrap } from '@/groceries/bootstrap';
 import DeletedItemToast from '@/groceries/components/DeletedItemToast.vue';
 import { CheckInStatus, Item } from '@/groceries/types';
-import { emit } from '@/lib/event_bus';
+import { emit } from '@/lib/eventBus';
 import { typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
-import { getById, safeGetById } from '@/lib/store_helpers';
-import { isObjectWithErrors } from '@/lib/type_predicates';
+import { getById, safeGetById } from '@/lib/storeHelpers';
+import { isObjectWithErrors } from '@/lib/typePredicates';
 import { type ObjectWithErrors } from '@/lib/types';
-import { toastErrors, vueToast } from '@/lib/vue_toasts';
+import { toastErrors, vueToast } from '@/lib/vueToasts';
 import {
   api_item_path,
   api_items_bulk_updates_path,

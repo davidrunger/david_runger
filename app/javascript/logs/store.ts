@@ -4,7 +4,7 @@ import { nextTick } from 'vue';
 
 import { assert, typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
-import { getById } from '@/lib/store_helpers';
+import { getById } from '@/lib/storeHelpers';
 import { toast } from '@/lib/toasts';
 import { bootstrap } from '@/logs/bootstrap';
 import {

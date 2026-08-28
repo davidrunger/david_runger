@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { string } from 'vue-types';
 
-import { isMobileDevice } from '@/lib/is_mobile_device';
+import { isMobileDevice } from '@/lib/isMobileDevice';
 
 defineProps({
   variant: string().isRequired,

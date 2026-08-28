@@ -1,8 +1,8 @@
 import { onMounted, onUnmounted } from 'vue';
 
-import { delegate } from '@/lib/event_delegation';
+import { delegate } from '@/lib/eventDelegation';
 import { trackEvent } from '@/lib/events';
-import { isAnchorElement, isMouseEvent } from '@/lib/type_predicates';
+import { isAnchorElement, isMouseEvent } from '@/lib/typePredicates';
 
 export function useExternalLinkTracking() {
   onMounted(() => {

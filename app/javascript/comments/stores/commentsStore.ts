@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import type { Comment } from '@/comments/types/comment';
+import type { Comment } from '@/comments/types/Comment';
 import { bootstrap as untypedBootstrap } from '@/lib/bootstrap';
 import { assert, typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';

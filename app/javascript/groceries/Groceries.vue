@@ -18,7 +18,7 @@ import { bootstrap } from '@/groceries/bootstrap';
 import { useGroceriesStore } from '@/groceries/store';
 import type { ItemBroadcast } from '@/groceries/types';
 import type { IphoneTouchEvent } from '@/lib/types';
-import { renderBootstrappedToasts } from '@/lib/vue_toasts';
+import { renderBootstrappedToasts } from '@/lib/vueToasts';
 
 import Sidebar from './components/Sidebar.vue';
 import Store from './components/Store.vue';

@@ -9,6 +9,10 @@
 - Do not add default or standard-library gems that are used only by third-party dependencies. Those gems are responsible for declaring their own runtime dependencies. Add an application-level workaround for an upstream omission only when it causes a concrete problem, and document why the workaround is necessary.
 - Do not use comments on individual entries in `config/initializers/std_lib.rb` as a consumer index. Such comments become incomplete or stale as usages change. Audit current usage by searching the repository, and reserve an entry-specific comment for non-obvious loading or compatibility requirements.
 
+## TypeScript conventions
+
+- Name internal TypeScript module files in `camelCase`. Use `PascalCase` for modules centered on a `PascalCase` class, interface, or type. Keep externally named Vite entrypoints in `snake_case` when Rails uses their basenames as asset identifiers.
+
 ## Local tooling
 
 - Prefer repository binstubs, such as `bin/rails` and `bin/rspec`, over commands that bypass them.

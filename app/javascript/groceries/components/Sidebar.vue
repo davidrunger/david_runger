@@ -51,7 +51,7 @@ import { ArrowBarRightIcon } from 'vue-tabler-icons';
 import { bootstrap } from '@/groceries/bootstrap';
 import { useGroceriesStore } from '@/groceries/store';
 import { useSubscription } from '@/lib/composables/useSubscription';
-import { isMobileDevice } from '@/lib/is_mobile_device';
+import { isMobileDevice } from '@/lib/isMobileDevice';
 import { new_marriage_path } from '@/rails_assets/routes';
 
 import StoreListEntry from './StoreListEntry.vue';

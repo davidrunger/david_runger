@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { bootstrap } from '@/check_ins/bootstrap';
 import { assert } from '@/lib/helpers';
 import { http } from '@/lib/http';
-import { getById } from '@/lib/store_helpers';
+import { getById } from '@/lib/storeHelpers';
 import {
   api_check_in_check_in_submissions_path,
   api_need_satisfaction_rating_path,

@@ -11,7 +11,7 @@ vi.mock('@/channels/consumer', () => ({
     subscriptions: { create: createSubscription },
   },
 }));
-vi.mock('@/lib/vue_toasts', () => ({
+vi.mock('@/lib/vueToasts', () => ({
   renderBootstrappedToasts: vi.fn(),
 }));
 vi.mock('./components/Sidebar.vue', () => ({
