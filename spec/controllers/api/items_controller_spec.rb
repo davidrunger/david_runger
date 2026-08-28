@@ -121,6 +121,19 @@ RSpec.describe Api::ItemsController do
       end
     end
 
+    context 'when the item is being updated with a negative `needed` value' do
+      let(:params) { base_params.merge(item: { needed: -1 }) }
+
+      it 'does not update the item' do
+        expect { patch_update }.not_to change { item.reload.attributes }
+      end
+
+      it 'returns a 422 status code' do
+        patch_update
+        expect(response).to have_http_status(422)
+      end
+    end
+
     context "when attempting to reassign the item to another user's store" do
       let(:destination_store) { Store.joins(:user).merge(User.excluding(user)).first! }
       let(:params) do

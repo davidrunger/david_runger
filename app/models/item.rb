@@ -20,6 +20,7 @@ class Item < ApplicationRecord
   has_one :user, through: :store
 
   validates :name, presence: true, uniqueness: { scope: :store_id }
+  validates :needed, numericality: { greater_than_or_equal_to: 0, only_integer: true }
 
   strip_attributes collapse_spaces: true
 

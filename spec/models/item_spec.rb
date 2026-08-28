@@ -5,6 +5,12 @@ RSpec.describe Item do
 
   it { is_expected.to validate_uniqueness_of(:name).scoped_to(:store_id) }
 
+  it do
+    expect(item).to validate_numericality_of(:needed).
+      only_integer.
+      is_greater_than_or_equal_to(0)
+  end
+
   describe '::needed' do
     context 'when `needed` is greater than 0' do
       before { item.update!(needed: 1) }
