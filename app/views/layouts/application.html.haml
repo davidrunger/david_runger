@@ -42,7 +42,7 @@
     = content_for(:extra_css)
     = content_for(:page_assets)
 
-  %body{class: class_names('sans-serif', body_classes, user_signed_in? ? 'logged-in' : 'logged-out')}
+  %body{class: class_names('font-sans', body_classes, user_signed_in? ? 'logged-in' : 'logged-out')}
     - if user_signed_in?
       - if admin_user_signed_in? && AuthenticatedSessions::Registry.current(session, :user)&.authentication_kind == 'admin_impersonation'
         .text-center.p-2.bg-sky-200
@@ -52,11 +52,11 @@
     - unless render_flash_messages_via_js?
       - if notice.present?
         .m-4
-          .flash__header.flash__header--notice Notice
-          .flash__message.flash__message--notice= notice
+          .rounded-t.border-0.bg-sky-500.px-4.py-2.font-bold.text-white Notice
+          .flash__message.flash__message--notice.rounded-b.border.border-t-0.border-sky-400.bg-sky-50.px-4.py-3.text-sky-700= notice
       - if alert.present?
         .m-4
-          .flash__header.flash__header--alert Alert
-          .flash__message.flash__message--alert= alert
+          .rounded-t.border-0.bg-red-500.px-4.py-2.font-bold.text-white Alert
+          .flash__message.flash__message--alert.rounded-b.border.border-t-0.border-red-400.bg-red-50.px-4.py-3.text-red-700= alert
     #container{class: container_classes}
       = yield

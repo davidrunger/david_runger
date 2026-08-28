@@ -1,7 +1,7 @@
 <template lang="pug">
-#groceries-app.flex.h-full
+#groceries-app.flex.h-full.text-base
   Sidebar
-  main.flex-1.min-h-0.bg-cover
+  main.z-5.min-h-0.flex-1.bg-cover
     Store(
       v-if="currentStore"
       :store="currentStore"
@@ -110,13 +110,8 @@ header {
   border-bottom: 1px solid var(--color-neutral-300);
 }
 
-#groceries-app {
-  font-size: 0.95rem;
-}
-
 main {
   background-image: url('../../assets/images/beach-background.webp');
-  z-index: 5;
 }
 
 .icon-tabler {

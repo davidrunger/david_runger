@@ -10,7 +10,7 @@
       trigger="click"
     )
       template(#reference)
-        span.circled-text.monospace.js-link i
+        span.circled-text.font-mono.cursor-pointer i
       div(v-if="needSatisfactionRating.emotional_need.description")
         | {{ needSatisfactionRating.emotional_need.description }}
       div(v-else)

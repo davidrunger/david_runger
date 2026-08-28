@@ -9,7 +9,7 @@
     %datalist{id: 'branch_names'}
       = options_for_select(@ci_step_results_form_presenter.branch_names)
     = f.label(:branch_eq, 'Branch')
-    = f.text_field(:branch_eq, list: 'branch_names', class: 'py-1 px-2 center min-w-md')
+    = f.text_field(:branch_eq, list: 'branch_names', class: 'min-w-md px-2 py-1 text-center')
 
   .my-2
     = f.label(:passed_eq, 'Passed')

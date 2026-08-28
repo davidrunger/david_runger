@@ -9,7 +9,7 @@ h1.flex.items-center.flex-wrap.h2.my-1
     )
   template(v-else)
     span {{ store.name }}
-  a.inline-flex.js-link.text-neutral-400.ml-2(
+  a.ml-2.inline-flex.cursor-pointer.text-neutral-400(
     @click="startEditingName(store.name)"
     class="hover:text-black"
   )
@@ -25,7 +25,7 @@ h1.flex.items-center.flex-wrap.h2.my-1
       size="small"
       @click="togglePrivacy"
     ) Make private
-  span.spinner--circle.ml-2(v-if="debouncingOrWaitingOnNetwork")
+  span.spinner--circle.ml-2(class="size-3.5" v-if="debouncingOrWaitingOnNetwork")
 </template>
 
 <script setup lang="ts">
@@ -79,10 +79,3 @@ function togglePrivacy() {
   }
 }
 </script>
-
-<style scoped lang="scss">
-.spinner--circle {
-  height: 14px;
-  width: 14px;
-}
-</style>

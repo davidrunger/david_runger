@@ -7,11 +7,7 @@
 @import './components/spinner';
 @import './components/toastify';
 @import './elements/input';
-@import './flash';
-@import './utils/flex';
-@import './utils/font_family';
 @import './utils/font_weight';
-@import './utils/opacity';
 @import './ui_framework/button';
 
 /* Specify sources manually, because otherwise classes are pulled from vendor/bundle/ in CI. */
@@ -52,10 +48,6 @@ html {
 
 * {
   box-sizing: border-box;
-}
-
-.js-link {
-  cursor: pointer;
 }
 
 textarea {

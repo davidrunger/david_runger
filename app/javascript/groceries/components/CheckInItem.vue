@@ -1,5 +1,7 @@
 <template lang="pug">
-li.flex.items-center.break-word.mb-2(:class="aboutToMoveToClass()")
+li.mb-2.flex.items-center.break-word.transition-all.duration-150.ease-out(
+  :class="aboutToMoveToClass()"
+)
   input(
     type="checkbox"
     :checked="item.checkInStatus === 'in-cart'"
@@ -90,9 +92,3 @@ function toggleItemInCart() {
   }
 }
 </script>
-
-<style scoped lang="scss">
-li {
-  transition: all 0.15s ease-out;
-}
-</style>

@@ -13,7 +13,7 @@
       .whitespace-pre-wrap
         | {{ store.notes || 'No notes yet' }}
       div
-        a.js-link.text-neutral-400.ml-2(
+        a.ml-2.cursor-pointer.text-neutral-400(
           v-if="store.own_store"
           @click="startEditingNotes(store.notes || '')"
           class="hover:text-black"

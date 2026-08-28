@@ -1,11 +1,11 @@
 <template lang="pug">
 header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
-  .flex.items-center.text-xl.js-link.js-scroll-top.ml-8
-    a#logo.monospace.opacity-animated(
+  .js-scroll-top.ml-8.flex.cursor-pointer.items-center.text-xl
+    a#logo.font-mono.transition-opacity.duration-700(
       href="#home"
       :class="['text-blue-300!', { 'opacity-0': homeIsVisible }]"
     ) David Runger
-  nav#nav.sans-serif.flex.justify-around.absolute.mr-8
+  nav#nav.font-sans.flex.justify-around.absolute.mr-8
     NavLink(section="about")
     NavLink(section="skills")
     NavLink(section="projects")
@@ -19,7 +19,7 @@ header#header.grow.flex.justify-between.bg-neutral-950.w-full.relative
       .line
       .line
       .line
-    .clearfix.header-height-spacer
+    .header-height-spacer
     input.menu-toggle(
       type="checkbox"
       ref="menuToggleCheckbox"

@@ -1,6 +1,6 @@
 <template lang="pug">
 template(v-if="user?.public_name && user.gravatar_url")
-  img.avatar(
+  img.h-8.w-8.rounded-full(
     :src="user.gravatar_url"
     :alt="user.public_name"
     crossorigin="anonymous"
@@ -8,7 +8,8 @@ template(v-if="user?.public_name && user.gravatar_url")
 |
 |
 template(v-if="isEditingPublicName")
-  input.public-name-input.py-1.px-2(
+  input.px-2.py-1(
+    class="focus-visible:outline-none"
     type="text"
     v-model="editablePublicNameRef"
     placeholder="Public display name"
@@ -16,11 +17,11 @@ template(v-if="isEditingPublicName")
     v-bind="publicNameInputEventHandlers"
   )
 template(v-else)
-  span.author {{ authorPublicNameOrFallback }}
+  span.font-bold {{ authorPublicNameOrFallback }}
 template(v-if="showEditLink && !isEditingPublicName")
-  span.edit-public-name
+  span.text-xs
     |
-    | [#[button.btn-link(@click="startEditingPublicName(user?.public_name || '')") Edit your name]]
+    | [#[button.text-blue-600(@click="startEditingPublicName(user?.public_name || '')") Edit your name]]
 </template>
 
 <script setup lang="ts">
@@ -56,29 +57,3 @@ const authorPublicNameOrFallback = computed((): string => {
   return user ? user.public_name || `User ${user.id}` : '[deleted user]';
 });
 </script>
-
-<style scoped lang="scss">
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
-
-.author {
-  font-weight: bold;
-}
-
-.btn-link {
-  color: var(--link-color);
-}
-
-.edit-public-name {
-  font-size: 0.8rem;
-}
-
-input.public-name-input {
-  &:focus-visible {
-    outline: none;
-  }
-}
-</style>

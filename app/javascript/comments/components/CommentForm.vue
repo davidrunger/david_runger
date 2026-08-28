@@ -1,21 +1,23 @@
 <template lang="pug">
-form.comment-form(@submit.prevent="handleSubmit")
-  textarea(
+form.my-4(@submit.prevent="handleSubmit")
+  textarea.w-full.resize-y.rounded.border.border-neutral-300.p-2(
     v-model="content"
     placeholder="Write a comment..."
     rows="6"
   )
-  .actions
-    button(type="submit") {{ submitLabel || 'Post' }}
+  .mt-3.flex.gap-3
+    button.cursor-pointer.rounded.border-0.bg-blue-600.px-4.py-2.text-white(
+      type="submit"
+    ) {{ submitLabel || 'Post' }}
     template(v-if="store.currentUser && isNewComment")
-      span.author-identity-preview
+      span.flex.items-center.gap-2
         | as
         |
         GravatarAndPublicName(
           :user="store.currentUser"
           :showEditLink="true"
         )
-    button(
+    button.cursor-pointer.rounded.border-0.bg-neutral-600.px-4.py-2.text-white(
       v-if="initialContent || parentCommentId"
       type="button"
       @click="$emit('cancel')"
@@ -56,42 +58,3 @@ const handleSubmit = () => {
   }
 };
 </script>
-
-<style scoped>
-.comment-form {
-  margin: 1rem 0;
-}
-
-.author-identity-preview {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-textarea {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  resize: vertical;
-}
-
-.actions {
-  margin-top: 0.7rem;
-  display: flex;
-  gap: 0.7rem;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  background: #666;
-  color: white;
-  cursor: pointer;
-}
-
-button[type='submit'] {
-  background: #06c;
-}
-</style>
