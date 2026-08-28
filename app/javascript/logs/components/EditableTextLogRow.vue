@@ -1,6 +1,6 @@
 <template lang="pug">
 tr
-  td(v-html="formattedCreatedAt")
+  td {{ formattedCreatedAt.date }} at&nbsp;{{ formattedCreatedAt.time }}
 
   td(v-if="editing")
     ElInput(
@@ -43,8 +43,8 @@ tr
 <script setup lang="ts">
 import createDOMPurify from 'dompurify';
 import { ElButton, ElInput, ElPopconfirm } from 'element-plus';
+import { DateTime } from 'luxon';
 import { marked } from 'marked';
-import strftime from 'strftime';
 import { computed, nextTick, ref, watch } from 'vue';
 import { object } from 'vue-types';
 
@@ -63,11 +63,13 @@ const editing = ref(false);
 const textInput = ref(null);
 const newPlaintext = ref(props.logEntry.data.slice());
 
-const formattedCreatedAt = computed((): string => {
-  return strftime(
-    '%b %-d, %Y at&nbsp;%-l:%M%P',
-    new Date(props.logEntry.created_at),
-  );
+const formattedCreatedAt = computed(() => {
+  const createdAt = DateTime.fromISO(props.logEntry.created_at);
+
+  return {
+    date: createdAt.toFormat('MMM d, yyyy'),
+    time: createdAt.toFormat('h:mm a'),
+  };
 });
 
 const html = computed((): string => {

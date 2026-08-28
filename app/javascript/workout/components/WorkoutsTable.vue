@@ -27,7 +27,6 @@ div(v-else) None
 <script setup lang="ts">
 import { ElCheckbox } from 'element-plus';
 import { sortBy } from 'es-toolkit';
-import strftime from 'strftime';
 import { computed } from 'vue';
 import { array, bool } from 'vue-types';
 
@@ -41,6 +40,15 @@ const props = defineProps({
 });
 
 const workoutsStore = useWorkoutsStore();
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
+const timeFormatter = new Intl.DateTimeFormat('en-US', {
+  hour: 'numeric',
+  minute: '2-digit',
+});
 
 const workoutsSortedByCreatedAtDesc = computed((): Array<Workout> => {
   return sortBy(props.workouts, ['created_at']).reverse();
@@ -54,7 +62,8 @@ function prettyObject(object: object) {
 }
 
 function prettyTime(timeString: string) {
-  return strftime('%b %-d, %Y at %-l:%M%P', new Date(timeString));
+  const date = new Date(timeString);
+  return `${dateFormatter.format(date)} at ${timeFormatter.format(date)}`;
 }
 
 async function savePubliclyViewableChange(workout: Workout) {
