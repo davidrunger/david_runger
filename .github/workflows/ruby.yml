@@ -48,6 +48,9 @@ jobs:
         with:
           fetch-depth: 10 # this might cause issues if there are more than 10 commits in a PR (?)
 
+      - name: Ensure ruby is a platform in Gemfile.lock
+        run: grep --fixed-strings --line-regexp --quiet '  ruby' Gemfile.lock
+
       - parallel:
           - name: Configure Postgres for speed over reliability
             run: |

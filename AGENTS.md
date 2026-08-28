@@ -14,6 +14,10 @@
 - Prefer repository binstubs, such as `bin/rails` and `bin/rspec`, over commands that bypass them.
 - Keep Spring enabled for local Rails commands because it substantially speeds up tests and other work. Disable Spring only for a concrete reason, not as a routine workaround.
 
+## Gemfile.lock
+
+- Preserve the `ruby` platform in `Gemfile.lock`. Some Bundler commands can remove it; if that happens, add it back with `bundle lock --add-platform ruby`.
+
 ## Routes
 
 - Keep `root` at the top of `config/routes.rb`. All else being equal, group similar routes together. For example, keep relatively niche integration and infrastructure routes lower in the file, near related health-check, operational, or other specialized routes.
