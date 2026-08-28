@@ -171,10 +171,12 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     async pullStoreData() {
-      const addOrUpdateStores = (
+      const reconciledStores = (
         storeData: Array<Store>,
         existingStores: Array<Store>,
       ) => {
+        const storeIds = new Set(storeData.map((store) => store.id));
+
         for (const storeDatum of storeData) {
           const existingStore = safeGetById(existingStores, storeDatum.id);
           if (existingStore) {
@@ -199,6 +201,8 @@ export const useGroceriesStore = defineStore('groceries', {
             existingStores.push(storeDatum);
           }
         }
+
+        return existingStores.filter((store) => storeIds.has(store.id));
       };
 
       const storesResponse = await http.get<
@@ -210,8 +214,14 @@ export const useGroceriesStore = defineStore('groceries', {
           StoresIndexResponse
         >
       >(api_stores_path());
-      addOrUpdateStores(storesResponse.own_stores, this.own_stores);
-      addOrUpdateStores(storesResponse.spouse_stores, this.spouse_stores);
+      this.own_stores = reconciledStores(
+        storesResponse.own_stores,
+        this.own_stores,
+      );
+      this.spouse_stores = reconciledStores(
+        storesResponse.spouse_stores,
+        this.spouse_stores,
+      );
     },
 
     incrementPendingRequests() {
