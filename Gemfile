@@ -6,6 +6,7 @@ gem 'activeadmin', '>= 4.0.0.beta15'
 gem 'addressable'
 gem 'alba'
 gem 'aws-sdk-s3', require: false
+gem 'base64'
 gem 'benchmark'
 gem 'blazer'
 gem 'bootsnap', require: false
@@ -13,11 +14,14 @@ gem 'browser'
 gem 'chartkick'
 gem 'connection_pool'
 gem 'csv'
+gem 'date'
 gem 'devise'
+gem 'digest'
 gem 'dotenv'
 gem 'draper'
 gem 'faraday'
 gem 'faraday-multipart'
+gem 'fileutils'
 gem 'flipper'
 gem 'flipper-redis'
 gem 'flipper-ui'
@@ -25,13 +29,16 @@ gem 'freezolite'
 gem 'haml'
 gem 'haml-rails'
 gem 'hashid-rails'
+gem 'ipaddr'
 gem 'json'
 gem 'js-routes', require: false
 gem 'lograge'
 gem 'loofah-activerecord'
 gem 'memo_wise'
+gem 'net-http'
 gem 'nokogiri'
 gem 'omniauth-google-oauth2'
+gem 'openssl'
 gem 'paper_trail', github: 'davidrunger/paper_trail'
 gem 'pg'
 gem 'pghero'
@@ -51,9 +58,14 @@ gem 'rollbar'
 gem 'runger_actions'
 gem 'runger_email_reply_trimmer'
 gem 'runger_rails_model_explorer'
+gem 'securerandom'
 gem 'sidekiq'
+gem 'singleton'
+gem 'stringio'
 gem 'strip_attributes'
+gem 'time'
 gem 'typelizer', github: 'davidrunger/typelizer'
+gem 'uri'
 gem 'vite_rails'
 
 group :production do
@@ -63,9 +75,12 @@ end
 group :development, :test do
   gem 'amazing_print'
   gem 'annotaterb', require: false
+  gem 'english'
   gem 'immigrant'
+  gem 'io-console'
   gem 'json_schemer'
   gem 'listen'
+  gem 'open3'
   gem 'prosopite'
   gem 'pry-byebug', require: false, github: 'davidrunger/pry-byebug'
   gem 'rainbow'
@@ -78,6 +93,7 @@ group :development, :test do
   gem 'rubocop-rspec_rails', require: false
   gem 'runger_style', require: false
   gem 'spring-commands-rspec'
+  gem 'yaml'
 end
 
 group :development do
@@ -113,5 +129,8 @@ group :test do
   gem 'simplecov-cobertura', require: false
   gem 'simple_cov-formatter-terminal'
   gem 'super_diff'
+  gem 'tempfile'
+  gem 'timeout'
+  gem 'tmpdir'
   gem 'webmock'
 end
