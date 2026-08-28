@@ -1,46 +1,60 @@
 import { watchDebounced } from '@vueuse/core';
-import EmojiLibData from 'emojilib';
 import { isEqual } from 'es-toolkit';
 import { computed, ref } from 'vue';
 
 import { bootstrap } from '@/emoji_picker/bootstrap';
-import type { EmojiData, EmojiDataWithBoostedName } from '@/types';
+import type {
+  EmojiData,
+  EmojiDataWithBoostedName,
+  EmojiDataWithName,
+} from '@/types';
 
-const originalEmojilibData = Object.entries(EmojiLibData).flatMap(
-  ([symbol, names]) =>
-    names.map((name) => ({
-      symbol,
-      name: name.replace(/_/g, ' '),
-    })),
-);
+let originalEmojilibData: Array<EmojiDataWithName> = [];
+const emojilibData = ref<Array<EmojiDataWithName>>([]);
 
-const emojilibData = ref(originalEmojilibData);
+export const emojiDataLoading = ref(true);
 
 export const boosts = ref<Array<EmojiDataWithBoostedName>>(
   bootstrap.current_user?.emoji_boosts || [],
 );
 
-watchDebounced(
-  boosts.value,
-  () => {
-    const possibleDuplicatesToRemoveFromEmojiData = boosts.value.map(
-      (boost) => ({
-        symbol: boost.symbol,
-        name: boost.boostedName,
-      }),
-    );
+function updateEmojilibData() {
+  const possibleDuplicatesToRemoveFromEmojiData = boosts.value.map((boost) => ({
+    symbol: boost.symbol,
+    name: boost.boostedName,
+  }));
 
-    emojilibData.value = originalEmojilibData.filter(
-      (item) =>
-        !possibleDuplicatesToRemoveFromEmojiData.some((possibleDuplicate) =>
-          isEqual(item, possibleDuplicate),
-        ),
-    );
-  },
-  { debounce: 800, immediate: true },
-);
+  emojilibData.value = originalEmojilibData.filter(
+    (item) =>
+      !possibleDuplicatesToRemoveFromEmojiData.some((possibleDuplicate) =>
+        isEqual(item, possibleDuplicate),
+      ),
+  );
+}
 
-export const emojiData = computed<Array<EmojiData>>(() => [
-  ...emojilibData.value,
-  ...boosts.value,
-]);
+watchDebounced(boosts.value, updateEmojilibData, {
+  debounce: 800,
+  immediate: true,
+});
+
+export const emojiData = computed<Array<EmojiData>>(() => {
+  if (emojiDataLoading.value) {
+    return [];
+  }
+
+  return [...emojilibData.value, ...boosts.value];
+});
+
+export async function loadEmojiData() {
+  const { default: emojiLibData } = await import('emojilib');
+
+  originalEmojilibData = Object.entries(emojiLibData).flatMap(
+    ([symbol, names]) =>
+      names.map((name) => ({
+        symbol,
+        name: name.replace(/_/g, ' '),
+      })),
+  );
+  updateEmojilibData();
+  emojiDataLoading.value = false;
+}
