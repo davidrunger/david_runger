@@ -9,7 +9,7 @@ import FullReload from 'vite-plugin-full-reload';
 import RubyPlugin from 'vite-plugin-ruby';
 
 export default defineConfig(({ mode }) => ({
-  // https://github.com/vitejs/vite/issues/ 18164#issuecomment-2365310242
+  // https://github.com/vitejs/vite/issues/18164#issuecomment-2365310242
   css: {
     preprocessorOptions: {
       scss: {

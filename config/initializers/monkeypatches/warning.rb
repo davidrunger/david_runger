@@ -9,7 +9,7 @@ if Rails.env.test?
     mattr_accessor :warnings
 
     IGNORED_WARNINGS = [
-      'UTF-8 string passed as BINARY', # See https://github.com/percy/cli/pull/ 2203 .
+      'UTF-8 string passed as BINARY', # See https://github.com/percy/cli/pull/2203 .
     ].freeze
 
     def warn(message, *_args, **_kwargs)

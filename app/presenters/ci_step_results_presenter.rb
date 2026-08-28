@@ -29,7 +29,7 @@ class CiStepResultsPresenter
           rows.to_h do |_name, github_run_id, github_run_attempt, _created_at, seconds|
             # Lines will only appear if each series has dots at the exact same
             # time, so we will standardize on the earliest created_at.
-            # https://github.com/ankane/chartkick/issues/ 137#issuecomment-58734647
+            # https://github.com/ankane/chartkick/issues/137#issuecomment-58734647
             [earliest_created_at(github_run_id:, github_run_attempt:), seconds]
           end,
       }

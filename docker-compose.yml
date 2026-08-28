@@ -53,7 +53,7 @@ x-redis-config: &redis
 services:
   cadvisor:
     command:
-      # Add options to lower CPU/memory use. https://github.com/google/cadvisor/issues/ 2523
+      # Add options to lower CPU/memory use. https://github.com/google/cadvisor/issues/2523
       - '--docker_only'
       - '--docker=tcp://docker-socket-proxy:2375'
       - '--housekeeping_interval=30s'
