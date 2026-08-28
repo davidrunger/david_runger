@@ -49,7 +49,7 @@ onBeforeMount(() => {
     actionCableConsumer.subscriptions.create(
       { channel: 'GroceriesChannel' },
       {
-        connected({ reconnected }) {
+        connected({ reconnected }: { reconnected: boolean }) {
           if (reconnected) void groceriesStore.pullStoreData();
         },
 
