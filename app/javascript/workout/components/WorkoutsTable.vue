@@ -27,7 +27,7 @@ div(v-else) None
 <script setup lang="ts">
 import { ElCheckbox } from 'element-plus';
 import { sortBy } from 'es-toolkit';
-import strftime from 'strftime';
+import { DateTime } from 'luxon';
 import { computed } from 'vue';
 import { array, bool } from 'vue-types';
 
@@ -54,7 +54,7 @@ function prettyObject(object: object) {
 }
 
 function prettyTime(timeString: string) {
-  return strftime('%b %-d, %Y at %-l:%M%P', new Date(timeString));
+  return DateTime.fromISO(timeString).toFormat("MMM d, yyyy 'at' h:mm a");
 }
 
 async function savePubliclyViewableChange(workout: Workout) {

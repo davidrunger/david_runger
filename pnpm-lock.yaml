@@ -95,9 +95,6 @@ importers:
       pug:
         specifier: ^3.0.4
         version: 3.0.4
-      strftime:
-        specifier: ^0.10.3
-        version: 0.10.3
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
@@ -174,9 +171,6 @@ importers:
       '@types/rails__ujs':
         specifier: ^6.0.4
         version: 6.0.4
-      '@types/strftime':
-        specifier: ^0.9.8
-        version: 0.9.8
       '@types/toastify-js':
         specifier: ^1.12.4
         version: 1.12.4
@@ -1288,9 +1282,6 @@ packages:
 
   '@types/semver@7.8.0':
     resolution: {integrity: sha512-1mAINjtQCXXeLkJ9ehXkwOcBpqtLxiVtKhpUf83DdRNdQKV0iXZpaHYqRr7nj+wvxuJzoAmAwXI+sCNMv1CzLQ==}
-
-  '@types/strftime@0.9.8':
-    resolution: {integrity: sha512-QIvDlGAKyF3YJbT3QZnfC+RIvV5noyDbi+ZJ5rkaSRqxCGrYJefgXm3leZAjtoQOutZe1hCXbAg+p89/Vj4HlQ==}
 
   '@types/toastify-js@1.12.4':
     resolution: {integrity: sha512-zfZHU4tKffPCnZRe7pjv/eFKzTVHozKewFCKaCjZ4gFinKgJRz/t0bkZiMCXJxPhv/ZoeDGNOeRD09R0kQZ/nw==}
@@ -4009,10 +4000,6 @@ packages:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
 
-  strftime@0.10.3:
-    resolution: {integrity: sha512-DZrDUeIF73eKJ4/GgGuv8UHWcUQPYDYfDeQFj3jrx+JZl6GQE656MbHIpvbo4mEG9a5DgS8GRCc5DxJXD2udDQ==}
-    engines: {node: '>=0.2.0'}
-
   string-to-stream@3.0.1:
     resolution: {integrity: sha512-Hl092MV3USJuUCC6mfl9sPzGloA3K5VwdIeJjYIkXY/8K+mUvaeEabWJgArp+xXrsWxCajeT2pc4axbVhIZJyg==}
 
@@ -5892,8 +5879,6 @@ snapshots:
 
   '@types/semver@7.8.0':
     optional: true
-
-  '@types/strftime@0.9.8': {}
 
   '@types/toastify-js@1.12.4': {}
 
@@ -8754,8 +8739,6 @@ snapshots:
       - supports-color
 
   streamsearch@1.1.0: {}
-
-  strftime@0.10.3: {}
 
   string-to-stream@3.0.1:
     dependencies:
