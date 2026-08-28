@@ -326,7 +326,7 @@ services:
     volumes:
       - ./redis/redis-cache.conf:/usr/local/etc/redis/redis.conf
   redis-overcommit:
-    build: https://raw.githubusercontent.com/bkuhl/redis-overcommit-on-host/09215f160d59a7289ab3f4734f235659cdb8d269/Dockerfile
+    build: ./docker/redis-overcommit
     cpu_shares: 256
     restart: 'no'
     volumes:
