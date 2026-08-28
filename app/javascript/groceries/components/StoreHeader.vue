@@ -1,5 +1,5 @@
 <template lang="pug">
-h1.flex.items-center.flex-wrap.h2.my-1
+h1.h2.my-1.flex.flex-wrap.items-center
   template(v-if="isEditingName")
     input(
       type="text"

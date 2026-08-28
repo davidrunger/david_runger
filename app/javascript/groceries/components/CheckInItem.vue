@@ -1,5 +1,5 @@
 <template lang="pug">
-li.mb-2.flex.items-center.break-word.transition-all.duration-150.ease-out(
+li.break-word.mb-2.flex.items-center.transition-all.duration-150.ease-out(
   :class="aboutToMoveToClass()"
 )
   input(

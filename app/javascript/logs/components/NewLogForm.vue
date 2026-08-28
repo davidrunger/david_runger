@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   .h2.my-8 New Log
-  .flex.justify-center.mb-2
+  .mb-2.flex.justify-center
     div(style="width: 400px")
       form.px-2(@submit.prevent="createLog")
         .mb-2

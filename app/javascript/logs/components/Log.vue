@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  h1.text-2xl.mb-2 {{ log.name }}
+  h1.mb-2.text-2xl {{ log.name }}
   h2.h5.text-neutral-400(v-if="isSharedLogView") shared by {{ log.user.email }}
   p.h5.mb-4.font-extralight {{ log.description }}
   NewLogEntryForm(

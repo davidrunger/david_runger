@@ -5,7 +5,12 @@
   "pugAttributeSeparator": "none",
   "pugWrapAttributesThreshold": 1,
   "pugFramework": "vue",
-  "plugins": ["@ianvs/prettier-plugin-sort-imports", "@prettier/plugin-pug"],
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "@prettier/plugin-pug",
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindStylesheet": "./app/assets/stylesheets/styles.css",
   "importOrder": ["^(?!(@/|\\.))(.*)", "", "^@.*/(.*)$", "", "^\\."],
   "importOrderTypeScriptVersion": "5.5.2"
 }

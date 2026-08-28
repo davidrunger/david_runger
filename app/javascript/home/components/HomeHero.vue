@@ -1,21 +1,21 @@
 <template lang="pug">
-#home.flex.flex-col.relative.h-screen.items-center.justify-around.p-16.bg-neutral-950(
+#home.relative.flex.h-screen.flex-col.items-center.justify-around.bg-neutral-950.p-16(
   ref="homeRef"
 )
   .spacer.grow
   hgroup#headline-container.grow.text-neutral-100(data-section="home")
-    h1#headline-name.my-0.font-mono.font-normal.leading-normal
+    h1#headline-name.my-0.font-mono.leading-normal.font-normal
       | David Runger
     .stripe.stripe-1
     .stripe.stripe-2
     .stripe.stripe-3
     .stripe.stripe-4
-    p.pt-4.text-4xl.text-right
+    p.pt-4.text-right.text-4xl
       | Full stack web developer
 
   HomeHeader
 
-  a.flex.justify-center.items-center.down-arrow-container.rounded-full.mb-8(
+  a.down-arrow-container.mb-8.flex.items-center.justify-center.rounded-full(
     href="#about"
   )
     //- hat tip to https://codepen.io/postor/pen/mskxI for a starting point for this

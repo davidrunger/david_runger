@@ -1,8 +1,8 @@
 <template lang="pug">
 section(v-if="items.length > 0")
-  h3.font-bold.mb-2 {{ title }} ({{ items.length }})
+  h3.mb-2.font-bold {{ title }} ({{ items.length }})
 
-  ul.check-in-items-list.text-base.mb-2
+  ul.check-in-items-list.mb-2.text-base
     CheckInItem(
       v-for="item in items"
       :key="item.id"

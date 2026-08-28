@@ -1,5 +1,5 @@
 <template lang="pug">
-.relative.bg-white.flex.justify-center.p-4.scroll-mt-14(
+.relative.flex.scroll-mt-14.justify-center.bg-white.p-4(
   :id="section"
   :class="section"
   ref="root"

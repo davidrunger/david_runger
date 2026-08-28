@@ -10,7 +10,7 @@
       trigger="click"
     )
       template(#reference)
-        span.circled-text.font-mono.cursor-pointer i
+        span.circled-text.cursor-pointer.font-mono i
       div(v-if="needSatisfactionRating.emotional_need.description")
         | {{ needSatisfactionRating.emotional_need.description }}
       div(v-else)
@@ -25,7 +25,7 @@
       :editable="editable"
     )
 
-button.btn-primary.mt-2.h3(
+button.btn-primary.h3.mt-2(
   v-if="editable && !submitted"
   @click="submitCheckIn"
 ) Submit Check-in

@@ -1,5 +1,5 @@
 <template lang="pug">
-#app-root.font-sans.mb-8
+#app-root.mb-8.font-sans
   HomeHero
 
   ParallaxImage(

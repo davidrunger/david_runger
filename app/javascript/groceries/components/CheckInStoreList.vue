@@ -1,6 +1,6 @@
 <template lang="pug">
 ul
-  li.block.mb-2(
+  li.mb-2.block(
     v-for="store in stores"
     :key="store.id"
   )

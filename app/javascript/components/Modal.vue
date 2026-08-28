@@ -1,11 +1,11 @@
 <template lang="pug">
 transition(name="modal")
-  .modal-mask.fixed.flex.flex-col.items-center.justify-center.w-full.top-0.left-0.h-screen.z-10(
+  .modal-mask.fixed.top-0.left-0.z-10.flex.h-screen.w-full.flex-col.items-center.justify-center(
     v-if="showingModal({ modalName: name })"
     ref="mask"
     @click="handleClickMask"
   )
-    .modal-container.p-8.rounded(
+    .modal-container.rounded.p-8(
       :style="{ width: width, maxWidth: maxWidth }"
       :class="backgroundClass"
     )

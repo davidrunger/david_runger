@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  .flex.justify-center.w-full
+  .flex.w-full.justify-center
     table.text-log-table.w-full.max-w-4xl
       TransitionGroup(name="appear-vertically-list")
         EditableTextLogRow(
