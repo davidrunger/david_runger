@@ -7,7 +7,7 @@ import 'css/vue_toastification_with_overrides.css';
 
 const DEFAULT_VUE_TOASTIFICATION_OPTIONS = Object.freeze({
   position: POSITION.TOP_RIGHT,
-  timeout: window.davidrunger.env === 'test' ? 60000 : 5000,
+  timeout: window.davidrunger?.env === 'test' ? 60000 : 5000,
 });
 
 type ComponentOptions = {

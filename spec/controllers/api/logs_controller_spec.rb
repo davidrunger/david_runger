@@ -42,30 +42,16 @@ RSpec.describe Api::LogsController do
       let(:invalid_params) { { log: { name: '' } } }
       let(:params) { invalid_params }
 
-      it 'logs info about the log and why it is invalid' do
-        allow(Rails.logger).to receive(:info).and_call_original
-
-        post_create
-
-        checked_log_line_expectations = false
-        expect(Rails.logger).to have_received(:info) do |logged_string|
-          # ignore an expected log line that we aren't interested in
-          if logged_string.include?('path=/api/logs method=POST')
-            break
-          end
-
-          # make sure that we get here at some point
-          checked_log_line_expectations = true
-          expect(logged_string).to include('Failed to create log.')
-          expect(logged_string).to match(/errors={.*name: \["can't be blank"\].*}/)
-          expect(logged_string).to match(/attributes={.*"name" => nil\b.*}/)
-        end
-        expect(checked_log_line_expectations).to eq(true)
-      end
-
       it 'returns a 422 status code' do
         post_create
         expect(response).to have_http_status(422)
+      end
+
+      it 'responds with the validation errors as an array of messages' do
+        post_create
+        expect(response.parsed_body).to include(
+          'errors' => include("Name can't be blank"),
+        )
       end
     end
   end

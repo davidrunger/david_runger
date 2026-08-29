@@ -7,14 +7,7 @@ class Api::LogsController < Api::BaseController
     if @log.save
       render_schema_json(@log.serializer(current_user:), status: :created)
     else
-      errors_hash = @log.errors.to_hash
-
-      Rails.logger.info(<<~LOG.squish)
-        Failed to create log.
-        errors=#{errors_hash}
-        attributes=#{@log.attributes}
-      LOG
-      render json: { errors: errors_hash }, status: :unprocessable_content
+      render json: { errors: @log.errors.full_messages }, status: :unprocessable_content
     end
   end
 
