@@ -1,6 +1,6 @@
 expected-num-github-checks:
   at-least: 2
-javascript-watch-command: ./node_modules/.bin/vite --force
+javascript-watch-command: ./node_modules/.bin/vite
 spec-commands: |
   export RAILS_ENV=test PALLETS_CONCURRENCY=${PALLETS_CONCURRENCY:-6} DISABLE_SPRING=1
   export POSTGRES_USER=david_runger POSTGRES_HOST=localhost
