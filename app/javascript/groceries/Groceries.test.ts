@@ -2,9 +2,14 @@ import { render } from '@testing-library/vue';
 import { createPinia, setActivePinia } from 'pinia';
 import type { Component } from 'vue';
 
-const { createSubscription } = vi.hoisted(() => ({
-  createSubscription: vi.fn(),
-}));
+const { createSubscription, unsubscribe } = vi.hoisted(() => {
+  const unsubscribe = vi.fn();
+
+  return {
+    createSubscription: vi.fn((..._args: unknown[]) => ({ unsubscribe })),
+    unsubscribe,
+  };
+});
 
 vi.mock('@/channels/consumer', () => ({
   default: {
@@ -44,6 +49,10 @@ describe('Groceries', () => {
     vi.clearAllMocks();
   });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it('pulls store data after reconnecting', () => {
     const pinia = createPinia();
     setActivePinia(pinia);
@@ -51,7 +60,7 @@ describe('Groceries', () => {
     const pullStoreData = vi
       .spyOn(groceriesStore, 'pullStoreData')
       .mockResolvedValue();
-    render(Groceries, { global: { plugins: [pinia] } });
+    const { unmount } = render(Groceries, { global: { plugins: [pinia] } });
 
     expect(createSubscription).toHaveBeenCalledOnce();
     const callbacks = createSubscription.mock.calls[0][1] as {
@@ -63,5 +72,43 @@ describe('Groceries', () => {
 
     callbacks.connected({ reconnected: true });
     expect(pullStoreData).toHaveBeenCalledOnce();
+
+    unmount();
+  });
+
+  it('cleans up listeners and the subscription when unmounted', () => {
+    const pinia = createPinia();
+    setActivePinia(pinia);
+    const groceriesStore = useGroceriesStore();
+    groceriesStore.incrementPendingRequests();
+    const { unmount } = render(Groceries, { global: { plugins: [pinia] } });
+
+    const beforeUnloadEvent = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(beforeUnloadEvent);
+    expect(beforeUnloadEvent.defaultPrevented).toBe(true);
+
+    const touchmoveEvent = Object.assign(
+      new Event('touchmove', { cancelable: true }),
+      { scale: 2 },
+    );
+    document.dispatchEvent(touchmoveEvent);
+    expect(touchmoveEvent.defaultPrevented).toBe(true);
+
+    unmount();
+
+    const afterBeforeUnloadEvent = new Event('beforeunload', {
+      cancelable: true,
+    });
+    window.dispatchEvent(afterBeforeUnloadEvent);
+    expect(afterBeforeUnloadEvent.defaultPrevented).toBe(false);
+
+    const afterTouchmoveEvent = Object.assign(
+      new Event('touchmove', { cancelable: true }),
+      { scale: 2 },
+    );
+    document.dispatchEvent(afterTouchmoveEvent);
+    expect(afterTouchmoveEvent.defaultPrevented).toBe(false);
+
+    expect(unsubscribe).toHaveBeenCalledOnce();
   });
 });

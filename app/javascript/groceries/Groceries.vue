@@ -9,9 +9,10 @@
 </template>
 
 <script setup lang="ts">
+import type { Subscription } from '@rails/actioncable';
 import Cookies from 'js-cookie';
 import { storeToRefs } from 'pinia';
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, onBeforeUnmount } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
 import { bootstrap } from '@/groceries/bootstrap';
@@ -30,23 +31,17 @@ const groceriesStore = useGroceriesStore();
 const { currentStore, debouncingOrWaitingOnNetwork } =
   storeToRefs(groceriesStore);
 
+let groceriesSubscription: Subscription | undefined;
+
 onBeforeMount(() => {
   window.addEventListener('beforeunload', warnIfRequestPending);
 
   // https://stackoverflow.com/a/59492869/4009384
-  document.addEventListener(
-    'touchmove',
-    (event) => {
-      if ((event as IphoneTouchEvent).scale !== 1) {
-        event.preventDefault();
-      }
-    },
-    { passive: false },
-  );
+  document.addEventListener('touchmove', preventPinchZoom, { passive: false });
 
   const spouseId = bootstrap.spouse?.id;
   if (spouseId) {
-    actionCableConsumer.subscriptions.create(
+    groceriesSubscription = actionCableConsumer.subscriptions.create(
       { channel: 'GroceriesChannel' },
       {
         connected({ reconnected }: { reconnected: boolean }) {
@@ -72,6 +67,18 @@ onBeforeMount(() => {
     );
   }
 });
+
+onBeforeUnmount(() => {
+  window.removeEventListener('beforeunload', warnIfRequestPending);
+  document.removeEventListener('touchmove', preventPinchZoom);
+  groceriesSubscription?.unsubscribe();
+});
+
+function preventPinchZoom(event: Event) {
+  if ((event as IphoneTouchEvent).scale !== 1) {
+    event.preventDefault();
+  }
+}
 
 function warnIfRequestPending(event: BeforeUnloadEvent) {
   if (debouncingOrWaitingOnNetwork.value) {
