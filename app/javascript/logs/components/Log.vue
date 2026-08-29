@@ -89,7 +89,7 @@ import {
 import Cookies from 'js-cookie';
 import { DateTime } from 'luxon';
 import { storeToRefs } from 'pinia';
-import { computed, h, onBeforeUnmount } from 'vue';
+import { computed, h, onBeforeUnmount, onMounted } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
 import { assert } from '@/lib/helpers';
@@ -244,12 +244,14 @@ function subscribeToLogEntriesChannel() {
   );
 }
 
+onMounted(() => {
+  ensureLogEntriesHaveBeenFetched();
+  subscribeToLogEntriesChannel();
+});
+
 onBeforeUnmount(() => {
   logEntriesSubscription?.unsubscribe();
 });
-
-ensureLogEntriesHaveBeenFetched();
-subscribeToLogEntriesChannel();
 </script>
 
 <style scoped>
