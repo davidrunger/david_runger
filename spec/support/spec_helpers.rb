@@ -14,17 +14,4 @@ module SpecHelpers
       allow(Flipper).to receive(:enabled?).with(activated_feature).and_return(true)
     end
   end
-
-  def wait_until
-    Prosopite.pause do
-      50.times do
-        if yield
-          break
-        else
-          sleep(0.1)
-        end
-      end
-      nil
-    end
-  end
 end
