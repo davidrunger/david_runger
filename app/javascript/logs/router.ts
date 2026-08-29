@@ -21,9 +21,8 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(() => {
   emit('logs:route-changed');
-  next();
 });
 
 export default router;
