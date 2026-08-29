@@ -2,7 +2,7 @@
 div
   form.px-2(
     @submit.prevent="postNewLogEntry(formData.newLogEntryData)"
-    :class="[log.data_type, { 'flex flex-wrap justify-center': !isText }]"
+    :class="[log.data_type, { 'flex flex-col items-center': !isText }]"
   )
     .mb-2(v-if="isCounter")
       ElButton(
@@ -19,9 +19,9 @@ div
           ref="logInput"
           :type="inputType"
         )
-    div(:class="{ 'mt-2': isText, 'w-[200px]': !isText }")
-      .new-log-entry-created-at-wrapper.mr-2(
-        :class="{ 'is-pristine': !createdAtInputHasBeenInteracted, 'mb-2': isNumeric }"
+    div(:class="{ 'mt-2': isText, 'flex flex-col items-center': !isText }")
+      .new-log-entry-created-at-wrapper(
+        :class="{ 'is-pristine': !createdAtInputHasBeenInteracted, 'mb-2': isNumeric, 'mr-2': isText }"
       )
         span.new-log-entry-created-at-placeholder(
           v-if="!createdAtInputHasBeenInteracted && !formData.newLogEntryCreatedAt"
@@ -180,6 +180,10 @@ form.duration {
   width: 200px;
 }
 
+:deep(.new-log-input) {
+  width: 200px;
+}
+
 .new-log-entry-created-at-wrapper {
   display: inline-block;
   position: relative;
@@ -204,14 +208,16 @@ input.new-log-entry-created-at {
   color-scheme: dark;
   display: inline-block;
   width: 220px;
-  border-color: #2a2a2a;
+  border-color: var(--el-border-color);
+  border-radius: var(--el-border-radius-base);
 
   &:focus-visible {
     outline: none;
   }
 }
 
-.new-log-entry-created-at-wrapper.is-pristine {
+.new-log-entry-created-at-wrapper.is-pristine
+  .new-log-entry-created-at-placeholder {
   opacity: 0.5;
 }
 
