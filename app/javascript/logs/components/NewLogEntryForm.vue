@@ -21,13 +21,12 @@ div
         )
     div(:class="{ 'mt-2': isText, 'w-[200px]': !isText }")
       .new-log-entry-created-at-wrapper.mr-2(
-        :class="{ 'is-pristine': !createdAtInputHasBeenInteracted }"
+        :class="{ 'is-pristine': !createdAtInputHasBeenInteracted, 'mb-2': isNumeric }"
       )
         span.new-log-entry-created-at-placeholder(
           v-if="!createdAtInputHasBeenInteracted && !formData.newLogEntryCreatedAt"
         ) Backdate (optional)
         input.new-log-entry-created-at(
-          :class="{ 'mb-2': isNumeric }"
           v-model="formData.newLogEntryCreatedAt"
           aria-label="Backdate (optional)"
           type="datetime-local"
