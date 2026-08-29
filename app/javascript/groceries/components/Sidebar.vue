@@ -4,7 +4,11 @@ aside.hidden-scrollbars.max-h-full.overflow-auto.border-r.border-neutral-400(
 )
   .flex.min-h-full.flex-col
     .sidebar-toggle__container.border-b
+      .app-mark.flex.h-full.items-center.gap-2.px-4
+        LeafIcon(size="24")
+        span Groceries
       button.sidebar-toggle(
+        aria-label="Toggle stores sidebar"
         @click="collapsed = !collapsed"
         :class="{ 'rotated-180': expanded }"
       )
@@ -22,7 +26,9 @@ aside.hidden-scrollbars.max-h-full.overflow-auto.border-r.border-neutral-400(
           ElButton(
             native-type="submit"
             :disabled="postingStore || v$.$invalid"
+            round
           ) Add
+        .store-section-label My stores
         .stores-list
           StoreListEntry(
             v-for="store in groceriesStore.sortedStores"
@@ -30,14 +36,16 @@ aside.hidden-scrollbars.max-h-full.overflow-auto.border-r.border-neutral-400(
             :store="store"
           )
         div(v-if="groceriesStore.sortedSpouseStores.length > 0")
-          .spouse-stores-header.text-2xl Spouse's Stores
+          .store-section-label Spouse's stores
           .stores-list
             StoreListEntry(
               v-for="store in groceriesStore.sortedSpouseStores"
               :key="store.id"
               :store="store"
             )
-    .mt-auto.p-3.text-center(v-if="!bootstrap.spouse && !collapsed") Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
+    .partner-tip.mt-auto.p-3.text-center(
+      v-if="!bootstrap.spouse && !collapsed"
+    ) Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
 </template>
 
 <script setup lang="ts">
@@ -46,7 +54,7 @@ import { required } from '@vuelidate/validators';
 import { ElButton, ElInput } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { computed, reactive, ref } from 'vue';
-import { ArrowBarRightIcon } from 'vue-tabler-icons';
+import { ArrowBarRightIcon, LeafIcon } from 'vue-tabler-icons';
 
 import { bootstrap } from '@/groceries/bootstrap';
 import { useGroceriesStore } from '@/groceries/store';
@@ -108,7 +116,16 @@ const invitePartnerHref = new_marriage_path({
 /* stylelint-enable no-invalid-position-declaration */
 
 aside {
-  background: linear-gradient(to bottom, #458fc0 0%, #a8b2ce 50%, #b6bcd5 100%);
+  color: #f8f3e8;
+  background:
+    radial-gradient(
+      ellipse at 15% 85%,
+      rgb(239, 224, 200, 13%),
+      transparent 28%
+    ),
+    linear-gradient(165deg, #75856c 0%, #61745f 46%, #50634f 100%);
+  border-color: #425441;
+  box-shadow: 6px 0 22px rgb(50, 65, 52, 14%);
   transition:
     min-width 0.7s,
     width 0.7s,
@@ -116,7 +133,8 @@ aside {
 
   @include sidebar-width;
 
-  .spouse-stores-header,
+  .app-mark,
+  .store-section-label,
   :deep(.stores-list__item) {
     opacity: 1;
     transition: opacity 0.7s;
@@ -128,13 +146,23 @@ aside {
     max-width: 50px;
     overflow-x: hidden;
 
-    .spouse-stores-header,
+    .app-mark,
+    .store-section-label,
     :deep(.stores-list__item) {
-      opacity: 0.3;
+      opacity: 0;
     }
 
     .overflow-auto {
       overflow-x: hidden;
+    }
+
+    nav {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity 0.2s,
+        visibility 0s 0.2s;
     }
   }
 }
@@ -145,7 +173,9 @@ aside {
 
 nav {
   position: relative;
-  top: 10px;
+  padding-top: 16px;
+  opacity: 1;
+  transition: opacity 0.25s 0.15s;
 
   @include sidebar-width($padding: 32px);
 }
@@ -155,17 +185,76 @@ nav {
   left: 16px;
 }
 
+.add-store {
+  padding: 0 2px 18px;
+
+  :deep(.el-input__wrapper) {
+    background: rgb(255, 253, 248, 92%);
+    border: 1px solid rgb(255, 255, 255, 35%);
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgb(45, 57, 47, 13%);
+  }
+
+  :deep(.el-button) {
+    color: #f8f3e8;
+    background: #96576a;
+    border-color: #96576a;
+    box-shadow: 0 4px 12px rgb(67, 45, 52, 20%);
+
+    &:hover,
+    &:focus {
+      color: white;
+      background: #754052;
+      border-color: #754052;
+    }
+  }
+}
+
+.app-mark {
+  max-width: calc(100% - 50px);
+  overflow: hidden;
+  color: #fffaf1;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.store-section-label {
+  margin: 5px 4px 4px;
+  color: rgb(255, 250, 241, 76%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.partner-tip {
+  color: rgb(255, 250, 241, 82%);
+  font-size: 0.82rem;
+  line-height: 1.4;
+
+  a,
+  a:visited {
+    color: #f2d9df;
+    font-weight: 700;
+  }
+}
+
 .sidebar-toggle__container {
   position: sticky;
   top: 0;
   height: 50px;
   z-index: 4;
-  background: linear-gradient(to bottom, #458fc0 0%, #4f92c1 100%);
-  border-color: #43789d;
+  background: rgb(58, 76, 59, 48%);
+  border-color: rgb(41, 58, 43, 45%);
+  backdrop-filter: blur(4px);
 }
 
 button.sidebar-toggle {
   position: absolute;
+  top: 0;
   right: 0;
   margin-bottom: 8px;
   background: none;
@@ -180,6 +269,10 @@ button.sidebar-toggle {
   transition:
     transform 0.7s,
     left 0.7s;
+
+  &:hover {
+    color: #f2d9df;
+  }
 
   &.rotated-180 {
     transform: rotate(180deg);

@@ -1,31 +1,35 @@
 <template lang="pug">
-.hidden-scrollbars.max-h-full.overflow-auto.pt-2.pr-4.pl-8
-  StoreHeader(:store="store")
+.store-scroll.hidden-scrollbars.max-h-full.overflow-auto
+  .store-panel
+    StoreHeader(:store="store")
 
-  ElButton.mt-2.mr-2(
-    @click="initializeTripCheckIn"
-    :size="isMobileDevice() ? 'small' : 'default'"
-  ) Check in items
+    .store-actions
+      ElButton.check-in-button(
+        @click="initializeTripCheckIn"
+        :size="isMobileDevice() ? 'small' : 'default'"
+        round
+        type="primary"
+      ) Check in items
 
-  StoreNotes(:store="store")
+    StoreNotes(:store="store")
 
-  .sticky.top-0.z-10.py-2(class="bg-white/80")
-    ItemForm(
-      :store="store"
-      @item-targeted="scrollToAndHighlightItem"
+    .item-form-container.sticky.top-0.z-10.py-3
+      ItemForm(
+        :store="store"
+        @item-targeted="scrollToAndHighlightItem"
+      )
+
+    TransitionGroup.items-list.relative.mt-0.mb-8(
+      name="appear-and-disappear-vertically-list"
+      tag="ul"
     )
-
-  TransitionGroup.items-list.relative.mt-0.mb-8(
-    name="appear-and-disappear-vertically-list"
-    tag="ul"
-  )
-    Item(
-      v-for="item in sortedItems"
-      :item="item"
-      :key="item.id"
-      :ownStore="store.own_store"
-      :highlighted="item.id === highlightedItemId"
-    )
+      Item(
+        v-for="item in sortedItems"
+        :item="item"
+        :key="item.id"
+        :ownStore="store.own_store"
+        :highlighted="item.id === highlightedItemId"
+      )
 
   CheckInModal
 
@@ -90,3 +94,53 @@ async function scrollToAndHighlightItem(item: ItemType): Promise<void> {
 
 onBeforeUnmount(() => clearTimeout(clearHighlightTimeout));
 </script>
+
+<style lang="scss" scoped>
+.store-scroll {
+  padding: 22px clamp(14px, 4vw, 52px) 40px;
+}
+
+.store-panel {
+  width: min(100%, 760px);
+  min-height: calc(100% - 10px);
+  margin: 0 auto;
+  padding: clamp(18px, 3vw, 32px);
+  background: rgb(255, 253, 248, 78%);
+  border: 1px solid rgb(198, 203, 185, 72%);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgb(66, 84, 65, 13%);
+  backdrop-filter: blur(5px);
+}
+
+.store-actions {
+  margin: 12px 0 10px;
+}
+
+.check-in-button {
+  box-shadow: 0 5px 14px rgb(117, 64, 82, 18%);
+}
+
+.item-form-container {
+  margin: 4px -5px 2px;
+  padding-right: 5px;
+  padding-left: 5px;
+  background: linear-gradient(
+    to bottom,
+    rgb(255, 253, 248, 95%) 0%,
+    rgb(255, 253, 248, 88%) 76%,
+    rgb(255, 253, 248, 0%) 100%
+  );
+  border-radius: 18px;
+}
+
+@media screen and (width <= 600px) {
+  .store-scroll {
+    padding: 10px;
+  }
+
+  .store-panel {
+    padding: 16px 12px 26px;
+    border-radius: 18px;
+  }
+}
+</style>
