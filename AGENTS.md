@@ -32,6 +32,10 @@
 
 - Keep `root` at the top of `config/routes.rb`. All else being equal, group similar routes together. For example, keep relatively niche integration and infrastructure routes lower in the file, near related health-check, operational, or other specialized routes.
 
+## Changelogs
+
+This repository does not maintain a changelog. Do not add changelog entries.
+
 ## Rollbar commit messages
 
 - When the user provides a Rollbar item link that a commit is expected to fix, include both the Rollbar resolution marker and the item's full URL in the commit message body. Put each on its own line with a blank line between them, typically at the top or bottom of the body:
