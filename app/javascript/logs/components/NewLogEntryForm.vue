@@ -20,12 +20,19 @@ div
           :type="inputType"
         )
     div(:class="{ 'mt-2': isText, 'w-[200px]': !isText }")
-      ElDatePicker(
-        :class="{ 'mb-2': isNumeric }"
-        v-model="formData.newLogEntryCreatedAt"
-        type="datetime"
-        placeholder="Backdate (optional)"
+      .new-log-entry-created-at-wrapper.mr-2(
+        :class="{ 'is-pristine': !createdAtInputHasBeenInteracted }"
       )
+        span.new-log-entry-created-at-placeholder(
+          v-if="!createdAtInputHasBeenInteracted && !formData.newLogEntryCreatedAt"
+        ) Backdate (optional)
+        input.new-log-entry-created-at(
+          :class="{ 'mb-2': isNumeric }"
+          v-model="formData.newLogEntryCreatedAt"
+          aria-label="Backdate (optional)"
+          type="datetime-local"
+          @focus="createdAtInputHasBeenInteracted = true"
+        )
       ElInput.new-log-input(
         :class="{ 'mb-2': isNumeric }"
         v-if="isDuration || isNumber"
@@ -42,7 +49,7 @@ div
 <script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
-import { ElButton, ElDatePicker, ElInput } from 'element-plus';
+import { ElButton, ElInput } from 'element-plus';
 import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 import { object } from 'vue-types';
 
@@ -69,6 +76,8 @@ const formData = reactive({
   newLogEntryData: null as null | LogEntryDataValue,
   newLogEntryNote: null as null | string,
 });
+
+const createdAtInputHasBeenInteracted = ref(false);
 
 const v$ = useVuelidate(vuelidateRules, formData);
 
@@ -154,6 +163,7 @@ async function postNewLogEntry(newLogEntryData: LogEntryDataValue | null) {
   });
 
   formData.newLogEntryCreatedAt = '';
+  createdAtInputHasBeenInteracted.value = false;
   formData.newLogEntryData = null;
   formData.newLogEntryNote = null;
 }
@@ -171,8 +181,42 @@ form.duration {
   width: 200px;
 }
 
-// double selector ensures that this rule has precedence over `.el-input` display
-:deep(.el-date-editor.el-date-editor) {
+.new-log-entry-created-at-wrapper {
   display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+.new-log-entry-created-at-placeholder {
+  color: #999;
+  display: flex;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+  pointer-events: none;
+  position: absolute;
+}
+
+input.new-log-entry-created-at {
+  background: var(--main-bg-color);
+  height: 32px;
+  color: rgb(170, 170, 170);
+  color-scheme: dark;
+  display: inline-block;
+  width: 220px;
+  border-color: #2a2a2a;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.new-log-entry-created-at-wrapper.is-pristine {
+  opacity: 0.5;
+}
+
+.new-log-entry-created-at-wrapper.is-pristine input.new-log-entry-created-at {
+  color: transparent;
 }
 </style>
