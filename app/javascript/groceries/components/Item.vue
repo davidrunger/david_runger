@@ -3,20 +3,20 @@ li.grocery-item.flex.w-full.items-center(
   :id="`grocery-item-${item.id}`"
   :class="{ highlighted, unneeded: item.needed <= 0 }"
 )
-  .whitespace-nowrap
-    button.item-button.text-green-600(
+  .item-stepper.flex.shrink-0.gap-2.whitespace-nowrap
+    button.item-button.increment-button(
       @click="setNeeded(item, item.needed + 1)"
       title="Increment"
     )
       .flex.justify-center
         PlusIcon(:size="ICON_SIZE")
-    button.item-button.mx-2.text-red-600(
+    button.item-button.decrement-button(
       @click="decrement(item)"
       title="Decrement"
     )
       .flex.justify-center
         MinusIcon(:size="ICON_SIZE")
-  div
+  .min-w-0.px-3
     template(v-if="isEditing")
       input(
         v-model="nameEditableRef"
@@ -35,9 +35,9 @@ li.grocery-item.flex.w-full.items-center(
         )
           EditIcon(:size="ICON_SIZE")
     | &nbsp;
-    span ({{ item.needed }})
-  .ml-auto.cursor-pointer.text-red-500(v-if="ownStore")
-    button.item-button(
+    span.item-count ({{ item.needed }})
+  .ml-auto.cursor-pointer(v-if="ownStore")
+    button.item-button.delete-item-button(
       @click="groceriesStore.destroyItem({ item })"
       title="Delete item"
       :disabled="item.deleted"
@@ -110,70 +110,132 @@ function setNeeded(item: Item, needed: number) {
 
 <style lang="scss" scoped>
 .item-button {
-  border: none;
-  border: 1px solid silver;
-  font-size: 20px;
-  font-weight: bold;
-  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 31px;
+  height: 31px;
   padding: 0;
-  cursor: pointer;
+  color: var(--groceries-sage-dark);
+  background: rgb(255, 253, 248, 75%);
+  border: 1px solid var(--groceries-stem);
+  border-radius: 50%;
   outline: inherit;
-  height: 25px;
-  width: 35px;
-  border-radius: 3px;
-  background: none;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
 
-  span {
-    position: relative;
-    top: -1px;
+  &:active {
+    transform: scale(0.92);
   }
 
   @media (hover: hover) {
     &:hover {
       background: white;
+      border-color: var(--groceries-sage);
     }
   }
 }
 
+.increment-button {
+  color: #426344;
+  background: #edf3e9;
+}
+
+.decrement-button,
+.delete-item-button {
+  color: var(--groceries-berry-dark);
+  background: #f8ecef;
+  border-color: #dec4cb;
+}
+
+.delete-item-button {
+  width: 29px;
+  height: 29px;
+}
+
 .item-name {
+  color: #38443d;
+  font-weight: 520;
   overflow-wrap: anywhere;
+
+  a {
+    color: #84907e;
+
+    &:visited {
+      color: #84907e;
+    }
+  }
+}
+
+.item-count {
+  display: inline-block;
+  color: #69756d;
+  font-size: 0.83rem;
+  white-space: nowrap;
 }
 
 .grocery-item {
-  background: rgb(255, 255, 255, 60%);
-  margin: 5px 0;
-  padding: 6px;
-  min-height: 30px;
+  min-height: 48px;
+  margin: 7px 0;
+  padding: 8px 10px;
+  background: rgb(255, 253, 248, 88%);
+  border: 1px solid rgb(198, 203, 185, 82%);
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgb(66, 84, 65, 8%);
   transition:
     background-color 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out;
+    border-color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    transform 0.2s ease;
 
   /* stylelint-disable media-feature-name-value-no-unknown */
   &:not(.unneeded):hover {
-    background: rgb(255, 255, 255, 80%);
+    background: var(--groceries-paper);
+    border-color: #acb9a1;
+    box-shadow: 0 6px 17px rgb(66, 84, 65, 13%);
+    transform: translateY(-1px);
 
     @media (hover: none), (hover: on-demand) {
-      background: rgb(255, 255, 255, 60%);
+      background: rgb(255, 253, 248, 88%);
+      border-color: rgb(198, 203, 185, 82%);
+      box-shadow: 0 3px 12px rgb(66, 84, 65, 8%);
+      transform: none;
     }
   }
 
   &.unneeded {
-    background: rgb(255, 255, 255, 30%);
-    color: rgb(0, 0, 0, 55%);
+    background: rgb(239, 237, 228, 68%);
+    border-color: rgb(198, 203, 185, 45%);
+    box-shadow: none;
+    opacity: 0.7;
 
     &:hover {
-      background: rgb(255, 255, 255, 50%);
+      background: rgb(247, 244, 236, 82%);
+      opacity: 0.9;
 
       @media (hover: none), (hover: on-demand) {
-        background: rgb(255, 255, 255, 30%);
+        background: rgb(239, 237, 228, 68%);
+        opacity: 0.7;
       }
     }
   }
   /* stylelint-enable media-feature-name-value-no-unknown */
 
   &.highlighted {
-    background: rgb(254, 240, 138, 85%);
-    box-shadow: 0 0 8px rgb(234, 179, 8, 90%);
+    background: #fbf0d2;
+    border-color: #d5b767;
+    box-shadow: 0 0 0 4px rgb(213, 183, 103, 25%);
   }
+}
+
+input {
+  max-width: 100%;
+  padding: 6px 9px;
+  background: var(--groceries-paper);
+  border: 1px solid var(--groceries-sage);
+  border-radius: 8px;
 }
 </style>

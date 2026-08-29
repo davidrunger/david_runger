@@ -157,6 +157,7 @@ export const useGroceriesStore = defineStore('groceries', {
         },
         {
           position: POSITION.BOTTOM_RIGHT,
+          toastClassName: 'groceries-toast',
         },
       );
 

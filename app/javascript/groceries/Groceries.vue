@@ -1,7 +1,7 @@
 <template lang="pug">
 #groceries-app.flex.h-full.text-base
   Sidebar
-  main.z-5.min-h-0.flex-1.bg-cover
+  main.z-5.min-h-0.flex-1
     Store(
       v-if="currentStore"
       :store="currentStore"
@@ -84,23 +84,94 @@ function warnIfRequestPending(event: BeforeUnloadEvent) {
 </script>
 
 <style lang="scss">
+body {
+  --groceries-berry: #96576a;
+  --groceries-berry-dark: #754052;
+  --groceries-cream: #f7f3e9;
+  --groceries-ink: #344039;
+  --groceries-paper: #fffdf8;
+  --groceries-sage: #718168;
+  --groceries-sage-dark: #425441;
+  --groceries-sage-light: #dfe7d7;
+  --groceries-stem: #c6cbb9;
+}
+
+#groceries-app {
+  --el-border-color: var(--groceries-stem);
+  --el-border-color-hover: var(--groceries-sage);
+  --el-color-primary: var(--groceries-berry);
+  --el-color-primary-light-3: #ae7888;
+  --el-color-primary-light-5: #c49aa6;
+  --el-color-primary-light-7: #dbc0c7;
+  --el-color-primary-light-8: #e7d4d9;
+  --el-color-primary-light-9: #f3e9ec;
+  --el-color-primary-dark-2: var(--groceries-berry-dark);
+  --el-border-radius-base: 12px;
+
+  color: var(--groceries-ink);
+  background: var(--groceries-cream);
+}
+
 // Disable mobile double-click zooming https://stackoverflow.com/a/54207844/4009384
 * {
   touch-action: manipulation;
 }
 
-header {
-  color: var(--color-neutral-800);
-  background: var(--color-indigo-100);
-  border-bottom: 1px solid var(--color-neutral-300);
+body > header {
+  color: var(--groceries-sage-dark);
+  background: #f5efe5;
+  border-bottom: 1px solid #d8d4c6;
 }
 
 main {
-  background-image: url('../../assets/images/beach-background.webp');
+  background-color: var(--groceries-cream);
+  background-image:
+    radial-gradient(ellipse at 5% 0%, rgb(178, 193, 161, 28%), transparent 34%),
+    radial-gradient(
+      ellipse at 95% 100%,
+      rgb(187, 126, 143, 18%),
+      transparent 38%
+    ),
+    linear-gradient(145deg, rgb(255, 253, 248, 70%), transparent 55%);
 }
 
 .icon-tabler {
   vertical-align: bottom;
+}
+
+.modal-mask {
+  background-color: rgb(44, 57, 46, 58%) !important;
+  backdrop-filter: blur(2px);
+}
+
+.modal-container.bg-white {
+  background: var(--groceries-paper);
+  border: 1px solid var(--groceries-stem);
+  border-radius: 20px;
+  box-shadow: 0 20px 55px rgb(45, 57, 47, 25%);
+}
+
+.Vue-Toastification__toast.groceries-toast {
+  color: var(--groceries-ink);
+  background: var(--groceries-paper);
+  border: 1px solid var(--groceries-stem);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgb(45, 57, 47, 22%);
+}
+
+.groceries-toast {
+  .Vue-Toastification__close-button {
+    color: var(--groceries-berry-dark);
+  }
+
+  .Vue-Toastification__progress-bar {
+    background: var(--groceries-berry);
+    opacity: 0.55;
+  }
+}
+
+#groceries-app input[type='checkbox'] {
+  accent-color: var(--groceries-berry);
 }
 
 // https://stackoverflow.com/a/45769607/4009384

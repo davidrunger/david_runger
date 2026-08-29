@@ -19,6 +19,7 @@ type VueToastificationOptions = {
   icon?: boolean;
   position?: POSITION;
   timeout?: boolean;
+  toastClassName?: string | string[];
   type?: TYPE;
 };
 

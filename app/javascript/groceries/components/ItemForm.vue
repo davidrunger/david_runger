@@ -1,6 +1,8 @@
 <template lang="pug">
-form.flex(@submit.prevent)
-  ElAutocomplete.item-name-input.max-w-60(
+form.item-form.flex.items-center.gap-3(@submit.prevent)
+  .add-item-icon.flex.shrink-0.items-center.justify-center
+    PlusIcon(size="19")
+  ElAutocomplete.item-name-input.w-full(
     ref="autocompleteRef"
     v-model="formData.itemName"
     :debounce="0"
@@ -26,6 +28,7 @@ import {
   type AutocompleteInstance,
 } from 'element-plus';
 import { nextTick, reactive, ref } from 'vue';
+import { PlusIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';
 
 import { helpers, useGroceriesStore } from '@/groceries/store';
@@ -113,3 +116,29 @@ async function blurAutocomplete(): Promise<void> {
   autocompleteRef.value?.blur();
 }
 </script>
+
+<style lang="scss" scoped>
+.add-item-icon {
+  width: 34px;
+  height: 34px;
+  color: white;
+  background: var(--groceries-sage);
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgb(66, 84, 65, 20%);
+}
+
+.item-name-input {
+  :deep(.el-input__wrapper) {
+    padding: 3px 16px;
+    background: var(--groceries-paper);
+    border: 1px solid var(--groceries-stem);
+    border-radius: 999px;
+    box-shadow: 0 5px 16px rgb(66, 84, 65, 11%);
+
+    &.is-focus {
+      border-color: var(--groceries-sage);
+      box-shadow: 0 0 0 3px rgb(113, 129, 104, 14%);
+    }
+  }
+}
+</style>

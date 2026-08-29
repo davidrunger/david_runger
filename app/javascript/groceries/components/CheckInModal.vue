@@ -6,7 +6,7 @@ Modal(
 )
   slot
     .flex.max-h-full.flex-col
-      .mb-3.flex.shrink-0.items-center
+      .check-in-summary.mb-3.flex.shrink-0.items-center
         span Stores: {{ checkInStoreNames }}
         ElButton.choose-stores.ml-2(
           link
@@ -94,7 +94,9 @@ async function handleTripCheckinModalSubmit() {
 
   try {
     await groceriesStore.zeroItemsInCart();
-    vueToast('Check-in successful!');
+    vueToast('Check-in successful!', {
+      toastClassName: 'groceries-toast',
+    });
   } catch {
     vueToast('Something went wrong.', { type: TYPE.ERROR });
   }
@@ -113,15 +115,21 @@ function manageCheckInStores() {
   animation: pulsing 1s ease infinite;
 
   &:not(:hover) {
-    color: rgb(0, 109, 218);
-    background-color: white;
+    color: var(--groceries-berry-dark);
+    background-color: var(--groceries-paper);
   }
+}
+
+.check-in-summary {
+  padding-bottom: 10px;
+  color: var(--groceries-sage-dark);
+  border-bottom: 1px solid var(--groceries-stem);
 }
 
 @keyframes pulsing {
   $box-shadow-min-width: 4px;
   $box-shadow-max-width: 8px;
-  $shadow-color: rgb(210, 231, 250);
+  $shadow-color: rgb(214, 176, 186, 55%);
 
   0% {
     box-shadow: 0 0 0 $box-shadow-min-width $shadow-color;

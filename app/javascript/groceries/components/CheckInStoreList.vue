@@ -1,6 +1,6 @@
 <template lang="pug">
 ul
-  li.mb-2.block(
+  li.check-in-store.mb-2.block(
     v-for="store in stores"
     :key="store.id"
   )
@@ -25,3 +25,11 @@ defineProps({
 
 const groceriesStore = useGroceriesStore();
 </script>
+
+<style lang="scss" scoped>
+.check-in-store {
+  padding: 7px 9px;
+  background: rgb(223, 231, 215, 42%);
+  border-radius: 9px;
+}
+</style>
