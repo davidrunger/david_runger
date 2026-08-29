@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
 
 import { useModalStore } from '@/lib/modal/store';
 import { removeQueryParams } from '@/lib/removeQueryParams';
@@ -35,26 +35,37 @@ function openLogSelector() {
   modalStore.showModal({ modalName: 'log-selector' });
 }
 
+let fetchAllLogEntriesTimeout: ReturnType<typeof setTimeout> | undefined;
+
+function handleLogSelectorShortcut(event: KeyboardEvent) {
+  if (
+    event.key === 'k' &&
+    (event.metaKey === true || event.ctrlKey === true) // Meta for macOS, Ctrl for Windows/Linux
+  ) {
+    event.preventDefault(); // Prevent default behavior for the shortcut
+    openLogSelector();
+  }
+}
+
 onMounted(() => {
   if (!isSharedLogView.value) {
     // If we are viewing a specific log, we want to ensure that the log entries for that log are
     // fetched first, so delay 10ms.
     // Otherwise (i.e. if viewing index), fetch all entries immediately.
     const delayBeforeFetchingAllLogs = selectedLog.value ? 10 : 0;
-    setTimeout(() => {
+    fetchAllLogEntriesTimeout = setTimeout(() => {
       logsStore.fetchAllLogEntries();
     }, delayBeforeFetchingAllLogs);
 
-    document.addEventListener('keydown', (event) => {
-      if (
-        event.key === 'k' &&
-        (event.metaKey === true || event.ctrlKey === true) // Meta for macOS, Ctrl for Windows/Linux
-      ) {
-        event.preventDefault(); // Prevent default behavior for the shortcut
-        openLogSelector();
-      }
-    });
+    document.addEventListener('keydown', handleLogSelectorShortcut);
   }
+});
+
+onBeforeUnmount(() => {
+  if (fetchAllLogEntriesTimeout !== undefined) {
+    clearTimeout(fetchAllLogEntriesTimeout);
+  }
+  document.removeEventListener('keydown', handleLogSelectorShortcut);
 });
 </script>
 
