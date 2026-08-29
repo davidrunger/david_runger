@@ -8,7 +8,7 @@ RSpec.describe Api::StoresController do
 
     it "returns the user's own_stores and spouse_stores" do
       get_index
-      expect(json_response.keys).to match_array(%w[own_stores spouse_stores])
+      expect(response.parsed_body.keys).to match_array(%w[own_stores spouse_stores])
     end
 
     context 'when the user does not have a spouse' do
@@ -16,8 +16,8 @@ RSpec.describe Api::StoresController do
 
       it "returns the user's own_stores and spouse_stores" do
         get_index
-        expect(json_response.keys).to match_array(%w[own_stores spouse_stores])
-        expect(json_response['spouse_stores']).to eq([])
+        expect(response.parsed_body.keys).to match_array(%w[own_stores spouse_stores])
+        expect(response.parsed_body['spouse_stores']).to eq([])
       end
     end
   end
