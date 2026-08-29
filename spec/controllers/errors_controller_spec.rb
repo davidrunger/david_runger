@@ -43,7 +43,7 @@ RSpec.describe ErrorsController do
 
       it %(says "The page you were looking for doesn't exist.") do
         get_not_found
-        expect(json_response).to eq({ 'error' => 'Not Found' })
+        expect(response.parsed_body).to eq({ 'error' => 'Not Found' })
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe ErrorsController do
 
       it 'says "The change you wanted was rejected."' do
         get_unacceptable
-        expect(json_response).to eq({ 'error' => 'Params unacceptable' })
+        expect(response.parsed_body).to eq({ 'error' => 'Params unacceptable' })
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe ErrorsController do
 
       it 'says "Sorry, something went wrong."' do
         get_internal_error
-        expect(json_response).to eq({ 'error' => 'Internal server error' })
+        expect(response.parsed_body).to eq({ 'error' => 'Internal server error' })
       end
     end
   end
