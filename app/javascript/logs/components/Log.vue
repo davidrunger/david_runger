@@ -74,6 +74,7 @@ div
 </template>
 
 <script setup lang="ts">
+import type { Subscription } from '@rails/actioncable';
 import { ArrowDown } from '@element-plus/icons-vue';
 import { useTitle } from '@vueuse/core';
 import {
@@ -88,7 +89,7 @@ import {
 import Cookies from 'js-cookie';
 import { DateTime } from 'luxon';
 import { storeToRefs } from 'pinia';
-import { computed, h } from 'vue';
+import { computed, h, onBeforeUnmount, onMounted } from 'vue';
 
 import actionCableConsumer from '@/channels/consumer';
 import { assert } from '@/lib/helpers';
@@ -204,8 +205,10 @@ function ensureLogEntriesHaveBeenFetched() {
   }
 }
 
+let logEntriesSubscription: Subscription | undefined;
+
 function subscribeToLogEntriesChannel() {
-  actionCableConsumer.subscriptions.create(
+  logEntriesSubscription = actionCableConsumer.subscriptions.create(
     {
       channel: 'LogEntriesChannel',
       log_id: log.id,
@@ -241,8 +244,14 @@ function subscribeToLogEntriesChannel() {
   );
 }
 
-ensureLogEntriesHaveBeenFetched();
-subscribeToLogEntriesChannel();
+onMounted(() => {
+  ensureLogEntriesHaveBeenFetched();
+  subscribeToLogEntriesChannel();
+});
+
+onBeforeUnmount(() => {
+  logEntriesSubscription?.unsubscribe();
+});
 </script>
 
 <style scoped>
