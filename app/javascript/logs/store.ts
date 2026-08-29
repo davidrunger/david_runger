@@ -6,6 +6,9 @@ import { assert, typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
 import { getById } from '@/lib/storeHelpers';
 import { toast } from '@/lib/toasts';
+import { isObjectWithErrors } from '@/lib/typePredicates';
+import type { ObjectWithErrors } from '@/lib/types';
+import { toastErrors } from '@/lib/vueToasts';
 import { bootstrap } from '@/logs/bootstrap';
 import {
   api_log_entries_path,
@@ -89,14 +92,23 @@ export const useLogsStore = defineStore('logs', {
     }) {
       this.postingLog = true;
 
-      const logData = await http.post<Intersection<Log, LogCreateResponse>>(
-        api_logs_path(),
-        { log },
-      );
+      try {
+        const logData = await http.post<
+          Intersection<Log, LogCreateResponse> | ObjectWithErrors
+        >(api_logs_path(), { log });
 
-      this.postingLog = false;
-      this.logs.push(logData);
-      return logData;
+        if (isObjectWithErrors(logData)) {
+          toastErrors(logData.errors);
+          return;
+        }
+
+        if (!('slug' in logData)) return;
+
+        this.logs.push(logData);
+        return logData;
+      } finally {
+        this.postingLog = false;
+      }
     },
 
     async createLogEntry({

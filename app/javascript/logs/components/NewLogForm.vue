@@ -62,6 +62,8 @@ const logInputTypes = computed((): Array<LogInput> => {
 
 async function createLog() {
   const log = await logsStore.createLog({ log: newLog.value });
+  if (!log) return;
+
   newLog.value = newLogGenerator();
   router.push({ name: 'log', params: { slug: log.slug } });
 }

@@ -67,6 +67,13 @@ RSpec.describe Api::LogsController do
         post_create
         expect(response).to have_http_status(422)
       end
+
+      it 'responds with the validation errors as an array of messages' do
+        post_create
+        expect(response.parsed_body).to include(
+          'errors' => include("Name can't be blank"),
+        )
+      end
     end
   end
 
