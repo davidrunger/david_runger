@@ -1,8 +1,4 @@
 module SpecHelpers
-  def json_response
-    JSON(response.body)
-  end
-
   def activate_feature!(feature_name)
     @activated_features ||= []
     if @activated_features.exclude?(feature_name)
