@@ -61,7 +61,7 @@ RSpec.describe ReplyForwardingMailer do
         )
         inbound_email.raw_email_attachment.update!(blob:, content_type: 'text/plain')
 
-        # rubocop:disable RSpec/AnyInstance
+        # rubocop:disable-next RSpec/AnyInstance
         expect_any_instance_of(ActiveStorage::Blob).to receive(:download).and_return(
           "Date: Sat, 24 Sep 2022 22:08:43 -0500\r\nFrom: davidjrunger@gmail.com\r\nTo: " \
           'reply@mg.davidrunger.com\r\nMessage-ID: ' \
@@ -77,7 +77,6 @@ RSpec.describe ReplyForwardingMailer do
           "filename=\"#{attachment_filename}\"\r\n\r\nAttachment content." \
           "\r\n\r\n----==_mimepart_7291c2b9a328_126b3616c510df--\r\n",
         )
-        # rubocop:enable RSpec/AnyInstance
       end
 
       it 'includes the attachments' do

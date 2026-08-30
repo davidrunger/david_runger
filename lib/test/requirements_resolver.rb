@@ -171,7 +171,7 @@ class Test::RequirementsResolver
         skips.each do |skip|
           base_dependency_map.reject! { |key, _value| key == skip }
           base_dependency_map.transform_values! do |value|
-            # rubocop:disable Lint/DuplicateBranch
+            # rubocop:disable-next Lint/DuplicateBranch
             if value.nil?
               value
             elsif Array(value).include?(skip)
@@ -179,7 +179,6 @@ class Test::RequirementsResolver
             else
               value
             end
-            # rubocop:enable Lint/DuplicateBranch
           end
         end
       end
@@ -362,11 +361,10 @@ class Test::RequirementsResolver
   end
 
   def tasks_and_dependencies(target_tasks, known_dependencies: [], skippable_requirements: [])
-    # rubocop:disable Style/CollectionCompact
+    # rubocop:disable-next Style/CollectionCompact
     new_dependencies =
       self.class.dependency_map.values_at(*(target_tasks - self.class.skips)).
         flatten.reject(&:nil?) - known_dependencies - skippable_requirements
-    # rubocop:enable Style/CollectionCompact
     new_dependencies.reject! { can_skip?(it) }
 
     if new_dependencies.empty?

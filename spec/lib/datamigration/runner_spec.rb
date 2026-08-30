@@ -73,11 +73,10 @@ RSpec.describe Datamigration::Runner do
         expect(logdev).to have_received(:write).ordered.with(
           /\[StubbedDatamigration\] Starting at \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\.\.\./,
         )
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         expect(logdev).to have_received(:write).ordered.with(
           /\[StubbedDatamigration\] Finished at \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\. Took \d+\.\d+ seconds\./,
         )
-        # rubocop:enable Layout/LineLength
         expect(result).to eq('block executed')
       end
 

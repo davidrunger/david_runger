@@ -1,10 +1,9 @@
 class UpgradePgheroQueryStats < ActiveRecord::Migration[8.1]
   def change
-    # rubocop:disable Rails/CreateTableWithTimestamps
+    # rubocop:disable-next Rails/CreateTableWithTimestamps
     create_table :pghero_queries do |t|
       t.text :query
     end
-    # rubocop:enable Rails/CreateTableWithTimestamps
 
     add_index :pghero_queries, :query, using: :hash
 

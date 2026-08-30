@@ -6,7 +6,7 @@ username = uri.user
 password = uri.password
 database_name = uri.path.delete_prefix('/')
 
-# rubocop:disable Rails/SquishedSQLHeredocs
+# rubocop:disable-next Rails/SquishedSQLHeredocs
 ApplicationRecord.connection.execute(<<~SQL)
   DO $$
   BEGIN
@@ -21,4 +21,3 @@ ApplicationRecord.connection.execute(<<~SQL)
   GRANT SELECT ON ALL TABLES IN SCHEMA public TO #{username};
   ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO #{username};
 SQL
-# rubocop:enable Rails/SquishedSQLHeredocs

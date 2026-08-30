@@ -63,7 +63,7 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
 
   private
 
-  # rubocop:disable Lint/DuplicateBranch
+  # rubocop:disable-next Lint/DuplicateBranch
   def color_background_and_style(key, value)
     case key.to_sym
     when :action
@@ -118,5 +118,4 @@ class Logs::LogFormatter < Lograge::Formatters::KeyValue
       :default
     end
   end
-  # rubocop:enable Lint/DuplicateBranch
 end

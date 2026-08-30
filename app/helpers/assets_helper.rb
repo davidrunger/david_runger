@@ -29,11 +29,10 @@ module AssetsHelper
         defer: 'defer',
         crossorigin: nil,
       ) +
-        # rubocop:disable Rails/OutputSafety
+        # rubocop:disable-next Rails/OutputSafety
         raw(compiled_css_file_paths.
           map { stylesheet_link_tag("/vite-admin/#{it}") }.
           join(''))
-      # rubocop:enable Rails/OutputSafety
     end
   end
 

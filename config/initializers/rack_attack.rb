@@ -21,11 +21,10 @@ class Rack::Attack
   ].freeze
 
   # Limit all IPs to 60 requests per clock minute
-  # rubocop:disable Style/SymbolProc
+  # rubocop:disable-next Style/SymbolProc
   throttle('req/ip', limit: 60, period: 1.minute) do |request|
     request.ip
   end
-  # rubocop:enable Style/SymbolProc
 
   PUBLIC_TELEMETRY_ENDPOINTS.each do |endpoint, path_regex|
     throttle("#{endpoint}/ip", limit: PUBLIC_TELEMETRY_REQUEST_LIMIT, period: 1.minute) do |request|

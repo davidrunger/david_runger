@@ -111,9 +111,8 @@ class BlogController < ApplicationController
       html.sub!(/<body([^>]*)>/) { "<body#{Regexp.last_match(1)}>#{logged_in_header}" }
     end
 
-    # rubocop:disable Rails/OutputSafety
+    # rubocop:disable-next Rails/OutputSafety
     html.html_safe
-    # rubocop:enable Rails/OutputSafety
   end
 
   def render_blog_404

@@ -2,7 +2,7 @@ RSpec.describe 'request logging', type: :controller do
   describe HomeController do
     context 'when request_id somehow is not set' do
       before do
-        # rubocop:disable RSpec/AnyInstance
+        # rubocop:disable-next RSpec/AnyInstance
         allow_any_instance_of(ActionController::TestRequest).
           to receive(:headers).
           and_wrap_original do |original_headers_method|
@@ -10,7 +10,6 @@ RSpec.describe 'request logging', type: :controller do
             headers['action_dispatch.request_id'] = nil
             headers
           end
-        # rubocop:enable RSpec/AnyInstance
       end
 
       it 'reports via Rails.error' do

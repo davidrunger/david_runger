@@ -1,6 +1,5 @@
-# rubocop:disable Style/MixinUsage
+# rubocop:disable-next Style/MixinUsage
 include FactoryBot::Syntax::Methods
-# rubocop:enable Style/MixinUsage
 
 FixtureBuilder.configure do |fbuilder|
   # rebuild fixtures automatically when these files change:

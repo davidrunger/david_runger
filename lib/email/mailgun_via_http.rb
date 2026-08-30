@@ -1,4 +1,4 @@
-# rubocop:disable Style/ClassAndModuleChildren
+# rubocop:disable-next Style/ClassAndModuleChildren
 module Email
   class MailgunViaHttp
     prepend Memoization
@@ -9,9 +9,8 @@ module Email
     MESSAGES_PATH = 'messages'
 
     # rubocop:disable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
-    # rubocop:disable Style/RedundantInitialize
+    # rubocop:disable-next Style/RedundantInitialize
     def initialize(_mail) ; end
-    # rubocop:enable Style/RedundantInitialize
     # rubocop:enable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
 
     def deliver!(mail)
@@ -86,4 +85,3 @@ module Email
     end
   end
 end
-# rubocop:enable Style/ClassAndModuleChildren
