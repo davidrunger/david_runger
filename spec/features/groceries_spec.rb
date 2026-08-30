@@ -15,7 +15,7 @@ RSpec.describe 'Groceries app' do
       let(:new_item_name) { "blueberries (#{url_in_item_name})" }
       let(:url_in_item_name) { 'https://www.amazon.com/blueberries' }
 
-      it 'allows adding an item (which it linkifies), deleting an item, undoing the deletion, and checking in a shopping trip', :versioning do
+      it 'allows adding, renaming, deleting, and undoing an item, and checking in a shopping trip', :versioning do
         visit groceries_path
 
         store = user.stores.reorder(:viewed_at).last!
@@ -39,17 +39,56 @@ RSpec.describe 'Groceries app' do
 
         take_percy_snapshot('Groceries')
 
+        # Rename an item through the actions menu, including canceling an edit.
+        within("#grocery-item-#{needed_item.id}") do
+          click_on("Actions for #{needed_item.name}")
+        end
+        find('[role="menuitem"]', text: 'Rename', exact_text: true).click
+
+        canceled_item_name = 'Canceled item name'
+        within('.modal-container') do
+          expect(page).to have_field('Item name', with: needed_item.name)
+          expect(
+            page.evaluate_script(
+              'document.activeElement?.matches(".rename-item-form input")',
+            ),
+          ).to be(true)
+
+          fill_in('Item name', with: canceled_item_name)
+          click_on('Cancel')
+        end
+
+        expect(page).to have_css('.grocery-item', text: needed_item.name)
+        expect(page).not_to have_text(canceled_item_name)
+
+        within("#grocery-item-#{needed_item.id}") do
+          find_button("Actions for #{needed_item.name}").click
+        end
+        find('[role="menuitem"]', text: 'Rename', exact_text: true).click
+
+        renamed_needed_item_name = "Renamed #{needed_item.name}"
+        within('.modal-container') do
+          fill_in('Item name', with: renamed_needed_item_name)
+          click_on('Save')
+        end
+
+        expect(page).not_to have_spinner
+        expect(page).to have_css('.grocery-item', text: renamed_needed_item_name)
+
         # Confirm expected item is in list.
         expect(page).to have_css('.grocery-item', text: unneeded_item.name)
 
         # Delete the item.
-        within('.grocery-item', text: unneeded_item.name) do
-          find(:link_or_button, 'Delete item').click
-          sleep(0.01)
-          expect(page).not_to have_selector(:link_or_button, 'Delete item')
+        unneeded_item_dom_id = "#grocery-item-#{unneeded_item.id}"
+        within(unneeded_item_dom_id) do
+          find_button("Actions for #{unneeded_item.name}").click
         end
+        find('[role="menuitem"]', text: 'Delete', exact_text: true).click
+
+        sleep(0.01)
 
         # Confirm that the deleted item is no longer listed.
+        expect(page).not_to have_css(unneeded_item_dom_id)
         expect(page).not_to have_css('.grocery-item', text: unneeded_item.name)
 
         # Undo the deletion
@@ -61,7 +100,7 @@ RSpec.describe 'Groceries app' do
         click_on('Check in items')
 
         within_section('Needed') do
-          expect(page).to have_text(needed_item.name)
+          expect(page).to have_text(renamed_needed_item_name)
           expect(page).to have_text(new_item_name)
         end
         expect(page).not_to have_section(/in cart/i)
@@ -70,11 +109,11 @@ RSpec.describe 'Groceries app' do
         check(new_item_name)
 
         within_section('Needed') do
-          expect(page).to have_text(needed_item.name)
+          expect(page).to have_text(renamed_needed_item_name)
           expect(page).not_to have_text(new_item_name)
         end
         within_section('In Cart') do
-          expect(page).not_to have_text(needed_item.name)
+          expect(page).not_to have_text(renamed_needed_item_name)
           expect(page).to have_text(new_item_name)
         end
         expect(page).not_to have_section(/skipped/i)
@@ -82,9 +121,9 @@ RSpec.describe 'Groceries app' do
         within_section('Needed') do
           expected_label_text =
             if needed_item.needed > 1
-              "#{needed_item.name} (#{needed_item.needed})"
+              "#{renamed_needed_item_name} (#{needed_item.needed})"
             else
-              needed_item.name
+              renamed_needed_item_name
             end
 
           needed_item_li = find('label', text: expected_label_text).ancestor('li')
@@ -96,11 +135,11 @@ RSpec.describe 'Groceries app' do
 
         expect(page).not_to have_section(/needed/i)
         within_section('In Cart') do
-          expect(page).not_to have_text(needed_item.name)
+          expect(page).not_to have_text(renamed_needed_item_name)
           expect(page).to have_text(new_item_name)
         end
         within_section('Skipped') do
-          expect(page).to have_text(needed_item.name)
+          expect(page).to have_text(renamed_needed_item_name)
           expect(page).not_to have_text(new_item_name)
         end
 
@@ -150,6 +189,20 @@ RSpec.describe 'Groceries app' do
           ).click
 
           expect(page).to have_css('.grocery-item', text: spouse_new_item_name)
+
+          within("#grocery-item-#{spouse_item.id}") do
+            find_button("Actions for #{spouse_item.name}").click
+          end
+          expect(page).to have_css(
+            '[role="menuitem"]',
+            text: 'Rename',
+            exact_text: true,
+          )
+          expect(page).not_to have_css(
+            '[role="menuitem"]',
+            text: 'Delete',
+            exact_text: true,
+          )
         end
       end
 
