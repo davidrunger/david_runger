@@ -1,5 +1,5 @@
 RSpec.describe Retry do
-  # rubocop:disable RSpec/InstanceVariable
+  # rubocop:disable-next RSpec/InstanceVariable
   describe '.retrying' do
     let(:logger) { instance_double(ActiveSupport::Logger) }
 
@@ -98,7 +98,6 @@ RSpec.describe Retry do
       end
     end
   end
-  # rubocop:enable RSpec/InstanceVariable
 
   describe '.logger' do
     it 'returns a tagged logger' do

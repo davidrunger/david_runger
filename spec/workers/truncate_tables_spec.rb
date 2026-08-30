@@ -1,7 +1,7 @@
 RSpec.describe TruncateTables do
   subject(:worker) { TruncateTables.new }
 
-  # rubocop:disable RSpec/InstanceVariable
+  # rubocop:disable-next RSpec/InstanceVariable
   describe '#perform' do
     subject(:perform) { worker.perform }
 
@@ -62,5 +62,4 @@ RSpec.describe TruncateTables do
       end
     end
   end
-  # rubocop:enable RSpec/InstanceVariable
 end

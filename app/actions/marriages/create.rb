@@ -1,5 +1,5 @@
 class Marriages::Create < ApplicationAction
-  # rubocop:disable Layout/LineLength
+  # rubocop:disable-next Layout/LineLength
   DEFAULT_EMOTIONAL_NEEDS = {
     'Affection' => 'The nonsexual expression of care through hugs, kisses, words, cards, and courtesies; creating an environment that clearly and repeatedly expresses care.',
     'Sexual fulfillment' => 'A sexual experience that is predictably enjoyable and frequent enough for you.',
@@ -12,7 +12,6 @@ class Marriages::Create < ApplicationAction
     'Family commitment' => 'Provision for the moral and educational development of your children within the family unit.',
     'Admiration' => 'Being shown respect, value, and appreciation.',
   }.freeze
-  # rubocop:enable Layout/LineLength
 
   requires :proposer, User
 

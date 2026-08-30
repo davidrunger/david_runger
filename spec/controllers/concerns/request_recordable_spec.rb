@@ -81,9 +81,8 @@ RSpec.describe RequestRecordable, :without_verifying_authorization do
 
       context 'when a JSON::GeneratorError is raised' do
         before do
-          # rubocop:disable RSpec/AnyInstance
+          # rubocop:disable-next RSpec/AnyInstance
           allow_any_instance_of(Hash).to receive(:to_json).and_raise(JSON::GeneratorError, 'bad')
-          # rubocop:enable RSpec/AnyInstance
         end
 
         it 'logs the hash and re-raises the error' do

@@ -19,7 +19,7 @@ RSpec.describe(Datamigration::Base) do
       end
     end
 
-    # rubocop:disable RSpec/InstanceVariable
+    # rubocop:disable-next RSpec/InstanceVariable
     describe '#within_transaction' do
       subject(:within_transaction) do
         @executed = false
@@ -62,7 +62,6 @@ RSpec.describe(Datamigration::Base) do
         end
       end
     end
-    # rubocop:enable RSpec/InstanceVariable
 
     describe '#log' do
       it 'logs messages with class name tag' do

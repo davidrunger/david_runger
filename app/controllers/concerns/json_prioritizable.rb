@@ -11,9 +11,8 @@ module JsonPrioritizable
       accepts =
         request.headers['Accept'].to_s.split(',').map do |accept|
           type, params = accept.strip.split(';')
-          # rubocop:disable Lint/NumberConversion
+          # rubocop:disable-next Lint/NumberConversion
           q = params&.match(/q=([0-9.]+)/)&.[](1)&.to_f || 1.0
-          # rubocop:enable Lint/NumberConversion
           [type, q]
         end.sort_by { |_, q| -q } # Sort by q value descending
 

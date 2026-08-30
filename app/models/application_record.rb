@@ -27,11 +27,10 @@ class ApplicationRecord < ActiveRecord::Base
   end
   # rubocop:enable Rails/Delegate
 
-  # rubocop:disable Style/OptionHash
+  # rubocop:disable-next Style/OptionHash
   def serializer(params = {})
     self.class.serializer_class.new(self, params:)
   end
-  # rubocop:enable Style/OptionHash
 
   def class_id_string
     "#{self.class.name}:#{id}"

@@ -15,9 +15,8 @@ RSpec.describe CheckLinks::Checker do
     end
 
     before do
-      # rubocop:disable Style/IpAddresses
+      # rubocop:disable-next Style/IpAddresses
       allow(Resolv).to receive(:getaddresses).and_return(['8.8.8.8'])
-      # rubocop:enable Style/IpAddresses
     end
 
     it 'identifies the request as the davidrunger.com link checker' do
@@ -88,11 +87,10 @@ RSpec.describe CheckLinks::Checker do
 
       context 'when fetching the URL raises an error' do
         before do
-          # rubocop:disable RSpec/AnyInstance
+          # rubocop:disable-next RSpec/AnyInstance
           allow_any_instance_of(Faraday::Connection).
             to receive(:get).
             and_raise(Faraday::ConnectionFailed, 'Operation timed out - user specified timeout')
-          # rubocop:enable RSpec/AnyInstance
         end
 
         it 'reports via Rails.error at info level' do
@@ -279,21 +277,19 @@ RSpec.describe CheckLinks::Checker do
 
       context 'when the URL fetch raises a connection error' do
         before do
-          # rubocop:disable RSpec/AnyInstance
+          # rubocop:disable-next RSpec/AnyInstance
           allow_any_instance_of(Faraday::Connection).
             to receive(:get).
             and_raise(Faraday::ConnectionFailed, 'Operation timed out')
-          # rubocop:enable RSpec/AnyInstance
         end
 
         it 'does not cache the nil response, so the URL is retried on next check' do
           CheckLinks::Checker.new.perform(url, page_source_url)
 
-          # rubocop:disable RSpec/AnyInstance
+          # rubocop:disable-next RSpec/AnyInstance
           allow_any_instance_of(Faraday::Connection).
             to receive(:get).
             and_call_original
-          # rubocop:enable RSpec/AnyInstance
 
           CheckLinks::Checker.new.perform(url, page_source_url)
 

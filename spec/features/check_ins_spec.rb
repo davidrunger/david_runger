@@ -51,9 +51,8 @@ RSpec.describe 'Check-Ins app' do
           expect(page).to have_text(proposee.email)
 
           open_email(proposee.email)
-          # rubocop:disable RungerStyle/ClickAmbiguously
+          # rubocop:disable-next RungerStyle/ClickAmbiguously
           current_email.click_link('Click here', href: %r{/proposals/.+/confirm})
-          # rubocop:enable RungerStyle/ClickAmbiguously
           expect(page).to have_text("#{user.email} wants you to join their marriage")
           expect(page).to have_button('Accept proposal')
           click_on('Accept proposal')
@@ -162,11 +161,10 @@ RSpec.describe 'Check-Ins app' do
 
             expect(need_label_grandparent.find_all('button').size).to eq(7)
 
-            # rubocop:disable Capybara/SpecificActions
+            # rubocop:disable-next Capybara/SpecificActions
             need_label_grandparent.
               find('button', text: /\A#{rating}\z/).
               click
-            # rubocop:enable Capybara/SpecificActions
           end
         end
 

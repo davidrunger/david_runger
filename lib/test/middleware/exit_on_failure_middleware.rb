@@ -1,7 +1,7 @@
 module Test ; end
 module Test::Middleware ; end
 
-# rubocop:disable Style/StaticClass
+# rubocop:disable-next Style/StaticClass
 class Test::Middleware::ExitOnFailureMiddleware
   def self.call(_worker, _job, _context)
     yield
@@ -13,4 +13,3 @@ class Test::Middleware::ExitOnFailureMiddleware
     exit(1)
   end
 end
-# rubocop:enable Style/StaticClass

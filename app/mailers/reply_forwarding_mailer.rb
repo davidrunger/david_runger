@@ -1,5 +1,5 @@
 class ReplyForwardingMailer < ApplicationMailer
-  # rubocop:disable Metrics/ParameterLists
+  # rubocop:disable-next Metrics/ParameterLists
   def reply_received(message_id, from_email, subject, body, is_attachment, has_attachments)
     @from_email = from_email
     @subject = subject
@@ -28,7 +28,6 @@ class ReplyForwardingMailer < ApplicationMailer
       subject: "#{from_email} wrote: #{subject}",
     )
   end
-  # rubocop:enable Metrics/ParameterLists
 
   private
 

@@ -85,9 +85,8 @@ RSpec.describe 'Home page', :prerendering_disabled do
         user_id: nil,
       )
     else
-      # rubocop:disable RSpec/Output
+      # rubocop:disable-next RSpec/Output
       puts(AmazingPrint::Colors.red('No new event was found after clicking resume link.'))
-      # rubocop:enable RSpec/Output
     end
     # <<< External link click tracking
   end
@@ -114,11 +113,10 @@ RSpec.describe 'Home page', :prerendering_disabled do
 
         context 'when the request has a non-localhost IP address' do
           before do
-            # rubocop:disable RSpec/AnyInstance
+            # rubocop:disable-next RSpec/AnyInstance
             allow_any_instance_of(ActionDispatch::Request).
               to receive(:remote_ip).
               and_return(ip_address)
-            # rubocop:enable RSpec/AnyInstance
           end
 
           let(:ip_address) { Faker::Internet.ip_v4_address }

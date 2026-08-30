@@ -10,7 +10,7 @@ module Prerenderable
       instance_eval(&fallback)
     elsif (prerendered_html = prerendered_html(filename))
       if prerendered_html.include?(expected_content)
-        # rubocop:disable Rails/OutputSafety
+        # rubocop:disable-next Rails/OutputSafety
         render(
           layout: false,
           html:
@@ -18,7 +18,6 @@ module Prerenderable
               then { html_with_nonced_scripts(it) }.
               html_safe,
         )
-        # rubocop:enable Rails/OutputSafety
       else
         Rails.logger.info(<<~LOG)
           A "#{filename}" prerender was found, but it did not include "#{expected_content}".
