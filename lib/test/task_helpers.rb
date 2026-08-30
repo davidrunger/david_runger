@@ -119,9 +119,55 @@ module Test::TaskHelpers
     end
   end
 
+  def run_ruby_code(
+    task_description:,
+    success_check: -> { true },
+    on_failure: -> {},
+    failure_message: "#{task_description} failed.",
+    success_message: "#{task_description} succeeded.",
+    &
+  )
+    puts("#{AmazingPrint::Colors.yellow(task_description)} ...")
+
+    start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    exception = nil
+
+    begin
+      yield
+      succeeded = success_check.call
+    rescue => error
+      exception = error
+    ensure
+      elapsed_time = Process.clock_gettime(Process::CLOCK_MONOTONIC) - start_time
+
+      if succeeded
+        record_success_and_log_message(message_with_timing(success_message, elapsed_time))
+      else
+        on_failure.call
+
+        if exception.present?
+          puts(exception.backtrace)
+          record_failure_and_log_message(
+            "#{task_description} failed " \
+            "(raised #{exception.inspect}, took #{elapsed_time.round(3)}).",
+          )
+        else
+          if failure_message.respond_to?(:call)
+            failure_message = failure_message.call
+          end
+          record_failure_and_log_message(message_with_timing(failure_message, elapsed_time))
+        end
+      end
+    end
+  end
+
   def record_success_and_log_message(message)
     update_job_result_exit_code(0)
     puts(AmazingPrint::Colors.green(message))
+  end
+
+  def message_with_timing(message, elapsed_time)
+    "#{message.chomp.delete_suffix('.')} (took #{elapsed_time.round(3)})."
   end
 
   def record_failure_and_log_message(message)

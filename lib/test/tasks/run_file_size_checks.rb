@@ -36,18 +36,17 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
   }.freeze
 
   def run
-    puts("Running '#{AmazingPrint::Colors.yellow(self.class.name)}' ...")
-
-    time =
-      Benchmark.measure do
-        check_for_mismatched_files
-        check_for_file_size_violations
-
-        puts("Bundle sizes (in kilobytes): #{assets_and_size_in_kb.inspect}")
-      end.real
-
-    if unspecified_files.none? && nonexistent_files.none? && file_size_violations.none?
-      record_success_and_log_message("'#{self.class.name}' succeeded (took #{time.round(3)}).")
+    run_ruby_code(
+      task_description: self.class.name,
+      success_check: lambda do
+        unspecified_files.none? &&
+          nonexistent_files.none? &&
+          file_size_violations.none?
+      end,
+      on_failure: -> { record_file_size_check_failures },
+      failure_message: -> { file_size_check_failure_message },
+    ) do
+      puts("Bundle sizes (in kilobytes): #{assets_and_size_in_kb.inspect}")
     end
   end
 
@@ -98,33 +97,51 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     CONSTRAINTS.keys - assets_and_size_in_kb.keys
   end
 
-  def check_for_file_size_violations
-    if file_size_violations.any?
-      file_size_violations.each do |glob, actual_file_size|
-        record_failed_command("#{glob} size #{actual_file_size} is not in #{CONSTRAINTS[glob]}")
-      end
+  def file_size_check_failure_message
+    [
+      file_size_violations_message,
+      unspecified_files_message,
+      nonexistent_files_message,
+    ].compact.join(' ')
+  end
 
-      record_failure_and_log_message(<<~LOG.squish)
+  def file_size_violations_message
+    if file_size_violations.any?
+      <<~LOG.squish
         There are file size violations in #{self.class.name}! #{readable_file_size_violations}.
       LOG
     end
   end
 
-  def check_for_mismatched_files
+  def unspecified_files_message
     if unspecified_files.any?
-      record_failed_command("missing file size constraint(s) for #{unspecified_files}")
-      record_failure_and_log_message(<<~LOG.squish)
+      <<~LOG.squish
         There are asset(s) (#{unspecified_files}) that lack
         file size constraints specified in #{self.class.name}!
       LOG
     end
+  end
 
+  def nonexistent_files_message
     if nonexistent_files.any?
-      record_failed_command("missing file(s) #{nonexistent_files}")
-      record_failure_and_log_message(<<~LOG.squish)
+      <<~LOG.squish
         There are assets (#{nonexistent_files}) specified in
         #{self.class.name} that don't correspond to actual files!
       LOG
+    end
+  end
+
+  def record_file_size_check_failures
+    file_size_violations.each do |glob, actual_file_size|
+      record_failed_command("#{glob} size #{actual_file_size} is not in #{CONSTRAINTS[glob]}")
+    end
+
+    if unspecified_files.any?
+      record_failed_command("missing file size constraint(s) for #{unspecified_files}")
+    end
+
+    if nonexistent_files.any?
+      record_failed_command("missing file(s) #{nonexistent_files}")
     end
   end
 end
