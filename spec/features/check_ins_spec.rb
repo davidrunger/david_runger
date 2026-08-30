@@ -70,8 +70,8 @@ RSpec.describe 'Check-Ins app' do
 
       let(:spouse) { marriage.partners.where.not(id: user).first! }
 
-      context 'when the marriage has emotional need(s)' do
-        before { expect(marriage.emotional_needs).to exist }
+      context 'when the marriage has one emotional need' do
+        before { expect(marriage.emotional_needs.size).to eq(1) }
 
         let(:first_emotional_need) { marriage.emotional_needs.first! }
 
@@ -92,15 +92,14 @@ RSpec.describe 'Check-Ins app' do
 
           fill_in_emotional_needs_ratings(rating: 2)
           wait_for do
-            CheckIn.order(:created_at).last!.
-              need_satisfaction_ratings.
-              exists?(user:, score: nil)
+            check_in.need_satisfaction_ratings.where(user:).where.not(score: 2).exists?
           end.to eq(false)
-          sleep(0.2) # this seems to be needed to ensure the rating update transaction is committed
+          wait_for_network_idle
+          reset_check_ins_channel_connection_marker
           click_on('Submit Check-in')
           wait_for { CheckInSubmission.exists?(user:, check_in:) }.to eq(true)
+          wait_for_check_ins_channel_connection
           expect(page).to have_text("They didn't complete it yet.")
-          sleep(0.2) # this might help to make switching to the other window more reliable
 
           # other partner fills in ratings
           Capybara.using_session('spouse') do
@@ -109,16 +108,16 @@ RSpec.describe 'Check-Ins app' do
             expect(page).to have_text('Their answers [hidden until you submit your answers]')
             fill_in_emotional_needs_ratings(rating: -2)
             wait_for do
-              CheckIn.order(:created_at).last!.
-                need_satisfaction_ratings.
-                exists?(user: spouse, score: nil)
+              check_in.need_satisfaction_ratings.where(user: spouse).where.not(score: -2).exists?
             end.to eq(false)
-            sleep(0.2) # this might help ensure the rating update transaction is committed
+            wait_for_network_idle
+            reset_check_ins_channel_connection_marker
             click_on('Submit Check-in')
+            wait_for { CheckInSubmission.exists?(user: spouse, check_in:) }.to eq(true)
+            wait_for_check_ins_channel_connection
             expect(page).to have_text(
               /Their answers #{first_emotional_need.name}igraph -3-2-101😀3/,
             )
-            sleep(0.2) # this might help to make switching to the other window more reliable
           end
 
           expect(page).to have_text(
@@ -169,6 +168,16 @@ RSpec.describe 'Check-Ins app' do
               click
             # rubocop:enable Capybara/SpecificActions
           end
+        end
+
+        def reset_check_ins_channel_connection_marker
+          page.execute_script('window.davidrunger.connectedToCheckInsChannel = false')
+        end
+
+        def wait_for_check_ins_channel_connection
+          wait_for do
+            page.evaluate_script('window.davidrunger?.connectedToCheckInsChannel')
+          end.to eq(true)
         end
       end
     end

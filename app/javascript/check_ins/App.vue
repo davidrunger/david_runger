@@ -40,6 +40,11 @@ actionCableConsumer.subscriptions.create(
     channel: 'CheckInsChannel',
   },
   {
+    connected() {
+      // NOTE: This is for tests, so that we can wait until the WebSocket is connected.
+      window.davidrunger.connectedToCheckInsChannel = true;
+    },
+
     received: (data: CheckInsCableData) => {
       if (data.originating_user_id === bootstrap.current_user.id) return;
 
