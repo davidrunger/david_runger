@@ -18,19 +18,19 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
   TOP_SPEC_SELECTION_PROBABILITY = 0.7
 
   def run
-    puts("#{AmazingPrint::Colors.yellow('Dividing feature specs')}...")
+    run_ruby_code(
+      task_description: <<~DESCRIPTION.squish,
+        Dividing feature specs by meaningful line count into #{NUM_FEATURE_SPEC_GROUPS} groups
+      DESCRIPTION
+    ) do
+      FileUtils.mkdir_p('tmp')
 
-    FileUtils.mkdir_p('tmp')
-
-    feature_spec_groups(Dir.glob('spec/features/**/*_spec.rb')).
-      each_with_index do |feature_specs, index|
-        letter = ('a'..'c').to_a.fetch(index)
-        File.write("tmp/feature_specs_#{letter}.txt", feature_specs.join(' '))
-      end
-
-    record_success_and_log_message(<<~LOG)
-      Divided feature specs by meaningful line count into #{NUM_FEATURE_SPEC_GROUPS} groups.
-    LOG
+      feature_spec_groups(Dir.glob('spec/features/**/*_spec.rb')).
+        each_with_index do |feature_specs, index|
+          letter = ('a'..'c').to_a.fetch(index)
+          File.write("tmp/feature_specs_#{letter}.txt", feature_specs.join(' '))
+        end
+    end
   end
 
   private
