@@ -210,12 +210,16 @@ RSpec.describe 'Logs app' do
         it 'allows the user to download a CSV with the log data' do
           visit(log_path(slug: log.slug))
 
-          wait_for { page }.to have_link(
+          wait_for_log_page_to_finish_loading(log)
+
+          download_link = find_link(
             'Download CSV',
             href: download_log_path(log.slug),
           )
-
-          csv_path = downloaded_file_path('*.csv') { click_on('Download CSV') }
+          csv_path =
+            downloaded_file_path('*.csv', download_element: download_link) do
+              download_link.click
+            end
           csv = CSV.read(csv_path, headers: true)
 
           expect(csv.headers).to eq(['Time', log.data_label])
@@ -237,6 +241,8 @@ RSpec.describe 'Logs app' do
 
           visit(log_path(slug: log.slug))
 
+          wait_for_log_page_to_finish_loading(log)
+
           wait_for do
             find('button[aria-label="Toggle Dropdown"]').click
             page.has_css?('[role="menuitem"]', text: 'Download exact CSV')
@@ -244,13 +250,16 @@ RSpec.describe 'Logs app' do
 
           find('[role="menuitem"]', text: 'Download exact CSV').click
 
-          within('.el-message-box') do
-            expect(page).to have_text('might be evaluated as formulas')
-          end
+          message_box = find('.el-message-box')
+          expect(message_box).to have_text('might be evaluated as formulas')
+          exact_csv_download_button = message_box.find_button('Download exact CSV')
 
           csv_path =
-            downloaded_file_path('*.csv') do
-              within('.el-message-box') { click_on('Download exact CSV') }
+            downloaded_file_path(
+              '*.csv',
+              download_element: exact_csv_download_button,
+            ) do
+              exact_csv_download_button.click
             end
           csv = CSV.read(csv_path, headers: true)
 
@@ -340,5 +349,18 @@ RSpec.describe 'Logs app' do
         end
       end
     end
+  end
+
+  def wait_for_log_page_to_finish_loading(log)
+    wait_for { page }.to have_link(
+      'Download CSV',
+      href: download_log_path(log.slug),
+    )
+    expect(page).not_to have_text('Loading...')
+    expect(
+      page.driver.wait_for_network_idle(
+        timeout: RSpec.configuration.wait_timeout,
+      ),
+    ).to eq(true)
   end
 end
