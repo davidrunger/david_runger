@@ -28,4 +28,14 @@ RSpec.describe Features::DownloadHelpers do
       downloaded_file_path(relative_glob_pattern, max_attempts: 1)
     }.to raise_error(RuntimeError, /Could not find a file matching '.*\*\.csv'/)
   end
+
+  it 'represents file timestamps as ISO 8601 strings with nanosecond precision' do
+    File.write(csv_path, 'CSV')
+
+    timestamps = capybara_saved_file_state(csv_path).last(2)
+
+    expect(timestamps).to all(
+      match(/\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{9}(?:Z|[+-]\d{2}:\d{2})\z/),
+    )
+  end
 end
