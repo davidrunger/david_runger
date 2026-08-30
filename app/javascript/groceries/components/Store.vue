@@ -29,11 +29,17 @@
         :key="item.id"
         :ownStore="store.own_store"
         :highlighted="item.id === highlightedItemId"
+        @rename="showRenameItemModal"
       )
 
   CheckInModal
 
   ManageCheckInStoresModal
+
+  ItemRenameModal(
+    v-if="itemToRename"
+    :item="itemToRename"
+  )
 </template>
 
 <script setup lang="ts">
@@ -51,6 +57,7 @@ import type { Store } from '@/types';
 import CheckInModal from './CheckInModal.vue';
 import Item from './Item.vue';
 import ItemForm from './ItemForm.vue';
+import ItemRenameModal from './ItemRenameModal.vue';
 import ManageCheckInStoresModal from './ManageCheckInStoresModal.vue';
 import StoreHeader from './StoreHeader.vue';
 import StoreNotes from './StoreNotes.vue';
@@ -64,6 +71,7 @@ useTitle(() => `${props.store.name} - Groceries - David Runger`);
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
 const highlightedItemId = ref<number>();
+const itemToRename = ref<ItemType | null>(null);
 let clearHighlightTimeout: ReturnType<typeof setTimeout> | undefined;
 
 const sortedItems = computed((): ItemType[] => {
@@ -75,6 +83,11 @@ function initializeTripCheckIn() {
     store: groceriesStore.currentStore as Store,
   });
   modalStore.showModal({ modalName: 'check-in-shopping-trip' });
+}
+
+function showRenameItemModal(item: ItemType): void {
+  itemToRename.value = item;
+  modalStore.showModal({ modalName: 'rename-grocery-item' });
 }
 
 async function scrollToAndHighlightItem(item: ItemType): Promise<void> {

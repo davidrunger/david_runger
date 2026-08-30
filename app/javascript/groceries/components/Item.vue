@@ -16,44 +16,42 @@ li.grocery-item.flex.w-full.items-center(
     )
       .flex.justify-center
         MinusIcon(:size="ICON_SIZE")
-  .min-w-0.px-3
-    template(v-if="isEditing")
-      input(
-        v-model="nameEditableRef"
-        type="text"
-        ref="inputRef"
-        v-bind="inputEventHandlers"
-      )
-    template(v-else)
-      span.item-name
-        span(v-html="linkifiedAndSanitizedHtml(item.name)")
-        |
-        |
-        a.cursor-pointer.text-neutral-400(
-          @click="editItemName"
-          class="hover:text-black"
-        )
-          EditIcon(:size="ICON_SIZE")
+  .min-w-0.flex-1.px-3
+    span.item-name
+      span(v-html="linkifiedAndSanitizedHtml(item.name)")
     | &nbsp;
     span.item-count ({{ item.needed }})
-  .ml-auto.cursor-pointer(v-if="ownStore")
-    button.item-button.delete-item-button(
-      @click="groceriesStore.destroyItem({ item })"
-      title="Delete item"
-      :disabled="item.deleted"
+  .ml-auto.shrink-0
+    ElDropdown.item-actions(
+      trigger="click"
+      placement="bottom-end"
+      @command="handleItemAction"
     )
-      .flex.justify-center
-        XIcon(:size="ICON_SIZE")
+      button.item-button.item-actions-button(
+        type="button"
+        :aria-label="`Actions for ${item.name}`"
+        :disabled="item.deleted"
+      )
+        .flex.justify-center
+          DotsVerticalIcon(:size="ICON_SIZE")
+      template(#dropdown)
+        ElDropdownMenu
+          ElDropdownItem(command="rename") Rename
+          ElDropdownItem.delete-menu-item(
+            v-if="ownStore"
+            command="delete"
+            divided
+          ) Delete
 </template>
 
 <script setup lang="ts">
+import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
 import { debounce } from 'es-toolkit';
-import { EditIcon, MinusIcon, PlusIcon, XIcon } from 'vue-tabler-icons';
+import { DotsVerticalIcon, MinusIcon, PlusIcon } from 'vue-tabler-icons';
 import { bool, object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
-import { useCancelableInput } from '@/lib/composables/useCancelableInput';
 import { linkifiedAndSanitizedHtml } from '@/lib/linkifiedAndSanitizedHtml';
 
 const ICON_SIZE = 17;
@@ -64,27 +62,20 @@ const props = defineProps({
   highlighted: bool().isRequired,
 });
 
+const emit = defineEmits<{
+  rename: [item: Item];
+}>();
+
 const groceriesStore = useGroceriesStore();
 
-const {
-  editableRef: nameEditableRef,
-  isEditing,
-  startEditing,
-  inputEventHandlers,
-} = useCancelableInput({
-  onUpdate: (newValue: string) => {
-    groceriesStore.updateItem({
-      item: props.item,
-      attributes: {
-        name: newValue,
-      },
-    });
-  },
-  refName: 'inputRef',
-});
+type ItemAction = 'delete' | 'rename';
 
-function editItemName(): void {
-  startEditing(props.item.name);
+function handleItemAction(action: ItemAction): void {
+  if (action === 'rename') {
+    emit('rename', props.item);
+  } else if (action === 'delete') {
+    groceriesStore.destroyItem({ item: props.item });
+  }
 }
 
 const debouncedPatchItem = debounce(patchItem, 333);
@@ -144,16 +135,25 @@ function setNeeded(item: Item, needed: number) {
   background: #edf3e9;
 }
 
-.decrement-button,
-.delete-item-button {
+.decrement-button {
   color: var(--groceries-berry-dark);
   background: #f8ecef;
   border-color: #dec4cb;
 }
 
-.delete-item-button {
-  width: 29px;
-  height: 29px;
+.item-actions-button {
+  color: var(--groceries-sage-dark);
+  background: rgb(223, 231, 215, 70%);
+  border-color: var(--groceries-stem);
+}
+
+:deep(.delete-menu-item) {
+  color: var(--groceries-berry-dark);
+
+  &:not(.is-disabled):hover {
+    color: var(--groceries-berry-dark);
+    background-color: #f8ecef;
+  }
 }
 
 .item-name {
@@ -229,13 +229,5 @@ function setNeeded(item: Item, needed: number) {
     border-color: #d5b767;
     box-shadow: 0 0 0 4px rgb(213, 183, 103, 25%);
   }
-}
-
-input {
-  max-width: 100%;
-  padding: 6px 9px;
-  background: var(--groceries-paper);
-  border: 1px solid var(--groceries-sage);
-  border-radius: 8px;
 }
 </style>
