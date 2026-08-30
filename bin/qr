@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-# `qr` stands for [q]uick [r]estore. It:
-# 1. copies a backup of the production database to S3
-# 2. downloads and extracts that copy of the production database locally
+# `qr` stands for [q]uick [r]estore. By default, it:
+# 1. downloads the most recent daily backup of the production database from S3
+# 2. extracts that backup locally
+# Pass `--fresh` to create a new backup before downloading it.
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-echo "Creating new backup..."
-ssh "$(runger-config user-at-server)" bin/server/back-up-db-to-s3.sh
+if [[ "${1:-}" == "--fresh" ]]; then
+  echo "Creating new backup..."
+  ssh "$(runger-config user-at-server)" bin/server/back-up-db-to-s3.sh
+fi
 
 BACKUPS_BUCKET=$(parse-env BUCKET_NAME .env.s3_db_backup.local)
 LATEST_BACKUP_FILENAME=$(aws s3 ls "$BACKUPS_BUCKET" | sort | tail -1 | awk '{print $4}')
@@ -15,7 +18,6 @@ LATEST_BACKUP_FILENAME=$(aws s3 ls "$BACKUPS_BUCKET" | sort | tail -1 | awk '{pr
 echo "Downloading and unzipping latest backup $LATEST_BACKUP_FILENAME..."
 aws s3 cp "s3://$BACKUPS_BUCKET/$LATEST_BACKUP_FILENAME" tmp/ &&
   tar zxvf "tmp/$LATEST_BACKUP_FILENAME" -C tmp/
-
 
 development_database=david_runger_development
 
