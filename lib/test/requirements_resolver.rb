@@ -243,6 +243,7 @@ class Test::RequirementsResolver
       !file_changed?(%r{^app/javascript/types/bootstrap/}i) &&
         !file_changed?(%r{^app/javascript/types/responses/}i) &&
         !file_changed?(%r{^spec/support/schemas/}i) &&
+        !file_changed?('tools/json_schemas_to_typescript.mjs') &&
         !file_changed?('tools/json_schemas_to_typescript.rb') &&
         !diff_mentions?('quicktype')
     end,

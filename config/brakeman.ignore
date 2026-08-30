@@ -22,29 +22,6 @@
         89
       ],
       "note": "False positive"
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "f789370c19ac99deac07d258de2017d899983b5fb7981bf539fea038b747253f",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "tools/json_schemas_to_typescript.rb",
-      "line": 67,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "system(\"./node_modules/.bin/quicktype\\n  --src-lang schema\\n  #{schema_path}\\n  --out #{types_path(schema_path)}\\n  --just-types\\n\".squish, :exception => true)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "JsonSchemasToTypescript",
-        "method": "self.write_files"
-      },
-      "user_input": "schema_path",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": "The interpolated variables are file paths and cannot be input by a user."
     }
   ],
   "brakeman_version": "8.0.1"
