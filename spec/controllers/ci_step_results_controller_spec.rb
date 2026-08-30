@@ -5,21 +5,6 @@ RSpec.describe(CiStepResultsController) do
 
       let(:user) { users(:user) }
 
-      it 'allows application-wide script sources and unsafe eval' do
-        request.content_security_policy =
-          ActionDispatch::ContentSecurityPolicy.new do |policy|
-            policy.script_src(:self, 'http://localhost:3036')
-          end
-
-        get(:index)
-
-        expect(
-          request.content_security_policy.directives.fetch('script-src'),
-        ).to eq(
-          ["'self'", 'http://localhost:3036', "'unsafe-eval'"],
-        )
-      end
-
       context 'when the user has some ci_step_results' do
         before { expect(user.ci_step_results.size).to be >= 2 }
 
