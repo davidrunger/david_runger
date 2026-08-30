@@ -60,7 +60,6 @@ class Test::RequirementsResolver
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunToolsTests => Test::Tasks::RunUnitTests,
         Test::Tasks::RunApiControllerTests => Test::Tasks::CreateDbCopies,
-        Test::Tasks::RunFileSizeChecks => Test::Tasks::CompileUserJavaScript,
         Test::Tasks::RunFeatureTestsA => [
           Test::Tasks::DivideFeatureSpecs,
           Test::Tasks::CreateDbCopies,
@@ -112,6 +111,12 @@ class Test::RequirementsResolver
           # RunUnitTests, but making it wait for them improves the timing.
           Test::Tasks::RunApiControllerTests,
           Test::Tasks::RunUnitTests,
+        ],
+        Test::Tasks::RunFileSizeChecks => [
+          Test::Tasks::CompileUserJavaScript,
+          # RunFileSizeChecks doesn't really depend on UploadViteAssets,
+          # but making it wait for it improves the timing (and Gantt charts).
+          Test::Tasks::UploadViteAssets,
         ],
 
         # Exit depends on all tasks completing that are actual checks (as opposed to setup steps).
