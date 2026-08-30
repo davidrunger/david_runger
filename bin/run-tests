@@ -4,7 +4,11 @@ rm -rf tmp/simple_cov
 
 bin/pallets --verbose -r ./lib/test/run_pallets_tests.rb
 pallets_exit_code=$?
-bin/collate-code-coverage
-collate_exit_code=$?
+
+collate_exit_code=0
+if [[ "${CI:-}" == 'true' ]]; then
+  bin/collate-code-coverage
+  collate_exit_code=$?
+fi
 
 exit $((pallets_exit_code || collate_exit_code))
