@@ -126,10 +126,18 @@ RSpec.describe 'Logs app' do
 
           # Add first log entry
           first_log_entry_text = 'Some great text log entry content!'
+          first('.new-log-input textarea').native.send_keys(first_log_entry_text)
+          page.driver.browser.page.keyboard.type(:tab)
+          expect(page.evaluate_script('document.activeElement?.ariaLabel')).to(
+            eq('Backdate (optional)'),
+          )
+
+          page.driver.browser.page.keyboard.type(:tab)
+          expect(page.evaluate_script('document.activeElement?.textContent')).to eq('Add')
+
           expect {
-            first('.new-log-input textarea').native.send_keys(first_log_entry_text)
-            click_on('Add')
-            expect(page).to have_text(first_log_entry_text) # wait for AJAX request to complete
+            page.driver.browser.page.keyboard.type(:enter)
+            expect(page).to have_css('.text-log-table', text: first_log_entry_text)
           }.to change {
             log.reload.log_entries.count
           }.by(1)

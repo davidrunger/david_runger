@@ -31,6 +31,7 @@ div
           aria-label="Backdate (optional)"
           type="datetime-local"
           @focus="createdAtInputHasBeenInteracted = true"
+          @keydown.tab="focusAdjacentFormControl"
         )
       ElInput.new-log-input(
         :class="{ 'mb-2': isNumeric }"
@@ -149,6 +150,26 @@ function focusLogEntryInput() {
       (logInput.value as typeof ElInput).focus();
     }
   });
+}
+
+function focusAdjacentFormControl(event: KeyboardEvent) {
+  const currentControl = event.currentTarget as HTMLInputElement;
+  const form = currentControl.form;
+  if (!form) return;
+
+  event.preventDefault();
+
+  const formControls = Array.from(form.elements).filter(
+    (element): element is HTMLElement =>
+      element instanceof HTMLElement &&
+      !element.matches(':disabled') &&
+      element.tabIndex >= 0,
+  );
+  const direction = event.shiftKey ? -1 : 1;
+  const adjacentControl =
+    formControls[formControls.indexOf(currentControl) + direction];
+
+  adjacentControl?.focus();
 }
 
 async function postNewLogEntry(newLogEntryData: LogEntryDataValue | null) {
