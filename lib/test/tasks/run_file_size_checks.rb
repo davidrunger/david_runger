@@ -10,7 +10,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'check_ins*.css' => (10..15),
     'check_ins*.js' => (217..227),
     'check_ins_index*.js' => (5..15),
-    'ci_step_gantt_charts*.js' => (829..839),
+    'ci_step_gantt_charts*.js' => (265..275),
     'comments*.css' => (0..10),
     'comments*.js' => (342..352),
     'copy_to_clipboard*.css' => (0..10),
