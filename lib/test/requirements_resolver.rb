@@ -108,6 +108,10 @@ class Test::RequirementsResolver
         Test::Tasks::UploadViteAssets => [
           Test::Tasks::CompileAdminJavaScript,
           Test::Tasks::CompileUserJavaScript,
+          # UploadViteAssets doesn't really depend on RunApiControllerTests or
+          # RunUnitTests, but making it wait for them improves the timing.
+          Test::Tasks::RunApiControllerTests,
+          Test::Tasks::RunUnitTests,
         ],
 
         # Exit depends on all tasks completing that are actual checks (as opposed to setup steps).
