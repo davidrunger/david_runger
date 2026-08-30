@@ -154,6 +154,7 @@ RSpec.configure do |config|
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
   config.include(Features::DownloadHelpers, type: :feature)
+  config.include(Features::NetworkHelpers, type: :feature)
   config.include(Features::PercyHelpers, type: :feature)
   config.include(Features::SignInHelpers, type: :feature)
   config.include(Monkeypatches::MakeAllRequestsAsJson, request_format: :json)

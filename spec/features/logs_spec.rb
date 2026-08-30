@@ -365,10 +365,6 @@ RSpec.describe 'Logs app' do
       href: download_log_path(log.slug),
     )
     expect(page).not_to have_text('Loading...')
-    expect(
-      page.driver.wait_for_network_idle(
-        timeout: RSpec.configuration.wait_timeout,
-      ),
-    ).to eq(true)
+    wait_for_network_idle
   end
 end
