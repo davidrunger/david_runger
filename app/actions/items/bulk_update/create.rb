@@ -7,7 +7,7 @@ class Items::BulkUpdate::Create < ApplicationAction
     end
   end
 
-  requires :items, Array
+  requires :items, [Item]
   requires(
     :attributes_change,
     Shaped::Shapes::All.new(Hash, method(:only_updating_allowed_attributes?)),

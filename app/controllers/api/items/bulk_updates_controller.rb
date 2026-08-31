@@ -2,8 +2,14 @@ class Api::Items::BulkUpdatesController < Api::BaseController
   before_action :ensure_items_present, only: %i[create]
 
   def create
-    items.includes(:store, :user).find_each { |item| authorize(item, :update?) }
-    Items::BulkUpdate::Create.run!(items: items.to_a, attributes_change: attributes_change.to_h)
+    items_with_associations = items.includes(:item_availabilities, :user).to_a
+    items_with_associations.each do |item|
+      authorize(item, :update?)
+    end
+    Items::BulkUpdate::Create.run!(
+      items: items_with_associations,
+      attributes_change: attributes_change.to_h,
+    )
     head(:no_content)
   end
 

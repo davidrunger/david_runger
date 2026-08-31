@@ -159,6 +159,12 @@ RSpec.describe 'Groceries app' do
         let(:spouse_new_item_name) { 'Spouse blueberries' }
 
         it 'searches and adds items' do
+          Cuprite::BrowserLogger.ignore_browser_log_entries_matching(
+            'source' => 'network',
+            'text' => /status.*422/i,
+            'url' => %r{/api/items/#{spouse_item.id}\z},
+          )
+
           visit groceries_path
 
           within('aside') do
@@ -200,9 +206,30 @@ RSpec.describe 'Groceries app' do
           )
           expect(page).not_to have_css(
             '[role="menuitem"]',
+            text: 'Available at...',
+            exact_text: true,
+          )
+          expect(page).not_to have_css(
+            '[role="menuitem"]',
             text: 'Delete',
             exact_text: true,
           )
+
+          find(
+            '[role="menuitem"]',
+            text: 'Rename',
+            exact_text: true,
+          ).click
+          within('.modal-container') do
+            fill_in('Item name', with: "  #{spouse_new_item_name.swapcase}  ")
+            click_on('Save')
+
+            expect(page).to have_text(
+              'That name is already taken. Choose a different name.',
+            )
+            expect(page).not_to have_button('Combine items')
+            click_on('Cancel')
+          end
         end
       end
 
@@ -286,12 +313,35 @@ RSpec.describe 'Groceries app' do
       context 'when the store has an item' do
         let(:existing_store) { user.stores.joins(:items).first! }
         let(:existing_item) { existing_store.items.needed.first! }
+        let(:other_store) { user.stores.where.not(id: existing_store).first! }
         let(:unneeded_item) { existing_store.items.unneeded.first! }
+        let!(:item_available_elsewhere) do
+          create(
+            :item,
+            stores: [other_store],
+            name: 'bags available elsewhere',
+            needed: 2,
+          )
+        end
+        let!(:item_to_merge_into) do
+          create(
+            :item,
+            stores: [other_store],
+            name: 'bags to combine',
+            needed: 1,
+          )
+        end
 
         context 'when the user searches for an item' do
           let(:item_input_name) { 'itemName' }
 
-          it 'offers matching items and a new item option, and handles both selections' do
+          it 'offers matching, available, and new items and handles their selections' do
+            Cuprite::BrowserLogger.ignore_browser_log_entries_matching(
+              'source' => 'network',
+              'text' => /status.*422/i,
+              'url' => %r{/api/items/#{existing_item.id}\z},
+            )
+
             visit(groceries_path)
 
             within('aside') do
@@ -310,6 +360,7 @@ RSpec.describe 'Groceries app' do
             item_input.send_keys(substring_of_existing_item_name)
 
             existing_item_option_text = "#{existing_item.name} (#{existing_item.needed})"
+            add_item_option_text = "Add '#{substring_of_existing_item_name}'"
             expect(page).to have_css(
               '[role="option"]',
               text: existing_item_option_text,
@@ -317,9 +368,10 @@ RSpec.describe 'Groceries app' do
             )
             expect(page).to have_css(
               '[role="option"]',
-              text: "Add '#{substring_of_existing_item_name}'",
+              text: add_item_option_text,
               exact_text: true,
             )
+            expect(first('[role="option"]').text).to eq(add_item_option_text)
 
             page.execute_script(<<~JS)
               HTMLElement.prototype.scrollIntoView = function() {
@@ -349,6 +401,27 @@ RSpec.describe 'Groceries app' do
               exact_text: true,
             )
 
+            item_input.send_keys(
+              [:control, 'a'],
+              item_available_elsewhere.name.swapcase,
+            )
+            expect(page).to have_css('[role="option"]', count: 1)
+            available_item_option = find('[role="option"]')
+            expect(available_item_option).to have_text(
+              "Add '#{item_available_elsewhere.name}' to #{existing_store.name}",
+            )
+            expect(available_item_option).to have_text(
+              "Also available at #{other_store.name}; quantity will be shared",
+            )
+            available_item_option.click
+
+            expect(page).to have_css(
+              "#grocery-item-#{item_available_elsewhere.id}.highlighted",
+            )
+            expect(item_available_elsewhere.reload.store_ids).to(
+              include(existing_store.id),
+            )
+
             unique_new_item_name = "#{existing_item.name} #{SecureRandom.alphanumeric(5)}"
 
             item_input.send_keys([:control, 'a'], unique_new_item_name)
@@ -364,6 +437,39 @@ RSpec.describe 'Groceries app' do
             expect(page.evaluate_script('document.activeElement?.name')).not_to(
               eq(item_input_name),
             )
+
+            within("#grocery-item-#{existing_item.id}") do
+              find_button("Actions for #{existing_item.name}").click
+            end
+            find(
+              '[role="menuitem"]',
+              text: 'Rename',
+              exact_text: true,
+            ).click
+
+            within('.modal-container') do
+              fill_in('Item name', with: "  #{item_to_merge_into.name.swapcase}  ")
+              click_on('Save')
+
+              conflict_message =
+                "An item named \"#{item_to_merge_into.name}\" already exists at " \
+                "#{other_store.name}."
+              expect(page).to have_text(conflict_message)
+              expect(page).to have_text(existing_store.name)
+              expect(page).to have_text('keep the highest needed amount (2)')
+              expect(page).to have_text('This cannot be undone.')
+              click_on('Combine items')
+            end
+
+            expect(page).not_to have_spinner
+            expect(page).not_to have_css("#grocery-item-#{existing_item.id}")
+            expect(page).to have_css(
+              "#grocery-item-#{item_to_merge_into.id}.highlighted",
+            )
+            expect(Item.find_by(id: existing_item)).to be_nil
+            expect(item_to_merge_into.reload.store_ids).
+              to contain_exactly(existing_store.id, other_store.id)
+            expect(item_to_merge_into.needed).to eq(2)
           end
         end
       end
@@ -373,6 +479,99 @@ RSpec.describe 'Groceries app' do
 
         let!(:most_recent_store) { user.stores.reorder(viewed_at: :desc).first! }
         let!(:other_store) { user.stores.reorder(viewed_at: :desc).second! }
+
+        it 'shares, checks in, and repeatedly deletes and restores an item', :versioning do
+          shared_item = most_recent_store.items.needed.first!
+          original_needed = shared_item.needed
+
+          visit groceries_path
+
+          within("#grocery-item-#{shared_item.id}") do
+            find_button("Actions for #{shared_item.name}").click
+          end
+          find(
+            '[role="menuitem"]',
+            text: 'Available at...',
+            exact_text: true,
+          ).click
+
+          within('.modal-container') do
+            check(other_store.name)
+            click_on('Save')
+          end
+
+          expect(page).not_to have_spinner
+
+          within('aside') do
+            click_on(other_store.name)
+          end
+          expect(page).to have_css('.grocery-item', text: shared_item.name)
+
+          within("#grocery-item-#{shared_item.id}") do
+            find_button("Actions for #{shared_item.name}").click
+          end
+          expect(page).to have_css(
+            '[role="menuitem"]',
+            text: 'Delete from all stores',
+            exact_text: true,
+          )
+
+          within("#grocery-item-#{shared_item.id}") do
+            find_button("Actions for #{shared_item.name}").click
+          end
+          expect(page).not_to have_css(
+            '[role="menuitem"]',
+            text: 'Delete from all stores',
+            exact_text: true,
+          )
+          within("#grocery-item-#{shared_item.id}") { click_on('Increment') }
+          wait_for { shared_item.reload.needed }.to eq(original_needed + 1)
+          expect(page).not_to have_spinner
+
+          within('aside') do
+            click_on(most_recent_store.name)
+          end
+          expect_needed(shared_item.name, original_needed + 1)
+
+          click_on('Check in items')
+          click_on('Choose stores')
+          within(all('.modal-container').last) do
+            check(other_store.name)
+            click_on('Done')
+          end
+
+          within_section('Needed') do
+            expect(page.text.scan(shared_item.name).size).to eq(1)
+            check(shared_item.name)
+          end
+          click_on('Check in items in cart')
+
+          expect_needed(shared_item.name, 0)
+
+          within('aside') do
+            click_on(other_store.name)
+          end
+          expect_needed(shared_item.name, 0)
+
+          2.times do
+            within("#grocery-item-#{shared_item.id}") do
+              find_button("Actions for #{shared_item.name}").click
+            end
+            find(
+              '[role="menuitem"]',
+              text: 'Delete from all stores',
+              exact_text: true,
+            ).click
+
+            expect(page).not_to have_css("#grocery-item-#{shared_item.id}")
+            within(all('.groceries-toast').last) { click_on('Undo') }
+            expect(page).not_to have_spinner
+            expect(page).to have_css("#grocery-item-#{shared_item.id}")
+          end
+
+          expect(shared_item.reload.store_ids).
+            to contain_exactly(most_recent_store.id, other_store.id)
+        end
 
         it 'includes the store name in the page title' do
           visit groceries_path

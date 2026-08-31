@@ -83,11 +83,14 @@
         "needed": {
           "type": "integer"
         },
-        "store_id": {
-          "type": "integer"
+        "store_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
         }
       },
-      "required": ["id", "name", "needed", "store_id"],
+      "required": ["id", "name", "needed", "store_ids"],
       "title": "Item"
     }
   }

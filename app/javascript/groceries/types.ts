@@ -1,4 +1,4 @@
-import { JsonBroadcast } from '@/lib/types';
+import { JsonBroadcast, ObjectWithErrors } from '@/lib/types';
 import type {
   Intersection,
   Store,
@@ -13,6 +13,11 @@ export interface Item extends TypelizerItem {
   aboutToMoveTo?: CheckInStatus | null;
   checkInStatus?: CheckInStatus;
   deleted?: boolean;
+}
+
+export interface ItemUpdateErrorResponse extends ObjectWithErrors {
+  merge_target?: Item;
+  name_conflict?: boolean;
 }
 
 export interface ItemBroadcast extends JsonBroadcast {

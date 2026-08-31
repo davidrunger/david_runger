@@ -52,12 +52,10 @@ onBeforeMount(() => {
           const initiatedByOwnBrowser =
             Cookies.get('browser_uuid') === data.acting_browser_uuid;
 
-          // NOTE: We try to addItem even if initiatedByOwnBrowser because we
-          // might need to re-add the item to the store if it was created by
-          // undoing a deletion.
+          // Browser UUIDs are shared by tabs, so process idempotent creations and deletions even when initiated by this browser.
           if (data.action === 'created') {
             groceriesStore.addItem({ itemData: data.model });
-          } else if (data.action === 'destroyed' && !initiatedByOwnBrowser) {
+          } else if (data.action === 'destroyed') {
             groceriesStore.deleteItem({ item: data.model });
           } else if (data.action === 'updated' && !initiatedByOwnBrowser) {
             groceriesStore.modifyItem({ attributes: data.model });

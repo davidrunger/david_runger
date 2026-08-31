@@ -3,14 +3,20 @@
 ## Ruby conventions
 
 - When a Ruby method's computed result is reused, prefer the repository's `Memoization` pattern over assigning a same-named local variable from `self`, such as `value = self.value`, solely to avoid recomputation. Add `prepend Memoization` to the class and decorate the method with `memoize \`.
+- In Active Record ID predicates, pass record objects directly when they are already available and let Rails extract their IDs. For example, prefer `Model.where(id: [first_record, second_record])` over `Model.where(id: [first_record.id, second_record.id])`.
 - This repository intentionally loads standard-library dependencies used by Rails application code in `config/initializers/std_lib.rb` instead of requiring them in each consumer. This provides a Gemfile-like application contract: after the Rails environment initializes, the listed standard-library APIs are available throughout the application. It also prevents deleting one consumer, which happened to load a shared dependency, from breaking another consumer that relied on the same API.
 - Add standard-library requires used by Rails-initialized code to `config/initializers/std_lib.rb` and remove redundant requires from individual consumers. Code that runs before or without Rails environment initialization must continue to require its dependencies locally.
 - When repository code directly uses a default gem or another separately versioned standard-library gem, declare that gem in the `Gemfile`, even if the code runs only in development or test and even if another dependency already brings the gem into the bundle. Place it in the narrowest group that includes every direct use. Treat calls to a gem's API as direct use even when another dependency happens to load it.
 - Do not add default or standard-library gems that are used only by third-party dependencies. Those gems are responsible for declaring their own runtime dependencies. Add an application-level workaround for an upstream omission only when it causes a concrete problem, and document why the workaround is necessary.
 - Do not use comments on individual entries in `config/initializers/std_lib.rb` as a consumer index. Such comments become incomplete or stale as usages change. Audit current usage by searching the repository, and reserve an entry-specific comment for non-obvious loading or compatibility requirements.
 
+## Application actions
+
+- When declaring an array input with `requires`, specify its element type with a one-element array shape, such as `requires :items, [Item]`, rather than accepting a bare `Array`. This both documents and validates the collection's contents.
+
 ## TypeScript conventions
 
+- Use `Array<ElementType>` rather than `ElementType[]` for array types. This makes the collection type prominent and visually encloses its element type.
 - Name internal TypeScript module files in `camelCase`. Use `PascalCase` for modules centered on a `PascalCase` class, interface, or type. Keep externally named Vite entrypoints in `snake_case` when Rails uses their basenames as asset identifiers.
 
 ## Local tooling
@@ -54,6 +60,7 @@ This repository does not maintain a changelog. Do not add changelog entries.
 
 ## Tests and coverage
 
+- PaperTrail versioning is disabled by default in specs. Add `:versioning` to any example or group whose behavior creates, reads, or reifies PaperTrail versions, including feature specs that exercise deletion Undo.
 - When adding a new model class, add at least one realistic baseline record to the FixtureBuilder setup unless fixtures are unsuitable for that model. Define a factory as needed to create the fixture. This lets specs reuse those records for faster setup and gives feature specs a more representative database state, increasing the chance that relevant data-shape bugs surface.
 - For small iteration loops of one or two feature-spec examples that exercise changed frontend assets, start the live Vite server with `./node_modules/.bin/vite --force` in a separate terminal and leave it running. This ensures that each feature-spec run uses the current source without rebuilding assets after every edit. When a task runner starts Vite as a managed background process instead, confirm that the server is ready before running specs and stop it when testing is complete.
 - When running three or more feature-spec examples that exercise changed frontend assets, prefer compiling the relevant assets once with `bin/run-test-steps CompileUserJavaScript` immediately before the relevant specs. Add `CompileAdminJavaScript` when admin assets are relevant. These tasks centralize the production build configuration and keep this workflow aligned with any future changes to the compilation steps. Rebuild after every frontend change; otherwise feature specs can silently exercise stale compiled assets.

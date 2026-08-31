@@ -9,13 +9,13 @@ class Api::StoresController < Api::BaseController
     render_schema_json({
       own_stores:
         StoreSerializer.new(
-          current_user.stores.includes(:items),
+          current_user.stores.includes(items: :item_availabilities),
           params: { current_user: },
         ).as_json,
       spouse_stores:
         if spouse
           StoreSerializer.new(
-            spouse.stores.where.not(private: true).includes(:items),
+            spouse.stores.where.not(private: true).includes(items: :item_availabilities),
             params: { current_user: },
           ).as_json
         else
@@ -45,14 +45,15 @@ class Api::StoresController < Api::BaseController
 
   def destroy
     authorize(@store)
-    @store.destroy!
+    Stores::Destroy.run!(store: @store)
     head(:no_content)
   end
 
   private
 
   def set_store
-    @store = current_user.stores.find_by(id: params['id'])
+    @store =
+      current_user.stores.includes(items: :item_availabilities).find_by(id: params['id'])
     if @store.nil?
       head(:not_found)
     end

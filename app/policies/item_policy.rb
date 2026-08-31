@@ -1,9 +1,7 @@
 class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      Item.
-        where(id: @user.items).
-        or(Item.where(id: @user.spouse&.items))
+      Item.where(user: [@user, @user.spouse].compact)
     end
   end
 
@@ -12,6 +10,14 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def destroy?
+    own_record?
+  end
+
+  def manage_availabilities?
+    own_record?
+  end
+
+  def merge?
     own_record?
   end
 

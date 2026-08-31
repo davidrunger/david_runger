@@ -11,12 +11,17 @@ form.item-form.flex.items-center.gap-3(@submit.prevent)
     fit-input-width
     name="itemName"
     placeholder="Add or search items"
+    popper-class="grocery-item-suggestions"
     @select="selectSuggestion"
   )
     template(#default="slotProps")
-      template(v-if="slotProps.item.type === 'existing'")
+      template(v-if="slotProps.item.type === 'item-in-current-store'")
         span {{ slotProps.item.value }}
-        span.ml-2.text-neutral-500(v-if="slotProps.item.item.needed > 0") &nbsp;({{ slotProps.item.item.needed }})
+        span.ml-1.text-neutral-500(v-if="slotProps.item.item.needed > 0") &nbsp;({{ slotProps.item.item.needed }})
+      template(v-else-if="slotProps.item.type === 'item-in-other-store'")
+        span Add '{{ slotProps.item.value }}' to {{ props.store.name }}
+        span.ml-1.text-neutral-500(v-if="slotProps.item.item.needed > 0") &nbsp;({{ slotProps.item.item.needed }})
+        small.block.text-neutral-500 Also available at {{ slotProps.item.storeNames.join(', ') }}; quantity will be shared
       span(v-else) Add '{{ slotProps.item.value }}'
 </template>
 
@@ -35,18 +40,28 @@ import { helpers, useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
 import type { Store } from '@/types';
 
-interface ExistingItemSuggestion {
+interface ItemInCurrentStoreSuggestion {
   item: Item;
-  type: 'existing';
+  type: 'item-in-current-store';
   value: string;
 }
 
-interface AddItemSuggestion {
-  type: 'add';
+interface BrandNewItemSuggestion {
+  type: 'brand-new-item';
   value: string;
 }
 
-type ItemSuggestion = AddItemSuggestion | ExistingItemSuggestion;
+interface ItemInOtherStoreSuggestion {
+  item: Item;
+  storeNames: Array<string>;
+  type: 'item-in-other-store';
+  value: string;
+}
+
+type ItemSuggestion =
+  | BrandNewItemSuggestion
+  | ItemInCurrentStoreSuggestion
+  | ItemInOtherStoreSuggestion;
 
 const props = defineProps({
   store: object<Store>().isRequired,
@@ -66,23 +81,60 @@ function itemSuggestions(
   queryString: string,
   callback: AutocompleteFetchSuggestionsCallback<ItemSuggestion>,
 ): void {
-  const normalizedQuery = queryString.toLowerCase();
-  const existingSuggestions: ExistingItemSuggestion[] = helpers
+  const squishedQuery = queryString.trim().replace(/\s+/g, ' ');
+  if (!squishedQuery) {
+    callback([]);
+    return;
+  }
+
+  const normalizedQuery = squishedQuery.toLowerCase();
+  const currentStoreSuggestions: Array<ItemInCurrentStoreSuggestion> = helpers
     .sortByName(props.store.items)
     .filter((item) => item.name.toLowerCase().includes(normalizedQuery))
     .map((item) => ({
       item,
-      type: 'existing',
+      type: 'item-in-current-store',
+      value: item.name,
+    }));
+  const currentStoreItemIds = new Set(props.store.items.map((item) => item.id));
+  const relatedStores =
+    props.store.own_store ?
+      groceriesStore.own_stores
+    : groceriesStore.spouse_stores;
+  const availableItems = new Map<number, Item>();
+  for (const store of relatedStores) {
+    for (const item of store.items) availableItems.set(item.id, item);
+  }
+  const otherStoreSuggestions: Array<ItemInOtherStoreSuggestion> = helpers
+    .sortByName([...availableItems.values()])
+    .filter(
+      (item) =>
+        !currentStoreItemIds.has(item.id) &&
+        item.name.toLowerCase().includes(normalizedQuery),
+    )
+    .map((item) => ({
+      item,
+      storeNames: relatedStores
+        .filter((store) => item.store_ids.includes(store.id))
+        .map((store) => store.name),
+      type: 'item-in-other-store',
       value: item.name,
     }));
 
-  callback([
-    ...existingSuggestions,
-    {
-      type: 'add',
-      value: queryString,
-    },
-  ]);
+  const matchingSuggestions = [
+    ...currentStoreSuggestions,
+    ...otherStoreSuggestions,
+  ];
+  const exactMatchExists = matchingSuggestions.some(
+    ({ item }) => item.name.toLowerCase() === normalizedQuery,
+  );
+  const suggestions: Array<ItemSuggestion> = [];
+  if (!exactMatchExists) {
+    suggestions.push({ type: 'brand-new-item', value: queryString });
+  }
+  suggestions.push(...matchingSuggestions);
+
+  callback(suggestions);
 }
 
 async function selectSuggestion(
@@ -90,7 +142,7 @@ async function selectSuggestion(
 ): Promise<void> {
   const itemSuggestion = suggestion as ItemSuggestion;
 
-  if (itemSuggestion.type === 'existing') {
+  if (itemSuggestion.type === 'item-in-current-store') {
     formData.itemName = '';
     await blurAutocomplete();
     emit('itemTargeted', itemSuggestion.item);
@@ -100,7 +152,10 @@ async function selectSuggestion(
   const item = await groceriesStore.createItem({
     store: props.store,
     itemAttributes: {
-      name: itemSuggestion.value,
+      name:
+        itemSuggestion.type === 'item-in-other-store' ?
+          itemSuggestion.item.name
+        : itemSuggestion.value,
     },
   });
 
@@ -116,6 +171,30 @@ async function blurAutocomplete(): Promise<void> {
   autocompleteRef.value?.blur();
 }
 </script>
+
+<style lang="scss">
+.grocery-item-suggestions {
+  .el-autocomplete-suggestion__wrap {
+    padding-block: 4px;
+  }
+
+  .el-autocomplete-suggestion li {
+    position: relative;
+    padding-block: 7px;
+    line-height: 1.35;
+    white-space: normal;
+
+    & + li::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 20px;
+      left: 20px;
+      border-top: 1px solid var(--el-border-color-lighter);
+    }
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .add-item-icon {

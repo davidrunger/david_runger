@@ -37,8 +37,8 @@ class User < ApplicationRecord
     inverse_of: :proposer,
     class_name: 'Proposal',
   )
+  has_many :items, dependent: :destroy
   has_many :stores, dependent: :destroy
-  has_many :items, through: :stores # must come after has_many :stores declaration
   has_many :log_entries, through: :logs
   has_many :workouts, dependent: :destroy
   has_many :need_satisfaction_ratings, dependent: :destroy
@@ -94,7 +94,8 @@ class User < ApplicationRecord
           participations: :quiz_question_answer_selections,
           questions: { answers: :selections },
         },
-        stores: :items,
+        items: :item_availabilities,
+        stores: :item_availabilities,
       )
     end
   end
