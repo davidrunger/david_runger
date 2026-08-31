@@ -8,4 +8,19 @@
 # You can also remove all the silencers if you're trying to debug a problem that might stem from framework code.
 # Rails.backtrace_cleaner.remove_silencers!
 
+Rails.application.config.after_initialize do
+  response_serialization_path_prefixes = %w[
+    app/controllers/api/base_controller.rb:
+    app/controllers/concerns/schema_validatable.rb:
+    app/helpers/window_data_helper.rb:
+    app/poros/json_schema_validator.rb:
+  ].freeze
+  query_source_backtrace_cleaner = Rails.backtrace_cleaner.dup
+  query_source_backtrace_cleaner.add_silencer do |line|
+    line.start_with?(*response_serialization_path_prefixes)
+  end
+
+  ActiveRecord::LogSubscriber.backtrace_cleaner = query_source_backtrace_cleaner
+end
+
 # rubocop:enable Layout/LineLength
