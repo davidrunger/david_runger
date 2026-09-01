@@ -40,10 +40,7 @@ RSpec.describe 'Groceries app' do
         take_percy_snapshot('Groceries')
 
         # Rename an item through the actions menu, including canceling an edit.
-        within("#grocery-item-#{needed_item.id}") do
-          click_on("Actions for #{needed_item.name}")
-        end
-        find('[role="menuitem"]', text: 'Rename', exact_text: true).click
+        click_item_action(needed_item, 'Rename')
 
         canceled_item_name = 'Canceled item name'
         within('.modal-container') do
@@ -57,10 +54,7 @@ RSpec.describe 'Groceries app' do
         expect(page).to have_css('.grocery-item', text: needed_item.name)
         expect(page).not_to have_text(canceled_item_name)
 
-        within("#grocery-item-#{needed_item.id}") do
-          find_button("Actions for #{needed_item.name}").click
-        end
-        find('[role="menuitem"]', text: 'Rename', exact_text: true).click
+        click_item_action(needed_item, 'Rename')
 
         renamed_needed_item_name = "Renamed #{needed_item.name}"
         within('.modal-container') do
@@ -76,10 +70,7 @@ RSpec.describe 'Groceries app' do
 
         # Delete the item.
         unneeded_item_dom_id = "#grocery-item-#{unneeded_item.id}"
-        within(unneeded_item_dom_id) do
-          find_button("Actions for #{unneeded_item.name}").click
-        end
-        find('[role="menuitem"]', text: 'Delete', exact_text: true).click
+        click_item_action(unneeded_item, 'Delete')
 
         sleep(0.01)
 
@@ -192,9 +183,7 @@ RSpec.describe 'Groceries app' do
 
           expect(page).to have_css('.grocery-item', text: spouse_new_item_name)
 
-          within("#grocery-item-#{spouse_item.id}") do
-            find_button("Actions for #{spouse_item.name}").click
-          end
+          open_item_actions(spouse_item)
           expect(page).to have_css(
             '[role="menuitem"]',
             text: 'Rename',
@@ -434,14 +423,7 @@ RSpec.describe 'Groceries app' do
               eq(item_input_name),
             )
 
-            within("#grocery-item-#{existing_item.id}") do
-              find_button("Actions for #{existing_item.name}").click
-            end
-            find(
-              '[role="menuitem"]',
-              text: 'Rename',
-              exact_text: true,
-            ).click
+            click_item_action(existing_item, 'Rename')
 
             within('.modal-container') do
               fill_in('Item name', with: "  #{item_to_merge_into.name.swapcase}  ")
@@ -482,14 +464,7 @@ RSpec.describe 'Groceries app' do
 
           visit groceries_path
 
-          within("#grocery-item-#{shared_item.id}") do
-            find_button("Actions for #{shared_item.name}").click
-          end
-          find(
-            '[role="menuitem"]',
-            text: 'Available at...',
-            exact_text: true,
-          ).click
+          click_item_action(shared_item, 'Available at...')
 
           within('.modal-container') do
             check(other_store.name)
@@ -503,9 +478,7 @@ RSpec.describe 'Groceries app' do
           end
           expect(page).to have_css('.grocery-item', text: shared_item.name)
 
-          within("#grocery-item-#{shared_item.id}") do
-            find_button("Actions for #{shared_item.name}").click
-          end
+          open_item_actions(shared_item)
           expect(page).to have_css(
             '[role="menuitem"]',
             text: 'Delete from all stores',
@@ -550,14 +523,7 @@ RSpec.describe 'Groceries app' do
           expect_needed(shared_item.name, 0)
 
           2.times do
-            within("#grocery-item-#{shared_item.id}") do
-              find_button("Actions for #{shared_item.name}").click
-            end
-            find(
-              '[role="menuitem"]',
-              text: 'Delete from all stores',
-              exact_text: true,
-            ).click
+            click_item_action(shared_item, 'Delete from all stores')
 
             expect(page).not_to have_css("#grocery-item-#{shared_item.id}")
             within(all('.groceries-toast').last) { click_on('Undo') }
@@ -583,6 +549,22 @@ RSpec.describe 'Groceries app' do
           expect(page).to have_title("#{other_store.name} - Groceries - David Runger")
         end
       end
+    end
+  end
+
+  def click_item_action(item, action)
+    open_item_actions(item)
+
+    find(
+      '[role="menuitem"]',
+      text: action,
+      exact_text: true,
+    ).click
+  end
+
+  def open_item_actions(item)
+    within("#grocery-item-#{item.id}") do
+      find_button("Actions for #{item.name}").click
     end
   end
 

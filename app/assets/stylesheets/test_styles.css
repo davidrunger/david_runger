@@ -1,7 +1,13 @@
-/* Disable vue-toastification animation to minimize flakiness. */
-.Vue-Toastification__container *,
-.Vue-Toastification__toast {
+/* Disable CSS motion to keep browser interaction targets stable. */
+*,
+*::before,
+*::after {
   transition: none !important;
   animation: none !important;
+}
+
+/* Vue Toastification uses transforms as part of its transition state. */
+.Vue-Toastification__container *,
+.Vue-Toastification__toast {
   transform: none !important;
 }
