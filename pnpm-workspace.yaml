@@ -10,6 +10,3 @@ allowBuilds:
   protobufjs: false
 overrides:
   typescript: ^6
-minimumReleaseAgeExclude:
-  - picomatch@4.0.7
-  - vite-plugin-ruby@5.2.3
