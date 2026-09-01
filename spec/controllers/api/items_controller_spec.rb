@@ -85,6 +85,23 @@ RSpec.describe Api::ItemsController do
       end
     end
 
+    context 'when an item with the same name is already available at the store' do
+      let(:item) { items(:item) }
+      let(:store) { item.stores.first! }
+      let(:params) do
+        { store_id: store.id, item: { name: item.name.swapcase } }
+      end
+
+      it 'does not add the item again and reports the duplicate name' do
+        expect { post_create }.
+          not_to change { [Item.count, ItemAvailability.count] }
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to eq(
+          'errors' => ['Name has already been taken'],
+        )
+      end
+    end
+
     context 'when the item params are not valid' do
       let(:invalid_params) { { store_id: store.id, item: { name: '' } } }
       let(:params) { invalid_params }
