@@ -49,7 +49,7 @@ Modal(
 
 <script setup lang="ts">
 import { ElButton } from 'element-plus';
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { object } from 'vue-types';
 
 import Modal from '@/components/Modal.vue';
@@ -124,9 +124,17 @@ watch(
 
     editableName.value = props.item.name;
     clearErrors();
-    nextTick(() => itemNameInput.value?.focus());
   },
   { immediate: true },
+);
+
+// On first mount, the modal may already be showing before the input ref exists.
+watch(
+  itemNameInput,
+  (input) => {
+    if (showingRenameModal.value) input?.focus();
+  },
+  { flush: 'post' },
 );
 
 watch(editableName, clearErrors);

@@ -48,11 +48,7 @@ RSpec.describe 'Groceries app' do
         canceled_item_name = 'Canceled item name'
         within('.modal-container') do
           expect(page).to have_field('Item name', with: needed_item.name)
-          expect(
-            page.evaluate_script(
-              'document.activeElement?.matches(".rename-item-form input")',
-            ),
-          ).to be(true)
+          expect(page).to have_css('.rename-item-form input:focus')
 
           fill_in('Item name', with: canceled_item_name)
           click_on('Cancel')
