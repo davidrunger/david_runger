@@ -37,10 +37,11 @@ FixtureBuilder.configure do |fbuilder|
         viewed_at: other_store.viewed_at + 10.seconds,
       ),
     ).first
-    name(:item, create(:item, :needed, store:, name: 'olive oil', needed: 2))
-    create(:item, :unneeded, store:, name: 'apples')
+    item = name(:item, create(:item, :needed, stores: [store], name: 'olive oil', needed: 2)).first
+    name(:item_availability, item.item_availabilities.first!)
+    create(:item, :unneeded, stores: [store], name: 'apples')
     spouse_store = create(:store, user: married_user, name: 'Spouse Store')
-    create(:item, :needed, store: spouse_store, name: 'Spouse bananas')
+    create(:item, :needed, stores: [spouse_store], name: 'Spouse bananas')
     create(:store, user: married_user, name: 'Private Spouse Store', private: true)
 
     # number logs

@@ -4,15 +4,20 @@ import { POSITION } from 'vue-toastification';
 
 import { bootstrap } from '@/groceries/bootstrap';
 import DeletedItemToast from '@/groceries/components/DeletedItemToast.vue';
-import { CheckInStatus, Item } from '@/groceries/types';
+import {
+  CheckInStatus,
+  Item,
+  ItemUpdateErrorResponse,
+} from '@/groceries/types';
 import { emit } from '@/lib/eventBus';
 import { typesafeAssign } from '@/lib/helpers';
 import { http } from '@/lib/http';
-import { getById, safeGetById } from '@/lib/storeHelpers';
+import { safeGetById } from '@/lib/storeHelpers';
 import { isObjectWithErrors } from '@/lib/typePredicates';
 import { type ObjectWithErrors } from '@/lib/types';
 import { toastErrors, vueToast } from '@/lib/vueToasts';
 import {
+  api_item_merges_path,
   api_item_path,
   api_items_bulk_updates_path,
   api_store_items_path,
@@ -20,8 +25,10 @@ import {
   api_stores_path,
 } from '@/rails_assets/routes';
 import type { Intersection, Store } from '@/types';
+import { DeletedItemRestorationCreateResponse } from '@/types/responses/DeletedItemRestorationCreateResponse';
 import { ItemCreateResponse } from '@/types/responses/ItemCreateResponse';
 import { ItemDestroyResponse } from '@/types/responses/ItemDestroyResponse';
+import { ItemMergeCreateResponse } from '@/types/responses/ItemMergeCreateResponse';
 import { ItemUpdateResponse } from '@/types/responses/ItemUpdateResponse';
 import { StoreCreateResponse } from '@/types/responses/StoreCreateResponse';
 import { StoresIndexResponse } from '@/types/responses/StoresIndexResponse';
@@ -40,6 +47,27 @@ interface Nameable {
   name: string;
 }
 
+function canonicalItem(itemData: Item, itemsById: Map<number, Item>): Item {
+  const existingItem = itemsById.get(itemData.id);
+  if (existingItem) {
+    Object.assign(existingItem, itemData);
+    return existingItem;
+  }
+
+  itemsById.set(itemData.id, itemData);
+  return itemData;
+}
+
+function canonicalizeStoreItems(stores: Array<Store>): void {
+  const itemsById = new Map<number, Item>();
+
+  for (const store of stores) {
+    store.items = store.items.map((itemData) =>
+      canonicalItem(itemData, itemsById),
+    );
+  }
+}
+
 export const helpers = {
   sortByName<T>(objects: Array<Nameable & T>): Array<T> {
     return sortBy(objects, [(object) => object.name.toLowerCase()]);
@@ -47,14 +75,20 @@ export const helpers = {
 };
 
 export const useGroceriesStore = defineStore('groceries', {
-  state: (): State => ({
-    own_stores: bootstrap.own_stores,
-    spouse_stores: bootstrap.spouse_stores,
-    collectingDebounces: false,
-    pendingRequests: 0,
-    postingStore: false,
-    checkInStores: [],
-  }),
+  state: (): State => {
+    const ownStores = bootstrap.own_stores || [];
+    const spouseStores = bootstrap.spouse_stores || [];
+    canonicalizeStoreItems([...ownStores, ...spouseStores]);
+
+    return {
+      own_stores: ownStores,
+      spouse_stores: spouseStores,
+      collectingDebounces: false,
+      pendingRequests: 0,
+      postingStore: false,
+      checkInStores: [],
+    };
+  },
 
   actions: {
     addCheckInStore({ store }: { store: Store }) {
@@ -63,15 +97,24 @@ export const useGroceriesStore = defineStore('groceries', {
       this.checkInStores = [...this.checkInStores, store];
     },
 
-    addItem({ store, itemData }: { store?: Store; itemData: Item }) {
-      store = store || getById(this.allStores, itemData.store_id);
+    addItem({ itemData }: { itemData: Item }): Item {
+      const item =
+        this.allStores
+          .flatMap((store) => store.items)
+          .find((existingItem) => existingItem.id === itemData.id) || itemData;
+      Object.assign(item, itemData);
 
-      // don't add item to store if it's already there
-      if (safeGetById(store.items, itemData.id)) return;
-
-      if (!store.items.find((item) => item.id === itemData.id)) {
-        store.items.push(itemData);
+      const storeIds = new Set(itemData.store_ids);
+      for (const store of this.allStores) {
+        const storeItem = safeGetById(store.items, item.id);
+        if (storeIds.has(store.id) && !storeItem) {
+          store.items.push(item);
+        } else if (!storeIds.has(store.id) && storeItem) {
+          store.items = store.items.filter(({ id }) => id !== item.id);
+        }
       }
+
+      return item;
     },
 
     async createItem({
@@ -91,8 +134,7 @@ export const useGroceriesStore = defineStore('groceries', {
       if (isObjectWithErrors(itemData)) {
         toastErrors(itemData.errors);
       } else if (itemData) {
-        this.addItem({ store, itemData });
-        return itemData;
+        return this.addItem({ itemData });
       }
     },
 
@@ -135,8 +177,11 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     deleteItem({ item }: { item: Item }) {
-      const store = getById(this.allStores, item.store_id);
-      store.items = store.items.filter((storeItem) => storeItem.id !== item.id);
+      for (const store of this.allStores) {
+        store.items = store.items.filter(
+          (storeItem) => storeItem.id !== item.id,
+        );
+      }
     },
 
     async destroyItem({ item }: { item: Item }) {
@@ -152,7 +197,14 @@ export const useGroceriesStore = defineStore('groceries', {
           component: DeletedItemToast,
           props: {
             deletedItemName: item.name,
-            restoreItemPath,
+            restoreDeletedItem: async () => {
+              const restoredItem = await this.withPendingRequest(() =>
+                http.post<
+                  Intersection<Item, DeletedItemRestorationCreateResponse>
+                >(restoreItemPath),
+              );
+              this.addItem({ itemData: restoredItem });
+            },
           },
         },
         {
@@ -165,6 +217,11 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     deleteStore({ store: deletedStore }: { store: Store }) {
+      for (const item of deletedStore.items) {
+        item.store_ids = item.store_ids.filter(
+          (storeId) => storeId !== deletedStore.id,
+        );
+      }
       this.own_stores = this.own_stores.filter(
         (store) => store !== deletedStore,
       );
@@ -172,6 +229,11 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     async pullStoreData() {
+      const itemsById = new Map(
+        this.allStores
+          .flatMap((store) => store.items)
+          .map((item) => [item.id, item]),
+      );
       const reconciledStores = (
         storeData: Array<Store>,
         existingStores: Array<Store>,
@@ -183,24 +245,15 @@ export const useGroceriesStore = defineStore('groceries', {
           if (existingStore) {
             storeDatum.viewed_at =
               existingStore.viewed_at ?? storeDatum.viewed_at;
-            const items = [];
-            for (const itemDatum of storeDatum.items) {
-              const existingItem = safeGetById(
-                existingStore.items,
-                itemDatum.id,
-              );
-              if (existingItem) {
-                Object.assign(existingItem, itemDatum);
-                items.push(existingItem);
-              } else {
-                items.push(itemDatum);
-              }
-            }
-            storeDatum.items = items;
             Object.assign(existingStore, storeDatum);
           } else {
             existingStores.push(storeDatum);
           }
+
+          const store = existingStore || storeDatum;
+          store.items = storeDatum.items.map((itemDatum) =>
+            canonicalItem(itemDatum, itemsById),
+          );
         }
 
         return existingStores.filter((store) => storeIds.has(store.id));
@@ -230,11 +283,31 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     modifyItem({ item, attributes }: { item?: Item; attributes: Item }) {
-      if (!item) {
-        const store = getById(this.allStores, attributes.store_id);
-        item = getById(store.items, attributes.id);
-      }
-      Object.assign(item, attributes);
+      if (item) Object.assign(item, attributes);
+
+      return this.addItem({ itemData: attributes });
+    },
+
+    async mergeItems({
+      sourceItem,
+      targetItem,
+    }: {
+      sourceItem: Item;
+      targetItem: Item;
+    }): Promise<Item | ObjectWithErrors> {
+      const itemData = await this.withPendingRequest(() =>
+        http.post<
+          Intersection<Item, ItemMergeCreateResponse> | ObjectWithErrors
+        >(api_item_merges_path(), {
+          source_item_id: sourceItem.id,
+          target_item_id: targetItem.id,
+        }),
+      );
+
+      if (isObjectWithErrors(itemData)) return itemData;
+
+      this.deleteItem({ item: sourceItem });
+      return this.addItem({ itemData });
     },
 
     selectStore({ store }: { store: Store }) {
@@ -280,18 +353,21 @@ export const useGroceriesStore = defineStore('groceries', {
       attributes,
     }: {
       item: Item;
-      attributes: { name: string };
-    }) {
+      attributes: Partial<Pick<Item, 'name' | 'needed' | 'store_ids'>>;
+    }): Promise<Item | ItemUpdateErrorResponse> {
       const updatedItemData = await this.withPendingRequest(() =>
-        http.patch<Intersection<Item, ItemUpdateResponse>>(
-          api_item_path(item.id),
-          { item: attributes },
-        ),
+        http.patch<
+          Intersection<Item, ItemUpdateResponse> | ItemUpdateErrorResponse
+        >(api_item_path(item.id), { item: attributes }),
       );
+
+      if (isObjectWithErrors(updatedItemData)) return updatedItemData;
 
       if (!this.debouncingOrWaitingOnNetwork) {
         this.modifyItem({ item, attributes: updatedItemData });
       }
+
+      return updatedItemData;
     },
 
     async updateStore({
@@ -353,10 +429,23 @@ export const useGroceriesStore = defineStore('groceries', {
 
     isSpouseItem() {
       return (item: Item) => {
-        const store = getById(this.allStores, item.store_id);
+        const store = this.allStores.find((candidateStore) =>
+          candidateStore.items.some(({ id }) => id === item.id),
+        );
 
-        return !store.own_store;
+        return !!store && !store.own_store;
       };
+    },
+
+    itemOwnStoreNames() {
+      return (item: Item): Array<string> =>
+        helpers
+          .sortByName(
+            this.own_stores.filter((store) =>
+              item.store_ids.includes(store.id),
+            ),
+          )
+          .map((store) => store.name);
     },
 
     itemsInCart(): Array<Item> {
@@ -366,11 +455,12 @@ export const useGroceriesStore = defineStore('groceries', {
     },
 
     neededCheckInItems(): Array<Item> {
-      return helpers.sortByName(
-        this.checkInStores
-          .map((store) => store.items.filter((item) => item.needed > 0))
-          .flat(),
-      );
+      const itemsById = new Map<number, Item>();
+      for (const item of this.checkInStores.flatMap((store) => store.items)) {
+        if (item.needed > 0) itemsById.set(item.id, item);
+      }
+
+      return helpers.sortByName([...itemsById.values()]);
     },
 
     neededSkippedCheckInItems(): Array<Item> {

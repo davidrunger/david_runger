@@ -37,11 +37,15 @@ li.grocery-item.flex.w-full.items-center(
       template(#dropdown)
         ElDropdownMenu
           ElDropdownItem(command="rename") Rename
+          ElDropdownItem(
+            v-if="ownStore"
+            command="manage-availabilities"
+          ) Available at...
           ElDropdownItem.delete-menu-item(
             v-if="ownStore"
             command="delete"
             divided
-          ) Delete
+          ) {{ item.store_ids.length > 1 ? 'Delete from all stores' : 'Delete' }}
 </template>
 
 <script setup lang="ts">
@@ -63,15 +67,18 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
+  manageAvailabilities: [item: Item];
   rename: [item: Item];
 }>();
 
 const groceriesStore = useGroceriesStore();
 
-type ItemAction = 'delete' | 'rename';
+type ItemAction = 'delete' | 'manage-availabilities' | 'rename';
 
 function handleItemAction(action: ItemAction): void {
-  if (action === 'rename') {
+  if (action === 'manage-availabilities') {
+    emit('manageAvailabilities', props.item);
+  } else if (action === 'rename') {
     emit('rename', props.item);
   } else if (action === 'delete') {
     groceriesStore.destroyItem({ item: props.item });
@@ -88,7 +95,7 @@ function decrement(item: Item) {
 }
 
 function patchItem(item: Item) {
-  groceriesStore.updateItem({ item, attributes: item });
+  groceriesStore.updateItem({ item, attributes: { needed: item.needed } });
   groceriesStore.setCollectingDebounces({ value: false });
 }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_28_162554) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_31_063435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -280,13 +280,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_162554) do
     t.index ["ip"], name: "index_ip_blocks_on_ip", unique: true
   end
 
+  create_table "item_availabilities", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "item_id", null: false
+    t.bigint "store_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id", "store_id"], name: "index_item_availabilities_on_item_id_and_store_id", unique: true
+    t.index ["store_id"], name: "index_item_availabilities_on_store_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.string "name", null: false
     t.integer "needed", default: 1, null: false
-    t.bigint "store_id", null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["store_id", "name"], name: "index_items_on_store_id_and_name", unique: true
+    t.bigint "user_id", null: false
+    t.index "user_id, lower((name)::text)", name: "index_items_on_user_id_and_lower_name", unique: true
     t.check_constraint "needed >= 0", name: "items_needed_non_negative"
   end
 
@@ -573,7 +582,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_162554) do
   add_foreign_key "emotional_needs", "marriages"
   add_foreign_key "events", "admin_users"
   add_foreign_key "events", "users"
-  add_foreign_key "items", "stores"
+  add_foreign_key "item_availabilities", "items"
+  add_foreign_key "item_availabilities", "stores"
+  add_foreign_key "items", "users"
   add_foreign_key "json_preferences", "users"
   add_foreign_key "log_entries", "logs"
   add_foreign_key "log_shares", "logs"

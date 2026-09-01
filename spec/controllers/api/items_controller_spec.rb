@@ -9,7 +9,7 @@ RSpec.describe Api::ItemsController do
     subject(:post_create) { post(:create, params:) }
 
     context 'when the item params are valid' do
-      let(:valid_params) { { store_id: store.id, item: { name: 'Milk', store_id: store.id } } }
+      let(:valid_params) { { store_id: store.id, item: { name: 'Milk' } } }
       let(:params) { valid_params }
 
       it 'returns a 201 status code' do
@@ -28,6 +28,25 @@ RSpec.describe Api::ItemsController do
           expect { post_create }.
             to change { store.reload.items.order(:created_at).last!.name }.
             to('cheese puffs')
+        end
+      end
+
+      context 'when an item with the same name and different casing is available at another store' do
+        let(:item) { items(:item) }
+        let(:store) { item.user.stores.where.not(id: item.stores).first! }
+        let(:params) do
+          { store_id: store.id, item: { name: "  #{item.name.swapcase}  " } }
+        end
+
+        it 'makes the existing item available at the store' do
+          item_count_before_post = Item.count
+
+          expect { post_create }.
+            to change { store.reload.items.ids }.
+            from([]).
+            to([item.id])
+          expect(Item.count).to eq(item_count_before_post)
+          expect(Item.find_by(id: item)).to be_present
         end
       end
 
@@ -66,8 +85,25 @@ RSpec.describe Api::ItemsController do
       end
     end
 
+    context 'when an item with the same name is already available at the store' do
+      let(:item) { items(:item) }
+      let(:store) { item.stores.first! }
+      let(:params) do
+        { store_id: store.id, item: { name: item.name.swapcase } }
+      end
+
+      it 'does not add the item again and reports the duplicate name' do
+        expect { post_create }.
+          not_to change { [Item.count, ItemAvailability.count] }
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to eq(
+          'errors' => ['Name has already been taken'],
+        )
+      end
+    end
+
     context 'when the item params are not valid' do
-      let(:invalid_params) { { store_id: store.id, item: { name: '', store_id: store.id } } }
+      let(:invalid_params) { { store_id: store.id, item: { name: '' } } }
       let(:params) { invalid_params }
 
       it 'returns a 422 status code' do
@@ -93,7 +129,7 @@ RSpec.describe Api::ItemsController do
     let(:base_params) { { id: item.id } }
 
     context 'when attempting to update the item of another (non-spouse) user' do
-      let(:owning_user) { item.store.user }
+      let(:owning_user) { item.user }
       let(:user) { non_spouse_user }
       let(:params) { base_params.merge(item: { name: "#{item.name} Changed" }) }
 
@@ -119,6 +155,51 @@ RSpec.describe Api::ItemsController do
         patch_update
         expect(response).to have_http_status(422)
       end
+
+      it 'responds with error messages' do
+        patch_update
+        expect(response.parsed_body).to eq('errors' => ["Name can't be blank"])
+      end
+    end
+
+    context "when renaming an item to another of the owner's item names" do
+      let(:merge_target) { create(:item, stores: [merge_target_store]) }
+      let(:merge_target_store) do
+        item.user.stores.where.not(id: item.stores).first!
+      end
+      let(:params) do
+        base_params.merge(item: { name: "  #{merge_target.name.swapcase}  " })
+      end
+
+      it 'describes the conflict and offers the existing item as a merge target' do
+        patch_update
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to eq(
+          'errors' => ['Name has already been taken'],
+          'name_conflict' => true,
+          'merge_target' => {
+            'id' => merge_target.id,
+            'name' => merge_target.name,
+            'needed' => merge_target.needed,
+            'store_ids' => merge_target.store_ids,
+          },
+        )
+      end
+
+      context "when the user is the item owner's spouse" do
+        let(:user) { item.user.spouse.presence! }
+
+        it 'describes the conflict without offering a merge target' do
+          patch_update
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(response.parsed_body).to eq(
+            'errors' => ['Name has already been taken'],
+            'name_conflict' => true,
+          )
+        end
+      end
     end
 
     context 'when the item is being updated with a negative `needed` value' do
@@ -131,19 +212,6 @@ RSpec.describe Api::ItemsController do
       it 'returns a 422 status code' do
         patch_update
         expect(response).to have_http_status(422)
-      end
-    end
-
-    context "when attempting to reassign the item to another user's store" do
-      let(:destination_store) { Store.joins(:user).merge(User.excluding(user)).first! }
-      let(:params) do
-        base_params.merge(
-          item: { name: "#{item.name} Changed", store_id: destination_store.id },
-        )
-      end
-
-      it 'does not reassign the item' do
-        expect { patch_update }.not_to change { item.reload.store_id }
       end
     end
 
@@ -160,6 +228,61 @@ RSpec.describe Api::ItemsController do
         expect(response).to have_http_status(200)
       end
     end
+
+    context 'when updating the stores where the item is available' do
+      let(:other_store) do
+        item.user.stores.where.not(id: item.stores).first!
+      end
+      let(:params) do
+        base_params.merge(item: { store_ids: [*item.store_ids, other_store.id] })
+      end
+
+      it 'makes the same item available at each store' do
+        expect { patch_update }.
+          to change { item.reload.store_ids.sort }.
+          from(item.store_ids.sort).
+          to([*item.store_ids, other_store.id].sort)
+      end
+
+      context "when the user is the item owner's spouse" do
+        let(:user) { item.user.spouse.presence! }
+
+        it 'does not change the stores' do
+          expect { patch_update }.not_to change { item.reload.store_ids }
+        end
+
+        it 'returns a 403 status code' do
+          patch_update
+          expect(response).to have_http_status(403)
+        end
+      end
+
+      context 'when a requested store belongs to another user' do
+        let(:other_store) { users(:single_user).stores.first! }
+
+        it 'does not change the stores' do
+          expect { patch_update }.not_to change { item.reload.store_ids }
+        end
+
+        it 'returns a 422 status code' do
+          patch_update
+          expect(response).to have_http_status(422)
+        end
+      end
+
+      context 'when no stores are requested' do
+        let(:params) { base_params.merge(item: { store_ids: [] }) }
+
+        it 'does not remove the item from every store' do
+          expect { patch_update }.not_to change { item.reload.store_ids }
+        end
+
+        it 'returns a 422 status code' do
+          patch_update
+          expect(response).to have_http_status(422)
+        end
+      end
+    end
   end
 
   describe '#destroy' do
@@ -168,7 +291,7 @@ RSpec.describe Api::ItemsController do
     let(:item) { items(:item) }
 
     context 'when attempting to destroy the item of another (non-spouse) user' do
-      let(:owning_user) { item.store.user }
+      let(:owning_user) { item.user }
       let(:user) { non_spouse_user }
 
       it 'does not destroy the item' do
@@ -182,20 +305,34 @@ RSpec.describe Api::ItemsController do
     end
 
     context "when attempting to destroy one's own item", :versioning do
-      let(:user) { item.store.user }
+      let(:user) { item.user }
+      let!(:item_availabilities) do
+        item.stores << item.user.stores.where.not(id: item.stores).first!
+        item.item_availabilities.to_a
+      end
 
-      it 'destroys the item' do
-        expect { delete_destroy }.to change { Item.find_by(id: item.id) }.from(Item).to(nil)
+      it 'destroys the item and all of its availabilities' do
+        expect { delete_destroy }.to change { Item.find_by(id: item) }.from(Item).to(nil)
+        expect(ItemAvailability.where(item_id: item)).to be_empty
       end
 
       it 'responds with a 200 status code and restore_item_path in JSON' do
         delete_destroy
 
+        item_availability_version_ids =
+          PaperTrail::Version.
+            where(
+              item_id: item_availabilities,
+              item_type: ItemAvailability.name,
+            ).
+            destroys.
+            ids
         expect(response).to have_http_status(200)
         expect(response.parsed_body).to eq(
           'restore_item_path' =>
-            api_reifications_path(
-              paper_trail_version_id: item.versions.last!,
+            api_deleted_item_restorations_path(
+              item_availability_version_ids:,
+              item_version_id: item.versions.destroys.last!.id,
             ),
         )
       end

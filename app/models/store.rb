@@ -17,7 +17,8 @@
 #
 class Store < ApplicationRecord
   belongs_to :user
-  has_many :items, dependent: :destroy
+  has_many :item_availabilities, dependent: :destroy, inverse_of: :store
+  has_many :items, through: :item_availabilities
   validates :name, presence: true
   validates :name, uniqueness: { scope: :user_id }
   validates :viewed_at, presence: true

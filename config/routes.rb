@@ -77,6 +77,8 @@ Rails.application.routes.draw do
     resources :need_satisfaction_ratings, only: %i[update]
     resources :csp_reports, only: %i[create]
     resources :items, only: %i[update destroy]
+    resources :deleted_item_restorations, only: %i[create]
+    resources :item_merges, only: %i[create]
     namespace :items do
       resources :bulk_updates, only: %i[create]
     end
@@ -87,7 +89,6 @@ Rails.application.routes.draw do
       post :rotate_email_submission_token, on: :member
     end
     resource :my_account, controller: :my_account, only: %i[update]
-    resources :reifications, only: %i[create]
     resources :stores, only: %i[index create update destroy] do
       resources :items, only: %i[create]
     end

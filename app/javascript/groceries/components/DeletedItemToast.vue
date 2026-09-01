@@ -5,17 +5,15 @@
 </template>
 
 <script setup lang="ts">
-import { string } from 'vue-types';
-
-import { http } from '@/lib/http';
+import { func, string } from 'vue-types';
 
 const props = defineProps({
   deletedItemName: string().isRequired,
-  restoreItemPath: string().isRequired,
+  restoreDeletedItem: func<() => Promise<void>>().isRequired,
 });
 
 function restoreItem() {
-  http.post(props.restoreItemPath);
+  return props.restoreDeletedItem();
 }
 </script>
 

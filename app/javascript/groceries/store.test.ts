@@ -27,7 +27,7 @@ const itemData: Item = {
   id: 1,
   name: 'Apples',
   needed: 1,
-  store_id: storeData.id,
+  store_ids: [storeData.id],
 };
 
 describe('useGroceriesStore', () => {
@@ -44,7 +44,7 @@ describe('useGroceriesStore', () => {
     vi.resetAllMocks();
     setActivePinia(createPinia());
     groceriesStore = useGroceriesStore();
-    item = { ...itemData };
+    item = { ...itemData, store_ids: [...itemData.store_ids] };
     groceriesStore.own_stores = [{ ...storeData, items: [item] }];
     groceriesStore.spouse_stores = [];
   });
@@ -89,13 +89,70 @@ describe('useGroceriesStore', () => {
     expect(groceriesStore.pendingRequests).toBe(0);
   });
 
+  it('uses one item object in each store where it is available', () => {
+    const otherStore = {
+      ...storeData,
+      id: 2,
+      items: [],
+      name: 'Supermarket',
+    };
+    groceriesStore.own_stores.push(otherStore);
+
+    const sharedItem = groceriesStore.addItem({
+      itemData: {
+        ...item,
+        needed: 2,
+        store_ids: [storeData.id, otherStore.id],
+      },
+    });
+
+    expect(groceriesStore.own_stores[0].items).toEqual([sharedItem]);
+    expect(groceriesStore.own_stores[1].items).toEqual([sharedItem]);
+    expect(groceriesStore.own_stores[1].items[0]).toBe(
+      groceriesStore.own_stores[0].items[0],
+    );
+    expect(sharedItem.needed).toBe(2);
+  });
+
+  it('lists a shared item once during a multi-store check-in', () => {
+    const otherStore = {
+      ...storeData,
+      id: 2,
+      items: [item],
+      name: 'Supermarket',
+    };
+    item.store_ids = [storeData.id, otherStore.id];
+    groceriesStore.own_stores.push(otherStore);
+    groceriesStore.checkInStores = groceriesStore.own_stores;
+
+    expect(groceriesStore.neededCheckInItems).toEqual([item]);
+  });
+
+  it('removes a deleted store from its shared items', () => {
+    const deletedStore = groceriesStore.own_stores[0];
+    const sharedItem = deletedStore.items[0];
+    const otherStore = {
+      ...storeData,
+      id: 2,
+      items: [sharedItem],
+      name: 'Supermarket',
+    };
+    sharedItem.store_ids = [deletedStore.id, otherStore.id];
+    groceriesStore.own_stores.push(otherStore);
+
+    groceriesStore.deleteStore({ store: deletedStore });
+
+    expect(groceriesStore.own_stores).toEqual([otherStore]);
+    expect(sharedItem.store_ids).toEqual([otherStore.id]);
+  });
+
   describe('pullStoreData', () => {
     it('adds a store and its items returned after the initial load', async () => {
       const newItem: Item = {
         id: 2,
         name: 'Pain reliever',
         needed: 1,
-        store_id: 2,
+        store_ids: [2],
       };
       const newStore: Store = {
         ...storeData,
@@ -159,7 +216,7 @@ describe('useGroceriesStore', () => {
         id: 2,
         name: 'Bananas',
         needed: 0,
-        store_id: existingStore.id,
+        store_ids: [existingStore.id],
       };
       vi.mocked(http.get).mockResolvedValueOnce({
         own_stores: [

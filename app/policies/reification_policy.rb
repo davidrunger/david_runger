@@ -6,6 +6,6 @@ class ReificationPolicy < ApplicationPolicy
   private
 
   def own_record?
-    @record.reify.user == @user
+    @record.reify.user_id == @user.id
   end
 end

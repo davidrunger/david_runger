@@ -1,14 +1,41 @@
 RSpec.describe Item do
   subject(:item) { items(:item) }
 
-  it { is_expected.to belong_to(:store) }
+  describe 'associations' do
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:item_availabilities).dependent(:destroy) }
+    it { is_expected.to have_many(:stores).through(:item_availabilities) }
+  end
 
-  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:store_id) }
+  describe 'validations' do
+    specify do
+      expect(item).to validate_uniqueness_of(:name).
+        case_insensitive.
+        scoped_to(:user_id)
+    end
 
-  specify do
-    expect(item).to validate_numericality_of(:needed).
-      only_integer.
-      is_greater_than_or_equal_to(0)
+    specify do
+      expect(item).to validate_numericality_of(:needed).
+        only_integer.
+        is_greater_than_or_equal_to(0)
+    end
+
+    context 'when an item name differs only in case and whitespace' do
+      let(:duplicate_item) do
+        build(
+          :item,
+          stores: [item.stores.first!],
+          name: " \t fish  \t Sticks \t  ",
+        )
+      end
+
+      before { item.update!(name: 'fish sticks') }
+
+      it 'is not valid' do
+        expect(duplicate_item).not_to be_valid
+        expect(duplicate_item.errors.of_kind?(:name, :taken)).to eq(true)
+      end
+    end
   end
 
   describe '::needed' do

@@ -29,6 +29,7 @@
         :key="item.id"
         :ownStore="store.own_store"
         :highlighted="item.id === highlightedItemId"
+        @manage-availabilities="showItemAvailabilitiesModal"
         @rename="showRenameItemModal"
       )
 
@@ -39,6 +40,12 @@
   ItemRenameModal(
     v-if="itemToRename"
     :item="itemToRename"
+    @item-merged="scrollToAndHighlightItem"
+  )
+
+  ItemAvailabilitiesModal(
+    v-if="itemForAvailabilities"
+    :item="itemForAvailabilities"
   )
 </template>
 
@@ -56,6 +63,7 @@ import type { Store } from '@/types';
 
 import CheckInModal from './CheckInModal.vue';
 import Item from './Item.vue';
+import ItemAvailabilitiesModal from './ItemAvailabilitiesModal.vue';
 import ItemForm from './ItemForm.vue';
 import ItemRenameModal from './ItemRenameModal.vue';
 import ManageCheckInStoresModal from './ManageCheckInStoresModal.vue';
@@ -71,6 +79,7 @@ useTitle(() => `${props.store.name} - Groceries - David Runger`);
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
 const highlightedItemId = ref<number>();
+const itemForAvailabilities = ref<ItemType | null>(null);
 const itemToRename = ref<ItemType | null>(null);
 let clearHighlightTimeout: ReturnType<typeof setTimeout> | undefined;
 
@@ -83,6 +92,11 @@ function initializeTripCheckIn() {
     store: groceriesStore.currentStore as Store,
   });
   modalStore.showModal({ modalName: 'check-in-shopping-trip' });
+}
+
+function showItemAvailabilitiesModal(item: ItemType): void {
+  itemForAvailabilities.value = item;
+  modalStore.showModal({ modalName: 'manage-item-availabilities' });
 }
 
 function showRenameItemModal(item: ItemType): void {

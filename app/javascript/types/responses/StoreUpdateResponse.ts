@@ -11,8 +11,8 @@ export interface StoreUpdateResponse {
 }
 
 interface Item {
-    id:       number;
-    name:     string;
-    needed:   number;
-    store_id: number;
+    id:        number;
+    name:      string;
+    needed:    number;
+    store_ids: number[];
 }

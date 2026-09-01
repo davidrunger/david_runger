@@ -7,11 +7,7 @@ ActiveAdmin.register(User) do
     def find_resource
       collection = scoped_collection
       if params[:action] == 'destroy'
-        collection =
-          collection.includes(
-            logs: [:log_shares, { log_entries: :log_entry_datum }],
-            stores: %i[items],
-          )
+        collection = collection.with_eager_loading_for_destroy
       end
       collection.find(params[:id])
     end
