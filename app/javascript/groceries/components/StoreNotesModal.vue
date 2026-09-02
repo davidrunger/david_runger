@@ -8,8 +8,7 @@ Modal(
     v-if="editing"
     @submit.prevent="saveNotes"
   )
-    h3.mb-1.font-bold Edit store notes
-    p.mb-4.text-sm.text-neutral-500 {{ store.name }}
+    h3.mb-4.font-bold Edit notes for {{ store.name }}
 
     label.block
       span.sr-only Store notes
@@ -33,8 +32,7 @@ Modal(
       ) Save
 
   template(v-else)
-    h3.mb-1.font-bold Store notes
-    p.mb-4.text-sm.text-neutral-500 {{ store.name }}
+    h3.mb-4.font-bold Notes for {{ store.name }}
 
     .notes-content.whitespace-pre-wrap(v-if="store.notes") {{ store.notes }}
     .empty-notes(v-else) No notes yet.
