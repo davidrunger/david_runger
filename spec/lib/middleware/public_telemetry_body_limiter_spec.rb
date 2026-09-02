@@ -21,13 +21,14 @@ RSpec.describe Middleware::PublicTelemetryBodyLimiter do
     let(:body) { 'a' * (described_class::MAX_BODY_BYTES + 1) }
 
     it 'returns 413 without calling the application' do
-      expect(app).not_to receive(:call)
+      allow(app).to receive(:call)
 
       expect(response).to match([
         413,
         hash_including('content-length', 'content-type'),
         [described_class::TOO_LARGE_BODY],
       ])
+      expect(app).not_to have_received(:call)
     end
   end
 
@@ -38,8 +39,9 @@ RSpec.describe Middleware::PublicTelemetryBodyLimiter do
     end
 
     it 'returns 413 after bounded reading without calling the application' do
-      expect(app).not_to receive(:call)
+      allow(app).to receive(:call)
       expect(response.first).to eq(413)
+      expect(app).not_to have_received(:call)
     end
   end
 

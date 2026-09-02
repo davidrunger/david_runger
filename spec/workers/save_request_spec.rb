@@ -10,8 +10,10 @@ RSpec.describe SaveRequest do
     let(:stubbed_final_stashed_json) { { more: :data } }
     let(:stubbed_additional_data) { { 'params' => {} } }
 
+    after { expect(SaveRequest::StashedDataManager).to have_received(:new).once }
+
     before do
-      expect(SaveRequest::StashedDataManager).to receive(:new).and_return(stubbed_data_manager)
+      allow(SaveRequest::StashedDataManager).to receive(:new).and_return(stubbed_data_manager)
       allow(stubbed_data_manager).
         to receive(:initial_stashed_json).
         at_least(:once).
@@ -41,31 +43,28 @@ RSpec.describe SaveRequest do
       end
 
       it 'reports the missing data problems via the Rails error reporter' do
-        expect(Rails.error).
-          to receive(:report).
-          once.
-          ordered.
-          and_wrap_original do |method, error, context:|
-            expect(error).to be_a(Request::CreateRequestError)
-            expect(error.message).to match(/Initial stashed JSON .* was blank/)
-            expect(context).to be_a(Hash)
-
-            method.call(error, context:)
-          end
-
-        expect(Rails.error).
-          to receive(:report).
-          once.
-          ordered.
-          and_wrap_original do |method, error, context:|
-            expect(error).to be_a(Request::CreateRequestError)
-            expect(error.message).to match(/Final stashed JSON .* was blank/)
-            expect(context).to be_a(Hash)
-
-            method.call(error, context:)
-          end
+        allow(Rails.error).to receive(:report).and_call_original
 
         perform
+
+        expect(Rails.error).
+          to have_received(:report).once.ordered.
+          with(
+            an_object_having_attributes(
+              class: Request::CreateRequestError,
+              message: match(/Initial stashed JSON .* was blank/),
+            ),
+            context: an_instance_of(Hash),
+          )
+        expect(Rails.error).
+          to have_received(:report).once.ordered.
+          with(
+            an_object_having_attributes(
+              class: Request::CreateRequestError,
+              message: match(/Final stashed JSON .* was blank/),
+            ),
+            context: an_instance_of(Hash),
+          )
       end
     end
 
@@ -83,9 +82,12 @@ RSpec.describe SaveRequest do
         let(:request_id) { '' }
 
         it 'calls #handle_error_saving_request and raises an error' do
-          expect(worker).to receive(:handle_error_saving_request).and_call_original
-          expect(worker.logger).to receive(:warn) # suppress output from actually being printed
+          allow(worker).to receive(:handle_error_saving_request).and_call_original
+          allow(worker.logger).to receive(:warn) # suppress output from actually being printed
           expect { perform }.to raise_error(Request::CreateRequestError, 'Failed to save a Request')
+
+          expect(worker).to have_received(:handle_error_saving_request).once
+          expect(worker.logger).to have_received(:warn).once
         end
       end
 

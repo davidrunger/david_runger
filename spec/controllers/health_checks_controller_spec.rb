@@ -12,28 +12,30 @@ RSpec.describe(HealthChecksController) do
 
     context 'when Postgres is not accessible' do
       before do
-        expect(User).
+        allow(User).
           to receive(:select).
           with(:id).
-          exactly(:once).
           and_raise(ActiveRecord::ConnectionNotEstablished)
       end
 
       it 'raises an error' do
         expect { get_index }.to raise_error(ActiveRecord::ConnectionNotEstablished)
+
+        expect(User).to have_received(:select).with(:id).once
       end
     end
 
     context 'when Redis is not accessible' do
       before do
-        expect($redis_pool).
+        allow($redis_pool).
           to receive(:with).
-          exactly(:once).
           and_raise(Redis::CannotConnectError)
       end
 
       it 'raises an error' do
         expect { get_index }.to raise_error(Redis::CannotConnectError)
+
+        expect($redis_pool).to have_received(:with).once
       end
     end
   end

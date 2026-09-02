@@ -18,7 +18,7 @@ RSpec.describe JsonSchemasToTypescript do
     end
 
     it 'generates every TypeScript file in one Node process' do
-      expect(described_class).to receive(:system).with(
+      allow(described_class).to receive(:system).with(
         'node',
         Rails.root.join('tools/json_schemas_to_typescript.mjs').to_s,
         schema_paths.first,
@@ -29,15 +29,27 @@ RSpec.describe JsonSchemasToTypescript do
       )
 
       generate_types_files
+
+      expect(described_class).to have_received(:system).once.with(
+        'node',
+        Rails.root.join('tools/json_schemas_to_typescript.mjs').to_s,
+        schema_paths.first,
+        first_types_path,
+        schema_paths.second,
+        second_types_path,
+        exception: true,
+      )
     end
 
     context 'when there are no schemas to generate' do
       let(:schema_paths) { [] }
 
       it 'does not start a Node process' do
-        expect(described_class).not_to receive(:system)
+        allow(described_class).to receive(:system)
 
         generate_types_files
+
+        expect(described_class).not_to have_received(:system)
       end
     end
   end

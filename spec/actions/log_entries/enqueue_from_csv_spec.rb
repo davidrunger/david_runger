@@ -29,7 +29,7 @@ RSpec.describe LogEntries::EnqueueFromCsv do
     end
 
     it 'bulk-enqueues one job per row' do
-      expect(CreateLogEntry).
+      allow(CreateLogEntry).
         to receive(:perform_bulk).
         with(
           satisfy do |arguments|
@@ -43,6 +43,18 @@ RSpec.describe LogEntries::EnqueueFromCsv do
         and_call_original
 
       expect { run }.to change { CreateLogEntry.jobs.size }.by(csv_rows.size)
+
+      expect(CreateLogEntry).
+        to have_received(:perform_bulk).once.
+        with(
+          satisfy do |arguments|
+            arguments.size == csv_rows.size &&
+              arguments.all? do |arguments_for_job|
+                arguments_for_job.one? && arguments_for_job.first.is_a?(Hash)
+              end
+          end,
+          batch_size: 1_000,
+        )
     end
 
     it 'enqueues JSON-compatible log entry attributes' do
@@ -91,12 +103,13 @@ RSpec.describe LogEntries::EnqueueFromCsv do
     end
 
     it 'fails before constructing log entries or enqueueing jobs' do
-      expect(log).not_to receive(:build_log_entry_with_datum)
+      allow(log).to receive(:build_log_entry_with_datum)
       result = nil
 
       expect { result = run }.not_to change { CreateLogEntry.jobs.size }
 
       expect(result.error_message).to eq('Uploads may contain no more than 2 log entries.')
+      expect(log).not_to have_received(:build_log_entry_with_datum)
     end
   end
 end

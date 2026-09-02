@@ -387,14 +387,17 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :rails_env) do |example|
-    expect(Rails).
+    allow(Rails).
       to receive(:env).
-      at_least(:once).
       and_return(
         ActiveSupport::EnvironmentInquirer.new(
           example.metadata[:rails_env].to_s,
         ),
       )
+  end
+
+  config.after(:each, :rails_env) do
+    expect(Rails).to have_received(:env).at_least(:once)
   end
 
   config.around(:each, :wait_time) do |example|

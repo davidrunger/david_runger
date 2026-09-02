@@ -8,7 +8,7 @@ RSpec.describe(StackTraceFilter) do
 
     context 'when the caller has Dockerized file paths' do
       before do
-        expect(stack_trace_filter).to receive(:caller).and_return(mocked_stack_trace)
+        allow(stack_trace_filter).to receive(:caller).and_return(mocked_stack_trace)
       end
 
       let(:mocked_stack_trace) do
@@ -27,6 +27,7 @@ RSpec.describe(StackTraceFilter) do
 
       it 'returns only unignored lines of application code' do
         expect(application_stack_trace).to eq([expected_line_of_interest])
+        expect(stack_trace_filter).to have_received(:caller).once
       end
     end
   end

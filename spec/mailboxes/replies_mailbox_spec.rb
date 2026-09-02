@@ -43,17 +43,19 @@ RSpec.describe RepliesMailbox do
 
     context 'when an error is raised while parsing the email body' do
       before do
-        expect(RungerEmailReplyTrimmer).
+        allow(RungerEmailReplyTrimmer).
           to receive(:trim).
           and_raise(ArgumentError, 'invalid byte sequence in UTF-8')
       end
 
       it 'does not catch the exception' do
         expect { processed_mail }.to raise_error(ArgumentError)
+        expect(RungerEmailReplyTrimmer).to have_received(:trim).once
       end
 
       it 'does not send an email', queue_adapter: :test do
         expect { processed_mail rescue nil }.not_to enqueue_mail
+        expect(RungerEmailReplyTrimmer).to have_received(:trim).once
       end
     end
 

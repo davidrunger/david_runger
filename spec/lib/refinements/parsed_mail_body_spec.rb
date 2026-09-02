@@ -7,7 +7,7 @@ RSpec.describe Refinements::ParsedMailBody do
 
   before do
     # convert "\n" to "\r\n" because Mailgun seems to send the message with "\r\n"
-    expect(mail).to receive(:text_part) do
+    allow(mail).to receive(:text_part) do
       <<~TEXT.gsub(/(?<!\r)\n/, "\r\n")
         Content-Type: text/plain;
          charset=UTF-8
@@ -42,6 +42,7 @@ RSpec.describe Refinements::ParsedMailBody do
 
       it "returns only the content of the user's most recent message/reply" do
         expect(parsed_body).to eq(actual_reply_content)
+        expect(mail).to have_received(:text_part).once
       end
     end
 
@@ -63,7 +64,7 @@ RSpec.describe Refinements::ParsedMailBody do
 
       before do
         # convert "\n" to "\r\n" because Mailgun seems to send the message with "\r\n"
-        expect(mail).to receive(:html_part).and_return(<<~HTML_PART.gsub(/(?<!\r)\n/, "\r\n"))
+        allow(mail).to receive(:html_part).and_return(<<~HTML_PART.gsub(/(?<!\r)\n/, "\r\n"))
           Content-Type: text/html;
            charset=UTF-8
           Content-Transfer-Encoding: quoted-printable
@@ -110,6 +111,7 @@ RSpec.describe Refinements::ParsedMailBody do
         expect(parsed_lines[5]).to eq('')
         expect(parsed_lines[6]).to eq('Sincerely,')
         expect(parsed_lines[7]).to eq('David')
+        expect(mail).to have_received(:html_part).once
       end
     end
 
@@ -126,7 +128,7 @@ RSpec.describe Refinements::ParsedMailBody do
 
       before do
         # convert "\n" to "\r\n" because Mailgun seems to send the message with "\r\n"
-        expect(mail).to receive(:html_part).and_return(<<~HTML_PART.gsub(/(?<!\r)\n/, "\r\n"))
+        allow(mail).to receive(:html_part).and_return(<<~HTML_PART.gsub(/(?<!\r)\n/, "\r\n"))
           Content-Type: text/html;
            charset=UTF-8
           Content-Transfer-Encoding: quoted-printable
@@ -177,6 +179,7 @@ RSpec.describe Refinements::ParsedMailBody do
           3. asdf asdfasdf Bsdasjsfsdf BBSFBsf asdfasdss evening (asdfas sasfsfss has any
              asdfasdfasdf asdfasdf ashsh, which, asfsily, asdfasdf!)
         LINE
+        expect(mail).to have_received(:html_part).once
       end
     end
 

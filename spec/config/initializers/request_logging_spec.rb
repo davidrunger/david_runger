@@ -13,12 +13,16 @@ RSpec.describe 'request logging', type: :controller do
       end
 
       it 'reports via Rails.error' do
-        expect(Rails.error).
+        allow(Rails.error).
           to receive(:report).
           with(Request::CreateRequestError, context: { request_id: nil }).
           and_call_original
 
         get(:upgrade_browser)
+
+        expect(Rails.error).
+          to have_received(:report).once.
+          with(Request::CreateRequestError, context: { request_id: nil })
       end
     end
   end

@@ -33,8 +33,10 @@ RSpec.describe FetchIpInfoForRecord do
         before { request.update!(ip: '127.0.0.1') }
 
         it 'does not make a request to Rails.cache' do
-          expect(Rails.cache).not_to receive(:fetch)
+          allow(Rails.cache).to receive(:fetch)
           perform
+
+          expect(Rails.cache).not_to have_received(:fetch)
         end
       end
 

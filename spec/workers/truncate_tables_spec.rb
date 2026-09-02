@@ -51,14 +51,14 @@ RSpec.describe TruncateTables do
       before { IpBlock.delete_all }
 
       it 'does not issue a DELETE command against the `ip_blocks` table' do
-        expect(@connection).
-          not_to receive(:execute).
-          with(/DELETE FROM ip_blocks/i)
-
         # pass other calls through
         allow(@connection).to receive(:execute).and_call_original
 
         perform
+
+        expect(@connection).
+          not_to have_received(:execute).
+          with(/DELETE FROM ip_blocks/i)
       end
     end
   end

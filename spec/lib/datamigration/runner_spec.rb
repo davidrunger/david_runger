@@ -102,13 +102,14 @@ RSpec.describe Datamigration::Runner do
       let(:git_user_email) { Faker::Internet.email }
 
       before do
-        expect(runner).to receive(:`).
+        allow(runner).to receive(:`).
           with('git config user.email').
           and_return("#{git_user_email}\n")
       end
 
       it 'returns the git configured user.email' do
         expect(developer_email).to eq(git_user_email)
+        expect(runner).to have_received(:`).once.with('git config user.email')
       end
     end
 

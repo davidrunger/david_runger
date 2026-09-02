@@ -17,7 +17,7 @@ RSpec.describe ViteAssetArchive do
 
   describe '.upload' do
     it 'uploads a signature for the archive content and object key' do
-      expect(object).to receive(:put) do |body:, metadata:|
+      allow(object).to receive(:put) do |body:, metadata:|
         expect(body).to eq(content)
         expect(metadata).to include(described_class::SIGNATURE_METADATA_KEY)
 
@@ -32,6 +32,8 @@ RSpec.describe ViteAssetArchive do
       end
 
       described_class.upload(bucket:, git_sha:, directory_name:, content:, private_key:)
+
+      expect(object).to have_received(:put).once
     end
   end
 

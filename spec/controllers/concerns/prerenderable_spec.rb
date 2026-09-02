@@ -98,7 +98,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
 
           context 'when Rails.env is "production"', rails_env: :production do
             it 'reports the error and live-renders the page' do
-              expect(Rails.error).
+              allow(Rails.error).
                 to receive(:report).
                 with(
                   an_instance_of(ContentSignature::InvalidSignatureError),
@@ -108,6 +108,13 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
 
               get_index
 
+              expect(Rails.error).
+                to have_received(:report).once.
+                with(
+                  an_instance_of(ContentSignature::InvalidSignatureError),
+                  severity: :error,
+                  context: { filename: 'home.html' },
+                )
               expect(response.body).to eq(LIVE_RENDERED_PAGE_TEXT)
             end
           end
@@ -127,14 +134,14 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           let(:page_text) { 'There was an error!' }
 
           it 'live-renders the page rather than serving the prerender' do
-            expect(Rails.logger).
-              to receive(:info).
-              with(/prerender was found, but it did not include/).
-              and_call_original
-            expect(Rails.logger).to receive(:info).at_least(:once).and_call_original # pass others
+            allow(Rails.logger).to receive(:info).and_call_original
 
             get_index
 
+            expect(Rails.logger).
+              to have_received(:info).once.
+              with(/prerender was found, but it did not include/)
+            expect(Rails.logger).to have_received(:info).at_least(:once)
             expect(response.body).to have_text(LIVE_RENDERED_PAGE_TEXT)
           end
         end
@@ -208,26 +215,33 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
           end
 
           it 'serves the page via the fallback block' do
-            expect(Rails.logger).
-              to receive(:info).
-              with(%(Could not find a "home.html" prerender.)).
-              and_call_original
-            expect(Rails.logger).to receive(:info).at_least(:once).and_call_original # pass others
+            allow(Rails.logger).to receive(:info).and_call_original
 
             get_index
+
+            expect(Rails.logger).
+              to have_received(:info).once.
+              with(%(Could not find a "home.html" prerender.))
+            expect(Rails.logger).to have_received(:info).at_least(:once)
             expect(response.body).to have_text(LIVE_RENDERED_PAGE_TEXT)
           end
 
           it 'does not log an error to Rollbar' do
-            expect(Rollbar).not_to receive(:error)
+            allow(Rollbar).to receive(:error)
             get_index
+
+            expect(Rollbar).not_to have_received(:error)
           end
 
           it 'logs to Rails.logger' do
-            expect(Rails.logger).to receive(:warn).with(
+            allow(Rails.logger).to receive(:warn).with(
               /Could not fetch prerendered content/,
             ).and_call_original
             get_index
+
+            expect(Rails.logger).
+              to have_received(:warn).once.
+              with(/Could not fetch prerendered content/)
           end
         end
       end
@@ -249,7 +263,7 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
 
         context 'when Rails.env is "production"', rails_env: :production do
           it 'reports via Rails.error' do
-            expect(Rails.error).
+            allow(Rails.error).
               to receive(:report).
               with(
                 Aws::Sigv4::Errors::MissingCredentialsError,
@@ -258,15 +272,27 @@ RSpec.describe Prerenderable, :without_verifying_authorization do
               ).and_call_original
 
             get_index
+
+            expect(Rails.error).
+              to have_received(:report).once.
+              with(
+                Aws::Sigv4::Errors::MissingCredentialsError,
+                severity: :error,
+                context: { filename: 'home.html' },
+              )
           end
         end
 
         context 'when Rails.env is "development"', rails_env: :development do
           it 'logs to Rails.logger' do
-            expect(Rails.logger).to receive(:warn).with(
+            allow(Rails.logger).to receive(:warn).with(
               /Could not fetch prerendered content/,
             ).and_call_original
             get_index
+
+            expect(Rails.logger).
+              to have_received(:warn).once.
+              with(/Could not fetch prerendered content/)
           end
         end
       end

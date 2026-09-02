@@ -6,7 +6,8 @@ RSpec.describe TrackAssetSizes do
 
     context 'when "public/vite/.vite/manifest.json" contains a JSON asset manifest' do
       before do
-        expect(File).to receive(:read).with('public/vite/.vite/manifest.json').and_return(<<~JSON)
+        allow(File).to receive(:read).and_call_original # pass other calls through
+        allow(File).to receive(:read).with('public/vite/.vite/manifest.json').and_return(<<~JSON)
           {
             "entrypoints/groceries_app.ts": {
               "file": "assets/groceries_app.e736a509.js",
@@ -44,7 +45,6 @@ RSpec.describe TrackAssetSizes do
             }
           }
         JSON
-        allow(File).to receive(:read).and_call_original # pass other calls through
       end
 
       context 'when File sizes are returned' do
@@ -70,6 +70,8 @@ RSpec.describe TrackAssetSizes do
             Timeseries['groceries*.js'].to_h
           }.from({}).
             to({ Time.current => 100 })
+
+          expect(File).to have_received(:read).once.with('public/vite/.vite/manifest.json')
         end
 
         it 'stores the CSS asset size(s) in Redis', :frozen_time do
@@ -79,6 +81,8 @@ RSpec.describe TrackAssetSizes do
             Timeseries['groceries*.css'].to_h
           }.from({}).
             to({ Time.current => 110 })
+
+          expect(File).to have_received(:read).once.with('public/vite/.vite/manifest.json')
         end
       end
     end

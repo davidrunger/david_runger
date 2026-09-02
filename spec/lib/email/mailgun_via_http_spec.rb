@@ -49,12 +49,16 @@ RSpec.describe Email::MailgunViaHttp do
         before { activate_feature!(:log_mailgun_http_response) }
 
         it 'logs info about the Mailgun HTTP response' do
-          expect(Rails.logger).
+          allow(Rails.logger).
             to receive(:info).
             with(/Mailgun response for email.* status=.* body=.* headers=/).
             and_call_original
 
           deliver!
+
+          expect(Rails.logger).
+            to have_received(:info).
+            with(/Mailgun response for email.* status=.* body=.* headers=/)
         end
       end
     end
@@ -65,14 +69,18 @@ RSpec.describe Email::MailgunViaHttp do
 
     context 'when the mail body is empty' do
       before do
-        expect(mail).to receive(:body).and_return(instance_double(Mail::Body, to_s: ''))
-        expect(mail).to receive(:has_attachments?).and_return(false)
+        allow(mail).to receive_messages(
+          body: instance_double(Mail::Body, to_s: ''),
+          has_attachments?: false,
+        )
       end
 
       let(:mail) { mail_from_raw_email_fixture('empty_body') }
 
       it 'returns a hash with default empty HTML tags for the :html key' do
         expect(post_body[:html]).to eq('<div></div>')
+        expect(mail).to have_received(:body)
+        expect(mail).to have_received(:has_attachments?)
       end
     end
 

@@ -53,9 +53,11 @@ RSpec.describe CheckLinks::Checker do
           let(:status) { 302 }
 
           it 'does not query for an exception or send an email', queue_adapter: :test do
-            expect(LinkStatusExpectation).not_to receive(:where)
+            allow(LinkStatusExpectation).to receive(:where)
 
             expect { perform }.not_to enqueue_mail
+
+            expect(LinkStatusExpectation).not_to have_received(:where)
           end
         end
 
@@ -63,7 +65,7 @@ RSpec.describe CheckLinks::Checker do
           let(:status) { 200 }
 
           it 'queries for an exception and sends an email', queue_adapter: :test do
-            expect(LinkStatusExpectation).
+            allow(LinkStatusExpectation).
               to receive(:where).
               with(url:).
               and_call_original
@@ -71,6 +73,8 @@ RSpec.describe CheckLinks::Checker do
             expect { perform }.
               to enqueue_mail(AdminMailer, :broken_link).
               with(url, page_source_url, status, [302])
+
+            expect(LinkStatusExpectation).to have_received(:where).once.with(url:)
           end
         end
       end
@@ -94,7 +98,7 @@ RSpec.describe CheckLinks::Checker do
         end
 
         it 'reports via Rails.error at info level' do
-          expect(Rails.error).
+          allow(Rails.error).
             to receive(:report).
             with(
               Faraday::ConnectionFailed,
@@ -106,6 +110,16 @@ RSpec.describe CheckLinks::Checker do
             and_call_original
 
           perform
+
+          expect(Rails.error).
+            to have_received(:report).once.
+            with(
+              Faraday::ConnectionFailed,
+              severity: :info,
+              handled: true,
+              context: { url: },
+              source: 'application',
+            )
         end
 
         it 'sends an AdminMailer#broken_link email', queue_adapter: :test do
@@ -124,7 +138,7 @@ RSpec.describe CheckLinks::Checker do
         end
 
         it 'reports the validation failure and sends a broken-link email', queue_adapter: :test do
-          expect(Rails.error).
+          allow(Rails.error).
             to receive(:report).
             with(
               SafeExternalHttpFetcher::UnsafeUrlError,
@@ -138,6 +152,16 @@ RSpec.describe CheckLinks::Checker do
           expect { perform }.
             to enqueue_mail(AdminMailer, :broken_link).
             with(url, page_source_url, nil, [200])
+
+          expect(Rails.error).
+            to have_received(:report).once.
+            with(
+              SafeExternalHttpFetcher::UnsafeUrlError,
+              severity: :info,
+              handled: true,
+              context: { url: },
+              source: 'application',
+            )
         end
       end
     end
@@ -211,7 +235,7 @@ RSpec.describe CheckLinks::Checker do
         let(:status) { 403 }
 
         it 'does not mark the failure in Redis' do
-          expect(LinkStatusExpectation).
+          allow(LinkStatusExpectation).
             to receive(:where).
             with(url:).
             and_call_original
@@ -219,6 +243,8 @@ RSpec.describe CheckLinks::Checker do
           expect { perform }.not_to change {
             $redis_pool.with { it.call('get', redis_failure_key) }
           }.from(nil)
+
+          expect(LinkStatusExpectation).to have_received(:where).once.with(url:)
         end
       end
 

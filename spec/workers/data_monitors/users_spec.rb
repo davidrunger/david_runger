@@ -5,8 +5,10 @@ RSpec.describe DataMonitors::Users do
     subject(:perform) { worker.perform }
 
     it 'verifies some data expectations' do
-      expect(worker).to receive(:verify_data_expectation).at_least(:twice).and_call_original
+      allow(worker).to receive(:verify_data_expectation).and_call_original
       perform
+
+      expect(worker).to have_received(:verify_data_expectation).at_least(:twice)
     end
   end
 end

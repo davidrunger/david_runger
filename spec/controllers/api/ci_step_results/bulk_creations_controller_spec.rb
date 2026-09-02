@@ -136,9 +136,10 @@ RSpec.describe(Api::CiStepResults::BulkCreationsController) do
           end
 
           it 'does not create any CiStepResults and returns a 422 status code' do
-            expect(ApplicationRecord).not_to receive(:transaction)
+            allow(ApplicationRecord).to receive(:transaction)
             expect { post_create }.not_to change { CiStepResult.count }
 
+            expect(ApplicationRecord).not_to have_received(:transaction)
             expect(response).to have_http_status(422)
             expect(response.parsed_body).to eq([
               {

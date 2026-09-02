@@ -82,7 +82,7 @@ RSpec.describe(BlogController) do
           end
 
           it 'reports via Rails.error' do
-            expect(Rails.error).
+            allow(Rails.error).
               to receive(:report).
               with(
                 ActionController::RoutingError,
@@ -93,6 +93,15 @@ RSpec.describe(BlogController) do
               and_call_original
 
             get_show
+
+            expect(Rails.error).
+              to have_received(:report).once.
+              with(
+                ActionController::RoutingError,
+                context: hash_including(
+                  relative_path: "/blog/#{slug}.html",
+                ),
+              )
           end
         end
       end
@@ -108,7 +117,7 @@ RSpec.describe(BlogController) do
         end
 
         it 'reports via Rails.error' do
-          expect(Rails.error).
+          allow(Rails.error).
             to receive(:report).
             with(
               BlogController::InvalidShowRequestFormat,
@@ -117,6 +126,13 @@ RSpec.describe(BlogController) do
             and_call_original
 
           get_show
+
+          expect(Rails.error).
+            to have_received(:report).once.
+            with(
+              BlogController::InvalidShowRequestFormat,
+              context: hash_including(request_format_symbol: :json),
+            )
         end
       end
     end
