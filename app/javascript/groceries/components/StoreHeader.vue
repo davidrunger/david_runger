@@ -1,24 +1,11 @@
 <template lang="pug">
 h1.store-title.my-1.flex.flex-wrap.items-center
-  template(v-if="isEditingName")
-    input(
-      type="text"
-      v-model="editableNameRef"
-      ref="nameInputRef"
-      v-bind="nameInputEventHandlers"
-    )
-  template(v-else)
-    span {{ store.name }}
+  span {{ store.name }}
   LockIcon.ml-2(
     v-if="store.private"
     aria-label="Private store"
     size="27"
   )
-  a.edit-store-name.ml-2.inline-flex.cursor-pointer(
-    @click="startEditingName(store.name)"
-    class="hover:text-black"
-  )
-    EditIcon(size="27")
   span.spinner--circle.ml-2(class="size-3.5" v-if="debouncingOrWaitingOnNetwork")
   ElDropdown.store-actions.ml-auto(
     trigger="click"
@@ -35,6 +22,10 @@ h1.store-title.my-1.flex.flex-wrap.items-center
         ElDropdownItem(command="notes") Store notes
         ElDropdownItem(
           v-if="store.own_store"
+          command="rename"
+        ) Rename
+        ElDropdownItem(
+          v-if="store.own_store"
           command="privacy"
         ) Privacy
 </template>
@@ -42,11 +33,10 @@ h1.store-title.my-1.flex.flex-wrap.items-center
 <script setup lang="ts">
 import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
 import { storeToRefs } from 'pinia';
-import { EditIcon, LockIcon, SettingsIcon } from 'vue-tabler-icons';
+import { LockIcon, SettingsIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
-import { useCancelableInput } from '@/lib/composables/useCancelableInput';
 import type { Store } from '@/types';
 
 const props = defineProps({
@@ -56,31 +46,16 @@ const props = defineProps({
 const emit = defineEmits<{
   showPrivacy: [];
   showNotes: [];
+  showRename: [];
 }>();
 
 const groceriesStore = useGroceriesStore();
 
-const {
-  editableRef: editableNameRef,
-  isEditing: isEditingName,
-  startEditing: startEditingName,
-  inputEventHandlers: nameInputEventHandlers,
-} = useCancelableInput({
-  onUpdate(newName) {
-    groceriesStore.updateStore({
-      store: props.store,
-      attributes: {
-        name: newName,
-      },
-    });
-  },
-  refName: 'nameInputRef',
-});
-
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
 
-function handleStoreAction(action: 'notes' | 'privacy'): void {
+function handleStoreAction(action: 'notes' | 'privacy' | 'rename'): void {
   if (action === 'notes') emit('showNotes');
+  else if (action === 'rename') emit('showRename');
   else if (action === 'privacy') emit('showPrivacy');
 }
 </script>
@@ -92,18 +67,6 @@ function handleStoreAction(action: 'notes' | 'privacy'): void {
   font-size: clamp(1.7rem, 4vw, 2.25rem);
   font-weight: 600;
   letter-spacing: -0.025em;
-}
-
-.edit-store-name {
-  color: #84907e;
-
-  &:visited {
-    color: #84907e;
-  }
-
-  &:hover {
-    color: var(--groceries-berry-dark);
-  }
 }
 
 .store-actions-button {
@@ -135,14 +98,5 @@ function handleStoreAction(action: 'notes' | 'privacy'): void {
       border-color: var(--groceries-sage);
     }
   }
-}
-
-input {
-  width: min(100%, 380px);
-  padding: 7px 11px;
-  background: var(--groceries-paper);
-  border: 1px solid var(--groceries-stem);
-  border-radius: 10px;
-  box-shadow: 0 0 0 3px rgb(113, 129, 104, 10%);
 }
 </style>

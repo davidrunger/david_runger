@@ -190,7 +190,13 @@ RSpec.describe 'Groceries app' do
 
           expect(page).to have_css('h1', text: spouse_store.name)
 
-          click_store_setting(spouse_store, 'Store notes')
+          open_store_settings(spouse_store)
+          expect(page).not_to have_text('Rename')
+          find(
+            '[role="menuitem"]',
+            text: 'Store notes',
+            exact_text: true,
+          ).click
           within('.modal-container') do
             expect(page).to have_css(
               'h3',
@@ -317,6 +323,49 @@ RSpec.describe 'Groceries app' do
             expect(page).to have_text(private_store.name)
             expect(page).to have_css('[aria-label="Private store"]')
           end
+        end
+      end
+
+      context 'when renaming a store' do
+        it 'updates the store name from the settings menu' do
+          visit groceries_path
+
+          within('aside') do
+            click_on(existing_store.name)
+          end
+
+          click_store_setting(existing_store, 'Rename')
+
+          canceled_store_name = 'Canceled store name'
+          within('.modal-container') do
+            expect(page).to have_css(
+              'h3',
+              text: "Rename '#{existing_store.name}'",
+              exact_text: true,
+            )
+            expect(page).to have_field(
+              'New store name',
+              with: existing_store.name,
+            )
+            expect(page).to have_css('.rename-store-form input:focus')
+
+            fill_in('New store name', with: canceled_store_name)
+            click_on('Cancel')
+          end
+
+          expect(page).to have_css('h1', text: existing_store.name)
+          expect(page).not_to have_text(canceled_store_name)
+
+          click_store_setting(existing_store, 'Rename')
+
+          renamed_store_name = "Renamed #{existing_store.name}"
+          within('.modal-container') do
+            fill_in('New store name', with: renamed_store_name)
+            click_on('Save')
+          end
+
+          expect(page).to have_css('h1', text: renamed_store_name)
+          expect(existing_store.reload.name).to eq(renamed_store_name)
         end
       end
 
