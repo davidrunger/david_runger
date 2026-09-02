@@ -9,6 +9,11 @@ h1.store-title.my-1.flex.flex-wrap.items-center
     )
   template(v-else)
     span {{ store.name }}
+  LockIcon.ml-2(
+    v-if="store.private"
+    aria-label="Private store"
+    size="27"
+  )
   a.edit-store-name.ml-2.inline-flex.cursor-pointer(
     @click="startEditingName(store.name)"
     class="hover:text-black"
@@ -51,7 +56,7 @@ import {
   ElDropdownMenu,
 } from 'element-plus';
 import { storeToRefs } from 'pinia';
-import { DotsVerticalIcon, EditIcon } from 'vue-tabler-icons';
+import { DotsVerticalIcon, EditIcon, LockIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
