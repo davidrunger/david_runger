@@ -320,6 +320,44 @@ RSpec.describe 'Groceries app' do
         end
       end
 
+      context "when managing a store's privacy" do
+        it 'updates the store privacy from the overflow menu' do
+          visit groceries_path
+
+          within('aside') do
+            click_on(existing_store.name)
+          end
+
+          expect(page).not_to have_button('Make private')
+          expect(page).not_to have_button('Make public')
+
+          click_store_action(existing_store, 'Privacy')
+
+          within('.modal-container') do
+            expect(page).to have_css(
+              'h3',
+              text: "Privacy for #{existing_store.name}",
+              exact_text: true,
+            )
+            expect(page).to have_checked_field('Public')
+            expect(page).not_to have_checked_field('Private')
+            expect(page).to have_text('Your spouse can view this store.')
+            expect(page).to have_text('Only you can view this store.')
+            expect(page).to have_button('Save', disabled: true)
+
+            choose('Private')
+
+            expect(page).to have_button('Save', disabled: false)
+            click_on('Save')
+          end
+
+          expect(existing_store.reload).to be_private
+          within('h1') do
+            expect(page).to have_css('[aria-label="Private store"]')
+          end
+        end
+      end
+
       context 'when the user attempts to recreate a store' do
         it 'displays a toast message and allows (re)submitting with a unique store name' do
           Cuprite::BrowserLogger.ignore_browser_log_entries_matching(
