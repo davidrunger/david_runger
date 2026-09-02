@@ -25,6 +25,9 @@ RSpec.describe 'Groceries app' do
         needed_item = store.items.needed.first!
         unneeded_item = store.items.unneeded.first!
         expect(page).to have_text(/#{needed_item.name} +\(#{needed_item.needed}\)/)
+        within("#grocery-item-#{unneeded_item.id}") do
+          expect(page).not_to have_text('(0)')
+        end
 
         find(:fillable_field, 'itemName').send_keys(new_item_name)
         find('[role="option"]', text: "Add '#{new_item_name}'", exact_text: true).click
@@ -570,6 +573,12 @@ RSpec.describe 'Groceries app' do
   end
 
   def expect_needed(item_name, needed)
-    expect(page).to have_text("#{item_name} (#{needed})")
+    item = find('.grocery-item', text: item_name)
+
+    if needed > 0
+      expect(item).to have_text("#{item_name} (#{needed})")
+    else
+      expect(item).not_to have_text('(0)')
+    end
   end
 end
