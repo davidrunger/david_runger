@@ -23,7 +23,7 @@ RSpec.describe SpacedLaunching do
       let(:spacing_seconds) { 1.hour + 1.second }
 
       it 'reports via Rails.error' do
-        expect(Rails.error).
+        allow(Rails.error).
           to receive(:report).
           with(
             ApplicationWorker::MaxSpacingTimeExceeded,
@@ -32,6 +32,13 @@ RSpec.describe SpacedLaunching do
           and_call_original
 
         launch_with_spacing
+
+        expect(Rails.error).
+          to have_received(:report).once.
+          with(
+            ApplicationWorker::MaxSpacingTimeExceeded,
+            context: hash_including(:arguments_list, :max_total_spacing, :spacing_seconds),
+          )
       end
     end
 
@@ -39,9 +46,11 @@ RSpec.describe SpacedLaunching do
       let(:spacing_seconds) { 1.hour }
 
       it 'does not send a warning to Rollbar' do
-        expect(Rollbar).not_to receive(:warn)
+        allow(Rollbar).to receive(:warn)
 
         launch_with_spacing
+
+        expect(Rollbar).not_to have_received(:warn)
       end
     end
   end

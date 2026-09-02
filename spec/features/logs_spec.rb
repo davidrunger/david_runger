@@ -279,35 +279,35 @@ RSpec.describe 'Logs app' do
         # Don't actually create the log entry, because we don't want the log entry to be returned
         # via an API call (by virtue of having been persisted to the database). We'll _only_ publish
         # the log entry via websockets (which requires stubbing `id` and `created_at` values).
-        log_entry = log.build_log_entry_with_datum(data: new_log_entry_text)
-        expect(log_entry).
+        allow(new_log_entry).
           to receive(:read_attribute_before_type_cast).
           with('created_at').
           and_return(Time.current)
         LogEntriesChannel.broadcast_to(
-          log_entry.log,
+          new_log_entry.log,
           acting_browser_uuid: SecureRandom.uuid,
           action: 'created',
-          model: LogEntrySerializer.new(log_entry).as_json.merge(
+          model: LogEntrySerializer.new(new_log_entry).as_json.merge(
             'id' => LogEntry.maximum(:id) + 1,
           ),
         )
       end
 
       let(:new_log_entry_text) { SecureRandom.uuid }
+      let(:new_log_entry) { log.build_log_entry_with_datum(data: new_log_entry_text) }
       let(:log_policy_stub) { instance_double(LogPolicy) }
       let(:log) { user.logs.text.first! }
 
       before do
-        expect(LogPolicy).to receive(:new).at_least(:once).and_return(log_policy_stub)
+        allow(LogPolicy).to receive(:new).and_return(log_policy_stub)
 
         # We need to stub a LogPolicy#index? call when loading the log's show page; return true.
-        expect(log_policy_stub).to receive(:index?).ordered.and_return(true)
+        allow(log_policy_stub).to receive(:index?).and_return(true)
       end
 
       context 'when a user tries to subscribe to an unauthorized log entries websocket channel' do
         before do
-          expect(log_policy_stub).to receive(:show?).at_least(:once) do
+          allow(log_policy_stub).to receive(:show?) do
             # Have the authorization check fail for the `LogEntriesChannel`...
             if caller.any? { |file| file.include?('app/channels/log_entries_channel.rb') }
               false
@@ -332,11 +332,17 @@ RSpec.describe 'Logs app' do
           sleep(0.5)
 
           expect(page).not_to have_text(new_log_entry_text)
+          expect(LogPolicy).to have_received(:new).at_least(:once)
+          expect(log_policy_stub).to have_received(:index?).once
+          expect(log_policy_stub).to have_received(:show?).at_least(:once)
+          expect(new_log_entry).
+            to have_received(:read_attribute_before_type_cast).once.
+            with('created_at')
         end
       end
 
       context 'when a user is authorized to subscribe to the log entries websocket channel' do
-        before { expect(log_policy_stub).to receive(:show?).at_least(:once).and_return(true) }
+        before { allow(log_policy_stub).to receive(:show?).and_return(true) }
 
         it 'renders a new log entry that is broadcast to that channel' do
           visit(log_path(slug: log.slug))
@@ -352,6 +358,12 @@ RSpec.describe 'Logs app' do
           publish_new_log_entry
 
           expect(page).to have_text(new_log_entry_text)
+          expect(LogPolicy).to have_received(:new).at_least(:once)
+          expect(log_policy_stub).to have_received(:index?).once
+          expect(log_policy_stub).to have_received(:show?).at_least(:once)
+          expect(new_log_entry).
+            to have_received(:read_attribute_before_type_cast).once.
+            with('created_at')
         end
       end
     end

@@ -30,17 +30,25 @@ RSpec.describe SafeExternalHttpFetcher do
       end
 
       it 'pins the connection while preserving the hostname for HTTP and TLS' do
-        expect(Net::HTTP).to receive(:new).with(hostname, 443, nil).
+        http = nil
+
+        allow(Net::HTTP).to receive(:new).with(hostname, 443, nil).
           and_wrap_original do |method, *arguments|
-            method.call(*arguments).tap do |http|
-              expect(http).to receive(:ipaddr=).with('8.8.8.8').and_call_original
-              expect(http).to receive(:open_timeout=).with(5).and_call_original
-              expect(http).to receive(:read_timeout=).with(5).and_call_original
+            method.call(*arguments).tap do |new_http|
+              http = new_http
+              allow(http).to receive(:ipaddr=).with('8.8.8.8').and_call_original
+              allow(http).to receive(:open_timeout=).with(5).and_call_original
+              allow(http).to receive(:read_timeout=).with(5).and_call_original
               expect(http.address).to eq(hostname)
             end
           end
 
         get
+
+        expect(Net::HTTP).to have_received(:new).once.with(hostname, 443, nil)
+        expect(http).to have_received(:ipaddr=).once.with('8.8.8.8')
+        expect(http).to have_received(:open_timeout=).once.with(5)
+        expect(http).to have_received(:read_timeout=).once.with(5)
       end
     end
 

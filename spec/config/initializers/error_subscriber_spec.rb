@@ -43,19 +43,26 @@ RSpec.describe ErrorSubscriber do
             end
 
             it 'writes a log line using the cause error' do
-              expect(Rails.logger).
+              allow(Rails.logger).
                 to receive(:error).
                 with(/#{first_error_message}/).
                 and_call_original
 
               report
+
+              expect(Rails.logger).
+                to have_received(:error).once.
+                with(/#{first_error_message}/)
             end
 
             it 'does not send anything to Rollbar' do
-              expect(Rollbar).not_to receive(:log)
-              expect(Rollbar).not_to receive(:error)
+              allow(Rollbar).to receive(:log)
+              allow(Rollbar).to receive(:error)
 
               report
+
+              expect(Rollbar).not_to have_received(:log)
+              expect(Rollbar).not_to have_received(:error)
             end
           end
         end
@@ -64,15 +71,20 @@ RSpec.describe ErrorSubscriber do
           let(:error_class) { StandardError }
 
           it 'sends the error to Rollbar' do
-            expect(Rollbar).
+            allow(Rollbar).
               to receive(:log).with(
                 :error,
                 an_instance_of(StandardError),
                 { handled: false },
-              ).
-              exactly(:once)
+              )
 
             report
+
+            expect(Rollbar).to have_received(:log).once.with(
+              :error,
+              an_instance_of(StandardError),
+              { handled: false },
+            ).once
           end
         end
       end

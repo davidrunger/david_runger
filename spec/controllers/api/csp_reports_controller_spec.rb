@@ -31,8 +31,10 @@ RSpec.describe Api::CspReportsController do
     end
 
     it 'does not send the public report to the error-reporting service' do
-      expect(Rails.error).not_to receive(:report)
+      allow(Rails.error).to receive(:report)
       post_create
+
+      expect(Rails.error).not_to have_received(:report)
     end
 
     it 'records the user agent' do

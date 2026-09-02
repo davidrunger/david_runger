@@ -27,10 +27,11 @@ RSpec.describe MailgunInboundEmailsController do
       before { allow(controller).to receive(:authenticated?).and_return(false) }
 
       it 'rejects the request before consuming an ingress rate-limit token' do
-        expect(controller).not_to receive(:rate_limiting)
+        allow(controller).to receive(:rate_limiting)
 
         post_create
 
+        expect(controller).not_to have_received(:rate_limiting)
         expect(response).to have_http_status(:unauthorized)
       end
     end
@@ -44,9 +45,10 @@ RSpec.describe MailgunInboundEmailsController do
         end
 
         it 'consumes an ingress rate-limit token before storing the email' do
-          expect(controller).to receive(:rate_limiting).and_call_original
+          allow(controller).to receive(:rate_limiting).and_call_original
           expect { post_create }.to change { ActionMailbox::InboundEmail.count }.by(1)
 
+          expect(controller).to have_received(:rate_limiting).once
           expect(response).to have_http_status(:no_content)
         end
       end
@@ -61,7 +63,7 @@ RSpec.describe MailgunInboundEmailsController do
         end
 
         it 'rejects the request without storing the email' do
-          expect(Rails.error).
+          allow(Rails.error).
             to receive(:report).
             with(
               an_object_having_attributes(
@@ -76,6 +78,17 @@ RSpec.describe MailgunInboundEmailsController do
 
           expect { post_create }.not_to change { ActionMailbox::InboundEmail.count }
 
+          expect(Rails.error).
+            to have_received(:report).once.
+            with(
+              an_object_having_attributes(
+                backtrace: an_instance_of(Array),
+                class: MailgunInboundEmailsController::IngressRateLimitReached,
+                message: 'Mailgun inbound email rate limit reached.',
+              ),
+              severity: :warning,
+              context: { request_limit: 100 },
+            )
           expect(response).to have_http_status(:too_many_requests)
         end
       end

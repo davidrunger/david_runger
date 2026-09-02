@@ -37,11 +37,12 @@ RSpec.describe(Test::Tasks::DivideFeatureSpecs) do
       let(:feature_spec_files) { ['a_spec.rb'] }
 
       it 'assigns the spec without making a random choice' do
-        expect(task).not_to receive(:rand)
+        allow(task).to receive(:rand)
 
         expect(task.send(:feature_spec_groups, feature_spec_files)).to eq(
           [['a_spec.rb'], [], []],
         )
+        expect(task).not_to have_received(:rand)
       end
     end
   end

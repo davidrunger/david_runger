@@ -67,11 +67,15 @@ RSpec.describe('Rack::Attack') do
       request.env['rack.attack.matched'] = 'events/ip'
       request.env['rack.attack.match_data'] = { count: 11, limit: 10 }
 
-      expect(Rails.logger).
+      allow(Rails.logger).
         to receive(:info).
         with(/matched=events\/ip match_count=11 match_limit=10/)
 
       ActiveSupport::Notifications.instrument('throttle.rack_attack', request:)
+
+      expect(Rails.logger).
+        to have_received(:info).once.
+        with(/matched=events\/ip match_count=11 match_limit=10/)
     end
   end
 

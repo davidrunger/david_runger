@@ -31,7 +31,7 @@ RSpec.describe 'Handling exceptions', :rack_test_driver do
 
       context 'when a non-RoutingError is raised' do
         before do
-          expect(BrowserSupportChecker).to receive(:new).and_raise(StandardError.new(error_message))
+          allow(BrowserSupportChecker).to receive(:new).and_raise(StandardError.new(error_message))
 
           # Don't actually write log messages for the error.
           allow(Rails.logger).to receive(:error)
@@ -46,6 +46,7 @@ RSpec.describe 'Handling exceptions', :rack_test_driver do
           expect(page).to have_css('h1', text: 'Sorry, something went wrong.')
           expect(page.status_code).to be(500)
           expect(page).not_to have_text(error_message)
+          expect(BrowserSupportChecker).to have_received(:new).once
           expect(Rails.logger).to have_received(:error).with(
             a_string_including(
               '[error-report:error] StandardError : A BrowserSupportChecker',
