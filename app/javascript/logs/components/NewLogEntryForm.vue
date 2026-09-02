@@ -25,7 +25,8 @@ div
       )
         span.new-log-entry-created-at-placeholder(
           v-if="!createdAtInputHasBeenInteracted && !formData.newLogEntryCreatedAt"
-        ) Backdate (optional)
+        )
+          span.new-log-entry-created-at-placeholder-text Backdate (optional)
         input.new-log-entry-created-at(
           v-model="formData.newLogEntryCreatedAt"
           aria-label="Backdate (optional)"
@@ -220,6 +221,10 @@ form:not(.text) :deep(.new-log-input) {
   padding: 0 0.5rem;
   pointer-events: none;
   position: absolute;
+}
+
+.new-log-entry-created-at-placeholder-text {
+  text-box: trim-both cap alphabetic;
 }
 
 input.new-log-entry-created-at {
