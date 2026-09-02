@@ -81,7 +81,7 @@ const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
 
 function handleStoreAction(action: 'notes' | 'privacy'): void {
   if (action === 'notes') emit('showNotes');
-  if (action === 'privacy') emit('showPrivacy');
+  else if (action === 'privacy') emit('showPrivacy');
 }
 </script>
 
