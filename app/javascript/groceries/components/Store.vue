@@ -124,7 +124,7 @@ function showStorePrivacyModal(): void {
 }
 
 function showStoreRenameModal(): void {
-  modalStore.showModal({ modalName: 'rename-grocery-store' });
+  modalStore.showModal({ modalName: 'rename-store' });
 }
 
 async function scrollToAndHighlightItem(item: ItemType): Promise<void> {

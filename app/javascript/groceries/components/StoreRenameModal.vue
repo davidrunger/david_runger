@@ -44,7 +44,7 @@ const props = defineProps({
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
 const editableName = ref('');
-const modalName = 'rename-grocery-store';
+const modalName = 'rename-store';
 const saving = ref(false);
 const storeNameInput = ref<HTMLInputElement | null>(null);
 
