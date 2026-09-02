@@ -5,7 +5,7 @@ Modal(
   maxWidth="450px"
 )
   form(@submit.prevent="savePrivacy")
-    h3.mb-4.font-bold Privacy for {{ store.name }}
+    h3.mb-4 Privacy for {{ store.name }}
 
     fieldset.privacy-options
       legend.sr-only Store privacy
