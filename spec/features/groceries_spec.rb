@@ -23,12 +23,7 @@ RSpec.describe 'Groceries app' do
         expect(page).to have_button('Check in items')
         expect(page).not_to have_text(store.notes)
 
-        open_store_actions(store)
-        find(
-          '[role="menuitem"]',
-          text: 'Store notes',
-          exact_text: true,
-        ).click
+        click_store_action(store, 'Store notes')
 
         updated_store_notes = 'Ask the manager about bulk discounts.'
         within('.modal-container') do
@@ -195,12 +190,7 @@ RSpec.describe 'Groceries app' do
 
           expect(page).to have_css('h1', text: spouse_store.name)
 
-          open_store_actions(spouse_store)
-          find(
-            '[role="menuitem"]',
-            text: 'Store notes',
-            exact_text: true,
-          ).click
+          click_store_action(spouse_store, 'Store notes')
           within('.modal-container') do
             expect(page).to have_css(
               'h3',
@@ -607,6 +597,16 @@ RSpec.describe 'Groceries app' do
 
   def click_item_action(item, action)
     open_item_actions(item)
+
+    find(
+      '[role="menuitem"]',
+      text: action,
+      exact_text: true,
+    ).click
+  end
+
+  def click_store_action(store, action)
+    open_store_actions(store)
 
     find(
       '[role="menuitem"]',
