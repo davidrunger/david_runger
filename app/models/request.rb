@@ -32,12 +32,9 @@
 #  index_requests_on_handler        (handler)
 #  index_requests_on_ip             (ip)
 #  index_requests_on_request_id     (request_id) UNIQUE
-#  index_requests_on_requested_at   (requested_at)
 #  index_requests_on_user_id        (user_id)
 #
 class Request < ApplicationRecord
-  self.ignored_columns += %w[requested_at]
-
   # error class for Rollbar logging
   class CreateRequestError < StandardError ; end
 
