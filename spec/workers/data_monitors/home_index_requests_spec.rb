@@ -42,7 +42,7 @@ RSpec.describe DataMonitors::HomeIndexRequests do
           :request,
           url: DavidRunger::CANONICAL_URL,
           handler: 'home#index',
-          requested_at: 6.hours.ago,
+          created_at: 6.hours.ago,
           total: response_time,
         )
       end

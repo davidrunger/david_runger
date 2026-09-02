@@ -114,7 +114,6 @@ RSpec.describe SaveRequest do
 
           expect(Request.find_by!(request_id:)).to have_attributes(
             created_at: captured_request_time,
-            requested_at: captured_request_time,
             updated_at: captured_request_time,
           )
         end

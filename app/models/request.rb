@@ -4,7 +4,7 @@
 #
 #  admin_user_id :bigint
 #  auth_token_id :bigint
-#  created_at    :datetime
+#  created_at    :datetime         not null
 #  db            :integer
 #  format        :string
 #  handler       :string           not null
@@ -16,10 +16,9 @@
 #  params        :jsonb
 #  referer       :string
 #  request_id    :string           not null
-#  requested_at  :datetime         not null
 #  status        :integer          not null
 #  total         :integer
-#  updated_at    :datetime
+#  updated_at    :datetime         not null
 #  url           :string           not null
 #  user_agent    :string
 #  user_id       :bigint
@@ -29,6 +28,7 @@
 #
 #  index_requests_on_admin_user_id  (admin_user_id)
 #  index_requests_on_auth_token_id  (auth_token_id)
+#  index_requests_on_created_at     (created_at)
 #  index_requests_on_handler        (handler)
 #  index_requests_on_ip             (ip)
 #  index_requests_on_request_id     (request_id) UNIQUE
@@ -36,6 +36,8 @@
 #  index_requests_on_user_id        (user_id)
 #
 class Request < ApplicationRecord
+  self.ignored_columns += %w[requested_at]
+
   # error class for Rollbar logging
   class CreateRequestError < StandardError ; end
 
@@ -43,7 +45,7 @@ class Request < ApplicationRecord
   belongs_to :auth_token, optional: true
   belongs_to :user, optional: true
 
-  validates :url, :handler, :method, :ip, :requested_at, :status, presence: true
+  validates :url, :handler, :method, :ip, :status, presence: true
   validates :request_id, presence: true, uniqueness: true
 
   def self.ransackable_attributes(_auth_object = nil)
@@ -62,7 +64,6 @@ class Request < ApplicationRecord
       params
       referer
       request_id
-      requested_at
       status
       total
       updated_at

@@ -119,7 +119,6 @@ class SaveRequest
     ]).merge(
       created_at: request_time,
       request_id: @request_id,
-      requested_at: request_time,
       updated_at: request_time,
     )
   end
