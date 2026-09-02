@@ -27,9 +27,9 @@ h1.store-title.my-1.flex.flex-wrap.items-center
   )
     button.store-actions-button(
       type="button"
-      :aria-label="`Actions for ${store.name}`"
+      :aria-label="`Settings for ${store.name}`"
     )
-      DotsVerticalIcon(:size="24")
+      SettingsIcon(:size="24")
     template(#dropdown)
       ElDropdownMenu
         ElDropdownItem(command="notes") Store notes
@@ -42,7 +42,7 @@ h1.store-title.my-1.flex.flex-wrap.items-center
 <script setup lang="ts">
 import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
 import { storeToRefs } from 'pinia';
-import { DotsVerticalIcon, EditIcon, LockIcon } from 'vue-tabler-icons';
+import { EditIcon, LockIcon, SettingsIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';

@@ -23,7 +23,7 @@ RSpec.describe 'Groceries app' do
         expect(page).to have_button('Check in items')
         expect(page).not_to have_text(store.notes)
 
-        click_store_action(store, 'Store notes')
+        click_store_setting(store, 'Store notes')
 
         updated_store_notes = 'Ask the manager about bulk discounts.'
         within('.modal-container') do
@@ -190,7 +190,7 @@ RSpec.describe 'Groceries app' do
 
           expect(page).to have_css('h1', text: spouse_store.name)
 
-          click_store_action(spouse_store, 'Store notes')
+          click_store_setting(spouse_store, 'Store notes')
           within('.modal-container') do
             expect(page).to have_css(
               'h3',
@@ -321,7 +321,7 @@ RSpec.describe 'Groceries app' do
       end
 
       context "when managing a store's privacy" do
-        it 'updates the store privacy from the overflow menu' do
+        it 'updates the store privacy from the settings menu' do
           visit groceries_path
 
           within('aside') do
@@ -331,7 +331,7 @@ RSpec.describe 'Groceries app' do
           expect(page).not_to have_button('Make private')
           expect(page).not_to have_button('Make public')
 
-          click_store_action(existing_store, 'Privacy')
+          click_store_setting(existing_store, 'Privacy')
 
           within('.modal-container') do
             expect(page).to have_css(
@@ -351,10 +351,10 @@ RSpec.describe 'Groceries app' do
             click_on('Save')
           end
 
-          expect(existing_store.reload).to be_private
           within('h1') do
             expect(page).to have_css('[aria-label="Private store"]')
           end
+          expect(existing_store.reload).to be_private
         end
       end
 
@@ -660,12 +660,12 @@ RSpec.describe 'Groceries app' do
     ).click
   end
 
-  def click_store_action(store, action)
-    open_store_actions(store)
+  def click_store_setting(store, setting)
+    open_store_settings(store)
 
     find(
       '[role="menuitem"]',
-      text: action,
+      text: setting,
       exact_text: true,
     ).click
   end
@@ -676,8 +676,8 @@ RSpec.describe 'Groceries app' do
     end
   end
 
-  def open_store_actions(store)
-    find_button("Actions for #{store.name}").click
+  def open_store_settings(store)
+    find_button("Settings for #{store.name}").click
   end
 
   def expect_needed(item_name, needed)
