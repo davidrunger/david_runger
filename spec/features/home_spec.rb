@@ -134,6 +134,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
                 'admin_user_id' => nil,
                 'user_id' => nil,
                 'auth_token_id' => nil,
+                'created_at' => Time,
                 'url' => "http://localhost:#{Capybara.server_port}/",
                 'handler' => 'home#index',
                 'referer' => nil,
@@ -150,6 +151,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
                 'location' => 'San Diego, CA, US',
                 'isp' => 'Spectrum',
                 'request_id' => String,
+                'updated_at' => Time,
               },
             ])
 

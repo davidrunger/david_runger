@@ -117,12 +117,15 @@ class SaveRequest
       view
       total
     ]).merge(
+      created_at: request_time,
       request_id: @request_id,
-      requested_at:,
+      requested_at: request_time,
+      updated_at: request_time,
     )
   end
 
-  def requested_at
+  memoize \
+  def request_time
     Time.zone.at(stashed_data['requested_at_as_float'])
   end
 end

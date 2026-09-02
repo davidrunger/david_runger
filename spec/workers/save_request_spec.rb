@@ -99,6 +99,7 @@ RSpec.describe SaveRequest do
             'status' => 200,
           )
         end
+        let(:captured_request_time) { Time.zone.parse('1969-12-31 18:57:33.01') }
 
         context 'when the request has already been saved' do
           before { Request.first!.update!(request_id:) }
@@ -106,6 +107,16 @@ RSpec.describe SaveRequest do
           it 'does not raise an error' do
             expect { perform }.not_to raise_error
           end
+        end
+
+        it 'sets all timestamps to the captured request time' do
+          expect { perform }.to change { Request.count }.by(1)
+
+          expect(Request.find_by!(request_id:)).to have_attributes(
+            created_at: captured_request_time,
+            requested_at: captured_request_time,
+            updated_at: captured_request_time,
+          )
         end
 
         context 'when there is an auth_token_id in the initial stashed JSON' do
