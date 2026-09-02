@@ -50,6 +50,7 @@ class Request < ApplicationRecord
     %w[
       admin_user_id
       auth_token_id
+      created_at
       db
       format
       handler
@@ -64,6 +65,7 @@ class Request < ApplicationRecord
       requested_at
       status
       total
+      updated_at
       url
       user_agent
       user_id
