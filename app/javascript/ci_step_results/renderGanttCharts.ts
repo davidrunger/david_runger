@@ -161,6 +161,7 @@ function chartConfiguration(
           padding: 10,
           position: 'ganttCursor',
           titleColor: '#374151',
+          yAlign: 'bottom',
         },
       },
       responsive: true,

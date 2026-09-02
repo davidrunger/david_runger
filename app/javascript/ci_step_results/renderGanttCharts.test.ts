@@ -2,7 +2,9 @@ import {
   Tooltip,
   type Chart,
   type ChartConfiguration,
+  type ChartType,
   type Color,
+  type TooltipModel,
 } from 'chart.js';
 
 import { renderGanttCharts } from './renderGanttCharts';
@@ -122,10 +124,13 @@ describe('renderGanttCharts', () => {
     expect(firstConfiguration.options?.plugins?.tooltip?.position).toBe(
       'ganttCursor',
     );
-    expect(Tooltip.positioners.ganttCursor([], { x: 120, y: 40 })).toEqual({
-      x: 120,
-      y: 40,
-    });
+    expect(firstConfiguration.options?.plugins?.tooltip?.yAlign).toBe('bottom');
+    expect(
+      Tooltip.positioners.ganttCursor.call({} as TooltipModel<ChartType>, [], {
+        x: 120,
+        y: 40,
+      }),
+    ).toEqual({ x: 120, y: 40 });
   });
 
   it('draws a minor grid line for every second', () => {
