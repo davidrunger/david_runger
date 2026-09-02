@@ -102,6 +102,8 @@ RSpec.describe(CiStepResultsController) do
 
           before do
             user.ci_step_results.find_by!(name: 'RunUnitTests').update!(passed: false)
+            # Make sure that some CiStepResults passed and some failed.
+            expect(CiStepResult.distinct.pluck(:passed)).to contain_exactly(false, true)
           end
 
           it 'filters the line graph but includes every step in the Gantt charts' do
@@ -115,12 +117,7 @@ RSpec.describe(CiStepResultsController) do
                 fetch(:recent_gantt_chart_metadatas).
                 flat_map { it.fetch(:run_times) }.
                 pluck('name'),
-            ).to contain_exactly(
-              'CpuTime',
-              'RunFeatureTests',
-              'RunUnitTests',
-              'WallClockTime',
-            )
+            ).to match_array(CiStepResult.distinct.pluck(:name))
           end
         end
       end
