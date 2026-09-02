@@ -30,7 +30,7 @@ RSpec.describe(CiStepResultsController) do
             let(:gantt_chart_limit) { 20 }
 
             before do
-              expect(gantt_chart_limit).to be < CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT
+              expect(gantt_chart_limit).to be <= CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT
             end
 
             it 'uses the requested count' do
@@ -38,11 +38,11 @@ RSpec.describe(CiStepResultsController) do
 
               expect(CiStepResultsPresenter).
                 to have_received(:new).
-                with(hash_including(gantt_chart_limit: 20))
+                with(hash_including(gantt_chart_limit:))
               expect(response.body).to have_field(
                 'Gantt charts',
                 type: 'number',
-                with: 20,
+                with: gantt_chart_limit,
               )
             end
           end
@@ -51,6 +51,7 @@ RSpec.describe(CiStepResultsController) do
             let(:gantt_chart_limit) { 101 }
 
             before do
+              expect(CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT).to eq(100)
               expect(gantt_chart_limit).to eq(CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT + 1)
             end
 
@@ -59,11 +60,11 @@ RSpec.describe(CiStepResultsController) do
 
               expect(CiStepResultsPresenter).
                 to have_received(:new).
-                with(hash_including(gantt_chart_limit: 100))
+                with(hash_including(gantt_chart_limit: CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT))
               expect(response.body).to have_field(
                 'Gantt charts',
                 type: 'number',
-                with: 100,
+                with: CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT,
               )
             end
           end
