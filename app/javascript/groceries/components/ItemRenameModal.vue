@@ -5,9 +5,9 @@ Modal(
   maxWidth="400px"
 )
   form.rename-item-form(@submit.prevent="saveItemName")
-    h3.mb-4.font-bold Rename item
+    h3.mb-4.font-bold Rename '{{ item.name }}'
     label.item-name-label.block
-      | Item name
+      | New item name
       input.mt-2.w-full(
         v-model="editableName"
         ref="itemNameInput"
