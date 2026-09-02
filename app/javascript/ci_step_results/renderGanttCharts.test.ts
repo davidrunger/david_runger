@@ -1,4 +1,11 @@
-import type { Chart, ChartConfiguration, Color } from 'chart.js';
+import {
+  Tooltip,
+  type Chart,
+  type ChartConfiguration,
+  type ChartType,
+  type Color,
+  type TooltipModel,
+} from 'chart.js';
 
 import { renderGanttCharts } from './renderGanttCharts';
 
@@ -18,7 +25,7 @@ vi.mock('chart.js', () => ({
     { register },
   ),
   TimeScale: {},
-  Tooltip: {},
+  Tooltip: { positioners: {} },
 }));
 vi.mock('chartjs-adapter-luxon', () => ({}));
 
@@ -114,6 +121,16 @@ describe('renderGanttCharts', () => {
       time: { minUnit: 'second', unit: 'second' },
       type: 'time',
     });
+    expect(firstConfiguration.options?.plugins?.tooltip?.position).toBe(
+      'ganttCursor',
+    );
+    expect(firstConfiguration.options?.plugins?.tooltip?.yAlign).toBe('bottom');
+    expect(
+      Tooltip.positioners.ganttCursor.call({} as TooltipModel<ChartType>, [], {
+        x: 120,
+        y: 40,
+      }),
+    ).toEqual({ x: 120, y: 40 });
   });
 
   it('draws a minor grid line for every second', () => {

@@ -6,11 +6,19 @@ import {
   TimeScale,
   Tooltip,
   type ChartConfiguration,
+  type ChartType,
   type Plugin,
   type TooltipItem,
+  type TooltipPositionerFunction,
 } from 'chart.js';
 
 import 'chartjs-adapter-luxon';
+
+declare module 'chart.js' {
+  interface TooltipPositionerMap {
+    ganttCursor: TooltipPositionerFunction<ChartType>;
+  }
+}
 
 type CiStepResult = {
   name: string;
@@ -50,6 +58,8 @@ const STEP_COLOR_PALETTE = [
 ];
 
 ChartJS.register(BarController, BarElement, CategoryScale, TimeScale, Tooltip);
+
+Tooltip.positioners.ganttCursor = (_elements, eventPosition) => eventPosition;
 
 const minorSecondGridPlugin: Plugin<'bar'> = {
   id: 'minorSecondGrid',
@@ -149,7 +159,9 @@ function chartConfiguration(
           },
           displayColors: false,
           padding: 10,
+          position: 'ganttCursor',
           titleColor: '#374151',
+          yAlign: 'bottom',
         },
       },
       responsive: true,
