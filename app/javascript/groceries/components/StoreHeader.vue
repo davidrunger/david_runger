@@ -28,12 +28,30 @@ h1.store-title.my-1.flex.flex-wrap.items-center
       @click="togglePrivacy"
     ) Make private
   span.spinner--circle.ml-2(class="size-3.5" v-if="debouncingOrWaitingOnNetwork")
+  ElDropdown.store-actions.ml-auto(
+    trigger="click"
+    placement="bottom-end"
+    @command="handleStoreAction"
+  )
+    button.store-actions-button(
+      type="button"
+      :aria-label="`Actions for ${store.name}`"
+    )
+      DotsVerticalIcon(:size="24")
+    template(#dropdown)
+      ElDropdownMenu
+        ElDropdownItem(command="notes") Store notes
 </template>
 
 <script setup lang="ts">
-import { ElButton } from 'element-plus';
+import {
+  ElButton,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+} from 'element-plus';
 import { storeToRefs } from 'pinia';
-import { EditIcon } from 'vue-tabler-icons';
+import { DotsVerticalIcon, EditIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';
 
 import { useGroceriesStore } from '@/groceries/store';
@@ -43,6 +61,10 @@ import type { Store } from '@/types';
 const props = defineProps({
   store: object<Store>().isRequired,
 });
+
+const emit = defineEmits<{
+  showNotes: [];
+}>();
 
 const groceriesStore = useGroceriesStore();
 
@@ -64,6 +86,10 @@ const {
 });
 
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
+
+function handleStoreAction(action: 'notes'): void {
+  if (action === 'notes') emit('showNotes');
+}
 
 function togglePrivacy() {
   const targetState = props.store.private ? 'public' : 'private';
@@ -100,6 +126,37 @@ function togglePrivacy() {
 
   &:hover {
     color: var(--groceries-berry-dark);
+  }
+}
+
+.store-actions-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--groceries-sage-dark);
+  background: rgb(223, 231, 215, 70%);
+  border: 1px solid var(--groceries-stem);
+  border-radius: 50%;
+  outline: inherit;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+
+  &:active {
+    transform: scale(0.92);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      color: var(--groceries-berry-dark);
+      background: white;
+      border-color: var(--groceries-sage);
+    }
   }
 }
 

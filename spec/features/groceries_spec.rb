@@ -15,12 +15,38 @@ RSpec.describe 'Groceries app' do
       let(:new_item_name) { "blueberries (#{url_in_item_name})" }
       let(:url_in_item_name) { 'https://www.amazon.com/blueberries' }
 
-      it 'allows adding, renaming, deleting, and undoing an item, and checking in a shopping trip', :versioning do
+      it 'allows managing store notes and items and checking in a shopping trip', :versioning do
         visit groceries_path
 
         store = user.stores.reorder(:viewed_at).last!
         expect(page).to have_text(store.name)
         expect(page).to have_button('Check in items')
+        expect(page).not_to have_text(store.notes)
+
+        click_store_action(store, 'Store notes')
+
+        updated_store_notes = 'Ask the manager about bulk discounts.'
+        within('.modal-container') do
+          expect(page).to have_css(
+            'h3',
+            text: "Notes for #{store.name}",
+            exact_text: true,
+          )
+          expect(page).to have_text(store.notes)
+          click_on('Edit')
+          expect(page).to have_css(
+            'h3',
+            text: "Edit notes for #{store.name}",
+            exact_text: true,
+          )
+          expect(page).to have_field('Store notes', with: store.notes)
+          expect(page).to have_css('.notes-input:focus')
+          fill_in('Store notes', with: updated_store_notes)
+          click_on('Save')
+        end
+
+        expect(page).not_to have_text(updated_store_notes)
+        expect(store.reload.notes).to eq(updated_store_notes)
 
         needed_item = store.items.needed.first!
         unneeded_item = store.items.unneeded.first!
@@ -163,6 +189,19 @@ RSpec.describe 'Groceries app' do
           end
 
           expect(page).to have_css('h1', text: spouse_store.name)
+
+          click_store_action(spouse_store, 'Store notes')
+          within('.modal-container') do
+            expect(page).to have_css(
+              'h3',
+              text: "Notes for #{spouse_store.name}",
+              exact_text: true,
+            )
+            expect(page).to have_text(spouse_store.notes)
+            expect(page).not_to have_button('Edit')
+            expect(page).not_to have_button('Add notes')
+            click_on('Close')
+          end
 
           item_input = find(:fillable_field, 'Add or search items')
           item_input.send_keys('banana')
@@ -566,10 +605,24 @@ RSpec.describe 'Groceries app' do
     ).click
   end
 
+  def click_store_action(store, action)
+    open_store_actions(store)
+
+    find(
+      '[role="menuitem"]',
+      text: action,
+      exact_text: true,
+    ).click
+  end
+
   def open_item_actions(item)
     within("#grocery-item-#{item.id}") do
       find_button("Actions for #{item.name}").click
     end
+  end
+
+  def open_store_actions(store)
+    find_button("Actions for #{store.name}").click
   end
 
   def expect_needed(item_name, needed)
