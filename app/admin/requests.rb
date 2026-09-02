@@ -8,7 +8,7 @@ ActiveAdmin.register(Request) do
     column :admin_user
     column :auth_token
     column :handler
-    column :requested_at
+    column :created_at
     column :total
     column :location
     column :isp
@@ -18,7 +18,7 @@ ActiveAdmin.register(Request) do
   show do
     attributes_table do
       row :id
-      row :requested_at
+      row :created_at
       row :handler
       row :url
       row :user

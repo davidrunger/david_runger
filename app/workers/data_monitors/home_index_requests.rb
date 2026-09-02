@@ -16,7 +16,7 @@ class DataMonitors::HomeIndexRequests < DataMonitors::Base
   def home_requests_in_past_day
     Request.
       where(handler: 'home#index').
-      where(requested_at: 1.day.ago..)
+      where(created_at: 1.day.ago..)
   end
 
   def number_of_requests_in_past_day

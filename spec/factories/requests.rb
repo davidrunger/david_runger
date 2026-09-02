@@ -4,7 +4,7 @@
 #
 #  admin_user_id :bigint
 #  auth_token_id :bigint
-#  created_at    :datetime
+#  created_at    :datetime         not null
 #  db            :integer
 #  format        :string
 #  handler       :string           not null
@@ -16,10 +16,9 @@
 #  params        :jsonb
 #  referer       :string
 #  request_id    :string           not null
-#  requested_at  :datetime         not null
 #  status        :integer          not null
 #  total         :integer
-#  updated_at    :datetime
+#  updated_at    :datetime         not null
 #  url           :string           not null
 #  user_agent    :string
 #  user_id       :bigint
@@ -29,6 +28,7 @@
 #
 #  index_requests_on_admin_user_id  (admin_user_id)
 #  index_requests_on_auth_token_id  (auth_token_id)
+#  index_requests_on_created_at     (created_at)
 #  index_requests_on_handler        (handler)
 #  index_requests_on_ip             (ip)
 #  index_requests_on_request_id     (request_id) UNIQUE
@@ -51,9 +51,8 @@ FactoryBot.define do
     total { view + db + rand(100) }
     ip { Faker::Internet.public_ip_v4_address }
     user_agent { Faker::Internet.user_agent }
-    requested_at { rand(1..14).days.ago }
-    created_at { requested_at }
-    updated_at { requested_at }
+    created_at { rand(1..14).days.ago }
+    updated_at { created_at }
     location do
       "#{Faker::Address.city}, #{Faker::Address.state_abbr}, #{Faker::Address.country_code}"
     end

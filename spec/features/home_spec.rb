@@ -127,7 +127,7 @@ RSpec.describe 'Home page', :prerendering_disabled do
             expect {
               visit(root_path)
             }.to change {
-              Request.where('requests.requested_at > ?', spec_start_time).map(&:attributes)
+              Request.where('requests.created_at > ?', spec_start_time).map(&:attributes)
             }.from([]).to([
               {
                 'id' => Integer,
@@ -147,7 +147,6 @@ RSpec.describe 'Home page', :prerendering_disabled do
                 'total' => Integer,
                 'ip' => ip_address,
                 'user_agent' => user_agent,
-                'requested_at' => Time,
                 'location' => 'San Diego, CA, US',
                 'isp' => 'Spectrum',
                 'request_id' => String,

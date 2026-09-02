@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_02_091712) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_02_144931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -479,7 +479,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_091712) do
   create_table "requests", force: :cascade do |t|
     t.bigint "admin_user_id"
     t.bigint "auth_token_id"
-    t.datetime "created_at"
+    t.datetime "created_at", null: false
     t.integer "db"
     t.string "format"
     t.string "handler", null: false
@@ -490,16 +490,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_091712) do
     t.jsonb "params"
     t.string "referer"
     t.string "request_id", null: false
-    t.datetime "requested_at", precision: nil, null: false
+    t.datetime "requested_at", precision: nil
     t.integer "status", null: false
     t.integer "total"
-    t.datetime "updated_at"
+    t.datetime "updated_at", null: false
     t.string "url", null: false
     t.string "user_agent"
     t.bigint "user_id"
     t.integer "view"
     t.index ["admin_user_id"], name: "index_requests_on_admin_user_id"
     t.index ["auth_token_id"], name: "index_requests_on_auth_token_id"
+    t.index ["created_at"], name: "index_requests_on_created_at"
     t.index ["handler"], name: "index_requests_on_handler"
     t.index ["ip"], name: "index_requests_on_ip"
     t.index ["request_id"], name: "index_requests_on_request_id", unique: true
