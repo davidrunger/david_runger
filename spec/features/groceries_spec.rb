@@ -665,7 +665,8 @@ RSpec.describe 'Groceries app' do
             click_item_action(shared_item, 'Delete from all stores')
 
             expect(page).not_to have_css("#grocery-item-#{shared_item.id}")
-            within(all('.groceries-toast').last) { click_on('Undo') }
+            click_on('Undo')
+            expect(page).not_to have_button('Undo')
             expect(page).not_to have_spinner
             expect(page).to have_css("#grocery-item-#{shared_item.id}")
           end
