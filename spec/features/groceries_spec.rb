@@ -191,11 +191,7 @@ RSpec.describe 'Groceries app' do
           expect(page).to have_css('h1', text: spouse_store.name)
 
           open_store_settings(spouse_store)
-          expect(page).not_to have_css(
-            '[role="menuitem"]',
-            text: 'Rename',
-            exact_text: true,
-          )
+          expect(page).not_to have_text('Rename')
           find(
             '[role="menuitem"]',
             text: 'Store notes',
