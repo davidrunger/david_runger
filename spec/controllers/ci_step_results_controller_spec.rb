@@ -20,32 +20,52 @@ RSpec.describe(CiStepResultsController) do
         end
 
         context 'when a custom Gantt chart count is requested' do
-          it 'uses the requested count' do
-            get(:index, params: { q: { gantt_chart_limit: 20 } })
+          subject(:get_index) { get(:index, params: { q: { gantt_chart_limit: } }) }
 
-            expect(response.body).to have_field(
-              'Gantt charts',
-              type: 'number',
-              with: 20,
-            )
-          end
-        end
-
-        context 'when the requested Gantt chart count exceeds the maximum' do
           before do
-            expect(CiStepResultsPresenter).to receive(:new).
-              with(hash_including(gantt_chart_limit: 100)).
-              and_call_original
+            allow(CiStepResultsPresenter).to receive(:new).and_call_original
           end
 
-          it 'limits the count to 100' do
-            get(:index, params: { q: { gantt_chart_limit: 101 } })
+          context 'when the Gantt chart count is within the allowed range' do
+            let(:gantt_chart_limit) { 20 }
 
-            expect(response.body).to have_field(
-              'Gantt charts',
-              type: 'number',
-              with: 100,
-            )
+            before do
+              expect(gantt_chart_limit).to be < CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT
+            end
+
+            it 'uses the requested count' do
+              get_index
+
+              expect(CiStepResultsPresenter).
+                to have_received(:new).
+                with(hash_including(gantt_chart_limit: 20))
+              expect(response.body).to have_field(
+                'Gantt charts',
+                type: 'number',
+                with: 20,
+              )
+            end
+          end
+
+          context 'when the requested Gantt chart count exceeds the maximum' do
+            let(:gantt_chart_limit) { 101 }
+
+            before do
+              expect(gantt_chart_limit).to eq(CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT + 1)
+            end
+
+            it 'limits the count to 100' do
+              get_index
+
+              expect(CiStepResultsPresenter).
+                to have_received(:new).
+                with(hash_including(gantt_chart_limit: 100))
+              expect(response.body).to have_field(
+                'Gantt charts',
+                type: 'number',
+                with: 100,
+              )
+            end
           end
         end
 
