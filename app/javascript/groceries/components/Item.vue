@@ -19,8 +19,7 @@ li.grocery-item.flex.w-full.items-center(
   .min-w-0.flex-1.px-3
     span.item-name
       span(v-html="linkifiedAndSanitizedHtml(item.name)")
-    | &nbsp;
-    span.item-count ({{ item.needed }})
+    span.item-count(v-if="item.needed > 0") &nbsp;({{ item.needed }})
   .ml-auto.shrink-0
     ElDropdown.item-actions(
       trigger="click"
@@ -178,7 +177,6 @@ function setNeeded(item: Item, needed: number) {
 }
 
 .item-count {
-  display: inline-block;
   color: #69756d;
   font-size: 0.83rem;
   white-space: nowrap;
