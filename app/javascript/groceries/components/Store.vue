@@ -1,7 +1,10 @@
 <template lang="pug">
 .store-scroll.hidden-scrollbars.max-h-full.overflow-auto
   .store-panel
-    StoreHeader(:store="store")
+    StoreHeader(
+      :store="store"
+      @show-notes="showStoreNotes"
+    )
 
     .store-actions
       ElButton.check-in-button(
@@ -10,8 +13,6 @@
         round
         type="primary"
       ) Check in items
-
-    StoreNotes(:store="store")
 
     .item-form-container.sticky.top-0.z-10.py-3
       ItemForm(
@@ -36,6 +37,8 @@
   CheckInModal
 
   ManageCheckInStoresModal
+
+  StoreNotesModal(:store="store")
 
   ItemRenameModal(
     v-if="itemToRename"
@@ -68,7 +71,7 @@ import ItemForm from './ItemForm.vue';
 import ItemRenameModal from './ItemRenameModal.vue';
 import ManageCheckInStoresModal from './ManageCheckInStoresModal.vue';
 import StoreHeader from './StoreHeader.vue';
-import StoreNotes from './StoreNotes.vue';
+import StoreNotesModal from './StoreNotesModal.vue';
 
 const props = defineProps({
   store: object<Store>().isRequired,
@@ -102,6 +105,10 @@ function showItemAvailabilitiesModal(item: ItemType): void {
 function showRenameItemModal(item: ItemType): void {
   itemToRename.value = item;
   modalStore.showModal({ modalName: 'rename-grocery-item' });
+}
+
+function showStoreNotes(): void {
+  modalStore.showModal({ modalName: 'store-notes' });
 }
 
 async function scrollToAndHighlightItem(item: ItemType): Promise<void> {
