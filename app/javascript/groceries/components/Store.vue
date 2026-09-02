@@ -4,6 +4,7 @@
     StoreHeader(
       :store="store"
       @show-notes="showStoreNotes"
+      @show-privacy="showStorePrivacyModal"
     )
 
     .store-actions
@@ -40,6 +41,8 @@
 
   StoreNotesModal(:store="store")
 
+  StorePrivacyModal(:store="store")
+
   ItemRenameModal(
     v-if="itemToRename"
     :item="itemToRename"
@@ -72,6 +75,7 @@ import ItemRenameModal from './ItemRenameModal.vue';
 import ManageCheckInStoresModal from './ManageCheckInStoresModal.vue';
 import StoreHeader from './StoreHeader.vue';
 import StoreNotesModal from './StoreNotesModal.vue';
+import StorePrivacyModal from './StorePrivacyModal.vue';
 
 const props = defineProps({
   store: object<Store>().isRequired,
@@ -109,6 +113,10 @@ function showRenameItemModal(item: ItemType): void {
 
 function showStoreNotes(): void {
   modalStore.showModal({ modalName: 'store-notes' });
+}
+
+function showStorePrivacyModal(): void {
+  modalStore.showModal({ modalName: 'store-privacy' });
 }
 
 async function scrollToAndHighlightItem(item: ItemType): Promise<void> {

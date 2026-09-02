@@ -19,19 +19,6 @@ h1.store-title.my-1.flex.flex-wrap.items-center
     class="hover:text-black"
   )
     EditIcon(size="27")
-  span.inline-flex(v-if="store.own_store")
-    ElButton.ml-2(
-      v-if="store.private"
-      size="small"
-      round
-      @click="togglePrivacy"
-    ) Make public
-    ElButton.ml-2(
-      v-else
-      size="small"
-      round
-      @click="togglePrivacy"
-    ) Make private
   span.spinner--circle.ml-2(class="size-3.5" v-if="debouncingOrWaitingOnNetwork")
   ElDropdown.store-actions.ml-auto(
     trigger="click"
@@ -46,15 +33,14 @@ h1.store-title.my-1.flex.flex-wrap.items-center
     template(#dropdown)
       ElDropdownMenu
         ElDropdownItem(command="notes") Store notes
+        ElDropdownItem(
+          v-if="store.own_store"
+          command="privacy"
+        ) Privacy
 </template>
 
 <script setup lang="ts">
-import {
-  ElButton,
-  ElDropdown,
-  ElDropdownItem,
-  ElDropdownMenu,
-} from 'element-plus';
+import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { DotsVerticalIcon, EditIcon, LockIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';
@@ -68,6 +54,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
+  showPrivacy: [];
   showNotes: [];
 }>();
 
@@ -92,24 +79,9 @@ const {
 
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
 
-function handleStoreAction(action: 'notes'): void {
+function handleStoreAction(action: 'notes' | 'privacy'): void {
   if (action === 'notes') emit('showNotes');
-}
-
-function togglePrivacy() {
-  const targetState = props.store.private ? 'public' : 'private';
-  const confirmed = confirm(
-    `Are you sure that you want to make '${props.store.name}' ${targetState}?`,
-  );
-
-  if (confirmed) {
-    groceriesStore.updateStore({
-      store: props.store,
-      attributes: {
-        private: !props.store.private,
-      },
-    });
-  }
+  if (action === 'privacy') emit('showPrivacy');
 }
 </script>
 
