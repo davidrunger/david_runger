@@ -1,11 +1,18 @@
 class CiStepResultsPresenter
   prepend Memoization
 
+  DEFAULT_GANTT_CHART_LIMIT = 10
   FIELDS_TO_PLUCK = %i[name github_run_id github_run_attempt created_at seconds].freeze
+  MAX_GANTT_CHART_LIMIT = 100
 
-  def initialize(ci_step_results:, gantt_chart_ci_step_results:)
+  def initialize(
+    ci_step_results:,
+    gantt_chart_ci_step_results:,
+    gantt_chart_limit: DEFAULT_GANTT_CHART_LIMIT
+  )
     @ci_step_results = ci_step_results
     @gantt_chart_ci_step_results = gantt_chart_ci_step_results
+    @gantt_chart_limit = gantt_chart_limit
   end
 
   memoize \
@@ -57,7 +64,7 @@ class CiStepResultsPresenter
       ).
       group(:branch, :github_run_id, :github_run_attempt).
       order(min_started_at: :desc).
-      limit(10).
+      limit(@gantt_chart_limit).
       map do |ci_step_result|
         github_run_attempt = ci_step_result.github_run_attempt
         github_run_id = ci_step_result.github_run_id

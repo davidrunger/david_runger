@@ -13,6 +13,40 @@ RSpec.describe(CiStepResultsController) do
 
           expect(response).to have_http_status(200)
           expect(response.body).to have_text('new Chartkick["LineChart"]')
+          expect(response.body).to have_field('Gantt charts', type: 'number', with: 10)
+          expect(response.body).to have_css(
+            'input[name="q[gantt_chart_limit]"][max="100"][min="1"]',
+          )
+        end
+
+        context 'when a custom Gantt chart count is requested' do
+          it 'uses the requested count' do
+            get(:index, params: { q: { gantt_chart_limit: 20 } })
+
+            expect(response.body).to have_field(
+              'Gantt charts',
+              type: 'number',
+              with: 20,
+            )
+          end
+        end
+
+        context 'when the requested Gantt chart count exceeds the maximum' do
+          before do
+            expect(CiStepResultsPresenter).to receive(:new).
+              with(hash_including(gantt_chart_limit: 100)).
+              and_call_original
+          end
+
+          it 'limits the count to 100' do
+            get(:index, params: { q: { gantt_chart_limit: 101 } })
+
+            expect(response.body).to have_field(
+              'Gantt charts',
+              type: 'number',
+              with: 100,
+            )
+          end
         end
 
         context 'when filtering by step name' do

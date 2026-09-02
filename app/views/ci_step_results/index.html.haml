@@ -27,6 +27,10 @@
     = f.text_field(:name_eq, list: 'ci_step_names', class: 'py-1 px-2')
 
   .my-2
+    = label_tag('q_gantt_chart_limit', 'Gantt charts')
+    = number_field_tag('q[gantt_chart_limit]', @gantt_chart_limit, min: 1, max: CiStepResultsPresenter::MAX_GANTT_CHART_LIMIT, class: 'p-1 w-20')
+
+  .my-2
     = f.submit('Apply filter(s)', class: 'btn-primary')
 
 %h2 Run times
