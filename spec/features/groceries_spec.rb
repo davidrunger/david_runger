@@ -303,6 +303,23 @@ RSpec.describe 'Groceries app' do
 
       let(:existing_store) { user.stores.first! }
 
+      context 'when viewing a private store' do
+        let!(:private_store) { existing_store.tap { it.update!(private: true) } }
+
+        it 'shows a lock icon in the store heading' do
+          visit groceries_path
+
+          within('aside') do
+            click_on(private_store.name)
+          end
+
+          within('h1') do
+            expect(page).to have_text(private_store.name)
+            expect(page).to have_css('[aria-label="Private store"]')
+          end
+        end
+      end
+
       context 'when the user attempts to recreate a store' do
         it 'displays a toast message and allows (re)submitting with a unique store name' do
           Cuprite::BrowserLogger.ignore_browser_log_entries_matching(
