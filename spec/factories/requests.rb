@@ -4,6 +4,7 @@
 #
 #  admin_user_id :bigint
 #  auth_token_id :bigint
+#  created_at    :datetime
 #  db            :integer
 #  format        :string
 #  handler       :string           not null
@@ -18,6 +19,7 @@
 #  requested_at  :datetime         not null
 #  status        :integer          not null
 #  total         :integer
+#  updated_at    :datetime
 #  url           :string           not null
 #  user_agent    :string
 #  user_id       :bigint
@@ -50,6 +52,8 @@ FactoryBot.define do
     ip { Faker::Internet.public_ip_v4_address }
     user_agent { Faker::Internet.user_agent }
     requested_at { rand(1..14).days.ago }
+    created_at { requested_at }
+    updated_at { requested_at }
     location do
       "#{Faker::Address.city}, #{Faker::Address.state_abbr}, #{Faker::Address.country_code}"
     end

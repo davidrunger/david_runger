@@ -4,6 +4,7 @@
 #
 #  admin_user_id :bigint
 #  auth_token_id :bigint
+#  created_at    :datetime
 #  db            :integer
 #  format        :string
 #  handler       :string           not null
@@ -18,6 +19,7 @@
 #  requested_at  :datetime         not null
 #  status        :integer          not null
 #  total         :integer
+#  updated_at    :datetime
 #  url           :string           not null
 #  user_agent    :string
 #  user_id       :bigint
