@@ -81,19 +81,11 @@ class Test::RequirementsResolver
           Test::Tasks::CompileUserJavaScript,
           Test::Tasks::StartPercy,
         ],
-        Test::Tasks::FeatureTestsCanStart => [
-          Test::Tasks::CompileAdminJavaScript,
-          Test::Tasks::CompileUserJavaScript,
-          Test::Tasks::CreateDbCopies,
-          Test::Tasks::DivideFeatureSpecs,
-          Test::Tasks::RunApiControllerTests,
-          Test::Tasks::StartPercy,
-        ],
         Test::Tasks::RunHtmlControllerTests => [
           Test::Tasks::CreateDbCopies,
           Test::Tasks::CompileAdminJavaScript,
           Test::Tasks::CompileUserJavaScript,
-          Test::Tasks::FeatureTestsCanStart,
+          Test::Tasks::RunApiControllerTests,
         ],
 
         # Stop Percy runs outside Pallets in CI.
