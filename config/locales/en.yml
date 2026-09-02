@@ -33,4 +33,5 @@ en:
   time:
     formats:
       minute: '%B %-d, %Y at %-I:%M %p'
+      precise: '%B %-d, %Y at %-I:%M:%S.%L %p'
   hello: 'Hello world'
