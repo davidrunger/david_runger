@@ -201,7 +201,7 @@ form.duration {
   width: 200px;
 }
 
-:deep(.new-log-input) {
+form:not(.text) :deep(.new-log-input) {
   width: 200px;
 }
 
