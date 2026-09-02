@@ -44,10 +44,11 @@ RSpec.describe 'Groceries app' do
 
         canceled_item_name = 'Canceled item name'
         within('.modal-container') do
-          expect(page).to have_field('Item name', with: needed_item.name)
+          expect(page).to have_text("Rename '#{needed_item.name}'")
+          expect(page).to have_field('New item name', with: needed_item.name)
           expect(page).to have_css('.rename-item-form input:focus')
 
-          fill_in('Item name', with: canceled_item_name)
+          fill_in('New item name', with: canceled_item_name)
           click_on('Cancel')
         end
 
@@ -58,7 +59,7 @@ RSpec.describe 'Groceries app' do
 
         renamed_needed_item_name = "Renamed #{needed_item.name}"
         within('.modal-container') do
-          fill_in('Item name', with: renamed_needed_item_name)
+          fill_in('New item name', with: renamed_needed_item_name)
           click_on('Save')
         end
 
@@ -206,7 +207,7 @@ RSpec.describe 'Groceries app' do
             exact_text: true,
           ).click
           within('.modal-container') do
-            fill_in('Item name', with: "  #{spouse_new_item_name.swapcase}  ")
+            fill_in('New item name', with: "  #{spouse_new_item_name.swapcase}  ")
             click_on('Save')
 
             expect(page).to have_text(
@@ -426,7 +427,7 @@ RSpec.describe 'Groceries app' do
             click_item_action(existing_item, 'Rename')
 
             within('.modal-container') do
-              fill_in('Item name', with: "  #{item_to_merge_into.name.swapcase}  ")
+              fill_in('New item name', with: "  #{item_to_merge_into.name.swapcase}  ")
               click_on('Save')
 
               conflict_message =
