@@ -465,8 +465,6 @@ RSpec.describe 'Groceries app' do
         end
 
         context 'when the user searches for an item' do
-          let(:item_input_name) { 'itemName' }
-
           it 'offers matching, available, and new items and handles their selections' do
             Cuprite::BrowserLogger.ignore_browser_log_entries_matching(
               'source' => 'network',
@@ -484,9 +482,7 @@ RSpec.describe 'Groceries app' do
 
             item_input = find(:fillable_field, 'Add or search items')
             item_input.click
-            expect(page.evaluate_script('document.activeElement?.name')).to(
-              eq(item_input_name),
-            )
+            expect(item_input).to match_css(':focus')
 
             substring_of_existing_item_name = existing_item.name[1..4]
             item_input.send_keys(substring_of_existing_item_name)
@@ -522,9 +518,7 @@ RSpec.describe 'Groceries app' do
               "#grocery-item-#{existing_item.id}[data-scrolled-into-view='true']",
             )
             expect(page).to have_css("#grocery-item-#{existing_item.id}.highlighted")
-            expect(page.evaluate_script('document.activeElement?.name')).not_to(
-              eq(item_input_name),
-            )
+            expect(item_input).not_to match_css(':focus')
 
             item_input.send_keys(unneeded_item.name)
             expect(page).to have_css(
@@ -566,9 +560,7 @@ RSpec.describe 'Groceries app' do
             new_item = find('.grocery-item', text: unique_new_item_name)
             expect(new_item[:'data-scrolled-into-view']).to eq('true')
             expect(new_item[:class]).to include('highlighted')
-            expect(page.evaluate_script('document.activeElement?.name')).not_to(
-              eq(item_input_name),
-            )
+            expect(item_input).not_to match_css(':focus')
 
             click_item_action(existing_item, 'Rename')
 

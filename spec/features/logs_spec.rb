@@ -128,12 +128,10 @@ RSpec.describe 'Logs app' do
           first_log_entry_text = 'Some great text log entry content!'
           first('.new-log-input textarea').native.send_keys(first_log_entry_text)
           page.driver.browser.page.keyboard.type(:tab)
-          expect(page.evaluate_script('document.activeElement?.ariaLabel')).to(
-            eq('Backdate (optional)'),
-          )
+          expect(find('[aria-label="Backdate (optional)"]')).to match_css(':focus')
 
           page.driver.browser.page.keyboard.type(:tab)
-          expect(page.evaluate_script('document.activeElement?.textContent')).to eq('Add')
+          expect(find_button('Add')).to match_css(':focus')
 
           expect {
             page.driver.browser.page.keyboard.type(:enter)
