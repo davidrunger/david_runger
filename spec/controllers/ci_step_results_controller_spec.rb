@@ -94,6 +94,32 @@ RSpec.describe(CiStepResultsController) do
             )
           end
         end
+
+        context 'when filtering by whether steps passed' do
+          subject(:get_index) do
+            get(:index, params: { q: { passed_eq: false } })
+          end
+
+          before do
+            user.ci_step_results.find_by!(name: 'RunUnitTests').update!(passed: false)
+            # Make sure that some CiStepResults passed and some failed.
+            expect(CiStepResult.distinct.pluck(:passed)).to contain_exactly(false, true)
+          end
+
+          it 'filters the line graph but includes every step in the Gantt charts' do
+            get_index
+
+            expect(
+              assigns(:ci_step_results_presenter).run_times_by_step.pluck(:name),
+            ).to eq(['RunUnitTests'])
+            expect(
+              assigns(:bootstrap_data).
+                fetch(:recent_gantt_chart_metadatas).
+                flat_map { it.fetch(:run_times) }.
+                pluck('name'),
+            ).to match_array(CiStepResult.distinct.pluck(:name))
+          end
+        end
       end
     end
   end
