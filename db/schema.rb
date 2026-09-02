@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_02_144931) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_02_153302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -490,7 +490,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_144931) do
     t.jsonb "params"
     t.string "referer"
     t.string "request_id", null: false
-    t.datetime "requested_at", precision: nil
     t.integer "status", null: false
     t.integer "total"
     t.datetime "updated_at", null: false
@@ -504,7 +503,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_144931) do
     t.index ["handler"], name: "index_requests_on_handler"
     t.index ["ip"], name: "index_requests_on_ip"
     t.index ["request_id"], name: "index_requests_on_request_id", unique: true
-    t.index ["requested_at"], name: "index_requests_on_requested_at"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
