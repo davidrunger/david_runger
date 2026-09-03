@@ -113,3 +113,29 @@ RSpec::Matchers.define(:have_spinner) do
     'expected page not to have a spinner, but it did'
   end
 end
+
+RSpec::Matchers.define(:have_modal_heading) do |expected_text|
+  match do |actual_page|
+    actual_page.has_css?(
+      '.modal-container h3',
+      text: expected_text,
+      exact_text: true,
+    )
+  end
+
+  match_when_negated do |actual_page|
+    actual_page.has_no_css?(
+      '.modal-container h3',
+      text: expected_text,
+      exact_text: true,
+    )
+  end
+
+  failure_message do |actual_page|
+    "expected page ('#{actual_page.text}') to have a modal heading with text '#{expected_text}'"
+  end
+
+  failure_message_when_negated do |actual_page|
+    "expected page ('#{actual_page.text}') not to have a modal heading with text '#{expected_text}'"
+  end
+end

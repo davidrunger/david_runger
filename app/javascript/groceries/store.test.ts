@@ -20,6 +20,8 @@ const storeData: Store = {
   notes: null,
   own_store: true,
   private: false,
+  section_configuration: null,
+  item_section_assignments: [],
   viewed_at: null,
 };
 

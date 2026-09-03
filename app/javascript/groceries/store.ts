@@ -20,17 +20,28 @@ import {
   api_item_merges_path,
   api_item_path,
   api_items_bulk_updates_path,
+  api_store_item_section_assignment_path,
   api_store_items_path,
   api_store_path,
+  api_store_section_configuration_path,
+  api_store_section_scheme_store_section_path,
+  api_store_section_scheme_store_sections_path,
+  api_store_section_schemes_path,
   api_stores_path,
 } from '@/rails_assets/routes';
-import type { Intersection, Store } from '@/types';
+import type {
+  Intersection,
+  Store,
+  StoreSection,
+  StoreSectionScheme,
+} from '@/types';
 import { DeletedItemRestorationCreateResponse } from '@/types/responses/DeletedItemRestorationCreateResponse';
 import { ItemCreateResponse } from '@/types/responses/ItemCreateResponse';
 import { ItemDestroyResponse } from '@/types/responses/ItemDestroyResponse';
 import { ItemMergeCreateResponse } from '@/types/responses/ItemMergeCreateResponse';
 import { ItemUpdateResponse } from '@/types/responses/ItemUpdateResponse';
 import { StoreCreateResponse } from '@/types/responses/StoreCreateResponse';
+import { StoreSectionSchemesIndexResponse } from '@/types/responses/StoreSectionSchemesIndexResponse';
 import { StoresIndexResponse } from '@/types/responses/StoresIndexResponse';
 import { StoreUpdateResponse } from '@/types/responses/StoreUpdateResponse';
 
@@ -41,6 +52,7 @@ interface State {
   pendingRequests: number;
   postingStore: boolean;
   checkInStores: Store[];
+  storeSectionSchemes: Array<StoreSectionScheme>;
 }
 
 interface Nameable {
@@ -87,6 +99,7 @@ export const useGroceriesStore = defineStore('groceries', {
       pendingRequests: 0,
       postingStore: false,
       checkInStores: [],
+      storeSectionSchemes: [],
     };
   },
 
@@ -276,6 +289,165 @@ export const useGroceriesStore = defineStore('groceries', {
         storesResponse.spouse_stores,
         this.spouse_stores,
       );
+    },
+
+    async pullStoreSectionSchemes() {
+      const response = await http.get<StoreSectionSchemesIndexResponse>(
+        api_store_section_schemes_path(),
+      );
+      this.storeSectionSchemes = response.store_section_schemes;
+    },
+
+    async createStoreSectionScheme({
+      name,
+    }: {
+      name: string;
+    }): Promise<boolean> {
+      const response = await this.withPendingRequest(() =>
+        http.post<ObjectWithErrors | null>(api_store_section_schemes_path(), {
+          store_section_scheme: { name },
+        }),
+      );
+      if (isObjectWithErrors(response)) {
+        toastErrors(response.errors);
+        return false;
+      }
+
+      await this.pullStoreSectionSchemes();
+      return true;
+    },
+
+    async createStoreSection({
+      storeSectionScheme,
+      name,
+    }: {
+      storeSectionScheme: StoreSectionScheme;
+      name: string;
+    }): Promise<boolean> {
+      const response = await this.withPendingRequest(() =>
+        http.post<ObjectWithErrors | null>(
+          api_store_section_scheme_store_sections_path(storeSectionScheme.id),
+          { store_section: { name } },
+        ),
+      );
+      if (isObjectWithErrors(response)) {
+        toastErrors(response.errors);
+        return false;
+      }
+
+      await Promise.all([this.pullStoreData(), this.pullStoreSectionSchemes()]);
+      return true;
+    },
+
+    async deleteStoreSection({
+      storeSectionScheme,
+      storeSection,
+    }: {
+      storeSectionScheme: StoreSectionScheme;
+      storeSection: StoreSection;
+    }) {
+      await this.withPendingRequest(() =>
+        http.delete(
+          api_store_section_scheme_store_section_path(
+            storeSectionScheme.id,
+            storeSection.id,
+          ),
+        ),
+      );
+      await Promise.all([this.pullStoreData(), this.pullStoreSectionSchemes()]);
+    },
+
+    async updateStoreSection({
+      storeSectionScheme,
+      storeSection,
+      name,
+    }: {
+      storeSectionScheme: StoreSectionScheme;
+      storeSection: StoreSection;
+      name: string;
+    }): Promise<boolean> {
+      const response = await this.withPendingRequest(() =>
+        http.patch<ObjectWithErrors | null>(
+          api_store_section_scheme_store_section_path(
+            storeSectionScheme.id,
+            storeSection.id,
+          ),
+          { store_section: { name } },
+        ),
+      );
+      if (isObjectWithErrors(response)) {
+        toastErrors(response.errors);
+        return false;
+      }
+
+      await Promise.all([this.pullStoreData(), this.pullStoreSectionSchemes()]);
+      return true;
+    },
+
+    async updateStoreSectionConfiguration({
+      store,
+      sectioningEnabled,
+      storeSectionSchemeId,
+    }: {
+      store: Store;
+      sectioningEnabled: boolean;
+      storeSectionSchemeId: number | null;
+    }): Promise<boolean> {
+      const response = await this.withPendingRequest(() =>
+        http.patch<ObjectWithErrors | null>(
+          api_store_section_configuration_path(store.id),
+          {
+            section_configuration: {
+              sectioning_enabled: sectioningEnabled,
+              store_section_scheme_id: storeSectionSchemeId,
+            },
+          },
+        ),
+      );
+      if (isObjectWithErrors(response)) {
+        toastErrors(response.errors);
+        return false;
+      }
+
+      await this.pullStoreData();
+      return true;
+    },
+
+    async updateItemSectionAssignment({
+      item,
+      store,
+      storeSection,
+    }: {
+      item: Item;
+      store: Store;
+      storeSection: StoreSection;
+    }): Promise<boolean> {
+      const response = await this.withPendingRequest(() =>
+        http.patch<ObjectWithErrors | null>(
+          api_store_item_section_assignment_path(store.id, item.id),
+          { section_assignment: { store_section_id: storeSection.id } },
+        ),
+      );
+      if (isObjectWithErrors(response)) {
+        toastErrors(response.errors);
+        return false;
+      }
+
+      await this.pullStoreData();
+      return true;
+    },
+
+    async deleteItemSectionAssignment({
+      item,
+      store,
+    }: {
+      item: Item;
+      store: Store;
+    }) {
+      await this.withPendingRequest(() =>
+        http.delete(api_store_item_section_assignment_path(store.id, item.id)),
+      );
+      await this.pullStoreData();
     },
 
     incrementPendingRequests() {
@@ -501,6 +673,10 @@ export const useGroceriesStore = defineStore('groceries', {
 
     sortedStores(): Array<Store> {
       return helpers.sortByName(this.own_stores);
+    },
+
+    sortedStoreSectionSchemes(): Array<StoreSectionScheme> {
+      return helpers.sortByName(this.storeSectionSchemes);
     },
   },
 });

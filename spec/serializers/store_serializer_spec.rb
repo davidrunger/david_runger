@@ -20,7 +20,15 @@ RSpec.describe(StoreSerializer) do
     StoreSerializer.new(store, params: { current_user: })
   end
 
-  let(:store) { users(:user).stores.first! }
+  let(:store) do
+    Store.includes(
+      { items: :item_availabilities },
+      store_section_configurations: [
+        { store_section_scheme: :store_sections },
+        { item_section_assignments: :item_availability },
+      ],
+    ).find(stores(:store).id)
+  end
 
   describe 'own_store attribute' do
     subject(:own_store) { store_serializer.as_json['own_store'] }
@@ -55,6 +63,31 @@ RSpec.describe(StoreSerializer) do
       it 'is nil' do
         expect(viewed_at).to eq(nil)
       end
+    end
+  end
+
+  describe 'section attributes' do
+    let(:current_user) { store.user }
+
+    it 'serializes the current user\'s configuration and assignments' do
+      expect(store_serializer.as_json).to include(
+        'section_configuration' => {
+          'sectioning_enabled' => true,
+          'store_section_scheme' => {
+            'id' => store_section_schemes(:grocery_layout).id,
+            'name' => 'Grocery layout',
+            'store_sections' => [
+              { 'id' => store_sections(:produce_section).id, 'name' => 'Produce' },
+            ],
+          },
+        },
+        'item_section_assignments' => [
+          {
+            'item_id' => items(:item).id,
+            'store_section_id' => store_sections(:produce_section).id,
+          },
+        ],
+      )
     end
   end
 end

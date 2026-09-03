@@ -30,9 +30,31 @@ class StoreSerializer < ApplicationSerializer
     own_store?(store) ? store.viewed_at.utc.iso8601(3) : nil
   end
 
+  typelize 'StoreSectionConfiguration | null'
+  attribute(:section_configuration) do |store|
+    configuration = section_configuration_for(store)
+    if configuration
+      StoreSectionConfigurationSerializer.new(configuration).as_json
+    end
+  end
+
+  typelize 'Array<ItemSectionAssignment>'
+  attribute(:item_section_assignments) do |store|
+    configuration = section_configuration_for(store)
+    if configuration
+      ItemSectionAssignmentSerializer.new(configuration.item_section_assignments).as_json
+    else
+      []
+    end
+  end
+
   private
 
   def own_store?(store)
     store.user_id == current_user.id
+  end
+
+  def section_configuration_for(store)
+    store.store_section_configurations.find { it.user_id == current_user.id }
   end
 end

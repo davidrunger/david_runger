@@ -39,6 +39,8 @@ class User < ApplicationRecord
   )
   has_many :items, dependent: :destroy
   has_many :stores, dependent: :destroy
+  has_many :store_section_configurations, dependent: :destroy
+  has_many :store_section_schemes, dependent: :destroy
   has_many :log_entries, through: :logs
   has_many :workouts, dependent: :destroy
   has_many :need_satisfaction_ratings, dependent: :destroy
@@ -95,7 +97,9 @@ class User < ApplicationRecord
           questions: { answers: :selections },
         },
         items: :item_availabilities,
-        stores: :item_availabilities,
+        stores: %i[item_availabilities store_section_configurations],
+        store_section_configurations: :item_section_assignments,
+        store_section_schemes: :store_sections,
       )
     end
   end

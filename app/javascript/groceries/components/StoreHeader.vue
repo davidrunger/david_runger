@@ -20,6 +20,8 @@ h1.store-title.my-1.flex.flex-wrap.items-center
     template(#dropdown)
       ElDropdownMenu
         ElDropdownItem(command="notes") Store notes
+        ElDropdownItem(command="sections")
+          | Store sections
         ElDropdownItem(
           v-if="store.own_store"
           command="rename"
@@ -47,16 +49,20 @@ const emit = defineEmits<{
   showPrivacy: [];
   showNotes: [];
   showRename: [];
+  showSections: [];
 }>();
 
 const groceriesStore = useGroceriesStore();
 
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
 
-function handleStoreAction(action: 'notes' | 'privacy' | 'rename'): void {
+function handleStoreAction(
+  action: 'notes' | 'privacy' | 'rename' | 'sections',
+): void {
   if (action === 'notes') emit('showNotes');
   else if (action === 'rename') emit('showRename');
   else if (action === 'privacy') emit('showPrivacy');
+  else if (action === 'sections') emit('showSections');
 }
 </script>
 

@@ -17,13 +17,25 @@ class GroceriesController < ApplicationController
       spouse: spouse && UserSerializer::Basic.new(spouse),
       own_stores:
         StoreSerializer.new(
-          current_user.stores.includes(items: :item_availabilities),
+          current_user.stores.includes(
+            { items: :item_availabilities },
+            store_section_configurations: [
+              { store_section_scheme: :store_sections },
+              { item_section_assignments: :item_availability },
+            ],
+          ),
           params: { current_user: },
         ),
       spouse_stores:
         if spouse
           StoreSerializer.new(
-            spouse.stores.where.not(private: true).includes(items: :item_availabilities),
+            spouse.stores.where.not(private: true).includes(
+              { items: :item_availabilities },
+              store_section_configurations: [
+                { store_section_scheme: :store_sections },
+                { item_section_assignments: :item_availability },
+              ],
+            ),
             params: { current_user: },
           )
         else
