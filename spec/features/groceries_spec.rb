@@ -9,6 +9,47 @@ RSpec.describe 'Groceries app' do
       "Tip: You and your partner can automatically view each other's lists."
     end
 
+    context 'when the viewport is compact' do
+      around do |example|
+        window = page.current_window
+        original_window_size = window.size
+        window.resize_to(375, 800)
+        example.run
+      ensure
+        if original_window_size
+          page.current_window.resize_to(*original_window_size)
+        end
+      end
+
+      it 'overlays the store with the stores drawer' do
+        store = user.stores.reorder(:viewed_at).last!
+        other_store = user.stores.where.not(id: store).first!
+
+        visit groceries_path
+
+        main_width = page.evaluate_script(
+          'document.querySelector("#groceries-app > main").getBoundingClientRect().width',
+        )
+        expect(page).to have_css('aside[aria-hidden="true"]')
+
+        click_on('Show stores sidebar')
+
+        expect(page).to have_css('aside.drawer-open')
+        expect(
+          page.evaluate_script(
+            'document.querySelector("#groceries-app > main").getBoundingClientRect().width',
+          ),
+        ).to eq(main_width)
+
+        within('aside') do
+          click_on(other_store.name)
+        end
+
+        expect(page).to have_css('h1', text: other_store.name)
+        expect(page).to have_css('aside[aria-hidden="true"]')
+      end
+    end
+
     context 'when the user has a spouse' do
       before { expect(user.spouse).to be_present }
 

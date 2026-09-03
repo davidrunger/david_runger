@@ -1,51 +1,67 @@
 <template lang="pug">
-aside.hidden-scrollbars.max-h-full.overflow-auto.border-r.border-neutral-400(
-  :class="{ collapsed }"
-)
-  .flex.min-h-full.flex-col
-    .sidebar-toggle__container.border-b
-      .app-mark.flex.h-full.items-center.gap-2.px-4
-        LeafIcon(size="24")
-        span Groceries
-      button.sidebar-toggle(
-        aria-label="Toggle stores sidebar"
-        @click="collapsed = !collapsed"
-        :class="{ 'rotated-180': expanded }"
-      )
-        ArrowBarRightIcon(size="29")
-    nav
-      .store-lists-container.pb-4
-        form.add-store.flex(@submit.prevent="handleNewStoreSubmission()")
-          .mr-2.flex-1
-            ElInput(
-              type="text"
-              v-model="formData.newStoreName"
-              name="newStoreName"
-              placeholder="Add a store"
-            )
-          ElButton(
-            native-type="submit"
-            :disabled="postingStore || v$.$invalid"
-            round
-          ) Add
-        .store-section-label My stores
-        .stores-list
-          StoreListEntry(
-            v-for="store in groceriesStore.sortedStores"
-            :key="store.id"
-            :store="store"
-          )
-        div(v-if="groceriesStore.sortedSpouseStores.length > 0")
-          .store-section-label Spouse's stores
+.sidebar-shell
+  button.sidebar-backdrop(
+    v-if="compactViewport && drawerOpen"
+    aria-label="Close stores sidebar"
+    type="button"
+    @click="closeDrawer"
+    @pointerdown="startClosingSwipe"
+  )
+  .sidebar-swipe-target(
+    v-if="!drawerOpen"
+    aria-hidden="true"
+    @pointerdown="startOpeningSwipe"
+  )
+  aside#groceries-stores-sidebar.hidden-scrollbars.max-h-full.overflow-auto.border-r.border-neutral-400(
+    :class="{ 'drawer-open': drawerOpen }"
+    :aria-hidden="!sidebarExpanded"
+    :inert="!sidebarExpanded"
+  )
+    .flex.min-h-full.flex-col
+      .sidebar-toggle__container.border-b
+        .app-mark.flex.h-full.items-center.gap-2.px-4
+          LeafIcon(size="24")
+          span Groceries
+      nav
+        .store-lists-container.pb-4
+          form.add-store.flex(@submit.prevent="handleNewStoreSubmission()")
+            .mr-2.flex-1
+              ElInput(
+                type="text"
+                v-model="formData.newStoreName"
+                name="newStoreName"
+                placeholder="Add a store"
+              )
+            ElButton(
+              native-type="submit"
+              :disabled="postingStore || v$.$invalid"
+              round
+            ) Add
+          .store-section-label My stores
           .stores-list
             StoreListEntry(
-              v-for="store in groceriesStore.sortedSpouseStores"
+              v-for="store in groceriesStore.sortedStores"
               :key="store.id"
               :store="store"
             )
-    .partner-tip.mt-auto.p-3.text-center(
-      v-if="!bootstrap.spouse && !collapsed"
-    ) Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
+          div(v-if="groceriesStore.sortedSpouseStores.length > 0")
+            .store-section-label Spouse's stores
+            .stores-list
+              StoreListEntry(
+                v-for="store in groceriesStore.sortedSpouseStores"
+                :key="store.id"
+                :store="store"
+              )
+      .partner-tip.mt-auto.p-3.text-center(v-if="!bootstrap.spouse") Tip: You and your partner can automatically view each other's lists. #[a(:href="invitePartnerHref") Invite them to join.]
+  button.sidebar-toggle(
+    :aria-expanded="drawerOpen"
+    aria-controls="groceries-stores-sidebar"
+    :aria-label="drawerOpen ? 'Hide stores sidebar' : 'Show stores sidebar'"
+    type="button"
+    :class="{ 'drawer-open': drawerOpen }"
+    @click="toggleDrawer"
+  )
+    ArrowBarRightIcon(size="29")
 </template>
 
 <script setup lang="ts">
@@ -53,13 +69,12 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ElButton, ElInput } from 'element-plus';
 import { storeToRefs } from 'pinia';
-import { computed, reactive, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import { ArrowBarRightIcon, LeafIcon } from 'vue-tabler-icons';
 
 import { bootstrap } from '@/groceries/bootstrap';
 import { useGroceriesStore } from '@/groceries/store';
 import { useSubscription } from '@/lib/composables/useSubscription';
-import { isMobileDevice } from '@/lib/isMobileDevice';
 import { new_marriage_path } from '@/rails_assets/routes';
 
 import StoreListEntry from './StoreListEntry.vue';
@@ -67,55 +82,136 @@ import StoreListEntry from './StoreListEntry.vue';
 const formData = reactive({
   newStoreName: '',
 });
-const collapsed = ref(isMobileDevice());
+const smallScreenBreakpoint = getComputedStyle(document.documentElement)
+  .getPropertyValue('--small-screen-breakpoint')
+  .trim();
+const compactViewportQuery = window.matchMedia(
+  `(max-width: ${smallScreenBreakpoint})`,
+);
+const compactViewport = ref(compactViewportQuery.matches);
+const drawerOpen = ref(false);
 const groceriesStore = useGroceriesStore();
 const vuelidateRules = {
   newStoreName: { required },
 };
 const v$ = useVuelidate(vuelidateRules, formData);
+let swipePointerId: number | undefined;
+let swipeStartX: number | undefined;
 
 function handleStoreSelected() {
-  if (isMobileDevice()) {
-    collapsed.value = true;
-  }
+  closeDrawer();
 }
 
 useSubscription('groceries:store-selected', handleStoreSelected);
 
 const { postingStore } = storeToRefs(groceriesStore);
 
-const expanded = computed(() => !collapsed.value);
+const sidebarExpanded = computed(
+  () => !compactViewport.value || drawerOpen.value,
+);
+
+function toggleDrawer() {
+  drawerOpen.value = !drawerOpen.value;
+}
+
+function closeDrawer() {
+  drawerOpen.value = false;
+}
+
+function updateCompactViewport(event: MediaQueryListEvent) {
+  compactViewport.value = event.matches;
+
+  if (!event.matches) closeDrawer();
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape' && drawerOpen.value) closeDrawer();
+}
+
+function startOpeningSwipe(event: PointerEvent) {
+  if (drawerOpen.value || event.clientX > 24) return;
+
+  startSwipe(event);
+}
+
+function startClosingSwipe(event: PointerEvent) {
+  startSwipe(event);
+}
+
+function startSwipe(event: PointerEvent) {
+  if (!compactViewport.value || !event.isPrimary) return;
+
+  swipePointerId = event.pointerId;
+  swipeStartX = event.clientX;
+}
+
+function finishSwipe(event: PointerEvent) {
+  if (event.pointerId !== swipePointerId || swipeStartX === undefined) return;
+
+  const swipeDistance = event.clientX - swipeStartX;
+  swipePointerId = undefined;
+  swipeStartX = undefined;
+
+  if (!drawerOpen.value && swipeDistance >= 48) drawerOpen.value = true;
+  else if (drawerOpen.value && swipeDistance <= -48) closeDrawer();
+}
+
+function cancelSwipe(event: PointerEvent) {
+  if (event.pointerId !== swipePointerId) return;
+
+  swipePointerId = undefined;
+  swipeStartX = undefined;
+}
 
 async function handleNewStoreSubmission() {
   if (await groceriesStore.createStore(formData.newStoreName)) {
     formData.newStoreName = '';
+    closeDrawer();
   }
 }
 
 const invitePartnerHref = new_marriage_path({
   redirect_location: window.location.href,
 });
+
+onMounted(() => {
+  compactViewportQuery.addEventListener('change', updateCompactViewport);
+  window.addEventListener('keydown', handleKeydown);
+  window.addEventListener('pointerup', finishSwipe);
+  window.addEventListener('pointercancel', cancelSwipe);
+});
+
+onBeforeUnmount(() => {
+  compactViewportQuery.removeEventListener('change', updateCompactViewport);
+  window.removeEventListener('keydown', handleKeydown);
+  window.removeEventListener('pointerup', finishSwipe);
+  window.removeEventListener('pointercancel', cancelSwipe);
+});
 </script>
 
 <style lang="scss" scoped>
-/* stylelint-disable no-invalid-position-declaration */
-/* stylelint-disable-next-line length-zero-no-unit */
-@mixin sidebar-width($padding: 0px) {
-  @media screen and (width <= 400px) {
-    min-width: calc(150px - $padding);
-    width: calc(45vw - $padding);
-    max-width: calc(180px - $padding);
-  }
+@use 'css/sass_variables' as *;
 
-  @media screen and (width >= 400px) {
-    min-width: calc(180px - $padding);
-    width: calc(35vw - $padding);
-    max-width: calc(280px - $padding);
-  }
+.sidebar-shell {
+  --sidebar-rail-width: 6px;
+  --sidebar-toggle-gap: 16px;
+  --sidebar-toggle-size: 44px;
+  --sidebar-drawer-width: min(320px, calc(100vw - 68px));
+  --sidebar-drawer-transition-duration: 0.85s;
+
+  position: relative;
+  z-index: 20;
+  flex: 0 0 var(--sidebar-rail-width);
+  width: var(--sidebar-rail-width);
+  min-width: var(--sidebar-rail-width);
 }
-/* stylelint-enable no-invalid-position-declaration */
 
 aside {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  width: var(--sidebar-drawer-width);
+  height: 100%;
   color: #f8f3e8;
   background:
     radial-gradient(
@@ -126,58 +222,19 @@ aside {
     linear-gradient(165deg, #75856c 0%, #61745f 46%, #50634f 100%);
   border-color: #425441;
   box-shadow: 6px 0 22px rgb(50, 65, 52, 14%);
-  transition:
-    min-width 0.7s,
-    width 0.7s,
-    max-width 0.7s;
+  transform: translateX(calc(-100% + var(--sidebar-rail-width)));
+  transition: transform var(--sidebar-drawer-transition-duration)
+    cubic-bezier(0.2, 0.75, 0.25, 1);
 
-  @include sidebar-width;
-
-  .app-mark,
-  .store-section-label,
-  :deep(.stores-list__item) {
-    opacity: 1;
-    transition: opacity 0.7s;
+  &.drawer-open {
+    transform: translateX(0);
   }
-
-  &.collapsed {
-    min-width: 50px;
-    width: 50px;
-    max-width: 50px;
-    overflow-x: hidden;
-
-    .app-mark,
-    .store-section-label,
-    :deep(.stores-list__item) {
-      opacity: 0;
-    }
-
-    .overflow-auto {
-      overflow-x: hidden;
-    }
-
-    nav {
-      visibility: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition:
-        opacity 0.2s,
-        visibility 0s 0.2s;
-    }
-  }
-}
-
-:deep(.el-sub-menu__title) {
-  @include sidebar-width;
 }
 
 nav {
   position: relative;
   padding-top: 16px;
-  opacity: 1;
-  transition: opacity 0.25s 0.15s;
-
-  @include sidebar-width($padding: 32px);
+  width: calc(100% - 32px);
 }
 
 .store-lists-container {
@@ -211,7 +268,7 @@ nav {
 }
 
 .app-mark {
-  max-width: calc(100% - 50px);
+  max-width: 100%;
   overflow: hidden;
   color: #fffaf1;
   font-size: 1.05rem;
@@ -254,28 +311,91 @@ nav {
 
 button.sidebar-toggle {
   position: absolute;
-  top: 0;
-  right: 0;
-  margin-bottom: 8px;
-  background: none;
-  color: inherit;
-  border: none;
+  top: 19px;
+  left: calc(var(--sidebar-rail-width) + var(--sidebar-toggle-gap));
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sidebar-toggle-size);
+  height: var(--sidebar-toggle-size);
   padding: 0;
-  font: inherit;
+  color: #fffaf1;
+  background: #61745f;
+  border: 1px solid rgb(255, 250, 241, 36%);
+  border-radius: 50%;
+  box-shadow: 0 6px 16px rgb(43, 56, 44, 28%);
   cursor: pointer;
-  outline: inherit;
-  height: 50px;
-  width: 50px;
   transition:
-    transform 0.7s,
-    left 0.7s;
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    left var(--sidebar-drawer-transition-duration)
+      cubic-bezier(0.2, 0.75, 0.25, 1),
+    transform var(--sidebar-drawer-transition-duration)
+      cubic-bezier(0.2, 0.75, 0.25, 1);
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     color: #f2d9df;
+    background: #50634f;
+    box-shadow: 0 8px 20px rgb(43, 56, 44, 35%);
   }
 
-  &.rotated-180 {
+  &.drawer-open {
+    left: calc(var(--sidebar-drawer-width) + var(--sidebar-toggle-gap));
     transform: rotate(180deg);
+  }
+}
+
+.sidebar-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100%;
+  padding: 0;
+  background: rgb(44, 57, 46, 55%);
+  border: 0;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+}
+
+.sidebar-swipe-target {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 1;
+  width: 24px;
+  touch-action: pan-y;
+}
+
+@media not all and (max-width: $small-screen-breakpoint) {
+  .sidebar-shell {
+    display: block;
+    flex: 0 0 auto;
+    width: clamp(180px, 35vw, 280px);
+    min-width: clamp(180px, 35vw, 280px);
+  }
+
+  aside {
+    position: relative;
+    width: 100%;
+    transform: none;
+  }
+
+  nav {
+    width: calc(100% - 32px);
+  }
+
+  button.sidebar-toggle,
+  .sidebar-swipe-target {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  aside,
+  button.sidebar-toggle {
+    transition-duration: 0.01ms;
   }
 }
 </style>
