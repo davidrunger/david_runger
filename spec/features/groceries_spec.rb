@@ -224,6 +224,7 @@ RSpec.describe 'Groceries app' do
           find_field(with: 'Frozen').fill_in(with: 'Frozen foods')
           click_on('Done')
         end
+        expect(page).not_to have_css('.modal-mask')
 
         click_item_action(item, 'Change section')
         within('.modal-container') do

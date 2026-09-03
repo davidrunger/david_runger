@@ -72,7 +72,6 @@ Modal(
           ElInput(
             :model-value="sectionNames[storeSection.id] ?? storeSection.name"
             @update:model-value="setStoreSectionName(storeSection, $event)"
-            @change="renameStoreSection({ storeSection, name: $event })"
           )
           ElButton(
             link
@@ -96,7 +95,8 @@ Modal(
         ElButton(
           type="primary"
           link
-          @click="close"
+          :loading="savingSectionNames"
+          @click="saveSectionNamesAndClose"
         ) Done
 </template>
 
@@ -135,6 +135,7 @@ const configurationMode = ref<'existing' | 'new' | 'none'>('new');
 const newSchemeName = ref('');
 const newSectionName = ref('');
 const savingConfiguration = ref(false);
+const savingSectionNames = ref(false);
 const sectionNames = ref<Record<number, string>>({});
 const selectedSchemeId = ref<number>();
 const showingConfiguration = ref(true);
@@ -283,7 +284,10 @@ async function renameStoreSection({
   if (!storeSectionScheme.value) return;
 
   const normalizedNewName = normalizedName(name);
-  if (!normalizedNewName || normalizedNewName === storeSection.name) return;
+  if (!normalizedNewName || normalizedNewName === storeSection.name) {
+    sectionNames.value[storeSection.id] = storeSection.name;
+    return;
+  }
 
   const updated = await groceriesStore.updateStoreSection({
     storeSectionScheme: storeSectionScheme.value,
@@ -295,6 +299,25 @@ async function renameStoreSection({
 
 function setStoreSectionName(storeSection: StoreSection, name: string) {
   sectionNames.value[storeSection.id] = name;
+}
+
+async function saveSectionNamesAndClose() {
+  if (!storeSectionScheme.value) return;
+
+  savingSectionNames.value = true;
+  try {
+    await Promise.all(
+      storeSectionScheme.value.store_sections.map((storeSection) =>
+        renameStoreSection({
+          storeSection,
+          name: sectionNames.value[storeSection.id] ?? storeSection.name,
+        }),
+      ),
+    );
+    close();
+  } finally {
+    savingSectionNames.value = false;
+  }
 }
 
 function normalizedName(name: string): string {
