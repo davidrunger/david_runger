@@ -9,6 +9,16 @@ import FullReload from 'vite-plugin-full-reload';
 import RubyPlugin from 'vite-plugin-ruby';
 
 export default defineConfig(({ mode }) => ({
+  build: {
+    // Per-entrypoint dependency sizes are enforced by RunFileSizeChecks.
+    chunkSizeWarningLimit: 550,
+    rolldownOptions: {
+      checks: {
+        // Plugin timing warnings vary between equivalent, fast builds.
+        pluginTimings: false,
+      },
+    },
+  },
   // https://github.com/vitejs/vite/issues/18164#issuecomment-2365310242
   css: {
     preprocessorOptions: {
