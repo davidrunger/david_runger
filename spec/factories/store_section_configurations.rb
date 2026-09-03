@@ -14,7 +14,6 @@
 #
 #  index_store_section_configurations_on_store_id                 (store_id)
 #  index_store_section_configurations_on_store_section_scheme_id  (store_section_scheme_id)
-#  index_store_section_configurations_on_user_id                  (user_id)
 #  index_store_section_configurations_on_user_id_and_store_id     (user_id,store_id) UNIQUE
 #
 FactoryBot.define do
