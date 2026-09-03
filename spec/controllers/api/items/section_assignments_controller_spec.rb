@@ -37,6 +37,21 @@ RSpec.describe(Api::Items::SectionAssignmentsController) do
 
       expect(response).to have_http_status(:no_content)
     end
+
+    context 'when the user has chosen not to use sections at the store' do
+      before do
+        store_section_configuration.update!(
+          sectioning_enabled: false,
+          store_section_scheme: nil,
+        )
+      end
+
+      it 'returns not found' do
+        patch_update
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 
   describe '#destroy' do

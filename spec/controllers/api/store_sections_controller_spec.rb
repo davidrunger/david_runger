@@ -38,15 +38,29 @@ RSpec.describe(Api::StoreSectionsController) do
         params: {
           store_section_scheme_id: store_section_scheme.id,
           id: store_section.id,
-          store_section: { name: 'Fresh produce' },
+          store_section: { name: },
         },
       )
     end
 
     let(:store_section) { store_sections(:produce_section) }
 
-    it 'updates the section' do
-      expect { patch_update }.to change { store_section.reload.name }.to('Fresh produce')
+    context 'with a valid name' do
+      let(:name) { 'Fresh produce' }
+
+      it 'updates the section' do
+        expect { patch_update }.to change { store_section.reload.name }.to('Fresh produce')
+      end
+    end
+
+    context 'with an invalid name' do
+      let(:name) { '' }
+
+      it 'returns validation errors' do
+        patch_update
+
+        expect(response).to have_http_status(:unprocessable_content)
+      end
     end
   end
 

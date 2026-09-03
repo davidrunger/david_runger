@@ -16,8 +16,6 @@ class Api::Items::SectionAssignmentsController < Api::BaseController
     assignment.save!
 
     head(:no_content)
-  rescue ActiveRecord::RecordInvalid
-    render json: { errors: assignment.errors.full_messages }, status: :unprocessable_content
   end
 
   def destroy
@@ -40,12 +38,15 @@ class Api::Items::SectionAssignmentsController < Api::BaseController
   end
 
   def set_store_section_configuration
-    @store_section_configuration = current_user.store_section_configurations.find_by!(store: @store)
-    if !@store_section_configuration.sectioning_enabled?
-      raise(ActiveRecord::RecordNotFound)
+    @store_section_configuration =
+      current_user.store_section_configurations.where(sectioning_enabled: true).find_by(
+        store: @store,
+      )
+    if @store_section_configuration
+      authorize(@store_section_configuration)
+    else
+      head(:not_found)
     end
-
-    authorize(@store_section_configuration)
   end
 
   def section_assignment_params

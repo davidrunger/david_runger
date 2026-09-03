@@ -46,18 +46,33 @@ RSpec.describe(Api::StoreSectionSchemesController) do
     subject(:patch_update) { patch(:update, params:) }
 
     let(:store_section_scheme) { store_section_schemes(:grocery_layout) }
-    let(:params) do
-      { id: store_section_scheme.id, store_section_scheme: { name: 'Updated layout' } }
+
+    context 'with a valid name' do
+      let(:params) do
+        { id: store_section_scheme.id, store_section_scheme: { name: 'Updated layout' } }
+      end
+
+      it 'updates the scheme' do
+        expect { patch_update }.to change { store_section_scheme.reload.name }.to('Updated layout')
+      end
+
+      it 'returns no content' do
+        patch_update
+
+        expect(response).to have_http_status(:no_content)
+      end
     end
 
-    it 'updates the scheme' do
-      expect { patch_update }.to change { store_section_scheme.reload.name }.to('Updated layout')
-    end
+    context 'with an invalid name' do
+      let(:params) do
+        { id: store_section_scheme.id, store_section_scheme: { name: '' } }
+      end
 
-    it 'returns no content' do
-      patch_update
+      it 'returns validation errors' do
+        patch_update
 
-      expect(response).to have_http_status(:no_content)
+        expect(response).to have_http_status(:unprocessable_content)
+      end
     end
   end
 end
