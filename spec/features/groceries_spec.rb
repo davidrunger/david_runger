@@ -216,15 +216,17 @@ RSpec.describe 'Groceries app' do
         visit groceries_path
 
         click_store_setting(store, 'Store sections')
+        sections_modal_heading = "Sections for #{store.name}"
         within('.modal-container') do
-          expect(page).to have_text("Sections for #{store.name}")
+          expect(page).to have_modal_heading(sections_modal_heading)
           fill_in('Add a section', with: 'Frozen')
           click_on('Add')
           expect(page).to have_field(with: 'Frozen')
-          find_field(with: 'Frozen').fill_in(with: 'Frozen foods')
+          section_name_input = find_field('Name for Frozen')
+          section_name_input.fill_in(with: 'Frozen foods')
           click_on('Done')
         end
-        expect(page).not_to have_css('.modal-mask')
+        expect(page).not_to have_modal_heading(sections_modal_heading)
 
         click_item_action(item, 'Change section')
         within('.modal-container') do
@@ -232,6 +234,8 @@ RSpec.describe 'Groceries app' do
         end
         find('[role="option"]', text: 'Frozen foods', exact_text: true).click
         within('.modal-container') { click_on('Save') }
+        expect(page).not_to have_spinner
+        expect(page).not_to have_modal_heading('Change section')
 
         expect(
           item_section_assignments(:item_section_assignment).reload.store_section.name,

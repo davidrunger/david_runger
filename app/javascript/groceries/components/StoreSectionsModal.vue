@@ -69,10 +69,9 @@ Modal(
           v-for="storeSection in sortedStoreSections"
           :key="storeSection.id"
         )
-          ElInput(
-            :model-value="sectionNames[storeSection.id] ?? storeSection.name"
-            @update:model-value="setStoreSectionName(storeSection, $event)"
-          )
+          label.flex-1
+            span.sr-only Name for {{ storeSection.name }}
+            ElInput.w-full(v-model="sectionNames[storeSection.id]")
           ElButton(
             link
             type="danger"
@@ -174,7 +173,7 @@ function resetConfigurationForm() {
   newSchemeName.value = scheme?.name || props.store.name;
   selectedSchemeId.value = scheme?.id;
   configurationError.value = '';
-  sectionNames.value = {};
+  resetSectionNames(scheme);
 }
 
 async function saveConfiguration() {
@@ -250,6 +249,7 @@ async function addStoreSection() {
       })
     ) {
       newSectionName.value = '';
+      resetSectionNames();
       if (props.showItemChooserAfterConfiguration) emit('configured');
     }
   } finally {
@@ -272,6 +272,7 @@ async function deleteStoreSection(storeSection: StoreSection) {
     storeSectionScheme: storeSectionScheme.value,
     storeSection,
   });
+  resetSectionNames();
 }
 
 async function renameStoreSection({
@@ -297,10 +298,6 @@ async function renameStoreSection({
   if (!updated) sectionNames.value[storeSection.id] = storeSection.name;
 }
 
-function setStoreSectionName(storeSection: StoreSection, name: string) {
-  sectionNames.value[storeSection.id] = name;
-}
-
 async function saveSectionNamesAndClose() {
   if (!storeSectionScheme.value) return;
 
@@ -318,6 +315,15 @@ async function saveSectionNamesAndClose() {
   } finally {
     savingSectionNames.value = false;
   }
+}
+
+function resetSectionNames(scheme = storeSectionScheme.value) {
+  sectionNames.value = Object.fromEntries(
+    scheme?.store_sections.map((storeSection) => [
+      storeSection.id,
+      storeSection.name,
+    ]) || [],
+  );
 }
 
 function normalizedName(name: string): string {
