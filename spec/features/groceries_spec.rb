@@ -242,6 +242,65 @@ RSpec.describe 'Groceries app' do
         ).to eq('Frozen foods')
       end
 
+      it 'organizes an ungrouped needed item during check-in' do
+        store = user.stores.reorder(:viewed_at).last!
+        item = store.items.needed.first!
+        item_section_assignments(:item_section_assignment).destroy!
+
+        visit groceries_path
+
+        click_on('Check in items')
+        click_on('Organize 1 ungrouped item')
+        expect(page).to have_modal_heading('Organize items')
+        within('.modal-container', text: 'Organize items') do
+          find('.el-select').click
+        end
+        find('[role="option"]', text: 'Produce', exact_text: true).click
+        within('.modal-container', text: 'Organize items') { click_on('Done') }
+        expect(page).not_to have_spinner
+        expect(page).not_to have_modal_heading('Organize items')
+
+        within_section('Needed') do
+          expect(page).to have_css('h4', text: 'Produce', exact_text: true)
+          expect(page).to have_text(item.name)
+        end
+
+        click_on('Cancel')
+        open_store_settings(store)
+        expect(page).to have_css(
+          '[role="menuitem"]',
+          text: 'Organize all items',
+          exact_text: true,
+        )
+        find(
+          '[role="menuitem"]',
+          text: 'Organize needed items',
+          exact_text: true,
+        ).click
+        expect(page).to have_modal_heading('Organize items')
+        within('.modal-container', text: 'Organize items') { click_on('Skip for now') }
+        expect(page).not_to have_modal_heading('Organize items')
+      end
+
+      it 'stops offering organization for a store without useful sections' do
+        store_section_configurations(:store_section_configuration).destroy!
+
+        visit groceries_path
+
+        click_on('Check in items')
+        click_on('Organize 1 ungrouped item')
+        expect(page).to have_modal_heading('Set up store sections')
+        within('.modal-container', text: 'Set up store sections') do
+          find('label', text: "This store doesn't need sections", exact_text: true).click
+          click_on('Continue')
+        end
+        expect(page).not_to have_spinner
+        expect(page).to have_modal_heading('Organize items')
+        within('.modal-container', text: 'Organize items') { click_on('Done') }
+        expect(page).not_to have_modal_heading('Organize items')
+        expect(page).not_to have_button('Organize 1 ungrouped item')
+      end
+
       context "when viewing the spouse's store" do
         let(:spouse_store) do
           user.spouse.presence!.stores.find_by!(private: false)

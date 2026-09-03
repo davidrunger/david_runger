@@ -14,9 +14,16 @@ Modal(
           @click="manageCheckInStores"
         ) Choose stores
 
+      ElButton.mb-3(
+        v-if="itemsToOrganize.length > 0"
+        type="primary"
+        plain
+        @click="emit('organizeItems', itemsToOrganize)"
+      ) Organize {{ itemsToOrganize.length }} ungrouped {{ itemsToOrganize.length === 1 ? 'item' : 'items' }}
+
       .flex-1.overflow-y-auto
-        CheckInItemsList(
-          title="Needed"
+        CheckInSectionedItemsList(
+          :groups="neededItemGroups"
           :items="neededUnskippedCheckInItemsNotInCart"
         )
 
@@ -55,14 +62,20 @@ import { TYPE } from 'vue-toastification';
 
 import Modal from '@/components/Modal.vue';
 import { useGroceriesStore } from '@/groceries/store';
+import type { Item } from '@/groceries/types';
 import { useModalStore } from '@/lib/modal/store';
 import { vueToast } from '@/lib/vueToasts';
 import type { Store } from '@/types';
 
 import CheckInItemsList from './CheckInItemsList.vue';
+import CheckInSectionedItemsList from './CheckInSectionedItemsList.vue';
 
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
+
+const emit = defineEmits<{
+  organizeItems: [items: Array<Item>];
+}>();
 
 const checkingIn = ref(false);
 
@@ -76,6 +89,50 @@ const checkInStoreNames = computed((): string => {
   return groceriesStore.checkInStores
     .map((store: Store) => store.name)
     .join(', ');
+});
+const itemsToOrganize = computed(() => {
+  return groceriesStore.neededCheckInItems.filter((item) => {
+    return groceriesStore.checkInStores.some((store) => {
+      if (!item.store_ids.includes(store.id)) return false;
+
+      const configuration = store.section_configuration;
+      if (!configuration) return true;
+      if (!configuration.sectioning_enabled) return false;
+
+      return !store.item_section_assignments.some(
+        (assignment) => assignment.item_id === item.id,
+      );
+    });
+  });
+});
+const neededItemGroups = computed(() => {
+  const groups = new Map<string, Array<Item>>();
+
+  for (const item of neededUnskippedCheckInItemsNotInCart.value) {
+    const availableStores = groceriesStore.checkInStores.filter(
+      (candidateStore) => item.store_ids.includes(candidateStore.id),
+    );
+    const store = availableStores.length === 1 ? availableStores[0] : undefined;
+    const assignment = store?.item_section_assignments.find(
+      (candidateAssignment) => candidateAssignment.item_id === item.id,
+    );
+    const section =
+      store?.section_configuration?.store_section_scheme?.store_sections.find(
+        (candidateSection) =>
+          candidateSection.id === assignment?.store_section_id,
+      );
+    const title = section?.name || 'Unsorted';
+    groups.set(title, [...(groups.get(title) || []), item]);
+  }
+
+  return [...groups.entries()]
+    .map(([title, items]) => ({ title, items }))
+    .sort((left, right) => {
+      if (left.title === 'Unsorted') return 1;
+      if (right.title === 'Unsorted') return -1;
+
+      return left.title.localeCompare(right.title);
+    });
 });
 
 function noMoreNeededItems() {

@@ -4,6 +4,8 @@
     StoreHeader(
       :store="store"
       @show-notes="showStoreNotes"
+      @organize-all="organizeAllStoreItems"
+      @organize-needed="organizeNeededStoreItems"
       @show-privacy="showStorePrivacyModal"
       @show-rename="showStoreRenameModal"
       @show-sections="showStoreSectionsModal"
@@ -40,9 +42,14 @@
         @rename="showRenameItemModal"
       )
 
-  CheckInModal
+  CheckInModal(@organize-items="organizeCheckInItems")
 
   ManageCheckInStoresModal
+
+  OrganizeItemsModal(
+    :items="itemsForOrganization"
+    :stores="storesForOrganization"
+  )
 
   StoreNotesModal(:store="store")
 
@@ -93,6 +100,7 @@ import ItemForm from './ItemForm.vue';
 import ItemRenameModal from './ItemRenameModal.vue';
 import ItemSectionModal from './ItemSectionModal.vue';
 import ManageCheckInStoresModal from './ManageCheckInStoresModal.vue';
+import OrganizeItemsModal from './OrganizeItemsModal.vue';
 import StoreHeader from './StoreHeader.vue';
 import StoreNotesModal from './StoreNotesModal.vue';
 import StorePrivacyModal from './StorePrivacyModal.vue';
@@ -111,6 +119,8 @@ const highlightedItemId = ref<number>();
 const itemForAvailabilities = ref<ItemType | null>(null);
 const itemForSectionAssignment = ref<ItemType | null>(null);
 const itemToRename = ref<ItemType | null>(null);
+const itemsForOrganization = ref<Array<ItemType>>([]);
+const storesForOrganization = ref<Array<Store>>([]);
 let clearHighlightTimeout: ReturnType<typeof setTimeout> | undefined;
 
 const sortedItems = computed((): ItemType[] => {
@@ -122,6 +132,33 @@ function initializeTripCheckIn() {
     store: groceriesStore.currentStore as Store,
   });
   modalStore.showModal({ modalName: 'check-in-shopping-trip' });
+}
+
+function organizeAllStoreItems() {
+  organizeItems({ items: props.store.items, stores: [props.store] });
+}
+
+function organizeCheckInItems(items: Array<ItemType>) {
+  organizeItems({ items, stores: groceriesStore.checkInStores });
+}
+
+function organizeItems({
+  items,
+  stores,
+}: {
+  items: Array<ItemType>;
+  stores: Array<Store>;
+}) {
+  itemsForOrganization.value = items;
+  storesForOrganization.value = stores;
+  modalStore.showModal({ modalName: 'organize-grocery-items' });
+}
+
+function organizeNeededStoreItems() {
+  organizeItems({
+    items: props.store.items.filter((item) => item.needed > 0),
+    stores: [props.store],
+  });
 }
 
 function showItemAvailabilitiesModal(item: ItemType): void {

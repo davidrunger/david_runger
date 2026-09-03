@@ -23,6 +23,14 @@ h1.store-title.my-1.flex.flex-wrap.items-center
         ElDropdownItem(command="sections")
           | Store sections
         ElDropdownItem(
+          v-if="store.section_configuration?.sectioning_enabled !== false"
+          command="organize-all"
+        ) Organize all items
+        ElDropdownItem(
+          v-if="store.section_configuration?.sectioning_enabled !== false"
+          command="organize-needed"
+        ) Organize needed items
+        ElDropdownItem(
           v-if="store.own_store"
           command="rename"
         ) Rename
@@ -46,6 +54,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
+  organizeAll: [];
+  organizeNeeded: [];
   showPrivacy: [];
   showNotes: [];
   showRename: [];
@@ -57,9 +67,17 @@ const groceriesStore = useGroceriesStore();
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
 
 function handleStoreAction(
-  action: 'notes' | 'privacy' | 'rename' | 'sections',
+  action:
+    | 'notes'
+    | 'organize-all'
+    | 'organize-needed'
+    | 'privacy'
+    | 'rename'
+    | 'sections',
 ): void {
   if (action === 'notes') emit('showNotes');
+  else if (action === 'organize-all') emit('organizeAll');
+  else if (action === 'organize-needed') emit('organizeNeeded');
   else if (action === 'rename') emit('showRename');
   else if (action === 'privacy') emit('showPrivacy');
   else if (action === 'sections') emit('showSections');
