@@ -57,15 +57,27 @@
           "items": {
             "$ref": "#/definitions/Item"
           }
+        },
+        "section_configuration": {
+          "anyOf": [
+            { "$ref": "#/definitions/StoreSectionConfiguration" },
+            { "type": "null" }
+          ]
+        },
+        "item_section_assignments": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ItemSectionAssignment" }
         }
       },
       "required": [
         "id",
+        "item_section_assignments",
         "items",
         "name",
         "notes",
         "own_store",
         "private",
+        "section_configuration",
         "viewed_at"
       ],
       "title": "Store"
@@ -92,6 +104,55 @@
       },
       "required": ["id", "name", "needed", "store_ids"],
       "title": "Item"
+    },
+    "ItemSectionAssignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "item_id": { "type": "integer" },
+        "store_section_id": { "type": "integer" }
+      },
+      "required": ["item_id", "store_section_id"],
+      "title": "ItemSectionAssignment"
+    },
+    "StoreSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "integer" },
+        "name": { "type": "string" }
+      },
+      "required": ["id", "name"],
+      "title": "StoreSection"
+    },
+    "StoreSectionConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sectioning_enabled": { "type": "boolean" },
+        "store_section_scheme": {
+          "anyOf": [
+            { "$ref": "#/definitions/StoreSectionScheme" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "required": ["sectioning_enabled", "store_section_scheme"],
+      "title": "StoreSectionConfiguration"
+    },
+    "StoreSectionScheme": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "integer" },
+        "name": { "type": "string" },
+        "store_sections": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/StoreSection" }
+        }
+      },
+      "required": ["id", "name", "store_sections"],
+      "title": "StoreSectionScheme"
     }
   }
 }

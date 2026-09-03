@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Root",
+  "definitions": {
+    "Root": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "store_section_schemes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoreSectionScheme"
+          }
+        }
+      },
+      "required": ["store_section_schemes"],
+      "title": "Root"
+    },
+    "StoreSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"],
+      "title": "StoreSection"
+    },
+    "StoreSectionScheme": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "store_sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoreSection"
+          }
+        }
+      },
+      "required": ["id", "name", "store_sections"],
+      "title": "StoreSectionScheme"
+    }
+  }
+}

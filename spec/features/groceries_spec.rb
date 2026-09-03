@@ -209,6 +209,34 @@ RSpec.describe 'Groceries app' do
         expect(needed_item.needed).to be > 0
       end
 
+      it 'lets the user manage sections and assign an item to one' do
+        store = user.stores.reorder(:viewed_at).last!
+        item = store.items.needed.first!
+
+        visit groceries_path
+
+        click_store_setting(store, 'Store sections')
+        within('.modal-container') do
+          expect(page).to have_text("Sections for #{store.name}")
+          fill_in('Add a section', with: 'Frozen')
+          click_on('Add')
+          expect(page).to have_field(with: 'Frozen')
+          find_field(with: 'Frozen').fill_in(with: 'Frozen foods')
+          click_on('Done')
+        end
+
+        click_item_action(item, 'Change section')
+        within('.modal-container') do
+          find('.el-select').click
+        end
+        find('[role="option"]', text: 'Frozen foods', exact_text: true).click
+        within('.modal-container') { click_on('Save') }
+
+        expect(
+          item_section_assignments(:item_section_assignment).reload.store_section.name,
+        ).to eq('Frozen foods')
+      end
+
       context "when viewing the spouse's store" do
         let(:spouse_store) do
           user.spouse.presence!.stores.find_by!(private: false)

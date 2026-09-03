@@ -16,6 +16,7 @@
 class ItemAvailability < ApplicationRecord
   belongs_to :item, inverse_of: :item_availabilities
   belongs_to :store, inverse_of: :item_availabilities
+  has_many :item_section_assignments, dependent: :delete_all
 
   validates :store_id, uniqueness: { scope: :item_id }
   validate :store_belongs_to_item_user

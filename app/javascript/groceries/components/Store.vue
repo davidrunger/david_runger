@@ -6,6 +6,7 @@
       @show-notes="showStoreNotes"
       @show-privacy="showStorePrivacyModal"
       @show-rename="showStoreRenameModal"
+      @show-sections="showStoreSectionsModal"
     )
 
     .store-actions
@@ -31,8 +32,11 @@
         :item="item"
         :key="item.id"
         :ownStore="store.own_store"
+        :sectionAssigned="store.item_section_assignments.some((assignment) => assignment.item_id === item.id)"
+        :sectioningDisabled="store.section_configuration?.sectioning_enabled === false"
         :highlighted="item.id === highlightedItemId"
         @manage-availabilities="showItemAvailabilitiesModal"
+        @manage-section="showItemSectionModal"
         @rename="showRenameItemModal"
       )
 
@@ -56,6 +60,18 @@
     v-if="itemForAvailabilities"
     :item="itemForAvailabilities"
   )
+
+  StoreSectionsModal(
+    :showItemChooserAfterConfiguration="!!itemForSectionAssignment"
+    :store="store"
+    @configured="showItemSectionModalAfterConfiguration"
+  )
+
+  ItemSectionModal(
+    v-if="itemForSectionAssignment"
+    :item="itemForSectionAssignment"
+    :store="store"
+  )
 </template>
 
 <script setup lang="ts">
@@ -75,11 +91,13 @@ import Item from './Item.vue';
 import ItemAvailabilitiesModal from './ItemAvailabilitiesModal.vue';
 import ItemForm from './ItemForm.vue';
 import ItemRenameModal from './ItemRenameModal.vue';
+import ItemSectionModal from './ItemSectionModal.vue';
 import ManageCheckInStoresModal from './ManageCheckInStoresModal.vue';
 import StoreHeader from './StoreHeader.vue';
 import StoreNotesModal from './StoreNotesModal.vue';
 import StorePrivacyModal from './StorePrivacyModal.vue';
 import StoreRenameModal from './StoreRenameModal.vue';
+import StoreSectionsModal from './StoreSectionsModal.vue';
 
 const props = defineProps({
   store: object<Store>().isRequired,
@@ -91,6 +109,7 @@ const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
 const highlightedItemId = ref<number>();
 const itemForAvailabilities = ref<ItemType | null>(null);
+const itemForSectionAssignment = ref<ItemType | null>(null);
 const itemToRename = ref<ItemType | null>(null);
 let clearHighlightTimeout: ReturnType<typeof setTimeout> | undefined;
 
@@ -115,6 +134,24 @@ function showRenameItemModal(item: ItemType): void {
   modalStore.showModal({ modalName: 'rename-grocery-item' });
 }
 
+function showItemSectionModal(item: ItemType): void {
+  if (props.store.section_configuration?.sectioning_enabled === false) return;
+
+  itemForSectionAssignment.value = item;
+  if (props.store.section_configuration?.sectioning_enabled) {
+    modalStore.showModal({ modalName: 'choose-item-section' });
+  } else {
+    modalStore.showModal({ modalName: 'manage-store-sections' });
+  }
+}
+
+function showItemSectionModalAfterConfiguration(): void {
+  if (!itemForSectionAssignment.value) return;
+
+  modalStore.hideModal({ modalName: 'manage-store-sections' });
+  modalStore.showModal({ modalName: 'choose-item-section' });
+}
+
 function showStoreNotes(): void {
   modalStore.showModal({ modalName: 'store-notes' });
 }
@@ -125,6 +162,11 @@ function showStorePrivacyModal(): void {
 
 function showStoreRenameModal(): void {
   modalStore.showModal({ modalName: 'rename-store' });
+}
+
+function showStoreSectionsModal(): void {
+  itemForSectionAssignment.value = null;
+  modalStore.showModal({ modalName: 'manage-store-sections' });
 }
 
 async function scrollToAndHighlightItem(item: ItemType): Promise<void> {

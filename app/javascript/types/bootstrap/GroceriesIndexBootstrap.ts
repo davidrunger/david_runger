@@ -16,13 +16,20 @@ interface CurrentUser {
 }
 
 interface Store {
-    id:        number;
-    items:     Item[];
-    name:      string;
-    notes:     null | string;
-    own_store: boolean;
-    private:   boolean;
-    viewed_at: string | null;
+    id:                       number;
+    item_section_assignments: ItemSectionAssignment[];
+    items:                    Item[];
+    name:                     string;
+    notes:                    null | string;
+    own_store:                boolean;
+    private:                  boolean;
+    section_configuration:    StoreSectionConfiguration | null;
+    viewed_at:                string | null;
+}
+
+interface ItemSectionAssignment {
+    item_id:          number;
+    store_section_id: number;
 }
 
 interface Item {
@@ -30,4 +37,20 @@ interface Item {
     name:      string;
     needed:    number;
     store_ids: number[];
+}
+
+interface StoreSectionConfiguration {
+    sectioning_enabled:   boolean;
+    store_section_scheme: StoreSectionScheme | null;
+}
+
+interface StoreSectionScheme {
+    id:             number;
+    name:           string;
+    store_sections: StoreSection[];
+}
+
+interface StoreSection {
+    id:   number;
+    name: string;
 }

@@ -2,7 +2,7 @@ class Stores::Destroy < ApplicationAction
   requires :store, Store
 
   def execute
-    items = store.items.includes(:item_availabilities)
+    items = store.items.includes(item_availabilities: :item_section_assignments)
     items_to_destroy, items_to_update =
       items.partition { |item| item.item_availabilities.one? }
 

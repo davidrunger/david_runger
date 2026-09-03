@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_02_153302) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_03_124141) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -289,6 +289,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_153302) do
     t.index ["store_id"], name: "index_item_availabilities_on_store_id"
   end
 
+  create_table "item_section_assignments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "item_availability_id", null: false
+    t.bigint "store_section_configuration_id", null: false
+    t.bigint "store_section_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_availability_id"], name: "index_item_section_assignments_on_item_availability_id"
+    t.index ["store_section_configuration_id", "item_availability_id"], name: "idx_on_store_section_configuration_id_item_availabi_90aa52d8d8", unique: true
+    t.index ["store_section_configuration_id"], name: "idx_on_store_section_configuration_id_09ee41d3e4"
+    t.index ["store_section_id"], name: "index_item_section_assignments_on_store_section_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.string "name", null: false
@@ -506,6 +518,38 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_153302) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
+  create_table "store_section_configurations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "sectioning_enabled", default: false, null: false
+    t.bigint "store_id", null: false
+    t.bigint "store_section_scheme_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["store_id"], name: "index_store_section_configurations_on_store_id"
+    t.index ["store_section_scheme_id"], name: "index_store_section_configurations_on_store_section_scheme_id"
+    t.index ["user_id", "store_id"], name: "index_store_section_configurations_on_user_id_and_store_id", unique: true
+    t.index ["user_id"], name: "index_store_section_configurations_on_user_id"
+    t.check_constraint "sectioning_enabled = (store_section_scheme_id IS NOT NULL)", name: "store_section_configurations_scheme_matches_enabled_state"
+  end
+
+  create_table "store_section_schemes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index "user_id, lower((name)::text)", name: "index_store_section_schemes_on_user_id_and_name", unique: true
+    t.index ["user_id"], name: "index_store_section_schemes_on_user_id"
+  end
+
+  create_table "store_sections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "store_section_scheme_id", null: false
+    t.datetime "updated_at", null: false
+    t.index "store_section_scheme_id, lower((name)::text)", name: "index_store_sections_on_scheme_id_and_name", unique: true
+    t.index ["store_section_scheme_id"], name: "index_store_sections_on_store_section_scheme_id"
+  end
+
   create_table "stores", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.string "name", null: false
@@ -585,6 +629,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_153302) do
   add_foreign_key "events", "users"
   add_foreign_key "item_availabilities", "items"
   add_foreign_key "item_availabilities", "stores"
+  add_foreign_key "item_section_assignments", "item_availabilities", on_delete: :cascade
+  add_foreign_key "item_section_assignments", "store_section_configurations", on_delete: :cascade
+  add_foreign_key "item_section_assignments", "store_sections"
   add_foreign_key "items", "users"
   add_foreign_key "json_preferences", "users"
   add_foreign_key "log_entries", "logs"
@@ -607,6 +654,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_153302) do
   add_foreign_key "requests", "admin_users"
   add_foreign_key "requests", "auth_tokens", on_delete: :nullify
   add_foreign_key "requests", "users"
+  add_foreign_key "store_section_configurations", "store_section_schemes"
+  add_foreign_key "store_section_configurations", "stores", on_delete: :cascade
+  add_foreign_key "store_section_configurations", "users", on_delete: :cascade
+  add_foreign_key "store_section_schemes", "users", on_delete: :cascade
+  add_foreign_key "store_sections", "store_section_schemes", on_delete: :cascade
   add_foreign_key "stores", "users"
   add_foreign_key "workouts", "users"
 end

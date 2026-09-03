@@ -44,6 +44,33 @@ FixtureBuilder.configure do |fbuilder|
     create(:item, :needed, stores: [spouse_store], name: 'Spouse bananas')
     create(:store, user: married_user, name: 'Private Spouse Store', private: true)
 
+    store_section_scheme = name(
+      :grocery_layout,
+      create(:store_section_scheme, user:, name: 'Grocery layout'),
+    ).first
+    produce_section = name(
+      :produce_section,
+      create(:store_section, store_section_scheme:, name: 'Produce'),
+    ).first
+    store_section_configuration = name(
+      :store_section_configuration,
+      create(
+        :store_section_configuration,
+        user:,
+        store:,
+        store_section_scheme:,
+      ),
+    ).first
+    name(
+      :item_section_assignment,
+      create(
+        :item_section_assignment,
+        store_section_configuration:,
+        item_availability: item.item_availabilities.first!,
+        store_section: produce_section,
+      ),
+    )
+
     # number logs
     number_log = name(:number_log, create(:log, user:, data_type: 'number')).first
     number_log.build_log_entry_with_datum(data: 102, note: 'I am glad it is an even number').save!

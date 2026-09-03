@@ -37,6 +37,10 @@ li.grocery-item.flex.w-full.items-center(
         ElDropdownMenu
           ElDropdownItem(command="rename") Rename
           ElDropdownItem(
+            v-if="!sectioningDisabled"
+            command="section"
+          ) {{ sectionAssigned ? 'Change section' : 'Choose section' }}
+          ElDropdownItem(
             v-if="ownStore"
             command="manage-availabilities"
           ) Available at...
@@ -62,21 +66,26 @@ const ICON_SIZE = 17;
 const props = defineProps({
   item: object<Item>().isRequired,
   ownStore: bool().isRequired,
+  sectionAssigned: bool().isRequired,
+  sectioningDisabled: bool().isRequired,
   highlighted: bool().isRequired,
 });
 
 const emit = defineEmits<{
   manageAvailabilities: [item: Item];
+  manageSection: [item: Item];
   rename: [item: Item];
 }>();
 
 const groceriesStore = useGroceriesStore();
 
-type ItemAction = 'delete' | 'manage-availabilities' | 'rename';
+type ItemAction = 'delete' | 'manage-availabilities' | 'rename' | 'section';
 
 function handleItemAction(action: ItemAction): void {
   if (action === 'manage-availabilities') {
     emit('manageAvailabilities', props.item);
+  } else if (action === 'section') {
+    emit('manageSection', props.item);
   } else if (action === 'rename') {
     emit('rename', props.item);
   } else if (action === 'delete') {

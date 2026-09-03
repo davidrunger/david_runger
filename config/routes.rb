@@ -89,8 +89,14 @@ Rails.application.routes.draw do
       post :rotate_email_submission_token, on: :member
     end
     resource :my_account, controller: :my_account, only: %i[update]
+    resources :store_section_schemes, only: %i[index create update] do
+      resources :store_sections, only: %i[create update destroy]
+    end
     resources :stores, only: %i[index create update destroy] do
-      resources :items, only: %i[create]
+      resource :section_configuration, only: %i[create update]
+      resources :items, only: %i[create] do
+        resource :section_assignment, only: %i[update destroy], module: :items
+      end
     end
     resources :webhook_email_forwards, only: %i[create]
     resources :workouts, only: %i[create update]
