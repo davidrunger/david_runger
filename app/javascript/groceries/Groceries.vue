@@ -89,6 +89,12 @@ function warnIfRequestPending(event: BeforeUnloadEvent) {
 </script>
 
 <style lang="scss">
+@use 'css/sass_variables' as *;
+
+:root {
+  --small-screen-breakpoint: #{$small-screen-breakpoint};
+}
+
 body {
   --groceries-berry: #96576a;
   --groceries-berry-dark: #754052;
@@ -180,7 +186,7 @@ main {
 }
 
 // https://stackoverflow.com/a/45769607/4009384
-@media screen and (width <= 767px) {
+@media screen and (max-width: $small-screen-breakpoint) {
   input[type='text'],
   input[type='number'],
   input[type='email'],

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+project_root=$(cd "$(dirname "$0")/.." && pwd)
+phone_server_ip=${DEVELOPMENT_PHONE_SERVER_IP:-}
+
+if [[ -z "$phone_server_ip" ]]; then
+  phone_server_ip=$(
+    ip -4 route get 1.1.1.1 2>/dev/null |
+      awk '
+        {
+          for (field = 1; field <= NF; field++) {
+            if ($field == "src") {
+              print $(field + 1);
+              exit;
+            }
+          }
+        }
+      ' || true
+  )
+fi
+
+if [[ -z "$phone_server_ip" ]]; then
+  echo "Could not determine this computer's LAN IPv4 address." >&2
+  echo 'Set DEVELOPMENT_PHONE_SERVER_IP to the address your phone can reach and retry.' >&2
+  exit 1
+fi
+
+if ! command -v hivemind >/dev/null; then
+  echo 'hivemind is required to run the phone development server.' >&2
+  exit 1
+fi
+
+export LOCAL_HOSTNAME="$phone_server_ip"
+export VITE_RUBY_HOST="$phone_server_ip"
+
+echo "Open $phone_server_ip:3000 on your phone."
+echo 'Press Ctrl-C to stop the Rails and Vite development servers.'
+
+exec hivemind "$project_root/Procfile.dev.iphone"

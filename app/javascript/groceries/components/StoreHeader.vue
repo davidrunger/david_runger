@@ -61,6 +61,8 @@ function handleStoreAction(action: 'notes' | 'privacy' | 'rename'): void {
 </script>
 
 <style lang="scss" scoped>
+@use 'css/sass_variables' as *;
+
 .store-title {
   color: var(--groceries-sage-dark);
   font-family: Georgia, 'Times New Roman', serif;
@@ -97,6 +99,12 @@ function handleStoreAction(action: 'notes' | 'privacy' | 'rename'): void {
       background: white;
       border-color: var(--groceries-sage);
     }
+  }
+}
+
+@media screen and (max-width: $small-screen-breakpoint) {
+  .store-title {
+    padding-left: 50px;
   }
 }
 </style>
