@@ -141,8 +141,6 @@ services:
       - prometheus
     env_file:
       - .env.grafana.local
-    environment:
-      GF_PLUGINS_PREINSTALL_SYNC: grafana-lokiexplore-app@2.4.0
     expose:
       - '3000'
     image: grafana/grafana:13.2.1@sha256:f772d434e8fab0049deb2b1b30abd43342bcfca1537614aa8d36080232cf4283
