@@ -297,7 +297,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_124141) do
     t.datetime "updated_at", null: false
     t.index ["item_availability_id"], name: "index_item_section_assignments_on_item_availability_id"
     t.index ["store_section_configuration_id", "item_availability_id"], name: "idx_on_store_section_configuration_id_item_availabi_90aa52d8d8", unique: true
-    t.index ["store_section_configuration_id"], name: "idx_on_store_section_configuration_id_09ee41d3e4"
     t.index ["store_section_id"], name: "index_item_section_assignments_on_store_section_id"
   end
 
@@ -528,7 +527,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_124141) do
     t.index ["store_id"], name: "index_store_section_configurations_on_store_id"
     t.index ["store_section_scheme_id"], name: "index_store_section_configurations_on_store_section_scheme_id"
     t.index ["user_id", "store_id"], name: "index_store_section_configurations_on_user_id_and_store_id", unique: true
-    t.index ["user_id"], name: "index_store_section_configurations_on_user_id"
     t.check_constraint "sectioning_enabled = (store_section_scheme_id IS NOT NULL)", name: "store_section_configurations_scheme_matches_enabled_state"
   end
 
@@ -538,7 +536,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_124141) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index "user_id, lower((name)::text)", name: "index_store_section_schemes_on_user_id_and_name", unique: true
-    t.index ["user_id"], name: "index_store_section_schemes_on_user_id"
   end
 
   create_table "store_sections", force: :cascade do |t|
@@ -547,7 +544,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_124141) do
     t.bigint "store_section_scheme_id", null: false
     t.datetime "updated_at", null: false
     t.index "store_section_scheme_id, lower((name)::text)", name: "index_store_sections_on_scheme_id_and_name", unique: true
-    t.index ["store_section_scheme_id"], name: "index_store_sections_on_store_section_scheme_id"
   end
 
   create_table "stores", force: :cascade do |t|

@@ -1,7 +1,7 @@
 class CreateStoreSectionManagement < ActiveRecord::Migration[8.1]
   def change
     create_table :store_section_schemes do |t|
-      t.references :user, null: false, foreign_key: { on_delete: :cascade }
+      t.references :user, null: false, index: false, foreign_key: { on_delete: :cascade }
       t.string :name, null: false
       t.timestamps
     end
@@ -13,7 +13,7 @@ class CreateStoreSectionManagement < ActiveRecord::Migration[8.1]
     )
 
     create_table :store_sections do |t|
-      t.references :store_section_scheme, null: false, foreign_key: { on_delete: :cascade }
+      t.references :store_section_scheme, null: false, index: false, foreign_key: { on_delete: :cascade }
       t.string :name, null: false
       t.timestamps
     end
@@ -25,7 +25,7 @@ class CreateStoreSectionManagement < ActiveRecord::Migration[8.1]
     )
 
     create_table :store_section_configurations do |t|
-      t.references :user, null: false, foreign_key: { on_delete: :cascade }
+      t.references :user, null: false, index: false, foreign_key: { on_delete: :cascade }
       t.references :store, null: false, foreign_key: { on_delete: :cascade }
       t.references :store_section_scheme, foreign_key: true
       t.boolean :sectioning_enabled, null: false, default: false
@@ -43,7 +43,7 @@ class CreateStoreSectionManagement < ActiveRecord::Migration[8.1]
     )
 
     create_table :item_section_assignments do |t|
-      t.references :store_section_configuration, null: false, foreign_key: { on_delete: :cascade }
+      t.references :store_section_configuration, null: false, index: false, foreign_key: { on_delete: :cascade }
       t.references :item_availability, null: false, foreign_key: { on_delete: :cascade }
       t.references :store_section, null: false, foreign_key: true
       t.timestamps
