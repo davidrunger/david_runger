@@ -57,5 +57,12 @@ describe('StoreSectionsModal', () => {
     await waitFor(() => {
       expect(screen.getByText('Use an existing layout')).toBeTruthy();
     });
+
+    expect(
+      screen.getByRole('radio', { name: 'Create a new layout' }),
+    ).toBeTruthy();
+    expect(
+      screen.getByRole('radio', { name: "This store doesn't need sections" }),
+    ).toBeTruthy();
   });
 });

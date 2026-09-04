@@ -20,35 +20,14 @@ Modal(
           )
           span {{ store.name }}
 
-        ElRadioGroup.mt-2(
-          v-model="setupModes[store.id]"
-          :aria-label="`Section setup for ${store.name}`"
+        StoreSectionConfigurationFields.mt-2(
+          v-model:mode="setupModes[store.id]"
+          v-model:newSchemeName="newSchemeNames[store.id]"
+          v-model:selectedSchemeId="selectedSchemeIds[store.id]"
+          :noneMessage="'Items from this store will stay ungrouped. You can change this later.'"
+          :schemes="groceriesStore.sortedStoreSectionSchemes"
+          :store="store"
         )
-          ElRadioButton(value="new") Create a new layout
-          ElRadioButton(
-            v-if="groceriesStore.storeSectionSchemes.length > 0"
-            value="existing"
-          ) Use an existing layout
-          ElRadioButton(value="none") This store doesn't need sections
-
-        label.mt-3.block(v-if="setupModes[store.id] === 'new'")
-          span.mb-1.block.text-sm.font-semibold Layout name
-          ElInput(v-model="newSchemeNames[store.id]")
-
-        label.mt-3.block(v-else-if="setupModes[store.id] === 'existing'")
-          span.mb-1.block.text-sm.font-semibold Layout
-          ElSelect.w-full(
-            v-model="selectedSchemeIds[store.id]"
-            placeholder="Choose a layout"
-          )
-            ElOption(
-              v-for="scheme in groceriesStore.sortedStoreSectionSchemes"
-              :key="scheme.id"
-              :label="scheme.name"
-              :value="scheme.id"
-            )
-
-        p.mt-3.text-sm.text-neutral-600(v-else) Items from this store will stay ungrouped. You can change this later.
 
       p.mb-3.text-sm.text-red-700(v-if="setupError") {{ setupError }}
 
@@ -137,15 +116,7 @@ Modal(
 </template>
 
 <script setup lang="ts">
-import {
-  ElButton,
-  ElInput,
-  ElOption,
-  ElRadioButton,
-  ElRadioGroup,
-  ElSelect,
-  ElTooltip,
-} from 'element-plus';
+import { ElButton, ElInput, ElOption, ElSelect, ElTooltip } from 'element-plus';
 import { computed, ref, watch } from 'vue';
 import { HeartFilledIcon } from 'vue-tabler-icons';
 
@@ -154,6 +125,8 @@ import { helpers, useGroceriesStore } from '@/groceries/store';
 import type { Item } from '@/groceries/types';
 import { useModalStore } from '@/lib/modal/store';
 import type { Store, StoreSectionScheme } from '@/types';
+
+import StoreSectionConfigurationFields from './StoreSectionConfigurationFields.vue';
 
 interface ClassificationTarget {
   item: Item;

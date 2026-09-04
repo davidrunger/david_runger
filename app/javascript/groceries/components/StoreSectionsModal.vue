@@ -15,38 +15,15 @@ Modal(
       h3.mb-2.font-bold Store sections
       p.mb-4.text-sm.text-neutral-600 Organize {{ store.name }} items by the part of the store where you buy them.
 
-      ElRadioGroup.sectioning-options(
-        v-model="configurationMode"
-        :aria-label="`Section setup for ${store.name}`"
+      StoreSectionConfigurationFields(
+        v-model:mode="configurationMode"
+        v-model:newSchemeName="newSchemeName"
+        v-model:selectedSchemeId="selectedSchemeId"
+        :noneMessage="noSectionsMessage"
+        :schemes="groceriesStore.sortedStoreSectionSchemes"
+        :store="store"
+        @submit="saveConfiguration"
       )
-        ElRadioButton(value="new") Create a new layout
-        ElRadioButton(
-          v-if="groceriesStore.storeSectionSchemes.length > 0"
-          value="existing"
-        ) Use an existing layout
-        ElRadioButton(value="none") This store doesn't need sections
-
-      label.mt-4.block(v-if="configurationMode === 'new'")
-        span.mb-1.block.text-sm.font-semibold Layout name
-        ElInput(
-          v-model="newSchemeName"
-          @keyup.enter="saveConfiguration"
-        )
-
-      label.mt-4.block(v-else-if="configurationMode === 'existing'")
-        span.mb-1.block.text-sm.font-semibold Layout
-        ElSelect.w-full(
-          v-model="selectedSchemeId"
-          placeholder="Choose a layout"
-        )
-          ElOption(
-            v-for="scheme in groceriesStore.sortedStoreSectionSchemes"
-            :key="scheme.id"
-            :label="scheme.name"
-            :value="scheme.id"
-          )
-
-      p.mt-4.text-sm.text-neutral-600(v-else) We won't ask you to organize items for this store. You can change this later.
 
       p.mt-3.text-sm.text-red-700(v-if="configurationError") {{ configurationError }}
 
@@ -111,14 +88,7 @@ Modal(
 </template>
 
 <script setup lang="ts">
-import {
-  ElButton,
-  ElInput,
-  ElOption,
-  ElRadioButton,
-  ElRadioGroup,
-  ElSelect,
-} from 'element-plus';
+import { ElButton, ElInput } from 'element-plus';
 import { computed, ref, watch } from 'vue';
 import { bool, object } from 'vue-types';
 
@@ -126,6 +96,8 @@ import Modal from '@/components/Modal.vue';
 import { helpers, useGroceriesStore } from '@/groceries/store';
 import { useModalStore } from '@/lib/modal/store';
 import type { Store, StoreSection } from '@/types';
+
+import StoreSectionConfigurationFields from './StoreSectionConfigurationFields.vue';
 
 const props = defineProps({
   showItemChooserAfterConfiguration: bool().def(false),
@@ -145,6 +117,8 @@ const configurationMode = ref<'existing' | 'new' | 'none'>('new');
 const loadingStoreSectionSchemes = ref(false);
 const newSchemeName = ref('');
 const newSectionName = ref('');
+const noSectionsMessage =
+  "We won't ask you to organize items for this store. You can change this later.";
 const savingConfiguration = ref(false);
 const savingSectionNames = ref(false);
 const sectionNames = ref<Record<number, string>>({});
@@ -355,23 +329,6 @@ function matchingSchemeFor(store: Store) {
 </script>
 
 <style lang="scss" scoped>
-.sectioning-options {
-  display: grid;
-  gap: 8px;
-}
-
-.sectioning-options :deep(.el-radio-button) {
-  width: 100%;
-}
-
-.sectioning-options :deep(.el-radio-button__inner) {
-  width: 100%;
-  border: 1px solid var(--groceries-stem);
-  border-radius: 8px;
-  box-shadow: none;
-  text-align: left;
-}
-
 .section-list {
   display: grid;
   gap: 8px;
