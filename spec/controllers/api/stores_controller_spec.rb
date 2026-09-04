@@ -51,6 +51,16 @@ RSpec.describe Api::StoresController do
         post_create
         expect(response).to have_http_status(201)
       end
+
+      it "returns the current user's new store" do
+        post_create
+
+        expect(response.parsed_body).to include(
+          'item_section_assignments' => [],
+          'own_store' => true,
+          'section_configuration' => nil,
+        )
+      end
     end
   end
 
@@ -100,6 +110,30 @@ RSpec.describe Api::StoresController do
       it 'returns a 200 status code' do
         patch_update
         expect(response).to have_http_status(200)
+      end
+
+      it "returns the current user's section data" do
+        patch_update
+
+        expect(response.parsed_body).to include(
+          'own_store' => true,
+          'section_configuration' => {
+            'sectioning_enabled' => true,
+            'store_section_scheme' => {
+              'id' => store_section_schemes(:grocery_layout).id,
+              'name' => 'Grocery layout',
+              'store_sections' => [
+                { 'id' => store_sections(:produce_section).id, 'name' => 'Produce' },
+              ],
+            },
+          },
+          'item_section_assignments' => [
+            {
+              'item_id' => items(:item).id,
+              'store_section_id' => store_sections(:produce_section).id,
+            },
+          ],
+        )
       end
     end
   end

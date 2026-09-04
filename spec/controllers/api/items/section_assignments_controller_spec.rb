@@ -42,7 +42,6 @@ RSpec.describe(Api::Items::SectionAssignmentsController) do
       before do
         store_section_configuration.update!(
           sectioning_enabled: false,
-          store_section_scheme: nil,
         )
       end
 

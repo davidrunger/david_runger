@@ -9,25 +9,13 @@ class Api::StoresController < Api::BaseController
     render_schema_json({
       own_stores:
         StoreSerializer.new(
-          current_user.stores.includes(
-            { items: :item_availabilities },
-            store_section_configurations: [
-              { store_section_scheme: :store_sections },
-              { item_section_assignments: :item_availability },
-            ],
-          ),
+          current_user.stores.with_grocery_data,
           params: { current_user: },
         ).as_json,
       spouse_stores:
         if spouse
           StoreSerializer.new(
-            spouse.stores.where.not(private: true).includes(
-              { items: :item_availabilities },
-              store_section_configurations: [
-                { store_section_scheme: :store_sections },
-                { item_section_assignments: :item_availability },
-              ],
-            ),
+            spouse.stores.where.not(private: true).with_grocery_data,
             params: { current_user: },
           ).as_json
         else
@@ -40,7 +28,7 @@ class Api::StoresController < Api::BaseController
     authorize(Store)
     @store = current_user.stores.build(store_params.merge(viewed_at: Time.current))
     if @store.save
-      render_schema_json(@store, status: :created)
+      render_schema_json(@store.serializer(current_user:), status: :created)
     else
       render json: { errors: @store.errors.full_messages }, status: :unprocessable_content
     end
@@ -49,7 +37,7 @@ class Api::StoresController < Api::BaseController
   def update
     authorize(@store)
     if @store.update(store_params)
-      render_schema_json(@store)
+      render_schema_json(@store.serializer(current_user:))
     else
       render json: { errors: @store.errors.to_hash }, status: :unprocessable_content
     end
@@ -64,8 +52,7 @@ class Api::StoresController < Api::BaseController
   private
 
   def set_store
-    @store =
-      current_user.stores.includes(items: :item_availabilities).find_by(id: params['id'])
+    @store = current_user.stores.with_grocery_data.find_by(id: params['id'])
     if @store.nil?
       head(:not_found)
     end

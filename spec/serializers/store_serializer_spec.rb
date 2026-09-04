@@ -20,15 +20,7 @@ RSpec.describe(StoreSerializer) do
     StoreSerializer.new(store, params: { current_user: })
   end
 
-  let(:store) do
-    Store.includes(
-      { items: :item_availabilities },
-      store_section_configurations: [
-        { store_section_scheme: :store_sections },
-        { item_section_assignments: :item_availability },
-      ],
-    ).find(stores(:store).id)
-  end
+  let(:store) { Store.with_grocery_data.find(stores(:store).id) }
 
   describe 'own_store attribute' do
     subject(:own_store) { store_serializer.as_json['own_store'] }
@@ -69,7 +61,7 @@ RSpec.describe(StoreSerializer) do
   describe 'section attributes' do
     let(:current_user) { store.user }
 
-    it 'serializes the current user\'s configuration and assignments' do
+    it "serializes the current user's configuration and assignments" do
       expect(store_serializer.as_json).to include(
         'section_configuration' => {
           'sectioning_enabled' => true,

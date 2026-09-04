@@ -114,12 +114,13 @@ RSpec::Matchers.define(:have_spinner) do
   end
 end
 
-RSpec::Matchers.define(:have_modal_heading) do |expected_text|
+RSpec::Matchers.define(:have_modal_heading) do |expected_text, wait: Capybara.default_max_wait_time|
   match do |actual_page|
     actual_page.has_css?(
       '.modal-container h3',
       text: expected_text,
       exact_text: true,
+      wait:,
     )
   end
 
@@ -128,6 +129,7 @@ RSpec::Matchers.define(:have_modal_heading) do |expected_text|
       '.modal-container h3',
       text: expected_text,
       exact_text: true,
+      wait:,
     )
   end
 

@@ -172,10 +172,12 @@ function showRenameItemModal(item: ItemType): void {
 }
 
 function showItemSectionModal(item: ItemType): void {
-  if (props.store.section_configuration?.sectioning_enabled === false) return;
+  const configuration = props.store.section_configuration;
+  const scheme = configuration?.store_section_scheme;
+  if (configuration?.sectioning_enabled === false) return;
 
   itemForSectionAssignment.value = item;
-  if (props.store.section_configuration?.sectioning_enabled) {
+  if (configuration?.sectioning_enabled && scheme) {
     modalStore.showModal({ modalName: 'choose-item-section' });
   } else {
     modalStore.showModal({ modalName: 'manage-store-sections' });

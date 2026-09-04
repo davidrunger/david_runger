@@ -24,7 +24,6 @@ class StoreSectionConfiguration < ApplicationRecord
 
   validates :store_id, uniqueness: { scope: :user_id }
   validates :store_section_scheme, presence: true, if: :sectioning_enabled?
-  validates :store_section_scheme, absence: true, unless: :sectioning_enabled?
   validate :store_is_available_to_user
   validate :scheme_belongs_to_user
 
@@ -39,7 +38,10 @@ class StoreSectionConfiguration < ApplicationRecord
   end
 
   def scheme_belongs_to_user
-    if store_section_scheme.present? && store_section_scheme.user_id != user_id
+    if (
+      store_section_scheme_id.present? &&
+        (!store_section_scheme || store_section_scheme.user_id != user_id)
+    )
       errors.add(:store_section_scheme, 'must belong to the user')
     end
   end
