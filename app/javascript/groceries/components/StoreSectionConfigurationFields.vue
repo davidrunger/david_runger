@@ -1,39 +1,40 @@
 <template lang="pug">
-ElRadioGroup.sectioning-options(
-  :modelValue="mode"
-  :aria-label="`Section setup for ${store.name}`"
-  @update:modelValue="updateMode"
-)
-  ElRadio(value="new") Create a new layout
-  ElRadio(
-    v-if="schemes.length > 0"
-    value="existing"
-  ) Use an existing layout
-  ElRadio(value="none") This store doesn't need sections
-
-label.configuration-field(v-if="mode === 'new'")
-  span.mb-1.block.text-sm.font-semibold Layout name
-  ElInput(
-    :modelValue="newSchemeName"
-    @update:modelValue="emit('update:newSchemeName', $event)"
-    @keyup.enter="emit('submit')"
+.store-section-configuration-fields
+  ElRadioGroup.sectioning-options(
+    :modelValue="mode"
+    :aria-label="`Section setup for ${store.name}`"
+    @update:modelValue="updateMode"
   )
+    ElRadio(value="new") Create a new layout
+    ElRadio(
+      v-if="schemes.length > 0"
+      value="existing"
+    ) Use an existing layout
+    ElRadio(value="none") This store doesn't need sections
 
-label.configuration-field(v-else-if="mode === 'existing'")
-  span.mb-1.block.text-sm.font-semibold Layout
-  ElSelect.w-full(
-    :modelValue="selectedSchemeId"
-    placeholder="Choose a layout"
-    @update:modelValue="emit('update:selectedSchemeId', $event)"
-  )
-    ElOption(
-      v-for="scheme in schemes"
-      :key="scheme.id"
-      :label="scheme.name"
-      :value="scheme.id"
+  label.configuration-field(v-if="mode === 'new'")
+    span.mb-1.block.text-sm.font-semibold Layout name
+    ElInput(
+      :modelValue="newSchemeName"
+      @update:modelValue="emit('update:newSchemeName', $event)"
+      @keyup.enter="emit('submit')"
     )
 
-p.configuration-field.text-sm.text-neutral-600(v-else) {{ noneMessage }}
+  label.configuration-field(v-else-if="mode === 'existing'")
+    span.mb-1.block.text-sm.font-semibold Layout
+    ElSelect.w-full(
+      :modelValue="selectedSchemeId"
+      placeholder="Choose a layout"
+      @update:modelValue="emit('update:selectedSchemeId', $event)"
+    )
+      ElOption(
+        v-for="scheme in schemes"
+        :key="scheme.id"
+        :label="scheme.name"
+        :value="scheme.id"
+      )
+
+  p.configuration-field.text-sm.text-neutral-600(v-else) {{ noneMessage }}
 </template>
 
 <script setup lang="ts">

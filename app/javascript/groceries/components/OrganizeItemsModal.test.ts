@@ -32,6 +32,7 @@ describe('OrganizeItemsModal', () => {
   it('shows a loading state until layouts determine the initial form', async () => {
     const groceriesStore = useGroceriesStore();
     const modalStore = useModalStore();
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     let resolveLayouts!: () => void;
     const layoutsLoaded = new Promise<void>((resolve) => {
       resolveLayouts = resolve;
@@ -45,19 +46,25 @@ describe('OrganizeItemsModal', () => {
       },
     );
 
-    render(OrganizeItemsModal as Component, {
-      props: { items: [], stores: [store] },
-    });
-    modalStore.showModal({ modalName: 'organize-grocery-items' });
-    await nextTick();
+    try {
+      render(OrganizeItemsModal as Component, {
+        props: { items: [], stores: [store] },
+      });
+      modalStore.showModal({ modalName: 'organize-grocery-items' });
+      await nextTick();
 
-    expect(screen.getByText('Loading store section layouts...')).toBeTruthy();
-    expect(screen.queryByText('Set up store sections')).toBeNull();
+      expect(screen.getByText('Loading store section layouts...')).toBeTruthy();
+      expect(screen.queryByText('Set up store sections')).toBeNull();
 
-    resolveLayouts();
+      resolveLayouts();
 
-    await waitFor(() => {
-      expect(screen.getByText('Set up store sections')).toBeTruthy();
-    });
+      await waitFor(() => {
+        expect(screen.getByText('Set up store sections')).toBeTruthy();
+      });
+
+      expect(consoleWarn).not.toHaveBeenCalled();
+    } finally {
+      consoleWarn.mockRestore();
+    }
   });
 });
