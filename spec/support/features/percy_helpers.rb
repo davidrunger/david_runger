@@ -22,11 +22,13 @@ module Features::PercyHelpers
       wait_for { percy_running? }.to be(true), 'Percy did not start before the snapshot'
     end
 
-    elapsed_time = Process.clock_gettime(Process::CLOCK_MONOTONIC) - started_at
-    RSpec.configuration.reporter.message(<<~LOG.squish)
-      Waited #{elapsed_time.round(3)} seconds for Percy before taking the
-      "#{snapshot_name}" snapshot.
-    LOG
+    if RSpec.current_example.metadata[:type] == :feature
+      elapsed_time = Process.clock_gettime(Process::CLOCK_MONOTONIC) - started_at
+      RSpec.configuration.reporter.message(<<~LOG.squish)
+        Waited #{elapsed_time.round(3)} seconds for Percy before taking the
+        "#{snapshot_name}" snapshot.
+      LOG
+    end
   end
 
   def percy_running?
