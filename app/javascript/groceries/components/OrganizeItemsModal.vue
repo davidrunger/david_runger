@@ -5,7 +5,13 @@ Modal(
   maxWidth="560px"
 )
   .organize-items-modal
-    template(v-if="showingSetup")
+    .flex.items-center.justify-center.gap-2.py-8(
+      v-if="loadingStoreSectionSchemes"
+    )
+      span.spinner--circle.size-5
+      span.text-sm.text-neutral-600 Loading store section layouts...
+
+    template(v-else-if="showingSetup")
       h3.mb-2.font-bold Set up store sections
       p.mb-4.text-sm.text-neutral-600 Choose how you want to organize items for each store before assigning sections.
 
@@ -165,6 +171,7 @@ const modalName = 'organize-grocery-items';
 const groceriesStore = useGroceriesStore();
 const modalStore = useModalStore();
 const addingSectionForTarget = ref<string>();
+const loadingStoreSectionSchemes = ref(false);
 const newSchemeNames = ref<Record<number, string>>({});
 const newSectionNames = ref<Record<string, string>>({});
 const savingAssignments = ref(false);
@@ -174,6 +181,7 @@ const selectedSectionIds = ref<Record<string, number | undefined>>({});
 const setupError = ref('');
 const setupModes = ref<Record<number, 'existing' | 'new' | 'none'>>({});
 const showingSetup = ref(false);
+let sectionSchemesRequestVersion = 0;
 
 const showingModal = computed(() => modalStore.showingModal({ modalName }));
 const storesNeedingSetup = computed(() => {
@@ -201,12 +209,24 @@ const multiStoreItems = computed(() => {
 watch(
   showingModal,
   async (showing) => {
-    if (!showing) return;
+    if (!showing) {
+      sectionSchemesRequestVersion += 1;
+      return;
+    }
 
-    await groceriesStore.pullStoreSectionSchemes();
-    reset();
+    const requestVersion = ++sectionSchemesRequestVersion;
+    loadingStoreSectionSchemes.value = true;
+
+    try {
+      await groceriesStore.pullStoreSectionSchemes();
+      if (requestVersion === sectionSchemesRequestVersion) reset();
+    } finally {
+      if (requestVersion === sectionSchemesRequestVersion) {
+        loadingStoreSectionSchemes.value = false;
+      }
+    }
   },
-  { immediate: true },
+  { flush: 'sync', immediate: true },
 );
 
 function close() {
