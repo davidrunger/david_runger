@@ -11,18 +11,7 @@ RSpec.describe 'Groceries app' do
       "Tip: You and your partner can automatically view each other's lists."
     end
 
-    context 'when the viewport is compact' do
-      around do |example|
-        window = page.current_window
-        original_window_size = window.size
-        window.resize_to(375, 800)
-        example.run
-      ensure
-        if original_window_size
-          page.current_window.resize_to(*original_window_size)
-        end
-      end
-
+    context 'when the viewport is compact', viewport_size: [375, 800] do
       it 'overlays the store with the stores drawer' do
         store = user.stores.reorder(:viewed_at).last!
         other_store = user.stores.where.not(id: store).first!
