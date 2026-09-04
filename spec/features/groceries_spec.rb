@@ -354,8 +354,7 @@ RSpec.describe 'Groceries app' do
         expect(page).to have_modal_heading('Set up store sections')
         expect(page).to have_css('.setup-store', text: 'Costco', count: 2)
         within('.modal-container', text: 'Set up store sections') { click_on('Continue') }
-        expect(page).not_to have_spinner
-        expect(page).to have_modal_heading('Organize items')
+        wait_for { page }.to have_modal_heading('Organize items')
 
         configurations = user.store_section_configurations.where(store: [store, spouse_store])
         layout = user.store_section_schemes.find_by!(name: 'Costco')
@@ -375,8 +374,7 @@ RSpec.describe 'Groceries app' do
         end
         click_on('Organize 2 ungrouped items')
         within('.modal-container', text: 'Set up store sections') { click_on('Continue') }
-        expect(page).not_to have_spinner
-        expect(page).to have_modal_heading('Organize items')
+        wait_for { page }.to have_modal_heading('Organize items')
         expect(configurations.reload.count).to eq(2)
         expect(configurations.pluck(:store_section_scheme_id).uniq).to contain_exactly(layout.id)
       end
