@@ -10,6 +10,29 @@ RSpec.describe 'Groceries app' do
     context 'when the user has a spouse' do
       before { expect(user.spouse).to be_present }
 
+      context 'when the viewport is slightly wider than compact', viewport_size: [900, 800] do
+        it 'displays store sections modals over the stores sidebar' do
+          store = user.stores.reorder(:viewed_at).last!
+
+          visit groceries_path
+
+          click_store_setting(store, 'Store sections')
+          wait_for_network_idle
+
+          modal_is_above_sidebar = page.evaluate_script(<<~JAVASCRIPT)
+            (() => {
+              const modal = document.querySelector('.modal-container');
+              const { left, top, height } = modal.getBoundingClientRect();
+              const element = document.elementFromPoint(left + 1, top + height / 2);
+
+              return element.closest('.modal-container') === modal;
+            })()
+          JAVASCRIPT
+
+          expect(modal_is_above_sidebar).to be(true)
+        end
+      end
+
       it 'lets the user manage sections and assign an item to one' do
         store = user.stores.reorder(:viewed_at).last!
         item = store.items.needed.first!

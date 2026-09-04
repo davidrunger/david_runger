@@ -406,6 +406,17 @@ RSpec.configure do |config|
     end
   end
 
+  config.around(:each, :viewport_size) do |example|
+    window = page.current_window
+    original_window_size = window.size
+    window.resize_to(*example.metadata[:viewport_size])
+    example.run
+  ensure
+    if original_window_size
+      page.current_window.resize_to(*original_window_size)
+    end
+  end
+
   config.before(:each, type: :controller) do
     # When executed, a Rails middleware will ensure that a `request_id` is set for each request.
     # However, middleware does not run for controller tests.

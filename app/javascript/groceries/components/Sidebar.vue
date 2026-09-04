@@ -370,6 +370,7 @@ button.sidebar-toggle {
 
 @media not all and (max-width: $small-screen-breakpoint) {
   .sidebar-shell {
+    z-index: auto;
     display: block;
     flex: 0 0 auto;
     width: clamp(180px, 35vw, 280px);
