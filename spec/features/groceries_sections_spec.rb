@@ -17,7 +17,6 @@ RSpec.describe 'Groceries app' do
           visit groceries_path
 
           click_store_setting(store, 'Store sections')
-          wait_for_network_idle
 
           modal_is_above_sidebar = page.evaluate_script(<<~JAVASCRIPT)
             (() => {
@@ -40,7 +39,6 @@ RSpec.describe 'Groceries app' do
         visit groceries_path
 
         click_store_setting(store, 'Store sections')
-        wait_for_network_idle
         sections_modal_heading = "Sections for #{store.name}"
         within('.modal-container') do
           expect(page).to have_modal_heading(sections_modal_heading)
@@ -67,7 +65,6 @@ RSpec.describe 'Groceries app' do
         ).to eq('Frozen foods')
 
         click_store_setting(store, 'Store sections')
-        wait_for_network_idle
         within('.modal-container') do
           click_on('Change layout')
           find('label', text: "This store doesn't need sections", exact_text: true).click
@@ -82,7 +79,6 @@ RSpec.describe 'Groceries app' do
         )
 
         click_store_setting(store, 'Store sections')
-        wait_for_network_idle
         within('.modal-container') do
           expect(page).to have_checked_field("This store doesn't need sections", visible: :all)
           find('label', text: 'Use an existing layout', exact_text: true).click
