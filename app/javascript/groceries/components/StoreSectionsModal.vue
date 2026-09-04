@@ -5,7 +5,13 @@ Modal(
   maxWidth="460px"
 )
   .store-sections-modal
-    template(v-if="showingConfiguration")
+    .flex.items-center.justify-center.gap-2.py-8(
+      v-if="loadingStoreSectionSchemes"
+    )
+      span.spinner--circle.size-5
+      span.text-sm.text-neutral-600 Loading store section layouts...
+
+    template(v-else-if="showingConfiguration")
       h3.mb-2.font-bold Store sections
       p.mb-4.text-sm.text-neutral-600 Organize {{ store.name }} items by the part of the store where you buy them.
 
@@ -136,6 +142,7 @@ const modalStore = useModalStore();
 const addingStoreSection = ref(false);
 const configurationError = ref('');
 const configurationMode = ref<'existing' | 'new' | 'none'>('new');
+const loadingStoreSectionSchemes = ref(false);
 const newSchemeName = ref('');
 const newSectionName = ref('');
 const savingConfiguration = ref(false);
@@ -143,6 +150,7 @@ const savingSectionNames = ref(false);
 const sectionNames = ref<Record<number, string>>({});
 const selectedSchemeId = ref<number>();
 const showingConfiguration = ref(true);
+let sectionSchemesRequestVersion = 0;
 
 const showingModal = computed(() => modalStore.showingModal({ modalName }));
 const storeSectionScheme = computed(
@@ -157,12 +165,26 @@ const sortedStoreSections = computed(() => {
 watch(
   showingModal,
   async (showing) => {
-    if (!showing) return;
+    if (!showing) {
+      sectionSchemesRequestVersion += 1;
+      return;
+    }
 
-    await groceriesStore.pullStoreSectionSchemes();
-    resetConfigurationForm();
+    const requestVersion = ++sectionSchemesRequestVersion;
+    loadingStoreSectionSchemes.value = true;
+
+    try {
+      await groceriesStore.pullStoreSectionSchemes();
+      if (requestVersion === sectionSchemesRequestVersion) {
+        resetConfigurationForm();
+      }
+    } finally {
+      if (requestVersion === sectionSchemesRequestVersion) {
+        loadingStoreSectionSchemes.value = false;
+      }
+    }
   },
-  { immediate: true },
+  { flush: 'sync', immediate: true },
 );
 
 function close() {
