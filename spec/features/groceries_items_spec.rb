@@ -25,18 +25,10 @@ RSpec.describe 'Groceries app' do
 
         updated_store_notes = 'Ask the manager about bulk discounts.'
         within('.modal-container') do
-          expect(page).to have_css(
-            'h3',
-            text: "Notes for #{store.name}",
-            exact_text: true,
-          )
+          expect(page).to have_modal_heading("Notes for #{store.name}")
           expect(page).to have_text(store.notes)
           click_on('Edit')
-          expect(page).to have_css(
-            'h3',
-            text: "Edit notes for #{store.name}",
-            exact_text: true,
-          )
+          expect(page).to have_modal_heading("Edit notes for #{store.name}")
           expect(page).to have_field('Store notes', with: store.notes)
           expect(page).to have_css('.notes-input:focus')
           fill_in('Store notes', with: updated_store_notes)
@@ -196,11 +188,7 @@ RSpec.describe 'Groceries app' do
             exact_text: true,
           ).click
           within('.modal-container') do
-            expect(page).to have_css(
-              'h3',
-              text: "Notes for #{spouse_store.name}",
-              exact_text: true,
-            )
+            expect(page).to have_modal_heading("Notes for #{spouse_store.name}")
             expect(page).to have_text(spouse_store.notes)
             expect(page).not_to have_button('Edit')
             expect(page).not_to have_button('Add notes')
