@@ -93,7 +93,7 @@ Rails.application.routes.draw do
       resources :store_sections, only: %i[create update destroy]
     end
     resources :stores, only: %i[index create update destroy] do
-      resource :section_configuration, only: %i[create update]
+      resource :section_configuration, only: %i[update]
       resources :items, only: %i[create] do
         resource :section_assignment, only: %i[update destroy], module: :items
       end

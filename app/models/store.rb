@@ -20,6 +20,20 @@ class Store < ApplicationRecord
   has_many :item_availabilities, dependent: :destroy, inverse_of: :store
   has_many :items, through: :item_availabilities
   has_many :store_section_configurations, dependent: :delete_all
+
+  scope(
+    :with_grocery_data,
+    -> do
+      includes(
+        { items: :item_availabilities },
+        store_section_configurations: [
+          { store_section_scheme: :store_sections },
+          { item_section_assignments: :item_availability },
+        ],
+      )
+    end,
+  )
+
   validates :name, presence: true
   validates :name, uniqueness: { scope: :user_id }
   validates :viewed_at, presence: true

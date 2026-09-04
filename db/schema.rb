@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_03_124141) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -527,7 +527,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_124141) do
     t.index ["store_id"], name: "index_store_section_configurations_on_store_id"
     t.index ["store_section_scheme_id"], name: "index_store_section_configurations_on_store_section_scheme_id"
     t.index ["user_id", "store_id"], name: "index_store_section_configurations_on_user_id_and_store_id", unique: true
-    t.check_constraint "sectioning_enabled = (store_section_scheme_id IS NOT NULL)", name: "store_section_configurations_scheme_matches_enabled_state"
+    t.check_constraint "NOT sectioning_enabled OR store_section_scheme_id IS NOT NULL", name: "store_section_configurations_scheme_matches_enabled_state"
   end
 
   create_table "store_section_schemes", force: :cascade do |t|

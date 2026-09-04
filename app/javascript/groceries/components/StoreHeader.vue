@@ -23,11 +23,11 @@ h1.store-title.my-1.flex.flex-wrap.items-center
         ElDropdownItem(command="sections")
           | Store sections
         ElDropdownItem(
-          v-if="store.section_configuration?.sectioning_enabled !== false"
+          v-if="canOrganizeItems"
           command="organize-all"
         ) Organize all items
         ElDropdownItem(
-          v-if="store.section_configuration?.sectioning_enabled !== false"
+          v-if="canOrganizeItems"
           command="organize-needed"
         ) Organize needed items
         ElDropdownItem(
@@ -43,6 +43,7 @@ h1.store-title.my-1.flex.flex-wrap.items-center
 <script setup lang="ts">
 import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 import { LockIcon, SettingsIcon } from 'vue-tabler-icons';
 import { object } from 'vue-types';
 
@@ -65,6 +66,9 @@ const emit = defineEmits<{
 const groceriesStore = useGroceriesStore();
 
 const { debouncingOrWaitingOnNetwork } = storeToRefs(groceriesStore);
+const canOrganizeItems = computed(() => {
+  return props.store.section_configuration?.sectioning_enabled !== false;
+});
 
 function handleStoreAction(
   action:

@@ -59,6 +59,18 @@ interface Nameable {
   name: string;
 }
 
+interface ItemSectionAssignmentUpdate {
+  item: Item;
+  store: Store;
+  storeSection: StoreSection;
+}
+
+interface StoreSectionUpdate {
+  name: string;
+  storeSection: StoreSection;
+  storeSectionScheme: StoreSectionScheme;
+}
+
 function canonicalItem(itemData: Item, itemsById: Map<number, Item>): Item {
   const existingItem = itemsById.get(itemData.id);
   if (existingItem) {
@@ -302,7 +314,7 @@ export const useGroceriesStore = defineStore('groceries', {
       name,
     }: {
       name: string;
-    }): Promise<boolean> {
+    }): Promise<StoreSectionScheme | undefined> {
       const response = await this.withPendingRequest(() =>
         http.post<ObjectWithErrors | null>(api_store_section_schemes_path(), {
           store_section_scheme: { name },
@@ -310,11 +322,13 @@ export const useGroceriesStore = defineStore('groceries', {
       );
       if (isObjectWithErrors(response)) {
         toastErrors(response.errors);
-        return false;
+        return;
       }
 
       await this.pullStoreSectionSchemes();
-      return true;
+      return this.storeSectionSchemes.find(
+        (scheme) => scheme.name.toLowerCase() === name.toLowerCase(),
+      );
     },
 
     async createStoreSection({
@@ -357,31 +371,36 @@ export const useGroceriesStore = defineStore('groceries', {
       await Promise.all([this.pullStoreData(), this.pullStoreSectionSchemes()]);
     },
 
-    async updateStoreSection({
-      storeSectionScheme,
-      storeSection,
-      name,
+    async updateStoreSections({
+      updates,
     }: {
-      storeSectionScheme: StoreSectionScheme;
-      storeSection: StoreSection;
-      name: string;
+      updates: Array<StoreSectionUpdate>;
     }): Promise<boolean> {
-      const response = await this.withPendingRequest(() =>
-        http.patch<ObjectWithErrors | null>(
-          api_store_section_scheme_store_section_path(
-            storeSectionScheme.id,
-            storeSection.id,
+      if (updates.length === 0) return true;
+
+      const responses = await this.withPendingRequest(() =>
+        Promise.all(
+          updates.map(({ name, storeSection, storeSectionScheme }) =>
+            http.patch<ObjectWithErrors | null>(
+              api_store_section_scheme_store_section_path(
+                storeSectionScheme.id,
+                storeSection.id,
+              ),
+              { store_section: { name } },
+            ),
           ),
-          { store_section: { name } },
         ),
       );
-      if (isObjectWithErrors(response)) {
-        toastErrors(response.errors);
-        return false;
+
+      const errors = responses.flatMap((response) => {
+        return isObjectWithErrors(response) ? response.errors : [];
+      });
+      if (errors.length > 0) {
+        toastErrors(errors);
       }
 
       await Promise.all([this.pullStoreData(), this.pullStoreSectionSchemes()]);
-      return true;
+      return errors.length === 0;
     },
 
     async updateStoreSectionConfiguration({
@@ -413,28 +432,39 @@ export const useGroceriesStore = defineStore('groceries', {
       return true;
     },
 
-    async updateItemSectionAssignment({
-      item,
-      store,
-      storeSection,
+    async updateItemSectionAssignments({
+      updates,
     }: {
-      item: Item;
-      store: Store;
-      storeSection: StoreSection;
+      updates: Array<ItemSectionAssignmentUpdate>;
     }): Promise<boolean> {
-      const response = await this.withPendingRequest(() =>
-        http.patch<ObjectWithErrors | null>(
-          api_store_item_section_assignment_path(store.id, item.id),
-          { section_assignment: { store_section_id: storeSection.id } },
+      if (updates.length === 0) return true;
+
+      const responses = await this.withPendingRequest(() =>
+        Promise.all(
+          updates.map(({ item, store, storeSection }) =>
+            http.patch<ObjectWithErrors | null>(
+              api_store_item_section_assignment_path(store.id, item.id),
+              { section_assignment: { store_section_id: storeSection.id } },
+            ),
+          ),
         ),
       );
-      if (isObjectWithErrors(response)) {
-        toastErrors(response.errors);
-        return false;
+
+      const errors = responses.flatMap((response) => {
+        return isObjectWithErrors(response) ? response.errors : [];
+      });
+      if (errors.length > 0) {
+        toastErrors(errors);
       }
 
       await this.pullStoreData();
-      return true;
+      return errors.length === 0;
+    },
+
+    updateItemSectionAssignment(
+      update: ItemSectionAssignmentUpdate,
+    ): Promise<boolean> {
+      return this.updateItemSectionAssignments({ updates: [update] });
     },
 
     async deleteItemSectionAssignment({

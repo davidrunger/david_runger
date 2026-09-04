@@ -9,7 +9,10 @@ Modal(
       h3.mb-2.font-bold Store sections
       p.mb-4.text-sm.text-neutral-600 Organize {{ store.name }} items by the part of the store where you buy them.
 
-      ElRadioGroup.sectioning-options(v-model="configurationMode")
+      ElRadioGroup.sectioning-options(
+        v-model="configurationMode"
+        :aria-label="`Section setup for ${store.name}`"
+      )
         ElRadioButton(value="new") Create a new layout
         ElRadioButton(
           v-if="groceriesStore.storeSectionSchemes.length > 0"
@@ -80,10 +83,12 @@ Modal(
       p.mt-4.text-sm.text-neutral-600(v-else) Add the first section for this layout below.
 
       form.mt-5.flex.gap-2(@submit.prevent="addStoreSection")
-        ElInput(
-          v-model="newSectionName"
-          placeholder="Add a section"
-        )
+        label.flex-1
+          span.sr-only Add a section
+          ElInput(
+            v-model="newSectionName"
+            placeholder="Add a section"
+          )
         ElButton(
           native-type="submit"
           type="primary"
@@ -167,11 +172,16 @@ function close() {
 function resetConfigurationForm() {
   const configuration = props.store.section_configuration;
   const scheme = configuration?.store_section_scheme;
+  const matchingScheme = matchingSchemeFor(props.store);
 
   showingConfiguration.value = !configuration?.sectioning_enabled;
-  configurationMode.value = scheme ? 'existing' : 'new';
+  configurationMode.value =
+    configuration?.sectioning_enabled ? 'existing'
+    : configuration ? 'none'
+    : matchingScheme ? 'existing'
+    : 'new';
   newSchemeName.value = scheme?.name || props.store.name;
-  selectedSchemeId.value = scheme?.id;
+  selectedSchemeId.value = scheme?.id || matchingScheme?.id;
   configurationError.value = '';
   resetSectionNames(scheme);
 }
@@ -185,7 +195,8 @@ async function saveConfiguration() {
       const saved = await groceriesStore.updateStoreSectionConfiguration({
         store: props.store,
         sectioningEnabled: false,
-        storeSectionSchemeId: null,
+        storeSectionSchemeId:
+          props.store.section_configuration?.store_section_scheme?.id || null,
       });
       if (saved) close();
       return;
@@ -199,12 +210,12 @@ async function saveConfiguration() {
         return;
       }
 
-      const created = await groceriesStore.createStoreSectionScheme({ name });
-      if (!created) return;
+      const createdScheme = await groceriesStore.createStoreSectionScheme({
+        name,
+      });
+      if (!createdScheme) return;
 
-      schemeId = groceriesStore.storeSectionSchemes.find(
-        (scheme) => scheme.name === name,
-      )?.id;
+      schemeId = createdScheme.id;
     }
 
     if (!schemeId) {
@@ -275,43 +286,26 @@ async function deleteStoreSection(storeSection: StoreSection) {
   resetSectionNames();
 }
 
-async function renameStoreSection({
-  storeSection,
-  name,
-}: {
-  storeSection: StoreSection;
-  name: string;
-}) {
-  if (!storeSectionScheme.value) return;
-
-  const normalizedNewName = normalizedName(name);
-  if (!normalizedNewName || normalizedNewName === storeSection.name) {
-    sectionNames.value[storeSection.id] = storeSection.name;
-    return;
-  }
-
-  const updated = await groceriesStore.updateStoreSection({
-    storeSectionScheme: storeSectionScheme.value,
-    storeSection,
-    name: normalizedNewName,
-  });
-  if (!updated) sectionNames.value[storeSection.id] = storeSection.name;
-}
-
 async function saveSectionNamesAndClose() {
-  if (!storeSectionScheme.value) return;
+  const scheme = storeSectionScheme.value;
+  if (!scheme) return;
 
   savingSectionNames.value = true;
   try {
-    await Promise.all(
-      storeSectionScheme.value.store_sections.map((storeSection) =>
-        renameStoreSection({
-          storeSection,
-          name: sectionNames.value[storeSection.id] ?? storeSection.name,
-        }),
-      ),
-    );
-    close();
+    const updates = scheme.store_sections.flatMap((storeSection) => {
+      const name = normalizedName(
+        sectionNames.value[storeSection.id] ?? storeSection.name,
+      );
+      if (!name || name === storeSection.name) {
+        sectionNames.value[storeSection.id] = storeSection.name;
+        return [];
+      }
+
+      return [{ name, storeSection, storeSectionScheme: scheme }];
+    });
+    const updated = await groceriesStore.updateStoreSections({ updates });
+    resetSectionNames();
+    if (updated) close();
   } finally {
     savingSectionNames.value = false;
   }
@@ -328,6 +322,13 @@ function resetSectionNames(scheme = storeSectionScheme.value) {
 
 function normalizedName(name: string): string {
   return name.trim().replace(/\s+/g, ' ');
+}
+
+function matchingSchemeFor(store: Store) {
+  const storeName = store.name.toLowerCase();
+  return groceriesStore.storeSectionSchemes.find(
+    (scheme) => scheme.name.toLowerCase() === storeName,
+  );
 }
 </script>
 

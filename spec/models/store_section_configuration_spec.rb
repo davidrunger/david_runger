@@ -17,7 +17,7 @@ RSpec.describe(StoreSectionConfiguration) do
       expect(configuration).to be_valid
     end
 
-    it 'rejects another user\'s store' do
+    it "rejects another user's store" do
       configuration.store = create(:store)
 
       expect(configuration).not_to be_valid
@@ -25,7 +25,7 @@ RSpec.describe(StoreSectionConfiguration) do
     end
   end
 
-  describe 'sectioning state' do
+  describe 'store section scheme' do
     it 'requires a scheme when sectioning is enabled' do
       configuration.store_section_scheme = nil
 
@@ -33,15 +33,28 @@ RSpec.describe(StoreSectionConfiguration) do
       expect(configuration.errors[:store_section_scheme]).to include("can't be blank")
     end
 
-    it 'rejects a scheme when sectioning is disabled' do
+    it 'allows a disabled configuration to retain its scheme' do
       configuration.sectioning_enabled = false
 
-      expect(configuration).not_to be_valid
-      expect(configuration.errors[:store_section_scheme]).to include('must be blank')
+      expect(configuration).to be_valid
     end
 
-    it 'rejects another user\'s scheme' do
+    it 'allows a disabled configuration without a scheme' do
+      configuration.sectioning_enabled = false
+      configuration.store_section_scheme = nil
+
+      expect(configuration).to be_valid
+    end
+
+    it "rejects another user's scheme" do
       configuration.store_section_scheme = create(:store_section_scheme)
+
+      expect(configuration).not_to be_valid
+      expect(configuration.errors[:store_section_scheme]).to include('must belong to the user')
+    end
+
+    it 'rejects a missing scheme' do
+      configuration.store_section_scheme_id = StoreSectionScheme.maximum(:id) + 1
 
       expect(configuration).not_to be_valid
       expect(configuration.errors[:store_section_scheme]).to include('must belong to the user')

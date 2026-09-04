@@ -9,17 +9,19 @@ Modal(
     p.mb-4.text-sm.text-neutral-600 {{ item.name }} at {{ store.name }}
 
     template(v-if="storeSectionScheme?.store_sections.length")
-      ElSelect.w-full(
-        v-model="selectedStoreSectionId"
-        clearable
-        placeholder="Choose a section"
-      )
-        ElOption(
-          v-for="storeSection in storeSectionScheme.store_sections"
-          :key="storeSection.id"
-          :label="storeSection.name"
-          :value="storeSection.id"
+      label.block
+        span.sr-only Section
+        ElSelect.w-full(
+          v-model="selectedStoreSectionId"
+          clearable
+          placeholder="Choose a section"
         )
+          ElOption(
+            v-for="storeSection in storeSectionScheme.store_sections"
+            :key="storeSection.id"
+            :label="storeSection.name"
+            :value="storeSection.id"
+          )
 
       .mt-5.flex.justify-around
         ElButton(

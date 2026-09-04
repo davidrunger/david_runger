@@ -20,7 +20,10 @@ Modal(
           )
           span {{ store.name }}
 
-        ElRadioGroup.mt-2(v-model="setupModes[store.id]")
+        ElRadioGroup.mt-2(
+          v-model="setupModes[store.id]"
+          :aria-label="`Section setup for ${store.name}`"
+        )
           ElRadioButton(value="new") Create a new layout
           ElRadioButton(
             v-if="groceriesStore.storeSectionSchemes.length > 0"
@@ -218,11 +221,19 @@ function reset() {
     storesNeedingSetup.value.map((store) => [store.id, store.name]),
   );
   newSectionNames.value = {};
-  selectedSchemeIds.value = {};
+  selectedSchemeIds.value = Object.fromEntries(
+    storesNeedingSetup.value.flatMap((store) => {
+      const matchingScheme = matchingSchemeFor(store);
+      return matchingScheme ? [[store.id, matchingScheme.id]] : [];
+    }),
+  );
   selectedSectionIds.value = {};
   setupError.value = '';
   setupModes.value = Object.fromEntries(
-    storesNeedingSetup.value.map((store) => [store.id, 'new']),
+    storesNeedingSetup.value.map((store) => [
+      store.id,
+      matchingSchemeFor(store) ? 'existing' : 'new',
+    ]),
   );
   showingSetup.value = storesNeedingSetup.value.length > 0;
 }
@@ -262,23 +273,16 @@ function normalizedName(name: string): string {
 async function saveAssignments() {
   savingAssignments.value = true;
   try {
-    for (const target of classificationTargets.value) {
+    const updates = classificationTargets.value.flatMap((target) => {
       const sectionId = selectedSectionIds.value[target.key];
       const storeSection = target.scheme.store_sections.find(
         (section) => section.id === sectionId,
       );
-      if (!storeSection) continue;
+      if (!storeSection) return [];
 
-      if (
-        !(await groceriesStore.updateItemSectionAssignment({
-          item: target.item,
-          store: target.store,
-          storeSection,
-        }))
-      )
-        return;
-    }
-    close();
+      return [{ item: target.item, store: target.store, storeSection }];
+    });
+    if (await groceriesStore.updateItemSectionAssignments({ updates })) close();
   } finally {
     savingAssignments.value = false;
   }
@@ -289,8 +293,27 @@ async function saveSetup() {
   savingSetup.value = true;
 
   try {
-    for (const store of storesNeedingSetup.value) {
-      const mode = configurationModeFor(store);
+    const setupSelections = storesNeedingSetup.value.map((store) => ({
+      mode: configurationModeFor(store),
+      name: normalizedName(newSchemeNames.value[store.id] || ''),
+      schemeId: selectedSchemeIds.value[store.id],
+      store,
+    }));
+
+    for (const { mode, name, schemeId, store } of setupSelections) {
+      if (mode === 'new' && !name) {
+        setupError.value = `Enter a layout name for ${store.name}.`;
+        return;
+      }
+      if (mode === 'existing' && !schemeId) {
+        setupError.value = `Choose a layout for ${store.name}.`;
+        return;
+      }
+    }
+
+    const createdSchemeIdsByName = new Map<string, number>();
+    for (const selection of setupSelections) {
+      const { mode, name, store } = selection;
       if (mode === 'none') {
         if (
           !(await groceriesStore.updateStoreSectionConfiguration({
@@ -303,24 +326,22 @@ async function saveSetup() {
         continue;
       }
 
-      let schemeId = selectedSchemeIds.value[store.id];
+      let schemeId = selection.schemeId;
       if (mode === 'new') {
-        const name = normalizedName(newSchemeNames.value[store.id] || '');
-        if (!name) {
-          setupError.value = `Enter a layout name for ${store.name}.`;
-          return;
+        const normalizedKey = name.toLowerCase();
+        schemeId = createdSchemeIdsByName.get(normalizedKey);
+        if (!schemeId) {
+          const createdScheme = await groceriesStore.createStoreSectionScheme({
+            name,
+          });
+          if (!createdScheme) return;
+
+          schemeId = createdScheme.id;
+          createdSchemeIdsByName.set(normalizedKey, schemeId);
         }
-
-        if (!(await groceriesStore.createStoreSectionScheme({ name }))) return;
-        schemeId = groceriesStore.storeSectionSchemes.find(
-          (scheme) => scheme.name === name,
-        )?.id;
       }
 
-      if (!schemeId) {
-        setupError.value = `Choose a layout for ${store.name}.`;
-        return;
-      }
+      if (!schemeId) return;
 
       if (
         !(await groceriesStore.updateStoreSectionConfiguration({
@@ -333,6 +354,12 @@ async function saveSetup() {
     }
 
     showingSetup.value = false;
+    if (
+      classificationTargets.value.length === 0 &&
+      multiStoreItems.value.length === 0
+    ) {
+      close();
+    }
   } finally {
     savingSetup.value = false;
   }
@@ -351,6 +378,13 @@ function unassignedTargetsForItem(item: Item): Array<ClassificationTarget> {
 
     return [{ item, key: `${store.id}-${item.id}`, scheme, store }];
   });
+}
+
+function matchingSchemeFor(store: Store) {
+  const storeName = store.name.toLowerCase();
+  return groceriesStore.storeSectionSchemes.find(
+    (scheme) => scheme.name.toLowerCase() === storeName,
+  );
 }
 </script>
 
