@@ -2,7 +2,7 @@
 ElRadioGroup.sectioning-options(
   :modelValue="mode"
   :aria-label="`Section setup for ${store.name}`"
-  @update:modelValue="emit('update:mode', $event)"
+  @update:modelValue="updateMode"
 )
   ElRadio(value="new") Create a new layout
   ElRadio(
@@ -64,6 +64,12 @@ const emit = defineEmits<{
   'update:newSchemeName': [newSchemeName: string];
   'update:selectedSchemeId': [selectedSchemeId: number | undefined];
 }>();
+
+function updateMode(mode: string | number | boolean | undefined): void {
+  if (mode === 'existing' || mode === 'new' || mode === 'none') {
+    emit('update:mode', mode);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
