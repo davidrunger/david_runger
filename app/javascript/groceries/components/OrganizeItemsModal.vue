@@ -122,6 +122,10 @@ import { HeartFilledIcon } from 'vue-tabler-icons';
 
 import Modal from '@/components/Modal.vue';
 import { helpers, useGroceriesStore } from '@/groceries/store';
+import {
+  matchingSchemeFor,
+  normalizedName,
+} from '@/groceries/storeSectionHelpers';
 import type { Item } from '@/groceries/types';
 import { useModalStore } from '@/lib/modal/store';
 import type { Store, StoreSectionScheme } from '@/types';
@@ -196,7 +200,10 @@ function reset() {
   newSectionNames.value = {};
   selectedSchemeIds.value = Object.fromEntries(
     storesNeedingSetup.value.flatMap((store) => {
-      const matchingScheme = matchingSchemeFor(store);
+      const matchingScheme = matchingSchemeFor(
+        store,
+        groceriesStore.storeSectionSchemes,
+      );
       return matchingScheme ? [[store.id, matchingScheme.id]] : [];
     }),
   );
@@ -205,7 +212,8 @@ function reset() {
   setupModes.value = Object.fromEntries(
     storesNeedingSetup.value.map((store) => [
       store.id,
-      matchingSchemeFor(store) ? 'existing' : 'new',
+      matchingSchemeFor(store, groceriesStore.storeSectionSchemes) ? 'existing'
+      : 'new',
     ]),
   );
   showingSetup.value = storesNeedingSetup.value.length > 0;
@@ -237,10 +245,6 @@ async function addSection(target: ClassificationTarget) {
 
 function configurationModeFor(store: Store) {
   return setupModes.value[store.id] || 'new';
-}
-
-function normalizedName(name: string): string {
-  return name.trim().replace(/\s+/g, ' ');
 }
 
 async function saveAssignments() {
@@ -351,13 +355,6 @@ function unassignedTargetsForItem(item: Item): Array<ClassificationTarget> {
 
     return [{ item, key: `${store.id}-${item.id}`, scheme, store }];
   });
-}
-
-function matchingSchemeFor(store: Store) {
-  const storeName = store.name.toLowerCase();
-  return groceriesStore.storeSectionSchemes.find(
-    (scheme) => scheme.name.toLowerCase() === storeName,
-  );
 }
 </script>
 
