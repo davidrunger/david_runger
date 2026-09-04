@@ -6,6 +6,34 @@ require Rails.root.join('lib/test/tasks/divide_feature_specs')
 RSpec.describe(Test::Tasks::DivideFeatureSpecs) do
   subject(:task) { described_class.new }
 
+  describe '#run' do
+    let(:feature_spec_groups) do
+      [
+        %w[a_spec.rb b_spec.rb],
+        %w[c_spec.rb],
+        [],
+      ]
+    end
+
+    before do
+      allow(task).to receive(:run_ruby_code).and_yield
+      allow(task).to receive(:feature_spec_groups).and_return(feature_spec_groups)
+      allow(FileUtils).to receive(:mkdir_p)
+      allow(File).to receive(:write)
+      allow($stdout).to receive(:puts)
+    end
+
+    it 'prints the feature specs in each group' do
+      task.run
+
+      expect($stdout).to have_received(:puts).once.with(<<~OUTPUT.chomp)
+        Feature spec group a: a_spec.rb b_spec.rb
+        Feature spec group b: c_spec.rb
+        Feature spec group c:
+      OUTPUT
+    end
+  end
+
   describe '#feature_spec_groups' do
     let(:feature_spec_files) { %w[a_spec.rb b_spec.rb c_spec.rb d_spec.rb e_spec.rb] }
     let(:line_counts) do
