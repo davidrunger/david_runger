@@ -145,7 +145,9 @@ RSpec.describe 'Groceries app' do
         click_on('Check in items')
         click_on('Organize 1 ungrouped item')
         within('.modal-container', text: 'Organize items') { find('.el-select').click }
-        expect(all('[role="option"]').map(&:text)).to eq(['Aisle 1', 'Frozen', 'Produce'])
+        expect(all('[role="option"]', count: 3).map(&:text)).to eq(
+          ['Aisle 1', 'Frozen', 'Produce'],
+        )
       end
 
       it 'stops offering organization for a store without useful sections' do
