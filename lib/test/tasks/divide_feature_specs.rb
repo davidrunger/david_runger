@@ -30,7 +30,7 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
           each_with_index.map do |feature_specs, index|
             letter = ('a'..'c').to_a.fetch(index)
             File.write("tmp/feature_specs_#{letter}.txt", feature_specs.join(' '))
-            ["Feature spec group #{letter}:", *feature_specs].join(' ')
+            ["FeatureTests#{letter.upcase}:", *feature_specs].join(' ')
           end
 
       puts(grouping_output.join("\n"))

@@ -27,9 +27,9 @@ RSpec.describe(Test::Tasks::DivideFeatureSpecs) do
       task.run
 
       expect($stdout).to have_received(:puts).once.with(<<~OUTPUT.chomp)
-        Feature spec group a: a_spec.rb b_spec.rb
-        Feature spec group b: c_spec.rb
-        Feature spec group c:
+        FeatureTestsA: a_spec.rb b_spec.rb
+        FeatureTestsB: c_spec.rb
+        FeatureTestsC:
       OUTPUT
     end
   end
