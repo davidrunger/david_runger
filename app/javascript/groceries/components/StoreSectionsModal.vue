@@ -94,6 +94,10 @@ import { bool, object } from 'vue-types';
 
 import Modal from '@/components/Modal.vue';
 import { helpers, useGroceriesStore } from '@/groceries/store';
+import {
+  matchingSchemeFor,
+  normalizedName,
+} from '@/groceries/storeSectionHelpers';
 import { useModalStore } from '@/lib/modal/store';
 import type { Store, StoreSection } from '@/types';
 
@@ -168,7 +172,10 @@ function close() {
 function resetConfigurationForm() {
   const configuration = props.store.section_configuration;
   const scheme = configuration?.store_section_scheme;
-  const matchingScheme = matchingSchemeFor(props.store);
+  const matchingScheme = matchingSchemeFor(
+    props.store,
+    groceriesStore.storeSectionSchemes,
+  );
 
   showingConfiguration.value = !configuration?.sectioning_enabled;
   configurationMode.value =
@@ -313,17 +320,6 @@ function resetSectionNames(scheme = storeSectionScheme.value) {
       storeSection.id,
       storeSection.name,
     ]) || [],
-  );
-}
-
-function normalizedName(name: string): string {
-  return name.trim().replace(/\s+/g, ' ');
-}
-
-function matchingSchemeFor(store: Store) {
-  const storeName = store.name.toLowerCase();
-  return groceriesStore.storeSectionSchemes.find(
-    (scheme) => scheme.name.toLowerCase() === storeName,
   );
 }
 </script>
