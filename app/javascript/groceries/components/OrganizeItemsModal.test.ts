@@ -3,6 +3,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import { nextTick, type Component } from 'vue';
 
 import { useGroceriesStore } from '@/groceries/store';
+import type { Item } from '@/groceries/types';
 import { useModalStore } from '@/lib/modal/store';
 import type { Store } from '@/types';
 
@@ -22,6 +23,13 @@ const store: Store = {
   private: false,
   section_configuration: null,
   viewed_at: null,
+};
+
+const item: Item = {
+  id: 1,
+  name: 'Bananas',
+  needed: 1,
+  store_ids: [store.id],
 };
 
 describe('OrganizeItemsModal', () => {
@@ -66,5 +74,42 @@ describe('OrganizeItemsModal', () => {
     } finally {
       consoleWarn.mockRestore();
     }
+  });
+
+  it('highlights items without a selected section', async () => {
+    const groceriesStore = useGroceriesStore();
+    const modalStore = useModalStore();
+    const configuredStore = {
+      ...store,
+      section_configuration: {
+        sectioning_enabled: true,
+        store_section_scheme: {
+          id: 1,
+          name: 'Costco layout',
+          store_sections: [{ id: 1, name: 'Produce' }],
+        },
+      },
+    };
+    vi.spyOn(groceriesStore, 'pullStoreSectionSchemes').mockImplementation(
+      () => {
+        groceriesStore.storeSectionSchemes = [];
+        return Promise.resolve();
+      },
+    );
+
+    render(OrganizeItemsModal as Component, {
+      props: { items: [item], stores: [configuredStore] },
+    });
+    modalStore.showModal({ modalName: 'organize-grocery-items' });
+
+    let organizeItem: Element | null = null;
+    await waitFor(() => {
+      organizeItem = screen.getByText(item.name).closest('.organize-item');
+      expect(organizeItem).toBeTruthy();
+    });
+
+    expect(
+      organizeItem?.classList.contains('organize-item--unclassified'),
+    ).toBe(true);
   });
 });
