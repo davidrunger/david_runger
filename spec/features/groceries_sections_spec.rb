@@ -133,6 +133,21 @@ RSpec.describe 'Groceries app' do
         expect(page).not_to have_modal_heading('Organize items')
       end
 
+      it 'alphabetizes section choices while organizing an item during check-in' do
+        store = user.stores.reorder(:viewed_at).last!
+        scheme = store.section_configuration.store_section_scheme
+        create(:store_section, store_section_scheme: scheme, name: 'Frozen')
+        create(:store_section, store_section_scheme: scheme, name: 'Aisle 1')
+        item_section_assignments(:item_section_assignment).destroy!
+
+        visit groceries_path
+
+        click_on('Check in items')
+        click_on('Organize 1 ungrouped item')
+        within('.modal-container', text: 'Organize items') { find('.el-select').click }
+        expect(all('[role="option"]').map(&:text)).to eq(['Aisle 1', 'Frozen', 'Produce'])
+      end
+
       it 'stops offering organization for a store without useful sections' do
         store = user.stores.reorder(:viewed_at).last!
         store_section_configurations(:store_section_configuration).destroy!

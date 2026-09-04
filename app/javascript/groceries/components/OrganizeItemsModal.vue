@@ -93,7 +93,7 @@ Modal(
               placeholder="Choose a section"
             )
               ElOption(
-                v-for="storeSection in target.scheme.store_sections"
+                v-for="storeSection in helpers.sortByName(target.scheme.store_sections)"
                 :key="storeSection.id"
                 :label="storeSection.name"
                 :value="storeSection.id"
