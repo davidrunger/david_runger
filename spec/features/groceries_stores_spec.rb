@@ -126,11 +126,7 @@ RSpec.describe 'Groceries app' do
 
           canceled_store_name = 'Canceled store name'
           within('.modal-container') do
-            expect(page).to have_css(
-              'h3',
-              text: "Rename '#{existing_store.name}'",
-              exact_text: true,
-            )
+            expect(page).to have_modal_heading("Rename '#{existing_store.name}'")
             expect(page).to have_field(
               'New store name',
               with: existing_store.name,
@@ -171,11 +167,7 @@ RSpec.describe 'Groceries app' do
           click_store_setting(existing_store, 'Privacy')
 
           within('.modal-container') do
-            expect(page).to have_css(
-              'h3',
-              text: "Privacy for #{existing_store.name}",
-              exact_text: true,
-            )
+            expect(page).to have_modal_heading("Privacy for #{existing_store.name}")
             expect(page).to have_checked_field('Public')
             expect(page).not_to have_checked_field('Private')
             expect(page).to have_text('Your spouse can view this store.')
