@@ -135,7 +135,7 @@ RSpec.describe 'Groceries app' do
 
       it 'alphabetizes section choices while organizing an item during check-in' do
         store = user.stores.reorder(:viewed_at).last!
-        scheme = store.store_section_configurations.sole.store_section_scheme
+        scheme = store.store_section_configurations.find_by!(user:).store_section_scheme
         create(:store_section, store_section_scheme: scheme, name: 'Frozen')
         create(:store_section, store_section_scheme: scheme, name: 'Aisle 1')
         item_section_assignments(:item_section_assignment).destroy!
