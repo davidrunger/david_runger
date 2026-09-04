@@ -29,6 +29,23 @@ Modal(
           :store="store"
         )
 
+      template(v-if="storesAlreadySetUp.length > 0")
+        h4.mb-2.font-semibold Already set up
+        .configured-store.mb-5(
+          v-for="store in storesAlreadySetUp"
+          :key="store.id"
+        )
+          h5.flex.items-center.gap-1.font-semibold
+            HeartFilledIcon.text-red-500(
+              v-if="!store.own_store"
+              size="16"
+            )
+            span {{ store.name }}
+          p.mt-2.text-sm.text-neutral-600(
+            v-if="store.section_configuration?.sectioning_enabled"
+          ) Using the {{ store.section_configuration?.store_section_scheme?.name }} layout.
+          p.mt-2.text-sm.text-neutral-600(v-else) Items from this store will stay ungrouped.
+
       p.mb-3.text-sm.text-red-700(v-if="setupError") {{ setupError }}
 
       .mt-5.flex.justify-around
@@ -161,6 +178,9 @@ const showingSetup = ref(false);
 const showingModal = computed(() => modalStore.showingModal({ modalName }));
 const storesNeedingSetup = computed(() => {
   return props.stores.filter((store) => !store.section_configuration);
+});
+const storesAlreadySetUp = computed(() => {
+  return props.stores.filter((store) => store.section_configuration);
 });
 const uniqueItems = computed(() => {
   const itemsById = new Map(props.items.map((item) => [item.id, item]));
@@ -360,6 +380,7 @@ function unassignedTargetsForItem(item: Item): Array<ClassificationTarget> {
 
 <style lang="scss" scoped>
 .setup-store,
+.configured-store,
 .organize-item,
 .multi-store-items {
   padding: 12px;

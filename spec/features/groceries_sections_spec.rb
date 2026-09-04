@@ -158,6 +158,49 @@ RSpec.describe 'Groceries app' do
         end
       end
 
+      context 'when a selected store already has a section choice' do
+        let(:store) { user.stores.reorder(:viewed_at).last! }
+        let(:spouse_store) { user.spouse.stores.find_by!(private: false) }
+        let(:sectioning_enabled) { true }
+
+        before do
+          store_section_configurations(:store_section_configuration).update!(
+            sectioning_enabled:,
+          )
+          visit groceries_path
+
+          click_on('Check in items')
+          click_on('Choose stores')
+          within(all('.modal-container').last) do
+            check("checkin-stores-#{spouse_store.id}")
+            click_on('Done')
+          end
+          click_on('Organize 1 ungrouped item')
+        end
+
+        it 'shows its layout while setting up other stores' do
+          within('.modal-container', text: 'Set up store sections') do
+            expect(page).to have_css('.setup-store', text: spouse_store.name)
+            expect(page).to have_css('.configured-store', text: store.name)
+            expect(page).to have_text('Using the Grocery layout layout.')
+          end
+        end
+
+        context 'when it does not use sections' do
+          let(:sectioning_enabled) { false }
+
+          it 'shows that its items will stay ungrouped' do
+            within('.modal-container', text: 'Set up store sections') do
+              expect(page).to have_css('.setup-store', text: spouse_store.name)
+              expect(page).to have_css('.configured-store', text: store.name)
+              expect(
+                page,
+              ).to have_text('Items from this store will stay ungrouped.')
+            end
+          end
+        end
+      end
+
       it 'creates and reuses one layout for identically named stores during setup' do
         store = user.stores.reorder(:viewed_at).last!
         spouse_store = user.spouse.stores.find_by!(private: false)
