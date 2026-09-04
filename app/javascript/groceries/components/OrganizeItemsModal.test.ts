@@ -102,14 +102,15 @@ describe('OrganizeItemsModal', () => {
     });
     modalStore.showModal({ modalName: 'organize-grocery-items' });
 
-    let organizeItem: Element | null = null;
-    await waitFor(() => {
-      organizeItem = screen.getByText(item.name).closest('.organize-item');
-      expect(organizeItem).toBeTruthy();
+    const organizeItem = await waitFor(() => {
+      const element = screen.getByText(item.name).closest('.organize-item');
+      if (!element) throw new Error('Expected an organize item card.');
+
+      return element;
     });
 
-    expect(
-      organizeItem?.classList.contains('organize-item--unclassified'),
-    ).toBe(true);
+    expect(organizeItem.classList.contains('organize-item--unclassified')).toBe(
+      true,
+    );
   });
 });
