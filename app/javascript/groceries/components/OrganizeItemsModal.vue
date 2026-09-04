@@ -74,6 +74,7 @@ Modal(
         .organize-item.py-3(
           v-for="target in classificationTargets"
           :key="target.key"
+          :class="{ 'organize-item--unclassified': !selectedSectionIds[target.key] }"
         )
           .mb-2.flex.items-center.gap-1.font-semibold
             span {{ target.item.name }}
@@ -407,6 +408,11 @@ function unassignedTargetsForItem(item: Item): Array<ClassificationTarget> {
   background: rgb(223, 231, 215, 42%);
   border: 1px solid rgb(198, 203, 185, 65%);
   border-radius: 12px;
+}
+
+.organize-item--unclassified {
+  background: rgb(255, 228, 230, 70%);
+  border-color: rgb(253, 164, 175, 75%);
 }
 
 .organize-item + .organize-item {
