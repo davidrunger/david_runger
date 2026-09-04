@@ -25,11 +25,15 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
     ) do
       FileUtils.mkdir_p('tmp')
 
-      feature_spec_groups(Dir.glob('spec/features/**/*_spec.rb')).
-        each_with_index do |feature_specs, index|
-          letter = ('a'..'c').to_a.fetch(index)
-          File.write("tmp/feature_specs_#{letter}.txt", feature_specs.join(' '))
-        end
+      grouping_output =
+        feature_spec_groups(Dir.glob('spec/features/**/*_spec.rb')).
+          each_with_index.map do |feature_specs, index|
+            letter = ('a'..'c').to_a.fetch(index)
+            File.write("tmp/feature_specs_#{letter}.txt", feature_specs.join(' '))
+            ["FeatureTests#{letter.upcase}:", *feature_specs].join(' ')
+          end
+
+      puts(grouping_output.join("\n"))
     end
   end
 
