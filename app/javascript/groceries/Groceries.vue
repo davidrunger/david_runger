@@ -1,7 +1,7 @@
 <template lang="pug">
 #groceries-app.flex.h-full.text-base
   Sidebar
-  main.z-5.min-h-0.flex-1
+  main.min-h-0.flex-1
     Store(
       v-if="currentStore"
       :store="currentStore"

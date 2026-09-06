@@ -200,7 +200,6 @@ onBeforeUnmount(() => {
   --sidebar-drawer-transition-duration: 0.85s;
 
   position: relative;
-  z-index: 20;
   flex: 0 0 var(--sidebar-rail-width);
   width: var(--sidebar-rail-width);
   min-width: var(--sidebar-rail-width);
