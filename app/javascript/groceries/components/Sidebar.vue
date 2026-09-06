@@ -335,7 +335,6 @@ button.sidebar-toggle {
 
   &:hover,
   &:focus-visible {
-    color: #f2d9df;
     background: #50634f;
     box-shadow: 0 8px 20px rgb(43, 56, 44, 35%);
   }
