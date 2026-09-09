@@ -806,7 +806,7 @@ DEPENDENCIES
   cloudflare-rails
   connection_pool
   csv
-  cuprite (>= 0.17)
+  cuprite (>= 0.18)
   database_consistency
   date
   devise

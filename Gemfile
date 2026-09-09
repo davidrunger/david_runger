@@ -108,7 +108,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'capybara-shadowdom'
   gem 'climate_control'
-  gem 'cuprite', '>= 0.17'
+  gem 'cuprite', '>= 0.18'
   gem 'database_consistency', require: false
   gem 'factory_bot_rails'
   gem 'faker'
