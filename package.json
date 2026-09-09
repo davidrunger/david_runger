@@ -84,7 +84,7 @@
     "vite": "^8.2.2",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-ruby": "^5.2.3",
-    "vitest": "^4.1.11",
+    "vitest": "^5.0.0",
     "vue-tsc": "^3.3.11"
   }
 }
