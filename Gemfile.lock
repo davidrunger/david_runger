@@ -184,8 +184,6 @@ GEM
     capybara-screenshot (1.0.27)
       capybara (>= 1.0, < 4)
       launchy
-    capybara-shadowdom (0.3.0)
-      capybara
     chartkick (5.2.1)
     childprocess (5.1.0)
       logger (~> 1.5)
@@ -800,7 +798,6 @@ DEPENDENCIES
   capybara
   capybara-email
   capybara-screenshot
-  capybara-shadowdom
   chartkick
   climate_control
   cloudflare-rails
@@ -947,7 +944,6 @@ CHECKSUMS
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
   capybara-email (3.0.2) sha256=ab65dd9b15c096b1ebe24308d18d790eb08814f916883ebccbc1cf46f760696f
   capybara-screenshot (1.0.27) sha256=afa1896cc23df77be1774e8d3b3ce3953bf060aeaa04ff87607b5daf689174f2
-  capybara-shadowdom (0.3.0) sha256=956b57c90c91c48fd45797d806cbbb40b353ad247e8fb68c125c9d579529bfa5
   chartkick (5.2.1) sha256=2848d7de87189f30f28d077eb0bbdebc8a1f0f6f81de1ded95008fe564369949
   childprocess (5.1.0) sha256=9a8d484be2fd4096a0e90a0cd3e449a05bc3aa33f8ac9e4d6dcef6ac1455b6ec
   climate_control (1.2.0) sha256=36b21896193fa8c8536fa1cd843a07cf8ddbd03aaba43665e26c53ec1bd70aa5
