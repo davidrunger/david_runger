@@ -248,7 +248,7 @@ onBeforeUnmount(() => clearTimeout(clearHighlightTimeout));
 }
 
 .check-in-button {
-  box-shadow: 0 5px 14px rgb(117, 64, 82, 18%);
+  box-shadow: 0 5px 5px rgb(117, 64, 82, 18%);
 }
 
 .item-form-container {
