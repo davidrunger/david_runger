@@ -2,7 +2,7 @@ module AssetsHelper
   def admin_ts_tag(entrypoint_name)
     # rubocop:disable Layout/LineLength
     # NOTE: To have an auto-reloading dev experience (though no HMR), launch Vite with:
-    #   VITE_RUBY_ENTRYPOINTS_DIR=admin_entrypoints VITE_RUBY_PUBLIC_OUTPUT_DIR=vite-admin ./node_modules/.bin/vite dev --force
+    #   VITE_RUBY_ENTRYPOINTS_DIR=admin_entrypoints VITE_RUBY_PUBLIC_OUTPUT_DIR=vite-admin ./node_modules/.bin/vite --clearScreen false
     # and launch a Rails server with:
     #   VITE_RUBY_ENTRYPOINTS_DIR=admin_entrypoints VITE_RUBY_PUBLIC_OUTPUT_DIR=vite-admin bin/rails server
     # rubocop:enable Layout/LineLength
