@@ -42,7 +42,7 @@ ActiveAdmin.register_page('My Sessions') do
           'Log out',
           admin_my_sessions_revoke_path(id: authenticated_session),
           method: :patch,
-          class: 'index-button text-red-400',
+          class: 'index-button text-red-400 hover:text-red-500',
         )
       end
     end
