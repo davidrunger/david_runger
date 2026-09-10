@@ -31,9 +31,9 @@ ActiveAdmin.register_page('My Sessions') do
       end
       column('First seen', &:first_seen)
       column('Last active', &:last_active)
-      column('Initial IP', &:initial_ip)
       column :location
       column :isp
+      column('Initial IP', &:initial_ip)
       column('Latest IP', &:latest_ip)
       column('Initial client', &:initial_client)
       column('Latest client', &:latest_client)
@@ -42,6 +42,7 @@ ActiveAdmin.register_page('My Sessions') do
           'Log out',
           admin_my_sessions_revoke_path(id: authenticated_session),
           method: :patch,
+          class: 'index-button text-red-400',
         )
       end
     end
