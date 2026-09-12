@@ -829,7 +829,7 @@ DEPENDENCIES
   io-console
   ipaddr
   js-routes
-  json
+  json (< 3)
   json_schemer
   launchy
   letter_opener
