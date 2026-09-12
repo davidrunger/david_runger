@@ -30,7 +30,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'hashid-rails'
 gem 'ipaddr'
-gem 'json', '< 3'
+gem 'json', '< 4'
 gem 'js-routes', require: false
 gem 'lograge'
 gem 'loofah-activerecord'
