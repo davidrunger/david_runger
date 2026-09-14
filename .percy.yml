@@ -3,6 +3,6 @@ discovery:
   launchOptions:
     timeout: 60000
     args:
-      - "--no-sandbox"
-      - "--disable-dev-shm-usage"
-      - "--disable-dbus"
+      - '--no-sandbox'
+      - '--disable-dev-shm-usage'
+      - '--disable-dbus'
