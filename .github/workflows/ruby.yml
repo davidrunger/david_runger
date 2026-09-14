@@ -66,10 +66,12 @@ jobs:
           - name: Set GIT_REV environment variable
             uses: ./.github/actions/git_rev
 
-          - name: Set PERCY_BROWSER_EXECUTABLE env var to system Chrome browser
+          - name: Set PERCY_BROWSER_EXECUTABLE to system Chrome
             run: |
-              CHROME_PATH=$(which google-chrome)
+              CHROME_PATH=$(command -v google-chrome || command -v google-chrome-stable)
               echo "PERCY_BROWSER_EXECUTABLE=$CHROME_PATH" >> $GITHUB_ENV
+              echo "Using Chrome at $CHROME_PATH"
+              $CHROME_PATH --version
 
           - name: Make fontconfig cache writable
             run: mkdir -p ~/.cache/fontconfig
