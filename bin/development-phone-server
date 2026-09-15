@@ -27,6 +27,77 @@ if [[ -z "$phone_server_ip" ]]; then
   exit 1
 fi
 
+# Check that `ufw` has rules that let devices on the local /24 reach Rails + Vite.
+check_firewall() {
+  local required_ports=(3000 3036)
+  local missing=()
+  local ufw_bin
+  local subnet
+
+  # Derive a /24 from the phone_server_ip (e.g. 192.168.1.42 → 192.168.1.0/24)
+  if [[ "$phone_server_ip" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)\.[0-9]+$ ]]; then
+    subnet="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}.0/24"
+  else
+    echo "Warning: could not derive subnet from '$phone_server_ip' - skipping firewall check." >&2
+    return 0
+  fi
+
+  # ufw is usually in /usr/sbin, which is often missing from a normal user's PATH
+  if command -v ufw >/dev/null 2>&1; then
+    ufw_bin=$(command -v ufw)
+  elif [[ -x /usr/sbin/ufw ]]; then
+    ufw_bin=/usr/sbin/ufw
+  else
+    echo "ufw is not installed - skipping firewall check." >&2
+    return 0
+  fi
+
+  # Non-interactive sudo; if a password is required we just warn and continue.
+  if ! sudo -n true 2>/dev/null; then
+    echo "Warning: cannot run 'ufw status' without a password - skipping firewall check." >&2
+    echo "         (run the script from a terminal where sudo works, or configure the rules yourself)" >&2
+    return 0
+  fi
+
+  local status
+  status=$(sudo "$ufw_bin" status verbose 2>/dev/null) || {
+    echo "Could not obtain ufw status." >&2
+    return 1
+  }
+
+  if ! grep -q '^Status: active' <<<"$status"; then
+    echo "ufw is not active." >&2
+    echo "Enable it with:" >&2
+    echo "  sudo ufw enable" >&2
+    return 1
+  fi
+
+  for port in "${required_ports[@]}"; do
+    if ! grep -qE "^${port}/tcp[[:space:]]+ALLOW IN[[:space:]]+${subnet}" <<<"$status"; then
+      missing+=("$port")
+    fi
+  done
+
+  if (( ${#missing[@]} > 0 )); then
+    echo "Firewall is missing the following required rules for phone development:" >&2
+    for port in "${missing[@]}"; do
+      echo "  ${port}/tcp  ALLOW IN  ${subnet}" >&2
+    done
+    echo >&2
+    echo "Add them with:" >&2
+    for port in "${missing[@]}"; do
+      echo "  sudo ufw allow from ${subnet} to any port ${port} proto tcp" >&2
+    done
+    echo >&2
+    echo "Then re-run this script." >&2
+    return 1
+  fi
+}
+
+if ! check_firewall; then
+  exit 1
+fi
+
 if ! command -v hivemind >/dev/null; then
   echo 'hivemind is required to run the phone development server.' >&2
   exit 1
