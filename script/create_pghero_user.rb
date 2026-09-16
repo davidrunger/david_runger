@@ -11,7 +11,7 @@ database_name = uri.path.delete_prefix('/')
 main_db_user = 'david_runger'
 
 ApplicationRecord.connection.execute(<<~SQL)
-  CREATE SCHEMA pghero;
+  CREATE SCHEMA IF NOT EXISTS pghero;
 
   -- view queries
   CREATE OR REPLACE FUNCTION pghero.pg_stat_activity() RETURNS SETOF pg_stat_activity AS
@@ -19,7 +19,7 @@ ApplicationRecord.connection.execute(<<~SQL)
     SELECT * FROM pg_catalog.pg_stat_activity;
   $$ LANGUAGE sql VOLATILE SECURITY DEFINER;
 
-  CREATE VIEW pghero.pg_stat_activity AS SELECT * FROM pghero.pg_stat_activity();
+  CREATE OR REPLACE VIEW pghero.pg_stat_activity AS SELECT * FROM pghero.pg_stat_activity();
 
   -- kill queries
   CREATE OR REPLACE FUNCTION pghero.pg_terminate_backend(pid int) RETURNS boolean AS
@@ -33,7 +33,7 @@ ApplicationRecord.connection.execute(<<~SQL)
     SELECT * FROM public.pg_stat_statements;
   $$ LANGUAGE sql VOLATILE SECURITY DEFINER;
 
-  CREATE VIEW pghero.pg_stat_statements AS SELECT * FROM pghero.pg_stat_statements();
+  CREATE OR REPLACE VIEW pghero.pg_stat_statements AS SELECT * FROM pghero.pg_stat_statements();
 
   -- query stats reset
   CREATE OR REPLACE FUNCTION pghero.pg_stat_statements_reset() RETURNS void AS
@@ -54,7 +54,7 @@ ApplicationRecord.connection.execute(<<~SQL)
     SELECT schemaname, tablename, attname, null_frac, avg_width, n_distinct FROM pg_catalog.pg_stats;
   $$ LANGUAGE sql VOLATILE SECURITY DEFINER;
 
-  CREATE VIEW pghero.pg_stats AS SELECT * FROM pghero.pg_stats();
+  CREATE OR REPLACE VIEW pghero.pg_stats AS SELECT * FROM pghero.pg_stats();
 
   -- create user
   CREATE ROLE pghero WITH LOGIN ENCRYPTED PASSWORD '#{pghero_password}';
