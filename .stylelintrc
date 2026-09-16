@@ -19,6 +19,7 @@
       }
     ],
     "at-rule-no-unknown": null,
+    "at-rule-prelude-no-invalid": null,
     "color-function-notation": null,
     "declaration-property-value-no-unknown": null,
     "keyframes-name-pattern": null,
