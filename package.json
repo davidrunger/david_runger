@@ -2,9 +2,17 @@
   "name": "david_runger",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=22.14.0 <23",
-    "pnpm": ">=11.0.4 <12"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.14.0 <23",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=12.4.2 <13",
+      "onFail": "error"
+    }
   },
   "browserslist": [
     ">10%"
