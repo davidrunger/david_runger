@@ -12,7 +12,11 @@ class Test::Tasks::CheckVersions < Pallets::Task
       node --version && [ "$(node --version)" = 'v#{node_version}' ]
     COMMAND
 
-    pnpm_version_specification = JSON.parse(File.read('package.json')).dig('engines', 'pnpm')
+    pnpm_version_specification = JSON.parse(File.read('package.json')).dig(
+      'devEngines',
+      'packageManager',
+      'version',
+    )
     puts("Specified pnpm version/range: #{pnpm_version_specification}")
     # Log only; don't check that it is within the range (since that would be a bit complex).
     execute_system_command(<<~COMMAND)
