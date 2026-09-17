@@ -10,5 +10,3 @@ allowBuilds:
   protobufjs: false
 overrides:
   typescript: ^6
-minimumReleaseAgeExclude:
-  - adm-zip@0.6.1
