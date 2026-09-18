@@ -242,11 +242,11 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2
       marked:
-        specifier: ^18.0.12
-        version: 18.0.12
+        specifier: ^18.0.13
+        version: 18.0.13
       marked-highlight:
         specifier: ^2.2.4
-        version: 2.2.4(marked@18.0.12)
+        version: 2.2.4(marked@18.0.13)
       pinia:
         specifier: ^4.0.3
         version: 4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.42(typescript@6.0.3))
@@ -3157,8 +3157,8 @@ packages:
     peerDependencies:
       marked: '>=4 <19'
 
-  marked@18.0.12:
-    resolution: {integrity: sha512-LEm4ga2YeI2T3GVHj9b0BaDPPk93LLTHMFeMyQbNIzPxc8vCI0y/scy0ZA6z6lXKyT9j9Nhl/OC6ZYKYGuFScA==}
+  marked@18.0.13:
+    resolution: {integrity: sha512-xTxVzZsBFwunP6HDmtBkabUQEYArnP7/rMDGmPj9SlrKlQ4i8MdYVow+nJL0eOqwpUqhzBoTBRADGN6uYwPyOw==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -7462,11 +7462,11 @@ snapshots:
 
   map-obj@4.3.0: {}
 
-  marked-highlight@2.2.4(marked@18.0.12):
+  marked-highlight@2.2.4(marked@18.0.13):
     dependencies:
-      marked: 18.0.12
+      marked: 18.0.13
 
-  marked@18.0.12: {}
+  marked@18.0.13: {}
 
   math-intrinsics@1.1.0: {}
 
