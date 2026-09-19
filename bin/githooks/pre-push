@@ -5,4 +5,5 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 lint secrets
 
 background bin/lint/autocorrecting-linters
+background-and-notify lint ascii
 background-and-notify lint shellcheck
