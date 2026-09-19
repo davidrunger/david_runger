@@ -10,7 +10,9 @@ li.check-in-item.break-word.mb-2.flex.items-center.transition-all.duration-150.e
     :id="`trip-checkin-item-${item.id}`"
   )
   label.ml-2(:for="`trip-checkin-item-${item.id}`")
-    span(:class="{ 'text-gray-500': item.checkInStatus === 'skipped' }")
+    span.wrap-anywhere(
+      :class="{ 'text-gray-500': item.checkInStatus === 'skipped' }"
+    )
       span {{ item.name }}
       span(v-if="item.needed > 1") {{ ' ' }} ({{ item.needed }})
     span {{ ' ' }}
