@@ -1,5 +1,5 @@
 <template lang="pug">
-li.check-in-item.break-word.mb-2.flex.items-center.transition-all.duration-150.ease-out(
+li.check-in-item.break-word.mb-1.flex.items-center.transition-all.duration-150.ease-out(
   :class="aboutToMoveToClass()"
 )
   input(
@@ -98,7 +98,6 @@ function toggleItemInCart() {
 <style lang="scss" scoped>
 .check-in-item {
   min-height: 32px;
-  padding: 4px 6px;
   border-radius: 8px;
 }
 </style>
