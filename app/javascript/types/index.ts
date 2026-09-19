@@ -9,7 +9,7 @@ type Prettify<T> = { [K in keyof T]: T[K] } & {};
 type IsOptional<T, K extends keyof T> = {} extends Pick<T, K> ? true : false;
 
 // Split the common keys into optional and required groups.
-// A key is considered optional if it’s optional in both T and U.
+// A key is considered optional if it's optional in both T and U.
 type OptionalKeys<T, U> = {
   [K in Extract<keyof T, keyof U>]: IsOptional<T, K> extends true ?
     IsOptional<U, K> extends true ?
@@ -23,7 +23,7 @@ type RequiredKeys<T, U> = Exclude<
   OptionalKeys<T, U>
 >;
 
-// For primitive (non‑object) types, we “intersect” by using a conditional that
+// For primitive (non-object) types, we "intersect" by using a conditional that
 // works when the types are identical.
 type IntersectionPrimitive<T, U> = T extends U ? T : never;
 
@@ -48,7 +48,7 @@ type IntersectionObject<T, U> = {
   : Intersection<T[K], U[K]>;
 } & {
   // For keys that are optional on both sides, remove undefined so that the
-  // “present” type stays as declared.
+  // "present" type stays as declared.
   [K in OptionalKeys<T, U>]?: Intersection<
     Exclude<T[K], undefined>,
     Exclude<U[K], undefined>
@@ -77,8 +77,8 @@ type BaseIntersection<T, U> =
 type HasNull<T> = [T] extends [Exclude<T, null>] ? false : true;
 
 // Finally, the exported Intersection type.
-// If either T or U include null in their union, we “peel off” null (using Exclude<…, null>)
-// for the recursive work and then re‑add null to the result.
+// If either T or U include null in their union, we "peel off" null (using Exclude<..., null>)
+// for the recursive work and then re-add null to the result.
 export type Intersection<T, U> =
   HasNull<T> extends true ?
     HasNeverDeep<BaseIntersection<Exclude<T, null>, Exclude<U, null>>> extends (
