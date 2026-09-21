@@ -3,6 +3,14 @@ require 'ripper'
 class Test::Tasks::DivideFeatureSpecs < Pallets::Task
   include Test::TaskHelpers
 
+  EXAMPLE_DECLARATION_NAMES = %w[
+    example
+    it
+    specify
+  ].freeze
+  # Use a modest source-line equivalent for the per-example hooks that run
+  # regardless of the example's body.
+  EXAMPLE_COST_IN_MEANINGFUL_LINES = 10
   IGNORED_RUBY_TOKEN_TYPES = %i[
     on___end__
     on_comment
@@ -20,7 +28,7 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
   def run
     run_ruby_code(
       task_description: <<~DESCRIPTION.squish,
-        Dividing feature specs by meaningful line count into #{NUM_FEATURE_SPEC_GROUPS} groups
+        Dividing feature specs by source size and example count into #{NUM_FEATURE_SPEC_GROUPS} groups
       DESCRIPTION
     ) do
       FileUtils.mkdir_p('tmp')
@@ -42,10 +50,10 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
   def feature_spec_groups(feature_spec_files)
     remaining_feature_specs =
       feature_spec_files.
-        map { |file| [file, meaningful_line_count(file)] }.
-        sort_by { |file, line_count| [-line_count, file] }
+        map { |file| [file, feature_spec_cost(file)] }.
+        sort_by { |file, cost| [-cost, file] }
     feature_spec_groups = Array.new(NUM_FEATURE_SPEC_GROUPS) { [] }
-    group_line_counts = Array.new(NUM_FEATURE_SPEC_GROUPS, 0)
+    group_costs = Array.new(NUM_FEATURE_SPEC_GROUPS, 0)
 
     until remaining_feature_specs.empty?
       selected_index =
@@ -54,15 +62,39 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
         else
           1
         end
-      selected_file, selected_line_count = remaining_feature_specs.delete_at(selected_index)
+      selected_file, selected_cost = remaining_feature_specs.delete_at(selected_index)
       lightest_group_index =
-        group_line_counts.each_index.min_by { |index| group_line_counts.fetch(index) }
+        group_costs.each_index.min_by { |index| group_costs.fetch(index) }
 
       feature_spec_groups.fetch(lightest_group_index) << selected_file
-      group_line_counts[lightest_group_index] += selected_line_count
+      group_costs[lightest_group_index] += selected_cost
     end
 
     feature_spec_groups
+  end
+
+  def feature_spec_cost(file)
+    meaningful_line_count(file) + (example_count(file) * EXAMPLE_COST_IN_MEANINGFUL_LINES)
+  end
+
+  def example_count(file)
+    source_lines = File.readlines(file)
+    example_line_numbers = {}
+
+    Ripper.lex(source_lines.join).each do |(position, token_type, token, _state)|
+      line_number, column = position
+      line = source_lines.fetch(line_number - 1)
+
+      if (
+        token_type == :on_ident &&
+        EXAMPLE_DECLARATION_NAMES.include?(token) &&
+        line[0, column].match?(/\A\s*\z/)
+      )
+        example_line_numbers[line_number] = true
+      end
+    end
+
+    example_line_numbers.length
   end
 
   def meaningful_line_count(file)
