@@ -48,6 +48,7 @@ RSpec.describe(Test::Tasks::DivideFeatureSpecs) do
 
     before do
       allow(task).to receive(:meaningful_line_count) { |file| line_counts.fetch(file) }
+      allow(task).to receive(:example_count).and_return(0)
       allow(task).to receive(:rand).and_return(0.69, 0.7, 0.69, 0.7)
     end
 
@@ -71,6 +72,39 @@ RSpec.describe(Test::Tasks::DivideFeatureSpecs) do
           [['a_spec.rb'], [], []],
         )
         expect(task).not_to have_received(:rand)
+      end
+    end
+  end
+
+  describe '#feature_spec_cost' do
+    it 'adds an example cost to the meaningful line count' do
+      allow(task).to receive_messages(meaningful_line_count: 100, example_count: 3)
+
+      expect(task.send(:feature_spec_cost, 'a_spec.rb')).to eq(130)
+    end
+  end
+
+  describe '#example_count' do
+    it 'counts running example declarations but not comments, strings, or non-running examples' do
+      Tempfile.create(['feature', '.rb']) do |file|
+        file.write(<<~RUBY)
+          RSpec.describe 'a feature' do
+            it 'runs an example' do
+            end
+            specify 'runs another example' do
+            end
+            # it 'is only a comment' do
+            # end
+            value = 'it is only a string'
+            fit 'is focused' do
+            end
+            xit 'is skipped' do
+            end
+          end
+        RUBY
+        file.flush
+
+        expect(task.send(:example_count, file.path)).to eq(2)
       end
     end
   end
