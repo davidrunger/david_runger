@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+die() {
+  echo "bin/install-skedjewel: $*" >&2
+  exit 1
+}
+
+usage() {
+  cat >&2 <<'EOF'
+Usage: bin/install-skedjewel [VERSION]
+
+Download and verify a Skedjewel release, then install it as bin/skedjewel.
+When VERSION is omitted, use the version specified in Dockerfile.
+EOF
+  exit 2
+}
+
+validate_version() {
+  local version="$1"
+
+  if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    die "VERSION must have the form x.x.x, but '$version' was provided."
+  fi
+}
+
+sha256() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$1" | awk '{print $1}'
+  elif command -v shasum >/dev/null 2>&1; then
+    shasum -a 256 "$1" | awk '{print $1}'
+  else
+    die "sha256sum or shasum is required"
+  fi
+}
+
+[[ $# -le 1 ]] || usage
+
+command -v git >/dev/null 2>&1 || die "git is required"
+command -v gh >/dev/null 2>&1 || die "GitHub CLI (gh) is required"
+
+gh_version="$(gh version | awk 'NR == 1 { print $3 }')"
+if [[ ! "$gh_version" =~ ^([0-9]+)\.([0-9]+)\. ]]; then
+  die "could not determine the GitHub CLI version"
+fi
+gh_major="${BASH_REMATCH[1]}"
+gh_minor="${BASH_REMATCH[2]}"
+if (( gh_major < 2 || (gh_major == 2 && gh_minor < 93) )); then
+  die "GitHub CLI 2.93.0 or newer is required for secure release verification (found $gh_version)"
+fi
+
+repo_root="$(git rev-parse --show-toplevel 2>/dev/null)" || die "must be run inside a Git repository"
+cd "$repo_root"
+
+if [[ $# -eq 1 ]]; then
+  version="$1"
+  validate_version "$version"
+else
+  dockerfile_version="$(awk -F= '
+$1 == "ARG SKEDJEWEL_VERSION" { count++; value = $2 }
+END { if (count == 1) print value; else exit 1 }
+' Dockerfile)" || die "Dockerfile must contain exactly one SKEDJEWEL_VERSION argument"
+  if [[ "$dockerfile_version" =~ ^v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+    version="${BASH_REMATCH[1]}"
+  else
+    die "Dockerfile SKEDJEWEL_VERSION must have the form vx.x.x: $dockerfile_version"
+  fi
+fi
+
+repository="davidrunger/skedjewel"
+tag="v$version"
+asset_name="skedjewel-$tag-linux"
+signer_workflow="$repository/.github/workflows/release.yml"
+
+tmp_asset_dir=""
+tmp_asset=""
+cleanup() {
+  if [[ -n "$tmp_asset" && -e "$tmp_asset" ]]; then
+    rm -f -- "$tmp_asset"
+  fi
+
+  if [[ -n "$tmp_asset_dir" && -d "$tmp_asset_dir" ]]; then
+    rmdir -- "$tmp_asset_dir" 2>/dev/null || true
+  fi
+}
+trap cleanup EXIT
+
+echo "Verifying GitHub release $tag."
+gh release verify "$tag" --repo "$repository"
+
+tmp_asset_dir="$(mktemp -d "${TMPDIR:-/tmp}/install-skedjewel.XXXXXX")"
+tmp_asset="$tmp_asset_dir/$asset_name"
+gh release download "$tag" \
+  --repo "$repository" \
+  --pattern "$asset_name" \
+  --output "$tmp_asset" \
+  --clobber
+[[ -s "$tmp_asset" ]] || die "downloaded release asset is empty: $asset_name"
+
+echo "Verifying $asset_name."
+gh release verify-asset "$tag" "$tmp_asset" --repo "$repository"
+gh attestation verify "$tmp_asset" \
+  --repo "$repository" \
+  --signer-workflow "$signer_workflow" \
+  --source-ref "refs/tags/$tag"
+
+asset_sha256="$(sha256 "$tmp_asset")"
+[[ "$asset_sha256" =~ ^[[:xdigit:]]{64}$ ]] || die "could not calculate the downloaded asset's SHA-256 digest"
+
+mv "$tmp_asset" bin/skedjewel
+tmp_asset=""
+chmod a+x bin/skedjewel
+
+echo "Installed skedjewel to bin/skedjewel with SHA-256 $asset_sha256."
