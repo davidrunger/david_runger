@@ -1,4 +1,4 @@
 web: bin/rails server -p 3000
-js: bin/vite dev
+js: ./node_modules/.bin/vite --clearScreen false
 worker: bin/sidekiq
 clock: $HOME/code/skedjewel/bin/skedjewel
