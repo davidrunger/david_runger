@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+die() {
+  echo "bin/update-skedjewel: $*" >&2
+  exit 1
+}
+
+usage() {
+  cat >&2 <<'EOF'
+Usage: bin/update-skedjewel VERSION
+
+Update the local Skedjewel binary and Dockerfile to VERSION.
+EOF
+  exit 2
+}
+
+sha256() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$1" | awk '{print $1}'
+  elif command -v shasum >/dev/null 2>&1; then
+    shasum -a 256 "$1" | awk '{print $1}'
+  else
+    die "sha256sum or shasum is required"
+  fi
+}
+
+[[ $# -eq 1 ]] || usage
+
+new_version="$1"
+if [[ ! "$new_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  die "VERSION must have the form x.x.x, but '$new_version' was provided."
+fi
+
+command -v git >/dev/null 2>&1 || die "git is required"
+
+repo_root="$(git rev-parse --show-toplevel 2>/dev/null)" || die "must be run inside a Git repository"
+cd "$repo_root"
+
+[[ "$(git branch --show-current)" == main ]] || die "must be run from the main branch"
+[[ -z "$(git status --porcelain)" ]] || die "the working tree must be clean"
+
+git fetch --quiet origin main
+[[ "$(git rev-parse HEAD)" == "$(git rev-parse origin/main)" ]] || die "main is not up to date with origin/main"
+
+dockerfile_version="$(awk -F= '
+$1 == "ARG SKEDJEWEL_VERSION" { count++; value = $2 }
+END { if (count == 1) print value; else exit 1 }
+' Dockerfile)" || die "Dockerfile must contain exactly one SKEDJEWEL_VERSION argument"
+if [[ "$dockerfile_version" =~ ^v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+  old_version="${BASH_REMATCH[1]}"
+else
+  die "Dockerfile SKEDJEWEL_VERSION must have the form vx.x.x: $dockerfile_version"
+fi
+[[ "$old_version" != "$new_version" ]] || die "Skedjewel is already at version $new_version"
+
+awk -F= '
+$1 == "ARG SKEDJEWEL_SHA256" { count++; value = $2 }
+END { if (count != 1 || value !~ /^[[:xdigit:]]{64}$/) exit 1 }
+' Dockerfile || die "Dockerfile must contain exactly one valid SKEDJEWEL_SHA256 argument"
+
+branch="skedjewel/bump-to-$new_version"
+git show-ref --verify --quiet "refs/heads/$branch" && die "branch already exists locally: $branch"
+remote_branch="$(git ls-remote --heads origin "refs/heads/$branch")" || die "could not check whether branch exists on origin"
+[[ -z "$remote_branch" ]] || die "branch already exists on origin: $branch"
+
+git switch --create "$branch" origin/main
+git branch --set-upstream-to=origin/main "$branch" >/dev/null
+
+bin/install-skedjewel "$new_version"
+
+asset_sha256="$(sha256 bin/skedjewel)"
+[[ "$asset_sha256" =~ ^[[:xdigit:]]{64}$ ]] || die "could not calculate the installed binary's SHA-256 digest"
+
+tmp_dockerfile=""
+cleanup() {
+  if [[ -n "$tmp_dockerfile" && -e "$tmp_dockerfile" ]]; then
+    rm -f -- "$tmp_dockerfile"
+  fi
+}
+trap cleanup EXIT
+
+mkdir -p "$repo_root/tmp"
+tmp_dockerfile="$(mktemp "$repo_root/tmp/update-skedjewel.new-dockerfile.XXXXXX")"
+awk -v version="v$new_version" -v sha256="$asset_sha256" '
+{
+  if ($0 ~ /^ARG SKEDJEWEL_VERSION=/) {
+    $0 = "ARG SKEDJEWEL_VERSION=" version
+  } else if ($0 ~ /^ARG SKEDJEWEL_SHA256=/) {
+    $0 = "ARG SKEDJEWEL_SHA256=" sha256
+  }
+  print
+}
+' Dockerfile > "$tmp_dockerfile"
+mv "$tmp_dockerfile" Dockerfile
+tmp_dockerfile=""
+
+git diff --check -- Dockerfile
+git add Dockerfile
+git diff --cached --check
+git commit \
+  -m "[skedjewel] Bump skedjewel from $old_version to $new_version" \
+  -m "Verify the release, asset, and build provenance before installing the binary."
+
+echo "Updated skedjewel to v$new_version with SHA-256 $asset_sha256."
