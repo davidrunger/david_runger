@@ -298,6 +298,12 @@ RSpec.describe CheckLinks::Checker do
               to have_been_requested.
               times(number_of_requests_for_url_before_perform + 1)
           end
+
+          it 'caches only the response status' do
+            perform
+
+            expect(Rails.cache.read(worker.send(:cache_key, url))).to eq(status)
+          end
         end
       end
 

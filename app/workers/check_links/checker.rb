@@ -2,7 +2,7 @@ class CheckLinks::Checker
   prepend Memoization
   prepend ApplicationWorker
 
-  LINK_CHECK_CACHE_KEY_PREFIX = 'link-check'
+  LINK_CHECK_CACHE_KEY_PREFIX = 'link-check-status'
   USER_AGENT = "DavidRungerLinkChecker/1.0 (+#{DavidRunger::CANONICAL_URL})".freeze
   LOGGED_IN_DAVID_RUNGER_DOT_COM_REGEX = %r{
     \A
@@ -31,7 +31,7 @@ class CheckLinks::Checker
   ].freeze
 
   def perform(url, page_source_url)
-    status = response(url)&.status
+    status = response_status(url)
     expected_statuses = expected_statuses(url, status)
 
     Rails.logger.info(<<~LOG.squish)
@@ -77,10 +77,10 @@ class CheckLinks::Checker
   end
 
   memoize \
-  def response(url)
+  def response_status(url)
     Rails.cache.fetch(cache_key(url), expires_in: 6.hours, skip_nil: true) do
       Rails.error.handle(severity: :info, context: { url: }) do
-        SafeExternalHttpFetcher.new.get(url, timeout: 5, user_agent: USER_AGENT)
+        SafeExternalHttpFetcher.new.get(url, timeout: 5, user_agent: USER_AGENT).status
       end
     end
   end
