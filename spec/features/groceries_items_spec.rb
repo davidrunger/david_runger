@@ -59,11 +59,11 @@ RSpec.describe 'Groceries app' do
         take_percy_snapshot('Groceries')
 
         # Rename an item through the actions menu, including canceling an edit.
-        click_item_action(needed_item, 'Rename')
+        click_item_action(needed_item, 'Edit name')
 
         canceled_item_name = 'Canceled item name'
         within('.modal-container') do
-          expect(page).to have_text("Rename '#{needed_item.name}'")
+          expect(page).to have_text("Edit name: '#{needed_item.name}'")
           expect(page).to have_field('New item name', with: needed_item.name)
           expect(page).to have_css('.rename-item-form input:focus')
 
@@ -74,7 +74,7 @@ RSpec.describe 'Groceries app' do
         expect(page).to have_css('.grocery-item', text: needed_item.name)
         expect(page).not_to have_text(canceled_item_name)
 
-        click_item_action(needed_item, 'Rename')
+        click_item_action(needed_item, 'Edit name')
 
         renamed_needed_item_name = "Renamed #{needed_item.name}"
         within('.modal-container') do
@@ -181,7 +181,7 @@ RSpec.describe 'Groceries app' do
           expect(page).to have_css('h1', text: spouse_store.name)
 
           open_store_settings(spouse_store)
-          expect(page).not_to have_text('Rename')
+          expect(page).not_to have_text('Edit name')
           find(
             '[role="menuitem"]',
             text: 'Store notes',
@@ -221,7 +221,7 @@ RSpec.describe 'Groceries app' do
           open_item_actions(spouse_item)
           expect(page).to have_css(
             '[role="menuitem"]',
-            text: 'Rename',
+            text: 'Edit name',
             exact_text: true,
           )
           expect(page).not_to have_css(
@@ -237,7 +237,7 @@ RSpec.describe 'Groceries app' do
 
           find(
             '[role="menuitem"]',
-            text: 'Rename',
+            text: 'Edit name',
             exact_text: true,
           ).click
           within('.modal-container') do
@@ -379,7 +379,7 @@ RSpec.describe 'Groceries app' do
             expect(new_item[:class]).to include('highlighted')
             expect(item_input).not_to match_css(':focus')
 
-            click_item_action(existing_item, 'Rename')
+            click_item_action(existing_item, 'Edit name')
 
             within('.modal-container') do
               fill_in('New item name', with: "  #{item_to_merge_into.name.swapcase}  ")

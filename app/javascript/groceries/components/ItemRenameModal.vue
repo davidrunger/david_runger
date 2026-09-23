@@ -5,7 +5,7 @@ Modal(
   maxWidth="400px"
 )
   form.rename-item-form(@submit.prevent="saveItemName")
-    h3.mb-4.font-bold Rename '{{ item.name }}'
+    h3.mb-4.font-bold Edit name: '{{ item.name }}'
     label.item-name-label.block
       | New item name
       input.mt-2.w-full(
