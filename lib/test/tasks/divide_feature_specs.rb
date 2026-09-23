@@ -21,7 +21,7 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
     take_percy_snapshot
     wait_for
   ].freeze
-  BROWSER_OPERATION_COST_IN_MEANINGFUL_LINES = 10
+  BROWSER_OPERATION_COST_IN_MEANINGFUL_LINES = 20
   IGNORED_RUBY_TOKEN_TYPES = %i[
     on___end__
     on_comment
