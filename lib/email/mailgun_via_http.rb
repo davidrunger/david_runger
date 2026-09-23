@@ -10,7 +10,8 @@ module Email
 
     # rubocop:disable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
     # rubocop:disable-next Style/RedundantInitialize
-    def initialize(_mail) ; end
+    def initialize(_mail)
+    end
     # rubocop:enable Lint/UselessMethodDefinition, Lint/RedundantCopDisableDirective
 
     def deliver!(mail)
