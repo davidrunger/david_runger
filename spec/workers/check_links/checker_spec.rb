@@ -8,10 +8,13 @@ RSpec.describe CheckLinks::Checker do
     subject(:perform) { worker.perform(url, page_source_url) }
 
     let(:status) { 200 }
+    let(:response_body) { 'body' }
+    let(:response_headers) { { 'X-Response' => 'header' } }
     let(:redis_failure_key) { worker.send(:redis_failure_key, url) }
+    let(:sidekiq_logdev) { Sidekiq.logger.instance_variable_get(:@logdev) }
     let!(:stubbed_request) do
       stub_request(:get, url).
-        to_return(status:, body: '', headers: {})
+        to_return(status:, body: response_body, headers: response_headers)
     end
 
     before do
@@ -29,6 +32,20 @@ RSpec.describe CheckLinks::Checker do
           },
         ),
       ).to have_been_made
+    end
+
+    it 'logs response size estimates on a cache miss' do
+      allow(sidekiq_logdev).to receive(:write).and_call_original
+
+      perform
+
+      expect(sidekiq_logdev).to have_received(:write).with(
+        %r{
+          response_cache=miss[ ]response_body_bytes=4
+          [ ]response_header_bytes_approx=\d+
+          [ ]response_size_bytes_approx=\d+
+        }x,
+      )
     end
 
     context 'when a previous failure is marked in Redis' do
@@ -284,6 +301,20 @@ RSpec.describe CheckLinks::Checker do
             expect(stubbed_request).
               to have_been_requested.
               times(number_of_requests_for_url_before_perform)
+          end
+
+          it 'logs the cache hit without response size measurements' do
+            allow(sidekiq_logdev).to receive(:write).and_call_original
+
+            perform
+
+            expect(sidekiq_logdev).to have_received(:write).with(
+              %r{
+                response_cache=hit[ ]response_body_bytes=nil
+                [ ]response_header_bytes_approx=nil
+                [ ]response_size_bytes_approx=nil
+              }x,
+            )
           end
         end
 
