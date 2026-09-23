@@ -111,11 +111,11 @@ RSpec.describe 'Groceries app' do
             click_on(existing_store.name)
           end
 
-          click_store_setting(existing_store, 'Rename')
+          click_store_setting(existing_store, 'Edit name')
 
           canceled_store_name = 'Canceled store name'
           within('.modal-container') do
-            expect(page).to have_modal_heading("Rename '#{existing_store.name}'")
+            expect(page).to have_modal_heading("Edit name: '#{existing_store.name}'")
             expect(page).to have_field(
               'New store name',
               with: existing_store.name,
@@ -129,7 +129,7 @@ RSpec.describe 'Groceries app' do
           expect(page).to have_css('h1', text: existing_store.name)
           expect(page).not_to have_text(canceled_store_name)
 
-          click_store_setting(existing_store, 'Rename')
+          click_store_setting(existing_store, 'Edit name')
 
           renamed_store_name = "Renamed #{existing_store.name}"
           within('.modal-container') do
