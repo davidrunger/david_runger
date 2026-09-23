@@ -218,8 +218,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0
       element-plus:
-        specifier: ^2.14.5
-        version: 2.14.5(vue@3.5.43(typescript@6.0.3))
+        specifier: ^2.14.6
+        version: 2.14.6(vue@3.5.43(typescript@6.0.3))
       emojilib:
         specifier: ^4.0.3
         version: 4.0.3
@@ -300,8 +300,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))
       '@prettier/plugin-pug':
-        specifier: ^3.4.2
-        version: 3.4.2(prettier@3.9.8)
+        specifier: ^3.5.0
+        version: 3.5.0(prettier@3.9.8)
       '@testing-library/vue':
         specifier: ^8.1.0
         version: 8.1.0(@vue/compiler-dom@3.5.43)(@vue/compiler-sfc@3.5.43)(@vue/server-renderer@3.5.43)(vue@3.5.43(typescript@6.0.3))
@@ -352,7 +352,7 @@ importers:
         version: 3.9.8
       prettier-plugin-tailwindcss:
         specifier: ^0.8.1
-        version: 0.8.1(@ianvs/prettier-plugin-sort-imports@4.7.1(@vue/compiler-sfc@3.5.43)(prettier@3.9.8)(supports-color@10.2.2))(@prettier/plugin-pug@3.4.2(prettier@3.9.8))(prettier@3.9.8)
+        version: 0.8.1(@ianvs/prettier-plugin-sort-imports@4.7.1(@vue/compiler-sfc@3.5.43)(prettier@3.9.8)(supports-color@10.2.2))(@prettier/plugin-pug@3.5.0(prettier@3.9.8))(prettier@3.9.8)
       quicktype:
         specifier: ^26.0.0
         version: 26.0.0
@@ -405,8 +405,8 @@ packages:
     resolution: {integrity: sha512-IxddtGnnoidVSO6O/aiTueptbTThHvi2qGHu9/AWuD1J7i86Ox+jl+Y5SXcDH1RixzQlP2cjH/PjnlImZiAurQ==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
 
-  '@asamuzakjp/dom-selector@9.1.4':
-    resolution: {integrity: sha512-ynDE7RDZM1z+YuSU+iGhRp8WcSXHqK9+G32ZEzsL35TKSoy72fYR7VfrJCQkWe3ciiIWGSTAIBc9XB5jVpqyTw==}
+  '@asamuzakjp/dom-selector@9.2.0':
+    resolution: {integrity: sha512-qKvLetaSd/OTWif9JT0eu1SHBg3H7Nvp9SoMwMxqT5tmYyrxea/P1A5pIfGbnIJlOtm3yVeqw+ORxDOkjN1aEw==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
 
   '@babel/code-frame@7.29.7':
@@ -429,8 +429,8 @@ packages:
     resolution: {integrity: sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.29.8':
-    resolution: {integrity: sha512-E8lTAYNB1KW+FH+VGJuZM1ioAx2E6oVlvQFRrf5P8ZZmsiJXYAD9vTFV7yyEURNzgh1dFqMZuO6tUwcARbqFCA==}
+  '@babel/parser@7.29.9':
+    resolution: {integrity: sha512-CjXrNHTnvqBVqHgdBysY3vk2T8tpJHb5/RMeHJBTyVa9xgugCB0CJTx/3oO8RV2QRQP391RWpB7D6hLjm8V9uA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -1011,9 +1011,9 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@prettier/plugin-pug@3.4.2':
-    resolution: {integrity: sha512-/VOVeIscKYlPpsZrjrRV+44ZftCEIJq9Z/zR8PtAz/EDv82TKscw3z+fhTVqRz68G1TqQ/5COMFUVfPwPBH90w==}
-    engines: {node: '>=20.0.0', npm: '>=10.0.0'}
+  '@prettier/plugin-pug@3.5.0':
+    resolution: {integrity: sha512-ivfz6oqYxMmsWuSyHaO8yWy2aBltkqpfpepAzU5n12j9u3/wKexqIhcn2vNwx/MqWbf+sl+4dFaiOYW3aW2ysg==}
+    engines: {node: '>=22.0.0'}
     peerDependencies:
       prettier: ^3.0.0
 
@@ -2177,8 +2177,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  element-plus@2.14.5:
-    resolution: {integrity: sha512-bghYy/S+qg87enHPXELirhEdDqsVAUGcGpbGIeG8dz0kwpIkGz7gYsifulBshXX74iRtHib85XWQj0uSH2A1Yg==}
+  element-plus@2.14.6:
+    resolution: {integrity: sha512-GH0fMoMgVEKkHimoaKvg5B00NmfPbQ+qxX6/JrO7F+dLAC3atrZr2Y2MoccHMxS22M7QE12/s0DG0Zs49iwJ/A==}
     peerDependencies:
       vue: ^3.3.7
 
@@ -4694,7 +4694,7 @@ snapshots:
       '@csstools/css-tokenizer': 4.0.1
       lru-cache: 11.5.2
 
-  '@asamuzakjp/dom-selector@9.1.4':
+  '@asamuzakjp/dom-selector@9.2.0':
     dependencies:
       bidi-js: 1.1.0
       css-tree: 3.2.1
@@ -4709,7 +4709,7 @@ snapshots:
 
   '@babel/generator@7.29.8':
     dependencies:
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
@@ -4721,7 +4721,7 @@ snapshots:
 
   '@babel/helper-validator-identifier@7.29.7': {}
 
-  '@babel/parser@7.29.8':
+  '@babel/parser@7.29.9':
     dependencies:
       '@babel/types': 7.29.8
 
@@ -4730,7 +4730,7 @@ snapshots:
   '@babel/template@7.29.7':
     dependencies:
       '@babel/code-frame': 7.29.7
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
 
   '@babel/traverse@7.29.8(supports-color@10.2.2)':
@@ -4738,7 +4738,7 @@ snapshots:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.8
       '@babel/helper-globals': 7.29.7
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/template': 7.29.7
       '@babel/types': 7.29.8
       debug: 4.4.3(supports-color@10.2.2)
@@ -4908,7 +4908,7 @@ snapshots:
   '@ianvs/prettier-plugin-sort-imports@4.7.1(@vue/compiler-sfc@3.5.43)(prettier@3.9.8)(supports-color@10.2.2)':
     dependencies:
       '@babel/generator': 7.29.8
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/traverse': 7.29.8(supports-color@10.2.2)
       '@babel/types': 7.29.8
       prettier: 3.9.8
@@ -5364,7 +5364,7 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@prettier/plugin-pug@3.4.2(prettier@3.9.8)':
+  '@prettier/plugin-pug@3.5.0(prettier@3.9.8)':
     dependencies:
       prettier: 3.9.8
       pug-lexer: 5.0.1
@@ -5808,7 +5808,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.43':
     dependencies:
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@vue/shared': 3.5.43
       entities: 7.0.1
       estree-walker: 2.0.2
@@ -5821,7 +5821,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.5.43':
     dependencies:
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@vue/compiler-core': 3.5.43
       '@vue/compiler-dom': 3.5.43
       '@vue/compiler-ssr': 3.5.43
@@ -6092,7 +6092,7 @@ snapshots:
 
   ast-kit@2.2.0:
     dependencies:
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       pathe: 2.0.3
 
   ast-types@0.13.4:
@@ -6101,7 +6101,7 @@ snapshots:
 
   ast-walker-scope@0.9.0:
     dependencies:
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
       ast-kit: 2.2.0
 
@@ -6344,7 +6344,7 @@ snapshots:
 
   constantinople@4.0.1:
     dependencies:
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
 
   content-disposition@0.5.4:
@@ -6561,7 +6561,7 @@ snapshots:
       minimatch: 10.2.6
       semver: 7.8.5
 
-  element-plus@2.14.5(vue@3.5.43(typescript@6.0.3)):
+  element-plus@2.14.6(vue@3.5.43(typescript@6.0.3)):
     dependencies:
       '@ctrl/tinycolor': 4.2.1
       '@element-plus/icons-vue': 2.3.2(vue@3.5.43(typescript@6.0.3))
@@ -6569,7 +6569,7 @@ snapshots:
       '@popperjs/core': '@sxzz/popperjs-es@2.11.8'
       '@types/lodash': 4.17.25
       '@types/lodash-es': 4.17.12
-      '@vueuse/core': 14.4.0(vue@3.5.43(typescript@6.0.3))
+      '@vueuse/core': 15.0.0(vue@3.5.43(typescript@6.0.3))
       async-validator: 4.2.5
       dayjs: 1.11.23
       lodash: 4.18.1
@@ -7236,7 +7236,7 @@ snapshots:
   jsdom@30.1.0:
     dependencies:
       '@asamuzakjp/css-color': 7.0.0
-      '@asamuzakjp/dom-selector': 9.1.4
+      '@asamuzakjp/dom-selector': 9.2.0
       '@bramus/specificity': 2.4.2
       '@csstools/css-syntax-patches-for-csstree': 1.1.14(css-tree@3.2.1)
       '@exodus/bytes': 1.15.1
@@ -7912,12 +7912,12 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-tailwindcss@0.8.1(@ianvs/prettier-plugin-sort-imports@4.7.1(@vue/compiler-sfc@3.5.43)(prettier@3.9.8)(supports-color@10.2.2))(@prettier/plugin-pug@3.4.2(prettier@3.9.8))(prettier@3.9.8):
+  prettier-plugin-tailwindcss@0.8.1(@ianvs/prettier-plugin-sort-imports@4.7.1(@vue/compiler-sfc@3.5.43)(prettier@3.9.8)(supports-color@10.2.2))(@prettier/plugin-pug@3.5.0(prettier@3.9.8))(prettier@3.9.8):
     dependencies:
       prettier: 3.9.8
     optionalDependencies:
       '@ianvs/prettier-plugin-sort-imports': 4.7.1(@vue/compiler-sfc@3.5.43)(prettier@3.9.8)(supports-color@10.2.2)
-      '@prettier/plugin-pug': 3.4.2(prettier@3.9.8)
+      '@prettier/plugin-pug': 3.5.0(prettier@3.9.8)
 
   prettier@3.9.8: {}
 
@@ -8992,7 +8992,7 @@ snapshots:
 
   with@7.0.2:
     dependencies:
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
       assert-never: 1.4.0
       babel-walk: 3.0.0-canary-5
