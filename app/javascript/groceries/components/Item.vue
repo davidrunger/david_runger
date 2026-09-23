@@ -35,7 +35,7 @@ li.grocery-item.flex.w-full.items-center(
           DotsVerticalIcon(:size="ICON_SIZE")
       template(#dropdown)
         ElDropdownMenu
-          ElDropdownItem(command="rename") Rename
+          ElDropdownItem(command="rename") Edit name
           ElDropdownItem(
             v-if="!sectioningDisabled"
             command="section"

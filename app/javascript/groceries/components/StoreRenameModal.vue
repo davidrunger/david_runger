@@ -5,7 +5,7 @@ Modal(
   maxWidth="400px"
 )
   form.rename-store-form(@submit.prevent="saveStoreName")
-    h3.mb-4.font-bold Rename '{{ store.name }}'
+    h3.mb-4.font-bold Edit name: '{{ store.name }}'
     label.store-name-label.block
       | New store name
       input.mt-2.w-full(

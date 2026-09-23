@@ -33,7 +33,7 @@ h1.store-title.my-1.flex.flex-wrap.items-center
         ElDropdownItem(
           v-if="store.own_store"
           command="rename"
-        ) Rename
+        ) Edit name
         ElDropdownItem(
           v-if="store.own_store"
           command="privacy"
