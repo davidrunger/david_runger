@@ -56,7 +56,7 @@ RSpec.describe(Test::Tasks::DivideFeatureSpecs) do
     before do
       allow(task).to receive(:meaningful_line_count) { |file| line_counts.fetch(file) }
       allow(task).to receive_messages(example_count: 0, browser_operation_count: 0)
-      allow(task).to receive(:rand).and_return(0.69, 0.7, 0.69, 0.7)
+      allow(task).to receive(:rand).and_return(0.84, 0.85, 0.84, 0.85)
     end
 
     it 'chooses between the two longest specs and assigns each to the lightest group' do

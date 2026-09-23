@@ -34,7 +34,7 @@ class Test::Tasks::DivideFeatureSpecs < Pallets::Task
     on_sp
   ].freeze
   NUM_FEATURE_SPEC_GROUPS = 3
-  TOP_SPEC_SELECTION_PROBABILITY = 0.7
+  TOP_SPEC_SELECTION_PROBABILITY = 0.85
 
   def run
     run_ruby_code(
