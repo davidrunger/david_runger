@@ -20,3 +20,8 @@ docker system prune --all --force
 
 # Rebuild Docker image(s).
 RAILS_ENV=production bin/build-docker
+
+# The daily Docker image rebuild can create host memory pressure, causing the
+# worker container to swap. Recreate the worker after the build so it starts
+# fresh in RAM and its swap usage is reset.
+docker compose up -d --force-recreate --no-deps worker
