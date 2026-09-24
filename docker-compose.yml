@@ -25,7 +25,8 @@ x-rails-config: &default-rails-config
     # NOTE: We need this to have DATABASE_URL in bin/docker-entrypoint.
     - .env.production.local
   environment:
-    # CAUTION: `web` overrides all env vars listed here with its own `environment` section.
+    # CAUTION: `web` and `worker` override all env vars listed here with their own `environment`
+    # sections (YAML merge keys are shallow), so they must repeat any of these that they need.
     RAILS_MAX_THREADS: 1
   logging: *default-logging
   networks:
@@ -393,6 +394,15 @@ services:
       resources:
         reservations:
           memory: 36M
+    environment:
+      RAILS_MAX_THREADS: 1
+      # Make Ruby's GC trigger (and escalate to a major GC) after only 8 MiB of malloc growth,
+      # instead of letting dead (e.g. response body) memory pile up to ~128 MiB before a major GC.
+      # The start value and max are set equal, so that the limit can't adapt upward.
+      RUBY_GC_MALLOC_LIMIT: 8388608
+      RUBY_GC_MALLOC_LIMIT_MAX: 8388608
+      RUBY_GC_OLDMALLOC_LIMIT: 8388608
+      RUBY_GC_OLDMALLOC_LIMIT_MAX: 8388608
     healthcheck:
       test: REDIS_URL="$$REDIS_URL/1" bin/sidekiqmon | grep --quiet "$$(hostname)"
       start_period: 60s
