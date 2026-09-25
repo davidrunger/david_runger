@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+# Compares the `@activeadmin/activeadmin` npm package version against the
+# `activeadmin` gem version by reading the resolved versions from node_modules and
+# Gemfile.lock.
+#
+# Exit codes:
+#   0 - versions match
+#   1 - versions differ
+#   2 - couldn't determine one or both versions
+
+set -euo pipefail
+
+NPM_PKG_NAME="@activeadmin/activeadmin"
+NPM_PKG_DIR="node_modules/${NPM_PKG_NAME}"
+GEMFILE_LOCK="Gemfile.lock"
+GEM_NAME="activeadmin"
+
+# Get the npm package version from `package.json`.
+npm_version_raw=$(node -e "
+  try { console.log(require('./${NPM_PKG_DIR}/package.json').version) } catch (e) {}
+" 2>/dev/null || true)
+
+# Get the gem version from `Gemfile.lock`.
+gem_version_raw=$(grep -m1 -oP "^\s{4}${GEM_NAME} \(\K[^)]+" "$GEMFILE_LOCK" 2>/dev/null || true)
+
+if [[ -z "${npm_version_raw:-}" || -z "${gem_version_raw:-}" ]]; then
+  echo "Could not determine one or both versions" >&2
+  echo "  npm ($NPM_PKG_DIR/package.json): '${npm_version_raw:-<empty>}'" >&2
+  echo "  gem ($GEMFILE_LOCK): '${gem_version_raw:-<empty>}'" >&2
+  exit 2
+fi
+
+# Normalize prerelease separators.
+# npm/semver uses a hyphen before a prerelease tag (4.0.0-beta22);
+# RubyGems conventionally uses a dot (4.0.0.beta23). Normalize both to the
+# dot form, so a pure formatting difference doesn't look like a version
+# mismatch, while an actual version difference (beta22 vs beta23) still is one.
+normalize() {
+  echo "$1" | sed -E 's/[-.]?(alpha|beta|rc|pre)\.?/.\1/'
+}
+
+npm_norm=$(normalize "$npm_version_raw")
+gem_norm=$(normalize "$gem_version_raw")
+
+if [[ "$npm_norm" == "$gem_norm" ]]; then
+  echo "OK: activeadmin versions match ($npm_version_raw)"
+  exit 0
+else
+  echo "MISMATCH: npm($NPM_PKG_NAME)=$npm_version_raw  vs  gem($GEM_NAME)=$gem_version_raw" >&2
+  exit 1
+fi

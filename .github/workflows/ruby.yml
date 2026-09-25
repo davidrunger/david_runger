@@ -120,6 +120,9 @@ jobs:
             with:
               scandir: './bin'
 
+          - name: Check that ActiveAdmin gem and JS package versions match
+          - run: bin/ci/check-activeadmin-versions-match
+
       - name: Ensure clean git status
         run: '! [[ -n $(git status --porcelain) ]] || (git status && false)'
 
