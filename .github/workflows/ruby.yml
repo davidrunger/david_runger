@@ -173,6 +173,9 @@ jobs:
             if: ${{ !cancelled() }}
             run: bin/ci/check-ruby-image-digest-if-needed
 
+          - name: Check that ActiveAdmin gem and JS package versions match
+            run: bin/ci/check-activeadmin-versions-match
+
           - name: Upload Code Coverage
             uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
             if: ${{ !cancelled() }}
