@@ -18,7 +18,7 @@
     ">10%"
   ],
   "dependencies": {
-    "@activeadmin/activeadmin": "4.0.0-beta22",
+    "@activeadmin/activeadmin": "4.0.0-beta23",
     "@davidrunger/vue-model-explorer": "^0.3.3",
     "@element-plus/icons-vue": "^2.3.2",
     "@rails/actioncable": "^8.1.301",
