@@ -30,10 +30,6 @@ HomeSection(
         details="Where software teams and the open source community collaborate. GitHub Actions are great!"
       )
       SkillRow(
-        name="Heroku"
-        details="Doing (some of) the devops, so you don't have to."
-      )
-      SkillRow(
         name="HTML5"
         details="The building block of the Internet!"
       )
