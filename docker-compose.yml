@@ -142,6 +142,8 @@ services:
       - prometheus
     env_file:
       - .env.grafana.local
+    environment:
+      - GOMEMLIMIT=224MiB
     expose:
       - '3000'
     image: grafana/grafana:13.2.2@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0
