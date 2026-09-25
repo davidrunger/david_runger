@@ -34,17 +34,13 @@ RSpec.describe CheckLinks::Checker do
       ).to have_been_made
     end
 
-    it 'logs response size estimates on a cache miss' do
+    it 'logs the response status and expectation' do
       allow(sidekiq_logdev).to receive(:write).and_call_original
 
       perform
 
       expect(sidekiq_logdev).to have_received(:write).with(
-        %r{
-          response_cache=miss[ ]response_body_bytes=4
-          [ ]response_header_bytes_approx=\d+
-          [ ]response_size_bytes_approx=\d+
-        }x,
+        /#{Regexp.escape(url)} returned 200 \(expected 200\)\.\n\z/,
       )
     end
 
@@ -109,8 +105,8 @@ RSpec.describe CheckLinks::Checker do
       context 'when fetching the URL raises an error' do
         before do
           # rubocop:disable-next RSpec/AnyInstance
-          allow_any_instance_of(Faraday::Connection).
-            to receive(:get).
+          allow_any_instance_of(SafeExternalHttpFetcher).
+            to receive(:get_status).
             and_raise(Faraday::ConnectionFailed, 'Operation timed out - user specified timeout')
         end
 
@@ -302,20 +298,6 @@ RSpec.describe CheckLinks::Checker do
               to have_been_requested.
               times(number_of_requests_for_url_before_perform)
           end
-
-          it 'logs the cache hit without response size measurements' do
-            allow(sidekiq_logdev).to receive(:write).and_call_original
-
-            perform
-
-            expect(sidekiq_logdev).to have_received(:write).with(
-              %r{
-                response_cache=hit[ ]response_body_bytes=nil
-                [ ]response_header_bytes_approx=nil
-                [ ]response_size_bytes_approx=nil
-              }x,
-            )
-          end
         end
 
         context 'when another CheckLinks::Checker has not run recently for the same URL' do
@@ -341,8 +323,8 @@ RSpec.describe CheckLinks::Checker do
       context 'when the URL fetch raises a connection error' do
         before do
           # rubocop:disable-next RSpec/AnyInstance
-          allow_any_instance_of(Faraday::Connection).
-            to receive(:get).
+          allow_any_instance_of(SafeExternalHttpFetcher).
+            to receive(:get_status).
             and_raise(Faraday::ConnectionFailed, 'Operation timed out')
         end
 
@@ -350,8 +332,8 @@ RSpec.describe CheckLinks::Checker do
           CheckLinks::Checker.new.perform(url, page_source_url)
 
           # rubocop:disable-next RSpec/AnyInstance
-          allow_any_instance_of(Faraday::Connection).
-            to receive(:get).
+          allow_any_instance_of(SafeExternalHttpFetcher).
+            to receive(:get_status).
             and_call_original
 
           CheckLinks::Checker.new.perform(url, page_source_url)

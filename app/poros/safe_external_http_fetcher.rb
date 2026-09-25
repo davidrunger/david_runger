@@ -44,20 +44,27 @@ class SafeExternalHttpFetcher
     ff00::/8
   ].map { IPAddr.new(it) }.freeze
 
-  def get(url, timeout:, user_agent:)
+  def get_status(url, timeout:, user_agent:)
     uri = http_uri(url)
     pinned_address = resolved_address(uri.hostname)
 
-    Faraday.new do |connection|
-      connection.adapter(:net_http) do |http|
-        # Net::HTTP retains its original address for Host, SNI, and TLS
-        # certificate validation, while ipaddr= pins the TCP connection.
-        http.ipaddr = pinned_address.to_s
+    http = Net::HTTP.new(uri.hostname, uri.port)
+    http.use_ssl = uri.scheme == 'https'
+    # Net::HTTP retains its original address for Host, SNI, and TLS
+    # certificate validation, while ipaddr= pins the TCP connection.
+    http.ipaddr = pinned_address.to_s
+    http.open_timeout = timeout
+    http.read_timeout = timeout
+    http.write_timeout = timeout
+
+    request = Net::HTTP::Get.new(uri)
+    request['User-Agent'] = user_agent
+
+    http.start do
+      http.request(request) do |response|
+        # `break` to read as little as possible and close the socket when `start` exits.
+        break Integer(response.code, 10)
       end
-    end.get do |request|
-      request.url(uri)
-      request.headers['User-Agent'] = user_agent
-      request.options.timeout = timeout
     end
   end
 

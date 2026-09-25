@@ -2,8 +2,8 @@ RSpec.describe SafeExternalHttpFetcher do
   # rubocop:disable Style/IpAddresses
   subject(:fetcher) { described_class.new }
 
-  describe '#get' do
-    subject(:get) { fetcher.get(url, timeout: 5, user_agent:) }
+  describe '#get_status' do
+    subject(:get_status) { fetcher.get_status(url, timeout: 5, user_agent:) }
 
     let(:url) { 'https://public.example.test/path?query=value' }
     let(:hostname) { 'public.example.test' }
@@ -19,11 +19,11 @@ RSpec.describe SafeExternalHttpFetcher do
       let(:resolved_addresses) { ['8.8.8.8'] }
 
       it 'connects to the address' do
-        expect(get.status).to eq(200)
+        expect(get_status).to eq(200)
       end
 
       it 'sends the specified user agent' do
-        get
+        get_status
 
         expect(a_request(:get, url).with(headers: { 'User-Agent' => user_agent })).
           to have_been_made
@@ -32,23 +32,25 @@ RSpec.describe SafeExternalHttpFetcher do
       it 'pins the connection while preserving the hostname for HTTP and TLS' do
         http = nil
 
-        allow(Net::HTTP).to receive(:new).with(hostname, 443, nil).
+        allow(Net::HTTP).to receive(:new).with(hostname, 443).
           and_wrap_original do |method, *arguments|
             method.call(*arguments).tap do |new_http|
               http = new_http
               allow(http).to receive(:ipaddr=).with('8.8.8.8').and_call_original
               allow(http).to receive(:open_timeout=).with(5).and_call_original
               allow(http).to receive(:read_timeout=).with(5).and_call_original
+              allow(http).to receive(:write_timeout=).with(5).and_call_original
               expect(http.address).to eq(hostname)
             end
           end
 
-        get
+        get_status
 
-        expect(Net::HTTP).to have_received(:new).once.with(hostname, 443, nil)
+        expect(Net::HTTP).to have_received(:new).once.with(hostname, 443)
         expect(http).to have_received(:ipaddr=).once.with('8.8.8.8')
         expect(http).to have_received(:open_timeout=).once.with(5)
         expect(http).to have_received(:read_timeout=).once.with(5)
+        expect(http).to have_received(:write_timeout=).once.with(5)
       end
     end
 
@@ -61,7 +63,7 @@ RSpec.describe SafeExternalHttpFetcher do
         let(:resolved_addresses) { [address] }
 
         it 'connects to the address' do
-          expect(get.status).to eq(200)
+          expect(get_status).to eq(200)
         end
       end
     end
@@ -90,7 +92,7 @@ RSpec.describe SafeExternalHttpFetcher do
         let(:resolved_addresses) { [address] }
 
         it 'raises an unsafe URL error without making a request' do
-          expect { get }.to raise_error(described_class::UnsafeUrlError)
+          expect { get_status }.to raise_error(described_class::UnsafeUrlError)
           expect(a_request(:get, url)).not_to have_been_made
         end
       end
@@ -100,7 +102,7 @@ RSpec.describe SafeExternalHttpFetcher do
       let(:resolved_addresses) { ['8.8.8.8', '127.0.0.1'] }
 
       it 'rejects the hostname without making a request' do
-        expect { get }.to raise_error(described_class::UnsafeUrlError)
+        expect { get_status }.to raise_error(described_class::UnsafeUrlError)
         expect(a_request(:get, url)).not_to have_been_made
       end
     end
@@ -112,14 +114,14 @@ RSpec.describe SafeExternalHttpFetcher do
       end
 
       it 'raises an unsafe URL error without making a request' do
-        expect { get }.to raise_error(described_class::UnsafeUrlError)
+        expect { get_status }.to raise_error(described_class::UnsafeUrlError)
         expect(a_request(:get, url)).not_to have_been_made
       end
     end
 
     context 'when the hostname resolves to no addresses' do
       it 'raises an unsafe URL error without making a request' do
-        expect { get }.
+        expect { get_status }.
           to raise_error(
             described_class::UnsafeUrlError,
             'Could not resolve external hostname: public.example.test',
@@ -139,7 +141,7 @@ RSpec.describe SafeExternalHttpFetcher do
       end
 
       it 'raises an unsafe URL error without making a request' do
-        expect { get }.
+        expect { get_status }.
           to raise_error(described_class::UnsafeUrlError, /Unsupported resolved address/)
         expect(a_request(:get, url)).not_to have_been_made
       end
@@ -155,7 +157,7 @@ RSpec.describe SafeExternalHttpFetcher do
         let(:url) { unsafe_url }
 
         it 'rejects it without resolving or making a request' do
-          expect { get }.to raise_error(described_class::UnsafeUrlError)
+          expect { get_status }.to raise_error(described_class::UnsafeUrlError)
           expect(Resolv).not_to have_received(:getaddresses)
           expect(a_request(:get, url)).not_to have_been_made
         end

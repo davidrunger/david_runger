@@ -31,17 +31,12 @@ class CheckLinks::Checker
   ].freeze
 
   def perform(url, page_source_url)
-    response_info = response_info(url)
-    status = response_info[:status]
+    status = response_status(url)
     expected_statuses = expected_statuses(url, status)
 
-    logger.info(<<~LOG.squish)
-      #{url} returned #{status.inspect} (expected #{expected_statuses.join(' or ')}).
-      response_cache=#{response_info[:cache_status]}
-      response_body_bytes=#{response_info[:body_bytes].inspect}
-      response_header_bytes_approx=#{response_info[:header_bytes_approx].inspect}
-      response_size_bytes_approx=#{response_info[:size_bytes_approx].inspect}
-    LOG
+    logger.info(
+      "#{url} returned #{status.inspect} (expected #{expected_statuses.join(' or ')}).",
+    )
 
     if !status.in?(expected_statuses)
       redis_failure_key = redis_failure_key(url)
@@ -81,42 +76,12 @@ class CheckLinks::Checker
   end
 
   memoize \
-  def response_info(url)
-    cache_hit = true
-    response_size = nil
-    status =
-      Rails.cache.fetch(cache_key(url), expires_in: 6.hours, skip_nil: true) do
-        cache_hit = false
-        Rails.error.handle(severity: :info, context: { url: }) do
-          response = SafeExternalHttpFetcher.new.get(url, timeout: 5, user_agent: USER_AGENT)
-          response_size = response_size_metrics(response)
-
-          response.status
-        end
+  def response_status(url)
+    Rails.cache.fetch(cache_key(url), expires_in: 6.hours, skip_nil: true) do
+      Rails.error.handle(severity: :info, context: { url: }) do
+        SafeExternalHttpFetcher.new.get_status(url, timeout: 5, user_agent: USER_AGENT)
       end
-
-    {
-      status:,
-      cache_status: cache_hit ? 'hit' : 'miss',
-      body_bytes: response_size&.fetch(:body_bytes),
-      header_bytes_approx: response_size&.fetch(:header_bytes_approx),
-      size_bytes_approx: response_size&.fetch(:size_bytes_approx),
-    }
-  end
-
-  def response_size_metrics(response)
-    body_bytes = response.body.to_s.bytesize
-    # Faraday exposes parsed headers, so this estimates their text size, not wire bytes.
-    header_bytes_approx =
-      response.headers.sum do |name, value|
-        name.to_s.bytesize + value.to_s.bytesize + 4
-      end + 2
-
-    {
-      body_bytes:,
-      header_bytes_approx:,
-      size_bytes_approx: body_bytes + header_bytes_approx,
-    }
+    end
   end
 
   memoize \
