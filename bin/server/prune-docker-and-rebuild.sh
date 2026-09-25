@@ -35,7 +35,7 @@ docker compose up -d --no-deps grafana
 
 # Wait for grafana to be healthy before reloading nginx.
 grafana_healthy=false
-for i in $(seq 1 30); do
+for _ in {1..30}; do
   if docker compose exec -T grafana wget -qO- http://localhost:3000/api/health >/dev/null 2>&1; then
     grafana_healthy=true
     break
