@@ -12,6 +12,7 @@ updates:
     cooldown:
       default-days: 5
     open-pull-requests-limit: 999
+
   - package-ecosystem: docker-compose
     directory: '/'
     schedule:
@@ -27,6 +28,7 @@ updates:
         update-types:
           - version-update:semver-major
     open-pull-requests-limit: 999
+
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
@@ -36,12 +38,14 @@ updates:
     cooldown:
       default-days: 5
     open-pull-requests-limit: 999
-  - package-ecosystem: npm
-    directory: '/'
-    schedule:
-      interval: cron
-      cronjob: '4 4 * * *'
-      timezone: America/Chicago
-    cooldown:
-      default-days: 5
-    open-pull-requests-limit: 999
+
+  # NOTE: We are disabling npm updates while Dependabot support for pnpm 12 is poor.
+  # - package-ecosystem: npm
+  #   directory: '/'
+  #   schedule:
+  #     interval: cron
+  #     cronjob: '4 4 * * *'
+  #     timezone: America/Chicago
+  #   cooldown:
+  #     default-days: 5
+  #   open-pull-requests-limit: 999
