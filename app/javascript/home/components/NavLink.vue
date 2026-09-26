@@ -31,7 +31,14 @@ const prettyName = computed((): string => {
   return capitalize(props.section);
 });
 
-function scrollToSection() {
+function scrollToSection(event: MouseEvent) {
+  // Ctrl-click (Linux/Windows) or Cmd-click (Mac) opens the link in a new tab;
+  // Shift-click opens a new window. In all these cases, only the new
+  // tab/window should scroll to the section — not this page.
+  if (event.ctrlKey || event.metaKey || event.shiftKey) {
+    return;
+  }
+
   homeStore.registerClickedSection(props.section);
   setScrollToFragmentTimeouts(props.section);
 }
