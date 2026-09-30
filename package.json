@@ -61,7 +61,7 @@
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "@percy/cli": "^1.32.10",
+    "@percy/cli": "^1.32.11",
     "@pinia/testing": "^2.0.1",
     "@prettier/plugin-pug": "^3.5.0",
     "@testing-library/vue": "^8.1.0",
@@ -92,7 +92,7 @@
     "vite": "^8.3.1",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-ruby": "^5.2.4",
-    "vitest": "^5.0.1",
+    "vitest": "^5.0.2",
     "vue-tsc": "^3.3.11"
   }
 }
