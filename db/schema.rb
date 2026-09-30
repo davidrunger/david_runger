@@ -16,22 +16,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   enable_extension "pg_stat_statements"
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "message_checksum", null: false
-    t.string "message_id", null: false
     t.integer "status", default: 0, null: false
+    t.string "message_id", null: false
+    t.string "message_checksum", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id", "message_checksum"], name: "index_action_mailbox_inbound_emails_uniqueness", unique: true
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
-    t.bigint "author_id"
-    t.string "author_type"
-    t.text "body"
-    t.datetime "created_at", null: false
     t.string "namespace"
-    t.bigint "resource_id"
+    t.text "body"
     t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
@@ -39,24 +39,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", precision: nil, null: false
-    t.string "name", null: false
-    t.bigint "record_id", null: false
-    t.string "record_type", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
-    t.bigint "byte_size", null: false
-    t.string "checksum"
-    t.string "content_type"
-    t.datetime "created_at", precision: nil, null: false
-    t.string "filename", null: false
     t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
     t.text "metadata"
     t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -67,203 +67,203 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "admin_users", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.string "email", null: false
-    t.string "google_sub"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "google_sub"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
   create_table "auth_tokens", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "last_used_at", precision: nil
-    t.text "name"
-    t.text "permitted_actions_list", comment: "A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_reports#create`) for which the auth token may be used as an authorization mechanism. Note: A blank list means that the AuthToken is valid for all controller actions."
-    t.text "secret", null: false
-    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.text "secret", null: false
+    t.text "name"
+    t.datetime "last_used_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "permitted_actions_list", comment: "A comma- and/or whitespace-separated list of controller actions (in the form `api/csp_reports#create`) for which the auth token may be used as an authorization mechanism. Note: A blank list means that the AuthToken is valid for all controller actions."
     t.index ["secret"], name: "index_auth_tokens_on_secret"
     t.index ["user_id", "secret"], name: "index_auth_tokens_on_user_id_and_secret", unique: true
   end
 
   create_table "authenticated_sessions", force: :cascade do |t|
-    t.bigint "authenticatable_id", null: false
-    t.string "authenticatable_type", null: false
-    t.string "authentication_kind", null: false
-    t.datetime "created_at", null: false
     t.string "identifier", null: false
+    t.string "authenticatable_type", null: false
+    t.bigint "authenticatable_id", null: false
+    t.string "authentication_kind", null: false
     t.string "initial_ip", null: false
-    t.text "initial_user_agent", null: false
-    t.bigint "initiated_by_authenticated_session_id"
-    t.string "isp"
-    t.datetime "last_active_at", null: false
     t.string "latest_ip", null: false
+    t.text "initial_user_agent", null: false
     t.text "latest_user_agent", null: false
-    t.string "location"
+    t.datetime "last_active_at", null: false
     t.datetime "revoked_at"
+    t.bigint "initiated_by_authenticated_session_id"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "isp"
+    t.string "location"
     t.index ["authenticatable_type", "authenticatable_id", "revoked_at"], name: "index_authenticated_sessions_for_account_listing"
     t.index ["identifier"], name: "index_authenticated_sessions_on_identifier", unique: true
     t.index ["initiated_by_authenticated_session_id"], name: "idx_on_initiated_by_authenticated_session_id_b250d18242"
   end
 
   create_table "banned_path_fragments", force: :cascade do |t|
+    t.string "value", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "value", null: false
     t.index ["value"], name: "index_banned_path_fragments_on_value", unique: true
   end
 
   create_table "blazer_audits", force: :cascade do |t|
-    t.datetime "created_at"
-    t.string "data_source"
+    t.bigint "user_id"
     t.bigint "query_id"
     t.text "statement"
-    t.bigint "user_id"
+    t.string "data_source"
+    t.datetime "created_at"
     t.index ["query_id"], name: "index_blazer_audits_on_query_id"
     t.index ["user_id"], name: "index_blazer_audits_on_user_id"
   end
 
   create_table "blazer_checks", force: :cascade do |t|
-    t.string "check_type"
-    t.datetime "created_at", null: false
     t.bigint "creator_id"
-    t.text "emails"
-    t.datetime "last_run_at"
-    t.text "message"
     t.bigint "query_id"
-    t.string "schedule"
-    t.text "slack_channels"
     t.string "state"
+    t.string "schedule"
+    t.text "emails"
+    t.text "slack_channels"
+    t.string "check_type"
+    t.text "message"
+    t.datetime "last_run_at"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_checks_on_creator_id"
     t.index ["query_id"], name: "index_blazer_checks_on_query_id"
   end
 
   create_table "blazer_dashboard_queries", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.bigint "dashboard_id"
-    t.integer "position"
     t.bigint "query_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dashboard_id"], name: "index_blazer_dashboard_queries_on_dashboard_id"
     t.index ["query_id"], name: "index_blazer_dashboard_queries_on_query_id"
   end
 
   create_table "blazer_dashboards", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.bigint "creator_id"
     t.string "name"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_dashboards_on_creator_id"
   end
 
   create_table "blazer_queries", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.bigint "creator_id"
-    t.string "data_source"
-    t.text "description"
     t.string "name"
+    t.text "description"
     t.text "statement"
+    t.string "data_source"
     t.string "status"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
   end
 
   create_table "check_in_submissions", force: :cascade do |t|
     t.bigint "check_in_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.index ["check_in_id", "user_id"], name: "index_check_in_submissions_on_check_in_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_check_in_submissions_on_user_id"
   end
 
   create_table "check_ins", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.bigint "marriage_id", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marriage_id"], name: "index_check_ins_on_marriage_id"
   end
 
   create_table "ci_step_results", force: :cascade do |t|
-    t.string "branch", null: false
-    t.datetime "created_at", null: false
-    t.integer "github_run_attempt", null: false
-    t.bigint "github_run_id", null: false
     t.string "name", null: false
-    t.boolean "passed", default: false, null: false
     t.float "seconds", null: false
-    t.string "sha", null: false
     t.datetime "started_at", null: false
     t.datetime "stopped_at", null: false
+    t.boolean "passed", default: false, null: false
+    t.bigint "github_run_id", null: false
+    t.integer "github_run_attempt", null: false
+    t.string "branch", null: false
+    t.string "sha", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id", "name", "github_run_id", "github_run_attempt"], name: "idx_on_user_id_name_github_run_id_github_run_attemp_5e30d34615", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "content", null: false
-    t.datetime "created_at", null: false
-    t.bigint "parent_id"
     t.string "path", null: false
-    t.datetime "updated_at", null: false
+    t.text "content", null: false
     t.bigint "user_id"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_comments_on_parent_id"
     t.index ["path"], name: "index_comments_on_path"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "csp_reports", force: :cascade do |t|
+    t.string "document_uri", null: false
+    t.string "violated_directive", null: false
+    t.string "original_policy", null: false
+    t.string "ip", null: false
+    t.string "referrer"
     t.string "blocked_uri"
     t.datetime "created_at", null: false
-    t.string "document_uri", null: false
-    t.string "ip", null: false
-    t.string "original_policy", null: false
-    t.string "referrer"
     t.datetime "updated_at", null: false
     t.text "user_agent", null: false
-    t.string "violated_directive", null: false
   end
 
   create_table "datamigration_runs", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "developer", null: false
     t.datetime "completed_at"
     t.datetime "created_at", null: false
-    t.string "developer", null: false
-    t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["developer"], name: "index_datamigration_runs_on_developer"
     t.index ["name"], name: "index_datamigration_runs_on_name"
   end
 
   create_table "deploys", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.string "git_sha", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["git_sha"], name: "index_deploys_on_git_sha"
   end
 
   create_table "emotional_needs", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "description"
     t.bigint "marriage_id", null: false
     t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["marriage_id", "name"], name: "index_emotional_needs_on_marriage_id_and_name", unique: true
   end
 
   create_table "events", force: :cascade do |t|
+    t.string "type", null: false
+    t.bigint "user_id"
     t.bigint "admin_user_id"
-    t.datetime "created_at", null: false
     t.jsonb "data"
     t.string "ip", null: false
     t.string "isp"
     t.string "location"
     t.string "stack_trace", default: [], null: false, array: true
-    t.string "type", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "user_agent"
-    t.bigint "user_id"
     t.index ["admin_user_id"], name: "index_events_on_admin_user_id"
     t.index ["ip"], name: "index_events_on_ip"
     t.index ["type"], name: "index_events_on_type"
@@ -271,29 +271,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "ip_blocks", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.string "ip", null: false
+    t.text "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "isp"
     t.string "location"
-    t.text "reason"
-    t.datetime "updated_at", null: false
     t.index ["ip"], name: "index_ip_blocks_on_ip", unique: true
   end
 
   create_table "item_availabilities", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.bigint "item_id", null: false
     t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id", "store_id"], name: "index_item_availabilities_on_item_id_and_store_id", unique: true
     t.index ["store_id"], name: "index_item_availabilities_on_store_id"
   end
 
   create_table "item_section_assignments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "item_availability_id", null: false
     t.bigint "store_section_configuration_id", null: false
+    t.bigint "item_availability_id", null: false
     t.bigint "store_section_id", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_availability_id"], name: "index_item_section_assignments_on_item_availability_id"
     t.index ["store_section_configuration_id", "item_availability_id"], name: "idx_on_store_section_configuration_id_item_availabi_90aa52d8d8", unique: true
@@ -301,9 +301,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
     t.string "name", null: false
     t.integer "needed", default: 1, null: false
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id", null: false
     t.index "user_id, lower((name)::text)", name: "index_items_on_user_id_and_lower_name", unique: true
@@ -311,66 +311,66 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "json_preferences", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.jsonb "json", null: false
-    t.string "preference_type", null: false
-    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.string "preference_type", null: false
+    t.jsonb "json", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id", "preference_type"], name: "index_json_preferences_on_user_id_and_preference_type", unique: true
   end
 
   create_table "link_status_expectations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "status", null: false
-    t.datetime "updated_at", null: false
     t.text "url", null: false
+    t.integer "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["url", "status"], name: "index_link_status_expectations_on_url_and_status", unique: true
     t.check_constraint "status >= 100 AND status <= 999", name: "link_status_expectations_status_range"
   end
 
   create_table "log_entries", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "log_entry_datum_id", null: false
-    t.string "log_entry_datum_type", null: false
     t.bigint "log_id", null: false
+    t.string "log_entry_datum_type", null: false
+    t.bigint "log_entry_datum_id", null: false
     t.string "note"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["log_entry_datum_type", "log_entry_datum_id"], name: "idx_on_log_entry_datum_type_log_entry_datum_id_e43ce914c3", unique: true
     t.index ["log_id"], name: "index_log_entries_on_log_id"
   end
 
   create_table "log_shares", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "email", null: false
     t.bigint "log_id", null: false
+    t.text "email", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["log_id", "email"], name: "index_log_shares_on_log_id_and_email", unique: true
   end
 
   create_table "logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
     t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.string "description"
+    t.string "slug", null: false
     t.string "data_label", null: false
     t.string "data_type", null: false
-    t.string "description"
+    t.boolean "publicly_viewable", default: false, null: false
+    t.integer "reminder_time_in_seconds", comment: "Time in seconds, which, if elapsed since the creation of log or most recent log entry (whichever is later) will trigger a reminder to be sent (via email) to the owning user."
+    t.datetime "reminder_last_sent_at", precision: nil
     t.string "email_submission_token", null: false
     t.datetime "email_submission_token_last_rotated_at"
-    t.string "name", null: false
-    t.boolean "publicly_viewable", default: false, null: false
-    t.datetime "reminder_last_sent_at", precision: nil
-    t.integer "reminder_time_in_seconds", comment: "Time in seconds, which, if elapsed since the creation of log or most recent log entry (whichever is later) will trigger a reminder to be sent (via email) to the owning user."
-    t.string "slug", null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id", null: false
     t.index ["email_submission_token"], name: "index_logs_on_email_submission_token", unique: true
     t.index ["user_id", "name"], name: "index_logs_on_user_id_and_name", unique: true
     t.index ["user_id", "slug"], name: "index_logs_on_user_id_and_slug", unique: true
   end
 
   create_table "marriage_memberships", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.bigint "marriage_id", null: false
-    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["marriage_id"], name: "index_marriage_memberships_on_marriage_id"
     t.index ["user_id"], name: "index_marriage_memberships_on_user_id", unique: true
   end
@@ -381,12 +381,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "need_satisfaction_ratings", force: :cascade do |t|
-    t.bigint "check_in_id", null: false
-    t.datetime "created_at", null: false
     t.bigint "emotional_need_id", null: false
-    t.integer "score"
-    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.bigint "check_in_id", null: false
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["check_in_id"], name: "index_need_satisfaction_ratings_on_check_in_id"
     t.index ["emotional_need_id"], name: "index_need_satisfaction_ratings_on_emotional_need_id"
     t.index ["user_id"], name: "index_need_satisfaction_ratings_on_user_id"
@@ -394,8 +394,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "number_log_entry_data", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
     t.float "data", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
 
@@ -405,43 +405,43 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "pghero_query_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "user"
+    t.bigint "query_hash"
+    t.float "total_time"
     t.bigint "calls"
     t.datetime "captured_at", precision: nil
-    t.text "database"
-    t.bigint "query_hash"
     t.bigint "query_id"
-    t.float "total_time"
-    t.text "user"
     t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
   end
 
   create_table "pghero_space_stats", force: :cascade do |t|
-    t.datetime "captured_at", precision: nil
     t.text "database"
-    t.text "relation"
     t.text "schema"
+    t.text "relation"
     t.bigint "size"
+    t.datetime "captured_at", precision: nil
     t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
   end
 
   create_table "proposals", force: :cascade do |t|
-    t.datetime "accepted_at"
-    t.datetime "canceled_at"
-    t.datetime "created_at", null: false
-    t.string "proposee_email", null: false
     t.bigint "proposer_id", null: false
+    t.string "proposee_email", null: false
     t.string "public_id", null: false
+    t.datetime "accepted_at"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "canceled_at"
     t.index ["proposer_id", "proposee_email"], name: "uniq_pending_proposals", unique: true, where: "((accepted_at IS NULL) AND (canceled_at IS NULL))"
     t.index ["proposer_id"], name: "index_proposals_on_proposer_id"
     t.index ["public_id"], name: "index_proposals_on_public_id", unique: true
   end
 
   create_table "quiz_participations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "display_name", null: false
-    t.bigint "participant_id", null: false
     t.bigint "quiz_id", null: false
+    t.bigint "participant_id", null: false
+    t.string "display_name", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["participant_id"], name: "index_quiz_participations_on_participant_id"
     t.index ["quiz_id", "display_name"], name: "index_quiz_participations_on_quiz_id_and_display_name", unique: true
@@ -451,63 +451,63 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   create_table "quiz_question_answer_selections", force: :cascade do |t|
     t.bigint "answer_id", null: false
     t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "participation_id", null: false
     t.bigint "question_id", null: false
-    t.datetime "updated_at", null: false
     t.index ["answer_id"], name: "index_quiz_question_answer_selections_on_answer_id"
     t.index ["participation_id", "question_id"], name: "uniq_quiz_answer_selections_on_participation_and_question", unique: true
     t.index ["question_id"], name: "index_quiz_question_answer_selections_on_question_id"
   end
 
   create_table "quiz_question_answers", force: :cascade do |t|
-    t.text "content", null: false
-    t.datetime "created_at", null: false
-    t.boolean "is_correct", default: false, null: false
     t.bigint "question_id", null: false
+    t.text "content", null: false
+    t.boolean "is_correct", default: false, null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_quiz_question_answers_on_question_id"
   end
 
   create_table "quiz_questions", force: :cascade do |t|
-    t.text "content", null: false
-    t.datetime "created_at", null: false
     t.bigint "quiz_id", null: false
+    t.text "content", null: false
     t.string "status", default: "open", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["quiz_id"], name: "index_quiz_questions_on_quiz_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "current_question_number", default: 1, null: false
     t.string "name"
     t.bigint "owner_id", null: false
     t.string "status", default: "unstarted", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "current_question_number", default: 1, null: false
     t.index ["owner_id"], name: "index_quizzes_on_owner_id"
   end
 
   create_table "requests", force: :cascade do |t|
-    t.bigint "admin_user_id"
-    t.bigint "auth_token_id"
-    t.datetime "created_at", null: false
-    t.integer "db"
-    t.string "format"
-    t.string "handler", null: false
-    t.string "ip", null: false
-    t.string "isp"
-    t.string "location"
-    t.string "method", null: false
-    t.jsonb "params"
-    t.string "referer"
-    t.string "request_id", null: false
-    t.integer "status", null: false
-    t.integer "total"
-    t.datetime "updated_at", null: false
-    t.string "url", null: false
-    t.string "user_agent"
     t.bigint "user_id"
+    t.string "url", null: false
+    t.string "handler", null: false
+    t.string "referer"
+    t.jsonb "params"
+    t.string "method", null: false
+    t.string "format"
+    t.integer "status", null: false
     t.integer "view"
+    t.integer "db"
+    t.string "ip", null: false
+    t.string "user_agent"
+    t.string "location"
+    t.string "isp"
+    t.string "request_id", null: false
+    t.bigint "auth_token_id"
+    t.bigint "admin_user_id"
+    t.integer "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["admin_user_id"], name: "index_requests_on_admin_user_id"
     t.index ["auth_token_id"], name: "index_requests_on_auth_token_id"
     t.index ["created_at"], name: "index_requests_on_created_at"
@@ -518,12 +518,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "store_section_configurations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.boolean "sectioning_enabled", default: false, null: false
+    t.bigint "user_id", null: false
     t.bigint "store_id", null: false
     t.bigint "store_section_scheme_id"
+    t.boolean "sectioning_enabled", default: false, null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.index ["store_id"], name: "index_store_section_configurations_on_store_id"
     t.index ["store_section_scheme_id"], name: "index_store_section_configurations_on_store_section_scheme_id"
     t.index ["user_id", "store_id"], name: "index_store_section_configurations_on_user_id_and_store_id", unique: true
@@ -531,72 +531,72 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "store_section_schemes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "name", null: false
-    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index "user_id, lower((name)::text)", name: "index_store_section_schemes_on_user_id_and_name", unique: true
   end
 
   create_table "store_sections", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "name", null: false
     t.bigint "store_section_scheme_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index "store_section_scheme_id, lower((name)::text)", name: "index_store_sections_on_scheme_id_and_name", unique: true
   end
 
   create_table "stores", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
     t.string "name", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "viewed_at", precision: nil, null: false
     t.text "notes"
     t.boolean "private", default: false, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id", null: false
-    t.datetime "viewed_at", precision: nil, null: false
     t.index ["user_id", "name"], name: "index_stores_on_user_id_and_name", unique: true
   end
 
   create_table "text_log_entry_data", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
     t.text "data", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "timeseries", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.jsonb "measurements", default: [], null: false
     t.text "name", null: false
+    t.jsonb "measurements", default: [], null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
     t.string "email", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "google_sub"
     t.string "public_name"
-    t.datetime "updated_at", precision: nil, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   create_table "versions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "event", null: false
-    t.bigint "item_id", null: false
     t.string "item_type", null: false
+    t.bigint "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
     t.jsonb "object"
     t.jsonb "object_changes"
-    t.string "whodunnit"
+    t.datetime "created_at", null: false
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   create_table "workouts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.boolean "publicly_viewable", default: false, null: false
-    t.jsonb "rep_totals", null: false
-    t.integer "time_in_seconds", null: false
-    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.integer "time_in_seconds", null: false
+    t.jsonb "rep_totals", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "publicly_viewable", default: false, null: false
     t.index ["created_at"], name: "index_workouts_on_created_at"
     t.index ["user_id"], name: "index_workouts_on_user_id"
     t.check_constraint "time_in_seconds > 0", name: "workouts_time_in_seconds_positive"
