@@ -347,7 +347,7 @@ services:
         condition: service_started
     env_file:
       - .env.s3_db_backup.local
-    image: dokku/s3backup:0.19.1@sha256:8ac3c4766d54886ed380c7894896843a89f2695a69c05797c037b5e11c56088c
+    image: dokku/s3backup:0.19.2@sha256:8e1b2e9c53e7c2fb7a77c16fe1123cd26da1539fcefe69a28b472f216cfc5d3b
     logging: *default-logging
     networks:
       - external
