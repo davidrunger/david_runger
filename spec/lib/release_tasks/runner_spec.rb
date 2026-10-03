@@ -27,6 +27,7 @@ RSpec.describe ReleaseTasks::Runner do
     before do
       task
       allow(runner).to receive(:pp)
+      allow(runner).to receive(:print)
       allow(runner).to receive(:sleep)
     end
 
@@ -36,10 +37,9 @@ RSpec.describe ReleaseTasks::Runner do
       end
 
       it 'invokes the task once without sleeping' do
-        expect do
-          run_rake_task_with_retries
-        end.to output('attempt #1... ').to_stdout
+        run_rake_task_with_retries
 
+        expect(runner).to have_received(:print).once.with('attempt #1... ')
         expect(task_action).to have_received(:call).once
         expect(runner).not_to have_received(:sleep)
       end
