@@ -96,8 +96,11 @@ class User < ApplicationRecord
           participations: :quiz_question_answer_selections,
           questions: { answers: :selections },
         },
-        items: :item_availabilities,
-        stores: %i[item_availabilities store_section_configurations],
+        items: { item_availabilities: :item_section_assignments },
+        stores: [
+          :store_section_configurations,
+          { item_availabilities: :item_section_assignments },
+        ],
         store_section_configurations: :item_section_assignments,
         store_section_schemes: :store_sections,
       )
