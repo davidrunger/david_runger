@@ -4,7 +4,7 @@
 #
 #  created_at :datetime         not null
 #  id         :bigint           not null, primary key
-#  ip         :string           not null
+#  ip         :string(45)       not null
 #  isp        :string
 #  location   :string
 #  reason     :text
@@ -17,7 +17,7 @@
 class IpBlock < ApplicationRecord
   validates :ip,
     presence: true,
-    length: { maximum: 39 },
+    length: { maximum: 45 },
     format: { with: /\A[.:0-9a-f]{7,39}\z/ },
     uniqueness: true
 
