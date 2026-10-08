@@ -43,6 +43,7 @@ class Store < ApplicationRecord
   class << self
     def with_eager_loading_for_destroy
       includes(
+        :store_section_configurations,
         item_availabilities: :item_section_assignments,
       )
     end
