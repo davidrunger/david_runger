@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_08_190246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -215,15 +215,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "csp_reports", force: :cascade do |t|
-    t.string "document_uri", null: false
-    t.string "violated_directive", null: false
-    t.string "original_policy", null: false
+    t.string "document_uri", limit: 2048, null: false
+    t.string "violated_directive", limit: 1024, null: false
+    t.string "original_policy", limit: 8192, null: false
     t.string "ip", null: false
-    t.string "referrer"
-    t.string "blocked_uri"
+    t.string "referrer", limit: 2048
+    t.string "blocked_uri", limit: 2048
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "user_agent", null: false
+    t.string "user_agent", limit: 1024, null: false
   end
 
   create_table "datamigration_runs", force: :cascade do |t|
@@ -253,7 +253,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "type", null: false
+    t.string "type", limit: 100, null: false
     t.bigint "user_id"
     t.bigint "admin_user_id"
     t.jsonb "data"
@@ -263,7 +263,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
     t.string "stack_trace", default: [], null: false, array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "user_agent"
+    t.string "user_agent", limit: 1024
     t.index ["admin_user_id"], name: "index_events_on_admin_user_id"
     t.index ["ip"], name: "index_events_on_ip"
     t.index ["type"], name: "index_events_on_type"
@@ -271,7 +271,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_040304) do
   end
 
   create_table "ip_blocks", force: :cascade do |t|
-    t.string "ip", null: false
+    t.string "ip", limit: 45, null: false
     t.text "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
