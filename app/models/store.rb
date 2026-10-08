@@ -19,7 +19,7 @@ class Store < ApplicationRecord
   belongs_to :user
   has_many :item_availabilities, dependent: :destroy, inverse_of: :store
   has_many :items, through: :item_availabilities
-  has_many :store_section_configurations, dependent: :delete_all
+  has_many :store_section_configurations, dependent: :destroy
 
   scope(
     :with_grocery_data,
@@ -39,4 +39,13 @@ class Store < ApplicationRecord
   validates :viewed_at, presence: true
 
   has_paper_trail
+
+  class << self
+    def with_eager_loading_for_destroy
+      includes(
+        :store_section_configurations,
+        item_availabilities: :item_section_assignments,
+      )
+    end
+  end
 end

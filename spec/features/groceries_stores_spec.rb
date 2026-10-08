@@ -46,7 +46,7 @@ RSpec.describe 'Groceries app' do
 
       context 'when the spouse has no stores' do
         before do
-          user.spouse.presence!.stores.includes(:items).find_each(&:destroy!)
+          user.spouse.presence!.stores.with_eager_loading_for_destroy.find_each(&:destroy!)
         end
 
         it 'does not show a prompt to invite the spouse' do
