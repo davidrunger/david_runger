@@ -63,7 +63,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@percy/cli": "^1.32.11",
     "@pinia/testing": "^2.0.1",
-    "@prettier/plugin-pug": "^3.5.0",
+    "@prettier/plugin-pug": "^3.5.1",
     "@testing-library/vue": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/luxon": "^3.7.6",
