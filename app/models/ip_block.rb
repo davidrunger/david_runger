@@ -4,7 +4,7 @@
 #
 #  created_at :datetime         not null
 #  id         :bigint           not null, primary key
-#  ip         :string           not null
+#  ip         :string(45)       not null
 #  isp        :string
 #  location   :string
 #  reason     :text

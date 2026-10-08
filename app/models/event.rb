@@ -10,9 +10,9 @@
 #  isp           :string
 #  location      :string
 #  stack_trace   :string           default([]), not null, is an Array
-#  type          :string           not null
+#  type          :string(100)      not null
 #  updated_at    :datetime         not null
-#  user_agent    :text
+#  user_agent    :string(1024)
 #  user_id       :bigint
 #
 # Indexes

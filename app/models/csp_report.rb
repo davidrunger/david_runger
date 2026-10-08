@@ -2,16 +2,16 @@
 #
 # Table name: csp_reports
 #
-#  blocked_uri        :string
+#  blocked_uri        :string(2048)
 #  created_at         :datetime         not null
-#  document_uri       :string           not null
+#  document_uri       :string(2048)     not null
 #  id                 :bigint           not null, primary key
 #  ip                 :string           not null
-#  original_policy    :string           not null
-#  referrer           :string
+#  original_policy    :string(8192)     not null
+#  referrer           :string(2048)
 #  updated_at         :datetime         not null
-#  user_agent         :text             not null
-#  violated_directive :string           not null
+#  user_agent         :string(1024)     not null
+#  violated_directive :string(1024)     not null
 #
 class CspReport < ApplicationRecord
   MAX_ORIGINAL_POLICY_LENGTH = 8.kilobytes
