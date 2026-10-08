@@ -39,4 +39,12 @@ class Store < ApplicationRecord
   validates :viewed_at, presence: true
 
   has_paper_trail
+
+  class << self
+    def with_eager_loading_for_destroy
+      includes(
+        item_availabilities: :item_section_assignments,
+      )
+    end
+  end
 end

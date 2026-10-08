@@ -20,7 +20,7 @@ RSpec.describe Api::DeletedItemRestorationsController, :versioning do
     let(:item_version_id) { item.versions.destroys.last!.id }
     let(:params) { { item_availability_version_ids:, item_version_id: } }
 
-    before { item.destroy! }
+    before { Item.includes(item_availabilities: :item_section_assignments).find(item.id).destroy! }
 
     context 'when logged in as the user who owns the destroyed item' do
       before { sign_in(item.user) }
