@@ -1,4 +1,6 @@
 class Api::ItemsController < Api::BaseController
+  ITEM_INCLUDES = { 'destroy' => [{ item_availabilities: :item_section_assignments }] }.freeze
+
   before_action :set_item, only: %i[destroy update]
 
   def create
@@ -82,11 +84,16 @@ class Api::ItemsController < Api::BaseController
   end
 
   def set_item
-    @item = policy_scope(Item).find_by(id: params['id'])
+    @item = item_scope.find_by(id: params[:id])
 
     if @item.nil?
       head(:not_found)
     end
+  end
+
+  def item_scope
+    includes = ITEM_INCLUDES[action_name]
+    includes ? policy_scope(Item).includes(*includes) : policy_scope(Item)
   end
 
   def update_availabilities
