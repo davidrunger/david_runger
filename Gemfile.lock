@@ -737,7 +737,7 @@ GEM
     time (0.5.0)
       date
     timeout (0.6.1)
-    tmpdir (0.3.1)
+    tmpdir (0.3.2)
       fileutils
     tsort (0.2.0)
     tzinfo (2.0.6)
@@ -1179,7 +1179,7 @@ CHECKSUMS
   tilt (2.9.0) sha256=da5735d0280bba96e9a91041bb14aee435ccad5c17b0fa519249ae543d9aa3a5
   time (0.5.0) sha256=abea008a7c3e8d2727f95f6fab334b7862004c514fbb4b3315285910e8d1650f
   timeout (0.6.1) sha256=78f57368a7e7bbadec56971f78a3f5ecbcfb59b7fcbb0a3ed6ddc08a5094accb
-  tmpdir (0.3.1) sha256=908e9729bb31ce104ba27fc03cfc8293a7f858a8dc9e3a1d7cfd112919a3513d
+  tmpdir (0.3.2) sha256=e276ef386182169f8d417d9e90f12dba82a54e81646df0caf21de4a7987a0c27
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
   typelizer (0.3.0)
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
