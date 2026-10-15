@@ -20,6 +20,12 @@ class ApplicationRecord < ActiveRecord::Base
       # Log all events, including `create` (which we omit by default).
       has_paper_trail(on: %i[create destroy touch update])
     end
+
+    # Make associations not searchable by default. Models can override, as
+    # needed, to permit association searching.
+    def ransackable_associations(_auth_object = nil)
+      []
+    end
   end
 
   def as_json
