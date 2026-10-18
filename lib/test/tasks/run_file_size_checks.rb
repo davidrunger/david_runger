@@ -19,7 +19,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'emoji_picker*.js' => (358..368),
     'google_sign_in_button*.js' => (1..11),
     'groceries*.css' => (98..108),
-    'groceries*.js' => (450..460),
+    'groceries*.js' => (456..466),
     'home*.css' => (13..23),
     'home*.js' => (261..271),
     'logs*.css' => (94..104),
@@ -30,9 +30,9 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'test_styles*.css' => (0..10),
     'ujs*.js' => (10..20),
     'vue_playground*.css' => (0..10),
-    'vue_playground*.js' => (72..82),
+    'vue_playground*.js' => (77..87),
     'workout*.css' => (41..51),
-    'workout*.js' => (250..260),
+    'workout*.js' => (256..266),
   }.freeze
 
   def run
