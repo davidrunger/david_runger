@@ -9,7 +9,7 @@ li.check-in-item.break-word.mb-1.flex.items-center.transition-all.duration-150.e
     :disabled="item.checkInStatus === 'skipped'"
     :id="`trip-checkin-item-${item.id}`"
   )
-  label.ml-2(:for="`trip-checkin-item-${item.id}`")
+  label.font-metric-aligned.ml-2(:for="`trip-checkin-item-${item.id}`")
     span.wrap-anywhere(
       :class="{ 'text-gray-500': item.checkInStatus === 'skipped' }"
     )
@@ -28,13 +28,15 @@ li.check-in-item.break-word.mb-1.flex.items-center.transition-all.duration-150.e
       link
       type="primary"
       @click="moveTo('needed')"
-    ) Unskip
+    )
+      span.font-metric-aligned Unskip
     ElButton(
       v-else
       link
       type="primary"
       @click="moveTo('skipped')"
-    ) Skip
+    )
+      span.font-metric-aligned Skip
 </template>
 
 <script setup lang="ts">

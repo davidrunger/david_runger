@@ -19,7 +19,8 @@ Modal(
         type="primary"
         plain
         @click="emit('organizeItems', itemsToOrganize)"
-      ) Organize {{ itemsToOrganize.length }} ungrouped {{ itemsToOrganize.length === 1 ? 'item' : 'items' }}
+      )
+        span.font-metric-aligned Organize {{ itemsToOrganize.length }} ungrouped {{ itemsToOrganize.length === 1 ? 'item' : 'items' }}
 
       .flex-1.overflow-y-auto
         CheckInSectionedItemsList(
@@ -42,7 +43,8 @@ Modal(
           @click="modalStore.hideModal({ modalName: 'check-in-shopping-trip' })"
           type="primary"
           link
-        ) Cancel
+        )
+          span.font-metric-aligned Cancel
         ElButton(
           @click="handleTripCheckinModalSubmit"
           type="primary"
@@ -50,8 +52,8 @@ Modal(
           :disabled="checkingIn"
           :class="{ pulsing: noMoreNeededItems() }"
         )
-          span(v-if="checkingIn") Checking in...
-          span(v-else) Check in items in cart
+          span.font-metric-aligned(v-if="checkingIn") Checking in...
+          span.font-metric-aligned(v-else) Check in items in cart
 </template>
 
 <script setup lang="ts">

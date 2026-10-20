@@ -13,13 +13,13 @@ Modal(
         v-for="store in groceriesStore.sortedStores"
         :key="store.id"
       )
-        label.flex.cursor-pointer.items-center.gap-3
+        label.flex.min-h-6.cursor-pointer.items-center.gap-3
           input(
             v-model="selectedStoreIds"
             type="checkbox"
             :value="store.id"
           )
-          span {{ store.name }}
+          span.font-metric-aligned {{ store.name }}
 
     p.mt-3.text-sm.text-red-700(v-if="selectedStoreIds.length === 0") Choose at least one store.
 
@@ -28,13 +28,15 @@ Modal(
         type="primary"
         link
         @click="cancel"
-      ) Cancel
+      )
+        span.font-metric-aligned Cancel
       ElButton(
         type="primary"
         native-type="submit"
         :disabled="selectedStoreIds.length === 0"
         :loading="saving"
-      ) Save
+      )
+        span.font-metric-aligned Save
 </template>
 
 <script setup lang="ts">
