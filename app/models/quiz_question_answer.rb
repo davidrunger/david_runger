@@ -15,6 +15,7 @@
 #
 class QuizQuestionAnswer < ApplicationRecord
   validates :content, presence: true
+  validates :is_correct, inclusion: { in: [false, true] }
 
   belongs_to :question, class_name: 'QuizQuestion'
 

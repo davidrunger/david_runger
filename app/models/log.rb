@@ -45,6 +45,7 @@ class Log < ApplicationRecord
   validates :data_type, presence: true, inclusion: DATA_TYPES.keys
   validates :email_submission_token, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: { scope: :user_id }
+  validates :publicly_viewable, inclusion: { in: [false, true] }
   validates :slug, presence: true, uniqueness: { scope: :user_id }
 
   has_secure_token :email_submission_token, length: EMAIL_SUBMISSION_TOKEN_LENGTH

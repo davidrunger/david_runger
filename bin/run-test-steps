@@ -22,3 +22,5 @@ require './lib/test/runner.rb'
 ARGV.each do |test_step|
   "Test::Tasks::#{test_step}".safe_constantize.new.run
 end
+
+exit(Test::Runner.exit_code)

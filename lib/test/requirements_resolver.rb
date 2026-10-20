@@ -55,6 +55,7 @@ class Test::RequirementsResolver
           Test::Tasks::SetupDb,
         ],
         Test::Tasks::RunBrakeman => nil,
+        Test::Tasks::RunActiveRecordDoctor => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunDatabaseConsistency => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunRubocop => nil,
         Test::Tasks::RunUnitTests => Test::Tasks::CreateDbCopies,
@@ -117,6 +118,7 @@ class Test::RequirementsResolver
           Test::Tasks::CheckVersions,
           Test::Tasks::ConvertSchemasToTs,
           Test::Tasks::RunAnnotate,
+          Test::Tasks::RunActiveRecordDoctor,
           Test::Tasks::RunApiControllerTests,
           Test::Tasks::RunBrakeman,
           Test::Tasks::RunDatabaseConsistency,
@@ -254,6 +256,12 @@ class Test::RequirementsResolver
     end,
     Test::Tasks::RunDatabaseConsistency => proc do
       !db_schema_changed? && !diff_mentions?('database_consistency')
+    end,
+    Test::Tasks::RunActiveRecordDoctor => proc do
+      !db_schema_changed? &&
+        !file_changed?(%r{^app/models/}) &&
+        !file_changed?('.active_record_doctor.rb') &&
+        !diff_mentions?('active_record_doctor')
     end,
     Test::Tasks::RunToolsTests => proc do
       !file_changed?(%r{^tools/}i) &&

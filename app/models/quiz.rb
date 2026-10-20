@@ -19,6 +19,7 @@ class Quiz < ApplicationRecord
 
   STATUSES = %w[unstarted active closed].map(&:freeze).freeze
 
+  validates :current_question_number, presence: true
   validates :status, presence: true, inclusion: STATUSES
 
   belongs_to :owner, class_name: 'User'

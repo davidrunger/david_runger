@@ -22,6 +22,7 @@ class StoreSectionConfiguration < ApplicationRecord
   belongs_to :store_section_scheme, optional: true
   has_many :item_section_assignments, dependent: :destroy
 
+  validates :sectioning_enabled, inclusion: { in: [false, true] }
   validates :store_id, uniqueness: { scope: :user_id }
   validates :store_section_scheme, presence: true, if: :sectioning_enabled?
   validate :store_is_available_to_user

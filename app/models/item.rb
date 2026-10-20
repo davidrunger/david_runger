@@ -23,7 +23,9 @@ class Item < ApplicationRecord
   validates :name,
     presence: true,
     uniqueness: { case_sensitive: false, scope: :user_id }
-  validates :needed, numericality: { greater_than_or_equal_to: 0, only_integer: true }
+  validates :needed,
+    presence: true,
+    numericality: { greater_than_or_equal_to: 0, only_integer: true }
   validates :item_availabilities, presence: true
 
   strip_attributes collapse_spaces: true
