@@ -117,17 +117,17 @@ class Test::RequirementsResolver
           Test::Tasks::CheckTypescript,
           Test::Tasks::CheckVersions,
           Test::Tasks::ConvertSchemasToTs,
-          Test::Tasks::RunAnnotate,
           Test::Tasks::RunActiveRecordDoctor,
+          Test::Tasks::RunAnnotate,
           Test::Tasks::RunApiControllerTests,
           Test::Tasks::RunBrakeman,
           Test::Tasks::RunDatabaseConsistency,
-          Test::Tasks::RunOxlint,
           Test::Tasks::RunFeatureTestsA,
           Test::Tasks::RunFeatureTestsB,
           Test::Tasks::RunFeatureTestsC,
           Test::Tasks::RunFileSizeChecks,
           Test::Tasks::RunHtmlControllerTests,
+          Test::Tasks::RunOxlint,
           Test::Tasks::RunPrettier,
           Test::Tasks::RunRubocop,
           Test::Tasks::RunStylelint,
@@ -254,14 +254,14 @@ class Test::RequirementsResolver
       (!(haml_files_changed? || ruby_files_changed?) || running_locally?) &&
         !diff_mentions?('brakeman')
     end,
-    Test::Tasks::RunDatabaseConsistency => proc do
-      !db_schema_changed? && !diff_mentions?('database_consistency')
-    end,
     Test::Tasks::RunActiveRecordDoctor => proc do
       !db_schema_changed? &&
         !file_changed?(%r{^app/models/}) &&
         !file_changed?('.active_record_doctor.rb') &&
         !diff_mentions?('active_record_doctor')
+    end,
+    Test::Tasks::RunDatabaseConsistency => proc do
+      !db_schema_changed? && !diff_mentions?('database_consistency')
     end,
     Test::Tasks::RunToolsTests => proc do
       !file_changed?(%r{^tools/}i) &&
