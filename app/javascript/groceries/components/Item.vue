@@ -202,21 +202,18 @@ function setNeeded(item: Item, needed: number) {
   transition:
     background-color 0.3s ease-in-out,
     border-color 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out,
-    transform 0.2s ease;
+    box-shadow 0.3s ease-in-out;
 
   /* stylelint-disable media-feature-name-value-no-unknown */
   &:not(.unneeded):hover {
     background: var(--groceries-paper);
     border-color: #acb9a1;
     box-shadow: 0 6px 17px rgb(66, 84, 65, 13%);
-    transform: translateY(-1px);
 
     @media (hover: none), (hover: on-demand) {
       background: rgb(255, 253, 248, 88%);
       border-color: rgb(198, 203, 185, 82%);
       box-shadow: 0 3px 12px rgb(66, 84, 65, 8%);
-      transform: none;
     }
   }
 
