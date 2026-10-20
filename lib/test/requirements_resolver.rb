@@ -44,7 +44,7 @@ class Test::RequirementsResolver
           Test::Tasks::ConvertSchemasToTs,
         ],
         Test::Tasks::RunTsd => Test::Tasks::PnpmInstall,
-        Test::Tasks::RunVitest => Test::Tasks::PnpmInstall,
+        Test::Tasks::RunVitest => Test::Tasks::BuildRouteHelpers,
         Test::Tasks::RunAnnotate => Test::Tasks::CreateDbCopies,
         Test::Tasks::RunTypelizer => [
           Test::Tasks::ConvertSchemasToTs,
