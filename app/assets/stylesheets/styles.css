@@ -50,6 +50,10 @@ html {
   box-sizing: border-box;
 }
 
+.font-metric-aligned {
+  text-box: trim-both text alphabetic;
+}
+
 textarea {
   font-family: sans-serif;
 }
