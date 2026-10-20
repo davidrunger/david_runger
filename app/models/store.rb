@@ -36,6 +36,7 @@ class Store < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :user_id }
+  validates :private, inclusion: { in: [false, true] }
   validates :viewed_at, presence: true
 
   has_paper_trail

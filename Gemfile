@@ -102,6 +102,7 @@ group :development do
 end
 
 group :test do
+  gem 'active_record_doctor'
   gem 'brakeman', require: false
   gem 'capybara'
   gem 'capybara-email'

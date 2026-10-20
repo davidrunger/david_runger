@@ -93,29 +93,36 @@ module Test::TaskHelpers
       Running rake task '#{AmazingPrint::Colors.yellow(task_name)}' ...
     LOG
 
-    time = nil
     exception = nil
+    exit_status = nil
+    exit_successful = nil
 
-    begin
-      time =
-        Benchmark.measure do
-          Rake::Task[task_name].invoke
-        end.real
-    rescue => error
-      exception = error
-    ensure
-      if exception.present?
-        update_job_result_exit_code(1)
+    time =
+      Benchmark.measure do
+        Rake::Task[task_name].invoke
+      rescue SystemExit => error
+        exit_status = error.status
+        exit_successful = error.success?
+      rescue => error
+        exception = error
+      end.real
 
-        puts(exception.backtrace)
+    if exception.present?
+      update_job_result_exit_code(1)
 
-        record_failed_command("bin/rails #{task_name}")
-        record_failure_and_log_message(
-          "'#{task_name}' failed ('exited with 1', raised #{error.inspect}).",
-        )
-      else
-        record_success_and_log_message("'#{task_name}' succeeded (took #{time.round(3)}).")
-      end
+      puts(exception.backtrace)
+
+      record_failed_command("bin/rails #{task_name}")
+      record_failure_and_log_message(
+        "'#{task_name}' failed ('exited with 1', raised #{exception.inspect}).",
+      )
+    elsif exit_successful == false
+      update_job_result_exit_code(1)
+
+      record_failed_command("bin/rails #{task_name}")
+      record_failure_and_log_message("'#{task_name}' failed ('exited with #{exit_status}').")
+    else
+      record_success_and_log_message("'#{task_name}' succeeded (took #{time.round(3)}).")
     end
   end
 

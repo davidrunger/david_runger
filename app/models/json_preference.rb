@@ -28,6 +28,6 @@ class JsonPreference < ApplicationRecord
   belongs_to :user
 
   validates :preference_type, presence: true
-  validates :json, length: { minimum: 0, allow_nil: false }
+  validates :json, presence: true, length: { minimum: 0, allow_nil: false }
   validates :preference_type, uniqueness: { scope: :user_id }
 end
