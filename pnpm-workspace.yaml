@@ -10,3 +10,5 @@ allowBuilds:
   protobufjs: false
 overrides:
   typescript: ^6
+minimumReleaseAgeExclude:
+  - fast-uri@3.1.9
