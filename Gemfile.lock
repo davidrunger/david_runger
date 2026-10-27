@@ -202,7 +202,7 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    crass (1.0.7)
+    crass (1.0.8)
     csv (3.3.6)
     cuprite (0.19)
       capybara (~> 3.0)
@@ -687,8 +687,8 @@ GEM
       prism (>= 0.24.0)
       rubocop (>= 1.72.0)
     safely_block (1.0.0)
-    sanitize (7.0.0)
-      crass (~> 1.0.2)
+    sanitize (7.0.1)
+      crass (~> 1.0.8)
       nokogiri (>= 1.16.8)
     securerandom (0.4.1)
     shaped (0.14.0)
@@ -959,7 +959,7 @@ CHECKSUMS
   concurrent-ruby (1.3.8) sha256=b2f1be836e968ccc78ccfce277ea79c72a88633f22306782c16ff23fb415d1e1
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
   crack (1.0.1) sha256=ff4a10390cd31d66440b7524eb1841874db86201d5b70032028553130b6d4c7e
-  crass (1.0.7) sha256=94868719948664c89ddcaf0a37c65048413dfcb1c869470a5f7a7ceb5390b295
+  crass (1.0.8) sha256=7a0145c7a2c59f8e7923b3a69ce819c444823a00a5127d805298fea13be24efe
   csv (3.3.6) sha256=aba61e7e507a66f03d45cb1f3c4b6359861c3504038b422962875dce099e4456
   cuprite (0.19) sha256=e56d59db56693bdfbffd533f715df366f03285ea4435e4c31603e146e0e02518
   database_consistency (3.1.0) sha256=82ed71353cf83368fd2dd9ce229dbe4788f2f9dae73a3ad34fee25e843be4a6c
@@ -1159,7 +1159,7 @@ CHECKSUMS
   runger_rails_model_explorer (0.2.2) sha256=99adf4e287951996d7a2bc308271abe92065836437719eae0a444894c08e683b
   runger_style (5.21.1) sha256=4fecc53b9a46fca5bb2cf0fe994ac69ef5f75b00da4fc4a4b5c29f9b62d317da
   safely_block (1.0.0) sha256=bea80e084e620adeada62fd98cf461bbb9888d40dc0f06d337df9d01e1a658e5
-  sanitize (7.0.0) sha256=269d1b9d7326e69307723af5643ec032ff86ad616e72a3b36d301ac75a273984
+  sanitize (7.0.1) sha256=6dc0d80edab7e5f6bb9036ee001aa8fea000359860c6e53cd909e16321e1ac79
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   shaped (0.14.0) sha256=c976615a8c1b129e61c153f1b60f03d2350627cf4a4ad0ecd3f88610e09df426
   shoulda-matchers (8.0.1) sha256=5dbb46e5765b9da225111b085e0819e8c8a121ff94bba430a153eb1ea2c60288
