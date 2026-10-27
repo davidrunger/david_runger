@@ -687,8 +687,8 @@ GEM
       prism (>= 0.24.0)
       rubocop (>= 1.72.0)
     safely_block (1.0.0)
-    sanitize (7.0.0)
-      crass (~> 1.0.2)
+    sanitize (7.0.1)
+      crass (~> 1.0.8)
       nokogiri (>= 1.16.8)
     securerandom (0.4.1)
     shaped (0.14.0)
@@ -1159,7 +1159,7 @@ CHECKSUMS
   runger_rails_model_explorer (0.2.2) sha256=99adf4e287951996d7a2bc308271abe92065836437719eae0a444894c08e683b
   runger_style (5.21.1) sha256=4fecc53b9a46fca5bb2cf0fe994ac69ef5f75b00da4fc4a4b5c29f9b62d317da
   safely_block (1.0.0) sha256=bea80e084e620adeada62fd98cf461bbb9888d40dc0f06d337df9d01e1a658e5
-  sanitize (7.0.0) sha256=269d1b9d7326e69307723af5643ec032ff86ad616e72a3b36d301ac75a273984
+  sanitize (7.0.1) sha256=6dc0d80edab7e5f6bb9036ee001aa8fea000359860c6e53cd909e16321e1ac79
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   shaped (0.14.0) sha256=c976615a8c1b129e61c153f1b60f03d2350627cf4a4ad0ecd3f88610e09df426
   shoulda-matchers (8.0.1) sha256=5dbb46e5765b9da225111b085e0819e8c8a121ff94bba430a153eb1ea2c60288
