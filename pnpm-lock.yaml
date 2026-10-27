@@ -186,10 +186,10 @@ importers:
         version: 7.1.600
       '@tailwindcss/vite':
         specifier: ^4.3.3
-        version: 4.3.3(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))
+        version: 4.3.3(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))
       '@vitejs/plugin-vue':
         specifier: ^6.0.10
-        version: 6.0.10(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))(vue@3.5.44(typescript@6.0.3))
+        version: 6.0.10(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))(vue@3.5.44(typescript@6.0.3))
       '@vue/compiler-sfc':
         specifier: ^3.5.44
         version: 3.5.44
@@ -273,7 +273,7 @@ importers:
         version: 5.3.4(chart.js@4.5.1)(vue@3.5.44(typescript@6.0.3))
       vue-router:
         specifier: ^5.4.0
-        version: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))(vue@3.5.44(typescript@6.0.3))
+        version: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))(vue@3.5.44(typescript@6.0.3))
       vue-tabler-icons:
         specifier: ^2.21.0
         version: 2.21.0
@@ -294,8 +294,8 @@ importers:
         specifier: ^4.7.1
         version: 4.7.1(@vue/compiler-sfc@3.5.44)(prettier@3.9.10)(supports-color@10.2.2)
       '@percy/cli':
-        specifier: ^1.32.11
-        version: 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
+        specifier: ^1.32.12
+        version: 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
       '@pinia/testing':
         specifier: ^2.0.2
         version: 2.0.2(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))
@@ -357,8 +357,8 @@ importers:
         specifier: ^26.0.0
         version: 26.0.0
       sass:
-        specifier: ^1.106.0
-        version: 1.106.0
+        specifier: ^1.106.1
+        version: 1.106.1
       stylelint:
         specifier: ^17.16.0
         version: 17.16.0(supports-color@10.2.2)(typescript@6.0.3)
@@ -379,16 +379,16 @@ importers:
         version: 6.0.3
       vite:
         specifier: ^8.3.5
-        version: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)
+        version: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)
       vite-plugin-full-reload:
         specifier: ^1.2.0
         version: 1.2.0
       vite-plugin-ruby:
         specifier: ^5.2.6
-        version: 5.2.6(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))
+        version: 5.2.6(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))
       vitest:
         specifier: ^5.0.5
-        version: 5.0.5(@types/node@26.6.5)(jsdom@30.1.3)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))
+        version: 5.0.5(@types/node@26.6.5)(jsdom@30.1.3)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))
       vue-tsc:
         specifier: ^3.3.13
         version: 3.3.13(typescript@6.0.3)
@@ -954,81 +954,81 @@ packages:
     resolution: {integrity: sha512-7FNeNl8NCE7aINx7WXiKQrPYZWC/hvrTsmk6zmxbI7LTXE7hVek/n8AfVgpe2y82zl3w0HvCHN0bVKMBoJcC0w==}
     engines: {node: '>= 10.0.0'}
 
-  '@percy/cli-app@1.32.11':
-    resolution: {integrity: sha512-/B36Psycy435JXB+/Y0NOXW6+QLN7RwKh113RNtcV7nsw6nBY7hy6FEYoxsvEWx7b2OVZ+wBvYkDJ7cBD6ajxg==}
+  '@percy/cli-app@1.32.12':
+    resolution: {integrity: sha512-cK8rUduoxw3uxB35eyCivg8lWI2K1ZK9YBNAu1NmE5iA0ihdmoVlxGNnGdVzz8xlDzpCB50np2EsGoxlVF0F1w==}
     engines: {node: '>=14'}
 
-  '@percy/cli-build@1.32.11':
-    resolution: {integrity: sha512-4Bgtk0oUMepPDfvIqkbbKegzQsotWBV39E+nariOwy9SNszFk4co0ncfDRRu/zcEUVIfNnSsQGWQPioLOJcVYg==}
+  '@percy/cli-build@1.32.12':
+    resolution: {integrity: sha512-1ibCp/dn875d2hPtEXqPizXUbibAbzIW828A/GglfQl0ICogfaSSYbYW1WLXcyb7RhBv1l+0I/P3RCWRjQ9IFA==}
     engines: {node: '>=14'}
 
-  '@percy/cli-command@1.32.11':
-    resolution: {integrity: sha512-l9OGARP3S59DRKXpwNqOES2MdVMpPwS8RxQ7AVWm4vZhiDUraoFKeonvEy8tb+JI5QHFuDsg5JWPoAHlXtoiMQ==}
-    engines: {node: '>=14'}
-    hasBin: true
-
-  '@percy/cli-config@1.32.11':
-    resolution: {integrity: sha512-fo/lp4IbLL6P43D3dj+dTcmO0MpPcxbskEViZJm98hXD6zvnodw8Ip6xz/TdLr3r95QE6787mc718Msjfyg7nA==}
-    engines: {node: '>=14'}
-
-  '@percy/cli-doctor@1.32.11':
-    resolution: {integrity: sha512-/3V9Z8DNe40xpqIJcrupUsDG5EPBVaUuYn7nWXxaZVfXFwFwMUuQtdvglhtbNj+EC1wekntv9eSP5KKwUjAp1g==}
-    engines: {node: '>=14'}
-
-  '@percy/cli-exec@1.32.11':
-    resolution: {integrity: sha512-Pwin/AL4We5Wr4BFZi16gK+ARWhRvnhSBCLrOWoGBp0KAWFfeYg4nBh4zHQvvqwE8+kWidjHRdH8gzCbjyyELw==}
-    engines: {node: '>=14'}
-
-  '@percy/cli-pdf@1.32.11':
-    resolution: {integrity: sha512-G1gO5rK+uvItiuYLSrslWGla54AjYw9dHAEJSA48U5T703naFvPwYVC8cRWIXQA7W96G4VMQX9Nhi4reWoqPbg==}
-    engines: {node: '>=14'}
-
-  '@percy/cli-snapshot@1.32.11':
-    resolution: {integrity: sha512-TcVKYcHFmBhrxHZGmQQl8PkHYCxSDbBdnFTtByv2xVNV0QdjUpdUztPBO2KPEARdIa9cH6bDdQzDrvGSUN5JXw==}
-    engines: {node: '>=14'}
-
-  '@percy/cli-upload@1.32.11':
-    resolution: {integrity: sha512-h8+pvVzN+KBgoaXbTVvDGxUbHIAkDmnIoYxH2aRaF2sogi2wJxN9rKld+BKpo1x37fEztmk9WhrVArsRp6dJOg==}
-    engines: {node: '>=14'}
-
-  '@percy/cli@1.32.11':
-    resolution: {integrity: sha512-iqaF++MTGZA9AG2mh2ult/R1zb52KJslPkzep+Rr/TvNLAqkT0nfu+hO7Al6W2NIBeHdSToEDfQSkDYUI0mNqQ==}
+  '@percy/cli-command@1.32.12':
+    resolution: {integrity: sha512-6ELBm2pxXtBTIa6PoDWSZ7tPCAxudWn/bUwl4vF0YejrcdtFWNznbGxWTYb6fe27HGJY+KOpfxqeFkaAuZkbsw==}
     engines: {node: '>=14'}
     hasBin: true
 
-  '@percy/client@1.32.11':
-    resolution: {integrity: sha512-zNYjMRHKbNbfnGJY2k5I/Ef9vVhCd+KNiETn1ytGzZau2aPyPD4vGPSp6fsapDjyz3cqI0NFJkOa42IknPfS2Q==}
+  '@percy/cli-config@1.32.12':
+    resolution: {integrity: sha512-Gemq5raNyc+D/OAPLRUZZWQWpg0947p9ehS9v4qQsNtG2HWtuUogVVpNAdjvAobvniMM7UU3VyeAJKlCYIlytQ==}
     engines: {node: '>=14'}
 
-  '@percy/config@1.32.11':
-    resolution: {integrity: sha512-UWb830yLe/d6H0Q/HTS0P89CgMU2zPlOU/Ep1xnmJjeDrzHI/Skl1p7oBeZC+Q2sN0Tzm0JFZKyJWVX9chooBw==}
+  '@percy/cli-doctor@1.32.12':
+    resolution: {integrity: sha512-Bq6sbz+4ZxiDxg1qjKPxURy3diqgd6ATfcZ8mOTIzd+hauTBF6dUhGjGecEZrUggsmscwH/SPjw/ThnlrKAOag==}
     engines: {node: '>=14'}
 
-  '@percy/core@1.32.11':
-    resolution: {integrity: sha512-yBlyVGSf5bLm85IlR0hn9r+FrB5OUoiqN4hHhJFCXWkM8q03/rMIYYf/hyNs6jeIlsin15p3q6qtIMJEVbg3uA==}
+  '@percy/cli-exec@1.32.12':
+    resolution: {integrity: sha512-gi9fYh3DoirN2GqRviyUggeE4jHajkqRIJlka9Aqdk5LGXIi9HNGH46JM5IeEiq8G9N04Ub32hJIyY+qvAqaVg==}
     engines: {node: '>=14'}
 
-  '@percy/dom@1.32.11':
-    resolution: {integrity: sha512-COyiNn9K+VMVgnYe18Mr2ap05GhaMnYYLMW7aQc30h+8QzxhnLfejlvp8Wt3bG2j06/ZCoVFQLtrlXeEZvodPw==}
-
-  '@percy/env@1.32.11':
-    resolution: {integrity: sha512-BNoClU5dbKboxiXDyLCDSD24RpQiHjnP6N5L6kbC3xb/PYI7NB/CXO7wsG4V5+xRvXxNVm1GZV8E28+Q1cDfOg==}
+  '@percy/cli-pdf@1.32.12':
+    resolution: {integrity: sha512-25UmAAppOV1ILJSiQZS6gznQZiSDiauOhrQV/4B5cdbCfXcwxCp73USnkPpdEnO8ZMfYZa9ykV3Lq+anPz9vRg==}
     engines: {node: '>=14'}
 
-  '@percy/logger@1.32.11':
-    resolution: {integrity: sha512-Y7cNlo4tYuHHloKKAUtWUymT3K5aABil6DwwlKcxbyTfhgCHy1WfYg8D4ki3NCzqrCkmOJgCcTXx9U3dqMvHtw==}
+  '@percy/cli-snapshot@1.32.12':
+    resolution: {integrity: sha512-ppq1E8zCsILAdWniFYm6oa2uFFoSzl/hBrUfTBeqa38xLLme6fqjoE+6WnEBy8NWiKyF/mVtlbm/rtyT8fnP6A==}
     engines: {node: '>=14'}
 
-  '@percy/monitoring@1.32.11':
-    resolution: {integrity: sha512-nfmZJ/xKWM58aA4X/r+OG2ksoK+YJ8dvyUx+s8TMzfejkYKwOFcFDKlcmNvllV4lelai3466/DyMMN85EVDkuQ==}
+  '@percy/cli-upload@1.32.12':
+    resolution: {integrity: sha512-nzwrWuLESpmtcdw9at4TXQmjW7rMcfZOveSJA+XNMV/fXJMnyuzVceY0QkfA8eG7R+735DVr5HpciiyphhWSfQ==}
     engines: {node: '>=14'}
 
-  '@percy/sdk-utils@1.32.11':
-    resolution: {integrity: sha512-B30TcM4rkCIXFmJs7a+2f9IBRC2eSqlNbZYND8nPpcsLXk4x027PJoZSFGZ2KI7kPGfNAJC39t785VK0s2ZugQ==}
+  '@percy/cli@1.32.12':
+    resolution: {integrity: sha512-0YMBD13fecEnOp191PjTvkCJOIY7SGSdXf/o3W6+5Lj3urfqo+q2AXysgxn4dSfxWtbnUOLy95Md/3R6GTUnHA==}
+    engines: {node: '>=14'}
+    hasBin: true
+
+  '@percy/client@1.32.12':
+    resolution: {integrity: sha512-+AJV29SYYwMv8PoJ5cKgKScPTOkBeENlpqovJqV8zJOg81pXGvnkdG2sL4/FUPceLXsR5VQPYoRRXsxXf7UuSQ==}
     engines: {node: '>=14'}
 
-  '@percy/webdriver-utils@1.32.11':
-    resolution: {integrity: sha512-luEIU+y5kQTecMB34b44t/aRKHVWwkYMsgiQqX7r357A3iJyXvdE5yWgsh2mAtTS1GUAbxTx67dQ0JB7DlqOZg==}
+  '@percy/config@1.32.12':
+    resolution: {integrity: sha512-qdCgPM5s2YibK0MpdR51Os0NusXBliyDeJCzq+MohzluSgKdNa8Upki0jLTB0FV8P8GiudeHAfKVrfCJCWQJSA==}
+    engines: {node: '>=14'}
+
+  '@percy/core@1.32.12':
+    resolution: {integrity: sha512-/la9BIUYMtCD5hk/EHxAGFrvNLAo4l6XreE/dkIuTzg41z1oQqYInoeehQzDjLtIlkdEYp4h935TAuWJkXa36g==}
+    engines: {node: '>=14'}
+
+  '@percy/dom@1.32.12':
+    resolution: {integrity: sha512-NCuRKiRJ1co4DuVOTiZK0pFkGOTFetQI5lpRa0e6oXHTEiAlQLvujAPb5Z+0d72ALae97adWZgQSgepm8DxwLQ==}
+
+  '@percy/env@1.32.12':
+    resolution: {integrity: sha512-wZY6gHbExXdR08i4TfOAuyo/0p8Cfl9V+W+eWteHJ3RQoXpOd7FAGj/VCcJDOMJz5sTYDZscMwUHxvWe7T+KqA==}
+    engines: {node: '>=14'}
+
+  '@percy/logger@1.32.12':
+    resolution: {integrity: sha512-vWPPxs0/BMulyQdt3cTrKinrPvFQujfcLO0oCzSWjmoBXPl9FI+ymf2UoO/1X7IrU5zU3lod27GB6uG7uo9gNQ==}
+    engines: {node: '>=14'}
+
+  '@percy/monitoring@1.32.12':
+    resolution: {integrity: sha512-6wlpBE8hWqzUgtKsA5UORBp9/JhpKdHtct11jVLen+Xjnt2E/NR2Nwhkem3EBQPn33uKae0/rc0nRBQ7JIpaAA==}
+    engines: {node: '>=14'}
+
+  '@percy/sdk-utils@1.32.12':
+    resolution: {integrity: sha512-UhbFtLe+xs6k+FnQO6w4JCBgr7rY8U8suxzKqfZ9fnXizQXfSVQqxkm+F/4oWjSAMN9arDWTVCh5D3PNe5Impw==}
+    engines: {node: '>=14'}
+
+  '@percy/webdriver-utils@1.32.12':
+    resolution: {integrity: sha512-wEuOx2bMEdvKXJq7eApAiKbLuBA3pgWh1rWp1NkeAeTdl3V9wMOYGlkkdstEYqvoLlDi3RxFWAUb5syMJvKvvQ==}
     engines: {node: '>=14'}
 
   '@pinia/testing@2.0.2':
@@ -1194,8 +1194,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/pluginutils@5.4.0':
-    resolution: {integrity: sha512-MfPp06CjRLfXQ3wY0R8vJDYBy/MvVcc9OulEfR0B8Iv9ko+GCNaRZ+EpJYFl27LhKsZK0o420sYCRHCjfCgeUg==}
+  '@rollup/pluginutils@5.5.1':
+    resolution: {integrity: sha512-P9ZvnfouRu4MSC+ilERaw6FmZs8zqKhpHxEs4aGDGWQAMzQGXnhvCSvoNwokfNvdt7t3Y5Y4p6gStQgezeIqug==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
@@ -1378,8 +1378,8 @@ packages:
   '@types/lodash-es@4.17.12':
     resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
-  '@types/lodash@4.17.26':
-    resolution: {integrity: sha512-48NWfiY6oNcKOh47Z4h+sIvwcQR91h6KPhaYKgeMIrkT2jV82Gy90SErj60vW8jQbeMSOSbhIv3bZ7JoqPPVhA==}
+  '@types/lodash@4.17.27':
+    resolution: {integrity: sha512-VenMRv/eKNrspX9v3H4dbmjsrnCOYdYBG3kxXKk3dG6X+urBGcj2Prww3xw1U5K4FV/mE4h5GbWd0szEKf+9ew==}
 
   '@types/luxon@3.7.6':
     resolution: {integrity: sha512-6KSjliQAXK8ZLgFQO4B7iE4Rpf/B3rItzCFuXezBY/XIAGxOdLd7vRNK9/StRPwiS/yJsVbB7HKpW46B8tcEuQ==}
@@ -3706,8 +3706,8 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  sass@1.106.0:
-    resolution: {integrity: sha512-JHAqUksyijU5tsmDLCDq8/IX3Mq8mVkOtxvcXnUdwy8vsX5MVnvQauMomauxyuEux8uBJdT/OuBwWBYavoWUqQ==}
+  sass@1.106.1:
+    resolution: {integrity: sha512-kD+Gi66vycZcbJt+42NC4z4PXNMcCajVrJPhqoKKXy5cOBMmJQt052CxIBcRjwYXeImHYOpu/ydWWGZQIenl7A==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -4287,8 +4287,8 @@ packages:
     resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
     engines: {node: '>=0.10.0'}
 
-  vscode-languageserver-textdocument@1.0.15:
-    resolution: {integrity: sha512-Gsfr9S8LU3S6885cS+NaleasJ0n3V5y/SOTqHCifQiXWFw3G9w9/YItDfwHrlCz+dSZWWZ8ilYVMcJe7Sz7Sxw==}
+  vscode-languageserver-textdocument@1.0.16:
+    resolution: {integrity: sha512-qeNEuOi9a3qkqRf7Gfez2WL2VwlBTLCNekHBGO9kxPVUp9XuY15yfTJ9jwvOwKI0I2MhUUfZq95NSp+LK1CLQg==}
 
   vscode-uri@3.2.0:
     resolution: {integrity: sha512-m2gXo3bn0G1kT9InzMf07fTbqMbGtyckj3bH5ktLO+1Ssv+yiATZ4dhwaQv9UZWxJh6E9IFGnQyjgWVDWVBDrg==}
@@ -4962,10 +4962,10 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.6.0
     optional: true
 
-  '@percy/cli-app@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli-app@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-exec': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-command': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-exec': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -4973,9 +4973,9 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/cli-build@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli-build@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-command': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -4983,11 +4983,11 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/cli-command@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli-command@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/config': 1.32.11(typescript@6.0.3)
-      '@percy/core': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/logger': 1.32.11
+      '@percy/config': 1.32.12(typescript@6.0.3)
+      '@percy/core': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/logger': 1.32.12
       glob-to-regexp: 0.4.1
     optionalDependencies:
       snyk-nodejs-lockfile-parser: 2.10.4(supports-color@10.2.2)
@@ -4998,9 +4998,9 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/cli-config@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli-config@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-command': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -5008,15 +5008,15 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/cli-doctor@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli-doctor@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/client': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/config': 1.32.11(typescript@6.0.3)
-      '@percy/core': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/env': 1.32.11
-      '@percy/logger': 1.32.11
-      '@percy/monitoring': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-command': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/client': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/config': 1.32.12(typescript@6.0.3)
+      '@percy/core': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/env': 1.32.12
+      '@percy/logger': 1.32.12
+      '@percy/monitoring': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
       minimatch: 9.0.9
       ws: 8.22.0
     transitivePeerDependencies:
@@ -5026,10 +5026,10 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/cli-exec@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli-exec@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/logger': 1.32.11
+      '@percy/cli-command': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/logger': 1.32.12
       cross-spawn: 7.0.6
       which: 2.0.2
     transitivePeerDependencies:
@@ -5039,17 +5039,17 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/cli-pdf@1.32.11':
+  '@percy/cli-pdf@1.32.12':
     dependencies:
-      '@percy/logger': 1.32.11
+      '@percy/logger': 1.32.12
       pdfjs-dist: 2.16.105
     transitivePeerDependencies:
       - worker-loader
     optional: true
 
-  '@percy/cli-snapshot@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli-snapshot@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-command': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
       yaml: 2.9.1
     transitivePeerDependencies:
       - bufferutil
@@ -5058,9 +5058,9 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/cli-upload@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli-upload@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-command': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
       fast-glob: 3.3.3
       probe-image-size: 7.4.0(supports-color@10.2.2)
     transitivePeerDependencies:
@@ -5070,18 +5070,18 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/cli@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/cli@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-app': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-build': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-command': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-config': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-doctor': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-exec': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-snapshot': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-upload': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/client': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/logger': 1.32.11
+      '@percy/cli-app': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-build': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-command': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-config': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-doctor': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-exec': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-snapshot': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-upload': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/client': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/logger': 1.32.12
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -5089,36 +5089,36 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/client@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/client@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/config': 1.32.11(typescript@6.0.3)
-      '@percy/env': 1.32.11
-      '@percy/logger': 1.32.11
+      '@percy/config': 1.32.12(typescript@6.0.3)
+      '@percy/env': 1.32.12
+      '@percy/logger': 1.32.12
       pac-proxy-agent: 7.2.0(supports-color@10.2.2)
       pako: 2.2.0
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  '@percy/config@1.32.11(typescript@6.0.3)':
+  '@percy/config@1.32.12(typescript@6.0.3)':
     dependencies:
-      '@percy/logger': 1.32.11
+      '@percy/logger': 1.32.12
       ajv: 8.20.0
       cosmiconfig: 8.3.6(typescript@6.0.3)
       yaml: 2.9.1
     transitivePeerDependencies:
       - typescript
 
-  '@percy/core@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/core@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
       '@grpc/grpc-js': 1.14.6
       '@grpc/proto-loader': 0.8.1
-      '@percy/client': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/config': 1.32.11(typescript@6.0.3)
-      '@percy/dom': 1.32.11
-      '@percy/logger': 1.32.11
-      '@percy/monitoring': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/webdriver-utils': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/client': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/config': 1.32.12(typescript@6.0.3)
+      '@percy/dom': 1.32.12
+      '@percy/logger': 1.32.12
+      '@percy/monitoring': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/webdriver-utils': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
       adm-zip: 0.6.1
       busboy: 1.6.0
       content-disposition: 0.5.4
@@ -5133,8 +5133,8 @@ snapshots:
       ws: 8.22.0
       yaml: 2.9.1
     optionalDependencies:
-      '@percy/cli-doctor': 1.32.11(supports-color@10.2.2)(typescript@6.0.3)
-      '@percy/cli-pdf': 1.32.11
+      '@percy/cli-doctor': 1.32.12(supports-color@10.2.2)(typescript@6.0.3)
+      '@percy/cli-pdf': 1.32.12
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -5142,34 +5142,34 @@ snapshots:
       - utf-8-validate
       - worker-loader
 
-  '@percy/dom@1.32.11': {}
+  '@percy/dom@1.32.12': {}
 
-  '@percy/env@1.32.11':
+  '@percy/env@1.32.12':
     dependencies:
-      '@percy/logger': 1.32.11
+      '@percy/logger': 1.32.12
 
-  '@percy/logger@1.32.11': {}
+  '@percy/logger@1.32.12': {}
 
-  '@percy/monitoring@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/monitoring@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/config': 1.32.11(typescript@6.0.3)
-      '@percy/logger': 1.32.11
-      '@percy/sdk-utils': 1.32.11(supports-color@10.2.2)
+      '@percy/config': 1.32.12(typescript@6.0.3)
+      '@percy/logger': 1.32.12
+      '@percy/sdk-utils': 1.32.12(supports-color@10.2.2)
       systeminformation: 5.33.16
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  '@percy/sdk-utils@1.32.11(supports-color@10.2.2)':
+  '@percy/sdk-utils@1.32.12(supports-color@10.2.2)':
     dependencies:
       pac-proxy-agent: 7.2.0(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
 
-  '@percy/webdriver-utils@1.32.11(supports-color@10.2.2)(typescript@6.0.3)':
+  '@percy/webdriver-utils@1.32.12(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@percy/config': 1.32.11(typescript@6.0.3)
-      '@percy/sdk-utils': 1.32.11(supports-color@10.2.2)
+      '@percy/config': 1.32.12(typescript@6.0.3)
+      '@percy/sdk-utils': 1.32.12(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -5267,13 +5267,13 @@ snapshots:
 
   '@rollup/plugin-node-resolve@15.3.1':
     dependencies:
-      '@rollup/pluginutils': 5.4.0
+      '@rollup/pluginutils': 5.5.1
       '@types/resolve': 1.20.2
       deepmerge: 4.3.1
       is-module: 1.0.0
       resolve: 1.22.13
 
-  '@rollup/pluginutils@5.4.0':
+  '@rollup/pluginutils@5.5.1':
     dependencies:
       '@types/estree': 1.0.9
       estree-walker: 2.0.2
@@ -5394,12 +5394,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.3
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.3
 
-  '@tailwindcss/vite@4.3.3(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))':
+  '@tailwindcss/vite@4.3.3(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))':
     dependencies:
       '@tailwindcss/node': 4.3.3
       '@tailwindcss/oxide': 4.3.3
       tailwindcss: 4.3.3
-      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)
+      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)
 
   '@testing-library/dom@9.3.4':
     dependencies:
@@ -5460,9 +5460,9 @@ snapshots:
 
   '@types/lodash-es@4.17.12':
     dependencies:
-      '@types/lodash': 4.17.26
+      '@types/lodash': 4.17.27
 
-  '@types/lodash@4.17.26': {}
+  '@types/lodash@4.17.27': {}
 
   '@types/luxon@3.7.6': {}
 
@@ -5552,20 +5552,20 @@ snapshots:
       '@typescript-eslint/types': 8.72.0
       eslint-visitor-keys: 5.0.1
 
-  '@vitejs/plugin-vue@6.0.10(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))(vue@3.5.44(typescript@6.0.3))':
+  '@vitejs/plugin-vue@6.0.10(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
-      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)
+      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)
       vue: 3.5.44(typescript@6.0.3)
 
-  '@vitest/mocker@5.0.5(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))':
+  '@vitest/mocker@5.0.5(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.5
       estree-walker: 3.0.3
       magic-string: 1.4.3
     optionalDependencies:
-      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)
+      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)
 
   '@vitest/spy@5.0.5': {}
 
@@ -5652,7 +5652,7 @@ snapshots:
       muggle-string: 0.4.1
       pug-lexer: 5.0.1
       pug-parser: 6.0.0
-      vscode-languageserver-textdocument: 1.0.15
+      vscode-languageserver-textdocument: 1.0.16
 
   '@vue/reactivity@3.5.44':
     dependencies:
@@ -6232,7 +6232,7 @@ snapshots:
       '@element-plus/icons-vue': 2.3.2(vue@3.5.44(typescript@6.0.3))
       '@floating-ui/dom': 1.8.0
       '@popperjs/core': '@sxzz/popperjs-es@2.11.8'
-      '@types/lodash': 4.17.26
+      '@types/lodash': 4.17.27
       '@types/lodash-es': 4.17.12
       '@vueuse/core': 15.0.0(vue@3.5.44(typescript@6.0.3))
       async-validator: 4.2.5
@@ -7822,7 +7822,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass@1.106.0:
+  sass@1.106.1:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9
@@ -8319,14 +8319,14 @@ snapshots:
       picomatch: 4.0.7
       webpack-virtual-modules: 0.6.2
 
-  unplugin@3.4.0(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)):
+  unplugin@3.4.0(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.7
       webpack-virtual-modules: 0.6.2
     optionalDependencies:
       rolldown: 1.2.15
-      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)
+      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)
 
   uri-js@4.4.1:
     dependencies:
@@ -8353,13 +8353,13 @@ snapshots:
       picocolors: 1.1.1
       picomatch: 2.3.2
 
-  vite-plugin-ruby@5.2.6(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)):
+  vite-plugin-ruby@5.2.6(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)):
     dependencies:
       obug: 2.2.1
       tinyglobby: 0.2.17
-      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)
+      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)
 
-  vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1):
+  vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -8370,13 +8370,13 @@ snapshots:
       '@types/node': 26.6.5
       fsevents: 2.3.3
       jiti: 2.7.0
-      sass: 1.106.0
+      sass: 1.106.1
       yaml: 2.9.1
 
-  vitest@5.0.5(@types/node@26.6.5)(jsdom@30.1.3)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)):
+  vitest@5.0.5(@types/node@26.6.5)(jsdom@30.1.3)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.5(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))
+      '@vitest/mocker': 5.0.5(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -8387,7 +8387,7 @@ snapshots:
       tinybench: 6.2.2
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)
+      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)
       why-is-node-running: 3.2.1
     optionalDependencies:
       '@types/node': 26.6.5
@@ -8402,7 +8402,7 @@ snapshots:
 
   void-elements@3.1.0: {}
 
-  vscode-languageserver-textdocument@1.0.15: {}
+  vscode-languageserver-textdocument@1.0.16: {}
 
   vscode-uri@3.2.0: {}
 
@@ -8417,7 +8417,7 @@ snapshots:
     dependencies:
       vue: 3.5.44(typescript@6.0.3)
 
-  vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))(vue@3.5.44(typescript@6.0.3)):
+  vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))(vue@3.5.44(typescript@6.0.3)):
     dependencies:
       '@vue-macros/common': 3.1.4(vue@3.5.44(typescript@6.0.3))
       '@vue/devtools-api': 8.2.1
@@ -8433,13 +8433,13 @@ snapshots:
       picomatch: 4.0.7
       scule: 1.3.0
       tinyglobby: 0.2.17
-      unplugin: 3.4.0(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1))
+      unplugin: 3.4.0(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1))
       unplugin-utils: 0.3.2
       vue: 3.5.44(typescript@6.0.3)
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.44
       pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3))
-      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.0)(yaml@2.9.1)
+      vite: 8.3.5(@types/node@26.6.5)(jiti@2.7.0)(sass@1.106.1)(yaml@2.9.1)
     transitivePeerDependencies:
       - '@farmfe/core'
       - '@rsbuild/core'
