@@ -461,9 +461,9 @@ GEM
       oauth2 (~> 2.0)
       omniauth (~> 2.0)
       omniauth-oauth2 (~> 1.8)
-    omniauth-oauth2 (1.9.0)
+    omniauth-oauth2 (1.10.0)
       oauth2 (>= 2.0.2, < 3)
-      omniauth (~> 2.0)
+      omniauth (~> 2.3, >= 2.3.1)
     open3 (0.3.0)
     openssl (4.0.2)
     optimist (3.2.1)
@@ -1068,7 +1068,7 @@ CHECKSUMS
   oauth2 (2.0.25) sha256=2f736a2f93c2caa67c1b08dc3c9889bb907d62643f3183fefaa1723cba6a82ac
   omniauth (2.3.1) sha256=bb47bfcd5614b00cd89de4b45b0687123d09143dfeb5dbaf1bb57ff190bc2d2e
   omniauth-google-oauth2 (1.2.3) sha256=bdbab67e64e50b7902eee2dcfc2225575cefba15ab89a3b6e92c8947987c1da9
-  omniauth-oauth2 (1.9.0) sha256=ed15f6d9d20991807ce114cc5b9c1453bce3645b64e51c68c90cff5ff153fee8
+  omniauth-oauth2 (1.10.0) sha256=eeaac3bf4d6a6e2dff4edf8238f0cc046d935347c80d422ff4bdbb028c6f7dd2
   open3 (0.3.0) sha256=bb4dbc0e2a6597ef093c67734c370b3968323778cdc265c805c135c9423b3fb7
   openssl (4.0.2) sha256=1037ad2868ae58df9ad917891c0c0f9815a1172f6846d4bcdd508e4c2ee747c2
   optimist (3.2.1) sha256=8cf8a0fd69f3aa24ab48885d3a666717c27bc3d9edd6e976e18b9d771e72e34e
