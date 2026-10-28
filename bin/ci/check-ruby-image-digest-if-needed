@@ -2,14 +2,14 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
-if git diff --quiet main HEAD -- .ruby-version; then
+if git diff --quiet main -- .ruby-version Dockerfile; then
   echo "Skipping Ruby base image digest verification because" \
-    ".ruby-version is unchanged relative to main."
+    "neither .ruby-version nor Dockerfile changed relative to main."
   exit 0
 fi
 
 ruby_version="$(<.ruby-version)"
-ruby_image="ruby:$ruby_version-slim-bookworm"
+ruby_image="rubylang/ruby:$ruby_version-resolute"
 
 if ! expected_digest="$(timeout 5s docker buildx imagetools inspect "$ruby_image" --format '{{.Manifest.Digest}}')"; then
   echo "Unable to resolve the current digest for $ruby_image; skipping digest verification." >&2
@@ -22,7 +22,7 @@ if [[ ! "$expected_digest" =~ ^sha256:[0-9a-f]{64}$ ]] ; then
 fi
 
 # shellcheck disable=SC2016 # Match the literal build-argument name in the Dockerfile.
-actual_digest="$(sed -nE 's|^FROM ruby:\$RUBY_VERSION-slim-bookworm@(sha256:[0-9a-f]{64}) AS base$|\1|p' Dockerfile)"
+actual_digest="$(sed -nE 's|^FROM rubylang/ruby:\$RUBY_VERSION-resolute@(sha256:[0-9a-f]{64}) AS base$|\1|p' Dockerfile)"
 
 if [[ ! "$actual_digest" =~ ^sha256:[0-9a-f]{64}$ ]] ; then
   echo 'Dockerfile must pin the Ruby base image to exactly one SHA-256 digest.' >&2
