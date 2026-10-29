@@ -324,7 +324,7 @@ GEM
       activerecord (>= 4.0)
       hashids (~> 1.0)
     hashids (1.0.6)
-    hashie (5.1.0)
+    hashie (5.2.0)
       logger
     http_logger (1.0.3)
     i18n (1.15.2)
@@ -1013,7 +1013,7 @@ CHECKSUMS
   hashdiff (1.2.1) sha256=9c079dbc513dfc8833ab59c0c2d8f230fa28499cc5efb4b8dd276cf931457cd1
   hashid-rails (1.4.1) sha256=cc14a9c16a6320a39f1b84a01c6b66ab934526cec9680118292f3c17370053e3
   hashids (1.0.6) sha256=a344c05f249417492bf48451a93770558834ff7a445e1b64ef112954a0293019
-  hashie (5.1.0) sha256=c266471896f323c446ea8207f8ffac985d2718df0a0ba98651a3057096ca3870
+  hashie (5.2.0) sha256=357a22635195c2e3911fbbc3de9a7d528843d1f42ab0aae02171048f16332d72
   http_logger (1.0.3) sha256=d857322d62ee91260d5d639f09283b26cfa0771a9d1057db947ed677da5debc0
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   inherited_resources (2.1.0) sha256=74f3f1862790fc1066b4eeb354717ddee220f59421fee4cea4bb1c4b775f4603
