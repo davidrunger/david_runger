@@ -36,11 +36,9 @@ unless IS_DOCKER_BUILD
     end
     # <<< Prometheus Exporter
 
-    if Rails.env.local? && !IS_DOCKER
-      config.server_middleware do |chain|
-        require 'prosopite/middleware/sidekiq'
-        chain.add(Prosopite::Middleware::Sidekiq)
-      end
+    config.server_middleware do |chain|
+      require 'prosopite/middleware/sidekiq'
+      chain.add(Prosopite::Middleware::Sidekiq)
     end
     # simplecov:enable
   end

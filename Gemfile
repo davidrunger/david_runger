@@ -45,6 +45,7 @@ gem 'pghero'
 gem 'pg_query' # Used by `pghero` and `prosopite`.
 gem 'prometheus_exporter'
 gem 'propshaft'
+gem 'prosopite'
 gem 'puma'
 gem 'pundit'
 gem 'rack-attack'
@@ -79,7 +80,6 @@ group :development, :test do
   gem 'json_schemer'
   gem 'listen'
   gem 'open3'
-  gem 'prosopite'
   gem 'pry-byebug', require: false, github: 'davidrunger/pry-byebug'
   gem 'rainbow'
   gem 'rubocop', require: false
