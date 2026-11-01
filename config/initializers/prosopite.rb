@@ -5,5 +5,7 @@ if Rails.env.local? && !IS_DOCKER
   Rails.application.config.after_initialize do
     Prosopite.rails_logger = true
     Prosopite.raise = true
+    Prosopite.display_query_count = true
+    Prosopite.display_max_n_queries = 1
   end
 end
