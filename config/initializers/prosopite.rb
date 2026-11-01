@@ -3,6 +3,7 @@ Rails.configuration.middleware.use(Prosopite::Middleware::Rack)
 
 Rails.application.config.after_initialize do
   if Rails.env.production?
+    # simplecov:disable
     Prosopite.sample_rate = 0.01
     Prosopite.custom_logger = Class.new do
       def warn(message)
@@ -12,6 +13,7 @@ Rails.application.config.after_initialize do
         )
       end
     end.new
+    # simplecov:enable
   else
     Prosopite.rails_logger = true
     Prosopite.raise = true
