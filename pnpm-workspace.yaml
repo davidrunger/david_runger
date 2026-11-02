@@ -10,6 +10,3 @@ allowBuilds:
   protobufjs: false
 overrides:
   typescript: ^6
-minimumReleaseAgeExclude:
-  - minimatch@11.0.1
-  - glob@14.0.2
