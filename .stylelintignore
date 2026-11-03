@@ -1,3 +1,4 @@
 personal/
 public/
 tmp/
+**/*.scss

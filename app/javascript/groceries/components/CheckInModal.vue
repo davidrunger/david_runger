@@ -191,15 +191,15 @@ function manageCheckInStores() {
   $shadow-color: rgb(214, 176, 186, 55%);
 
   0% {
-    box-shadow: 0 0 0 $box-shadow-min-width $shadow-color;
+    box-shadow: 0 0 0 #{$box-shadow-min-width} #{$shadow-color};
   }
 
   50% {
-    box-shadow: 0 0 0 $box-shadow-max-width $shadow-color;
+    box-shadow: 0 0 0 #{$box-shadow-max-width} #{$shadow-color};
   }
 
   100% {
-    box-shadow: 0 0 0 $box-shadow-min-width $shadow-color;
+    box-shadow: 0 0 0 #{$box-shadow-min-width} #{$shadow-color};
   }
 }
 </style>

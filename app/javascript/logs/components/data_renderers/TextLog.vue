@@ -73,7 +73,7 @@ const sortedLogEntries = computed((): Array<TextLogEntry> => {
       margin-left: $li-indent;
 
       &::before {
-        margin-left: -1 * $li-indent;
+        margin-left: -$li-indent;
         position: absolute;
       }
     }
