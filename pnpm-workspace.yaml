@@ -10,3 +10,7 @@ allowBuilds:
   protobufjs: false
 overrides:
   typescript: ^6
+minimumReleaseAgeExclude:
+  - stylelint@18.0.0
+  - stylelint-config-standard@41.0.0
+  - stylelint-config-recommended@19.0.0
