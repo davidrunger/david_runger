@@ -61,7 +61,7 @@ module Features::DownloadHelpers
     attempt = {
       download_event_count_before: browser.downloads.files.size,
       element_before_action: download_element_state(download_element),
-      network_exchange_count_before: page.driver.network_traffic(:all).size,
+      network_exchange_count_before: page.driver.browser.network.traffic.size,
     }
     Rails.logger.info("[Capybara download] action starting details=#{attempt.inspect}")
     wait_started_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
@@ -118,7 +118,7 @@ module Features::DownloadHelpers
   end
 
   def download_element_description(element)
-    description = element.base.description
+    description = element.native.node.description
 
     {
       attributes: Array(description['attributes']).each_slice(2).to_h,
