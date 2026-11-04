@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/davidrunger/capybara-screenshot.git
+  revision: dc9b9500fa3c23ed380476542acce70908afaf52
+  specs:
+    capybara-screenshot (1.0.27)
+      capybara (>= 1.0, < 4)
+      launchy
+
+GIT
   remote: https://github.com/davidrunger/pallets.git
   revision: 7610ec71bb5b0994653c1131f20e15d7d5fc30a1
   specs:
@@ -184,9 +192,6 @@ GEM
     capybara-email (3.0.2)
       capybara (>= 2.4, < 4.0)
       mail
-    capybara-screenshot (1.0.27)
-      capybara (>= 1.0, < 4)
-      launchy
     chartkick (5.3.0)
     childprocess (5.1.0)
       logger (~> 1.5)
@@ -805,7 +810,7 @@ DEPENDENCIES
   browser
   capybara
   capybara-email
-  capybara-screenshot
+  capybara-screenshot!
   chartkick
   climate_control
   cloudflare-rails
@@ -952,7 +957,7 @@ CHECKSUMS
   bundler (4.0.23) sha256=407ba8a1d928f412847f819aa5f8b6aef7c59fb51feb517112af8a165487287b
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
   capybara-email (3.0.2) sha256=ab65dd9b15c096b1ebe24308d18d790eb08814f916883ebccbc1cf46f760696f
-  capybara-screenshot (1.0.27) sha256=afa1896cc23df77be1774e8d3b3ce3953bf060aeaa04ff87607b5daf689174f2
+  capybara-screenshot (1.0.27)
   chartkick (5.3.0) sha256=19a2bba39decf54c4939d3f31460535f8814c85045672ba2ed616c6897325b00
   childprocess (5.1.0) sha256=9a8d484be2fd4096a0e90a0cd3e449a05bc3aa33f8ac9e4d6dcef6ac1455b6ec
   climate_control (1.2.0) sha256=36b21896193fa8c8536fa1cd843a07cf8ddbd03aaba43665e26c53ec1bd70aa5

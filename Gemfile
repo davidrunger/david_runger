@@ -106,7 +106,7 @@ group :test do
   gem 'brakeman', require: false
   gem 'capybara'
   gem 'capybara-email'
-  gem 'capybara-screenshot'
+  gem 'capybara-screenshot', github: 'davidrunger/capybara-screenshot'
   gem 'climate_control'
   gem 'cuprite', '>= 0.18'
   gem 'database_consistency', require: false
