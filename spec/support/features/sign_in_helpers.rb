@@ -36,9 +36,11 @@ module Features::SignInHelpers
     scope ||= Devise::Mapping.find_scope!(resource)
     token = Features::SignInHelpers.register_sign_in(resource:, scope:)
 
-    if page.driver.respond_to?(:add_header)
-      page.driver.add_header(SIGN_IN_TOKEN_HEADER, token)
+    if page.driver.browser.respond_to?(:headers)
+      # Cuprite/Ferrum
+      page.driver.browser.headers.add({ SIGN_IN_TOKEN_HEADER => token })
     else
+      # rack_test browser
       page.driver.header(SIGN_IN_TOKEN_HEADER, token)
     end
   end
