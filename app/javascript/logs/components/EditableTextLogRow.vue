@@ -1,29 +1,30 @@
 <template lang="pug">
 tr
-  td {{ formattedCreatedAt.date }} at&nbsp;{{ formattedCreatedAt.time }}
+  td
+    .flex.min-h-8.items-center.justify-center {{ formattedCreatedAt.date }} at&nbsp;{{ formattedCreatedAt.time }}
 
   td(v-if="editing")
-    ElInput(
-      v-model="newPlaintext"
-      type="textarea"
-      ref="textInput"
-    )
-  td.left-align(
-    v-else
-    v-html="html"
-  )
+    .flex.min-h-8.items-center
+      ElInput(
+        v-model="newPlaintext"
+        type="textarea"
+        ref="textInput"
+      )
+  td.left-align(v-else)
+    .flex.min-h-8.flex-col.justify-center(v-html="html")
 
   td(v-if="editing")
-    ElButton(
-      @click="updateLogEntry"
-      size="small"
-    ) Save
-    ElButton(
-      @click="cancelEditing"
-      size="small"
-    ) Cancel
+    .flex.min-h-8.items-center
+      ElButton(
+        @click="updateLogEntry"
+        size="small"
+      ) Save
+      ElButton(
+        @click="cancelEditing"
+        size="small"
+      ) Cancel
   td(v-else)
-    .flex.flex-wrap.items-center.justify-center.gap-1
+    .flex.min-h-8.flex-wrap.items-center.justify-center.gap-1
       ElButton(
         @click="editing = true"
         link
