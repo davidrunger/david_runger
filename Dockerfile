@@ -1,6 +1,6 @@
 ARG RUBY_VERSION
 # Update this digest when `.ruby-version` or the base image variant changes.
-FROM rubylang/ruby:$RUBY_VERSION-resolute@sha256:ea6bc273a5a5566559d3fe4104eaa87665295e0840ef94f5ee1c88019c465a0a AS base
+FROM rubylang/ruby:$RUBY_VERSION-resolute@sha256:608854a24361bc3254d79d94da9cc7e8dca5c743a24e51c76959af1f181ebac5 AS base
 
 ARG RUBY_VERSION
 ENV RUBY_VERSION=${RUBY_VERSION}
