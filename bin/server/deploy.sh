@@ -53,7 +53,7 @@ fi
 docker run --rm \
   --user 0:0 \
   --mount source=david_runger_app-public,target=/app-public \
-  --entrypoint cp david_runger-web -r /app/public/. /app-public/
+  --entrypoint cp david_runger-app -r /app/public/. /app-public/
 
 # Perform zero downtime, rolling deploy of web/nginx.
 bin/server/roll-out-web.sh
