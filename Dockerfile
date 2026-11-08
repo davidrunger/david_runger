@@ -1,6 +1,6 @@
 ARG RUBY_VERSION
 # Update this digest when `.ruby-version` or the base image variant changes.
-FROM rubylang/ruby:$RUBY_VERSION-resolute@sha256:ea6bc273a5a5566559d3fe4104eaa87665295e0840ef94f5ee1c88019c465a0a AS base
+FROM rubylang/ruby:$RUBY_VERSION-resolute@sha256:608854a24361bc3254d79d94da9cc7e8dca5c743a24e51c76959af1f181ebac5 AS base
 
 ARG RUBY_VERSION
 ENV RUBY_VERSION=${RUBY_VERSION}
@@ -52,12 +52,14 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
 # Download skedjewel binary.
 ARG SKEDJEWEL_VERSION=v2.2.0
 ARG SKEDJEWEL_SHA256=5d2c9691a1e12ae02a2b7cb0c7eea598f972a2e7aeb02e897d12c74cb91d560d
-RUN curl --fail --location --output skedjewel \
-  "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" && \
+RUN curl --fail --show-error --silent --location \
+    --retry 5 --retry-all-errors --retry-delay 2 \
+    --connect-timeout 10 --max-time 120 \
+    --output skedjewel \
+    "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" && \
   echo "$SKEDJEWEL_SHA256  skedjewel" | sha256sum --check --strict && \
-  mkdir -p /app/bin && \
-  mv skedjewel /app/bin/ && \
-  chmod a+x /app/bin/skedjewel
+  install -D -m 755 skedjewel /app/bin/skedjewel && \
+  rm skedjewel
 
 # Configure bundler and install application gems
 RUN \
