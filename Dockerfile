@@ -52,12 +52,14 @@ RUN --mount=type=cache,sharing=private,target=/var/lib/apt/lists \
 # Download skedjewel binary.
 ARG SKEDJEWEL_VERSION=v2.2.0
 ARG SKEDJEWEL_SHA256=5d2c9691a1e12ae02a2b7cb0c7eea598f972a2e7aeb02e897d12c74cb91d560d
-RUN curl --fail --location --output skedjewel \
-  "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" && \
+RUN curl --fail --show-error --silent --location \
+    --retry 5 --retry-all-errors --retry-delay 2 \
+    --connect-timeout 10 --max-time 120 \
+    --output skedjewel \
+    "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" && \
   echo "$SKEDJEWEL_SHA256  skedjewel" | sha256sum --check --strict && \
-  mkdir -p /app/bin && \
-  mv skedjewel /app/bin/ && \
-  chmod a+x /app/bin/skedjewel
+  install -D -m 755 skedjewel /app/bin/skedjewel && \
+  rm skedjewel
 
 # Configure bundler and install application gems
 RUN \
