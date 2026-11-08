@@ -4,7 +4,15 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 
 log_dir=/var/log/prune-and-rebuild
 mkdir -p "$log_dir"
-exec > "$log_dir/$(date -u +%Y%m%dT%H%M%SZ).log" 2>&1
+log_file="$log_dir/$(date -u +%Y%m%dT%H%M%SZ).log"
+
+if [[ -t 1 ]]; then
+  # Run manually from a terminal: show output and also save it.
+  exec > >(tee "$log_file") 2>&1
+else
+  # Run from cron: just save it.
+  exec > "$log_file" 2>&1
+fi
 
 # Delete logs older than 30 days.
 find "$log_dir" -name '*.log' -mtime +30 -delete || true
