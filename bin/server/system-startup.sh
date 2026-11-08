@@ -4,7 +4,12 @@
 # executed directly, but rather to be symlinked to `/etc/rc.local`, so that it's
 # contents will be executed at system startup.
 
-docker_startup_log=/tmp/docker-compose.log
+log_dir=/var/log/docker-startup
+mkdir -p "$log_dir"
+docker_startup_log="$log_dir/$(date -u +%Y%m%dT%H%M%SZ).log"
+
+# Delete startup logs older than 90 days.
+find "$log_dir" -name '*.log' -mtime +90 -delete || true
 
 {
   # Log the script execution start time

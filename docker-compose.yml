@@ -28,6 +28,7 @@ x-rails-config: &default-rails-config
     # CAUTION: `web` and `worker` override all env vars listed here with their own `environment`
     # sections (YAML merge keys are shallow), so they must repeat any of these that they need.
     RAILS_MAX_THREADS: 1
+  image: david_runger-app
   logging: *default-logging
   networks:
     - external
@@ -335,8 +336,11 @@ services:
     volumes:
       - ./redis/redis-cache.conf:/usr/local/etc/redis/redis.conf
   redis-overcommit:
-    build: ./docker/redis-overcommit
+    # Original helper by bkuhl, vendored from:
+    # https://github.com/bkuhl/redis-overcommit-on-host/blob/09215f160d59a7289ab3f4734f235659cdb8d269/Dockerfile
+    command: ['sh', '-c', 'echo 1 > /mnt/vm/overcommit_memory']
     cpu_shares: 256
+    image: alpine:3.24.1@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
     restart: 'no'
     volumes:
       - /proc/sys/vm:/mnt/vm
