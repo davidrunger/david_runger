@@ -2,6 +2,13 @@
 
 set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
 
+log_dir=/var/log/prune-and-rebuild
+mkdir -p "$log_dir"
+exec > "$log_dir/$(date -u +%Y%m%dT%H%M%SZ).log" 2>&1
+
+# Delete logs older than 30 days.
+find "$log_dir" -name '*.log' -mtime +30 -delete || true
+
 # To minimize risk of accidental DB deletion, continue only if all expected
 # services are running.
 expected_num_services=16
@@ -18,8 +25,20 @@ cd /root/david_runger
 # Prune Docker.
 docker system prune --all --force
 
+# Pre-pull the alpine image for redis-overcommit.
+docker compose pull redis-overcommit || echo "Warning: could not pre-pull redis-overcommit image." >&2
+
 # Rebuild Docker image(s).
-RAILS_ENV=production bin/build-docker
+build_succeeded=false
+for attempt in 1 2 3; do
+  if RAILS_ENV=production bin/build-docker; then
+    build_succeeded=true
+    break
+  fi
+  echo "Build attempt $attempt failed." >&2
+  sleep 60
+done
+[[ "$build_succeeded" == true ]] || exit 1
 
 # The daily Docker image rebuild can create host memory pressure, causing the
 # worker container to swap. Recreate the worker after the build, so it starts
