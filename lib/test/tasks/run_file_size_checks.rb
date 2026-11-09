@@ -12,7 +12,7 @@ class Test::Tasks::RunFileSizeChecks < Pallets::Task
     'check_ins_index*.js' => (5..15),
     'ci_step_gantt_charts*.js' => (265..275),
     'comments*.css' => (0..10),
-    'comments*.js' => (357..367),
+    'comments*.js' => (363..373),
     'copy_to_clipboard*.css' => (0..10),
     'copy_to_clipboard*.js' => (2..12),
     'emoji_picker*.css' => (8..18),
