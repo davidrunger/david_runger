@@ -166,7 +166,7 @@ services:
       vector:
         condition: service_started
   logcli:
-    image: grafana/logcli:3.7.9@sha256:581a9a5dd0dda09d06f3f4688019aed03cb2e6f9884c09d8a3ac3044bc911a72
+    image: grafana/logcli:3.7.10@sha256:5cbaeae992f978540c781ffb1a89da3d35a9bcf8b0679fd9d7808c6047ffdc7e
     environment:
       LOKI_ADDR: http://loki:3100
     networks:
