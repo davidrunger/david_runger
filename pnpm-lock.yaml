@@ -375,8 +375,8 @@ importers:
         specifier: ^41.0.0
         version: 41.0.0(stylelint@18.0.0)
       stylelint-scss:
-        specifier: ^7.4.0
-        version: 7.4.0(stylelint@18.0.0)
+        specifier: ^7.5.0
+        version: 7.5.0(stylelint@18.0.0)
       tsd:
         specifier: ^0.33.0
         version: 0.33.0
@@ -2115,8 +2115,8 @@ packages:
     resolution: {integrity: sha512-6qOwkl1g0fv0DN3Y3ggr2EaZXN71aoAqPp3p/pVaWSBSIo+YjLOWN61Fva43oVyQNPf7kgm8lkudzlzojwE2jw==}
     engines: {node: '>=10'}
 
-  enhanced-resolve@5.26.2:
-    resolution: {integrity: sha512-sQeK9D5kN5T+O0Hh+Cn8t39FZ0VJVARcoacJ7x1I0N+3/WqlckcS8D4NUKjMyTh4P5ly1SMgJQstou2aL3rmZQ==}
+  enhanced-resolve@5.27.0:
+    resolution: {integrity: sha512-Do6BB2xzlcc/odFg+XEYyneAx4T/WfywO71yw9ePS2tVfRsf7JVR4mUeELadIeHzixkzbG5DpluiEFPi2WGfYQ==}
     engines: {node: '>=10.13.0'}
 
   entities@4.5.0:
@@ -2488,8 +2488,8 @@ packages:
     resolution: {integrity: sha512-wCBiZ77u1tuWde6G/nfOtLaCTYcFDU5yCzARzK10y+rLhzYoL7a7yEemcopcc2Mzow7gZOIjnV2ym1NYmdiJOQ==}
     engines: {node: '>= 4'}
 
-  immutable@5.2.0:
-    resolution: {integrity: sha512-u1aDbE79y64hkiY7K3npTBoTgLcgXK8MkJgwKO15SoN1bZS0su2d0QBhlb/Va/YxLbbU03CoIZvsPUOVcMedDA==}
+  immutable@5.2.1:
+    resolution: {integrity: sha512-CgXNM1BhKqpMjFHTyqQSk09OWqzHNJ/U4BdeBgXoBdR2DdgBdOSv131cO1/YMgzopqnka3B/i949UaMLEKUxOA==}
 
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
@@ -3307,8 +3307,8 @@ packages:
     peerDependencies:
       postcss: ^8.4.31
 
-  postcss-selector-parser@7.1.8:
-    resolution: {integrity: sha512-4CrD1SdKVx3bWOXG6Mh5YI9s/NTEgMq4T+O0T4wj2JqGhxbi8BAPc8BJYDVrVOqXBbWGX7YMO3f3ldOSscdCew==}
+  postcss-selector-parser@7.2.1:
+    resolution: {integrity: sha512-GwxlMgTTXwIom+ebC7an3k6RaJDwklRQQnfiXsLPGicu8FYV/k/+1/9YY2OU2+r938H2t4X0TDxoif+HP2rjzQ==}
     engines: {node: '>=4'}
 
   postcss-value-parser@4.2.0:
@@ -3745,11 +3745,11 @@ packages:
     peerDependencies:
       stylelint: ^18.0.0
 
-  stylelint-scss@7.4.0:
-    resolution: {integrity: sha512-OvN+AestcvtB/IFvde1kpFLq2mpIsPaeB8E+Cjlxu7qjf0ja7NCoTrDW97tuNeXFlYGUdwqGq5cXaByLpNwuxA==}
+  stylelint-scss@7.5.0:
+    resolution: {integrity: sha512-oRbhTDu8ocyWbgRfp7nWCvIX1DP50qnD9zPrtOxkIasJSiGZaMWKP0gcdl0HzNU1PRe5ZTfpHtvBIurtDjvilw==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
-      stylelint: ^16.8.2 || ^17.0.0
+      stylelint: ^16.8.2 || ^17.0.0 || ^18.0.0
 
   stylelint@18.0.0:
     resolution: {integrity: sha512-kI10GsHXQvsH/AcklVZdQgwDuxtHi+A+h1Ujzd7h9LDf3e5jQiLQkWFlPtpynX3E6oVWHG1wo9v6dL0Mr+nnSA==}
@@ -3768,8 +3768,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  systeminformation@5.33.19:
-    resolution: {integrity: sha512-Zm7wGeCG7PqfvzegMJIzrxICopWqYCeLATVmvxOOci1isLcNVKgY4Fr0hhYQzvc7cgtK3377jQVChTFAnznOiA==}
+  systeminformation@5.33.20:
+    resolution: {integrity: sha512-8Cd5qcDjE8bHums5QhSbXo69qDC5sqKY9H6dZXq+nHIoN9cq9cjJrpasHRWq2vTp19acpgc7VlJP6gRoKvV+dA==}
     engines: {node: '>=10.0.0'}
     os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
     hasBin: true
@@ -3800,11 +3800,11 @@ packages:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
 
-  tldts-core@7.4.26:
-    resolution: {integrity: sha512-fMNX6ToAFZa2pWrKUd95hhwzx4f6tc+TLtjAstkj6L20FCmbsQ7SCciD3tAJQ/er+SmAlanZ8x0qFkNDZaftIg==}
+  tldts-core@7.5.1:
+    resolution: {integrity: sha512-GGSowIH9Pp52ym/x0OxBBNqS2DuqlLL91YNnlnj+k+ZWjJQ+ilNxpwP7/RT+iX1gzuafhj1l7j46CNVqm+xAeQ==}
 
-  tldts@7.4.26:
-    resolution: {integrity: sha512-ImrRMX8xrz7KZKdINMHBTsEWNlPxzI/CdDXEXmV3Fp0jAU31x1ZD4YmrAPGCz325aXYSuBPG5k6v2wRmWbm2QQ==}
+  tldts@7.5.1:
+    resolution: {integrity: sha512-UW1Z5afSpu5qA0qhDnaynyiwPa+/VC7J/mofz72R032It5DUTUWk8I502cAitA6qMQV1x7IwNHg7pCBNVORVww==}
     hasBin: true
 
   to-regex-range@5.0.1:
@@ -4271,8 +4271,8 @@ packages:
     resolution: {integrity: sha512-dYwyZredl67GyLLIHJnRM3h2PcOmN5SkcgC7eM5DPDEOEl6dLFqVrMg3F1Ea32usj4VSVZtd2H4MtKTNOf6nPg==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
 
-  ws@8.22.2:
-    resolution: {integrity: sha512-/rEZ2ejown2N5gxVTHUu9bVVC7ttu0/Tgzf5hbTOixR3Fs7mbbXgn2DbdbcKgJOmpQMtrIUWivtYuVMnp/W/yA==}
+  ws@8.23.0:
+    resolution: {integrity: sha512-wCkmX8QMOrKjgO8HW2WyDbTSGeqkocxgDzS9iR79rEAexty6/2qzilx3Ag8Tqf9ykop3irLKle0MtVn5qjVnoQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -4437,13 +4437,13 @@ snapshots:
       '@csstools/css-parser-algorithms': 4.0.2(@csstools/css-tokenizer@4.0.2)
       '@csstools/css-tokenizer': 4.0.2
 
-  '@csstools/selector-resolve-nested@4.0.2(postcss-selector-parser@7.1.8)':
+  '@csstools/selector-resolve-nested@4.0.2(postcss-selector-parser@7.2.1)':
     dependencies:
-      postcss-selector-parser: 7.1.8
+      postcss-selector-parser: 7.2.1
 
-  '@csstools/selector-specificity@6.0.1(postcss-selector-parser@7.1.8)':
+  '@csstools/selector-specificity@6.0.1(postcss-selector-parser@7.2.1)':
     dependencies:
-      postcss-selector-parser: 7.1.8
+      postcss-selector-parser: 7.2.1
 
   '@ctrl/tinycolor@4.3.0': {}
 
@@ -4840,7 +4840,7 @@ snapshots:
       '@percy/logger': 1.32.12
       '@percy/monitoring': 1.32.12(supports-color@7.2.0)(typescript@6.0.3)
       minimatch: 9.0.9
-      ws: 8.22.2
+      ws: 8.23.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -4952,7 +4952,7 @@ snapshots:
       pako: 2.2.0
       path-to-regexp: 6.3.0
       rimraf: 3.0.2
-      ws: 8.22.2
+      ws: 8.23.0
       yaml: 2.9.1
     optionalDependencies:
       '@percy/cli-doctor': 1.32.12(supports-color@7.2.0)(typescript@6.0.3)
@@ -4977,7 +4977,7 @@ snapshots:
       '@percy/config': 1.32.12(typescript@6.0.3)
       '@percy/logger': 1.32.12
       '@percy/sdk-utils': 1.32.12(supports-color@7.2.0)
-      systeminformation: 5.33.19
+      systeminformation: 5.33.20
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -5163,7 +5163,7 @@ snapshots:
   '@tailwindcss/node@4.3.5':
     dependencies:
       '@jridgewell/remapping': 2.3.5
-      enhanced-resolve: 5.26.2
+      enhanced-resolve: 5.27.0
       jiti: 2.7.0
       lightningcss: 1.33.0
       magic-string: 1.4.5
@@ -6085,7 +6085,7 @@ snapshots:
       mem: 8.1.1
     optional: true
 
-  enhanced-resolve@5.26.2:
+  enhanced-resolve@5.27.0:
     dependencies:
       graceful-fs: 4.2.12
       tapable: 2.3.3
@@ -6488,7 +6488,7 @@ snapshots:
 
   ignore@7.0.14: {}
 
-  immutable@5.2.0: {}
+  immutable@5.2.1: {}
 
   import-fresh@3.3.1:
     dependencies:
@@ -7245,7 +7245,7 @@ snapshots:
     dependencies:
       postcss: 8.5.32
 
-  postcss-selector-parser@7.1.8:
+  postcss-selector-parser@7.2.1:
     dependencies:
       util-deprecate: 1.0.2
 
@@ -7570,7 +7570,7 @@ snapshots:
   sass@1.108.2:
     dependencies:
       chokidar: 5.0.0
-      immutable: 5.2.0
+      immutable: 5.2.1
       source-map-js: 1.2.2
     optionalDependencies:
       '@parcel/watcher': 2.6.0
@@ -7772,7 +7772,7 @@ snapshots:
       stylelint: 18.0.0
       stylelint-config-recommended: 19.0.0(stylelint@18.0.0)
 
-  stylelint-scss@7.4.0(stylelint@18.0.0):
+  stylelint-scss@7.5.0(stylelint@18.0.0):
     dependencies:
       '@csstools/css-calc': 3.4.3(@csstools/css-parser-algorithms@4.0.2(@csstools/css-tokenizer@4.0.2))(@csstools/css-tokenizer@4.0.2)
       '@csstools/css-parser-algorithms': 4.0.2(@csstools/css-tokenizer@4.0.2)
@@ -7783,7 +7783,7 @@ snapshots:
       known-css-properties: 0.37.0
       postcss-media-query-parser: 0.2.3
       postcss-resolve-nested-selector: 0.1.7
-      postcss-selector-parser: 7.1.8
+      postcss-selector-parser: 7.2.1
       postcss-value-parser: 4.2.0
       stylelint: 18.0.0
 
@@ -7794,8 +7794,8 @@ snapshots:
       '@csstools/css-syntax-patches-for-csstree': 1.1.16(css-tree@3.2.1)
       '@csstools/css-tokenizer': 4.0.2
       '@csstools/media-query-list-parser': 5.0.2(@csstools/css-parser-algorithms@4.0.2(@csstools/css-tokenizer@4.0.2))(@csstools/css-tokenizer@4.0.2)
-      '@csstools/selector-resolve-nested': 4.0.2(postcss-selector-parser@7.1.8)
-      '@csstools/selector-specificity': 6.0.1(postcss-selector-parser@7.1.8)
+      '@csstools/selector-resolve-nested': 4.0.2(postcss-selector-parser@7.2.1)
+      '@csstools/selector-specificity': 6.0.1(postcss-selector-parser@7.2.1)
       colord: 2.12.0
       cosmiconfig: 10.0.1
       css-tree: 3.2.1
@@ -7804,7 +7804,7 @@ snapshots:
       picomatch: 4.0.7
       postcss: 8.5.32
       postcss-safe-parser: 7.1.0(postcss@8.5.32)
-      postcss-selector-parser: 7.1.8
+      postcss-selector-parser: 7.2.1
       postcss-value-parser: 4.2.0
       tinyglobby: 0.2.17
       write-file-atomic: 8.0.0
@@ -7820,7 +7820,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  systeminformation@5.33.19: {}
+  systeminformation@5.33.20: {}
 
   table-layout@4.1.1:
     dependencies:
@@ -7842,11 +7842,11 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.7)
       picomatch: 4.0.7
 
-  tldts-core@7.4.26: {}
+  tldts-core@7.5.1: {}
 
-  tldts@7.4.26:
+  tldts@7.5.1:
     dependencies:
-      tldts-core: 7.4.26
+      tldts-core: 7.5.1
 
   to-regex-range@5.0.1:
     dependencies:
@@ -7863,7 +7863,7 @@ snapshots:
 
   tough-cookie@6.1.0:
     dependencies:
-      tldts: 7.4.26
+      tldts: 7.5.1
 
   tr46@7.0.0:
     dependencies:
@@ -8248,7 +8248,7 @@ snapshots:
     dependencies:
       signal-exit: 4.1.0
 
-  ws@8.22.2: {}
+  ws@8.23.0: {}
 
   xml-name-validator@5.0.0: {}
 
