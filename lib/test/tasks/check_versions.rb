@@ -4,7 +4,7 @@ class Test::Tasks::CheckVersions < Pallets::Task
   def run
     ruby_version = File.read('.ruby-version').rstrip
     execute_system_command(<<~COMMAND)
-      ruby --version && [ "$(ruby --version | cut -c1-11)" = 'ruby #{ruby_version} ' ]
+      ruby --version && [ "$(ruby --version | cut -d ' ' -f 2)" = '#{ruby_version}' ]
     COMMAND
 
     node_version = File.read('.node-version').rstrip
