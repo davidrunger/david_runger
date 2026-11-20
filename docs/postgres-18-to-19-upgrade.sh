@@ -42,8 +42,8 @@ git diff -- docker-compose.yml
 # Pull the new PostgreSQL 19.0 image before downtime begins.
 docker compose pull postgres
 
-# Check that the PostgreSQL 19.0 image is available.
-docker images postgres
+# Verify that the exact PostgreSQL 19.0 image was pulled. Expect an image ID.
+docker image inspect --format '{{.Id}}' 'postgres:19.0-alpine@sha256:8b0ff4cdf221f0c53d7fcda681d3b461be725c492cd881c5ec9c0ad25023f188'
 
 # Stop services that permit access to the database.
 docker compose stop clock nginx web worker
