@@ -240,7 +240,7 @@ RSpec.configure do |config|
             end
           end
         end
-      rescue Ferrum::ProcessTimeoutError => error
+      rescue Ferrum::ProcessTimeoutError, Ferrum::TimeoutError => error
         retry_count += 1
 
         if retry_count <= max_retries
