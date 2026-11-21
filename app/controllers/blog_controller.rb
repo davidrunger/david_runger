@@ -117,6 +117,8 @@ class BlogController < ApplicationController
 
   def render_blog_404
     send_file(Rails.root.join('blog/404.html'), status: 404, disposition: :inline)
+  rescue ActionController::MissingFile
+    render file: 'public/404.html', status: :not_found, layout: false
   end
 
   def xml_request_for_feed?
