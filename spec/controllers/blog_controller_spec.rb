@@ -81,6 +81,19 @@ RSpec.describe(BlogController) do
             expect(response.body).to have_text(not_found_page_content)
           end
 
+          context 'when the blog 404 file is missing' do
+            before do
+              FileUtils.rm_f(Rails.root.join('blog/404.html'))
+            end
+
+            it 'uses the app 404 page' do
+              get_show
+
+              expect(response).to have_http_status(404)
+              expect(response.body).to include("The page you were looking for doesn't exist.")
+            end
+          end
+
           it 'reports via Rails.error' do
             allow(Rails.error).
               to receive(:report).
