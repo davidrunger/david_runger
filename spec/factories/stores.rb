@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :store do
-    name { Faker::Company.name }
+    sequence(:name) { |number| "#{Faker::Company.name} #{number}" }
     association :user
     viewed_at { [1.day.ago, 1.week.ago, 1.month.ago].sample }
     notes { 'member phone number: 619-867-5309' }
