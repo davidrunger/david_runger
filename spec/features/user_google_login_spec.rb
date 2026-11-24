@@ -140,12 +140,9 @@ RSpec.describe 'Logging in as a User via Google auth', :prerendering_disabled do
 
   context 'when OmniAuth test mode is disabled', :permit_all_external_requests do
     around do |spec|
-      original_omni_auth_test_mode = OmniAuth.config.test_mode
-      OmniAuth.config.test_mode = false
-
-      spec.run
-    ensure
-      OmniAuth.config.test_mode = original_omni_auth_test_mode
+      OmniAuth.config.with(test_mode: false) do
+        spec.run
+      end
     end
 
     context 'when Google responds with "This is Google OAuth."' do
