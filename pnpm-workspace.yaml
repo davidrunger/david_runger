@@ -8,6 +8,8 @@ allowBuilds:
   vue-demi: true
   '@parcel/watcher': false
   protobufjs: false
+minimumReleaseAgeExclude:
+  - vue-chartjs@5.3.7
 overrides:
   typescript: ^6
 update:
