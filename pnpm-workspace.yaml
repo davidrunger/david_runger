@@ -9,4 +9,4 @@ allowBuilds:
   '@parcel/watcher': false
   protobufjs: false
 overrides:
-  typescript: ^6
+  typescript: ^7.0.2
