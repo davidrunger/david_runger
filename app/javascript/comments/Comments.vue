@@ -48,11 +48,33 @@ onMounted(async () => {
 .comments-container {
   width: 90%;
   margin: 24px auto 0;
+
+  --comments-link-color: #1b70a2;
+  --comments-link-hover-color: #008d9c;
+  --comments-link-active-color: #363636;
+}
+
+@media (prefers-color-scheme: dark) {
+  .comments-container {
+    --comments-link-color: #86cdf7;
+    --comments-link-hover-color: #c7f3ff;
+    --comments-link-active-color: #fff;
+  }
 }
 
 .comments-container :deep(a),
 .comments-container :deep(a:visited),
 .comments-container :deep(button.text-blue-600) {
-  color: #c7f3ff;
+  color: var(--comments-link-color);
+}
+
+.comments-container :deep(a:hover),
+.comments-container :deep(button.text-blue-600:hover) {
+  color: var(--comments-link-hover-color);
+}
+
+.comments-container :deep(a:active),
+.comments-container :deep(button.text-blue-600:active) {
+  color: var(--comments-link-active-color);
 }
 </style>
