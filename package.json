@@ -51,7 +51,7 @@
     "tom-select": "^2.7.0",
     "unplugin-element-plus": "^0.11.2",
     "vue": "^3.5.45",
-    "vue-chartjs": "^5.3.4",
+    "vue-chartjs": "^5.3.7",
     "vue-router": "^5.5.1",
     "vue-tabler-icons": "^2.21.0",
     "vue-toastification": "2.0.0-rc.5",
@@ -61,7 +61,7 @@
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "@percy/cli": "^1.32.12",
+    "@percy/cli": "^1.33.0",
     "@pinia/testing": "^2.0.2",
     "@prettier/plugin-pug": "^3.6.0",
     "@testing-library/vue": "^8.1.0",
