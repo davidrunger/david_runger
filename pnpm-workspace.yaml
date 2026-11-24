@@ -9,6 +9,7 @@ allowBuilds:
   '@parcel/watcher': false
   protobufjs: false
 minimumReleaseAgeExclude:
+  - brace-expansion@5.1.0
   - vue-chartjs@5.3.7
 overrides:
   typescript: ^6
