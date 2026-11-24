@@ -49,4 +49,10 @@ onMounted(async () => {
   width: 90%;
   margin: 24px auto 0;
 }
+
+.comments-container :deep(a),
+.comments-container :deep(a:visited),
+.comments-container :deep(button.text-blue-600) {
+  color: #c7f3ff;
+}
 </style>
