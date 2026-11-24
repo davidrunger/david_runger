@@ -172,7 +172,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  typescript: ^7.0.2
+  typescript: ^6
 
 importers:
 
@@ -183,10 +183,10 @@ importers:
         version: 4.0.0-beta23
       '@davidrunger/vue-model-explorer':
         specifier: ^0.3.3
-        version: 0.3.3(vue@3.5.45(typescript@7.0.2))
+        version: 0.3.3(vue@3.5.45(typescript@6.0.3))
       '@element-plus/icons-vue':
         specifier: ^2.3.2
-        version: 2.3.2(vue@3.5.45(typescript@7.0.2))
+        version: 2.3.2(vue@3.5.45(typescript@6.0.3))
       '@rails/actioncable':
         specifier: ^8.1.401
         version: 8.1.401
@@ -198,19 +198,19 @@ importers:
         version: 4.3.5(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))
       '@vitejs/plugin-vue':
         specifier: ^6.0.11
-        version: 6.0.11(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))(vue@3.5.45(typescript@7.0.2))
+        version: 6.0.11(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))(vue@3.5.45(typescript@6.0.3))
       '@vue/compiler-sfc':
         specifier: ^3.5.45
         version: 3.5.45
       '@vuelidate/core':
         specifier: ^2.0.3
-        version: 2.0.3(vue@3.5.45(typescript@7.0.2))
+        version: 2.0.3(vue@3.5.45(typescript@6.0.3))
       '@vuelidate/validators':
         specifier: ^2.0.4
-        version: 2.0.4(vue@3.5.45(typescript@7.0.2))
+        version: 2.0.4(vue@3.5.45(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^15.0.0
-        version: 15.0.0(vue@3.5.45(typescript@7.0.2))
+        version: 15.0.0(vue@3.5.45(typescript@6.0.3))
       chart.js:
         specifier: ^4.6.1
         version: 4.6.1
@@ -228,7 +228,7 @@ importers:
         version: 4.6.0
       element-plus:
         specifier: ^2.14.8
-        version: 2.14.8(vue@3.5.45(typescript@7.0.2))
+        version: 2.14.8(vue@3.5.45(typescript@6.0.3))
       emojilib:
         specifier: ^4.0.3
         version: 4.0.3
@@ -258,7 +258,7 @@ importers:
         version: 2.2.4(marked@18.2.1)
       pinia:
         specifier: ^4.1.0
-        version: 4.1.0(@vue/devtools-api@8.2.1)(typescript@7.0.2)(vue@3.5.45(typescript@7.0.2))
+        version: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3))
       pug:
         specifier: ^3.0.4
         version: 3.0.4
@@ -276,22 +276,22 @@ importers:
         version: 0.11.2(confbox@0.3.2)(jiti@2.7.0)(magic-string@1.4.5)(mlly@1.8.2)(rolldown@1.2.19)
       vue:
         specifier: ^3.5.45
-        version: 3.5.45(typescript@7.0.2)
+        version: 3.5.45(typescript@6.0.3)
       vue-chartjs:
         specifier: ^5.3.6
-        version: 5.3.6(chart.js@4.6.1)(vue@3.5.45(typescript@7.0.2))
+        version: 5.3.6(chart.js@4.6.1)(vue@3.5.45(typescript@6.0.3))
       vue-router:
         specifier: ^5.5.1
-        version: 5.5.1(@vue/compiler-sfc@3.5.45)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@7.0.2)(vue@3.5.45(typescript@7.0.2)))(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))(vue@3.5.45(typescript@7.0.2))
+        version: 5.5.1(@vue/compiler-sfc@3.5.45)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))(vue@3.5.45(typescript@6.0.3))
       vue-tabler-icons:
         specifier: ^2.21.0
         version: 2.21.0
       vue-toastification:
         specifier: 2.0.0-rc.5
-        version: 2.0.0-rc.5(vue@3.5.45(typescript@7.0.2))
+        version: 2.0.0-rc.5(vue@3.5.45(typescript@6.0.3))
       vue-types:
         specifier: ^7.1.0
-        version: 7.1.0(vue@3.5.45(typescript@7.0.2))
+        version: 7.1.0(vue@3.5.45(typescript@6.0.3))
       when-dom-ready:
         specifier: ^1.2.12
         version: 1.2.12
@@ -304,16 +304,16 @@ importers:
         version: 4.7.1(@vue/compiler-sfc@3.5.45)(prettier@3.10.1)(supports-color@7.2.0)
       '@percy/cli':
         specifier: ^1.33.0
-        version: 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+        version: 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       '@pinia/testing':
         specifier: ^2.0.2
-        version: 2.0.2(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@7.0.2)(vue@3.5.45(typescript@7.0.2)))
+        version: 2.0.2(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))
       '@prettier/plugin-pug':
         specifier: ^3.6.0
         version: 3.6.0(prettier@3.10.1)
       '@testing-library/vue':
         specifier: ^8.1.0
-        version: 8.1.0(@vue/compiler-dom@3.5.45)(@vue/compiler-sfc@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@7.0.2))
+        version: 8.1.0(@vue/compiler-dom@3.5.45)(@vue/compiler-sfc@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@6.0.3))
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -337,7 +337,7 @@ importers:
         version: 1.2.2
       '@typescript-eslint/parser':
         specifier: ^8.73.0
-        version: 8.73.0(eslint@10.15.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@7.0.2)
+        version: 8.73.0(eslint@10.15.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
       '@vue/language-plugin-pug':
         specifier: ^3.3.14
         version: 3.3.14
@@ -381,8 +381,8 @@ importers:
         specifier: ^0.33.0
         version: 0.33.0
       typescript:
-        specifier: ^7.0.2
-        version: 7.0.2
+        specifier: ^6
+        version: 6.0.3
       vite:
         specifier: ^8.3.8
         version: 8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1)
@@ -397,7 +397,7 @@ importers:
         version: 5.1.1(@types/node@26.6.6)(jsdom@31.0.1)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))
       vue-tsc:
         specifier: ^3.3.14
-        version: 3.3.14(typescript@7.0.2)
+        version: 3.3.14(typescript@6.0.3)
 
 packages:
 
@@ -1512,13 +1512,13 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
-      typescript: ^7.0.2
+      typescript: ^6
 
   '@typescript-eslint/project-service@8.73.0':
     resolution: {integrity: sha512-/pEf8Rc4Mjk+qJnY0uO1+Gadeal8uv50xpuic+srG2vIVatA0XxvWMUeMtFvs6OCHqftiQ7/+qH4aehG5stzIA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
-      typescript: ^7.0.2
+      typescript: ^6
 
   '@typescript-eslint/scope-manager@8.73.0':
     resolution: {integrity: sha512-/TjD738Iq2rzj5z0ixVOi+TsvgjAzZPLPaH1yWdDBytR/HTR5gMpyYWZeCe5WTQZLwk3ho8AV7U3muoQCRtXBQ==}
@@ -1528,7 +1528,7 @@ packages:
     resolution: {integrity: sha512-lmtCFOfYaJfpqZywGuXi4FpNtE+NQ+YLe3T0K9rtEDcW8ZuGWvfI++pj8r05sYMI8vWT2CYK4rWyedmD6Rp4og==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
-      typescript: ^7.0.2
+      typescript: ^6
 
   '@typescript-eslint/types@8.73.0':
     resolution: {integrity: sha512-O/1ytYzflF16QDKXx4/qOXg1IuZp+n7hr9t+S0nv7N/2Tl8rJiNCshztV1gcSUvHbPtoX3+zmNbtSAyVbzxVfw==}
@@ -1539,7 +1539,7 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       '@typescript/native': npm:typescript@>=7.1.0-dev.20261009.1 || >=7.1.0-beta <7.1.0-dev
-      typescript: ^7.0.2
+      typescript: ^6
     peerDependenciesMeta:
       '@typescript/native':
         optional: true
@@ -1547,126 +1547,6 @@ packages:
   '@typescript-eslint/visitor-keys@8.73.0':
     resolution: {integrity: sha512-k4lsFVpRZICbltkIEEH4hZRkwXkqDF1GHBpClKQOHQY+RkoZAAuyc1ci3I6p+CB6v3U4jaHIUshc4RzzQXZWLg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@typescript/typescript-aix-ppc64@7.0.2':
-    resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [ppc64]
-    os: [aix]
-
-  '@typescript/typescript-darwin-arm64@7.0.2':
-    resolution: {integrity: sha512-gowzar9MwS/aRWp6f3a4KUqzRjAZjOsmGNCM6LcTgXum+dBfgsBVMN+AgvOCCbguXyick6LJhpBszxMebJ8syA==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [darwin]
-
-  '@typescript/typescript-darwin-x64@7.0.2':
-    resolution: {integrity: sha512-SZ9xZInqApNlNGc9s0W1VSsktYSOe9cFqNOIqmN1Gs8SmkjKZYFt017G4VwPxASInODuAdbTW7sXiFUf893RgA==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [darwin]
-
-  '@typescript/typescript-freebsd-arm64@7.0.2':
-    resolution: {integrity: sha512-W5NH4y/J0plIIS5b2xvTEkU7JFxyqdMAOgf+Ilhl0vHQXKO5dZoxd+C/jEtq56c4F3wk71RB4BMRQ2XdI+bwYQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [freebsd]
-
-  '@typescript/typescript-freebsd-x64@7.0.2':
-    resolution: {integrity: sha512-UMGDx5sTpzNw3WiPebH7l90IWfJggEd+egHt/q6p7/Cm3zqoV7VxkGXt+3DxPIw8CcmvAB0j3sVVfbhX+M4Tpw==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [freebsd]
-
-  '@typescript/typescript-linux-arm64@7.0.2':
-    resolution: {integrity: sha512-Qh4eU4/y3yDjnfjjyPYihMj5/ODIlmt+Bzu17OI+fiSRDW57QmU5SiN63exPRNJPKUzcc1INa1NXdrJ+MqHjUQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [linux]
-
-  '@typescript/typescript-linux-arm@7.0.2':
-    resolution: {integrity: sha512-gffT3xPz9sR7j/YJExkyPntrI0P2EP9XbOyWzth2/Gs0RstK+90RBcO0ncXoXy/beYll1SXw846Nf2zdnEz0QQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm]
-    os: [linux]
-
-  '@typescript/typescript-linux-loong64@7.0.2':
-    resolution: {integrity: sha512-uEHck9i8hoAzXPiYRib1O7miOnz23SxIeVl6F4LXox+qov1K35jHcEW6VHKvZI+pyvl7fZEP4MCU5LYvIq1GuQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [loong64]
-    os: [linux]
-
-  '@typescript/typescript-linux-mips64el@7.0.2':
-    resolution: {integrity: sha512-R4KvAMnE43W5Qeqb0Ly56O3mWMWIAgsMyz36DCaycd5nbg/9kzm0liw3JocfRqyJY0KPmzFjbswozXyW0DnIYA==}
-    engines: {node: '>=16.20.0'}
-    cpu: [mips64el]
-    os: [linux]
-
-  '@typescript/typescript-linux-ppc64@7.0.2':
-    resolution: {integrity: sha512-DORx5b3sd/4S7eayxm4FQv+A7CrkUIGRaHiwI8oiHTAI1fAPWhF4J0vAlkC8biAlHSVVwxMQ3tjZ2/DVbnQiiA==}
-    engines: {node: '>=16.20.0'}
-    cpu: [ppc64]
-    os: [linux]
-
-  '@typescript/typescript-linux-riscv64@7.0.2':
-    resolution: {integrity: sha512-wf0jqEDOjrPRnKwYRyyJDRo11KMbvMFrU+q4zqKyChODBzvlkbhNQfKvLxQCcwTpdDaXSHZTVuh0JoCrKCUMHQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [riscv64]
-    os: [linux]
-
-  '@typescript/typescript-linux-s390x@7.0.2':
-    resolution: {integrity: sha512-IkwJc3L7yhytWd/ewjyxNDfOmswCm9GWMJT/ue/dU4aZNbwZeYAetq42VyLmsmSjvoX7z74X6ZaYCtzAr0EuGw==}
-    engines: {node: '>=16.20.0'}
-    cpu: [s390x]
-    os: [linux]
-
-  '@typescript/typescript-linux-x64@7.0.2':
-    resolution: {integrity: sha512-EYdf2cNg7rgCWJnxCdJ+F3V39O8ihb37eHAu1LK8oAFizgTQbPOK7zHHXbPt8rX24COqODXeI3sIf0fCXG7H/A==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [linux]
-
-  '@typescript/typescript-netbsd-arm64@7.0.2':
-    resolution: {integrity: sha512-+polYF4MF04aPpO5FTkHran9yUQDSXqy5GiSDKpsll5jy3l3+g9QLhpf39T+ePtefhXLOGrLl0QIjkQP6VnelA==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [netbsd]
-
-  '@typescript/typescript-netbsd-x64@7.0.2':
-    resolution: {integrity: sha512-8YIT0EHM/3dq10ZOVF/A7pc/YSMtbcecct4rWtexrnSCHOPcpC2KTLXfTCR6vDpnSiY12heNb1GiN/wu+T/FyA==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [netbsd]
-
-  '@typescript/typescript-openbsd-arm64@7.0.2':
-    resolution: {integrity: sha512-APT8+ClYnuYm1u9+kgGXoMj2VzWzcymwh2gNSQVySHfkRDGOTVkoWLjCmOQSaO+PoqQ57B0flRp9SA+7GnnkzQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [openbsd]
-
-  '@typescript/typescript-openbsd-x64@7.0.2':
-    resolution: {integrity: sha512-yX7s+Q0Dln0Dt9tEzZsAjXXR/+ytBM7AlglaqyeMPxQszJ1JhlJdZ6jLA+IzldHtflX81em7lDao1xXu+aRRkg==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [openbsd]
-
-  '@typescript/typescript-sunos-x64@7.0.2':
-    resolution: {integrity: sha512-dLJDGaLZ1D4HPQn62u1n8mBDkJREwMsAkCdkwd4Ieqw+x3TUyTsqY0YiBCtE6H6OzzgGk3iuZ3vFWRS+E8/d1g==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [sunos]
-
-  '@typescript/typescript-win32-arm64@7.0.2':
-    resolution: {integrity: sha512-Gyl1Vy6OsWesLzmq+EP0Fb7b4Nid5232AvcA2SFcdYreldpNtYFFofPjnt62y9hQy7VTaZp65ICJjuAQRaVcIQ==}
-    engines: {node: '>=16.20.0'}
-    cpu: [arm64]
-    os: [win32]
-
-  '@typescript/typescript-win32-x64@7.0.2':
-    resolution: {integrity: sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g==}
-    engines: {node: '>=16.20.0'}
-    cpu: [x64]
-    os: [win32]
 
   '@vitejs/plugin-vue@6.0.11':
     resolution: {integrity: sha512-m48lskIUJGlB6qUiYhDMI8nd2ngeidz2U4nKTjqI13cFMu5rH8JeEILPkDtK9Fk/TjBA2pkj8AlbenqDaKu+ww==}
@@ -1695,7 +1575,7 @@ packages:
   '@volar/language-service@2.4.30':
     resolution: {integrity: sha512-w/xDsASiqC71ggCOm7sTDXDNk/l72XEptodeRC68tgZ0e5QM4hM3zAqBGC7mBctvhrpYwKfMG+t9xcUo2hEFtA==}
     peerDependencies:
-      typescript: ^7.0.2
+      typescript: ^6
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -1706,7 +1586,7 @@ packages:
   '@volar/typescript@2.4.30':
     resolution: {integrity: sha512-/DgA5tgYFPfrLFuSjIMXMGHk1LQv2+P8eny6+BhGNzFJELWIW7UZlc56ZLIRFhLsPpMfIFxM8/HvOPBggrjTZg==}
     peerDependencies:
-      typescript: ^7.0.2
+      typescript: ^6
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -2267,7 +2147,7 @@ packages:
     resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
     engines: {node: '>=14'}
     peerDependencies:
-      typescript: ^7.0.2
+      typescript: ^6
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -3746,7 +3626,7 @@ packages:
     resolution: {integrity: sha512-+5/HMuVjYQfKlCD5xQ7zfXn1xUzYFEa7pd0DQK5SaMfZCaFRTHlaH/c02N1FoGOdlzSiwf5EOPgJx//1QDw6gw==}
     peerDependencies:
       '@vue/devtools-api': ^8.2.1
-      typescript: ^7.0.2
+      typescript: ^6
       vue: ^3.5.11
     peerDependenciesMeta:
       typescript:
@@ -4385,7 +4265,7 @@ packages:
     resolution: {integrity: sha512-OJ/ibxhPlqrMM0UiNHJ/0CKQkoKF243/AEmplt3qpRgkW8VG7IfOS41h7V8TjITqdByHzrjcS/2si+y4lIh8NA==}
     engines: {node: '>=18.12'}
     peerDependencies:
-      typescript: ^7.0.2
+      typescript: ^6
 
   ts-node@10.9.2:
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
@@ -4394,7 +4274,7 @@ packages:
       '@swc/core': '>=1.2.50'
       '@swc/wasm': '>=1.2.50'
       '@types/node': '*'
-      typescript: ^7.0.2
+      typescript: ^6
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -4439,9 +4319,9 @@ packages:
     resolution: {integrity: sha512-BhDCVfwGtPKKt9JOBvh6ocmSbEk7ftx7dpqqIpvGNrjzYcUKm8pnYwKSFfNJwqcp/qNTfZr9sKtVyTxx4V9iRA==}
     hasBin: true
 
-  typescript@7.0.2:
-    resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
-    engines: {node: '>=16.20.0'}
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
+    engines: {node: '>=14.17'}
     hasBin: true
 
   typical@4.0.0:
@@ -4731,7 +4611,7 @@ packages:
     resolution: {integrity: sha512-URAu2H9AuMZMg9GCgnqbaHHHd8pBZRAwNV2e2yYS8VDsoTVXHiOSo663OS6DkEvauQ2yixn5TPFJ9WV9QIspkA==}
     hasBin: true
     peerDependencies:
-      typescript: ^7.0.2
+      typescript: ^6
 
   vue-types@7.1.0:
     resolution: {integrity: sha512-CDJXtw8Uc3Mmc7FqQ94mBFKu/0Op4hdRc/wwWe8a9ifH+hyOzW5ZKnG8SEyzcnBFwoTyEiQoAZrJhjE07TE/iQ==}
@@ -4745,7 +4625,7 @@ packages:
   vue@3.5.45:
     resolution: {integrity: sha512-3cvsib8m9c0vB24+MDKsgcW4+Da4xaBl9Z/5Tbm2pmSIsRPxcil4cdXjXlVsmJ2g64XJo5h+IRd7rsdGT9pZaw==}
     peerDependencies:
-      typescript: ^7.0.2
+      typescript: ^6
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -5014,18 +4894,18 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.6': {}
 
-  '@davidrunger/vue-model-explorer@0.3.3(vue@3.5.45(typescript@7.0.2))':
+  '@davidrunger/vue-model-explorer@0.3.3(vue@3.5.45(typescript@6.0.3))':
     dependencies:
-      '@vueuse/core': 14.4.0(vue@3.5.45(typescript@7.0.2))
+      '@vueuse/core': 14.4.0(vue@3.5.45(typescript@6.0.3))
       cytoscape: 3.35.0
       cytoscape-dagre: 3.0.0(cytoscape@3.35.0)
       fuse.js: 7.5.0
       lodash-es: 4.18.1
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
-  '@element-plus/icons-vue@2.3.2(vue@3.5.45(typescript@7.0.2))':
+  '@element-plus/icons-vue@2.3.2(vue@3.5.45(typescript@6.0.3))':
     dependencies:
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
   '@emnapi/core@2.0.0-beta.2':
     dependencies:
@@ -5397,29 +5277,29 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.6.0
     optional: true
 
-  '@percy/cli-app@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli-app@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/cli-exec': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/cli-exec': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - typescript
       - utf-8-validate
 
-  '@percy/cli-build@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli-build@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - typescript
       - utf-8-validate
 
-  '@percy/cli-command@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli-command@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/config': 1.33.0(typescript@7.0.2)
-      '@percy/core': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/config': 1.33.0(typescript@6.0.3)
+      '@percy/core': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       '@percy/logger': 1.33.0
       glob-to-regexp: 0.4.1
     optionalDependencies:
@@ -5430,24 +5310,24 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@percy/cli-config@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli-config@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - typescript
       - utf-8-validate
 
-  '@percy/cli-doctor@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli-doctor@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/client': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/config': 1.33.0(typescript@7.0.2)
-      '@percy/core': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/client': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/config': 1.33.0(typescript@6.0.3)
+      '@percy/core': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       '@percy/env': 1.33.0
       '@percy/logger': 1.33.0
-      '@percy/monitoring': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/monitoring': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       minimatch: 9.0.9
       ws: 8.23.0
     transitivePeerDependencies:
@@ -5456,9 +5336,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@percy/cli-exec@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli-exec@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       '@percy/logger': 1.33.0
       cross-spawn: 7.0.6
       which: 2.0.2
@@ -5475,9 +5355,9 @@ snapshots:
       pdfjs-dist: 4.10.38
     optional: true
 
-  '@percy/cli-snapshot@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli-snapshot@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       yaml: 2.9.1
     transitivePeerDependencies:
       - bufferutil
@@ -5485,9 +5365,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@percy/cli-upload@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli-upload@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       fast-glob: 3.3.3
       probe-image-size: 7.5.0(supports-color@7.2.0)
     transitivePeerDependencies:
@@ -5496,17 +5376,17 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@percy/cli@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/cli@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/cli-app': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/cli-build': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/cli-config': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/cli-doctor': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/cli-exec': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/cli-snapshot': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/cli-upload': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/client': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-app': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/cli-build': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/cli-command': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/cli-config': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/cli-doctor': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/cli-exec': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/cli-snapshot': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/cli-upload': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/client': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       '@percy/logger': 1.33.0
     transitivePeerDependencies:
       - bufferutil
@@ -5514,9 +5394,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@percy/client@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/client@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/config': 1.33.0(typescript@7.0.2)
+      '@percy/config': 1.33.0(typescript@6.0.3)
       '@percy/env': 1.33.0
       '@percy/logger': 1.33.0
       pac-proxy-agent: 7.2.0(supports-color@7.2.0)
@@ -5525,25 +5405,25 @@ snapshots:
       - supports-color
       - typescript
 
-  '@percy/config@1.33.0(typescript@7.0.2)':
+  '@percy/config@1.33.0(typescript@6.0.3)':
     dependencies:
       '@percy/logger': 1.33.0
       ajv: 8.20.0
-      cosmiconfig: 8.3.6(typescript@7.0.2)
+      cosmiconfig: 8.3.6(typescript@6.0.3)
       yaml: 2.9.1
     transitivePeerDependencies:
       - typescript
 
-  '@percy/core@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/core@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
       '@grpc/grpc-js': 1.14.7
       '@grpc/proto-loader': 0.8.1
-      '@percy/client': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/config': 1.33.0(typescript@7.0.2)
+      '@percy/client': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/config': 1.33.0(typescript@6.0.3)
       '@percy/dom': 1.33.0
       '@percy/logger': 1.33.0
-      '@percy/monitoring': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@percy/webdriver-utils': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/monitoring': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@percy/webdriver-utils': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       adm-zip: 0.6.1
       busboy: 1.6.0
       content-disposition: 0.5.4
@@ -5558,7 +5438,7 @@ snapshots:
       ws: 8.23.0
       yaml: 2.9.1
     optionalDependencies:
-      '@percy/cli-doctor': 1.33.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@percy/cli-doctor': 1.33.0(supports-color@7.2.0)(typescript@6.0.3)
       '@percy/cli-pdf': 1.33.0
     transitivePeerDependencies:
       - bufferutil
@@ -5574,9 +5454,9 @@ snapshots:
 
   '@percy/logger@1.33.0': {}
 
-  '@percy/monitoring@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/monitoring@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/config': 1.33.0(typescript@7.0.2)
+      '@percy/config': 1.33.0(typescript@6.0.3)
       '@percy/logger': 1.33.0
       '@percy/sdk-utils': 1.33.0(supports-color@7.2.0)
       systeminformation: 5.33.23
@@ -5590,18 +5470,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@percy/webdriver-utils@1.33.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@percy/webdriver-utils@1.33.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@percy/config': 1.33.0(typescript@7.0.2)
+      '@percy/config': 1.33.0(typescript@6.0.3)
       '@percy/sdk-utils': 1.33.0(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  '@pinia/testing@2.0.2(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@7.0.2)(vue@3.5.45(typescript@7.0.2)))':
+  '@pinia/testing@2.0.2(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))':
     dependencies:
       nostics: 1.4.0
-      pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@7.0.2)(vue@3.5.45(typescript@7.0.2))
+      pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3))
 
   '@pnpm/crypto.base32-hash@1.0.1':
     dependencies:
@@ -5841,12 +5721,12 @@ snapshots:
       lz-string: 1.5.0
       pretty-format: 27.5.1
 
-  '@testing-library/vue@8.1.0(@vue/compiler-dom@3.5.45)(@vue/compiler-sfc@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@7.0.2))':
+  '@testing-library/vue@8.1.0(@vue/compiler-dom@3.5.45)(@vue/compiler-sfc@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@6.0.3))':
     dependencies:
       '@babel/runtime': 7.29.14
       '@testing-library/dom': 9.3.4
-      '@vue/test-utils': 2.6.0(@vue/compiler-dom@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@7.0.2))
-      vue: 3.5.45(typescript@7.0.2)
+      '@vue/test-utils': 2.6.0(@vue/compiler-dom@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@6.0.3))
+      vue: 3.5.45(typescript@6.0.3)
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.45
     transitivePeerDependencies:
@@ -5934,25 +5814,25 @@ snapshots:
 
   '@types/when-dom-ready@1.2.2': {}
 
-  '@typescript-eslint/parser@8.73.0(eslint@10.15.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@7.0.2)':
+  '@typescript-eslint/parser@8.73.0(eslint@10.15.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.73.0
       '@typescript-eslint/types': 8.73.0
-      '@typescript-eslint/typescript-estree': 8.73.0(supports-color@7.2.0)(typescript@7.0.2)
+      '@typescript-eslint/typescript-estree': 8.73.0(supports-color@7.2.0)(typescript@6.0.3)
       '@typescript-eslint/visitor-keys': 8.73.0
       debug: 4.4.3(supports-color@7.2.0)
       eslint: 10.15.0(jiti@2.7.0)(supports-color@7.2.0)
-      typescript: 7.0.2
+      typescript: 6.0.3
     transitivePeerDependencies:
       - '@typescript/native'
       - supports-color
 
-  '@typescript-eslint/project-service@8.73.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@typescript-eslint/project-service@8.73.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.73.0(typescript@7.0.2)
+      '@typescript-eslint/tsconfig-utils': 8.73.0(typescript@6.0.3)
       '@typescript-eslint/types': 8.73.0
       debug: 4.4.3(supports-color@7.2.0)
-      typescript: 7.0.2
+      typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
 
@@ -5961,24 +5841,24 @@ snapshots:
       '@typescript-eslint/types': 8.73.0
       '@typescript-eslint/visitor-keys': 8.73.0
 
-  '@typescript-eslint/tsconfig-utils@8.73.0(typescript@7.0.2)':
+  '@typescript-eslint/tsconfig-utils@8.73.0(typescript@6.0.3)':
     dependencies:
-      typescript: 7.0.2
+      typescript: 6.0.3
 
   '@typescript-eslint/types@8.73.0': {}
 
-  '@typescript-eslint/typescript-estree@8.73.0(supports-color@7.2.0)(typescript@7.0.2)':
+  '@typescript-eslint/typescript-estree@8.73.0(supports-color@7.2.0)(typescript@6.0.3)':
     dependencies:
-      '@typescript-eslint/project-service': 8.73.0(supports-color@7.2.0)(typescript@7.0.2)
-      '@typescript-eslint/tsconfig-utils': 8.73.0(typescript@7.0.2)
+      '@typescript-eslint/project-service': 8.73.0(supports-color@7.2.0)(typescript@6.0.3)
+      '@typescript-eslint/tsconfig-utils': 8.73.0(typescript@6.0.3)
       '@typescript-eslint/types': 8.73.0
       '@typescript-eslint/visitor-keys': 8.73.0
       debug: 4.4.3(supports-color@7.2.0)
       minimatch: 11.0.9
       semver: 7.8.6
       tinyglobby: 0.2.17
-      ts-api-utils: 2.5.0(typescript@7.0.2)
-      typescript: 7.0.2
+      ts-api-utils: 2.5.0(typescript@6.0.3)
+      typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
 
@@ -5987,71 +5867,11 @@ snapshots:
       '@typescript-eslint/types': 8.73.0
       eslint-visitor-keys: 5.0.1
 
-  '@typescript/typescript-aix-ppc64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-darwin-arm64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-darwin-x64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-freebsd-arm64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-freebsd-x64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-linux-arm64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-linux-arm@7.0.2':
-    optional: true
-
-  '@typescript/typescript-linux-loong64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-linux-mips64el@7.0.2':
-    optional: true
-
-  '@typescript/typescript-linux-ppc64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-linux-riscv64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-linux-s390x@7.0.2':
-    optional: true
-
-  '@typescript/typescript-linux-x64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-netbsd-arm64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-netbsd-x64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-openbsd-arm64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-openbsd-x64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-sunos-x64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-win32-arm64@7.0.2':
-    optional: true
-
-  '@typescript/typescript-win32-x64@7.0.2':
-    optional: true
-
-  '@vitejs/plugin-vue@6.0.11(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))(vue@3.5.45(typescript@7.0.2))':
+  '@vitejs/plugin-vue@6.0.11(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))(vue@3.5.45(typescript@6.0.3))':
     dependencies:
       '@rolldown/pluginutils': 1.1.1
       vite: 8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1)
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
   '@vitest/mocker@5.1.1(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))':
     dependencies:
@@ -6068,27 +5888,27 @@ snapshots:
     dependencies:
       '@volar/source-map': 2.4.30
 
-  '@volar/language-service@2.4.30(typescript@7.0.2)':
+  '@volar/language-service@2.4.30(typescript@6.0.3)':
     dependencies:
       '@volar/language-core': 2.4.30
       vscode-languageserver-protocol: 3.18.5
       vscode-languageserver-textdocument: 1.0.16
       vscode-uri: 3.2.0
     optionalDependencies:
-      typescript: 7.0.2
+      typescript: 6.0.3
 
   '@volar/source-map@2.4.30': {}
 
-  '@volar/typescript@2.4.30(typescript@7.0.2)':
+  '@volar/typescript@2.4.30(typescript@6.0.3)':
     dependencies:
       '@volar/language-core': 2.4.30
-      '@volar/language-service': 2.4.30(typescript@7.0.2)
+      '@volar/language-service': 2.4.30(typescript@6.0.3)
       path-browserify: 1.0.1
       vscode-uri: 3.2.0
     optionalDependencies:
-      typescript: 7.0.2
+      typescript: 6.0.3
 
-  '@vue-macros/common@3.1.4(vue@3.5.45(typescript@7.0.2))':
+  '@vue-macros/common@3.1.4(vue@3.5.45(typescript@6.0.3))':
     dependencies:
       '@vue/compiler-sfc': 3.5.45
       ast-kit: 2.2.0
@@ -6096,7 +5916,7 @@ snapshots:
       magic-string-ast: 1.0.3
       unplugin-utils: 0.3.2
     optionalDependencies:
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
   '@vue/compiler-core@3.5.45':
     dependencies:
@@ -6183,50 +6003,50 @@ snapshots:
 
   '@vue/shared@3.5.45': {}
 
-  '@vue/test-utils@2.6.0(@vue/compiler-dom@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@7.0.2))':
+  '@vue/test-utils@2.6.0(@vue/compiler-dom@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@6.0.3))':
     dependencies:
       '@vue/compiler-dom': 3.5.45
       js-beautify: 2.0.3
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
       vue-component-type-helpers: 3.3.14
     optionalDependencies:
       '@vue/server-renderer': 3.5.45
 
-  '@vuelidate/core@2.0.3(vue@3.5.45(typescript@7.0.2))':
+  '@vuelidate/core@2.0.3(vue@3.5.45(typescript@6.0.3))':
     dependencies:
-      vue: 3.5.45(typescript@7.0.2)
-      vue-demi: 0.13.11(vue@3.5.45(typescript@7.0.2))
+      vue: 3.5.45(typescript@6.0.3)
+      vue-demi: 0.13.11(vue@3.5.45(typescript@6.0.3))
 
-  '@vuelidate/validators@2.0.4(vue@3.5.45(typescript@7.0.2))':
+  '@vuelidate/validators@2.0.4(vue@3.5.45(typescript@6.0.3))':
     dependencies:
-      vue: 3.5.45(typescript@7.0.2)
-      vue-demi: 0.13.11(vue@3.5.45(typescript@7.0.2))
+      vue: 3.5.45(typescript@6.0.3)
+      vue-demi: 0.13.11(vue@3.5.45(typescript@6.0.3))
 
-  '@vueuse/core@14.4.0(vue@3.5.45(typescript@7.0.2))':
+  '@vueuse/core@14.4.0(vue@3.5.45(typescript@6.0.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.21
       '@vueuse/metadata': 14.4.0
-      '@vueuse/shared': 14.4.0(vue@3.5.45(typescript@7.0.2))
-      vue: 3.5.45(typescript@7.0.2)
+      '@vueuse/shared': 14.4.0(vue@3.5.45(typescript@6.0.3))
+      vue: 3.5.45(typescript@6.0.3)
 
-  '@vueuse/core@15.0.0(vue@3.5.45(typescript@7.0.2))':
+  '@vueuse/core@15.0.0(vue@3.5.45(typescript@6.0.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.21
       '@vueuse/metadata': 15.0.0
-      '@vueuse/shared': 15.0.0(vue@3.5.45(typescript@7.0.2))
-      vue: 3.5.45(typescript@7.0.2)
+      '@vueuse/shared': 15.0.0(vue@3.5.45(typescript@6.0.3))
+      vue: 3.5.45(typescript@6.0.3)
 
   '@vueuse/metadata@14.4.0': {}
 
   '@vueuse/metadata@15.0.0': {}
 
-  '@vueuse/shared@14.4.0(vue@3.5.45(typescript@7.0.2))':
+  '@vueuse/shared@14.4.0(vue@3.5.45(typescript@6.0.3))':
     dependencies:
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
-  '@vueuse/shared@15.0.0(vue@3.5.45(typescript@7.0.2))':
+  '@vueuse/shared@15.0.0(vue@3.5.45(typescript@6.0.3))':
     dependencies:
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
   '@yarnpkg/lockfile@1.1.0':
     optional: true
@@ -6706,14 +6526,14 @@ snapshots:
       env-paths: 2.2.1
       js-yaml: 5.5.0
 
-  cosmiconfig@8.3.6(typescript@7.0.2):
+  cosmiconfig@8.3.6(typescript@6.0.3):
     dependencies:
       import-fresh: 3.3.1
       js-yaml: 4.3.2
       parse-json: 5.2.0
       path-type: 4.0.0
     optionalDependencies:
-      typescript: 7.0.2
+      typescript: 6.0.3
 
   create-require@1.1.1: {}
 
@@ -6895,15 +6715,15 @@ snapshots:
       minimatch: 10.2.6
       semver: 7.8.6
 
-  element-plus@2.14.8(vue@3.5.45(typescript@7.0.2)):
+  element-plus@2.14.8(vue@3.5.45(typescript@6.0.3)):
     dependencies:
       '@ctrl/tinycolor': 4.3.1
-      '@element-plus/icons-vue': 2.3.2(vue@3.5.45(typescript@7.0.2))
+      '@element-plus/icons-vue': 2.3.2(vue@3.5.45(typescript@6.0.3))
       '@floating-ui/dom': 1.8.0
       '@popperjs/core': '@sxzz/popperjs-es@2.11.8'
       '@types/lodash': 4.17.27
       '@types/lodash-es': 4.17.12
-      '@vueuse/core': 15.0.0(vue@3.5.45(typescript@7.0.2))
+      '@vueuse/core': 15.0.0(vue@3.5.45(typescript@6.0.3))
       async-validator: 4.2.5
       dayjs: 1.11.23
       lodash: 4.18.1
@@ -6911,7 +6731,7 @@ snapshots:
       lodash-unified: 1.0.3(@types/lodash-es@4.17.12)(lodash-es@4.18.1)(lodash@4.18.1)
       memoize-one: 6.0.0
       normalize-wheel-es: 1.2.0
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
       vue-component-type-helpers: 3.3.14
 
   emoji-regex@10.6.0: {}
@@ -8185,13 +8005,13 @@ snapshots:
 
   pify@3.0.0: {}
 
-  pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@7.0.2)(vue@3.5.45(typescript@7.0.2)):
+  pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)):
     dependencies:
       '@vue/devtools-api': 8.2.1
       nostics: 1.4.0
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
     optionalDependencies:
-      typescript: 7.0.2
+      typescript: 6.0.3
 
   pkg-types@1.3.1:
     dependencies:
@@ -8402,7 +8222,7 @@ snapshots:
   quicktype-typescript-input@26.0.0:
     dependencies:
       quicktype-core: 26.0.0
-      typescript: 7.0.2
+      typescript: 6.0.3
       typescript-json-schema: 0.67.4
     transitivePeerDependencies:
       - '@swc/core'
@@ -8932,11 +8752,11 @@ snapshots:
 
   trim-newlines@3.0.1: {}
 
-  ts-api-utils@2.5.0(typescript@7.0.2):
+  ts-api-utils@2.5.0(typescript@6.0.3):
     dependencies:
-      typescript: 7.0.2
+      typescript: 6.0.3
 
-  ts-node@10.9.2(@types/node@24.19.2)(typescript@7.0.2):
+  ts-node@10.9.2(@types/node@24.19.2)(typescript@6.0.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.14
@@ -8950,7 +8770,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.4
       make-error: 1.3.6
-      typescript: 7.0.2
+      typescript: 6.0.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
@@ -8990,36 +8810,15 @@ snapshots:
       glob: 13.0.7
       path-equal: 1.2.9
       safe-stable-stringify: 2.5.0
-      ts-node: 10.9.2(@types/node@24.19.2)(typescript@7.0.2)
-      typescript: 7.0.2
+      ts-node: 10.9.2(@types/node@24.19.2)(typescript@6.0.3)
+      typescript: 6.0.3
       vm2: 3.12.2
       yargs: 18.2.0
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
 
-  typescript@7.0.2:
-    optionalDependencies:
-      '@typescript/typescript-aix-ppc64': 7.0.2
-      '@typescript/typescript-darwin-arm64': 7.0.2
-      '@typescript/typescript-darwin-x64': 7.0.2
-      '@typescript/typescript-freebsd-arm64': 7.0.2
-      '@typescript/typescript-freebsd-x64': 7.0.2
-      '@typescript/typescript-linux-arm': 7.0.2
-      '@typescript/typescript-linux-arm64': 7.0.2
-      '@typescript/typescript-linux-loong64': 7.0.2
-      '@typescript/typescript-linux-mips64el': 7.0.2
-      '@typescript/typescript-linux-ppc64': 7.0.2
-      '@typescript/typescript-linux-riscv64': 7.0.2
-      '@typescript/typescript-linux-s390x': 7.0.2
-      '@typescript/typescript-linux-x64': 7.0.2
-      '@typescript/typescript-netbsd-arm64': 7.0.2
-      '@typescript/typescript-netbsd-x64': 7.0.2
-      '@typescript/typescript-openbsd-arm64': 7.0.2
-      '@typescript/typescript-openbsd-x64': 7.0.2
-      '@typescript/typescript-sunos-x64': 7.0.2
-      '@typescript/typescript-win32-arm64': 7.0.2
-      '@typescript/typescript-win32-x64': 7.0.2
+  typescript@6.0.3: {}
 
   typical@4.0.0: {}
 
@@ -9179,21 +8978,21 @@ snapshots:
 
   vscode-uri@3.2.0: {}
 
-  vue-chartjs@5.3.6(chart.js@4.6.1)(vue@3.5.45(typescript@7.0.2)):
+  vue-chartjs@5.3.6(chart.js@4.6.1)(vue@3.5.45(typescript@6.0.3)):
     dependencies:
       chart.js: 4.6.1
       standard-version: 9.5.0
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
   vue-component-type-helpers@3.3.14: {}
 
-  vue-demi@0.13.11(vue@3.5.45(typescript@7.0.2)):
+  vue-demi@0.13.11(vue@3.5.45(typescript@6.0.3)):
     dependencies:
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
-  vue-router@5.5.1(@vue/compiler-sfc@3.5.45)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@7.0.2)(vue@3.5.45(typescript@7.0.2)))(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))(vue@3.5.45(typescript@7.0.2)):
+  vue-router@5.5.1(@vue/compiler-sfc@3.5.45)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))(vue@3.5.45(typescript@6.0.3)):
     dependencies:
-      '@vue-macros/common': 3.1.4(vue@3.5.45(typescript@7.0.2))
+      '@vue-macros/common': 3.1.4(vue@3.5.45(typescript@6.0.3))
       '@vue/devtools-api': 8.2.1
       ast-walker-scope: 0.10.0
       chokidar: 6.0.0
@@ -9209,10 +9008,10 @@ snapshots:
       tinyglobby: 0.2.17
       unplugin: 3.7.0(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1))
       unplugin-utils: 0.3.2
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.45
-      pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@7.0.2)(vue@3.5.45(typescript@7.0.2))
+      pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3))
       vite: 8.3.8(@types/node@26.6.6)(jiti@2.7.0)(sass@1.108.2)(yaml@2.9.1)
     transitivePeerDependencies:
       - '@farmfe/core'
@@ -9227,21 +9026,21 @@ snapshots:
 
   vue-tabler-icons@2.21.0: {}
 
-  vue-toastification@2.0.0-rc.5(vue@3.5.45(typescript@7.0.2)):
+  vue-toastification@2.0.0-rc.5(vue@3.5.45(typescript@6.0.3)):
     dependencies:
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
-  vue-tsc@3.3.14(typescript@7.0.2):
+  vue-tsc@3.3.14(typescript@6.0.3):
     dependencies:
-      '@volar/typescript': 2.4.30(typescript@7.0.2)
+      '@volar/typescript': 2.4.30(typescript@6.0.3)
       '@vue/language-core': 3.3.14
-      typescript: 7.0.2
+      typescript: 6.0.3
 
-  vue-types@7.1.0(vue@3.5.45(typescript@7.0.2)):
+  vue-types@7.1.0(vue@3.5.45(typescript@6.0.3)):
     optionalDependencies:
-      vue: 3.5.45(typescript@7.0.2)
+      vue: 3.5.45(typescript@6.0.3)
 
-  vue@3.5.45(typescript@7.0.2):
+  vue@3.5.45(typescript@6.0.3):
     dependencies:
       '@vue/compiler-dom': 3.5.45
       '@vue/compiler-sfc': 3.5.45
@@ -9249,7 +9048,7 @@ snapshots:
       '@vue/server-renderer': 3.5.45
       '@vue/shared': 3.5.45
     optionalDependencies:
-      typescript: 7.0.2
+      typescript: 6.0.3
 
   w3c-xmlserializer@6.0.0:
     dependencies:
