@@ -99,6 +99,10 @@ capybara_port = Integer(ENV.fetch('CAPYBARA_SERVER_PORT', 3001))
 Capybara.server_port = capybara_port
 Capybara.app_host = "http://localhost:#{capybara_port}"
 Capybara.enable_aria_label = true
+# Keep local failures quick while allowing slower asynchronous updates in CI.
+if SpecHelper.is_ci?
+  Capybara.default_max_wait_time = 4
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
