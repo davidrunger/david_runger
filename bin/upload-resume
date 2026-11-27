@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ "$#" -ne 1 ]]; then
+  printf 'Usage: %s PATH_TO_RESUME.pdf\n' "${0##*/}" >&2
+  exit 64
+fi
+
+resume_file=$1
+
+if [[ ! -f "$resume_file" || ! -r "$resume_file" ]]; then
+  printf 'Resume file must be a readable regular file: %s\n' "$resume_file" >&2
+  exit 66
+fi
+
+if [[ "${resume_file,,}" != *.pdf ]]; then
+  printf 'Resume file must have a .pdf extension: %s\n' "$resume_file" >&2
+  exit 65
+fi
+
+if ! command -v aws >/dev/null 2>&1; then
+  printf 'The AWS CLI is required to upload the resume.\n' >&2
+  exit 127
+fi
+
+aws s3 cp \
+  "$resume_file" \
+  s3://david-runger-public-uploads/David-Runger-Resume.pdf \
+  --cache-control no-cache \
+  --content-type application/pdf
